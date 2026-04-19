@@ -9,7 +9,7 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import { type BooleanType, type SizeType } from "../const/types";
+import { type BooleanType, type ShapeType, type SizeType, type ThemeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 import { Input } from "../input";
 import { isValidBig, normalize } from "../utils/number";
@@ -28,7 +28,8 @@ export const inputNumberProps = {
   controls: { type: Boolean as BooleanType, default: true },
   suffix: String,
   prefix: String,
-  theme: { type: String, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "light" },
+  shape: { type: String as PropType<ShapeType> },
   icon: [Array] as PropType<IconType[]>,
   size: {
     type: String as PropType<SizeType>,
@@ -152,6 +153,7 @@ const InputNumber = defineComponent({
         prefix: props.prefix,
         size: props.size || parentSize,
         icon: props.icon,
+        shape: props.shape,
         theme: props.theme,
         inputType: "input-number",
         "onUpdate:modelValue": handleInput,
@@ -167,7 +169,6 @@ const InputNumber = defineComponent({
           }
         },
       };
-
       const controls =
         props.controls && !props.readonly && !props.disabled ? (
           <div class="k-input-number-controls">

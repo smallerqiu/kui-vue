@@ -34,7 +34,7 @@ const StatCard = defineComponent({
         <div class={["k-stat-card", { "k-stat-card-bordered": props.bordered }]}>
           {props.title && <div class="k-stat-card-title">{props.title}</div>}
           <div class="k-stat-card-items">
-            {(props.items || []).map((item: StatNumberItem, index) => {
+            {(props.items || []).map((item, index) => {
               return (
                 <div
                   key={index}
@@ -43,8 +43,8 @@ const StatCard = defineComponent({
                   <div class="k-stat-card-item-value">
                     <StatNumber
                       v-slots={{
-                        prefix: () => item.prefix || slots.prefix?.(),
-                        suffix: () => item.suffix || slots.suffix?.(),
+                        prefix: () => item.prefix || slots.prefix,
+                        suffix: () => item.suffix || slots.suffix,
                       }}
                       modelValue={item.value}
                       duration={item.duration}

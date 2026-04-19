@@ -18,20 +18,20 @@ const TimeLineItem = defineComponent({
       const { icon, color, time } = props;
       const styles = { color };
       const iconNode =
-        slots.dot?.() || (icon ? <Icon type={icon} /> : <span class="k-timeline-head"></span>);
+        slots.dot?.() || (icon ? <Icon type={icon} /> : <span class="k-time-line-head"></span>);
       const itemProps = {
-        class: ["k-timeline-dot", { "k-timeline-dot-custom": !!slots.dot || !!icon }],
+        class: ["k-time-line-dot", { "k-time-line-dot-custom": !!slots.dot || !!icon }],
         style: styles,
       };
       const extraNode = props.extra || slots.extra?.();
 
       return (
-        <li class="k-timeline-item">
+        <li class="k-time-line-item">
           <div {...itemProps}>{iconNode}</div>
-          <div class="k-timeline-item-content">
+          <div class="k-time-line-item-content">
             {slots.default?.()}
-            {extraNode && <div class="k-timeline-item-extra">{extraNode}</div>}
-            {time && <div class="k-timeline-item-time">{time}</div>}
+            {extraNode && <div class="k-time-line-item-extra">{extraNode}</div>}
+            {time && <div class="k-time-line-item-time">{time}</div>}
           </div>
         </li>
       );

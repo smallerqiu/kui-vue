@@ -16,7 +16,7 @@ const CountUpNumber = defineComponent({
   },
   setup(props) {
     const el = ref<HTMLElement>();
-    let countUp: CountUp | null = null;
+    let countUp: CountUp;
     onMounted(() => {
       if (el.value) {
         countUp = new CountUp(el.value, props.modelValue, {
@@ -28,7 +28,7 @@ const CountUpNumber = defineComponent({
       }
     });
     onUnmounted(() => {
-      countUp = null;
+      // countUp = null;
     });
     watch(
       () => props.modelValue,

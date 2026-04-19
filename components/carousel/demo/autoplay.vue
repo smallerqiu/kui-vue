@@ -8,10 +8,10 @@
     <br />
     <br />
     <Carousel autoplay :loop="true" ref="refCarousel">
-      <CarouselItem>1</CarouselItem>
-      <CarouselItem>2</CarouselItem>
-      <CarouselItem>3</CarouselItem>
-      <CarouselItem>4</CarouselItem>
+      <CarouselItem class="item">1</CarouselItem>
+      <CarouselItem class="item">2</CarouselItem>
+      <CarouselItem class="item">3</CarouselItem>
+      <CarouselItem class="item">4</CarouselItem>
     </Carousel>
   </div>
 </template>
@@ -31,3 +31,15 @@ const goTo = () => {
   refCarousel.value.goTo(2);
 };
 </script>
+
+<style lang="less" scoped>
+.item {
+  color: #fff;
+  background: var(--kui-color-primary);
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: 700;
+  display: flex;
+}
+</style>

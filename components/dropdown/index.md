@@ -12,7 +12,7 @@
 
 - 最简单的下拉菜单。
 
-[右键菜单](./demo/right-menu.vue)
+[右键菜单](./demo/right-menu.vue?show=vertical)
 
 - 默认是移入触发菜单，可以点击鼠标右键触发。
 

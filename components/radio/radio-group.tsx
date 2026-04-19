@@ -1,5 +1,5 @@
 import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
-import type { BooleanType, DirectionType, SizeType } from "../const/types";
+import type { BooleanType, ButtonTheme, DirectionType, ShapeType, SizeType } from "../const/types";
 import type { IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
 import Radio from "./radio";
@@ -23,8 +23,8 @@ export const radioGroupProps = {
   size: {
     type: String as PropType<SizeType>,
   },
-  theme: String,
-  shape: String as PropType<"circle" | "square">,
+  theme: { type: String as PropType<ButtonTheme> },
+  shape: String as PropType<ShapeType>,
   options: Array as PropType<RadioOption[]>,
   type: String as PropType<"radio" | "button">,
   onChange: Function as PropType<(value: string | number) => void>,
@@ -82,6 +82,7 @@ const RadioGroup = defineComponent({
             icon={option.icon}
             size={props.size}
             theme={props.theme}
+            shape={props.shape}
           />
         )
       );

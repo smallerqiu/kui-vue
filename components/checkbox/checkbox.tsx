@@ -1,6 +1,6 @@
 import { Checkmark } from "kui-icons";
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
-import type { BooleanType, SizeType } from "../const/types";
+import type { BooleanType, SizeType, ThemeType } from "../const/types";
 import Icon from "../icon";
 
 const checkboxProps = {
@@ -11,7 +11,7 @@ const checkboxProps = {
   modelValue: { type: [String, Number, Boolean] as PropType<string | number | boolean> },
   value: { type: [String, Number, Boolean] as PropType<string | number | boolean> },
   label: { type: [String, Number] as PropType<string | number> },
-  theme: { type: String, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "light" },
   disabled: Boolean as BooleanType,
   indeterminate: Boolean as BooleanType,
   size: {

@@ -21,7 +21,7 @@
 
 - 通过设置 `icon` 属性，可设置输入框图标，只对 `input` 有效。可以快速的实现 ，密码显示隐藏，搜索
 
-[扩展, 前缀和后缀](./demo/suffix.vue)
+[扩展, 前缀和后缀](./demo/suffix.vue?show=vertical)
 
 - suffix，prefix 扩展
 

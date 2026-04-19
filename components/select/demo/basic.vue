@@ -12,7 +12,7 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { Option, Select, Space, type SelectOption } from "kui-vue";
+import { type SelectOption } from "kui-vue";
 import { ref } from "vue";
 const value1 = ref(2);
 const value2 = ref(2);

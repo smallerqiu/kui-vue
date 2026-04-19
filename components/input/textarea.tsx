@@ -1,10 +1,11 @@
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
-import type { BooleanType, SizeType } from "../const/types";
+import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
 
 export const textAreaProps = {
   modelValue: [String, Number, Object, Array] as PropType<any>,
   value: [String, Number, Object, Array] as PropType<any>,
-  theme: { type: String, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "light" },
+  shape: { type: String as PropType<ShapeType> },
   size: String as PropType<SizeType>,
   disabled: Boolean as BooleanType,
 };
@@ -26,7 +27,7 @@ const TextArea = defineComponent({
     );
 
     return () => {
-      const { theme, disabled, size } = props;
+      const { theme, disabled, size, shape } = props;
       const rootProps = {
         ...attrs,
         class: [
@@ -34,6 +35,7 @@ const TextArea = defineComponent({
           {
             [`k-textarea-${theme}`]: theme === "light",
             "k-textarea-sm": size === "small",
+            "k-textarea-square": shape === "square",
             "k-textarea-lg": size === "large",
           },
         ],

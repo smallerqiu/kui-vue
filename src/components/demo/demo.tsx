@@ -1,6 +1,6 @@
 import { useClipboard } from "@vueuse/core";
 import { CaretHor, CopyOutline, Reload } from "kui-icons";
-import { Badge, Button, Divider, Tooltip, message } from "kui-vue";
+import { message } from "kui-vue";
 import { getTransitionProp } from "kui-vue/base/transition";
 import {
   Transition,
@@ -9,7 +9,7 @@ import {
   onBeforeUnmount,
   onMounted,
   reactive,
-  ref
+  ref,
 } from "vue";
 import { parseCode } from "./transform";
 const { copy, isSupported } = useClipboard();

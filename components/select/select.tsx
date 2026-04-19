@@ -22,7 +22,13 @@ import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
-import type { BooleanType, DropPlacementsType, SizeType } from "../const/types";
+import type {
+  BooleanType,
+  DropPlacementsType,
+  ShapeType,
+  SizeType,
+  ThemeType,
+} from "../const/types";
 import Option from "./option"; // 导入 Option 组件
 
 export interface SelectOption {
@@ -53,11 +59,11 @@ export const selectProps = {
   bordered: { type: Boolean as BooleanType, default: true },
   showArrow: { type: Boolean as BooleanType, default: true },
   options: Array as PropType<SelectOption[]>,
-  theme: { type: String, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "light" },
   emptyText: String,
   loadingText: String,
   icon: [Array] as PropType<IconType[]>,
-  shape: String,
+  shape: String as PropType<ShapeType>,
   arrowIcon: [Array] as PropType<IconType[]>,
   onSearch: Function as PropType<(e: InputEvent) => void>,
   onChange: Function as PropType<(value: string | number | any[]) => void>,
@@ -74,7 +80,7 @@ const Select = defineComponent({
   },
   props: selectProps,
   emits: ["update:modelValue", "change", "select", "openChange", "search"],
-  setup(props, { slots, emit, attrs }) {
+  setup(props, { slots, emit }) {
     const locale = computed(() => {
       const injectedLocale = inject<Record<string, any>>("locale", zhCN);
       return injectedLocale instanceof Object && "value" in injectedLocale
@@ -625,6 +631,7 @@ const Select = defineComponent({
           "k-select-light": theme === "light",
           "k-select-has-icon": !!icon,
           "k-select-circle": shape === "circle" && !multiple,
+          "k-select-square": shape === "square",
           "k-select-multiple": multiple,
           "k-select-show-search": queryInputFocused.value,
           "k-select-show-tags": multiple && !isEmpty(labelText.value),

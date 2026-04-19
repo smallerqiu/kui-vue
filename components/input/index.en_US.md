@@ -21,7 +21,7 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 
 - By setting the `icon` attribute, you can add an icon to the input field, which is only effective for `input`. This allows for quick implementation of features like password visibility toggle or search.
 
-[Extension, Prefix and Suffix](./demo/suffix.vue)
+[Extension, Prefix and Suffix](./demo/suffix.vue?show=vertical)
 
 - suffix, prefix extension.
 

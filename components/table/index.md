@@ -57,7 +57,7 @@ const columns = [
 
 [自定义表头](./demo/custom-header.vue?show=vertical)
 
-- 一个可以自定义表头的表格  , 可以通过 `#header-`定义表头
+- 一个可以自定义表头的表格 , 可以通过 `#header-`定义表头
 
 [自定义页头和页脚](./demo/bordered.vue?show=vertical)
 
@@ -87,7 +87,7 @@ const columns = [
 
 - `checkable=true`，即可自动开启多选功能。 > 注意: 默认勾选的依赖为 `key` , 可以通过 `rowKey` 属性进行自定义。 如: `rowKey="ID"`
 
-[动态控制表格属性](./demo/size.vue?show=vertical)
+[动态控制表格属性](./demo/control.vue?show=vertical)
 
 - 选择不同配置组合查看效果。
 
@@ -106,6 +106,7 @@ const columns = [
 | rowKey               | 勾选时的依据              | String                | key      |
 | onRowClick           | 单击某一行时触发          | Function              | -        |
 | onSort               | 点击排序时触发            | Function({key,order}) | -        |
+| striped              | 是否展示斑马条纹          | Boolean               | -        |
 
 ## Column API
 

@@ -16,7 +16,7 @@ import zhCN from "../locale/zh-CN";
 import { Col, Row } from "../row-col";
 import { getChildren } from "../utils/vnode";
 
-import type { DirectionType } from "../const/types";
+import type { DirectionType, ShapeType } from "../const/types";
 import type { ColProps, FormRule } from "./types";
 
 interface FormContext {
@@ -27,7 +27,7 @@ interface FormContext {
   layout?: "inline" | DirectionType;
   name?: string;
   size?: "large" | "small";
-  shape?: "square" | "round" | "circle";
+  shape?: ShapeType;
   disabled?: boolean;
   theme?: "light" | "dark";
   updateMode?: (prop: string, value: any) => void;
@@ -56,7 +56,7 @@ const FormItem = defineComponent({
     });
 
     const valid = ref(true);
-    const message = ref<string | undefined>("");
+    const message = ref<string>();
 
     const Form = inject<FormContext>("Form", {});
 
@@ -103,7 +103,7 @@ const FormItem = defineComponent({
               break;
           }
         } else if (typeof rule.validator === "function") {
-          rule.validator(rule, itemValue, (error: any) => {
+          rule.validator(rule, itemValue, (error) => {
             isValid = error === undefined;
             if (error) {
               msg = error.message;
@@ -140,13 +140,13 @@ const FormItem = defineComponent({
       return isValid;
     };
 
-    const validate = (rules: FormRule | FormRule[], _?: string) => {
-      // TODO trigger
+    const validate = (rules: any, trigger?: string) => {
       if (!rules) return true;
+      // TODO: trigger
 
-      if (rules.constructor === Object) return test(rules as FormRule);
+      if (rules.constructor === Object) return test(rules);
 
-      const sortedRules = [...(rules as FormRule[])].sort((a) => (a.required ? -1 : 0));
+      const sortedRules = [...rules].sort((a) => (a.required ? -1 : 0));
       for (let i = 0; i < sortedRules.length; i++) {
         let isValid = test(sortedRules[i]);
         if (!isValid) {
@@ -156,13 +156,9 @@ const FormItem = defineComponent({
       return valid.value;
     };
 
-    const getRule = (prop: string): FormRule | FormRule[] | undefined => {
-      if (props.rules) return props.rules;
-      return Form.rules?.[prop] || undefined;
-    };
     const testValue = (trigger?: string) => {
       if (props.prop) {
-        const rules = getRule(props.prop);
+        const rules = props.rules || (Form.rules || {})[props.prop];
         rules && validate(rules, trigger);
       }
     };
@@ -175,24 +171,23 @@ const FormItem = defineComponent({
     });
     onMounted(() => {
       if (props.prop) {
-        Form?.register?.(formItem);
+        Form.register?.(formItem);
       }
     });
 
     onBeforeUnmount(() => {
       if (props.prop) {
-        Form?.unregister?.(formItem);
+        Form.unregister?.(formItem);
       }
     });
 
     return () => {
-      const { label, prop = "" } = props;
-      const rules = getRule(prop);
-      const required = rules
-        ? rules?.constructor === Object
-          ? (rules as FormRule).required
-          : (rules as FormRule[]).filter((r: FormRule) => r.required).length > 0
-        : false;
+      const { label, prop } = props;
+      const rules = props.rules || (prop ? (Form.rules as FormRule)[prop] : "") || [];
+      const required =
+        rules.constructor === Object
+          ? rules.required
+          : rules.filter((r: FormRule) => r.required).length > 0;
 
       const classes = [
         "k-form-item",
@@ -203,17 +198,17 @@ const FormItem = defineComponent({
       ];
 
       let labelProp, wrapperProp;
-      if (Form?.layout == "vertical") {
+      if (Form.layout == "vertical") {
         delete props.wrapperCol?.offset;
       }
-      if (Form?.layout != "inline") {
+      if (Form.layout != "inline") {
         labelProp = { ...props.labelCol };
         wrapperProp = { ...props.wrapperCol };
       }
 
       const children = getChildren(slots.default?.());
       let id = undefined;
-      if (Form?.name && prop) {
+      if (Form.name && prop) {
         id = `${Form.name || `form_`}_${prop}`;
       }
 
@@ -228,8 +223,7 @@ const FormItem = defineComponent({
             <div class="k-form-item-content">
               {children.map((child) => {
                 if (isVNode(child)) {
-                  // todo tag
-                  const tag = (child.type as any)?.name;
+                  const tag = child.type?.name;
                   const value = prop ? Form.getValueFromProp?.(prop) || undefined : undefined;
                   const propsData = child?.props || {};
                   const size = propsData.size || Form.size;
@@ -240,8 +234,8 @@ const FormItem = defineComponent({
                     id,
                     size,
                     disabled,
-                    ...(theme ? { theme } : {}),
-                    ...(shape ? { shape } : {}),
+                    theme,
+                    shape,
                   };
 
                   const childEvents: Record<string, any> = {};
@@ -284,6 +278,5 @@ const FormItem = defineComponent({
       );
     };
   },
-}) 
-
-export default FormItem
+});
+export default FormItem;

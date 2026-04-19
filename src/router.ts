@@ -7,15 +7,15 @@ const lang = localStorage.getItem("lang") || "en";
 const router = createRouter({
   history: createWebHistory(),
   routes: [...routes],
-  scrollBehavior(to, _, savedPosition) {
-    if (savedPosition) {
-      return savedPosition;
-    }
-    if (to.hash) {
-      return { el: to.hash, behavior: "smooth" };
-    }
-    return { top: 0 };
-  },
+  // scrollBehavior(to, _, savedPosition) {
+  //   if (savedPosition) {
+  //     return savedPosition;
+  //   }
+  //   if (to.hash) {
+  //     return { el: to.hash, behavior: "smooth" };
+  //   }
+  //   return { top: 0 };
+  // },
 });
 
 router.beforeEach(function (to) {
@@ -23,13 +23,14 @@ router.beforeEach(function (to) {
 
   if (to.path != "/") {
     const isEnPath = to.path.endsWith("-en");
-    if (lang == "en") {
-      return isEnPath ? undefined : `${to.path}-en`;
-    } else {
-      return isEnPath ? to.path.replace("-en", "") : undefined;
+    if (lang == "en" && !isEnPath) {
+      return `${to.path}-en`;
+    }
+    if (lang != "en" && isEnPath) {
+      return `${to.path.replace("-en", "")}`;
     }
   }
-  return;
+  return true;
 });
 
 // demo routes

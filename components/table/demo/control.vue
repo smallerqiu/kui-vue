@@ -12,12 +12,15 @@
       Checkbox: <k-switch v-model="checkable" />
       Empty:
       <k-switch v-model="empty" @change="setEmpty" />
+      Striped:
+      <k-switch v-model="striped" />
     </Space>
     <Table
       :data="dataSource"
       :columns="columns"
       :loading="loading"
       :size="size"
+      :striped="striped"
       :bordered="bordered"
       :checkable="checkable"
     >
@@ -44,8 +47,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
 import { Moon, Sunny } from "kui-icons";
+import { ref } from "vue";
 const data = [
   {
     key: "0",
@@ -94,6 +97,7 @@ const checkable = ref(false);
 const loading = ref(false);
 const empty = ref(false);
 const dataSource = ref(data);
+const striped = ref(false);
 
 const setEmpty = (empty) => {
   dataSource.value = empty ? [] : data;

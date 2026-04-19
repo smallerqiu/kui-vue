@@ -42,10 +42,11 @@ export type FormProps = ExtractPropTypes<typeof formProps>;
 const Form = defineComponent({
   name: "Form",
   props: formProps,
-  emits: ["submit", "change"],
+  emits: ["submit", "change", "reset"],
   setup(props, { emit, slots, expose }) {
     const formRef = ref(null);
-    const formItems = ref<Map<string, any>>(new Map());
+    const formItems = ref<Record<string, any>>({});
+    // const formItems = ref<Map<string, any>>(new Map());
 
     const { model, rules, size, shape, theme, disabled, layout, name } = toRefs(props);
 
@@ -65,16 +66,14 @@ const Form = defineComponent({
     const reset = () => {
       Object.keys(formItems.value).forEach((prop) => {
         updateMode(prop);
-        let item = formItems.value.get(prop);
-        if (item) {
-          item.valid = true;
-          formItems.value.set(prop, item);
-        }
+        // formItems.value.get(prop).valid = true;
+        formItems.value[prop].valid = true;
       });
     };
 
     const test = (key: string) => {
-      const item = formItems.value.get(key);
+      const item = formItems.value[key];
+      // const item = formItems.value.get(key);
       if (item) {
         const rules = item.rules || (props.rules || {})[item.prop];
         if (rules) {
@@ -102,7 +101,6 @@ const Form = defineComponent({
     };
     const onSubmit = (e: SubmitEvent) => {
       e.preventDefault();
-      e.stopPropagation();
       submit();
       return false;
     };
@@ -115,7 +113,8 @@ const Form = defineComponent({
     const validate = (callback?: (result: { valid: boolean }) => void) => {
       let result = true;
       Object.keys(formItems.value).forEach((key) => {
-        let item = formItems.value.get(key);
+        // let item = formItems.value.get(key);
+        let item = formItems.value[key];
         const rules = item.rules || (props.rules || {})[item.prop];
         if (rules) {
           const valid = item.validate(rules);
@@ -124,6 +123,8 @@ const Form = defineComponent({
       });
 
       if (typeof callback === "function") {
+        // const modelCopy = JSON.parse(JSON.stringify(model.value || "{}"));
+        // callback({ valid: result, model: modelCopy });
         callback({ valid: result });
       }
     };
@@ -133,10 +134,12 @@ const Form = defineComponent({
     });
 
     const register = (item: any) => {
-      formItems.value.set(item.prop, item);
+      // formItems.value.set(item.prop, item);
+      formItems.value[item.prop] = item;
     };
     const unregister = (item: any) => {
-      formItems.value.delete(item.prop);
+      delete formItems.value[item.prop];
+      // formItems.value.delete(item.prop);
     };
 
     expose({ validate, reset, test, submit });

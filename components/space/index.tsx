@@ -21,9 +21,9 @@ const Space = defineComponent({
   name: "Space",
   props: spaceProps,
   setup(props, { slots, attrs }) {
-    const size = props.size;
-    provide("size", size);
+    provide("size", props.size);
     return () => {
+      const size = props.size;
       let children = getChildren(slots.default?.());
 
       // console.log(children);
@@ -54,8 +54,6 @@ const Space = defineComponent({
           style.gap = `8px`;
         }
       }
-      // const _attrs = { ...attrs }
-      // delete _attrs.size;
       const _props = {
         ...attrs,
         style,

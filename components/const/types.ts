@@ -29,6 +29,7 @@ export type BooleanType = PropType<boolean | undefined>;
 
 export type ButtonType = "primary" | "danger" | "warning" | "default" | "text" | "link";
 export type ButtonTheme = "outline" | "solid" | "light" | "dashed" | "card";
+export type ThemeType = "outline" | "light" | "default";
 
 export type DirectionType = "horizontal" | "vertical" | "inline";
 export type AlignType = "start" | "center" | "end";

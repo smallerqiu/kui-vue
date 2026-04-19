@@ -2,8 +2,8 @@
   <Table :data="data" :columns="columns" />
 </template>
 <script setup lang="ts">
-import { modal, Icon, Space, Button, Tag } from "kui-vue";
-import { Sunny, Moon } from "kui-icons";
+import { Moon, Sunny } from "kui-icons";
+import { modal } from "kui-vue";
 const data = [
   {
     key: "0",

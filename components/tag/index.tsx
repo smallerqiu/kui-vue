@@ -7,7 +7,7 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import { type BooleanType } from "../const/types";
+import { type BooleanType, type ShapeType, type SizeType, type ThemeType } from "../const/types";
 import { colors } from "../const/var";
 import Icon from "../icon";
 import { isColor } from "../utils/color";
@@ -15,13 +15,13 @@ import { isColor } from "../utils/color";
 export const tagProps = {
   closeable: Boolean as BooleanType,
   color: String,
-  shape: String as PropType<"circle">,
+  shape: String as PropType<ShapeType>,
   icon: [String, Array] as PropType<any>,
   size: {
-    type: String as PropType<"small" | "large" | "middle">,
+    type: String as PropType<SizeType>,
     default: "small",
   },
-  theme: { type: String as PropType<"light">, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "light" },
   onClose: { type: Function as PropType<() => void> },
 };
 
@@ -57,6 +57,7 @@ const Tag = defineComponent({
           "k-tag-lg": size === "large",
           [`k-tag-${color}`]: isPresetColor,
           "k-tag-circle": shape === "circle",
+          "k-tag-square": shape === "square",
           "k-tag-has-color": isCustomColor,
           "k-tag-closeable": closeable,
           "k-tag-hidden": hidden.value,

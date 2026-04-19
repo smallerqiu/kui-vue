@@ -2,6 +2,7 @@
   <Space vertical>
     <DatePicker shape="circle" />
     <DatePicker theme="light" />
+    <DatePicker theme="outline" placeholder="Outline" />
     <DatePicker :dateIcon="ArrowDown" placeholder="Custom Icon" />
     <DatePicker :bordered="false" placeholder="No Border" theme="light" />
 

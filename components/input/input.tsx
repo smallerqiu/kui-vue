@@ -10,7 +10,7 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import { type BooleanType, type SizeType } from "../const/types";
+import { type BooleanType, type ShapeType, type SizeType, type ThemeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
@@ -33,8 +33,8 @@ const inputProps = {
   icon: [Array] as PropType<IconType[]>,
   suffix: String,
   prefix: String,
-  theme: { type: String, default: "light" },
-  shape: String,
+  theme: { type: String as PropType<ThemeType>, default: "light" },
+  shape: String as PropType<ShapeType>,
   inputType: { type: String, default: "input" },
 };
 
@@ -182,11 +182,13 @@ const Input = defineComponent({
             [`k-${inputType}-has-clear`]: clearableShow,
             [`k-${inputType}-sm`]: size === "small",
             [`k-${inputType}-lg`]: size === "large",
-            [`k-${inputType}-${theme}`]: theme && theme !== "solid",
+            [`k-${inputType}-${theme}`]: theme && theme !== "outline",
             [`k-${inputType}-circle`]: shape === "circle",
+            [`k-${inputType}-square`]: shape === "square",
           },
           attrs.class,
         ],
+        multiple,
         style: attrs.style as CSSProperties,
       };
 
@@ -224,9 +226,7 @@ const Input = defineComponent({
         return (
           <InputGroup size={size} theme={theme}>
             {preChildren}
-            <div {...rootProps} {...{ multiple: true }}>
-              {innerChildren}
-            </div>
+            <div {...rootProps}>{innerChildren}</div>
             {sufChildren}
           </InputGroup>
         );
@@ -258,11 +258,7 @@ const Input = defineComponent({
         if (suffixNode) children.push(suffixNode);
         if (slotControls.length) children.push(slotControls);
 
-        return (
-          <div {...rootProps} {...{ multiple: true }}>
-            {children}
-          </div>
-        );
+        return <div {...rootProps}>{children}</div>;
       }
     };
   },

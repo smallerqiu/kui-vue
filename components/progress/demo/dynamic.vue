@@ -1,15 +1,15 @@
 <template>
-  <Progress :percent="percent" style="width:300px;margin-bottom:30px;" />
+  <Progress :percent="percent" style="width: 300px; margin-bottom: 30px" />
   <Progress :percent="percent" type="circle" />
   <Progress :percent="percent" type="dashboard" />
   <br />
-  <ButtonGroup circle>
+  <ButtonGroup>
     <Button @click="decline" :icon="Remove" />
     <Button @click="increase" :icon="Add" />
   </ButtonGroup>
 </template>
 <script setup lang="ts">
-import { Remove, Add } from "kui-icons";
+import { Add, Remove } from "kui-icons";
 import { ref } from "vue";
 const percent = ref(30);
 const increase = () => {

@@ -6,13 +6,13 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import { type SizeType } from "../const/types";
+import { type ShapeType, type SizeType } from "../const/types";
 
 const buttonGroupProps = {
   size: {
     type: String as PropType<SizeType>,
   },
-  shape: String as PropType<"circle" | string>,
+  shape: String as PropType<ShapeType>,
 };
 
 export type ButtonGroupProps = ExtractPropTypes<typeof buttonGroupProps>;
@@ -37,6 +37,7 @@ const ButtonGroup = defineComponent({
             ["k-btn-group-sm"]: size.value === "small",
             ["k-btn-group-lg"]: size.value === "large",
             ["k-btn-group-circle"]: shape.value === "circle",
+            ["k-btn-group-square"]: shape.value === "square",
           },
         ],
       };

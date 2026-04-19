@@ -10,6 +10,7 @@
       <RadioButton value="default" label="Default" />
       <RadioButton value="light" label="Light" />
       <RadioButton value="card" label="Card" />
+      <RadioButton value="outline" label="Outline" />
     </RadioGroup>
     <code>Size :{{ size }}</code>
     <RadioGroup v-model="size" type="button" size="small" :options="sizes"> </RadioGroup>

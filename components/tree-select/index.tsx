@@ -14,7 +14,13 @@ import {
   type PropType,
   type VNodeChild,
 } from "vue";
-import type { BooleanType, DropPlacementsType, SizeType } from "../const/types";
+import type {
+  BooleanType,
+  DropPlacementsType,
+  ShapeType,
+  SizeType,
+  ThemeType,
+} from "../const/types";
 import resize from "../directives/resize";
 import { transfer } from "../directives/transfer";
 import Empty from "../empty";
@@ -63,10 +69,10 @@ export const treeSelectProps = {
   bordered: { type: Boolean as BooleanType, default: true },
   showArrow: { type: Boolean as BooleanType, default: true },
   options: Array,
-  theme: { type: String, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "light" },
   emptyText: String,
   icon: [Array] as PropType<IconType[]>,
-  shape: String,
+  shape: String as PropType<ShapeType>,
   arrowIcon: [Array] as PropType<IconType[]>,
   treeData: Array as PropType<TreeNode[]>,
   treeCheckable: Boolean as BooleanType,
@@ -578,6 +584,7 @@ const TreeSelect = defineComponent({
           "k-tree-select-light": props.theme === "light",
           "k-tree-select-has-icon": !!props.icon,
           "k-tree-select-circle": props.shape === "circle" && !props.multiple,
+          "k-tree-select-square": props.shape == "square",
           "k-tree-select-multiple": props.multiple,
           "k-tree-select-show-search": queryInputFocused.value,
           "k-tree-select-show-tags": props.multiple && !isEmpty(labelText.value),

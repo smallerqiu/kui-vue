@@ -14,7 +14,6 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { Select, Space } from "kui-vue";
 import { ref } from "vue";
 const value1 = ref(2);
 const value2 = ref([0, 3]);

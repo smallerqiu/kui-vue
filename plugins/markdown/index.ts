@@ -42,7 +42,6 @@ export default function vitePluginKuiMd(): Plugin {
       const processedMarkdown = code.replace(
         reg,
         (_, title, src, direction = "horizontal", description) => {
-          console.log(direction);
           const componentName = `KuiDemo${demoCount++}`;
           const _id = "k-" + hashId(id);
 

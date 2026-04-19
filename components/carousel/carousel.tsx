@@ -18,10 +18,11 @@ import resizeDir from "../directives/resize";
 import Icon from "../icon";
 
 const carouselProps = {
-  value: { type: Number, default: 0 },
+  modelValue: { type: Number, default: 0 },
   loop: { type: Boolean as BooleanType, default: true },
   autoplay: Boolean as BooleanType,
   delay: { type: Number, default: 3000 },
+  height: { type: Number, default: 256 },
   vertical: Boolean,
   dots: { type: Boolean as BooleanType, default: true },
 };
@@ -34,17 +35,16 @@ const Carousel = defineComponent({
   props: carouselProps,
   emits: ["update:value", "change"],
   setup(props, { slots, emit, expose, attrs }) {
-    const currentIndex = ref(props.value);
-    const posIndex = ref(props.loop ? props.value + 1 : props.value);
+    const currentIndex = ref(props.modelValue);
+    const posIndex = ref(props.loop ? props.modelValue + 1 : props.modelValue);
     const autoTimer = ref<ReturnType<typeof setInterval> | null>(null);
     const width = ref(0);
-    const height = ref(0);
-    const animate = ref(props.value <= 0);
+    const animate = ref(props.modelValue <= 0);
     const playing = ref(false);
     const carouselRef = ref<HTMLElement | null>(null);
 
     provide("width", width);
-    provide("height", height);
+    provide("height", props.height);
 
     const flatten = (nodes: VNode[]): VNode[] => {
       let result: VNode[] = [];
@@ -64,7 +64,7 @@ const Carousel = defineComponent({
     });
 
     watch(
-      () => props.value,
+      () => props.modelValue,
       (val) => {
         currentIndex.value = val;
       }
@@ -145,7 +145,7 @@ const Carousel = defineComponent({
       if (!carouselRef.value) return;
       animate.value = false;
       width.value = carouselRef.value.offsetWidth;
-      height.value = carouselRef.value.offsetHeight;
+      // height.value = carouselRef.value.offsetHeight;
     };
 
     expose({ next: () => toSwitch("right"), prev: () => toSwitch("left"), goTo });
@@ -171,20 +171,23 @@ const Carousel = defineComponent({
       const activeIndex = Math.max(0, Math.min(len - 1, currentIndex.value));
 
       const offsetX = !vertical ? posIndex.value * width.value : 0;
-      const offsetY = vertical ? posIndex.value * height.value : 0;
+      const offsetY = vertical ? posIndex.value * props.height : 0;
 
       const wrapperProps = {
         class: "k-carousel-wrapper",
         style: {
           transform: `translate3d(-${offsetX}px, -${offsetY}px, 0)`,
           width: !vertical ? `${newChildren.length * width.value}px` : undefined,
-          height: vertical ? `${newChildren.length * height.value}px` : undefined,
+          height: vertical ? `${newChildren.length * props.height}px` : undefined,
           transitionDuration: !animate.value ? "0s" : undefined,
         } as CSSProperties,
       };
 
       const rootProps = {
         ...attrs,
+        style: {
+          height: props.height + "px",
+        } as CSSProperties,
         ref: carouselRef,
         class: ["k-carousel", { "k-carousel-vertical": vertical }],
         onMouseEnter: () => autoTimer.value && clearInterval(autoTimer.value),

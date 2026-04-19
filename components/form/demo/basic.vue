@@ -8,12 +8,22 @@
       :disabled="state.disabled"
       :wrapperCol="{ span: 16 }"
       :size="state.size"
-      :theme="state.isLight ? 'light' : ''"
-      :shape="state.checked ? 'circle' : ''"
+      :theme="state.theme"
+      :shape="state.shape"
     >
+      <FormItem label="Shape">
+        <RadioGroup v-model="state.shape">
+          <Radio value="default" label="Default" />
+          <Radio value="circle" label="Circle" />
+          <Radio value="square" label="Square" />
+        </RadioGroup>
+      </FormItem>
       <FormItem label="Theme">
-        <Checkbox v-model="state.isLight" label="Light" style="margin-right:8px;" />
-        <Checkbox v-model="state.checked" label="Circle" />
+        <RadioGroup v-model="state.theme">
+          <Radio value="default" label="Default" />
+          <Radio value="light" label="Light" />
+          <Radio value="outline" label="Outline" />
+        </RadioGroup>
       </FormItem>
       <FormItem label="Size">
         <RadioGroup v-model="state.size" type="button">
@@ -29,14 +39,14 @@
         <InputNumber placeholder="inputnumber..." />
       </FormItem>
       <FormItem label="Select">
-        <Select style="width:100%;">
+        <Select style="width: 100%">
           <Option value="0" label="Apple" />
           <Option value="1" label="Banana" />
           <Option value="2" label="Orange" />
         </Select>
       </FormItem>
       <FormItem label="TreeSelect">
-        <TreeSelect style="width:100%;" :tree-data="treeData"> </TreeSelect>
+        <TreeSelect style="width: 100%" :tree-data="treeData"> </TreeSelect>
       </FormItem>
       <FormItem label="Slider">
         <Slider />
@@ -76,9 +86,8 @@ import { reactive } from "vue";
 const state = reactive({
   disabled: false,
   size: "default",
-  isLight: false,
-  checked: false,
-  shape: "",
+  shape: "default",
+  theme: "default",
 });
 const treeData = [
   {

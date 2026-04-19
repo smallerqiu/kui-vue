@@ -1,4 +1,5 @@
 import dayjs, { Dayjs, type UnitType } from "dayjs";
+import dayjsCN from "dayjs/locale/zh-cn";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import isBetween from "dayjs/plugin/isBetween";
 import localeData from "dayjs/plugin/localeData";
@@ -25,17 +26,23 @@ import {
   type PropType,
 } from "vue";
 import { Button } from "../button";
-import type { BooleanType, DropPlacementsType, ShapeType, SizeType } from "../const/types";
+import type {
+  BooleanType,
+  DropPlacementsType,
+  ShapeType,
+  SizeType,
+  ThemeType,
+} from "../const/types";
 import resize from "../directives/resize";
 import { transfer } from "../directives/transfer";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
 import { setPlacement } from "../utils/placement";
-
 // 启用插件
 dayjs.extend(isBetween);
 dayjs.extend(customParseFormat);
 dayjs.extend(localeData);
+dayjs.locale(dayjsCN);
 
 type DatePickerValueType = "date" | "timestamp" | "unix" | "string";
 type DatePickerModeType =
@@ -74,8 +81,8 @@ export const datePickerProps = {
   disabledTime: { type: Function, default: () => false },
   size: { type: String as PropType<SizeType>, default: "default" },
   dateIcon: { type: Array as PropType<IconType[]> },
-  theme: { type: String, default: "light" },
-  shape: String as PropType<ShapeType>,
+  theme: { type: String as PropType<ThemeType>, default: "light" },
+  shape: { type: String as PropType<ShapeType>, default: "default" },
   bordered: { type: Boolean as BooleanType, default: true },
   placement: {
     type: String as PropType<DropPlacementsType>,
@@ -857,6 +864,7 @@ const DatePicker = defineComponent({
         { "k-datepicker-disabled": props.disabled },
         { "k-datepicker-light": props.theme == "light" },
         { "k-datepicker-circle": props.shape == "circle" },
+        { "k-datepicker-square": props.shape == "square" },
       ];
       const showClear =
         props.clearable &&

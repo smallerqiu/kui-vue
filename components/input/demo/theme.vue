@@ -4,7 +4,7 @@
     <Input placeholder="Please input" :shape="shape" />
     <Input placeholder="Disabled" disabled :shape="shape" />
     <Input placeholder="Please input" :icon="Search" :shape="shape" />
-    <Input placeholder="theme='solid'" theme="solid" :shape="shape" />
+    <Input placeholder="theme='outline'" theme="outline" :shape="shape" />
     <Input placeholder="Please input" :clearable="false" :shape="shape" @search="onSearch" />
     <TextArea placeholder="Please input" :rows="3" />
   </Space>

@@ -8,7 +8,7 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import type { BooleanType, SizeType } from "../const/types";
+import type { BooleanType, SizeType, ThemeType } from "../const/types";
 import Icon from "../icon";
 import InputNumber from "../input-number";
 import zhCN from "../locale/zh-CN";
@@ -19,7 +19,7 @@ export const pageProps = {
   showSizer: Boolean as BooleanType,
   showTotal: { type: Boolean as BooleanType, default: true },
   showElevator: Boolean as BooleanType,
-  theme: { type: String, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "light" },
   sizeData: { type: Array as PropType<number[]>, default: () => [10, 15, 20, 30, 40] },
   size: {
     default: "default",
@@ -37,12 +37,12 @@ export type PageProps = ExtractPropTypes<typeof pageProps>;
 const Page = defineComponent({
   name: "Page",
   props: pageProps,
-  setup(ps, { emit }) {
+  setup(props, { emit }) {
     const nextPageGroup = ref(false);
     const prevPageGroup = ref(false);
-    const pageCount = ref(Math.ceil(ps.total / ps.pageSize) || 1);
-    const defaultPage = ref(ps.page);
-    const defaultPageSize = ref(ps.pageSize);
+    const pageCount = ref(Math.ceil(props.total / props.pageSize) || 1);
+    const defaultPage = ref(props.page);
+    const defaultPageSize = ref(props.pageSize);
     const injectedLocale = inject<Record<string, any>>("locale", zhCN);
 
     const locale = computed(() => {
@@ -51,21 +51,21 @@ const Page = defineComponent({
         : injectedLocale;
     });
     watch(
-      () => ps.pageSize,
+      () => props.pageSize,
       (v) => {
         defaultPageSize.value = v;
         resetPage();
       }
     );
     watch(
-      () => ps.total,
+      () => props.total,
       () => {
         resetPage();
       }
     );
 
     watch(
-      () => ps.page,
+      () => props.page,
       (v) => {
         defaultPage.value = v;
         resetPage();
@@ -73,7 +73,7 @@ const Page = defineComponent({
     );
 
     const resetPage = () => {
-      pageCount.value = Math.ceil(ps.total / defaultPageSize.value) || 1;
+      pageCount.value = Math.ceil(props.total / defaultPageSize.value) || 1;
       if (defaultPage.value > pageCount.value) {
         defaultPage.value = pageCount.value;
       }
@@ -156,7 +156,7 @@ const Page = defineComponent({
       return child;
     };
     const prePage = () => {
-      if (ps.disabled) return;
+      if (props.disabled) return;
       if (defaultPage.value > 1) {
         defaultPage.value--;
         emit("update:page", defaultPage.value);
@@ -164,7 +164,7 @@ const Page = defineComponent({
       }
     };
     const nextPage = () => {
-      if (ps.disabled) return;
+      if (props.disabled) return;
       if (defaultPage.value < pageCount.value) {
         defaultPage.value++;
         emit("update:page", defaultPage.value);
@@ -173,7 +173,7 @@ const Page = defineComponent({
     };
     const toPage = (e: MouseEvent, page: number) => {
       e.preventDefault();
-      if (ps.disabled) return;
+      if (props.disabled) return;
       if (page == defaultPage.value) return;
       if (page <= 1) {
         page = 1;
@@ -189,7 +189,7 @@ const Page = defineComponent({
     };
     const changeSize = (value: any) => {
       defaultPageSize.value = value;
-      pageCount.value = Math.ceil(ps.total / defaultPageSize.value) || 1;
+      pageCount.value = Math.ceil(props.total / defaultPageSize.value) || 1;
       if (defaultPage.value > pageCount.value) {
         defaultPage.value = pageCount.value;
         emit("update:page", defaultPage.value);
@@ -226,25 +226,25 @@ const Page = defineComponent({
     const renderSize = () => {
       let prop = {
         value: defaultPageSize.value,
-        size: ps.size,
+        size: props.size,
         clearable: false,
-        theme: ps.theme,
-        options: ps.sizeData.map((s) => {
+        theme: props.theme,
+        options: props.sizeData.map((s) => {
           return { value: s, label: `${s}${locale.value?.k.page.pageSize}` };
         }),
-        disabled: ps.disabled,
+        disabled: props.disabled,
         onChange: changeSize,
       };
-      return ps.showSizer ? <div class="k-page-sizer">{<Select {...prop} />}</div> : null;
+      return props.showSizer ? <div class="k-page-sizer">{<Select {...prop} />}</div> : null;
     };
 
     const renderElevator = () => {
-      let { size } = ps;
-      let props = {
+      let { size } = props;
+      let _props = {
         class: "k-page-options-elevator",
         size,
-        theme: ps.theme,
-        disabled: ps.disabled,
+        theme: props.theme,
+        disabled: props.disabled,
         clearable: false,
         // value: defaultPage.value,
         onChange: (page?: number) => {
@@ -263,10 +263,10 @@ const Page = defineComponent({
           }
         },
       };
-      return ps.showElevator ? (
+      return props.showElevator ? (
         <div class="k-page-options">
           <span>{locale.value?.k.page.goto}</span>
-          <InputNumber {...props} />
+          <InputNumber {..._props} />
           <span>{locale.value?.k.page.page}</span>
         </div>
       ) : null;
@@ -275,9 +275,9 @@ const Page = defineComponent({
       const classes = [
           "k-page",
           {
-            ["k-page-sm"]: ps.size == "small",
-            "k-page-light": ps.theme == "light",
-            "k-page-disabled": ps.disabled,
+            ["k-page-sm"]: props.size == "small",
+            "k-page-light": props.theme == "light",
+            "k-page-disabled": props.disabled,
           },
         ],
         preNode = (
@@ -302,10 +302,10 @@ const Page = defineComponent({
             <Icon type={ChevronUp} />
           </li>
         ),
-        totalNode = ps.showTotal ? (
+        totalNode = props.showTotal ? (
           <div class="k-page-number">
             <span>
-              {locale.value?.k.page.total} {ps.total} {locale.value?.k.page.items}
+              {locale.value?.k.page.total} {props.total} {locale.value?.k.page.items}
             </span>
           </div>
         ) : null,

@@ -9,12 +9,13 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
+import type { ShapeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 
 const avatarProps = {
   icon: [Array] as PropType<IconType[]>,
   shape: {
-    type: String as PropType<"circle" | "square">,
+    type: String as PropType<ShapeType>,
     default: "circle",
   },
   size: {

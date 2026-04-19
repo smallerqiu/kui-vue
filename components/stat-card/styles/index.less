@@ -51,10 +51,13 @@
     position: relative;
     display: inline-block;
     height: 1em;
+    overflow: hidden;
   }
   .k-stat-roll-number-column {
+    will-change: transform;
     display: flex;
     flex-direction: column;
+    transition-property: transform;
   }
   .k-stat-roll-number-column span,
   .k-stat-roll-number-separator {

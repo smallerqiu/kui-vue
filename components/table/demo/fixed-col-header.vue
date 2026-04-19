@@ -3,6 +3,9 @@
     <template #action>
       <Button size="small">test</Button>
     </template>
+    <template #action1>
+      <Button size="small">test2</Button>
+    </template>
   </Table>
 </template>
 <script setup lang="ts">

@@ -1,5 +1,4 @@
 import { ArrowForward } from "kui-icons";
-import { Button, Icon, Layout } from "kui-vue";
 import { defineComponent, inject } from "vue";
 import "../assets/css/home.less";
 import AppFooter from "../components/app-footer.vue";
@@ -13,11 +12,15 @@ export default defineComponent({
         <Layout class="index">
           <AppHeader />
           <section class="index-content">
-            <h1>{$t("index.desc")}</h1>
+            <h1>Kui Vue</h1>
+            <p class="desc">{$t("index.desc")}</p>
             <div class="btn-content">
               <Button class="start" type="link" size="large" href="/guide/quick-started">
                 {$t("index.btn_quick_start")}
                 <Icon type={ArrowForward} />
+              </Button>
+              <Button size="large" class="btn-install" type="link" href="/guide/quick-started">
+                Install Kui Vue
               </Button>
             </div>
           </section>

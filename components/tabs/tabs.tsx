@@ -1,38 +1,35 @@
 import { ChevronBack, ChevronForward, Close } from "kui-icons";
 import {
-  cloneVNode,
+  computed,
   defineComponent,
   nextTick,
   onBeforeMount,
   onMounted,
+  provide,
   ref,
   watch,
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
-  type VNode,
 } from "vue";
 import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
-import type { TabClickPayload, TabKey, TabsPaneLike } from "./types";
 
 export const tabsProps = {
-  modelValue: [String, Number] as PropType<TabKey>,
-  value: [String, Number] as PropType<TabKey>,
+  modelValue: [String, Number],
+  value: [String, Number],
   card: Boolean as BooleanType,
   sample: Boolean as BooleanType,
   centered: Boolean as BooleanType,
-  animated: { type: Boolean as BooleanType, default: true },
-  onChange: {
-    type: Function as PropType<(key: TabKey) => void>,
-  },
-  onRemove: {
-    type: Function as PropType<(key: TabKey) => void>,
-  },
-  onTabClick: {
-    type: Function as PropType<(key: TabKey) => void>,
-  },
+  animated: { type: Boolean, default: true },
+  onTabClick: Function as PropType<(key: string) => void>,
+  onChange: Function as PropType<(key: string) => void>,
+};
+
+type TabClickEvent = {
+  key: string;
+  disabled?: boolean;
 };
 
 export type TabsProps = ExtractPropTypes<typeof tabsProps>;
@@ -40,84 +37,77 @@ export type TabsProps = ExtractPropTypes<typeof tabsProps>;
 const Tabs = defineComponent({
   name: "Tabs",
   props: tabsProps,
-  emits: ["update:modelValue", "tabClick", "change", "remove"],
-  setup(props, { slots, emit }) {
-    const defaultActiveKey = ref<TabKey>(props.modelValue || props.value);
+  setup(ps, { slots, emit }) {
+    const defaultActiveKey = ref(ps.modelValue);
     const currentIndex = ref(-1);
     const scrollable = ref(false);
     const navOffsetLeft = ref(0);
     const prevBtnDisabled = ref(false);
     const nextBtnDisabled = ref(false);
-    const navRef = ref<HTMLElement | null>(null);
-    const navScrollRef = ref<HTMLElement | null>(null);
-    const navBoxRef = ref<HTMLElement | null>(null);
-    const inkBarRef = ref<HTMLElement | null>(null);
+    const navRef = ref();
+    const navScrollRef = ref();
+    const navBoxRef = ref();
+    const inkBarRef = ref();
+
+    provide("tabActiveKey", defaultActiveKey);
 
     watch(
-      () => props.modelValue,
+      // () => ps.activeKey,
+      () => ps.modelValue,
       (nv) => {
         defaultActiveKey.value = nv;
         updateIndex();
       }
     );
-
     onMounted(() => {
       nextTick(() => {
         updateIndex();
       });
       window.addEventListener("resize", resetNavPosition);
     });
-
     onBeforeMount(() => {
       window.removeEventListener("resize", resetNavPosition);
     });
 
-    const closeTab = (key: TabKey, e: MouseEvent) => {
-      emit("remove", key);
-      e.stopPropagation();
-    };
-
     const resetActivePosition = () => {
-      if (!navRef.value || currentIndex.value < 0) return;
-      const target = navRef.value.children[currentIndex.value] as HTMLElement | undefined;
-      if (!target || !navScrollRef.value || !navBoxRef.value) return;
-
+      const target = navRef.value.children[currentIndex.value];
+      if (!target) return;
+      // show active tab in client
       const nav = navScrollRef.value;
-      const clientWidth = navBoxRef.value.clientWidth;
+      // let totalWidth = panel.offsetWidth
+      let clientWidth = navBoxRef.value.clientWidth;
       let navLeft = navOffsetLeft.value;
-      const offsetLeft = target.offsetLeft;
-      const offsetWidth = target.offsetWidth;
+      let { offsetLeft, offsetWidth } = target;
 
+      // min left
       if (navLeft + offsetLeft < 0) {
         navLeft = -offsetLeft;
-      } else if (clientWidth - navLeft < offsetLeft + offsetWidth) {
-        navLeft -= offsetLeft + offsetWidth + navLeft - clientWidth + 2;
       }
-
+      //max right
+      else if (clientWidth - navLeft < offsetLeft + offsetWidth) {
+        navLeft -= offsetLeft + offsetWidth + navLeft - clientWidth + 2; //marginRight
+      }
       navOffsetLeft.value = navLeft;
-      nav.style.transform = "translate3d(" + navLeft + "px,0,0)";
+      nav.style.transform = `translate3d(${navLeft}px,0,0)`;
     };
-
     const resetNavPosition = () => {
+      // when one tab removed or append
       nextTick(() => {
         const nav = navScrollRef.value;
-        const navBox = navBoxRef.value;
-        if (!nav || !navBox) return;
-
-        const totalWidth = nav.offsetWidth;
-        const clientWidth = navBox.clientWidth;
+        if (!nav) return;
+        let totalWidth = nav.offsetWidth;
+        let clientWidth = navBoxRef.value.clientWidth;
         let navLeft = navOffsetLeft.value;
-
         if (clientWidth + navLeft < clientWidth) {
           navLeft = clientWidth - totalWidth;
         }
         if (navLeft > 0) navLeft = 0;
-
         navOffsetLeft.value = navLeft;
-        nextBtnDisabled.value = navLeft === clientWidth - totalWidth;
-        prevBtnDisabled.value = navLeft === 0;
 
-        nav.style.transform = "translate3d(" + navLeft + "px,0,0)";
+        nextBtnDisabled.value = navLeft == clientWidth - totalWidth;
+        prevBtnDisabled.value = navLeft == 0;
+
+        nav.style.transform = `translate3d(${navLeft}px,0,0)`;
 
         resetActivePosition();
         updateInkBarPosition();
@@ -125,16 +115,17 @@ const Tabs = defineComponent({
       });
     };
 
-    const scroll = (direction: "left" | "right") => {
+    provide("tabUpdateNav", resetNavPosition);
+
+    const scroll = (direction: string) => {
+      //control left or right
+
       const panel = navScrollRef.value;
-      const navBox = navBoxRef.value;
-      if (!panel || !navBox) return;
-
-      const totalWidth = panel.offsetWidth;
-      const clientWidth = navBox.clientWidth;
+      let totalWidth = panel.offsetWidth;
+      let clientWidth = navBoxRef.value.clientWidth;
       let navLeft = navOffsetLeft.value;
-
-      if (direction === "right") {
+      // console.log(totalWidth, clientWidth)
+      if (direction == "right") {
         const endWidth = totalWidth - clientWidth + navLeft;
         if (endWidth > clientWidth) {
           navLeft -= clientWidth;
@@ -148,17 +139,21 @@ const Tabs = defineComponent({
           navLeft = 0;
         }
       }
-
-      nextBtnDisabled.value = navLeft === clientWidth - totalWidth;
-      prevBtnDisabled.value = navLeft === 0;
+      nextBtnDisabled.value = navLeft == clientWidth - totalWidth;
+      prevBtnDisabled.value = navLeft == 0;
 
       navOffsetLeft.value = navLeft;
-      panel.style.transform = "translate3d(" + navLeft + "px,0,0)";
+      panel.style.transform = `translate3d(${navLeft}px,0,0)`;
     };
 
-    const tabClick = ({ disabled, key }: TabClickPayload, index: number) => {
+    const closeTab = (key: string, e: PointerEvent) => {
+      emit("remove", key);
+      e.stopPropagation();
+    };
+    const tabClick = ({ disabled, key }: TabClickEvent, index: number) => {
       if (!disabled) {
         emit("update:modelValue", key);
+        // emit("update:activeKey", key);
         emit("tabClick", key);
         if (defaultActiveKey.value !== key) {
           defaultActiveKey.value = key;
@@ -168,129 +163,99 @@ const Tabs = defineComponent({
         }
       }
     };
-
-    const getTabNodes = (): VNode[] => {
-      const nodes = getChildren(slots.default?.()) || [];
-      return nodes as VNode[];
-    };
-
     const updateIndex = () => {
       nextTick(() => {
-        const nodes = getTabNodes();
-        const keys: TabKey[] = nodes.map((panel: VNode) => panel.key as TabKey);
-        currentIndex.value = keys.indexOf(defaultActiveKey.value);
+        const nodes = getChildren(slots.default?.());
+        currentIndex.value = nodes?.map((p) => p.key).indexOf(defaultActiveKey.value);
         resetActivePosition();
         updateInkBarPosition();
       });
     };
-
     const updateInkBarPosition = () => {
-      if (props.card || props.sample) return;
-      if (!navRef.value || !inkBarRef.value || currentIndex.value < 0) return;
-
-      const nav = navRef.value.children[currentIndex.value] as HTMLElement | undefined;
-      if (!nav) return;
-
-      const inkBar = inkBarRef.value;
-      const offsetLeft = nav.offsetLeft;
-      inkBar.style.width = nav.offsetWidth + "px";
-      inkBar.style.transform = "translate3d(" + offsetLeft + "px, 0px, 0px)";
+      if (!ps.card && !ps.sample) {
+        const nav = navRef.value.children[currentIndex.value];
+        if (nav) {
+          const inkBar = inkBarRef.value;
+          let offsetLeft = nav.offsetLeft;
+          if (ps.centered) {
+            // offsetLeft = (navBoxRef.value.offsetWidth - offsetLeft) ;
+          }
+          inkBar.style.width = `${nav.offsetWidth}px`;
+          inkBar.style.transform = `translate3d(${offsetLeft}px, 0px, 0px)`;
+        }
+      }
     };
-
     const updateNav = () => {
       nextTick(() => {
+        // update inkBar position
+
+        // set panel has scroll arrow
         const navBox = navBoxRef.value;
         if (!navBox) return;
         scrollable.value = navBox.scrollWidth > navBox.clientWidth;
       });
     };
 
-    const renderNodes = () => {
-      const nodes = getTabNodes();
+    const navNodes = computed(() => {
+      const nodes = getChildren(slots.default?.());
+      return nodes?.map((panel, index) => {
+        const key = panel.key;
 
-      const panels = nodes.map((item: VNode) => {
-        return cloneVNode(
-          item,
-          {
-            activeKey: defaultActiveKey.value,
-            onResetNavPosition: () => resetNavPosition(),
-          },
-          true
-        );
-      });
-
-      const navNodes = nodes.map((panel: VNode, index: number) => {
-        const tabPanel = panel as VNode & TabsPaneLike;
-        const key = tabPanel.key;
-        const panelProps = tabPanel.props || {};
-        const icon = panelProps.icon;
-        const title = panelProps.title;
-        let closable = panelProps.closable;
-        let disabled = panelProps.disabled;
-
-        disabled = disabled !== undefined && disabled !== false;
+        let { icon, title, closable, disabled } = panel.props;
+        disabled = disabled !== undefined && disabled != false;
         closable = closable !== undefined;
-
-        const tabProps = {
+        const prop = {
           class: [
             "k-tabs-tab",
             {
-              "k-tabs-tab-active": key === defaultActiveKey.value,
-              "k-tabs-tab-disabled": disabled,
+              ["k-tabs-tab-active"]: key === defaultActiveKey.value,
+              ["k-tabs-tab-disabled"]: disabled,
             },
           ],
           onClick: () => tabClick({ disabled, key }, index),
         };
-
         return (
-          <div {...tabProps}>
+          <div {...prop}>
             {icon ? <Icon type={icon} /> : null}
             {title}
-            {closable && props.card ? (
+            {closable && ps.card ? (
               <Icon
                 type={Close}
                 class="k-tabs-close"
                 strokeWidth={45}
-                onClick={(e: MouseEvent) => closeTab(key, e)}
+                onClick={(e) => closeTab(key, e)}
               />
             ) : null}
           </div>
         );
       });
-
-      return { panels, navNodes };
-    };
+    });
 
     return () => {
+      const { card, animated, centered, sample } = ps;
       const classes = [
         "k-tabs",
         {
-          "k-tabs-animated": props.animated && !props.card && !props.sample,
-          "k-tabs-card": props.card && !props.sample,
-          "k-tabs-sample": props.sample && !props.card,
-          "k-tabs-centered": props.centered,
+          ["k-tabs-animated"]: animated && !card && !sample,
+          ["k-tabs-card"]: card && !sample,
+          ["k-tabs-sample"]: sample && !card,
+          ["k-tabs-centered"]: centered,
         },
       ];
 
-      const scrollStyle: CSSProperties = {};
-      const paneStyle: CSSProperties = {};
+      let scrollStyle: CSSProperties = {},
+        paneStyle: CSSProperties = {};
 
-      if (props.animated && !props.card && !props.sample) {
-        paneStyle.marginLeft = "-" + 100 * currentIndex.value + "%";
+      if (animated && !card && !sample) {
+        paneStyle.marginLeft = `-${100 * currentIndex.value}%`;
       }
 
-      const navCls = ["k-tabs-nav-container", { "k-tabs-nav-container-scroll": scrollable.value }];
+      const navCls = [
+        "k-tabs-nav-container",
+        { ["k-tabs-nav-container-scroll"]: scrollable.value },
+      ];
 
-      const { panels, navNodes } = renderNodes();
-      const navProps = {
-        class: "k-tabs-nav",
-        style: scrollStyle,
-        ref: navScrollRef,
-      };
-      const contentProps = {
-        class: "k-tabs-content",
-        style: paneStyle,
-      };
+      // const { panels, navNodes } = renderNodes();
       return (
         <div class={classes}>
           <div class="k-tabs-bar">
@@ -307,12 +272,10 @@ const Tabs = defineComponent({
                 </span>
               ) : null}
               <div class="k-tabs-nav-wrap" ref={navBoxRef}>
-                <div {...navProps}>
-                  {!props.card && !props.sample ? (
-                    <div class="k-tabs-ink-bar" ref={inkBarRef} />
-                  ) : null}
+                <div class="k-tabs-nav" style={scrollStyle} ref={navScrollRef}>
+                  {!card && !sample ? <div class="k-tabs-ink-bar" ref={inkBarRef} /> : null}
                   <div class="k-tabs-nav-inner" ref={navRef}>
-                    {navNodes}
+                    {navNodes.value}
                   </div>
                 </div>
               </div>
@@ -330,11 +293,12 @@ const Tabs = defineComponent({
             </div>
             {slots.extra ? <div class="k-tabs-extra">{slots.extra()}</div> : null}
           </div>
-          <div {...contentProps}>{panels}</div>
+          <div class="k-tabs-content" style={paneStyle}>
+            {slots.default?.()}
+          </div>
         </div>
       );
     };
   },
 });
-
 export default Tabs;
