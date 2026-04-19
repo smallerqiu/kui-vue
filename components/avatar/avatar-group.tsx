@@ -1,11 +1,12 @@
 import { defineComponent, provide, toRefs, type ExtractPropTypes, type PropType } from "vue";
+import type { ShapeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 import Avatar from "./avatar";
 
 export const avatarGroupProps = {
   maxCount: Number,
   shape: {
-    type: String as PropType<"circle" | "square">,
+    type: String as PropType<ShapeType>,
     default: "circle",
   },
   size: {

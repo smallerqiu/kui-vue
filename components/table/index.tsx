@@ -33,6 +33,7 @@ export const tableProps = {
     type: String as PropType<SizeType>,
     default: "default",
   },
+  striped: Boolean as BooleanType,
   bordered: { type: Boolean as BooleanType, default: false },
   checkable: Boolean as BooleanType,
   loading: Boolean as BooleanType,
@@ -548,6 +549,7 @@ const Table = defineComponent({
       const tableCls = [
         "k-table",
         {
+          "k-table-striped": props.striped,
           "k-table-sm": props.size == "small",
           "k-table-lg": props.size == "large",
           "k-table-bordered": props.bordered,

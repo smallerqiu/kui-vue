@@ -4,12 +4,12 @@ const CarouselItem = defineComponent({
   name: "CarouselItem",
   setup(_, { slots }) {
     const width = inject<Ref<number>>("width");
-    const height = inject<Ref<number>>("height");
+    const height = inject<number>("height");
 
     return () => {
       const styles: CSSProperties = {
         width: width?.value ? `${width.value}px` : undefined,
-        height: height?.value ? `${height.value}px` : undefined,
+        height: height ? `${height}px` : undefined,
       };
 
       /**

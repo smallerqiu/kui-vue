@@ -57,6 +57,7 @@ export default defineComponent({
         ],
         disabled,
         type,
+        single: true,
         value: props.value,
         onFocus: handleFocus,
         onBlur: handleBlur,

@@ -16,7 +16,7 @@
     <Badge :count="count" :max-count="20">
       <div class="badge-box"></div>
     </Badge>
-    <ButtonGroup circle>
+    <ButtonGroup>
       <Button @click="minus">-</Button>
       <Button @click="add">+</Button>
     </ButtonGroup>

@@ -32,7 +32,6 @@ const StatNumber = defineComponent({
   setup(props, { slots }) {
     const prefixNode = props.prefix || getChildren(slots.prefix?.());
     const suffixNode = props.suffix || getChildren(slots.suffix?.());
-    // console.log(prefixNode);
     return () => {
       const items = {
         modelValue: props.modelValue,

@@ -10,12 +10,12 @@
     />
     <TreeSelect :treeData="data" block placeholder="No Arrow" :showArrow="false" />
     <TreeSelect :treeData="data" block placeholder="Custom Arrow" :arrowIcon="CaretDown" />
-    <TreeSelect filterable block theme="solid" :treeData="data" placeholder="Solid theme" />
+    <TreeSelect filterable block theme="outline" :treeData="data" placeholder="Outline theme" />
     <TreeSelect :bordered="false" :treeData="data" block placeholder="No Border" theme="solid"/>
   </Space>
 </template>
 <script setup lang="ts">
-import { Search, CaretDown } from "kui-icons";
+import { CaretDown, Search } from "kui-icons";
 
 const value = ["0-1", "1-1"];
 const data = [

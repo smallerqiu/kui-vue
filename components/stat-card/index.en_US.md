@@ -20,6 +20,8 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 - Show more custom data combined with the `Card` component
 
+## API
+
 | Property       | Description                                              | Type                | Default   |
 | -------------- | -------------------------------------------------------- | ------------------- | --------- |
 | title          | Card title                                               | String              | -         |

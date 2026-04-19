@@ -87,7 +87,7 @@ const columns = [
 
 - Set `checkable=true` to automatically enable multi-selection. > Note: The default selection dependency is `key`. You can customize it via the `rowKey` attribute, e.g., `rowKey="ID"`.
 
-[Dynamically Control Table Properties](./demo/size.vue?show=vertical)
+[Dynamically Control Table Properties](./demo/control.vue?show=vertical)
 
 - Select different configuration combinations to see the effects.
 
@@ -106,6 +106,7 @@ const columns = [
 | rowKey               | Basis for selection                            | String                | key     |
 | onRowClick           | Triggered when clicking a row                  | Function              | -       |
 | onSort               | Triggered when clicking to sort                | Function({key,order}) | -       |
+| striped              | Whether to display zebra stripes               | Boolean               | -       |
 
 ## Column API
 

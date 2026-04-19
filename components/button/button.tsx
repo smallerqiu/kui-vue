@@ -7,7 +7,14 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import type { BooleanType, ButtonTheme, ButtonType, ColorType, SizeType } from "../const/types";
+import type {
+  BooleanType,
+  ButtonTheme,
+  ButtonType,
+  ColorType,
+  ShapeType,
+  SizeType,
+} from "../const/types";
 import { colors } from "../const/var";
 import Icon, { type IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
@@ -34,7 +41,7 @@ const buttonProps = {
   theme: {
     type: String as PropType<ButtonTheme>,
   },
-  shape: String as PropType<"circle" | string>,
+  shape: String as PropType<ShapeType>,
   href: String,
   target: String,
   onClick: Function as PropType<(e: MouseEvent) => void>,
@@ -45,7 +52,7 @@ export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
 const Button = defineComponent({
   name: "Button",
   props: buttonProps,
-  // emits: ["click", "mouseenter", "mouseleave"],
+  emits: ["click", "mouseenter", "mouseleave"],
   setup(props, { emit, slots, attrs }) {
     const buttonGroup = inject<any>("KButtonGroup", null);
     const parentSize = inject<string | null>("size", null);
@@ -93,6 +100,7 @@ const Button = defineComponent({
           [`k-btn-${props.color}`]: props.color && colors.includes(props.color),
           ["k-btn-lg"]: computedSize.value === "large",
           ["k-btn-circle"]: computedShape.value === "circle",
+          ["k-btn-square"]: computedShape.value === "square",
           [`k-btn-${props.theme}`]: !!props.theme,
         },
       ];

@@ -12,7 +12,7 @@ When there are too many operation commands on the page, this component can be us
 
 - The simplest dropdown menu.
 
-[Right-click menu](./demo/right-menu.vue)
+[Right-click menu](./demo/right-menu.vue?show=vertical)
 
 - By default, the menu is triggered by hovering, but it can also be triggered by clicking the right mouse button.
 

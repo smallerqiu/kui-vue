@@ -5,9 +5,9 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { notice, Button } from "kui-vue";
 import { LogoAlipay, LogoWechat } from "kui-icons";
-import { getCurrentInstance, h } from "vue";
+import { Button, notice } from "kui-vue";
+import { h } from "vue";
 const alipay = () => {
   notice.open({
     icon: LogoAlipay,

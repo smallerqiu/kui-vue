@@ -31,12 +31,13 @@ You can manually resize the browser window to observe the effect.
 
 [Basic Usage](./demo/basic.vue?show=vertical)
 
-- > The `offset` logic of Grid is based on `grid-column-start`. In `dense` fill mode, `offset` might cause unexpected "gap-filling" behavior.
+- The `offset` logic of Grid is based on `grid-column-start`. In `dense` fill mode, `offset` might cause unexpected "gap-filling" behavior.
 
 [Dashboard Card Layout (Auto-fill + Min-Width)](./demo/auto-fill-min-width.vue?show=vertical)
 
 - No need to manually set breakpoints. Rely on `itemMinWidth` to let the container automatically increase or decrease the number of columns based on its width.
-  > When `itemMinWidth` is set, the `cols` parameter becomes ineffective. This is a content-driven layout method, perfect for image galleries or card lists, ensuring cards maintain a suitable width without becoming too crowded during container resizing.
+
+> When `itemMinWidth` is set, the `cols` parameter becomes ineffective. This is a content-driven layout method, perfect for image galleries or card lists, ensuring cards maintain a suitable width without becoming too crowded during container resizing.
 
 [Complex Form Responsiveness (Breakpoint Fallback)](./demo/breakpoint-fallback.vue?show=vertical)
 

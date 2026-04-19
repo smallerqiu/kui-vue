@@ -36,9 +36,9 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { ref, h } from "vue";
+import { Heart, Star } from "kui-icons";
 import { Icon } from "kui-vue";
-import { Star, Heart } from "kui-icons";
+import { h, ref } from "vue";
 const showTitle = ref(true);
 const reverse = ref(false);
 const bordered = ref(false);

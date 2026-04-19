@@ -50,10 +50,10 @@
               </Menu>
               <Page :current="1" :total="50" />
               <Space>
-                <Tag>Tag1</Tag>
-                <Tag>Tag2</Tag>
-                <Tag>Tag3</Tag>
-                <Tag closeable>Tag4</Tag>
+                <Tag :size="size" :theme="theme" :shape="shape">Tag1</Tag>
+                <Tag :size="size" :theme="theme" :shape="shape">Tag2</Tag>
+                <Tag :size="size" :theme="theme" :shape="shape">Tag3</Tag>
+                <Tag :size="size" :theme="theme" :shape="shape" closeable>Tag4</Tag>
               </Space>
             </Space>
 
@@ -62,12 +62,21 @@
                 :labelCol="{ span: 8 }"
                 :wrapperCol="{ span: 16 }"
                 :size="size"
-                :theme="theme ? 'light' : ''"
-                :shape="isCircle ? 'circle' : ''"
+                :theme="theme"
+                :shape="shape"
               >
+                <FormItem label="Shape">
+                  <RadioGroup v-model="shape">
+                    <Radio value="default" label="Default" />
+                    <Radio value="circle" label="Circle" />
+                    <Radio value="square" label="Square" />
+                  </RadioGroup>
+                </FormItem>
                 <FormItem label="Theme">
-                  <Checkbox v-model="theme" label="Light" style="margin-right: 8px" />
-                  <Checkbox v-model="isCircle" label="Circle" />
+                  <RadioGroup v-model="theme">
+                    <Radio value="light" label="Light" />
+                    <Radio value="outline" label="Outline" />
+                  </RadioGroup>
                 </FormItem>
                 <FormItem label="Size">
                   <RadioGroup v-model="size" type="button">
@@ -113,8 +122,8 @@
                   <TextArea placeholder="Please input..." />
                 </FormItem>
                 <FormItem :wrapperCol="{ offset: 5 }">
-                  <Button type="primary" circle>Submit</Button>
-                  <Button style="margin-left: 10px" circle>Cancel</Button>
+                  <Button type="primary">Submit</Button>
+                  <Button style="margin-left: 10px">Cancel</Button>
                 </FormItem>
               </Form>
             </div>
@@ -126,15 +135,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import {
-  ChevronBack,
-  ChevronForward,
-  Heart,
-  Home,
-  LogoKui,
-  Mail,
-  Settings
-} from "kui-icons";
+import { ChevronBack, ChevronForward, Heart, Home, LogoKui, Mail, Settings } from "kui-icons";
 import { ref } from "vue";
 
 const current = ref(["1"]);
@@ -143,7 +144,6 @@ const collapsed = ref(false);
 const dark = ref(false);
 const size = ref("default");
 const theme = ref(false);
-const isCircle = ref(false);
 const shape = ref("");
 const change = () => {
   dark.value = !dark.value;

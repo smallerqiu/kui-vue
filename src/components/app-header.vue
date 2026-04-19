@@ -4,7 +4,7 @@
       <div class="logo" @click="$router.push('/')">
         <Icon :type="LogoKui" />
         <span class="wrap-name">
-          <span class="name">K UIKIT</span>
+          <span class="name">Kui Vue</span>
           <span class="ver">v {{ version }}</span>
         </span>
       </div>
@@ -58,20 +58,7 @@
 <script setup lang="ts">
 import Color from "color";
 import { Language, LogoGithub, LogoKui, Moon, Search, Sunny } from "kui-icons";
-import {
-  Button,
-  ColorPicker,
-  Divider,
-  Header,
-  Icon,
-  Menu,
-  type MenuSelectEvent,
-  Option,
-  Select,
-  Space,
-  theme,
-  Tooltip,
-} from "kui-vue";
+import { type MenuSelectEvent, theme } from "kui-vue";
 import { computed, inject, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { version } from "../../package.json";

@@ -6,11 +6,11 @@
       <template v-else>{{ value }}</template>
     </template>
     <template #address="{ value, record }">
-      <Input v-model="record.age" size="small" v-if="record.isEdit" />
+      <Input v-model="record.address" size="small" v-if="record.isEdit" />
       <template v-else>{{ value }}</template>
     </template>
     <template #age="{ value, record }">
-      <Input v-model="record.address" size="small" v-if="record.isEdit" />
+      <Input v-model="record.age" size="small" v-if="record.isEdit" />
       <template v-else>{{ value }}</template>
     </template>
     <template #action="{ value, record, col }">

@@ -21,10 +21,13 @@
               <template #icon>
                 <WebIcon :name="sub.icon" />
               </template>
-              <router-link :to="`/${item.key == 'guide' ? 'guide' : 'components'}/${sub.name}`">
+              <a
+                @click="sideNavTo"
+                :href="`/${item.key == 'guide' ? 'guide' : 'components'}/${sub.name}${lang == 'en' ? '-en' : ''}`"
+              >
                 <span>{{ sub.sub }}</span>
                 <span class="sub" v-if="lang != 'en'">{{ sub.title }}</span>
-              </router-link>
+              </a>
             </MenuItem>
           </MenuGroup>
         </Menu>
@@ -39,7 +42,7 @@
         <div class="foot-nav">
           <a
             v-if="prevNavData.sub"
-            :href="`/${prevNavData.key == 'guide' ? 'guide' : 'components'}/${prevNavData.name}`"
+            :href="`/${prevNavData.key == 'guide' ? 'guide' : 'components'}/${prevNavData.name}${lang == 'en' ? '-en' : ''}`"
             class="nav-prev"
             @click="(e) => navTo(e, false)"
           >
@@ -51,7 +54,7 @@
           </a>
           <a
             v-if="nextNavData.sub"
-            :href="`/${nextNavData.key == 'guide' ? 'guide' : 'components'}/${nextNavData.name}`"
+            :href="`/${nextNavData.key == 'guide' ? 'guide' : 'components'}/${nextNavData.name}${lang == 'en' ? '-en' : ''}`"
             class="nav-next"
             @click="(e) => navTo(e, true)"
           >
@@ -71,7 +74,6 @@
 import AppHeader from "./app-header.vue";
 // import AppFooter from "./app-footer";
 import { ChevronBack, ChevronForward, Close, Menu as MenuIcon } from "kui-icons";
-import { Button, Content, Icon, Layout, Menu, MenuGroup, MenuItem, Sider } from "kui-vue";
 import { computed, inject, onMounted, reactive, ref, Transition } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { navData, routeData } from "../menu";
@@ -90,11 +92,17 @@ const $t = inject<(key: string) => string>("$t", (key: string) => key);
 const lang = computed(() => {
   return locale?.value.name || "en";
 });
+const sideNavTo = (e: MouseEvent) => {
+  e.preventDefault();
+  e.stopPropagation();
+  const path = (e.target as HTMLElement).getAttribute("href") as string;
+  router.push(path);
+};
 const navTo = (e: MouseEvent, t: boolean) => {
   e.stopPropagation();
   e.preventDefault();
   let c = t ? nextNavData : prevNavData;
-  let path = `/${c.key == "guide" ? "guide" : "components"}/${c.name}`;
+  let path = `/${c.key == "guide" ? "guide" : "components"}/${c.name}${lang.value == "en" ? "-en" : ""}`;
   router.push(path);
   setActiveKey({ path });
 };
@@ -103,7 +111,7 @@ const menuSelect = () => {
 };
 const getPath = (path: string) => {
   let [_, n] = path.split("/").filter((x) => x);
-  let index = routeData.findIndex((x) => x.name == n);
+  let index = routeData.findIndex((x) => x.name == n.replace("-en", ""));
 
   return {
     current: routeData[index],

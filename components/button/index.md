@@ -63,7 +63,7 @@ Vue.use(Button);
 | htmlType | 设置 button 原生的 type 值                            | String                                     | button |
 | disabled | 按钮失效状态 ˚                                        | Boolean                                    | -      |
 | size     | 按钮尺寸,                                             | `small`\|`large`                           | -      |
-| shape    | shape=circle 呈现圆型按钮                             | Boolean                                    | false  |
+| shape    | shape=circle 呈现圆型按钮                             | `circle` , `square`                        | -      |
 | theme    | 按钮主题                                              | `solid` \| `light` \| `normal`             | -      |
 | icon     | 按钮的图标                                            | String                                     | -      |
 | loading  | 按钮是否进入加载模式                                  | Boolean                                    | false  |

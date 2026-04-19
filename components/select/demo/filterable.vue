@@ -38,7 +38,6 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { Option, Select, Space } from "kui-vue";
 import { ref } from "vue";
 const value1 = ref("");
 const value2 = ref([]);

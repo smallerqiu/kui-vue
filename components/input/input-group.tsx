@@ -12,7 +12,7 @@ import { getChildren } from "../utils/vnode";
 
 export const inputGroupProps = {
   block: { type: Boolean as PropType<boolean | undefined>, default: false },
-  compact: Boolean as BooleanType,
+  compact: { type: Boolean as BooleanType, default: true },
   theme: { type: String, default: "light" },
   size: {
     type: [String, Array, Number] as PropType<SizeType | number | number[]>,

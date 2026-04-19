@@ -12,7 +12,6 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { RadioButton, RadioGroup, Select, Space } from "kui-vue";
 import { ref } from "vue";
 import type { SizeType } from "../../const/types";
 const size = ref<SizeType>("default");

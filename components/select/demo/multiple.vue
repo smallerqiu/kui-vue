@@ -20,7 +20,6 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { Option, Select, Space } from "kui-vue";
 import { ref } from "vue";
 const value1 = ref([0, 2]);
 const value2 = ref([0, 2]);

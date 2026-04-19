@@ -36,7 +36,7 @@ const Icon = defineComponent({
   name: "Icon",
   props: iconProps,
   emits: ["click"],
-  setup(props, { attrs }) {
+  setup(props, { attrs, emit }) {
     const renderPaths = () => {
       const paths = Array.isArray(props.type) ? props.type : [];
       return paths.map((i) => {
@@ -66,7 +66,7 @@ const Icon = defineComponent({
         ...attrs,
         style: styles,
         class: ["k-icon", { "k-load-loop": props.spin }],
-        onClick: (e: PointerEvent) => props.onClick?.(e),
+        onClick: (e: PointerEvent) => emit("click", e),
       };
 
       return (

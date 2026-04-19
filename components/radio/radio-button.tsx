@@ -18,7 +18,6 @@ export const radioButtonProps = {
   },
   shape: {
     type: String as PropType<ShapeType>,
-    default: "square",
   },
 };
 

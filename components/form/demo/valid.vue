@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width:600px;">
+  <div style="max-width: 600px">
     <Form
       :model="form"
       :size="size"
@@ -39,13 +39,13 @@
       </FormItem>
       <FormItem label="Country">
         <FormItem prop="country">
-          <Select clearable style="width:100%">
+          <Select clearable style="width: 100%">
             <Option value="0" label="China" />
             <Option value="1" label="Russia" />
           </Select>
         </FormItem>
         <FormItem prop="city" label="city">
-          <Select clearable style="width:100%">
+          <Select clearable style="width: 100%">
             <Option value="0" label="Shanghai" />
             <Option value="1" label="Wuhan" />
             <Option value="2" label="Hangzhou" />
@@ -53,7 +53,7 @@
         </FormItem>
       </FormItem>
       <FormItem label="TreeSelect" prop="tree">
-        <TreeSelect style="width:100%;" :tree-data="treeData"> </TreeSelect>
+        <TreeSelect style="width: 100%" :tree-data="treeData"> </TreeSelect>
       </FormItem>
       <FormItem label="Slider" prop="slider">
         <Slider />
@@ -99,15 +99,15 @@
       </FormItem>
       <FormItem :wrapperCol="{ offset: 6 }">
         <Button type="primary" @click="submit">Submit</Button>
-        <Button style="margin:0 10px" @click="reset">Reset</Button>
+        <Button style="margin: 0 10px" @click="reset">Reset</Button>
         <Button theme="dashed" @click="setValue">Set Value</Button>
       </FormItem>
     </Form>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, reactive } from "vue";
 import { message } from "kui-vue";
+import { reactive, ref } from "vue";
 const validatePass = (rule, value, callback) => {
   if (value !== form.value.password) {
     return callback(new Error("Please confirm the password"));
@@ -136,7 +136,7 @@ const treeData = [
     ],
   },
 ];
-const form = ref({
+const form = reactive({
   email: "",
   number: "",
   password: "",
@@ -221,7 +221,7 @@ const rules = {
   ],
 };
 const setValue = () => {
-  form.value = {
+  Object.assign(form, {
     email: "master@k-ui.cn",
     password: "abc@123@123",
     confirm_password: "abc@123@123",
@@ -241,7 +241,7 @@ const setValue = () => {
     hardcore: true,
     other: "Test data",
     readme: true,
-  };
+  });
 };
 const sendCode = () => {
   time.value = 59;
