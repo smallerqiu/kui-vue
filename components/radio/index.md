@@ -25,7 +25,7 @@
 
 - 通过 `disabled` 设置不可用
 
-[组合Button使用](./demo/radio-button.vue)
+[组合Button使用](./demo/radio-buttons.vue)
 
 - 结合 `RadioGroup`,`RadioButton` 可以组合使用
 

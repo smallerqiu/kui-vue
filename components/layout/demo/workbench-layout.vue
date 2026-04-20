@@ -31,13 +31,7 @@
           </div>
         </Content>
 
-        <Sider
-          v-if="showDetail"
-          width="350"
-          class="detail-panel"
-          collapsible
-          @collapse="showDetail = false"
-        >
+        <Sider v-if="showDetail" width="350" class="detail-panel" collapsible>
           <div class="detail-header">
             <h4>Task Details</h4>
             <Button type="text" @click="showDetail = false">Close</Button>

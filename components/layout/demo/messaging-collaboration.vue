@@ -28,7 +28,7 @@
 
       <Footer class="chat-input-box">
         <div class="toolbar">
-          <Icon type="smile" /> <Icon type="picture" /> <Icon type="paper-clip" />
+          <Icon :type="PersonCircle" /> <Icon :type="Images" /> <Icon :type="PaperPlane" />
         </div>
         <TextArea :rows="3" placeholder="Press Cmd + Enter to send the message..." />
         <div class="input-actions">
@@ -39,6 +39,7 @@
   </Layout>
 </template>
 <script setup lang="ts">
+import { Images, PaperPlane, PersonCircle } from "kui-icons";
 import { ref } from "vue";
 const selectedKeys = ref(["c1"]);
 </script>

@@ -25,7 +25,7 @@ Radio button.
 
 - Set `disabled` to make it unavailable.
 
-[Combined with Button](./demo/radio-button.vue)
+[Combined with Button](./demo/radio-buttons.vue)
 
 - Combine `RadioGroup` and `RadioButton` for usage.
 

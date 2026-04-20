@@ -7,7 +7,7 @@
     </RadioGroup>
     <code>Theme :{{ theme }}</code>
     <RadioGroup v-model="theme" size="small" type="button">
-      <RadioButton value="default" label="Default" />
+      <RadioButton value="222">22</RadioButton>
       <RadioButton value="light" label="Light" />
       <RadioButton value="card" label="Card" />
       <RadioButton value="outline" label="Outline" />

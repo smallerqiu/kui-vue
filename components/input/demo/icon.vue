@@ -22,11 +22,11 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-import { Person, LockClosed } from "kui-icons";
+import { LockClosed, Person } from "kui-icons";
 import { message } from "kui-vue";
+import { ref } from "vue";
 const visiblePasswordIcon = ref(true);
-const search = (value) => {
+const search = (value: string) => {
   message.info("This is search event");
   console.log(value);
 };

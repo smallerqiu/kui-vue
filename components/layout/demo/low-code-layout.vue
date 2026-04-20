@@ -1,7 +1,7 @@
 <template>
   <Layout class="ide-layout">
     <Layout>
-      <Sider width="48" class="ide-rail" theme="dark">
+      <Sider width="48" class="ide-rail">
         <div class="rail-icon active"><Icon :type="Documents" /></div>
         <div class="rail-icon"><Icon :type="Search" /></div>
         <div class="rail-icon"><Icon :type="GitBranch" /></div>
@@ -26,7 +26,7 @@
         </Content>
       </Layout>
 
-      <Sider style="width:240" class="ide-inspector">
+      <Sider style="width: 240" class="ide-inspector">
         <div class="panel-title">Attribute Settings</div>
         <div class="inspector-content">
           <div class="setting-row"><span>Display mode:</span> <k-switch /></div>
@@ -43,7 +43,6 @@
 </template>
 <script setup lang="ts">
 import { Documents, GitBranch, Search } from "kui-icons";
-import { ref } from "vue";
 </script>
 <style scoped>
 .ide-layout {
