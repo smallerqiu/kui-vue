@@ -17,8 +17,8 @@
     </Header>
 
     <Content>
-      <Carousel :loop="true" >
-        <CarouselItem v-for="x in 3" style="height:300px;">
+      <Carousel :loop="true">
+        <CarouselItem v-for="_ in 3" style="height: 300px">
           <div class="hero">
             <h1>Connecting beauty with technology</h1>
             <p>A minimalist enterprise-grade UI component library for Vue 3</p>
@@ -28,7 +28,7 @@
       <div class="container content-main">
         <Row :gutter="24">
           <Col :span="8" v-for="i in 3" :key="i">
-            <Card hoverable title="Feature Showcase">
+            <Card title="Feature Showcase">
               <p>Powered by native CSS Variables, it supports instant theme switching.</p>
             </Card>
           </Col>

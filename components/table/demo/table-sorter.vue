@@ -25,6 +25,7 @@ const sort = ({ key, order }: SortState) => {
 };
 
 const fetch = (key?: string, order?: any) => {
+  console.log(key, order);
   loading.value = true;
   // 模拟异步加载数据排序
   setTimeout(() => {

@@ -20,7 +20,7 @@
     </Modal>
 
     <Modal title="Submit forms" v-model="visible4" :loading="loading" @ok="submit" @close="close">
-      <p>Name：<Input placeholder="Please input your name" style="width:200px" /></p>
+      <p>Name：<Input placeholder="Please input your name" style="width: 200px" /></p>
     </Modal>
   </Space>
 </template>
@@ -39,7 +39,7 @@ const okHandle = () => {
 };
 const submit = () => {
   loading.value = true;
-  timer.value = setTimeout((e) => {
+  timer.value = setTimeout(() => {
     loading.value = false;
     visible4.value = false;
   }, 2000);

@@ -28,10 +28,11 @@
 </template>
 <script setup lang="ts">
 import { LogoApple } from "kui-icons";
+import type { ShapeType, SizeType, ThemeType } from "kui-vue";
 import { ref } from "vue";
-const size = ref("default");
-const shape = ref("default");
-const theme = ref("default");
+const size = ref<SizeType>("default");
+const shape = ref<ShapeType>("default");
+const theme = ref<ThemeType>("default");
 const value = ref(0);
 const dates = [
   { label: "1 week", value: 0 },

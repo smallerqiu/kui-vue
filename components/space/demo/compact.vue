@@ -56,7 +56,7 @@
     </Space>
     <Space compact block>
       <Input :style="{ width: '30%' }" value="input content" />
-      <DatePicker mdoe="dateRange" />
+      <DatePicker mode="dateRange" />
     </Space>
     <Space compact>
       <Select value="Option1-1">
@@ -97,7 +97,7 @@
         <Option value="Option1-1">Option1-1</Option>
         <Option value="Option1-2">Option1-2</Option>
       </Select>
-      <TreeSelect :tree-data="treeData" clearable style="width:200px"></TreeSelect>
+      <TreeSelect :tree-data="treeData" clearable style="width: 200px"></TreeSelect>
     </Space>
   </Space>
 </template>

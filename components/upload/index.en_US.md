@@ -24,7 +24,8 @@ Uploading is the process of publishing information (web pages, text, images, vid
 
 [Upload File Types](./demo/accept.vue)
 
-- Use the `accept` attribute (a native HTML input attribute) to restrict the types of files that can be uploaded. `accept` supports two types of string values: - A set of file extensions (recommended), such as `.jpg`, `.png`, etc. - A set of MIME types for files. Refer to the [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Complete_list_of_MIME_types) documentation. For example, to only allow users to upload PNG and PDF files, `accept` can be written as: `accept = '.pdf,.png'` or `accept = 'application/pdf,image/png'` (simply connect the MIME types for PNG and PDF with a comma).
+- Use the `accept` attribute (a native HTML input attribute) to restrict the types of files that can be uploaded. `accept` supports two types of string values: - A set of file extensions (recommended), such as `.jpg`, `.png`, etc.
+- A set of MIME types for files. Refer to the [MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Complete_list_of_MIME_types) documentation. For example, to only allow users to upload PNG and PDF files, `accept` can be written as: `accept = '.pdf,.png'` or `accept = 'application/pdf,image/png'` (simply connect the MIME types for PNG and PDF with a comma).
 
 [Pre-upload Image Processing](./demo/transform.vue)
 
@@ -56,28 +57,28 @@ Uploading is the process of publishing information (web pages, text, images, vid
 
 ## Upload API
 
-| Property       | Description                                                                                                 | Type           | Default |
-| -------------- | ----------------------------------------------------------------------------------------------------------- | -------------- | ------- |
-| accept         | Accepted upload file types, see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept | String         | -       |
-| action         | Upload address                                                                                              | String         | -       |
-| method         | HTTP method for upload request                                                                              | String         | post    |
-| data           | Other parameters that may be required for upload                                                            | Object         | -       |
-| disabled       | Whether disabled                                                                                            | Boolean        | false   |
-| headers        | Set upload request headers                                                                                  | Object         | -       |
-| multiple       | Whether to support multiple file selection                                                                  | Boolean        | false   |
-| directory      | Whether to support directory upload                                                                         | Boolean        | false   |
-| showUploadList | Whether to show upload list                                                                                 | Boolean        | true    |
-| autoTrigger    | Whether to auto upload                                                                                      | Boolean        | true    |
-| draggable      | Whether to support drag and drop upload                                                                     | Boolean        | false   |
-| fileList       | Uploaded file list                                                                                          | Array          | false   |
-| name           | File parameter name sent to backend, default `file`                                                         | String         | 'file'  |
-| uploadIcon     | Auxiliary icon for upload area                                                                              | String         | Add     |
-| uploadText     | Auxiliary text for upload area                                                                              | String         | -       |
-| uploadSubText  | Secondary auxiliary text for upload area                                                                    | String         | -       |
-| limit          | Maximum number of files allowed to upload                                                                   | Number         | -       |
-| minSize        | Minimum file size unit for upload (KB)                                                                      | String         | -       |
-| maxSize        | Maximum file size unit for upload (KB)                                                                      | String         | -       |
-| transformFile  | Transform file before uploading. Supports returning a Promise object                                        | Function(file) | -       |
+| Property       | Description                                                                                                 | Type                   | Default |
+| -------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------- | ------- |
+| accept         | Accepted upload file types, see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept | String                 | -       |
+| action         | Upload address                                                                                              | String                 | -       |
+| method         | HTTP method for upload request                                                                              | String                 | post    |
+| data           | Other parameters that may be required for upload                                                            | Object                 | -       |
+| disabled       | Whether disabled                                                                                            | Boolean                | false   |
+| headers        | Set upload request headers                                                                                  | Object                 | -       |
+| multiple       | Whether to support multiple file selection                                                                  | Boolean                | false   |
+| directory      | Whether to support directory upload                                                                         | Boolean                | false   |
+| showUploadList | Whether to show upload list                                                                                 | Boolean                | true    |
+| autoTrigger    | Whether to auto upload                                                                                      | Boolean                | true    |
+| draggable      | Whether to support drag and drop upload                                                                     | Boolean                | false   |
+| fileList       | Uploaded file list                                                                                          | Array                  | false   |
+| name           | File parameter name sent to backend, default `file`                                                         | String                 | 'file'  |
+| uploadIcon     | Auxiliary icon for upload area                                                                              | String                 | Add     |
+| uploadText     | Auxiliary text for upload area                                                                              | String                 | -       |
+| uploadSubText  | Secondary auxiliary text for upload area                                                                    | String                 | -       |
+| limit          | Maximum number of files allowed to upload                                                                   | Number                 | -       |
+| minSize        | Minimum file size unit for upload (KB)                                                                      | String                 | -       |
+| maxSize        | Maximum file size unit for upload (KB)                                                                      | String                 | -       |
+| transformFile  | Transform file before uploading. Supports returning a Promise object                                        | Promise Function(file) | -       |
 
 ## Event API
 

@@ -9,8 +9,8 @@
         </Tooltip>
       </Flex>
     </template>
-    <template #action="{ value, record, col }">
-      <Button size="small" @click="(e) => show(record)">more</Button>
+    <template #action="{ record }">
+      <Button size="small" @click="() => show(record)">more</Button>
     </template>
 
     <template #header-address="{ value }">

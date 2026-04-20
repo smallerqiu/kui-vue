@@ -1,5 +1,5 @@
 <template>
-  <div style="width:256px">
+  <div style="width: 256px">
     <KSwitch true-text="dark" false-text="light" @change="change" :checked="theme == 'dark'" />
     <br />
     <br />
@@ -7,13 +7,13 @@
   </div>
 </template>
 <script setup lang="ts">
+import { Grid, Heart, Mail, Settings } from "kui-icons";
 import { ref } from "vue";
-import { Mail, Grid, Heart, Settings } from "kui-icons";
 const current = ref(["1-1"]);
 const openKeys = ref(["sub2"]);
 const theme = ref("dark");
 
-const change = (checked) => {
+const change = (checked: boolean) => {
   theme.value = checked ? "dark" : "light";
 };
 const items = [

@@ -25,6 +25,7 @@ export const tabsProps = {
   animated: { type: Boolean, default: true },
   onTabClick: Function as PropType<(key: string) => void>,
   onChange: Function as PropType<(key: string) => void>,
+  onRemove: Function as PropType<(key: string) => void>,
 };
 
 type TabClickEvent = {

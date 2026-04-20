@@ -59,7 +59,7 @@
 </template>
 <script setup lang="ts">
 import { CameraOutline, CloudUploadOutline } from "kui-icons";
-import type { FormContext, UploadChangeEvent } from "kui-vue";
+import type { FormContext, UploadChangeEvent, UploadFile } from "kui-vue";
 import { message } from "kui-vue";
 import { reactive, ref } from "vue";
 const formRef = ref<FormContext>();
@@ -79,7 +79,7 @@ const rules = ref({
 });
 const labelCol = { span: 8 };
 const wrapperCol = { span: 16 };
-const files = ref([]);
+const files = ref<UploadFile[]>([]);
 const uploadFile = ({ file }: UploadChangeEvent) => {
   console.log(file);
   loading.value = true;

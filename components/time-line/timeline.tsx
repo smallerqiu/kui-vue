@@ -1,8 +1,8 @@
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
-
+export type TimelineMode = "left" | "right" | "center" | "alternate";
 export const timelineProps = {
   mode: {
-    type: String as PropType<"left" | "right" | "center" | "alternate">,
+    type: String as PropType<TimelineMode>,
     default: "left",
     validator: (val: string) => {
       return ["left", "right", "center", "alternate"].includes(val);

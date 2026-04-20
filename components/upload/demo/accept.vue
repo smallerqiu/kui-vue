@@ -33,20 +33,20 @@
   </Upload>
 </template>
 <script setup lang="ts">
-import { message } from "kui-vue";
+import { CloudUpload, IconImage, Videocam } from "kui-icons";
+import { message, type UploadChangeEvent } from "kui-vue";
 import { ref } from "vue";
-import { IconImage, Videocam, CloudUpload } from "kui-icons";
 const headers = ref({
   authorization: "here is token",
 });
-const handleChange = (info) => {
-  if (info.file.status !== "uploading") {
-    console.log(info.file, info.fileList);
+const handleChange = (e: UploadChangeEvent) => {
+  if (e.file.status !== "uploading") {
+    console.log(e.file, e.fileList);
   }
-  if (info.file.status === "success") {
-    message.success(`${info.file.filename} uploaded successfully`);
-  } else if (info.file.status === "error") {
-    message.error(`${info.file.filename} upload failed.`);
+  if (e.file.status === "success") {
+    message.success(`${e.file.filename} uploaded successfully`);
+  } else if (e.file.status === "error") {
+    message.error(`${e.file.filename} upload failed.`);
   }
 };
 </script>

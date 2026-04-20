@@ -31,18 +31,17 @@
         <Select :options="options" clearable value="http"></Select>
       </template>
       <template #suffix>
-        <TreeSelect :tree-data="treeData" clearable style="width:100px"></TreeSelect>
+        <TreeSelect :tree-data="treeData" clearable style="width: 100px"></TreeSelect>
       </template>
     </Input>
   </Space>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-import { InformationCircleOutline, Gift, ShieldCheckmark, PersonOutline } from "kui-icons";
+import { Gift, InformationCircleOutline, PersonOutline } from "kui-icons";
 import { message } from "kui-vue";
+import { onUnmounted, ref } from "vue";
 const time = ref(60);
 const timer = ref();
-import { onUnmounted } from "vue";
 
 const sendCode = () => {
   if (timer.value) {

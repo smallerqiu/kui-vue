@@ -1,14 +1,14 @@
 import {
-    defineComponent,
-    inject,
-    nextTick,
-    onMounted,
-    onUnmounted,
-    ref,
-    watch,
-    type CSSProperties,
-    type ExtractPropTypes,
-    type PropType,
+  defineComponent,
+  inject,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
 } from "vue";
 import Thumb from "./thumb";
 
@@ -29,7 +29,7 @@ export const sliderProps = {
   marks: Object as PropType<Record<number, string>>,
   size: [String, Number] as PropType<"small" | number>,
   included: { type: Boolean as BooleanType, default: true },
-  tipFormatter: Function,
+  tipFormatter: Function as PropType<(value: number) => string | number>,
   tooltipVisible: { type: Boolean as BooleanType, default: null },
 };
 

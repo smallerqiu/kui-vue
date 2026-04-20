@@ -151,10 +151,10 @@ export { TabPanel, Tabs } from "./tabs";
 export type { TabPanelProps, TabsProps } from "./tabs";
 
 export { TimeLine, TimeLineItem } from "./time-line";
-export type { TimelineItemProps, TimelineProps } from "./time-line";
+export type { TimelineItemProps, TimelineMode, TimelineProps } from "./time-line";
 
 export { default as Tree } from "./tree";
-export type { TreeNode, TreeProps } from "./tree";
+export type { TreeExpandEvent, TreeNode, TreeProps } from "./tree";
 
 export { default as TreeSelect } from "./tree-select";
 export type { TreeSelectProps } from "./tree-select";
@@ -166,7 +166,7 @@ export { Col, Row } from "./row-col";
 export type { ColProps, RowProps } from "./row-col";
 
 export { default as Upload } from "./upload";
-export type { UploadChangeEvent, UploadFile, UploadProps } from "./upload";
+export type { UploadChangeEvent, UploadContext, UploadFile, UploadProps } from "./upload";
 
 export { default as theme } from "./utils/theme";
 

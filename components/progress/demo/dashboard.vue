@@ -10,9 +10,10 @@
   <Progress type="dashboard" :percent="100" :gapDegree="gap" :strokeLinecap="strokeLinecap" />
 </template>
 <script setup lang="ts">
+import type { ProgressStroke } from "kui-vue";
 import { ref } from "vue";
 const gap = ref(140);
-const strokeLinecap = ref("round");
+const strokeLinecap = ref<ProgressStroke>("round");
 const caps = [
   { label: "Butt", value: "butt" },
   { label: "Round", value: "round" },

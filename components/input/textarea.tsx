@@ -1,4 +1,11 @@
-import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import {
+  defineComponent,
+  ref,
+  watch,
+  type ExtractPropTypes,
+  type PropType,
+  type TextareaHTMLAttributes,
+} from "vue";
 import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
 
 export const textAreaProps = {
@@ -8,10 +15,11 @@ export const textAreaProps = {
   shape: { type: String as PropType<ShapeType> },
   size: String as PropType<SizeType>,
   placeholder: String,
+  rows: { type: Number, default: 2 },
   disabled: Boolean as BooleanType,
 };
 
-export type TextAreaProps = ExtractPropTypes<typeof textAreaProps>;
+export type TextAreaProps = ExtractPropTypes<typeof textAreaProps> & TextareaHTMLAttributes;
 
 const TextArea = defineComponent({
   name: "TextArea",
@@ -28,9 +36,11 @@ const TextArea = defineComponent({
     );
 
     return () => {
-      const { theme, disabled, size, shape } = props;
+      const { theme, disabled, size, shape, placeholder, rows } = props;
       const rootProps = {
         ...attrs,
+        placeholder,
+        rows,
         class: [
           "k-textarea",
           {

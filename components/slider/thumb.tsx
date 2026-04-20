@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref } from "vue";
+import { computed, defineComponent, ref, type PropType } from "vue";
 import type { BooleanType } from "../const/types";
 import Tooltip from "../tooltip";
 
@@ -12,7 +12,7 @@ export default defineComponent({
     reverse: Boolean as BooleanType,
     disabled: Boolean as BooleanType,
     tooltipVisible: { type: Boolean as BooleanType, default: null },
-    tipFormatter: Function,
+    tipFormatter: Function as PropType<(value: number) => string | number>,
     dragging: Boolean as BooleanType, // 接收父组件传入的拖拽状态
   },
   emits: ["dragStart", "keydownUpdate"],

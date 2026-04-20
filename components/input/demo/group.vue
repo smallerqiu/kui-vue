@@ -1,8 +1,8 @@
 <template>
-  <Space vertical size="middle" block style="width:600px;max-width:100%">
+  <Space vertical size="middle" block style="width: 600px; max-width: 100%">
     <InputGroup>
-      <Input style="width:20%" value="027" />
-      <Input style="width:30%" value="28398987" />
+      <Input style="width: 20%" value="027" />
+      <Input style="width: 30%" value="28398987" />
     </InputGroup>
     <InputGroup size="small">
       <Input :style="{ width: 'calc(100% - 200px)' }" value="https://k-ui.cn" />
@@ -56,7 +56,7 @@
     </InputGroup>
     <InputGroup>
       <Input :style="{ width: '30%' }" value="input content" />
-      <DatePicker mdoe="dateRange" />
+      <DatePicker mode="dateRange" />
     </InputGroup>
     <InputGroup>
       <Select value="Option1-1">
@@ -97,7 +97,7 @@
         <Option value="Option1-1">Option1-1</Option>
         <Option value="Option1-2">Option1-2</Option>
       </Select>
-      <TreeSelect :tree-data="treeData" clearable style="width:200px"></TreeSelect>
+      <TreeSelect :tree-data="treeData" clearable style="width: 200px"></TreeSelect>
     </InputGroup>
   </Space>
 </template>

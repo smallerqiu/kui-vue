@@ -11,17 +11,18 @@
       :openKeys="openKeys"
       :theme="theme"
       :mode="mode"
-      style="width:256px"
+      style="width: 256px"
       :items="items"
     />
   </div>
 </template>
 <script setup lang="ts">
+import { Grid, Heart, Mail, Settings } from "kui-icons";
+import type { DirectionType } from "kui-vue";
 import { ref } from "vue";
-import { Mail, Heart, Settings, Grid } from "kui-icons";
 const current = ref(["1-1"]);
 const openKeys = ref(["sub2"]);
-const mode = ref("inline");
+const mode = ref<DirectionType>("inline");
 const theme = ref("light");
 
 const changeMode = () => {

@@ -4,10 +4,11 @@
   </div>
 </template>
 <script setup lang="ts">
-import { Mail, Heart, Settings } from "kui-icons";
-import { ref, h } from "vue";
+import { Heart, Mail, Settings } from "kui-icons";
+import type { MenuOptionsProps } from "kui-vue";
+import { h, ref } from "vue";
 const current = ref(["1"]);
-const items = [
+const items: MenuOptionsProps[] = [
   { title: "Navigation One", key: "1", icon: Mail },
   { title: "Navigation Two", key: "2", icon: Heart, disabled: true },
   {

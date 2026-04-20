@@ -14,8 +14,8 @@
   </Tabs>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
 import { Add } from "kui-icons";
+import { ref } from "vue";
 const panesData = ref([
   { title: "Tab 1", content: "Content of Tab 1", key: "1" },
   { title: "Tab 2", content: "Content of Tab 2", key: "2", closable: true },
@@ -23,7 +23,7 @@ const panesData = ref([
 ]);
 const activeKey = ref("1");
 const newTabIndex = ref(0);
-const remove = (key) => {
+const remove = (key: string) => {
   let panes = panesData.value;
   console.log(key);
   const index = panesData.value.map((p) => p.key).indexOf(key);

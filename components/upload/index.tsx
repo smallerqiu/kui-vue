@@ -44,7 +44,7 @@ export const uploadProps = {
   accept: String,
   headers: Object as PropType<Record<string, string>>,
   showUploadList: { type: Boolean as BooleanType, default: true },
-  transformFile: Function as PropType<(file: File) => File | Promise<File>>,
+  transformFile: Function as PropType<(file: File) => Promise<File>>,
   fileList: { type: Array as PropType<UploadFile[]>, default: () => [] },
   autoTrigger: { type: Boolean as BooleanType, default: true },
   limit: Number,
@@ -56,6 +56,7 @@ export const uploadProps = {
   draggable: Boolean as BooleanType,
   onChange: Function as PropType<(file: UploadChangeEvent) => void>,
   onRemove: Function as PropType<(file: UploadChangeEvent) => void>,
+  onSelectFiles: Function as PropType<(files: UploadFile[]) => void>,
 };
 
 export type UploadProps = ExtractPropTypes<typeof uploadProps>;
@@ -63,6 +64,10 @@ export type UploadProps = ExtractPropTypes<typeof uploadProps>;
 export interface UploadChangeEvent {
   file: UploadFile;
   fileList: UploadFile[];
+}
+
+export interface UploadContext extends UploadProps {
+  upload: () => void;
 }
 
 const Upload = defineComponent({
@@ -75,7 +80,7 @@ const Upload = defineComponent({
     "change",
     "sizeError",
     "update:fileList",
-    "onSelectFiles",
+    "selectFiles",
   ],
   setup(props, { emit, slots, expose }) {
     const injectedLocale = inject<any>("locale", zhCN);
@@ -158,7 +163,7 @@ const Upload = defineComponent({
         handleSelect({ item, file });
       });
 
-      emit("onSelectFiles", innerFileList.value);
+      emit("selectFiles", innerFileList.value);
     };
 
     const handleSelect = ({ item, file }: { item: UploadFile; file: File }) => {
@@ -196,15 +201,12 @@ const Upload = defineComponent({
       }
     };
 
-    const uploadFile = async (item: UploadFile, file: File) => {
+    const uploadFile = (item: UploadFile, file: File) => {
       emit("beforeUpload", { file: item, fileList: innerFileList.value });
       if (props.transformFile) {
-        const result = await props.transformFile(file);
-        if (result instanceof Promise) {
-          result.then((f) => toUpload(item, f));
-        } else {
-          toUpload(item, result);
-        }
+        props.transformFile(file).then((res) => {
+          toUpload(item, res);
+        });
       } else {
         toUpload(item, file);
       }

@@ -3,26 +3,26 @@
     :percent="percent"
     :format="format1"
     :color="color"
-    style="width:300px;margin-bottom:30px;"
+    style="width: 300px; margin-bottom: 30px"
   />
   <Progress :percent="percent" type="circle" :format="format2" :color="color" />
   <Progress :percent="percent" type="dashboard" :format="format3" :color="color" />
   <br />
-  <ButtonGroup circle>
+  <ButtonGroup>
     <Button @click="decline" :icon="Remove" />
     <Button @click="increase" :icon="Add" />
   </ButtonGroup>
 </template>
 <script setup lang="ts">
-import { Remove, Add } from "kui-icons";
+import { Add, Remove } from "kui-icons";
 import { ref } from "vue";
 const percent = ref(0);
 const color = ref("");
 
-const format2 = (pt) => {
+const format2 = (pt: number) => {
   return pt + "℃";
 };
-const format3 = (pt) => {
+const format3 = (pt: number) => {
   return pt + "L";
 };
 const format1 = () => {
@@ -53,7 +53,7 @@ const decline = () => {
   percent.value = pt;
   changeColor(pt);
 };
-const changeColor = (pt) => {
+const changeColor = (pt: number) => {
   let c = color.value;
   if (pt >= 30 && pt < 50) {
     c = "#bdc78d";

@@ -7,8 +7,7 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-import { modal, message } from "kui-vue";
+import { message, modal } from "kui-vue";
 
 const confirm = () => {
   modal.confirm({
@@ -35,7 +34,7 @@ const Async = () => {
     title: "Are you sure to do this?",
     content: "This operation is irreversible, proceed with caution!!!",
     onOk: () => {
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve, _) => {
         setTimeout(resolve, 2000);
       });
     },
@@ -46,7 +45,7 @@ const Async = () => {
 };
 const closeAll = () => {
   for (var o = 0; o < 3; o++) {
-    setTimeout((e) => {
+    setTimeout(() => {
       modal.confirm({
         title: "Destroy All",
         content: "A surprise of the universe",
@@ -55,7 +54,7 @@ const closeAll = () => {
           modal.destroyAll();
         },
         onOk: () => {
-          return new Promise((resolve, reject) => {
+          return new Promise((resolve, _) => {
             setTimeout(resolve, 2000);
           });
         },

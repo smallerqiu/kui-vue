@@ -15,13 +15,17 @@ import { Button } from "../button";
 import Checkbox, { type ChangeEvent } from "../checkbox";
 import type { BooleanType } from "../const/types";
 import Icon from "../icon";
-import { buildTree, updateParentIndeterminate, type TreeKey, type TreeNode } from "./utils";
-
+import { buildTree, updateParentIndeterminate, type TreeNode } from "./utils";
+export interface TreeExpandEvent {
+  key: string;
+  expanded: boolean;
+  node: TreeNode;
+}
 export const treeProps = {
   data: Array as PropType<TreeNode[]>,
-  selectedKeys: Array as PropType<TreeKey[]>,
-  expandedKeys: Array as PropType<TreeKey[]>,
-  checkedKeys: Array as PropType<TreeKey[]>,
+  selectedKeys: Array as PropType<string[]>,
+  expandedKeys: Array as PropType<string[]>,
+  checkedKeys: Array as PropType<string[]>,
   directory: Boolean as BooleanType,
   expandAll: Boolean as BooleanType,
   checkable: Boolean as BooleanType,
@@ -34,12 +38,10 @@ export const treeProps = {
   selectAsCheck: Boolean as BooleanType,
   queryKey: String,
   onExpand: {
-    type: Function as PropType<
-      (result: { key: TreeKey; expanded: boolean; targetNode: TreeNode }) => void
-    >,
+    type: Function as PropType<(result: TreeExpandEvent) => void>,
   },
   onCheck: {
-    type: Function as PropType<(node: TreeNode, checked: boolean, checkedKeys: TreeKey[]) => void>,
+    type: Function as PropType<(node: TreeNode, checked: boolean, checkedKeys: string[]) => void>,
   },
   onSelect: {
     type: Function as PropType<(node: TreeNode) => void>,
@@ -61,18 +63,19 @@ export const treeProps = {
   onDragEnd: {
     type: Function as PropType<(node: TreeNode, event: DragEvent) => void>,
   },
+  loadData: {
+    type: Function as PropType<(node: TreeNode) => Promise<any>>,
+  },
 };
 
 export type TreeProps = ExtractPropTypes<typeof treeProps>;
 
-type LoadData = (node: TreeNode) => Promise<unknown> | void;
-
 interface DragState {
-  key: TreeKey | null;
+  key: string | null;
   data: TreeNode | null;
 }
 
-export type { BuildTreeOptions, TreeKey, TreeNode } from "./utils";
+export type { BuildTreeOptions, TreeNode } from "./utils";
 
 const Tree = defineComponent({
   name: "Tree",
@@ -89,18 +92,17 @@ const Tree = defineComponent({
     "drop",
     "dragend",
   ],
-  setup(props, { emit, slots, attrs }) {
+  setup(props, { emit, slots }) {
     const defaultData = ref<TreeNode[]>([]);
-    const defaultSelectedKeys = ref<TreeKey[]>(props.selectedKeys || []);
-    const defaultExpandedKeys = ref<TreeKey[]>(props.expandedKeys || []);
-    const defaultCheckedKeys = ref<TreeKey[]>(props.checkedKeys || []);
+    const defaultSelectedKeys = ref<string[]>(props.selectedKeys || []);
+    const defaultExpandedKeys = ref<string[]>(props.expandedKeys || []);
+    const defaultCheckedKeys = ref<string[]>(props.checkedKeys || []);
     const dragNode = reactive<DragState>({
       key: null,
       data: null,
     });
 
-    const onLoadData = attrs.onLoadData as LoadData | undefined;
-    const hasLoad = !!onLoadData;
+    const hasLoad = !!props.loadData;
 
     const rebuildTree = () => {
       if (!props.data) {
@@ -119,7 +121,7 @@ const Tree = defineComponent({
       }); //as TreeNode[];
     };
 
-    const findNode = (key: TreeKey): TreeNode | undefined => {
+    const findNode = (key: string): TreeNode | undefined => {
       return defaultData.value.find((item: TreeNode) => item.key === key);
     };
 
@@ -131,31 +133,28 @@ const Tree = defineComponent({
 
       if (isAsyncNode && !node.expanded) {
         node.loading = true;
-        const promise = onLoadData ? onLoadData(node) : undefined;
+        props
+          .loadData(node)
+          .then(() => {
+            nextTick(() => {
+              const newNode = findNode(key);
+              const targetNode = newNode || node;
+              targetNode.loading = false;
+              targetNode.expanded = true;
 
-        if (promise && typeof (promise as Promise<unknown>).then === "function") {
-          (promise as Promise<unknown>)
-            .then(() => {
-              nextTick(() => {
-                const newNode = findNode(key);
-                const targetNode = newNode || node;
-                targetNode.loading = false;
-                targetNode.expanded = true;
+              const expandedKeys = defaultExpandedKeys.value.slice();
+              if (expandedKeys.indexOf(key) === -1) {
+                expandedKeys.push(key);
+                defaultExpandedKeys.value = expandedKeys;
+                emit("update:expandedKeys", defaultExpandedKeys.value);
+              }
 
-                const expandedKeys = defaultExpandedKeys.value.slice();
-                if (expandedKeys.indexOf(key) === -1) {
-                  expandedKeys.push(key);
-                  defaultExpandedKeys.value = expandedKeys;
-                  emit("update:expandedKeys", defaultExpandedKeys.value);
-                }
-
-                emit("expand", { key, expanded: true, targetNode });
-              });
-            })
-            .catch(() => {
-              node.loading = false;
+              emit("expand", { key, expanded: true, node: targetNode });
             });
-        }
+          })
+          .finally(() => {
+            node.loading = false;
+          });
 
         return;
       }
@@ -180,7 +179,7 @@ const Tree = defineComponent({
     };
 
     const updateCheckState = {
-      toggleNode: (key: TreeKey, checked: boolean) => {
+      toggleNode: (key: string, checked: boolean) => {
         const node = findNode(key);
         if (!node || node.disabled) return;
 
@@ -194,7 +193,7 @@ const Tree = defineComponent({
         updateCheckState.recalculateIndeterminate();
       },
 
-      updateChildren: (parentKey: TreeKey, checked: boolean) => {
+      updateChildren: (parentKey: string, checked: boolean) => {
         if (props.checkStrictly) return;
 
         const updateChild = (node: TreeNode) => {
@@ -224,10 +223,10 @@ const Tree = defineComponent({
         }
       },
 
-      updateParents: (childKey: TreeKey) => {
+      updateParents: (childKey: string) => {
         if (props.checkStrictly) return;
 
-        const updateParent = (nodeKey: TreeKey) => {
+        const updateParent = (nodeKey: string) => {
           const node = findNode(nodeKey);
           if (!node || !node.parentKey) return;
 
@@ -299,10 +298,10 @@ const Tree = defineComponent({
         });
       },
 
-      moveNode: (dragKey: TreeKey, dropKey: TreeKey) => {
+      moveNode: (dragKey: string, dropKey: string) => {
         if (dragKey === dropKey || !props.data) return;
 
-        const findRawNode = (nodes: TreeNode[] | undefined, key: TreeKey): TreeNode | null => {
+        const findRawNode = (nodes: TreeNode[] | undefined, key: string): TreeNode | null => {
           if (!nodes) return null;
 
           for (let i = 0; i < nodes.length; i++) {
@@ -401,7 +400,7 @@ const Tree = defineComponent({
       emit("check", item, event.checked, checkedNodes);
     };
 
-    const updateNodeStatus = (key: TreeKey, property: keyof TreeNode, value: unknown) => {
+    const updateNodeStatus = (key: string, property: keyof TreeNode, value: unknown) => {
       for (let i = 0; i < defaultData.value.length; i++) {
         const item = defaultData.value[i];
         if (item.key === key) {
@@ -655,7 +654,7 @@ const Tree = defineComponent({
 
     watch(
       () => props.checkedKeys,
-      (nv: TreeKey[] | undefined) => {
+      (nv: string[] | undefined) => {
         defaultCheckedKeys.value = nv || [];
         rebuildTree();
       }
@@ -663,7 +662,7 @@ const Tree = defineComponent({
 
     watch(
       () => props.selectedKeys,
-      (nv: TreeKey[] | undefined) => {
+      (nv: string[] | undefined) => {
         defaultSelectedKeys.value = nv || [];
         rebuildTree();
       }
@@ -671,7 +670,7 @@ const Tree = defineComponent({
 
     watch(
       () => props.expandedKeys,
-      (nv: TreeKey[] | undefined) => {
+      (nv: string[] | undefined) => {
         defaultExpandedKeys.value = nv || [];
         rebuildTree();
       }

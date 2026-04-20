@@ -5,7 +5,7 @@
     :headers="headers"
     :data="prams"
     :autoTrigger="false"
-    @onSelectFiles="onSelectFiles"
+    @selectFiles="onSelectFiles"
     multiple
     ref="uploadRef"
   >
@@ -15,10 +15,10 @@
   <Button :disabled="disabled" @click="startUpload">Starting Upload</Button>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-import { message } from "kui-vue";
 import { CloudUploadOutline } from "kui-icons";
-const uploadRef = ref(null);
+import { type UploadContext, type UploadFile } from "kui-vue";
+import { ref } from "vue";
+const uploadRef = ref<UploadContext>();
 const disabled = ref(true);
 const prams = ref({
   type: "image",
@@ -27,12 +27,12 @@ const prams = ref({
 const headers = ref({
   authorization: "here is token",
 });
-const onSelectFiles = (fileList) => {
+const onSelectFiles = (fileList: UploadFile[]) => {
   console.log(fileList);
   disabled.value = fileList.length == 0;
 };
 const startUpload = () => {
   console.log("startUpload", uploadRef);
-  uploadRef.value.upload();
+  uploadRef.value?.upload();
 };
 </script>

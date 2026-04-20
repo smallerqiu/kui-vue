@@ -33,7 +33,7 @@
       {{ text }}
     </Modal>
 
-    <Modal title="No footer" v-model="show6" :footer="null" @ok="show6 = false">
+    <Modal title="No footer" v-model="show6" :footer="false" @ok="show6 = false">
       {{ text }}
     </Modal>
   </Space>

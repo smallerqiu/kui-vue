@@ -21,7 +21,7 @@ const headers = ref({
   authorization: "here is token",
 });
 const transformFile = (file: File) => {
-  return new Promise((res, rej) => {
+  return new Promise<File>((res, _) => {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
@@ -40,14 +40,15 @@ const transformFile = (file: File) => {
       // canvas to file obj
       let data = canvas.toDataURL("image/png");
       var arr = data.split(","),
-        mime = arr[0].match(/:(.*?);/)[1],
+        mime = arr[0].match(/:(.*?);/) || [],
         b64str = atob(arr[1]),
         n = b64str.length,
         u8arr = new Uint8Array(n);
       while (n--) {
         u8arr[n] = b64str.charCodeAt(n);
       }
-      const newFile = new File([u8arr], filename, { type: mime });
+      const [_, ftype] = mime;
+      const newFile = new File([u8arr], filename, { type: ftype });
       res(newFile);
     };
     img.src = URL.createObjectURL(file);

@@ -59,5 +59,4 @@ const block = ref(false);
 const radius = ref(10);
 const avatarShape = ref<ShapeType>("square");
 const btnShape = ref<ShapeType>("default");
-const imgShape = ref("default");
 </script>
