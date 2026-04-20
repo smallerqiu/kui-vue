@@ -15,7 +15,7 @@
       >
       </Menu>
       <Button type="text" @click="collapsed = !collapsed">
-        <Icon :name="collapsed ? 'menu-unfold' : 'menu-fold'" />
+        <Icon :type="collapsed ? MenuUnfold : MenuFold" />
       </Button>
     </Sider>
 
@@ -55,8 +55,8 @@
   </Layout>
 </template>
 <script setup lang="ts">
+import { Home, Key, LogoKui, MenuFold, MenuUnfold, People, Person, Settings } from "kui-icons";
 import { ref } from "vue";
-import { LogoKui, Home, StatsChart, People, Settings, Key, Person } from "kui-icons";
 const selectedKeys = ref(["t2-1"]);
 const openKeys = ref(["t2", "t3"]);
 const collapsed = ref(false);

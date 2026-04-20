@@ -26,7 +26,7 @@
 </template>
 <script setup lang="ts">
 import { message } from "kui-vue";
-const events = {};
+const events: Record<string, (e: any) => void> = {};
 ["focus", "blur", "change", "keypress", "keyup", "keydown", "keydownEnter"].forEach((type) => {
   events[type] = function (e) {
     message.info(type);

@@ -17,6 +17,7 @@ export const textAreaProps = {
   placeholder: String,
   rows: { type: Number, default: 2 },
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
 };
 
 export type TextAreaProps = ExtractPropTypes<typeof textAreaProps> & TextareaHTMLAttributes;
