@@ -4,7 +4,7 @@
     <TreeSelect
       v-model="value"
       :tree-data="data"
-      tree-showLine
+      treeShowLine
       :treeExpandedKeys="expandedKeys"
       block
     />

@@ -11,7 +11,7 @@
       <Dropdown placement="bottom-right">
         <Button :icon="Ellipsis"></Button>
         <template #overlay>
-          <Menu slot="content">
+          <Menu>
             <MenuItem>
               <a href="javascript:;">1st menu item</a>
             </MenuItem>
@@ -43,7 +43,6 @@
 </template>
 <script setup lang="ts">
 import {
-  Copy,
   CloudDownloadOutline,
   Ellipsis,
   GameControllerOutline,

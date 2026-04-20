@@ -3,7 +3,7 @@
   <br />
   <br />
   <div class="demo-skeleton-list">
-    <div class="demo-skeleton-item" v-for="x in 3">
+    <div class="demo-skeleton-item" v-for="_ in 3">
       <Skeleton avatar :loading="loading" :rows="2" animated>
         <Space>
           <Avatar size="large">{{ item.name }}</Avatar>

@@ -7,6 +7,7 @@ import {
   watch,
   type ExtractPropTypes,
   type PropType,
+  type VNode,
 } from "vue";
 
 import type { BooleanType, DirectionType } from "../const/types";
@@ -31,7 +32,7 @@ export const menuProps = {
 
 export interface MenuOptionsProps {
   icon?: IconType[];
-  title?: string;
+  title?: string | VNode;
   key: string;
   disabled?: boolean;
   children?: MenuOptionsProps[];

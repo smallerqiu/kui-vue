@@ -1,11 +1,11 @@
 <template>
   <Layout class="chat-container">
-    <Sider style="width:260px;" class="chat-sider">
+    <Sider style="width: 260px" class="chat-sider">
       <div class="sider-header">
         <Input placeholder="Search conversation..." />
       </div>
-      <Menu mode="inline" v-model="selectedKeys" style="border:none;padding:10px;">
-        <MenuItem key="c1"># Core R&D Team <Badge :count="5" offset="[10, 0]" /></MenuItem>
+      <Menu mode="inline" v-model="selectedKeys" style="border: none; padding: 10px">
+        <MenuItem key="c1"># Core R&D Team <Badge :count="5" /></MenuItem>
         <MenuItem key="c2"># Visual Design UI</MenuItem>
         <MenuItem key="c3"># Customer Support (1-on-1)</MenuItem>
       </Menu>
@@ -28,7 +28,7 @@
 
       <Footer class="chat-input-box">
         <div class="toolbar">
-          <Icon name="smile" /> <Icon name="picture" /> <Icon name="paper-clip" />
+          <Icon type="smile" /> <Icon type="picture" /> <Icon type="paper-clip" />
         </div>
         <TextArea :rows="3" placeholder="Press Cmd + Enter to send the message..." />
         <div class="input-actions">

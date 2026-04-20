@@ -10,7 +10,7 @@
 </template>
 <script setup lang="ts">
 import { loading } from "kui-vue";
-const update = (percent) => {
+const update = (percent: number) => {
   loading.update(percent);
 };
 const start = () => {

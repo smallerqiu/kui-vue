@@ -26,12 +26,12 @@ import { transfer } from "../directives/transfer";
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
-import Tree from "../tree";
-import { buildTree, type TreeKey, type TreeNode } from "../tree/utils";
+import Tree, { type TreeExpandEvent } from "../tree";
+import { buildTree, type TreeNode } from "../tree/utils";
 import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
 
-type TreeSelectValue = TreeKey | TreeKey[] | null | undefined;
+type TreeSelectValue = string | string[] | null | undefined;
 type TreeSelectPlacement =
   | "top"
   | "top-left"
@@ -79,18 +79,24 @@ export const treeSelectProps = {
   treeShowLine: Boolean as BooleanType,
   treeShowIcon: { type: Boolean as BooleanType, default: true },
   treeCheckStrictly: Boolean as BooleanType,
-  treeExpandedKeys: Array as PropType<TreeKey[]>,
-  treeCheckedKeys: Array as PropType<TreeKey[]>,
-  treeSelectedKeys: Array as PropType<TreeKey[]>,
+  treeExpandedKeys: Array as PropType<string[]>,
+  treeCheckedKeys: Array as PropType<string[]>,
+  treeSelectedKeys: Array as PropType<string[]>,
   treeExpandedAll: Boolean as BooleanType,
+  treeLoadData: {
+    type: Function as PropType<(node: TreeNode) => Promise<any>>,
+  },
   onChange: {
     type: Function as PropType<(value: TreeSelectValue) => void>,
   },
   onTreeSelect: {
-    type: Function as PropType<(value: TreeKey, label: string, selected: boolean) => void>,
+    type: Function as PropType<(value: string, label: string, selected: boolean) => void>,
   },
   onSearch: {
     type: Function as PropType<(e: InputEvent) => void>,
+  },
+  onTreeExpand: {
+    type: Function as PropType<(value: TreeExpandEvent) => void>,
   },
 };
 
@@ -103,7 +109,14 @@ const TreeSelect = defineComponent({
     resize,
   },
   props: treeSelectProps,
-  emits: ["update:modelValue", "change", "search", "treeSelect", "update:treeExpandedKeys"],
+  emits: [
+    "update:modelValue",
+    "change",
+    "search",
+    "treeSelect",
+    "update:treeExpandedKeys",
+    "treeExpand",
+  ],
   setup(props, { emit, attrs }) {
     const injectedLocale = inject<Record<string, any>>("locale", zhCN);
 
@@ -115,12 +128,12 @@ const TreeSelect = defineComponent({
 
     const visible = ref(false);
     const rendered = ref(false);
-    const currentValue = ref<TreeKey[]>(
+    const currentValue = ref<string[]>(
       props.multiple
-        ? ((props.modelValue || props.value || []) as TreeKey[])
+        ? ((props.modelValue || props.value || []) as string[])
         : isEmpty(props.modelValue || props.value)
           ? []
-          : [(props.modelValue || props.value) as TreeKey]
+          : [(props.modelValue || props.value) as string]
     );
     const queryInputVisible = ref(false);
     const queryKey = ref("");
@@ -137,12 +150,9 @@ const TreeSelect = defineComponent({
     const currentPlacement = ref<TreeSelectPlacement>(props.placement);
     const queryInputEventTimer = ref<number | undefined>(undefined);
 
-    const onTreeLoadData = attrs.onTreeLoadData as
-      | ((node: TreeNode) => Promise<unknown>)
-      | undefined;
-    const hasLoad = !!onTreeLoadData;
-    const defaultExpandedKeys = ref<TreeKey[]>(props.treeExpandedKeys || []);
-    const defaultCheckedKeys = ref<TreeKey[]>(props.treeCheckedKeys || []);
+    const hasLoad = !!props.treeLoadData;
+    const defaultExpandedKeys = ref<string[]>(props.treeExpandedKeys || []);
+    const defaultCheckedKeys = ref<string[]>(props.treeCheckedKeys || []);
 
     const ctxFocused = ref(false);
 
@@ -158,10 +168,10 @@ const TreeSelect = defineComponent({
       () => props.modelValue,
       (v) => {
         currentValue.value = props.multiple
-          ? ((v || []) as TreeKey[])
+          ? ((v || []) as string[])
           : isEmpty(v)
             ? []
-            : [v as TreeKey];
+            : [v as string];
         updatePosition();
       }
     );
@@ -328,12 +338,12 @@ const TreeSelect = defineComponent({
       });
     });
 
-    const labelText = computed<(string | TreeKey)[]>(() => {
-      const lookup: Record<string, string | TreeKey> = {};
+    const labelText = computed<string[]>(() => {
+      const lookup: Record<string, string> = {};
       optionsData.value.forEach((item: TreeNode) => {
         lookup[String(item.key)] = item.title || item.key;
       });
-      return currentValue.value.map((val: TreeKey) => {
+      return currentValue.value.map((val: string) => {
         const hit = lookup[String(val)];
         return hit || val;
       });
@@ -353,7 +363,7 @@ const TreeSelect = defineComponent({
       }
     );
 
-    const onExpand = ({ key, expanded }: { key: TreeKey; expanded: boolean }) => {
+    const onExpand = ({ key, expanded, node }: TreeExpandEvent) => {
       const nextKeys = defaultExpandedKeys.value.slice();
       const index = nextKeys.indexOf(key);
       if (index > -1 && !expanded) {
@@ -363,9 +373,10 @@ const TreeSelect = defineComponent({
       }
       defaultExpandedKeys.value = nextKeys;
       emit("update:treeExpandedKeys", nextKeys.slice());
+      emit("treeExpand", { key, expanded, node });
     };
 
-    const onCheck = (_checkedNode: TreeNode, _checked: boolean, checkedKeys: TreeKey[]) => {
+    const onCheck = (_checkedNode: TreeNode, _checked: boolean, checkedKeys: string[]) => {
       currentValue.value = checkedKeys.slice();
       emitValue();
     };
@@ -378,7 +389,7 @@ const TreeSelect = defineComponent({
       if (props.multiple) {
         if (currentValue.value.indexOf(value) >= 0) {
           selected = false;
-          currentValue.value = currentValue.value.filter((v: TreeKey) => v !== value);
+          currentValue.value = currentValue.value.filter((v: string) => v !== value);
         } else {
           currentValue.value.push(value);
         }
@@ -412,15 +423,12 @@ const TreeSelect = defineComponent({
         selectedKeys: currentValue.value.slice(),
         checkedKeys: currentValue.value.slice(),
         selectAsCheck: props.treeCheckable,
+        loadData: props.treeLoadData,
         queryKey: queryKey.value,
         onSelect,
         onExpand,
         onCheck,
       };
-
-      if (hasLoad) {
-        treePropsData.onLoadData = onTreeLoadData;
-      }
 
       return <Tree {...treePropsData} />;
     };
@@ -524,7 +532,7 @@ const TreeSelect = defineComponent({
         ) : null;
 
       const renderTags = () => {
-        let tags = labelText.value.map((label: string | TreeKey, i: number) => {
+        let tags = labelText.value.map((label: string, i: number) => {
           return (
             <span class="k-tree-select-tag" key={String(label)}>
               {label}

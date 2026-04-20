@@ -1,3 +1,4 @@
+import type { IconType } from "../icon";
 import { createInstance } from "../notice/instance";
 
 let messageInstance: Record<string, any> | null | undefined = null;
@@ -7,7 +8,7 @@ export interface MessageOptions {
   content?: string;
   duration?: number;
   closable?: boolean;
-  icon?: string;
+  icon?: IconType[];
   color?: string;
   onClose?: () => void;
 }

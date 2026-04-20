@@ -17,7 +17,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 const visible = ref(false);
-const custom = ref(false);
 const visible1 = ref(false);
 const okHandle = () => {
   visible.value = false;

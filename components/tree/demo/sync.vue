@@ -1,17 +1,18 @@
 <template>
-  <Tree :data="data" @loadData="loadData" @expand="expand" />
+  <Tree :data="data" :loadData="loadData" @expand="expand" />
 </template>
 <script setup lang="ts">
+import type { TreeExpandEvent, TreeNode } from "kui-vue";
 import { ref } from "vue";
 const data = ref([
   { title: "Expand to load", key: "0-0" },
   { title: "Expand to load", key: "0-1" },
   { title: "Tree Node", isLeaf: true, key: "0-2" },
 ]);
-const expand = (data) => {
+const expand = (data: TreeExpandEvent) => {
   console.log(data);
 };
-const insertChildren = (nodes, targetKey, childrenData) => {
+const insertChildren = (nodes: any[], targetKey: string, childrenData: any[]) => {
   for (const node of nodes) {
     if (node.key === targetKey) {
       // 找到目标节点，插入数据
@@ -30,8 +31,8 @@ const insertChildren = (nodes, targetKey, childrenData) => {
 };
 
 let loadCount = 0;
-const loadData = (node) => {
-  return new Promise((resolve, reject) => {
+const loadData = (node: TreeNode) => {
+  return new Promise<void>((resolve, _) => {
     loadCount += 1;
     //模拟异步请求
     setTimeout(() => {

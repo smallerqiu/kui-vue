@@ -11,14 +11,14 @@
 </template>
 <script setup lang="ts">
 import { Search } from "kui-icons";
-import { message } from "kui-vue";
+import { message, type ChangeEvent } from "kui-vue";
 import { ref } from "vue";
 const isCircle = ref();
 const shape = ref();
-const setShape = ({ checked }) => {
+const setShape = ({ checked }: ChangeEvent) => {
   shape.value = checked ? "circle" : null;
 };
-const onSearch = (value) => {
+const onSearch = (value: string) => {
   message.info("This is search event");
   console.log(value);
 };

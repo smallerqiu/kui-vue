@@ -2,7 +2,7 @@
   <Layout class="workbench-layout">
     <Sider width="80" class="app-rail">
       <Avatar :size="40" class="app-logo">P</Avatar>
-      <Menu mode="vertical" :inlineCollapsed="true" style="border:none;" v-model="selectedKeys">
+      <Menu mode="vertical" :inlineCollapsed="true" style="border: none" v-model="selectedKeys">
         <MenuItem key="t1" :icon="CheckmarkCircle"></MenuItem>
         <MenuItem key="t2" :icon="Calendar"></MenuItem>
         <MenuItem key="t3" :icon="StatsChart"></MenuItem>
@@ -16,13 +16,13 @@
         </div>
         <Flex class="header-ops">
           <AvatarGroup :max-count="3">
-            <Avatar src="https://cdn.chuchur.com/img/chick.jpeg"  :size="25"/>
-            <Avatar src="https://cdn.chuchur.com/img/monkey.jpeg" :size="25"/>
+            <Avatar src="https://cdn.chuchur.com/img/chick.jpeg" :size="25" />
+            <Avatar src="https://cdn.chuchur.com/img/monkey.jpeg" :size="25" />
           </AvatarGroup>
         </Flex>
       </Header>
 
-      <Layout style="overflow:hidden;">
+      <Layout style="overflow: hidden">
         <Content class="workbench-main">
           <div class="task-list">
             <div v-for="i in 10" :key="i" class="task-item" @click="showDetail = true">
@@ -36,7 +36,6 @@
           width="350"
           class="detail-panel"
           collapsible
-          reverse-arrow
           @collapse="showDetail = false"
         >
           <div class="detail-header">
@@ -59,9 +58,9 @@
 </template>
 
 <script setup lang="ts">
+import { Calendar, CheckmarkCircle, StatsChart } from "kui-icons";
 import { ref } from "vue";
-import { CheckmarkCircle, Calendar, StatsChart } from "kui-icons";
-const selectedKeys = ref(['t1'])
+const selectedKeys = ref(["t1"]);
 const showDetail = ref(true);
 </script>
 

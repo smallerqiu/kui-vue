@@ -1,13 +1,13 @@
 <template>
   <Tree :data="data" @expand="expand" :expandedKeys="expandedKeys" showExtra>
     <template v-slot:extra="node">
-      <Button size="small" @click="test(node)" style="margin-right:5px"> test </Button>
+      <Button size="small" @click="test(node)" style="margin-right: 5px"> test </Button>
     </template>
   </Tree>
 </template>
 <script setup lang="ts">
+import { message, type TreeExpandEvent, type TreeNode } from "kui-vue";
 import { ref } from "vue";
-import { message } from "kui-vue";
 const expandedKeys = ref(["0-0"]);
 const data = [
   {
@@ -32,10 +32,10 @@ const data = [
     ],
   },
 ];
-const test = (node) => {
-  message.info(node.title);
+const test = (node: TreeNode) => {
+  message.info(node.title as string);
 };
-const expand = (data) => {
+const expand = (data: TreeExpandEvent) => {
   console.log(data);
 };
 </script>

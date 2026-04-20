@@ -5,13 +5,14 @@
 import {
   FolderOpenOutline,
   FolderOutline,
-  LogoFeishu,
-  LogoTwitter,
-  LogoQq,
-  LogoWechat,
   LogoAndroid,
   LogoApple,
+  LogoFeishu,
+  LogoQq,
+  LogoTwitter,
+  LogoWechat,
 } from "kui-icons";
+import type { TreeExpandEvent } from "..";
 
 const expandedKeys = ["0-0", "1-0", "1-1", "1-2"];
 const data = [
@@ -52,7 +53,7 @@ const data = [
     ],
   },
 ];
-const expand = ({ expanded, node }) => {
+const expand = ({ expanded, node }: TreeExpandEvent) => {
   node.icon = expanded ? FolderOpenOutline : FolderOutline;
 };
 </script>

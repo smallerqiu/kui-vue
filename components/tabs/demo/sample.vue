@@ -22,7 +22,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 const current = ref("1");
-const change = (key) => {
+const change = (key: string) => {
   console.log(key);
 };
 </script>

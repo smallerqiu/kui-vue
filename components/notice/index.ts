@@ -1,4 +1,5 @@
 import type { VNode } from "vue";
+import type { IconType } from "../icon";
 import { createInstance } from "./instance";
 
 let noticeInstance: Record<string, any> | null | undefined = null;
@@ -8,7 +9,7 @@ export interface NoticeOptions {
   title?: string;
   content?: string | VNode;
   duration?: number;
-  icon?: string;
+  icon?: IconType[];
   color?: string;
   onClose?: () => void;
 }

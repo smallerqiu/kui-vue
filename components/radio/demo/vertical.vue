@@ -7,8 +7,9 @@
   </Space>
 </template>
 <script setup lang="ts">
+import type { DirectionType } from "kui-vue";
 import { ref } from "vue";
-const direction = ref("horizontal");
+const direction = ref<DirectionType>("horizontal");
 const types = [
   { label: "Vertical", value: "vertical" },
   { label: "Horizontal", value: "horizontal" },
@@ -22,7 +23,7 @@ const options = [
 ];
 const cities = ref("wuhan");
 
-const change = (v) => {
+const change = (v: any) => {
   console.log(v);
 };
 </script>

@@ -22,7 +22,7 @@ export interface IconType {
 }
 
 const iconProps = {
-  type: [Array] as PropType<IconType[]>,
+  type: Array as PropType<IconType[]>,
   size: [String, Number],
   color: String,
   spin: Boolean as BooleanType,

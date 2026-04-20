@@ -14,18 +14,18 @@
   <Button @click="test">change</Button>
 </template>
 <script setup lang="ts">
+import type { UploadChangeEvent, UploadFile } from "kui-vue";
 import { ref } from "vue";
 const headers = ref({
   authorization: "here is token",
 });
-const fileList = ref([
+const fileList = ref<UploadFile[]>([
   {
     url: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
     status: "uploading",
     filename: "test.jpg",
     size: "222kb",
     percent: 50,
-    status: "uploading",
   },
   {
     url: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
@@ -34,9 +34,9 @@ const fileList = ref([
     size: "222kb",
   },
 ]);
-const handleChange = (info) => {
-  if (info.file.status !== "uploading") {
-    console.log(info.file, info.fileList);
+const handleChange = (e: UploadChangeEvent) => {
+  if (e.file.status !== "uploading") {
+    console.log(e.file, e.fileList);
   }
 };
 const test = () => {
@@ -47,7 +47,6 @@ const test = () => {
       filename: "test.jpg",
       size: "222kb",
       percent: 50,
-      status: "uploading",
     },
   ];
 };

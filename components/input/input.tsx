@@ -8,6 +8,7 @@ import {
   watch,
   type CSSProperties,
   type ExtractPropTypes,
+  type InputHTMLAttributes,
   type PropType,
 } from "vue";
 import { type BooleanType, type ShapeType, type SizeType, type ThemeType } from "../const/types";
@@ -25,9 +26,7 @@ const inputProps = {
   value: { type: [String, Number, Array, Object] as PropType<any> },
   disabled: Boolean as BooleanType,
   type: {
-    type: String as PropType<
-      "text" | "textarea" | "password" | "url" | "email" | "date" | "search" | "hidden"
-    >,
+    type: String as PropType<"text" | "password" | "hidden">,
     default: "text",
   },
   icon: [Array] as PropType<IconType[]>,
@@ -38,9 +37,12 @@ const inputProps = {
   theme: { type: String as PropType<ThemeType>, default: "light" },
   shape: String as PropType<ShapeType>,
   inputType: { type: String, default: "input" },
+  onSearch: {
+    type: Function as PropType<(value: string) => void>,
+  },
 };
 
-export type InputProps = ExtractPropTypes<typeof inputProps>;
+export type InputProps = ExtractPropTypes<typeof inputProps> & InputHTMLAttributes;
 
 const Input = defineComponent({
   inheritAttrs: false,

@@ -1,5 +1,5 @@
 <template>
-  <div style="width:256px">
+  <div style="width: 256px">
     <Menu
       v-model="current"
       :openKeys="openKeys"
@@ -10,11 +10,11 @@
   </div>
 </template>
 <script setup lang="ts">
+import { Heart, Mail, Settings } from "kui-icons";
 import { ref } from "vue";
-import { Mail, Heart, Settings } from "kui-icons";
 const current = ref(["1-1"]);
 const openKeys = ref(["sub1"]);
-const openChange = (openKeys) => {
+const openChange = (openKeys: string[]) => {
   console.log(openKeys);
 };
 const items = [

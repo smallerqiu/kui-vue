@@ -19,11 +19,14 @@
     <TimeLineItem :icon="Build" color="red" time="2020-10-03" extra="More auxiliary details">
       Fix bug
     </TimeLineItem>
-    <TimeLineItem time="2020-10-01" extra="More auxiliary details"> Release version 1.0 </TimeLineItem>
+    <TimeLineItem time="2020-10-01" extra="More auxiliary details">
+      Release version 1.0
+    </TimeLineItem>
   </TimeLine>
 </template>
 <script setup lang="ts">
-import { Ribbon, Build } from "kui-icons";
+import { Build } from "kui-icons";
+import type { TimelineMode } from "kui-vue";
 import { ref } from "vue";
-const mode = ref("left");
+const mode = ref<TimelineMode>("left");
 </script>

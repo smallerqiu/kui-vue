@@ -46,17 +46,18 @@
 <script setup lang="ts">
 import {
   Add,
-  Trash,
-  IconEdit,
   FolderOpenOutline,
   FolderOutline,
-  LogoFeishu,
-  LogoTwitter,
-  LogoQq,
-  LogoWechat,
+  IconEdit,
   LogoAndroid,
   LogoApple,
+  LogoFeishu,
+  LogoQq,
+  LogoTwitter,
+  LogoWechat,
+  Trash,
 } from "kui-icons";
+import type { TreeExpandEvent, TreeNode } from "kui-vue";
 import { ref } from "vue";
 const directory = ref(true);
 const showLine = ref(true);
@@ -109,26 +110,25 @@ const data = ref([
     icon: FolderOpenOutline,
   },
 ]);
-const edit = (e, node) => {
+const edit = (e: MouseEvent, node: TreeNode) => {
   e.stopPropagation();
   let pop = prompt("修改节点名称", node.title);
   if (pop != null && pop.trim() != "") {
     node.title = pop;
   }
 };
-const insertChildren = (nodes, targetKey, childrenData) => {
+const insertChildren = (nodes: TreeNode[], targetKey: string, childrenData: TreeNode) => {
   for (const node of nodes) {
     if (node.key === targetKey) {
       // 找到目标节点，插入数据
       // node.children = childrenData; // for vue 3
 
-      // for vue 2
       if (!("children" in node)) {
         node.icon = FolderOpenOutline;
         node.children = [];
       }
       // 如果 'children' 属性已存在，直接赋值是安全的
-      node.children.push(childrenData);
+      node.children?.push(childrenData);
       return true; // 插入成功
     }
 
@@ -142,7 +142,7 @@ const insertChildren = (nodes, targetKey, childrenData) => {
   return false; // 未找到
 };
 const addIndex = ref(0);
-const append = (e, node) => {
+const append = (e: MouseEvent, node: TreeNode) => {
   e.stopPropagation();
   addIndex.value += 1;
   const newChild = {
@@ -159,8 +159,13 @@ const append = (e, node) => {
     expandedKeys.value = keys;
   }
 };
-const deleteNode = (e, node) => {
-  const loop = (data, key, callback) => {
+const deleteNode = (e: MouseEvent, node: TreeNode) => {
+  e.preventDefault();
+  const loop = (
+    data: any[],
+    key: string | number,
+    callback: (d: any, i: number, a: any[]) => void
+  ) => {
     for (let i = 0; i < data.length; i++) {
       if (data[i].key === key) {
         return callback(data[i], i, data);
@@ -170,15 +175,15 @@ const deleteNode = (e, node) => {
       }
     }
   };
-  loop(data.value, node.key, (item, index, arr) => {
+  loop(data.value, node.key, (_, index, arr) => {
     arr.splice(index, 1);
   });
 };
-const expand = ({ expanded, node, expandedKeys }) => {
+const expand = ({ expanded, node }: TreeExpandEvent) => {
   node.icon = expanded ? FolderOpenOutline : FolderOutline;
   console.log(node);
 };
-const onCheck = (node, checked) => {
+const onCheck = (node: TreeNode, checked: boolean) => {
   console.log(node, checked);
 };
 </script>

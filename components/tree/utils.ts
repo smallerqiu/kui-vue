@@ -1,11 +1,9 @@
 import type { IconType } from "../icon";
 
-export type TreeKey = string | number;
-
 export interface TreeNode {
-  key: TreeKey;
+  key: string;
   title?: string;
-  parentKey?: TreeKey | null;
+  parentKey?: string | null;
   children?: TreeNode[];
   isLeaf?: boolean;
   expanded?: boolean;
@@ -24,16 +22,16 @@ export interface TreeNode {
 
 export interface BuildTreeOptions {
   data: TreeNode[];
-  expandedKeys?: TreeKey[];
-  selectedKeys?: TreeKey[];
-  checkedKeys?: TreeKey[];
-  parentKey?: TreeKey | null;
+  expandedKeys?: string[];
+  selectedKeys?: string[];
+  checkedKeys?: string[];
+  parentKey?: string | null;
   hasLoad?: boolean;
   checkStrictly?: boolean;
   checkable?: boolean;
 }
 
-export const updateParentIndeterminate = (nodes: TreeNode[], parentKey: TreeKey) => {
+export const updateParentIndeterminate = (nodes: TreeNode[], parentKey: string) => {
   let parent: TreeNode | undefined;
   for (let i = 0; i < nodes.length; i++) {
     if (nodes[i].key === parentKey) {
@@ -49,9 +47,7 @@ export const updateParentIndeterminate = (nodes: TreeNode[], parentKey: TreeKey)
   if (enabledSiblings.length === 0) return;
 
   const checkedCount = enabledSiblings.filter((node: TreeNode) => node.checked).length;
-  const indeterminateCount = enabledSiblings.filter(
-    (node: TreeNode) => node.indeterminate
-  ).length;
+  const indeterminateCount = enabledSiblings.filter((node: TreeNode) => node.indeterminate).length;
 
   if (checkedCount > 0 && checkedCount < enabledSiblings.length) {
     parent.indeterminate = true;
@@ -97,7 +93,7 @@ export const buildTree = ({
   checkable,
 }: BuildTreeOptions): TreeNode[] => {
   const result: TreeNode[] = [];
-  const stack: [TreeNode, number, TreeKey | null, boolean[], boolean][] = [];
+  const stack: [TreeNode, number, string | null, boolean[], boolean][] = [];
 
   for (let i = data.length - 1; i >= 0; i--) {
     const node = data[i];

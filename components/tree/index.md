@@ -36,21 +36,22 @@
 
 ## Tree API
 
-| 属性          | 说明                                                         | 类型       | 默认值 |
-| ------------- | ------------------------------------------------------------ | ---------- | ------ |
-| data          | 可嵌套的节点属性的数组，生成 `tree` 的数据                   | Array      | []     |
-| checkable     | 是否显示多选框                                               | Boolean    | false  |
-| draggable     | 是否可以拖拽                                                 | Boolean    | false  |
-| showLine      | 是否展示连接线                                               | Boolean    | false  |
-| showIcon      | 是否展示图标                                                 | Boolean    | true   |
-| extra         | 扩展元素                                                     | slot(node) | -      |
-| showExtra     | 是否默认展示扩展元素                                         | Boolean    | false  |
-| checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | Boolean    | false  |
-| checkedKeys   | 选中复选框的树节点                                           | Array      | []     |
-| expandedKeys  | 指定展开的节点                                               | Array      | []     |
-| selectedKeys  | 选中的节点                                                   | Array      | []     |
-| multiple      | 是否支持多选                                                 | Boolean    | false  |
-| loading       | 异步加载状态                                                 | Boolean    | false  |
+| 属性          | 说明                                                         | 类型                   | 默认值 |
+| ------------- | ------------------------------------------------------------ | ---------------------- | ------ |
+| data          | 可嵌套的节点属性的数组，生成 `tree` 的数据                   | Array                  | []     |
+| checkable     | 是否显示多选框                                               | Boolean                | false  |
+| draggable     | 是否可以拖拽                                                 | Boolean                | false  |
+| showLine      | 是否展示连接线                                               | Boolean                | false  |
+| showIcon      | 是否展示图标                                                 | Boolean                | true   |
+| extra         | 扩展元素                                                     | slot(node)             | -      |
+| showExtra     | 是否默认展示扩展元素                                         | Boolean                | false  |
+| checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | Boolean                | false  |
+| checkedKeys   | 选中复选框的树节点                                           | Array                  | []     |
+| expandedKeys  | 指定展开的节点                                               | Array                  | []     |
+| selectedKeys  | 选中的节点                                                   | Array                  | []     |
+| multiple      | 是否支持多选                                                 | Boolean                | false  |
+| loading       | 异步加载状态                                                 | Boolean                | false  |
+| loadData      | 异步加载数据的方法                                           | Promise Function(node) | -      |
 
 ## TreeNode API
 
@@ -66,10 +67,9 @@
 
 | 属性        | 说明                   | 回调参数                            |
 | ----------- | ---------------------- | ----------------------------------- |
-| loadData    | 异步加载数据的方法     | Promise Function(node)              |
-| select      | 点击树节点时触发       | Function(node)                      |
-| check       | 点击复选框时触发       | Function(node,checked,checkedKeys)  |
-| expand      | 展开和收起子节点时触发 | Function({key,expanded,node})       |
+| onSelect    | 点击树节点时触发       | Function(node)                      |
+| onCheck     | 点击复选框时触发       | Function(node,checked,checkedKeys)  |
+| onExpand    | 展开和收起子节点时触发 | Function({key,expanded,node})       |
 | onDragstart | 开始拖拽时调用         | Function(node,event)                |
 | onDragend   | dragend 触发时调用     | Function(node,event)                |
 | onDragenter | dragenter 触发时调用   | Function(node,event)                |

@@ -27,14 +27,14 @@
 </template>
 <script setup lang="ts">
 import { CloudUploadOutline } from "kui-icons";
+import { message, type UploadChangeEvent } from "kui-vue";
 import { ref } from "vue";
-import { message } from "kui-vue";
 const headers = ref({
   authorization: "here is token",
 });
 const limit = ref(2);
 const disabled = ref(false);
-const handleChange = (info) => {
-  disabled.value = info.fileList.length >= limit.value;
+const handleChange = (e: UploadChangeEvent) => {
+  disabled.value = e.fileList.length >= limit.value;
 };
 </script>
