@@ -19,6 +19,9 @@ const checkboxGroupProps = {
     type: String as PropType<SizeType>,
     default: "default",
   },
+  onChange: {
+    type: Function as PropType<(value: any[]) => void>,
+  },
 };
 
 export type CheckboxGroupProps = ExtractPropTypes<typeof checkboxGroupProps>;

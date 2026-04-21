@@ -40,6 +40,7 @@ const inputProps = {
   onSearch: {
     type: Function as PropType<(value: string) => void>,
   },
+  maxlength: Number,
 };
 
 export type InputProps = ExtractPropTypes<typeof inputProps> & InputHTMLAttributes;

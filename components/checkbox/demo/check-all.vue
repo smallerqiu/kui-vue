@@ -8,6 +8,7 @@
   </Space>
 </template>
 <script setup lang="ts">
+import type { ChangeEvent } from "kui-vue";
 import { ref } from "vue";
 const checkAll = ref(false);
 const indeterminate = ref(false);
@@ -19,14 +20,14 @@ const options = [
   { label: "Guangzhou", value: "guangzhou" },
   { label: "Wuhan", value: "wuhan" },
 ];
-const cities = ref([]);
+const cities = ref<string[]>([]);
 
-const handleCheckAll = ({ checked }) => {
+const handleCheckAll = ({ checked }: ChangeEvent) => {
   console.log(checked);
   cities.value = checked ? options.map((v) => v.value) : [];
   indeterminate.value = !checked && !options.length;
 };
-const change = (data) => {
+const change = () => {
   let length = cities.value.length;
   indeterminate.value = length > 0 && length < options.length;
 

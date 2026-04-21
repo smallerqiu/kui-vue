@@ -14,7 +14,7 @@
           prop="info.gender"
           :rules="[{ required: true, message: 'Please select your gender' }]"
         >
-          <Select clearable style="width:100%;">
+          <Select clearable style="width: 100%">
             <Option value="1" label="男" />
             <Option value="0" label="女" />
           </Select>
@@ -33,33 +33,35 @@
           :key="item.key"
           :rules="{ required: true, message: 'Web site is required' }"
         >
-          <Input style="width:230px" />
+          <Input style="width: 230px" />
           <Icon
             :type="RemoveCircleOutline"
-            @click="(e) => remove(i)"
+            @click="() => remove(i)"
             v-if="i > 0"
-            style="font-size:25px;margin:0 10px"
+            style="font-size: 25px; margin: 0 10px"
           />
         </FormItem>
         <FormItem :wrapperCol="{ offset: 5 }">
           <Button type="primary" @click="submit">Submit</Button>
-          <Button @click="add" style="margin:0 10px;">Add</Button>
+          <Button @click="add" style="margin: 0 10px">Add</Button>
           <Button @click="reset">Reset</Button>
         </FormItem>
       </Form>
     </Col>
     <Col :span="8">
-      <pre style="height:100%;overflow:scroll;line-height:1.4">{{ JSON.stringify(form, null, 2) }}</pre>
+      <pre style="height: 100%; overflow: scroll; line-height: 1.4">
+        {{ JSON.stringify(form, null, 2) }}
+      </pre>
     </Col>
   </Row>
 </template>
 <script setup lang="ts">
 import { RemoveCircleOutline } from "kui-icons";
+import { message, type FormContext } from "kui-vue";
 import { ref } from "vue";
-import { message } from "kui-vue";
 const labelCol = { span: 5 };
 const wrapperCol = { span: 16 };
-const formRef = ref();
+const formRef = ref<FormContext>();
 const count = ref(2);
 const form = ref({
   cname: "",
@@ -74,18 +76,18 @@ const form = ref({
 });
 const add = () => {
   count.value = count.value + 1;
-  let item = { value: "", key: count.value };
+  let item = { value: "", key: `${count.value}` };
   form.value.webs.push(item);
 };
-const remove = (index) => {
+const remove = (index: number) => {
   form.value.webs.splice(index, 1);
 };
 const submit = () => {
-  formRef.value.validate(({ valid }) => {
+  formRef.value?.validate(({ valid }) => {
     message[valid ? "success" : "error"](valid ? "success" : "failed");
   });
 };
 const reset = () => {
-  formRef.value.reset();
+  formRef.value?.reset();
 };
 </script>

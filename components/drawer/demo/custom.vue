@@ -23,7 +23,8 @@
   </div>
 </template>
 <script setup lang="ts">
+import type { DrawerPlacementsType } from "kui-vue";
 import { ref } from "vue";
 const show = ref(false);
-const placement = ref("left");
+const placement = ref<DrawerPlacementsType>("left");
 </script>

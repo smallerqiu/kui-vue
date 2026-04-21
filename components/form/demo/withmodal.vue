@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width:512px">
+  <div style="max-width: 512px">
     <Form
       name="with-modal"
       :model="group"
@@ -20,7 +20,7 @@
       </FormItem>
       <FormItem :wrapperCol="{ offset: 6 }">
         <Button type="primary" htmlType="submit">Submit</Button>
-        <Button @click="() => (visible = true)" style="margin-left:10px">Add User</Button>
+        <Button @click="() => (visible = true)" style="margin-left: 10px">Add User</Button>
       </FormItem>
     </Form>
 
@@ -45,8 +45,8 @@
   </div>
 </template>
 <script setup lang="ts">
+import { message, type FormRule } from "kui-vue";
 import { ref } from "vue";
-import { message } from "kui-vue";
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
 const formRef = ref();
@@ -57,7 +57,7 @@ const form = ref({
   username: "",
   age: "",
 });
-const userRules = {
+const userRules: FormRule = {
   username: [{ required: true, message: "Please input the organization name" }],
   age: [
     { required: true, message: "Please input the age." },

@@ -1,8 +1,8 @@
 <template>
   <Space vertical block>
-    <InputNumber placeholder="Large Input" size="large" :icon="LogoKui" clearable />
-    <InputNumber placeholder="Base Input" :icon="LogoKui" clearable />
-    <InputNumber size="small" placeholder="Small Input" :icon="LogoKui" clearable />
+    <InputNumber placeholder="Large Input" size="large" :icon="LogoKui" />
+    <InputNumber placeholder="Base Input" :icon="LogoKui" />
+    <InputNumber size="small" placeholder="Small Input" :icon="LogoKui" />
   </Space>
 </template>
 <script setup lang="ts">
