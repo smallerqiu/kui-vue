@@ -35,7 +35,7 @@ export const inputNumberProps = {
     type: String as PropType<SizeType>,
   },
   placeholder: String,
-  onChange: Function as PropType<(value: undefined | number) => void>,
+  onChange: Function as PropType<(value: number) => void>,
 };
 
 export type InputNumberProps = ExtractPropTypes<typeof inputNumberProps>;

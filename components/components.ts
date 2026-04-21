@@ -17,7 +17,7 @@ export { default as BackTop } from "./back-top";
 export type { BackTopProps } from "./back-top";
 
 export { default as Badge } from "./badge";
-export type { BadgeProps } from "./badge";
+export type { BadgeProps, BadgeStatusType } from "./badge";
 
 export { Button, ButtonGroup } from "./button";
 export type { ButtonGroupProps, ButtonProps } from "./button";
@@ -56,11 +56,11 @@ export { default as Empty } from "./empty";
 export type { EmptyProps } from "./empty";
 
 export { Form, FormItem } from "./form";
-export type { FormContext, FormItemProps, FormProps } from "./form";
+export type { FormContext, FormItemProps, FormProps, FormSubmitEvent } from "./form";
 export type { FormRule } from "./form/types";
 
 export { default as Flex } from "./flex";
-export type { FlexProps, FlexSizeType } from "./flex";
+export type { FlexAlignType, FlexJustifyType, FlexProps, FlexSizeType } from "./flex";
 
 export { Grid, GridItem } from "./grid";
 export type { GridItemProps, GridProps } from "./grid";
@@ -88,6 +88,7 @@ export type {
   MenuItemProps,
   MenuOptionsProps,
   MenuProps,
+  MenuSelectEvent,
   SubMenuProps,
 } from "./menu";
 

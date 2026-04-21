@@ -1,5 +1,5 @@
 <template>
-  <Space id="dropdown-demo-placement" wrap>
+  <Space wrap>
     <template v-for="placement in placements">
       <ColorPicker modelValue="red" size="small" :placement="placement">
         <Button>{{ placement }}</Button>
@@ -9,5 +9,14 @@
 </template>
 
 <script setup lang="ts">
-const placements = ["bottom-left", "bottom", "bottom-right", "top-left", "top", "top-right"];
+import type { DropPlacementsType } from "kui-vue";
+
+const placements: DropPlacementsType[] = [
+  "bottom-left",
+  "bottom",
+  "bottom-right",
+  "top-left",
+  "top",
+  "top-right",
+];
 </script>

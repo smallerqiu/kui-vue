@@ -18,6 +18,7 @@ import resizeDir from "../directives/resize";
 import Icon from "../icon";
 
 const carouselProps = {
+  value: { type: Number, default: 0 },
   modelValue: { type: Number, default: 0 },
   loop: { type: Boolean as BooleanType, default: true },
   autoplay: Boolean as BooleanType,
@@ -35,7 +36,7 @@ const Carousel = defineComponent({
   props: carouselProps,
   emits: ["update:value", "change"],
   setup(props, { slots, emit, expose, attrs }) {
-    const currentIndex = ref(props.modelValue);
+    const currentIndex = ref(props.value || props.modelValue);
     const posIndex = ref(props.loop ? props.modelValue + 1 : props.modelValue);
     const autoTimer = ref<ReturnType<typeof setInterval> | null>(null);
     const width = ref(0);

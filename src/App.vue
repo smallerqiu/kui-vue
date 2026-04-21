@@ -9,12 +9,10 @@
 </template>
 <script setup lang="ts">
 import { computed, provide, ref } from "vue";
-import { useRoute } from "vue-router";
 import ui_en from "../components/locale/en";
 import ui_zh from "../components/locale/zh-CN";
 import local_en from "./lang/en";
 import local_zh from "./lang/zh";
-const route = useRoute();
 
 const lang = ref(localStorage.getItem("lang") || "en");
 const messages = computed(() => (lang.value === "en" ? en : zh));

@@ -6,9 +6,9 @@
       <RadioButton value="small" label="Small" />
     </RadioGroup>
     <Space vertical>
-      <DatePicker :size="size" :picker-size="size" />
-      <DatePicker mode="month" :size="size" :picker-size="size" />
-      <DatePicker :size="size" mode="dateRange" :picker-size="size" />
+      <DatePicker :size="size" />
+      <DatePicker mode="month" :size="size" />
+      <DatePicker :size="size" mode="dateRange" />
     </Space>
   </Space>
 </template>

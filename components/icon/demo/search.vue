@@ -30,13 +30,8 @@
         </div>
         <br />
         <Grid class="icon-list" :itemMinWidth="130">
-          <GridItem
-            v-for="(x, y) in showIcons"
-            :key="y"
-            class="icon-item"
-            @click.stop="copyHandle(x)"
-          >
-            <Icon :type="icons[x]" />
+          <GridItem v-for="(x, y) in showIcons" :key="y" class="icon-item">
+            <Icon :type="icons[x]" @click.stop="copyHandle(x)" />
             <!-- <svg width="1em" height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>
             </svg> -->
@@ -46,8 +41,8 @@
       <template v-if="logo.length">
         <h3>Logos</h3>
         <Grid class="icon-list" :itemMinWidth="130">
-          <GridItem v-for="(x, y) in logo" :key="y" class="icon-item" @click.stop="copyHandle(x)">
-            <Icon :type="icons[x]" />
+          <GridItem v-for="(x, y) in logo" :key="y" class="icon-item">
+            <Icon :type="icons[x]" @click.stop="copyHandle(x)" />
             <!-- <svg width="1em"
               height="1em">
               <use :xlink:href="`${sprite}#${x}`"></use>

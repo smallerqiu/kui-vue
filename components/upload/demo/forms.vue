@@ -59,7 +59,7 @@
 </template>
 <script setup lang="ts">
 import { CameraOutline, CloudUploadOutline } from "kui-icons";
-import type { FormContext, UploadChangeEvent, UploadFile } from "kui-vue";
+import type { FormContext, FormSubmitEvent, UploadChangeEvent, UploadFile } from "kui-vue";
 import { message } from "kui-vue";
 import { reactive, ref } from "vue";
 const formRef = ref<FormContext>();
@@ -113,7 +113,7 @@ const uploadAvatar = ({ file }: UploadChangeEvent) => {
     formRef.value?.test("avatar");
   }
 };
-const submit = (valid: boolean) => {
-  message[valid ? "success" : "error"](valid ? "success" : "failed");
+const submit = (e: FormSubmitEvent) => {
+  message[e.valid ? "success" : "error"](e.valid ? "success" : "failed");
 };
 </script>

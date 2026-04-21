@@ -37,7 +37,7 @@
           </Breadcrumb>
           <div
             class="demo-dark"
-            :theme-mode="dark ? 'dark' : 'light'"
+            v-bind="{ 'theme-mode': dark ? 'dark' : 'light' }"
             style="background: var(--kui-color-bg)"
           >
             <Space vertical block>
@@ -48,7 +48,7 @@
                   <a href="https://k-ui.cn" target="_blank">Navigation -Link</a>
                 </MenuItem>
               </Menu>
-              <Page :current="1" :total="50" />
+              <Page :total="50" />
               <Space>
                 <Tag :size="size" :theme="theme" :shape="shape">Tag1</Tag>
                 <Tag :size="size" :theme="theme" :shape="shape">Tag2</Tag>
@@ -136,15 +136,16 @@
 </template>
 <script setup lang="ts">
 import { ChevronBack, ChevronForward, Heart, Home, LogoKui, Mail, Settings } from "kui-icons";
+import type { ShapeType, SizeType, ThemeType } from "kui-vue";
 import { ref } from "vue";
 
 const current = ref(["1"]);
 const leftMenuActiveKeys = ref(["1-1"]);
 const collapsed = ref(false);
 const dark = ref(false);
-const size = ref();
-const theme = ref(false);
-const shape = ref("");
+const size = ref<SizeType>("default");
+const theme = ref<ThemeType>("default");
+const shape = ref<ShapeType>("default");
 const change = () => {
   dark.value = !dark.value;
 };

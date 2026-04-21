@@ -3,15 +3,20 @@ import { defineComponent, provide } from "vue";
 import { type BooleanType, type SizeType } from "../const/types";
 
 export type FlexSizeType = SizeType | number | (string | number)[];
-
+export type FlexAlignType = "start" | "flex-start" | "end" | "flex-end" | "center" | "baseline";
+export type FlexJustifyType =
+  | "flex-start"
+  | "center"
+  | "flex-end"
+  | "space-between"
+  | "space-around"
+  | "space-evenly";
 export const flexProps = {
   align: {
-    type: String as PropType<"start" | "flex-start" | "end" | "flex-end" | "center" | "baseline">,
+    type: String as PropType<FlexAlignType>,
   },
   justify: {
-    type: String as PropType<
-      "flex-start" | "center" | "flex-end" | "space-between" | "space-around" | "space-evenly"
-    >,
+    type: String as PropType<FlexJustifyType>,
   },
   vertical: Boolean as BooleanType,
   wrap: Boolean as BooleanType,

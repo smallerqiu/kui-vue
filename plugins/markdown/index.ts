@@ -37,10 +37,10 @@ export default function vitePluginKuiMd(): Plugin {
 
       // \[(.*?)\]\((.*?\.vue)\) : 匹配 [标题](./路径.vue)
       // \s*\n\s*-\s+(.*)       : 匹配换行后的横杠及其后面的描述内容
-      const reg = /\[(.*?)\]\((.*?\.vue)(?:\?show=(.*?))?\)\s*\n\s*-\s+(.*)/g;
+      const demoReg = /\[(.*?)\]\((.*?\.vue)(?:\?show=(.*?))?\)\s*\n\s*-\s+(.*)/g;
 
-      const processedMarkdown = code.replace(
-        reg,
+      let processedMarkdown = code.replace(
+        demoReg,
         (_, title, src, direction = "horizontal", description) => {
           const componentName = `KuiDemo${demoCount++}`;
           const _id = "k-" + hashId(id);
@@ -67,7 +67,16 @@ export default function vitePluginKuiMd(): Plugin {
         }
       );
 
-      // fs.writeFileSync(path.join(__dirname, "demo.md"), processedMarkdown);
+      const jsxReg = /\[(.*?)\]\((.*?\.tsx)/g;
+
+      processedMarkdown = processedMarkdown.replace(jsxReg, (_, t, src) => {
+        console.log(t, src);
+        const componentName = `KuiDemo${demoCount++}`;
+        demoImports.push(`import ${componentName} from '${src}';`);
+        return "";
+      });
+
+      fs.writeFileSync(path.join(__dirname, "demo.md"), processedMarkdown);
       const mainHtml = markdown.render(processedMarkdown);
       const result = `
 <template>
@@ -84,7 +93,7 @@ const copy = (text) => {
   message.success("Copied.");
 };
 </script>`;
-      // fs.writeFileSync(path.join(__dirname, "demo.html"), result);
+      fs.writeFileSync(path.join(__dirname, "demo.html"), result);
       return { code: result, map: null };
     },
   };

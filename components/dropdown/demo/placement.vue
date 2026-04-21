@@ -1,6 +1,6 @@
 <template>
-  <Space id="dropdown-demo-placement" wrap>
-    <template v-for="(placement, index) in placements">
+  <Space wrap>
+    <template v-for="placement in placements">
       <Dropdown :placement="placement">
         <Button>{{ placement }}</Button>
         <template #overlay>
@@ -28,5 +28,14 @@
 </template>
 
 <script setup lang="ts">
-const placements = ["bottom-left", "bottom", "bottom-right", "top-left", "top", "top-right"];
+import type { DropPlacementsType } from "kui-vue";
+
+const placements: DropPlacementsType[] = [
+  "bottom-left",
+  "bottom",
+  "bottom-right",
+  "top-left",
+  "top",
+  "top-right",
+];
 </script>

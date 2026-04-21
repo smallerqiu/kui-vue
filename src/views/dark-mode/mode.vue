@@ -3,7 +3,7 @@
 </template>
 <script setup lang="ts">
 import { message, theme } from "kui-vue";
-const switchMode = (e: PointerEvent) => {
+const switchMode = (e: MouseEvent) => {
   message.info(`Current theme mode`);
   theme.setThemeMode(e, (isDark: boolean) => {
     message.info(`Current theme mode is ${isDark ? "dark" : "light"}`);

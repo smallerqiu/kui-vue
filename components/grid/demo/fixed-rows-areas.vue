@@ -4,7 +4,7 @@
     <GridItem :span="4" class="demo-grid-header"> Header (100% Width) </GridItem>
 
     <!-- Sidebar: 跨 1 行 -->
-    <GridItem :span="1" row:span="1" class="demo-grid-sidebar"> Menu </GridItem>
+    <GridItem :span="1" :row-span="1" class="demo-grid-sidebar"> Menu </GridItem>
 
     <!-- Main: 占 3 列 -->
     <GridItem :span="3" class="demo-grid-main"> Main Content (Auto Height) </GridItem>

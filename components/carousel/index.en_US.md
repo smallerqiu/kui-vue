@@ -26,6 +26,7 @@ A set of rotating/carousel areas.
 
 | Property   | Description                                                                    | Type    | Default |
 | ---------- | ------------------------------------------------------------------------------ | ------- | ------- |
+| value      | Default index of the slide                                                     | Number  | 0       |
 | modelValue | The index of the slide, starting from 0. Can use `v-model` for two-way binding | Number  | 0       |
 | loop       | Whether to enable loop                                                         | Boolean | true    |
 | vertical   | Whether to display in vertical mode                                            | Boolean | false   |

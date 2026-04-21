@@ -8,8 +8,8 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-const ran = (min, max) => {
-  return parseInt(Math.random() * (max - min) + min);
+const ran = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min) + min);
 };
 const userList = ["K", "Zhang", "Mr Qiu", "Jack cheng", "Jone Blue"];
 const colorList = ["#3a95ff", "#00bb5d", "#ff3300", "#ffa500"];

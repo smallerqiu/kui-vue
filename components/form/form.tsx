@@ -2,8 +2,12 @@ import { cloneVNode, defineComponent, provide, reactive, ref, toRefs, watch } fr
 import { getChildren } from "../utils/vnode";
 
 import type { ExtractPropTypes, PropType } from "vue";
-import type { BooleanType, DirectionType, SizeType } from "../const/types";
+import type { BooleanType, DirectionType, ShapeType, SizeType, ThemeType } from "../const/types";
 import type { ColProps, FormRule } from "./types";
+
+export interface FormSubmitEvent {
+  valid: boolean;
+}
 
 const formProps = {
   layout: {
@@ -21,11 +25,11 @@ const formProps = {
     type: String as PropType<SizeType>,
     default: "default",
   },
-  theme: String,
-  shape: String,
+  theme: String as PropType<ThemeType>,
+  shape: String as PropType<ShapeType>,
   disabled: Boolean as BooleanType,
   onSubmit: {
-    type: Function as PropType<(valid: boolean) => void>,
+    type: Function as PropType<(e: FormSubmitEvent) => void>,
   },
 };
 
@@ -33,7 +37,7 @@ export interface FormExpose {
   validate: (callback?: (result: { valid: boolean }) => void) => void;
   reset: () => void;
   test: (key: string) => void;
-  submit: () => void;
+  submit: (e: FormSubmitEvent) => void;
 }
 
 export type FormProps = ExtractPropTypes<typeof formProps>;
@@ -105,7 +109,7 @@ const Form = defineComponent({
     };
     const submit = () => {
       validate(({ valid }) => {
-        emit("submit", valid);
+        emit("submit", { valid });
       });
     };
 

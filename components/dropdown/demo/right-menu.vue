@@ -24,9 +24,9 @@
   </Dropdown>
 </template>
 <script setup lang="ts">
-import { message } from "kui-vue";
-import { Save, Cut, Document, IconEdit, Exit } from "kui-icons";
-const handle = ({ key }) => {
+import { Cut, Document, Exit, IconEdit, Save } from "kui-icons";
+import { message, type MenuSelectEvent } from "kui-vue";
+const handle = ({ key }: MenuSelectEvent) => {
   message.info("Click on item " + key);
 };
 </script>

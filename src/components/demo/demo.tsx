@@ -1,6 +1,6 @@
 import { useClipboard } from "@vueuse/core";
 import { CaretHor, CopyOutline, Reload } from "kui-icons";
-import { Badge, Button, Divider, message, Tooltip } from "kui-vue";
+import { Badge, Button, Divider, message, Tooltip, type BadgeStatusType } from "kui-vue";
 import {
   defineComponent,
   inject,
@@ -35,12 +35,12 @@ const Demo = defineComponent({
     const timer = ref<NodeJS.Timeout>();
     const buildState = reactive({
       text: $t("text.build_tip"),
-      state: "success",
+      state: "success" as BadgeStatusType,
     });
 
     const error = ref("");
 
-    const currentApp = ref(null);
+    const currentApp = ref();
     const reload = () => {
       const source = codeRef.value?.innerText || (slots.code?.()?.[0]?.children as string) || "";
       parseCode({
@@ -83,8 +83,7 @@ const Demo = defineComponent({
     });
     onBeforeUnmount(() => {
       if (currentApp.value) {
-        currentApp.value.unmount();
-        currentApp.value = null;
+        currentApp.value?.unmount();
       }
     });
 

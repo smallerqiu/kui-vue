@@ -84,11 +84,12 @@
 </template>
 <script setup lang="ts">
 import { PersonAddOutline } from "kui-icons";
+import type { MenuSelectEvent } from "kui-vue";
 
-const handleButtonClick = (e) => {
+const handleButtonClick = (e: MouseEvent) => {
   console.log("click left button", e);
 };
-const handleMenuClick = (e) => {
+const handleMenuClick = (e: MenuSelectEvent) => {
   console.log("click", e);
 };
 </script>
