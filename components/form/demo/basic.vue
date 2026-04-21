@@ -75,19 +75,20 @@
         <TextArea placeholder="Please input..." />
       </FormItem>
       <FormItem :wrapperCol="{ offset: 5 }">
-        <Button type="primary" circle>Submit</Button>
-        <Button style="margin-left: 10px" circle>Cancel</Button>
+        <Button type="primary">Submit</Button>
+        <Button style="margin-left: 10px">Cancel</Button>
       </FormItem>
     </Form>
   </div>
 </template>
 <script setup lang="ts">
+import type { ShapeType, SizeType, ThemeType } from "kui-vue";
 import { reactive } from "vue";
 const state = reactive({
   disabled: false,
-  size: "default",
-  shape: "default",
-  theme: "default",
+  size: "default" as SizeType,
+  shape: "default" as ShapeType,
+  theme: "default" as ThemeType,
 });
 const treeData = [
   {

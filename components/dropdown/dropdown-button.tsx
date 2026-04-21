@@ -12,6 +12,7 @@ import {
 import { type IconType } from "../icon";
 import Dropdown from "./dropdown";
 import TriggerButton from "./trigger";
+
 export const dropdownButtonProps = {
   size: String as PropType<SizeType>,
   shape: String as PropType<ShapeType>,
@@ -21,6 +22,7 @@ export const dropdownButtonProps = {
   dark: Boolean as BooleanType,
   arrow: Boolean as BooleanType,
   placement: { type: String as PropType<DropPlacementsType>, default: "bottom-right" },
+  onClick: Function as PropType<(e: MouseEvent) => void>,
 };
 export type DropdownButtonProps = ExtractPropTypes<typeof dropdownButtonProps>;
 

@@ -11,7 +11,8 @@
 </template>
 <script setup lang="ts">
 import { ChevronDown } from "kui-icons";
-const menuClick = ({ key }) => {
+import type { MenuSelectEvent } from "kui-vue";
+const menuClick = ({ key }: MenuSelectEvent) => {
   console.log(key);
 };
 const items = [

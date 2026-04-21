@@ -30,9 +30,10 @@
   </Flex>
 </template>
 <script setup lang="ts">
+import type { FlexAlignType, FlexJustifyType } from "kui-vue";
 import { ref } from "vue";
-const justify = ref("flex-start");
-const align = ref("flex-start");
+const justify = ref<FlexJustifyType>("flex-start");
+const align = ref<FlexAlignType>("flex-start");
 const justifyOps = ref([
   "flex-start",
   "center",

@@ -61,6 +61,7 @@
   </div>
 </template>
 <script setup lang="ts">
+import type { FormSubmitEvent } from "kui-vue";
 import { message, type FormRule } from "kui-vue";
 import { ref } from "vue";
 const validatePass = (_: FormRule, value: any, callback: (error?: Error) => void) => {
@@ -71,7 +72,7 @@ const validatePass = (_: FormRule, value: any, callback: (error?: Error) => void
 };
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
-const form = ref({
+const form = ref<Record<string, any>>({
   number: "",
   text: "",
   email: "",
@@ -80,7 +81,7 @@ const form = ref({
   confirm_password: "",
   country: "",
   city: "",
-  hobbies: [],
+  hobbies: [] as string[],
   other: "",
 });
 const rules: Record<string, FormRule[]> = {
@@ -134,7 +135,7 @@ const rules: Record<string, FormRule[]> = {
 const setValue = () => {
   form.value = {
     number: 123,
-    text: "bacd",
+    text: "abcd",
     email: "master@k-ui.cn",
     password: "abc@123@123",
     confirm_password: "abc@123@123",
@@ -146,7 +147,7 @@ const setValue = () => {
   };
 };
 
-const submit = ({ valid }) => {
-  message[valid ? "success" : "error"](valid ? "success" : "failed");
+const submit = (e: FormSubmitEvent) => {
+  message[e.valid ? "success" : "error"](e.valid ? "success" : "failed");
 };
 </script>

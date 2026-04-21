@@ -27,11 +27,12 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { ChevronDown, PersonOutline, PersonAddOutline } from "kui-icons";
-const handleMenuClick = (e) => {
+import { PersonAddOutline, PersonOutline } from "kui-icons";
+import type { MenuSelectEvent } from "kui-vue";
+const handleMenuClick = (e: MenuSelectEvent) => {
   console.log("click", e);
 };
-const handleButtonClick = (e) => {
+const handleButtonClick = (e: MouseEvent) => {
   console.log("click left button", e);
 };
 </script>

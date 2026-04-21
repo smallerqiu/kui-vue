@@ -11,13 +11,17 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
 
-const disabledDate = (current) => {
-  return current && current < dayjs().endOf("day");
+const disabledDate = (current: Date) => {
+  return current && current < dayjs().endOf("day").toDate();
 };
-const disabledTime1 = (date) => {
-  return date < new Date(date.getTime()).setHours(9, 30, 0, 0);
+const disabledTime1 = (date: Date) => {
+  const target = new Date(date);
+  target.setHours(9, 30, 0, 0);
+  return date < target;
 };
-const disabledTime2 = (date) => {
-  return date < new Date(date.getTime()).setHours(12, 30, 0, 0);
+const disabledTime2 = (date: Date) => {
+  const target = new Date(date);
+  target.setHours(12, 30, 0, 0);
+  return date < target;
 };
 </script>

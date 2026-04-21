@@ -45,7 +45,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { message, type FormRule } from "kui-vue";
+import { message, type FormRule, type FormSubmitEvent } from "kui-vue";
 import { ref } from "vue";
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
@@ -67,11 +67,11 @@ const userRules: FormRule = {
 const visible = ref(false);
 const group = ref({
   name: "",
-  list: [],
+  list: [] as any[],
 });
-const onSubmit = ({ valid, model }) => {
-  if (valid) {
-    group.value.list.push(model);
+const onSubmit = (e: FormSubmitEvent) => {
+  if (e.valid) {
+    group.value.list.push(Object.assign({}, form.value));
     formRef.value.reset();
     visible.value = false;
   }
@@ -82,7 +82,7 @@ const onOk = () => {
 const onCancel = () => {
   formRef.value.reset();
 };
-const onSubmit2 = ({ valid }) => {
-  message[valid ? "success" : "error"](valid ? "success" : "failed");
+const onSubmit2 = (e: FormSubmitEvent) => {
+  message[e.valid ? "success" : "error"](e.valid ? "success" : "failed");
 };
 </script>

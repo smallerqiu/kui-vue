@@ -16,7 +16,7 @@ When there are too many operation commands on the page, this component can be us
 
 - By default, the menu is triggered by hovering, but it can also be triggered by clicking the right mouse button.
 
-[Button with a dropdown menu](./demo/dropdown-button.vue)
+[Button with a dropdown menu](./demo/dropdown-buttons.vue)
 
 - On the left is the button, and on the right is an additional related function menu. The icon property can be set to modify the icon on the right.
 

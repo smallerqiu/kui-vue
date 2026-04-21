@@ -1,17 +1,12 @@
-import {
-    defineComponent,
-    type CSSProperties,
-    type ExtractPropTypes,
-    type PropType
-} from "vue";
+import { defineComponent, type CSSProperties, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType } from "../const/types";
-
+export type BadgeStatusType = "default" | "success" | "error" | "warning";
 const badgeProps = {
   count: [String, Number],
   dot: Boolean as BooleanType,
   color: String,
   status: {
-    type: String as PropType<"default" | "success" | "error" | "warning">,
+    type: String as PropType<BadgeStatusType>,
     default: "default",
   },
   text: String,
@@ -97,6 +92,6 @@ const Badge = defineComponent({
       );
     };
   },
-}) 
+});
 
 export default Badge;

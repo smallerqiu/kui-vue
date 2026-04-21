@@ -1,0 +1,18 @@
+
+<template>
+  <div class="markdown-body">
+    <h1>Components</h1>
+<p>KUI provides a rich set of foundational UI components for web applications.</p>
+<p>)</p>
+
+  </div>
+</template>
+
+<script setup>
+import { message } from "kui-vue";
+import KuiDemo0 from './demo.tsx';
+const copy = (text) => {
+  navigator.clipboard.writeText(text);
+  message.success("Copied.");
+};
+</script>

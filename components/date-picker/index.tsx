@@ -77,8 +77,8 @@ export const datePickerProps = {
   editable: { type: Boolean as BooleanType, default: true },
   placeholder: { type: [String, Array] as PropType<string | string[]>, default: "" },
   format: { type: String, default: null },
-  disabledDate: { type: Function, default: () => false },
-  disabledTime: { type: Function, default: () => false },
+  disabledDate: { type: Function as PropType<(date: Date) => boolean>, default: () => false },
+  disabledTime: { type: Function as PropType<(date: Date) => boolean>, default: () => false },
   size: { type: String as PropType<SizeType>, default: "default" },
   dateIcon: { type: Array as PropType<IconType[]> },
   theme: { type: String as PropType<ThemeType>, default: "light" },
@@ -710,13 +710,15 @@ const DatePicker = defineComponent({
                   key={idx}
                   class={[
                     "k-picker-day",
-                    item.type !== "curr" ? "k-picker-day-out" : "",
-                    date.isSame(dayjs(), "day") ? "k-picker-is-today" : "",
-                    isSelected ? "k-picker-day-selected" : "",
-                    inRange && !isSelected ? "k-picker-day-in" : "",
-                    isRangeStart ? "k-picker-range-start" : "",
-                    isRangeEnd ? "k-picker-range-end" : "",
-                    isDisabled ? "k-picker-day-disabled" : "",
+                    {
+                      "k-picker-day-out": item.type !== "curr",
+                      "k-picker-is-today": date.isSame(dayjs(), "day"),
+                      "k-picker-day-selected": isSelected,
+                      "k-picker-day-in": inRange && !isSelected,
+                      "k-picker-range-start": isRangeStart,
+                      "k-picker-range-end": isRangeEnd,
+                      "k-picker-day-disabled": isDisabled,
+                    },
                   ]}
                   onMouseenter={() => {
                     if (props.mode.includes("Range")) hoverDate.value = date;
