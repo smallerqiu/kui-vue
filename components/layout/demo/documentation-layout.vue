@@ -8,7 +8,7 @@
     <Layout class="docs-body">
       <Sider width="280" class="docs-sider-left">
         <div class="sider-menu-wrapper">
-          <Menu mode="inline" :defaultOpenKeys="['g1']" class="docs-menu">
+          <Menu mode="inline" :openKeys="['g1']" class="docs-menu">
             <Menu-group key="g1" title="Guide">
               <MenuItem key="intro">Started</MenuItem>
               <MenuItem key="custom">Custom Theme</MenuItem>
@@ -33,7 +33,7 @@
         </article>
       </Content>
 
-      <Sider width="200" class="docs-sider-right" hide-trigger>
+      <Sider width="200" class="docs-sider-right">
         <div class="anchor-wrapper">
           <p class="anchor-title">Contents</p>
           <Anchor>

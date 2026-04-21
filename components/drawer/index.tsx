@@ -14,6 +14,7 @@ import {
   type PropType,
 } from "vue";
 import { Button } from "../button";
+import type { DrawerPlacementsType } from "../const/types";
 import { transfer } from "../directives/transfer";
 import zhCN from "../locale/zh-CN";
 import { toggleContainerScroll } from "../utils/vnode";
@@ -25,7 +26,7 @@ export const drawerProps = {
   height: { type: [Number, String] as PropType<number | string>, default: 520 },
   okText: String,
   cancelText: String,
-  placement: { type: String as PropType<"left" | "right" | "top" | "bottom">, default: "right" },
+  placement: { type: String as PropType<DrawerPlacementsType>, default: "right" },
   closable: { type: Boolean, default: true },
   footer: { type: Boolean, default: true },
   maskClosable: { type: Boolean, default: true },

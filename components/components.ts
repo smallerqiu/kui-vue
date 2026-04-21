@@ -60,7 +60,7 @@ export type { FormContext, FormItemProps, FormProps } from "./form";
 export type { FormRule } from "./form/types";
 
 export { default as Flex } from "./flex";
-export type { FlexProps } from "./flex";
+export type { FlexProps, FlexSizeType } from "./flex";
 
 export { Grid, GridItem } from "./grid";
 export type { GridItemProps, GridProps } from "./grid";
@@ -176,6 +176,7 @@ export type {
   ButtonType,
   ColorType,
   DirectionType,
+  DrawerPlacementsType,
   DropPlacementsType,
   PlacementsType,
   ShapeType,

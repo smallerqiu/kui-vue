@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width:600px">
+  <div style="max-width: 600px">
     <Form
       name="rules"
       :rules="rules"
@@ -28,13 +28,13 @@
       </FormItem>
       <FormItem label="Country">
         <FormItem prop="country">
-          <Select clearable style="width:100%;">
+          <Select clearable style="width: 100%">
             <Option value="0" label="China" />
             <Option value="1" label="Russia" />
           </Select>
         </FormItem>
         <FormItem prop="city">
-          <Select clearable style="width:100%;">
+          <Select clearable style="width: 100%">
             <Option value="0" label="Shanghai" />
             <Option value="1" label="Wuhan" />
             <Option value="2" label="Hangzhou" />
@@ -54,23 +54,21 @@
       </FormItem>
       <FormItem :wrapperCol="{ offset: 6 }">
         <Button type="primary" htmlType="submit">Submit</Button>
-        <Button style="margin:0 10px" htmlType="reset">Reset</Button>
+        <Button style="margin: 0 10px" htmlType="reset">Reset</Button>
         <Button theme="dashed" @click="setValue">Set Value</Button>
       </FormItem>
     </Form>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, reactive } from "vue";
-import { message } from "kui-vue";
-const validatePass = (rule, value, callback) => {
+import { message, type FormRule } from "kui-vue";
+import { ref } from "vue";
+const validatePass = (_: FormRule, value: any, callback: (error?: Error) => void) => {
   if (value !== form.value.password) {
     return callback(new Error("The two passwords do not match!"));
   }
   callback();
 };
-const timer = ref(null);
-const time = ref(0);
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
 const form = ref({
@@ -85,7 +83,7 @@ const form = ref({
   hobbies: [],
   other: "",
 });
-const rules = {
+const rules: Record<string, FormRule[]> = {
   number: [
     { required: true, message: "The number is required" },
     { type: "number", message: "Only numbers can be entered" },

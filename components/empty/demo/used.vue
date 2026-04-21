@@ -7,5 +7,10 @@
   </Space>
 </template>
 <script setup lang="ts">
-const columns = [{ title: "Name" }, { title: "Age" }];
+import type { Column } from "kui-vue";
+
+const columns: Column[] = [
+  { title: "Name", key: "name" },
+  { title: "Age", key: "age" },
+];
 </script>

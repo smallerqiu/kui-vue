@@ -16,11 +16,12 @@
   </Flex>
 </template>
 <script setup lang="ts">
+import type { SizeType } from "kui-vue";
 import { ref } from "vue";
-const flexSize = ref("small");
+const flexSize = ref<SizeType>("small");
 const customize = ref(8);
 const isCustomize = ref(false);
-const changeSize = (value) => {
+const changeSize = (value: any) => {
   flexSize.value = value;
 };
 </script>

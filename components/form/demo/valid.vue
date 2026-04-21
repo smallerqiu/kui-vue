@@ -32,9 +32,11 @@
       </FormItem>
       <FormItem label="Captcha" prop="captcha">
         <Input placeholder="Please enter captcha">
-          <Button slot="suffix" :size="size" :disabled="time != 60" @click="sendCode">
-            {{ time == 60 ? "Get verification code" : time + "(s)" }}
-          </Button>
+          <template #suffix>
+            <Button :size="size" :disabled="time != 60" @click="sendCode">
+              {{ time == 60 ? "Get verification code" : time + "(s)" }}
+            </Button>
+          </template>
         </Input>
       </FormItem>
       <FormItem label="Country">
@@ -106,15 +108,15 @@
   </div>
 </template>
 <script setup lang="ts">
-import { message } from "kui-vue";
+import { message, type FormContext, type FormRule, type SizeType } from "kui-vue";
 import { reactive, ref } from "vue";
-const validatePass = (rule, value, callback) => {
-  if (value !== form.value.password) {
+const validatePass = (_: FormRule, value: any, callback: (error?: Error) => void) => {
+  if (value !== form.password) {
     return callback(new Error("Please confirm the password"));
   }
   callback();
 };
-const validateReadme = (rule, value, callback) => {
+const validateReadme = (_: FormRule, value: any, callback: (error?: Error) => void) => {
   if (value !== true) {
     return callback(new Error("请阅读服务条款"));
   }
@@ -123,9 +125,9 @@ const validateReadme = (rule, value, callback) => {
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
 const time = ref(60);
-const timer = ref(null);
-const size = ref("default");
-const formRef = ref(null);
+const timer = ref<number>();
+const size = ref<SizeType>("default");
+const formRef = ref<FormContext>();
 const treeData = [
   {
     title: "food",
@@ -157,7 +159,7 @@ const form = reactive({
   other: "",
   readme: false,
 });
-const rules = {
+const rules: Record<string, FormRule[]> = {
   email: [
     { type: "mail", message: "Please input a valid email" },
     { required: true, message: "The email is required" },
@@ -247,7 +249,7 @@ const sendCode = () => {
   time.value = 59;
   message.success("The verification code has been sent.");
   clearInterval(timer.value);
-  timer.value = setInterval((e) => {
+  timer.value = setInterval((_) => {
     if (time.value < 1) {
       clearInterval(timer.value);
       time.value = 60;
@@ -257,11 +259,11 @@ const sendCode = () => {
   }, 1000);
 };
 const submit = () => {
-  formRef.value.validate(({ valid }) => {
+  formRef.value?.validate(({ valid }) => {
     message[valid ? "success" : "error"](valid ? "success" : "failed");
   });
 };
 const reset = () => {
-  formRef.value.reset();
+  formRef.value?.reset();
 };
 </script>

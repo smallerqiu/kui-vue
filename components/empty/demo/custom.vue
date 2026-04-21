@@ -5,17 +5,17 @@
       description="No image"
       :imageStyle="{ height: '60px' }"
     >
-      <Button type="primary" circle :icon="Add" size="small">Upload a image</Button>
+      <Button type="primary" shape="circle" :icon="Add" size="small">Upload a image</Button>
     </Empty>
-    <br />z
+    <br />
     Use slot
     <br />
     <Empty>
       <template #description>Currently no <a>images</a></template>
       <template #image>
-        <img src="https://cdn.chuchur.com/img/thumb.png" style="height:60px" />
+        <img src="https://cdn.chuchur.com/img/thumb.png" style="height: 60px" />
       </template>
-      <Button type="primary" circle :icon="Add" size="small">Upload a image</Button>
+      <Button type="primary" shape="circle" :icon="Add" size="small">Upload a image</Button>
     </Empty>
   </Space>
 </template>

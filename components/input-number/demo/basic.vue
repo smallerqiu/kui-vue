@@ -1,5 +1,5 @@
 <template>
-  <Space style="font-size:12px;max-width:200px" block vertical>
+  <Space style="font-size: 12px; max-width: 200px" block vertical>
     <code>v-model: {{ value }}</code>
     <InputNumber v-model="value" @change="change" />
     <code>readonly</code>
@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 const value = ref(1);
-const change = (value) => {
+const change = (value: number) => {
   console.log("change", value);
 };
 </script>

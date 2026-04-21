@@ -11,13 +11,13 @@
   <br />
   <br />
   <Flex ref="refTarget" :style="boxStyle" align="center" justify="center">
-    <p style="color:#999">Drawer inside with target.</p>
+    <p style="color: #999">Drawer inside with target.</p>
   </Flex>
   <Drawer
     v-model="show"
     width="50%"
     height="50%"
-    :footer="null"
+    :footer="false"
     :placement="placement"
     :target="() => refTarget"
   >
@@ -27,9 +27,10 @@
   </Drawer>
 </template>
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import type { DrawerPlacementsType } from "kui-vue";
+import { ref } from "vue";
 const show = ref(false);
-const placement = ref("left");
+const placement = ref<DrawerPlacementsType>("left");
 const refTarget = ref();
 const boxStyle = {
   height: "300px",

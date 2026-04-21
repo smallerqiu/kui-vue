@@ -9,7 +9,6 @@
         ref="refForm"
         :model="form"
         :rules="rules"
-        label-align="left"
         :labelCol="{ span: 5 }"
         :wrapperCol="{ span: 19 }"
       >
@@ -17,7 +16,7 @@
           <Input clearable :icon="Home"></Input>
         </FormItem>
         <FormItem label="Number" prop="number">
-          <Input number clearable></Input>
+          <InputNumber />
         </FormItem>
         <FormItem label="DatePicker" prop="datepicker">
           <DatePicker clearable format="YYYY/MM/DD hh:mm:ss"></DatePicker>
@@ -59,10 +58,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import { message } from "kui-vue";
 import { Home } from "kui-icons";
-import { ref, reactive } from "vue";
-const refForm = ref();
+import { message, type FormContext, type FormRule } from "kui-vue";
+import { reactive, ref } from "vue";
+const refForm = ref<FormContext>();
 const show1 = ref(false);
 const show2 = ref(false);
 const form = reactive({
@@ -78,7 +77,7 @@ const form = reactive({
   checkbox_group: [],
   textarea: "",
 });
-const rules = {
+const rules: Record<string, FormRule[]> = {
   input: [{ required: true }],
   number: [{ required: true }],
   province: [{ required: true }],
@@ -95,7 +94,7 @@ const rules = {
 };
 
 const submitForm = () => {
-  refForm.value.validate(({ valid }) => {
+  refForm.value?.validate(({ valid }) => {
     if (valid) {
       message.success("Successfully");
       show1.value = false;
@@ -106,6 +105,6 @@ const submitForm = () => {
 };
 
 const resetForm = () => {
-  refForm.value.reset();
+  refForm.value?.reset();
 };
 </script>

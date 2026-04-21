@@ -5,7 +5,7 @@
     <Input placeholder="clearable=false" :clearable="false" />
     <Input placeholder="Disabled" disabled />
     <Input placeholder="Readonly" readonly v-model="value" />
-    <TextArea v-model="value" placeholder="TextArea"/>
+    <TextArea v-model="value" placeholder="TextArea" />
   </Space>
 </template>
 <script setup lang="ts">
@@ -16,8 +16,5 @@ const blur = () => {
 };
 const focus = () => {
   console.log("focus");
-};
-const change = () => {
-  console.log("change");
 };
 </script>

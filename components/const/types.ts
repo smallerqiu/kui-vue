@@ -14,7 +14,7 @@ export type PlacementsType =
   | "right"
   | "right-top"
   | "right-bottom";
-
+export type DrawerPlacementsType = "left" | "right" | "top" | "bottom";
 export type DropPlacementsType =
   | "top"
   | "top-left"

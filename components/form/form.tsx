@@ -16,7 +16,6 @@ const formProps = {
   wrapperCol: Object as PropType<ColProps>,
   rules: {
     type: Object as PropType<Record<string, FormRule[]>>,
-    default: () => ({}),
   },
   size: {
     type: String as PropType<SizeType>,

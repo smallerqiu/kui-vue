@@ -70,7 +70,7 @@ import * as icons from "kui-icons";
 import { message } from "kui-vue";
 import { ref } from "vue";
 // import sprite from 'kui-icons/dist/sprite.svg'
-const { copy, isSupported } = useClipboard();
+const { copy } = useClipboard();
 
 const LogoKui = icons.LogoKui;
 
@@ -92,7 +92,7 @@ const switchIcon = () => {
   filter(searchKey.value);
 };
 
-const filter = (key) => {
+const filter = (key: string) => {
   key = key.replace(/ /g, "");
   let origin = type.value == "outline" ? outlines : filledIcons;
   if (key) {
@@ -108,7 +108,7 @@ const filter = (key) => {
     logo.value = logos;
   }
 };
-const copyHandle = (name) => {
+const copyHandle = (name: string) => {
   // let text = `<Icon type="${name}" />`
   copy(name).then(() => {
     message.success("代码复制成功！");

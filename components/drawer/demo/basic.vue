@@ -6,7 +6,7 @@
       <Button @click="show3 = !show3">Click mask can't close</Button>
       <Button @click="show4 = !show4">No mask</Button>
     </Space>
-    <Drawer v-model="show" :footer="null" @ok="show = false">
+    <Drawer v-model="show" :footer="false" @ok="show = false">
       <p>something ...</p>
       <p>something ...</p>
       <p>something ...</p>
