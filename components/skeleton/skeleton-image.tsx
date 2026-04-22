@@ -1,4 +1,4 @@
-import { ImagesOutline } from "kui-icons";
+import { Images } from "kui-icons";
 import { type CSSProperties, defineComponent, ref, watch } from "vue";
 import Icon from "../icon";
 import { skeletonProps } from "./types";
@@ -59,7 +59,7 @@ const SkeletonImage = defineComponent({
             child
           ) : (
             <span {...innerProps}>
-              <Icon type={ImagesOutline} class="k-skeleton-image-icon" />
+              <Icon type={Images} class="k-skeleton-image-icon" />
             </span>
           )}
         </div>

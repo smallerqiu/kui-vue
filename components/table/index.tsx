@@ -1,4 +1,4 @@
-import { CaretDown, CaretUp } from "kui-icons";
+import { ChevronDown, ChevronUp } from "kui-icons";
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { computed, defineComponent, h, onMounted, onUpdated, reactive, ref, watch } from "vue";
 import { Checkbox, type ChangeEvent } from "../checkbox";
@@ -377,7 +377,7 @@ const Table = defineComponent({
                     {col.sorter && (
                       <span class="k-table-sorter">
                         <Icon
-                          type={CaretUp}
+                          type={ChevronUp}
                           class={[
                             "k-table-sorter-up",
                             sortState.key === col.key &&
@@ -386,7 +386,7 @@ const Table = defineComponent({
                           ]}
                         />
                         <Icon
-                          type={CaretDown}
+                          type={ChevronDown}
                           class={[
                             "k-table-sorter-down",
                             sortState.key === col.key &&

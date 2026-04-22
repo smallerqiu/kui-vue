@@ -1,4 +1,4 @@
-import { AlertCircle, CheckmarkCircle, Close, CloseCircle, InformationCircle } from "kui-icons";
+import { CircleAlert, CircleCheck, CircleX, Info, X } from "kui-icons";
 import { defineComponent, ref, Transition, type ExtractPropTypes, type PropType } from "vue";
 import { getTransitionProp } from "../base/transition";
 import type { BooleanType } from "../const/types";
@@ -35,10 +35,10 @@ const Alert = defineComponent({
     };
 
     const icons = {
-      info: InformationCircle,
-      error: CloseCircle,
-      success: CheckmarkCircle,
-      warning: AlertCircle,
+      info: Info,
+      error: CircleX,
+      success: CircleCheck,
+      warning: CircleAlert,
     };
 
     const transitionProps = getTransitionProp("k-alert-slide");
@@ -52,7 +52,7 @@ const Alert = defineComponent({
       ) : null;
 
       const closeIcon = props.closable ? (
-        <Icon class="k-alert-close" type={Close} onClick={close} />
+        <Icon class="k-alert-close" type={X} onClick={close} />
       ) : null;
 
       const descriptionNode = props.description ? (

@@ -16,7 +16,7 @@
       <div>Added some very user-friendly features</div>
       <template #extra>More auxiliary details</template>
     </TimeLineItem>
-    <TimeLineItem :icon="Build" color="red" time="2020-10-03" extra="More auxiliary details">
+    <TimeLineItem :icon="Hammer" color="red" time="2020-10-03" extra="More auxiliary details">
       Fix bug
     </TimeLineItem>
     <TimeLineItem time="2020-10-01" extra="More auxiliary details">
@@ -25,7 +25,7 @@
   </TimeLine>
 </template>
 <script setup lang="ts">
-import { Build } from "kui-icons";
+import { Hammer } from "kui-icons";
 import type { TimelineMode } from "kui-vue";
 import { ref } from "vue";
 const mode = ref<TimelineMode>("left");

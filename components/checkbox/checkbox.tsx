@@ -1,4 +1,4 @@
-import { Checkmark } from "kui-icons";
+import { Check } from "kui-icons";
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType, SizeType, ThemeType } from "../const/types";
 import Icon from "../icon";
@@ -106,7 +106,7 @@ const Checkbox = defineComponent({
         onChange: onChange,
       };
 
-      const innerNode = isChecked.value ? <Icon type={Checkmark} strokeWidth={60} /> : null;
+      const innerNode = isChecked.value ? <Icon type={Check} strokeWidth={60} /> : null;
       const labelNode = label || slots.default?.();
 
       return (

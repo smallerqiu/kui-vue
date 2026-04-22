@@ -9,13 +9,13 @@
     multiple
     ref="uploadRef"
   >
-    <Button :icon="CloudUploadOutline">Click to choose file</Button>
+    <Button :icon="CloudUpload">Click to choose file</Button>
   </Upload>
   <br />
   <Button :disabled="disabled" @click="startUpload">Starting Upload</Button>
 </template>
 <script setup lang="ts">
-import { CloudUploadOutline } from "kui-icons";
+import { CloudUpload } from "kui-icons";
 import { type UploadContext, type UploadFile } from "kui-vue";
 import { ref } from "vue";
 const uploadRef = ref<UploadContext>();

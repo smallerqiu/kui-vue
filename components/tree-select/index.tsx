@@ -1,4 +1,4 @@
-import { ChevronDown, Close, CloseCircle, Loading } from "kui-icons";
+import { ChevronDown, CircleX, LoaderCircle, X } from "kui-icons";
 import {
   computed,
   defineComponent,
@@ -471,7 +471,7 @@ const TreeSelect = defineComponent({
 
       const loadingNode = (
         <div class="k-tree-select-loading">
-          <Icon type={Loading} spin />
+          <Icon type={LoaderCircle} spin />
           <span>{locale.value?.k?.select?.loading}</span>
         </div>
       );
@@ -536,7 +536,7 @@ const TreeSelect = defineComponent({
           return (
             <span class="k-tree-select-tag" key={String(label)}>
               {label}
-              <Icon type={Close} onClick={(e: MouseEvent) => removeTag(e, i)} />
+              <Icon type={X} onClick={(e: MouseEvent) => removeTag(e, i)} />
             </span>
           );
         });
@@ -601,7 +601,7 @@ const TreeSelect = defineComponent({
       ];
 
       const clearNode = showClear.value ? (
-        <Icon class="k-tree-select-clearable" type={CloseCircle} onClick={onClear} />
+        <Icon class="k-tree-select-clearable" type={CircleX} onClick={onClear} />
       ) : null;
       const treeProps = {
         tabindex: "0",

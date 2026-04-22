@@ -1,4 +1,4 @@
-import { Close } from "kui-icons";
+import { X } from "kui-icons";
 import {
   computed,
   defineComponent,
@@ -203,7 +203,7 @@ const Modal = defineComponent({
         props.showClose &&
           contents.push(
             <Button
-              icon={Close}
+              icon={X}
               size="small"
               onClick={close}
               class="k-modal-close"

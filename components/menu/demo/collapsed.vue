@@ -1,6 +1,10 @@
 <template>
-  <div style="width:256px">
-    <Button @click="change" :icon="collapsed ? MenuFold : MenuUnfold" type="primary"></Button>
+  <div style="width: 256px">
+    <Button
+      @click="change"
+      :icon="collapsed ? PanelLeftOpen : PanelLeftClose"
+      type="primary"
+    ></Button>
     <br />
     <br />
     <Menu
@@ -14,7 +18,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { MenuFold, MenuUnfold, Mail, Grid, Heart, Settings } from "kui-icons";
+import { Heart, Mail, PanelLeftClose, PanelLeftOpen, Settings, Table } from "kui-icons";
 import { ref } from "vue";
 const current = ref(["1-1"]);
 const openKeys = ref(["3-1"]);
@@ -26,7 +30,7 @@ const change = () => {
 
 const items = [
   { title: "Option 1", key: "1-1", icon: Mail },
-  { title: "Option 2", key: "2-1", icon: Grid },
+  { title: "Option 2", key: "2-1", icon: Table },
   {
     title: "Navigation Two",
     key: "3-1",

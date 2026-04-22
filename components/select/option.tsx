@@ -1,4 +1,4 @@
-import { Checkmark } from "kui-icons";
+import { Check } from "kui-icons";
 import { computed, defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import { type BooleanType } from "../const/types";
 import Icon from "../icon";
@@ -43,7 +43,7 @@ const Option = defineComponent({
         <li {...liProps}>
           <span>
             {labelText.value}
-            {multiple ? <Icon type={Checkmark} /> : null}
+            {multiple ? <Icon type={Check} /> : null}
           </span>
         </li>
       );

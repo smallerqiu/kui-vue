@@ -1,4 +1,4 @@
-import { Checkmark, CheckmarkCircle, Close, CloseCircle } from "kui-icons";
+import { Check, CircleCheck, CircleX, X } from "kui-icons";
 import {
   defineComponent,
   ref,
@@ -64,20 +64,20 @@ const Progress = defineComponent({
       } else {
         if (type === "line") {
           if (currentPercent.value === 100) {
-            text = <Icon type={CheckmarkCircle} />;
+            text = <Icon type={CircleCheck} />;
           }
           if (status === "exception") {
-            text = <Icon type={CloseCircle} />;
+            text = <Icon type={CircleX} />;
           }
         } else if (type === "circle" || type === "dashboard") {
           if (slots.format) {
             text = slots.format();
           } else {
             if (currentPercent.value === 100) {
-              text = <Icon type={Checkmark} />;
+              text = <Icon type={Check} />;
             }
             if (status === "exception") {
-              text = <Icon type={Close} />;
+              text = <Icon type={X} />;
             }
           }
         }

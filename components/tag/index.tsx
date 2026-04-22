@@ -1,4 +1,4 @@
-import { Close } from "kui-icons";
+import { X } from "kui-icons";
 import {
   defineComponent,
   ref,
@@ -75,7 +75,7 @@ const Tag = defineComponent({
       }
       content.push(<span class="k-tag-text">{slots.default?.()}</span>);
       if (closeable) {
-        content.push(<Icon class="k-tag-close" type={Close} onClick={closeHandler} />);
+        content.push(<Icon class="k-tag-close" type={X} onClick={closeHandler} />);
       }
       const tagProps = {
         class: tagClasses,

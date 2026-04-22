@@ -2,7 +2,7 @@
   <Layout class="ide-layout">
     <Layout>
       <Sider width="48" class="ide-rail">
-        <div class="rail-icon active"><Icon :type="Documents" /></div>
+        <div class="rail-icon active"><Icon :type="Files" /></div>
         <div class="rail-icon"><Icon :type="Search" /></div>
         <div class="rail-icon"><Icon :type="GitBranch" /></div>
       </Sider>
@@ -42,7 +42,7 @@
   </Layout>
 </template>
 <script setup lang="ts">
-import { Documents, GitBranch, Search } from "kui-icons";
+import { Files, GitBranch, Search } from "kui-icons";
 </script>
 <style scoped>
 .ide-layout {

@@ -1,10 +1,4 @@
-import {
-  AlertCircle,
-  CheckmarkCircle,
-  CloseCircle,
-  HelpCircle,
-  InformationCircle,
-} from "kui-icons";
+import { CircleAlert, CircleCheck, CircleQuestionMark, CircleX, Info } from "kui-icons";
 import { computed, defineComponent, inject, ref, type PropType } from "vue";
 import { Button } from "../button";
 import Icon, { type IconType } from "../icon";
@@ -75,11 +69,11 @@ export default defineComponent({
       //icons
       let { title, content, color, type, icon, cancelText, okText } = ps;
       let icons = {
-        info: InformationCircle,
-        error: CloseCircle,
-        success: CheckmarkCircle,
-        warning: AlertCircle,
-        confirm: HelpCircle,
+        info: Info,
+        error: CircleX,
+        success: CircleCheck,
+        warning: CircleAlert,
+        confirm: CircleQuestionMark,
       };
       //header
       let header = (

@@ -1,4 +1,4 @@
-import { Close } from "kui-icons";
+import { X } from "kui-icons";
 import {
   computed,
   defineComponent,
@@ -138,7 +138,7 @@ const Drawer = defineComponent({
       ) : null;
 
       const closeNode = closable ? (
-        <Button class="k-drawer-close" size="small" type="text" onClick={close} icon={Close} />
+        <Button class="k-drawer-close" size="small" type="text" onClick={close} icon={X} />
       ) : null;
 
       const transitionName = `k-drawer-${placement}`;

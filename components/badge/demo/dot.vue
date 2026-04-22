@@ -4,7 +4,7 @@
       <div class="badge-box"></div>
     </Badge>
     <Badge dot>
-      <Icon :type="NotificationsOutline" />
+      <Icon :type="Bell" />
     </Badge>
     <Badge dot>
       <a href="#">Link</a>
@@ -12,5 +12,5 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { NotificationsOutline } from "kui-icons";
+import { Bell } from "kui-icons";
 </script>

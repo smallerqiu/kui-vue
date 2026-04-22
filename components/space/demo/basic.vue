@@ -5,7 +5,7 @@
     <Tooltip placement="top">
       <Button>Space</Button>
       <template #title>
-        <p style="margin:0">I am space</p>
+        <p style="margin: 0">I am space</p>
       </template>
     </Tooltip>
   </Space>

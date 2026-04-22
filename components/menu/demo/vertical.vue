@@ -1,16 +1,16 @@
 <template>
-  <div style="width:256px">
+  <div style="width: 256px">
     <Menu v-model="current" mode="vertical" :items="items" />
   </div>
 </template>
 <script setup lang="ts">
+import { Heart, Mail, Settings, Table } from "kui-icons";
 import { ref } from "vue";
-import { Mail, Grid, Heart, Settings } from "kui-icons";
 const current = ref(["1-1"]);
 
 const items = [
   { key: "1-1", icon: Mail, title: "Option 1" },
-  { key: "1-2", icon: Grid, title: "Option 2" },
+  { key: "1-2", icon: Table, title: "Option 2" },
   {
     key: "sub2",
     icon: Heart,

@@ -16,7 +16,7 @@
             :inline-collapsed="collapsed"
             style="border: none"
           >
-            <MenuItem key="1-1" :icon="Home"><span>Home</span></MenuItem>
+            <MenuItem key="1-1" :icon="House"><span>Home</span></MenuItem>
             <MenuItem key="1-2" :icon="Heart"><span>Data statistics</span></MenuItem>
             <MenuItem key="1-3" :icon="Settings">
               <span>Settings</span>
@@ -24,7 +24,7 @@
           </Menu>
           <Button
             theme="light"
-            :icon="!collapsed ? ChevronBack : ChevronForward"
+            :icon="!collapsed ? ChevronLeft : ChevronRight"
             @click="toggle"
             class="btn-expand"
           />
@@ -135,7 +135,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ChevronBack, ChevronForward, Heart, Home, LogoKui, Mail, Settings } from "kui-icons";
+import { ChevronLeft, ChevronRight, Heart, House, LogoKui, Mail, Settings } from "kui-icons";
 import type { ShapeType, SizeType, ThemeType } from "kui-vue";
 import { ref } from "vue";
 

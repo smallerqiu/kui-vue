@@ -2,7 +2,7 @@
   <Table :data="data" :columns="columns" />
 </template>
 <script setup lang="ts">
-import { Moon, Sunny } from "kui-icons";
+import { Moon, Sun } from "kui-icons";
 import { Button, Icon, modal, Space, Tag, type Column } from "kui-vue";
 const data = [
   {
@@ -46,7 +46,7 @@ const columns: Column[] = [
     key: "gender",
     render: (h, { gender }, _) => {
       return h(Icon, {
-        type: gender == 1 ? Sunny : Moon,
+        type: gender == 1 ? Sun : Moon,
         color: gender == 1 ? "blue" : "#f50cff",
         size: 15,
       });

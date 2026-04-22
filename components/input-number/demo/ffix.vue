@@ -9,13 +9,13 @@
     <InputNumber placeholder="请填写您的薪资" :icon="LogoYen">
       <template #suffix>
         <Tooltip title="此处如果不知道怎么填，请咨询管理员">
-          <Button :icon="HelpCircle" />
+          <Button :icon="CircleQuestionMark" />
         </Tooltip>
       </template>
     </InputNumber>
     <InputNumber placeholder="Please input amount">
       <template #prefix>
-        <Button :icon="PersonAddOutline" />
+        <Button :icon="UserPlus" />
       </template>
       <template #suffix>
         <Button>Top up</Button>
@@ -24,5 +24,5 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { HelpCircle, LogoYen, PersonAddOutline } from "kui-icons";
+import { CircleQuestionMark, LogoYen, UserPlus } from "kui-icons";
 </script>

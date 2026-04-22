@@ -19,9 +19,9 @@
 </template>
 <script setup lang="ts">
 import { Heart, Star } from "kui-icons";
+import { message } from "kui-vue";
 import { ref } from "vue";
 const imgRef = ref();
-import { message } from "kui-vue";
 
 const close = () => {
   message.info("close");

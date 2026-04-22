@@ -1,18 +1,28 @@
 # Icon 图标
 
-kui 的图标使用开源项目 [ionicons](http://ionicons.com/) 前版本5.5
-
-3.x 版本以后不再支持`webfont` 使用 `svg`代替
-
-使用图标组件，你需要安装 `kui-icons` 图标组件包：
+5.x 版本重新引入了图标集, 支持更多的图标。
+使用图标组件，需要安装 `kui-icons` 图标组件包：
 
 ```bash
 npm install --save kui-icons
 ```
 
+使用
+
+```html
+<template>
+  <Icon :type="Heart" />
+</template>
+<script setup lang="ts">
+  import { Heart } from "kui-icons";
+</script>
+```
+
+[IconList](./demo/search.tsx)
+
 [基本用法](./demo/basic.vue)
 
-- 可以通过 `type`、`size`  、`color` 属性分别设置图标的类型、大小、颜色,也可以通过设置 `spin` 属性来实现动画旋转效果。
+- 可以通过 `type`、`size` 、`color` 属性分别设置图标的类型、大小、颜色,也可以通过设置 `spin` 属性来实现动画旋转效果。
 
 [线条粗细](./demo/stroke.vue)
 

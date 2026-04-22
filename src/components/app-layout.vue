@@ -5,7 +5,7 @@
       <Sider :class="['docs-k-layout-sider', { 'docs-k-layout-sider-show': showMiniNav }]">
         <Button
           size="large"
-          :icon="showMiniNav ? Close : MenuIcon"
+          :icon="showMiniNav ? X : MenuIcon"
           class="min-menu-nav-btn"
           @click="showMiniNav = !showMiniNav"
         />
@@ -46,7 +46,7 @@
             class="nav-prev"
             @click="(e) => navTo(e, false)"
           >
-            <Icon :type="ChevronBack" />
+            <Icon :type="ChevronLeft" />
             <span class="nav-text">
               {{ prevNavData.sub }} {{ locale?.name != "en" ? prevNavData.title : "" }}
             </span>
@@ -62,7 +62,7 @@
             <span class="nav-text">
               {{ nextNavData.sub }} {{ locale?.name != "en" ? nextNavData.title : "" }}
             </span>
-            <Icon :type="ChevronForward" />
+            <Icon :type="ChevronRight" />
           </a>
         </div>
       </Content>
@@ -73,7 +73,7 @@
 <script setup lang="ts">
 import AppHeader from "./app-header.vue";
 // import AppFooter from "./app-footer";
-import { ChevronBack, ChevronForward, Close, Menu as MenuIcon } from "kui-icons";
+import { ChevronLeft, ChevronRight, Menu as MenuIcon, X } from "kui-icons";
 import { computed, inject, onMounted, reactive, ref, Transition } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { navData, routeData } from "../menu";

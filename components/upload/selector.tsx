@@ -1,4 +1,4 @@
-import { Add } from "kui-icons";
+import { Plus } from "kui-icons";
 import { defineComponent, ref, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType } from "../const/types";
 import Icon from "../icon";
@@ -111,7 +111,7 @@ export default defineComponent({
               onChange={selectFiles}
               ref={uploadFileRef}
             />
-            {isPicture || draggable ? <Icon type={uploadIcon || Add} /> : slots.default?.()}
+            {isPicture || draggable ? <Icon type={uploadIcon || Plus} /> : slots.default?.()}
             {(isPicture || (draggable && uploadText)) && (
               <span class="k-upload-text">{uploadText}</span>
             )}

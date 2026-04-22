@@ -5,7 +5,7 @@
       description="No image"
       :imageStyle="{ height: '60px' }"
     >
-      <Button type="primary" shape="circle" :icon="Add" size="small">Upload a image</Button>
+      <Button type="primary" shape="circle" :icon="Plus" size="small">Upload a image</Button>
     </Empty>
     <br />
     Use slot
@@ -15,10 +15,10 @@
       <template #image>
         <img src="https://cdn.chuchur.com/img/thumb.png" style="height: 60px" />
       </template>
-      <Button type="primary" shape="circle" :icon="Add" size="small">Upload a image</Button>
+      <Button type="primary" shape="circle" :icon="Plus" size="small">Upload a image</Button>
     </Empty>
   </Space>
 </template>
 <script setup lang="ts">
-import { Add } from "kui-icons";
+import { Plus } from "kui-icons";
 </script>

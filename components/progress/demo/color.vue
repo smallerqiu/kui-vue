@@ -9,12 +9,12 @@
   <Progress :percent="percent" type="dashboard" :format="format3" :color="color" />
   <br />
   <ButtonGroup>
-    <Button @click="decline" :icon="Remove" />
-    <Button @click="increase" :icon="Add" />
+    <Button @click="decline" :icon="Minus" />
+    <Button @click="increase" :icon="Plus" />
   </ButtonGroup>
 </template>
 <script setup lang="ts">
-import { Add, Remove } from "kui-icons";
+import { Minus, Plus } from "kui-icons";
 import { ref } from "vue";
 const percent = ref(0);
 const color = ref("");

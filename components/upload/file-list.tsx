@@ -1,4 +1,4 @@
-import { AlertCircle, Close, DocumentTextOutline } from "kui-icons";
+import { CircleAlert, FileText, X } from "kui-icons";
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
 import type { BooleanType } from "../const/types";
@@ -56,7 +56,7 @@ export default defineComponent({
                 key={item.uid || i}
               >
                 <div class={`k-upload-${isPicture ? "picture" : "file"}-preview`}>
-                  {getPreview(item) || <Icon type={DocumentTextOutline} />}
+                  {getPreview(item) || <Icon type={FileText} />}
                 </div>
                 <div class="k-upload-file-item-info">
                   {!isPicture ? (
@@ -78,14 +78,14 @@ export default defineComponent({
                         />
                       ) : statusText && !isPicture ? (
                         <div class="k-upload-file-status-text">
-                          <Icon type={AlertCircle} />
+                          <Icon type={CircleAlert} />
                           {statusText}
                         </div>
                       ) : null}
 
                       {isPicture && item.status === "error" && (
                         <Tooltip title={statusText} placement="bottom">
-                          <Icon type={AlertCircle} />
+                          <Icon type={CircleAlert} />
                         </Tooltip>
                       )}
                     </div>
@@ -94,7 +94,7 @@ export default defineComponent({
                 <Button
                   type="text"
                   size="small"
-                  icon={Close}
+                  icon={X}
                   class={`k-upload-file-${isPicture ? "picture" : "item"}-remove`}
                   onClick={() => handleRemove(i, item)}
                 />

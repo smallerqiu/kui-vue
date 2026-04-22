@@ -2,12 +2,12 @@
   <Space vertical size="middle">
     <Space compact>
       <Tooltip placement="top" title="Copy">
-        <Button :icon="CloudDownloadOutline"></Button>
+        <Button :icon="CloudDownload"></Button>
       </Tooltip>
-      <Button :icon="GameControllerOutline"></Button>
-      <Button :icon="HeartOutline"></Button>
-      <Button :icon="MailOutline"></Button>
-      <Button :icon="ShirtOutline"></Button>
+      <Button :icon="Gamepad2"></Button>
+      <Button :icon="Heart"></Button>
+      <Button :icon="Mail"></Button>
+      <Button :icon="Shirt"></Button>
       <Dropdown placement="bottom-right">
         <Button :icon="Ellipsis"></Button>
         <template #overlay>
@@ -35,19 +35,12 @@
       <Button>Button1</Button>
       <Button>Button2</Button>
       <Button>Button3</Button>
-      <Button :icon="ShirtOutline" disabled></Button>
-      <Button :icon="ShirtOutline"></Button>
+      <Button :icon="Shirt" disabled></Button>
+      <Button :icon="Shirt"></Button>
       <Button>Button4</Button>
     </Space>
   </Space>
 </template>
 <script setup lang="ts">
-import {
-  CloudDownloadOutline,
-  Ellipsis,
-  GameControllerOutline,
-  HeartOutline,
-  MailOutline,
-  ShirtOutline,
-} from "kui-icons";
+import { CloudDownload, Ellipsis, Gamepad2, Heart, Mail, Shirt } from "kui-icons";
 </script>

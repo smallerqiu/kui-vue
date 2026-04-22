@@ -17,7 +17,7 @@
         @remove="() => (form.avatar = '')"
         :limit="1"
         accept="image/*"
-        :uploadIcon="CameraOutline"
+        :uploadIcon="Camera"
         uploadText="Upload Avatar"
       >
       </Upload>
@@ -35,7 +35,7 @@
             :limit="1"
             accept="image/*"
           >
-            <Button :icon="CloudUploadOutline" :loading="loading" />
+            <Button :icon="CloudUpload" :loading="loading" />
           </Upload>
         </template>
       </Input>
@@ -58,7 +58,7 @@
   </Form>
 </template>
 <script setup lang="ts">
-import { CameraOutline, CloudUploadOutline } from "kui-icons";
+import { Camera, CloudUpload } from "kui-icons";
 import type { FormContext, FormSubmitEvent, UploadChangeEvent, UploadFile } from "kui-vue";
 import { message } from "kui-vue";
 import { reactive, ref } from "vue";

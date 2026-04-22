@@ -1,4 +1,4 @@
-import { AddCircleOutline, ChevronForward, RemoveCircleOutline, Sync } from "kui-icons";
+import { ChevronRight, CircleMinus, CirclePlus, Loading } from "kui-icons";
 import {
   defineComponent,
   nextTick,
@@ -554,12 +554,12 @@ const Tree = defineComponent({
               loading={item.loading}
               icon={
                 item.loading
-                  ? Sync
+                  ? Loading
                   : props.showLine
                     ? item.expanded
-                      ? RemoveCircleOutline
-                      : AddCircleOutline
-                    : ChevronForward
+                      ? CircleMinus
+                      : CirclePlus
+                    : ChevronRight
               }
             />
           </span>

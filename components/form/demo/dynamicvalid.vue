@@ -35,7 +35,7 @@
         >
           <Input style="width: 230px" />
           <Icon
-            :type="RemoveCircleOutline"
+            :type="CircleMinus"
             @click="() => remove(i)"
             v-if="i > 0"
             style="font-size: 25px; margin: 0 10px"
@@ -56,7 +56,7 @@
   </Row>
 </template>
 <script setup lang="ts">
-import { RemoveCircleOutline } from "kui-icons";
+import { CircleMinus } from "kui-icons";
 import { message, type FormContext } from "kui-vue";
 import { ref } from "vue";
 const labelCol = { span: 5 };

@@ -6,11 +6,11 @@
     @change="handleChange"
     multiple
   >
-    <Button :icon="CloudUploadOutline">Click to upload</Button>
+    <Button :icon="CloudUpload">Click to upload</Button>
   </Upload>
 </template>
 <script setup lang="ts">
-import { CloudUploadOutline } from "kui-icons";
+import { CloudUpload } from "kui-icons";
 import { message, type UploadChangeEvent } from "kui-vue";
 import { ref } from "vue";
 const headers = ref({

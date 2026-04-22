@@ -17,7 +17,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { Grid, Heart, Mail, Settings } from "kui-icons";
+import { Heart, Mail, Settings, Table } from "kui-icons";
 import type { DirectionType } from "kui-vue";
 import { ref } from "vue";
 const current = ref(["1-1"]);
@@ -33,7 +33,7 @@ const changeTheme = () => {
 };
 const items = [
   { key: "1-1", icon: Mail, title: "Option 1" },
-  { key: "1-2", icon: Grid, title: "Option 2" },
+  { key: "1-2", icon: Table, title: "Option 2" },
   {
     key: "sub2",
     icon: Heart,

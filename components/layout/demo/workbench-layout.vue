@@ -3,9 +3,9 @@
     <Sider width="80" class="app-rail">
       <Avatar :size="40" class="app-logo">P</Avatar>
       <Menu mode="vertical" :inlineCollapsed="true" style="border: none" v-model="selectedKeys">
-        <MenuItem key="t1" :icon="CheckmarkCircle"></MenuItem>
+        <MenuItem key="t1" :icon="CircleCheck"></MenuItem>
         <MenuItem key="t2" :icon="Calendar"></MenuItem>
-        <MenuItem key="t3" :icon="StatsChart"></MenuItem>
+        <MenuItem key="t3" :icon="ChartBarBig"></MenuItem>
       </Menu>
     </Sider>
 
@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { Calendar, CheckmarkCircle, StatsChart } from "kui-icons";
+import { Calendar, ChartBarBig, CircleCheck } from "kui-icons";
 import { ref } from "vue";
 const selectedKeys = ref(["t1"]);
 const showDetail = ref(true);
