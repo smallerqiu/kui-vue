@@ -1,7 +1,7 @@
 import kui from "kui-vue";
-import "kui-vue/style/index.css";
-// import "kui-vue/styles/index.less";
+// import "kui-vue/style/index.css";
 import { createApp } from "vue";
+import "../components/styles/index.less";
 import App from "./App.vue";
 import "./assets/css/demo.less";
 import "./assets/css/index.less";

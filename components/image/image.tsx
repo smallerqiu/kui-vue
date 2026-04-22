@@ -1,4 +1,4 @@
-import { IconImage, Loading } from "kui-icons";
+import { Image as IconImage, Loading } from "kui-icons";
 import {
   type CSSProperties,
   defineComponent,

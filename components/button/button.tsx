@@ -1,4 +1,4 @@
-import { LoaderCircle } from "kui-icons";
+import { Loading } from "kui-icons";
 import {
   Comment,
   computed,
@@ -106,7 +106,7 @@ const Button = defineComponent({
       ];
 
       let childNodes: any[] = [];
-      const iconType = props.loading ? LoaderCircle : props.icon;
+      const iconType = props.loading ? Loading : props.icon;
 
       if (iconType) {
         childNodes.push(<Icon type={iconType} spin={props.loading} />);

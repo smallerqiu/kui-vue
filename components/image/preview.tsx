@@ -5,10 +5,10 @@ import {
   ChevronLeft,
   ChevronRight,
   ChevronUp,
-  IconImage,
+  Image,
   Loading,
+  Minus,
   Plus,
-  Remove,
   RotateCcwSquare,
   RotateCwSquare,
   X,
@@ -415,7 +415,7 @@ const ImagePreview = defineComponent({
                     ]}
                     onClick={() => setScale()}
                   >
-                    <Icon type={Remove} />
+                    <Icon type={Minus} />
                   </li>
                   <li class="k-image-preview-action k-image-preview-action-scale">
                     <Slider
@@ -456,7 +456,7 @@ const ImagePreview = defineComponent({
                   <img {...imgProps} v-show={visible} />
                 ) : !loading ? (
                   <div class="k-image-preview-img-error">
-                    <Icon type={IconImage} />
+                    <Icon type={Image} />
                   </div>
                 ) : null}
               </div>
