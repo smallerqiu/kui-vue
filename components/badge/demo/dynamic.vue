@@ -4,7 +4,7 @@
       <div class="badge-box"></div>
     </Badge>
     <Badge :dot="show">
-      <Icon :type="NotificationsOutline" />
+      <Icon :type="Bell" />
     </Badge>
     <Badge :dot="show">
       <a href="#">Link</a>
@@ -23,7 +23,7 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { NotificationsOutline } from "kui-icons";
+import { Bell } from "kui-icons";
 import { ref } from "vue";
 const show = ref(true);
 const count = ref(5);

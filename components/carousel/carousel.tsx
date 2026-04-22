@@ -1,4 +1,4 @@
-import { ArrowBack, ArrowForward } from "kui-icons";
+import { ArrowLeft, ArrowRight } from "kui-icons";
 import {
   Fragment,
   computed,
@@ -201,10 +201,10 @@ const Carousel = defineComponent({
           {!vertical && (
             <>
               <span class="k-carousel-arrow-left" onClick={() => toSwitch("left")}>
-                <Icon type={ArrowBack} />
+                <Icon type={ArrowLeft} />
               </span>
               <span class="k-carousel-arrow-right" onClick={() => toSwitch("right")}>
-                <Icon type={ArrowForward} />
+                <Icon type={ArrowRight} />
               </span>
             </>
           )}

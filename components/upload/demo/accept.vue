@@ -7,7 +7,7 @@
     multiple
     accept="image/*"
   >
-    <Button :icon="IconImage">Upload Image</Button>
+    <Button :icon="Image">Upload Image</Button>
   </Upload>
   <br />
   <Upload
@@ -18,7 +18,7 @@
     multiple
     accept="video/*"
   >
-    <Button :icon="Videocam">Upload Video</Button>
+    <Button :icon="Video">Upload Video</Button>
   </Upload>
   <br />
   <Upload
@@ -33,7 +33,7 @@
   </Upload>
 </template>
 <script setup lang="ts">
-import { CloudUpload, IconImage, Videocam } from "kui-icons";
+import { CloudUpload, Image, Video } from "kui-icons";
 import { message, type UploadChangeEvent } from "kui-vue";
 import { ref } from "vue";
 const headers = ref({

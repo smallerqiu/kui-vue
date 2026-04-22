@@ -1,4 +1,4 @@
-import { ChevronBack, ChevronForward, Close } from "kui-icons";
+import { ChevronLeft, ChevronRight, X } from "kui-icons";
 import {
   computed,
   defineComponent,
@@ -221,7 +221,7 @@ const Tabs = defineComponent({
             {title}
             {closable && ps.card ? (
               <Icon
-                type={Close}
+                type={X}
                 class="k-tabs-close"
                 strokeWidth={45}
                 onClick={(e) => closeTab(key, e)}
@@ -269,7 +269,7 @@ const Tabs = defineComponent({
                   ]}
                   onClick={() => scroll("left")}
                 >
-                  <Icon type={ChevronBack} />
+                  <Icon type={ChevronLeft} />
                 </span>
               ) : null}
               <div class="k-tabs-nav-wrap" ref={navBoxRef}>
@@ -288,7 +288,7 @@ const Tabs = defineComponent({
                   ]}
                   onClick={() => scroll("right")}
                 >
-                  <Icon type={ChevronForward} />
+                  <Icon type={ChevronRight} />
                 </span>
               ) : null}
             </div>

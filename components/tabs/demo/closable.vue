@@ -9,12 +9,12 @@
       {{ panel.content }}
     </TabPanel>
     <template #extra>
-      <Button :icon="Add" size="small" @click="add" />
+      <Button :icon="Plus" size="small" @click="add" />
     </template>
   </Tabs>
 </template>
 <script setup lang="ts">
-import { Add } from "kui-icons";
+import { Plus } from "kui-icons";
 import { ref } from "vue";
 const panesData = ref([
   { title: "Tab 1", content: "Content of Tab 1", key: "1" },

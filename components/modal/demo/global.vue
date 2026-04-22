@@ -9,7 +9,7 @@
 </template>
 <script setup lang="ts">
 import { Moon } from "kui-icons";
-import { modal, message } from "kui-vue";
+import { message, modal } from "kui-vue";
 //
 const success = () => {
   modal.success({

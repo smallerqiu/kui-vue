@@ -1,5 +1,5 @@
 import { useClipboard } from "@vueuse/core";
-import { CaretHor, CopyOutline, Reload } from "kui-icons";
+import { Copy, ListChevronsDownUp, ListChevronsUpDown, Undo2 } from "kui-icons";
 import { Badge, Button, Divider, message, Tooltip, type BadgeStatusType } from "kui-vue";
 import {
   defineComponent,
@@ -112,10 +112,10 @@ const Demo = defineComponent({
               <div class="k-code-tools">
                 <Badge status={buildState.state} text={buildState.text} />
                 <Tooltip title={$t("text.copy_code")}>
-                  <Button type="text" size="small" icon={CopyOutline} onClick={copyCode} />
+                  <Button type="text" size="small" icon={Copy} onClick={copyCode} />
                 </Tooltip>
                 <Tooltip title={$t("text.restore_code")}>
-                  <Button type="text" size="small" icon={Reload} onClick={restoreCode} />
+                  <Button type="text" size="small" icon={Undo2} onClick={restoreCode} />
                 </Tooltip>
               </div>
             ) : null}
@@ -147,13 +147,13 @@ const Demo = defineComponent({
                     block
                     size="large"
                     type="text"
-                    icon={CaretHor}
+                    icon={expanded.value ? ListChevronsDownUp : ListChevronsUpDown}
                     onClick={() => (expanded.value = !expanded.value)}
                   />
                 </Tooltip>
                 <Divider type="vertical" />
                 <Tooltip title={$t("text.copy_code")}>
-                  <Button type="text" size="large" icon={CopyOutline} block onClick={copyCode} />
+                  <Button type="text" size="large" icon={Copy} block onClick={copyCode} />
                 </Tooltip>
               </div>
             )}

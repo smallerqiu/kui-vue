@@ -13,7 +13,7 @@
         :wrapperCol="{ span: 19 }"
       >
         <FormItem label="Input" prop="input">
-          <Input clearable :icon="Home"></Input>
+          <Input clearable :icon="House"></Input>
         </FormItem>
         <FormItem label="Number" prop="number">
           <InputNumber />
@@ -58,7 +58,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { Home } from "kui-icons";
+import { House } from "kui-icons";
 import { message, type FormContext, type FormRule } from "kui-vue";
 import { reactive, ref } from "vue";
 const refForm = ref<FormContext>();

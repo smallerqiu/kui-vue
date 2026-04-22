@@ -67,13 +67,13 @@ export default function vitePluginKuiMd(): Plugin {
         }
       );
 
-      const jsxReg = /\[(.*?)\]\((.*?\.tsx)/g;
+      const jsxReg = /\[(.*?)\]\((.*?\.tsx)\)/g;
 
       processedMarkdown = processedMarkdown.replace(jsxReg, (_, t, src) => {
         console.log(t, src);
         const componentName = `KuiDemo${demoCount++}`;
         demoImports.push(`import ${componentName} from '${src}';`);
-        return "";
+        return `<${componentName} />`;
       });
 
       fs.writeFileSync(path.join(__dirname, "demo.md"), processedMarkdown);

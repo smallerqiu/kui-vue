@@ -1,4 +1,4 @@
-import { ChevronDown, Close, CloseCircle, Loading } from "kui-icons";
+import { ChevronDown, CircleX, Loading, X } from "kui-icons";
 import {
   computed,
   defineComponent,
@@ -580,7 +580,7 @@ const Select = defineComponent({
           return (
             <span class="k-select-tag" key={label}>
               {label}
-              <Icon type={Close} onClick={(e) => removeTag(e, i)} />
+              <Icon type={X} onClick={(e) => removeTag(e, i)} />
             </span>
           );
         });
@@ -639,7 +639,7 @@ const Select = defineComponent({
         },
       ];
       const clearNode = showClear.value ? (
-        <Icon class="k-select-clearable" type={CloseCircle} onClick={onClear} />
+        <Icon class="k-select-clearable" type={CircleX} onClick={onClear} />
       ) : null;
 
       const rootProps = {

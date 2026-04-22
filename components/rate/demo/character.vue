@@ -12,6 +12,6 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { Heart, VolumeOff, VolumeLow, VolumeMedium, VolumeHigh, VolumeMute } from "kui-icons";
-const icons = [VolumeOff, VolumeLow, VolumeMedium, VolumeHigh, VolumeMute];
+import { Heart, Wifi, WifiHigh, WifiLow, WifiOff, WifiZero } from "kui-icons";
+const icons = [WifiOff, WifiZero, WifiLow, WifiHigh, Wifi];
 </script>

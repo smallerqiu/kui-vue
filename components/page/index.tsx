@@ -1,4 +1,4 @@
-import { ChevronDoubleBack, ChevronDoubleForward, ChevronUp, Ellipsis } from "kui-icons";
+import { ChevronsLeft, ChevronsRight, ChevronUp, Ellipsis } from "kui-icons";
 import {
   computed,
   defineComponent,
@@ -134,7 +134,7 @@ const Page = defineComponent({
         };
         const moreNode = (
           <li {...p}>
-            <Icon strokeWidth={30} type={prevPageGroup.value ? ChevronDoubleBack : Ellipsis} />
+            <Icon strokeWidth={30} type={prevPageGroup.value ? ChevronsLeft : Ellipsis} />
           </li>
         );
         child.unshift(moreNode);
@@ -148,7 +148,7 @@ const Page = defineComponent({
         };
         const moreNode = (
           <li {...p}>
-            <Icon strokeWidth={30} type={nextPageGroup.value ? ChevronDoubleForward : Ellipsis} />
+            <Icon strokeWidth={30} type={nextPageGroup.value ? ChevronsRight : Ellipsis} />
           </li>
         );
         child.push(moreNode);

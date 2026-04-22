@@ -20,13 +20,13 @@
     @remove="handleChange"
     multiple
   >
-    <Button :icon="CloudUploadOutline" :disabled="disabled">
+    <Button :icon="CloudUpload" :disabled="disabled">
       Click to upload (Minimum 200KB, Maximum 1MB, up to {{ limit }} items)
     </Button>
   </Upload>
 </template>
 <script setup lang="ts">
-import { CloudUploadOutline } from "kui-icons";
+import { CloudUpload } from "kui-icons";
 import { message, type UploadChangeEvent } from "kui-vue";
 import { ref } from "vue";
 const headers = ref({

@@ -5,7 +5,7 @@
       <Flex size="small">
         {{ value }}
         <Tooltip title="How old are you?">
-          <Icon :type="AlertCircle" size="18" color="#777" />
+          <Icon :type="CircleAlert" size="18" color="#777" />
         </Tooltip>
       </Flex>
     </template>
@@ -17,14 +17,14 @@
       <Flex size="small">
         {{ value }}
         <Tooltip title="Where are you from?">
-          <Icon :type="AlertCircle" size="18" color="#777" />
+          <Icon :type="CircleAlert" size="18" color="#777" />
         </Tooltip>
       </Flex>
     </template>
   </Table>
 </template>
 <script setup lang="ts">
-import { AlertCircle } from "kui-icons";
+import { CircleAlert } from "kui-icons";
 import { modal, type Column } from "kui-vue";
 const data = [
   {

@@ -1,18 +1,18 @@
 <template>
   <Space vertical block>
-    <Input placeholder="User Name..." :icon="Person" />
-    <Input type="password" placeholder="Password..." :icon="LockClosed" />
+    <Input placeholder="User Name..." :icon="User" />
+    <Input type="password" placeholder="Password..." :icon="Lock" />
     <Input
       type="password"
       placeholder="Password no toggle"
-      :icon="LockClosed"
+      :icon="Lock"
       :visiblePasswordIcon="false"
     />
     <Space compact block>
       <Input
         type="password"
         placeholder="Password default text"
-        :icon="LockClosed"
+        :icon="Lock"
         :visiblePasswordIcon="visiblePasswordIcon"
       />
       <Button @click="visiblePasswordIcon = !visiblePasswordIcon"> Toggle </Button>
@@ -22,7 +22,7 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { LockClosed, Person } from "kui-icons";
+import { Lock, User } from "kui-icons";
 import { message } from "kui-vue";
 import { ref } from "vue";
 const visiblePasswordIcon = ref(true);

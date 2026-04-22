@@ -15,7 +15,7 @@
       >
       </Menu>
       <Button type="text" @click="collapsed = !collapsed">
-        <Icon :type="collapsed ? MenuUnfold : MenuFold" />
+        <Icon :type="collapsed ? PanelLeftOpen : PanelLeftClose" />
       </Button>
     </Sider>
 
@@ -31,7 +31,7 @@
         <Space class="header-right">
           <Input placeholder="搜索功能..." style="width: 200px" />
           <Divider type="vertical" />
-          <Avatar :icon="Person" :size="25" />
+          <Avatar :icon="User" :size="25" />
           <span class="user-name">Admin</span>
         </Space>
       </Header>
@@ -55,16 +55,16 @@
   </Layout>
 </template>
 <script setup lang="ts">
-import { Home, Key, LogoKui, MenuFold, MenuUnfold, People, Person, Settings } from "kui-icons";
+import { House, Key, LogoKui, PanelLeftClose, PanelLeftOpen, Settings, User } from "kui-icons";
 import { ref } from "vue";
 const selectedKeys = ref(["t2-1"]);
 const openKeys = ref(["t2", "t3"]);
 const collapsed = ref(false);
 const items = [
-  { key: "t1", icon: Home, title: "Dashboard" },
+  { key: "t1", icon: House, title: "Dashboard" },
   {
     key: "t2",
-    icon: People,
+    icon: User,
     title: "User Management",
     children: [
       { key: "t2-1", title: "User List" },

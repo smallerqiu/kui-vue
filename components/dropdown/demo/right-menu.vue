@@ -13,18 +13,18 @@
     </div>
     <template #overlay>
       <Menu @select="handle">
-        <MenuItem key="news" :icon="Document">New file</MenuItem>
-        <MenuItem key="edit" :icon="IconEdit">Edit</MenuItem>
+        <MenuItem key="news" :icon="File">New file</MenuItem>
+        <MenuItem key="edit" :icon="SquarePen">Edit</MenuItem>
         <MenuItem key="save" :icon="Save">Save</MenuItem>
-        <MenuItem key="cut" :icon="Cut">Cut</MenuItem>
+        <MenuItem key="cut" :icon="Scissors">Cut</MenuItem>
         <MenuDivider />
-        <MenuItem key="exit" :icon="Exit">Exit</MenuItem>
+        <MenuItem key="exit" :icon="LogOut">Exit</MenuItem>
       </Menu>
     </template>
   </Dropdown>
 </template>
 <script setup lang="ts">
-import { Cut, Document, Exit, IconEdit, Save } from "kui-icons";
+import { File, LogOut, Save, Scissors, SquarePen } from "kui-icons";
 import { message, type MenuSelectEvent } from "kui-vue";
 const handle = ({ key }: MenuSelectEvent) => {
   message.info("Click on item " + key);

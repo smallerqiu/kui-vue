@@ -1,4 +1,4 @@
-import { HelpCircle } from "kui-icons";
+import { CircleQuestionMark } from "kui-icons";
 import {
   cloneVNode,
   computed,
@@ -190,7 +190,7 @@ const Popconfirm = defineComponent({
             <div class={cls} v-transfer={true} v-show={visible.value} {..._props}>
               <div class={`k-${preCls}-content`}>
                 <div class={`k-${preCls}-body`}>
-                  <Icon type={HelpCircle} />
+                  <Icon type={CircleQuestionMark} />
                   <div class={`k-${preCls}-title`}>{title}</div>
                 </div>
                 <div class={`k-${preCls}-footer`}>

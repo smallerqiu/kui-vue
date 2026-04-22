@@ -32,6 +32,3 @@
     </template>
   </Dropdown>
 </template>
-<script setup lang="ts">
-import { ChevronDown } from "kui-icons";
-</script>

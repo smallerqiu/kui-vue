@@ -1,4 +1,4 @@
-import { ArrowForward } from "kui-icons";
+import { ArrowRight } from "kui-icons";
 import { Button, Icon, Layout } from "kui-vue";
 import { defineComponent, inject } from "vue";
 import "../assets/css/home.less";
@@ -18,7 +18,7 @@ export default defineComponent({
             <div class="btn-content">
               <Button class="start" type="link" size="large" href="/guide/quick-started">
                 {$t("index.btn_quick_start")}
-                <Icon type={ArrowForward} />
+                <Icon type={ArrowRight} />
               </Button>
               <Button size="large" class="btn-install" type="link" href="/guide/quick-started">
                 Install Kui Vue

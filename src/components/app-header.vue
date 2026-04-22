@@ -36,13 +36,13 @@
           @change="changeThemeColor"
         />
         <Tooltip :title="`${$t('menu.langTip')}`" placement="bottom">
-          <Button theme="light" :icon="Language" @click="changeLang" />
+          <Button theme="light" :icon="Languages" @click="changeLang" />
         </Tooltip>
         <Tooltip
           :title="`Switch ${themeMode == 'dark' ? 'light' : 'dark'} theme`"
           placement="bottom"
         >
-          <Button theme="light" :icon="themeMode == 'dark' ? Sunny : Moon" @click="changeMode" />
+          <Button theme="light" :icon="themeMode == 'dark' ? Sun : Moon" @click="changeMode" />
         </Tooltip>
         <a
           target="_blank"
@@ -57,7 +57,7 @@
 </template>
 <script setup lang="ts">
 import Color from "color";
-import { Language, LogoGithub, LogoKui, Moon, Search, Sunny } from "kui-icons";
+import { Languages, LogoGithub, LogoKui, Moon, Search, Sun } from "kui-icons";
 import { type MenuSelectEvent, theme } from "kui-vue";
 import { computed, inject, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";

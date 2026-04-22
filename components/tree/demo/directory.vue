@@ -29,7 +29,7 @@
     >
       <template #extra="node">
         <Space>
-          <Button size="small" type="text" :icon="Add" @click="(e) => append(e, node)" />
+          <Button size="small" type="text" :icon="Plus" @click="(e) => append(e, node)" />
           <Button
             size="small"
             type="text"
@@ -37,7 +37,7 @@
             @click="(e) => deleteNode(e, node)"
             v-if="node.key != '0-0'"
           />
-          <Button size="small" type="text" :icon="IconEdit" @click="(e) => edit(e, node)" />
+          <Button size="small" type="text" :icon="SquarePen" @click="(e) => edit(e, node)" />
         </Space>
       </template>
     </Tree>
@@ -45,16 +45,16 @@
 </template>
 <script setup lang="ts">
 import {
-  Add,
-  FolderOpenOutline,
-  FolderOutline,
-  IconEdit,
+  Folder,
+  FolderOpen,
   LogoAndroid,
   LogoApple,
   LogoFeishu,
   LogoQq,
   LogoTwitter,
   LogoWechat,
+  Plus,
+  SquarePen,
   Trash,
 } from "kui-icons";
 import type { TreeExpandEvent, TreeNode } from "kui-vue";
@@ -73,12 +73,12 @@ const data = ref([
   {
     title: "src",
     key: "0-0",
-    icon: FolderOpenOutline,
+    icon: FolderOpen,
     children: [
       {
         title: "assets",
         key: "1-0",
-        icon: FolderOpenOutline,
+        icon: FolderOpen,
         children: [
           { title: "main.js", icon: LogoTwitter, disabled: true, key: "1-0-0" },
           { title: "test.py", icon: LogoQq, key: "1-0-1" },
@@ -87,7 +87,7 @@ const data = ref([
       {
         title: "pages",
         key: "1-1",
-        icon: FolderOpenOutline,
+        icon: FolderOpen,
         children: [
           { title: "index.html", icon: LogoFeishu, key: "1-1-1" },
           { title: "index.md", icon: LogoWechat, key: "1-1-2" },
@@ -96,7 +96,7 @@ const data = ref([
       {
         title: "app",
         key: "1-2",
-        icon: FolderOpenOutline,
+        icon: FolderOpen,
         children: [
           { title: "zen.apk", icon: LogoAndroid, key: "1-2-1" },
           { title: "zen.ipa", icon: LogoApple, key: "1-2-2" },
@@ -107,7 +107,7 @@ const data = ref([
   {
     title: "src11",
     key: "0-1",
-    icon: FolderOpenOutline,
+    icon: FolderOpen,
   },
 ]);
 const edit = (e: MouseEvent, node: TreeNode) => {
@@ -124,7 +124,7 @@ const insertChildren = (nodes: TreeNode[], targetKey: string, childrenData: Tree
       // node.children = childrenData; // for vue 3
 
       if (!("children" in node)) {
-        node.icon = FolderOpenOutline;
+        node.icon = FolderOpen;
         node.children = [];
       }
       // 如果 'children' 属性已存在，直接赋值是安全的
@@ -180,7 +180,7 @@ const deleteNode = (e: MouseEvent, node: TreeNode) => {
   });
 };
 const expand = ({ expanded, node }: TreeExpandEvent) => {
-  node.icon = expanded ? FolderOpenOutline : FolderOutline;
+  node.icon = expanded ? FolderOpen : Folder;
   console.log(node);
 };
 const onCheck = (node: TreeNode, checked: boolean) => {

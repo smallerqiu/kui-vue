@@ -8,14 +8,14 @@
       placeholder="A circle Input with icon"
     />
     <Select :options="options" placeholder="No Arrow" :showArrow="false" />
-    <Select :options="options" placeholder="Custom Arrow" :arrowIcon="CaretDown" />
+    <Select :options="options" placeholder="Custom Arrow" :arrowIcon="ArrowDown" />
     <Select multiple v-model="value" filterable theme="light" :options="options" />
     <Select filterable theme="outline" :options="options" placeholder="Outline theme" />
     <Select :bordered="false" theme="solid" :options="options" placeholder="No Border" />
   </Space>
 </template>
 <script setup lang="ts">
-import { CaretDown, Search } from "kui-icons";
+import { ArrowDown, Search } from "kui-icons";
 import { ref } from "vue";
 
 const value = ref(["1", "3"]);

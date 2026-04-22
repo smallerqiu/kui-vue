@@ -1,5 +1,5 @@
 import Color from "color";
-import { Checkmark } from "kui-icons";
+import { Check } from "kui-icons";
 import { defineComponent, type PropType } from "vue";
 import Icon from "../icon";
 export default defineComponent({
@@ -37,8 +37,8 @@ export default defineComponent({
     return () => {
       if (props.modelValue.length == 0) return null;
       let color = props.modelValue.map((hex) => (
-        <span style={{backgroundColor : hex}} onClick={()=>emit("updateColor", Color(hex))}>
-          {Color(props.color) == Color(hex)? <Icon type={Checkmark} /> : null}
+        <span style={{ backgroundColor: hex }} onClick={() => emit("updateColor", Color(hex))}>
+          {Color(props.color) == Color(hex) ? <Icon type={Check} /> : null}
         </span>
       ));
       return <div class="k-color-picker-presets">{color}</div>;

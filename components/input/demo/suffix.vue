@@ -1,6 +1,6 @@
 <template>
   <Space vertical block>
-    <Input placeholder="Please input username" :icon="PersonOutline" />
+    <Input placeholder="Please input username" :icon="User" />
     <Input placeholder="Please input the captcha" :maxlength="8">
       <template #suffix>
         <Button :disabled="time < 60" @click="sendCode">
@@ -11,7 +11,7 @@
     <Input placeholder="Please input" :icon="Gift">
       <template #suffix>
         <Tooltip title="Please contact the administrator">
-          <Button :icon="InformationCircleOutline" />
+          <Button :icon="CircleQuestionMark" />
         </Tooltip>
       </template>
     </Input>
@@ -37,7 +37,7 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { Gift, InformationCircleOutline, PersonOutline } from "kui-icons";
+import { CircleQuestionMark, Gift, User } from "kui-icons";
 import { message } from "kui-vue";
 import { onUnmounted, ref } from "vue";
 const time = ref(60);

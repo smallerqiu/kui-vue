@@ -9,13 +9,13 @@
       placeholder="A circle Input with icon"
     />
     <TreeSelect :treeData="data" block placeholder="No Arrow" :showArrow="false" />
-    <TreeSelect :treeData="data" block placeholder="Custom Arrow" :arrowIcon="CaretDown" />
+    <TreeSelect :treeData="data" block placeholder="Custom Arrow" :arrowIcon="ArrowDownFromLine" />
     <TreeSelect filterable block theme="outline" :treeData="data" placeholder="Outline theme" />
     <TreeSelect :bordered="false" :treeData="data" block placeholder="No Border" theme="solid" />
   </Space>
 </template>
 <script setup lang="ts">
-import { CaretDown, Search } from "kui-icons";
+import { ArrowDownFromLine, Search } from "kui-icons";
 
 const data = [
   {

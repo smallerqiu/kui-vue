@@ -7,13 +7,13 @@
     @change="handleChange"
     :limit="1"
     accept="image/*"
-    :uploadIcon="CameraOutline"
+    :uploadIcon="Camera"
     uploadText="Upload Avatar"
   >
   </Upload>
 </template>
 <script setup lang="ts">
-import { CameraOutline } from "kui-icons";
+import { Camera } from "kui-icons";
 import type { UploadChangeEvent } from "kui-vue";
 import { ref } from "vue";
 const headers = ref({

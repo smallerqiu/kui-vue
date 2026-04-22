@@ -3,8 +3,8 @@
 </template>
 <script setup lang="ts">
 import {
-  FolderOpenOutline,
-  FolderOutline,
+  Folder,
+  FolderOpen,
   LogoAndroid,
   LogoApple,
   LogoFeishu,
@@ -19,12 +19,12 @@ const data = [
   {
     title: "src",
     key: "0-0",
-    icon: FolderOpenOutline,
+    icon: FolderOpen,
     children: [
       {
         title: "assets",
         key: "1-0",
-        icon: FolderOpenOutline,
+        icon: FolderOpen,
         children: [
           { title: "main.js", icon: LogoTwitter, disabled: true, key: "1-0-0" },
           { title: "test.py", icon: LogoQq, key: "1-0-1" },
@@ -34,7 +34,7 @@ const data = [
         title: "pages",
         expand: true,
         key: "1-1",
-        icon: FolderOpenOutline,
+        icon: FolderOpen,
         children: [
           { title: "index.html", icon: LogoFeishu, key: "1-1-0" },
           { title: "index.md", icon: LogoWechat, key: "1-1-1" },
@@ -44,7 +44,7 @@ const data = [
         title: "app",
         expand: true,
         key: "1-2",
-        icon: FolderOpenOutline,
+        icon: FolderOpen,
         children: [
           { title: "zen.apk", icon: LogoAndroid, key: "1-2-0" },
           { title: "zen.ipa", icon: LogoApple, key: "1-2-1" },
@@ -54,6 +54,6 @@ const data = [
   },
 ];
 const expand = ({ expanded, node }: TreeExpandEvent) => {
-  node.icon = expanded ? FolderOpenOutline : FolderOutline;
+  node.icon = expanded ? FolderOpen : Folder;
 };
 </script>

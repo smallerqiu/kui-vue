@@ -3,14 +3,14 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import isBetween from "dayjs/plugin/isBetween";
 import localeData from "dayjs/plugin/localeData";
 import {
-  ArrowForward,
-  CalendarOutline,
-  ChevronBack,
-  ChevronDoubleBack,
-  ChevronDoubleForward,
-  ChevronForward,
-  CloseCircle,
-  TimeOutline,
+  ArrowLeft,
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+  CircleX,
+  Clock,
 } from "kui-icons";
 import {
   computed,
@@ -553,14 +553,14 @@ const DatePicker = defineComponent({
       return (
         <div class="k-picker-header">
           <Button
-            icon={ChevronDoubleBack}
+            icon={ChevronsLeft}
             type="text"
             onClick={() => (panelDate.value = panelDate.value.subtract(10, "year"))}
           />
 
           {props.mode !== "year" ? (
             <Button
-              icon={ChevronBack}
+              icon={ChevronLeft}
               type="text"
               onClick={() => (panelDate.value = panelDate.value.subtract(1, "month"))}
             />
@@ -571,14 +571,14 @@ const DatePicker = defineComponent({
 
           {props.mode !== "year" ? (
             <Button
-              icon={ChevronForward}
+              icon={ChevronRight}
               type="text"
               onClick={() => (panelDate.value = panelDate.value.add(1, "month"))}
             />
           ) : null}
           <Button
             type="text"
-            icon={ChevronDoubleForward}
+            icon={ChevronsRight}
             onClick={() => (panelDate.value = panelDate.value.add(10, "year"))}
           />
         </div>
@@ -804,7 +804,7 @@ const DatePicker = defineComponent({
               {s}
             </div>
             <span class="k-picker-footer-time-split">
-              <Icon type={ArrowForward} />
+              <Icon type={ArrowLeft} />
             </span>
             <div
               class={[
@@ -878,7 +878,7 @@ const DatePicker = defineComponent({
           "k-datepicker-has-clear": showClear,
         },
       ];
-      const dateIcon = props.mode == "time" ? TimeOutline : props.dateIcon || CalendarOutline;
+      const dateIcon = props.mode == "time" ? Clock : props.dateIcon || Calendar;
       const overlayProps = {
         class: "k-datepicker-overlay",
         ref: refPopper,
@@ -914,7 +914,7 @@ const DatePicker = defineComponent({
               }} // 聚焦开始
             />,
             <span class="k-datepicker-separator">
-              <Icon type={ArrowForward} />
+              <Icon type={ArrowLeft} />
             </span>,
             <input
               size={size}
@@ -1019,7 +1019,7 @@ const DatePicker = defineComponent({
             <Icon type={dateIcon} class="k-icon-calendar" />
             {showClear && (
               <Icon
-                type={CloseCircle}
+                type={CircleX}
                 class="k-icon-clean"
                 onClick={(e) => {
                   e.stopPropagation();

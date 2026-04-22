@@ -34,11 +34,7 @@
         </Space>
       </template>
       <template #gender="{ value }">
-        <Icon
-          :type="value == 1 ? Moon : Sunny"
-          :color="value == 1 ? 'blue' : '#f50cff'"
-          size="15"
-        />
+        <Icon :type="value == 1 ? Moon : Sun" :color="value == 1 ? 'blue' : '#f50cff'" size="15" />
       </template>
       <template #action>
         <Button size="small">test</Button>
@@ -47,7 +43,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { Moon, Sunny } from "kui-icons";
+import { Moon, Sun } from "kui-icons";
 import type { Column, SizeType } from "kui-vue";
 import { ref } from "vue";
 const data = [

@@ -1,30 +1,30 @@
 import {
-    Add,
-    ArrowBack,
-    ArrowDown,
-    ArrowForward,
-    ChevronBack,
-    ChevronForward,
-    ChevronUp,
-    Close,
-    IconImage,
-    Loading,
-    Remove,
-    RotateLeft,
-    RotateRight,
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+  IconImage,
+  Loading,
+  Plus,
+  Remove,
+  RotateCcwSquare,
+  RotateCwSquare,
+  X,
 } from "kui-icons";
 import {
-    type CSSProperties,
-    defineComponent,
-    nextTick,
-    onBeforeUnmount,
-    onMounted,
-    type PropType,
-    reactive,
-    ref,
-    toRefs,
-    Transition,
-    watch,
+  type CSSProperties,
+  defineComponent,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  type PropType,
+  reactive,
+  ref,
+  toRefs,
+  Transition,
+  watch,
 } from "vue";
 import { Button } from "../button";
 import Icon from "../icon";
@@ -381,7 +381,7 @@ const ImagePreview = defineComponent({
                 <ul class="k-image-preview-control" v-show={visible}>
                   <li class="k-image-preview-action-nav">
                     <Button
-                      icon={ChevronBack}
+                      icon={ChevronLeft}
                       type="text"
                       disabled={!data.length || data.indexOf(src) == 0}
                       onClick={() => switchImage(true)}
@@ -390,7 +390,7 @@ const ImagePreview = defineComponent({
                       {data?.indexOf(src) + 1 || 1}/{data?.length || 1}
                     </span>
                     <Button
-                      icon={ChevronForward}
+                      icon={ChevronRight}
                       type="text"
                       disabled={!data.length || data.indexOf(src) == data.length - 1}
                       onClick={() => switchImage()}
@@ -400,13 +400,13 @@ const ImagePreview = defineComponent({
                     class="k-image-preview-action k-image-preview-action-rotate-left"
                     onClick={() => setRotate(true)}
                   >
-                    <Icon type={RotateLeft} />
+                    <Icon type={RotateCcwSquare} />
                   </li>
                   <li
                     class="k-image-preview-action k-image-preview-action-rotate-right"
                     onClick={() => setRotate()}
                   >
-                    <Icon type={RotateRight} />
+                    <Icon type={RotateCwSquare} />
                   </li>
                   <li
                     class={[
@@ -434,7 +434,7 @@ const ImagePreview = defineComponent({
                     ]}
                     onClick={() => setScale(true)}
                   >
-                    <Icon type={Add} />
+                    <Icon type={Plus} />
                   </li>
                   <li class="k-image-preview-action" onClick={download}>
                     <Icon type={ArrowDown} />
@@ -444,7 +444,7 @@ const ImagePreview = defineComponent({
                   })}
                   <li class="k-image-preview-action-divider" />
                   <li class="k-image-preview-action" onClick={close}>
-                    <Icon type={Close} />
+                    <Icon type={X} />
                   </li>
                 </ul>
               </Transition>
@@ -471,7 +471,7 @@ const ImagePreview = defineComponent({
                       ]}
                       onClick={() => switchImage(true)}
                     >
-                      <Icon type={ArrowBack} />
+                      <Icon type={ArrowLeft} />
                     </div>,
                     <div
                       class={[
@@ -482,7 +482,7 @@ const ImagePreview = defineComponent({
                       ]}
                       onClick={() => switchImage()}
                     >
-                      <Icon type={ArrowForward} />
+                      <Icon type={ArrowRight} />
                     </div>,
                   ]
                 : null}

@@ -1,4 +1,4 @@
-import { CloseCircle, EyeOffOutline, EyeOutline, Search } from "kui-icons";
+import { CircleX, Eye, EyeOff, Search } from "kui-icons";
 import {
   defineComponent,
   inject,
@@ -88,7 +88,7 @@ const Input = defineComponent({
         return (
           <Icon
             class="k-input-password-icon"
-            type={!showPassword.value ? EyeOutline : EyeOffOutline}
+            type={!showPassword.value ? Eye : EyeOff}
             onClick={togglePassword}
           />
         );
@@ -215,7 +215,7 @@ const Input = defineComponent({
         if (clearable) {
           innerChildren.push(
             <Icon
-              type={CloseCircle}
+              type={CircleX}
               class={[
                 `k-${inputType}-clearable`,
                 { [`k-${inputType}-clearable-hidden`]: !clearableShow },
@@ -251,7 +251,7 @@ const Input = defineComponent({
         if (clearable) {
           children.push(
             <Icon
-              type={CloseCircle}
+              type={CircleX}
               class={[
                 `k-${inputType}-clearable`,
                 { [`k-${inputType}-clearable-hidden`]: !clearableShow },

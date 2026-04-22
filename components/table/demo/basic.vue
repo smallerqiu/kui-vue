@@ -8,7 +8,7 @@
       </Space>
     </template>
     <template #gender="{ value }">
-      <Icon :type="value == 1 ? Sunny : Moon" :color="value == 1 ? 'blue' : '#f50cff'" size="15" />
+      <Icon :type="value == 1 ? Sun : Moon" :color="value == 1 ? 'blue' : '#f50cff'" size="15" />
     </template>
     <template #action="{ record }">
       <Button size="small" @click.stop="() => show(record)">more</Button>
@@ -16,7 +16,7 @@
   </Table>
 </template>
 <script setup lang="ts">
-import { Moon, Sunny } from "kui-icons";
+import { Moon, Sun } from "kui-icons";
 import { message, modal, type Column } from "kui-vue";
 const data = [
   {
