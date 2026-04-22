@@ -56,7 +56,6 @@ export default defineComponent({
     return () => (
       <div>
         <h3>Icons Filter</h3>
-        <br />
         <Affix offsetTop={65}>
           <Flex size="large" style={{ backgroundColor: "var(--kui-color-bg)" }}>
             <Space compact size="large" block>
@@ -72,8 +71,6 @@ export default defineComponent({
           </Flex>
         </Affix>
 
-        <br />
-        <br />
         <div class="show-icons">
           {showIcons.value.length > 0 && (
             <>
@@ -82,8 +79,7 @@ export default defineComponent({
                   <span>App icons</span>
                 </h3>
               </div>
-              <br />
-              <Grid class="icon-list" itemMinWidth={130}>
+              <Grid class="icon-list" itemMinWidth={56} xGap={8} yGap={8}>
                 {showIcons.value.map((x, y) => (
                   <GridItem key={y} class="icon-item" onClick={() => copyHandle(x)}>
                     <Icon type={icons[x]} />
@@ -96,7 +92,7 @@ export default defineComponent({
           {logo.value.length > 0 && (
             <>
               <h3>Logos</h3>
-              <Grid class="icon-list" itemMinWidth={130}>
+              <Grid class="icon-list" itemMinWidth={56} xGap={8} yGap={8}>
                 {logo.value.map((x, y) => (
                   <GridItem key={y} class="icon-item" onClick={() => copyHandle(x)}>
                     <Icon type={icons[x]} />

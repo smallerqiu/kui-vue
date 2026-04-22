@@ -3,8 +3,8 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import isBetween from "dayjs/plugin/isBetween";
 import localeData from "dayjs/plugin/localeData";
 import {
-  ArrowLeft,
-  Calendar,
+  ArrowRight,
+  CalendarDays,
   ChevronLeft,
   ChevronRight,
   ChevronsLeft,
@@ -804,7 +804,7 @@ const DatePicker = defineComponent({
               {s}
             </div>
             <span class="k-picker-footer-time-split">
-              <Icon type={ArrowLeft} />
+              <Icon type={ArrowRight} />
             </span>
             <div
               class={[
@@ -878,7 +878,7 @@ const DatePicker = defineComponent({
           "k-datepicker-has-clear": showClear,
         },
       ];
-      const dateIcon = props.mode == "time" ? Clock : props.dateIcon || Calendar;
+      const dateIcon = props.mode == "time" ? Clock : props.dateIcon || CalendarDays;
       const overlayProps = {
         class: "k-datepicker-overlay",
         ref: refPopper,
@@ -914,7 +914,7 @@ const DatePicker = defineComponent({
               }} // 聚焦开始
             />,
             <span class="k-datepicker-separator">
-              <Icon type={ArrowLeft} />
+              <Icon type={ArrowRight} />
             </span>,
             <input
               size={size}
@@ -1016,7 +1016,7 @@ const DatePicker = defineComponent({
         <div class={classes} ref={refSelection} tabindex={props.disabled ? undefined : 0}>
           <div class={selectCls} onClick={togglePanel}>
             {renderInput()}
-            <Icon type={dateIcon} class="k-icon-calendar" />
+            <Icon type={dateIcon} class="k-icon-calendar" strokeWidth={1.5} />
             {showClear && (
               <Icon
                 type={CircleX}

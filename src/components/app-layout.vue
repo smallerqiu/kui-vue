@@ -19,7 +19,8 @@
           <MenuGroup v-for="item in navData" :key="item.key" :title="$t(item.title)">
             <MenuItem v-for="sub in item.children" :key="sub.name">
               <template #icon>
-                <WebIcon :name="sub.icon" />
+                <!-- <WebIcon :name="sub.icon" /> -->
+                <Icon :type="sub.icon" />
               </template>
               <a
                 @click="sideNavTo"
@@ -46,7 +47,7 @@
             class="nav-prev"
             @click="(e) => navTo(e, false)"
           >
-            <Icon :type="ChevronLeft" />
+            <Icon :type="ChevronLeft" :stroke-width="3" />
             <span class="nav-text">
               {{ prevNavData.sub }} {{ locale?.name != "en" ? prevNavData.title : "" }}
             </span>
@@ -62,7 +63,7 @@
             <span class="nav-text">
               {{ nextNavData.sub }} {{ locale?.name != "en" ? nextNavData.title : "" }}
             </span>
-            <Icon :type="ChevronRight" />
+            <Icon :type="ChevronRight" :stroke-width="3" />
           </a>
         </div>
       </Content>

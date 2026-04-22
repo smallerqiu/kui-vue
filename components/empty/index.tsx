@@ -1,5 +1,12 @@
-import { FileTrayOutline } from "kui-icons";
-import { computed, defineComponent, inject, type CSSProperties, type ExtractPropTypes, type PropType } from "vue";
+import { Coffee } from "kui-icons";
+import {
+  computed,
+  defineComponent,
+  inject,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
 
@@ -33,8 +40,8 @@ const Empty = defineComponent({
 
       const imageNode = (() => {
         if (!image && !slots.image) {
-          // 假设 FileTrayOutline 是 IconType[] 类型
-          return <Icon type={FileTrayOutline as IconType[]} class="k-empty-icon" />;
+          // 假设 Coffee 是 IconType[] 类型
+          return <Icon type={Coffee as IconType[]} class="k-empty-icon" />;
         } else if (slots.image) {
           return slots.image();
         } else {
@@ -42,17 +49,18 @@ const Empty = defineComponent({
             src: image,
             class: "k-empty-image",
             style: imageStyle, // 通过属性展开应用样式
-            alt: description || locale.value?.k.empty.description || 'Empty state image', // 添加 alt 属性以提高可访问性
+            alt: description || locale.value?.k.empty.description || "Empty state image", // 添加 alt 属性以提高可访问性
           };
           return <img {...imgProps} />;
         }
       })();
 
-      const descriptionNode = description !== null ? (
-        <p class="k-empty-description">
-          {description || slots.description?.() || locale.value?.k.empty.description}
-        </p>
-      ) : null;
+      const descriptionNode =
+        description !== null ? (
+          <p class="k-empty-description">
+            {description || slots.description?.() || locale.value?.k.empty.description}
+          </p>
+        ) : null;
 
       const footerNode = slots.default ? <div class="k-empty-footer">{slots.default()}</div> : null;
 

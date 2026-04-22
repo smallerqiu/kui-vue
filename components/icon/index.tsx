@@ -26,7 +26,7 @@ const iconProps = {
   size: [String, Number],
   color: String,
   spin: Boolean as BooleanType,
-  strokeWidth: [String, Number],
+  strokeWidth: { type: Number, default: 2 },
   onClick: Function as PropType<(e: PointerEvent) => void>,
 };
 
@@ -71,7 +71,7 @@ const Icon = defineComponent({
 
       return (
         <i {...iProps}>
-          <svg viewBox="0 0 512 512" width="1em" height="1em">
+          <svg viewBox="0 0 24 24" width="1em" height="1em">
             {renderPaths()}
           </svg>
         </i>
