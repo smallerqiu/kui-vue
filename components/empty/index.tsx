@@ -1,4 +1,4 @@
-import { Coffee } from "kui-icons";
+import { Inbox } from "kui-icons";
 import {
   computed,
   defineComponent,
@@ -7,7 +7,7 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import Icon, { type IconType } from "../icon";
+import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
 
 export const emptyProps = {
@@ -41,7 +41,7 @@ const Empty = defineComponent({
       const imageNode = (() => {
         if (!image && !slots.image) {
           // 假设 Coffee 是 IconType[] 类型
-          return <Icon type={Coffee as IconType[]} class="k-empty-icon" />;
+          return <Icon type={Inbox} class="k-empty-icon" strokeWidth="0.01em" />;
         } else if (slots.image) {
           return slots.image();
         } else {

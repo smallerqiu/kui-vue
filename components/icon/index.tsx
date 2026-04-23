@@ -26,7 +26,7 @@ const iconProps = {
   size: [String, Number],
   color: String,
   spin: Boolean as BooleanType,
-  strokeWidth: { type: Number, default: 2 },
+  strokeWidth: { type: [String, Number], default: 2 },
   onClick: Function as PropType<(e: PointerEvent) => void>,
 };
 
