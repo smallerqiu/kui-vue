@@ -1,6 +1,5 @@
-import { Card, Grid, GridItem } from "kui-vue";
+import { Card, Grid, GridItem, Icon } from "kui-vue";
 import { defineComponent, inject } from "vue";
-import WebIcon from "../../components/web-icon.vue";
 import { navData } from "../../menu";
 export default defineComponent({
   setup() {
@@ -17,7 +16,7 @@ export default defineComponent({
                     bordered
                     title={`${item.sub} ${locale?.value.name != "en" ? item.title : ""}`}
                   >
-                    <WebIcon class="icon-view" name={item.icon} />
+                    <Icon type={item.icon} size={50} strokeWidth={1} class="icon-view" />
                   </Card>
                 </router-link>
               </GridItem>

@@ -1,6 +1,6 @@
 import { useClipboard } from "@vueuse/core";
 import * as icons from "kui-icons";
-import { Affix, Button, Flex, Grid, GridItem, Icon, Input, message, Space } from "kui-vue";
+import { Affix, Flex, Grid, GridItem, Icon, Input, message, Space, Tag } from "kui-vue";
 
 import { defineComponent, ref, watch } from "vue";
 import "./search.less";
@@ -63,10 +63,12 @@ export default defineComponent({
                 modelValue={searchKey.value}
                 onUpdate:modelValue={(val: string) => (searchKey.value = val)}
                 placeholder="Enter keyword to search for icons, then click on the icon to copy it."
-                icon={LogoKui}
+                icon={icons.Search}
                 clearable
-              />
-              <Button icon={icons.Search} />
+                v-slots={{
+                  suffix: () => <Tag>⌘K</Tag>,
+                }}
+              ></Input>
             </Space>
           </Flex>
         </Affix>
@@ -82,7 +84,7 @@ export default defineComponent({
               <Grid class="icon-list" itemMinWidth={56} xGap={8} yGap={8}>
                 {showIcons.value.map((x, y) => (
                   <GridItem key={y} class="icon-item" onClick={() => copyHandle(x)}>
-                    <Icon type={icons[x]} />
+                    <Icon type={icons[x]} strokeWidth={1} />
                   </GridItem>
                 ))}
               </Grid>
