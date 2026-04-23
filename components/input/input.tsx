@@ -149,6 +149,7 @@ const Input = defineComponent({
         inputRef: inputRef,
         inputType,
         value: currentValue.value,
+        placeholder: props.placeholder,
         showPassword: showPassword.value,
         onInput: (e: Event) => {
           const v = (e.target as HTMLInputElement).value;
