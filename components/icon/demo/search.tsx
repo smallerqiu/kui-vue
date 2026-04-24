@@ -8,16 +8,15 @@ import "./search.less";
 // 提取图标键名
 const iconKeys = Object.keys(icons);
 const logos = iconKeys.filter((x) => /Logo/.test(x));
-const outlines = iconKeys
-  .filter((x) => (/Outline/.test(x) || !iconKeys.includes(x + "Outline")) && !/Logo/.test(x))
-  .sort();
-const filledIcons = iconKeys.filter((x) => !/Logo|Outline/.test(x)).sort();
+// const outlines = iconKeys
+//   .filter((x) => (/Outline/.test(x) || !iconKeys.includes(x + "Outline")) && !/Logo/.test(x))
+//   .sort();
+// const filledIcons = iconKeys.filter((x) => !/Logo|Outline/.test(x)).sort();
 
 export default defineComponent({
   name: "IconSearchDemo",
   setup() {
     const { copy } = useClipboard();
-    const LogoKui = icons.LogoKui;
 
     const searchKey = ref("");
     const type = ref<"outline" | "filled">("filled");
@@ -36,10 +35,6 @@ export default defineComponent({
         showIcons.value = origin;
         logo.value = logos;
       }
-    };
-
-    const switchIcon = () => {
-      filter(searchKey.value);
     };
 
     const copyHandle = (name: string) => {

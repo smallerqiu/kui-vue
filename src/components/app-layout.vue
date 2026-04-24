@@ -19,7 +19,6 @@
           <MenuGroup v-for="item in navData" :key="item.key" :title="$t(item.title)">
             <MenuItem v-for="sub in item.children" :key="sub.name">
               <template #icon>
-                <!-- <WebIcon :name="sub.icon" /> -->
                 <Icon :type="sub.icon" />
               </template>
               <a
@@ -51,7 +50,7 @@
             <span class="nav-text">
               {{ prevNavData.sub }} {{ locale?.name != "en" ? prevNavData.title : "" }}
             </span>
-            <WebIcon :name="prevNavData.icon" />
+            <Icon :type="prevNavData.icon" />"
           </a>
           <a
             v-if="nextNavData.sub"
@@ -59,7 +58,7 @@
             class="nav-next"
             @click="(e) => navTo(e, true)"
           >
-            <WebIcon :name="nextNavData.icon" />
+            <Icon :type="nextNavData.icon" />
             <span class="nav-text">
               {{ nextNavData.sub }} {{ locale?.name != "en" ? nextNavData.title : "" }}
             </span>
@@ -78,7 +77,6 @@ import { ChevronLeft, ChevronRight, Menu as MenuIcon, X } from "kui-icons";
 import { computed, inject, onMounted, reactive, ref, Transition } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { navData, routeData } from "../menu";
-import WebIcon from "./web-icon.vue";
 const router = useRouter();
 const route = useRoute();
 const showMiniNav = ref(false);

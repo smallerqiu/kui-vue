@@ -89,8 +89,8 @@ import en from "kui-vue/locale/en";
 import zh from "kui-vue/locale/zh-CN";
 import { reactive, ref } from "vue";
 
-import dayjsDe from "dayjs/esm/locale/de";
-import dayjsZh from "dayjs/esm/locale/zh-cn";
+import "dayjs/locale/de";
+import "dayjs/locale/zh-cn";
 
 const lang = ref("en");
 const locale = ref(en);
@@ -141,9 +141,9 @@ const changeLocale = (value: string | number) => {
   if (value === "en") {
     dayjs.locale("en");
   } else if (value == "de") {
-    dayjs.locale(dayjsDe);
+    dayjs.locale("de");
   } else {
-    dayjs.locale(dayjsZh);
+    dayjs.locale("zh-cn");
   }
 };
 const showModal = () => {
