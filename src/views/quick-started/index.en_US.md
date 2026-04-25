@@ -50,34 +50,9 @@ app.use(kui).mount("#app");
 
 The above code completes the import of KUI. Note: The style file needs to be imported separately.
 
-### Usage Conventions
+[Use specifications](./buttons.vue)
 
-Components support either all lowercase or PascalCase (first letter capitalized), such as: `Button`,`KButton` or `k-button`:
+- Components support either all lowercase or PascalCase (first letter capitalized), such as: `Button`,`KButton` or `k-button`:
 
-```html
-<template>
-  <div>
-    <Button type="primary">button</Button> ✅ Recommended
-    <!-- ok -->
-    <KButton type="primary">button</KButton> ✅ 
-    <!-- ok -->
-    <k-button type="primary">button</k-button> ✅
-  </div>
-</template>
-```
-
-Note that the `Switch` and `Image` components only support names starting with 'k'.
-
-```html
-<template>
-  <div>
-    <KSwitch type="primary" /> ✅ Recommended 
-    <!-- ok -->
-    <KImage src="xxx" /> ✅
-    <!-- ok -->
-    <k-switch type="primary" /> ✅ 
-    <!-- ok -->
-    <k-image src="xxx" /> ✅
-  </div>
-</template>
-```
+[Special components](./image.vue)
+-Note that the `Switch` and `Image` components only support names starting with 'k'.

@@ -50,7 +50,7 @@ app.use(kui).mount("#app");
 
 以上代码便完成了 `KUI` 的引入。注意: 样式文件需要单独引入。
 
-[使用规范](./button.vue)
+[使用规范](./buttons.vue)
 
 - 组件支持全小写或首字母大写，如：`Button` 或者 `k-button` :
 
