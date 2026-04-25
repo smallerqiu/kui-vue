@@ -220,12 +220,7 @@ const Tabs = defineComponent({
             {icon ? <Icon type={icon} /> : null}
             {title}
             {closable && ps.card ? (
-              <Icon
-                type={X}
-                class="k-tabs-close"
-                strokeWidth={45}
-                onClick={(e) => closeTab(key, e)}
-              />
+              <Icon type={X} class="k-tabs-close" onClick={(e) => closeTab(key, e)} />
             ) : null}
           </div>
         );

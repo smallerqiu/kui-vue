@@ -1,11 +1,11 @@
 import { CircleAlert, CircleCheck, CircleX, Info, X } from "kui-icons";
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
-import type { BooleanType } from "../const/types";
+import type { BooleanType, NoticeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 
 export const contentProps = {
-  type: { type: String as PropType<"info" | "error" | "success" | "warning">, default: "info" },
+  type: { type: String as PropType<NoticeType> },
   title: String,
   content: [String, Object],
   icon: Array as PropType<IconType[]>,
@@ -20,31 +20,30 @@ export type ContentProps = ExtractPropTypes<typeof contentProps>;
 
 export default defineComponent({
   props: contentProps,
-  emits: ["close"],
   setup(props, { emit }) {
     const onClose = () => {
       emit("close");
     };
     return () => {
       let { noticeType, type, content, title, closable, icon, color } = props;
-      const classes = [
-        `k-${noticeType}-box`,
-        {
-          [`k-${noticeType}-${type}`]: type,
-          "k-notice-has-icon": noticeType == "notice" && type,
-        },
-      ];
       let icons = {
         info: Info,
         error: CircleX,
         success: CircleCheck,
         warning: CircleAlert,
       };
+      const AlertIcon = icon ? icon : type ? icons[type] : null;
+      const classes = [
+        `k-${noticeType}-box`,
+        {
+          [`k-${noticeType}-${type}`]: type,
+          "k-notice-has-icon": AlertIcon,
+        },
+      ];
+
       const children = [];
-      if (type in icons) {
-        children.push(
-          <Icon type={icon || icons[type]} color={color} class={`k-${noticeType}-icon`} />
-        );
+      if (AlertIcon) {
+        children.push(<Icon type={AlertIcon} color={color} class={`k-${noticeType}-icon`} />);
       }
       if (noticeType == "message") {
         children.push(<span>{content}</span>);

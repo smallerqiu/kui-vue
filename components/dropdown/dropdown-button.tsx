@@ -29,7 +29,6 @@ export type DropdownButtonProps = ExtractPropTypes<typeof dropdownButtonProps>;
 const DropdownButton = defineComponent({
   name: "DropdownButton",
   props: dropdownButtonProps,
-  emits: ["click"],
   setup(props, { slots, emit }) {
     const refTrigger = ref();
     return () => {

@@ -41,15 +41,15 @@
       transition: all 0.3s ease-in-out;
       box-sizing: border-box;
       overflow: hidden;
-      .k-collapse-content-box {
-        padding: 16px 0;
-      }
     }
   }
   & > .k-collapse-item-active {
     & > .k-collapse-header .k-collapse-arrow svg {
       transform: rotate(180deg);
     }
+  }
+  .k-collapse-content-box {
+    padding: 16px 0;
   }
 }
 
@@ -69,6 +69,9 @@
       border: none;
       background: none;
     }
+  }
+  .k-collapse-content-box {
+    padding-top: 0;
   }
 }
 

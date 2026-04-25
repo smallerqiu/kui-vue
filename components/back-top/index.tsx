@@ -29,7 +29,6 @@ const BackTop = defineComponent({
   name: "BackTop",
   directives: { scroll },
   props: backTopProps,
-  emits: ["click"],
   setup(props, { emit, slots }) {
     const visible = ref(false);
 

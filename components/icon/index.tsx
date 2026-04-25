@@ -35,7 +35,6 @@ export type IconProps = ExtractPropTypes<typeof iconProps>;
 const Icon = defineComponent({
   name: "Icon",
   props: iconProps,
-  emits: ["click"],
   setup(props, { attrs, emit }) {
     const renderPaths = () => {
       const paths = Array.isArray(props.type) ? props.type : [];

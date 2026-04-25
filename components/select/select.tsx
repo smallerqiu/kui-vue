@@ -29,7 +29,7 @@ import type {
   SizeType,
   ThemeType,
 } from "../const/types";
-import Option from "./option"; // 导入 Option 组件
+import Option, { type OptionSelectEvent } from "./option"; // 导入 Option 组件
 
 export interface SelectOption {
   label: string | number;
@@ -79,7 +79,6 @@ const Select = defineComponent({
     resize,
   },
   props: selectProps,
-  emits: ["update:modelValue", "change", "select", "openChange", "search"],
   setup(props, { slots, emit }) {
     const locale = computed(() => {
       const injectedLocale = inject<Record<string, any>>("locale", zhCN);
@@ -277,7 +276,7 @@ const Select = defineComponent({
       activeIndex.value = index;
     };
 
-    const onSelect = (item: { value: string | number; label: string | number }) => {
+    const onSelect = (item: OptionSelectEvent) => {
       const { value, label } = { ...item };
       let selected = true;
       if (props.multiple) {

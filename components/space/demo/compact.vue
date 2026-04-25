@@ -77,7 +77,7 @@
       <Input
         :style="{
           width: '30px',
-          borderLef: 0,
+          borderLeft: 0,
           borderRight: 0,
           pointerEvents: 'none',
         }"

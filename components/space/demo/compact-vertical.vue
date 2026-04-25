@@ -1,7 +1,7 @@
 <template>
   <Space size="middle">
     <Space compact vertical>
-      <Button :icon="CloudDownload"></Button>
+      <Button :icon="Download"></Button>
       <Button :icon="Gamepad2"></Button>
       <Button :icon="Heart"></Button>
       <Button :icon="Mail"></Button>
@@ -38,5 +38,5 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { CloudDownload, Ellipsis, Gamepad2, Heart, Mail, Shirt } from "kui-icons";
+import { Download, Ellipsis, Gamepad2, Heart, Mail, Shirt } from "kui-icons";
 </script>

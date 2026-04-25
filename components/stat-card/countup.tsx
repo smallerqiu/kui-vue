@@ -18,6 +18,8 @@ const CountUpNumber = defineComponent({
       type: String as PropType<"rollup" | "countup">,
       default: "countup",
     },
+    autoAnimate: Boolean,
+    autoAnimateOnce: Boolean,
   },
   setup(props) {
     const el = ref<HTMLElement>();
@@ -26,8 +28,10 @@ const CountUpNumber = defineComponent({
       if (el.value) {
         const options: CountUpOptions = {
           duration: props.duration,
-          separator: props.separator || ",",
+          separator: props.separator,
           decimalPlaces: props.precision,
+          autoAnimate: props.autoAnimate,
+          autoAnimateOnce: props.autoAnimateOnce,
         };
         if (props.type === "rollup") {
           options.plugin = new Odometer({ duration: props.duration, lastDigitDelay: 0 });

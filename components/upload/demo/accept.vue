@@ -1,39 +1,39 @@
 <template>
-  <Upload
-    action="https://www.chuchur.com/api/upload/image"
-    name="file"
-    :headers="headers"
-    @change="handleChange"
-    multiple
-    accept="image/*"
-  >
-    <Button :icon="Image">Upload Image</Button>
-  </Upload>
-  <br />
-  <Upload
-    action="https://www.chuchur.com/api/upload/image"
-    name="file"
-    :headers="headers"
-    @change="handleChange"
-    multiple
-    accept="video/*"
-  >
-    <Button :icon="Video">Upload Video</Button>
-  </Upload>
-  <br />
-  <Upload
-    action="https://www.chuchur.com/api/upload/image"
-    name="file"
-    :headers="headers"
-    @change="handleChange"
-    multiple
-    accept=".pdf,.png,.jpeg"
-  >
-    <Button :icon="CloudUpload">Upload PDF,PNG,JPEG</Button>
-  </Upload>
+  <Space vertical>
+    <Upload
+      action="https://www.chuchur.com/api/upload/image"
+      name="file"
+      :headers="headers"
+      @change="handleChange"
+      multiple
+      accept="image/*"
+    >
+      <Button :icon="Image">Upload Image</Button>
+    </Upload>
+    <Upload
+      action="https://www.chuchur.com/api/upload/image"
+      name="file"
+      :headers="headers"
+      @change="handleChange"
+      multiple
+      accept="video/*"
+    >
+      <Button :icon="Video">Upload Video</Button>
+    </Upload>
+    <Upload
+      action="https://www.chuchur.com/api/upload/image"
+      name="file"
+      :headers="headers"
+      @change="handleChange"
+      multiple
+      accept=".pdf,.png,.jpeg"
+    >
+      <Button :icon="UploadIcon">Upload PDF,PNG,JPEG</Button>
+    </Upload>
+  </Space>
 </template>
 <script setup lang="ts">
-import { CloudUpload, Image, Video } from "kui-icons";
+import { Image, Upload as UploadIcon, Video } from "kui-icons";
 import { message, type UploadChangeEvent } from "kui-vue";
 import { ref } from "vue";
 const headers = ref({

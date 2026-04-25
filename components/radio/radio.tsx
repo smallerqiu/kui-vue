@@ -22,7 +22,6 @@ export type RadioProps = ExtractPropTypes<typeof radioProps>;
 const Radio = defineComponent({
   name: "Radio",
   props: radioProps,
-  emits: ["update:modelValue", "change", "update:checked"],
   setup(props, { slots, emit }) {
     const isChecked = ref<any>(props.modelValue || props.checked);
     // const theme = inject("theme", null);

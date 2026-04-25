@@ -26,7 +26,6 @@ export type RadioButtonProps = ExtractPropTypes<typeof radioButtonProps>;
 const RadioButton = defineComponent({
   name: "RadioButton",
   props: radioButtonProps,
-  emits: ["change", "update:modelValue"],
   setup(props, { slots, emit, attrs }) {
     const isChecked = ref(props.modelValue || props.checked);
     watch(

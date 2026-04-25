@@ -25,7 +25,6 @@ export type AlertProps = ExtractPropTypes<typeof alertProps>;
 const Alert = defineComponent({
   name: "Alert",
   props: alertProps,
-  emits: ["close"],
   setup(props, { emit, slots }) {
     const closed = ref(false);
 

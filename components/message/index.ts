@@ -1,10 +1,11 @@
+import type { NoticeType } from "../const/types";
 import type { IconType } from "../icon";
 import { createInstance } from "../notice/instance";
 
 let messageInstance: Record<string, any> | null | undefined = null;
 
 export interface MessageOptions {
-  type?: "info" | "success" | "warning" | "error";
+  type?: NoticeType;
   content?: string;
   duration?: number;
   closable?: boolean;

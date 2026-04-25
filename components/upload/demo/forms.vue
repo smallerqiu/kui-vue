@@ -35,7 +35,7 @@
             :limit="1"
             accept="image/*"
           >
-            <Button :icon="CloudUpload" :loading="loading" />
+            <Button :icon="UploadIcon" :loading="loading" />
           </Upload>
         </template>
       </Input>
@@ -52,13 +52,13 @@
       </Upload>
       <Input type="hidden" />
     </FormItem>
-    <FormItem :wrapperCol="{ offset: 6 }">
+    <FormItem :wrapperCol="{ offset: 8 }">
       <Button type="primary" htmlType="submit">Submit Forms</Button>
     </FormItem>
   </Form>
 </template>
 <script setup lang="ts">
-import { Camera, CloudUpload } from "kui-icons";
+import { Camera, Upload as UploadIcon } from "kui-icons";
 import type { FormContext, FormSubmitEvent, UploadChangeEvent, UploadFile } from "kui-vue";
 import { message } from "kui-vue";
 import { reactive, ref } from "vue";

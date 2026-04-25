@@ -1,4 +1,4 @@
-import type { CSSProperties, ExtractPropTypes } from "vue";
+import type { CSSProperties, DefineComponent, ExtractPropTypes, HTMLAttributes } from "vue";
 import { computed, defineComponent, inject } from "vue";
 import { GRID_KEY } from "./useBreakpoint";
 
@@ -9,7 +9,7 @@ const gridItemProps = {
   suffix: { type: Boolean, default: false }, // 是否作为末尾填充
 };
 
-export type GridItemProps = ExtractPropTypes<typeof gridItemProps>;
+export type GridItemProps = Partial<ExtractPropTypes<typeof gridItemProps>> & HTMLAttributes;
 
 interface GridContext {
   resolveResponsive: (span: GridItemProps["span"], defaultValue: number) => number;
@@ -61,4 +61,4 @@ const GridItem = defineComponent({
   },
 });
 
-export default GridItem;
+export default GridItem as DefineComponent<GridItemProps>;

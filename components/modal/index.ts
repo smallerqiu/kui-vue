@@ -76,7 +76,7 @@ export const modal: ModalApi = {
     return showModal({ type: "warning", ...props });
   },
   error(props: ModalApiProps) {
-    return showModal({ type: "", ...props });
+    return showModal({ type: "error", ...props });
   },
   confirm(props: ModalApiProps) {
     return showModal({ type: "confirm", ...props });

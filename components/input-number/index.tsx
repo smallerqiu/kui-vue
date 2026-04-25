@@ -44,7 +44,6 @@ const InputNumber = defineComponent({
   inheritAttrs: false,
   name: "InputNumber",
   props: inputNumberProps,
-  emits: ["update:modelValue", "change", "blur"],
 
   setup(props, { slots, attrs, emit }) {
     const parentSize = inject<SizeType | undefined>("size", undefined);

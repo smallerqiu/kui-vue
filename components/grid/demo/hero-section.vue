@@ -20,7 +20,7 @@
         padding: '20px',
       }"
     >
-      <h1>商用级广告语</h1>
+      <h1>Commercial-grade advertising slogan</h1>
       <p>Grid 布局让叠加效果变得简单，无需大量 absolute 定位。</p>
     </GridItem>
   </Grid>

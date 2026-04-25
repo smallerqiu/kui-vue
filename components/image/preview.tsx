@@ -424,7 +424,7 @@ const ImagePreview = defineComponent({
                       max={maxScale}
                       size="small"
                       tooltipVisible={false}
-                      onChange={(val) => (state.scale = val)}
+                      onChange={(val) => (state.scale = val as number)}
                     />
                   </li>
                   <li

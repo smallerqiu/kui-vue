@@ -109,14 +109,6 @@ const TreeSelect = defineComponent({
     resize,
   },
   props: treeSelectProps,
-  emits: [
-    "update:modelValue",
-    "change",
-    "search",
-    "treeSelect",
-    "update:treeExpandedKeys",
-    "treeExpand",
-  ],
   setup(props, { emit, attrs }) {
     const injectedLocale = inject<Record<string, any>>("locale", zhCN);
 

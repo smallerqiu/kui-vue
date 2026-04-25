@@ -1,15 +1,15 @@
 import {
-    defineComponent,
-    nextTick,
-    onBeforeUnmount,
-    onMounted,
-    provide,
-    ref,
-    watch,
-    type CSSProperties,
-    type ExtractPropTypes,
-    type PropType,
-    type Ref
+  defineComponent,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  provide,
+  ref,
+  watch,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
+  type Ref,
 } from "vue";
 import type { BooleanType } from "../const/types";
 
@@ -33,7 +33,6 @@ export type AnchorProps = ExtractPropTypes<typeof anchorProps>;
 const Anchor = defineComponent({
   name: "Anchor",
   props: anchorProps,
-  emits: ["change", "click"],
   setup(props, { slots, emit, attrs }) {
     const activeLink = ref("");
     const inkTop = ref(0);
@@ -174,6 +173,6 @@ const Anchor = defineComponent({
       );
     };
   },
-}); 
+});
 
 export default Anchor;

@@ -7,9 +7,11 @@ import {
   ref,
   watch,
   type CSSProperties,
+  type DefineComponent,
   type ExtractPropTypes,
   type InputHTMLAttributes,
   type PropType,
+  type VNodeChild,
 } from "vue";
 import { type BooleanType, type ShapeType, type SizeType, type ThemeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
@@ -30,10 +32,9 @@ const inputProps = {
     default: "text",
   },
   icon: [Array] as PropType<IconType[]>,
-  suffix: String,
+  suffix: { type: [String, Element, Object] as PropType<VNodeChild> },
   readonly: Boolean as BooleanType,
-  prefix: String,
-  placeholder: String,
+  prefix: { type: [String, Element, Object] as PropType<VNodeChild> },
   theme: { type: String as PropType<ThemeType>, default: "light" },
   shape: String as PropType<ShapeType>,
   inputType: { type: String, default: "input" },
@@ -41,15 +42,16 @@ const inputProps = {
     type: Function as PropType<(value: string) => void>,
   },
   maxlength: Number,
+  "onUpdate:modelValue": Function as PropType<(value: string) => void>,
+  onIconClick: { type: Function as PropType<(e: PointerEvent) => void> },
 };
 
-export type InputProps = ExtractPropTypes<typeof inputProps> & InputHTMLAttributes;
+export type InputProps = Partial<ExtractPropTypes<typeof inputProps>> & InputHTMLAttributes;
 
 const Input = defineComponent({
   inheritAttrs: false,
   name: "Input",
   props: inputProps,
-  emits: ["update:modelValue", "change", "blur", "focus", "icon-click", "search"],
   setup(props, { slots, emit, attrs, expose }) {
     const currentValue = ref(props.modelValue || props.value);
     const focused = ref(false);
@@ -92,7 +94,7 @@ const Input = defineComponent({
             onClick={togglePassword}
           />
         );
-      } else if (attrs?.onSearch) {
+      } else if (props?.onSearch) {
         return (
           <Icon
             type={Search}
@@ -128,7 +130,7 @@ const Input = defineComponent({
 
       const multiple =
         (icon ||
-          attrs.onSearch ||
+          props.onSearch ||
           slotSuffix.length > 0 ||
           suffix ||
           slotPrefix.length > 0 ||
@@ -139,7 +141,8 @@ const Input = defineComponent({
         type !== "hidden";
 
       const inputBoxProps: Record<string, any> = {
-        htmlAttrs: { ...attrs },
+        // htmlAttrs: { ...attrs },
+        ...attrs,
         disabled,
         multiple,
         // size,
@@ -149,12 +152,12 @@ const Input = defineComponent({
         inputRef: inputRef,
         inputType,
         value: currentValue.value,
-        placeholder: props.placeholder,
         showPassword: showPassword.value,
         onInput: (e: Event) => {
           const v = (e.target as HTMLInputElement).value;
           currentValue.value = v;
           emit("update:modelValue", v);
+          emit("change", e);
         },
         onFocus: (e: FocusEvent) => {
           focused.value = true;
@@ -208,7 +211,7 @@ const Input = defineComponent({
             <Icon
               type={icon}
               class={`k-${inputType}-icon`}
-              onClick={() => !disabled && emit("icon-click")}
+              onClick={(e) => !disabled && emit("iconClick", e)}
             />
           );
         if (prefix) innerChildren.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
@@ -270,4 +273,4 @@ const Input = defineComponent({
   },
 });
 
-export default Input;
+export default Input as DefineComponent<InputProps>;

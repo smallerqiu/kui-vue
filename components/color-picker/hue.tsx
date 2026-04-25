@@ -1,12 +1,12 @@
 import { clamp } from "@vueuse/core";
-import { defineComponent, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { defineComponent, onBeforeUnmount, onMounted, ref, watch, type PropType } from "vue";
 
 export default defineComponent({
   name: "Hue",
   props: {
     hue: { type: Number, default: 0 },
+    onUpdateHue: Function as PropType<(hue: number) => void>,
   },
-  emits: ["updateHue"],
   setup(props, { emit }) {
     const dotPos = ref(0);
     const refPaint = ref<HTMLCanvasElement | null>(null);
@@ -17,7 +17,7 @@ export default defineComponent({
       if (!canvas) return;
       const ctx = canvas.getContext("2d", { willReadFrequently: true });
       if (!ctx) return;
-      
+
       const { width, height } = canvas;
       const gradient = ctx.createLinearGradient(0, 0, width, 0);
       for (let i = 0; i <= 360; i += 10) {
@@ -64,18 +64,15 @@ export default defineComponent({
     onBeforeUnmount(onMouseUp);
 
     return () => (
-      <div class="k-color-picker-hue-box">
-        <canvas 
-          class="k-color-picker-hue" 
-          width={190} 
-          height={8} 
-          ref={refPaint} 
-          onMousedown={onMouseDown} 
+      <div class="k-color-picker-slider-hue">
+        <canvas
+          class="k-color-picker-hue"
+          width={190}
+          height={8}
+          ref={refPaint}
+          onMousedown={onMouseDown}
         />
-        <span 
-          class="k-color-picker-hue-dot" 
-          style={{ left: `${dotPos.value}px` }} 
-        />
+        <span class="k-color-picker-hue-dot" style={{ left: `${dotPos.value}px` }} />
       </div>
     );
   },

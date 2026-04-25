@@ -42,12 +42,10 @@ export interface CountUpOptions {
   /** Run animation only once for auto-animate triggers @default false */
   autoAnimateOnce?: boolean;
 
-  /** @deprecated Please use autoAnimate instead */
-  enableScrollSpy?: boolean;
   /** @deprecated Please use autoAnimateDelay instead */
   scrollSpyDelay?: number;
   /** @deprecated Please use autoAnimateOnce instead */
-  scrollSpyOnce?: boolean;
+  scrollOnce?: boolean;
 }
 
 export declare interface CountUpPlugin {
@@ -111,15 +109,6 @@ export class CountUp {
       ...this.defaults,
       ...options,
     };
-    if (this.options.enableScrollSpy) {
-      this.options.autoAnimate = true;
-    }
-    if (this.options.scrollSpyDelay !== undefined) {
-      this.options.autoAnimateDelay = this.options.scrollSpyDelay;
-    }
-    if (this.options.scrollSpyOnce) {
-      this.options.autoAnimateOnce = true;
-    }
 
     this.formattingFn = this.options.formattingFn ? this.options.formattingFn : this.formatNumber;
     this.easingFn = this.options.easingFn ? this.options.easingFn : this.easeOutExpo;

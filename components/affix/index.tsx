@@ -22,7 +22,6 @@ const Affix = defineComponent({
   name: "Affix",
   directives: { resize },
   props: affixProps,
-  emits: ["change"],
   setup(props, { slots, emit }) {
     const affixRef = ref<HTMLElement>();
 

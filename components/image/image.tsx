@@ -34,6 +34,8 @@ const imageProps = {
   data: Array,
   imgStyle: Object as PropType<CSSProperties>,
   showPanel: Boolean as BooleanType,
+  onClose: Function as PropType<() => void>,
+  onSwitch: Function as PropType<(index: number) => void>,
 };
 
 export type ImageProps = ExtractPropTypes<typeof imageProps>;
@@ -41,7 +43,6 @@ export type ImageProps = ExtractPropTypes<typeof imageProps>;
 const KImage = defineComponent({
   name: "KImage",
   props: imageProps,
-  emits: ["close", "switch"],
   setup(props, { emit, slots, expose }) {
     const loading = ref(false);
     const showPlaceholder = ref(false);

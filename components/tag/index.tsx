@@ -30,7 +30,6 @@ export type TagProps = ExtractPropTypes<typeof tagProps>;
 const Tag = defineComponent({
   name: "Tag",
   props: tagProps,
-  emits: ["close"],
   setup(props, { slots, emit, attrs }) {
     const visible = ref(true);
     const hidden = ref(false);

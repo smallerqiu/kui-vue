@@ -1,8 +1,18 @@
 import { Check } from "kui-icons";
-import { computed, defineComponent, type ExtractPropTypes, type PropType } from "vue";
+import {
+  computed,
+  defineComponent,
+  type DefineComponent,
+  type ExtractPropTypes,
+  type HTMLAttributes,
+  type PropType,
+} from "vue";
 import { type BooleanType } from "../const/types";
 import Icon from "../icon";
-
+export type OptionSelectEvent = {
+  value: string | number;
+  label: string | number;
+};
 export const optionProps = {
   value: { type: [String, Number] as PropType<string | number>, required: true },
   label: { type: [String, Number] as PropType<string | number> },
@@ -10,14 +20,15 @@ export const optionProps = {
   checked: Boolean as BooleanType,
   active: Boolean as BooleanType,
   multiple: Boolean as BooleanType,
+  onSelect: Function as PropType<(event: OptionSelectEvent) => void>,
 };
 
-export type OptionProps = ExtractPropTypes<typeof optionProps>;
+export type OptionProps = Partial<ExtractPropTypes<typeof optionProps>> &
+  Omit<HTMLAttributes, "onSelect">;
 const Option = defineComponent({
   name: "Option",
   props: optionProps,
-  emits: ["select", "mouseenter"],
-  setup(props, { slots, emit }) {
+  setup(props, { slots, emit, attrs }) {
     const labelText = computed(() => props.label || slots.default?.() || props.value);
 
     const checked = computed(() => props.checked);
@@ -29,6 +40,7 @@ const Option = defineComponent({
     return () => {
       const { multiple, disabled, active } = props;
       const liProps = {
+        ...attrs,
         class: [
           "k-select-item",
           {
@@ -50,4 +62,4 @@ const Option = defineComponent({
     };
   },
 });
-export default Option;
+export default Option as DefineComponent<OptionProps>;

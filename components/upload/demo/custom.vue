@@ -1,21 +1,22 @@
 <template>
-  <Upload
-    action="https://www.chuchur.com/api/upload/image"
-    name="file"
-    :headers="headers"
-    :data="prams"
-    :autoTrigger="false"
-    @selectFiles="onSelectFiles"
-    multiple
-    ref="uploadRef"
-  >
-    <Button :icon="CloudUpload">Click to choose file</Button>
-  </Upload>
-  <br />
-  <Button :disabled="disabled" @click="startUpload">Starting Upload</Button>
+  <Space vertical>
+    <Upload
+      action="https://www.chuchur.com/api/upload/image"
+      name="file"
+      :headers="headers"
+      :data="prams"
+      :autoTrigger="false"
+      @selectFiles="onSelectFiles"
+      multiple
+      ref="uploadRef"
+    >
+      <Button :icon="UploadIcon">Click to choose file</Button>
+    </Upload>
+    <Button :disabled="disabled" @click="startUpload">Starting Upload</Button>
+  </Space>
 </template>
 <script setup lang="ts">
-import { CloudUpload } from "kui-icons";
+import { Upload as UploadIcon } from "kui-icons";
 import { type UploadContext, type UploadFile } from "kui-vue";
 import { ref } from "vue";
 const uploadRef = ref<UploadContext>();

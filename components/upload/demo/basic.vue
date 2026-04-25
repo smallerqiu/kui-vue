@@ -5,11 +5,11 @@
     :headers="headers"
     @change="handleChange"
   >
-    <Button :icon="CloudUpload">Click to upload</Button>
+    <Button :icon="UploadIcon">Click to upload</Button>
   </Upload>
 </template>
 <script setup lang="ts">
-import { CloudUpload } from "kui-icons";
+import { Upload as UploadIcon } from "kui-icons";
 import { message, type UploadChangeEvent } from "kui-vue";
 import { ref } from "vue";
 const headers = ref({

@@ -1,17 +1,18 @@
 <template>
-  <Upload
-    action="https://www.chuchur.com/api/upload/image"
-    name="file"
-    type="picture"
-    :headers="headers"
-    @change="handleChange"
-    :fileList="fileList"
-    accept="image/*"
-    uploadText="Upload Avatar"
-  >
-  </Upload>
-  <br />
-  <Button @click="test">change</Button>
+  <Space vertical>
+    <Button @click="test">change</Button>
+    <Upload
+      action="https://www.chuchur.com/api/upload/image"
+      name="file"
+      type="picture"
+      :headers="headers"
+      @change="handleChange"
+      :fileList="fileList"
+      accept="image/*"
+      uploadText="Upload Avatar"
+    >
+    </Upload>
+  </Space>
 </template>
 <script setup lang="ts">
 import type { UploadChangeEvent, UploadFile } from "kui-vue";

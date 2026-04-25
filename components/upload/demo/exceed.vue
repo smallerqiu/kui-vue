@@ -12,7 +12,7 @@
       }
     "
     @sizeError="
-      ({ file }) => {
+      ({ file }: UploadChangeEvent) => {
         message.warning(`The size of ${file.filename} exceeds the limit`);
       }
     "
@@ -20,13 +20,13 @@
     @remove="handleChange"
     multiple
   >
-    <Button :icon="CloudUpload" :disabled="disabled">
+    <Button :icon="UploadIcon" :disabled="disabled">
       Click to upload (Minimum 200KB, Maximum 1MB, up to {{ limit }} items)
     </Button>
   </Upload>
 </template>
 <script setup lang="ts">
-import { CloudUpload } from "kui-icons";
+import { Upload as UploadIcon } from "kui-icons";
 import { message, type UploadChangeEvent } from "kui-vue";
 import { ref } from "vue";
 const headers = ref({

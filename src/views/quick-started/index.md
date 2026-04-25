@@ -41,7 +41,7 @@ import App from "./App.vue";
 import kui from "kui-vue";
 
 // 引入样式
-import "kui-vue/dist/k-ui.css";
+import "kui-vue/style/k-ui.css";
 
 const app = createApp(App);
 
@@ -50,34 +50,10 @@ app.use(kui).mount("#app");
 
 以上代码便完成了 `KUI` 的引入。注意: 样式文件需要单独引入。
 
-### 使用规范
+[使用规范](./button.vue)
 
-组件支持全小写或首字母大写，如：`Button`,`KButton`, 或者 `k-button` :
+- 组件支持全小写或首字母大写，如：`Button` 或者 `k-button` :
 
-```html
-<template>
-  <div>
-    <Button type="primary">button</Button> ✅ 推荐
-    <!-- ok -->
-    <KButton type="primary">button</KButton> ✅ 
-    <!-- ok -->
-    <k-button type="primary">button</k-button> ✅
-  </div>
-</template>
-```
+[特殊组件](./image.vue)
 
-注意 `Switch` 、 `Image`组件只支持 以k开头 :
-
-```html
-<template>
-  <div>
-    <KSwitch type="primary" /> ✅ 推荐
-    <!-- ok -->
-    <KImage src="xxx" /> ✅
-    <!-- ok -->
-    <k-switch type="primary" /> ✅
-    <!-- ok -->
-    <k-image src="xxx" /> ✅
-  </div>
-</template>
-```
+- 注意 `Switch` 、 `Image`组件只支持 以k开头 :

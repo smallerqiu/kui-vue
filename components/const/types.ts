@@ -37,3 +37,6 @@ export type ColorType = PropType<(typeof colors)[number]>;
 export type UploadStatusType = "success" | "error" | "uploading" | "waiting";
 
 export type SpinModeType = "bounce" | "flip" | "rotate" | "zoom";
+export type TriggerType = "hover" | "click" | "contextmenu";
+
+export type NoticeType = "info" | "success" | "warning" | "error";

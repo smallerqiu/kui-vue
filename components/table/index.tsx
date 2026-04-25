@@ -66,7 +66,6 @@ export interface SortState {
 const Table = defineComponent({
   name: "Table",
   props: tableProps,
-  emits: ["update:selectedKeys", "rowClick", "sort", "selectAll", "select"],
   setup(props, { emit, slots }) {
     const headerWrapperRef = ref<HTMLElement>();
     const bodyWrapperRef = ref<HTMLElement>();

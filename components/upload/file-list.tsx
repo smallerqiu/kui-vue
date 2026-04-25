@@ -1,4 +1,4 @@
-import { CircleAlert, FileText, X } from "kui-icons";
+import { CircleCheck, CircleX, FileText, Info, X } from "kui-icons";
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
 import type { BooleanType } from "../const/types";
@@ -24,7 +24,6 @@ export type UploadFileListProps = ExtractPropTypes<typeof uploadFileListProps>;
 export default defineComponent({
   name: "UploadFileList",
   props: uploadFileListProps,
-  emits: ["remove"],
   setup(props, { emit, slots }) {
     const getPreview = (item: any) => {
       if (item.preview) return <img src={item.preview} alt="" />;
@@ -56,7 +55,7 @@ export default defineComponent({
                 key={item.uid || i}
               >
                 <div class={`k-upload-${isPicture ? "picture" : "file"}-preview`}>
-                  {getPreview(item) || <Icon type={FileText} />}
+                  {getPreview(item) || <Icon type={FileText} strokeWidth={1} size={30} />}
                 </div>
                 <div class="k-upload-file-item-info">
                   {!isPicture ? (
@@ -78,14 +77,14 @@ export default defineComponent({
                         />
                       ) : statusText && !isPicture ? (
                         <div class="k-upload-file-status-text">
-                          <Icon type={CircleAlert} />
+                          <Icon type={item.status == "success" ? CircleCheck : CircleX} />
                           {statusText}
                         </div>
                       ) : null}
 
                       {isPicture && item.status === "error" && (
                         <Tooltip title={statusText} placement="bottom">
-                          <Icon type={CircleAlert} />
+                          <Icon type={Info} />
                         </Tooltip>
                       )}
                     </div>

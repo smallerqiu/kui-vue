@@ -1,6 +1,6 @@
 # Grid
 
-### Dimensionality and Control: Grid vs. Row/Col
+## Dimensionality and Control: Grid vs. Row / Col
 
 This is the most commonly confused set of concepts.
 
@@ -51,7 +51,7 @@ You can manually resize the browser window to observe the effect.
 
 - `span: 0` completely removes the DOM placeholder, and `suffix` spans across all dynamic items.
 
-[Image Gallery / Masonry (Bento Grid Style)](./demo/bento.vue?show=vertical)
+[Image Gallery / Masonry (Bento Grid Style)](./demo/bento-en.vue?show=vertical)
 
 - Asymmetric layout.
 

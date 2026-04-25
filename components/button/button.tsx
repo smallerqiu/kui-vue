@@ -4,6 +4,8 @@ import {
   computed,
   defineComponent,
   inject,
+  type ButtonHTMLAttributes,
+  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
 } from "vue";
@@ -44,16 +46,15 @@ const buttonProps = {
   shape: String as PropType<ShapeType>,
   href: String,
   target: String,
-  onClick: Function as PropType<(e: MouseEvent) => void>,
 };
 
-export type ButtonProps = ExtractPropTypes<typeof buttonProps>;
+export type ButtonProps = Partial<ExtractPropTypes<typeof buttonProps>> &
+  Omit<ButtonHTMLAttributes, "type">;
 
 const Button = defineComponent({
   name: "Button",
   props: buttonProps,
-  emits: ["click", "mouseenter", "mouseleave"],
-  setup(props, { emit, slots, attrs }) {
+  setup(props, { slots, attrs }) {
     const buttonGroup = inject<any>("KButtonGroup", null);
     const parentSize = inject<string | null>("size", null);
 
@@ -70,7 +71,6 @@ const Button = defineComponent({
         e.preventDefault();
         return;
       }
-      emit("click", e);
     };
 
     const children = computed(() => getChildren(slots.default?.()));
@@ -138,4 +138,4 @@ const Button = defineComponent({
     };
   },
 });
-export default Button;
+export default Button as DefineComponent<ButtonProps>;

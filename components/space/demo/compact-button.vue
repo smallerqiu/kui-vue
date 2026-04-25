@@ -2,7 +2,7 @@
   <Space vertical size="middle">
     <Space compact>
       <Tooltip placement="top" title="Copy">
-        <Button :icon="CloudDownload"></Button>
+        <Button :icon="Download"></Button>
       </Tooltip>
       <Button :icon="Gamepad2"></Button>
       <Button :icon="Heart"></Button>
@@ -42,5 +42,5 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { CloudDownload, Ellipsis, Gamepad2, Heart, Mail, Shirt } from "kui-icons";
+import { Download, Ellipsis, Gamepad2, Heart, Mail, Shirt } from "kui-icons";
 </script>

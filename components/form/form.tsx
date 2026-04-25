@@ -45,7 +45,6 @@ export type FormProps = ExtractPropTypes<typeof formProps>;
 const Form = defineComponent({
   name: "Form",
   props: formProps,
-  emits: ["submit", "change", "reset"],
   setup(props, { emit, slots, expose }) {
     const formRef = ref(null);
     const formItems = ref<Record<string, any>>({});
