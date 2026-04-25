@@ -100,7 +100,6 @@ const DatePicker = defineComponent({
     resize,
   },
   props: datePickerProps,
-  // emits: ["change", "update:modelValue"],
 
   setup(props, { emit, slots }) {
     const injectedLocale = inject("locale", zhCN);

@@ -29,7 +29,6 @@ export type SelectorProps = ExtractPropTypes<typeof selectorProps>;
 export default defineComponent({
   name: "Selector",
   props: selectorProps,
-  emits: ["select"],
   setup(props, { emit, slots }) {
     const dragOver = ref(false);
     const uploadFileRef = ref<HTMLInputElement | null>(null);

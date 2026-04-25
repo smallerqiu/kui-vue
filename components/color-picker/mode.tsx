@@ -1,4 +1,4 @@
-import Color from "color";
+import Color, { type ColorInstance } from "color";
 import { defineComponent, type PropType, ref, watch } from "vue";
 import type { BooleanType } from "../const/types";
 import { Input } from "../input";
@@ -11,8 +11,9 @@ export default defineComponent({
     modelValue: [String, Object],
     mode: { type: String as PropType<"hex" | "rgb" | "hsl">, default: "hex" },
     disabledAlpha: Boolean as BooleanType,
+    onUpdateMode: Function as PropType<(mode: "hex" | "rgb" | "hsl") => void>,
+    onUpdateColorValue: Function as PropType<(color: ColorInstance) => void>,
   },
-  emits: ["updateColorValue", "updateMode"],
   setup(props, { emit }) {
     const currentMode = ref<string>(props.mode);
     const options = [
@@ -35,7 +36,8 @@ export default defineComponent({
         currentMode.value = val;
       }
     );
-    const updateHex = (hex: string) => {
+    const updateHex = (e: Event) => {
+      const hex = (e.target as HTMLInputElement).value;
       if (!isColor(hex)) return;
       const color = Color(hex).rgb();
       emit("updateColorValue", color);

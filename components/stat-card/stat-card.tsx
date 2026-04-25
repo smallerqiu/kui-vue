@@ -11,6 +11,8 @@ export interface StatNumberItem {
   prefix?: string | VNode;
   suffix?: string | VNode;
   desc?: string;
+  autoAnimate?: boolean;
+  autoAnimateOnce?: boolean;
 }
 
 export const statCardProps = {
@@ -47,6 +49,7 @@ const StatCard = defineComponent({
                         suffix: () => item.suffix || slots.suffix,
                       }}
                       modelValue={item.value}
+                      autoAnimate={item.autoAnimate}
                       duration={item.duration}
                       precision={item.precision !== undefined ? item.precision : props.precision}
                       separator={item.separator !== undefined ? item.separator : props.separator}

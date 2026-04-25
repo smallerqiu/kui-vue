@@ -22,7 +22,7 @@ const ButtonGroup = defineComponent({
   props: buttonGroupProps,
   setup(props, { slots }) {
     const { size, shape } = toRefs(props);
-    const parentSize = inject<string>("size");
+    const parentSize = inject<string | null>("size", null);
 
     provide("KButtonGroup", {
       size: props.size || parentSize,

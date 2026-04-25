@@ -33,7 +33,6 @@ export type CheckboxProps = ExtractPropTypes<typeof checkboxProps>;
 const Checkbox = defineComponent({
   name: "Checkbox",
   props: checkboxProps,
-  emits: ["change", "update:modelValue", "update:checked"],
   setup(props, { slots, emit }) {
     const isChecked = ref(props.modelValue || props.checked);
 
@@ -106,7 +105,7 @@ const Checkbox = defineComponent({
         onChange: onChange,
       };
 
-      const innerNode = isChecked.value ? <Icon type={Check} strokeWidth={60} /> : null;
+      const innerNode = isChecked.value ? <Icon type={Check} /> : null;
       const labelNode = label || slots.default?.();
 
       return (

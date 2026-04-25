@@ -80,18 +80,6 @@ export type { BuildTreeOptions, TreeNode } from "./utils";
 const Tree = defineComponent({
   name: "Tree",
   props: treeProps,
-  emits: [
-    "update:expandedKeys",
-    "expand",
-    "check",
-    "update:selectedKeys",
-    "select",
-    "dragstart",
-    "dragenter",
-    "dragleave",
-    "drop",
-    "dragend",
-  ],
   setup(props, { emit, slots }) {
     const defaultData = ref<TreeNode[]>([]);
     const defaultSelectedKeys = ref<string[]>(props.selectedKeys || []);

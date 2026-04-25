@@ -31,7 +31,7 @@ Two concepts: row `row` and column `col`. Specific usage is as follows:
 
 [Flex Layout](./demo/flex.vue?show=vertical)
 
-- Flex layout basics. Use `row-flex` to define a `flex` layout, where its child elements, based on different values like `start`, `center`, `end`, `space-between`, `space-around`, define their layout within the parent node.
+- Flex layout basics. Use `row-flex` to define a `flex` layout, where its child elements, based on different values like `start` , `center` , `end` , `space-between`, `space-around` , define their layout within the parent node.
 
 [Flex Fill](./demo/fill.vue?show=vertical)
 

@@ -35,7 +35,6 @@ export type RadioGroupProps = ExtractPropTypes<typeof radioGroupProps>;
 const RadioGroup = defineComponent({
   name: "RadioGroup",
   props: radioGroupProps,
-  emits: ["update:modelValue", "change"],
   setup(props, { slots, emit }) {
     const currentValue = ref(props.modelValue);
     const onChange = ({ value }: ChangeEvent) => {

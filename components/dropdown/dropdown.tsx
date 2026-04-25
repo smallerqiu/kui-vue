@@ -12,7 +12,7 @@ import {
   watch,
 } from "vue";
 
-import type { BooleanType, DropPlacementsType } from "../const/types";
+import type { BooleanType, DropPlacementsType, TriggerType } from "../const/types";
 import resize from "../directives/resize";
 import { transfer } from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
@@ -21,7 +21,7 @@ import { getChildren } from "../utils/vnode";
 export const dropdownProps = {
   dark: Boolean as BooleanType,
   trigger: {
-    type: String as PropType<"hover" | "click" | "contextmenu">,
+    type: String as PropType<TriggerType>,
     default: "hover",
   },
   transfer: { type: Boolean as BooleanType, default: true },
@@ -44,7 +44,6 @@ const Dropdown = defineComponent({
     resize,
   },
   props: dropdownProps,
-  emits: ["update:visible"],
   setup(props, { slots, emit, attrs }) {
     const visible = ref(props.show);
     const refSelection = ref<HTMLElement | null>(null);
@@ -234,8 +233,8 @@ const Dropdown = defineComponent({
         nodes.length == 1 ? nodes[0] : <span>{nodes}</span>,
         {
           ref: refSelection,
-          ...pp,
           ...attrs,
+          ...pp,
         },
         true
       );

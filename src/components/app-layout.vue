@@ -50,7 +50,7 @@
             <span class="nav-text">
               {{ prevNavData.sub }} {{ locale?.name != "en" ? prevNavData.title : "" }}
             </span>
-            <Icon :type="prevNavData.icon" />"
+            <Icon :type="prevNavData.icon" />
           </a>
           <a
             v-if="nextNavData.sub"

@@ -1,6 +1,6 @@
 # Grid 网格
 
-### 维度与控制力：Grid vs. Row-Col
+## 维度与控制力：Grid vs. Row-Col
 
 这是最常被混淆的一组概念。
 

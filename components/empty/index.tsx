@@ -4,25 +4,26 @@ import {
   defineComponent,
   inject,
   type CSSProperties,
+  type DefineComponent,
   type ExtractPropTypes,
+  type HTMLAttributes,
   type PropType,
 } from "vue";
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
 
 export const emptyProps = {
-  description: String,
+  description: [String, Boolean],
   image: String,
-  imageStyle: Object as PropType<CSSProperties>, // 明确 imageStyle 的类型
+  imageStyle: Object as PropType<CSSProperties>,
 };
 
-export type EmptyProps = ExtractPropTypes<typeof emptyProps>;
+export type EmptyProps = Partial<ExtractPropTypes<typeof emptyProps>> & HTMLAttributes;
 
 const Empty = defineComponent({
   name: "Empty",
   props: emptyProps,
-  emits: ["click"],
-  setup(props, { slots }) {
+  setup(props, { slots, attrs }) {
     const injectedLocale = inject<Record<string, any>>("locale", zhCN);
 
     const locale = computed(() => {
@@ -35,6 +36,7 @@ const Empty = defineComponent({
       const { image, imageStyle, description } = props;
 
       const rootProps = {
+        ...attrs,
         class: "k-empty",
       };
 
@@ -56,7 +58,7 @@ const Empty = defineComponent({
       })();
 
       const descriptionNode =
-        description !== null ? (
+        description !== false ? (
           <p class="k-empty-description">
             {description || slots.description?.() || locale.value?.k.empty.description}
           </p>
@@ -77,4 +79,4 @@ const Empty = defineComponent({
   },
 });
 
-export default Empty;
+export default Empty as DefineComponent<EmptyProps>;

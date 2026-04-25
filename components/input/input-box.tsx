@@ -12,7 +12,7 @@ export const inputBoxProps = {
   value: [String, Number, Object] as PropType<string | number | any>,
   showPassword: Boolean as BooleanType,
   inputRef: Object as PropType<any>,
-  htmlAttrs: { type: Object as PropType<any>, default: () => ({}) },
+  // htmlAttrs: { type: Object as PropType<any>, default: () => ({}) },
 };
 
 export type InputBoxProps = ExtractPropTypes<typeof inputBoxProps>;
@@ -20,7 +20,6 @@ export type InputBoxProps = ExtractPropTypes<typeof inputBoxProps>;
 export default defineComponent({
   name: "InputBox",
   props: inputBoxProps,
-  emits: ["update:value", "focus", "blur"],
   setup(props, { emit, attrs }) {
     const handleInput = (e: Event) => {
       emit("update:value", e);
@@ -42,7 +41,7 @@ export default defineComponent({
       const inputProps = {
         ref: props.inputRef,
         ...attrs,
-        ...props.htmlAttrs,
+        // ...props.htmlAttrs,
         class: [
           {
             [`k-${inputType}`]: !multiple,
@@ -53,7 +52,7 @@ export default defineComponent({
             [`k-${inputType}-${theme}`]: theme !== "solid" && !multiple && theme,
             [`k-${inputType}-circle`]: shape === "circle" && !multiple,
           },
-          props.htmlAttrs.class,
+          // props.htmlAttrs.class,
         ],
         disabled,
         type,

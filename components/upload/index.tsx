@@ -54,9 +54,11 @@ export const uploadProps = {
   uploadSubText: String,
   uploadIcon: Array as PropType<IconType[]>,
   draggable: Boolean as BooleanType,
-  onChange: Function as PropType<(file: UploadChangeEvent) => void>,
-  onRemove: Function as PropType<(file: UploadChangeEvent) => void>,
+  onChange: Function as PropType<(event: UploadChangeEvent) => void>,
+  onRemove: Function as PropType<(event: UploadChangeEvent) => void>,
   onSelectFiles: Function as PropType<(files: UploadFile[]) => void>,
+  onExceed: Function as PropType<() => void>,
+  onSizeError: Function as PropType<(event: UploadChangeEvent) => void>,
 };
 
 export type UploadProps = ExtractPropTypes<typeof uploadProps>;
@@ -73,15 +75,6 @@ export interface UploadContext extends UploadProps {
 const Upload = defineComponent({
   name: "Upload",
   props: uploadProps,
-  emits: [
-    "remove",
-    "exceed",
-    "beforeUpload",
-    "change",
-    "sizeError",
-    "update:fileList",
-    "selectFiles",
-  ],
   setup(props, { emit, slots, expose }) {
     const injectedLocale = inject<any>("locale", zhCN);
     const locale = computed(() => {

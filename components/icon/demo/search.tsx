@@ -1,40 +1,44 @@
 import { useClipboard } from "@vueuse/core";
-import * as icons from "kui-icons";
-import { Affix, Flex, Grid, GridItem, Icon, Input, message, Space, Tag } from "kui-vue";
+import * as kuiIcons from "kui-icons";
+import { Affix, Flex, Grid, GridItem, Icon, Input, message, Tag, type IconType } from "kui-vue";
 
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent, ref } from "vue";
 import "./search.less";
+import { tags } from "./tags";
 
 // 提取图标键名
-const iconKeys = Object.keys(icons);
+const iconKeys = Object.keys(kuiIcons);
 const logos = iconKeys.filter((x) => /Logo/.test(x));
-// const outlines = iconKeys
-//   .filter((x) => (/Outline/.test(x) || !iconKeys.includes(x + "Outline")) && !/Logo/.test(x))
-//   .sort();
-// const filledIcons = iconKeys.filter((x) => !/Logo|Outline/.test(x)).sort();
+const apps = iconKeys.filter((x) => !/Logo/.test(x));
 
 export default defineComponent({
   name: "IconSearchDemo",
   setup() {
     const { copy } = useClipboard();
-
+    const allIcons = ref<Record<string, IconType[]>>(kuiIcons);
+    const appIcons = ref(apps);
+    const logoIcons = ref(logos);
     const searchKey = ref("");
-    const type = ref<"outline" | "filled">("filled");
-    const logo = ref(logos);
-    const showIcons = ref(filledIcons);
 
-    const filter = (key: string) => {
-      key = key.replace(/ /g, "").toLowerCase();
-      const origin = type.value === "outline" ? outlines : filledIcons;
-      if (key) {
-        showIcons.value = origin.filter((x) =>
-          x.replace("Outline", "").toLowerCase().includes(key)
-        );
-        logo.value = logos.filter((x) => x.toLowerCase().includes(key));
-      } else {
-        showIcons.value = origin;
-        logo.value = logos;
-      }
+    const toPascalCase = (str: string = ""): string => {
+      return str
+        .split("-")
+        .filter((word) => word.length > 0)
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join("");
+    };
+
+    const searchIcons = (e: Event) => {
+      const query = (e.target as HTMLInputElement).value;
+      searchKey.value = query;
+      const term = query.toLowerCase().trim();
+      if (!term) appIcons.value = apps;
+
+      const resultTags: string[] = tags
+        .filter((icon) => icon.name.includes(term) || icon.tags.some((tag) => tag.includes(term)))
+        .map((x) => toPascalCase(x.name));
+      appIcons.value = apps.filter((x) => resultTags.includes(x));
+      logoIcons.value = logos.filter((x) => x.toLowerCase().includes(term));
     };
 
     const copyHandle = (name: string) => {
@@ -43,33 +47,24 @@ export default defineComponent({
       });
     };
 
-    // 监听 searchKey 变化以触发过滤
-    watch(searchKey, (newVal) => {
-      filter(newVal);
-    });
-
     return () => (
       <div>
         <h3>Icons Filter</h3>
         <Affix offsetTop={65}>
           <Flex size="large" style={{ backgroundColor: "var(--kui-color-bg)" }}>
-            <Space compact size="large" block>
-              <Input
-                modelValue={searchKey.value}
-                onUpdate:modelValue={(val: string) => (searchKey.value = val)}
-                placeholder="Enter keyword to search for icons, then click on the icon to copy it."
-                icon={icons.Search}
-                clearable
-                v-slots={{
-                  suffix: () => <Tag>⌘K</Tag>,
-                }}
-              ></Input>
-            </Space>
+            <Input
+              v-model={searchKey.value}
+              placeholder="Enter keyword to search for icons, then click on the icon to copy it."
+              clearable
+              onChange={searchIcons}
+              prefix={(<Icon type={kuiIcons.Search} />) as any}
+              suffix={(<Tag>⌘K</Tag>) as any}
+            ></Input>
           </Flex>
         </Affix>
 
         <div class="show-icons">
-          {showIcons.value.length > 0 && (
+          {appIcons.value.length > 0 && (
             <>
               <div class="icon-head">
                 <h3>
@@ -77,29 +72,31 @@ export default defineComponent({
                 </h3>
               </div>
               <Grid class="icon-list" itemMinWidth={56} xGap={8} yGap={8}>
-                {showIcons.value.map((x, y) => (
+                {appIcons.value.map((x, y) => (
                   <GridItem key={y} class="icon-item" onClick={() => copyHandle(x)}>
-                    <Icon type={icons[x]} strokeWidth={1} />
+                    <Icon type={allIcons.value[x]} strokeWidth={1} />
+                    <span class="item-tip">{x}</span>
                   </GridItem>
                 ))}
               </Grid>
             </>
           )}
 
-          {logo.value.length > 0 && (
+          {logoIcons.value.length > 0 && (
             <>
               <h3>Logos</h3>
               <Grid class="icon-list" itemMinWidth={56} xGap={8} yGap={8}>
-                {logo.value.map((x, y) => (
+                {logoIcons.value.map((x, y) => (
                   <GridItem key={y} class="icon-item" onClick={() => copyHandle(x)}>
-                    <Icon type={icons[x]} />
+                    <Icon type={allIcons.value[x]} />
+                    <span class="item-tip">{x}</span>
                   </GridItem>
                 ))}
               </Grid>
             </>
           )}
 
-          {!showIcons.value.length && !logo.value.length && (
+          {!appIcons.value.length && !logoIcons.value.length && (
             <h3
               style={{
                 textAlign: "center",

@@ -28,7 +28,7 @@ const Demo = defineComponent({
   setup(props, { slots }) {
     const $t = inject<(key: string) => string>("$t", (key: string) => key);
 
-    const expanded = ref(props.direction == "vertical" ? false : true);
+    const expanded = ref(props.direction != "vertical");
     const codeRef = ref<HTMLElement>();
     const codeOrigin = ref<string>();
     const viewRef = ref(null);

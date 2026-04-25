@@ -1,4 +1,4 @@
-import Color from "color";
+import Color, { type ColorInstance } from "color";
 import { Check } from "kui-icons";
 import { defineComponent, type PropType } from "vue";
 import Icon from "../icon";
@@ -31,14 +31,14 @@ export default defineComponent({
         "#000",
       ],
     },
+    onUpdateColor: Function as PropType<(color: ColorInstance) => void>,
   },
-  emits: ["updateColor"],
   setup(props, { emit }) {
     return () => {
       if (props.modelValue.length == 0) return null;
       let color = props.modelValue.map((hex) => (
         <span style={{ backgroundColor: hex }} onClick={() => emit("updateColor", Color(hex))}>
-          {Color(props.color) == Color(hex) ? <Icon type={Check} /> : null}
+          {Color(props.color).hex() == Color(hex).hex() ? <Icon type={Check} /> : null}
         </span>
       ));
       return <div class="k-color-picker-presets">{color}</div>;

@@ -34,6 +34,9 @@ export const drawerProps = {
   mask: { type: Boolean, default: true },
   loading: { type: Boolean, default: false },
   escKey: { type: Boolean, default: true },
+  onOk: Function as PropType<() => void>,
+  onCancel: Function as PropType<() => void>,
+  onClose: Function as PropType<() => void>,
 };
 
 export type DrawerProps = ExtractPropTypes<typeof drawerProps>;
@@ -42,7 +45,6 @@ const Drawer = defineComponent({
   name: "Drawer",
   directives: { transfer },
   props: drawerProps,
-  emits: ["update:modelValue", "ok", "cancel", "close"],
   setup(props, { slots, emit }) {
     const injectedLocale = inject<Record<string, any>>("locale", zhCN);
 

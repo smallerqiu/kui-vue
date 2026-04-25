@@ -11,7 +11,6 @@ export type BreadcrumbItemProps = ExtractPropTypes<typeof breadcrumbItemProps>;
 const BreadcrumbItem = defineComponent({
   name: "BreadcrumbItem",
   props: breadcrumbItemProps,
-  emits: ["click"],
   setup(props, { slots, emit }) {
     const separator = inject("separator", null);
 

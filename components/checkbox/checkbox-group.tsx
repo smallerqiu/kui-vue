@@ -29,7 +29,6 @@ export type CheckboxGroupProps = ExtractPropTypes<typeof checkboxGroupProps>;
 const CheckboxGroup = defineComponent({
   name: "CheckboxGroup",
   props: checkboxGroupProps,
-  emits: ["update:modelValue", "change"],
   setup(props, { slots, emit }) {
     const currentValue = ref(props.modelValue);
 

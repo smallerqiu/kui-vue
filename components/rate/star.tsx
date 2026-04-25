@@ -22,7 +22,6 @@ export type StarProps = ExtractPropTypes<typeof starProps>;
 export default defineComponent({
   name: "Star",
   props: starProps,
-  emits: ['update'],
   setup(props, { emit }) {
     const onUpdate = (e: MouseEvent, t: "C" | "M") => {
       if (props.disabled) return;
@@ -52,10 +51,10 @@ export default defineComponent({
 
       const characterNode = typeof character === "function" ? character(index) : character;
       const iconType = typeof icon === "function" ? icon(index) : icon;
-      const startProps ={
-        class:['k-star-front'],
-        style:{ width: disabled && percent !== undefined ? `${percent}%` : undefined }
-      }
+      const startProps = {
+        class: ["k-star-front"],
+        style: { width: disabled && percent !== undefined ? `${percent}%` : undefined },
+      };
       const node = (
         <span {...starClasses}>
           <span {...startProps}>

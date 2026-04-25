@@ -1,14 +1,14 @@
 <template>
   <Space vertical>
     <Button @click="change" size="small">change</Button>
-    <code>default</code>
+    <code>default:</code>
     <StatNumber v-model="value" />
-    <code>type=`rollup`</code>
+    <code>type=`rollup`:</code>
     <StatNumber v-model="value" type="rollup" />
-    <b>precision=`3`</b>
+    <code>precision=`3`:</code>
     <StatNumber v-model="value" :precision="3" />
     <StatNumber v-model="value" type="rollup" :precision="3" />
-    <b>prefix & suffix</b>
+    <code>prefix & suffix:</code>
     <StatNumber v-model="value" prefix="$" />
     <StatNumber v-model="value" type="rollup" suffix="元" />
   </Space>

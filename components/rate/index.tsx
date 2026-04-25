@@ -31,7 +31,6 @@ export type RateProps = ExtractPropTypes<typeof rateProps>;
 const Rate = defineComponent({
   name: "Rate",
   props: rateProps,
-  emits: ["update:modelValue", "change"],
   setup(props, { emit }) {
     const initValue = ref(props.modelValue);
     const tempValue = ref<number | null>(null);

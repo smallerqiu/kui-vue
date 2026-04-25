@@ -1,5 +1,5 @@
 <template>
-  <Poptip title="标题" trigger="click" v-model:show="show">
+  <Poptip title="Title" trigger="click" v-model:show="show">
     <template #content>
       <Button @click="test" size="small">Close</Button>
     </template>

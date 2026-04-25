@@ -1,3 +1,3 @@
 <template>
-  <Empty :description="undefined" />
+  <Empty :description="false" />
 </template>

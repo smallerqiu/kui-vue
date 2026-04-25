@@ -11,7 +11,7 @@ export default defineComponent({
           {children.map((item) => {
             return (
               <GridItem>
-                <router-link to={`/${item.key}/${item.name}`}>
+                <router-link to={`/${item.key == "guide" ? "guide" : "components"}/${item.name}`}>
                   <Card
                     bordered
                     title={`${item.sub} ${locale?.value.name != "en" ? item.title : ""}`}

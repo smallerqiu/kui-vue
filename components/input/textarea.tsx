@@ -2,6 +2,7 @@ import {
   defineComponent,
   ref,
   watch,
+  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
   type TextareaHTMLAttributes,
@@ -20,12 +21,12 @@ export const textAreaProps = {
   readonly: Boolean as BooleanType,
 };
 
-export type TextAreaProps = ExtractPropTypes<typeof textAreaProps> & TextareaHTMLAttributes;
+export type TextAreaProps = Partial<ExtractPropTypes<typeof textAreaProps>> &
+  TextareaHTMLAttributes;
 
 const TextArea = defineComponent({
   name: "TextArea",
   props: textAreaProps,
-  emits: ["update:modelValue"],
   setup(props, { attrs, emit }) {
     const currentValue = ref(props.modelValue ?? props.value);
 
@@ -59,4 +60,4 @@ const TextArea = defineComponent({
     };
   },
 });
-export default TextArea;
+export default TextArea as DefineComponent<TextAreaProps>;

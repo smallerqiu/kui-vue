@@ -6,8 +6,8 @@ export default defineComponent({
   name: "Alpha",
   props: {
     modelValue: { type: [String, Object] as PropType<any>, required: true },
+    onUpdateAlpha: Function as PropType<(alpha: number) => void>,
   },
-  emits: ["updateAlpha"],
   setup(props, { emit }) {
     const dotPos = ref(0);
     const refPaint = ref<HTMLCanvasElement | null>(null);

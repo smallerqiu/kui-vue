@@ -10,7 +10,7 @@ import {
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
-  type VNode
+  type VNode,
 } from "vue";
 import { type BooleanType, type PlacementsType, type SizeType } from "../const/types";
 import { colors } from "../const/var";
@@ -39,7 +39,6 @@ const Tooltip = defineComponent({
   name: "Tooltip",
   directives: { transfer },
   props: tooltipProps,
-  emits: ["update:show"],
   setup(props, { slots, attrs, emit }) {
     const rendered = ref(props.show);
     const visible = ref(props.show);
@@ -206,5 +205,5 @@ const Tooltip = defineComponent({
       return [nodeWrapper, tooltipOverlay];
     };
   },
-}) 
+});
 export default Tooltip;

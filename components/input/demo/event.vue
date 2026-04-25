@@ -1,6 +1,6 @@
 <template>
   <Space vertical block>
-    <!-- <Input
+    <Input
       placeholder="Please input"
       clearable
       @change="events.change"
@@ -21,7 +21,7 @@
       @keydown.enter="events.keydownEnter"
       @blur="events.blur"
       @focus="events.focus"
-    /> -->
+    />
   </Space>
 </template>
 <script setup lang="ts">

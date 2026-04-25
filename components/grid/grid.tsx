@@ -1,4 +1,4 @@
-import type { CSSProperties, ExtractPropTypes } from "vue";
+import type { CSSProperties, DefineComponent, ExtractPropTypes, HTMLAttributes } from "vue";
 import { computed, defineComponent, provide, ref } from "vue";
 import type { BooleanType } from "../const/types";
 import { GRID_KEY, useBreakpoint } from "./useBreakpoint";
@@ -14,7 +14,7 @@ const gridProps = {
   justify: { type: String },
   debug: { type: Boolean as BooleanType },
 };
-export type GridProps = ExtractPropTypes<typeof gridProps>;
+export type GridProps = Partial<ExtractPropTypes<typeof gridProps>> & HTMLAttributes;
 
 const Grid = defineComponent({
   name: "Grid",
@@ -73,6 +73,6 @@ const Grid = defineComponent({
       return <div {...gridProps}>{slots.default?.()}</div>;
     };
   },
-}) 
+});
 
-export default Grid;
+export default Grid as DefineComponent<GridProps>;

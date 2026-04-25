@@ -1,5 +1,5 @@
 import { clamp } from "@vueuse/core";
-import Color from "color";
+import Color, { type ColorObject } from "color";
 import { defineComponent, onMounted, reactive, ref, watch, type PropType } from "vue";
 
 export default defineComponent({
@@ -7,8 +7,8 @@ export default defineComponent({
   props: {
     hue: { type: Number, default: 0 },
     modelValue: { type: [String, Object] as PropType<any>, required: true },
+    onUpdateRGB: Function as PropType<(color: ColorObject) => void>,
   },
-  emits: ["updateRGB"],
   setup(props, { emit }) {
     const refPaint = ref<HTMLCanvasElement | null>(null);
     const dotPos = reactive({ x: 0, y: 0 });
@@ -58,9 +58,13 @@ export default defineComponent({
     const onMouseDown = (e: MouseEvent) => {
       handleMove(e);
       document.addEventListener("mousemove", handleMove);
-      document.addEventListener("mouseup", () => {
-        document.removeEventListener("mousemove", handleMove);
-      }, { once: true });
+      document.addEventListener(
+        "mouseup",
+        () => {
+          document.removeEventListener("mousemove", handleMove);
+        },
+        { once: true }
+      );
     };
 
     watch([() => props.hue, () => props.modelValue], () => {
@@ -75,8 +79,17 @@ export default defineComponent({
 
     return () => (
       <div class="k-color-picker-paint-container">
-        <canvas class="k-color-picker-paint" width={234} height={136} ref={refPaint} onMousedown={onMouseDown} />
-        <span class="k-color-picker-paint-dot" style={{ left: `${dotPos.x}px`, top: `${dotPos.y}px` }} />
+        <canvas
+          class="k-color-picker-paint"
+          width={234}
+          height={136}
+          ref={refPaint}
+          onMousedown={onMouseDown}
+        />
+        <span
+          class="k-color-picker-paint-dot"
+          style={{ left: `${dotPos.x}px`, top: `${dotPos.y}px` }}
+        />
       </div>
     );
   },

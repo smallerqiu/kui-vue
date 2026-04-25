@@ -1,12 +1,11 @@
 <template>
-  <Progress :percent="percent" style="width: 300px; margin-bottom: 30px" />
-  <Progress :percent="percent" type="circle" />
-  <Progress :percent="percent" type="dashboard" />
-  <br />
   <ButtonGroup>
     <Button @click="decline" :icon="Minus" />
     <Button @click="increase" :icon="Plus" />
   </ButtonGroup>
+  <Progress :percent="percent" style="width: 300px; margin-bottom: 30px" />
+  <Progress :percent="percent" type="circle" />
+  <Progress :percent="percent" type="dashboard" />
 </template>
 <script setup lang="ts">
 import { Minus, Plus } from "kui-icons";

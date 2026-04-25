@@ -12,10 +12,15 @@
         mode="inline"
         :items="items"
         class="admin-menu"
+        :inlineCollapsed="collapsed"
       >
       </Menu>
-      <Button type="text" @click="collapsed = !collapsed">
-        <Icon :type="collapsed ? PanelLeftOpen : PanelLeftClose" />
+      <Button
+        type="text"
+        block
+        @click="collapsed = !collapsed"
+        :icon="collapsed ? PanelLeftOpen : PanelLeftClose"
+      >
       </Button>
     </Sider>
 
@@ -88,9 +93,7 @@ const items = [
   min-height: 100vh;
   border: 1px solid var(--kui-color-border);
 }
-.admin-sider {
-  width: 210px;
-}
+
 .admin-menu {
   border: none;
 }

@@ -5,7 +5,7 @@
       name="file"
       :headers="headers"
       draggable
-      :uploadIcon="CloudUpload"
+      :uploadIcon="UploadIcon"
       uploadText="Click to upload files or drag files here"
       uploadSubText="Supports any type of file"
       @change="handleChange"
@@ -14,7 +14,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { CloudUpload } from "kui-icons";
+import { Upload as UploadIcon } from "kui-icons";
 import { message, type UploadChangeEvent } from "kui-vue";
 import { ref } from "vue";
 const headers = ref({

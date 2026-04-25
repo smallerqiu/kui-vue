@@ -41,7 +41,7 @@ import App from "./App.vue";
 import kui from "kui-vue";
 
 // Import styles
-import "kui-vue/dist/k-ui.css";
+import "kui-vue/style/k-ui.css";
 
 const app = createApp(App);
 

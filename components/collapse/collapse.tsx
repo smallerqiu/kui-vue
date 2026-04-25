@@ -16,7 +16,6 @@ export type CollapseProps = ExtractPropTypes<typeof collapseProps>;
 const Collapse = defineComponent({
   name: "Collapse",
   props: collapseProps,
-  emits: ["change", "update"],
   setup(props, { slots, emit }) {
     const defaultOpenKeys = ref<(string | number)[]>(props.openKeys || []);
 

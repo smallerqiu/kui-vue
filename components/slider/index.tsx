@@ -31,6 +31,7 @@ export const sliderProps = {
   included: { type: Boolean as BooleanType, default: true },
   tipFormatter: Function as PropType<(value: number) => string | number>,
   tooltipVisible: { type: Boolean as BooleanType, default: null },
+  onChange: Function as PropType<(value: number | number[]) => void>,
 };
 
 export type SliderProps = ExtractPropTypes<typeof sliderProps>;
@@ -38,7 +39,6 @@ export type SliderProps = ExtractPropTypes<typeof sliderProps>;
 const Slider = defineComponent({
   name: "Slider",
   props: sliderProps,
-  emits: ["update:modelValue", "change"],
 
   setup(props, { emit }) {
     const size = inject("size", undefined);

@@ -34,7 +34,6 @@ const Carousel = defineComponent({
   name: "Carousel",
   directives: { resize: resizeDir },
   props: carouselProps,
-  emits: ["update:value", "change"],
   setup(props, { slots, emit, expose, attrs }) {
     const currentIndex = ref(props.value || props.modelValue);
     const posIndex = ref(props.loop ? props.modelValue + 1 : props.modelValue);

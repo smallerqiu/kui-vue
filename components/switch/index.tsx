@@ -24,7 +24,6 @@ export type SwitchProps = ExtractPropTypes<typeof switchProps>;
 const Switch = defineComponent({
   name: "KSwitch",
   props: switchProps,
-  emits: ["update:modelValue", "change"],
   setup(ps, { slots, emit }) {
     const isChecked = ref(ps.modelValue || ps.checked);
     watch(

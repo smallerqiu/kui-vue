@@ -22,7 +22,6 @@ export type CollapsePanelProps = ExtractPropTypes<typeof collapsePanelProps>;
 const CollapsePanel = defineComponent({
   name: "CollapsePanel",
   props: collapsePanelProps,
-  emits: ["expand"],
   setup(props, { slots, emit }) {
     const instance = getCurrentInstance();
     const expanded = ref(props.active);

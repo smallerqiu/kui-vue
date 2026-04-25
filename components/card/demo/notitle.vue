@@ -10,4 +10,5 @@
       <div>card content</div>
       <div>card content</div>
     </Card>
+  </Space>
 </template>
