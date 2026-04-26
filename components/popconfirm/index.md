@@ -24,12 +24,14 @@
 
 ## API
 
-| 属性        | 说明                                                                                                                                                                       | 类型         | 默认值 |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------ |
-| title       | 显示的标题                                                                                                                                                                 | String,Slots | -      |
-| placement   | 提示框出现的位置，可选值为`top`，`top-left`，`top-right`，`bottom`，`bottom-left`，`bottom-right`，`left`，`left-top`，`left-bottom`，`right`，`right-top`，`right-bottom` | String       | top    |
-| width       | 展示的宽度,默认为内容区域的大小                                                                                                                                            | String       | -      |
-| ok-text     | 确定按钮的文字，                                                                                                                                                           | String       | 确定   |
-| cancel-text | 取消按钮的文字，                                                                                                                                                           | String       | 取消   |
-| cancel      | 点击取消的回调，                                                                                                                                                           | Function     | -      |
-| ok          | 点击确定的回调，                                                                                                                                                           | Function     | -      |
+| 属性       | 说明                                                                                                                                                                       | 类型         | 默认值 |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------ |
+| title      | 显示的标题                                                                                                                                                                 | String,Slots | -      |
+| placement  | 提示框出现的位置，可选值为`top`，`top-left`，`top-right`，`bottom`，`bottom-left`，`bottom-right`，`left`，`left-top`，`left-bottom`，`right`，`right-top`，`right-bottom` | String       | top    |
+| width      | 展示的宽度,默认为内容区域的大小                                                                                                                                            | String       | -      |
+| okText     | 确定按钮的文字，                                                                                                                                                           | String       | 确定   |
+| cancelText | 取消按钮的文字，                                                                                                                                                           | String       | 取消   |
+| onCancel   | 点击取消的回调，                                                                                                                                                           | Function     | -      |
+| onOk       | 点击确定的回调，                                                                                                                                                           | Function     | -      |
+| show       | 默认是否展示                                                                                                                                                               | Boolean      | false  |
+| dark       | 是否展示暗色主题                                                                                                                                                           | Boolean      | false  |

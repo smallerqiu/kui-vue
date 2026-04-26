@@ -69,20 +69,23 @@ export default {
 
 ## Form API
 
-| 属性               | 说明                                                                                               | 类型                    | 默认值 |
-| ------------------ | -------------------------------------------------------------------------------------------------- | ----------------------- | ------ |
-| model              | 表单数据对象                                                                                       | Object                  | -      |
-| rules              | 表单验证规则，                                                                                     | Boolean                 | false  |
-| name               | 表单名称，会作为表单字段 id 前缀使用                                                               | String                  | -      |
-| <s>label-width</s> | <s>表单域标签的宽度，所有的 FormItem 都会继承 Form 组件的 label-width 的值</s> `3.1.5版本后不支持` | Number,String           | -      |
-| labelCol           | label 标签布局，同 `<Col>` 组件，设置 span offset 值，如 {span: 3, offset: 12}                     | Object                  | -      |
-| wrapperCol         | 控件 标签布局，同 `<Col>` 组件，设置 span offset 值，如 {span: 15, offset: 12}                     | Object                  | -      |
-| label-align        | 表单域标签的位置，可选值为 left、right、top                                                        | String                  | right  |
-| submit             | 提交表单，并验证 ,手动提交表单时触发                                                               | Function({valid,model}) | -      |
-| change             | 表单数据变动时触发                                                                                 | Function(model)         | -      |
-| test               | 对表单单个字段进行校验的方法                                                                       | Function                | -      |
-| reset              | 对整个表单进行重置，将所有字段值重置为空并移除校验结果                                             | Function                | -      |
-| theme              | 组件呈现主题,默认'light'                                                                           | String                  | light  |
+| 属性       | 说明                                                                           | 类型                           | 默认值     |
+| ---------- | ------------------------------------------------------------------------------ | ------------------------------ | ---------- |
+| model      | 表单数据对象                                                                   | Object                         | -          |
+| rules      | 表单验证规则，                                                                 | Boolean                        | false      |
+| name       | 表单名称，会作为表单字段 id 前缀使用                                           | String                         | -          |
+| labelCol   | label 标签布局，同 `<Col>` 组件，设置 span offset 值，如 {span: 3, offset: 12} | {span:number,offset:number}    | -          |
+| wrapperCol | 控件 标签布局，同 `<Col>` 组件，设置 span offset 值，如 {span: 15, offset: 12} | {span:number,offset:number}    | -          |
+| submit     | 提交表单，并验证 ,手动提交表单时触发                                           | Function({valid,model})        | -          |
+| test       | 对表单单个字段进行校验的方法                                                   | Function                       | -          |
+| reset      | 对整个表单进行重置，将所有字段值重置为空并移除校验结果                         | Function                       | -          |
+| theme      | 组件呈现主题,默认'light'                                                       | String                         | light      |
+| size       | 子组件的尺寸                                                                   | String                         | light      |
+| layout     | 表单布局                                                                       | [horizontal ,vertical ,inline] | horizontal |
+| shape      | 子组件的形状                                                                   | [circle,square]                | horizontal |
+| disabled   | 表单是否可用                                                                   | Boolean                        | true       |
+| onSubmit   | 提交表单时触发事件                                                             | Function                       | -          |
+| onChange   | 表单数据变动时触发                                                             | Function(model)                | -          |
 
 ## FormItem API
 

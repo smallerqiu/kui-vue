@@ -52,6 +52,7 @@
 | multiple      | 是否支持多选                                                 | Boolean                | false  |
 | loading       | 异步加载状态                                                 | Boolean                | false  |
 | loadData      | 异步加载数据的方法                                           | Promise Function(node) | -      |
+| directory     | 是不显示为目录树                                             | Boolean                | false  |
 
 ## TreeNode API
 

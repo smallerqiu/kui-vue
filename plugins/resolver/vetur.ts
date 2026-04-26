@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import { Node, Project, TypeFormatFlags } from "ts-morph";
 import { JsxEmit } from "typescript";
+import { fileURLToPath } from "url";
 
 /**
  * 解析 Markdown 表格提取属性和描述
@@ -12,25 +13,28 @@ const getDocDescriptions = (mdPath: string): Record<string, string> => {
   if (!fs.existsSync(mdPath)) return descriptions;
 
   const content = fs.readFileSync(mdPath, "utf-8");
-  const lines = content.split('\n'); // 按行处理
-  
-  lines.forEach(line => {
+  const lines = content.split("\n"); // 按行处理
+
+  lines.forEach((line) => {
     // 通过 | 分割并过滤掉两侧的空字符串（解决错位关键）
-    const columns = line.split('|').map(c => c.trim()).filter(c => c !== '');
-    
+    const columns = line
+      .split("|")
+      .map((c) => c.trim())
+      .filter((c) => c !== "");
+
     // 确保这一行至少有属性名和描述两列
     if (columns.length >= 2) {
       const rawProp = columns[0];
       const description = columns[1];
-      
+
       // 排除表头 "Property" 和 分割线 "---"
-      if (rawProp.toLowerCase() !== 'property' && !rawProp.includes('---')) {
+      if (rawProp.toLowerCase() !== "property" && !rawProp.includes("---")) {
         // 统一小写存储，确保 offsetTop 能匹配到 offsettop
         descriptions[rawProp.toLowerCase()] = description;
       }
     }
   });
-  
+
   return descriptions;
 };
 
@@ -44,6 +48,8 @@ const project = new Project({
     esModuleInterop: true,
   },
 });
+
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 // 预加载所有组件源码以建立类型上下文
 project.addSourceFilesAtPaths(path.resolve(__dirname, "../../components/**/*.ts"));
@@ -67,7 +73,8 @@ export const getPropsData = (componentPath: string, propsName: string, component
 
   // 定位组件真实的物理目录并读取 md
   const componentDir = path.dirname(declarations[0].getSourceFile().getFilePath());
-  const mdPath = path.join(componentDir, "index.en_US.md");
+  // const mdPath = path.join(componentDir, "index.en_US.md");
+  const mdPath = path.join(componentDir, "index.md");
   const docMap = getDocDescriptions(mdPath);
 
   const type = aliasedSymbol.getDeclaredType();
@@ -101,9 +108,10 @@ export const getPropsData = (componentPath: string, propsName: string, component
     // console.log('lowerName :',lowerName)
     // console.log('docMap:',docMap)
     if (!docMap[lowerName]) {
-      console.warn(
-        `\x1b[33m[Vetur Warning]\x1b[0m Component <${componentName}>: Property "${name}" is missing in index.en_US.md`
-      );
+      if (!/Option|TextArea|Input|Select|GridItem|Grid|Empty|Button/.test(componentName))
+        console.warn(
+          `\x1b[33m[Vetur Warning]\x1b[0m Component <${componentName}>: Property "${name}" is missing in ${mdPath}`
+        );
     }
 
     props.push({

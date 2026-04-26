@@ -31,11 +31,12 @@
 
 ## Tag API
 
-| 属性      | 说明                                       | 类型     | 默认值 |
-| --------- | ------------------------------------------ | -------- | ------ |
-| closeable | 是否显示关闭按钮                           | Boolean  | false  |
-| color     | 标签的颜色                                 | String   | -      |
-| icon      | 标签的图标                                 | String   | -      |
-| close     | 关闭标签的回调事件                         | Function | -      |
-| size      | 按钮尺寸,可选值 `small`、`large`，默认不选 | String   | -      |
-| theme     | 组件呈现主题,默认'light'                   | String   | light  |
+| 属性      | 说明                                       | 类型            | 默认值 |
+| --------- | ------------------------------------------ | --------------- | ------ |
+| closeable | 是否显示关闭按钮                           | Boolean         | false  |
+| color     | 标签的颜色                                 | String          | -      |
+| icon      | 标签的图标                                 | String          | -      |
+| onClose   | 关闭标签的回调事件                         | Function        | -      |
+| size      | 按钮尺寸,可选值 `small`、`large`，默认不选 | String          | -      |
+| theme     | 组件呈现主题,默认'light'                   | String          | light  |
+| shape     | 组件呈现的形状,                            | [circle,square] | circle |

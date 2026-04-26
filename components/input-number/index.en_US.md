@@ -34,7 +34,7 @@ When standard numerical values need to be obtained.
 | value(v-model) | Current value                                                               | Number         | -         |
 | formatter      | Specifies the format of the value displayed in the input box                | Function       | -         |
 | parser         | Specifies how to convert back from formatter to number, used with formatter | Function       | -         |
-| change         | Change callback                                                             | Function       | -         |
+| onChange         | Change callback                                                             | Function       | -         |
 | size           | Input box size                                                              | String         | -         |
 | disabled       | Disabled                                                                    | Boolean        | -         |
 | precision      | Numerical precision                                                         | Number         | -         |

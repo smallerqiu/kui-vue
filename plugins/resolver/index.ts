@@ -1,11 +1,14 @@
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 import { globalComponents } from "../../components/utils/vue";
 import { generateVeturConfig } from "./vetur";
 import { generateWebTypesConfig } from "./web-types";
-export const generateGlobalDts = () => {
+const __dirname = fileURLToPath(new URL(".", import.meta.url));
+
+export const getComponentNames = (): string[] => {
   const entryPath = path.resolve(__dirname, "../../components/components.ts");
-  if (!fs.existsSync(entryPath)) return;
+  if (!fs.existsSync(entryPath)) return [];
   const content = fs.readFileSync(entryPath, "utf-8");
 
   const componentNames: string[] = [];
@@ -30,16 +33,23 @@ export const generateGlobalDts = () => {
       }
     });
   }
-
+  return componentNames;
+};
+export const generateGlobalDts = () => {
+  const componentNames = getComponentNames();
   // for Volar
 
   const template = `
 /* eslint-disable @typescript-eslint/consistent-type-imports */
-import { GlobalComponents as _GlobalComponents } from '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-  ${componentNames.map((name) => `${name}: typeof import('kui-vue')['${name}']`).join("\n    ")}
+  ${componentNames
+    .map((name) => {
+      const base = `${name}: typeof import('kui-vue')['${name}']`;
+      return name.startsWith("K") ? base : `${base}\nK${name}: typeof import('kui-vue')['${name}']`;
+    })
+    .join("\n    ")}
   }
 }
 

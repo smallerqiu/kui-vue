@@ -40,4 +40,4 @@
 | checked(unchecked) | 选中(非选中)时的内容                                      | slot    | -                 |
 | true-text          | 当 `checked` 为 `true` 时 ，显示的文字                    | String  | -                 |
 | false-text         | 当 `checked` 为 `false` 时 ，显示的文字                   | String  | -                 |
-| change             | 当 `checked` 改变时触发，回调                             | -       | Function(e:Event) |
+| onChange             | 当 `checked` 改变时触发，回调                             | -       | Function(e:Event) |

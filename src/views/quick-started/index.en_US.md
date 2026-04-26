@@ -52,7 +52,7 @@ The above code completes the import of KUI. Note: The style file needs to be imp
 
 [Use specifications](./buttons.vue)
 
-- Components support either all lowercase or PascalCase (first letter capitalized), such as: `Button`,`KButton` or `k-button`:
+- Components support either all lowercase or PascalCase (first letter capitalized), such as: `Button` , `KButton` or `k-button`:
 
 [Special components](./image.vue)
 -Note that the `Switch` and `Image` components only support names starting with 'k'.

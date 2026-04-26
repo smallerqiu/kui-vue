@@ -25,7 +25,7 @@ const InputGroup = defineComponent({
   name: "InputGroup",
   props: inputGroupProps,
   setup(props, { slots }) {
-    const parentSize = inject<string>("size");
+    const parentSize = inject<string | null>("size", null);
     provide("size", props.size || parentSize);
 
     return () => {

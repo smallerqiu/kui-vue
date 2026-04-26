@@ -35,7 +35,6 @@ export const uploadProps = {
   type: {
     type: String as PropType<"list" | "picture">,
     default: "list",
-    validator: (val: string) => ["list", "picture"].indexOf(val) >= 0,
   },
   data: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
   disabled: Boolean as BooleanType,

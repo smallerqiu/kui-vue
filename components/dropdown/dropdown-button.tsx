@@ -19,7 +19,6 @@ export const dropdownButtonProps = {
   disabled: Boolean as BooleanType,
   icon: Array as PropType<IconType[]>,
   theme: String,
-  dark: Boolean as BooleanType,
   arrow: Boolean as BooleanType,
   placement: { type: String as PropType<DropPlacementsType>, default: "bottom-right" },
   onClick: Function as PropType<(e: MouseEvent) => void>,
@@ -34,7 +33,6 @@ const DropdownButton = defineComponent({
     return () => {
       return (
         <Dropdown
-          dark={props.dark}
           arrow={props.arrow}
           placement={props.placement}
           target={refTrigger}

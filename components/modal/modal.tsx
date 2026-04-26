@@ -33,7 +33,6 @@ export const modalProps = {
   showClose: { type: Boolean as BooleanType, default: true },
   loading: Boolean as BooleanType,
   footer: { type: Boolean as BooleanType, default: true },
-  transfer: { type: Boolean as BooleanType, default: true },
   escKey: { type: Boolean as BooleanType, default: true },
   onClose: { type: Function as PropType<() => void> },
   onOk: { type: Function as PropType<() => void> },
@@ -255,7 +254,7 @@ const Modal = defineComponent({
         },
       ];
       return rendered.value ? (
-        <div class={classes} v-transfer={props.transfer}>
+        <div class={classes} v-transfer={true}>
           {maskNode}
           <div
             class="k-modal-wrap"

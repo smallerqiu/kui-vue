@@ -30,6 +30,7 @@
 | statNumberType | 数值变化类型              | `rollup, countup` | 'countup' |
 | separator      | 分隔符                    | String            | -         |
 | reverse        | 数值/数值描述是否反相排列 | Boolean           | false     |
+| bordered       | 是否显示边框              | Boolean           | false     |
 
 ### items Options
 
@@ -49,7 +50,7 @@
 
 | 属性            | 说明                         | 类型              | 默认值    |
 | --------------- | ---------------------------- | ----------------- | --------- |
-| value           | 数值                         | Number            | -         |
+| modelValue      | 数值(v-model)                | Number            | -         |
 | duration        | 数值动态展示时间(秒)         | Number            | 1.2       |
 | prefix          | 数值的前置内容               | String            | -         |
 | suffix          | 数值的后置内容               | String            | -         |

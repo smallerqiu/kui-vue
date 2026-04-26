@@ -52,6 +52,7 @@ Folders, organizational structures, biological classifications, countries and re
 | multiple      | Whether to support multiple selection                                                                             | Boolean                | false   |
 | loading       | Asynchronous loading state                                                                                        | Boolean                | false   |
 | loadData      | Method to asynchronously load data                                                                                | Promise Function(node) |
+| directory     | Does not display as a directory tree                                                                              | Boolean                | false   |
 
 ## TreeNode API
 

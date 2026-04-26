@@ -41,6 +41,8 @@ Commonly seen in detail page information display.
 
 ## Item props
 
-| Property | Description                | Type           | Default |
-| -------- | -------------------------- | -------------- | ------- |
-| label    | Description of the content | String \| slot | -       |
+| Property | Description                 | Type           | Default |
+| -------- | --------------------------- | -------------- | ------- |
+| label    | Description of the content  | String \| slot | -       |
+| span     | Number of columns displayed | Number         | 1       |
+| type     | Show title or content       | String         | -       |

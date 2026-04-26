@@ -45,15 +45,17 @@ Provide peer areas to accommodate and display large chunks of content, keeping t
 
 ## Tabs API
 
-| Property             | Description                                                     | Type                | Default |
-| -------------------- | --------------------------------------------------------------- | ------------------- | ------- |
-| v-model(:modelValue) | Currently active tab panel's key                                | String              | -       |
-| card                 | Whether tab style is card style                                 | Boolean             | false   |
-| sample               | Whether tab style is simple style                               | Boolean             | false   |
-| animated             | Whether to use animation to switch Tabs                         | Boolean             | true    |
-| remove               | Callback when tab is closed, returns the closed tab's key value | Function(activeKey) | -       |
-| change               | Callback when switching panels                                  | Function(activeKey) | -       |
-| tab-click            | Callback when tab is clicked                                    | Function(activeKey) | -       |
+| Property   | Description                                                     | Type                | Default |
+| ---------- | --------------------------------------------------------------- | ------------------- | ------- |
+| value      | Default to the currently active tab panel's key                 | String              | -       |
+| modelValue | Currently active tab panel's key                                | String              | -       |
+| card       | Whether tab style is card style                                 | Boolean             | false   |
+| sample     | Whether tab style is simple style                               | Boolean             | false   |
+| animated   | Whether to use animation to switch Tabs                         | Boolean             | true    |
+| onRemove   | Callback when tab is closed, returns the closed tab's key value | Function(activeKey) | -       |
+| onChange   | Callback when switching panels                                  | Function(activeKey) | -       |
+| onTabClick | Callback when tab is clicked                                    | Function(activeKey) | -       |
+| centered   | Whether to center the label                                     | Boolean             | false   |
 
 ## Tabs.TabPanel API
 

@@ -49,6 +49,6 @@ Parameter `options` is an object, specific description as follows:
 | title    | Notification title                               | String        | -       |
 | content  | Prompt content                                   | String, vnode | -       |
 | duration | Auto-close delay, in seconds, 0 means not closed | Number        | 3       |
-| close    | Callback when closing                            | Function      | -       |
+| onClose    | Callback when closing                            | Function      | -       |
 | icon     | Custom icon                                      | String        | -       |
 | color    | Custom icon color                                | String        | -       |

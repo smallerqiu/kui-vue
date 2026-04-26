@@ -14,6 +14,7 @@ declare module "vue" {
     BackTop: (typeof Comps)["BackTop"];
     Badge: (typeof Comps)["Badge"];
     Button: (typeof Comps)["Button"];
+    KButton: (typeof Comps)["Button"];
     ButtonGroup: (typeof Comps)["ButtonGroup"];
     Card: (typeof Comps)["Card"];
     Carousel: (typeof Comps)["Carousel"];

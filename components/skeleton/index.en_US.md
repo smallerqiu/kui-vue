@@ -49,6 +49,7 @@ Provide a placeholder graphic combination at positions where content needs to be
 | rows     | Set the number of paragraph placeholder lines                            | Number               | 3       |
 | width    | Set the width of title placeholder                                       | Number(%)            | 35      |
 | delay    | Debounce (animation delay closing)                                       | Number(milliseconds) | 500     |
+| title    | Title point unit                                                         | Number               | 35(px)  |
 
 ## Avatar Props
 

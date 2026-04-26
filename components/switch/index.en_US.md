@@ -40,4 +40,4 @@ Switch selector.
 | checked(unchecked) | Content when selected (not selected)                                      | slot    | -                  |
 | true-text          | Text displayed when `checked` is `true`                                   | String  | -                  |
 | false-text         | Text displayed when `checked` is `false`                                  | String  | -                  |
-| change             | Triggered when `checked` changes, callback                                | -       | Function(e: Event) |
+| onChange             | Triggered when `checked` changes, callback                                | -       | Function(e: Event) |

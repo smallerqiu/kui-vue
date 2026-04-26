@@ -25,11 +25,9 @@ type ColorMode = "hex" | "rgb" | "hsl";
 export const colorPickerProps = {
   modelValue: String,
   value: String,
-  transfer: { type: Boolean as BooleanType, default: true },
   disabled: Boolean as BooleanType,
   disabledAlpha: Boolean as BooleanType,
   showText: Boolean as BooleanType,
-  arrow: Boolean as BooleanType,
   placement: {
     type: String as PropType<DropPlacementsType>,
     default: "bottom-left",
@@ -46,13 +44,11 @@ export const colorPickerProps = {
     type: String as PropType<ColorMode>,
     default: "hex",
   },
-  show: Boolean as BooleanType,
   presets: {
     type: Array as PropType<string[]>,
   },
   onChange: { type: Function as PropType<(color: string) => void> },
   onUpdateMode: { type: Function as PropType<(mode: ColorMode) => void> },
-  onUpdate: { type: Function as PropType<(color: string) => void> },
 };
 
 export type ColorPickerProps = ExtractPropTypes<typeof colorPickerProps>;
@@ -68,7 +64,7 @@ const ColorPicker = defineComponent({
   setup(props, { emit, slots }) {
     const currentMode = ref(props.mode);
     const currentColor = ref(props.modelValue || props.value || "#000000ff");
-    const visible = ref(props.show);
+    const visible = ref(false);
     const refPopper = ref();
     const refSelection = ref();
     const left = ref(0);

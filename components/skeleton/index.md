@@ -49,6 +49,7 @@
 | rows     | 设置段落占位图的行数                         | Number              | 3      |
 | width    | 设置标题占位图的宽度                         | Number(%)           | 35     |
 | delay    | 防抖(动画延迟关闭)                           | Number(毫秒)        | 500    |
+| title    | 标题点位单位                                 | Number              | 35(px) |
 
 ## Avatar Props
 

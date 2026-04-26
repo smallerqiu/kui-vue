@@ -19,12 +19,10 @@ import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
 export const dropdownProps = {
-  dark: Boolean as BooleanType,
   trigger: {
     type: String as PropType<TriggerType>,
     default: "hover",
   },
-  transfer: { type: Boolean as BooleanType, default: true },
   disabled: Boolean as BooleanType,
   arrow: { type: Boolean as BooleanType, default: false },
   show: Boolean as BooleanType,
