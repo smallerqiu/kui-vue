@@ -38,12 +38,12 @@ import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
 import { setPlacement } from "../utils/placement";
 // import dayjsCN from "./dayjs.zh_CN";
-import "dayjs/locale/zh-cn";
+// import "dayjs/locale/zh-cn";
 // 启用插件
 dayjs.extend(isBetween);
 dayjs.extend(customParseFormat);
 dayjs.extend(localeData);
-dayjs.locale("zh-cn");
+// dayjs.locale("zh-cn");
 
 type DatePickerValueType = "date" | "timestamp" | "unix" | "string";
 type DatePickerModeType =

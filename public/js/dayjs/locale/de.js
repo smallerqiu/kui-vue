@@ -1,0 +1,115 @@
+import * as __0$ from "dayjs";
+var require = (n) => {
+  const e = (m) => (typeof m.default < "u" ? m.default : m),
+    c = (m) => Object.assign({ __esModule: true }, m);
+  switch (n) {
+    case "dayjs":
+      return e(__0$);
+    default:
+      console.error('module "' + n + '" not found');
+      return null;
+  }
+};
+var y = Object.create;
+var s = Object.defineProperty;
+var p = Object.getOwnPropertyDescriptor;
+var h = Object.getOwnPropertyNames;
+var S = Object.getPrototypeOf,
+  Y = Object.prototype.hasOwnProperty;
+var c = ((e) =>
+  typeof require < "u"
+    ? require
+    : typeof Proxy < "u"
+      ? new Proxy(e, { get: (n, a) => (typeof require < "u" ? require : n)[a] })
+      : e)(function (e) {
+  if (typeof require < "u") return require.apply(this, arguments);
+  throw Error('Dynamic require of "' + e + '" is not supported');
+});
+var g = (e, n) => () => (n || e((n = { exports: {} }).exports, n), n.exports);
+var D = (e, n, a, r) => {
+  if ((n && typeof n == "object") || typeof n == "function")
+    for (let t of h(n))
+      !Y.call(e, t) &&
+        t !== a &&
+        s(e, t, { get: () => n[t], enumerable: !(r = p(n, t)) || r.enumerable });
+  return e;
+};
+var L = (e, n, a) => (
+  (a = e != null ? y(S(e)) : {}),
+  D(n || !e || !e.__esModule ? s(a, "default", { value: e, enumerable: !0 }) : a, e)
+);
+var m = g((d, o) => {
+  (function (e, n) {
+    typeof d == "object" && typeof o < "u"
+      ? (o.exports = n(c("dayjs")))
+      : typeof define == "function" && define.amd
+        ? define(["dayjs"], n)
+        : ((e = typeof globalThis < "u" ? globalThis : e || self).dayjs_locale_de = n(e.dayjs));
+  })(d, function (e) {
+    "use strict";
+    function n(i) {
+      return i && typeof i == "object" && "default" in i ? i : { default: i };
+    }
+    var a = n(e),
+      r = {
+        s: "ein paar Sekunden",
+        m: ["eine Minute", "einer Minute"],
+        mm: "%d Minuten",
+        h: ["eine Stunde", "einer Stunde"],
+        hh: "%d Stunden",
+        d: ["ein Tag", "einem Tag"],
+        dd: ["%d Tage", "%d Tagen"],
+        M: ["ein Monat", "einem Monat"],
+        MM: ["%d Monate", "%d Monaten"],
+        y: ["ein Jahr", "einem Jahr"],
+        yy: ["%d Jahre", "%d Jahren"],
+      };
+    function t(i, l, f) {
+      var _ = r[f];
+      return (Array.isArray(_) && (_ = _[l ? 0 : 1]), _.replace("%d", i));
+    }
+    var M = {
+      name: "de",
+      weekdays: "Sonntag_Montag_Dienstag_Mittwoch_Donnerstag_Freitag_Samstag".split("_"),
+      weekdaysShort: "So._Mo._Di._Mi._Do._Fr._Sa.".split("_"),
+      weekdaysMin: "So_Mo_Di_Mi_Do_Fr_Sa".split("_"),
+      months:
+        "Januar_Februar_M\xE4rz_April_Mai_Juni_Juli_August_September_Oktober_November_Dezember".split(
+          "_"
+        ),
+      monthsShort: "Jan._Feb._M\xE4rz_Apr._Mai_Juni_Juli_Aug._Sept._Okt._Nov._Dez.".split("_"),
+      ordinal: function (i) {
+        return i + ".";
+      },
+      weekStart: 1,
+      yearStart: 4,
+      formats: {
+        LTS: "HH:mm:ss",
+        LT: "HH:mm",
+        L: "DD.MM.YYYY",
+        LL: "D. MMMM YYYY",
+        LLL: "D. MMMM YYYY HH:mm",
+        LLLL: "dddd, D. MMMM YYYY HH:mm",
+      },
+      relativeTime: {
+        future: "in %s",
+        past: "vor %s",
+        s: t,
+        m: t,
+        mm: t,
+        h: t,
+        hh: t,
+        d: t,
+        dd: t,
+        M: t,
+        MM: t,
+        y: t,
+        yy: t,
+      },
+    };
+    return (a.default.locale(M, null, !0), M);
+  });
+});
+var u = L(m()),
+  J = u.default ?? u;
+export { J as default };

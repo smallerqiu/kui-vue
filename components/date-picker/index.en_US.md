@@ -42,7 +42,7 @@ When the user needs to input a date, they can click the standard input box to po
 
 [Multi-language](./demo/lang.vue)
 
-- DatePicker supports multiple languages, depending on `dayjs`.
+- DatePicker supports multiple languages,Default English, depending on `dayjs`.
 
 ## API
 

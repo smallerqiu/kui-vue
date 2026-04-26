@@ -8,9 +8,8 @@
   </Space>
 </template>
 <script setup lang="ts">
-import en from "kui-vue/locale/en";
-import { ref } from "vue";
 import dayjs from "dayjs";
+import { ref } from "vue";
 const value = ref("2021-01-01 20:20:20");
 
 import "dayjs/locale/en";
