@@ -74,8 +74,8 @@ const Input = defineComponent({
     expose({ focus, blur });
 
     const clear = () => {
-      emit("update:modelValue", "");
       currentValue.value = "";
+      emit("update:modelValue", "");
       nextTick(() => focus());
     };
 

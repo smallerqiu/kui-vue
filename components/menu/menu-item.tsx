@@ -7,6 +7,7 @@ import {
   type ExtractPropTypes,
   type PropType,
   type Ref,
+  type VNodeChild,
 } from "vue";
 import type { BooleanType } from "../const/types";
 import Icon, { type IconType } from "../icon";
@@ -14,7 +15,7 @@ import { getChildren } from "../utils/vnode";
 
 export const menuItemProps = {
   icon: Array as PropType<IconType[]>,
-  title: String,
+  title: String as PropType<string | VNodeChild>,
   disabled: Boolean as BooleanType,
   isPopup: Boolean as BooleanType,
 };

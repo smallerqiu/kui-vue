@@ -15,6 +15,8 @@ export const starProps = {
   icon: [String, Function, Array] as PropType<any>,
   size: [Number, String] as PropType<number | string>,
   index: { type: Number, required: true as const },
+  symbolReverseFill: Boolean as BooleanType,
+  strokeWidth: { type: Number, default: 1 },
 };
 
 export type StarProps = ExtractPropTypes<typeof starProps>;
@@ -49,20 +51,24 @@ export default defineComponent({
         onMousemove: (e: MouseEvent) => onUpdate(e, "M"),
       };
 
-      const characterNode = typeof character === "function" ? character(index) : character;
       const iconType = typeof icon === "function" ? icon(index) : icon;
+      const reverse = props.symbolReverseFill || !iconType;
+      const characterNode = (typeof character === "function" ? character(index) : character) || (
+        <Icon
+          type={iconType || StarIcon}
+          size={size}
+          reverseFill={reverse}
+          strokeWidth={props.strokeWidth}
+        />
+      );
       const startProps = {
         class: ["k-star-front"],
         style: { width: disabled && percent !== undefined ? `${percent}%` : undefined },
       };
       const node = (
         <span {...starClasses}>
-          <span {...startProps}>
-            {characterNode || <Icon type={iconType || StarIcon} size={size} />}
-          </span>
-          <span class="k-star-back">
-            {characterNode || <Icon type={iconType || StarIcon} size={size} />}
-          </span>
+          <span {...startProps}>{characterNode}</span>
+          <span class="k-star-back">{characterNode}</span>
         </span>
       );
       return tooltips ? <Tooltip title={tooltips}>{node}</Tooltip> : node;

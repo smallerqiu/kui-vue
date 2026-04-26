@@ -21,6 +21,8 @@ export const rateProps = {
   count: { type: Number, default: 5 },
   character: [String, Function] as PropType<string | ((index: number) => any)>,
   icon: [Array, Function] as PropType<IconType[] | ((index: number) => any)>,
+  symbolReverseFill: Boolean as BooleanType,
+  strokeWidth: { type: Number, default: 1 },
   onChange: {
     type: Function as PropType<(value: number) => void>,
   },
@@ -116,6 +118,7 @@ const Rate = defineComponent({
           percent: percent < 100 ? percent : undefined,
           tooltips: tooltips[i - 1],
           index: i,
+          symbolReverseFill: props.symbolReverseFill,
           onUpdate: update,
         };
         stars.push(<Star {...sp} />);

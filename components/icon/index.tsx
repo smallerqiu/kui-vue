@@ -28,6 +28,7 @@ const iconProps = {
   spin: Boolean as BooleanType,
   strokeWidth: { type: [String, Number], default: 2 },
   onClick: Function as PropType<(e: PointerEvent) => void>,
+  reverseFill: Boolean as BooleanType,
 };
 
 export type IconProps = ExtractPropTypes<typeof iconProps>;
@@ -39,7 +40,15 @@ const Icon = defineComponent({
     const renderPaths = () => {
       const paths = Array.isArray(props.type) ? props.type : [];
       return paths.map((i) => {
-        const styleObj = parseStyle(i.s || "fill:currentColor");
+        const styleObj = parseStyle(i.s || "");
+        if (
+          props.reverseFill &&
+          styleObj["stroke"] == "currentcolor" &&
+          styleObj["fill"] == "none"
+        ) {
+          styleObj["fill"] = "currentColor";
+          styleObj["stroke"] = "none";
+        }
         if (props.strokeWidth) {
           styleObj.strokeWidth = props.strokeWidth;
         }

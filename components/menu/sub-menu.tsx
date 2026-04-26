@@ -12,7 +12,7 @@ import {
   type Ref,
   ref,
   Transition,
-  type VNode,
+  type VNodeChild,
 } from "vue";
 import { getTransitionProp } from "../base/transition";
 import type { BooleanType } from "../const/types";
@@ -23,7 +23,7 @@ import { getChildren } from "../utils/vnode";
 
 export const submenuProps = {
   disabled: Boolean as BooleanType,
-  title: String as PropType<string | VNode>,
+  title: String as PropType<string | VNodeChild>,
   isPopup: Boolean as BooleanType,
   icon: Array as PropType<IconType[]>,
 };
