@@ -16,6 +16,7 @@ export default defineComponent({
       return (
         <Button
           icon={ps.icon}
+          disabled={ps.disabled}
           {...attrs}
           onMouseenter={() => mouseEnterEvent?.()}
           onMouseleave={() => mouseLeaveEvent?.()}

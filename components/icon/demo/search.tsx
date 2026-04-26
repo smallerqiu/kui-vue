@@ -28,12 +28,15 @@ export default defineComponent({
         .join("");
     };
 
-    const searchIcons = (e: Event) => {
-      const query = (e.target as HTMLInputElement).value;
+    const searchIcons = (query: string) => {
+      // const query = (e.target as HTMLInputElement).value;
       searchKey.value = query;
       const term = query.toLowerCase().trim();
-      if (!term) appIcons.value = apps;
-
+      if (!term) {
+        appIcons.value = apps;
+        logoIcons.value = logos;
+        return;
+      }
       const resultTags: string[] = tags
         .filter((icon) => icon.name.includes(term) || icon.tags.some((tag) => tag.includes(term)))
         .map((x) => toPascalCase(x.name));
@@ -53,10 +56,10 @@ export default defineComponent({
         <Affix offsetTop={65}>
           <Flex size="large" style={{ backgroundColor: "var(--kui-color-bg)" }}>
             <Input
-              v-model={searchKey.value}
+              modelValue={searchKey.value}
               placeholder="Enter keyword to search for icons, then click on the icon to copy it."
               clearable
-              onChange={searchIcons}
+              onUpdate:modelValue={searchIcons}
               prefix={(<Icon type={kuiIcons.Search} />) as any}
               suffix={(<Tag>⌘K</Tag>) as any}
             ></Input>

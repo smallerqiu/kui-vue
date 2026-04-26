@@ -407,7 +407,19 @@ const DatePicker = defineComponent({
       const popper = refPopper.value;
       const target = e.target as Node;
       if (popper && !popper.contains(target) && ctx && !ctx.contains(target)) {
-        syncTextFromValue();
+        if (isRange.value && Array.isArray(innerValue.value)) {
+          // 如果只选了一个值（即半选状态），关闭时重置为 props 传进来的原始状态
+          if (innerValue.value.length === 1 || !innerValue.value[1]) {
+            syncTextFromValue(); // 这会根据 props.modelValue 恢复 textValue
+            // 重新从 props 解析 innerValue
+            const val = props.modelValue;
+            if (Array.isArray(val)) {
+              innerValue.value = val.map((d) => parsePropValue(d));
+            } else {
+              innerValue.value = null;
+            }
+          }
+        }
         isVisible.value = false;
         isFocus.value = false;
       }

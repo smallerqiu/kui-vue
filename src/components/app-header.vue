@@ -56,9 +56,9 @@
 </template>
 <script setup lang="ts">
 import Color from "color";
-import { Languages, LogoGithub, LogoKui, Moon, Search, Sun } from "kui-icons";
-import { type MenuSelectEvent, theme } from "kui-vue";
-import { computed, inject, onMounted, ref } from "vue";
+import { ArrowUpRight, Languages, LogoGithub, LogoKui, Moon, Search, Sun } from "kui-icons";
+import { Icon, type MenuSelectEvent, theme } from "kui-vue";
+import { computed, h, inject, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { version } from "../../package.json";
 import { routeData } from "../menu";
@@ -70,7 +70,7 @@ const themeMode = ref("");
 const queryKey = ref("");
 const $t = inject<(key: string) => string>("$t", (key: string) => key);
 const changeLang = inject<() => void>("changeLang");
-
+const moveRight = h(Icon, { type: ArrowUpRight });
 const items = computed(() => {
   return [
     { key: "home", title: $t("menu.home") },
@@ -79,15 +79,42 @@ const items = computed(() => {
       key: "docs",
       title: $t("menu.docs"),
       children: [
-        { key: "/guide/quick-started", title: $t("menu.quick_start") },
-        { key: "/guide/usage-with-nuxt", title: $t("menu.usage_with_nuxt") },
-        { key: "/guide/language", title: $t("menu.language") },
-        { key: "/guide/change-log", title: $t("menu.change_log") },
-        { key: "/guide/dark-mode", title: $t("menu.dark_mode") },
-        { key: "https://v3.k-ui.cn/", title: $t("menu.docs_v3") },
-        { key: "https://v2.k-ui.cn/", title: $t("menu.docs_v2") },
-        { key: "https://react.k-ui.cn/", title: $t("menu.docs_react") },
-        { key: "https://chuchur.com/", title: "Blog" },
+        {
+          key: "/guide/quick-started",
+          title: h("span", null, { default: () => [$t("menu.quick_start"), moveRight] }),
+        },
+        {
+          key: "/guide/usage-with-nuxt",
+          title: h("span", null, { default: () => [$t("menu.usage_with_nuxt"), moveRight] }),
+        },
+        {
+          key: "/guide/language",
+          title: h("span", null, { default: () => [$t("menu.language"), moveRight] }),
+        },
+        {
+          key: "/guide/change-log",
+          title: h("span", null, { default: () => [$t("menu.change_log"), moveRight] }),
+        },
+        {
+          key: "/guide/dark-mode",
+          title: h("span", null, { default: () => [$t("menu.dark_mode"), moveRight] }),
+        },
+        {
+          key: "https://v3.k-ui.cn/",
+          title: h("span", null, { default: () => [$t("menu.docs_v3"), moveRight] }),
+        },
+        {
+          key: "https://v2.k-ui.cn/",
+          title: h("span", null, { default: () => [$t("menu.docs_v2"), moveRight] }),
+        },
+        {
+          key: "https://react.k-ui.cn/",
+          title: h("span", null, { default: () => [$t("menu.docs_react"), moveRight] }),
+        },
+        {
+          key: "https://chuchur.com/",
+          title: h("span", null, { default: () => ["Blog", moveRight] }),
+        },
       ],
     },
   ];
@@ -145,7 +172,7 @@ const go = ({ key }: MenuSelectEvent) => {
     topMenu.value = ["home"];
     router.push("/");
   } else if (key == "guide") {
-    router.push("/guide/getting-started");
+    router.push("/guide/quick-started");
   } else {
     open(key);
   }
