@@ -36,7 +36,10 @@
 
 | 属性      | 说明                                                                         | 类型    | 默认值      |
 | --------- | ---------------------------------------------------------------------------- | ------- | ----------- |
-| value     | 默认是否显示下拉，可使用v-model绑定                                          | Boolean | hover       |
+| show      | 默认是否显示下拉                                                             | Boolean | hover       |
 | trigger   | 触发方式,支持hover(默认), click, custom 3种方式                              | String  | hover       |
 | placement | 菜单弹出位置：bottomLeft bottomCenter bottomRight topLeft topCenter topRight | String  | bottom-left |
 | theme     | 组件呈现主题,默认'light'                                                     | String  | light       |
+| arrow     | 是否显示箭头                                                                 | Boolean | false       |
+| target    | 触发下拉的元素                                                               | VNode   | -           |
+| disabled  | 是否允许触发下拉                                                             | Boolean | false       |

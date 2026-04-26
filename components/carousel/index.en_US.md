@@ -33,3 +33,4 @@ A set of rotating/carousel areas.
 | autoplay   | Whether to auto-switch                                                         | Boolean | false   |
 | delay      | The time interval for auto-switching, in milliseconds                          | Number  | 3000    |
 | height     | The height of the slide                                                        | Number  | 256(px) |
+| dots       | Whether to show the dots at the bottom of the gallery                          | boolean | true    |

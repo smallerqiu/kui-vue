@@ -27,7 +27,6 @@ export const treeProps = {
   expandedKeys: Array as PropType<string[]>,
   checkedKeys: Array as PropType<string[]>,
   directory: Boolean as BooleanType,
-  expandAll: Boolean as BooleanType,
   checkable: Boolean as BooleanType,
   draggable: Boolean as BooleanType,
   showLine: Boolean as BooleanType,

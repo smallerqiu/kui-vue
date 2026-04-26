@@ -34,7 +34,7 @@
 | value(v-model) | 当前值                                                     | Number        | -         |
 | formatter      | 指定输入框展示值的格式                                     | Function      | -         |
 | parser         | 指定从 formatter 里转换回数字的方式，和 formatter 搭配使用 | Function      | -         |
-| change         | 变化回调                                                   | Function      | -         |
+| onChange         | 变化回调                                                   | Function      | -         |
 | size           | 输入框大小                                                 | String        | -         |
 | disabled       | 禁用                                                       | Boolean       | -         |
 | precision      | 数值精度                                                   | Number        | -         |

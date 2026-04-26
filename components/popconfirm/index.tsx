@@ -25,7 +25,6 @@ export const popconfirmProps = {
   dark: Boolean as BooleanType,
   show: Boolean as BooleanType,
   title: [String, Number, Object, Array],
-  size: String,
   width: [Number, String],
   okText: { type: String },
   cancelText: { type: String },

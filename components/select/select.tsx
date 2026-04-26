@@ -80,8 +80,8 @@ const Select = defineComponent({
   },
   props: selectProps,
   setup(props, { slots, emit }) {
+    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
     const locale = computed(() => {
-      const injectedLocale = inject<Record<string, any>>("locale", zhCN);
       return injectedLocale instanceof Object && "value" in injectedLocale
         ? injectedLocale.value
         : injectedLocale;
@@ -569,6 +569,7 @@ const Select = defineComponent({
       );
 
       const placeholderText = placeholder || locale.value?.k.select.placeholder;
+      // console.log(placeholderText, labelText.value, queryKey.value);
       const placeNode =
         placeholderText && isEmpty(labelText.value) && !queryKey.value ? (
           <div class="k-select-placeholder">{placeholderText}</div>

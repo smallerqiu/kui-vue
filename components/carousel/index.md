@@ -33,3 +33,4 @@
 | autoplay   | 是否自动切换                                             | Boolean | false   |
 | delay      | 自动切换的时间间隔，单位为毫秒                           | Number  | 3000    |
 | height     | 幻灯片的高度                                             | Number  | 256(px) |
+| dots       | 是否在图库底部显示圆点                                   | boolean | true    |

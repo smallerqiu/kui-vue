@@ -23,14 +23,17 @@ Rating component.
 
 ## Rate API
 
-| Property            | Description                                 | Type                    | Default |
-| ------------------- | ------------------------------------------- | ----------------------- | ------- |
-| modelValue(v-model) | Current value, controlled value             | Number                  | -       |
-| allowClear          | Whether to allow clearing by clicking again | Boolean                 | false   |
-| allowHalf           | Whether to allow half selection             | Boolean                 | -       |
-| showScore           | Whether to show score                       | Boolean                 | -       |
-| character           | Custom character                            | String                  | -       |
-| count               | Total number of stars                       | Number                  | -       |
-| disabled            | Read-only, cannot interact                  | String                  | -       |
-| tooltips            | Custom prompt information for each item     | String[]                | -       |
-| change              | Callback when selecting                     | Function(value: Number) | -       |
+| Property   | Description                                 | Type                    | Default |
+| ---------- | ------------------------------------------- | ----------------------- | ------- |
+| modelValue | Current value, controlled value(v-model)    | Number                  | -       |
+| allowClear | Whether to allow clearing by clicking again | Boolean                 | false   |
+| allowHalf  | Whether to allow half selection             | Boolean                 | -       |
+| showScore  | Whether to show score                       | Boolean                 | -       |
+| character  | Custom character                            | String                  | -       |
+| count      | Total number of stars                       | Number                  | -       |
+| icon       | Custom display icon                         | Icon                    | -       |
+| size       | Icon size                                   | Number                  | -       |
+| color      | Icon color                                  | String                  | -       |
+| disabled   | Read-only, cannot interact                  | String                  | -       |
+| tooltips   | Custom prompt information for each item     | String[]                | -       |
+| onChange   | Callback when selecting                     | Function(value: Number) | -       |

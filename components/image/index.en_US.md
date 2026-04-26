@@ -37,7 +37,7 @@ Previewable images.
 | placeholder | The placeholder displayed when the image fails to load | String           | -       |
 | imgStyle    | The style of the image                                 | Object           | -       |
 | showPanel   | Whether to display the extension panel by default      | Boolean          | false   |
-| close       | Close trigger event                                    | Function         | -       |
+| onClose       | Close trigger event                                    | Function         | -       |
 | switch      | Multi-image switch trigger event                       | Function(index)  | -       |
 | tool        | Custom toolbar buttons                                 | slot             | -       |
 | panel       | Custom extension panel                                 | slot             | -       |

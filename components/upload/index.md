@@ -78,6 +78,7 @@
 | minSize        | 上传文件最小单位(KB)                                                                                                           | String                 | -      |
 | maxSize        | 上传文件最大单位(KB)                                                                                                           | String                 | -      |
 | transformFile  | 在上传之前转换文件。支持返回一个 Promise 对象                                                                                  | Promise Function(file) | -      |
+| type           | 选择上传文件之后, 所呈现的形式                                                                                                 | [picture,list]         | -      |
 
 ## Event API
 

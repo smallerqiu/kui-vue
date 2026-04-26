@@ -37,3 +37,4 @@ Use
 | color       | The color of the icon                         | String         | -       |
 | spin        | Whether to have rotation animation            | Boolean        | false   |
 | strokeWidth | The line thickness of the icon                | Number         | false   |
+| onClick     | Click event                                   | Function       | -       |

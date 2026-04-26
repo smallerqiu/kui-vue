@@ -79,6 +79,7 @@ Uploading is the process of publishing information (web pages, text, images, vid
 | minSize        | Minimum file size unit for upload (KB)                                                                      | String                 | -       |
 | maxSize        | Maximum file size unit for upload (KB)                                                                      | String                 | -       |
 | transformFile  | Transform file before uploading. Supports returning a Promise object                                        | Promise Function(file) | -       |
+| type           | After selecting the file to upload, the displayed format                                                    | [picture,list]         | -       |
 
 ## Event API
 

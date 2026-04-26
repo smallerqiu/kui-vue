@@ -51,7 +51,7 @@ Similar to the Select selection control, when the selectable data structure is a
 | clearable        | Whether options can be cleared                                                  | Boolean                | false         |
 | bordered         | Whether to show border                                                          | Boolean                | true          |
 | showArrow        | Whether to show dropdown button                                                 | Boolean                | true          |
-| change           | Triggered when option state changes                                             | Function(value)        | -             |
+| onChange           | Triggered when option state changes                                             | Function(value)        | -             |
 | theme            | When theme='light', displays light theme                                        | String                 | -             |
 | icon             | Custom icon                                                                     | String                 | -             |
 | shape            | When shape='circle', displays rounded corners                                   | String                 | -             |

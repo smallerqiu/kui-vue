@@ -37,7 +37,7 @@
 | checked    | 是否选中状态             | Boolean                         | false  |
 | label      | 文字提示                 | String 、 Number                | -      |
 | disabled   | 是否禁用当前项           | Boolean                         | false  |
-| change     | 在选项状态发生改变时回调 | Function({value,label,checked}) | -      |
+| onChange     | 在选项状态发生改变时回调 | Function({value,label,checked}) | -      |
 
 ## RadioGroup API
 
@@ -48,6 +48,6 @@
 | direction | 布局方向,可选值 `horizontal`、`vertical`                                   | Sting                                             | horizontal |
 | shape     | `button` 的 shape 属性 ，显示圆角                                          | String                                            | -          |
 | theme     | `button` 的 theme 属性                                                     | String                                            | -          |
-| change    | 在选项状态发生改变时触发，返回当前选中的项                                 | Function(value)                                   | -          |
+| onChange    | 在选项状态发生改变时触发，返回当前选中的项                                 | Function(value)                                   | -          |
 | options   | 可以指定子项 `radio`                                                       | Array <{label:string/number,value:string/number}> | -          |
 | type      | 如果使用 `options` 来渲染子集，并且子集为 `button`，需要指定 `type=button` | String                                            | -          |

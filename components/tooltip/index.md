@@ -30,3 +30,5 @@
 | color     | 背景颜色                                                                                                                                                                   | String       | -      |
 | placement | 提示框出现的位置，可选值为`top`，`top-left`，`top-right`，`bottom`，`bottom-left`，`bottom-right`，`left`，`left-top`，`left-bottom`，`right`，`right-top`，`right-bottom` | String       | top    |
 | width     | 展示的宽度,默认为内容区域的大小                                                                                                                                            | String       | -      |
+| disabled  | 禁用状态                                                                                                                                                                   | Boolean      | -      |
+| show      | 初始化时是否展示                                                                                                                                                           | Boolean      | -      |

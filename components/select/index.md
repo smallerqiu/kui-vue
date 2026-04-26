@@ -50,8 +50,8 @@
 | bordered    | 是否显示边框                                               | Boolean                         | true       |
 | extendWidth | 下拉框的宽度是否与input一致                                | Boolean                         | true       |
 | showArrow   | 是否显示下拉按钮                                           | Boolean                         | true       |
-| change      | 在选项状态发生改变时触发,,返回选择的值value                | Function(value)                 | -          |
-| select      | 选中一项时触发                                             | Function({value,label,checked}) | -          |
+| onChange    | 在选项状态发生改变时触发,,返回选择的值value                | Function(value)                 | -          |
+| onSelect    | 选中一项时触发                                             | Function({value,label,checked}) | -          |
 | openChange  | 下拉框展开或收起时触发                                     | Function                        | -          |
 | options     | options 数据，如果设置则不需要手动构造 Option 节点         | Array <{value,label,disabled}>  | []         |
 | theme       | theme='light' 时呈现浅色主题                               | String                          | -          |

@@ -26,11 +26,17 @@
 
 ## API
 
-| 属性          | 说明                                               | 类型     | 默认值 |
-| ------------- | -------------------------------------------------- | -------- | ------ |
-| modelValue    | 颜色值,可以使用 `v-model` 双向绑定                 | String   | -      |
-| mode          | 颜色展示类型,提供 3 种模式(`hex` 、 `rgb` 、`hsl`) | String   | 'hex'  |
-| presets       | 自定义颜色盘                                       | Array    | [...]  |
-| disabledAlpha | 是否禁用透明                                       | Boolean  | false  |
-| onChange      | 颜色值改变的时候触发,返回颜色的值                  | Function | -      |
-| disabled      | 是否失效状态                                       | Boolean  | -      |
+| 属性          | 说明                                               | 类型                 | 默认值      |
+| ------------- | -------------------------------------------------- | -------------------- | ----------- |
+| value         | 默认值                                             | String               | -           |
+| modelValue    | 颜色值,可以使用 `v-model` 双向绑定                 | String               | -           |
+| mode          | 颜色展示类型,提供 3 种模式(`hex` 、 `rgb` 、`hsl`) | String               | 'hex'       |
+| presets       | 自定义颜色盘                                       | Array                | -           |
+| disabledAlpha | 是否禁用透明                                       | Boolean              | false       |
+| onChange      | 颜色值改变的时候触发,返回颜色的值                  | Function             | -           |
+| disabled      | 是否失效状态                                       | Boolean              | -           |
+| trigger       | 下拉触发形式                                       | [hover,click]        | hover       |
+| showText      | 是否展示颜色文字                                   | Boolean              | false       |
+| onUpdateMode  | 颜色模式更新时触发                                 | Function             | -           |
+| size          | 颜色选择器的尺寸                                   | [small,medium,large] | -           |
+| placement     | 颜色选择器的放置位置                               | String               | bottom-left |

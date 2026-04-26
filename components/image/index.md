@@ -37,7 +37,7 @@
 | placeholder | 图片加载失败时展示的占位符                      | String           | -      |
 | imgStyle    | 图片的 style                                    | Object           | -      |
 | showPanel   | 默认是否展示扩展面板                            | Boolean          | false  |
-| close       | 关闭触发事件                                    | Function         | -      |
+| onClose       | 关闭触发事件                                    | Function         | -      |
 | switch      | 多图切换触发事件                                | Function(index)  | -      |
 | tool        | 自定义工具栏按钮                                | slot             | -      |
 | panel       | 自定义扩展面板                                  | slot             | -      |

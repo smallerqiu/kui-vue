@@ -30,6 +30,7 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 | statNumberType | Numerical change type                                    | `rollup`, `countup` | 'countup' |
 | separator      | Separator                                                | String              | -         |
 | reverse        | Whether to reverse number/number description arrangement | Boolean             | false     |
+| bordered       | Show border or not                                       | Boolean             | false     |
 
 ### items Options
 
@@ -49,7 +50,7 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 | Property        | Description                                       | Type                | Default   |
 | --------------- | ------------------------------------------------- | ------------------- | --------- |
-| value           | Numerical value                                   | Number              | -         |
+| modelValue      | Numerical value(v-model)                          | Number              | -         |
 | duration        | Numerical dynamic display time (seconds)          | Number              | 1.2       |
 | prefix          | Prefix content of numerical value                 | String              | -         |
 | suffix          | Suffix content of numerical value                 | String              | -         |

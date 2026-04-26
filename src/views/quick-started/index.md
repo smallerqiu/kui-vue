@@ -52,7 +52,7 @@ app.use(kui).mount("#app");
 
 [使用规范](./buttons.vue)
 
-- 组件支持全小写或首字母大写，如：`Button` 或者 `k-button` :
+- 组件支持全小写或首字母大写，如：`Button` , `KButton`或者 `k-button` :
 
 [特殊组件](./image.vue)
 

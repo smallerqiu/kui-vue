@@ -22,7 +22,6 @@ export const poptipProps = {
   dark: Boolean,
   show: Boolean,
   title: [String, Number, Object, Array],
-  size: String,
   content: String,
   width: [Number, String],
   trigger: {

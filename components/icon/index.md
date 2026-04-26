@@ -37,3 +37,4 @@ npm install --save kui-icons
 | color       | 图标的颜色                   | String        | -      |
 | spin        | 是否有旋转动画               | Boolean       | false  |
 | strokeWidth | 图标的线条粗细               | Number        | false  |
+| onClick     | 点击事件                     | Function      | -      |

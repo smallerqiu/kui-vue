@@ -11,11 +11,12 @@ const UI = {
       if (globalComponents.includes(key)) {
         installGlobal(app, component);
       } else if (!key.startsWith("K")) {
-        const name = key
-          .replace(/([A-Z])/g, "-$1")
-          .replace(/^-/, "")
-          .toLowerCase();
-        const kebabName = `k-${name}`;
+        // const name = key
+        //   .replace(/([A-Z])/g, "-$1")
+        //   .replace(/^-/, "")
+        //   .toLowerCase();
+        // const kebabName = `k-${name}`;
+        const kebabName = `K${key}`;
         app.component(kebabName, component);
         app.component(key, component);
       } else {

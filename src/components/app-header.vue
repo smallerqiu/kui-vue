@@ -30,7 +30,6 @@
           v-model="themeColor"
           class="theme"
           mode="rgb"
-          :arrow="false"
           style="margin-left: 8px"
           :disabledAlpha="true"
           @change="changeThemeColor"

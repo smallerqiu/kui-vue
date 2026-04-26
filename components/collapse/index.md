@@ -36,7 +36,7 @@
 | openKeys  | 当前展开的面板的 `name`，可以使用 `v-model:openKeys` 双向绑定 | Array    | -      |
 | accordion | 是否开启手风琴模式，开启后每次至多展开一个面板                | Boolean  | false  |
 | sample    | 是否开启简洁模式                                              | Boolean  | false  |
-| change    | 切换面板时触发回调，返回当前选项卡的 `name`                   | Function | -      |
+| onChange    | 切换面板时触发回调，返回当前选项卡的 `name`                   | Function | -      |
 
 ## Panel
 

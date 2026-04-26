@@ -49,6 +49,6 @@
 | title    | 通知提醒的标题                         | String        | -      |
 | content  | 提示内容                               | String ,vndoe | -      |
 | duration | 自动关闭的延时，单位秒，不关闭可以写 0 | Number        | 3      |
-| close    | 关闭时的回调                           | Function      | -      |
+| onClose    | 关闭时的回调                           | Function      | -      |
 | icon     | 自定义图标                             | String        | -      |
 | color    | 自定义图标颜色                         | String        | -      |

@@ -112,7 +112,6 @@ export default defineComponent({
           class={classes}
           v-model={visible.value}
           maskClosable={false}
-          transfer={false}
           v-slots={{
             content: () => [header, body, footer],
           }}

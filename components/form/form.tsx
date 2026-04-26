@@ -11,7 +11,7 @@ export interface FormSubmitEvent {
 
 const formProps = {
   layout: {
-    type: String as PropType<DirectionType | "inline">,
+    type: String as PropType<DirectionType>,
     default: "horizontal",
   },
   model: Object as PropType<Record<string, any>>,
