@@ -3,12 +3,13 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 import path from "path";
 import { defineConfig } from "vite";
 import VueRouter from "vue-router/vite";
+import banner from "./plugins/banner";
 import vueMarkdown from "./plugins/markdown";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
-  console.log("mode:", mode);
   const isProd = mode === "production";
+  console.log("isProd:", isProd);
   return {
     define: {
       // VITE_APP_VERSION: 111,
@@ -26,13 +27,13 @@ export default defineConfig(({ mode }) => {
       vue({
         include: [/\.vue$/, /\.md$/],
       }),
+      banner(),
     ],
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "/"),
         "kui-vue": path.resolve(__dirname, "./components"),
         vue: `http://localhost:7005/js/vue.esm-browser${isProd ? ".prod" : ""}.js`,
-        // vue: path.resolve(__dirname, `./public/js/vue.esm-browser${isProd ? ".prod" : ""}.js`),
         // "kui-icons": `${import.meta.env.VITE_APP_IMPORT_URL}/js/kui-icons.esm.js`,
       },
       extensions: [".js", ".ts", ".jsx", ".tsx", ".json", ".vue", "md"],
@@ -42,7 +43,15 @@ export default defineConfig(({ mode }) => {
       sourcemap: false,
       minify: "terser",
       rollupOptions: {
-        external: ["vue", "kui-vue", "@vue/compiler-sfc"],
+        external: [
+          "vue",
+          "kui-vue",
+          "@vue/compiler-sfc",
+          "kui-icons",
+          "dayjs",
+          "dayjs/locale/zh-cn",
+          "dayjs/locale/de",
+        ],
         output: {
           entryFileNames: "js/[name]-[hash].js",
           chunkFileNames: "js/[name]-[hash].js",
@@ -60,8 +69,9 @@ export default defineConfig(({ mode }) => {
           },
           manualChunks(id) {
             if (id.includes("node_modules")) {
-              if (id.includes("vue")) return "vue";
+              if (id.includes("kui-icons")) return "ui-icons";
               if (id.includes("kui-vue")) return "ui-lib";
+              if (id.includes("vue")) return "vue";
               if (id.includes("dayjs")) return "dayjs";
               if (id.includes("vue-router") || id.includes("vuex")) return "vue-vendor";
             }

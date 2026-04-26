@@ -1,4 +1,3 @@
-/* dayjs@1.11.19 */
 var X = Object.create;
 var E = Object.defineProperty;
 var tt = Object.getOwnPropertyDescriptor;

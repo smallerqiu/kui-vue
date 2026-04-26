@@ -42,7 +42,7 @@
 
 [多语言](./demo/lang.vue)
 
-- DatePicker 支持多语言。依赖 `dayjs`.
+- DatePicker 支持多语言。默认英语,依赖 `dayjs`.
 
 ## API
 

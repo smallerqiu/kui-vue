@@ -8,6 +8,8 @@
   </ConfigProvider>
 </template>
 <script setup lang="ts">
+import dayjs from "dayjs";
+import "dayjs/locale/zh-cn";
 import { computed, provide, ref } from "vue";
 import ui_en from "../components/locale/en";
 import ui_zh from "../components/locale/zh-CN";
@@ -17,6 +19,10 @@ import local_zh from "./lang/zh";
 const lang = ref(localStorage.getItem("lang") || "en");
 const messages = computed(() => (lang.value === "en" ? en : zh));
 const locale = computed(() => messages.value);
+
+if (lang.value === "zh") {
+  dayjs.locale("zh-cn");
+}
 
 const en = {
   ...ui_en,
