@@ -19,7 +19,7 @@ A high quality UI components Library with Vue.js
 
 ![theme](https://k-ui.cn/img/theme.jpg)
 
-English | [简体中文](./README-zh_CN.md)
+English | [简体中文](README.zh-CN.md)
 
 </div>
 
