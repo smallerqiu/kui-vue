@@ -29,7 +29,7 @@
 - [组件总览](https://k-ui.cn/guide/components)
 - [自定义主题](https://k-ui.cn/guide/theme)
 - [暗色模式](https://k-ui.cn/guide/dark-mode)
-- [Icons](https://k-ui.cn/basic/icons)
+- [Icons](https://k-ui.cn/components/icons)
 - [国际化](https://k-ui.cn/guide/language)
 - [更新日志](https://k-ui.cn/guide/change-log)
 
