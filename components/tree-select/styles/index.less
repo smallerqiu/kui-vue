@@ -195,6 +195,10 @@
     border-radius: 30px;
   }
 
+  &.k-tree-select-square {
+    border-radius: 2px;
+  }
+
   &:not(.k-tree-select-disabled) .k-tree-select-tag .k-icon :hover {
     color: var(--kui-color-danger);
   }
@@ -411,8 +415,10 @@
 }
 
 .k-tree-select-opened {
-  border-color: var(--kui-color-primary);
+  // border-color: var(--kui-color-primary);
   box-shadow: var(--kui-component-shadow);
+  outline: 2px solid var(--kui-color-outline);
+  outline-offset: 1px;
 
   .k-tree-select-label {
     opacity: 0.5;

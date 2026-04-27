@@ -1,9 +1,42 @@
+# ColorPicker 颜色选择器
+
+可以自由的输出颜色。
+
+## 何时使用
+
+- 需要自定义颜色时
+
+## 代码演示
+
+[基本用法](./demo/basic.vue)
+
+- 点击打开颜色面板
+
+[尺寸大小 / 不可用](./demo/size.vue)
+
+- `small` 为小尺寸， `large` 为大尺寸
+
+[自定义触发器](./demo/custom-trigger.vue)
+
+- 自定义颜色面板的触发器。
+
+[弹出位置](./demo/placement.vue)
+
+- 支持 6 个弹出位置 , 如果上面的空间不够，色盘会自动在下面展示
+
 ## API
 
-| 属性          | 说明                                               | 类型     | 默认值 |
-| ------------- | -------------------------------------------------- | -------- | ------ |
-| modelValue    | 颜色值,可以使用 `v-model` 双向绑定                 | String   | -      |
-| mode          | 颜色展示类型,提供 3 种模式(`hex` 、 `rgb` 、`hsl`) | String   | 'hex'  |
-| presets       | 自定义颜色盘                                       | Array    | [...]  |
-| disabledAlpha | 是否禁用透明                                       | Boolean  | false  |
-| change        | 颜色值改变的时候触发,返回颜色的值                  | Function | -      |
+| 属性          | 说明                                               | 类型                 | 默认值      |
+| ------------- | -------------------------------------------------- | -------------------- | ----------- |
+| value         | 默认值                                             | String               | -           |
+| modelValue    | 颜色值,可以使用 `v-model` 双向绑定                 | String               | -           |
+| mode          | 颜色展示类型,提供 3 种模式(`hex` 、 `rgb` 、`hsl`) | String               | 'hex'       |
+| presets       | 自定义颜色盘                                       | Array                | -           |
+| disabledAlpha | 是否禁用透明                                       | Boolean              | false       |
+| onChange      | 颜色值改变的时候触发,返回颜色的值                  | Function             | -           |
+| disabled      | 是否失效状态                                       | Boolean              | -           |
+| trigger       | 下拉触发形式                                       | [hover,click]        | hover       |
+| showText      | 是否展示颜色文字                                   | Boolean              | false       |
+| onUpdateMode  | 颜色模式更新时触发                                 | Function             | -           |
+| size          | 颜色选择器的尺寸                                   | [small,medium,large] | -           |
+| placement     | 颜色选择器的放置位置                               | String               | bottom-left |

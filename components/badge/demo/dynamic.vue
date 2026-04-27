@@ -1,0 +1,32 @@
+<template>
+  <Space>
+    <Badge :dot="show">
+      <div class="badge-box"></div>
+    </Badge>
+    <Badge :dot="show">
+      <Icon :type="Bell" />
+    </Badge>
+    <Badge :dot="show">
+      <a href="#">Link</a>
+    </Badge>
+    <k-switch @change="show = !show" />
+  </Space>
+  <Divider />
+  <Space :size="20">
+    <Badge :count="count" :max-count="20">
+      <div class="badge-box"></div>
+    </Badge>
+    <ButtonGroup>
+      <Button @click="minus">-</Button>
+      <Button @click="add">+</Button>
+    </ButtonGroup>
+  </Space>
+</template>
+<script setup lang="ts">
+import { Bell } from "kui-icons";
+import { ref } from "vue";
+const show = ref(true);
+const count = ref(5);
+const add = () => count.value++;
+const minus = () => count.value >= 1 && count.value--;
+</script>

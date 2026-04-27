@@ -124,6 +124,9 @@
 .k-btn-circle {
   border-radius: 30px;
 }
+.k-btn-square {
+  border-radius: 2px;
+}
 .k-btn-default:not(.k-btn-outline, .k-btn-dashed, .k-btn-light, .k-btn-solid) {
   border: none;
   background-color: var(--kui-color-bg-component);
@@ -438,7 +441,16 @@
     border-bottom-right-radius: 0;
   }
   .k-btn:not(.k-btn:first-child) {
-    margin-left: -1px;
+    // margin-left: -1px;
+    position: relative;
+    &::before {
+      position: absolute;
+      left: 0;
+      content: "";
+      height: 50%;
+      width: 1px;
+      background-color: var(--kui-color-border-split);
+    }
   }
   .k-btn:last-child {
     border-top-left-radius: 0;

@@ -1,8 +1,13 @@
 .DS_Store
 node_modules
 /dist
+/es
+/lib
+/style
 /docs
 /types
+/vetur
+
 # local env files
 .env.local
 .env.*.local
