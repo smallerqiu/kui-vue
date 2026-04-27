@@ -4995,7 +4995,11 @@ var Option = /* @__PURE__ */ defineComponent({
 			type: [String, Number],
 			required: true
 		},
-		label: { type: [String, Number] },
+		label: { type: [
+			String,
+			Number,
+			Object
+		] },
 		disabled: Boolean,
 		checked: Boolean,
 		active: Boolean,
