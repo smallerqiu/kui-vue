@@ -6,6 +6,7 @@ import {
   type ExtractPropTypes,
   type HTMLAttributes,
   type PropType,
+  type VNodeChild,
 } from "vue";
 import { type BooleanType } from "../const/types";
 import Icon from "../icon";
@@ -15,7 +16,7 @@ export type OptionSelectEvent = {
 };
 export const optionProps = {
   value: { type: [String, Number] as PropType<string | number>, required: true },
-  label: { type: [String, Number] as PropType<string | number> },
+  label: { type: [String, Number, Object] as PropType<string | number | VNodeChild> },
   disabled: Boolean as BooleanType,
   checked: Boolean as BooleanType,
   active: Boolean as BooleanType,

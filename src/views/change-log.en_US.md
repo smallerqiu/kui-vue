@@ -13,12 +13,19 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 5.0.0
+
+`2026-4-27`
+
+- Refactored all components based on TypeScript
+- ⚠️Version 5.x uses a new icon library
+
 ## 4.0.3
 
-`2026-3-2`
+`2026-3-5`
 
-- Fixed multilingual issues in Select  
-- Optimized Menu details  
+- Fixed multilingual issues in Select
+- Optimized Menu details
 - Fixed flickering issue during theme switching
 
 ## 4.0.2
