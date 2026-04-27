@@ -33,7 +33,7 @@ export default defineConfig(({ mode }) => {
       alias: {
         "@": path.resolve(__dirname, "/"),
         "kui-vue": path.resolve(__dirname, "./components"),
-        vue: `http://localhost:7005/js/vue.esm-browser${isProd ? ".prod" : ""}.js`,
+        vue: `http://localhost:7005/js/vue/vue.esm-browser${isProd ? ".prod" : ""}.js`,
         // "kui-icons": `${import.meta.env.VITE_APP_IMPORT_URL}/js/kui-icons.esm.js`,
       },
       extensions: [".js", ".ts", ".jsx", ".tsx", ".json", ".vue", "md"],

@@ -178,6 +178,7 @@
   font-size: 15px;
   color: var(--kui-color-icon);
   z-index: 3;
+  visibility: hidden;
   &:hover {
     color: var(--kui-color-icon-hover);
   }
@@ -188,7 +189,7 @@
 &.k-input-has-clear {
   &:hover {
     .k-input-clearable {
-      display: block;
+      visibility: visible;
     }
   }
 }
