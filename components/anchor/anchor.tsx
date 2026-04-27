@@ -26,6 +26,7 @@ const anchorProps = {
   offsetTop: { type: Number, default: 0 },
   bounds: { type: Number, default: 5 },
   container: [String, Object] as PropType<string | HTMLElement | Window>, // 明确支持 HTMLElement 和 Window
+  onChange: { type: Function as PropType<(activeLink: string) => void> },
 };
 
 export type AnchorProps = ExtractPropTypes<typeof anchorProps>;

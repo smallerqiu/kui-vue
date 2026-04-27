@@ -31,6 +31,9 @@ const formProps = {
   onSubmit: {
     type: Function as PropType<(e: FormSubmitEvent) => void>,
   },
+  // onChange: { //TODO
+  //   type: Function as PropType<(e: FormChangeEvent) => void>,
+  // },
 };
 
 export interface FormExpose {

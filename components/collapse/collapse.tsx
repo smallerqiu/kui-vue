@@ -9,6 +9,7 @@ const collapseProps = {
   },
   accordion: Boolean as BooleanType,
   sample: Boolean as BooleanType,
+  onChange: Function as PropType<(key: string | number) => void>,
 };
 
 export type CollapseProps = ExtractPropTypes<typeof collapseProps>;
@@ -38,7 +39,7 @@ const Collapse = defineComponent({
       }
       defaultOpenKeys.value = value;
       emit("change", key);
-      emit("update", value);
+      emit("update:openKeys", value);
     };
 
     return () => {

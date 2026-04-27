@@ -19,6 +19,7 @@ export const radioButtonProps = {
   shape: {
     type: String as PropType<ShapeType>,
   },
+  onChange: Function as PropType<(event: ChangeEvent) => void>,
 };
 
 export type RadioButtonProps = ExtractPropTypes<typeof radioButtonProps>;
