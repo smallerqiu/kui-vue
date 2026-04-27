@@ -1,3 +1,34 @@
+# Radio
+
+Radio button.
+
+## When to Use
+
+- Used to select a single state from multiple options.
+- The legendary choose one of two.
+
+## Examples
+
+[Single Selection](./demo/basic.vue)
+
+- When used alone, the `v-model` value is `true` for selected and `false` for unselected.
+
+[Multiple Selection](./demo/group.vue)
+
+- You can use the `options` attribute to set options, or use child components to set options.
+
+[Group Layout](./demo/vertical.vue)
+
+- Group layout.
+
+[Disabled / Controllable](./demo/disabled.vue)
+
+- Set `disabled` to make it unavailable.
+
+[Combined with Button](./demo/radio-buttons.vue)
+
+- Combine `RadioGroup` and `RadioButton` for usage.
+
 ## Radio API
 
 | Property   | Description                        | Type                              | Default |
@@ -6,7 +37,7 @@
 | checked    | Whether selected                   | Boolean                           | false   |
 | label      | Text prompt                        | String, Number                    | -       |
 | disabled   | Whether current item is disabled   | Boolean                           | false   |
-| change     | Callback when option state changes | Function({value, label, checked}) | -       |
+| onChange     | Callback when option state changes | Function({value, label, checked}) | -       |
 
 ## RadioGroup API
 
@@ -17,6 +48,6 @@
 | direction | Layout direction, optional values: `horizontal`, `vertical`                                    | String                                               | horizontal |
 | shape     | `button`'s shape property, displays rounded corners                                            | String                                               | -          |
 | theme     | `button`'s theme property                                                                      | String                                               | -          |
-| change    | Triggered when option state changes, returns currently selected item                           | Function(value)                                      | -          |
+| onChange    | Triggered when option state changes, returns currently selected item                           | Function(value)                                      | -          |
 | options   | Can specify child `radio` items                                                                | Array <{label: string/number, value: string/number}> | -          |
 | type      | If using `options` to render children and children are `button`, need to specify `type=button` | String                                               | -          |

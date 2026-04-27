@@ -1,3 +1,33 @@
+# Descriptions
+
+Display multiple read-only fields in groups.
+
+## When to Use
+
+Commonly seen in detail page information display.
+
+## Examples
+
+[Basic Usage](./demo/basic.vue?show=vertical)
+
+- Simple display.
+
+[Bordered](./demo/bordered.vue?show=vertical)
+
+- List with borders and background colors.
+
+[Custom Size](./demo/size.vue?show=vertical)
+
+- Customize the size to adapt to various containers.
+
+[Vertical](./demo/vertical.vue?show=vertical)
+
+- Vertical list.
+
+[Vertical Bordered](./demo/vertical-bordered.vue?show=vertical)
+
+- Vertical list with borders and background colors.
+
 ## API
 
 | Property | Description                                                                     | Type                       | Default    |
@@ -11,6 +41,8 @@
 
 ## Item props
 
-| Property | Description                | Type           | Default |
-| -------- | -------------------------- | -------------- | ------- |
-| label    | Description of the content | String \| slot | -       |
+| Property | Description                 | Type           | Default |
+| -------- | --------------------------- | -------------- | ------- |
+| label    | Description of the content  | String \| slot | -       |
+| span     | Number of columns displayed | Number         | 1       |
+| type     | Show title or content       | String         | -       |

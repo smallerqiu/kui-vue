@@ -8,22 +8,24 @@
     position: relative;
     margin-left: -1px;
     z-index: 0;
-    border-radius: 0;
 
     &:focus,
     &:hover {
       z-index: 2;
     }
 
-    &:first-child {
+    &:first-child:not(.k-btn-square) {
       border-top-left-radius: var(--kui-border-radius);
       border-bottom-left-radius: var(--kui-border-radius);
     }
 
-    &:last-child {
+    &:last-child:not(.k-btn-square) {
       border-top-right-radius: var(--kui-border-radius);
       border-bottom-right-radius: var(--kui-border-radius);
     }
+  }
+  .k-btn:not(.k-btn-square) {
+    border-radius: 0;
   }
 
   .k-btn-hollow {
@@ -48,9 +50,6 @@
 .k-radio-button-group,
 .k-radio-group-card {
   flex-wrap: nowrap;
-  .k-btn {
-    border: 1px solid transparent;
-  }
 }
 .k-radio-group:not(.k-radio-button-group, .k-radio-group-card) {
   gap: 16px;
@@ -65,6 +64,18 @@
   .k-btn:last-child {
     border-top-right-radius: 30px;
     border-bottom-right-radius: 30px;
+  }
+}
+
+.k-radio-square:not(.k-radio-group-card) {
+  .k-btn:first-child {
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+  }
+
+  .k-btn:last-child {
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
   }
 }
 
@@ -92,7 +103,6 @@
     height: 16px;
     border: 1px solid var(--kui-color-border);
     border-radius: 50%;
-    background-color: var(--kui-color-bg-component);
     outline: 2px solid transparent;
     outline-offset: 1px;
     flex-shrink: 0;
@@ -139,7 +149,7 @@
 }
 .k-radio-light {
   .k-radio-symbol {
-    background: var(--kui-color-bg-component);
+    background-color: var(--kui-color-bg-component);
   }
 }
 

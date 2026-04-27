@@ -12,7 +12,6 @@
   outline: none;
   box-sizing: border-box;
   align-items: center;
-  background-color: var(--kui-color-bg-container);
   border-radius: var(--kui-border-radius);
   border: 1px solid var(--kui-color-border);
   padding: 0 8px;
@@ -92,13 +91,11 @@
       align-items: center;
       font-size: 12px;
       position: relative;
-      line-height: 18px;
+      line-height: 1;
       transition: all 0.25s ease-in-out;
 
       .k-icon {
-        font-size: 16px;
-        text-align: center;
-        display: block;
+        font-size: 14px;
       }
     }
 
@@ -194,6 +191,9 @@
 
   &.k-select-circle {
     border-radius: 30px;
+  }
+  &.k-select-square {
+    border-radius: 2px;
   }
 
   &:not(.k-select-disabled) .k-select-tag .k-icon :hover {
@@ -498,7 +498,9 @@
 }
 
 .k-select-opened {
-  border-color: var(--kui-color-primary);
+  // border-color: var(--kui-color-primary);
+  outline: 2px solid var(--kui-color-outline);
+  outline-offset: 1px;
 
   .k-select-label {
     opacity: 0.5;

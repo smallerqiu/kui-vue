@@ -1,3 +1,21 @@
+# Anchor
+
+It is necessary to display the anchor links available for navigation on the current page and enable quick jumps between anchors.
+
+## Examples
+
+[Basic Usage (Sidebar Navigation)](./demo/basic.vue?show=vertical)
+
+- The most common scenario: displaying a long article on the right with fixed anchor navigation on the left or right side.
+
+[Nested Anchors (Complex Document Structure)](./demo/nested-anchors.vue?show=vertical)
+
+- Suitable for documents with multi-level headings.
+
+[Specify container (positioning within a scrolling container)](./demo/within-container.vue?show=vertical)
+
+- If your page does not scroll in full screen but within a specific div.
+
 ## Anchor API
 
 | Property  | Description                                                                         | Type                | Default |

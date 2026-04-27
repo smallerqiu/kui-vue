@@ -1,3 +1,30 @@
+# Message 全局提示
+
+全局展示操作反馈信息。
+
+## 何时使用
+
+- 可提供成功、警告和错误等反馈信息。
+- 顶部居中显示并自动消失，是一种不打断用户操作的轻量级提示方式。
+
+## 代码演示
+
+[普通提示](./demo/basic.vue)
+
+- 信息提醒反馈。
+
+[自定图标](./demo/icon.vue)
+
+- 自定图标。
+
+[提示类型](./demo/types.vue)
+
+- 通过 `type` 来设置提示类型
+
+[自定义时长](./demo/close.vue)
+
+- 可以自定义配置，其中 `duration` 来控制自动关闭时长,默认 `3s` , `closable` 显示关闭按钮
+
 ## API
 
 组件提供了一些静态方法，使用方式如下
@@ -20,6 +47,6 @@
 | content  | 提示内容                                                          | String,Vnode | -      |
 | duration | 自动关闭的延时，单位秒，0 为 不自动关闭                           | Number       | 3      |
 | closable | 是否可手动关闭                                                    | Boolean      | false  |
-| close    | 关闭时的回调                                                      | Function     | -      |
+| onClose    | 关闭时的回调                                                      | Function     | -      |
 | icon     | 自定义图标                                                        | String       | -      |
 | color    | 自定义图标颜色                                                    | String       | -      |

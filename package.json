@@ -1,31 +1,56 @@
 {
   "name": "kui-vue",
   "private": false,
-  "version": "4.0.3",
-  "description": "A lightweight desktop UI component library suitable for Vue.js 3.",
+  "version": "5.0.0",
   "type": "module",
-  "main": "dist/k-ui.cjs.js",
-  "module": "dist/k-ui.esm.js",
-  "unpkg": "dist/k-ui.umd.js",
-  "jsdelivr": "dist/k-ui.umd.js",
-  "style": "dist/k-ui.css",
-  "types": "dist/k-ui.d.ts",
+  "description": "A lightweight desktop UI component library suitable for Vue.js 3.",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "unpkg": "dist/index.js",
+  "jsdelivr": "dist/index.js",
+  "style": "style/index.css",
+  "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.ts",
+      "import": "./es/index.js",
+      "require": "./lib/index.js"
+    },
+    "./dist/*": "./dist/*",
+    "./global": {
+      "types": "./types/global.d.ts"
+    },
+    "./locale/*": {
+      "types": "./types/locale/*.d.ts",
+      "import": "./es/locale/*.js",
+      "require": "./lib/locale/*.js"
+    },
+    "./style/*": "./style/*"
+  },
   "files": [
     "dist",
     "test",
-    "types",
-    "components/"
+    "vetur",
+    "lib",
+    "styles",
+    "es"
   ],
   "license": "MIT",
   "scripts": {
     "start": "npm run dev",
-    "dev": "vite",
-    "build:docs": "vite build",
-    "build": "npm run build:types && rollup -c --bundleConfigAsCjs",
-    "build:types": "node scripts/gen-dts.js",
-    "preview": "vite preview",
+    "dev": "vite --config vite.config.docs.ts",
+    "build": "npm run build:css && npm run build:lib && npm run build:umd && npm run build:es",
+    "build:es": "vite build",
+    "build:lib": "vite build --config vite.config.lib.ts",
+    "build:umd": "vite build --config vite.config.umd.ts",
+    "build:css": "vite build --config vite.config.css.ts",
+    "build:docs": "vite build --config vite.config.docs.ts",
+    "preview": "vite preview --outDir docs",
+    "typecheck": "tsc -p tsconfig.app.json --noEmit",
     "format": "prettier --write .",
-    "format1": "prettier --write ./components/*/index.md"
+    "format:md": "prettier --write ./components/*/index*.md",
+    "tsc": "vue-tsc --build --declaration --emitDeclarationOnly",
+    "type-check": "vue-tsc --build --noEmit"
   },
   "author": {
     "name": "Qiu",
@@ -57,46 +82,49 @@
   "peerDependencies": {
     "vue": "^3.0.0"
   },
+  "browserslist": [
+    "> 0.5%",
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead"
+  ],
   "dependencies": {
+    "autoprefixer": "^10.5.0",
     "big.js": "^7.0.1",
     "color": "^5.0.3",
     "dayjs": "^1.11.20",
-    "kui-icons": "^4.3.2",
-    "uuid": "^13.0.0"
+    "kui-icons": "^5.0.0",
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
-    "@babel/parser": "^7.29.2",
-    "@babel/preset-env": "^7.29.2",
-    "@babel/traverse": "^7.29.0",
-    "@rollup/plugin-babel": "^7.0.0",
-    "@rollup/plugin-commonjs": "^29.0.2",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "@rollup/plugin-terser": "^1.0.0",
-    "@vitejs/plugin-vue": "^6.0.5",
+    "@types/babel__core": "^7.20.5",
+    "@types/big.js": "^6.2.2",
+    "@types/hash-sum": "^1.0.2",
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^25.6.0",
+    "@vitejs/plugin-vue": "^6.0.6",
     "@vitejs/plugin-vue-jsx": "^5.1.5",
-    "@vue/babel-helper-vue-jsx-merge-props": "^1.4.0",
-    "@vue/babel-plugin-jsx": "^2.0.1",
-    "@vue/babel-preset-jsx": "^1.4.0",
-    "@vue/compiler-sfc": "3.5.29",
+    "@vue/compiler-sfc": "^3.5.33",
+    "@vue/tsconfig": "^0.9.1",
     "@vueuse/core": "^14.2.1",
-    "autoprefixer": "^10.4.27",
     "fast-glob": "^3.3.3",
     "hash-sum": "^2.0.0",
     "highlight.js": "^11.11.1",
     "less": "^4.6.4",
     "markdown-it": "^14.1.1",
     "markdown-it-anchor": "^9.2.0",
-    "postcss-banner": "^4.0.1",
-    "prettier": "^3.8.1",
-    "rollup": "^4.60.0",
-    "rollup-plugin-dts": "^6.4.1",
-    "rollup-plugin-postcss": "^4.0.2",
-    "rollup-plugin-vue": "^6.0.0",
-    "vite": "npm:rolldown-vite@7.3.1",
-    "vue-router": "^5.0.4"
+    "prettier": "^3.8.3",
+    "sucrase": "^3.35.1",
+    "ts-morph": "^28.0.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.10",
+    "vite-plugin-dts": "^4.5.4",
+    "vue-router": "^5.0.6",
+    "vue-tsc": "^3.2.7"
   },
-  "overrides": {
-    "vite": "npm:rolldown-vite@7.3.1"
-  }
+  "vetur": {
+    "tags": "vetur/tags.json",
+    "attributes": "vetur/attributes.json"
+  },
+  "web-types": "./vetur/web-types.json"
 }
