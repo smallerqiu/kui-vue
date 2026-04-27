@@ -32,8 +32,9 @@
     "test",
     "vetur",
     "lib",
-    "styles",
-    "es"
+    "style",
+    "es",
+    "types"
   ],
   "license": "MIT",
   "scripts": {
