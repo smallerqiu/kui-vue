@@ -29,7 +29,7 @@ English | [简体中文](./README-zh_CN.md)
 - [Components Overview](https://k-ui.cn/guide/components)
 - [Customizing Themes](https://k-ui.cn/docs/theme)
 - [Dark Mode](https://k-ui.cn/guide/dark-mode)
-- [Icons](https://k-ui.cn/basic/icons)
+- [Icons](https://k-ui.cn/components/icons)
 - [Internationalization](https://k-ui.cn/guide/language)
 - [CHANGELOG](https://k-ui.cn/guide/change-log)
 
