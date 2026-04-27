@@ -41,7 +41,7 @@ import App from "./App.vue";
 import kui from "kui-vue";
 
 // Import styles
-import "kui-vue/style/k-ui.css";
+import "kui-vue/style/index.css";
 
 const app = createApp(App);
 
@@ -55,4 +55,4 @@ The above code completes the import of KUI. Note: The style file needs to be imp
 - Components support either all lowercase or PascalCase (first letter capitalized), such as: `Button` , `KButton` or `k-button`:
 
 [Special components](./image.vue)
--Note that the `Switch` and `Image` components only support names starting with 'k'.
+- Note that the `Switch` and `Image` components only support names starting with 'k'.

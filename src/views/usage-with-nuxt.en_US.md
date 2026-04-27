@@ -20,7 +20,7 @@ Create a new `plugins` directory in the root `app`, then create a `kui.ts` file 
 // /app/plugins/kui.ts
 import { defineNuxtPlugin } from '#app'
 import Kui from 'kui-vue'
-import 'kui-vue/dist/k-ui.css'
+import 'kui-vue/style/index.css'
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(Kui)
