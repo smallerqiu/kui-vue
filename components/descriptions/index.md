@@ -1,3 +1,33 @@
+# Descriptions 描述列表
+
+成组展示多个只读字段。
+
+## 何时使用
+
+常见于详情页的信息展示。
+
+## 代码演示
+
+[基本用法](./demo/basic.vue?show=vertical)
+
+- 简单的展示。
+
+[带边框的](./demo/bordered.vue?show=vertical)
+
+- 带边框和背景颜色列表。
+
+[自定义尺寸](./demo/size.vue?show=vertical)
+
+- 自定义尺寸，适应在各种容器中展示。
+
+[垂直](./demo/vertical.vue?show=vertical)
+
+- 垂直的列表。
+
+[垂直带边框](./demo/vertical-bordered.vue?show=vertical)
+
+- 垂直带边框和背景颜色的列表。
+
 ## API
 
 | 属性     | 说明                                      | 类型                       | 默认值     |
@@ -11,6 +41,8 @@
 
 ## Item props
 
-| 属性  | 说明       | 类型           | 默认值 |
-| ----- | ---------- | -------------- | ------ |
-| label | 内容的描述 | String \| slot | -      |
+| 属性  | 说明             | 类型           | 默认值 |
+| ----- | ---------------- | -------------- | ------ |
+| label | 内容的描述       | String \| slot | -      |
+| span  | 列占的数量       | Number         | 1      |
+| type  | 展示标题还是内容 | String         | -      |

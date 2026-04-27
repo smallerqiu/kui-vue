@@ -1,0 +1,63 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    //d.ts
+    "composite": true, //  允许该项目被其他项目引用并支持增量构建
+    "declaration": true, //生成声明文件
+    "emitDeclarationOnly": true, //只生成声明文件，不生成 JS
+    "declarationDir": "./types",
+    "noEmit": false,
+    "resolveJsonModule": true,
+    "esModuleInterop": true, // 允许 ESM 和 CJS 混用时更安全的转换
+    "isolatedModules": true, // 确保每个文件可以单独编译，
+    // "outDir": "./dist/types", // 明确指定输出目录
+    "rootDir": ".", // 指定根目录
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "types": [
+      "node",
+      "vite/client"
+    ],
+    "target": "esnext",
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    /* alias */
+    // "baseUrl": ".", 
+    "paths": {
+      "kui-vue": [
+        "./components/index.ts"
+      ],
+      "@/*": [
+        "/*"
+      ]
+    },
+  },
+  "vueCompilerOptions": {
+    "target": 3.5,
+    "strictTemplates": true
+  },
+  "include": [
+    "src/**/*.d.ts",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "components/**/*.ts",
+    "components/**/*.tsx",
+    "components/**/*.vue",
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "lib",
+    "es",
+    "types"
+  ]
+}

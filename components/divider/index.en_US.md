@@ -1,3 +1,26 @@
+# Divider
+
+Dividing line that separates content.
+
+## When to Use
+
+- To separate text paragraphs of different chapters.
+- To separate inline text/links, such as the action column in a table.
+
+## Examples
+
+[Vertical Divider](./demo/basic.vue)
+
+- Use type="vertical" to set an inline vertical divider.
+
+[Horizontal Divider](./demo/default.vue)
+
+- Default is a horizontal divider, with text that can be added in the middle.
+
+[Divider with Text](./demo/with-text.vue)
+
+- A divider with text in the middle, where `orientation` can specify the text position.
+
 ## API
 
 | Parameter   | Description                                      | Type    | Default    |

@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test unpkg</title>
+    <link rel="stylesheet" type="text/css" href="../style/index.css" />
+    <script src="https://unpkg.com/vue@3.x"></script>
+    <script src="https://unpkg.com/dayjs"></script>
+    <script src="https://unpkg.com/dayjs/locale/zh-cn.js"></script>
+    <script src="https://unpkg.com/dayjs/locale/en.js"></script>
+    <script src="https://unpkg.com/dayjs/locale/de.js"></script>
+    <script src="../dist/index.js"></script>
+
+    <!-- <script src="../es/locale/en.js"></script> -->
+    <!-- <script src="../es/locale/zh-CN.js"></script> -->
+    <!-- <script src="../es/locale/de.js"></script> -->
+  </head>
+
+  <body>
+    <div id="app">
+      <k-button @click="show">Click me!</k-button>
+      <Modal v-model="visible" title="Welcome">Welcome to use kui</Modal>
+    </div>
+  </body>
+  <script>
+    const { createApp, ref } = Vue;
+    createApp({
+      setup() {
+        const message = ref("你好，Vue CDN!");
+        const visible = ref(false);
+        const show = () => {
+          visible.value = true;
+        };
+        return {
+          visible,
+          message,
+          show,
+        };
+      },
+    })
+      .use(kui)
+      .mount("#app");
+  </script>
+</html>

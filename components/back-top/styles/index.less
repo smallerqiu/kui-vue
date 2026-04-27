@@ -1,0 +1,52 @@
+@import "../../styles/less-css-var.less";
+
+.k-back-top {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  z-index: 10;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  display: block;
+  overflow: hidden;
+  border-radius: var(--kui-border-radius);
+
+  &-content {
+    background-color: var(--kui-color-bg-component);
+    height: 40px;
+    transition: opacity 0.3s ease-in-out;
+    text-align: center;
+    line-height: 40px;
+    color: var(--kui-color-text);
+
+    &:hover {
+      background-color: var(--kui-color-bg-component-hover);
+    }
+    &:active {
+      background-color: var(--kui-color-bg-component-active);
+    }
+  }
+}
+
+@keyframes k-back-top-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.k-back-top-fade-enter-active {
+  animation: k-back-top-fade 0.4s;
+}
+
+.k-back-top-fade-leave-active {
+  animation: k-back-top-fade 0.4s reverse;
+}
