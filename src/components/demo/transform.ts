@@ -6,8 +6,8 @@ import {
   rewriteDefault,
 } from "@vue/compiler-sfc";
 import * as Kui from "kui-vue";
+import { transform } from "sucrase";
 import * as Vue from "vue";
-
 export interface ParseParams {
   source: string;
   id: string;
@@ -33,8 +33,18 @@ export async function parseCode({
     if (descriptor.script || descriptor.scriptSetup) {
       // 编译 script，并在内部处理好 bindings
       const compiledScript = compileScript(descriptor, { id: scopeId });
+
+      // dev
       // 将 export default 转换为 const __sfc__ =
-      scriptCode = rewriteDefault(compiledScript.content, "__sfc__");
+      // scriptCode = rewriteDefault(compiledScript.content, "__sfc__");
+      // ---
+
+      // prod for ts
+      const { code: transpiledCode } = transform(compiledScript.content, {
+        transforms: ["typescript"],
+      });
+      scriptCode = rewriteDefault(transpiledCode, "__sfc__");
+      //---
     } else {
       scriptCode = "const __sfc__ = {}";
     }
