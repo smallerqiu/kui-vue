@@ -1,3 +1,38 @@
+# Select 选择器
+
+下拉选择器。
+
+## 何时使用
+
+- 弹出一个下拉菜单给用户选择操作，用于代替原生的选择器，或者需要一个更优雅的多选器时。
+- 当选项少时（少于 5 项），建议直接将选项平铺，使用 Radio 是更好的选择。
+
+## 代码演示
+
+[单选](./demo/basic.vue)
+
+- 通过 `v-model` 进行数据双向绑定
+
+[多选](./demo/multiple.vue)
+
+- 通过设置 `multiple` 值来呈现多选模式
+
+[禁用和不可清除](./demo/disabled.vue)
+
+- 通过 `v-model` 进行数据双向绑定
+
+[过滤 和 搜索](./demo/filterable.vue)
+
+- 通过设置 `filterable` 值来呈现过滤模式 > filterable 和 onSearch 不可以同时使用, 搜索的结果会被过滤
+
+[尺寸](./demo/size.vue)
+
+- 通过 `width` 和 `size` 可控制组件尺寸大小
+
+[奇葩的定义](./demo/theme.vue)
+
+- 一些奇奇怪怪的东西
+
 ## Select API
 
 | 属性        | 说明                                                       | 类型                            | 默认值     |
@@ -15,8 +50,8 @@
 | bordered    | 是否显示边框                                               | Boolean                         | true       |
 | extendWidth | 下拉框的宽度是否与input一致                                | Boolean                         | true       |
 | showArrow   | 是否显示下拉按钮                                           | Boolean                         | true       |
-| change      | 在选项状态发生改变时触发,,返回选择的值value                | Function(value)                 | -          |
-| select      | 选中一项时触发                                             | Function({value,label,checked}) | -          |
+| onChange    | 在选项状态发生改变时触发,,返回选择的值value                | Function(value)                 | -          |
+| onSelect    | 选中一项时触发                                             | Function({value,label,checked}) | -          |
 | openChange  | 下拉框展开或收起时触发                                     | Function                        | -          |
 | options     | options 数据，如果设置则不需要手动构造 Option 节点         | Array <{value,label,disabled}>  | []         |
 | theme       | theme='light' 时呈现浅色主题                               | String                          | -          |

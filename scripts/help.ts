@@ -1,0 +1,206 @@
+import glob from "fast-glob";
+import fs from "fs";
+import path from "path";
+
+import d from "./a.json";
+
+const matches = glob.sync("components/*/index.en_US.md");
+// const matches = glob.sync("components/*/demo/index.tsx");
+
+const isCamelCase = (str: string, strict = false): boolean => {
+  if (typeof str !== "string" || str.length === 0) {
+    return false;
+  }
+
+  // 不允许以下划线、中划线、数字开头
+  if (/^[0-9_\-]/.test(str)) {
+    return false;
+  }
+
+  // 不允许包含空格、下划线、中划线
+  if (/[\s_\-]/.test(str)) {
+    return false;
+  }
+
+  // 必须全是字母或数字
+  if (!/^[a-zA-Z0-9]+$/.test(str)) {
+    return false;
+  }
+
+  // 至少包含一个小写字母（防止纯大写如 "XML" 被误判）
+  if (!/[a-z]/.test(str)) {
+    return false;
+  }
+
+  // 严格模式：必须包含至少一个大写字母（即不能是纯小写 like "name"）
+  if (strict && !/[A-Z]/.test(str)) {
+    return false;
+  }
+
+  return true;
+};
+
+const camelToKebab = (str: string): string => {
+  return str
+    .replace(/([a-z\d])([A-Z])/g, "$1-$2")
+    .replace(/([A-Z]+)([A-Z][a-z\d]+)/g, "$1-$2")
+    .toLowerCase();
+};
+
+const parseDemoMeta = (content: string) => {
+  const result: { cn: { title: string; desc: string }; en: { title: string; desc: string } } = {
+    cn: { title: "", desc: "" },
+    en: { title: "", desc: "" },
+  };
+
+  const extractBlock = (lang: "cn" | "en") => {
+    const regex = new RegExp(`<${lang}>([\\s\\S]*?)</${lang}>`);
+    const match = content.match(regex);
+    if (!match) return;
+
+    const lines = match[1]
+      .split("\n")
+      .map((line) => line.trim())
+      .filter((line) => line.length > 0);
+
+    // 第一行应为 Markdown 标题：### Title
+    const titleLine = lines[0];
+    const titleMatch = titleLine.match(/^###\s+(.+)$/);
+    const title = titleMatch ? titleMatch[1] : "";
+
+    // 其余部分合并为描述（通常只有一行）
+    const desc = lines.slice(1).join(" ").trim();
+
+    result[lang] = { title, desc };
+  };
+
+  extractBlock("cn");
+  extractBlock("en");
+
+  return result;
+};
+
+let componentName = "affix";
+let cnList = [];
+let enList = [];
+
+console.log("size:" + matches.length);
+
+for (const file of matches) {
+  const parts = file.split(path.sep); // [ 'src', 'aaa', 'demo', 'base.md' ]
+  const componentName = parts[1]; // 例如 aaa、bbb、xyz
+
+  //
+  const fname = parts.slice(-1)[0];
+  let c1 = fs.readFileSync(file, "utf-8");
+  let g1 = /(?:\s*\[[^\]]+\]\([^)]+\.vue\)\s*\n\s*-\s+[^\n]*\s*)+/g;
+  if (!g1.test(c1)) {
+    console.log("111", file);
+  }
+
+  // console.log(r)
+
+  if (!d[file]) {
+    console.log(222, file);
+  } else {
+    // let r = d[file].map((x) => `[${x.cn.title}](${x.src})\n\n- ${x.cn.desc}`).join("\n\n");
+    let r = d[file].map((x) => `[${x.en.title}](${x.src})\n\n- ${x.en.desc}`).join("\n\n");
+    c1 = c1.replace(g1, `\n\n${r}\n\n`);
+    fs.writeFileSync(file, c1, "utf8");
+  }
+
+  continue;
+  //
+
+  // console.log(fname);
+  if (isCamelCase(fname.replace(".vue", ""), true)) {
+    // console.log();
+    let newName = camelToKebab(fname);
+    console.log(fname + "  " + newName);
+    fs.renameSync(file, file.replace(fname, newName));
+
+    let cn = path.join("components", componentName, "index.md");
+    let content = fs.readFileSync(cn, "utf-8");
+    fs.writeFileSync(cn, content.replace(fname, newName), "utf-8");
+
+    let en = path.join("components", componentName, "index.en_US.md");
+    content = fs.readFileSync(en, "utf-8");
+    fs.writeFileSync(en, content.replace(fname, newName), "utf-8");
+  }
+  continue;
+  //
+
+  //
+  const c = fs.readFileSync(file, "utf-8");
+  const reg = /```vue([\s\S]*?)```/m;
+  const m = reg.exec(c);
+
+  if (m) {
+    const block = m[1].trim();
+    fs.writeFileSync(file, block, "utf-8");
+  }
+  continue;
+  //
+
+  // remove info's content to index
+  // componentName = parts[1];
+
+  const a = fs.readFileSync(file, "utf-8");
+  const meta = parseDemoMeta(a);
+  const baseName = parts.slice(-1)[0];
+  // console.log(parts.slice(-1));
+
+  if (componentName == parts[1]) {
+    cnList.push(`[${meta.cn.title}](./demo/${baseName.replace("md", "vue")})\n- ${meta.cn.desc}\n`);
+    enList.push(`[${meta.en.title}](./demo/${baseName.replace("md", "vue")})\n- ${meta.en.desc}\n`);
+  } else {
+    let en = path.join("components", componentName, "index.en_US.md");
+    let cn = path.join("components", componentName, "index.md");
+
+    const regex = /<code[\s\S]*<\/code>/;
+
+    const cnContent = fs.readFileSync(cn, "utf-8");
+    if (regex.test(cnContent)) {
+      const newContent = cnContent.replace(regex, cnList.join(`\n`));
+      fs.writeFileSync(cn, newContent, "utf-8");
+    }
+
+    const enContent = fs.readFileSync(en, "utf-8");
+    if (regex.test(enContent)) {
+      const newContent = enContent.replace(regex, enList.join(`\n`));
+      fs.writeFileSync(en, newContent, "utf-8");
+    }
+
+    // console.log(cnList.join(`\n`));
+    cnList = [];
+    enList = [];
+    componentName = parts[1];
+  }
+  continue;
+  //
+
+  //rename jsx to tsx
+  const tsx = path.join("components", parentDir, "demo", "index.tsx");
+  console.log(tsx);
+  fs.renameSync(file, tsx);
+  continue;
+  //
+
+  const newDir = parentDir.charAt(0); // 截取首字母，例如 a、b、x
+  const newPath = path.join("components", parentDir, "demo", "index.jsx");
+
+  // 创建新路径的目录（如果不存在）
+  const newDirPath = path.dirname(newPath);
+  fs.mkdirSync(newDirPath, { recursive: true });
+
+  const content = fs.readFileSync(file, "utf-8");
+  const scriptRegex = /<script[^>]*>([\s\S]*?)<\/script>/i;
+  const scriptMatch = content.match(scriptRegex);
+  if (scriptMatch && scriptMatch[1]) {
+    const scriptContent = scriptMatch[1];
+    fs.writeFileSync(newPath, scriptContent.trim());
+  }
+  // 移动文件
+  // fs.renameSync(file, newPath);
+  console.log(`✔ Renamed: ${file} → ${newPath}`);
+}

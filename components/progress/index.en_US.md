@@ -1,3 +1,40 @@
+# Progress
+
+Display the current progress of an operation.
+
+## When to Use
+
+When an operation takes a long time to complete, display the current progress and status to the user.
+
+- When an operation interrupts the current interface or needs to run in the background, and may take more than 2 seconds.
+- When displaying the completion percentage of an operation.
+
+## Examples
+
+[Progress Bar](./demo/basic.vue)
+
+- A standard progress bar.
+
+[Circular Progress](./demo/circle.vue)
+
+- A circular progress bar.
+
+[Dashboard-style Progress Bar](./demo/dashboard.vue)
+
+- Dashboard-style progress bar. Adjust the gap size via `gapDegree`. Use `strokeLinecap="square|round"` to adjust the shape of the progress bar's edges.
+
+[Dynamic Display](./demo/dynamic.vue)
+
+- A moving progress bar is a good progress bar.
+
+[Color and Format](./demo/color.vue)
+
+- Customize color and format.
+
+[Size](./demo/size.vue)
+
+- Suitable for placement in narrower areas.
+
 ## API
 
 | Property      | Description                                                                          | Type                      | Default |

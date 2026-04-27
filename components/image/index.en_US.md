@@ -1,3 +1,30 @@
+# Image
+
+Previewable images.
+
+## When to Use
+
+- Use when you need to display images.
+- Display loading or error handling when loading large images.
+
+## Examples
+
+[Basic Usage](./demo/basic.vue)
+
+- Simple display.
+
+[Error Handling](./demo/errors.vue)
+
+- Show an image placeholder on load failure.
+
+[Photo Wall](./demo/group.vue)
+
+- Click the left/right buttons to preview multiple images.
+
+[Extension](./demo/extra.vue)
+
+- Can extend custom tools and panels.
+
 ## Image API
 
 | Property    | Description                                            | Type             | Default |
@@ -10,7 +37,7 @@
 | placeholder | The placeholder displayed when the image fails to load | String           | -       |
 | imgStyle    | The style of the image                                 | Object           | -       |
 | showPanel   | Whether to display the extension panel by default      | Boolean          | false   |
-| close       | Close trigger event                                    | Function         | -       |
+| onClose       | Close trigger event                                    | Function         | -       |
 | switch      | Multi-image switch trigger event                       | Function(index)  | -       |
 | tool        | Custom toolbar buttons                                 | slot             | -       |
 | panel       | Custom extension panel                                 | slot             | -       |

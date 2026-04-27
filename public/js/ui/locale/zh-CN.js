@@ -1,0 +1,63 @@
+/*!
+ * kui-vue v5.0.0
+ * Copyright 2017-present, kui-vue.
+ * All rights reserved.
+ * Homepage: https://k-ui.cn
+ * Author: Qiu / https://chuchur.com
+ */
+
+//#region components/locale/zh-CN.ts
+var zh_CN_default = {
+	name: "zh-cn",
+	k: {
+		datePicker: {
+			year: "年",
+			month: "月",
+			selectYear: "请选择年",
+			selectMonth: "请选择月",
+			selectDate: "请选择日期",
+			selectTime: "请选择时间",
+			startDate: "开始日期",
+			endDate: "结束日期",
+			today: "今天",
+			now: "此刻",
+			ok: "确定",
+			back: "返回"
+		},
+		form: {
+			required: "请输入 {label}",
+			email: "请输入有效的邮箱地址",
+			phone: "请输入有效的手机号码",
+			number: "请输入有效的数字",
+			num_min: "数值不能小于 {min}",
+			num_max: "数值不能大于 {max}"
+		},
+		empty: { description: "暂无数据" },
+		common: {
+			ok: "确定",
+			cancel: "取消"
+		},
+		page: {
+			page: "页",
+			pageSize: "条/页",
+			goto: "跳至",
+			items: "条数据",
+			total: "共"
+		},
+		select: {
+			placeholder: "请选择",
+			loading: "加载中...",
+			emptyText: "暂无数据"
+		},
+		table: { emptyText: "暂无数据" },
+		upload: {
+			successful: "上传成功",
+			failed: "上传失败",
+			errorFileSize: "文件尺寸不合法",
+			releaseToUpload: "松手开始上传"
+		},
+		image: { preview: "预览" }
+	}
+};
+//#endregion
+export { zh_CN_default as default };

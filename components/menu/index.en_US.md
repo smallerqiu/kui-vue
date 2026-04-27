@@ -1,19 +1,57 @@
+# Menu
+
+Navigation menu list for pages and functions.
+
+## When to Use
+
+The navigation menu is the soul of a website. Users rely on navigation to jump between pages. Generally divided into top navigation and side navigation. Top navigation provides global categories and functions, while side navigation provides a multi-level structure to accommodate and arrange the website architecture.
+
+## Examples
+
+[Top Navigation](./demo/basic.vue?show=vertical)
+
+- Horizontal top navigation menu.
+
+[Inline Menu](./demo/inline.vue?show=vertical)
+
+- Vertical menu, with submenus embedded within the menu area.
+
+[Expand Only Current Parent Menu](./demo/accordion.vue?show=vertical)
+
+- Clicking a menu item collapses all other expanded menus, keeping the menu focused and clean.
+
+[Vertical Menu](./demo/vertical.vue?show=vertical)
+
+- Submenus appear as popups.
+
+[Theme](./demo/theme.vue?show=vertical)
+
+- Two built-in themes: `light|dark`, defaulting to `light`.
+
+[Switch Menu Type](./demo/mode.vue?show=vertical)
+
+- Demonstrates dynamic mode switching.
+
+[Collapsible Inline Menu](./demo/collapsed.vue?show=vertical)
+
+- Inline menus can be collapsed/expanded.
+
 ## API
 
-### Menu
+### MenuAPI
 
-| Property             | Description                                                       | Type                                              | Default  |
-| -------------------- | ----------------------------------------------------------------- | ------------------------------------------------- | -------- |
-| value(v-model)       | Currently selected menu item                                      | String: []                                        | light    |
-| theme                | Theme color                                                       | String: light dark                                | light    |
-| items                | Menu data                                                         | Array                                             | -        |
-| v-model:openKeys     | Currently expanded SubMenu menu item key array                    | String[]                                          | -        |
-| v-model:selectedKeys | Currently selected menu item, can use v-model binding             | String[]                                          | -        |
-| mode                 | Menu type, supports three modes: vertical, horizontal, and inline | String: vertical vertical-right horizontal inline | vertical |
-| select               | Called when MenuItem is clicked                                   | Fun({key, keyPath})                               | -        |
-| openChange           | Callback when SubMenu expands/collapses                           | Fun(openKeys: String[])                           | -        |
-| accordion            | Whether only one menu item can be expanded                        | Boolean                                           | false    |
-| inline-collapsed     | Whether the menu is collapsed in inline mode                      | Boolean                                           | false    |
+| Property        | Description                                                       | Type                                              | Default  |
+| --------------- | ----------------------------------------------------------------- | ------------------------------------------------- | -------- |
+| modelValue      | Currently selected menu item (v-model)                            | String: []                                        | light    |
+| theme           | Theme color                                                       | String: light dark                                | light    |
+| items           | Menu data                                                         | Array                                             | -        |
+| openKeys        | Currently expanded SubMenu menu item key array                    | String[]                                          | -        |
+| selectedKeys    | Currently selected menu item, can use v-model binding             | String[]                                          | -        |
+| mode            | Menu type, supports three modes: vertical, horizontal, and inline | String: vertical vertical-right horizontal inline | vertical |
+| onSelect         | Called when MenuItem is clicked                                   | Fun({key, keyPath})                               | -        |
+| onOpenChange    | Callback when SubMenu expands/collapses                           | Fun(openKeys: String[])                           | -        |
+| accordion       | Whether only one menu item can be expanded                        | Boolean                                           | false    |
+| inlineCollapsed | Whether the menu is collapsed in inline mode                      | Boolean                                           | false    |
 
 ### Menu(items)
 

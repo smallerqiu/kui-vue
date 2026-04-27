@@ -29,7 +29,7 @@ English | [简体中文](./README-zh_CN.md)
 - [Components Overview](https://k-ui.cn/guide/components)
 - [Customizing Themes](https://k-ui.cn/docs/theme)
 - [Dark Mode](https://k-ui.cn/guide/dark-mode)
-- [Icons](https://k-ui.cn/basic/icons)
+- [Icons](https://k-ui.cn/components/icons)
 - [Internationalization](https://k-ui.cn/guide/language)
 - [CHANGELOG](https://k-ui.cn/guide/change-log)
 
@@ -45,21 +45,29 @@ English | [简体中文](./README-zh_CN.md)
 
 # Install
 
-```sh
-#with npm:
+```bash
 npm install kui-vue --save
+```
 
-#with yarn:
+```bash
+npm add kui-vue
+```
+
+```bash
 yarn add kui-vue
+```
+
+```bash
+bun add kui-vue
 ```
 
 Using a script tag for global use:
 
 ```html
 <!-- import stylesheet -->
-<link rel="stylesheet" href="//unpkg.com/kui-vue/dist/k-ui.css" />
+<link rel="stylesheet" href="//unpkg.com/kui-vue/style/index.css" />
 <!-- import kui -->
-<script src="//unpkg.com/kui-vue@4.x"></script>
+<script src="//unpkg.com/kui-vue"></script>
 ```
 
 # Usage
@@ -67,10 +75,10 @@ Using a script tag for global use:
 ```html
 <template>
   <div>
-    <button type="primary" @click="test">Primary</button>
+    <k-button type="primary" @click="test">Primary</k-button>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
   import { message } from "kui-vue";
   const test = () => {
     message.info("Hello kui !");

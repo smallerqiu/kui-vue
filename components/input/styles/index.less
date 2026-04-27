@@ -102,6 +102,9 @@
   &.k-input-circle {
     border-radius: 20px;
   }
+  &.k-input-square {
+    border-radius: 2px;
+  }
 
   .k-input-suffix-addon {
     margin-right: -8px;
@@ -167,13 +170,15 @@
     outline: 2px solid var(--kui-color-outline);
   }
 }
-
+.k-textarea-square {
+  border-radius: 2px;
+}
 .k-input-clearable {
   cursor: pointer;
   font-size: 15px;
   color: var(--kui-color-icon);
-  display: none;
   z-index: 3;
+  visibility: hidden;
   &:hover {
     color: var(--kui-color-icon-hover);
   }
@@ -184,7 +189,7 @@
 &.k-input-has-clear {
   &:hover {
     .k-input-clearable {
-      display: block;
+      visibility: visible;
     }
   }
 }
@@ -202,9 +207,10 @@
 .k-textarea-lg {
   font-size: 16px;
   padding: 4px 10px;
+}
+.k-textarea-lg:not(.k-textarea-square) {
   border-radius: var(--kui-border-radius-lg);
 }
-
 .k-input-sm[single] {
   padding: 2px var(--kui-padding-inline-sm);
   height: 24px;
@@ -324,6 +330,9 @@
 .k-input-circle[single] {
   border-radius: 20px;
 }
+.k-input-square[single] {
+  border-radius: 2px;
+}
 
 .k-input-disabled[multiple] {
   cursor: not-allowed;
@@ -371,7 +380,17 @@
   .k-input-group-first-item {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    margin-right: -1px;
+    // margin-right: -1px;
+    // border-right: 1px solid var(--kui-color-border);
+    position: relative;
+    &::before {
+      position: absolute;
+      right: 0;
+      content: "";
+      height: 50%;
+      width: 1px;
+      background-color: var(--kui-color-border-split);
+    }
 
     &:hover {
       z-index: 1;
@@ -380,8 +399,17 @@
 
   .k-input-group-item {
     border-radius: 0;
-    margin-right: -1px;
-
+    // margin-right: -1px;
+    // border-right: 1px solid var(--kui-color-border);
+    position: relative;
+    &::before {
+      position: absolute;
+      right: 0;
+      content: "";
+      height: 50%;
+      width: 1px;
+      background-color: var(--kui-color-border-split);
+    }
     &:hover {
       z-index: 1;
     }

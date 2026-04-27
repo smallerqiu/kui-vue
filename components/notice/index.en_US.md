@@ -1,3 +1,33 @@
+# Notice
+
+Globally display notification reminder information.
+
+## When to Use
+
+Display notification reminder information in the four corners of the system. Often used in the following situations:
+
+- More complex notification content.
+- Interactive notifications, giving users the next action point.
+- System-initiated pushes.
+
+## Examples
+
+[Basic Usage](./demo/basic.vue)
+
+- Basic usage of `Notice`.
+
+[Notification with Icon](./demo/types.vue)
+
+- Call different methods to display different types.
+
+[Custom Icon](./demo/icon.vue)
+
+- Custom icon.
+
+[Custom Duration](./demo/close.vue)
+
+- Can be custom configured. Use `duration` to control the auto-close duration (default `3s`).
+
 ## API
 
 The component provides some static methods, used as follows:
@@ -19,6 +49,6 @@ Parameter `options` is an object, specific description as follows:
 | title    | Notification title                               | String        | -       |
 | content  | Prompt content                                   | String, vnode | -       |
 | duration | Auto-close delay, in seconds, 0 means not closed | Number        | 3       |
-| close    | Callback when closing                            | Function      | -       |
+| onClose    | Callback when closing                            | Function      | -       |
 | icon     | Custom icon                                      | String        | -       |
 | color    | Custom icon color                                | String        | -       |

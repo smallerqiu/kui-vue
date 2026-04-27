@@ -1,3 +1,44 @@
+# Skeleton
+
+Provide a placeholder graphic combination at positions where content needs to be loaded.
+
+## When to Use
+
+- When the network is slow and requires a long waiting time for loading processing.
+- In lists/cards with rich graphic and text information.
+- Only used when loading data for the first time.
+- Can be completely replaced by Spin, but can provide better visual effects and user experience in available scenarios.
+
+## Examples
+
+[Basic Usage](./demo/basic.vue?show=vertical)
+
+- The simplest placeholder effect.
+
+[Combination](./demo/group.vue?show=vertical)
+
+- You can configure the number of skeleton screen paragraphs to better approximate the real rendering effect. The first line will be rendered as a paragraph start of 35% length.
+
+[Animation Effect](./demo/animated.vue?show=vertical)
+
+- Show animation effect.
+
+[Child Component](./demo/child.vue?show=vertical)
+
+- Loading placeholder includes child components.
+
+[List](./demo/list.vue?show=vertical)
+
+- Use loading placeholders in list components.
+
+[Button/Avatar/Image](./demo/items.vue?show=vertical)
+
+- Skeleton buttons, avatars, and images.
+
+[Custom](./demo/custom.vue?show=vertical)
+
+- Custom effect.
+
 ## API
 
 | Property | Description                                                              | Type                 | Default |
@@ -8,6 +49,7 @@
 | rows     | Set the number of paragraph placeholder lines                            | Number               | 3       |
 | width    | Set the width of title placeholder                                       | Number(%)            | 35      |
 | delay    | Debounce (animation delay closing)                                       | Number(milliseconds) | 500     |
+| title    | Title point unit                                                         | Number               | 35(px)  |
 
 ## Avatar Props
 

@@ -1,9 +1,36 @@
+# Carousel 走马灯
+
+旋转木马，一组轮播的区域。
+
+## 何时使用
+
+- 当有一组平级的内容。
+- 当内容空间不足时，可以用走马灯的形式进行收纳，进行轮播展现。
+- 常用于一组图片或卡片轮播。
+
+## 代码演示
+
+[基本用法](./demo/basic.vue)
+
+- 最简单的用法,可以通过 `value(v-model)` 指定初始值
+
+[垂直](./demo/vertical.vue)
+
+- 通过设置 `vertical` 呈现垂直模式,此时不显示左右箭头
+
+[自动播放](./demo/autoplay.vue)
+
+- 通过设置 `autoplay` ，可实现定时自动播放，通过 `delay` 设置间隔播放时间，默认 `3000` ，单位毫秒
+
 ## API
 
-| 属性     | 说明                                                     | 类型    | 默认值 |
-| -------- | -------------------------------------------------------- | ------- | ------ |
-| value    | 幻灯片的索引，从 0 开始，可以使用 `v-model` 双向绑定数据 | Number  | 0      |
-| loop     | 是否开启循环                                             | Boolean | true   |
-| vertical | 是否垂直模式显示                                         | Boolean | false  |
-| autoplay | 是否自动切换                                             | Boolean | false  |
-| delay    | 自动切换的时间间隔，单位为毫秒                           | Number  | 3000   |
+| 属性       | 说明                                                     | 类型    | 默认值  |
+| ---------- | -------------------------------------------------------- | ------- | ------- |
+| value      | 幻灯片的默认索引                                         | Number  | 0       |
+| modelValue | 幻灯片的索引，从 0 开始，可以使用 `v-model` 双向绑定数据 | Number  | 0       |
+| loop       | 是否开启循环                                             | Boolean | true    |
+| vertical   | 是否垂直模式显示                                         | Boolean | false   |
+| autoplay   | 是否自动切换                                             | Boolean | false   |
+| delay      | 自动切换的时间间隔，单位为毫秒                           | Number  | 3000    |
+| height     | 幻灯片的高度                                             | Number  | 256(px) |
+| dots       | 是否在图库底部显示圆点                                   | boolean | true    |

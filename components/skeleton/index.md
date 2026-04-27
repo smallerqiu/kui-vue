@@ -1,3 +1,44 @@
+# Skeleton 骨架屏
+
+在需要等待加载内容的位置提供一个占位图形组合。
+
+## 何时使用
+
+- 网络较慢，需要长时间等待加载处理的情况下。
+- 图文信息内容较多的列表/卡片中。
+- 只在第一次加载数据的时候使用。
+- 可以被 Spin 完全代替，但是在可用的场景下可以比 Spin 提供更好的视觉效果和用户体验。
+
+## 代码演示
+
+[基本用法](./demo/basic.vue?show=vertical)
+
+- 最简单的占位效果。
+
+[组合](./demo/group.vue?show=vertical)
+
+- 可以配置骨架屏段落数量，以便更接近真实渲染效果。首行会被渲染一个长度 35% 的段首。
+
+[动画效果](./demo/animated.vue?show=vertical)
+
+- 显示动画效果。
+
+[子组件](./demo/child.vue?show=vertical)
+
+- 加载占位图包含子组件。
+
+[列表](./demo/list.vue?show=vertical)
+
+- 在列表组件中使用加载占位符。
+
+[按钮/头像/图像](./demo/items.vue?show=vertical)
+
+- 骨架按钮、头像、和图像。
+
+[自定义](./demo/custom.vue?show=vertical)
+
+- 自定义效果。
+
 ## API
 
 | 属性     | 说明                                         | 类型                | 默认值 |
@@ -8,6 +49,7 @@
 | rows     | 设置段落占位图的行数                         | Number              | 3      |
 | width    | 设置标题占位图的宽度                         | Number(%)           | 35     |
 | delay    | 防抖(动画延迟关闭)                           | Number(毫秒)        | 500    |
+| title    | 标题点位单位                                 | Number              | 35(px) |
 
 ## Avatar Props
 
