@@ -19,7 +19,7 @@ export const colors = [
   "pink",
   "brown",
   "gray",
-];
+] as const;
 
 export function functionType<T = () => {}>(defaultVal?: T) {
   return { type: Function as PropType<T>, default: defaultVal as T };

@@ -31,16 +31,17 @@
 
 ## API
 
-| 属性          | 说明                                           | 类型              | 默认值 |
-| ------------- | ---------------------------------------------- | ----------------- | ------ |
-| checked       | 是否选中状态，可以使用 `v-model` 双向绑定数据  | Boolean           | false  |
-| label         | 显示的文字                                     | String 、 Number  | -      |
-| value         | The value represented when used in combination | String、Number    | -      |
-| disabled      | 是否禁用当前项                                 | Boolean           | false  |
-| indeterminate | 组合辅助选项控制半选状态                       | Boolean           | false  |
-| modelValue    | 组合使用时表示的值                             | String、Number    | -      |
-| theme         | 组件呈现主题,默认'light'                       | String            | light  |
-| onChange      | 在选项状态发生改变时回调                       | Function(checked) | -      |
+| 属性          | 说明                                          | 类型                    | 默认值  |
+| ------------- | --------------------------------------------- | ----------------------- | ------- |
+| checked       | 是否选中状态，可以使用 `v-model` 双向绑定数据 | Boolean                 | false   |
+| label         | 显示的文字                                    | String 、 Number        | -       |
+| value         | 结合使用时表示的值                            | String、Number          | -       |
+| disabled      | 是否禁用当前项                                | Boolean                 | false   |
+| indeterminate | 组合辅助选项控制半选状态                      | Boolean                 | false   |
+| modelValue    | 组合使用时表示的值                            | String、Number          | -       |
+| theme         | 组件呈现主题,默认'light'                      | String                  | light   |
+| valueType     | 单位选项的输出值的类型                        | [String,Number,Boolean] | Boolean |
+| onChange      | 在选项状态发生改变时回调                      | Function(checked)       | -       |
 
 ## CheckboxGroup API
 

@@ -1,18 +1,23 @@
 import { Loading } from "kui-icons";
 import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent, ref, watch } from "vue";
-import type { BooleanType } from "../const/types";
+import type { BooleanType, SizeType, ValueType } from "../const/types";
 import Icon from "../icon";
+import { getValueWithType } from "../utils/checked";
 
 export const switchProps = {
-  checked: [Boolean, Number],
-  modelValue: [Boolean, Number],
+  checked: {
+    type: Boolean as BooleanType,
+    default: false,
+  },
+  valueType: { type: String as PropType<ValueType>, default: "boolean" },
+  modelValue: { type: [String, Number, Boolean] as PropType<string | number | boolean> },
   type: String,
   disabled: Boolean as BooleanType,
   loading: Boolean as BooleanType,
   size: {
     default: "default",
-    type: String as PropType<"small" | "default" | "large">,
+    type: String as PropType<SizeType>,
   },
   trueText: String,
   falseText: String,
@@ -24,39 +29,42 @@ export type SwitchProps = ExtractPropTypes<typeof switchProps>;
 const Switch = defineComponent({
   name: "KSwitch",
   props: switchProps,
-  setup(ps, { slots, emit }) {
-    const isChecked = ref(ps.modelValue || ps.checked);
+  setup(props, { slots, emit }) {
+    const isChecked = ref(props.modelValue || props.checked);
     watch(
-      () => ps.modelValue,
+      () => props.modelValue,
       (nv) => {
-        isChecked.value = nv;
+        isChecked.value = nv == 1;
       }
     );
     watch(
-      () => ps.checked,
+      () => props.checked,
       (nv) => {
         isChecked.value = nv;
       }
     );
     const change = () => {
-      if (ps.disabled) {
+      if (props.disabled) {
         return false;
       }
       const checked = !isChecked.value;
       isChecked.value = checked;
-      emit("update:modelValue", checked);
-      emit("change", checked);
+      const value = getValueWithType(checked, props.valueType);
+
+      emit("update:modelValue", value);
+      emit("update:checked", checked);
+      emit("change", value);
     };
 
     return () => {
-      const { type, trueText, falseText, disabled, loading, size } = ps;
+      const { type, trueText, falseText, disabled, loading, size } = props;
       const classes = [
         "k-switch",
         {
           ["k-switch-checked"]: isChecked.value,
           ["k-switch-disabled"]: disabled || loading,
           [`k-switch-${type}`]: !!type,
-          ["k-switch-sm"]: ps.size == "small",
+          ["k-switch-sm"]: props.size == "small",
         },
       ];
       const children = slots.checked?.() || trueText || slots.unchecked?.() || falseText;
