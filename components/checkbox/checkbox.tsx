@@ -1,13 +1,15 @@
 import { Check } from "kui-icons";
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
-import type { BooleanType, SizeType, ThemeType } from "../const/types";
+import type { BooleanType, SizeType, ThemeType, ValueType } from "../const/types";
 import Icon from "../icon";
+import { getValueWithType } from "../utils/checked";
 
 const checkboxProps = {
   checked: {
     type: Boolean as BooleanType,
     default: false,
   },
+  valueType: { type: String as PropType<ValueType>, default: "boolean" },
   modelValue: { type: [String, Number, Boolean] as PropType<string | number | boolean> },
   value: { type: [String, Number, Boolean] as PropType<string | number | boolean> },
   label: { type: [String, Number] as PropType<string | number> },
@@ -46,7 +48,7 @@ const Checkbox = defineComponent({
     watch(
       () => props.modelValue,
       (v) => {
-        isChecked.value = v || false;
+        isChecked.value = v == 1;
       }
     );
 
@@ -57,7 +59,8 @@ const Checkbox = defineComponent({
         value: props.value,
         label: props.label || slots.default?.(),
       } as ChangeEvent);
-      emit("update:modelValue", checked);
+      const value = getValueWithType(checked, props.valueType);
+      emit("update:modelValue", value);
       emit("update:checked", checked);
     };
 

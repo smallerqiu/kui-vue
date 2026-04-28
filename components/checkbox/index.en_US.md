@@ -31,15 +31,16 @@ Checkbox for multiple selections.
 
 ## API
 
-| Property      | Description                                                   | Type              | Default |
-| ------------- | ------------------------------------------------------------- | ----------------- | ------- |
-| checked       | Whether it is selected. Can use `v-model` for two-way binding | Boolean           | false   |
-| label         | The text to display                                           | String 、 Number  | -       |
-| value         | The value represented when used in combination                | String、Number    | -       |
-| disabled      | Whether the current item is disabled                          | Boolean           | false   |
-| indeterminate | Combined auxiliary option controls the indeterminate state    | Boolean           | false   |
-| theme         | The component renders the theme, defaulting to 'light'.       | String            | light   |
-| onChange      | Callback when the option state changes                        | Function(checked) | -       |
+| Property      | Description                                                   | Type                    | Default |
+| ------------- | ------------------------------------------------------------- | ----------------------- | ------- |
+| checked       | Whether it is selected. Can use `v-model` for two-way binding | Boolean                 | false   |
+| label         | The text to display                                           | String 、 Number        | -       |
+| value         | The value represented when used in combination                | String、Number          | -       |
+| disabled      | Whether the current item is disabled                          | Boolean                 | false   |
+| indeterminate | Combined auxiliary option controls the indeterminate state    | Boolean                 | false   |
+| theme         | The component renders the theme, defaulting to 'light'.       | String                  | light   |
+| valueType     | The type of output value for the unit option                  | [String,Number,Boolean] | Boolean |
+| onChange      | Callback when the option state changes                        | Function(checked)       | -       |
 
 ## CheckboxGroup API
 

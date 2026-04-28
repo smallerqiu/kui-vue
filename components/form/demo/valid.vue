@@ -65,8 +65,8 @@
       </FormItem>
       <FormItem label="Gender" prop="gender">
         <RadioGroup>
-          <Radio value="0" label="Girl" />
-          <Radio value="1" label="Boy" />
+          <Radio :value="0" label="Girl" />
+          <Radio :value="1" label="Boy" />
         </RadioGroup>
       </FormItem>
       <FormItem label="One" prop="one">
@@ -74,9 +74,9 @@
       </FormItem>
       <FormItem label="System" prop="system">
         <RadioGroup type="button">
-          <RadioButton value="0" label="Mac OS" />
-          <RadioButton value="1" label="Windows" />
-          <RadioButton value="2" label="Linux" />
+          <RadioButton :value="0" label="Mac OS" />
+          <RadioButton :value="1" label="Windows" />
+          <RadioButton :value="2" label="Linux" />
         </RadioGroup>
       </FormItem>
       <FormItem label="Birthday" prop="birthday">
@@ -140,7 +140,7 @@ const treeData = [
 ];
 const form = reactive({
   email: "",
-  number: "",
+  number: undefined,
   password: "",
   confirm_password: "",
   phone: "",
@@ -229,12 +229,12 @@ const setValue = () => {
     confirm_password: "abc@123@123",
     phone: "13888888888",
     captcha: "8888",
-    gender: "1",
+    gender: 1,
     slider: 5,
     rate: 5,
     number: 5,
     tree: "0",
-    system: "0",
+    system: 0,
     one: true,
     birthday: "1995-05-05",
     country: "1",

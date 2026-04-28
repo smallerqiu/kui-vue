@@ -224,7 +224,7 @@ const FormItem = defineComponent({
               {children.map((child) => {
                 if (isVNode(child)) {
                   const tag = (child.type as any)?.name;
-                  const value = prop ? Form.getValueFromProp?.(prop) || undefined : undefined;
+                  const value = prop ? (Form.getValueFromProp?.(prop) ?? undefined) : undefined;
                   const propsData = child?.props || {};
                   const size = propsData.size || Form.size;
                   const theme = propsData.theme || Form.theme;
@@ -240,20 +240,17 @@ const FormItem = defineComponent({
 
                   const childEvents: Record<string, any> = {};
                   if (prop) {
-                    if (/(switch|radio|checkbox)/.test(tag)) {
-                      childProps.checked = value || false;
-                    } else {
-                      childProps.modelValue = value;
-                    }
+                    // console.log("prop", value);
+                    childProps.modelValue = value;
 
-                    childEvents["onUpdate:modelValue"] = (value: any) => {
-                      if (tag) {
-                        Form.updateMode?.(prop, value);
-                        testValue();
-                      }
-                    };
+                    // childEvents["onUpdate:modelValue"] = (value: any) => {
+                    //   if (tag) {
+                    //     Form.updateMode?.(prop, value);
+                    //     testValue();
+                    //   }
+                    // };
                   }
-                  if (/(input|textarea)/.test(tag)) {
+                  if (/(input|textarea)/.test(String(tag).toLowerCase())) {
                     childEvents.onBlur = () => {
                       testValue();
                     };

@@ -23,6 +23,7 @@ export type DropPlacementsType =
   | "bottom-left"
   | "bottom-right";
 
+export type ValueType = "string" | "number" | "boolean";
 export type SizeType = "small" | "middle" | "large" | "default";
 export type ShapeType = "circle" | "square" | "round" | "default";
 export type BooleanType = PropType<boolean | undefined>;

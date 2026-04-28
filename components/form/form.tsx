@@ -1,4 +1,4 @@
-import { cloneVNode, defineComponent, provide, reactive, ref, toRefs, watch } from "vue";
+import { cloneVNode, defineComponent, nextTick, provide, reactive, ref, watch } from "vue";
 import { getChildren } from "../utils/vnode";
 
 import type { ExtractPropTypes, PropType } from "vue";
@@ -53,26 +53,30 @@ const Form = defineComponent({
     const formItems = ref<Record<string, any>>({});
     // const formItems = ref<Map<string, any>>(new Map());
 
-    const { model, rules, size, shape, theme, disabled, layout, name } = toRefs(props);
+    const { model, rules, size, shape, theme, disabled, layout, name } = props;
 
     const updateMode = (prop: string, value = null) => {
-      const { o, k } = getPropByPath(model.value, prop);
+      const { o, k } = getPropByPath(model, prop);
       // console.log(o, k, value);
       if (o) {
         o[k] = value;
-        emit("change", model.value);
+        emit("change", model);
       }
     };
     const getValueFromProp = (path: string) => {
-      const { v } = getPropByPath(model.value, path);
+      const { v } = getPropByPath(model, path);
+      // console.log("v", v);
       return v;
     };
 
     const reset = () => {
       Object.keys(formItems.value).forEach((prop) => {
         updateMode(prop);
-        // formItems.value.get(prop).valid = true;
-        formItems.value[prop].valid = true;
+      });
+      nextTick(() => {
+        Object.keys(formItems.value).forEach((prop) => {
+          formItems.value[prop].valid = true;
+        });
       });
     };
 
@@ -88,6 +92,7 @@ const Form = defineComponent({
     };
 
     const getPropByPath = (obj: any, path: string) => {
+      // console.log("path", obj, path);
       let tempObj = obj;
       path = path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "");
       const keyArr = path.split(".");
@@ -134,9 +139,16 @@ const Form = defineComponent({
       }
     };
 
-    watch(model, () => {
-      validate();
-    });
+    watch(
+      () => props.model,
+      () => {
+        validate();
+        // console.log("model", model);
+      },
+      {
+        deep: true,
+      }
+    );
 
     const register = (item: any) => {
       // formItems.value.set(item.prop, item);
