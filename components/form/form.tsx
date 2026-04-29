@@ -1,5 +1,5 @@
 import type { ExtractPropTypes, PropType } from "vue";
-import { defineComponent, nextTick, provide, reactive, ref } from "vue";
+import { defineComponent, nextTick, provide, reactive, ref, toRefs } from "vue";
 import type { BooleanType, DirectionType, ShapeType, SizeType, ThemeType } from "../const/types";
 import type { ColProps, FormRule } from "./types";
 
@@ -47,12 +47,12 @@ const Form = defineComponent({
   props: formProps,
   setup(props, { emit, slots, expose }) {
     const formRef = ref(null);
-
+    const model = props.model;
     const formItems = ref<Record<string, any>>({});
     // const formItems = ref<Map<string, any>>(new Map());
 
-    const { model, rules, size, shape, theme, disabled, layout, name, labelCol, wrapperCol } =
-      props;
+    const { rules, size, shape, theme, disabled, layout, name, labelCol, wrapperCol } =
+      toRefs(props);
 
     const updateMode = (prop: string, value = null) => {
       const { o, k } = getPropByPath(model, prop);

@@ -16,7 +16,7 @@
   overflow: hidden;
   font-size: 14px;
   outline: 1px solid transparent;
-  &:not(.k-input-number-light, .k-input-number-disabled):hover {
+  &:not(.k-input-number-fill, .k-input-number-disabled):hover {
     border-color: var(--kui-color-primary);
   }
   &:not(.k-input-number-disabled):hover {
@@ -96,7 +96,7 @@
   outline-offset: 1px;
   outline: 2px solid var(--kui-color-outline);
 }
-.k-input-number-focus:not(.k-input-number-light, .k-input-number-disabled) {
+.k-input-number-focus:not(.k-input-number-fill, .k-input-number-disabled) {
   border-color: var(--kui-color-primary);
   box-shadow: var(--kui-component-shadow);
 }
@@ -111,7 +111,7 @@
   width: auto;
   padding-right: var(--kui-padding-inline);
 
-  &:not(.k-input-number-light, .k-input-number-disabled):hover {
+  &:not(.k-input-number-fill, .k-input-number-disabled):hover {
     border-color: var(--kui-color-primary);
   }
 }
@@ -222,7 +222,7 @@
   }
 }
 
-.k-input-number-light {
+.k-input-number-fill {
   border-color: transparent;
   background-color: var(--kui-color-bg-component);
 

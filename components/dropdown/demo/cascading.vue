@@ -1,6 +1,6 @@
 <template>
   <Dropdown>
-    <Button theme="light">
+    <Button>
       Multi-level Menu
       <Icon :type="ChevronDown" />
     </Button>

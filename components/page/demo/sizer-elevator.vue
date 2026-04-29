@@ -12,16 +12,6 @@
       :pageSize="30"
       :sizeData="sizeData"
     />
-    <code>theme="light"</code>
-    <Page
-      v-model:page="page"
-      :total="100"
-      showSizer
-      showElevator
-      :pageSize="30"
-      theme="light"
-      :sizeData="sizeData"
-    />
     <code>disabled</code>
     <Page
       v-model:page="page"

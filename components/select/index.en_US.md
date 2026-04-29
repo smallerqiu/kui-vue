@@ -50,11 +50,11 @@ Dropdown selector.
 | bordered    | Whether to show border                                                            | Boolean                           | true          |
 | extendWidth | Whether dropdown width matches input width                                        | Boolean                           | true          |
 | showArrow   | Whether to show dropdown button                                                   | Boolean                           | true          |
-| onChange      | Triggered when option state changes, returns selected value                       | Function(value)                   | -             |
-| onSelect     | Triggered when an item is selected                                                | Function({value, label, checked}) | -             |
+| onChange    | Triggered when option state changes, returns selected value                       | Function(value)                   | -             |
+| onSelect    | Triggered when an item is selected                                                | Function({value, label, checked}) | -             |
 | openChange  | Triggered when dropdown expands or collapses                                      | Function                          | -             |
 | options     | options data, if set, no need to manually construct Option nodes                  | Array <{value, label, disabled}>  | []            |
-| theme       | When theme='light', displays light theme                                          | String                            | -             |
+| theme       | The theme of Select                                                               | String                            | fill          |
 | icon        | Custom icon                                                                       | String                            | -             |
 | shape       | When shape='circle', displays rounded corners                                     | String                            | -             |
 

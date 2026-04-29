@@ -38,5 +38,5 @@ Small labels for marking and categorization.
 | icon      | Tag icon                                                            | String          | -       |
 | onClose   | Callback event when tag is closed                                   | Function        | -       |
 | size      | Button size, optional values `small`, `large`, default not selected | String          | -       |
-| theme     | The component renders the theme, defaulting to 'light'.             | String          | light   |
+| theme     | The component renders the theme                                     | String          | fill    |
 | shape     | The shape in which the component is presented                       | [circle,square] | circle  |

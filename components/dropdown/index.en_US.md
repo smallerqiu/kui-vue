@@ -39,7 +39,7 @@ When there are too many operation commands on the page, this component can be us
 | show      | Whether the dropdown is displayed by default.                                       | Boolean | hover       |
 | trigger   | Trigger method. Supports 3 methods: hover (default), click, custom                  | String  | hover       |
 | placement | Menu popup position: bottomLeft bottomCenter bottomRight topLeft topCenter topRight | String  | bottom-left |
-| theme     | The component renders the theme, defaulting to 'light'.                             | String  | light       |
+| theme     | The component renders the theme, defaulting to 'fill'.                              | String  | fill        |
 | arrow     | Whether to display the arrow                                                        | Boolean | false       |
 | target    | Element that triggers the dropdown                                                  | VNode   | -           |
 | disabled  | Whether dropdown triggering is allowed                                              | Boolean | false       |

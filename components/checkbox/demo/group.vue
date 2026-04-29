@@ -5,7 +5,7 @@
     <CheckboxGroup :options="options" v-model="value" />
     <br />
     use children
-    <CheckboxGroup v-model="value" theme="light">
+    <CheckboxGroup v-model="value">
       <Checkbox :label="item.label" :value="item.value" v-for="(item, i) in options" :key="i" />
     </CheckboxGroup>
   </Space>

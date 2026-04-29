@@ -61,7 +61,7 @@
 | disabledTime | 不可选择的时间                                                                                                     | Function                                  | -          |
 | format       | 设置日期格式，为数组时支持多格式匹配，展示以第一个为准。配置参考 [dayjs](http://day.js.org/)                       | String                                    | YYYY-MM-DD |
 | onChange     | 默认值改变之后的回调                                                                                               | Function(dayjs,dateString)                | -          |
-| theme        | theme='light' 时呈现浅色主题                                                                                       | String                                    | -          |
+| theme        | theme='fill' 时呈现浅色主题                                                                                        | String                                    | -          |
 | dateIcon     | 自定义图标                                                                                                         | String                                    | -          |
 | shape        | 组件呈现的形式                                                                                                     | [circle,square]                           | -          |
 | bordered     | 是否展示边框                                                                                                       | Boolean                                   | -          |

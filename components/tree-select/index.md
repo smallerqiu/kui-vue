@@ -51,8 +51,8 @@
 | clearable        | 是否可以清空选项                                           | Boolean                | false      |
 | bordered         | 是否显示边框                                               | Boolean                | true       |
 | showArrow        | 是否显示下拉按钮                                           | Boolean                | true       |
-| onChange           | 在选项状态发生改变时触发                                   | Function(value)        | -          |
-| theme            | theme='light' 时呈现浅色主题                               | String                 | -          |
+| onChange         | 在选项状态发生改变时触发                                   | Function(value)        | -          |
+| theme            | 主题                                                       | String                 | fill       |
 | icon             | 自定义图标                                                 | String                 | -          |
 | shape            | shape='circle' 时呈现圆角                                  | String                 | -          |
 | treeLoadData     | 异步加载数据的方法                                         | Promise Function(node) | -          |

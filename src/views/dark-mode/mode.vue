@@ -1,5 +1,5 @@
 <template>
-  <Button theme="light" @click="switchMode">Switch</Button>
+  <Button @click="switchMode">Switch</Button>
 </template>
 <script setup lang="ts">
 import { message, theme } from "kui-vue";

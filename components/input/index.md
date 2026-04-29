@@ -51,7 +51,7 @@
 | suffix              | 扩展后缀                                   | String,Slot      | -      |
 | prefix              | 扩展前缀                                   | String,Slot      | -      |
 | search              | 搜索事件的回调                             | Function         | right  |
-| theme               | theme='light' 时呈现浅色主题               | String           | right  |
+| theme               | 主题                                       | String           | fill   |
 | clearable           | 是否显示清除按钮                           | Boolean          | false  |
 | visiblePassword     | 密码出事化明文显示                         | Boolean          | false  |
 | visiblePasswordIcon | 是否显示切换按钮或者控制密码显隐           | Boolean          | true   |

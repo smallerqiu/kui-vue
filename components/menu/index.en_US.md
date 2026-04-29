@@ -42,13 +42,13 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 | Property        | Description                                                       | Type                                              | Default  |
 | --------------- | ----------------------------------------------------------------- | ------------------------------------------------- | -------- |
-| modelValue      | Currently selected menu item (v-model)                            | String: []                                        | light    |
-| theme           | Theme color                                                       | String: light dark                                | light    |
+| modelValue      | Currently selected menu item (v-model)                            | String: []                                        | -    |
+| theme           | Theme color                                                       | [light, dark]                                     | light    |
 | items           | Menu data                                                         | Array                                             | -        |
 | openKeys        | Currently expanded SubMenu menu item key array                    | String[]                                          | -        |
 | selectedKeys    | Currently selected menu item, can use v-model binding             | String[]                                          | -        |
 | mode            | Menu type, supports three modes: vertical, horizontal, and inline | String: vertical vertical-right horizontal inline | vertical |
-| onSelect         | Called when MenuItem is clicked                                   | Fun({key, keyPath})                               | -        |
+| onSelect        | Called when MenuItem is clicked                                   | Fun({key, keyPath})                               | -        |
 | onOpenChange    | Callback when SubMenu expands/collapses                           | Fun(openKeys: String[])                           | -        |
 | accordion       | Whether only one menu item can be expanded                        | Boolean                                           | false    |
 | inlineCollapsed | Whether the menu is collapsed in inline mode                      | Boolean                                           | false    |

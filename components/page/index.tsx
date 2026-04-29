@@ -19,7 +19,7 @@ export const pageProps = {
   showSizer: Boolean as BooleanType,
   showTotal: { type: Boolean as BooleanType, default: true },
   showElevator: Boolean as BooleanType,
-  theme: { type: String as PropType<ThemeType>, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
   sizeData: { type: Array as PropType<number[]>, default: () => [10, 15, 20, 30, 40] },
   size: {
     type: String as PropType<SizeType>,
@@ -275,7 +275,7 @@ const Page = defineComponent({
           "k-page",
           {
             ["k-page-sm"]: props.size == "small",
-            "k-page-light": props.theme == "light",
+            "k-page-fill": props.theme == "fill",
             "k-page-disabled": props.disabled,
           },
         ],

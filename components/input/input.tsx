@@ -35,7 +35,7 @@ const inputProps = {
   suffix: { type: [String, Element, Object] as PropType<VNodeChild> },
   readonly: Boolean as BooleanType,
   prefix: { type: [String, Element, Object] as PropType<VNodeChild> },
-  theme: { type: String as PropType<ThemeType>, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: String as PropType<ShapeType>,
   inputType: { type: String, default: "input" },
   onSearch: {

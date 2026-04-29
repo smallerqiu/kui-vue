@@ -28,7 +28,7 @@ export const inputNumberProps = {
   controls: { type: Boolean as BooleanType, default: true },
   suffix: String,
   prefix: String,
-  theme: { type: String as PropType<ThemeType>, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: { type: String as PropType<ShapeType> },
   icon: [Array] as PropType<IconType[]>,
   size: {

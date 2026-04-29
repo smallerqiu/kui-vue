@@ -8,7 +8,7 @@ const checkboxGroupProps = {
     type: Array as PropType<any[]>,
     default: () => [],
   },
-  theme: { type: String as PropType<ThemeType>, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
   disabled: Boolean as BooleanType,
   options: Array as PropType<any[]>,
   direction: {

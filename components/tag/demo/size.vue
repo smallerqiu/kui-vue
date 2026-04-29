@@ -22,7 +22,7 @@ const shapes = [
   { label: "Square", value: "square" },
 ];
 const themes = [
-  { label: "Light", value: "light" },
+  { label: "Fill", value: "fill" },
   { label: "Outline", value: "outline" },
 ];
 </script>

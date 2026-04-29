@@ -79,8 +79,8 @@ export default {
 | submit     | 提交表单，并验证 ,手动提交表单时触发                                           | Function({valid,model})        | -          |
 | test       | 对表单单个字段进行校验的方法                                                   | Function                       | -          |
 | reset      | 对整个表单进行重置，将所有字段值重置为空并移除校验结果                         | Function                       | -          |
-| theme      | 组件呈现主题,默认'light'                                                       | String                         | light      |
-| size       | 子组件的尺寸                                                                   | String                         | light      |
+| theme      | 组件呈现主题                                                                   | String                         | -          |
+| size       | 子组件的尺寸                                                                   | String                         | -          |
 | layout     | 表单布局                                                                       | [horizontal ,vertical ,inline] | horizontal |
 | shape      | 子组件的形状                                                                   | [circle,square]                | horizontal |
 | disabled   | 表单是否可用                                                                   | Boolean                        | true       |

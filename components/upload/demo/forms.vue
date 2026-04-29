@@ -48,7 +48,7 @@
         @change="uploadFiles"
         @remove="remove"
         accept="image/*"
-        ><Button theme="light">Upload File</Button>
+        ><Button>Upload File</Button>
       </Upload>
       <Input type="hidden" />
     </FormItem>

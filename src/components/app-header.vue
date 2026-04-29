@@ -14,7 +14,6 @@
           v-model="queryKey"
           placeholder="Search"
           :icon="Search"
-          theme="light"
           :show-arrow="false"
           filterable
           @change="change"
@@ -35,13 +34,13 @@
           @change="changeThemeColor"
         />
         <Tooltip :title="`${$t('menu.langTip')}`" placement="bottom">
-          <Button theme="light" :icon="Languages" @click="changeLang" />
+          <Button :icon="Languages" @click="changeLang" />
         </Tooltip>
         <Tooltip
           :title="`Switch ${themeMode == 'dark' ? 'light' : 'dark'} theme`"
           placement="bottom"
         >
-          <Button theme="light" :icon="themeMode == 'dark' ? Sun : Moon" @click="changeMode" />
+          <Button :icon="themeMode == 'dark' ? Sun : Moon" @click="changeMode" />
         </Tooltip>
         <a
           target="_blank"

@@ -19,17 +19,13 @@ Vue.use(Button);
 
 - 使用 `type` 属性来定义 `Button`。
 
-[边框主题](./demo/outline.vue)
+[主题](./demo/theme.vue)
 
-- 只呈现边框
+- 使用 `theme` 展示不同的外观。
 
 [多彩](./demo/color.vue)
 
 - 使用 `color` 可以衍生出更多的变体按钮。
-
-[浅色主题](./demo/light.vue)
-
-- 浅色主题
 
 [带图标](./demo/with-icon.vue)
 
@@ -64,7 +60,7 @@ Vue.use(Button);
 | disabled | 按钮失效状态 ˚                                        | Boolean                                    | -      |
 | size     | 按钮尺寸,                                             | `small`\|`large`                           | -      |
 | shape    | shape=circle 呈现圆型按钮                             | `circle` , `square`                        | -      |
-| theme    | 按钮主题                                              | `solid` \| `light` \| `normal`             | -      |
+| theme    | 按钮主题                                              | `solid` \| `fill` \| `normal`             | -      |
 | icon     | 按钮的图标                                            | String                                     | -      |
 | loading  | 按钮是否进入加载模式                                  | Boolean                                    | false  |
 | href     | 点击跳转的地址，指定此属性 button 的行为和 a 链接一致 | String                                     | -      |

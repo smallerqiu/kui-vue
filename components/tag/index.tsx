@@ -20,14 +20,14 @@ import { isColor } from "../utils/color";
 
 export const tagProps = {
   closeable: Boolean as BooleanType,
-  color: String as PropType<ColorType>,
+  color: String as ColorType,
   shape: String as PropType<ShapeType>,
   icon: [String, Array] as PropType<any>,
   size: {
     type: String as PropType<SizeType>,
     default: "small",
   },
-  theme: { type: String as PropType<ThemeType>, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
   onClose: { type: Function as PropType<() => void> },
 };
 
@@ -66,7 +66,7 @@ const Tag = defineComponent({
           "k-tag-has-color": isCustomColor,
           "k-tag-closeable": closeable,
           "k-tag-hidden": hidden.value,
-          "k-tag-light": props.theme === "light",
+          "k-tag-fill": props.theme === "fill",
         },
       ];
 

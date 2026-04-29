@@ -54,7 +54,7 @@
 | onSelect    | 选中一项时触发                                             | Function({value,label,checked}) | -          |
 | openChange  | 下拉框展开或收起时触发                                     | Function                        | -          |
 | options     | options 数据，如果设置则不需要手动构造 Option 节点         | Array <{value,label,disabled}>  | []         |
-| theme       | theme='light' 时呈现浅色主题                               | String                          | -          |
+| theme       | 主题                                                       | String                          | fill       |
 | icon        | 自定义图标                                                 | String                          | -          |
 | shape       | shape='circle' 时呈现圆角                                  | String                          | -          |
 
