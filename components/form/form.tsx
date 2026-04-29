@@ -1,4 +1,4 @@
-import { cloneVNode, defineComponent, nextTick, provide, reactive, ref, watch } from "vue";
+import { cloneVNode, defineComponent, provide, reactive, ref, watch } from "vue";
 import { getChildren } from "../utils/vnode";
 
 import type { ExtractPropTypes, PropType } from "vue";
@@ -50,6 +50,8 @@ const Form = defineComponent({
   props: formProps,
   setup(props, { emit, slots, expose }) {
     const formRef = ref(null);
+    const isResetEvent = ref(false);
+
     const formItems = ref<Record<string, any>>({});
     // const formItems = ref<Map<string, any>>(new Map());
 
@@ -70,14 +72,15 @@ const Form = defineComponent({
     };
 
     const reset = () => {
+      isResetEvent.value = true;
+      console.log("1");
       Object.keys(formItems.value).forEach((prop) => {
         updateMode(prop);
+        formItems.value[prop].valid = true;
+        console.log("2");
       });
-      nextTick(() => {
-        Object.keys(formItems.value).forEach((prop) => {
-          formItems.value[prop].valid = true;
-        });
-      });
+      console.log("3");
+      setTimeout(() => (isResetEvent.value = false));
     };
 
     const test = (key: string) => {
@@ -142,8 +145,10 @@ const Form = defineComponent({
     watch(
       () => props.model,
       () => {
-        validate();
-        // console.log("model", model);
+        if (!isResetEvent.value) {
+          console.log(4);
+          validate();
+        }
       },
       {
         deep: true,

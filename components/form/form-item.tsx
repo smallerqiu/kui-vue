@@ -243,12 +243,12 @@ const FormItem = defineComponent({
                     // console.log("prop", value);
                     childProps.modelValue = value;
 
-                    // childEvents["onUpdate:modelValue"] = (value: any) => {
-                    //   if (tag) {
-                    //     Form.updateMode?.(prop, value);
-                    //     testValue();
-                    //   }
-                    // };
+                    childEvents["onUpdate:modelValue"] = (value: any) => {
+                      if (tag) {
+                        Form.updateMode?.(prop, value);
+                        testValue();
+                      }
+                    };
                   }
                   if (/(input|textarea)/.test(String(tag).toLowerCase())) {
                     childEvents.onBlur = () => {
