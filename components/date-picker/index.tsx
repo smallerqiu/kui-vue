@@ -80,10 +80,10 @@ export const datePickerProps = {
   format: { type: String, default: null },
   disabledDate: { type: Function as PropType<(date: Date) => boolean>, default: () => false },
   disabledTime: { type: Function as PropType<(date: Date) => boolean>, default: () => false },
-  size: { type: String as PropType<SizeType>, default: "default" },
+  size: { type: String as PropType<SizeType> },
   dateIcon: { type: Array as PropType<IconType[]> },
   theme: { type: String as PropType<ThemeType>, default: "light" },
-  shape: { type: String as PropType<ShapeType>, default: "default" },
+  shape: { type: String as PropType<ShapeType> },
   bordered: { type: Boolean as BooleanType, default: true },
   placement: {
     type: String as PropType<DropPlacementsType>,

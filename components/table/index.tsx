@@ -31,7 +31,6 @@ export const tableProps = {
   },
   size: {
     type: String as PropType<SizeType>,
-    default: "default",
   },
   striped: Boolean as BooleanType,
   bordered: { type: Boolean as BooleanType, default: false },

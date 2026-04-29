@@ -10,7 +10,7 @@
 import type { ShapeType, SizeType, ThemeType } from "kui-vue";
 import { ref } from "vue";
 const size = ref<SizeType>("small");
-const shape = ref<ShapeType>("default");
+const shape = ref<ShapeType>("round");
 const theme = ref<ThemeType>("default");
 const sizes = [
   { label: "Large", value: "large" },

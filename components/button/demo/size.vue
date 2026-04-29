@@ -21,5 +21,5 @@
 import { Download } from "kui-icons";
 import type { SizeType } from "kui-vue";
 import { ref } from "vue";
-const size = ref<SizeType>("default");
+const size = ref<SizeType>("medium");
 </script>

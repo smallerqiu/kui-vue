@@ -50,7 +50,6 @@ export const treeSelectProps = {
   placeholder: String,
   size: {
     type: String as PropType<SizeType>,
-    default: "default",
   },
   placement: {
     type: String as PropType<DropPlacementsType>,

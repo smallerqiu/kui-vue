@@ -52,8 +52,8 @@ const Flex = defineComponent({
 
       if (Array.isArray(size)) {
         _props.style = { gap: `${size[1]}px ${size[0]}px` } as CSSProperties;
-      } else if (/small|middle|large/.test(size)) {
-        const sizes: Record<string, number> = { small: 8, middle: 16, large: 24, default: 16 };
+      } else if (/small|medium|large/.test(size)) {
+        const sizes: Record<string, number> = { small: 8, medium: 16, large: 24, default: 16 };
         _props.style.gap = sizes[size] + "px";
       } else if (size !== undefined && size !== null) {
         _props.style.gap = `${size}px`;

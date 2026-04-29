@@ -11,6 +11,7 @@ import {
   ref,
   toRefs,
   Transition,
+  watch,
 } from "vue";
 import zhCN from "../locale/zh-CN";
 import { Col, Row } from "../row-col";
@@ -31,6 +32,9 @@ interface FormContext {
   disabled?: boolean;
   theme?: "light" | "dark";
   updateMode?: (prop: string, value: any) => void;
+  labelCol?: ColProps;
+  wrapperCol?: ColProps;
+  cleaned?: boolean;
 }
 
 const formItemProps = {
@@ -140,9 +144,8 @@ const FormItem = defineComponent({
       return isValid;
     };
 
-    const validate = (rules: any, _?: string) => {
+    const validate = (rules: any) => {
       if (!rules) return true;
-      // TODO: trigger
 
       if (rules.constructor === Object) return test(rules);
 
@@ -156,10 +159,10 @@ const FormItem = defineComponent({
       return valid.value;
     };
 
-    const testValue = (trigger?: string) => {
+    const testValue = () => {
       if (props.prop) {
         const rules = props.rules || (Form.rules || {})[props.prop];
-        rules && validate(rules, trigger);
+        rules && validate(rules);
       }
     };
     const { prop, rules } = toRefs(props);
@@ -181,6 +184,18 @@ const FormItem = defineComponent({
       }
     });
 
+    const ItemValue = computed(() => {
+      const prop = props.prop;
+      return prop ? (Form.getValueFromProp?.(prop) ?? undefined) : undefined;
+    });
+
+    watch(ItemValue, () => {
+      console.log("ItemValue", Form.cleaned);
+      if (props.prop && Form.cleaned) {
+        testValue();
+      }
+    });
+
     return () => {
       const { label, prop } = props;
       const rules = props.rules || (prop ? (Form.rules as FormRule)[prop] : "") || [];
@@ -197,13 +212,15 @@ const FormItem = defineComponent({
         },
       ];
 
-      let labelProp, wrapperProp;
-      if (Form.layout == "vertical") {
-        delete props.wrapperCol?.offset;
-      }
+      let labelProp: ColProps = {},
+        wrapperProp: ColProps = {};
+
       if (Form.layout != "inline") {
-        labelProp = { ...props.labelCol };
-        wrapperProp = { ...props.wrapperCol };
+        labelProp = props.labelCol || Form.labelCol || {};
+        wrapperProp = props.wrapperCol || Form.wrapperCol || {};
+      }
+      if (Form.layout == "vertical") {
+        delete wrapperProp?.offset;
       }
 
       const children = getChildren(slots.default?.());
@@ -223,7 +240,7 @@ const FormItem = defineComponent({
             <div class="k-form-item-content">
               {children.map((child) => {
                 if (isVNode(child)) {
-                  const tag = (child.type as any)?.name;
+                  // const tag = (child.type as any)?.name;
                   const value = prop ? (Form.getValueFromProp?.(prop) ?? undefined) : undefined;
                   const propsData = child?.props || {};
                   const size = propsData.size || Form.size;
@@ -237,28 +254,17 @@ const FormItem = defineComponent({
                     theme,
                     shape,
                   };
-
-                  const childEvents: Record<string, any> = {};
+                  console.log(size);
                   if (prop) {
                     // console.log("prop", value);
                     childProps.modelValue = value;
-
-                    childEvents["onUpdate:modelValue"] = (value: any) => {
-                      if (tag) {
-                        Form.updateMode?.(prop, value);
-                        testValue();
-                      }
-                    };
-                  }
-                  if (/(input|textarea)/.test(String(tag).toLowerCase())) {
-                    childEvents.onBlur = () => {
-                      testValue();
+                    childProps["onUpdate:modelValue"] = (value: any) => {
+                      Form.updateMode?.(prop, value);
                     };
                   }
 
                   return cloneVNode(child, {
                     ...childProps,
-                    ...childEvents,
                   });
                 } else {
                   return child;

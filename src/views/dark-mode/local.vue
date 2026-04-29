@@ -143,9 +143,9 @@ const current = ref(["1"]);
 const leftMenuActiveKeys = ref(["1-1"]);
 const collapsed = ref(false);
 const dark = ref(false);
-const size = ref<SizeType>("default");
+const size = ref<SizeType>("medium");
 const theme = ref<ThemeType>("default");
-const shape = ref<ShapeType>("default");
+const shape = ref<ShapeType>("round");
 const change = () => {
   dark.value = !dark.value;
 };

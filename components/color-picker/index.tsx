@@ -38,7 +38,6 @@ export const colorPickerProps = {
   },
   size: {
     type: String as PropType<SizeType>,
-    default: "default",
   },
   mode: {
     type: String as PropType<ColorMode>,

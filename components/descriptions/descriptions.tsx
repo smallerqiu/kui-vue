@@ -9,7 +9,7 @@ export const descriptionsProps = {
   layout: { type: String as PropType<DirectionType>, default: "horizontal" },
   title: String,
   extra: String,
-  size: { type: String as PropType<SizeType>, default: "default" },
+  size: { type: String as PropType<SizeType> },
 };
 
 export type DescriptionsProps = ExtractPropTypes<typeof descriptionsProps>;
@@ -109,7 +109,7 @@ const Descriptions = defineComponent({
           {
             "k-descriptions-vertical": isVertical,
             "k-descriptions-bordered": bordered,
-            "k-descriptions-middle": size === "middle",
+            "k-descriptions-medium": size === "medium",
             "k-descriptions-sm": size === "small",
           },
         ],

@@ -1,9 +1,9 @@
 <template>
-  <Flex vertical size="middle">
+  <Flex vertical size="medium">
     <RadioGroup v-model="flexSize" @change="changeSize">
-      <Radio value="small" label="small" />
-      <Radio value="middle" label="middle" />
-      <Radio value="large" label="large" />
+      <Radio value="small" label="Small" />
+      <Radio value="medium" label="Medium" />
+      <Radio value="large" label="Large" />
     </RadioGroup>
     <Checkbox v-model="isCustomize" label="customize" />
     <Slider v-model="customize" :step="1" :max="50" v-if="isCustomize" @change="changeSize" />

@@ -22,7 +22,6 @@ export const pageProps = {
   theme: { type: String as PropType<ThemeType>, default: "light" },
   sizeData: { type: Array as PropType<number[]>, default: () => [10, 15, 20, 30, 40] },
   size: {
-    default: "default",
     type: String as PropType<SizeType>,
   },
   total: { default: 0, type: Number },

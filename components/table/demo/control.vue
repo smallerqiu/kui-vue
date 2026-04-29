@@ -88,7 +88,7 @@ const columns: Column[] = [
   { title: "Tags", key: "tags" },
   { title: "Operate", key: "action" },
 ];
-const size = ref<SizeType>("default");
+const size = ref<SizeType>("medium");
 const bordered = ref(true);
 const checkable = ref(false);
 const loading = ref(false);

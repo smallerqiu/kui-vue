@@ -86,7 +86,7 @@ import type { ShapeType, SizeType, ThemeType } from "kui-vue";
 import { reactive } from "vue";
 const state = reactive({
   disabled: false,
-  size: "default" as SizeType,
+  size: "medium" as SizeType,
   shape: "default" as ShapeType,
   theme: "default" as ThemeType,
 });

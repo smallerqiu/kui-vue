@@ -28,7 +28,6 @@ export const progressProps = {
   },
   size: {
     type: String as PropType<SizeType>,
-    default: "default",
   },
   status: {
     type: String as PropType<ProgressStatus>,
