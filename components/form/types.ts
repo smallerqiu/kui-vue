@@ -5,7 +5,6 @@ export interface ColProps {
 
 export interface FormRule {
   required?: boolean;
-  trigger?: "blur" | "change";
   message?: string;
   validator?: (rule: FormRule, value: any, callback: (error?: Error) => void) => void;
   pattern?: RegExp;

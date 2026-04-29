@@ -14,7 +14,6 @@ export const radioButtonProps = {
   icon: Array as PropType<IconType[]>,
   size: {
     type: String as PropType<SizeType>,
-    default: "default",
   },
   shape: {
     type: String as PropType<ShapeType>,

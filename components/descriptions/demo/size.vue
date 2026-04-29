@@ -37,10 +37,10 @@
 <script setup lang="ts">
 import type { SizeType } from "kui-vue";
 import { ref } from "vue";
-const size = ref<SizeType>("default");
+const size = ref<SizeType>("medium");
 const types = ref([
-  { label: "Default", value: "default" },
-  { label: "Middle", value: "middle" },
+  { label: "large", value: "large" },
+  { label: "Medium", value: "medium" },
   { label: "Small", value: "small" },
 ]);
 </script>

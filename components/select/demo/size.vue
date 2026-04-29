@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { SizeType } from "../../const/types";
-const size = ref<SizeType>("default");
+const size = ref<SizeType>("medium");
 const value1 = ref(0);
 const value2 = ref([0, 1]);
 const value3 = ref([0, 1, 2]);

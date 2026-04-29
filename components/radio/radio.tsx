@@ -10,7 +10,6 @@ export const radioProps = {
   theme: { type: String as PropType<ThemeType>, default: "light" },
   size: {
     type: String as PropType<SizeType>,
-    default: "default",
   },
   onChange: Function as PropType<(e: ChangeEvent) => void>,
 };

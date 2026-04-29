@@ -17,7 +17,6 @@ const checkboxGroupProps = {
   },
   size: {
     type: String as PropType<SizeType>,
-    default: "default",
   },
   onChange: {
     type: Function as PropType<(value: any[]) => void>,

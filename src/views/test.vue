@@ -125,8 +125,8 @@ const validateReadme = (_: FormRule, value: any, callback: (error?: Error) => vo
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
 const time = ref(60);
-const timer = ref<number>();
-const size = ref<SizeType>("default");
+const timer = ref<NodeJS.Timeout>();
+const size = ref<SizeType>("medium");
 const formRef = ref<FormContext>();
 const treeData = [
   {
@@ -173,7 +173,6 @@ const rules: Record<string, FormRule[]> = {
       min: 8,
       max: 20,
       message: "Please keep the password length between 8-20 digits.",
-      trigger: "blur",
     },
     { required: true, message: "The password is required" },
   ],
@@ -182,7 +181,6 @@ const rules: Record<string, FormRule[]> = {
       min: 8,
       max: 20,
       message: "Please keep the password length between 8-20 digits.",
-      trigger: "blur",
     },
     { validator: validatePass },
     { required: true, message: "Please confirm the password" },
@@ -249,7 +247,7 @@ const sendCode = () => {
   time.value = 59;
   message.success("The verification code has been sent.");
   clearInterval(timer.value);
-  timer.value = setInterval((_) => {
+  timer.value = setInterval(() => {
     if (time.value < 1) {
       clearInterval(timer.value);
       time.value = 60;

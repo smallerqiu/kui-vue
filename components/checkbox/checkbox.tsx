@@ -18,7 +18,6 @@ const checkboxProps = {
   indeterminate: Boolean as BooleanType,
   size: {
     type: String as PropType<SizeType>,
-    default: "default",
   },
   onChange: {
     type: Function as PropType<(e: ChangeEvent) => void>,

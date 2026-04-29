@@ -7,7 +7,6 @@ export const spinProps = {
   delay: { type: Number, default: 500 },
   size: {
     type: String as PropType<SizeType>,
-    default: "default",
   },
   mode: {
     type: String as PropType<SpinModeType>,

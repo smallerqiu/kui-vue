@@ -38,7 +38,7 @@ const sizes = [
   { value: "default", label: "Default" },
   { value: "small", label: "Small" },
 ];
-const size = ref<SizeType>("default");
+const size = ref<SizeType>("medium");
 
 const expandedKeys = ["0-1", "1-1", "1-1-2", "1-2"];
 const value = ref("0-1");

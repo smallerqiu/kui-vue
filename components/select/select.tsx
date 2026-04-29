@@ -40,7 +40,6 @@ export const selectProps = {
   placeholder: String,
   size: {
     type: String as PropType<SizeType>,
-    default: "default",
   },
   placement: {
     type: String as PropType<DropPlacementsType>,

@@ -1,7 +1,5 @@
-import { cloneVNode, defineComponent, provide, reactive, ref, watch } from "vue";
-import { getChildren } from "../utils/vnode";
-
 import type { ExtractPropTypes, PropType } from "vue";
+import { defineComponent, nextTick, provide, reactive, ref } from "vue";
 import type { BooleanType, DirectionType, ShapeType, SizeType, ThemeType } from "../const/types";
 import type { ColProps, FormRule } from "./types";
 
@@ -23,7 +21,6 @@ const formProps = {
   },
   size: {
     type: String as PropType<SizeType>,
-    default: "default",
   },
   theme: String as PropType<ThemeType>,
   shape: String as PropType<ShapeType>,
@@ -50,12 +47,12 @@ const Form = defineComponent({
   props: formProps,
   setup(props, { emit, slots, expose }) {
     const formRef = ref(null);
-    const isResetEvent = ref(false);
 
     const formItems = ref<Record<string, any>>({});
     // const formItems = ref<Map<string, any>>(new Map());
 
-    const { model, rules, size, shape, theme, disabled, layout, name } = props;
+    const { model, rules, size, shape, theme, disabled, layout, name, labelCol, wrapperCol } =
+      props;
 
     const updateMode = (prop: string, value = null) => {
       const { o, k } = getPropByPath(model, prop);
@@ -72,15 +69,14 @@ const Form = defineComponent({
     };
 
     const reset = () => {
-      isResetEvent.value = true;
-      console.log("1");
+      form.cleaned = false;
       Object.keys(formItems.value).forEach((prop) => {
         updateMode(prop);
         formItems.value[prop].valid = true;
-        console.log("2");
       });
-      console.log("3");
-      setTimeout(() => (isResetEvent.value = false));
+      nextTick(() => {
+        form.cleaned = true;
+      });
     };
 
     const test = (key: string) => {
@@ -142,19 +138,6 @@ const Form = defineComponent({
       }
     };
 
-    watch(
-      () => props.model,
-      () => {
-        if (!isResetEvent.value) {
-          console.log(4);
-          validate();
-        }
-      },
-      {
-        deep: true,
-      }
-    );
-
     const register = (item: any) => {
       // formItems.value.set(item.prop, item);
       formItems.value[item.prop] = item;
@@ -179,11 +162,14 @@ const Form = defineComponent({
       updateMode,
       register,
       unregister,
+      labelCol,
+      wrapperCol,
+      cleaned: ref(true),
     });
     provide("Form", form);
 
     return () => {
-      const { layout, size, labelCol = {}, wrapperCol = {}, name } = props;
+      const { layout, size, name } = props;
 
       const classes = [
         "k-form",
@@ -194,8 +180,6 @@ const Form = defineComponent({
         },
       ];
 
-      const children = getChildren(slots.default?.());
-
       return (
         <form
           ref={formRef}
@@ -205,19 +189,7 @@ const Form = defineComponent({
           onReset={reset}
           autocomplete="off"
         >
-          {children.map((child) => {
-            const childLabelCol = child.props?.labelCol || labelCol;
-            const childWrapperCol = child.props?.wrapperCol || wrapperCol;
-
-            return cloneVNode(
-              child,
-              {
-                labelCol: childLabelCol,
-                wrapperCol: childWrapperCol,
-              },
-              true
-            );
-          })}
+          {slots.default?.()}
         </form>
       );
     };

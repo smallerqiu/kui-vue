@@ -2,7 +2,7 @@
   <Space vertical>
     <RadioGroup v-model="size" type="button">
       <RadioButton value="large" label="Large" />
-      <RadioButton value="default" label="Default" />
+      <RadioButton value="medium" label="Medium" />
       <RadioButton value="small" label="Small" />
     </RadioGroup>
     <Space vertical>
@@ -15,5 +15,5 @@
 <script setup lang="ts">
 import type { SizeType } from "kui-vue";
 import { ref } from "vue";
-const size = ref<SizeType>("default");
+const size = ref<SizeType>("medium");
 </script>

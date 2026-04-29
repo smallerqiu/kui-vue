@@ -16,7 +16,6 @@ export const switchProps = {
   disabled: Boolean as BooleanType,
   loading: Boolean as BooleanType,
   size: {
-    default: "default",
     type: String as PropType<SizeType>,
   },
   trueText: String,
