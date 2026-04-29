@@ -82,7 +82,7 @@ export const datePickerProps = {
   disabledTime: { type: Function as PropType<(date: Date) => boolean>, default: () => false },
   size: { type: String as PropType<SizeType> },
   dateIcon: { type: Array as PropType<IconType[]> },
-  theme: { type: String as PropType<ThemeType>, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: { type: String as PropType<ShapeType> },
   bordered: { type: Boolean as BooleanType, default: true },
   placement: {
@@ -877,7 +877,7 @@ const DatePicker = defineComponent({
         { "k-datepicker-lg": props.size == "large" },
         //   { 'k-datepicker-with-time': withTime },
         { "k-datepicker-disabled": props.disabled },
-        { "k-datepicker-light": props.theme == "light" },
+        { "k-datepicker-fill": props.theme == "fill" },
         { "k-datepicker-circle": props.shape == "circle" },
         { "k-datepicker-square": props.shape == "square" },
       ];

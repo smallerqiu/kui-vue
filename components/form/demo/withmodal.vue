@@ -13,7 +13,7 @@
       </FormItem>
       <FormItem label="UserList">
         <Space>
-          <Tag theme="light" :key="i" v-for="(item, i) in group.list">
+          <Tag theme="fill" :key="i" v-for="(item, i) in group.list">
             {{ item.username }} - {{ item.age }}
           </Tag>
         </Space>

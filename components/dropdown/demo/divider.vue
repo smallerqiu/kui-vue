@@ -1,6 +1,6 @@
 <template>
   <Dropdown>
-    <Button theme="light"> 分隔线 <Icon :type="ChevronDown" /> </Button>
+    <Button> 分隔线 <Icon :type="ChevronDown" /> </Button>
     <template #overlay>
       <Menu>
         <MenuItem key="0">

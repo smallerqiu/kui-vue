@@ -7,7 +7,7 @@ export const radioProps = {
   label: { type: String },
   checked: Boolean as BooleanType,
   disabled: Boolean as BooleanType,
-  theme: { type: String as PropType<ThemeType>, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
   size: {
     type: String as PropType<SizeType>,
   },
@@ -65,7 +65,7 @@ const Radio = defineComponent({
       const classes = [
         "k-radio",
         {
-          ["k-radio-light"]: props.theme == "light",
+          ["k-radio-fill"]: props.theme == "fill",
           ["k-radio-disabled"]: props.disabled,
           ["k-radio-checked"]: isChecked.value,
           ["k-radio-lg"]: props.size === "large",

@@ -20,7 +20,7 @@
   overflow: hidden;
   line-height: 1.571;
 
-  &:not(.k-input-disabled, .k-input-light):hover {
+  &:not(.k-input-disabled, .k-input-fill):hover {
     border-color: var(--kui-color-primary);
   }
 
@@ -308,9 +308,9 @@
   display: none;
 }
 
-.k-input-light[multiple],
-.k-input-light[single],
-.k-textarea-light {
+.k-input-fill[multiple],
+.k-input-fill[single],
+.k-textarea-fill {
   border-color: transparent;
   background-color: var(--kui-color-bg-component);
 
@@ -359,7 +359,7 @@
     margin: 0 8px;
   }
 }
-.k-input-group:not(.k-input-group-light) {
+.k-input-group:not(.k-input-group-fill) {
   .k-input-group-suffix,
   .k-input-group-prefix {
     border: 1px solid var(--kui-color-border);

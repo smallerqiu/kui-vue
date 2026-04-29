@@ -9,7 +9,7 @@
     />
     <Select :options="options" placeholder="No Arrow" :showArrow="false" />
     <Select :options="options" placeholder="Custom Arrow" :arrowIcon="ArrowDown" />
-    <Select multiple v-model="value" filterable theme="light" :options="options" />
+    <Select multiple v-model="value" filterable :options="options" />
     <Select filterable theme="outline" :options="options" placeholder="Outline theme" />
     <Select :bordered="false" theme="solid" :options="options" placeholder="No Border" />
   </Space>

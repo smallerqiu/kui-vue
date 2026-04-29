@@ -21,7 +21,7 @@
       <FormItem label="Theme">
         <RadioGroup v-model="state.theme">
           <Radio value="default" label="Default" />
-          <Radio value="light" label="Light" />
+          <Radio value="fill" label="Fill" />
           <Radio value="outline" label="Outline" />
         </RadioGroup>
       </FormItem>

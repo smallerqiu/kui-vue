@@ -34,5 +34,5 @@ Separate long lists using pagination, loading only one page at a time.
 | showElevator | Whether to show page elevator                                                   | Boolean                  | false            |
 | sizeData     | Custom page size data                                                           | Array                    | [10,15,20,30,40] |
 | size         | When value is 'small', displays small size                                      | String                   | -                |
-| theme        | When value is 'light', displays light theme                                     | String                   | -                |
+| theme        | The theme of page                                                               | String                   | fill             |
 | onChange     | Callback when page number or page size changes, returns the changed page number | Function(page, pageSize) | -                |

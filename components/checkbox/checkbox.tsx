@@ -13,7 +13,7 @@ const checkboxProps = {
   modelValue: { type: [String, Number, Boolean] as PropType<string | number | boolean> },
   value: { type: [String, Number, Boolean] as PropType<string | number | boolean> },
   label: { type: [String, Number] as PropType<string | number> },
-  theme: { type: String as PropType<ThemeType>, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
   disabled: Boolean as BooleanType,
   indeterminate: Boolean as BooleanType,
   size: {
@@ -86,7 +86,7 @@ const Checkbox = defineComponent({
         class: [
           "k-checkbox",
           {
-            "k-checkbox-light": theme === "light",
+            "k-checkbox-fill": theme === "fill",
             "k-checkbox-disabled": disabled,
             "k-checkbox-checked": isChecked.value && !indeterminate,
             "k-checkbox-indeterminate": indeterminate && !isChecked.value,

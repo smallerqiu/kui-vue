@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Button theme="light" @click="change">Local darkening</Button>
+    <Button @click="change">Local darkening</Button>
     <div class="k-demo-layout">
       <Layout class="layout-back">
         <Sider class="demo-sider" :style="{ width: collapsed ? '60px' : '200px' }">
@@ -23,7 +23,6 @@
             </MenuItem>
           </Menu>
           <Button
-            theme="light"
             :icon="!collapsed ? ChevronLeft : ChevronRight"
             @click="toggle"
             class="btn-expand"
@@ -74,7 +73,7 @@
                 </FormItem>
                 <FormItem label="Theme">
                   <RadioGroup v-model="theme">
-                    <Radio value="light" label="Light" />
+                    <Radio value="fill" label="Fill" />
                     <Radio value="outline" label="Outline" />
                   </RadioGroup>
                 </FormItem>

@@ -12,7 +12,7 @@ import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types
 export const textAreaProps = {
   modelValue: [String, Number, Object, Array] as PropType<any>,
   value: [String, Number, Object, Array] as PropType<any>,
-  theme: { type: String as PropType<ThemeType>, default: "light" },
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: { type: String as PropType<ShapeType> },
   size: String as PropType<SizeType>,
   placeholder: String,
@@ -46,7 +46,8 @@ const TextArea = defineComponent({
         class: [
           "k-textarea",
           {
-            [`k-textarea-${theme}`]: theme === "light",
+            [`k-textarea-fill`]: theme === "fill",
+            [`k-textarea-outline`]: theme === "outline",
             "k-textarea-sm": size === "small",
             "k-textarea-square": shape === "square",
             "k-textarea-lg": size === "large",

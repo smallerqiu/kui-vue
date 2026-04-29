@@ -34,7 +34,7 @@
 | value(v-model) | 当前值                                                     | Number        | -         |
 | formatter      | 指定输入框展示值的格式                                     | Function      | -         |
 | parser         | 指定从 formatter 里转换回数字的方式，和 formatter 搭配使用 | Function      | -         |
-| onChange         | 变化回调                                                   | Function      | -         |
+| onChange       | 变化回调                                                   | Function      | -         |
 | size           | 输入框大小                                                 | String        | -         |
 | disabled       | 禁用                                                       | Boolean       | -         |
 | precision      | 数值精度                                                   | Number        | -         |
@@ -42,4 +42,4 @@
 | prefix         | 前缀内容                                                   | String,slot   | -         |
 | controls       | 是否显示增减按钮                                           | Boolean       | true      |
 | clearable      | 是否显示清除按钮                                           | Boolean       | false     |
-| theme          | 组件呈现主题,默认'light'                                   | String        | light     |
+| theme          | 组件呈现主题                                               | String        | fill      |

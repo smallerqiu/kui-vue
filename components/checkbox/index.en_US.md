@@ -38,7 +38,7 @@ Checkbox for multiple selections.
 | value         | The value represented when used in combination                | String、Number          | -       |
 | disabled      | Whether the current item is disabled                          | Boolean                 | false   |
 | indeterminate | Combined auxiliary option controls the indeterminate state    | Boolean                 | false   |
-| theme         | The component renders the theme, defaulting to 'light'.       | String                  | light   |
+| theme         | The component renders the theme, defaulting to 'fill'.       | String                  | fill   |
 | valueType     | The type of output value for the unit option                  | [String,Number,Boolean] | Boolean |
 | onChange      | Callback when the option state changes                        | Function(checked)       | -       |
 

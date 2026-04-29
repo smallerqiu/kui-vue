@@ -17,7 +17,7 @@ import zhCN from "../locale/zh-CN";
 import { Col, Row } from "../row-col";
 import { getChildren } from "../utils/vnode";
 
-import type { DirectionType, ShapeType } from "../const/types";
+import type { DirectionType, ShapeType, ThemeType } from "../const/types";
 import type { ColProps, FormRule } from "./types";
 
 interface FormContext {
@@ -30,7 +30,7 @@ interface FormContext {
   size?: "large" | "small";
   shape?: ShapeType;
   disabled?: boolean;
-  theme?: "light" | "dark";
+  theme?: ThemeType;
   updateMode?: (prop: string, value: any) => void;
   labelCol?: ColProps;
   wrapperCol?: ColProps;
@@ -190,7 +190,6 @@ const FormItem = defineComponent({
     });
 
     watch(ItemValue, () => {
-      console.log("ItemValue", Form.cleaned);
       if (props.prop && Form.cleaned) {
         testValue();
       }
@@ -254,9 +253,7 @@ const FormItem = defineComponent({
                     theme,
                     shape,
                   };
-                  console.log(size);
                   if (prop) {
-                    // console.log("prop", value);
                     childProps.modelValue = value;
                     childProps["onUpdate:modelValue"] = (value: any) => {
                       Form.updateMode?.(prop, value);

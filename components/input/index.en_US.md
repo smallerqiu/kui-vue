@@ -51,7 +51,7 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | suffix              | Extension suffix                                                    | String, Slot   | -       |
 | prefix              | Extension prefix                                                    | String, Slot   | -       |
 | search              | Search event callback                                               | Function       | right   |
-| theme               | When theme='light', presents a light theme                          | String         | right   |
+| theme               | The theme of Input                                                  | String         | fill    |
 | clearable           | Whether to show the clear button                                    | Boolean        | false   |
 | visiblePassword     | Password initially displayed in plain text                          | Boolean        | false   |
 | visiblePasswordIcon | Whether to show the toggle button or control password visibility    | Boolean        | true    |
