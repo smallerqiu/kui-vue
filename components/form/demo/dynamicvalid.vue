@@ -34,8 +34,8 @@
           :rules="{ required: true, message: 'Web site is required' }"
         >
           <Input style="width: 230px" />
-          <Icon
-            :type="CircleMinus"
+          <Button
+            :icon="Trash2"
             @click="() => remove(i)"
             v-if="i > 0"
             style="font-size: 25px; margin: 0 10px"
@@ -49,21 +49,21 @@
       </Form>
     </Col>
     <Col :span="8">
-      <pre style="height: 100%; overflow: scroll; line-height: 1.4">
-        {{ JSON.stringify(form, null, 2) }}
-      </pre>
+      <pre style="height: 100%; overflow: scroll; line-height: 1.4">{{
+        JSON.stringify(form, null, 2)
+      }}</pre>
     </Col>
   </Row>
 </template>
 <script setup lang="ts">
-import { CircleMinus } from "kui-icons";
+import { Trash2 } from "kui-icons";
 import { message, type FormContext } from "kui-vue";
-import { ref } from "vue";
+import { reactive, ref } from "vue";
 const labelCol = { span: 5 };
 const wrapperCol = { span: 16 };
 const formRef = ref<FormContext>();
 const count = ref(2);
-const form = ref({
+const form = reactive({
   cname: "",
   info: {
     gender: "",
@@ -77,10 +77,10 @@ const form = ref({
 const add = () => {
   count.value = count.value + 1;
   let item = { value: "", key: `${count.value}` };
-  form.value.webs.push(item);
+  form.webs.push(item);
 };
 const remove = (index: number) => {
-  form.value.webs.splice(index, 1);
+  form.webs.splice(index, 1);
 };
 const submit = () => {
   formRef.value?.validate(({ valid }) => {

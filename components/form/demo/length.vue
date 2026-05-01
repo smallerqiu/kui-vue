@@ -27,13 +27,13 @@
         <Input type="password" placeholder="Verify confirm password" />
       </FormItem>
       <FormItem label="Country">
-        <FormItem prop="country">
+        <FormItem prop="country" :wrapper-col="{ span: 24 }">
           <Select clearable style="width: 100%">
             <Option value="0" label="China" />
             <Option value="1" label="Russia" />
           </Select>
         </FormItem>
-        <FormItem prop="city">
+        <FormItem prop="city" :wrapper-col="{ span: 24 }">
           <Select clearable style="width: 100%">
             <Option value="0" label="Shanghai" />
             <Option value="1" label="Wuhan" />
@@ -63,16 +63,16 @@
 <script setup lang="ts">
 import type { FormSubmitEvent } from "kui-vue";
 import { message, type FormRule } from "kui-vue";
-import { ref } from "vue";
+import { reactive } from "vue";
 const validatePass = (_: FormRule, value: any, callback: (error?: Error) => void) => {
-  if (value !== form.value.password) {
+  if (value !== form.password) {
     return callback(new Error("The two passwords do not match!"));
   }
   callback();
 };
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
-const form = ref<Record<string, any>>({
+const form = reactive<Record<string, any>>({
   number: "",
   text: "",
   email: "",
@@ -131,7 +131,7 @@ const rules: Record<string, FormRule[]> = {
   ],
 };
 const setValue = () => {
-  form.value = {
+  Object.assign(form, {
     number: 123,
     text: "abcd",
     email: "master@k-ui.cn",
@@ -142,7 +142,7 @@ const setValue = () => {
     city: "1",
     hobbies: ["0", "1"],
     other: "abcd",
-  };
+  });
 };
 
 const submit = (e: FormSubmitEvent) => {
