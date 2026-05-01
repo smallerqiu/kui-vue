@@ -42,6 +42,9 @@ const RadioGroup = defineComponent({
       emit("update:modelValue", value);
       emit("change", value);
     };
+    const onClick = (e: MouseEvent) => {
+      console.log(e);
+    };
     watch(
       () => props.modelValue,
       (val) => {
@@ -66,12 +69,16 @@ const RadioGroup = defineComponent({
       return options;
     });
     return () => {
+      const isButton = props.type === "button";
       let options = optionsData.value;
       let nodes: any = [];
-      const Component = props.type === "button" ? RadioButton : Radio;
+      const Component = isButton ? RadioButton : Radio;
+      const isCard = props.theme == "card";
+      const events = isCard ? { onClick } : {};
       options.forEach((option) =>
         nodes.push(
           <Component
+            {...events}
             key={option.label}
             label={option.label}
             value={option.value}
@@ -88,13 +95,16 @@ const RadioGroup = defineComponent({
       const classes = [
         "k-radio-group",
         {
-          "k-radio-button-group": props.type === "button",
+          "k-radio-button-group": isButton,
           "k-radio-circle": props.shape === "circle",
-          "k-radio-group-fill": props.theme === "fill" && props.type === "button",
-          "k-radio-group-card": props.theme === "card" && props.type === "button",
+          "k-radio-group-fill": props.theme === "fill" && isButton,
+          "k-radio-group-card": props.theme === "card" && isButton,
           "k-radio-group-vertical": props.direction === "vertical",
         },
       ];
+      if (props.theme === "card") {
+        nodes.push(<div class="k-radio-group-card-seg"></div>);
+      }
 
       return <div class={classes}>{nodes}</div>;
     };

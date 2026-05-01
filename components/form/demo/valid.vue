@@ -40,13 +40,13 @@
         </Input>
       </FormItem>
       <FormItem label="Country">
-        <FormItem prop="country">
+        <FormItem prop="country" :wrapper-col="{ span: 24 }">
           <Select clearable style="width: 100%">
             <Option value="0" label="China" />
             <Option value="1" label="Russia" />
           </Select>
         </FormItem>
-        <FormItem prop="city" label="city">
+        <FormItem prop="city" label="city" :wrapper-col="{ span: 24 }">
           <Select clearable style="width: 100%">
             <Option value="0" label="Shanghai" />
             <Option value="1" label="Wuhan" />
