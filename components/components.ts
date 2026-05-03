@@ -180,6 +180,7 @@ export type {
   DrawerPlacementsType,
   DropPlacementsType,
   PlacementsType,
+  RadioType,
   ShapeType,
   SizeType,
   SpinModeType,

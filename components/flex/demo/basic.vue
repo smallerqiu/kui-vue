@@ -1,10 +1,10 @@
 <template>
-  <Flex vertical size="middle">
+  <Flex vertical size="medium">
     <RadioGroup v-model="value">
       <Radio value="horizontal">horizontal</Radio>
       <Radio value="vertical">vertical</Radio>
     </RadioGroup>
-    <Flex :vertical="value == 'vertical'">
+    <Flex :vertical="value == 'vertical'" style="width: 100%">
       <div
         v-for="x in 4"
         :style="{

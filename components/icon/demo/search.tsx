@@ -46,7 +46,7 @@ export default defineComponent({
 
     const copyHandle = (name: string) => {
       copy(name).then(() => {
-        message.success("代码复制成功！");
+        message.success("Copied！");
       });
     };
 

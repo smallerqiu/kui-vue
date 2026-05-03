@@ -1,16 +1,22 @@
 <template>
   <Space vertical>
-    <RadioGroup :options="types" v-model="direction" type="button" />
+    <RadioGroup :options="directions" v-model="direction" type="button" />
     <code>direction: {{ direction }}</code>
     <code>value: {{ cities }}</code>
-    <RadioGroup :options="options" v-model="cities" @change="change" :direction="direction" />
+    <RadioGroup
+      :options="options"
+      v-model="cities"
+      @change="change"
+      :direction="direction"
+      theme="card"
+    />
   </Space>
 </template>
 <script setup lang="ts">
 import type { DirectionType } from "kui-vue";
 import { ref } from "vue";
 const direction = ref<DirectionType>("horizontal");
-const types = [
+const directions = [
   { label: "Vertical", value: "vertical" },
   { label: "Horizontal", value: "horizontal" },
 ];

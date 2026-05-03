@@ -1,7 +1,7 @@
 <template>
   <div>
     <Space wrap>
-      <RadioGroup v-model="placement">
+      <RadioGroup v-model="placement" theme="card" type="button">
         <Radio label="left" value="left" />
         <Radio label="top" value="top" />
         <Radio label="right" value="right" />

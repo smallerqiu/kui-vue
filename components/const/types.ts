@@ -31,6 +31,7 @@ export type BooleanType = PropType<boolean | undefined>;
 export type ButtonType = "primary" | "danger" | "warning" | "default" | "text" | "link";
 export type ThemeType = "outline" | "fill" | "default" | "solid" | "dashed" | "card";
 
+export type RadioType = "radio" | "button";
 export type DirectionType = "horizontal" | "vertical" | "inline";
 export type AlignType = "start" | "center" | "end";
 export type ColorType = PropType<(typeof colors)[number]>;
@@ -40,4 +41,4 @@ export type UploadStatusType = "success" | "error" | "uploading" | "waiting";
 export type SpinModeType = "bounce" | "flip" | "rotate" | "zoom";
 export type TriggerType = "hover" | "click" | "contextmenu";
 
-export type NoticeType = "info" | "success" | "warning" | "error";
+export type NoticeType = "info" | "success" | "warning" | "error" | "loading";

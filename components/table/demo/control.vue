@@ -3,7 +3,7 @@
     <Space wrap>
       Size:<RadioGroup v-model="size" size="small" type="button">
         <RadioButton value="large" label="Large" />
-        <RadioButton value="default" label="Default" />
+        <RadioButton value="medium" label="Medium" />
         <RadioButton value="small" label="Small" />
       </RadioGroup>
       Border: <k-switch v-model="bordered" />

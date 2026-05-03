@@ -59,9 +59,10 @@ const RadioButton = defineComponent({
 
     return () => {
       const buttonProps: Record<string, any> = {
-        ...props,
+        // ...props,
         disabled: props.disabled,
         size: props.size,
+        icon: props.icon,
         theme: props.theme,
         shape: props.shape,
         type: isChecked.value ? "primary" : "default",

@@ -37,11 +37,12 @@ export default function vitePluginKuiMd(): Plugin {
 
       // \[(.*?)\]\((.*?\.vue)\) : 匹配 [标题](./路径.vue)
       // \s*\n\s*-\s+(.*)       : 匹配换行后的横杠及其后面的描述内容
-      const demoReg = /\[(.*?)\]\((.*?\.vue)(?:\?show=(.*?))?\)\s*\n\s*-\s+(.*)/g;
+      // const demoReg = /\[(.*?)\]\((.*?\.vue)(?:\?show=(.*?))?\)\s*\n\s*-\s+(.*)/g;
+      const demoReg = /\[(.*?)\]\((.*?\.vue)(?:\?show=(.*?))?\)\s*\n((?:\s*-\s+.*(?:\n|$))+)/g;
 
       let processedMarkdown = code.replace(
         demoReg,
-        (_, title, src, direction = "horizontal", description) => {
+        (_, title, src, direction = "horizontal", descBlock) => {
           const componentName = `KuiDemo${demoCount++}`;
           const _id = "k-" + hashId(id);
 
@@ -54,16 +55,17 @@ export default function vitePluginKuiMd(): Plugin {
           highlighted = highlighted.replace(/{{/g, "&#123;&#123;").replace(/}}/g, "&#125;&#125;");
 
           demoImports.push(`import ${componentName} from '${src}';`);
-          description = markdown.render(description);
+
+          const renderedDescription = markdown.render(descBlock.replace(/-/g, ""));
           return `
 <Demo id="${_id}" direction="${direction}">
     <template #title>${title}</template>
     <template #component><${componentName} /></template>
     <template #code><pre><code class="hljs language-js">${highlighted.replace(/\n/g, "<br>")}</code></pre></template>
     <template #description>
-      ${description.trim().replace(/\n/g, "<br>")}
+      ${renderedDescription.trim().replace(/\n/g, "<br>")}
     </template>
-</Demo>`;
+</Demo>\n`;
         }
       );
 

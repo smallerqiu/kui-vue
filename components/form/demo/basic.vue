@@ -13,7 +13,7 @@
     >
       <FormItem label="Shape">
         <RadioGroup v-model="state.shape">
-          <Radio value="default" label="Default" />
+          <Radio value="round" label="Round" />
           <Radio value="circle" label="Circle" />
           <Radio value="square" label="Square" />
         </RadioGroup>
@@ -28,7 +28,7 @@
       <FormItem label="Size">
         <RadioGroup v-model="state.size" type="button">
           <RadioButton value="large" label="Large" />
-          <RadioButton value="default" label="Default" />
+          <RadioButton value="medium" label="Medium" />
           <RadioButton value="small" label="Small" />
         </RadioGroup>
       </FormItem>
@@ -36,7 +36,7 @@
         <Input placeholder="input..." />
       </FormItem>
       <FormItem label="InputNumber">
-        <InputNumber placeholder="inputnumber..." />
+        <InputNumber placeholder="input number..." />
       </FormItem>
       <FormItem label="Select">
         <Select style="width: 100%">

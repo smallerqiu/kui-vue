@@ -6,8 +6,9 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { notice, message } from "kui-vue";
-
+import { message, notice } from "kui-vue";
+import { ref } from "vue";
+const count = ref(0);
 const config = () => {
   notice.open({
     type: "success",
@@ -17,11 +18,12 @@ const config = () => {
   });
 };
 const config3 = () => {
+  count.value++;
   notice.open({
     type: "info",
     duration: 0,
     title: "Alert",
-    content: "Manually close",
+    content: `Manually close ${count.value}`,
     onClose: () => {
       message.success("I am a callback.");
     },

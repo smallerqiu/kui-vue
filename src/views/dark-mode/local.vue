@@ -120,7 +120,7 @@
                 <FormItem label="Text">
                   <TextArea placeholder="Please input..." />
                 </FormItem>
-                <FormItem :wrapperCol="{ offset: 5 }">
+                <FormItem :wrapperCol="{ offset: 8 }">
                   <Button type="primary">Submit</Button>
                   <Button style="margin-left: 10px">Cancel</Button>
                 </FormItem>

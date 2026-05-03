@@ -21,6 +21,10 @@ Globally display operation feedback information.
 
 - Set the prompt type via `type`.
 
+[Loading](./demo/loading.vue)
+
+- Perform a global loading and remove it asynchronously.
+
 [Custom Duration](./demo/close.vue)
 
 - Can be custom configured. Use `duration` to control the auto-close duration (default `3s`). Use `closable` to show a close button.
@@ -47,6 +51,6 @@ Parameter `options` is an object, specific description as follows:
 | content  | Prompt content                                                                   | String, Vnode | -       |
 | duration | Auto-close delay, in seconds, 0 means not auto-closed                            | Number        | 3       |
 | closable | Whether it can be manually closed                                                | Boolean       | false   |
-| onClose    | Callback when closing                                                            | Function      | -       |
+| onClose  | Callback when closing                                                            | Function      | -       |
 | icon     | Custom icon                                                                      | String        | -       |
 | color    | Custom icon color                                                                | String        | -       |

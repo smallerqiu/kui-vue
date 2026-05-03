@@ -1,10 +1,9 @@
 <template>
-  <Space vertical style="margin: 20px">
+  <Space vertical>
     <code>Shape : {{ shape }}</code>
     <RadioGroup v-model="shape" size="small" type="button">
-      <RadioButton value="round" label="Round" />
+      <RadioButton value="default" label="Default" />
       <RadioButton value="circle" label="Circle" />
-      <RadioButton value="square" label="Square" />
     </RadioGroup>
     <code>Theme :{{ theme }}</code>
     <RadioGroup v-model="theme" size="small" type="button">
@@ -33,7 +32,7 @@ import type { ShapeType, SizeType, ThemeType } from "kui-vue";
 import { ref } from "vue";
 const size = ref<SizeType>("medium");
 const shape = ref<ShapeType>("round");
-const theme = ref<ThemeType>("card");
+const theme = ref<ThemeType>("default");
 const value = ref(0);
 const dates = [
   { label: "1 week", value: 0 },

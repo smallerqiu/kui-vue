@@ -1,8 +1,9 @@
 import type { NoticeType } from "../const/types";
 import type { IconType } from "../icon";
-import { createInstance } from "../notice/instance";
+import type { ContentProps } from "../notice/content";
+import { createInstance, type NoticeInstance } from "../notice/instance";
 
-let messageInstance: Record<string, any> | null | undefined = null;
+let messageInstance: NoticeInstance | null = null;
 
 export interface MessageOptions {
   type?: NoticeType;
@@ -19,7 +20,8 @@ export interface MessageApi {
   success(content: string, duration?: number, onClose?: () => void): void;
   warning(content: string, duration?: number, onClose?: () => void): void;
   error(content: string, duration?: number, onClose?: () => void): void;
-  show(options: MessageOptions): void;
+  loading(content: string, duration?: number): () => void;
+  show(options: MessageOptions): () => void;
   destroy(): void;
 }
 const message: MessageApi = {
@@ -28,8 +30,8 @@ const message: MessageApi = {
     if (!messageInstance) {
       messageInstance = createInstance("message");
     }
-    const props = Object.assign(options, { noticeType: "message" });
-    messageInstance?.show(props);
+    const props = Object.assign(options, { noticeType: "message" }) as ContentProps;
+    return messageInstance?.show(props);
   },
   destroy() {
     if (messageInstance) {
@@ -38,17 +40,20 @@ const message: MessageApi = {
       messageInstance = null;
     }
   },
-  info(content: string, duration: number, onClose: () => void) {
+  info(content: string, duration?: number, onClose?: () => void) {
     return this.show({ type: "info", content, duration, onClose });
   },
-  error(content: string, duration: number, onClose: () => void) {
+  error(content: string, duration?: number, onClose?: () => void) {
     return this.show({ type: "error", content, duration, onClose });
   },
-  success(content: string, duration: number, onClose: () => void) {
+  success(content: string, duration?: number, onClose?: () => void) {
     return this.show({ type: "success", content, duration, onClose });
   },
-  warning(content: string, duration: number, onClose: () => void) {
+  warning(content: string, duration?: number, onClose?: () => void) {
     return this.show({ type: "warning", content, duration, onClose });
+  },
+  loading(content: string, duration?: number) {
+    return this.show({ type: "loading", content, duration });
   },
 };
 

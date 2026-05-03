@@ -1,21 +1,21 @@
 <template>
   <Space vertical>
-    <Button @click="alipay" :icon="LogoAlipay"></Button>
-    <Button @click="wechat" :icon="LogoWechat"></Button>
+    <Button @click="showAlipay" :icon="LogoAlipay"></Button>
+    <Button @click="showWechat" :icon="LogoWechat"></Button>
   </Space>
 </template>
 <script setup lang="ts">
-import { message } from "kui-vue";
 import { LogoAlipay, LogoWechat } from "kui-icons";
+import { message } from "kui-vue";
 
-const alipay = () => {
+const showAlipay = () => {
   message.show({
     color: "#0f87ffff",
     icon: LogoAlipay,
     content: "You have received 1,000,000 yuan via Alipay.",
   });
 };
-const wechat = () => {
+const showWechat = () => {
   message.show({
     color: "#00d76fff",
     icon: LogoWechat,

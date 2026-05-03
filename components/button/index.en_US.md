@@ -19,7 +19,7 @@ Vue.use(Button);
 
 - Use the `type` property to define a `Button`.
 
-[Theme](./demo/outline.vue)
+[Theme](./demo/theme.vue)
 
 - Use `theme` to display different appearances.
 
