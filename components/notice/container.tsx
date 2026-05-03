@@ -13,18 +13,20 @@ export default defineComponent({
 
     const show = (option: ContentProps) => {
       let { duration = 3.5, onClose, closable, noticeType } = option;
-      let key = getUuid();
-      let timer: NodeJS.Timeout;
-      let callback = (key: string) => {
+      const key = getUuid();
+      let timer: NodeJS.Timeout | undefined = undefined;
+      let callback = () => {
         typeof onClose === "function" && onClose();
         options.value = options.value.filter((item) => item.key !== key);
         clearTimeout(timer);
       };
-      duration > 0 && (timer = setTimeout(callback, duration * 1000, key));
+      duration > 0 && (timer = setTimeout(callback, duration * 1000));
       if ((closable === true && noticeType == "message") || noticeType == "notice") {
-        option.onClose = () => callback(key);
+        option.onClose = () => callback();
       }
       options.value.push({ ...option, key });
+
+      return callback;
     };
     const clean = () => {
       options.value = [];

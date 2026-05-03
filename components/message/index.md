@@ -21,6 +21,10 @@
 
 - 通过 `type` 来设置提示类型
 
+[加载中](./demo/loading.vue)
+
+- 进行全局 loading，异步自行移除。
+
 [自定义时长](./demo/close.vue)
 
 - 可以自定义配置，其中 `duration` 来控制自动关闭时长,默认 `3s` , `closable` 显示关闭按钮
@@ -47,6 +51,6 @@
 | content  | 提示内容                                                          | String,Vnode | -      |
 | duration | 自动关闭的延时，单位秒，0 为 不自动关闭                           | Number       | 3      |
 | closable | 是否可手动关闭                                                    | Boolean      | false  |
-| onClose    | 关闭时的回调                                                      | Function     | -      |
+| onClose  | 关闭时的回调                                                      | Function     | -      |
 | icon     | 自定义图标                                                        | String       | -      |
 | color    | 自定义图标颜色                                                    | String       | -      |

@@ -2,7 +2,7 @@
   <Space vertical block>
     <RadioGroup v-model="size" @change="setSize" type="button">
       <RadioButton value="large" label="large" />
-      <RadioButton value="default" label="default" />
+      <RadioButton value="medium" label="Medium" />
       <RadioButton value="small" label="small" />
     </RadioGroup>
     <br />

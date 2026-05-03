@@ -4,8 +4,12 @@
 @cardRadius: 10px;
 @component-shadow: 0 0 2px @main-9;
 @pop-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-@border-shadow:0 4px 6px rgba(0, 0, 0, 0.1),0 0 1px rgba(0, 0, 0, 0.3);
-@dark-border-shadow:0 4px 6px rgba(255, 255, 255, 0.1),0 0 1px rgba(255, 255, 255, 0.3);
+@border-shadow:
+  0 4px 6px rgba(0, 0, 0, 0.1),
+  0 0 1px rgba(0, 0, 0, 0.3);
+@dark-border-shadow:
+  04px 6px rgba(255, 255, 255, 0.1),
+  0 0 1px rgba(255, 255, 255, 0.3);
 
 // --- 功能色体系 ---
 @main: #54a9ff;
@@ -198,12 +202,22 @@
 @component-color-hover: fadeout(@component, 55%);
 @component-color-active: fadeout(@component, 50%);
 @component-color-disabled: fadeout(@component, 65%);
+//mix instead of fadeout
+// @component-color: mix(@component, @page-color, 40%);
+// @component-color-hover: mix(@component, @page-color, 45%);
+// @component-color-active: mix(@component, @page-color, 50%);
+// @component-color-disabled: mix(@component, @page-color, 35%);
 
 @dark-component: #585d64d8;
 @dark-component-color: fadeout(@dark-component, 60%);
 @dark-component-color-hover: fadeout(@dark-component, 55%);
 @dark-component-color-active: fadeout(@dark-component, 50%);
 @dark-component-color-disabled: fadeout(@dark-component, 65%);
+//
+// @dark-component-color: mix(@dark-component, @dark-page-color, 40%);
+// @dark-component-color-hover: mix(@dark-component, @dark-page-color, 45%);
+// @dark-component-color-active: mix(@dark-component, @dark-page-color, 50%);
+// @dark-component-color-disabled: mix(@dark-component, @dark-page-color, 35%);
 
 // 列表项背景色
 @item: #40464eb1;

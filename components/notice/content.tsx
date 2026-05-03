@@ -1,4 +1,4 @@
-import { CircleAlert, CircleCheck, CircleX, Info, X } from "kui-icons";
+import { CircleAlert, CircleCheck, CircleX, Info, Loading, X } from "kui-icons";
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
 import type { BooleanType, NoticeType } from "../const/types";
@@ -31,6 +31,7 @@ export default defineComponent({
         error: CircleX,
         success: CircleCheck,
         warning: CircleAlert,
+        loading: Loading,
       };
       const AlertIcon = icon ? icon : type ? icons[type] : null;
       const classes = [
@@ -43,7 +44,14 @@ export default defineComponent({
 
       const children = [];
       if (AlertIcon) {
-        children.push(<Icon type={AlertIcon} color={color} class={`k-${noticeType}-icon`} />);
+        children.push(
+          <Icon
+            type={AlertIcon}
+            color={color}
+            class={`k-${noticeType}-icon`}
+            spin={type == "loading"}
+          />
+        );
       }
       if (noticeType == "message") {
         children.push(<span>{content}</span>);

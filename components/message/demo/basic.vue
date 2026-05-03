@@ -1,11 +1,9 @@
 <template>
-  <Space vertical>
-    <Button @click="info" type="primary">Show base info </Button>
-  </Space>
+  <Button @click="info" type="primary">Show base info </Button>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
 import { message } from "kui-vue";
+import { ref } from "vue";
 let count = ref(0);
 const info = () => {
   count.value++;

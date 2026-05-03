@@ -5,8 +5,8 @@
         <Button v-for="x in 5" :key="x">Small</Button>
       </Space>
     </TabPanel>
-    <TabPanel key="2" title="Middle ">
-      <Space size="middle">
+    <TabPanel key="2" title="Medium ">
+      <Space size="medium">
         <Button size="small" v-for="x in 5" :key="x">Middle</Button>
       </Space>
     </TabPanel>

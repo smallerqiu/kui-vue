@@ -1,6 +1,6 @@
 <template>
   <Space vertical>
-    <RadioGroup v-model="size" type="button">
+    <RadioGroup v-model="size" type="button" theme="card">
       <RadioButton value="large" label="Large" />
       <RadioButton value="medium" label="Medium" />
       <RadioButton value="small" label="Small" />

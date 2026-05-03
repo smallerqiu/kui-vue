@@ -1,6 +1,6 @@
 <template>
   <Space style="max-width: 520px" vertical block>
-    <code>show %</code>
+    <code>format %</code>
     <Slider :tipFormatter="(v:number) => `${v}%`" :modelValue="20" />
     <code>hide tooltip</code>
     <Slider :tooltipVisible="false" :modelValue="20" />

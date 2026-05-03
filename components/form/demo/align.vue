@@ -2,7 +2,7 @@
   <div>
     <Form :layout="layout" :labelCol="{ span: 5 }" :wrapperCol="{ span: 6 }">
       <FormItem label="Layout">
-        <RadioGroup v-model="layout" type="button">
+        <RadioGroup v-model="layout" type="button" theme="card">
           <RadioButton value="horizontal" label="horizontal" />
           <RadioButton value="vertical" label="vertical" />
           <RadioButton value="inline" label="inline" />
@@ -12,7 +12,7 @@
         <Input />
       </FormItem>
       <FormItem label="Select">
-        <Select style="width:100%">
+        <Select style="width: 100%">
           <Option value="0" label="Apple" />
           <Option value="1" label="Banana" />
           <Option value="2" label="Orange" />
