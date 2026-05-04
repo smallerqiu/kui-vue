@@ -38,34 +38,34 @@
 
 ## TreeSelect API
 
-| 属性             | 说明                                                       | 类型                             | 默认值     |
-| ---------------- | ---------------------------------------------------------- | -------------------------------- | ---------- |
-| valueModel       | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | string,number,any[]              | -          |
-| width            | 组件宽度                                                   | string,number                    | -          |
-| placeholder      | 选择框默认文字                                             | string                           | 请选择     |
-| disabled         | 是否禁用当前项                                             | bool                             | false      |
-| size             | 组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常       | string                           | -          |
-| emptyText        | 没有数据时展示的提示                                       | string                           | '赞无数据' |
-| multiple         | 是否呈现多选模式                                           | bool                             | false      |
-| loading          | 异步加载状态                                               | bool                             | false      |
-| clearable        | 是否可以清空选项                                           | bool                             | false      |
-| bordered         | 是否显示边框                                               | bool                             | true       |
-| showArrow        | 是否显示下拉按钮                                           | bool                             | true       |
-| theme            | 主题                                                       | string                           | fill       |
-| icon             | 自定义图标                                                 | string                           | -          |
-| shape            | shape='circle' 时呈现圆角                                  | string                           | -          |
-| treeLoadData     | 异步加载数据的方法                                         | (node: TreeNode) => Promise<any> | -          |
-| treeData         | 可嵌套的节点属性的数组，生成 `tree` 的数据                 | TreeNode[]                       | [\]        |
-| treeCheckable    | 是否显示多选框                                             | bool                             | false      |
-| showLine         | 是否展示连接线                                             | bool                             | false      |
-| showIcon         | 是否展示图标                                               | bool                             | true       |
-| treeExpandedKeys | 指定展开的节点                                             | string[]                         | []         |
+| 属性             | 说明                                                       | 类型                              | 默认值     |
+| ---------------- | ---------------------------------------------------------- | --------------------------------- | ---------- |
+| valueModel       | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | string,number,any[]               | -          |
+| width            | 组件宽度                                                   | string,number                     | -          |
+| placeholder      | 选择框默认文字                                             | string                            | 请选择     |
+| disabled         | 是否禁用当前项                                             | bool                              | false      |
+| size             | 组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常       | string                            | -          |
+| emptyText        | 没有数据时展示的提示                                       | string                            | '赞无数据' |
+| multiple         | 是否呈现多选模式                                           | bool                              | false      |
+| loading          | 异步加载状态                                               | bool                              | false      |
+| clearable        | 是否可以清空选项                                           | bool                              | false      |
+| bordered         | 是否显示边框                                               | bool                              | true       |
+| showArrow        | 是否显示下拉按钮                                           | bool                              | true       |
+| theme            | 主题                                                       | string                            | fill       |
+| icon             | 自定义图标                                                 | string                            | -          |
+| shape            | shape='circle' 时呈现圆角                                  | string                            | -          |
+| treeLoadData     | 异步加载数据的方法                                         | (node: TreeNode) => Promise<any\> | -          |
+| treeData         | 可嵌套的节点属性的数组，生成 `tree` 的数据                 | TreeNode[]                        | []         |
+| treeCheckable    | 是否显示多选框                                             | bool                              | false      |
+| showLine         | 是否展示连接线                                             | bool                              | false      |
+| showIcon         | 是否展示图标                                               | bool                              | true       |
+| treeExpandedKeys | 指定展开的节点                                             | string[]                          | []         |
 
 ## Tree 事件
 
-| 属性         | 说明               | 回调参数                                                  | -   |
-| ------------ | ------------------ | --------------------------------------------------------- | --- |
-| onTreeSelect | 点击树节点时触发   | (value: string, label: string, selected: boolean) => void | -   |
-| onSearch     | 搜索时触发         | (e: InputEvent) => void                                   | -   |
-| onChange     | 值改变时触发       | (value: string\|string[]) => void                         | -   |
-| onTreeExpand | Tree节点展开时触发 | (result: TreeExpandEvent) => void                         | -   |
+| 属性         | 说明               | 回调参数                                                  |
+| ------------ | ------------------ | --------------------------------------------------------- |
+| onTreeSelect | 点击树节点时触发   | (value: string, label: string, selected: boolean) => void |
+| onSearch     | 搜索时触发         | (e: InputEvent) => void                                   |
+| onChange     | 值改变时触发       | (value: string\|string[]) => void                         |
+| onTreeExpand | Tree节点展开时触发 | (result: TreeExpandEvent) => void                         |

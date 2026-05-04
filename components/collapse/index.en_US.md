@@ -31,12 +31,12 @@ Content area that can be collapsed/expanded.
 
 ## API
 
-| Property  | Description                                                                                 | Type         | Default         |
-| --------- | ------------------------------------------------------------------------------------------- | ------------ | --------------- | --- |
-| openKeys  | The `name` of the currently expanded panel. Can use `v-model:openKeys` for two-way binding  | string[]     | -               |
-| accordion | Whether to enable accordion mode. When enabled, at most one panel can be expanded at a time | bool         | false           |
-| sample    | Whether to enable simple mode                                                               | bool         | false           |
-| onChange  | Callback triggered when switching panels, returns the `name` of the current tab             | (key: string | number) => void | -   |
+| Property  | Description                                                                                 | Type                            | Default |
+| --------- | ------------------------------------------------------------------------------------------- | ------------------------------- | ------- |
+| openKeys  | The `name` of the currently expanded panel. Can use `v-model:openKeys` for two-way binding  | string[]                        | -       |
+| accordion | Whether to enable accordion mode. When enabled, at most one panel can be expanded at a time | bool                            | false   |
+| sample    | Whether to enable simple mode                                                               | bool                            | false   |
+| onChange  | Callback triggered when switching panels, returns the `name` of the current tab             | (key: string \| number) => void | -       |
 
 ## Panel
 

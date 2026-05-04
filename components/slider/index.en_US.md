@@ -39,14 +39,14 @@ When users need to select within a numerical range/custom range, it can be conti
 ## Slider API
 
 | Property       | Description                                                                                       | Type                                | Default |
-| -------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- | --- |
+| -------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- |
 | modelValue     | Set current value (v-model)                                                                       | number, number[]                    | 0       |
 | min            | Minimum value                                                                                     | number                              | 0       |
 | max            | Maximum value                                                                                     | number                              | 100     |
 | range          | Whether to support sliding on both sides simultaneously                                           | bool                                | false   |
 | disabled       | Whether the slider is disabled                                                                    | bool                                | false   |
 | step           | Step size, must be greater than 0 and divisible by (max - min)                                    | number                              | 1       |
-| tipFormatter   | Set Tooltip display format, defaults to current value                                             | (value: number) => string           | number  | -   |
+| tipFormatter   | Set Tooltip display format, defaults to current value                                             | (value: number) => string           | number  |
 | vertical       | Whether to set direction to vertical                                                              | bool                                | false   |
 | marks          | Scale marks, key type must be number and value in closed interval [min, max]                      | Object                              | -       |
 | included       | Effective when marks is not empty object, true means inclusive relationship, false means parallel | bool                                | true    |

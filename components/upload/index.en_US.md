@@ -57,29 +57,29 @@ Uploading is the process of publishing information (web pages, text, images, vid
 
 ## Upload API
 
-| Property       | Description                                                                                                 | Type                          | Default |
-| -------------- | ----------------------------------------------------------------------------------------------------------- | ----------------------------- | ------- |
-| accept         | Accepted upload file types, see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept | string                        | -       |
-| action         | Upload address                                                                                              | string                        | -       |
-| method         | HTTP method for upload request                                                                              | string                        | post    |
-| data           | Other parameters that may be required for upload                                                            | Object                        | -       |
-| disabled       | Whether disabled                                                                                            | bool                          | false   |
-| headers        | Set upload request headers                                                                                  | Object                        | -       |
-| multiple       | Whether to support multiple file selection                                                                  | bool                          | false   |
-| directory      | Whether to support directory upload                                                                         | bool                          | false   |
-| showUploadList | Whether to show upload list                                                                                 | bool                          | true    |
-| autoTrigger    | Whether to auto upload                                                                                      | bool                          | true    |
-| draggable      | Whether to support drag and drop upload                                                                     | bool                          | false   |
-| fileList       | Uploaded file list                                                                                          | UploadFile[]                  | -       |
-| name           | File parameter name sent to backend, default `file`                                                         | string                        | 'file'  |
-| uploadIcon     | Auxiliary icon for upload area                                                                              | string                        | Add     |
-| uploadText     | Auxiliary text for upload area                                                                              | string                        | -       |
-| uploadSubText  | Secondary auxiliary text for upload area                                                                    | string                        | -       |
-| limit          | Maximum number of files allowed to upload                                                                   | number                        | -       |
-| minSize        | Minimum file size unit for upload (KB)                                                                      | string                        | -       |
-| maxSize        | Maximum file size unit for upload (KB)                                                                      | string                        | -       |
-| transformFile  | Transform file before uploading. Supports returning a Promise object                                        | (file: File) => Promise<File> | -       |
-| type           | After selecting the file to upload, the displayed format                                                    | [picture,list]                | -       |
+| Property       | Description                                                                                                 | Type                           | Default |
+| -------------- | ----------------------------------------------------------------------------------------------------------- | ------------------------------ | ------- |
+| accept         | Accepted upload file types, see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept | string                         | -       |
+| action         | Upload address                                                                                              | string                         | -       |
+| method         | HTTP method for upload request                                                                              | string                         | post    |
+| data           | Other parameters that may be required for upload                                                            | Object                         | -       |
+| disabled       | Whether disabled                                                                                            | bool                           | false   |
+| headers        | Set upload request headers                                                                                  | Object                         | -       |
+| multiple       | Whether to support multiple file selection                                                                  | bool                           | false   |
+| directory      | Whether to support directory upload                                                                         | bool                           | false   |
+| showUploadList | Whether to show upload list                                                                                 | bool                           | true    |
+| autoTrigger    | Whether to auto upload                                                                                      | bool                           | true    |
+| draggable      | Whether to support drag and drop upload                                                                     | bool                           | false   |
+| fileList       | Uploaded file list                                                                                          | UploadFile[]                   | -       |
+| name           | File parameter name sent to backend, default `file`                                                         | string                         | 'file'  |
+| uploadIcon     | Auxiliary icon for upload area                                                                              | string                         | Add     |
+| uploadText     | Auxiliary text for upload area                                                                              | string                         | -       |
+| uploadSubText  | Secondary auxiliary text for upload area                                                                    | string                         | -       |
+| limit          | Maximum number of files allowed to upload                                                                   | number                         | -       |
+| minSize        | Minimum file size unit for upload (KB)                                                                      | string                         | -       |
+| maxSize        | Maximum file size unit for upload (KB)                                                                      | string                         | -       |
+| transformFile  | Transform file before uploading. Supports returning a Promise object                                        | (file: File) => Promise<File\> | -       |
+| type           | After selecting the file to upload, the displayed format                                                    | [picture,list]                 | -       |
 
 ## Event API
 
