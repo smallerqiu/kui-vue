@@ -36,7 +36,7 @@
 | formatter  | 指定输入框展示值的格式                                     | (value: string \| number) => string | -         |
 | parser     | 指定从 formatter 里转换回数字的方式，和 formatter 搭配使用 | (value: string) => string \| number | -         |
 | size       | 输入框大小                                                 | string                              | -         |
-| disabled   | 禁用                                                       | bool                                | -         |
+| disabled   | 禁用                                                       | bool                                | false     |
 | precision  | 数值精度                                                   | number                              | -         |
 | shape      | 组件的外观                                                 | `circle` , `square`                 | -         |
 | suffix     | 自定义后缀                                                 | string,slot                         | -         |

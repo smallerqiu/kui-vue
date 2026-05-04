@@ -69,7 +69,7 @@
 | showUploadList | 是否显示上传列表                                                                                                               | bool                          | true   |
 | autoTrigger    | 是否自动上传                                                                                                                   | bool                          | true   |
 | draggable      | 是否支持拖拽上传                                                                                                               | bool                          | false  |
-| fileList       | 上传的文件列表                                                                                                                 | Array                         | false  |
+| fileList       | 上传的文件列表                                                                                                                 | UploadFile[]                  | false  |
 | name           | 发到后台的文件参数名,默认`file`                                                                                                | string                        | 'file' |
 | uploadIcon     | 上传域的辅助图标                                                                                                               | string                        | Add    |
 | uploadText     | 上传域的辅助文字                                                                                                               | string                        | -      |

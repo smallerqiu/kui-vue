@@ -28,8 +28,8 @@
 | value             | 默认初始值               | number                  | -      |
 | modelValue        | 当前数，受控值 (v-model) | number                  | -      |
 | allowClear        | 是否允许再次点击后清除   | bool                    | false  |
-| allowHalf         | 是否允许半选             | bool                    | -      |
-| showScore         | 是否显示分数             | bool                    | -      |
+| allowHalf         | 是否允许半选             | bool                    | false  |
+| showScore         | 是否显示分数             | bool                    | false  |
 | character         | 自定义字符               | string                  | -      |
 | count             | star 总数                | number                  | -      |
 | icon              | 自定义展示的图标         | Icon                    | -      |

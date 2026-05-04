@@ -35,6 +35,6 @@
 | content   | 显示的正文内容                                                                                                                                                             | slots         | -      |
 | placement | 提示框出现的位置，可选值为`top`，`top-left`，`top-right`，`bottom`，`bottom-left`，`bottom-right`，`left`，`left-top`，`left-bottom`，`right`，`right-top`，`right-bottom` | string        | top    |
 | width     | 展示的宽度,默认为内容区域的大小                                                                                                                                            | string,number | -      |
-| show      | 默认是否展示                                                                                                                                                               | bool          | -      |
+| show      | 默认是否展示                                                                                                                                                               | bool          | false  |
 | dark      | 是否使用暗色主题                                                                                                                                                           | bool          | false  |
 | onClose   | 关闭时的回调                                                                                                                                                               | () => void    | -      |

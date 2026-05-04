@@ -39,12 +39,12 @@ Two concepts: row `row` and column `col`. Specific usage is as follows:
 
 ## Row API
 
-| Property | Description                                                                                                            | Type          | Default |
-| -------- | ---------------------------------------------------------------------------------------------------------------------- | ------------- | ------- |
-| align    | Vertical alignment in flex layout: `top` `middle` `bottom`                                                             | string        | `top`   |
-| justify  | Horizontal arrangement in flex layout: `start` `end` `center` `space-around` `space-between`                           | string        | `start` |
-| gutter   | Grid spacing, in px, evenly distributed left and right. Use array format to set [horizontal spacing, vertical spacing] | number, Array | -       |
-| type     | Layout mode, optional flex, effective in modern browsers                                                               | string        |         |
+| Property | Description                                                                                                            | Type             | Default |
+| -------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------- | ------- |
+| align    | Vertical alignment in flex layout: `top` `middle` `bottom`                                                             | string           | `top`   |
+| justify  | Horizontal arrangement in flex layout: `start` `end` `center` `space-around` `space-between`                           | string           | `start` |
+| gutter   | Grid spacing, in px, evenly distributed left and right. Use array format to set [horizontal spacing, vertical spacing] | number, number[] | -       |
+| type     | Layout mode, optional flex, effective in modern browsers                                                               | string           |         |
 
 ## Col API
 

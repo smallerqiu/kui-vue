@@ -40,7 +40,7 @@ When users need to select within a numerical range/custom range, it can be conti
 
 | Property       | Description                                                                                       | Type                                | Default |
 | -------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- | --- |
-| modelValue     | Set current value (v-model)                                                                       | number, Array                       | 0       |
+| modelValue     | Set current value (v-model)                                                                       | number, number[]                    | 0       |
 | min            | Minimum value                                                                                     | number                              | 0       |
 | max            | Maximum value                                                                                     | number                              | 100     |
 | range          | Whether to support sliding on both sides simultaneously                                           | bool                                | false   |

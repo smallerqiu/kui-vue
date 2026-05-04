@@ -38,7 +38,7 @@
 
 | 属性          | 说明                                                         | 类型                             | 默认值 |
 | ------------- | ------------------------------------------------------------ | -------------------------------- | ------ |
-| data          | 可嵌套的节点属性的数组，生成 `tree` 的数据                   | Array                            | []     |
+| data          | 可嵌套的节点属性的数组，生成 `tree` 的数据                   | TreeNode[]                       | []     |
 | checkable     | 是否显示多选框                                               | bool                             | false  |
 | draggable     | 是否可以拖拽                                                 | bool                             | false  |
 | showLine      | 是否展示连接线                                               | bool                             | false  |
@@ -46,9 +46,9 @@
 | extra         | 扩展元素                                                     | slot(node)                       | -      |
 | showExtra     | 是否默认展示扩展元素                                         | bool                             | false  |
 | checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | bool                             | false  |
-| checkedKeys   | 选中复选框的树节点                                           | Array                            | []     |
-| expandedKeys  | 指定展开的节点                                               | Array                            | []     |
-| selectedKeys  | 选中的节点                                                   | Array                            | []     |
+| checkedKeys   | 选中复选框的树节点                                           | string[]                         | []     |
+| expandedKeys  | 指定展开的节点                                               | string[]                         | []     |
+| selectedKeys  | 选中的节点                                                   | string[]                         | []     |
 | multiple      | 是否支持多选                                                 | bool                             | false  |
 | loading       | 异步加载状态                                                 | bool                             | false  |
 | loadData      | 异步加载数据的方法                                           | (node: TreeNode) => Promise<any> | -      |
@@ -56,13 +56,13 @@
 
 ## TreeNode API
 
-| 属性     | 说明                                                                     | 类型   | 默认值 |
-| -------- | ------------------------------------------------------------------------ | ------ | ------ |
-| title    | 节点标题                                                                 | string | -      |
-| icon     | 自定义图标                                                               | string | -      |
-| disabled | 是否禁用节点                                                             | bool   | false  |
-| children | 子节点                                                                   | Array  | -      |
-| isLeaf   | 设置为叶子节点 (设置了 loadData 时有效)。为 false 时会强制将其作为父节点 | bool   | false  |
+| 属性     | 说明                                                                     | 类型       | 默认值 |
+| -------- | ------------------------------------------------------------------------ | ---------- | ------ |
+| title    | 节点标题                                                                 | string     | -      |
+| icon     | 自定义图标                                                               | string     | -      |
+| disabled | 是否禁用节点                                                             | bool       | false  |
+| children | 子节点                                                                   | TreeNode[] | -      |
+| isLeaf   | 设置为叶子节点 (设置了 loadData 时有效)。为 false 时会强制将其作为父节点 | bool       | false  |
 
 ## Tree 事件
 

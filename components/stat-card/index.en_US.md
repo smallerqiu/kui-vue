@@ -25,26 +25,26 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 | Property       | Description                                              | Type                | Default   |
 | -------------- | -------------------------------------------------------- | ------------------- | --------- |
 | title          | Card title                                               | string              | -         |
-| items          | Data to display                                          | Array               | []        |
+| items          | Data to display                                          | StatNumberItem[]    | []        |
 | precision      | Numerical precision                                      | number              | 0         |
 | statNumberType | Numerical change type                                    | `rollup`, `countup` | 'countup' |
 | separator      | Separator                                                | string              | -         |
-| reverse        | Whether to reverse number/number description arrangement | bool             | false     |
-| bordered       | Show border or not                                       | bool             | false     |
+| reverse        | Whether to reverse number/number description arrangement | bool                | false     |
+| bordered       | Show border or not                                       | bool                | false     |
 
 ### items Options
 
-| Property        | Description                                       | Type    | Default |
-| --------------- | ------------------------------------------------- | ------- | ------- |
-| value           | Numerical value                                   | number  | -       |
-| desc            | Numerical description                             | string  | []      |
-| prefix          | Prefix content of numerical value                 | string  | -       |
-| suffix          | Suffix content of numerical value                 | string  | -       |
-| precision       | Numerical precision                               | number  | 0       |
-| separator       | Separator                                         | string  | -       |
-| duration        | Numerical dynamic display time (seconds)          | number  | 1.2     |
-| autoAnimate     | Trigger animation when target becomes visible     | bool | true    |
-| autoAnimateOnce | Run animation only once for auto-animate triggers | bool | true    |
+| Property        | Description                                       | Type   | Default |
+| --------------- | ------------------------------------------------- | ------ | ------- |
+| value           | Numerical value                                   | number | -       |
+| desc            | Numerical description                             | string | []      |
+| prefix          | Prefix content of numerical value                 | string | -       |
+| suffix          | Suffix content of numerical value                 | string | -       |
+| precision       | Numerical precision                               | number | 0       |
+| separator       | Separator                                         | string | -       |
+| duration        | Numerical dynamic display time (seconds)          | number | 1.2     |
+| autoAnimate     | Trigger animation when target becomes visible     | bool   | true    |
+| autoAnimateOnce | Run animation only once for auto-animate triggers | bool   | true    |
 
 ## StatNumber API
 
@@ -57,5 +57,5 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 | precision       | Numerical precision                               | number              | 0         |
 | type            | Numerical change type                             | `rollup`, `countup` | 'countup' |
 | separator       | Separator                                         | string              | -         |
-| autoAnimate     | Trigger animation when target becomes visible     | bool             | true      |
-| autoAnimateOnce | Run animation only once for auto-animate triggers | bool             | true      |
+| autoAnimate     | Trigger animation when target becomes visible     | bool                | true      |
+| autoAnimateOnce | Run animation only once for auto-animate triggers | bool                | true      |

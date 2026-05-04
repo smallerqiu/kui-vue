@@ -28,7 +28,7 @@ npm install --save kui-icons
 
 | 属性        | 说明                                | 类型              | 默认值 |
 | ----------- | ----------------------------------- | ----------------- | ------ |
-| type        | 图标类型。遵循图标的命名规范        | Array             | -      |
+| type        | 图标类型。遵循图标的命名规范        | IconPath[]        | -      |
 | size        | 图标的大小，单位是 px               | string,number     | -      |
 | color       | 图标的颜色                          | string            | -      |
 | spin        | 是否有旋转动画                      | bool              | false  |
