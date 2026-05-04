@@ -35,34 +35,35 @@
 
 ## Select API
 
-| 属性        | 说明                                                       | 类型                            | 默认值     |
-| ----------- | ---------------------------------------------------------- | ------------------------------- | ---------- |
-| value       | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | String,Number                   | -          |
-| width       | 组件宽度                                                   | String,Number                   | -          |
-| placeholder | 选择框默认文字                                             | String                          | 请选择     |
-| disabled    | 是否禁用当前项                                             | Boolean                         | false      |
-| size        | 组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常       | String                          | -          |
-| emptyText   | 没有数据时展示的提示                                       | String                          | '赞无数据' |
-| maxTagCount | 最多展示多少个tag,超出部分以点点点展示                     | Number                          | -          |
-| multiple    | 是否呈现多选模式                                           | Boolean                         | false      |
-| loading     | 是否显示异步加载                                           | Boolean                         | false      |
-| clearable   | 是否可以清空选项                                           | Boolean                         | false      |
-| bordered    | 是否显示边框                                               | Boolean                         | true       |
-| extendWidth | 下拉框的宽度是否与input一致                                | Boolean                         | true       |
-| showArrow   | 是否显示下拉按钮                                           | Boolean                         | true       |
-| onChange    | 在选项状态发生改变时触发,,返回选择的值value                | Function(value)                 | -          |
-| onSelect    | 选中一项时触发                                             | Function({value,label,checked}) | -          |
-| openChange  | 下拉框展开或收起时触发                                     | Function                        | -          |
-| options     | options 数据，如果设置则不需要手动构造 Option 节点         | Array <{value,label,disabled}>  | []         |
-| theme       | 主题                                                       | String                          | fill       |
-| icon        | 自定义图标                                                 | String                          | -          |
-| shape       | shape='circle' 时呈现圆角                                  | String                          | -          |
+| 属性         | 说明                                                       | 类型                                       | 默认值     |
+| ------------ | ---------------------------------------------------------- | ------------------------------------------ | ---------- |
+| value        | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | string,number                              | -          |
+| width        | 组件宽度                                                   | string,number                              | -          |
+| placeholder  | 选择框默认文字                                             | string                                     | 请选择     |
+| disabled     | 是否禁用当前项                                             | bool                                       | false      |
+| size         | 组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常       | string                                     | -          |
+| emptyText    | 没有数据时展示的提示                                       | string                                     | '赞无数据' |
+| maxTagCount  | 最多展示多少个tag,超出部分以点点点展示                     | number                                     | -          |
+| multiple     | 是否呈现多选模式                                           | bool                                       | false      |
+| loading      | 是否显示异步加载                                           | bool                                       | false      |
+| clearable    | 是否可以清空选项                                           | bool                                       | false      |
+| bordered     | 是否显示边框                                               | bool                                       | true       |
+| extendWidth  | 下拉框的宽度是否与input一致                                | bool                                       | true       |
+| showArrow    | 是否显示下拉按钮                                           | bool                                       | true       |
+| options      | options 数据，如果设置则不需要手动构造 Option 节点         | Array <{value,label,disabled}>             | []         |
+| theme        | 主题                                                       | string                                     | fill       |
+| icon         | 自定义图标                                                 | string                                     | -          |
+| shape        | shape='circle' 时呈现圆角                                  | string                                     | -          |
+| onSelect     | 选中一项时触发                                             | (option: SelectOption) => void             | -          |
+| onChange     | 在选项状态发生改变时触发,,返回选择的值value                | (value: string \| number \| any[]) => void | -          |
+| onSearch     | 搜索时触发                                                 | (e: InputEvent) => void                    | -          |
+| onOpenChange | 下拉框展开或收起时触发                                     | (opened: boolean) => void                  | -          |
 
 ## Option API
 
 | 属性     | 说明                                                                                         | 类型          | 默认值 |
 | -------- | -------------------------------------------------------------------------------------------- | ------------- | ------ |
-| key      | 和 value 含义一致。如果 Vue 需要你设置此项，此项值与 value 的值相同，然后可以省略 value 设置 | String,Number | -      |
-| value    | 选项值，默认根据此属性值进行筛选，必填                                                       | String,Number | -      |
-| label    | 选项显示的内容                                                                               | String,Number | -      |
-| disabled | 是否禁用当前项                                                                               | Boolean       | false  |
+| key      | 和 value 含义一致。如果 Vue 需要你设置此项，此项值与 value 的值相同，然后可以省略 value 设置 | string,number | -      |
+| value    | 选项值，默认根据此属性值进行筛选，必填                                                       | string,number | -      |
+| label    | 选项显示的内容                                                                               | string,number | -      |
+| disabled | 是否禁用当前项                                                                               | bool          | false  |

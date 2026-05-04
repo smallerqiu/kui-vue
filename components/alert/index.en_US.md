@@ -29,11 +29,11 @@ Warning prompts to display information that needs attention.
 
 | Property    | Description                                                                      | Type         | Default |
 | ----------- | -------------------------------------------------------------------------------- | ------------ | ------- |
-| type        | Alert type, optional values are `success`, `info`, `warning`, `error` or not set | String       | warning |
-| message     | Alert content                                                                    | String，Slot | -       |
-| description | Auxiliary text introduction for the alert                                        | String       | -       |
-| showIcon    | Whether to show the icon                                                         | Boolean      | false   |
-| closable    | Whether to show the close button                                                 | Boolean      | false   |
-| bordered    | Whether to display the border                                                    | Boolean      | false   |
-| onClose     | Callback function triggered when closing                                         | Function     | -       |
+| type        | Alert type, optional values are `success`, `info`, `warning`, `error` or not set | string       | warning |
+| message     | Alert content                                                                    | string，Slot | -       |
+| description | Auxiliary text introduction for the alert                                        | string       | -       |
+| showIcon    | Whether to show the icon                                                         | bool         | false   |
+| closable    | Whether to show the close button                                                 | bool         | false   |
+| bordered    | Whether to display the border                                                    | bool         | false   |
+| onClose     | Callback function triggered when closing                                         | ()=>void     | -       |
 | icon        | Custom icon                                                                      | Array        | -       |

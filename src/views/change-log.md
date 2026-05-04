@@ -15,6 +15,23 @@ vite 好像有缓存, 可手动清除
 rm -rf node_modules/.vite
 ```
 
+## 5.1.0
+
+`2026-5-4`
+
+- 新增`Splitter` 组件
+- `CheckBox`,`Switch` 组件优化,支持输出`bool`(true / false), `number`(0 / 1)
+- `message` 新增 `loading`函数
+- `RadioGroup` 优化
+- 表单验证优化
+- 一些组件属性`light` 值改为 `fill`
+
+## 5.0.1
+
+`2026-4-28`
+
+- TS 增强
+
 ## 5.0.0
 
 `2026-4-27`

@@ -43,23 +43,24 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 
 ## Input API
 
-| Property            | Description                                                         | Type           | Default |
-| ------------------- | ------------------------------------------------------------------- | -------------- | ------- |
-| value               | Bound value, can use `v-model` for two-way binding                  | String, Number | -       |
-| size                | Button size, optional values `small`, `large`, default not selected | String         | -       |
-| icon                | Input box icon                                                      | String         | -       |
-| suffix              | Extension suffix                                                    | String, Slot   | -       |
-| prefix              | Extension prefix                                                    | String, Slot   | -       |
-| search              | Search event callback                                               | Function       | right   |
-| theme               | The theme of Input                                                  | String         | fill    |
-| clearable           | Whether to show the clear button                                    | Boolean        | false   |
-| visiblePassword     | Password initially displayed in plain text                          | Boolean        | false   |
-| visiblePasswordIcon | Whether to show the toggle button or control password visibility    | Boolean        | true    |
+| Property            | Description                                                         | Type                    | Default |
+| ------------------- | ------------------------------------------------------------------- | ----------------------- | ------- |
+| value               | Bound value, can use `v-model` for two-way binding                  | string, number          | -       |
+| size                | Button size, optional values `small`, `large`, default not selected | string                  | -       |
+| icon                | Input box icon                                                      | string                  | -       |
+| suffix              | Extension suffix                                                    | string, Slot            | -       |
+| prefix              | Extension prefix                                                    | string, Slot            | -       |
+| theme               | The theme of Input                                                  | string                  | fill    |
+| clearable           | Whether to show the clear button                                    | bool                    | false   |
+| visiblePassword     | Password initially displayed in plain text                          | bool                    | false   |
+| visiblePasswordIcon | Whether to show the toggle button or control password visibility    | bool                    | true    |
+| onSearch            | Search event callback                                               | (value: string) => void | -       |
+| onIconClick         | Callback for icon click event                                       | (e: Event) => void      | -       |
 
 ## Input Group API
 
-| Property | Description                                                                         | Type    | Default |
-| -------- | ----------------------------------------------------------------------------------- | ------- | ------- |
-| block    | Whether to inherit the parent width                                                 | Boolean | false   |
-| compact  | Whether to use compact mode                                                         | Boolean | false   |
-| size     | Spacing of child components, optional values `small`, `large`, default not selected | String  | -       |
+| Property | Description                                                                         | Type   | Default |
+| -------- | ----------------------------------------------------------------------------------- | ------ | ------- |
+| block    | Whether to inherit the parent width                                                 | bool   | false   |
+| compact  | Whether to use compact mode                                                         | bool   | false   |
+| size     | Spacing of child components, optional values `small`, `large`, default not selected | string | -       |

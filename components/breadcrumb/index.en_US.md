@@ -26,7 +26,7 @@ Displays the current page's position in the system hierarchy and allows navigati
 
 | Property  | Description                                                                   | Type    | Default |
 | --------- | ----------------------------------------------------------------------------- | ------- | ------- |
-| separator | Custom separator                                                              | String  | /       |
-| href      | Custom link function, used with `vue-router`                                  | String  | -       |
-| replace   | When routing jumps, enabling `replace` will not add a new record to `history` | Boolean | false   |
-| icon      | Button icon                                                                   | String  | -       |
+| separator | Custom separator                                                              | string  | /       |
+| href      | Custom link function, used with `vue-router`                                  | string  | -       |
+| replace   | When routing jumps, enabling `replace` will not add a new record to `history` | bool | false   |
+| icon      | Button icon                                                                   | string  | -       |

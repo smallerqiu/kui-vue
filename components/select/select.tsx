@@ -67,6 +67,7 @@ export const selectProps = {
   onSearch: Function as PropType<(e: InputEvent) => void>,
   onChange: Function as PropType<(value: string | number | any[]) => void>,
   onSelect: Function as PropType<(option: SelectOption) => void>,
+  onOpenChange: Function as PropType<(opened: boolean) => void>,
 };
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>;

@@ -29,6 +29,6 @@
 
 | Attribute | Description                                                       | Type            | Default |
 | --------- | ----------------------------------------------------------------- | --------------- | ------- |
-| size      | Width                                                             | [Number,String] | -       |
-| min       | Minimum threshold, supports numeric px or text 'percentage%' type | [Number,String] | -       |
-| max       | Maximum threshold, supports numeric px or text 'percentage%' type | [Number,String] | -       |
+| size      | Width                                                             | [number,string] | -       |
+| min       | Minimum threshold, supports numeric px or text 'percentage%' type | [number,string] | -       |
+| max       | Maximum threshold, supports numeric px or text 'percentage%' type | [number,string] | -       |

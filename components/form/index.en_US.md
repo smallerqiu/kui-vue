@@ -72,38 +72,43 @@ export default {
 | Property   | Description                                                                                           | Type                           | Default    |
 | ---------- | ----------------------------------------------------------------------------------------------------- | ------------------------------ | ---------- |
 | model      | Form data object                                                                                      | Object                         | -          |
-| rules      | Form validation rules                                                                                 | Boolean                        | false      |
-| name       | Form name, will be used as the id prefix for form fields                                              | String                         | -          |
+| rules      | Form validation rules                                                                                 | bool                           | false      |
+| name       | Form name, will be used as the id prefix for form fields                                              | string                         | -          |
 | labelCol   | Label layout, same as the `<Col>` component, set span offset values, such as {span: 3, offset: 12}    | {span:number,offset:number}    | -          |
 | wrapperCol | Control layout, same as the `<Col>` component, set span offset values, such as {span: 15, offset: 12} | {span:number,offset:number}    | -          |
-| submit     | Submit the form and validate. Triggered when manually submitting the form                             | Function({valid, model})       | -          |
-| onChange   | Triggered when form data changes                                                                      | Function(model)                | -          |
-| test       | Method to validate a single field of the form                                                         | Function                       | -          |
-| reset      | Reset the entire form, reset all field values to empty and remove validation results                  | Function                       | -          |
-| theme      | The component renders the theme                                                                       | String                         | -          |
-| size       | Sub component size                                                                                    | String                         | -          |
+| theme      | The component renders the theme                                                                       | string                         | -          |
+| size       | Sub component size                                                                                    | string                         | -          |
 | layout     | Form layout                                                                                           | [horizontal ,vertical ,inline] | horizontal |
 | shape      | Sub component shape                                                                                   | [circle,square]                | horizontal |
-| disabled   | Whether the form is enabled                                                                           | Boolean                        | true       |
-| onSubmit   | Trigger event when submitting the form                                                                | Function                       | -          |
-| onChange   | Trigger event when form data changes                                                                  | Function(model)                | -          |
+| disabled   | Whether the form is enabled                                                                           | bool                           | true       |
+| onReset    | Reset the entire form, reset all field values to empty and remove validation results                  | ()=> void                      | -          |
+| onSubmit   | Trigger event when submitting the form                                                                | (e: FormSubmitEvent) => void   | -          |
+
+## Form Expose API
+
+| Property | Description                                                                      | Type                                                     | Default |
+| -------- | -------------------------------------------------------------------------------- | -------------------------------------------------------- | ------- |
+| test     | Method for validating a single field in a form                                   | (key:string)=>void                                       | -       |
+| reset    | Reset the entire form, clearing all field values and removing validation results | ()=>void                                                 | -       |
+| submit   | Submit the form and validate                                                     | ()=>void                                                 | -       |
+| validate | Validate the form                                                                | (callback?: (result: { valid: boolean }) => void) =>void | -       |
 
 ## FormItem API
 
 | Property | Description                                                                     | Type   | Default |
 | -------- | ------------------------------------------------------------------------------- | ------ | ------- |
-| prop     | Corresponds to the field in the form domain model. Required for form validation | String | -       |
-| label    | Label text                                                                      | String | -       |
+| prop     | Corresponds to the field in the form domain model. Required for form validation | string | -       |
+| label    | Label text                                                                      | string | -       |
 | rules    | Form validation rules                                                           | Array  | -       |
 
 ## rules API
 
-| Property  | Description                                                                                                                                                                                    | Type     | Default |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------- |
-| required  | Whether it is a required field                                                                                                                                                                 | Boolean  | false   |
-| message   | Prompt message when validation fails                                                                                                                                                           | String   | -       |
-| validator | Custom validation method, see example                                                                                                                                                          | Function | -       |
-| type      | Data type validation. Provides three validation methods: `mobile` (phone), `mail` (email), `number` (numeric type judgment)                                                                    | String   | -       |
-| pattern   | Custom regular expression validation. For example, password strength containing numbers, letters, and special symbols can be written as `/(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,20}/` | String   | -       |
-| min       | Minimum field length validation                                                                                                                                                                | Number   | -       |
-| max       | Maximum field length validation                                                                                                                                                                | Number   | -       |
+| Property  | Description                                                                                                                                                                                    | Type                                                                    | Default |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ------- |
+| required  | Whether it is a required field                                                                                                                                                                 | bool                                                                    | false   |
+| message   | Prompt message when validation fails                                                                                                                                                           | string                                                                  | -       |
+| validator | Custom validation method, see example                                                                                                                                                          | (rule: FormRule, value: any, callback: (error?: Error) => void) => void | -       |
+| type      | Data type validation. Provides three validation methods: `mobile` (phone), `mail` (email), `number` (numeric type judgment)                                                                    | string                                                                  | -       |
+| pattern   | Custom regular expression validation. For example, password strength containing numbers, letters, and special symbols can be written as `/(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,20}/` | string                                                                  | -       |
+| min       | Minimum field length validation                                                                                                                                                                | number                                                                  | -       |
+| max       | Maximum field length validation                                                                                                                                                                | number                                                                  | -       |

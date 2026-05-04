@@ -56,37 +56,37 @@
 
 ## Upload API
 
-| 属性           | 说明                                                                                                                           | 类型                   | 默认值 |
-| -------------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------------- | ------ |
-| accept         | 接受上传的文件类型, 详见 [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) | String                 | -      |
-| action         | 上传的地址                                                                                                                     | String                 | -      |
-| method         | 上传请求的 http method                                                                                                         | String                 | post   |
-| data           | 上传可能所需的其它参数                                                                                                         | Object                 | -      |
-| disabled       | 是否禁用                                                                                                                       | Boolean                | false  |
-| headers        | 设置上传的请求头部                                                                                                             | Object                 | -      |
-| multiple       | 是否支持多选文件                                                                                                               | Boolean                | false  |
-| directory      | 是否支持上传目录                                                                                                               | Boolean                | false  |
-| showUploadList | 是否显示上传列表                                                                                                               | Boolean                | true   |
-| autoTrigger    | 是否自动上传                                                                                                                   | Boolean                | true   |
-| draggable      | 是否支持拖拽上传                                                                                                               | Boolean                | false  |
-| fileList       | 上传的文件列表                                                                                                                 | Array                  | false  |
-| name           | 发到后台的文件参数名,默认`file`                                                                                                | String                 | 'file' |
-| uploadIcon     | 上传域的辅助图标                                                                                                               | String                 | Add    |
-| uploadText     | 上传域的辅助文字                                                                                                               | String                 | -      |
-| uploadSubText  | 上传域的二级辅助文字                                                                                                           | String                 | -      |
-| limit          | 最多允许上传文件个数                                                                                                           | Number                 | -      |
-| minSize        | 上传文件最小单位(KB)                                                                                                           | String                 | -      |
-| maxSize        | 上传文件最大单位(KB)                                                                                                           | String                 | -      |
-| transformFile  | 在上传之前转换文件。支持返回一个 Promise 对象                                                                                  | Promise Function(file) | -      |
-| type           | 选择上传文件之后, 所呈现的形式                                                                                                 | [picture,list]         | -      |
+| 属性           | 说明                                                                                                                           | 类型                          | 默认值 |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------- | ------ |
+| accept         | 接受上传的文件类型, 详见 [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) | string                        | -      |
+| action         | 上传的地址                                                                                                                     | string                        | -      |
+| method         | 上传请求的 http method                                                                                                         | string                        | post   |
+| data           | 上传可能所需的其它参数                                                                                                         | Object                        | -      |
+| disabled       | 是否禁用                                                                                                                       | bool                          | false  |
+| headers        | 设置上传的请求头部                                                                                                             | Object                        | -      |
+| multiple       | 是否支持多选文件                                                                                                               | bool                          | false  |
+| directory      | 是否支持上传目录                                                                                                               | bool                          | false  |
+| showUploadList | 是否显示上传列表                                                                                                               | bool                          | true   |
+| autoTrigger    | 是否自动上传                                                                                                                   | bool                          | true   |
+| draggable      | 是否支持拖拽上传                                                                                                               | bool                          | false  |
+| fileList       | 上传的文件列表                                                                                                                 | Array                         | false  |
+| name           | 发到后台的文件参数名,默认`file`                                                                                                | string                        | 'file' |
+| uploadIcon     | 上传域的辅助图标                                                                                                               | string                        | Add    |
+| uploadText     | 上传域的辅助文字                                                                                                               | string                        | -      |
+| uploadSubText  | 上传域的二级辅助文字                                                                                                           | string                        | -      |
+| limit          | 最多允许上传文件个数                                                                                                           | number                        | -      |
+| minSize        | 上传文件最小单位(KB)                                                                                                           | string                        | -      |
+| maxSize        | 上传文件最大单位(KB)                                                                                                           | string                        | -      |
+| transformFile  | 在上传之前转换文件。支持返回一个 Promise 对象                                                                                  | (file: File) => Promise<File> | -      |
+| type           | 选择上传文件之后, 所呈现的形式                                                                                                 | [picture,list]                | -      |
 
 ## Event API
 
-| 属性           | 说明                          | 属性                      |
-| -------------- | ----------------------------- | ------------------------- |
-| onChange       | 上传中、完成、失败都会触发    | Function({item,fileList}) |
-| onSelectFiles  | 选中文件时触发,返回选中的文件 | Function(fileList)        |
-| onRemove       | 移除文件回调                  | Function({item,fileList}) |
-| onExceed       | limit异常时回调               | Function({item,fileList}) |
-| onSizeError    | minSize, maxSize异常时回调    | Function({item,fileList}) |
-| onBeforeUpdate | 上传之前的回调                | Function({item,fileList}) |
+| 属性           | 说明                          | 属性                                   |
+| -------------- | ----------------------------- | -------------------------------------- |
+| onChange       | 上传中、完成、失败都会触发    | (event: UploadChangeEvent) => void     |
+| onSelectFiles  | 选中文件时触发,返回选中的文件 | (files: UploadFile[]) => void          |
+| onRemove       | 移除文件回调                  | (event: UploadChangeEvent) => void     |
+| onExceed       | limit异常时回调               | () => void                             |
+| onSizeError    | minSize, maxSize异常时回调    | (event: UploadChangeEvent) => void     |
+| onBeforeUpdate | 上传之前的回调                | (item: UploadFile, file: File) => void |

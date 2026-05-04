@@ -28,22 +28,22 @@ A floating panel that slides in from the edge of the screen.
 
 ## API
 
-| Property     | Description                                                                                       | Type           | Default |
-| ------------ | ------------------------------------------------------------------------------------------------- | -------------- | ------- |
-| modelValue   | Whether the dialog is displayed, can use v-model for two-way binding.                             | Boolean        | false   |
-| escKey       | Whether to support closing with Esc key                                                           | Boolean        | true    |
-| maskClosable | Whether clicking the mask allows closing                                                          | Boolean        | false   |
-| title        | Drawer title. When null or false, the title is not displayed                                      | String         | -       |
-| width        | Drawer width, used when `placement` is `left` or `right`, supports percentage                     | Number, String | 520     |
-| height       | Drawer height, used when `placement` is `top` or `bottom`, supports percentage                    | Number, String | 256     |
-| placement    | The display direction of the drawer. Provides 4 display methods: `left`, `top`, `right`, `bottom` | String         | right   |
-| footer       | Footer content. Set `footer=null` to not display the footer                                       | slot           | true    |
-| closable     | Whether to show the close button                                                                  | Boolean        | true    |
-| target       | The parent element to display                                                                     | Function       | -       |
-| okText       | OK button text                                                                                    | String         | OK      |
-| cancelText   | Cancel button text                                                                                | String         | Cancel  |
-| onOk         | Callback when OK is clicked                                                                       | Function       | -       |
-| onCancel     | Callback when Cancel is clicked                                                                   | Function       | -       |
-| onClose      | Callback when the drawer closes                                                                   | Function       | -       |
-| mask         | Whether to show the mask                                                                          | Boolean        | true    |
-| loading      | When set to `true`, the confirm button will be in a loading state                                 | Boolean        | false   |
+| Property     | Description                                                                                       | Type              | Default             |
+| ------------ | ------------------------------------------------------------------------------------------------- | ----------------- | ------------------- |
+| modelValue   | Whether the dialog is displayed, can use v-model for two-way binding.                             | bool              | false               |
+| escKey       | Whether to support closing with Esc key                                                           | bool              | true                |
+| maskClosable | Whether clicking the mask allows closing                                                          | bool              | false               |
+| title        | Drawer title. When null or false, the title is not displayed                                      | string            | -                   |
+| width        | Drawer width, used when `placement` is `left` or `right`, supports percentage                     | number, string    | 520                 |
+| height       | Drawer height, used when `placement` is `top` or `bottom`, supports percentage                    | number, string    | 256                 |
+| placement    | The display direction of the drawer. Provides 4 display methods: `left`, `top`, `right`, `bottom` | string            | right               |
+| footer       | Footer content. Set `footer=null` to not display the footer                                       | slot              | true                |
+| closable     | Whether to show the close button                                                                  | bool              | true                |
+| target       | The parent element to display                                                                     | () => HTMLElement | () => document.body |
+| okText       | OK button text                                                                                    | string            | OK                  |
+| cancelText   | Cancel button text                                                                                | string            | Cancel              |
+| onOk         | Callback when OK is clicked                                                                       | () => void        | -                   |
+| onCancel     | Callback when Cancel is clicked                                                                   | () => void        | -                   |
+| onClose      | Callback when the drawer closes                                                                   | () => void        | -                   |
+| mask         | Whether to show the mask                                                                          | bool              | true                |
+| loading      | When set to `true`, the confirm button will be in a loading state                                 | bool              | false               |

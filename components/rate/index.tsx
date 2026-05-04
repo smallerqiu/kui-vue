@@ -10,6 +10,7 @@ import { type BooleanType, type SizeType } from "../const/types";
 import type { IconType } from "../icon";
 import Star from "./star";
 export const rateProps = {
+  value: { type: Number, default: 0 },
   modelValue: { type: Number, default: 0 },
   allowClear: { type: Boolean as BooleanType, default: true },
   allowHalf: Boolean as BooleanType,
@@ -34,7 +35,7 @@ const Rate = defineComponent({
   name: "Rate",
   props: rateProps,
   setup(props, { emit }) {
-    const initValue = ref(props.modelValue);
+    const initValue = ref(props.modelValue || props.value);
     const tempValue = ref<number | null>(null);
     const cleared = ref(false);
 

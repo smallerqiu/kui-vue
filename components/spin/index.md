@@ -24,7 +24,7 @@
 
 | 属性       | 说明                                          | 类型                  | 默认值 |
 | ---------- | --------------------------------------------- | --------------------- | ------ |
-| modelValue | 是否加载状态，可以使用 `v-model` 双向绑定数据 | Boolean               | false  |
-| mode       | 展示spin类型,提供4中展示方式                  | String                | -      |
-| delay      | 延迟显示加载效果的时间（防止闪烁）            | Number (毫秒)         | 500    |
+| modelValue | 是否加载状态，可以使用 `v-model` 双向绑定数据 | bool               | false  |
+| mode       | 展示spin类型,提供4中展示方式                  | string                | -      |
+| delay      | 延迟显示加载效果的时间（防止闪烁）            | number (毫秒)         | 500    |
 | size       | 设置加载效果的大小                            | `large,default,small` | -      |
