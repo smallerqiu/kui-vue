@@ -169,6 +169,9 @@ export type { ColProps, RowProps } from "./row-col";
 export { default as Upload } from "./upload";
 export type { UploadChangeEvent, UploadContext, UploadFile, UploadProps } from "./upload";
 
+export { Splitter, SplitterPanel } from "./splitter";
+export type { SplitterPanelProps, SplitterProps } from "./splitter";
+
 export { default as theme } from "./utils/theme";
 
 export type {

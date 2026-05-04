@@ -5,10 +5,9 @@ import "../components/styles/index.less";
 import App from "./App.vue";
 import "./assets/css/demo.less";
 import "./assets/css/index.less";
-import Demo from "./components/demo";
+import demo from "./components/demo";
 import router from "./router";
 
 const app = createApp(App);
-app.component("Demo", Demo);
 
-app.use(kui).use(router).mount("#app");
+app.use(kui).use(demo).use(router).mount("#app");

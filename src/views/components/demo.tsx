@@ -29,10 +29,6 @@ export default defineComponent({
       let nav = navData.filter((x) => x.key != "guide");
       return (
         <div class="all-components">
-          <h1>{$t("text.components")}</h1>
-          <p>
-            <code>KUI</code> {$t("text.components_desc")}
-          </p>
           {nav.map((item) => {
             return [<h2>{$t(item.title)}</h2>, renderChildren(item.children)];
           })}

@@ -1,6 +1,6 @@
 import { useClipboard } from "@vueuse/core";
 import { Copy, ListChevronsDownUp, ListChevronsUpDown, Undo2 } from "kui-icons";
-import { Badge, Button, Divider, message, Tooltip, type BadgeStatusType } from "kui-vue";
+import { Badge, Button, message, Tooltip, type BadgeStatusType } from "kui-vue";
 import {
   defineComponent,
   inject,
@@ -72,7 +72,7 @@ const Demo = defineComponent({
             message.success("Copied!");
           })
           .catch(() => {
-            message.error("复制代码失败，请手动复制");
+            message.error("Copy failed");
           });
       } else {
         message.error("请手动复制");
@@ -87,16 +87,10 @@ const Demo = defineComponent({
       }
     });
 
-    // const locale = inject("locale");
-
-    // const lang = computed(() => {
-    //   return locale.value?.name || "en";
-    // });
-
     return () => {
       const transitionProps = getTransitionProp("");
-      const vertical = props.direction !== "horizontal";
-      const classes = ["k-demo", { "k-demo-horizontal": !vertical }];
+      const horizontal = props.direction === "horizontal";
+      const classes = ["k-demo", { "k-demo-horizontal": horizontal }];
       const descNode = (
         <div class="k-desc">
           <div class="k-desc-content">
@@ -105,26 +99,7 @@ const Demo = defineComponent({
           </div>
         </div>
       );
-      const codeNode = (
-        <Transition {...transitionProps}>
-          <div v-show={expanded.value} class="k-code-box" contenteditable onInput={renderCode}>
-            {!vertical ? (
-              <div class="k-code-tools">
-                <Badge status={buildState.state} text={buildState.text} />
-                <Tooltip title={$t("text.copy_code")}>
-                  <Button type="text" size="small" icon={Copy} onClick={copyCode} />
-                </Tooltip>
-                <Tooltip title={$t("text.restore_code")}>
-                  <Button type="text" size="small" icon={Undo2} onClick={restoreCode} />
-                </Tooltip>
-              </div>
-            ) : null}
-            <div ref={codeRef} class="k-code k-scroll">
-              {slots.code?.()}
-            </div>
-          </div>
-        </Transition>
-      );
+
       const scopeIdAttr = `data-v-${props.id}`;
       let refProps = {
         class: `k-content k-scroll k-demo-view-${props.id}`,
@@ -138,9 +113,23 @@ const Demo = defineComponent({
             <div class={`k-demo-view k-demo-view-${props.direction}`}>
               <div {...refProps}>{slots.component?.()}</div>
             </div>
-            {vertical && codeNode}
-
-            {vertical && (
+            <Transition {...transitionProps}>
+              <div v-show={expanded.value} class="k-code-box" contenteditable onInput={renderCode}>
+                <div class="k-code-tools">
+                  <Badge status={buildState.state} text={buildState.text} />
+                  <Tooltip title={$t("text.copy_code")}>
+                    <Button type="text" size="small" icon={Copy} onClick={copyCode} />
+                  </Tooltip>
+                  <Tooltip title={$t("text.restore_code")}>
+                    <Button type="text" size="small" icon={Undo2} onClick={restoreCode} />
+                  </Tooltip>
+                </div>
+                <div ref={codeRef} class="k-code k-scroll">
+                  {slots.code?.()}
+                </div>
+              </div>
+            </Transition>
+            {!horizontal && (
               <div class="k-code-actions">
                 <Tooltip title={expanded.value ? $t("text.collapse_code") : $t("text.expand_code")}>
                   <Button
@@ -151,13 +140,8 @@ const Demo = defineComponent({
                     onClick={() => (expanded.value = !expanded.value)}
                   />
                 </Tooltip>
-                <Divider type="vertical" />
-                <Tooltip title={$t("text.copy_code")}>
-                  <Button type="text" size="large" icon={Copy} block onClick={copyCode} />
-                </Tooltip>
               </div>
             )}
-            {!vertical && codeNode}
           </div>
         </div>
       );
