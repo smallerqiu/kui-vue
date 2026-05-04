@@ -75,6 +75,8 @@ declare module "vue" {
     StatNumber: (typeof Comps)["StatNumber"];
     Slider: (typeof Comps)["Slider"];
     Space: (typeof Comps)["Space"];
+    Splitter: (typeof Comps)["Splitter"];
+    SplitterPanel: (typeof Comps)["SplitterPanel"];
     Spin: (typeof Comps)["Spin"];
     KSwitch: (typeof Comps)["KSwitch"];
     Table: (typeof Comps)["Table"];

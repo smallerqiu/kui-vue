@@ -44,7 +44,7 @@
         </Tooltip>
         <a
           target="_blank"
-          class="k-btn k-btn-light k-btn-icon-only"
+          class="k-btn k-btn-fill k-btn-icon-only"
           href="https://github.com/smallerqiu/kui-vue"
         >
           <Icon :type="LogoGithub" />
@@ -97,6 +97,10 @@ const items = computed(() => {
         {
           key: "/guide/dark-mode",
           title: h("span", null, { default: () => [$t("menu.dark_mode"), moveRight] }),
+        },
+        {
+          key: "https://v4.k-ui.cn/",
+          title: h("span", null, { default: () => [$t("menu.docs_v4"), moveRight] }),
         },
         {
           key: "https://v3.k-ui.cn/",

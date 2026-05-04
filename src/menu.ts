@@ -45,6 +45,7 @@ import {
   Pin,
   RectangleEllipsis,
   RectangleHorizontal,
+  SeparatorVertical,
   Settings2,
   SmilePlus,
   SquareCheck,
@@ -111,6 +112,7 @@ const navData = [
       { title: "网格", sub: "Grid", name: "grid", icon: LayoutDashboard },
       { title: "布局", sub: "Layout", name: "layout", icon: PanelsTopLeft },
       { title: "间距", sub: "Space", name: "space", icon: BetweenVerticalEnd },
+      { title: "分隔面板", sub: "Splitter", name: "splitter", icon: SeparatorVertical },
     ],
   },
   {
