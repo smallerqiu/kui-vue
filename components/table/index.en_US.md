@@ -93,34 +93,34 @@ const columns = [
 
 ## Table API
 
-| Property     | Description                                              | Type                  | Default |
-| ------------ | -------------------------------------------------------- | --------------------- | ------- |
-| bordered     | Whether to display borders                               | Boolean               | false   |
-| checkable    | Whether to show checkboxes                               | Boolean               | false   |
-| selectedKeys | Collection of selected keys                              | Array                 | false   |
-| disabledKeys | Disabled key set                                         | Array                 | false   |
-| size         | Display compact mode when the value is `small`           | String                | -       |
-| emptyText    | Prompt displayed when there is no data                   | String                | No Data |
-| loading      | Table asynchronous loading mode                          | Boolean               | false   |
-| data         | Structured data to be displayed                          | Array                 | []      |
-| columns      | Configuration description of table columns               | Array                 | []      |
-| rowKey       | Basis for selection                                      | String                | key     |
-| onRowClick   | Triggered when clicking a row                            | Function              | -       |
-| onSort       | Triggered when clicking to sort                          | Function({key,order}) | -       |
-| striped      | Whether to display zebra stripes                         | Boolean               | -       |
-| onSelect     | Triggered when clicking the checkbox                     | Function              | -       |
-| onSelectAll  | Triggered when clicking the header checkbox of the Table | Function              | -       |
+| Property     | Description                                              | Type                                                                         | Default |
+| ------------ | -------------------------------------------------------- | ---------------------------------------------------------------------------- | ------- |
+| bordered     | Whether to display borders                               | bool                                                                         | false   |
+| checkable    | Whether to show checkboxes                               | bool                                                                         | false   |
+| selectedKeys | Collection of selected keys                              | Array                                                                        | -       |
+| disabledKeys | Disabled key set                                         | Array                                                                        | -       |
+| size         | Display compact mode when the value is `small`           | string                                                                       | -       |
+| emptyText    | Prompt displayed when there is no data                   | string                                                                       | No Data |
+| loading      | Table asynchronous loading mode                          | bool                                                                         | false   |
+| data         | Structured data to be displayed                          | Array                                                                        | []      |
+| columns      | Configuration description of table columns               | Array                                                                        | []      |
+| rowKey       | Basis for selection                                      | string                                                                       | key     |
+| striped      | Whether to display zebra stripes                         | bool                                                                         | -       |
+| onRowClick   | Triggered when clicking a row                            | (record: any, index: number) => void                                         | -       |
+| onSort       | Triggered when clicking to sort                          | (state: SortState) => void                                                   | -       |
+| onSelect     | Triggered when clicking the checkbox                     | (record: any, selected: boolean, selectedKeys: (string \| number)[]) => void | -       |
+| onSelectAll  | Triggered when clicking the header checkbox of the Table | (selected: boolean, selectedKeys: (string \| number)[]) => void              | -       |
 
 ## Column API
 
-| Property | Description                                                                                                                    | Type                                     | Default |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------- | ------- |
-| title    | Header display text                                                                                                            | String                                   | -       |
-| key      | Corresponding column field name                                                                                                | String                                   | -       |
-| fixed    | Column fixed direction                                                                                                         | left,right                               | -       |
-| sorter   | Sorting, when `true`, local sorting is enabled                                                                                 | Boolean ,Function                        | -       |
-| width    | Column width                                                                                                                   | Number                                   | -       |
-| rowSpan  | Row merge unit, when 0, the current row will not be rendered                                                                   | Number                                   | -       |
-| colSpan  | Column merge unit, when 0, the current column will not be rendered                                                             | Number                                   | -       |
-| render   | Custom rendering, refer to [In-depth Data Object](https://cn.vuejs.org/v2/guide/render-function.html#深入数据对象) for details | Function(h,record,index)                 | -       |
-| scroll   | Scrolling attributes                                                                                                           | {x:[number ,string],y:[number , string]} | -       |
+| Property | Description                                                                                                                    | Type                                            | Default |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- | ------- |
+| title    | Header display text                                                                                                            | string                                          | -       |
+| key      | Corresponding column field name                                                                                                | string                                          | -       |
+| fixed    | Column fixed direction                                                                                                         | left,right                                      | -       |
+| sorter   | Sorting, when `true`, local sorting is enabled                                                                                 | boolean \| (state: SortState) => void           | -       |
+| width    | Column width                                                                                                                   | number                                          | -       |
+| rowSpan  | Row merge unit, when 0, the current row will not be rendered                                                                   | number                                          | -       |
+| colSpan  | Column merge unit, when 0, the current column will not be rendered                                                             | number                                          | -       |
+| render   | Custom rendering, refer to [In-depth Data Object](https://cn.vuejs.org/v2/guide/render-function.html#深入数据对象) for details | (h: any, record: any, colIndex: number) => void | -       |
+| scroll   | Scrolling attributes                                                                                                           | {x:[number ,string],y:[number , string]}        | -       |

@@ -36,43 +36,43 @@ Folders, organizational structures, biological classifications, countries and re
 
 ## Tree API
 
-| Property      | Description                                                                                                       | Type                   | Default |
-| ------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------- | ------- |
-| data          | Array of nestable node properties, data to generate `tree`                                                        | Array                  | []      |
-| checkable     | Whether to show checkbox                                                                                          | Boolean                | false   |
-| draggable     | Whether it can be dragged                                                                                         | Boolean                | false   |
-| showLine      | Whether to show connecting lines                                                                                  | Boolean                | false   |
-| showIcon      | Whether to show icons                                                                                             | Boolean                | true    |
-| extra         | Extension element                                                                                                 | slot(node)             | -       |
-| showExtra     | Whether to show extension elements by default                                                                     | Boolean                | false   |
-| checkStrictly | In checkable state, node selection is completely controlled (parent-child node selection state no longer related) | Boolean                | false   |
-| checkedKeys   | Tree nodes with checked checkboxes                                                                                | Array                  | []      |
-| expandedKeys  | Specify expanded nodes                                                                                            | Array                  | []      |
-| selectedKeys  | Selected nodes                                                                                                    | Array                  | []      |
-| multiple      | Whether to support multiple selection                                                                             | Boolean                | false   |
-| loading       | Asynchronous loading state                                                                                        | Boolean                | false   |
-| loadData      | Method to asynchronously load data                                                                                | Promise Function(node) |
-| directory     | Does not display as a directory tree                                                                              | Boolean                | false   |
+| Property      | Description                                                                                                       | Type                             | Default |
+| ------------- | ----------------------------------------------------------------------------------------------------------------- | -------------------------------- | ------- |
+| data          | Array of nestable node properties, data to generate `tree`                                                        | Array                            | []      |
+| checkable     | Whether to show checkbox                                                                                          | bool                             | false   |
+| draggable     | Whether it can be dragged                                                                                         | bool                             | false   |
+| showLine      | Whether to show connecting lines                                                                                  | bool                             | false   |
+| showIcon      | Whether to show icons                                                                                             | bool                             | true    |
+| extra         | Extension element                                                                                                 | slot(node)                       | -       |
+| showExtra     | Whether to show extension elements by default                                                                     | bool                             | false   |
+| checkStrictly | In checkable state, node selection is completely controlled (parent-child node selection state no longer related) | bool                             | false   |
+| checkedKeys   | Tree nodes with checked checkboxes                                                                                | Array                            | []      |
+| expandedKeys  | Specify expanded nodes                                                                                            | Array                            | []      |
+| selectedKeys  | Selected nodes                                                                                                    | Array                            | []      |
+| multiple      | Whether to support multiple selection                                                                             | bool                             | false   |
+| loading       | Asynchronous loading state                                                                                        | bool                             | false   |
+| loadData      | Method to asynchronously load data                                                                                | (node: TreeNode) => Promise<any> |
+| directory     | Does not display as a directory tree                                                                              | bool                             | false   |
 
 ## TreeNode API
 
-| Property | Description                                                                           | Type    | Default |
-| -------- | ------------------------------------------------------------------------------------- | ------- | ------- |
-| title    | Node title                                                                            | String  | -       |
-| icon     | Custom icon                                                                           | String  | -       |
-| disabled | Whether node is disabled                                                              | Boolean | false   |
-| children | Child nodes                                                                           | Array   | -       |
-| isLeaf   | Set as leaf node (effective when loadData is set). false will force it as parent node | Boolean | false   |
+| Property | Description                                                                           | Type   | Default |
+| -------- | ------------------------------------------------------------------------------------- | ------ | ------- |
+| title    | Node title                                                                            | string | -       |
+| icon     | Custom icon                                                                           | string | -       |
+| disabled | Whether node is disabled                                                              | bool   | false   |
+| children | Child nodes                                                                           | Array  | -       |
+| isLeaf   | Set as leaf node (effective when loadData is set). false will force it as parent node | bool   | false   |
 
 ## Tree Events
 
-| Property    | Description                                           | Callback Parameters                  |
-| ----------- | ----------------------------------------------------- | ------------------------------------ |
-| onSelect    | Triggered when tree node is clicked                   | Function(node)                       |
-| onCheck     | Triggered when checkbox is clicked                    | Function(node, checked, checkedKeys) |
-| onExpand    | Triggered when child nodes are expanded and collapsed | Function({key, expanded, node})      |
-| onDragstart | Called when dragging starts                           | Function(node)                       |
-| onDragend   | Called when dragend is triggered                      | Function(node)                       |
-| onDragenter | Called when dragenter is triggered                    | Function(node)                       |
-| onDragleave | Called when dragleave is triggered                    | Function(node)                       |
-| onDrop      | Called when drop is triggered                         | Function({dragNode, dropNode})       |
+| Property    | Description                                           | Callback Parameters                                                          |
+| ----------- | ----------------------------------------------------- | ---------------------------------------------------------------------------- |
+| onSelect    | Triggered when tree node is clicked                   | (node: TreeNode) => void                                                     |
+| onCheck     | Triggered when checkbox is clicked                    | (node: TreeNode, checked: boolean, checkedKeys: string[]) => void            |
+| onExpand    | Triggered when child nodes are expanded and collapsed | (result: TreeExpandEvent) => void                                            |
+| onDragstart | Called when dragging starts                           | (node: TreeNode, event: DragEvent) => void                                   |
+| onDragend   | Called when dragend is triggered                      | (node: TreeNode, event: DragEvent) => void                                   |
+| onDragenter | Called when dragenter is triggered                    | (node: TreeNode, event: DragEvent) => void                                   |
+| onDragleave | Called when dragleave is triggered                    | (node: TreeNode, event: DragEvent) => void                                   |
+| onDrop      | Called when drop is triggered                         | (node: { dragNode: TreeNode; dropNode: TreeNode }, event: DragEvent) => void |

@@ -23,19 +23,20 @@
 
 ## Rate API
 
-| 属性              | 说明                     | 类型                   | 默认值 |
-| ----------------- | ------------------------ | ---------------------- | ------ |
-| modelValue        | 当前数，受控值 (v-model) | Number                 | -      |
-| allowClear        | 是否允许再次点击后清除   | Boolean                | false  |
-| allowHalf         | 是否允许半选             | Boolean                | -      |
-| showScore         | 是否显示分数             | Boolean                | -      |
-| character         | 自定义字符               | String                 | -      |
-| count             | star 总数                | Number                 | -      |
-| icon              | 自定义展示的图标         | Icon                   | -      |
-| size              | 图标尺寸                 | Number                 | -      |
-| color             | 图标颜色                 | String                 | -      |
-| disabled          | 只读，无法进行交互       | String                 | -      |
-| tooltips          | 自定义每项的提示信息     | String[]               | -      |
-| onChange          | 选择时的回调             | Function(value:Number) | -      |
-| symbolReverseFill | 符号反相填充颜色         | Boolean                | false  |
-| strokeWidth       | 符号边框单位             | Number                 | 1      |
+| 属性              | 说明                     | 类型                    | 默认值 |
+| ----------------- | ------------------------ | ----------------------- | ------ |
+| value             | 默认初始值               | number                  | -      |
+| modelValue        | 当前数，受控值 (v-model) | number                  | -      |
+| allowClear        | 是否允许再次点击后清除   | bool                    | false  |
+| allowHalf         | 是否允许半选             | bool                    | -      |
+| showScore         | 是否显示分数             | bool                    | -      |
+| character         | 自定义字符               | string                  | -      |
+| count             | star 总数                | number                  | -      |
+| icon              | 自定义展示的图标         | Icon                    | -      |
+| size              | 图标尺寸                 | number                  | -      |
+| color             | 图标颜色                 | string                  | -      |
+| disabled          | 只读，无法进行交互       | string                  | -      |
+| tooltips          | 自定义每项的提示信息     | string[]                | -      |
+| onChange          | 选择时的回调             | (value: number) => void | -      |
+| symbolReverseFill | 符号反相填充颜色         | bool                    | false  |
+| strokeWidth       | 符号边框单位             | number                  | 1      |

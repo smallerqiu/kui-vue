@@ -33,24 +33,24 @@ Modal dialog box.
 
 | Property     | Description                                                                 | Type           | Default |
 | ------------ | --------------------------------------------------------------------------- | -------------- | ------- |
-| modelValue   | Whether the dialog is displayed, can use v-model for two-way binding.       | Boolean        | false   |
-| title        | Dialog title                                                                | String         | -       |
-| width        | Dialog width                                                                | Number, String | 520     |
-| okText       | OK button text                                                              | String         | OK      |
-| cancelText   | Cancel button text                                                          | String         | Cancel  |
-| draggable    | Whether the modal can be dragged, not available in confirm mode             | Boolean        | false   |
-| centered     | Whether the window can be centered, not available in confirm mode           | Boolean        | false   |
-| maximized    | Whether the modal can be maximized, not available in confirm mode           | Boolean        | false   |
-| maskClosable | Whether clicking the mask closes the modal, if not, Esc key will be invalid | Boolean        | true    |
-| onOk         | Callback when OK is clicked, `Note: will not close Modal`                   | Function       | -       |
-| onCancel     | Callback when Cancel is clicked                                             | Function       | -       |
-| onClose      | Callback when window closes                                                 | Function       | -       |
-| escKey       | Whether to support closing with Esc key                                     | Boolean        | true    |
-| footer       | When `footer=false`, the bottom button is not displayed.                    | Boolean,Slot   | true    |
-| loading      | When set to `true`, the confirm button will be in a loading state           | Boolean        | false   |
-| top          | Distance from the top of the window                                         | Number         | -       |
-| showClose    | Whether to display the close button                                         | Boolean        | false   |
-| mask         | Whether to show the mask                                                    | Boolean        | true    |
+| modelValue   | Whether the dialog is displayed, can use v-model for two-way binding.       | bool           | false   |
+| title        | Dialog title                                                                | string         | -       |
+| width        | Dialog width                                                                | number, string | 520     |
+| okText       | OK button text                                                              | string         | OK      |
+| cancelText   | Cancel button text                                                          | string         | Cancel  |
+| draggable    | Whether the modal can be dragged, not available in confirm mode             | bool           | false   |
+| centered     | Whether the window can be centered, not available in confirm mode           | bool           | false   |
+| maximized    | Whether the modal can be maximized, not available in confirm mode           | bool           | false   |
+| maskClosable | Whether clicking the mask closes the modal, if not, Esc key will be invalid | bool           | true    |
+| escKey       | Whether to support closing with Esc key                                     | bool           | true    |
+| footer       | When `footer=false`, the bottom button is not displayed.                    | bool,Slot      | true    |
+| loading      | When set to `true`, the confirm button will be in a loading state           | bool           | false   |
+| top          | Distance from the top of the window                                         | number         | -       |
+| showClose    | Whether to display the close button                                         | bool           | false   |
+| mask         | Whether to show the mask                                                    | bool           | true    |
+| onOk         | Callback when OK is clicked, `Note: will not close Modal`                   | () => void     | -       |
+| onCancel     | Callback when Cancel is clicked                                             | () => void     | -       |
+| onClose      | Callback when window closes                                                 | () => void     | -       |
 
 ## Modal.method()
 
@@ -69,13 +69,13 @@ Also provides global configuration and global destruction methods:
 
 Parameter options is an object, specific description as follows:
 
-| Property   | Description                                                                                                                                                   | Type     | Default |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------- |
-| title      | Dialog title                                                                                                                                                  | String   | -       |
-| content    | Dialog content                                                                                                                                                | String   | -       |
-| okText     | OK button text                                                                                                                                                | String   | OK      |
-| cancelText | Cancel button text                                                                                                                                            | String   | Cancel  |
-| icon       | Modal icon, available when type is toast, default optional values are success, warning, error, info, can also be customized, refer to /components/icon values | String   | -       |
-| color      | Modal icon color, available when type is toast                                                                                                                | String   | -       |
-| onOk       | Callback when OK is clicked                                                                                                                                   | Function | -       |
-| onCancel   | Callback when Cancel is clicked                                                                                                                               | Function | -       |
+| Property   | Description                                                                                                                                                   | Type       | Default |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- | ------- |
+| title      | Dialog title                                                                                                                                                  | string     | -       |
+| content    | Dialog content                                                                                                                                                | string     | -       |
+| okText     | OK button text                                                                                                                                                | string     | OK      |
+| cancelText | Cancel button text                                                                                                                                            | string     | Cancel  |
+| icon       | Modal icon, available when type is toast, default optional values are success, warning, error, info, can also be customized, refer to /components/icon values | string     | -       |
+| color      | Modal icon color, available when type is toast                                                                                                                | string     | -       |
+| onOk       | Callback when OK is clicked                                                                                                                                   | () => void | -       |
+| onCancel   | Callback when Cancel is clicked                                                                                                                               | () => void | -       |

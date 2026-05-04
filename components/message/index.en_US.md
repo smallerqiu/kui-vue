@@ -37,6 +37,7 @@ The component provides some static methods, used as follows:
 - `message.success(content, [duration], onClose)`
 - `message.warning(content, [duration], onClose)`
 - `message.error(content, [duration], onClose)`
+- `message.loading(content, [duration])`
 
 Also provides global configuration and global destruction methods:
 
@@ -47,10 +48,10 @@ Parameter `options` is an object, specific description as follows:
 
 | Property | Description                                                                      | Type          | Default |
 | -------- | -------------------------------------------------------------------------------- | ------------- | ------- |
-| type     | Prompt type, provides four optional types: `info`, `success`, `error`, `warning` | String        | info    |
-| content  | Prompt content                                                                   | String, Vnode | -       |
-| duration | Auto-close delay, in seconds, 0 means not auto-closed                            | Number        | 3       |
-| closable | Whether it can be manually closed                                                | Boolean       | false   |
-| onClose  | Callback when closing                                                            | Function      | -       |
-| icon     | Custom icon                                                                      | String        | -       |
-| color    | Custom icon color                                                                | String        | -       |
+| type     | Prompt type, provides four optional types: `info`, `success`, `error`, `warning` | string        | info    |
+| content  | Prompt content                                                                   | string, Vnode | -       |
+| duration | Auto-close delay, in seconds, 0 means not auto-closed                            | number        | 3       |
+| closable | Whether it can be manually closed                                                | bool          | false   |
+| icon     | Custom icon                                                                      | string        | -       |
+| color    | Custom icon color                                                                | string        | -       |
+| onClose  | Callback when closing                                                            | () => void    | -       |

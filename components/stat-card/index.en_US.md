@@ -24,38 +24,38 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 | Property       | Description                                              | Type                | Default   |
 | -------------- | -------------------------------------------------------- | ------------------- | --------- |
-| title          | Card title                                               | String              | -         |
+| title          | Card title                                               | string              | -         |
 | items          | Data to display                                          | Array               | []        |
-| precision      | Numerical precision                                      | Number              | 0         |
+| precision      | Numerical precision                                      | number              | 0         |
 | statNumberType | Numerical change type                                    | `rollup`, `countup` | 'countup' |
-| separator      | Separator                                                | String              | -         |
-| reverse        | Whether to reverse number/number description arrangement | Boolean             | false     |
-| bordered       | Show border or not                                       | Boolean             | false     |
+| separator      | Separator                                                | string              | -         |
+| reverse        | Whether to reverse number/number description arrangement | bool             | false     |
+| bordered       | Show border or not                                       | bool             | false     |
 
 ### items Options
 
 | Property        | Description                                       | Type    | Default |
 | --------------- | ------------------------------------------------- | ------- | ------- |
-| value           | Numerical value                                   | Number  | -       |
-| desc            | Numerical description                             | String  | []      |
-| prefix          | Prefix content of numerical value                 | String  | -       |
-| suffix          | Suffix content of numerical value                 | String  | -       |
-| precision       | Numerical precision                               | Number  | 0       |
-| separator       | Separator                                         | String  | -       |
-| duration        | Numerical dynamic display time (seconds)          | Number  | 1.2     |
-| autoAnimate     | Trigger animation when target becomes visible     | Boolean | true    |
-| autoAnimateOnce | Run animation only once for auto-animate triggers | Boolean | true    |
+| value           | Numerical value                                   | number  | -       |
+| desc            | Numerical description                             | string  | []      |
+| prefix          | Prefix content of numerical value                 | string  | -       |
+| suffix          | Suffix content of numerical value                 | string  | -       |
+| precision       | Numerical precision                               | number  | 0       |
+| separator       | Separator                                         | string  | -       |
+| duration        | Numerical dynamic display time (seconds)          | number  | 1.2     |
+| autoAnimate     | Trigger animation when target becomes visible     | bool | true    |
+| autoAnimateOnce | Run animation only once for auto-animate triggers | bool | true    |
 
 ## StatNumber API
 
 | Property        | Description                                       | Type                | Default   |
 | --------------- | ------------------------------------------------- | ------------------- | --------- |
-| modelValue      | Numerical value(v-model)                          | Number              | -         |
-| duration        | Numerical dynamic display time (seconds)          | Number              | 1.2       |
-| prefix          | Prefix content of numerical value                 | String              | -         |
-| suffix          | Suffix content of numerical value                 | String              | -         |
-| precision       | Numerical precision                               | Number              | 0         |
+| modelValue      | Numerical value(v-model)                          | number              | -         |
+| duration        | Numerical dynamic display time (seconds)          | number              | 1.2       |
+| prefix          | Prefix content of numerical value                 | string              | -         |
+| suffix          | Suffix content of numerical value                 | string              | -         |
+| precision       | Numerical precision                               | number              | 0         |
 | type            | Numerical change type                             | `rollup`, `countup` | 'countup' |
-| separator       | Separator                                         | String              | -         |
-| autoAnimate     | Trigger animation when target becomes visible     | Boolean             | true      |
-| autoAnimateOnce | Run animation only once for auto-animate triggers | Boolean             | true      |
+| separator       | Separator                                         | string              | -         |
+| autoAnimate     | Trigger animation when target becomes visible     | bool             | true      |
+| autoAnimateOnce | Run animation only once for auto-animate triggers | bool             | true      |

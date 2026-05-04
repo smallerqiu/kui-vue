@@ -89,7 +89,9 @@ export const datePickerProps = {
     type: String as PropType<DropPlacementsType>,
     default: "bottom-left",
   },
-  // onChange: { type: Function as PropType<(date: string) => void> }, //TODO
+  onChange: {
+    type: Function as PropType<(date: Date | Date[], dateStr: string | string[]) => void>,
+  },
 };
 
 export type DatePickerProps = ExtractPropTypes<typeof datePickerProps>;

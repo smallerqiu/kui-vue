@@ -26,20 +26,22 @@ When standard numerical values need to be obtained.
 
 ## InputNumber API
 
-| Property       | Description                                                                 | Type           | Default   |
-| -------------- | --------------------------------------------------------------------------- | -------------- | --------- |
-| min            | Minimum value                                                               | Number         | -Infinity |
-| max            | Maximum value                                                               | Number         | Infinity  |
-| step           | Step value for each change, can be a decimal                                | Number, String | 1         |
-| value(v-model) | Current value                                                               | Number         | -         |
-| formatter      | Specifies the format of the value displayed in the input box                | Function       | -         |
-| parser         | Specifies how to convert back from formatter to number, used with formatter | Function       | -         |
-| onChange       | Change callback                                                             | Function       | -         |
-| size           | Input box size                                                              | String         | -         |
-| disabled       | Disabled                                                                    | Boolean        | -         |
-| precision      | Numerical precision                                                         | Number         | -         |
-| suffix         | Custom suffix                                                               | String, slot   | -         |
-| prefix         | Prefix content                                                              | String, slot   | -         |
-| controls       | Whether to show increase/decrease buttons                                   | Boolean        | true      |
-| clearable      | Whether to show clear button                                                | Boolean        | false     |
-| theme          | The component renders the theme                                             | String         | fill      |
+| Property   | Description                                                                 | Type                                | Default   |
+| ---------- | --------------------------------------------------------------------------- | ----------------------------------- | --------- |
+| min        | Minimum value                                                               | number                              | -Infinity |
+| max        | Maximum value                                                               | number                              | Infinity  |
+| step       | Step value for each change, can be a decimal                                | number, string                      | 1         |
+| value      | Default value                                                               | number                              | -         |
+| modelValue | The value of InputNumber(v-model)                                           | number                              | -         |
+| formatter  | Specifies the format of the value displayed in the input box                | (value: string \| number) => string | -         |
+| parser     | Specifies how to convert back from formatter to number, used with formatter | (value: string) => string \| number | -         |
+| size       | Input box size                                                              | string                              | -         |
+| disabled   | Disabled                                                                    | bool                                | -         |
+| precision  | Numerical precision                                                         | number                              | -         |
+| shape      | Component appearance                                                        | `circle` , `square`                 | -         |
+| suffix     | Custom suffix                                                               | string, slot                        | -         |
+| prefix     | Prefix content                                                              | string, slot                        | -         |
+| controls   | Whether to show increase/decrease buttons                                   | bool                                | true      |
+| clearable  | Whether to show clear button                                                | bool                                | false     |
+| theme      | The component renders the theme                                             | string                              | fill      |
+| onChange   | Change callback                                                             | (value: number) => void             | -         |

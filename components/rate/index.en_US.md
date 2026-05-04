@@ -25,17 +25,18 @@ Rating component.
 
 | Property          | Description                                 | Type                    | Default |
 | ----------------- | ------------------------------------------- | ----------------------- | ------- |
-| modelValue        | Current value, controlled value(v-model)    | Number                  | -       |
-| allowClear        | Whether to allow clearing by clicking again | Boolean                 | false   |
-| allowHalf         | Whether to allow half selection             | Boolean                 | -       |
-| showScore         | Whether to show score                       | Boolean                 | -       |
-| character         | Custom character                            | String                  | -       |
-| count             | Total number of stars                       | Number                  | -       |
+| value             | Default value                               | number                  | -       |
+| modelValue        | Current value, controlled value(v-model)    | number                  | -       |
+| allowClear        | Whether to allow clearing by clicking again | bool                    | false   |
+| allowHalf         | Whether to allow half selection             | bool                    | -       |
+| showScore         | Whether to show score                       | bool                    | -       |
+| character         | Custom character                            | string                  | -       |
+| count             | Total number of stars                       | number                  | -       |
 | icon              | Custom display icon                         | Icon                    | -       |
-| size              | Icon size                                   | Number                  | -       |
-| color             | Icon color                                  | String                  | -       |
-| disabled          | Read-only, cannot interact                  | String                  | -       |
-| tooltips          | Custom prompt information for each item     | String[]                | -       |
-| onChange          | Callback when selecting                     | Function(value: Number) | -       |
-| symbolReverseFill | Symbol Inverted Fill Color                  | Boolean                 | false   |
-| strokeWidth       | Symbol Border Unit                          | Number                  | 1       |
+| size              | Icon size                                   | number                  | -       |
+| color             | Icon color                                  | string                  | -       |
+| disabled          | Read-only, cannot interact                  | string                  | -       |
+| tooltips          | Custom prompt information for each item     | string[]                | -       |
+| onChange          | Callback when selecting                     | (value: number) => void | -       |
+| symbolReverseFill | Symbol Inverted Fill Color                  | bool                    | false   |
+| strokeWidth       | Symbol Border Unit                          | number                  | 1       |

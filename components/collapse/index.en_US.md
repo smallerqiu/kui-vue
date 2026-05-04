@@ -31,17 +31,17 @@ Content area that can be collapsed/expanded.
 
 ## API
 
-| Property  | Description                                                                                 | Type     | Default |
-| --------- | ------------------------------------------------------------------------------------------- | -------- | ------- |
-| openKeys  | The `name` of the currently expanded panel. Can use `v-model:openKeys` for two-way binding  | Array    | -       |
-| accordion | Whether to enable accordion mode. When enabled, at most one panel can be expanded at a time | Boolean  | false   |
-| sample    | Whether to enable simple mode                                                               | Boolean  | false   |
-| onChange  | Callback triggered when switching panels, returns the `name` of the current tab             | Function | -       |
+| Property  | Description                                                                                 | Type         | Default         |
+| --------- | ------------------------------------------------------------------------------------------- | ------------ | --------------- | --- |
+| openKeys  | The `name` of the currently expanded panel. Can use `v-model:openKeys` for two-way binding  | Array        | -               |
+| accordion | Whether to enable accordion mode. When enabled, at most one panel can be expanded at a time | bool         | false           |
+| sample    | Whether to enable simple mode                                                               | bool         | false           |
+| onChange  | Callback triggered when switching panels, returns the `name` of the current tab             | (key: string | number) => void | -   |
 
 ## Panel
 
 | Property | Description                             | Type   | Default |
 | -------- | --------------------------------------- | ------ | ------- |
-| title    | The title of the currently active panel | String | -       |
-| key      | The key required by Vue                 | String | -       |
+| title    | The title of the currently active panel | string | -       |
+| key      | The key required by Vue                 | string | -       |
 | extra    | Card title extension                    | slot   | -       |

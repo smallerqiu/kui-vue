@@ -45,24 +45,24 @@ Provide peer areas to accommodate and display large chunks of content, keeping t
 
 ## Tabs API
 
-| Property   | Description                                                     | Type                | Default |
-| ---------- | --------------------------------------------------------------- | ------------------- | ------- |
-| value      | Default to the currently active tab panel's key                 | String              | -       |
-| modelValue | Currently active tab panel's key                                | String              | -       |
-| card       | Whether tab style is card style                                 | Boolean             | false   |
-| sample     | Whether tab style is simple style                               | Boolean             | false   |
-| animated   | Whether to use animation to switch Tabs                         | Boolean             | true    |
-| onRemove   | Callback when tab is closed, returns the closed tab's key value | Function(activeKey) | -       |
-| onChange   | Callback when switching panels                                  | Function(activeKey) | -       |
-| onTabClick | Callback when tab is clicked                                    | Function(activeKey) | -       |
-| centered   | Whether to center the label                                     | Boolean             | false   |
+| Property   | Description                                                     | Type                  | Default |
+| ---------- | --------------------------------------------------------------- | --------------------- | ------- |
+| value      | Default to the currently active tab panel's key                 | string                | -       |
+| modelValue | Currently active tab panel's key                                | string                | -       |
+| card       | Whether tab style is card style                                 | bool                  | false   |
+| sample     | Whether tab style is simple style                               | bool                  | false   |
+| animated   | Whether to use animation to switch Tabs                         | bool                  | true    |
+| centered   | Whether to center the label                                     | bool                  | false   |
+| onRemove   | Callback when tab is closed, returns the closed tab's key value | (key: string) => void | -       |
+| onChange   | Callback when switching panels                                  | (key: string) => void | -       |
+| onTabClick | Callback when tab is clicked                                    | (key: string) => void | -       |
 
 ## Tabs.TabPanel API
 
-| Property | Description                    | Type    | Default |
-| -------- | ------------------------------ | ------- | ------- |
-| key      | Key value required by Vue      | String  | -       |
-| title    | Text displayed in tab header   | String  | -       |
-| icon     | Icon displayed in tab header   | String  | -       |
-| disabled | Whether tab is disabled        | Boolean | false   |
-| closable | Whether tab shows close button | Boolean | false   |
+| Property | Description                    | Type   | Default |
+| -------- | ------------------------------ | ------ | ------- |
+| key      | Key value required by Vue      | string | -       |
+| title    | Text displayed in tab header   | string | -       |
+| icon     | Icon displayed in tab header   | string | -       |
+| disabled | Whether tab is disabled        | bool   | false   |
+| closable | Whether tab shows close button | bool   | false   |

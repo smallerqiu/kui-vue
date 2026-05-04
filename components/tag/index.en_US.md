@@ -33,10 +33,10 @@ Small labels for marking and categorization.
 
 | Property  | Description                                                         | Type            | Default |
 | --------- | ------------------------------------------------------------------- | --------------- | ------- |
-| closeable | Whether to show close button                                        | Boolean         | false   |
-| color     | Tag color                                                           | String          | -       |
-| icon      | Tag icon                                                            | String          | -       |
-| onClose   | Callback event when tag is closed                                   | Function        | -       |
-| size      | Button size, optional values `small`, `large`, default not selected | String          | -       |
-| theme     | The component renders the theme                                     | String          | fill    |
+| closeable | Whether to show close button                                        | bool            | false   |
+| color     | Tag color                                                           | string          | -       |
+| icon      | Tag icon                                                            | string          | -       |
+| onClose   | Callback event when tag is closed                                   | () => void      | -       |
+| size      | Button size, optional values `small`, `large`, default not selected | string          | -       |
+| theme     | The component renders the theme                                     | string          | fill    |
 | shape     | The shape in which the component is presented                       | [circle,square] | circle  |

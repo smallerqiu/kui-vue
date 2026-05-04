@@ -24,10 +24,10 @@ Used to represent users or things, supports image, icon, or character display.
 
 | Property | Description                                     | Type                          | Default |
 | -------- | ----------------------------------------------- | ----------------------------- | ------- |
-| icon     | Set the icon type for the avatar                | String,Number                 | 400     |
-| shape    | Specify the shape of the avatar: circle, square | String                        | circle  |
-| size     | Set the size of the avatar                      | large, small, default, Number | default |
-| src      | Resource address for image avatar               | String                        | -       |
+| icon     | Set the icon type for the avatar                | string,number                 | 400     |
+| shape    | Specify the shape of the avatar: circle, square | string                        | circle  |
+| size     | Set the size of the avatar                      | large, small, default, number | default |
+| src      | Resource address for image avatar               | string                        | -       |
 
 ## AvatarGroup API
 

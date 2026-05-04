@@ -31,24 +31,24 @@ Checkbox for multiple selections.
 
 ## API
 
-| Property      | Description                                                   | Type                    | Default |
-| ------------- | ------------------------------------------------------------- | ----------------------- | ------- |
-| checked       | Whether it is selected. Can use `v-model` for two-way binding | Boolean                 | false   |
-| label         | The text to display                                           | String 、 Number        | -       |
-| value         | The value represented when used in combination                | String、Number          | -       |
-| disabled      | Whether the current item is disabled                          | Boolean                 | false   |
-| indeterminate | Combined auxiliary option controls the indeterminate state    | Boolean                 | false   |
-| theme         | The component renders the theme, defaulting to 'fill'.       | String                  | fill   |
-| valueType     | The type of output value for the unit option                  | [String,Number,Boolean] | Boolean |
-| onChange      | Callback when the option state changes                        | Function(checked)       | -       |
+| Property      | Description                                                   | Type                  | Default |
+| ------------- | ------------------------------------------------------------- | --------------------- | ------- |
+| checked       | Whether it is selected. Can use `v-model` for two-way binding | bool                  | false   |
+| label         | The text to display                                           | string 、 number      | -       |
+| value         | The value represented when used in combination                | String、number        | -       |
+| disabled      | Whether the current item is disabled                          | bool                  | false   |
+| indeterminate | Combined auxiliary option controls the indeterminate state    | bool                  | false   |
+| theme         | The component renders the theme, defaulting to 'fill'.        | string                | fill    |
+| valueType     | The type of output value for the unit option                  | [string,number,bool]  | bool    |
+| onChange      | Callback when the option state changes                        | (e:ChangeEvent)=>void | -       |
 
 ## CheckboxGroup API
 
 | Property   | Description                                                                            | Type                                              | Default    |
 | ---------- | -------------------------------------------------------------------------------------- | ------------------------------------------------- | ---------- |
 | modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding        | Array                                             | -          |
-| disabled   | Whether the component is disabled                                                      | Boolean                                           | false      |
-| onChange   | Triggered when the option state changes, returns the currently selected item and state | Function({label,value,checked})                   | -          |
+| disabled   | Whether the component is disabled                                                      | bool                                              | false      |
+| onChange   | Triggered when the option state changes, returns the currently selected item and state | (any[])=>void                                     | -          |
 | direction  | Layout direction, optional values `horizontal`, `vertical`                             | Sting                                             | horizontal |
 | options    | Can specify child `checkbox` items                                                     | Array <{label:string/number,value:string/number}> | -          |
 | size       | set the size of Checkbox                                                               | string                                            | -          |

@@ -19,10 +19,10 @@ Button to return to the top of the page.
 
 ## API
 
-| Property | Description                                                                            | Type          | Default           |
-| -------- | -------------------------------------------------------------------------------------- | ------------- | ----------------- |
-| height   | The BackTop component is displayed only when the page scroll height reaches this value | String,Number | 100               |
-| bottom   | The distance from the component to the bottom                                          | String,Number | 40                |
-| right    | The distance from the component to the right                                           | String,Number | 50                |
-| onClick  | Triggered when the button is clicked                                                   | Function      | -                 |
-| target   | The container that needs to scroll to the top                                          | Function      | ()=>document.body |
+| Property | Description                                                                            | Type            | Default           |
+| -------- | -------------------------------------------------------------------------------------- | --------------- | ----------------- |
+| height   | The BackTop component is displayed only when the page scroll height reaches this value | string,number   | 100               |
+| bottom   | The distance from the component to the bottom                                          | string,number   | 40                |
+| right    | The distance from the component to the right                                           | string,number   | 50                |
+| onClick  | Triggered when the button is clicked                                                   | (e:Event)=>void | -                 |
+| target   | The container that needs to scroll to the top                                          | ()=>HTMLElement | ()=>document.body |

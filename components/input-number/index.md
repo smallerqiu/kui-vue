@@ -26,20 +26,22 @@
 
 ## InputNumber API
 
-| 属性           | 说明                                                       | 类型          | 默认值    |
-| -------------- | ---------------------------------------------------------- | ------------- | --------- |
-| min            | 最小值                                                     | Number        | -Infinity |
-| max            | 最大值                                                     | Number        | Infinity  |
-| step           | 每次改变步数，可以为小数                                   | Number,String | 1         |
-| value(v-model) | 当前值                                                     | Number        | -         |
-| formatter      | 指定输入框展示值的格式                                     | Function      | -         |
-| parser         | 指定从 formatter 里转换回数字的方式，和 formatter 搭配使用 | Function      | -         |
-| onChange       | 变化回调                                                   | Function      | -         |
-| size           | 输入框大小                                                 | String        | -         |
-| disabled       | 禁用                                                       | Boolean       | -         |
-| precision      | 数值精度                                                   | Number        | -         |
-| suffix         | 自定义后缀                                                 | String,slot   | -         |
-| prefix         | 前缀内容                                                   | String,slot   | -         |
-| controls       | 是否显示增减按钮                                           | Boolean       | true      |
-| clearable      | 是否显示清除按钮                                           | Boolean       | false     |
-| theme          | 组件呈现主题                                               | String        | fill      |
+| 属性       | 说明                                                       | 类型                                | 默认值    |
+| ---------- | ---------------------------------------------------------- | ----------------------------------- | --------- |
+| min        | 最小值                                                     | number                              | -Infinity |
+| max        | 最大值                                                     | number                              | Infinity  |
+| step       | 每次改变步数，可以为小数                                   | number,string                       | 1         |
+| value      | 默认值                                                     | number                              | -         |
+| modelValue | InputNumber的值(v-model)                                   | number                              | -         |
+| formatter  | 指定输入框展示值的格式                                     | (value: string \| number) => string | -         |
+| parser     | 指定从 formatter 里转换回数字的方式，和 formatter 搭配使用 | (value: string) => string \| number | -         |
+| size       | 输入框大小                                                 | string                              | -         |
+| disabled   | 禁用                                                       | bool                                | -         |
+| precision  | 数值精度                                                   | number                              | -         |
+| shape      | 组件的外观                                                 | `circle` , `square`                 | -         |
+| suffix     | 自定义后缀                                                 | string,slot                         | -         |
+| prefix     | 前缀内容                                                   | string,slot                         | -         |
+| controls   | 是否显示增减按钮                                           | bool                                | true      |
+| clearable  | 是否显示清除按钮                                           | bool                                | false     |
+| theme      | 组件呈现主题                                               | string                              | fill      |
+| onChange   | 变化回调                                                   | (value: number) => void             | -         |

@@ -93,35 +93,34 @@ const columns = [
 
 ## Table API
 
-| 属性         | 说明                      | 类型                  | 默认值   |
-| ------------ | ------------------------- | --------------------- | -------- |
-| bordered     | 是否显示边框              | Boolean               | false    |
-| checkable    | 是否显示勾选框            | Boolean               | false    |
-| selectedKeys | 勾选的key集合             | Array                 | false    |
-| disabledKeys | 禁用的key集合             | Array                 | false    |
-| size         | 值为`small`时展示紧凑模式 | String                | -        |
-| emptyText    | 没有数据时展示的提示      | String                | 赞无数据 |
-| loading      | 表格异步加载模式          | Boolean               | false    |
-| data         | 显示的结构化数据          | Array                 | []       |
-| columns      | 表格列的配置描述，        | Array                 | []       |
-| rowKey       | 勾选时的依据              | String                | key      |
-| onRowClick   | 单击某一行时触发          | Function              | -        |
-| onSort       | 点击排序时触发            | Function({key,order}) | -        |
-| striped      | 是否展示斑马条纹          | Boolean               | -        |
-| onSelect     | 点击复选框时触发          | Function              | -        |
-| onSelectAll  | 点击Table头部复选框时触发 | Function              | -        |
+| 属性         | 说明                      | 类型                                                                         | 默认值   |
+| ------------ | ------------------------- | ---------------------------------------------------------------------------- | -------- |
+| bordered     | 是否显示边框              | bool                                                                         | false    |
+| checkable    | 是否显示勾选框            | bool                                                                         | false    |
+| selectedKeys | 勾选的key集合             | Array                                                                        | -        |
+| disabledKeys | 禁用的key集合             | Array                                                                        | -        |
+| size         | 值为`small`时展示紧凑模式 | string                                                                       | -        |
+| emptyText    | 没有数据时展示的提示      | string                                                                       | 赞无数据 |
+| loading      | 表格异步加载模式          | bool                                                                         | false    |
+| data         | 显示的结构化数据          | Array                                                                        | []       |
+| columns      | 表格列的配置描述，        | Array                                                                        | []       |
+| rowKey       | 勾选时的依据              | string                                                                       | key      |
+| striped      | 是否展示斑马条纹          | bool                                                                         | -        |
+| onRowClick   | 单击某一行时触发          | (record: any, index: number) => void                                         | -        |
+| onSort       | 点击排序时触发            | (state: SortState) => void                                                   | -        |
+| onSelect     | 点击复选框时触发          | (record: any, selected: boolean, selectedKeys: (string \| number)[]) => void | -        |
+| onSelectAll  | 点击Table头部复选框时触发 | (selected: boolean, selectedKeys: (string \| number)[]) => void              | -        |
 
 ## Column API
 
-| 属性 | 说明  
- | 类型 | 默认值 |
-| ------- | ------------------------------------------------------------------------------------------------- | ---------------------------------------- | ------ |
-| title | 列头显示文字 | String | - |
-| key | 对应列内容的字段名 | String | - |
-| fixed | 列固定的方向 | left,right | - |
-| sorter | 排序,为`true`时,本地排序 | Boolean ,Function | - |
-| width | 列宽 | Number | - |
-| rowSpan | 行合并单位,为 0 时将不渲染当前行 | Number | - |
-| colSpan | 列合并单位,为 0 时将不渲染当前列 | Number | - |
-| render | 自定义渲染，可参阅[深入数据对象](https://cn.vuejs.org/v2/guide/render-function.html#深入数据对象) | Function(h,record,index) | - |
-| scroll | 滚动属性 | {x:[number ,string],y:[number , string]} | - |
+| 属性    | 说明                                                                                              | 类型                                            | 默认值 |
+| ------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ------ |
+| title   | 列头显示文字                                                                                      | string                                          | -      |
+| key     | 对应列内容的字段名                                                                                | string                                          | -      |
+| fixed   | 列固定的方向                                                                                      | left,right                                      | -      |
+| sorter  | 排序,为`true`时,本地排序                                                                          | boolean \| (state: SortState) => void           | -      |
+| width   | 列宽                                                                                              | number                                          | -      |
+| rowSpan | 行合并单位,为 0 时将不渲染当前行                                                                  | number                                          | -      |
+| colSpan | 列合并单位,为 0 时将不渲染当前列                                                                  | number                                          | -      |
+| render  | 自定义渲染，可参阅[深入数据对象](https://cn.vuejs.org/v2/guide/render-function.html#深入数据对象) | (h: any, record: any, colIndex: number) => void | -      |
+| scroll  | 滚动属性                                                                                          | {x:[number ,string],y:[number , string]}        | -      |

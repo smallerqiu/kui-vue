@@ -22,7 +22,7 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 
 | Property | Description                        | Type         | Default |
 | -------- | ---------------------------------- | ------------ | ------- |
-| title    | Card title                         | String, slot | -       |
-| icon     | Icon for the card title            | String       | -       |
-| bordered | Whether the card displays a border | Boolean      | true    |
+| title    | Card title                         | string, slot | -       |
+| icon     | Icon for the card title            | string       | -       |
+| bordered | Whether the card displays a border | bool      | true    |
 | extra    | Card title extension               | slot         | -       |

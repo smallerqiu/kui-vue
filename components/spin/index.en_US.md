@@ -24,7 +24,7 @@ When part of the page is waiting for asynchronous data or being rendered, approp
 
 | Property   | Description                                                  | Type                        | Default |
 | ---------- | ------------------------------------------------------------ | --------------------------- | ------- |
-| modelValue | Whether loading state, can use `v-model` for two-way binding | Boolean                     | false   |
-| mode       | Display spin type, provides 4 display methods                | String                      | -       |
-| delay      | Delay time to display loading effect (prevent flickering)    | Number (milliseconds)       | 500     |
+| modelValue | Whether loading state, can use `v-model` for two-way binding | bool                     | false   |
+| mode       | Display spin type, provides 4 display methods                | string                      | -       |
+| delay      | Delay time to display loading effect (prevent flickering)    | number (milliseconds)       | 500     |
 | size       | Set loading effect size                                      | `large`, `default`, `small` | -       |

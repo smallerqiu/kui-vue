@@ -33,10 +33,10 @@
 
 | 属性      | 说明                                       | 类型            | 默认值 |
 | --------- | ------------------------------------------ | --------------- | ------ |
-| closeable | 是否显示关闭按钮                           | Boolean         | false  |
-| color     | 标签的颜色                                 | String          | -      |
-| icon      | 标签的图标                                 | String          | -      |
-| onClose   | 关闭标签的回调事件                         | Function        | -      |
-| size      | 按钮尺寸,可选值 `small`、`large`，默认不选 | String          | -      |
-| theme     | 组件呈现主题                               | String          | fill   |
+| closeable | 是否显示关闭按钮                           | bool            | false  |
+| color     | 标签的颜色                                 | string          | -      |
+| icon      | 标签的图标                                 | string          | -      |
+| onClose   | 关闭标签的回调事件                         | () => void      | -      |
+| size      | 按钮尺寸,可选值 `small`、`large`，默认不选 | string          | -      |
+| theme     | 组件呈现主题                               | string          | fill   |
 | shape     | 组件呈现的形状,                            | [circle,square] | circle |

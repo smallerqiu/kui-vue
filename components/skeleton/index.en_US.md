@@ -43,49 +43,49 @@ Provide a placeholder graphic combination at positions where content needs to be
 
 | Property | Description                                                              | Type                 | Default |
 | -------- | ------------------------------------------------------------------------ | -------------------- | ------- |
-| animated | Whether to show animation effect                                         | Boolean              | false   |
-| avatar   | Whether to show avatar placeholder                                       | Boolean, AvatarProps | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | Boolean              | -       |
-| rows     | Set the number of paragraph placeholder lines                            | Number               | 3       |
-| width    | Set the width of title placeholder                                       | Number(%)            | 35      |
-| delay    | Debounce (animation delay closing)                                       | Number(milliseconds) | 500     |
-| title    | Title point unit                                                         | Number               | 35(px)  |
+| animated | Whether to show animation effect                                         | bool              | false   |
+| avatar   | Whether to show avatar placeholder                                       | bool, AvatarProps | false   |
+| loading  | When true, show placeholder. Otherwise directly display child components | bool              | -       |
+| rows     | Set the number of paragraph placeholder lines                            | number               | 3       |
+| width    | Set the width of title placeholder                                       | number(%)            | 35      |
+| delay    | Debounce (animation delay closing)                                       | number(milliseconds) | 500     |
+| title    | Title point unit                                                         | number               | 35(px)  |
 
 ## Avatar Props
 
 | Property | Description                                                              | Type                                | Default |
 | -------- | ------------------------------------------------------------------------ | ----------------------------------- | ------- |
-| animated | Whether to show animation effect                                         | Boolean                             | false   |
-| radius   | Specify the border radius of the image                                   | Number                              | -       |
+| animated | Whether to show animation effect                                         | bool                             | false   |
+| radius   | Specify the border radius of the image                                   | number                              | -       |
 | shape    | Specify the shape of the avatar                                          | circle \| square                    | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | Boolean                             | -       |
+| loading  | When true, show placeholder. Otherwise directly display child components | bool                             | -       |
 | size     | Set the size of avatar placeholder                                       | number \| large \| small \| default | -       |
 
 ## Button Props
 
 | Property | Description                                                              | Type                       | Default |
 | -------- | ------------------------------------------------------------------------ | -------------------------- | ------- |
-| animated | Whether to show animation effect                                         | Boolean                    | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | Boolean                    | -       |
+| animated | Whether to show animation effect                                         | bool                    | false   |
+| loading  | When true, show placeholder. Otherwise directly display child components | bool                    | -       |
 | shape    | Specify the shape of the button                                          | circle \| round \| default | -       |
 | size     | Set the button size                                                      | large \| small \| default  | -       |
-| block    | Option to adjust button width to its parent width                        | Boolean                    | -       |
-| width    | Button width                                                             | Number                     | -       |
+| block    | Option to adjust button width to its parent width                        | bool                    | -       |
+| width    | Button width                                                             | number                     | -       |
 
 ## Text Props
 
 | Property | Description                                                              | Type                      | Default |
 | -------- | ------------------------------------------------------------------------ | ------------------------- | ------- |
-| animated | Whether to show animation effect                                         | Boolean                   | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | Boolean                   | -       |
+| animated | Whether to show animation effect                                         | bool                   | false   |
+| loading  | When true, show placeholder. Otherwise directly display child components | bool                   | -       |
 | size     | Set the text size                                                        | large \| small \| default | -       |
-| width    | Text width                                                               | Number                    | -       |
+| width    | Text width                                                               | number                    | -       |
 
 ## Image Props
 
 | Property | Description                                                              | Type          | Default |
 | -------- | ------------------------------------------------------------------------ | ------------- | ------- |
-| animated | Whether to show animation effect                                         | Boolean       | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | Boolean       | -       |
-| radius   | Specify the border radius of the image                                   | Number        | -       |
-| size     | Image width (height)                                                     | Number\|Array | -       |
+| animated | Whether to show animation effect                                         | bool       | false   |
+| loading  | When true, show placeholder. Otherwise directly display child components | bool       | -       |
+| radius   | Specify the border radius of the image                                   | number        | -       |
+| size     | Image width (height)                                                     | number\|Array | -       |

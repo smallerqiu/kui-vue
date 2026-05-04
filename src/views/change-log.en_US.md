@@ -13,6 +13,23 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 5.1.0
+
+`2026-5-4`
+
+- Added `Splitter` component  
+- Optimized `CheckBox` and `Switch` components to support outputting `bool` (true/false) and `number` (0/1)  
+- Added `loading` function to `message`  
+- Improved `RadioGroup`  
+- Form validation enhancements  
+- Changed the `light` property to `fill` for some components
+
+## 5.0.1
+
+`2026-4-28`
+
+- TS Enhancement
+
 ## 5.0.0
 
 `2026-4-27`

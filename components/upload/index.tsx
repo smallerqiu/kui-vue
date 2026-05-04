@@ -58,6 +58,7 @@ export const uploadProps = {
   onSelectFiles: Function as PropType<(files: UploadFile[]) => void>,
   onExceed: Function as PropType<() => void>,
   onSizeError: Function as PropType<(event: UploadChangeEvent) => void>,
+  onBeforeUpload: Function as PropType<(item: UploadFile, file: File) => void>,
 };
 
 export type UploadProps = ExtractPropTypes<typeof uploadProps>;
@@ -194,7 +195,7 @@ const Upload = defineComponent({
     };
 
     const uploadFile = (item: UploadFile, file: File) => {
-      emit("beforeUpload", { file: item, fileList: innerFileList.value });
+      emit("beforeUpload", item, file);
       if (props.transformFile) {
         props.transformFile(file).then((res) => {
           toUpload(item, res);

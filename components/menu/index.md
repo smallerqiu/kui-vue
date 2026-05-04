@@ -42,47 +42,47 @@
 
 | 属性            | 说明                                     | 类型                                              | 默认值   |
 | --------------- | ---------------------------------------- | ------------------------------------------------- | -------- |
-| modelValue      | 当前选中的菜单项(v-model)                | String: []                                        | light    |
-| theme           | 主题颜色                                 | String: light dark                                | light    |
+| modelValue      | 当前选中的菜单项(v-model)                | string: []                                        | light    |
+| theme           | 主题颜色                                 | string: light dark                                | light    |
 | items           | 菜单数据                                 | Array                                             | -        |
-| openKeys        | 当前展开的 SubMenu 菜单项 key 数组       | String[]                                          | -        |
-| selectedKeys    | 当前选中的菜单项，可使用 v-model 绑定    | String[]                                          | -        |
-| mode            | 菜单类型，支持垂直、水平、和内嵌模式三种 | String: vertical vertical-right horizontal inline | vertical |
+| openKeys        | 当前展开的 SubMenu 菜单项 key 数组       | string[]                                          | -        |
+| selectedKeys    | 当前选中的菜单项，可使用 v-model 绑定    | string[]                                          | -        |
+| mode            | 菜单类型，支持垂直、水平、和内嵌模式三种 | string: vertical vertical-right horizontal inline | vertical |
 | onSelect        | 点击 MenuItem 调用此函数                 | Fun({key, keyPath})                               | -        |
-| onOpenChange    | SubMenu 展开/关闭的回调                  | Fun(openKeys: String[])                           | -        |
-| accordion       | 是否只允许菜单展开一项                   | Boolean                                           | false    |
-| inlineCollapsed | inline 时菜单是否收起状态                | Boolean                                           | false    |
+| onOpenChange    | SubMenu 展开/关闭的回调                  | Fun(openKeys: string[])                           | -        |
+| accordion       | 是否只允许菜单展开一项                   | bool                                           | false    |
+| inlineCollapsed | inline 时菜单是否收起状态                | bool                                           | false    |
 
 ### Menu(items)
 
 | 属性     | 说明                     | 类型    | 默认值 |
 | -------- | ------------------------ | ------- | ------ |
-| icon     | item 的图标              | String  | -      |
-| disabled | 是否禁用                 | Boolean | false  |
-| key      | item 的唯一标志          | String  | -      |
-| title    | 设置收缩时展示的悬浮标题 | String  | -      |
+| icon     | item 的图标              | string  | -      |
+| disabled | 是否禁用                 | bool | false  |
+| key      | item 的唯一标志          | string  | -      |
+| title    | 设置收缩时展示的悬浮标题 | string  | -      |
 | children | 菜单子集                 | Array   | -      |
 
 ### MenuItem
 
 | 属性     | 说明                     | 类型    | 默认值 |
 | -------- | ------------------------ | ------- | ------ |
-| icon     | item 的图标              | String  | -      |
-| disabled | 是否禁用                 | Boolean | false  |
-| key      | item 的唯一标志          | String  | -      |
-| title    | 设置收缩时展示的悬浮标题 | String  | -      |
+| icon     | item 的图标              | string  | -      |
+| disabled | 是否禁用                 | bool | false  |
+| key      | item 的唯一标志          | string  | -      |
+| title    | 设置收缩时展示的悬浮标题 | string  | -      |
 
 ### SubMenu
 
 | 属性     | 说明            | 类型         | 默认值 |
 | -------- | --------------- | ------------ | ------ |
-| icon     | item 的图标     | String       | -      |
-| disabled | 是否禁用        | Boolean      | false  |
-| key      | item 的唯一标志 | String       | -      |
-| title    | 子菜单项值      | String,slots | -      |
+| icon     | item 的图标     | string       | -      |
+| disabled | 是否禁用        | bool      | false  |
+| key      | item 的唯一标志 | string       | -      |
+| title    | 子菜单项值      | string,slots | -      |
 
 ### MenuGroup
 
 | 属性  | 说明     | 类型         | 默认值 |
 | ----- | -------- | ------------ | ------ |
-| title | 分组标题 | String,slots | -      |
+| title | 分组标题 | string,slots | -      |
