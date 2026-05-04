@@ -36,23 +36,23 @@
 
 ## Tree API
 
-| 属性          | 说明                                                         | 类型                             | 默认值 |
-| ------------- | ------------------------------------------------------------ | -------------------------------- | ------ |
-| data          | 可嵌套的节点属性的数组，生成 `tree` 的数据                   | TreeNode[]                       | []     |
-| checkable     | 是否显示多选框                                               | bool                             | false  |
-| draggable     | 是否可以拖拽                                                 | bool                             | false  |
-| showLine      | 是否展示连接线                                               | bool                             | false  |
-| showIcon      | 是否展示图标                                                 | bool                             | true   |
-| extra         | 扩展元素                                                     | slot(node)                       | -      |
-| showExtra     | 是否默认展示扩展元素                                         | bool                             | false  |
-| checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | bool                             | false  |
-| checkedKeys   | 选中复选框的树节点                                           | string[]                         | []     |
-| expandedKeys  | 指定展开的节点                                               | string[]                         | []     |
-| selectedKeys  | 选中的节点                                                   | string[]                         | []     |
-| multiple      | 是否支持多选                                                 | bool                             | false  |
-| loading       | 异步加载状态                                                 | bool                             | false  |
-| loadData      | 异步加载数据的方法                                           | (node: TreeNode) => Promise<any> | -      |
-| directory     | 是不显示为目录树                                             | bool                             | false  |
+| 属性          | 说明                                                         | 类型                              | 默认值 |
+| ------------- | ------------------------------------------------------------ | --------------------------------- | ------ |
+| data          | 可嵌套的节点属性的数组，生成 `tree` 的数据                   | TreeNode[]                        | []     |
+| checkable     | 是否显示多选框                                               | bool                              | false  |
+| draggable     | 是否可以拖拽                                                 | bool                              | false  |
+| showLine      | 是否展示连接线                                               | bool                              | false  |
+| showIcon      | 是否展示图标                                                 | bool                              | true   |
+| extra         | 扩展元素                                                     | slot(node)                        | -      |
+| showExtra     | 是否默认展示扩展元素                                         | bool                              | false  |
+| checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | bool                              | false  |
+| checkedKeys   | 选中复选框的树节点                                           | string[]                          | []     |
+| expandedKeys  | 指定展开的节点                                               | string[]                          | []     |
+| selectedKeys  | 选中的节点                                                   | string[]                          | []     |
+| multiple      | 是否支持多选                                                 | bool                              | false  |
+| loading       | 异步加载状态                                                 | bool                              | false  |
+| loadData      | 异步加载数据的方法                                           | (node: TreeNode) => Promise<any\> | -      |
+| directory     | 是不显示为目录树                                             | bool                              | false  |
 
 ## TreeNode API
 
