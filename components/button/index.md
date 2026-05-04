@@ -57,7 +57,7 @@ Vue.use(Button);
 | -------- | ----------------------------------------------------- | ------------------------------------------ | ------ |
 | type     | 设置按钮类型                                          | `primary` \| `link`\| `dashed` \| `danger` | -      |
 | htmlType | 设置 button 原生的 type 值                            | string                                     | button |
-| disabled | 按钮失效状态 ˚                                        | bool                                       | -      |
+| disabled | 按钮失效状态 ˚                                        | bool                                       | false  |
 | size     | 按钮尺寸,                                             | `small`\|`large`                           | -      |
 | shape    | 按钮的外观                                            | `circle` , `square`                        | -      |
 | theme    | 按钮主题                                              | `solid` \| `fill` \| `normal`              | -      |

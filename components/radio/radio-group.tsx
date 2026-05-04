@@ -28,6 +28,7 @@ export interface RadioOption {
   value?: string | number;
   disabled?: boolean;
   icon?: IconType[];
+  [key: string]: any;
 }
 
 export const radioGroupProps = {

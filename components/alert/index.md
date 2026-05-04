@@ -36,4 +36,4 @@
 | bordered    | 是否展示边框                                                        | bool         | false   |
 | closable    | 是否显示关闭按钮                                                    | bool         | false   |
 | onClose     | 关闭时触发的回调函数                                                | ()=>void     | -       |
-| icon        | 自定义的图标                                                        | Array        | -       |
+| icon        | 自定义的图标                                                        | IconPath[]   | -       |

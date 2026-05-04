@@ -28,7 +28,7 @@ Use
 
 | Property    | Description                                                          | Type              | Default |
 | ----------- | -------------------------------------------------------------------- | ----------------- | ------- |
-| type        | Icon type. Follows the icon naming convention                        | Array             | -       |
+| type        | Icon type. Follows the icon naming convention                        | IconPath[]        | -       |
 | size        | The size of the icon, unit is px                                     | string, number    | -       |
 | color       | The color of the icon                                                | string            | -       |
 | spin        | Whether to have rotation animation                                   | bool              | false   |

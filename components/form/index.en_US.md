@@ -95,11 +95,11 @@ export default {
 
 ## FormItem API
 
-| Property | Description                                                                     | Type   | Default |
-| -------- | ------------------------------------------------------------------------------- | ------ | ------- |
-| prop     | Corresponds to the field in the form domain model. Required for form validation | string | -       |
-| label    | Label text                                                                      | string | -       |
-| rules    | Form validation rules                                                           | Array  | -       |
+| Property | Description                                                                     | Type       | Default |
+| -------- | ------------------------------------------------------------------------------- | ---------- | ------- |
+| prop     | Corresponds to the field in the form domain model. Required for form validation | string     | -       |
+| label    | Label text                                                                      | string     | -       |
+| rules    | Form validation rules                                                           | FormRule[] | -       |
 
 ## rules API
 

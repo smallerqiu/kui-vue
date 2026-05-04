@@ -40,7 +40,7 @@ Similar to the Select selection control, when the selectable data structure is a
 
 | Property         | Description                                                                     | Type                             | Default       |
 | ---------------- | ------------------------------------------------------------------------------- | -------------------------------- | ------------- |
-| valueModel       | Specify the `value` of the selected item, can use `v-model` for two-way binding | string, number, Array            | -             |
+| valueModel       | Specify the `value` of the selected item, can use `v-model` for two-way binding | string, number, any[]            | -             |
 | width            | Component width                                                                 | string, number                   | -             |
 | placeholder      | Default text of selector                                                        | string                           | Please select |
 | disabled         | Whether current item is disabled                                                | bool                             | false         |
@@ -55,11 +55,11 @@ Similar to the Select selection control, when the selectable data structure is a
 | icon             | Custom icon                                                                     | string                           | -             |
 | shape            | When shape='circle', displays rounded corners                                   | string                           | -             |
 | treeLoadData     | Method to asynchronously load data                                              | (node: TreeNode) => Promise<any> | -             |
-| treeData         | Array of nestable node properties, data to generate `tree`                      | Array                            | [\]           |
+| treeData         | Array of nestable node properties, data to generate `tree`                      | TreeNode[]                       | [\]           |
 | treeCheckable    | Whether to show checkbox                                                        | bool                             | false         |
 | showLine         | Whether to show connecting lines                                                | bool                             | false         |
 | showIcon         | Whether to show icons                                                           | bool                             | true          |
-| treeExpandedKeys | Specify expanded nodes                                                          | Array                            | []            |
+| treeExpandedKeys | Specify expanded nodes                                                          | string[]                         | []            |
 
 ## TreeSelect Events
 

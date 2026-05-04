@@ -36,4 +36,4 @@ Warning prompts to display information that needs attention.
 | closable    | Whether to show the close button                                                 | bool         | false   |
 | bordered    | Whether to display the border                                                    | bool         | false   |
 | onClose     | Callback function triggered when closing                                         | ()=>void     | -       |
-| icon        | Custom icon                                                                      | Array        | -       |
+| icon        | Custom icon                                                                      | IconPath[]   | -       |

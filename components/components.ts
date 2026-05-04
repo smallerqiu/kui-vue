@@ -29,7 +29,7 @@ export { Carousel, CarouselItem } from "./carousel";
 export type { CarouselProps } from "./carousel";
 
 export { Checkbox, CheckboxGroup } from "./checkbox";
-export type { ChangeEvent, CheckboxGroupProps, CheckboxProps } from "./checkbox";
+export type { ChangeEvent, CheckboxGroupProps, CheckboxOption, CheckboxProps } from "./checkbox";
 
 export { Collapse, CollapsePanel } from "./collapse";
 export type { CollapsePanelProps, CollapseProps } from "./collapse";

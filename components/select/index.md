@@ -50,7 +50,7 @@
 | bordered     | 是否显示边框                                               | bool                                       | true       |
 | extendWidth  | 下拉框的宽度是否与input一致                                | bool                                       | true       |
 | showArrow    | 是否显示下拉按钮                                           | bool                                       | true       |
-| options      | options 数据，如果设置则不需要手动构造 Option 节点         | Array <{value,label,disabled}>             | []         |
+| options      | options 数据，如果设置则不需要手动构造 Option 节点         | SelectOption[]                             | []         |
 | theme        | 主题                                                       | string                                     | fill       |
 | icon         | 自定义图标                                                 | string                                     | -          |
 | shape        | shape='circle' 时呈现圆角                                  | string                                     | -          |

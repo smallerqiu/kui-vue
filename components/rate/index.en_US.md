@@ -28,8 +28,8 @@ Rating component.
 | value             | Default value                               | number                  | -       |
 | modelValue        | Current value, controlled value(v-model)    | number                  | -       |
 | allowClear        | Whether to allow clearing by clicking again | bool                    | false   |
-| allowHalf         | Whether to allow half selection             | bool                    | -       |
-| showScore         | Whether to show score                       | bool                    | -       |
+| allowHalf         | Whether to allow half selection             | bool                    | false   |
+| showScore         | Whether to show score                       | bool                    | false   |
 | character         | Custom character                            | string                  | -       |
 | count             | Total number of stars                       | number                  | -       |
 | icon              | Custom display icon                         | Icon                    | -       |

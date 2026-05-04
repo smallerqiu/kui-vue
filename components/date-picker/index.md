@@ -48,15 +48,15 @@
 
 | 属性         | 说明                                                                                                               | 类型                                      | 默认值                  |
 | ------------ | ------------------------------------------------------------------------------------------------------------------ | ----------------------------------------- | ----------------------- | ----------------- | --- |
-| modelValue   | 默认时间值                                                                                                         | Date, Array, string,number                | -                       |
-| startDate    | 开始时间 (取值)                                                                                                    | Date, string,number                       | -                       |
-| endDate      | 结束时间 (取值)                                                                                                    | Date, Array, string,number                | -                       |
+| modelValue   | 默认时间值                                                                                                         | any                                       | -                       |
+| startDate    | 开始时间 (取值)                                                                                                    | any                                       | -                       |
+| endDate      | 结束时间 (取值)                                                                                                    | any                                       | -                       |
 | mode         | 使用 `mode` 属性，可以自定义日期显示类型，提供 `year`,`month`,`date`,`time`,`dateTime`,`dateRange`,`dateTimeRange` | string                                    | date                    |
 | disabled     | 是否禁用组件                                                                                                       | bool                                      | false                   |
 | size         | 按钮尺寸,可选值 `small`、`large`                                                                                   | string                                    | -                       |
 | clearable    | 是否显示清除图标                                                                                                   | bool                                      | true                    |
 | editable     | 是否可编辑                                                                                                         | bool                                      | true                    |
-| placeholder  | 提示语                                                                                                             | string, Array                             | -                       |
+| placeholder  | 提示语                                                                                                             | string, string[]                          | -                       |
 | disabledDate | 不可选择的日期                                                                                                     | (date: Date) => boolean                   | -                       |
 | disabledTime | 不可选择的时间                                                                                                     | (date: Date) => boolean                   | -                       |
 | format       | 设置日期格式，为数组时支持多格式匹配，展示以第一个为准。配置参考 [dayjs](http://day.js.org/)                       | string                                    | YYYY-MM-DD              |
@@ -64,7 +64,7 @@
 | theme        | theme='fill' 时呈现浅色主题                                                                                        | string                                    | -                       |
 | dateIcon     | 自定义图标                                                                                                         | string                                    | -                       |
 | shape        | 组件呈现的形式                                                                                                     | [circle,square]                           | -                       |
-| bordered     | 是否展示边框                                                                                                       | bool                                      | -                       |
+| bordered     | 是否展示边框                                                                                                       | bool                                      | false                   |
 | placement    | 下拉展示的方位                                                                                                     | string                                    | -                       |
 | valueType    | 默认输出的值的类型                                                                                                 | ["date" ,"timestamp" , "unix" , "string"] | -                       |
-| presets      | 预设的日期                                                                                                         | Array                                     | -                       |
+| presets      | 预设的日期                                                                                                         | DatePickerPresetsType[]                   | -                       |

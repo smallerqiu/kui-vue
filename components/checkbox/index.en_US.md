@@ -44,11 +44,11 @@ Checkbox for multiple selections.
 
 ## CheckboxGroup API
 
-| Property   | Description                                                                            | Type                                              | Default    |
-| ---------- | -------------------------------------------------------------------------------------- | ------------------------------------------------- | ---------- |
-| modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding        | Array                                             | -          |
-| disabled   | Whether the component is disabled                                                      | bool                                              | false      |
-| onChange   | Triggered when the option state changes, returns the currently selected item and state | (any[])=>void                                     | -          |
-| direction  | Layout direction, optional values `horizontal`, `vertical`                             | Sting                                             | horizontal |
-| options    | Can specify child `checkbox` items                                                     | Array <{label:string/number,value:string/number}> | -          |
-| size       | set the size of Checkbox                                                               | string                                            | -          |
+| Property   | Description                                                                            | Type             | Default    |
+| ---------- | -------------------------------------------------------------------------------------- | ---------------- | ---------- |
+| modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding        | any[]            | -          |
+| disabled   | Whether the component is disabled                                                      | bool             | false      |
+| onChange   | Triggered when the option state changes, returns the currently selected item and state | (any[])=>void    | -          |
+| direction  | Layout direction, optional values `horizontal`, `vertical`                             | string           | horizontal |
+| options    | Can specify child `checkbox` items                                                     | CheckboxOption[] | -          |
+| size       | set the size of Checkbox                                                               | string           | -          |

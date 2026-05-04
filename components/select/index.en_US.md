@@ -50,7 +50,7 @@ Dropdown selector.
 | bordered     | Whether to show border                                                            | bool                                       | true          |
 | extendWidth  | Whether dropdown width matches input width                                        | bool                                       | true          |
 | showArrow    | Whether to show dropdown button                                                   | bool                                       | true          |
-| options      | options data, if set, no need to manually construct Option nodes                  | Array <{value, label, disabled}>           | []            |
+| options      | options data, if set, no need to manually construct Option nodes                  | SelectOption[]                             | []            |
 | theme        | The theme of Select                                                               | string                                     | fill          |
 | icon         | Custom icon                                                                       | string                                     | -             |
 | shape        | When shape='circle', displays rounded corners                                     | string                                     | -             |

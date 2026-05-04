@@ -70,7 +70,7 @@ Uploading is the process of publishing information (web pages, text, images, vid
 | showUploadList | Whether to show upload list                                                                                 | bool                          | true    |
 | autoTrigger    | Whether to auto upload                                                                                      | bool                          | true    |
 | draggable      | Whether to support drag and drop upload                                                                     | bool                          | false   |
-| fileList       | Uploaded file list                                                                                          | Array                         | false   |
+| fileList       | Uploaded file list                                                                                          | UploadFile[]                  | -       |
 | name           | File parameter name sent to backend, default `file`                                                         | string                        | 'file'  |
 | uploadIcon     | Auxiliary icon for upload area                                                                              | string                        | Add     |
 | uploadText     | Auxiliary text for upload area                                                                              | string                        | -       |

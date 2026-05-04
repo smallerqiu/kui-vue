@@ -3,6 +3,13 @@ import type { BooleanType, DirectionType, SizeType, ThemeType } from "../const/t
 import { getChildren } from "../utils/vnode";
 import Checkbox, { type ChangeEvent } from "./checkbox";
 
+export interface CheckboxOption {
+  label?: string;
+  value?: string | number;
+  disabled?: boolean;
+  [key: string]: any;
+}
+
 const checkboxGroupProps = {
   modelValue: {
     type: Array as PropType<any[]>,
@@ -10,7 +17,7 @@ const checkboxGroupProps = {
   },
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   disabled: Boolean as BooleanType,
-  options: Array as PropType<any[]>,
+  options: Array as PropType<CheckboxOption[]>,
   direction: {
     type: String as PropType<DirectionType>,
     default: "horizontal",

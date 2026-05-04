@@ -34,6 +34,6 @@
 | -------- | ------------------------------ | ---------------------------------------------------------------------------------------- | ------ |
 | align    | 对齐方式                       | 参考 [align-items](https://developer.mozilla.org/zh-CN/docs/Web/CSS/align-items)         | center |
 | justify  | 设置元素在主轴方向上的对齐方式 | 参考 [justify-content](https://developer.mozilla.org/zh-CN/docs/Web/CSS/justify-content) | center |
-| vertical | 是否垂直显示                   | bool                                                                                  | false  |
-| size     | 间距大小                       | `small`,`middle`,`large`,number,Array                                                    | -      |
-| wrap     | 是否换行                       | bool                                                                                  | false  |
+| vertical | 是否垂直显示                   | bool                                                                                     | false  |
+| size     | 间距大小                       | `small`,`medium`,`large`,number,number[]                                                 | -      |
+| wrap     | 是否换行                       | bool                                                                                     | false  |

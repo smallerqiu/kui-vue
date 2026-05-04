@@ -32,7 +32,7 @@
 | showSizer    | 是否显示页码组                           | bool                                 | false            |
 | showTotal    | 是否显示总数                             | bool                                 | false            |
 | showElevator | 是否显示页码阶梯                         | bool                                 | false            |
-| sizeData     | 自定义页码组数据                         | Array                                | [10,15,20,30,40] |
-| size         | 值为'small' 时，呈现小尺寸               | Sting                                | -                |
-| theme        | 主题                                     | Sting                                | fill             |
+| sizeData     | 自定义页码组数据                         | number[]                             | [10,15,20,30,40] |
+| size         | 值为'small' 时，呈现小尺寸               | string                               | -                |
+| theme        | 主题                                     | string                               | fill             |
 | onChange     | 页码,页码组 改变的回调，返回改变后的页码 | (page:number, pageSize:number)=>void | -                |
