@@ -39,7 +39,7 @@ const SkeletonButton = defineComponent({
           {
             "k-skeleton-btn-lg": size == "large",
             "k-skeleton-btn-sm": size == "small",
-            [`k-skeleton-btn-${shape}`]: shape != "default",
+            [`k-skeleton-btn-${shape}`]: shape != "round",
           },
         ],
         style: {} as CSSProperties,

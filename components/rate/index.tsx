@@ -93,7 +93,7 @@ const Rate = defineComponent({
       } = props;
 
       if (typeof size === "string") {
-        const sizeValue = { small: 20, middle: 24, large: 32, default: 24 };
+        const sizeValue = { small: 20, medium: 24, large: 32, default: 24 };
         size = sizeValue[size];
       }
 

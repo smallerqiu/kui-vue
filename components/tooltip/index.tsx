@@ -169,7 +169,7 @@ const Tooltip = defineComponent({
         class: [`k-${preCls}-content`],
         style: {
           backgroundColor: isColor(color)
-            ? colors.includes(color || "")
+            ? colors.includes(color)
               ? `var(--kui-color-${color})`
               : color
             : undefined,
@@ -178,7 +178,7 @@ const Tooltip = defineComponent({
       const arrowProps = {
         style: {
           fill: isColor(color)
-            ? colors.includes(color || "")
+            ? colors.includes(color)
               ? `var(--kui-color-${color})`
               : color
             : "currentcolor",

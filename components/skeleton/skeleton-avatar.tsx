@@ -40,7 +40,7 @@ const SkeletonAvatar = defineComponent({
           {
             "k-skeleton-avatar-lg": size == "large",
             "k-skeleton-avatar-sm": size == "small",
-            [`k-skeleton-avatar-${shape}`]: shape != "default",
+            [`k-skeleton-avatar-${shape}`]: shape != "round",
           },
         ],
         style: {} as CSSProperties,

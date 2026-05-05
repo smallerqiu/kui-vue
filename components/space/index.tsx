@@ -46,7 +46,7 @@ const Space = defineComponent({
         if (Array.isArray(size)) {
           style.gap = `${size[1]}px ${size[0]}px`;
         } else if (typeof size === "string") {
-          const sizes = { small: 8, middle: 16, large: 24, default: 16 };
+          const sizes = { small: 8, medium: 16, large: 24, default: 16 };
           style.gap = `${sizes[size]}px`;
         } else if (typeof size === "number") {
           style.gap = `${size}px`;

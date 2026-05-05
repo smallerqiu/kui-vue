@@ -6,7 +6,17 @@ const lang = localStorage.getItem("lang") || "en";
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: [...routes],
+  routes: [
+    ...routes,
+    {
+      path: "/test",
+      component: () => import("./views/test/index.vue"),
+    },
+    {
+      path: "/preview-en",
+      component: () => import("./views/test/preview.vue"),
+    },
+  ],
   scrollBehavior(to, _, savedPosition) {
     if (savedPosition) {
       return savedPosition;
@@ -45,11 +55,6 @@ for (let key in demoGlobs) {
   };
   demoRoutes.push(route);
 }
-router.addRoute({
-  path: "/components",
-  component: Layout,
-  children: demoRoutes,
-});
 
 // docs routes
 const docsGlobs = import.meta.glob("./views/**/*.md");
@@ -63,15 +68,14 @@ for (let key in docsGlobs) {
   };
   docsRoutes.push(route);
 }
-router.addRoute({
-  path: "/guide",
-  component: Layout,
-  children: docsRoutes,
-});
 
 router.addRoute({
-  path: "/test",
-  component: () => import("./views/test.vue"),
+  path: "/",
+  component: Layout,
+  children: [
+    { path: "components", children: demoRoutes },
+    { path: "guide", children: docsRoutes },
+  ],
 });
 
 router.afterEach((to) => {

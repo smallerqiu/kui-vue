@@ -21,13 +21,12 @@
               <template #icon>
                 <Icon :type="sub.icon" />
               </template>
-              <a
-                @click="sideNavTo"
-                :href="`/${item.key == 'guide' ? 'guide' : 'components'}/${sub.name}${lang == 'en' ? '-en' : ''}`"
+              <router-link
+                :to="`/${item.key == 'guide' ? 'guide' : 'components'}/${sub.name}${lang == 'en' ? '-en' : ''}`"
               >
                 <span>{{ sub.sub }}</span>
                 <span class="sub" v-if="lang != 'en'">{{ sub.title }}</span>
-              </a>
+              </router-link>
             </MenuItem>
           </MenuGroup>
         </Menu>
@@ -91,12 +90,6 @@ const $t = inject<(key: string) => string>("$t", (key: string) => key);
 const lang = computed(() => {
   return locale?.value.name || "en";
 });
-const sideNavTo = (e: MouseEvent) => {
-  e.preventDefault();
-  e.stopPropagation();
-  const path = (e.target as HTMLElement).getAttribute("href") as string;
-  router.push(path);
-};
 const navTo = (e: MouseEvent, t: boolean) => {
   e.stopPropagation();
   e.preventDefault();
