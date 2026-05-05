@@ -1,5 +1,5 @@
 /*!
- * kui-vue v5.0.0
+ * kui-vue v5.1.0
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
  * Homepage: https://k-ui.cn
@@ -495,7 +495,8 @@ var Anchor = /* @__PURE__ */ defineComponent({
 			type: Number,
 			default: 5
 		},
-		container: [String, Object]
+		container: [String, Object],
+		onChange: { type: Function }
 	},
 	setup(props, { slots, emit, attrs }) {
 		const activeLink = ref("");
@@ -1324,6 +1325,23 @@ var CarouselItem = /* @__PURE__ */ defineComponent({
 	}
 });
 //#endregion
+//#region components/utils/checked.ts
+var getValueWithType = (checked, vType) => {
+	let value = checked;
+	switch (vType) {
+		case "string":
+			value = checked ? "1" : "0";
+			break;
+		case "number":
+			value = checked ? 1 : 0;
+			break;
+		case "boolean":
+			value = checked ? true : false;
+			break;
+	}
+	return value;
+};
+//#endregion
 //#region components/checkbox/checkbox.tsx
 var Checkbox = /* @__PURE__ */ defineComponent({
 	name: "Checkbox",
@@ -1331,6 +1349,10 @@ var Checkbox = /* @__PURE__ */ defineComponent({
 		checked: {
 			type: Boolean,
 			default: false
+		},
+		valueType: {
+			type: String,
+			default: "boolean"
 		},
 		modelValue: { type: [
 			String,
@@ -1345,14 +1367,11 @@ var Checkbox = /* @__PURE__ */ defineComponent({
 		label: { type: [String, Number] },
 		theme: {
 			type: String,
-			default: "light"
+			default: "fill"
 		},
 		disabled: Boolean,
 		indeterminate: Boolean,
-		size: {
-			type: String,
-			default: "default"
-		},
+		size: { type: String },
 		onChange: { type: Function }
 	},
 	setup(props, { slots, emit }) {
@@ -1361,7 +1380,7 @@ var Checkbox = /* @__PURE__ */ defineComponent({
 			isChecked.value = v;
 		});
 		watch(() => props.modelValue, (v) => {
-			isChecked.value = v || false;
+			isChecked.value = v == 1;
 		});
 		const emitValue = (checked) => {
 			isChecked.value = checked;
@@ -1370,7 +1389,7 @@ var Checkbox = /* @__PURE__ */ defineComponent({
 				value: props.value,
 				label: props.label || slots.default?.()
 			});
-			emit("update:modelValue", checked);
+			emit("update:modelValue", getValueWithType(checked, props.valueType));
 			emit("update:checked", checked);
 		};
 		const onChange = (e) => {
@@ -1391,7 +1410,7 @@ var Checkbox = /* @__PURE__ */ defineComponent({
 			const { theme, disabled, indeterminate, size, label } = props;
 			const rootProps = {
 				class: ["k-checkbox", {
-					"k-checkbox-light": theme === "light",
+					"k-checkbox-fill": theme === "fill",
 					"k-checkbox-disabled": disabled,
 					"k-checkbox-checked": isChecked.value && !indeterminate,
 					"k-checkbox-indeterminate": indeterminate && !isChecked.value,
@@ -1426,7 +1445,7 @@ var CheckboxGroup = /* @__PURE__ */ defineComponent({
 		},
 		theme: {
 			type: String,
-			default: "light"
+			default: "fill"
 		},
 		disabled: Boolean,
 		options: Array,
@@ -1434,10 +1453,7 @@ var CheckboxGroup = /* @__PURE__ */ defineComponent({
 			type: String,
 			default: "horizontal"
 		},
-		size: {
-			type: String,
-			default: "default"
-		},
+		size: { type: String },
 		onChange: { type: Function }
 	},
 	setup(props, { slots, emit }) {
@@ -1498,7 +1514,8 @@ var Collapse = /* @__PURE__ */ defineComponent({
 			default: () => []
 		},
 		accordion: Boolean,
-		sample: Boolean
+		sample: Boolean,
+		onChange: Function
 	},
 	setup(props, { slots, emit }) {
 		const defaultOpenKeys = ref(props.openKeys || []);
@@ -1512,7 +1529,7 @@ var Collapse = /* @__PURE__ */ defineComponent({
 			else value = props.accordion ? [key] : [...value, key];
 			defaultOpenKeys.value = value;
 			emit("change", key);
-			emit("update", value);
+			emit("update:openKeys", value);
 		};
 		return () => {
 			return createVNode("div", { class: ["k-collapse", { "k-collapse-sample": props.sample }] }, [getChildren(slots.default?.())?.map((child) => {
@@ -4557,7 +4574,7 @@ var InputGroup = /* @__PURE__ */ defineComponent({
 		},
 		theme: {
 			type: String,
-			default: "light"
+			default: "fill"
 		},
 		size: { type: [
 			String,
@@ -4576,7 +4593,7 @@ var InputGroup = /* @__PURE__ */ defineComponent({
 				class: ["k-input-group", {
 					"k-input-group-compact": compact,
 					"k-input-group-block": block,
-					"k-input-group-light": theme === "light",
+					"k-input-group-fill": theme === "fill",
 					"k-input-group-lg": size === "large",
 					"k-input-group-sm": size === "small"
 				}]
@@ -4642,7 +4659,7 @@ var Input = /* @__PURE__ */ defineComponent({
 		] },
 		theme: {
 			type: String,
-			default: "light"
+			default: "fill"
 		},
 		shape: String,
 		inputType: {
@@ -4808,7 +4825,7 @@ var TextArea = /* @__PURE__ */ defineComponent({
 		],
 		theme: {
 			type: String,
-			default: "light"
+			default: "fill"
 		},
 		shape: { type: String },
 		size: String,
@@ -4832,7 +4849,8 @@ var TextArea = /* @__PURE__ */ defineComponent({
 				placeholder,
 				rows,
 				class: ["k-textarea", {
-					[`k-textarea-${theme}`]: theme === "light",
+					[`k-textarea-fill`]: theme === "fill",
+					[`k-textarea-outline`]: theme === "outline",
 					"k-textarea-sm": size === "small",
 					"k-textarea-square": shape === "square",
 					"k-textarea-lg": size === "large"
@@ -4875,7 +4893,7 @@ var InputNumber = /* @__PURE__ */ defineComponent({
 		prefix: String,
 		theme: {
 			type: String,
-			default: "light"
+			default: "fill"
 		},
 		shape: { type: String },
 		icon: [Array],
@@ -5076,10 +5094,7 @@ var Select = /* @__PURE__ */ defineComponent({
 	},
 	props: {
 		placeholder: String,
-		size: {
-			type: String,
-			default: "default"
-		},
+		size: { type: String },
 		placement: {
 			type: String,
 			default: "bottom-left"
@@ -5116,7 +5131,7 @@ var Select = /* @__PURE__ */ defineComponent({
 		options: Array,
 		theme: {
 			type: String,
-			default: "light"
+			default: "fill"
 		},
 		emptyText: String,
 		loadingText: String,
@@ -5125,7 +5140,8 @@ var Select = /* @__PURE__ */ defineComponent({
 		arrowIcon: [Array],
 		onSearch: Function,
 		onChange: Function,
-		onSelect: Function
+		onSelect: Function,
+		onOpenChange: Function
 	},
 	setup(props, { slots, emit }) {
 		const injectedLocale = inject("locale", zh_CN_default);
@@ -5524,7 +5540,7 @@ var Select = /* @__PURE__ */ defineComponent({
 				"k-select-borderless": bordered === false,
 				"k-select-lg": size === "large",
 				"k-select-sm": size === "small",
-				"k-select-light": theme === "light",
+				"k-select-fill": theme === "fill",
 				"k-select-has-icon": !!icon,
 				"k-select-circle": shape === "circle" && !multiple,
 				"k-select-square": shape === "square",
@@ -5865,10 +5881,7 @@ var ColorPicker = /* @__PURE__ */ defineComponent({
 			type: String,
 			default: "click"
 		},
-		size: {
-			type: String,
-			default: "default"
-		},
+		size: { type: String },
 		mode: {
 			type: String,
 			default: "hex"
@@ -6409,6 +6422,7 @@ var DatePicker = /* @__PURE__ */ defineComponent({
 		},
 		presets: Array,
 		disabled: { type: Boolean },
+		opened: { type: Boolean },
 		clearable: {
 			type: Boolean,
 			default: true
@@ -6433,19 +6447,13 @@ var DatePicker = /* @__PURE__ */ defineComponent({
 			type: Function,
 			default: () => false
 		},
-		size: {
-			type: String,
-			default: "default"
-		},
+		size: { type: String },
 		dateIcon: { type: Array },
 		theme: {
 			type: String,
-			default: "light"
+			default: "fill"
 		},
-		shape: {
-			type: String,
-			default: "default"
-		},
+		shape: { type: String },
 		bordered: {
 			type: Boolean,
 			default: true
@@ -6453,7 +6461,8 @@ var DatePicker = /* @__PURE__ */ defineComponent({
 		placement: {
 			type: String,
 			default: "bottom-left"
-		}
+		},
+		onChange: { type: Function }
 	},
 	setup(props, { emit, slots }) {
 		const injectedLocale = inject("locale", zh_CN_default);
@@ -6466,9 +6475,9 @@ var DatePicker = /* @__PURE__ */ defineComponent({
 		const localeName = computed(() => {
 			return locale.value.name || "zh-cn";
 		});
-		const isVisible = ref(false);
+		const isVisible = ref(props.opened);
 		const isFocus = ref(false);
-		const rendered = ref(false);
+		const rendered = ref(props.opened);
 		const currentPlacement = ref(props.placement);
 		const left = ref(0);
 		const top = ref(0);
@@ -6969,6 +6978,9 @@ var DatePicker = /* @__PURE__ */ defineComponent({
 				});
 			});
 		};
+		onMounted(() => {
+			if (props.opened) updatePosition();
+		});
 		onUnmounted(() => document.removeEventListener("click", handleClickOutside));
 		return () => {
 			const localPlaceholders = {
@@ -6987,7 +6999,7 @@ var DatePicker = /* @__PURE__ */ defineComponent({
 				{ "k-datepicker-sm": props.size == "small" },
 				{ "k-datepicker-lg": props.size == "large" },
 				{ "k-datepicker-disabled": props.disabled },
-				{ "k-datepicker-light": props.theme == "light" },
+				{ "k-datepicker-fill": props.theme == "fill" },
 				{ "k-datepicker-circle": props.shape == "circle" },
 				{ "k-datepicker-square": props.shape == "square" }
 			];
@@ -7201,10 +7213,7 @@ var Descriptions = /* @__PURE__ */ defineComponent({
 		},
 		title: String,
 		extra: String,
-		size: {
-			type: String,
-			default: "default"
-		}
+		size: { type: String }
 	},
 	setup(props, { slots }) {
 		return () => {
@@ -7278,7 +7287,7 @@ var Descriptions = /* @__PURE__ */ defineComponent({
 			const wrapperProps = { class: ["k-descriptions", {
 				"k-descriptions-vertical": isVertical,
 				"k-descriptions-bordered": bordered,
-				"k-descriptions-middle": size === "middle",
+				"k-descriptions-medium": size === "medium",
 				"k-descriptions-sm": size === "small"
 			}] };
 			const extraNode = extra || slots.extra?.();
@@ -7724,35 +7733,39 @@ var Form = /* @__PURE__ */ defineComponent({
 		labelCol: Object,
 		wrapperCol: Object,
 		rules: { type: Object },
-		size: {
-			type: String,
-			default: "default"
-		},
+		size: { type: String },
 		theme: String,
 		shape: String,
 		disabled: Boolean,
-		onSubmit: { type: Function }
+		onSubmit: { type: Function },
+		onReset: { type: Function }
 	},
 	setup(props, { emit, slots, expose }) {
 		const formRef = ref(null);
+		const model = props.model;
 		const formItems = ref({});
-		const { model, rules, size, shape, theme, disabled, layout, name } = toRefs(props);
+		const { rules, size, shape, theme, disabled, layout, name, labelCol, wrapperCol } = toRefs(props);
 		const updateMode = (prop, value = null) => {
-			const { o, k } = getPropByPath(model.value, prop);
+			const { o, k } = getPropByPath(model, prop);
 			if (o) {
 				o[k] = value;
-				emit("change", model.value);
+				emit("change", model);
 			}
 		};
 		const getValueFromProp = (path) => {
-			const { v } = getPropByPath(model.value, path);
+			const { v } = getPropByPath(model, path);
 			return v;
 		};
 		const reset = () => {
+			form.cleaned = false;
 			Object.keys(formItems.value).forEach((prop) => {
 				updateMode(prop);
 				formItems.value[prop].valid = true;
 			});
+			nextTick(() => {
+				form.cleaned = true;
+			});
+			emit("reset");
 		};
 		const test = (key) => {
 			const item = formItems.value[key];
@@ -7799,9 +7812,6 @@ var Form = /* @__PURE__ */ defineComponent({
 			});
 			if (typeof callback === "function") callback({ valid: result });
 		};
-		watch(model, () => {
-			validate();
-		});
 		const register = (item) => {
 			formItems.value[item.prop] = item;
 		};
@@ -7814,7 +7824,7 @@ var Form = /* @__PURE__ */ defineComponent({
 			test,
 			submit
 		});
-		provide("Form", reactive({
+		const form = reactive({
 			model,
 			layout,
 			name,
@@ -7826,29 +7836,26 @@ var Form = /* @__PURE__ */ defineComponent({
 			getValueFromProp,
 			updateMode,
 			register,
-			unregister
-		}));
+			unregister,
+			labelCol,
+			wrapperCol,
+			cleaned: ref(true)
+		});
+		provide("Form", form);
 		return () => {
-			const { layout, size, labelCol = {}, wrapperCol = {}, name } = props;
-			const classes = ["k-form", {
-				[`k-form-${layout}`]: layout,
-				"k-form-lg": size === "large",
-				"k-form-sm": size === "small"
-			}];
-			const children = getChildren(slots.default?.());
+			const { layout, size, name } = props;
 			return createVNode("form", {
 				"ref": formRef,
-				"class": classes,
+				"class": ["k-form", {
+					[`k-form-${layout}`]: layout,
+					"k-form-lg": size === "large",
+					"k-form-sm": size === "small"
+				}],
 				"id": name,
 				"onSubmit": onSubmit,
 				"onReset": reset,
 				"autocomplete": "off"
-			}, [children.map((child) => {
-				return cloneVNode(child, {
-					labelCol: child.props?.labelCol || labelCol,
-					wrapperCol: child.props?.wrapperCol || wrapperCol
-				}, true);
-			})]);
+			}, [slots.default?.()]);
 		};
 	}
 });
@@ -8018,17 +8025,17 @@ var FormItem = /* @__PURE__ */ defineComponent({
 			valid.value = isValid;
 			return isValid;
 		};
-		const validate = (rules, _) => {
+		const validate = (rules) => {
 			if (!rules) return true;
 			if (rules.constructor === Object) return test(rules);
 			const sortedRules = [...rules].sort((a) => a.required ? -1 : 0);
 			for (let i = 0; i < sortedRules.length; i++) if (!test(sortedRules[i])) break;
 			return valid.value;
 		};
-		const testValue = (trigger) => {
+		const testValue = () => {
 			if (props.prop) {
 				const rules = props.rules || (Form.rules || {})[props.prop];
-				rules && validate(rules, trigger);
+				rules && validate(rules);
 			}
 		};
 		const { prop, rules } = toRefs(props);
@@ -8044,6 +8051,12 @@ var FormItem = /* @__PURE__ */ defineComponent({
 		onBeforeUnmount(() => {
 			if (props.prop) Form.unregister?.(formItem);
 		});
+		watch(computed(() => {
+			const prop = props.prop;
+			return prop ? Form.getValueFromProp?.(prop) ?? void 0 : void 0;
+		}), () => {
+			if (props.prop && Form.cleaned) testValue();
+		});
 		return () => {
 			const { label, prop } = props;
 			const rules = props.rules || (prop ? Form.rules[prop] : "") || [];
@@ -8051,12 +8064,12 @@ var FormItem = /* @__PURE__ */ defineComponent({
 				"k-form-item-required": rules.constructor === Object ? rules.required : rules.filter((r) => r.required).length > 0,
 				"k-form-item-error": !valid.value
 			}];
-			let labelProp, wrapperProp;
-			if (Form.layout == "vertical") delete props.wrapperCol?.offset;
+			let labelProp = {}, wrapperProp = {};
 			if (Form.layout != "inline") {
-				labelProp = { ...props.labelCol };
-				wrapperProp = { ...props.wrapperCol };
+				labelProp = props.labelCol || Form.labelCol || {};
+				wrapperProp = props.wrapperCol || Form.wrapperCol || {};
 			}
+			if (Form.layout == "vertical") delete wrapperProp?.offset;
 			const children = getChildren(slots.default?.());
 			let id = void 0;
 			if (Form.name && prop) id = `${Form.name || `form_`}_${prop}`;
@@ -8065,8 +8078,7 @@ var FormItem = /* @__PURE__ */ defineComponent({
 				"type": "flex"
 			}, { default: () => [label ? createVNode(Col, mergeProps({ "class": "k-form-item-label" }, labelProp), { default: () => [createVNode("label", { "for": id }, [label])] }) : null, createVNode(Col, wrapperProp, { default: () => [createVNode("div", { "class": "k-form-item-content" }, [children.map((child) => {
 				if (isVNode(child)) {
-					const tag = child.type?.name;
-					const value = prop ? Form.getValueFromProp?.(prop) || void 0 : void 0;
+					const value = prop ? Form.getValueFromProp?.(prop) ?? void 0 : void 0;
 					const propsData = child?.props || {};
 					const size = propsData.size || Form.size;
 					const theme = propsData.theme || Form.theme;
@@ -8079,24 +8091,13 @@ var FormItem = /* @__PURE__ */ defineComponent({
 						theme,
 						shape
 					};
-					const childEvents = {};
 					if (prop) {
-						if (/(switch|radio|checkbox)/.test(tag)) childProps.checked = value || false;
-						else childProps.modelValue = value;
-						childEvents["onUpdate:modelValue"] = (value) => {
-							if (tag) {
-								Form.updateMode?.(prop, value);
-								testValue();
-							}
+						childProps.modelValue = value;
+						childProps["onUpdate:modelValue"] = (value) => {
+							Form.updateMode?.(prop, value);
 						};
 					}
-					if (/(input|textarea)/.test(tag)) childEvents.onBlur = () => {
-						testValue();
-					};
-					return cloneVNode(child, {
-						...childProps,
-						...childEvents
-					});
+					return cloneVNode(child, { ...childProps });
 				} else return child;
 			}), prop ? createVNode(Transition, { "name": "k-form-item-fade" }, { default: () => [!valid.value ? createVNode("div", { "class": "k-form-item-error-tip" }, [message.value]) : null] }) : null])] })] });
 		};
@@ -8130,10 +8131,10 @@ var Flex = /* @__PURE__ */ defineComponent({
 				}]
 			};
 			if (Array.isArray(size)) _props.style = { gap: `${size[1]}px ${size[0]}px` };
-			else if (/small|middle|large/.test(size)) {
+			else if (/small|medium|large/.test(size)) {
 				const sizes = {
 					small: 8,
-					middle: 16,
+					medium: 16,
 					large: 24,
 					default: 16
 				};
@@ -8480,9 +8481,9 @@ var Tooltip = /* @__PURE__ */ defineComponent({
 			};
 			const contentProps = {
 				class: [`k-${preCls}-content`],
-				style: { backgroundColor: isColor(color) ? colors$1.includes(color || "") ? `var(--kui-color-${color})` : color : void 0 }
+				style: { backgroundColor: isColor(color) ? colors$1.includes(color) ? `var(--kui-color-${color})` : color : void 0 }
 			};
-			const arrowProps = { style: { fill: isColor(color) ? colors$1.includes(color || "") ? `var(--kui-color-${color})` : color : "currentcolor" } };
+			const arrowProps = { style: { fill: isColor(color) ? colors$1.includes(color) ? `var(--kui-color-${color})` : color : "currentcolor" } };
 			return [nodeWrapper, rendered.value ? createVNode(Transition, { "name": `k-${preCls}` }, { default: () => [withDirectives(createVNode("div", overlayProps, [createVNode("div", contentProps, [createVNode("div", { "class": `k-${preCls}-title` }, [title]), createVNode("div", { "class": `k-${preCls}-arrow` }, [createVNode("svg", mergeProps(arrowProps, { "viewBox": "0 0 24 7" }), [createVNode("path", { "d": "M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z" }, null)])])])]), [[resolveDirective("transfer"), true], [vShow, visible.value]])] }) : null];
 		};
 	}
@@ -10021,7 +10022,8 @@ var content_default = /* @__PURE__ */ defineComponent({
 				info: Info,
 				error: CircleX,
 				success: CircleCheck,
-				warning: CircleAlert
+				warning: CircleAlert,
+				loading: Loading
 			}[type] : null;
 			const classes = [`k-${noticeType}-box`, {
 				[`k-${noticeType}-${type}`]: type,
@@ -10031,7 +10033,8 @@ var content_default = /* @__PURE__ */ defineComponent({
 			if (AlertIcon) children.push(createVNode(Icon, {
 				"type": AlertIcon,
 				"color": color,
-				"class": `k-${noticeType}-icon`
+				"class": `k-${noticeType}-icon`,
+				"spin": type == "loading"
 			}, null));
 			if (noticeType == "message") {
 				children.push(createVNode("span", null, [content]));
@@ -10069,19 +10072,20 @@ var container_default = /* @__PURE__ */ defineComponent({
 		const options = ref([]);
 		const show = (option) => {
 			let { duration = 3.5, onClose, closable, noticeType } = option;
-			let key = getUuid();
-			let timer;
-			let callback = (key) => {
+			const key = getUuid();
+			let timer = void 0;
+			let callback = () => {
 				typeof onClose === "function" && onClose();
 				options.value = options.value.filter((item) => item.key !== key);
 				clearTimeout(timer);
 			};
-			duration > 0 && (timer = setTimeout(callback, duration * 1e3, key));
-			if (closable === true && noticeType == "message" || noticeType == "notice") option.onClose = () => callback(key);
+			duration > 0 && (timer = setTimeout(callback, duration * 1e3));
+			if (closable === true && noticeType == "message" || noticeType == "notice") option.onClose = () => callback();
 			options.value.push({
 				...option,
 				key
 			});
+			return callback;
 		};
 		const clean = () => {
 			options.value = [];
@@ -10140,7 +10144,7 @@ var message = {
 	show(options = {}) {
 		if (!messageInstance) messageInstance = createInstance("message");
 		const props = Object.assign(options, { noticeType: "message" });
-		messageInstance?.show(props);
+		return messageInstance?.show(props);
 	},
 	destroy() {
 		if (messageInstance) {
@@ -10180,6 +10184,13 @@ var message = {
 			duration,
 			onClose
 		});
+	},
+	loading(content, duration) {
+		return this.show({
+			type: "loading",
+			content,
+			duration
+		});
 	}
 };
 //#endregion
@@ -10197,6 +10208,10 @@ var Modal = /* @__PURE__ */ defineComponent({
 		cancelText: String,
 		top: Number,
 		width: Number,
+		transfer: {
+			type: Boolean,
+			default: true
+		},
 		mask: {
 			type: Boolean,
 			default: true
@@ -10397,7 +10412,7 @@ var Modal = /* @__PURE__ */ defineComponent({
 				"class": "k-modal-inner",
 				"ref": refModal,
 				"style": style
-			}, [contentNode, createVNode("div", { "tabindex": "0" }, null)]), [[vShow, visible.value]])] })]), [[vShow, showInner.value]])]), [[resolveDirective("transfer"), true]]) : null;
+			}, [contentNode, createVNode("div", { "tabindex": "0" }, null)]), [[vShow, visible.value]])] })]), [[vShow, showInner.value]])]), [[resolveDirective("transfer"), props.transfer]]) : null;
 		};
 	}
 });
@@ -10611,7 +10626,7 @@ var Page = /* @__PURE__ */ defineComponent({
 		showElevator: Boolean,
 		theme: {
 			type: String,
-			default: "light"
+			default: "fill"
 		},
 		sizeData: {
 			type: Array,
@@ -10623,10 +10638,7 @@ var Page = /* @__PURE__ */ defineComponent({
 				40
 			]
 		},
-		size: {
-			default: "default",
-			type: String
-		},
+		size: { type: String },
 		total: {
 			default: 0,
 			type: Number
@@ -10812,7 +10824,7 @@ var Page = /* @__PURE__ */ defineComponent({
 		return () => {
 			const classes = ["k-page", {
 				["k-page-sm"]: props.size == "small",
-				"k-page-light": props.theme == "light",
+				"k-page-fill": props.theme == "fill",
 				"k-page-disabled": props.disabled
 			}], preNode = createVNode("li", {
 				"class": ["k-pager-item k-pager-prev", { "k-pager-item-disabled": defaultPage.value == 1 }],
@@ -11024,8 +11036,8 @@ var Popconfirm = /* @__PURE__ */ defineComponent({
 		const locale = computed(() => {
 			return injectedLocale instanceof Object && "value" in injectedLocale ? injectedLocale.value : injectedLocale;
 		});
-		const rendered = ref(false);
-		const visible = ref(false);
+		const rendered = ref(props.show);
+		const visible = ref(props.show);
 		const refPopper = ref();
 		const refSelection = ref();
 		const left = ref(0);
@@ -11180,10 +11192,7 @@ var Progress = /* @__PURE__ */ defineComponent({
 			type: String,
 			default: "round"
 		},
-		size: {
-			type: String,
-			default: "default"
-		},
+		size: { type: String },
 		status: {
 			type: String,
 			default: "normal"
@@ -11318,12 +11327,9 @@ var Radio = /* @__PURE__ */ defineComponent({
 		disabled: Boolean,
 		theme: {
 			type: String,
-			default: "light"
+			default: "fill"
 		},
-		size: {
-			type: String,
-			default: "default"
-		},
+		size: { type: String },
 		onChange: Function
 	},
 	setup(props, { slots, emit }) {
@@ -11361,7 +11367,7 @@ var Radio = /* @__PURE__ */ defineComponent({
 		};
 		return () => {
 			const classes = ["k-radio", {
-				["k-radio-light"]: props.theme == "light",
+				["k-radio-fill"]: props.theme == "fill",
 				["k-radio-disabled"]: props.disabled,
 				["k-radio-checked"]: isChecked.value,
 				["k-radio-lg"]: props.size === "large",
@@ -11401,11 +11407,9 @@ var RadioButton = /* @__PURE__ */ defineComponent({
 		disabled: Boolean,
 		checked: Boolean,
 		icon: Array,
-		size: {
-			type: String,
-			default: "default"
-		},
-		shape: { type: String }
+		size: { type: String },
+		shape: { type: String },
+		onChange: Function
 	},
 	setup(props, { slots, emit, attrs }) {
 		const isChecked = ref(props.modelValue || props.checked);
@@ -11430,9 +11434,9 @@ var RadioButton = /* @__PURE__ */ defineComponent({
 		};
 		return () => {
 			return createVNode(Button, {
-				...props,
 				disabled: props.disabled,
 				size: props.size,
+				icon: props.icon,
 				theme: props.theme,
 				shape: props.shape,
 				type: isChecked.value ? "primary" : "default",
@@ -11462,7 +11466,48 @@ var RadioGroup = /* @__PURE__ */ defineComponent({
 		onChange: Function
 	},
 	setup(props, { slots, emit }) {
+		const rootRef = ref();
+		const observerRef = ref();
 		const currentValue = ref(props.modelValue);
+		const itemRefs = /* @__PURE__ */ new Map();
+		const isVertical = computed(() => props.direction === "vertical");
+		const segStyle = ref(isVertical.value ? {
+			height: "0px",
+			top: "0px"
+		} : {
+			width: "0px",
+			left: "0px"
+		});
+		const changed = ref(false);
+		const setItemRef = (el, value) => {
+			if (el) itemRefs.set(value, el.$el || el);
+		};
+		const updateSeg = () => {
+			if (props.theme !== "card" || props.type !== "button") return;
+			changed.value = true;
+			nextTick(updateSize);
+		};
+		const updateSize = () => {
+			const activeEl = itemRefs.get(currentValue.value);
+			if (activeEl) setTimeout(() => {
+				segStyle.value = isVertical.value ? {
+					height: `${activeEl.offsetHeight - 4}px`,
+					top: `${activeEl.offsetTop + 2}px`
+				} : {
+					width: `${activeEl.offsetWidth - 4}px`,
+					left: `${activeEl.offsetLeft + 2}px`
+				};
+			});
+		};
+		onMounted(() => {
+			observerRef.value = new ResizeObserver(() => {
+				updateSize();
+			});
+			observerRef.value.observe(rootRef.value);
+		});
+		onUnmounted(() => {
+			if (observerRef.value) observerRef.value.disconnect();
+		});
 		const onChange = ({ value }) => {
 			currentValue.value = value;
 			emit("update:modelValue", value);
@@ -11470,7 +11515,11 @@ var RadioGroup = /* @__PURE__ */ defineComponent({
 		};
 		watch(() => props.modelValue, (val) => {
 			currentValue.value = val;
+			updateSeg();
 		});
+		const onTransitionEnd = (e) => {
+			if (e.propertyName === "left" || e.propertyName === "top") changed.value = false;
+		};
 		const optionsData = computed(() => {
 			let { options } = props;
 			if (!options) {
@@ -11488,10 +11537,13 @@ var RadioGroup = /* @__PURE__ */ defineComponent({
 			return options;
 		});
 		return () => {
+			const isButton = props.type === "button";
+			const isCard = props.theme === "card";
 			let options = optionsData.value;
 			let nodes = [];
-			const Component = props.type === "button" ? RadioButton : Radio;
+			const Component = isButton ? RadioButton : Radio;
 			options.forEach((option) => nodes.push(createVNode(Component, {
+				"ref": (el) => setItemRef(el, option.value),
 				"key": option.label,
 				"label": option.label,
 				"value": option.value,
@@ -11503,13 +11555,21 @@ var RadioGroup = /* @__PURE__ */ defineComponent({
 				"theme": props.theme,
 				"shape": props.shape
 			}, null)));
-			return createVNode("div", { "class": ["k-radio-group", {
-				"k-radio-button-group": props.type === "button",
-				"k-radio-circle": props.shape === "circle",
-				"k-radio-group-light": props.theme === "light" && props.type === "button",
-				"k-radio-group-card": props.theme === "card" && props.type === "button",
-				"k-radio-group-vertical": props.direction === "vertical"
-			}] }, [nodes]);
+			return createVNode("div", {
+				"class": ["k-radio-group", {
+					"k-radio-button-group": isButton,
+					"k-radio-button-changed": changed.value,
+					"k-radio-group-circle": props.shape === "circle",
+					"k-radio-group-fill": props.theme === "fill" && isButton,
+					"k-radio-group-card": isCard && isButton,
+					"k-radio-group-vertical": props.direction === "vertical"
+				}],
+				"ref": rootRef
+			}, [nodes, changed.value && isCard && isButton && createVNode("div", {
+				"class": "k-radio-group-card-seg",
+				"style": segStyle.value,
+				"onTransitionend": onTransitionEnd
+			}, null)]);
 		};
 	}
 });
@@ -11585,6 +11645,10 @@ var star_default = /* @__PURE__ */ defineComponent({
 var Rate = /* @__PURE__ */ defineComponent({
 	name: "Rate",
 	props: {
+		value: {
+			type: Number,
+			default: 0
+		},
 		modelValue: {
 			type: Number,
 			default: 0
@@ -11613,7 +11677,7 @@ var Rate = /* @__PURE__ */ defineComponent({
 		onChange: { type: Function }
 	},
 	setup(props, { emit }) {
-		const initValue = ref(props.modelValue);
+		const initValue = ref(props.modelValue || props.value);
 		const tempValue = ref(null);
 		const cleared = ref(false);
 		watch(() => props.modelValue, (v) => {
@@ -11646,7 +11710,7 @@ var Rate = /* @__PURE__ */ defineComponent({
 			let { count, allowHalf, character, disabled, tooltips = [], icon, showScore, color, size } = props;
 			if (typeof size === "string") size = {
 				small: 20,
-				middle: 24,
+				medium: 24,
 				large: 32,
 				default: 24
 			}[size];
@@ -11810,7 +11874,7 @@ var SkeletonAvatar = /* @__PURE__ */ defineComponent({
 				class: ["k-skeleton-avatar", {
 					"k-skeleton-avatar-lg": size == "large",
 					"k-skeleton-avatar-sm": size == "small",
-					[`k-skeleton-avatar-${shape}`]: shape != "default"
+					[`k-skeleton-avatar-${shape}`]: shape != "round"
 				}],
 				style: {}
 			};
@@ -11851,7 +11915,7 @@ var SkeletonButton = /* @__PURE__ */ defineComponent({
 				class: ["k-skeleton-btn", {
 					"k-skeleton-btn-lg": size == "large",
 					"k-skeleton-btn-sm": size == "small",
-					[`k-skeleton-btn-${shape}`]: shape != "default"
+					[`k-skeleton-btn-${shape}`]: shape != "round"
 				}],
 				style: {}
 			};
@@ -12505,7 +12569,7 @@ var Space = /* @__PURE__ */ defineComponent({
 				if (Array.isArray(size)) style.gap = `${size[1]}px ${size[0]}px`;
 				else if (typeof size === "string") style.gap = `${{
 					small: 8,
-					middle: 16,
+					medium: 16,
 					large: 24,
 					default: 16
 				}[size]}px`;
@@ -12545,10 +12609,7 @@ var Spin = /* @__PURE__ */ defineComponent({
 			type: Number,
 			default: 500
 		},
-		size: {
-			type: String,
-			default: "default"
-		},
+		size: { type: String },
 		mode: {
 			type: String,
 			default: "rotate"
@@ -12586,41 +12647,51 @@ var Spin = /* @__PURE__ */ defineComponent({
 var Switch = /* @__PURE__ */ defineComponent({
 	name: "KSwitch",
 	props: {
-		checked: [Boolean, Number],
-		modelValue: [Boolean, Number],
+		checked: {
+			type: Boolean,
+			default: false
+		},
+		valueType: {
+			type: String,
+			default: "boolean"
+		},
+		modelValue: { type: [
+			String,
+			Number,
+			Boolean
+		] },
 		type: String,
 		disabled: Boolean,
 		loading: Boolean,
-		size: {
-			default: "default",
-			type: String
-		},
+		size: { type: String },
 		trueText: String,
 		falseText: String,
 		onChange: Function
 	},
-	setup(ps, { slots, emit }) {
-		const isChecked = ref(ps.modelValue || ps.checked);
-		watch(() => ps.modelValue, (nv) => {
-			isChecked.value = nv;
+	setup(props, { slots, emit }) {
+		const isChecked = ref(props.modelValue || props.checked);
+		watch(() => props.modelValue, (nv) => {
+			isChecked.value = nv == 1;
 		});
-		watch(() => ps.checked, (nv) => {
+		watch(() => props.checked, (nv) => {
 			isChecked.value = nv;
 		});
 		const change = () => {
-			if (ps.disabled) return false;
+			if (props.disabled) return false;
 			const checked = !isChecked.value;
 			isChecked.value = checked;
-			emit("update:modelValue", checked);
-			emit("change", checked);
+			const value = getValueWithType(checked, props.valueType);
+			emit("update:modelValue", value);
+			emit("update:checked", checked);
+			emit("change", value);
 		};
 		return () => {
-			const { type, trueText, falseText, disabled, loading, size } = ps;
+			const { type, trueText, falseText, disabled, loading, size } = props;
 			const classes = ["k-switch", {
 				["k-switch-checked"]: isChecked.value,
 				["k-switch-disabled"]: disabled || loading,
 				[`k-switch-${type}`]: !!type,
-				["k-switch-sm"]: ps.size == "small"
+				["k-switch-sm"]: props.size == "small"
 			}];
 			const children = slots.checked?.() || trueText || slots.unchecked?.() || falseText;
 			const loadNode = loading ? createVNode(Icon, {
@@ -12665,10 +12736,7 @@ var Table = /* @__PURE__ */ defineComponent({
 			type: Object,
 			default: () => ({})
 		},
-		size: {
-			type: String,
-			default: "default"
-		},
+		size: { type: String },
 		striped: Boolean,
 		bordered: {
 			type: Boolean,
@@ -13856,10 +13924,7 @@ var TreeSelect = /* @__PURE__ */ defineComponent({
 	},
 	props: {
 		placeholder: String,
-		size: {
-			type: String,
-			default: "default"
-		},
+		size: { type: String },
 		placement: {
 			type: String,
 			default: "bottom-left"
@@ -13896,7 +13961,7 @@ var TreeSelect = /* @__PURE__ */ defineComponent({
 		options: Array,
 		theme: {
 			type: String,
-			default: "light"
+			default: "fill"
 		},
 		emptyText: String,
 		icon: [Array],
@@ -14256,7 +14321,7 @@ var TreeSelect = /* @__PURE__ */ defineComponent({
 				"k-tree-select-borderless": props.bordered === false,
 				"k-tree-select-lg": props.size === "large",
 				"k-tree-select-sm": props.size === "small",
-				"k-tree-select-light": props.theme === "light",
+				"k-tree-select-fill": props.theme === "fill",
 				"k-tree-select-has-icon": !!props.icon,
 				"k-tree-select-circle": props.shape === "circle" && !props.multiple,
 				"k-tree-select-square": props.shape == "square",
@@ -14303,7 +14368,7 @@ var Tag = /* @__PURE__ */ defineComponent({
 		},
 		theme: {
 			type: String,
-			default: "light"
+			default: "fill"
 		},
 		onClose: { type: Function }
 	},
@@ -14331,7 +14396,7 @@ var Tag = /* @__PURE__ */ defineComponent({
 				"k-tag-has-color": isCustomColor,
 				"k-tag-closeable": closeable,
 				"k-tag-hidden": hidden.value,
-				"k-tag-light": props.theme === "light"
+				"k-tag-fill": props.theme === "fill"
 			}];
 			const tagStyle = { backgroundColor: isCustomColor ? color : void 0 };
 			const content = [];
@@ -14605,7 +14670,8 @@ var Upload = /* @__PURE__ */ defineComponent({
 		onRemove: Function,
 		onSelectFiles: Function,
 		onExceed: Function,
-		onSizeError: Function
+		onSizeError: Function,
+		onBeforeUpload: Function
 	},
 	setup(props, { emit, slots, expose }) {
 		const injectedLocale = inject("locale", zh_CN_default);
@@ -14700,10 +14766,7 @@ var Upload = /* @__PURE__ */ defineComponent({
 			});
 		};
 		const uploadFile = (item, file) => {
-			emit("beforeUpload", {
-				file: item,
-				fileList: innerFileList.value
-			});
+			emit("beforeUpload", item, file);
 			if (props.transformFile) props.transformFile(file).then((res) => {
 				toUpload(item, res);
 			});
@@ -14780,6 +14843,128 @@ var Upload = /* @__PURE__ */ defineComponent({
 				"k-upload-drag": draggable
 			}] }, [!isPicture ? [SelectorNode, FileListNode] : FileListNode]);
 		};
+	}
+});
+var Splitter = /* @__PURE__ */ defineComponent({
+	name: "Splitter",
+	props: {
+		direction: {
+			type: String,
+			default: "horizontal"
+		},
+		onResize: Function,
+		onResizeEnd: Function,
+		onResizeStart: Function
+	},
+	setup(props, { slots, emit }) {
+		const containerRef = ref(null);
+		const isDragging = ref(false);
+		const activeResizerIndex = ref(null);
+		const panelSizes = ref([]);
+		const minSizes = ref([]);
+		const maxSizes = ref([]);
+		const parseToPx = (val, total) => {
+			if (val === void 0 || val === null || val === "") return null;
+			const s = String(val).trim();
+			if (s.endsWith("%")) return parseFloat(s) / 100 * total;
+			if (s.endsWith("px")) return parseFloat(s);
+			if (!isNaN(Number(s))) return parseFloat(s) / 100 * total;
+			return null;
+		};
+		const initSizes = () => {
+			if (!containerRef.value) return;
+			const rect = containerRef.value.getBoundingClientRect();
+			const children = slots.default?.() || [];
+			const totalSize = (props.direction === "horizontal" ? rect.width : rect.height) - (children.length - 1) * 4;
+			minSizes.value = children.map((c) => parseToPx(c.props?.min, totalSize) ?? 0);
+			maxSizes.value = children.map((c) => parseToPx(c.props?.max, totalSize) ?? totalSize);
+			const rawSizes = children.map((c) => parseToPx(c.props?.size, totalSize));
+			const definedSum = rawSizes.reduce((acc, s) => (acc ?? 0) + (s ?? 0), 0) || 0;
+			const undefinedCount = rawSizes.filter((s) => s === null).length;
+			const spare = Math.max(0, totalSize - definedSum);
+			const autoSize = undefinedCount > 0 ? spare / undefinedCount : 0;
+			panelSizes.value = rawSizes.map((s) => s ?? autoSize);
+		};
+		const onMouseDown = (index) => {
+			isDragging.value = true;
+			activeResizerIndex.value = index;
+			document.addEventListener("mousemove", onMouseMove);
+			document.addEventListener("mouseup", onMouseUp);
+			document.body.style.cursor = props.direction === "horizontal" ? "col-resize" : "row-resize";
+			document.body.classList.add("k-splitter-dragging");
+			emitSize("resizeStart");
+		};
+		const emitSize = (type) => {
+			emit(type, panelSizes.value.map((x) => parseFloat(x.toFixed(3))));
+		};
+		const onMouseMove = (e) => {
+			if (!isDragging.value || activeResizerIndex.value === null || !containerRef.value) return;
+			const rect = containerRef.value.getBoundingClientRect();
+			const idx = activeResizerIndex.value;
+			const children = slots.default?.() || [];
+			const resizerWidth = 4;
+			const totalResizersWidth = (children.length - 1) * resizerWidth;
+			const totalAvailableSize = (props.direction === "horizontal" ? rect.width : rect.height) - totalResizersWidth;
+			const resizersBefore = idx * resizerWidth;
+			let currentPos = (props.direction === "horizontal" ? e.clientX - rect.left : e.clientY - rect.top) - resizersBefore;
+			currentPos = Math.max(0, Math.min(totalAvailableSize, currentPos));
+			const pairTotal = panelSizes.value[idx] + panelSizes.value[idx + 1];
+			const offset = panelSizes.value.slice(0, idx).reduce((a, b) => a + b, 0);
+			let newSizeIdx = currentPos - offset;
+			newSizeIdx = Math.max(minSizes.value[idx], Math.min(maxSizes.value[idx], newSizeIdx));
+			const maxAllowed = pairTotal - minSizes.value[idx + 1];
+			newSizeIdx = Math.min(newSizeIdx, maxAllowed);
+			panelSizes.value[idx] = newSizeIdx;
+			panelSizes.value[idx + 1] = pairTotal - newSizeIdx;
+			emitSize("resize");
+		};
+		const onMouseUp = () => {
+			isDragging.value = false;
+			activeResizerIndex.value = null;
+			document.removeEventListener("mousemove", onMouseMove);
+			document.removeEventListener("mouseup", onMouseUp);
+			document.body.style.cursor = "";
+			document.body.classList.remove("k-splitter-dragging");
+			emitSize("resizeEnd");
+		};
+		let ob = null;
+		onMounted(() => {
+			initSizes();
+			ob = new ResizeObserver(() => initSizes());
+			if (containerRef.value) ob.observe(containerRef.value);
+		});
+		onUnmounted(() => ob?.disconnect());
+		return () => {
+			const children = slots.default?.() || [];
+			return createVNode("div", {
+				"ref": containerRef,
+				"class": ["k-splitter", `is-${props.direction}`]
+			}, [children.map((child, index) => {
+				const isLast = index === children.length - 1;
+				return createVNode(Fragment, null, [createVNode("div", {
+					"class": "k-splitter-item",
+					"style": {
+						flexBasis: `${panelSizes.value[index]}px`,
+						flexGrow: 0,
+						flexShrink: 0
+					}
+				}, [child]), !isLast && createVNode("div", {
+					"class": "k-splitter-resizer",
+					"onMousedown": () => onMouseDown(index)
+				}, null)]);
+			})]);
+		};
+	}
+});
+var SplitterPanel = /* @__PURE__ */ defineComponent({
+	name: "SplitterPanel",
+	props: {
+		size: { type: [Number, String] },
+		min: { type: [Number, String] },
+		max: { type: [Number, String] }
+	},
+	setup(_, { slots }) {
+		return () => createVNode("div", { "class": "k-splitter-panel" }, [slots.default?.()]);
 	}
 });
 //#endregion
@@ -14900,6 +15085,8 @@ var components_exports = /* @__PURE__ */ __exportAll({
 	Slider: () => Slider,
 	Space: () => Space,
 	Spin: () => Spin,
+	Splitter: () => Splitter,
+	SplitterPanel: () => SplitterPanel,
 	StatCard: () => StatCard,
 	StatNumber: () => StatNumber,
 	SubMenu: () => SubMenu,
@@ -14921,7 +15108,7 @@ var components_exports = /* @__PURE__ */ __exportAll({
 	theme: () => Theme
 });
 //#endregion
-//#region components/utils/vue.js
+//#region components/utils/vue.ts
 var globalComponents = [
 	"message",
 	"modal",
@@ -14952,4 +15139,4 @@ var UI = {
 var install = UI.install;
 var version = UI.version;
 //#endregion
-export { Affix, Alert, Anchor, AnchorLink, Avatar, AvatarGroup, BackTop, Badge, Breadcrumb, BreadcrumbItem, Button, ButtonGroup, Card, Carousel, CarouselItem, Checkbox, CheckboxGroup, Col, Collapse, CollapsePanel, ColorPicker, ConfigProvider, Content, DatePicker, Descriptions, DescriptionsItem, Divider, Drawer, Dropdown, DropdownButton, Empty, Flex, Footer, Form, FormItem, Grid, GridItem, Header, Icon, ImageGroup, Input, InputGroup, InputNumber, KImage, Switch as KSwitch, Layout, Menu, MenuDivider, MenuGroup, MenuItem, modal_default as Modal, Option, Page, Popconfirm, Poptip, Progress, Radio, RadioButton, RadioGroup, Rate, Row, Select, Sider, Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText, Slider, Space, Spin, StatCard, StatNumber, SubMenu, TabPanel, Table, Tabs, Tag, TextArea, TimeLine, TimeLineItem, Tooltip, Tree, TreeSelect, Upload, UI as default, install, loading, message, modal, notice, Theme as theme, version };
+export { Affix, Alert, Anchor, AnchorLink, Avatar, AvatarGroup, BackTop, Badge, Breadcrumb, BreadcrumbItem, Button, ButtonGroup, Card, Carousel, CarouselItem, Checkbox, CheckboxGroup, Col, Collapse, CollapsePanel, ColorPicker, ConfigProvider, Content, DatePicker, Descriptions, DescriptionsItem, Divider, Drawer, Dropdown, DropdownButton, Empty, Flex, Footer, Form, FormItem, Grid, GridItem, Header, Icon, ImageGroup, Input, InputGroup, InputNumber, KImage, Switch as KSwitch, Layout, Menu, MenuDivider, MenuGroup, MenuItem, modal_default as Modal, Option, Page, Popconfirm, Poptip, Progress, Radio, RadioButton, RadioGroup, Rate, Row, Select, Sider, Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText, Slider, Space, Spin, Splitter, SplitterPanel, StatCard, StatNumber, SubMenu, TabPanel, Table, Tabs, Tag, TextArea, TimeLine, TimeLineItem, Tooltip, Tree, TreeSelect, Upload, UI as default, install, loading, message, modal, notice, Theme as theme, version };

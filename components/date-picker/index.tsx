@@ -17,6 +17,7 @@ import {
   defineComponent,
   inject,
   nextTick,
+  onMounted,
   onUnmounted,
   ref,
   Transition,
@@ -74,6 +75,7 @@ export const datePickerProps = {
   },
   presets: Array as PropType<DatePickerPresetsType[]>,
   disabled: { type: Boolean as BooleanType },
+  opened: { type: Boolean as BooleanType },
   clearable: { type: Boolean as BooleanType, default: true },
   editable: { type: Boolean as BooleanType, default: true },
   placeholder: { type: [String, Array] as PropType<string | string[]>, default: "" },
@@ -122,9 +124,9 @@ const DatePicker = defineComponent({
     });
 
     // --- 状态定义 ---
-    const isVisible = ref(false);
+    const isVisible = ref(props.opened);
     const isFocus = ref(false);
-    const rendered = ref(false);
+    const rendered = ref(props.opened);
     const currentPlacement = ref(props.placement);
     const left = ref(0);
     const top = ref(0);
@@ -858,6 +860,9 @@ const DatePicker = defineComponent({
         });
       });
     };
+    onMounted(() => {
+      if (props.opened) updatePosition();
+    });
     onUnmounted(() => document.removeEventListener("click", handleClickOutside));
 
     return () => {

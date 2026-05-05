@@ -25,6 +25,7 @@ export const modalProps = {
   cancelText: String,
   top: Number,
   width: Number,
+  transfer: { type: Boolean as BooleanType, default: true },
   mask: { type: Boolean as BooleanType, default: true },
   maskClosable: { type: Boolean as BooleanType, default: false },
   maximized: Boolean as BooleanType,
@@ -254,7 +255,7 @@ const Modal = defineComponent({
         },
       ];
       return rendered.value ? (
-        <div class={classes} v-transfer={true}>
+        <div class={classes} v-transfer={props.transfer}>
           {maskNode}
           <div
             class="k-modal-wrap"

@@ -52,8 +52,8 @@ const Popconfirm = defineComponent({
         ? injectedLocale.value
         : injectedLocale;
     });
-    const rendered = ref(false);
-    const visible = ref(false);
+    const rendered = ref(props.show);
+    const visible = ref(props.show);
     const refPopper = ref();
     const refSelection = ref();
     const left = ref(0);

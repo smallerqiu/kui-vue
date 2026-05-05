@@ -4,12 +4,12 @@
     </a>
 </p>
 <h1 align="center">
-   KUI for Vue
+   Kui for Vue
 </h1>
 
 <div align="center">
 
-A high quality UI components Library with Vue.js
+Lightweight Desktop UI Component Library for Vue.js
 
 [![kui-vue](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square)](https://www.npmjs.org/package/kui-vue)
 [![NPM downloads](http://img.shields.io/npm/dm/kui-vue.svg?style=flat-square)](https://npmjs.org/package/kui-vue)
@@ -17,7 +17,7 @@ A high quality UI components Library with Vue.js
 ![JS gzip size](http://img.badgesize.io/https://unpkg.com/kui-vue/dist/index.js?compression=gzip&label=gzip%20size:%20JS&style=flat-square)
 ![CSS gzip size](http://img.badgesize.io/https://unpkg.com/kui-vue/style/index.css?compression=gzip&label=gzip%20size:%20CSS&style=flat-square)
 
-![theme](https://k-ui.cn/img/theme.jpg)
+![theme](demo.png)
 
 English | [简体中文](README.zh-CN.md)
 
@@ -27,7 +27,6 @@ English | [简体中文](README.zh-CN.md)
 
 - [Quick Start](https://k-ui.cn/guide/quick-started)
 - [Components Overview](https://k-ui.cn/guide/components)
-- [Customizing Themes](https://k-ui.cn/docs/theme)
 - [Dark Mode](https://k-ui.cn/guide/dark-mode)
 - [Icons](https://k-ui.cn/components/icons)
 - [Internationalization](https://k-ui.cn/guide/language)
@@ -37,11 +36,11 @@ English | [简体中文](README.zh-CN.md)
 
 - Up to 50 high-quality Components.
 - Internationalization Support for Dozens of Languages.
+- Develop with TypeScript
 - Supports Vue.js 3.x
 - Supports SSR
 - Supports [Nuxt.js](https://nuxtjs.org/)
 - Supports Electron
-- Most components and features support IE9 and above browsers, some components and features do not support IE
 
 # Install
 
@@ -88,17 +87,28 @@ Using a script tag for global use:
 
 # 👌 Platform Support
 
-KUI supports all major modern browsers.
+Kui supports all major modern browsers.
 
 | [<img alt="chrome" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png)<br>chrome | [<img alt="firefox" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png)<br>firefox | [<img alt="safari" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png)<br>safari | [<img alt="IE/Edge" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png)<br> IE/Edge | [<img alt="electron" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png)<br>Electron |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | latest 2 versions                                                                                                                                                                                                 | latest 2 versions                                                                                                                                                                                                       | latest 2 versions                                                                                                                                                                                                 | Edge                                                                                                                                                                                                         | latest 2 versions                                                                                                                                                                                                             |
 
+# Local Development
+
+Clone the repository locally:
+
+```bash
+$ git clone git@github.com:smallerqiu/kui-vue.git
+$ cd kui-vue
+$ npm install
+$ npm start
+```
+
+Open the browser to visit http://127.0.0.1:7005
+
 # Ecosystem Links
 
-[KUI for react](https://react.k-ui.cn)
-
-[KUI for mobile](https://gitee.com/chuchur/kui-vue-mobile)
+[Kui for react](https://react.k-ui.cn)
 
 # License
 

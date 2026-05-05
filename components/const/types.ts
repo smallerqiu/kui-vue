@@ -34,7 +34,7 @@ export type ThemeType = "outline" | "fill" | "default" | "solid" | "dashed" | "c
 export type RadioType = "radio" | "button";
 export type DirectionType = "horizontal" | "vertical" | "inline";
 export type AlignType = "start" | "center" | "end";
-export type ColorType = PropType<(typeof colors)[number]>;
+export type ColorType = PropType<(typeof colors)[number] | string>;
 
 export type UploadStatusType = "success" | "error" | "uploading" | "waiting";
 

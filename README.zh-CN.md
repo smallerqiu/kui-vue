@@ -4,7 +4,7 @@
     </a>
 </p>
 <h1 align="center">
-   KUI for Vue
+   Kui for Vue
 </h1>
 
 <div align="center">
@@ -17,7 +17,7 @@
 ![JS gzip size](http://img.badgesize.io/https://unpkg.com/kui-vue/dist/index.js?compression=gzip&label=gzip%20size:%20JS&style=flat-square)
 ![CSS gzip size](http://img.badgesize.io/https://unpkg.com/kui-vue/style/index.css?compression=gzip&label=gzip%20size:%20CSS&style=flat-square)
 
-![](https://k-ui.cn/img/theme.jpg)
+![theme](demo.png)
 
 [English](README.md) | 简体中文
 
@@ -27,7 +27,6 @@
 
 - [快速开始](https://k-ui.cn/guide/quick-started)
 - [组件总览](https://k-ui.cn/guide/components)
-- [自定义主题](https://k-ui.cn/guide/theme)
 - [暗色模式](https://k-ui.cn/guide/dark-mode)
 - [Icons](https://k-ui.cn/components/icons)
 - [国际化](https://k-ui.cn/guide/language)
@@ -37,11 +36,11 @@
 
 - 50+高质量组件
 - 国际化支持 14 种语言
+- 使用TypeScript开发
 - 支持Vue3.x
 - 支持 SSR
 - 支持 [Nuxt.js](https://nuxtjs.org/)
 - 支持 Electron
-- 大多数组件和功能支持IE9及以上浏览器，一些组件和功能不支持IE
 
 # 安装
 
@@ -79,7 +78,7 @@ bun add kui-vue
   </div>
 </template>
 <script setup lang="ts">
-  import { mgessage } from "kui-vue";
+  import { message } from "kui-vue";
   const test = () => {
     message.info("Hello kui !");
   };
@@ -88,17 +87,28 @@ bun add kui-vue
 
 # 平台支持
 
-KUI 支持所有主要的现代浏览器。
+Kui 支持所有主要的现代浏览器。
 
 | [<img alt="chrome" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png)<br>chrome | [<img alt="firefox" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png)<br>firefox | [<img alt="safari" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png)<br>safari | [<img alt="IE/Edge" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png)<br> IE/Edge | [<img alt="electron" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png)<br>Electron |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | latest 2 versions                                                                                                                                                                                                 | latest 2 versions                                                                                                                                                                                                       | latest 2 versions                                                                                                                                                                                                 | Edge                                                                                                                                                                                                         | latest 2 versions                                                                                                                                                                                                             |
 
+# 本地开发
+
+克隆仓库到本地:
+
+```bash
+$ git clone git@github.com:smallerqiu/kui-vue.git
+$ cd kui-vue
+$ npm install
+$ npm start
+```
+
+打开浏览器访问 http://127.0.0.1:7005
+
 # 生态
 
-[KUI for react](https://react.k-ui.cn)
-
-[KUI for mobile](https://gitee.com/chuchur/kui-vue-mobile)
+[Kui for react](https://react.k-ui.cn)
 
 # 协议
 
