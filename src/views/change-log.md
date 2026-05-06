@@ -15,6 +15,15 @@ vite 好像有缓存, 可手动清除
 rm -rf node_modules/.vite
 ```
 
+## 5.2.0
+
+`2026-5-6`
+
+- 表单组件移除`value` 属性, 使用 `modelValue`
+- `Modal`,`Select` 等组件新增 `onOpenChange` 事件,展开或打开窗口时触发
+- `Input` 等组件新增 `onClear` 事件,清空值时触发
+- 组件`onChange` 事件将返回组件当前值.
+
 ## 5.1.0
 
 `2026-5-4`

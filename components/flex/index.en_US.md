@@ -22,7 +22,7 @@
 
 [Spacing Size](./demo/size.vue?show=vertical)
 
-- Use `size` to set the spacing between elements. Presets include `small`, `middle`, and `large`, or you can define a custom spacing.
+- Use `size` to set the spacing between elements. Presets include `small`, `medium`, and `large`, or you can define a custom spacing.
 
 [Set Wrapping](./demo/wrap.vue?show=vertical)
 

@@ -16,7 +16,6 @@ import { isValidBig, normalize } from "../utils/number";
 
 export const inputNumberProps = {
   modelValue: [Number, String] as PropType<number | string>,
-  value: [Number, String] as PropType<number | string>,
   min: { type: Number, default: -Infinity },
   max: { type: Number, default: Infinity },
   step: { type: Number, default: 1 },

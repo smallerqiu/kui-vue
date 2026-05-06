@@ -1,5 +1,5 @@
 <template>
-  <Space vertical size="middle">
+  <Space vertical size="medium">
     <Space compact>
       <Tooltip placement="top" title="Copy">
         <Button :icon="Download"></Button>

@@ -6,8 +6,9 @@
           <Button type="primary">Primary Button</Button>
           <Button>Default Button</Button>
           <Button type="danger">Danger Button</Button>
-          <Select value="0">
+          <Select modelValue="0">
             <Option label="Option A" value="0">Option A</Option>
+            <Option label="Option B" value="1">Option B</Option>
           </Select>
           <DatePicker modelValue="2026-05-05 12:00:00" mode="dateTime" />
         </Space>
@@ -47,8 +48,8 @@
       </Space>
     </Flex>
     <Space style="padding: 20px 0">
-      <Rate :value="3" />
-      <Rate :value="3" :icon="Heart" color="red" />
+      <Rate :modelValue="3" />
+      <Rate :modelValue="3" :icon="Heart" color="red" />
       <Tag :icon="LogoWechat" closeable color="green">Wechat</Tag>
       <Tag color="red">Tag red</Tag>
       <Tag color="#39f">#39f</Tag>

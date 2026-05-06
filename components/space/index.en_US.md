@@ -21,7 +21,7 @@ Avoid components sticking together, create uniform space.
 
 [Spacing Size](./demo/size.vue)
 
-- Preset spacing sizes: large, medium, and small. Set `size` to `large` or `middle` to set the spacing to large or medium, respectively. If `size` is not set, the spacing is small.
+- Preset spacing sizes: large, medium, and small. Set `size` to `large` or `medium` to set the spacing to large or medium, respectively. If `size` is not set, the spacing is small.
 
 [Alignment](./demo/align.vue?show=vertical)
 
@@ -57,7 +57,7 @@ Avoid components sticking together, create uniform space.
 | -------- | ---------------------------------------------- | ------------------------------------ | ------- |
 | align    | Alignment method                               | `start`, `end`, `center`, `baseline` | center  |
 | vertical | Whether to display vertically                  | bool                              | false   |
-| size     | Spacing size                                   | `small`, `middle`, `large`, number   | small   |
+| size     | Spacing size                                   | `small`, `medium`, `large`, number   | small   |
 | wrap     | Whether to wrap                                | bool                              | false   |
 | split    | Set split                                      | v-slot                               | -       |
 | compact  | Whether to use compact mode                    | bool                              | false   |

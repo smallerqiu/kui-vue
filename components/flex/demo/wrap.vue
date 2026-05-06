@@ -1,5 +1,5 @@
 <template>
-  <Flex size="middle" vertical align="flex-start" style="max-width:300px;">
+  <Flex size="medium" vertical align="flex-start" style="max-width: 300px">
     <Slider v-model="x" :min="0" :max="100" :step="1" />
     <Slider v-model="y" :min="0" :max="100" :step="1" />
     <Flex :size="[x, y]" wrap>

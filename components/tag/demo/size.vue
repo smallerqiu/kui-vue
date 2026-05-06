@@ -14,7 +14,7 @@ const shape = ref<ShapeType>("round");
 const theme = ref<ThemeType>("default");
 const sizes = [
   { label: "Large", value: "large" },
-  { label: "Middle", value: "middle" },
+  { label: "Medium", value: "medium" },
   { label: "small", value: "small" },
 ];
 const shapes = [

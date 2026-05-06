@@ -1,5 +1,5 @@
 <template>
-  <Space vertical size="middle" block style="width: 600px; max-width: 100%">
+  <Space vertical size="medium" block style="width: 600px; max-width: 100%">
     <InputGroup>
       <Input style="width: 20%" value="027" />
       <Input style="width: 30%" value="28398987" />
@@ -19,14 +19,20 @@
       </Tooltip>
     </InputGroup>
     <InputGroup>
-      <Select value="Shenzheng" clearable>
+      <Select modelValue="Shenzheng" clearable>
         <Option value="Wuhan">Wuhan001</Option>
         <Option value="Shenzheng">Shenzheng</Option>
       </Select>
       <Input :style="{ width: '50%' }" value="Nanshan District, Shenzheng" />
     </InputGroup>
     <InputGroup>
-      <Select clearable multiple :value="['Wuhan001']" :style="{ width: '50%' }" :maxTagCount="1">
+      <Select
+        clearable
+        multiple
+        :modelValue="['Wuhan001']"
+        :style="{ width: '50%' }"
+        :maxTagCount="1"
+      >
         <Option value="Wuhan001">Wuhan001</Option>
         <Option value="Shenzheng">Shenzheng</Option>
       </Select>
@@ -38,12 +44,12 @@
       <Input :style="{ width: '20%' }" value="+1" />
     </InputGroup>
     <InputGroup>
-      <Select value="Option1">
+      <Select modelValue="Option1">
         <Option value="Option1">Option1</Option>
         <Option value="Option2">Option2</Option>
       </Select>
       <Input :style="{ width: '50%' }" value="input content" />
-      <InputNumber :value="12" />
+      <InputNumber :modelValue="12" />
     </InputGroup>
     <InputGroup>
       <Input :style="{ width: '50%' }" value="input content" :icon="Copy" />
@@ -59,17 +65,17 @@
       <DatePicker mode="dateRange" />
     </InputGroup>
     <InputGroup>
-      <Select value="Option1-1">
+      <Select modelValue="Option1-1">
         <Option value="Option1-1">Option1-1</Option>
         <Option value="Option1-2">Option1-2</Option>
       </Select>
-      <Select value="Option2-2">
+      <Select modelValue="Option2-2">
         <Option value="Option2-1">Option2-1</Option>
         <Option value="Option2-2">Option2-2</Option>
       </Select>
     </InputGroup>
     <InputGroup>
-      <Select value="1">
+      <Select modelValue="1">
         <Option value="1">Between</Option>
         <Option value="2">Except</Option>
       </Select>
@@ -93,7 +99,7 @@
       />
     </InputGroup>
     <InputGroup>
-      <Select value="Option1-1">
+      <Select modelValue="Option1-1">
         <Option value="Option1-1">Option1-1</Option>
         <Option value="Option1-2">Option1-2</Option>
       </Select>
