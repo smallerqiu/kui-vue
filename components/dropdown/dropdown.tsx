@@ -31,6 +31,9 @@ export const dropdownProps = {
     default: "bottom-left",
   },
   target: Object,
+  onOpenChange: {
+    type: Function as PropType<(opened: boolean) => void>,
+  },
 };
 
 export type DropdownProps = ExtractPropTypes<typeof dropdownProps>;
@@ -86,7 +89,7 @@ const Dropdown = defineComponent({
         (!refPopper.value.contains(target) && ctx && !ctx.contains(target)) ||
         (props.trigger == "contextmenu" && !refPopper.value.contains(target))
       ) {
-        visible.value = false;
+        openChange(false);
       }
     };
     const updatePosition = (e?: MouseEvent) => {
@@ -103,28 +106,33 @@ const Dropdown = defineComponent({
         });
       });
     };
+
+    const openChange = (opened?: boolean) => {
+      visible.value = opened;
+      emit("openChange", opened);
+    };
     const toggle = (open?: boolean, e?: MouseEvent) => {
       if (open) {
         if (!rendered.value) {
           rendered.value = true;
           document.addEventListener("click", outsideClick);
           nextTick(() => {
-            visible.value = true;
-            emit("update:visible", true);
+            openChange(true);
+            emit("update:show", true);
             updatePosition(e);
           });
         } else {
-          visible.value = true;
-          emit("update:visible", true);
+          emit("update:show", true);
           updatePosition(e);
+          openChange(true);
         }
       } else {
-        visible.value = false;
-        emit("update:visible", false);
+        openChange(false);
+        emit("update:show", false);
       }
     };
     const hidePopper = () => {
-      visible.value = false;
+      openChange(false);
     };
     provide("dropdown-menu-selected", hidePopper);
 

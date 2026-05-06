@@ -21,7 +21,7 @@
         <Space>
           <Select style="width: 120px" />
           <Select
-            :value="[]"
+            :modelValue="[]"
             multiple
             style="width: 120px"
             @search="selectSearch"

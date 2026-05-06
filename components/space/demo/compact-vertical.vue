@@ -1,5 +1,5 @@
 <template>
-  <Space size="middle">
+  <Space size="medium">
     <Space compact vertical>
       <Button :icon="Download"></Button>
       <Button :icon="Gamepad2"></Button>

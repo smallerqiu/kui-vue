@@ -21,7 +21,7 @@
 
 [间距大小](./demo/size.vue?show=vertical)
 
-- 间距预设大、中、小三种大小。 通过设置 size 为 large middle 分别把间距设为大、中间距。若不设置 size，则间距为小。
+- 间距预设大、中、小三种大小。 通过设置 `size` 为 `large` `medium` 分别把间距设为大、中间距。若不设置 size，则间距为小。
 
 [对齐](./demo/align.vue?show=vertical)
 
@@ -57,7 +57,7 @@
 | -------- | ---------------------------- | ------------------------------------- | ------ |
 | align    | 对齐方式                     | `start` , `end` ,`center` ,`baseline` | center |
 | vertical | 是否垂直显示                 | bool                               | false  |
-| size     | 间距大小                     | `small`,`middle`,`large`,number       | small  |
+| size     | 间距大小                     | `small`,`medium`,`large`,number       | small  |
 | wrap     | 是否换行                     | bool                               | false  |
 | split    | 设置拆分                     | v-slot                                | -      |
 | compact  | 是否使用经凑模式             | bool                               | false  |

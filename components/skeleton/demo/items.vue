@@ -58,5 +58,5 @@ const size = ref<any>("default");
 const block = ref(false);
 const radius = ref(10);
 const avatarShape = ref<ShapeType>("square");
-const btnShape = ref<ShapeType>("default");
+const btnShape = ref<ShapeType>("round");
 </script>

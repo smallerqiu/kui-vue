@@ -36,8 +36,8 @@ export default defineComponent({
         currentMode.value = val;
       }
     );
-    const updateHex = (e: Event) => {
-      const hex = (e.target as HTMLInputElement).value;
+    const updateHex = (hex: string) => {
+      // const hex = (e.target as HTMLInputElement).value;
       if (!isColor(hex)) return;
       const color = Color(hex).rgb();
       emit("updateColorValue", color);

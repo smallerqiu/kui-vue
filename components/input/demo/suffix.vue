@@ -26,16 +26,16 @@
     <Input placeholder="Please enter the domain" suffix=".com" prefix="https://" />
     <Input placeholder="Please input" prefix="www.">
       <template #prefix>
-        <Select :options="options" clearable value="http"></Select>
+        <Select :options="options" clearable modelValue="http"></Select>
       </template>
       <template #suffix>
-        <Select :options="list" clearable value=".com"></Select>
+        <Select :options="list" clearable modelValue=".com"></Select>
       </template>
     </Input>
     <Input placeholder="Please input" suffix=".00" />
     <Input placeholder="Please input" prefix="www.">
       <template #prefix>
-        <Select :options="options" clearable value="http"></Select>
+        <Select :options="options" clearable modelValue="http"></Select>
       </template>
       <template #suffix>
         <TreeSelect :tree-data="treeData" clearable style="width: 100px"></TreeSelect>

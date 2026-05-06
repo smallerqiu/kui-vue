@@ -32,11 +32,11 @@ Commonly seen in detail page information display.
 
 | Property | Description                                                                     | Type                       | Default    |
 | -------- | ------------------------------------------------------------------------------- | -------------------------- | ---------- |
-| bordered | Whether to show the border                                                      | bool                    | false      |
+| bordered | Whether to show the border                                                      | bool                       | false      |
 | column   | The number of DescriptionItems in one row                                       | number                     | 3          |
 | extra    | The operation area of the description list, displayed in the upper right corner | string, slot               | -          |
 | layout   | Description layout                                                              | horizontal \| vertical     | horizontal |
-| size     | Set the size of the list. Can be set to middle, small                           | default \| middle \| small | default    |
+| size     | Set the size of the list. Can be set to medium, small                           | default \| medium \| small | default    |
 | title    | The title of the description list, displayed at the very top                    | string, slot               | -          |
 
 ## Item props

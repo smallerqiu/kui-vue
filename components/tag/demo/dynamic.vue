@@ -7,7 +7,7 @@
       size="small"
       style="width: 81px"
       ref="inputRef"
-      :value="tag"
+      :modelValue="tag"
     />
     <Button @click="show" size="small" :icon="Bookmark" v-show="!showInput"> New Tag </Button>
   </Space>

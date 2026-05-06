@@ -13,15 +13,24 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 5.2.0
+
+`2026-5-6`
+
+- The form component removes the `value` property and uses `modelValue` instead.  
+- Components like `Modal` and `Select` now have an `onOpenChange` event, which triggers when the window is opened or expanded.  
+- Components like `Input` now include an `onClear` event, which triggers when the value is cleared.  
+- The `onChange` event of components will now return the current value of the component.
+
 ## 5.1.0
 
 `2026-5-4`
 
-- Added `Splitter` component  
-- Optimized `CheckBox` and `Switch` components to support outputting `bool` (true/false) and `number` (0/1)  
-- Added `loading` function to `message`  
-- Improved `RadioGroup`  
-- Form validation enhancements  
+- Added `Splitter` component
+- Optimized `CheckBox` and `Switch` components to support outputting `bool` (true/false) and `number` (0/1)
+- Added `loading` function to `message`
+- Improved `RadioGroup`
+- Form validation enhancements
 - Changed the `light` property to `fill` for some components
 
 ## 5.0.1

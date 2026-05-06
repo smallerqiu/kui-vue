@@ -34,12 +34,13 @@ When there are too many operation commands on the page, this component can be us
 
 ## Dropdown API
 
-| Property  | Description                                                                         | Type   | Default     |
-| --------- | ----------------------------------------------------------------------------------- | ------ | ----------- |
-| show      | Whether the dropdown is displayed by default.                                       | bool   | false       |
-| trigger   | Trigger method. Supports 3 methods: hover (default), click, custom                  | string | hover       |
-| placement | Menu popup position: bottomLeft bottomCenter bottomRight topLeft topCenter topRight | string | bottom-left |
-| theme     | The component renders the theme, defaulting to 'fill'.                              | string | fill        |
-| arrow     | Whether to display the arrow                                                        | bool   | false       |
-| target    | Element that triggers the dropdown                                                  | VNode  | -           |
-| disabled  | Whether dropdown triggering is allowed                                              | bool   | false       |
+| Property     | Description                                                                         | Type                | Default     |
+| ------------ | ----------------------------------------------------------------------------------- | ------------------- | ----------- |
+| show         | Whether the dropdown is displayed by default(v-model).                              | bool                | false       |
+| trigger      | Trigger method. Supports 3 methods: hover (default), click, custom                  | string              | hover       |
+| placement    | Menu popup position: bottomLeft bottomCenter bottomRight topLeft topCenter topRight | string              | bottom-left |
+| theme        | The component renders the theme, defaulting to 'fill'.                              | string              | fill        |
+| arrow        | Whether to display the arrow                                                        | bool                | false       |
+| target       | Element that triggers the dropdown                                                  | VNode               | -           |
+| disabled     | Whether dropdown triggering is allowed                                              | bool                | false       |
+| onOpenChange | Triggered when opening or closing a Dropdown                                        | (opened:bool)=>void | -           |
