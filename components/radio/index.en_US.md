@@ -36,18 +36,19 @@ Radio button.
 | modelValue | Whether selected (v-model)         | bool                     | false   |
 | checked    | Whether selected                   | bool                     | false   |
 | label      | Text prompt                        | string, number           | -       |
+| value      | Value when used in combination     | string 、 number         | -       |
 | disabled   | Whether current item is disabled   | bool                     | false   |
 | onChange   | Callback when option state changes | (e: ChangeEvent) => void | -       |
 
 ## RadioGroup API
 
-| Property  | Description                                                                                    | Type                              | Default    |
-| --------- | ---------------------------------------------------------------------------------------------- | --------------------------------- | ---------- |
-| value     | Used to set the currently selected value. Can use `v-model` for two-way binding data           | any                               | -          |
-| size      | Button size, optional values: `small`, `large`, default not selected                           | string                            | -          |
-| direction | Layout direction, optional values: `horizontal`, `vertical`                                    | string                            | horizontal |
-| shape     | `button`'s shape property, displays rounded corners                                            | string                            | -          |
-| theme     | `button`'s theme property                                                                      | string                            | -          |
-| onChange  | Triggered when option state changes, returns currently selected item                           | (value: string \| number) => void | -          |
-| options   | Can specify child `radio` items                                                                | RadioOption[]                     | -          |
-| type      | If using `options` to render children and children are `button`, need to specify `type=button` | string                            | -          |
+| Property   | Description                                                                                    | Type                              | Default    |
+| ---------- | ---------------------------------------------------------------------------------------------- | --------------------------------- | ---------- |
+| modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding data           | any                               | -          |
+| size       | Button size, optional values: `small`, `large`, default not selected                           | string                            | -          |
+| direction  | Layout direction, optional values: `horizontal`, `vertical`                                    | string                            | horizontal |
+| shape      | `button`'s shape property, displays rounded corners                                            | string                            | -          |
+| theme      | `button`'s theme property                                                                      | string                            | -          |
+| onChange   | Triggered when option state changes, returns currently selected item                           | (value: string \| number) => void | -          |
+| options    | Can specify child `radio` items                                                                | RadioOption[]                     | -          |
+| type       | If using `options` to render children and children are `button`, need to specify `type=button` | string                            | -          |

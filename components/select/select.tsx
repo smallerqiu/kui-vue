@@ -48,7 +48,6 @@ export const selectProps = {
   width: Number,
   maxTagCount: Number,
   modelValue: [String, Number, Array] as PropType<string | number | any[]>,
-  value: [String, Number, Array] as PropType<string | number | any[]>,
   clearable: { type: Boolean as BooleanType, default: true },
   filterable: Boolean as BooleanType,
   block: Boolean as BooleanType,
@@ -91,10 +90,10 @@ const Select = defineComponent({
     const rendered = ref(false);
     const currentValue = ref<any[]>(
       props.multiple
-        ? ((props.modelValue || props.value || []) as any[])
-        : isEmpty(props.modelValue || props.value)
+        ? ((props.modelValue || []) as any[])
+        : isEmpty(props.modelValue)
           ? []
-          : [props.modelValue || props.value]
+          : [props.modelValue]
     );
     const queryInputVisible = ref(false);
     const queryKey = ref("");
@@ -361,6 +360,7 @@ const Select = defineComponent({
     };
 
     const onClear = (e: MouseEvent) => {
+      emit("clear");
       currentValue.value = [];
       emitValue();
       clearQuery();

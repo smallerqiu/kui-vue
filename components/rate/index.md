@@ -25,7 +25,6 @@
 
 | 属性              | 说明                     | 类型                    | 默认值 |
 | ----------------- | ------------------------ | ----------------------- | ------ |
-| value             | 默认初始值               | number                  | -      |
 | modelValue        | 当前数，受控值 (v-model) | number                  | -      |
 | allowClear        | 是否允许再次点击后清除   | bool                    | false  |
 | allowHalf         | 是否允许半选             | bool                    | false  |

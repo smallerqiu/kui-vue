@@ -94,6 +94,12 @@ export const datePickerProps = {
   onChange: {
     type: Function as PropType<(date: Date | Date[], dateStr: string | string[]) => void>,
   },
+  onOpenChange: {
+    type: Function as PropType<(open: boolean) => void>,
+  },
+  onClear: {
+    type: Function as PropType<() => void>,
+  },
 };
 
 export type DatePickerProps = ExtractPropTypes<typeof datePickerProps>;
@@ -192,6 +198,11 @@ const DatePicker = defineComponent({
         year: "YYYY",
       };
       return map[props.mode] || "YYYY-MM-DD";
+    };
+
+    const openChange = (opened: boolean) => {
+      isVisible.value = opened;
+      emit("openChange", opened);
     };
 
     const scrollToCurrentTime = () => {
@@ -316,13 +327,13 @@ const DatePicker = defineComponent({
           innerValue.value = dates;
           syncTextFromValue();
 
-          if (closePanel) isVisible.value = false;
+          if (closePanel) openChange(false);
         }
       } else {
         emit("update:modelValue", formatOutputValue(innerValue.value));
         emit("change", innerValue.value, getStr(innerValue.value));
         syncTextFromValue();
-        if (closePanel) isVisible.value = false;
+        if (closePanel) openChange(false);
       }
     };
 
@@ -370,7 +381,7 @@ const DatePicker = defineComponent({
     const updatePanelState = () => {
       if (isVisible.value) return;
 
-      isVisible.value = true;
+      openChange(true);
       isFocus.value = true;
 
       if (props.mode === "year") currentView.value = "year";
@@ -425,7 +436,7 @@ const DatePicker = defineComponent({
             }
           }
         }
-        isVisible.value = false;
+        openChange(false);
         isFocus.value = false;
       }
     };
@@ -865,6 +876,17 @@ const DatePicker = defineComponent({
     });
     onUnmounted(() => document.removeEventListener("click", handleClickOutside));
 
+    const onClear = (e: PointerEvent) => {
+      e.stopPropagation();
+      innerValue.value = null;
+      syncTextFromValue();
+      emit("update:startDate", null);
+      emit("update:endDate", null);
+      emit("update:modelValue", null);
+      emit("change", null, "");
+      emit("clear");
+    };
+
     return () => {
       const localPlaceholders: Record<string, string> = {
         year: locale?.value.k.datePicker.selectYear,
@@ -1037,21 +1059,7 @@ const DatePicker = defineComponent({
           <div class={selectCls} onClick={togglePanel}>
             {renderInput()}
             <Icon type={dateIcon} class="k-icon-calendar" strokeWidth={1.5} />
-            {showClear && (
-              <Icon
-                type={CircleX}
-                class="k-icon-clean"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  innerValue.value = null;
-                  syncTextFromValue();
-                  emit("update:startDate", null);
-                  emit("update:endDate", null);
-                  emit("update:modelValue", null);
-                  emit("change", null, "");
-                }}
-              />
-            )}
+            {showClear && <Icon type={CircleX} class="k-icon-clean" onClick={onClear} />}
           </div>
 
           {overlay}

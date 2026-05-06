@@ -11,7 +11,6 @@ import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types
 
 export const textAreaProps = {
   modelValue: [String, Number, Object, Array] as PropType<any>,
-  value: [String, Number, Object, Array] as PropType<any>,
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: { type: String as PropType<ShapeType> },
   size: String as PropType<SizeType>,
@@ -19,16 +18,17 @@ export const textAreaProps = {
   rows: { type: Number, default: 2 },
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
+  onChange: { type: Function as PropType<(value: string) => void> },
 };
 
 export type TextAreaProps = Partial<ExtractPropTypes<typeof textAreaProps>> &
-  TextareaHTMLAttributes;
+  Omit<TextareaHTMLAttributes, "onChange">;
 
 const TextArea = defineComponent({
   name: "TextArea",
   props: textAreaProps,
   setup(props, { attrs, emit }) {
-    const currentValue = ref(props.modelValue ?? props.value);
+    const currentValue = ref(props.modelValue);
 
     watch(
       () => props.modelValue,
@@ -36,6 +36,12 @@ const TextArea = defineComponent({
         currentValue.value = v;
       }
     );
+
+    const handleChange = (e: Event) => {
+      const { value } = e.target as HTMLInputElement;
+      emit("update:modelValue", value);
+      emit("change", value);
+    };
 
     return () => {
       const { theme, disabled, size, shape, placeholder, rows } = props;
@@ -55,7 +61,7 @@ const TextArea = defineComponent({
         ],
         disabled,
         value: currentValue.value,
-        onInput: (e: Event) => emit("update:modelValue", (e.target as HTMLTextAreaElement).value),
+        onInput: handleChange,
       };
       return <textarea {...rootProps} />;
     };

@@ -37,6 +37,7 @@ export const drawerProps = {
   onOk: Function as PropType<() => void>,
   onCancel: Function as PropType<() => void>,
   onClose: Function as PropType<() => void>,
+  onOpenChange: Function as PropType<(opened: boolean) => void>,
 };
 
 export type DrawerProps = ExtractPropTypes<typeof drawerProps>;
@@ -84,6 +85,7 @@ const Drawer = defineComponent({
             visible.value = value;
             opened.value = value;
             emit("update:modelValue", true);
+            emit("openChange", true);
           });
         } else {
           visible.value = false;
@@ -91,6 +93,7 @@ const Drawer = defineComponent({
             opened.value = false;
           }, 300);
           emit("update:modelValue", false);
+          emit("openChange", false);
         }
       }
     };

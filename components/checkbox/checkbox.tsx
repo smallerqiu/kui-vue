@@ -53,12 +53,12 @@ const Checkbox = defineComponent({
 
     const emitValue = (checked: boolean) => {
       isChecked.value = checked;
+      const value = getValueWithType(checked, props.valueType);
       emit("change", {
         checked: checked,
         value: props.value,
         label: props.label || slots.default?.(),
       } as ChangeEvent);
-      const value = getValueWithType(checked, props.valueType);
       emit("update:modelValue", value);
       emit("update:checked", checked);
     };

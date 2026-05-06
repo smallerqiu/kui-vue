@@ -37,7 +37,7 @@ Dropdown selector.
 
 | Property     | Description                                                                       | Type                                       | Default       |
 | ------------ | --------------------------------------------------------------------------------- | ------------------------------------------ | ------------- |
-| value        | Specifies the `value` of the selected item, can use `v-model` for two-way binding | string, number                             | -             |
+| modelValue   | Specifies the `value` of the selected item, can use `v-model` for two-way binding | string, number                             | -             |
 | width        | Component width                                                                   | string, number                             | -             |
 | placeholder  | Default text of selector                                                          | string                                     | Please select |
 | disabled     | Whether current item is disabled                                                  | bool                                       | false         |
@@ -57,7 +57,8 @@ Dropdown selector.
 | onSelect     | Triggered when an item is selected                                                | (option: SelectOption) => void             | -             |
 | onChange     | Triggered when option state changes, returns selected value                       | (value: string \| number \| any[]) => void | -             |
 | onOpenChange | Triggered when dropdown expands or collapses                                      | (opened: boolean) => void                  | -             |
-| onSearch     | 搜索时触发                                                                        | (e: InputEvent) => void                    | -             |
+| onSearch     | Triggered during search                                                           | (e: InputEvent) => void                    | -             |
+| onClear      | Triggered when the clear button is clicked                                        | () => void                                 | -             |
 
 ## Option API
 

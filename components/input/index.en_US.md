@@ -45,7 +45,7 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 
 | Property            | Description                                                         | Type                    | Default |
 | ------------------- | ------------------------------------------------------------------- | ----------------------- | ------- |
-| value               | Bound value, can use `v-model` for two-way binding                  | string, number          | -       |
+| modelValue          | Bound value, can use `v-model` for two-way binding                  | string, number          | -       |
 | size                | Button size, optional values `small`, `large`, default not selected | string                  | -       |
 | icon                | Input box icon                                                      | string                  | -       |
 | suffix              | Extension suffix                                                    | string, Slot            | -       |
@@ -56,6 +56,8 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | visiblePasswordIcon | Whether to show the toggle button or control password visibility    | bool                    | true    |
 | onSearch            | Search event callback                                               | (value: string) => void | -       |
 | onIconClick         | Callback for icon click event                                       | (e: Event) => void      | -       |
+| onClear             | Callback for pressing the clear button                              | () => void              | -       |
+| onChange            | Callback when the input box content changes                         | (value: string) => void | -       |
 
 ## Input Group API
 

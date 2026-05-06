@@ -47,7 +47,6 @@ Provide peer areas to accommodate and display large chunks of content, keeping t
 
 | Property   | Description                                                     | Type                  | Default |
 | ---------- | --------------------------------------------------------------- | --------------------- | ------- |
-| value      | Default to the currently active tab panel's key                 | string                | -       |
 | modelValue | Currently active tab panel's key                                | string                | -       |
 | card       | Whether tab style is card style                                 | bool                  | false   |
 | sample     | Whether tab style is simple style                               | bool                  | false   |

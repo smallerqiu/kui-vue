@@ -37,7 +37,7 @@
 
 | 属性         | 说明                                                       | 类型                                       | 默认值     |
 | ------------ | ---------------------------------------------------------- | ------------------------------------------ | ---------- |
-| value        | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | string,number                              | -          |
+| modelValue   | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | string,number                              | -          |
 | width        | 组件宽度                                                   | string,number                              | -          |
 | placeholder  | 选择框默认文字                                             | string                                     | 请选择     |
 | disabled     | 是否禁用当前项                                             | bool                                       | false      |
@@ -58,6 +58,7 @@
 | onChange     | 在选项状态发生改变时触发,,返回选择的值value                | (value: string \| number \| any[]) => void | -          |
 | onSearch     | 搜索时触发                                                 | (e: InputEvent) => void                    | -          |
 | onOpenChange | 下拉框展开或收起时触发                                     | (opened: boolean) => void                  | -          |
+| onClear      | 点击清除按钮时触发                                         | () => void                                 | -          |
 
 ## Option API
 
