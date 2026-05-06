@@ -25,7 +25,6 @@ Rating component.
 
 | Property          | Description                                 | Type                    | Default |
 | ----------------- | ------------------------------------------- | ----------------------- | ------- |
-| value             | Default value                               | number                  | -       |
 | modelValue        | Current value, controlled value(v-model)    | number                  | -       |
 | allowClear        | Whether to allow clearing by clicking again | bool                    | false   |
 | allowHalf         | Whether to allow half selection             | bool                    | false   |

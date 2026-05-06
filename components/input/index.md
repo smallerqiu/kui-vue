@@ -45,7 +45,7 @@
 
 | 属性                | 说明                                       | 类型                    | 默认值 |
 | ------------------- | ------------------------------------------ | ----------------------- | ------ |
-| value               | 绑定的值，可使用 `v-model` 双向绑定        | string 、 number        | -      |
+| modelValue          | 绑定的值，可使用 `v-model` 双向绑定        | string 、 number        | -      |
 | size                | 按钮尺寸,可选值 `small`、`large`，默认不选 | string                  | -      |
 | icon                | 输入框图标                                 | string                  | -      |
 | suffix              | 扩展后缀                                   | string,Slot             | -      |
@@ -56,6 +56,8 @@
 | visiblePasswordIcon | 是否显示切换按钮或者控制密码显隐           | bool                    | true   |
 | onSearch            | 搜索事件的回调                             | (value: string) => void | -      |
 | onIconClick         | 图标点击事件的回调                         | (e: Event) => void      | -      |
+| onClear             | 按下清除按钮的回调                         | () => void              | -      |
+| onChange            | 输入框内容变化时的回调                     | (value: string) => void | -      |
 
 ## Input Group API
 

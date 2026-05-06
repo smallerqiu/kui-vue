@@ -24,7 +24,6 @@ import type { BooleanType, DropPlacementsType, SizeType } from "../const/types";
 type ColorMode = "hex" | "rgb" | "hsl";
 export const colorPickerProps = {
   modelValue: String,
-  value: String,
   disabled: Boolean as BooleanType,
   disabledAlpha: Boolean as BooleanType,
   showText: Boolean as BooleanType,
@@ -48,6 +47,7 @@ export const colorPickerProps = {
   },
   onChange: { type: Function as PropType<(color: string) => void> },
   onUpdateMode: { type: Function as PropType<(mode: ColorMode) => void> },
+  onOpenChange: { type: Function as PropType<(open: boolean) => void> },
 };
 
 export type ColorPickerProps = ExtractPropTypes<typeof colorPickerProps>;
@@ -62,7 +62,7 @@ const ColorPicker = defineComponent({
 
   setup(props, { emit, slots }) {
     const currentMode = ref(props.mode);
-    const currentColor = ref(props.modelValue || props.value || "#000000ff");
+    const currentColor = ref(props.modelValue || "#000000ff");
     const visible = ref(false);
     const refPopper = ref();
     const refSelection = ref();
@@ -111,8 +111,12 @@ const ColorPicker = defineComponent({
         !ctx.contains(e.target)
       ) {
         clearTimeout(hideTimer.value);
-        hideTimer.value = setTimeout(() => (visible.value = false), 200);
+        hideTimer.value = setTimeout(() => openChange(false), 200);
       }
+    };
+    const openChange = (opened: boolean) => {
+      visible.value = opened;
+      emit("openChange", opened);
     };
     const toggle = (open: boolean) => {
       if (props.disabled) {
@@ -123,15 +127,15 @@ const ColorPicker = defineComponent({
           rendered.value = true;
           document.addEventListener("click", outsideClick);
           nextTick(() => {
-            visible.value = true;
+            openChange(true);
             updatePopPosition();
           });
         } else {
-          visible.value = true;
+          openChange(true);
           updatePopPosition();
         }
       } else {
-        visible.value = false;
+        openChange(false);
       }
     };
 

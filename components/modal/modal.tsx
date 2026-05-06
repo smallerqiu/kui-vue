@@ -38,6 +38,7 @@ export const modalProps = {
   onClose: { type: Function as PropType<() => void> },
   onOk: { type: Function as PropType<() => void> },
   onCancel: { type: Function as PropType<() => void> },
+  onOpenChange: { type: Function as PropType<(opened: boolean) => void> },
 };
 export type ModalProps = ExtractPropTypes<typeof modalProps>;
 
@@ -108,6 +109,7 @@ const Modal = defineComponent({
             visible.value = value;
             showInner.value = value;
             emit("update:modelValue", true);
+            emit("openChange", true);
             nextTick(() => {
               updateOrigin();
             });
@@ -118,6 +120,7 @@ const Modal = defineComponent({
             showInner.value = false;
           }, 300);
           emit("update:modelValue", false);
+          emit("openChange", false);
         }
       }
     };

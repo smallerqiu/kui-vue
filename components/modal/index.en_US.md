@@ -31,26 +31,27 @@ Modal dialog box.
 
 ## API
 
-| Property     | Description                                                                 | Type           | Default |
-| ------------ | --------------------------------------------------------------------------- | -------------- | ------- |
-| modelValue   | Whether the dialog is displayed, can use v-model for two-way binding.       | bool           | false   |
-| title        | Dialog title                                                                | string         | -       |
-| width        | Dialog width                                                                | number, string | 520     |
-| okText       | OK button text                                                              | string         | OK      |
-| cancelText   | Cancel button text                                                          | string         | Cancel  |
-| draggable    | Whether the modal can be dragged, not available in confirm mode             | bool           | false   |
-| centered     | Whether the window can be centered, not available in confirm mode           | bool           | false   |
-| maximized    | Whether the modal can be maximized, not available in confirm mode           | bool           | false   |
-| maskClosable | Whether clicking the mask closes the modal, if not, Esc key will be invalid | bool           | true    |
-| escKey       | Whether to support closing with Esc key                                     | bool           | true    |
-| footer       | When `footer=false`, the bottom button is not displayed.                    | bool,Slot      | true    |
-| loading      | When set to `true`, the confirm button will be in a loading state           | bool           | false   |
-| top          | Distance from the top of the window                                         | number         | -       |
-| showClose    | Whether to display the close button                                         | bool           | false   |
-| mask         | Whether to show the mask                                                    | bool           | true    |
-| onOk         | Callback when OK is clicked, `Note: will not close Modal`                   | () => void     | -       |
-| onCancel     | Callback when Cancel is clicked                                             | () => void     | -       |
-| onClose      | Callback when window closes                                                 | () => void     | -       |
+| Property     | Description                                                                 | Type                  | Default |
+| ------------ | --------------------------------------------------------------------------- | --------------------- | ------- |
+| modelValue   | Whether the dialog is displayed, can use v-model for two-way binding.       | bool                  | false   |
+| title        | Dialog title                                                                | string                | -       |
+| width        | Dialog width                                                                | number, string        | 520     |
+| okText       | OK button text                                                              | string                | OK      |
+| cancelText   | Cancel button text                                                          | string                | Cancel  |
+| draggable    | Whether the modal can be dragged, not available in confirm mode             | bool                  | false   |
+| centered     | Whether the window can be centered, not available in confirm mode           | bool                  | false   |
+| maximized    | Whether the modal can be maximized, not available in confirm mode           | bool                  | false   |
+| maskClosable | Whether clicking the mask closes the modal, if not, Esc key will be invalid | bool                  | true    |
+| escKey       | Whether to support closing with Esc key                                     | bool                  | true    |
+| footer       | When `footer=false`, the bottom button is not displayed.                    | bool,Slot             | true    |
+| loading      | When set to `true`, the confirm button will be in a loading state           | bool                  | false   |
+| top          | Distance from the top of the window                                         | number                | -       |
+| showClose    | Whether to display the close button                                         | bool                  | false   |
+| mask         | Whether to show the mask                                                    | bool                  | true    |
+| onOk         | Callback when OK is clicked, `Note: will not close Modal`                   | () => void            | -       |
+| onCancel     | Callback when Cancel is clicked                                             | () => void            | -       |
+| onClose      | Callback when window closes                                                 | () => void            | -       |
+| onOpenChange | Callback for opening or closing a window                                    | (opened:bool) => void | -       |
 
 ## Modal.method()
 

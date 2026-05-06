@@ -25,7 +25,6 @@ const inputProps = {
   visiblePasswordIcon: { type: Boolean as BooleanType, default: true },
   size: { type: String as PropType<SizeType> },
   modelValue: { type: [String, Number, Array, Object] as PropType<any> },
-  value: { type: [String, Number, Array, Object] as PropType<any> },
   disabled: Boolean as BooleanType,
   type: {
     type: String as PropType<"text" | "password" | "hidden">,
@@ -44,16 +43,19 @@ const inputProps = {
   maxlength: Number,
   "onUpdate:modelValue": Function as PropType<(value: string) => void>,
   onIconClick: { type: Function as PropType<(e: PointerEvent) => void> },
+  onClear: { type: Function as PropType<() => void> },
+  onChange: { type: Function as PropType<(value: string) => void> },
 };
 
-export type InputProps = Partial<ExtractPropTypes<typeof inputProps>> & InputHTMLAttributes;
+export type InputProps = Partial<ExtractPropTypes<typeof inputProps>> &
+  Omit<InputHTMLAttributes, "onChange">;
 
 const Input = defineComponent({
   inheritAttrs: false,
   name: "Input",
   props: inputProps,
   setup(props, { slots, emit, attrs, expose }) {
-    const currentValue = ref(props.modelValue || props.value);
+    const currentValue = ref(props.modelValue);
     const focused = ref(false);
     const showPassword = ref(false);
     const inputRef = ref<any>();
@@ -76,6 +78,8 @@ const Input = defineComponent({
     const clear = () => {
       currentValue.value = "";
       emit("update:modelValue", "");
+      emit("clear");
+      emit("change", "");
       nextTick(() => focus());
     };
 
@@ -157,7 +161,7 @@ const Input = defineComponent({
           const v = (e.target as HTMLInputElement).value;
           currentValue.value = v;
           emit("update:modelValue", v);
-          emit("change", e);
+          emit("change", v);
         },
         onFocus: (e: FocusEvent) => {
           focused.value = true;

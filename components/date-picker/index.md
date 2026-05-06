@@ -60,7 +60,6 @@
 | disabledDate | 不可选择的日期                                                                                                     | (date: Date) => boolean                                     | -          |
 | disabledTime | 不可选择的时间                                                                                                     | (date: Date) => boolean                                     | -          |
 | format       | 设置日期格式，为数组时支持多格式匹配，展示以第一个为准。配置参考 [dayjs](http://day.js.org/)                       | string                                                      | YYYY-MM-DD |
-| onChange     | 默认值改变之后的回调                                                                                               | (date: Date \| Date[], dateStr: string \| string[]) => void | -          |
 | theme        | theme='fill' 时呈现浅色主题                                                                                        | string                                                      | -          |
 | dateIcon     | 自定义图标                                                                                                         | string                                                      | -          |
 | shape        | 组件呈现的形式                                                                                                     | [circle,square]                                             | -          |
@@ -68,3 +67,6 @@
 | placement    | 下拉展示的方位                                                                                                     | string                                                      | -          |
 | valueType    | 默认输出的值的类型                                                                                                 | ["date" ,"timestamp" , "unix" , "string"]                   | -          |
 | presets      | 预设的日期                                                                                                         | DatePickerPresetsType[]                                     | -          |
+| onChange     | 默认值改变之后的回调                                                                                               | (date: Date \| Date[], dateStr: string \| string[]) => void | -          |
+| onOpenChange | 下拉框展开或收起时触发                                                                                             | (opened: boolean) => void                                   | -          |
+| onClear      | 点击清除按钮时触发                                                                                                 | () => void                                                  | -          |

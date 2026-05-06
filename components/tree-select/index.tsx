@@ -58,7 +58,6 @@ export const treeSelectProps = {
   width: Number,
   maxTagCount: Number,
   modelValue: [String, Number, Array] as PropType<TreeSelectValue>,
-  value: [String, Number, Array] as PropType<TreeSelectValue>,
   clearable: { type: Boolean as BooleanType, default: true },
   filterable: Boolean as BooleanType,
   block: Boolean as BooleanType,
@@ -97,6 +96,9 @@ export const treeSelectProps = {
   onTreeExpand: {
     type: Function as PropType<(value: TreeExpandEvent) => void>,
   },
+  onOpenChange: {
+    type: Function as PropType<(open: boolean) => void>,
+  },
 };
 
 export type TreeSelectProps = ExtractPropTypes<typeof treeSelectProps>;
@@ -121,10 +123,10 @@ const TreeSelect = defineComponent({
     const rendered = ref(false);
     const currentValue = ref<string[]>(
       props.multiple
-        ? ((props.modelValue || props.value || []) as string[])
-        : isEmpty(props.modelValue || props.value)
+        ? ((props.modelValue || []) as string[])
+        : isEmpty(props.modelValue)
           ? []
-          : [(props.modelValue || props.value) as string]
+          : [props.modelValue as string]
     );
     const queryInputVisible = ref(false);
     const queryKey = ref("");
@@ -191,6 +193,10 @@ const TreeSelect = defineComponent({
       });
     });
 
+    const openChange = (opened: boolean) => {
+      visible.value = opened;
+      emit("openChange", opened);
+    };
     const outsideClick = (e: Event) => {
       const target = e.target as Node | null;
       const ctx = refSelection.value;
@@ -201,7 +207,7 @@ const TreeSelect = defineComponent({
         ctx &&
         !ctx.contains(target)
       ) {
-        visible.value = false;
+        openChange(false);
         clearQuery();
       }
     };
@@ -236,11 +242,11 @@ const TreeSelect = defineComponent({
             rendered.value = true;
             document.addEventListener("click", outsideClick);
             nextTick(() => {
-              visible.value = true;
+              openChange(true);
               updatePosition();
             });
           } else {
-            visible.value = true;
+            openChange(true);
             updatePosition();
           }
           emit("search", e);
@@ -278,6 +284,7 @@ const TreeSelect = defineComponent({
       emitValue();
       clearQuery();
       e.stopPropagation();
+      emit("clear");
     };
 
     const showQuery = () => {
@@ -303,12 +310,12 @@ const TreeSelect = defineComponent({
         rendered.value = true;
         document.addEventListener("click", outsideClick);
         nextTick(() => {
-          visible.value = true;
+          openChange(true);
           updatePosition();
           showQuery();
         });
       } else {
-        visible.value = show || !visible.value;
+        openChange(show || !visible.value);
         if (visible.value) {
           updatePosition();
           showQuery();
@@ -395,7 +402,7 @@ const TreeSelect = defineComponent({
         }
       } else {
         currentValue.value = [value];
-        visible.value = false;
+        openChange(false);
         clearQuery();
       }
 

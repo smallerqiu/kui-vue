@@ -28,15 +28,15 @@ Freely output colors.
 
 | Property      | Description                                                     | Type                      | Default     |
 | ------------- | --------------------------------------------------------------- | ------------------------- | ----------- |
-| value         | Default value                                                   | string                    | -           |
 | modelValue    | Color value, can use `v-model` for two-way binding              | string                    | -           |
 | mode          | Color display type, provides 3 modes (`hex` , `rgb` ,`hsl`)     | string                    | 'hex'       |
 | presets       | Custom color palette                                            | string[]                  | -           |
 | disabledAlpha | Whether to disable transparency                                 | bool                      | false       |
-| onChange      | Triggered when the color value changes, returns the color value | (color: string) => void   | -           |
 | disabled      | Is it in an invalid state?                                      | bool                      | false       |
 | trigger       | Pull-down trigger mode                                          | [hover,click]             | click       |
 | showText      | Whether to display colored text                                 | bool                      | false       |
-| onUpdateMode  | Triggered when the color mode is updated                        | (mode: ColorMode) => void | -           |
 | size          | Size of the color picker                                        | [small,medium,large]      | -           |
 | placement     | Placement of the color picker                                   | string                    | bottom-left |
+| onUpdateMode  | Triggered when the color mode is updated                        | (mode: ColorMode) => void | -           |
+| onChange      | Triggered when the color value changes, returns the color value | (color: string) => void   | -           |
+| onOpenChange  | Triggered when the color picker expands or collapses            | (opened: boolean) => void | -           |
