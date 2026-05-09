@@ -9,14 +9,7 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import type {
-  BooleanType,
-  ButtonType,
-  ColorType,
-  ShapeType,
-  SizeType,
-  ThemeType,
-} from "../const/types";
+import type { BooleanType, ButtonType, ShapeType, SizeType, ThemeType } from "../const/types";
 import { colors } from "../const/var";
 import Icon, { type IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
@@ -32,7 +25,7 @@ const buttonProps = {
     type: String as PropType<SizeType>,
   },
   color: {
-    type: String as ColorType,
+    type: String as PropType<(typeof colors)[number]>,
   },
   loading: { type: Boolean as BooleanType, default: false },
   type: {
@@ -97,7 +90,7 @@ const Button = defineComponent({
           ["k-btn-block"]: !!props.block,
           ["k-btn-loading"]: props.loading,
           ["k-btn-icon-only"]: iconOnly(),
-          [`k-btn-${props.color}`]: props.color && colors.includes(props.color),
+          [`k-btn-${props.color}`]: props.color && colors.includes(props.color as any),
           ["k-btn-lg"]: computedSize.value === "large",
           ["k-btn-circle"]: computedShape.value === "circle",
           ["k-btn-square"]: computedShape.value === "square",

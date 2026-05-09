@@ -52,7 +52,7 @@ const Tag = defineComponent({
     return () => {
       const { shape, icon, size, color, closeable } = props;
 
-      const isPresetColor = color && colors.includes(color);
+      const isPresetColor = color && colors.includes(color as any);
       const isCustomColor = color && isColor(color) && !isPresetColor;
 
       const tagClasses = [

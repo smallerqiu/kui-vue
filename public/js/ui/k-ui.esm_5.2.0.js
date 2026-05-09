@@ -1,5 +1,5 @@
 /*!
- * kui-vue v5.1.0
+ * kui-vue v5.2.0
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
  * Homepage: https://k-ui.cn
@@ -1132,10 +1132,6 @@ var Carousel = /* @__PURE__ */ defineComponent({
 	name: "Carousel",
 	directives: { resize },
 	props: {
-		value: {
-			type: Number,
-			default: 0
-		},
 		modelValue: {
 			type: Number,
 			default: 0
@@ -1160,7 +1156,7 @@ var Carousel = /* @__PURE__ */ defineComponent({
 		}
 	},
 	setup(props, { slots, emit, expose, attrs }) {
-		const currentIndex = ref(props.value || props.modelValue);
+		const currentIndex = ref(props.modelValue);
 		const posIndex = ref(props.loop ? props.modelValue + 1 : props.modelValue);
 		const autoTimer = ref(null);
 		const width = ref(0);
@@ -1384,12 +1380,13 @@ var Checkbox = /* @__PURE__ */ defineComponent({
 		});
 		const emitValue = (checked) => {
 			isChecked.value = checked;
+			const value = getValueWithType(checked, props.valueType);
 			emit("change", {
 				checked,
 				value: props.value,
 				label: props.label || slots.default?.()
 			});
-			emit("update:modelValue", getValueWithType(checked, props.valueType));
+			emit("update:modelValue", value);
 			emit("update:checked", checked);
 		};
 		const onChange = (e) => {
@@ -3888,18 +3885,6 @@ function setPlacement({ refSelection, refPopper, currentPlacement, position = nu
 }
 typeof WorkerGlobalScope !== "undefined" && globalThis instanceof WorkerGlobalScope;
 var clamp = (n, min, max) => Math.min(max, Math.max(min, n));
-function cacheStringFunction(fn) {
-	const cache = Object.create(null);
-	return ((str) => {
-		return cache[str] || (cache[str] = fn(str));
-	});
-}
-var hyphenateRE = /\B([A-Z])/g;
-cacheStringFunction((str) => str.replace(hyphenateRE, "-$1").toLowerCase());
-var camelizeRE = /-(\w)/g;
-cacheStringFunction((str) => {
-	return str.replace(camelizeRE, (_, c) => c ? c.toUpperCase() : "");
-});
 //#endregion
 //#region components/color-picker/alpha.tsx
 var alpha_default = /* @__PURE__ */ defineComponent({
@@ -4634,12 +4619,6 @@ var Input = /* @__PURE__ */ defineComponent({
 			Array,
 			Object
 		] },
-		value: { type: [
-			String,
-			Number,
-			Array,
-			Object
-		] },
 		disabled: Boolean,
 		type: {
 			type: String,
@@ -4669,10 +4648,12 @@ var Input = /* @__PURE__ */ defineComponent({
 		onSearch: { type: Function },
 		maxlength: Number,
 		"onUpdate:modelValue": Function,
-		onIconClick: { type: Function }
+		onIconClick: { type: Function },
+		onClear: { type: Function },
+		onChange: { type: Function }
 	},
 	setup(props, { slots, emit, attrs, expose }) {
-		const currentValue = ref(props.modelValue || props.value);
+		const currentValue = ref(props.modelValue);
 		const focused = ref(false);
 		const showPassword = ref(false);
 		const inputRef = ref();
@@ -4690,6 +4671,8 @@ var Input = /* @__PURE__ */ defineComponent({
 		const clear = () => {
 			currentValue.value = "";
 			emit("update:modelValue", "");
+			emit("clear");
+			emit("change", "");
 			nextTick(() => focus());
 		};
 		const togglePassword = () => {
@@ -4731,7 +4714,7 @@ var Input = /* @__PURE__ */ defineComponent({
 					const v = e.target.value;
 					currentValue.value = v;
 					emit("update:modelValue", v);
-					emit("change", e);
+					emit("change", v);
 				},
 				onFocus: (e) => {
 					focused.value = true;
@@ -4817,12 +4800,6 @@ var TextArea = /* @__PURE__ */ defineComponent({
 			Object,
 			Array
 		],
-		value: [
-			String,
-			Number,
-			Object,
-			Array
-		],
 		theme: {
 			type: String,
 			default: "fill"
@@ -4835,13 +4812,19 @@ var TextArea = /* @__PURE__ */ defineComponent({
 			default: 2
 		},
 		disabled: Boolean,
-		readonly: Boolean
+		readonly: Boolean,
+		onChange: { type: Function }
 	},
 	setup(props, { attrs, emit }) {
-		const currentValue = ref(props.modelValue ?? props.value);
+		const currentValue = ref(props.modelValue);
 		watch(() => props.modelValue, (v) => {
 			currentValue.value = v;
 		});
+		const handleChange = (e) => {
+			const { value } = e.target;
+			emit("update:modelValue", value);
+			emit("change", value);
+		};
 		return () => {
 			const { theme, disabled, size, shape, placeholder, rows } = props;
 			return createVNode("textarea", {
@@ -4857,7 +4840,7 @@ var TextArea = /* @__PURE__ */ defineComponent({
 				}],
 				disabled,
 				value: currentValue.value,
-				onInput: (e) => emit("update:modelValue", e.target.value)
+				onInput: handleChange
 			}, null);
 		};
 	}
@@ -4867,7 +4850,6 @@ var InputNumber = /* @__PURE__ */ defineComponent({
 	name: "InputNumber",
 	props: {
 		modelValue: [Number, String],
-		value: [Number, String],
 		min: {
 			type: Number,
 			default: -Infinity
@@ -5106,11 +5088,6 @@ var Select = /* @__PURE__ */ defineComponent({
 			Number,
 			Array
 		],
-		value: [
-			String,
-			Number,
-			Array
-		],
 		clearable: {
 			type: Boolean,
 			default: true
@@ -5150,7 +5127,7 @@ var Select = /* @__PURE__ */ defineComponent({
 		});
 		const visible = ref(false);
 		const rendered = ref(false);
-		const currentValue = ref(props.multiple ? props.modelValue || props.value || [] : isEmpty(props.modelValue || props.value) ? [] : [props.modelValue || props.value]);
+		const currentValue = ref(props.multiple ? props.modelValue || [] : isEmpty(props.modelValue) ? [] : [props.modelValue]);
 		const queryInputVisible = ref(false);
 		const queryKey = ref("");
 		const queryInputMirrorRef = ref(null);
@@ -5357,6 +5334,7 @@ var Select = /* @__PURE__ */ defineComponent({
 			emitValue();
 		};
 		const onClear = (e) => {
+			emit("clear");
 			currentValue.value = [];
 			emitValue();
 			clearQuery();
@@ -5613,8 +5591,7 @@ var mode_default = /* @__PURE__ */ defineComponent({
 		watch(() => props.mode, (val) => {
 			currentMode.value = val;
 		});
-		const updateHex = (e) => {
-			const hex = e.target.value;
+		const updateHex = (hex) => {
 			if (!isColor(hex)) return;
 			emit("updateColorValue", Color(hex).rgb());
 		};
@@ -5869,7 +5846,6 @@ var ColorPicker = /* @__PURE__ */ defineComponent({
 	},
 	props: {
 		modelValue: String,
-		value: String,
 		disabled: Boolean,
 		disabledAlpha: Boolean,
 		showText: Boolean,
@@ -5888,11 +5864,12 @@ var ColorPicker = /* @__PURE__ */ defineComponent({
 		},
 		presets: { type: Array },
 		onChange: { type: Function },
-		onUpdateMode: { type: Function }
+		onUpdateMode: { type: Function },
+		onOpenChange: { type: Function }
 	},
 	setup(props, { emit, slots }) {
 		const currentMode = ref(props.mode);
-		const currentColor = ref(props.modelValue || props.value || "#000000ff");
+		const currentColor = ref(props.modelValue || "#000000ff");
 		const visible = ref(false);
 		const refPopper = ref();
 		const refSelection = ref();
@@ -5932,8 +5909,12 @@ var ColorPicker = /* @__PURE__ */ defineComponent({
 			const ctx = refSelection.value?.$el || refSelection.value;
 			if (refPopper.value && !refPopper.value.contains(e.target) && ctx && !ctx.contains(e.target)) {
 				clearTimeout(hideTimer.value);
-				hideTimer.value = setTimeout(() => visible.value = false, 200);
+				hideTimer.value = setTimeout(() => openChange(false), 200);
 			}
+		};
+		const openChange = (opened) => {
+			visible.value = opened;
+			emit("openChange", opened);
 		};
 		const toggle = (open) => {
 			if (props.disabled) return false;
@@ -5941,14 +5922,14 @@ var ColorPicker = /* @__PURE__ */ defineComponent({
 				rendered.value = true;
 				document.addEventListener("click", outsideClick);
 				nextTick(() => {
-					visible.value = true;
+					openChange(true);
 					updatePopPosition();
 				});
 			} else {
-				visible.value = true;
+				openChange(true);
 				updatePopPosition();
 			}
-			else visible.value = false;
+			else openChange(false);
 		};
 		const getColor = () => {
 			let text = "";
@@ -6462,7 +6443,9 @@ var DatePicker = /* @__PURE__ */ defineComponent({
 			type: String,
 			default: "bottom-left"
 		},
-		onChange: { type: Function }
+		onChange: { type: Function },
+		onOpenChange: { type: Function },
+		onClear: { type: Function }
 	},
 	setup(props, { emit, slots }) {
 		const injectedLocale = inject("locale", zh_CN_default);
@@ -6526,6 +6509,10 @@ var DatePicker = /* @__PURE__ */ defineComponent({
 				time: "HH:mm:ss",
 				year: "YYYY"
 			}[props.mode] || "YYYY-MM-DD";
+		};
+		const openChange = (opened) => {
+			isVisible.value = opened;
+			emit("openChange", opened);
 		};
 		const scrollToCurrentTime = () => {
 			nextTick(() => {
@@ -6619,13 +6606,13 @@ var DatePicker = /* @__PURE__ */ defineComponent({
 					emit("change", dates, dates.map((d) => getStr(d)));
 					innerValue.value = dates;
 					syncTextFromValue();
-					if (closePanel) isVisible.value = false;
+					if (closePanel) openChange(false);
 				}
 			} else {
 				emit("update:modelValue", formatOutputValue(innerValue.value));
 				emit("change", innerValue.value, getStr(innerValue.value));
 				syncTextFromValue();
-				if (closePanel) isVisible.value = false;
+				if (closePanel) openChange(false);
 			}
 		};
 		const handleInput = (e, index = 0) => {
@@ -6657,7 +6644,7 @@ var DatePicker = /* @__PURE__ */ defineComponent({
 		};
 		const updatePanelState = () => {
 			if (isVisible.value) return;
-			isVisible.value = true;
+			openChange(true);
 			isFocus.value = true;
 			if (props.mode === "year") currentView.value = "year";
 			else if (props.mode === "month") currentView.value = "month";
@@ -6696,7 +6683,7 @@ var DatePicker = /* @__PURE__ */ defineComponent({
 						else innerValue.value = null;
 					}
 				}
-				isVisible.value = false;
+				openChange(false);
 				isFocus.value = false;
 			}
 		};
@@ -6982,6 +6969,16 @@ var DatePicker = /* @__PURE__ */ defineComponent({
 			if (props.opened) updatePosition();
 		});
 		onUnmounted(() => document.removeEventListener("click", handleClickOutside));
+		const onClear = (e) => {
+			e.stopPropagation();
+			innerValue.value = null;
+			syncTextFromValue();
+			emit("update:startDate", null);
+			emit("update:endDate", null);
+			emit("update:modelValue", null);
+			emit("change", null, "");
+			emit("clear");
+		};
 		return () => {
 			const localPlaceholders = {
 				year: locale?.value.k.datePicker.selectYear,
@@ -7127,15 +7124,7 @@ var DatePicker = /* @__PURE__ */ defineComponent({
 				showClear && createVNode(Icon, {
 					"type": CircleX,
 					"class": "k-icon-clean",
-					"onClick": (e) => {
-						e.stopPropagation();
-						innerValue.value = null;
-						syncTextFromValue();
-						emit("update:startDate", null);
-						emit("update:endDate", null);
-						emit("update:modelValue", null);
-						emit("change", null, "");
-					}
+					"onClick": onClear
 				}, null)
 			]), overlay]);
 		};
@@ -7348,7 +7337,8 @@ var Drawer = /* @__PURE__ */ defineComponent({
 		},
 		onOk: Function,
 		onCancel: Function,
-		onClose: Function
+		onClose: Function,
+		onOpenChange: Function
 	},
 	setup(props, { slots, emit }) {
 		const injectedLocale = inject("locale", zh_CN_default);
@@ -7376,6 +7366,7 @@ var Drawer = /* @__PURE__ */ defineComponent({
 				visible.value = value;
 				opened.value = value;
 				emit("update:modelValue", true);
+				emit("openChange", true);
 			});
 			else {
 				visible.value = false;
@@ -7383,6 +7374,7 @@ var Drawer = /* @__PURE__ */ defineComponent({
 					opened.value = false;
 				}, 300);
 				emit("update:modelValue", false);
+				emit("openChange", false);
 			}
 		};
 		const escToClose = (event) => {
@@ -7472,7 +7464,8 @@ var Dropdown = /* @__PURE__ */ defineComponent({
 			type: String,
 			default: "bottom-left"
 		},
-		target: Object
+		target: Object,
+		onOpenChange: { type: Function }
 	},
 	setup(props, { slots, emit, attrs }) {
 		const visible = ref(props.show);
@@ -7504,7 +7497,7 @@ var Dropdown = /* @__PURE__ */ defineComponent({
 			const ctx = refSelection.value?.$el || refSelection.value;
 			if (!refPopper.value) return;
 			const target = e.target;
-			if (!refPopper.value.contains(target) && ctx && !ctx.contains(target) || props.trigger == "contextmenu" && !refPopper.value.contains(target)) visible.value = false;
+			if (!refPopper.value.contains(target) && ctx && !ctx.contains(target) || props.trigger == "contextmenu" && !refPopper.value.contains(target)) openChange(false);
 		};
 		const updatePosition = (e) => {
 			const position = e ? {
@@ -7523,27 +7516,31 @@ var Dropdown = /* @__PURE__ */ defineComponent({
 				});
 			});
 		};
+		const openChange = (opened) => {
+			visible.value = opened;
+			emit("openChange", opened);
+		};
 		const toggle = (open, e) => {
 			if (open) if (!rendered.value) {
 				rendered.value = true;
 				document.addEventListener("click", outsideClick);
 				nextTick(() => {
-					visible.value = true;
-					emit("update:visible", true);
+					openChange(true);
+					emit("update:show", true);
 					updatePosition(e);
 				});
 			} else {
-				visible.value = true;
-				emit("update:visible", true);
+				emit("update:show", true);
 				updatePosition(e);
+				openChange(true);
 			}
 			else {
-				visible.value = false;
-				emit("update:visible", false);
+				openChange(false);
+				emit("update:show", false);
 			}
 		};
 		const hidePopper = () => {
-			visible.value = false;
+			openChange(false);
 		};
 		provide("dropdown-menu-selected", hidePopper);
 		const clickEvent = () => {
@@ -8059,7 +8056,7 @@ var FormItem = /* @__PURE__ */ defineComponent({
 		});
 		return () => {
 			const { label, prop } = props;
-			const rules = props.rules || (prop ? Form.rules[prop] : "") || [];
+			const rules = props.rules || (prop ? Form.rules?.[prop] : void 0) || [];
 			const classes = ["k-form-item", {
 				"k-form-item-required": rules.constructor === Object ? rules.required : rules.filter((r) => r.required).length > 0,
 				"k-form-item-error": !valid.value
@@ -10238,7 +10235,8 @@ var Modal = /* @__PURE__ */ defineComponent({
 		},
 		onClose: { type: Function },
 		onOk: { type: Function },
-		onCancel: { type: Function }
+		onCancel: { type: Function },
+		onOpenChange: { type: Function }
 	},
 	setup(props, { slots, emit }) {
 		const visible = ref(props.modelValue);
@@ -10291,6 +10289,7 @@ var Modal = /* @__PURE__ */ defineComponent({
 				visible.value = value;
 				showInner.value = value;
 				emit("update:modelValue", true);
+				emit("openChange", true);
 				nextTick(() => {
 					updateOrigin();
 				});
@@ -10301,6 +10300,7 @@ var Modal = /* @__PURE__ */ defineComponent({
 					showInner.value = false;
 				}, 300);
 				emit("update:modelValue", false);
+				emit("openChange", false);
 			}
 		};
 		const updateOrigin = () => {
@@ -11645,10 +11645,6 @@ var star_default = /* @__PURE__ */ defineComponent({
 var Rate = /* @__PURE__ */ defineComponent({
 	name: "Rate",
 	props: {
-		value: {
-			type: Number,
-			default: 0
-		},
 		modelValue: {
 			type: Number,
 			default: 0
@@ -11677,7 +11673,7 @@ var Rate = /* @__PURE__ */ defineComponent({
 		onChange: { type: Function }
 	},
 	setup(props, { emit }) {
-		const initValue = ref(props.modelValue || props.value);
+		const initValue = ref(props.modelValue);
 		const tempValue = ref(null);
 		const cleared = ref(false);
 		watch(() => props.modelValue, (v) => {
@@ -13936,11 +13932,6 @@ var TreeSelect = /* @__PURE__ */ defineComponent({
 			Number,
 			Array
 		],
-		value: [
-			String,
-			Number,
-			Array
-		],
 		clearable: {
 			type: Boolean,
 			default: true
@@ -13983,7 +13974,8 @@ var TreeSelect = /* @__PURE__ */ defineComponent({
 		onChange: { type: Function },
 		onTreeSelect: { type: Function },
 		onSearch: { type: Function },
-		onTreeExpand: { type: Function }
+		onTreeExpand: { type: Function },
+		onOpenChange: { type: Function }
 	},
 	setup(props, { emit, attrs }) {
 		const injectedLocale = inject("locale", zh_CN_default);
@@ -13992,7 +13984,7 @@ var TreeSelect = /* @__PURE__ */ defineComponent({
 		});
 		const visible = ref(false);
 		const rendered = ref(false);
-		const currentValue = ref(props.multiple ? props.modelValue || props.value || [] : isEmpty(props.modelValue || props.value) ? [] : [props.modelValue || props.value]);
+		const currentValue = ref(props.multiple ? props.modelValue || [] : isEmpty(props.modelValue) ? [] : [props.modelValue]);
 		const queryInputVisible = ref(false);
 		const queryKey = ref("");
 		const queryInputMirrorRef = ref(null);
@@ -14040,11 +14032,15 @@ var TreeSelect = /* @__PURE__ */ defineComponent({
 				minWidth.value = refSelection.value ? refSelection.value.offsetWidth : "";
 			});
 		});
+		const openChange = (opened) => {
+			visible.value = opened;
+			emit("openChange", opened);
+		};
 		const outsideClick = (e) => {
 			const target = e.target;
 			const ctx = refSelection.value;
 			if (refPopper.value && target && !refPopper.value.contains(target) && ctx && !ctx.contains(target)) {
-				visible.value = false;
+				openChange(false);
 				clearQuery();
 			}
 		};
@@ -14072,11 +14068,11 @@ var TreeSelect = /* @__PURE__ */ defineComponent({
 						rendered.value = true;
 						document.addEventListener("click", outsideClick);
 						nextTick(() => {
-							visible.value = true;
+							openChange(true);
 							updatePosition();
 						});
 					} else {
-						visible.value = true;
+						openChange(true);
 						updatePosition();
 					}
 					emit("search", e);
@@ -14106,6 +14102,7 @@ var TreeSelect = /* @__PURE__ */ defineComponent({
 			emitValue();
 			clearQuery();
 			e.stopPropagation();
+			emit("clear");
 		};
 		const showQuery = () => {
 			if (props.filterable || hasSearchEvent) {
@@ -14126,12 +14123,12 @@ var TreeSelect = /* @__PURE__ */ defineComponent({
 				rendered.value = true;
 				document.addEventListener("click", outsideClick);
 				nextTick(() => {
-					visible.value = true;
+					openChange(true);
 					updatePosition();
 					showQuery();
 				});
 			} else {
-				visible.value = show || !visible.value;
+				openChange(show || !visible.value);
 				if (visible.value) {
 					updatePosition();
 					showQuery();
@@ -14197,7 +14194,7 @@ var TreeSelect = /* @__PURE__ */ defineComponent({
 				}
 			} else {
 				currentValue.value = [value];
-				visible.value = false;
+				openChange(false);
 				clearQuery();
 			}
 			emitValue();
