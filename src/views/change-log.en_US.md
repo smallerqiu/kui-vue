@@ -15,7 +15,7 @@ rm -rf node_modules/.vite
 
 ## 5.2.0
 
-`2026-5-6`
+`2026-5-9`
 
 - The form component removes the `value` property and uses `modelValue` instead.
 - Components like `Modal` and `Select` now have an `onOpenChange` event, which triggers when the window is opened or expanded.
