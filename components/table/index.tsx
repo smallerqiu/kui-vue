@@ -13,7 +13,7 @@ export interface Column {
   width?: number;
   fixed?: "left" | "right";
   sorter?: boolean | ((state: SortState) => void);
-  render?: (h: any, record: any, colIndex: number) => void;
+  render?: (h: any, record: any, colIndex: number, rowIndex: number, col: Column) => void;
   colSpan?: number | ((record: any, index: number) => number);
   rowSpan?: number | ((record: any, index: number) => number);
   children?: Column[];
@@ -512,9 +512,11 @@ const Table = defineComponent({
                     {slots[col.key]?.({
                       record,
                       col,
+                      colIndex,
+                      rowIndex,
                       value: record[col.key],
                     }) ||
-                      col.render?.(h, record, colIndex) ||
+                      col.render?.(h, record, colIndex, rowIndex, col) ||
                       record[col.key]}
                   </td>
                 );
