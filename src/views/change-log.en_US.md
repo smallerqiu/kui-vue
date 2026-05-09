@@ -17,10 +17,11 @@ rm -rf node_modules/.vite
 
 `2026-5-6`
 
-- The form component removes the `value` property and uses `modelValue` instead.  
-- Components like `Modal` and `Select` now have an `onOpenChange` event, which triggers when the window is opened or expanded.  
-- Components like `Input` now include an `onClear` event, which triggers when the value is cleared.  
+- The form component removes the `value` property and uses `modelValue` instead.
+- Components like `Modal` and `Select` now have an `onOpenChange` event, which triggers when the window is opened or expanded.
+- Components like `Input` now include an `onClear` event, which triggers when the value is cleared.
 - The `onChange` event of components will now return the current value of the component.
+- Fixed a `Form` rule validation issue.
 
 ## 5.1.0
 

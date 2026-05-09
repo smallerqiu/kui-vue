@@ -1,5 +1,3 @@
-import type { PropType } from "vue";
-
 export const colors = [
   "default",
   "red",
@@ -20,7 +18,3 @@ export const colors = [
   "brown",
   "gray",
 ] as const;
-
-export function functionType<T = () => {}>(defaultVal?: T) {
-  return { type: Function as PropType<T>, default: defaultVal as T };
-}

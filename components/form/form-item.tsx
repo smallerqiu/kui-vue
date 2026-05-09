@@ -197,10 +197,10 @@ const FormItem = defineComponent({
 
     return () => {
       const { label, prop } = props;
-      const rules = props.rules || (prop ? (Form.rules as FormRule)[prop] : "") || [];
+      const rules = props.rules || (prop ? Form.rules?.[prop] : undefined) || [];
       const required =
         rules.constructor === Object
-          ? rules.required
+          ? (rules as FormRule).required
           : rules.filter((r: FormRule) => r.required).length > 0;
 
       const classes = [

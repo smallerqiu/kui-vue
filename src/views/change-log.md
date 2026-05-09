@@ -23,6 +23,7 @@ rm -rf node_modules/.vite
 - `Modal`,`Select` 等组件新增 `onOpenChange` 事件,展开或打开窗口时触发
 - `Input` 等组件新增 `onClear` 事件,清空值时触发
 - 组件`onChange` 事件将返回组件当前值.
+- 修复`Form` 规则验证问题.
 
 ## 5.1.0
 
