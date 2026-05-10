@@ -1,5 +1,5 @@
 /*!
- * kui-vue v5.2.0
+ * kui-vue v5.2.1
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
  * Homepage: https://k-ui.cn
@@ -4647,7 +4647,6 @@ var Input = /* @__PURE__ */ defineComponent({
 		},
 		onSearch: { type: Function },
 		maxlength: Number,
-		"onUpdate:modelValue": Function,
 		onIconClick: { type: Function },
 		onClear: { type: Function },
 		onChange: { type: Function }
@@ -13059,8 +13058,10 @@ var Table = /* @__PURE__ */ defineComponent({
 				}), [slots[col.key]?.({
 					record,
 					col,
+					colIndex,
+					rowIndex,
 					value: record[col.key]
-				}) || col.render?.(h, record, colIndex) || record[col.key]]);
+				}) || col.render?.(h, record, colIndex, rowIndex, col) || record[col.key]]);
 			})]);
 		})]);
 		const renderTable = (isHeader, isBody) => {
@@ -13132,7 +13133,6 @@ var Tabs = /* @__PURE__ */ defineComponent({
 	name: "Tabs",
 	props: {
 		modelValue: [String, Number],
-		value: [String, Number],
 		card: Boolean,
 		sample: Boolean,
 		centered: Boolean,
@@ -13144,8 +13144,8 @@ var Tabs = /* @__PURE__ */ defineComponent({
 		onChange: Function,
 		onRemove: Function
 	},
-	setup(ps, { slots, emit }) {
-		const defaultActiveKey = ref(ps.modelValue);
+	setup(props, { slots, emit }) {
+		const defaultActiveKey = ref(props.modelValue);
 		const currentIndex = ref(-1);
 		const scrollable = ref(false);
 		const navOffsetLeft = ref(0);
@@ -13156,7 +13156,7 @@ var Tabs = /* @__PURE__ */ defineComponent({
 		const navBoxRef = ref();
 		const inkBarRef = ref();
 		provide("tabActiveKey", defaultActiveKey);
-		watch(() => ps.modelValue, (nv) => {
+		watch(() => props.modelValue, (nv) => {
 			defaultActiveKey.value = nv;
 			updateIndex();
 		});
@@ -13240,12 +13240,12 @@ var Tabs = /* @__PURE__ */ defineComponent({
 			});
 		};
 		const updateInkBarPosition = () => {
-			if (!ps.card && !ps.sample) {
+			if (!props.card && !props.sample) {
 				const nav = navRef.value.children[currentIndex.value];
 				if (nav) {
 					const inkBar = inkBarRef.value;
 					let offsetLeft = nav.offsetLeft;
-					if (ps.centered) {}
+					if (props.centered) {}
 					inkBar.style.width = `${nav.offsetWidth}px`;
 					inkBar.style.transform = `translate3d(${offsetLeft}px, 0px, 0px)`;
 				}
@@ -13276,7 +13276,7 @@ var Tabs = /* @__PURE__ */ defineComponent({
 				}, [
 					icon ? createVNode(Icon, { "type": icon }, null) : null,
 					title,
-					closable && ps.card ? createVNode(Icon, {
+					closable && props.card ? createVNode(Icon, {
 						"type": X,
 						"class": "k-tabs-close",
 						"onClick": (e) => closeTab(key, e)
@@ -13285,7 +13285,7 @@ var Tabs = /* @__PURE__ */ defineComponent({
 			});
 		});
 		return () => {
-			const { card, animated, centered, sample } = ps;
+			const { card, animated, centered, sample } = props;
 			const classes = ["k-tabs", {
 				["k-tabs-animated"]: animated && !card && !sample,
 				["k-tabs-card"]: card && !sample,

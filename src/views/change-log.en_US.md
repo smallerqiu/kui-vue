@@ -13,6 +13,13 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 5.2.1
+
+`2026-5-10`
+
+- Enhanced `Table` slot functionality  
+- `Form` child component exception issue
+
 ## 5.2.0
 
 `2026-5-9`

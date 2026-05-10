@@ -113,14 +113,14 @@ const columns = [
 
 ## Column API
 
-| 属性    | 说明                                                                                              | 类型                                            | 默认值 |
-| ------- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------- | ------ |
-| title   | 列头显示文字                                                                                      | string                                          | -      |
-| key     | 对应列内容的字段名                                                                                | string                                          | -      |
-| fixed   | 列固定的方向                                                                                      | left,right                                      | -      |
-| sorter  | 排序,为`true`时,本地排序                                                                          | boolean \| (state: SortState) => void           | -      |
-| width   | 列宽                                                                                              | number                                          | -      |
-| rowSpan | 行合并单位,为 0 时将不渲染当前行                                                                  | number                                          | -      |
-| colSpan | 列合并单位,为 0 时将不渲染当前列                                                                  | number                                          | -      |
-| render  | 自定义渲染，可参阅[深入数据对象](https://cn.vuejs.org/v2/guide/render-function.html#深入数据对象) | (h: any, record: any, colIndex: number) => void | -      |
-| scroll  | 滚动属性                                                                                          | {x:[number ,string],y:[number , string]}        | -      |
+| 属性    | 说明                             | 类型                                                                           | 默认值 |
+| ------- | -------------------------------- | ------------------------------------------------------------------------------ | ------ |
+| title   | 列头显示文字                     | string                                                                         | -      |
+| key     | 对应列内容的字段名               | string                                                                         | -      |
+| fixed   | 列固定的方向                     | left,right                                                                     | -      |
+| sorter  | 排序,为`true`时,本地排序         | boolean \| (state: SortState) => void                                          | -      |
+| width   | 列宽                             | number                                                                         | -      |
+| rowSpan | 行合并单位,为 0 时将不渲染当前行 | number                                                                         | -      |
+| colSpan | 列合并单位,为 0 时将不渲染当前列 | number                                                                         | -      |
+| render  | 自定义渲染                       | (h: any, record: any, colIndex: number, rowIndex: number, col: Column) => void | -      |
+| scroll  | 滚动属性                         | {x:[number ,string],y:[number , string]}                                       | -      |

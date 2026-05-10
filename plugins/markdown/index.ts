@@ -71,7 +71,7 @@ export default function vitePluginKuiMd(): Plugin {
 
       const jsxReg = /\[(.*?)\]\((.*?\.tsx)\)/g;
 
-      processedMarkdown = processedMarkdown.replace(jsxReg, (_, t, src) => {
+      processedMarkdown = processedMarkdown.replace(jsxReg, (_, __, src) => {
         // console.log(t, src);
         const componentName = `KuiDemo${demoCount++}`;
         demoImports.push(`import ${componentName} from '${src}';`);
