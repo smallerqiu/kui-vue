@@ -113,14 +113,14 @@ const columns = [
 
 ## Column API
 
-| Property | Description                                                                                                                    | Type                                            | Default |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- | ------- |
-| title    | Header display text                                                                                                            | string                                          | -       |
-| key      | Corresponding column field name                                                                                                | string                                          | -       |
-| fixed    | Column fixed direction                                                                                                         | left,right                                      | -       |
-| sorter   | Sorting, when `true`, local sorting is enabled                                                                                 | boolean \| (state: SortState) => void           | -       |
-| width    | Column width                                                                                                                   | number                                          | -       |
-| rowSpan  | Row merge unit, when 0, the current row will not be rendered                                                                   | number                                          | -       |
-| colSpan  | Column merge unit, when 0, the current column will not be rendered                                                             | number                                          | -       |
-| render   | Custom rendering, refer to [In-depth Data Object](https://cn.vuejs.org/v2/guide/render-function.html#深入数据对象) for details | (h: any, record: any, colIndex: number) => void | -       |
-| scroll   | Scrolling attributes                                                                                                           | {x:[number ,string],y:[number , string]}        | -       |
+| Property | Description                                                        | Type                                                                           | Default |
+| -------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------- |
+| title    | Header display text                                                | string                                                                         | -       |
+| key      | Corresponding column field name                                    | string                                                                         | -       |
+| fixed    | Column fixed direction                                             | left,right                                                                     | -       |
+| sorter   | Sorting, when `true`, local sorting is enabled                     | boolean \| (state: SortState) => void                                          | -       |
+| width    | Column width                                                       | number                                                                         | -       |
+| rowSpan  | Row merge unit, when 0, the current row will not be rendered       | number                                                                         | -       |
+| colSpan  | Column merge unit, when 0, the current column will not be rendered | number                                                                         | -       |
+| render   | Custom rendering                                                   | (h: any, record: any, colIndex: number, rowIndex: number, col: Column) => void | -       |
+| scroll   | Scrolling attributes                                               | {x:[number ,string],y:[number , string]}                                       | -       |

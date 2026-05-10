@@ -8,7 +8,7 @@
       :labelCol="labelCol"
       :wrapperCol="wrapperCol"
     >
-      <FormItem label="Size">
+      <FormItem label="Size" prop="size">
         <RadioGroup v-model="size" type="button">
           <RadioButton value="large" label="Large" />
           <RadioButton value="medium" label="Medium" />
@@ -18,97 +18,11 @@
       <FormItem label="E-mail" prop="email">
         <Input clearable placeholder="Please enter your email" v-model="form.email" />
       </FormItem>
-      <FormItem label="Number" prop="number">
-        <InputNumber placeholder="Please enter your number" />
-      </FormItem>
-      <FormItem label="Password" prop="password">
-        <Input type="password" placeholder="Please enter password" />
-      </FormItem>
-      <FormItem label="Confirm Password" prop="confirm_password">
-        <Input type="password" placeholder="Please enter password" />
-      </FormItem>
-      <FormItem label="Phone Number" prop="phone">
-        <Input placeholder="Please enter phone number" />
-      </FormItem>
-      <FormItem label="Captcha" prop="captcha">
-        <Input placeholder="Please enter captcha">
-          <template #suffix>
-            <Button :size="size" :disabled="time != 60" @click="sendCode">
-              {{ time == 60 ? "Get verification code" : time + "(s)" }}
-            </Button>
-          </template>
-        </Input>
-      </FormItem>
-      <FormItem label="Country">
-        <FormItem prop="country" :wrapper-col="{ span: 24 }">
-          <Select clearable style="width: 100%">
-            <Option value="0" label="China" />
-            <Option value="1" label="Russia" />
-          </Select>
-        </FormItem>
-        <FormItem prop="city" label="city" :wrapper-col="{ span: 24 }">
-          <Select clearable style="width: 100%">
-            <Option value="0" label="Shanghai" />
-            <Option value="1" label="Wuhan" />
-            <Option value="2" label="Hangzhou" />
-          </Select>
-        </FormItem>
-      </FormItem>
-      <FormItem label="TreeSelect" prop="tree">
-        <TreeSelect style="width: 100%" :tree-data="treeData"> </TreeSelect>
-      </FormItem>
-      <FormItem label="Slider" prop="slider">
-        <Slider />
-      </FormItem>
-      <FormItem label="Rate" prop="rate">
-        <Rate />
-      </FormItem>
-      <FormItem label="Gender" prop="gender">
-        <RadioGroup>
-          <Radio :value="0" label="Girl" />
-          <Radio :value="1" label="Boy" />
-        </RadioGroup>
-      </FormItem>
-      <FormItem label="One" prop="one">
-        <Radio label="Only One?" />
-      </FormItem>
-      <FormItem label="System" prop="system">
-        <RadioGroup type="button">
-          <RadioButton :value="0" label="Mac OS" />
-          <RadioButton :value="1" label="Windows" />
-          <RadioButton :value="2" label="Linux" />
-        </RadioGroup>
-      </FormItem>
-      <FormItem label="Birthday" prop="birthday">
-        <DatePicker clearable />
-      </FormItem>
-      <FormItem label="Hobby" prop="hobbies">
-        <CheckboxGroup>
-          <Checkbox value="0" label="Football" />
-          <Checkbox value="1" label="Music" />
-          <Checkbox value="2" label="Photograph" />
-          <Checkbox value="3" label="Tennis" />
-        </CheckboxGroup>
-      </FormItem>
-      <FormItem label="Hardcore" prop="hardcore">
-        <KSwitch true-text="Yes" false-text="No" />
-      </FormItem>
-      <FormItem label="Other" prop="other">
-        <TextArea placeholder="Maximum 10 characters" v-model="form.other" />
-      </FormItem>
-      <FormItem prop="readme" :wrapperCol="{ offset: 6 }">
-        <Checkbox>我已阅读 <a>服务条款</a> </Checkbox>
-      </FormItem>
-      <FormItem :wrapperCol="{ offset: 6 }">
-        <Button type="primary" @click="submit">Submit</Button>
-        <Button style="margin: 0 10px" @click="reset">Reset</Button>
-        <Button theme="dashed" @click="setValue">Set Value</Button>
-      </FormItem>
     </Form>
   </div>
 </template>
 <script setup lang="ts">
-import { message, type FormContext, type FormRule, type SizeType } from "kui-vue";
+import { type FormRule, type SizeType } from "kui-vue";
 import { reactive, ref } from "vue";
 const validatePass = (_: FormRule, value: any, callback: (error?: Error) => void) => {
   if (value !== form.password) {
@@ -124,20 +38,7 @@ const validateReadme = (_: FormRule, value: any, callback: (error?: Error) => vo
 };
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
-const time = ref(60);
-const timer = ref<NodeJS.Timeout>();
 const size = ref<SizeType>("medium");
-const formRef = ref<FormContext>();
-const treeData = [
-  {
-    title: "food",
-    key: "0",
-    children: [
-      { title: "apple", key: "0-1" },
-      { title: "orange", key: "0-2" },
-    ],
-  },
-];
 const form = reactive({
   email: "",
   number: undefined,
@@ -219,49 +120,5 @@ const rules: Record<string, FormRule[]> = {
     { required: true, message: "Please fill in other information" },
     { max: 10, message: "Maximum characters is 10" },
   ],
-};
-const setValue = () => {
-  Object.assign(form, {
-    email: "master@k-ui.cn",
-    password: "abc@123@123",
-    confirm_password: "abc@123@123",
-    phone: "13888888888",
-    captcha: "8888",
-    gender: 1,
-    slider: 5,
-    rate: 5,
-    number: 5,
-    tree: "0",
-    system: 0,
-    one: true,
-    birthday: "1995-05-05",
-    country: "1",
-    city: "1",
-    hobbies: ["0", "1"],
-    hardcore: true,
-    other: "Test data",
-    readme: true,
-  });
-};
-const sendCode = () => {
-  time.value = 59;
-  message.success("The verification code has been sent.");
-  clearInterval(timer.value);
-  timer.value = setInterval(() => {
-    if (time.value < 1) {
-      clearInterval(timer.value);
-      time.value = 60;
-    } else {
-      time.value -= 1;
-    }
-  }, 1000);
-};
-const submit = () => {
-  formRef.value?.validate(({ valid }) => {
-    message[valid ? "success" : "error"](valid ? "success" : "failed");
-  });
-};
-const reset = () => {
-  formRef.value?.reset();
 };
 </script>

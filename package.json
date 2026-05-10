@@ -1,7 +1,7 @@
 {
   "name": "kui-vue",
   "private": false,
-  "version": "5.2.0",
+  "version": "5.2.1",
   "type": "module",
   "description": "A lightweight desktop UI component library suitable for Vue.js 3.",
   "main": "lib/index.js",
@@ -116,10 +116,11 @@
     "markdown-it-anchor": "^9.2.0",
     "prettier": "^3.8.3",
     "sucrase": "^3.35.1",
+    "terser": "^5.47.1",
     "ts-morph": "^28.0.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.11",
-    "vite-plugin-dts": "^4.5.4",
+    "vite-plugin-dts": "^5.0.0",
     "vue-router": "^5.0.6",
     "vue-tsc": "^3.2.8"
   },

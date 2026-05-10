@@ -56,10 +56,10 @@ export default defineComponent({
         <Affix offsetTop={65}>
           <Flex size="large" style={{ backgroundColor: "var(--kui-color-bg)" }}>
             <Input
-              modelValue={searchKey.value}
+              v-model={searchKey.value}
               placeholder="Enter keyword to search for icons, then click on the icon to copy it."
               clearable
-              onUpdate:modelValue={searchIcons}
+              onChange={searchIcons}
               prefix={(<Icon type={kuiIcons.Search} />) as any}
               suffix={(<Tag>⌘K</Tag>) as any}
             ></Input>

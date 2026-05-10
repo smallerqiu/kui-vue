@@ -18,7 +18,6 @@ import { getChildren } from "../utils/vnode";
 
 export const tabsProps = {
   modelValue: [String, Number],
-  value: [String, Number],
   card: Boolean as BooleanType,
   sample: Boolean as BooleanType,
   centered: Boolean as BooleanType,
@@ -38,8 +37,8 @@ export type TabsProps = ExtractPropTypes<typeof tabsProps>;
 const Tabs = defineComponent({
   name: "Tabs",
   props: tabsProps,
-  setup(ps, { slots, emit }) {
-    const defaultActiveKey = ref(ps.modelValue);
+  setup(props, { slots, emit }) {
+    const defaultActiveKey = ref(props.modelValue);
     const currentIndex = ref(-1);
     const scrollable = ref(false);
     const navOffsetLeft = ref(0);
@@ -53,8 +52,8 @@ const Tabs = defineComponent({
     provide("tabActiveKey", defaultActiveKey);
 
     watch(
-      // () => ps.activeKey,
-      () => ps.modelValue,
+      // () => props.activeKey,
+      () => props.modelValue,
       (nv) => {
         defaultActiveKey.value = nv;
         updateIndex();
@@ -173,12 +172,12 @@ const Tabs = defineComponent({
       });
     };
     const updateInkBarPosition = () => {
-      if (!ps.card && !ps.sample) {
+      if (!props.card && !props.sample) {
         const nav = navRef.value.children[currentIndex.value];
         if (nav) {
           const inkBar = inkBarRef.value;
           let offsetLeft = nav.offsetLeft;
-          if (ps.centered) {
+          if (props.centered) {
             // offsetLeft = (navBoxRef.value.offsetWidth - offsetLeft) ;
           }
           inkBar.style.width = `${nav.offsetWidth}px`;
@@ -219,7 +218,7 @@ const Tabs = defineComponent({
           <div {...prop}>
             {icon ? <Icon type={icon} /> : null}
             {title}
-            {closable && ps.card ? (
+            {closable && props.card ? (
               <Icon type={X} class="k-tabs-close" onClick={(e) => closeTab(key, e)} />
             ) : null}
           </div>
@@ -228,7 +227,7 @@ const Tabs = defineComponent({
     });
 
     return () => {
-      const { card, animated, centered, sample } = ps;
+      const { card, animated, centered, sample } = props;
       const classes = [
         "k-tabs",
         {

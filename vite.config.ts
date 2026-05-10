@@ -29,7 +29,7 @@ export default defineConfig({
     dts({
       insertTypesEntry: true,
       tsconfigPath: "./tsconfig.app.json",
-      outDir: "./types/",
+      outDirs: "./types/",
       entryRoot: path.resolve(__dirname, "components"),
       exclude: ["node_modules/**", "src/**", "plugins"],
       include: ["components/**/*.ts", "components/**/*.tsx"],

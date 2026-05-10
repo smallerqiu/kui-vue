@@ -84,6 +84,7 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
 import { message, modal, type FormRule, type UploadFile } from "kui-vue";
+// need run: npm run build
 import de from "kui-vue/locale/de";
 import en from "kui-vue/locale/en";
 import zh from "kui-vue/locale/zh-CN";
