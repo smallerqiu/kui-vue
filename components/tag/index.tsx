@@ -83,9 +83,9 @@ const Tag = defineComponent({
         content.push(<Icon class="k-tag-close" type={X} onClick={closeHandler} />);
       }
       const tagProps = {
+        ...attrs,
         class: tagClasses,
         style: tagStyle,
-        ...attrs,
       };
 
       return (

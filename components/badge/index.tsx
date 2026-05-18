@@ -1,4 +1,10 @@
-import { defineComponent, type CSSProperties, type ExtractPropTypes, type PropType } from "vue";
+import {
+  defineComponent,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
+  type VNode,
+} from "vue";
 import type { BooleanType } from "../const/types";
 export type BadgeStatusType = "default" | "success" | "error" | "warning";
 const badgeProps = {
@@ -9,7 +15,7 @@ const badgeProps = {
     type: String as PropType<BadgeStatusType>,
     default: "default",
   },
-  text: String,
+  text: String as PropType<string | VNode>,
   maxCount: { type: Number, default: 99 },
 };
 

@@ -13,6 +13,14 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 5.2.2
+
+`2026-5-18`
+
+- Fixed the read-only attribute issue for `Input` and `Textarea`  
+- Fixed the width issue for `Modal`  
+- Fixed the abnormal `class` attribute issue for `Tag`
+
 ## 5.2.1
 
 `2026-5-10`

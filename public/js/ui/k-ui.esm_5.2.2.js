@@ -1,5 +1,5 @@
 /*!
- * kui-vue v5.2.1
+ * kui-vue v5.2.2
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
  * Homepage: https://k-ui.cn
@@ -4630,7 +4630,6 @@ var Input = /* @__PURE__ */ defineComponent({
 			Element,
 			Object
 		] },
-		readonly: Boolean,
 		prefix: { type: [
 			String,
 			Element,
@@ -4811,7 +4810,6 @@ var TextArea = /* @__PURE__ */ defineComponent({
 			default: 2
 		},
 		disabled: Boolean,
-		readonly: Boolean,
 		onChange: { type: Function }
 	},
 	setup(props, { attrs, emit }) {
@@ -10202,8 +10200,14 @@ var Modal = /* @__PURE__ */ defineComponent({
 		title: String,
 		okText: String,
 		cancelText: String,
-		top: Number,
-		width: Number,
+		width: {
+			type: [Number, String],
+			default: 520
+		},
+		top: {
+			type: Number,
+			default: 100
+		},
 		transfer: {
 			type: Boolean,
 			default: true
@@ -10265,7 +10269,6 @@ var Modal = /* @__PURE__ */ defineComponent({
 		onMounted(() => {
 			document.addEventListener("mousedown", mousedown);
 			props.escKey && document.addEventListener("keydown", escToClose);
-			if (props.draggable) left.value = (document.body.offsetWidth - (props.width || 480)) / 2;
 			if (props.modelValue) toggle(true);
 		});
 		watch(() => props.modelValue, (nv) => {
@@ -10290,6 +10293,7 @@ var Modal = /* @__PURE__ */ defineComponent({
 				emit("update:modelValue", true);
 				emit("openChange", true);
 				nextTick(() => {
+					if (props.draggable) left.value = (document.body.offsetWidth - refModal.value.offsetWidth) / 2;
 					updateOrigin();
 				});
 			});
@@ -10305,8 +10309,8 @@ var Modal = /* @__PURE__ */ defineComponent({
 		const updateOrigin = () => {
 			if (refModal.value) {
 				let { x, y } = getMousePoint();
-				let { left, top } = getOffset(refModal.value);
-				refModal.value.style["transform-origin"] = `${x - left}px ${y - top}px`;
+				let p = getOffset(refModal.value);
+				refModal.value.style["transform-origin"] = `${x - p.left}px ${y - p.top}px`;
 			}
 		};
 		const ok = () => {
@@ -10327,7 +10331,7 @@ var Modal = /* @__PURE__ */ defineComponent({
 			if (isMousePressed.value && props.draggable) {
 				let { x, y } = startPos.value;
 				left.value += e.clientX - x;
-				currentTop.value = currentTop.value || 100;
+				currentTop.value = currentTop.value ?? 100;
 				currentTop.value += e.clientY - y;
 				startPos.value = {
 					x: e.clientX,
@@ -10392,7 +10396,7 @@ var Modal = /* @__PURE__ */ defineComponent({
 				}, [contents]);
 			}
 			const style = {
-				width: `${width}px`,
+				width: typeof width === "number" ? `${width}px` : width,
 				top: `${currentTop.value}px`,
 				left: `${left.value}px`
 			};
@@ -14408,9 +14412,9 @@ var Tag = /* @__PURE__ */ defineComponent({
 				"onClick": closeHandler
 			}, null));
 			const tagProps = {
+				...attrs,
 				class: tagClasses,
-				style: tagStyle,
-				...attrs
+				style: tagStyle
 			};
 			return createVNode(Transition, { "name": "k-tag" }, { default: () => [withDirectives(createVNode("div", tagProps, [content]), [[vShow, visible.value]])] });
 		};

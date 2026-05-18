@@ -17,7 +17,7 @@ export const textAreaProps = {
   placeholder: String,
   rows: { type: Number, default: 2 },
   disabled: Boolean as BooleanType,
-  readonly: Boolean as BooleanType,
+  // readonly: Boolean as BooleanType,
   onChange: { type: Function as PropType<(value: string) => void> },
 };
 

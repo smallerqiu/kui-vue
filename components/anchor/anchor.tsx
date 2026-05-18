@@ -148,7 +148,7 @@ const Anchor = defineComponent({
 
     return () => {
       const wrapperProps = {
-        ...attrs, // 透传 attrs
+        ...attrs,
         class: ["k-anchor-wrapper", { "k-anchor-affix": props.affix }],
         ref: anchorRef,
       };
