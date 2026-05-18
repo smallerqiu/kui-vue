@@ -1,124 +1,26 @@
 <template>
-  <div style="max-width: 600px">
-    <Form
-      :model="form"
-      :size="size"
-      :rules="rules"
-      ref="formRef"
-      :labelCol="labelCol"
-      :wrapperCol="wrapperCol"
+  <Space vertical block>
+    <Input
+      placeholder="Please input"
+      clearable
+      @change="events.change"
+      @keypress="events.keypress"
+      @keyup="events.keyup"
+      @keydown="events.keydown"
+      @keydown.enter="events.keydownEnter"
+      @blur="events.blur"
+      @focus="events.focus"
     >
-      <FormItem label="Size" prop="size">
-        <RadioGroup v-model="size" type="button">
-          <RadioButton value="large" label="Large" />
-          <RadioButton value="medium" label="Medium" />
-          <RadioButton value="small" label="Small" />
-        </RadioGroup>
-      </FormItem>
-      <FormItem label="E-mail" prop="email">
-        <Input clearable placeholder="Please enter your email" v-model="form.email" />
-      </FormItem>
-    </Form>
-  </div>
+    </Input>
+    <TextArea placeholder="Please input" @keyup="(e) => events.keyup(e)" />
+  </Space>
 </template>
 <script setup lang="ts">
-import { type FormRule, type SizeType } from "kui-vue";
-import { reactive, ref } from "vue";
-const validatePass = (_: FormRule, value: any, callback: (error?: Error) => void) => {
-  if (value !== form.password) {
-    return callback(new Error("Please confirm the password"));
-  }
-  callback();
-};
-const validateReadme = (_: FormRule, value: any, callback: (error?: Error) => void) => {
-  if (value !== true) {
-    return callback(new Error("请阅读服务条款"));
-  }
-  callback();
-};
-const labelCol = { span: 6 };
-const wrapperCol = { span: 16 };
-const size = ref<SizeType>("medium");
-const form = reactive({
-  email: "",
-  number: undefined,
-  password: "",
-  confirm_password: "",
-  phone: "",
-  captcha: "",
-  slider: 3,
-  rate: 0,
-  tree: "",
-  gender: "",
-  one: false,
-  system: "",
-  birthday: "",
-  country: "",
-  city: "",
-  hobbies: [],
-  hardcore: "",
-  other: "",
-  readme: false,
+const events: Record<string, (e: any) => void> = {};
+["focus", "blur", "change", "keypress", "keyup", "keydown", "keydownEnter"].forEach((type) => {
+  events[type] = function (e) {
+    // message.info(type);
+    console.log(type, e?.target?.value ?? e);
+  };
 });
-const rules: Record<string, FormRule[]> = {
-  email: [
-    { type: "mail", message: "Please input a valid email" },
-    { required: true, message: "The email is required" },
-  ],
-  number: [
-    { type: "number", message: "Please input a valid number" },
-    { required: true, message: "The number is required" },
-  ],
-  password: [
-    {
-      min: 8,
-      max: 20,
-      message: "Please keep the password length between 8-20 digits.",
-    },
-    { required: true, message: "The password is required" },
-  ],
-  confirm_password: [
-    {
-      min: 8,
-      max: 20,
-      message: "Please keep the password length between 8-20 digits.",
-    },
-    { validator: validatePass },
-    { required: true, message: "Please confirm the password" },
-  ],
-  phone: [
-    { type: "mobile", message: "Please input the correct phone number" },
-    { required: true, message: "Please input your phone number" },
-  ],
-  birthday: [{ required: true, message: "Please select your birthday" }],
-  country: [{ required: true, message: "Please select your country" }],
-  tree: [{ required: true, message: "Please select your food" }],
-  city: [{ required: true, message: "Please select your city" }],
-  captcha: [
-    { type: "number", message: "The captcha must be a number" },
-    { required: true, message: "Please input the captcha" },
-  ],
-  slider: [
-    { min: 5, message: "Minimum value is 5" },
-    { max: 50, message: "Maximum value is 50" },
-  ],
-  gender: [{ required: true, message: "Please select your gender" }],
-  rate: [
-    { required: true, message: "Please select your rate" },
-    { min: 1, message: "The minimum value is 1" },
-  ],
-  one: [{ required: true, message: "霸王选项" }],
-  system: [{ required: true, message: "Please select your system" }],
-  hardcore: [{ required: true, message: "霸王选项" }],
-  readme: [{ validator: validateReadme }],
-  hobbies: [
-    { required: true, message: "Please select your hobbies" },
-    { max: 3, message: "Maximum value is 3" },
-    { min: 2, message: "Minimum value is 2" },
-  ],
-  other: [
-    { required: true, message: "Please fill in other information" },
-    { max: 10, message: "Maximum characters is 10" },
-  ],
-};
 </script>

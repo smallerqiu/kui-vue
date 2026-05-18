@@ -7,7 +7,7 @@
     <Button @click="show5 = true" type="primary">No overlay</Button>
     <Button @click="show6 = true" type="primary">No footer</Button>
 
-    <Modal title="Draggable" v-model="show1" draggable @ok="show1 = false">
+    <Modal title="Draggable" v-model="show1" width="50%" draggable @ok="show1 = false">
       {{ text }}
     </Modal>
 

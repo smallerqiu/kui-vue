@@ -14,6 +14,13 @@ vite 好像有缓存, 可手动清除
 ```bash
 rm -rf node_modules/.vite
 ```
+## 5.2.2
+
+`2026-5-18`
+
+- 修复`Input`,`Textarea` 只读属性问题
+- 修复`Modal` 宽度问题
+- 修复`Tag` class 属性异常问题
 
 ## 5.2.1
 

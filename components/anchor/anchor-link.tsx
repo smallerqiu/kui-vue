@@ -1,10 +1,4 @@
-import {
-  defineComponent,
-  inject,
-  onBeforeUnmount,
-  onMounted,
-  type ExtractPropTypes
-} from "vue";
+import { defineComponent, inject, onBeforeUnmount, onMounted, type ExtractPropTypes } from "vue";
 import type { AnchorContext } from "./anchor";
 
 const anchorLinkProps = {
@@ -41,7 +35,7 @@ const AnchorLink = defineComponent({
       };
 
       const linkProps = {
-        ...attrs, // 透传 attrs
+        ...attrs,
         href: props.href,
         class: "k-anchor-link-title",
         title: props.title,
@@ -56,6 +50,6 @@ const AnchorLink = defineComponent({
       );
     };
   },
-}) 
+});
 
 export default AnchorLink;

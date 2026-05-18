@@ -1,10 +1,25 @@
 <template>
   <Space vertical>
     <Button @click="visible1 = true" type="primary">Width: 300px</Button>
+    <Button @click="visible5 = true" type="primary">Width: 50%</Button>
+    <Button @click="visible6 = true" type="primary">Width: calc(100% - 800px)</Button>
     <Button @click="visible2 = true" type="primary">Custom footer</Button>
     <Button @click="visible3 = true" type="primary">Internationalization</Button>
     <Button @click="visible4 = true" type="primary">Asynchronous shutdown</Button>
     <Modal title="Width 300px" v-model="visible1" :width="300" @ok="visible1 = false">
+      <p>content</p>
+    </Modal>
+
+    <Modal title="Width 50%" v-model="visible5" width="50%" @ok="visible5 = false">
+      <p>content</p>
+    </Modal>
+
+    <Modal
+      title="calc(100% - 800px)"
+      v-model="visible6"
+      width="calc(100% - 800px)"
+      @ok="visible6 = false"
+    >
       <p>content</p>
     </Modal>
 
@@ -31,6 +46,8 @@ const visible1 = ref(false);
 const visible2 = ref(false);
 const visible3 = ref(false);
 const visible4 = ref(false);
+const visible5 = ref(false);
+const visible6 = ref(false);
 const loading = ref(false);
 const timer = ref();
 

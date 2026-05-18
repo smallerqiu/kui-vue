@@ -23,8 +23,8 @@ export const modalProps = {
   title: String,
   okText: String,
   cancelText: String,
-  top: Number,
-  width: Number,
+  width: { type: [Number, String] as PropType<number | string>, default: 520 },
+  top: { type: Number as PropType<number>, default: 100 },
   transfer: { type: Boolean as BooleanType, default: true },
   mask: { type: Boolean as BooleanType, default: true },
   maskClosable: { type: Boolean as BooleanType, default: false },
@@ -77,9 +77,6 @@ const Modal = defineComponent({
       document.addEventListener("mousedown", mousedown);
       props.escKey && document.addEventListener("keydown", escToClose);
 
-      if (props.draggable) {
-        left.value = (document.body.offsetWidth - (props.width || 480)) / 2;
-      }
       if (props.modelValue) {
         toggle(true);
       }
@@ -111,6 +108,9 @@ const Modal = defineComponent({
             emit("update:modelValue", true);
             emit("openChange", true);
             nextTick(() => {
+              if (props.draggable) {
+                left.value = (document.body.offsetWidth - refModal.value.offsetWidth) / 2;
+              }
               updateOrigin();
             });
           });
@@ -127,8 +127,8 @@ const Modal = defineComponent({
     const updateOrigin = () => {
       if (refModal.value) {
         let { x, y } = getMousePoint();
-        let { left, top } = getOffset(refModal.value);
-        refModal.value.style["transform-origin"] = `${x - left}px ${y - top}px`;
+        let p = getOffset(refModal.value);
+        refModal.value.style["transform-origin"] = `${x - p.left}px ${y - p.top}px`;
       }
     };
     const ok = () => {
@@ -156,7 +156,7 @@ const Modal = defineComponent({
       if (isMousePressed.value && props.draggable) {
         let { x, y } = startPos.value;
         left.value += e.clientX - x;
-        currentTop.value = currentTop.value || 100;
+        currentTop.value = currentTop.value ?? 100;
         currentTop.value += e.clientY - y;
         startPos.value = { x: e.clientX, y: e.clientY };
         updateOrigin();
@@ -244,7 +244,7 @@ const Modal = defineComponent({
       }
 
       const style = {
-        width: `${width}px`,
+        width: typeof width === "number" ? `${width}px` : width,
         top: `${currentTop.value}px`,
         left: `${left.value}px`,
       };
