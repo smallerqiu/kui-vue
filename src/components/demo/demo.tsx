@@ -1,4 +1,3 @@
-import { useClipboard } from "@vueuse/core";
 import { Copy, ListChevronsDownUp, ListChevronsUpDown, Undo2 } from "kui-icons";
 import { Badge, Button, message, Tooltip, type BadgeStatusType } from "kui-vue";
 import {
@@ -11,8 +10,8 @@ import {
   Transition,
 } from "vue";
 import { getTransitionProp } from "../../../components/base/transition";
+import { copyToClipboard } from "../../../components/utils/share";
 import { parseCode } from "./transform";
-const { copy, isSupported } = useClipboard();
 
 const Demo = defineComponent({
   name: "Demo",
@@ -66,16 +65,14 @@ const Demo = defineComponent({
       reload();
     };
     const copyCode = () => {
-      if (isSupported && codeRef.value) {
-        copy(codeRef.value?.innerText)
-          .then(() => {
+      if (codeRef.value) {
+        copyToClipboard(codeRef.value?.innerText).then((result) => {
+          if (result) {
             message.success("Copied!");
-          })
-          .catch(() => {
+          } else {
             message.error("Copy failed");
-          });
-      } else {
-        message.error("请手动复制");
+          }
+        });
       }
     };
     onMounted(() => {

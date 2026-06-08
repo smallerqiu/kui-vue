@@ -13,6 +13,12 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 5.2.3
+
+`2026-6-8`
+
+- Fix the issue where `Select` filtering does not display the Label
+
 ## 5.2.2
 
 `2026-5-18`

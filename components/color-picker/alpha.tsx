@@ -1,6 +1,6 @@
-import { clamp } from "@vueuse/core";
 import Color from "color";
 import { defineComponent, onBeforeUnmount, onMounted, ref, watch, type PropType } from "vue";
+import { clamp } from "../utils/share";
 
 export default defineComponent({
   name: "Alpha",

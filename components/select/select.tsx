@@ -208,6 +208,9 @@ const Select = defineComponent({
     });
 
     const labelText = computed(() => {
+      if (!optionsData.value || optionsData.value.length == 0) {
+        return [];
+      }
       const lookup = new Map<string | number, string | number>();
       optionsData.value.forEach((item) => {
         lookup.set(item.value, item.label);
@@ -598,12 +601,11 @@ const Select = defineComponent({
           {renderTags()}
           {queryNode}
         </div>
-      ) : !isEmpty(labelText.value) ? (
-        <div class="k-select-label" v-show={!queryKey.value.length}>
+      ) : (
+        <div class="k-select-label" v-show={!isEmpty(labelText.value) && !queryKey.value.length}>
           {labelText.value[0]}
         </div>
-      ) : null;
-
+      );
       childNode.push(labelsNode);
       placeNode && childNode.push(placeNode);
 

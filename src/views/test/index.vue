@@ -14,11 +14,12 @@
 <script setup lang="ts">
 import { type SelectOption } from "kui-vue";
 import { ref } from "vue";
-const value1 = ref();
-const value2 = ref();
+const value1 = ref(2);
+const value2 = ref(2);
 const data = ref<SelectOption[]>([]);
 // 异步加载数据
 setTimeout(() => {
+  return;
   data.value = [
     { label: "Apple1", value: 0 },
     { label: "Orange1", value: 1 },
@@ -26,6 +27,6 @@ setTimeout(() => {
     { label: "Pear1", value: 3 },
     { label: "Grape2", value: 4 },
   ];
-  // value2.value = 2;
+  value2.value = 2;
 }, 2000);
 </script>
