@@ -1,7 +1,6 @@
-import { clamp } from "@vueuse/core";
 import Color, { type ColorObject } from "color";
 import { defineComponent, onMounted, reactive, ref, watch, type PropType } from "vue";
-
+import { clamp } from "../utils/share";
 export default defineComponent({
   name: "Paint",
   props: {

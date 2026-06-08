@@ -1,6 +1,6 @@
-import { useClipboard } from "@vueuse/core";
 import * as kuiIcons from "kui-icons";
 import { Affix, Flex, Grid, GridItem, Icon, Input, message, Tag, type IconType } from "kui-vue";
+import { copyToClipboard } from "../../utils/share";
 
 import { defineComponent, ref } from "vue";
 import "./search.less";
@@ -14,7 +14,6 @@ const apps = iconKeys.filter((x) => !/Logo/.test(x));
 export default defineComponent({
   name: "IconSearchDemo",
   setup() {
-    const { copy } = useClipboard();
     const allIcons = ref<Record<string, IconType[]>>(kuiIcons);
     const appIcons = ref(apps);
     const logoIcons = ref(logos);
@@ -45,8 +44,12 @@ export default defineComponent({
     };
 
     const copyHandle = (name: string) => {
-      copy(name).then(() => {
-        message.success("Copied！");
+      copyToClipboard(name).then((result) => {
+        if (result) {
+          message.success("Copied！");
+        } else {
+          message.error("Copy failed");
+        }
       });
     };
 

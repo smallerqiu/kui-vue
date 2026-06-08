@@ -1,7 +1,7 @@
 {
   "name": "kui-vue",
   "private": false,
-  "version": "5.2.2",
+  "version": "5.2.3",
   "type": "module",
   "description": "A lightweight desktop UI component library suitable for Vue.js 3.",
   "main": "lib/index.js",
@@ -107,7 +107,6 @@
     "@vitejs/plugin-vue-jsx": "^5.1.5",
     "@vue/compiler-sfc": "^3.5.35",
     "@vue/tsconfig": "^0.9.1",
-    "@vueuse/core": "^14.3.0",
     "fast-glob": "^3.3.3",
     "hash-sum": "^2.0.0",
     "highlight.js": "^11.11.1",

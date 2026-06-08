@@ -1,5 +1,5 @@
 /*!
- * kui-vue v5.2.2
+ * kui-vue v5.2.3
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
  * Homepage: https://k-ui.cn
@@ -163,6 +163,13 @@ var Affix = /* @__PURE__ */ defineComponent({
 });
 //#endregion
 //#region node_modules/.pnpm/kui-icons@5.0.0/node_modules/kui-icons/dist/kui-icons.esm.js
+/*!
+* kui-icons v5.0.0
+* Copyright 2017-present, kui-icons.
+* All rights reserved.
+* Homepage: https://k-ui.cn
+* Author: Qiu / https://chuchur.com
+*/
 var ArrowDown = [{
 	d: "M12 5V19 M19 12L12 19L5 12",
 	s: "fill:none;stroke:currentcolor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
@@ -3883,7 +3890,8 @@ function setPlacement({ refSelection, refPopper, currentPlacement, position = nu
 	transOrigin.value = `${originX} ${originY}`;
 	if (currentPlacement.value !== finalPlacement) currentPlacement.value = finalPlacement;
 }
-typeof WorkerGlobalScope !== "undefined" && globalThis instanceof WorkerGlobalScope;
+//#endregion
+//#region components/utils/share.ts
 var clamp = (n, min, max) => Math.min(max, Math.max(min, n));
 //#endregion
 //#region components/color-picker/alpha.tsx
@@ -5203,6 +5211,7 @@ var Select = /* @__PURE__ */ defineComponent({
 			document.removeEventListener("click", outsideClick);
 		});
 		const labelText = computed(() => {
+			if (!optionsData.value || optionsData.value.length == 0) return [];
 			const lookup = /* @__PURE__ */ new Map();
 			optionsData.value.forEach((item) => {
 				lookup.set(item.value, item.label);
@@ -5498,7 +5507,7 @@ var Select = /* @__PURE__ */ defineComponent({
 				}
 				return tags;
 			};
-			const labelsNode = multiple ? createVNode("div", { "class": "k-select-labels" }, [renderTags(), queryNode]) : !isEmpty(labelText.value) ? withDirectives(createVNode("div", { "class": "k-select-label" }, [labelText.value[0]]), [[vShow, !queryKey.value.length]]) : null;
+			const labelsNode = multiple ? createVNode("div", { "class": "k-select-labels" }, [renderTags(), queryNode]) : withDirectives(createVNode("div", { "class": "k-select-label" }, [labelText.value[0]]), [[vShow, !isEmpty(labelText.value) && !queryKey.value.length]]);
 			childNode.push(labelsNode);
 			placeNode && childNode.push(placeNode);
 			if ((filterable || hasSearchEvent) && !multiple) childNode.push(queryNode);
@@ -6072,7 +6081,7 @@ var ColorPicker = /* @__PURE__ */ defineComponent({
 	}
 });
 //#endregion
-//#region node_modules/.pnpm/dayjs@1.11.20/node_modules/dayjs/plugin/customParseFormat.js
+//#region node_modules/.pnpm/dayjs@1.11.21/node_modules/dayjs/plugin/customParseFormat.js
 var require_customParseFormat = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 	(function(e, t) {
 		"object" == typeof exports && "undefined" != typeof module ? module.exports = t() : "function" == typeof define && define.amd ? define(t) : (e = "undefined" != typeof globalThis ? globalThis : e || self).dayjs_plugin_customParseFormat = t();
@@ -6235,7 +6244,7 @@ var require_customParseFormat = /* @__PURE__ */ __commonJSMin(((exports, module)
 	}));
 }));
 //#endregion
-//#region node_modules/.pnpm/dayjs@1.11.20/node_modules/dayjs/plugin/isBetween.js
+//#region node_modules/.pnpm/dayjs@1.11.21/node_modules/dayjs/plugin/isBetween.js
 var require_isBetween = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 	(function(e, i) {
 		"object" == typeof exports && "undefined" != typeof module ? module.exports = i() : "function" == typeof define && define.amd ? define(i) : (e = "undefined" != typeof globalThis ? globalThis : e || self).dayjs_plugin_isBetween = i();
@@ -6250,7 +6259,7 @@ var require_isBetween = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 	}));
 }));
 //#endregion
-//#region node_modules/.pnpm/dayjs@1.11.20/node_modules/dayjs/plugin/localeData.js
+//#region node_modules/.pnpm/dayjs@1.11.21/node_modules/dayjs/plugin/localeData.js
 var require_localeData = /* @__PURE__ */ __commonJSMin(((exports, module) => {
 	(function(n, e) {
 		"object" == typeof exports && "undefined" != typeof module ? module.exports = e() : "function" == typeof define && define.amd ? define(e) : (n = "undefined" != typeof globalThis ? globalThis : n || self).dayjs_plugin_localeData = e();
@@ -11240,7 +11249,7 @@ var Progress = /* @__PURE__ */ defineComponent({
 			const d = `M 50,50 
                m ${beginX}, ${beginY} 
                a ${radius},${radius} 0 1 1 ${endX}, ${-endY} 
-               a ${radius},${radius} 0 1 1 ${-endX},${endY}`, len = Math.PI * 2 * radius;
+               a ${radius},${radius} 0 1 1 0,${endY}`, len = Math.PI * 2 * radius;
 			const style = {
 				strokeDasharray: `${percent / 100 * (len - (dashboard ? gap : 0))}px ${len}px`,
 				transition: `stroke-dasharray .3s ease 0s,opacity 0.3s ease 0s`,
