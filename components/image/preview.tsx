@@ -319,7 +319,7 @@ const ImagePreview = defineComponent({
         const touch =
           "ontouchstart" in window ||
           navigator.maxTouchPoints > 0 ||
-          window.TouchEvent !== undefined;
+          (window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
         state.touch = touch;
         const event = touch ? "touchstart" : "mousedown";
         document.addEventListener(event, mousedown, { passive: false });

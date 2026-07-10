@@ -142,6 +142,9 @@ export type { SpinProps } from "./spin";
 export { default as KSwitch } from "./switch";
 export type { SwitchProps } from "./switch";
 
+export { Splitter, SplitterPanel } from "./splitter";
+export type { SplitterPanelProps, SplitterProps } from "./splitter";
+
 export { default as Table } from "./table";
 export type { Column, SortState, TableProps } from "./table";
 
@@ -169,8 +172,8 @@ export type { ColProps, RowProps } from "./row-col";
 export { default as Upload } from "./upload";
 export type { UploadChangeEvent, UploadContext, UploadFile, UploadProps } from "./upload";
 
-export { Splitter, SplitterPanel } from "./splitter";
-export type { SplitterPanelProps, SplitterProps } from "./splitter";
+export { default as Watermark } from "./watermark";
+export type { WatermarkProps } from "./watermark/types";
 
 export { default as theme } from "./utils/theme";
 

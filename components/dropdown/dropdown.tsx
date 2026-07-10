@@ -94,17 +94,17 @@ const Dropdown = defineComponent({
     };
     const updatePosition = (e?: MouseEvent) => {
       const position = e ? { x: e.clientX, y: e.clientY } : null;
-      nextTick(() => {
-        setPlacement({
-          refSelection,
-          position,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
-        });
+      // nextTick(() => {
+      setPlacement({
+        refSelection,
+        position,
+        refPopper,
+        currentPlacement,
+        transOrigin,
+        top,
+        left,
       });
+      // });
     };
 
     const openChange = (opened?: boolean) => {
@@ -119,12 +119,16 @@ const Dropdown = defineComponent({
           nextTick(() => {
             openChange(true);
             emit("update:show", true);
-            updatePosition(e);
+            nextTick(() => {
+              updatePosition(e);
+            });
           });
         } else {
           emit("update:show", true);
-          updatePosition(e);
           openChange(true);
+          nextTick(() => {
+            updatePosition(e);
+          });
         }
       } else {
         openChange(false);

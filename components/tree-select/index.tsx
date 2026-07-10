@@ -311,13 +311,17 @@ const TreeSelect = defineComponent({
         document.addEventListener("click", outsideClick);
         nextTick(() => {
           openChange(true);
-          updatePosition();
-          showQuery();
+          nextTick(() => {
+            updatePosition();
+            showQuery();
+          });
         });
       } else {
         openChange(show || !visible.value);
         if (visible.value) {
-          updatePosition();
+          nextTick(() => {
+            updatePosition();
+          });
           showQuery();
         } else {
           clearQuery();

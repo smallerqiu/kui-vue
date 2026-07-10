@@ -327,12 +327,16 @@ const Select = defineComponent({
             nextTick(() => {
               visible.value = true;
               emit("openChange", true);
-              updatePosition();
+              nextTick(() => {
+                updatePosition();
+              });
             });
           } else {
             visible.value = true;
             emit("openChange", true);
-            updatePosition();
+            nextTick(() => {
+              updatePosition();
+            });
           }
           emit("search", e);
         }, 500);

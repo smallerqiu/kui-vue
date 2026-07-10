@@ -1,32 +1,41 @@
 <template>
-  <Space vertical>
-    use options to set options : {{ value1 }}
-    <Select v-model="value1" :options="data" filterable clearable />
-    <br />
-    use children to set options: {{ value2 }}
-    <Select v-model="value2" filterable clearable>
-      <Option :value="item.value" v-for="item in data" :key="item.value">
-        {{ item.label }}
-      </Option>
-    </Select>
+  <Space wrap>
+    <template v-for="placement in placements">
+      <Dropdown :placement="placement">
+        <Button>{{ placement }}</Button>
+        <template #overlay>
+          <Menu>
+            <MenuItem>
+              <a target="_blank" rel="noopener noreferrer" href="http://www.chuchur.com/">
+                1st menu item
+              </a>
+            </MenuItem>
+            <MenuItem>
+              <a target="_blank" rel="noopener noreferrer" href="http://www.k-ui.cn/">
+                2nd menu item
+              </a>
+            </MenuItem>
+            <MenuItem>
+              <a target="_blank" rel="noopener noreferrer" href="http://react.k-ui.cn/">
+                3rd menu item
+              </a>
+            </MenuItem>
+          </Menu>
+        </template>
+      </Dropdown>
+    </template>
   </Space>
 </template>
+
 <script setup lang="ts">
-import { type SelectOption } from "kui-vue";
-import { ref } from "vue";
-const value1 = ref(2);
-const value2 = ref(2);
-const data = ref<SelectOption[]>([]);
-// 异步加载数据
-setTimeout(() => {
-  return;
-  data.value = [
-    { label: "Apple1", value: 0 },
-    { label: "Orange1", value: 1 },
-    { label: "Banana2", value: 2 },
-    { label: "Pear1", value: 3 },
-    { label: "Grape2", value: 4 },
-  ];
-  value2.value = 2;
-}, 2000);
+import type { DropPlacementsType } from "kui-vue";
+
+const placements: DropPlacementsType[] = [
+  "bottom-left",
+  "bottom",
+  "bottom-right",
+  "top-left",
+  "top",
+  "top-right",
+];
 </script>

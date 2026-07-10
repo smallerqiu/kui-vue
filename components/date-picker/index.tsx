@@ -410,11 +410,15 @@ const DatePicker = defineComponent({
         document.addEventListener("click", handleClickOutside);
         nextTick(() => {
           updatePanelState();
-          updatePosition();
+          nextTick(() => {
+            updatePosition();
+          });
         });
       } else {
         updatePanelState();
-        updatePosition();
+        nextTick(() => {
+          updatePosition();
+        });
       }
     };
 
@@ -860,16 +864,16 @@ const DatePicker = defineComponent({
       }
     };
     const updatePosition = () => {
-      nextTick(() => {
-        setPlacement({
-          refSelection,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
-        });
+      // nextTick(() => {
+      setPlacement({
+        refSelection,
+        refPopper,
+        currentPlacement,
+        transOrigin,
+        top,
+        left,
       });
+      // });
     };
     onMounted(() => {
       if (props.opened) updatePosition();
