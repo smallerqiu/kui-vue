@@ -1,6 +1,13 @@
+export interface WatermarkTextItem {
+  text: string;
+  color?: string; // 独立控制当前行颜色
+  fontSize?: number; // 独立控制当前行字号
+  fontWeight?: string | number;
+  fontStyle?: "normal" | "italic" | "oblique";
+}
 export interface WatermarkProps {
   // 水印文本内容，支持数组实现多行文本
-  content?: string | string[];
+  content?: string | string[] | WatermarkTextItem[];
   // 图片水印源（若传图片则文本失效，常用于企业 LOGO）
   image?: string;
   // 水印每个格子的宽度 & 高度
@@ -17,13 +24,14 @@ export interface WatermarkProps {
   // 文本高级样式
   font?: {
     color?: string;
-    fontSize?: number | string;
+    fontSize?: number;
     fontWeight?: string | number;
     fontFamily?: string;
-    fontStyle?: string;
+    fontStyle?: "normal" | "italic" | "oblique";
   };
   // 网格间距 [水平间距, 垂直间距]
   gap?: [number, number];
   // 错位偏移 [x, y]，让行列之间交错显得更自然
   offset?: [number, number];
+  layout?: "grid" | "stagger";
 }

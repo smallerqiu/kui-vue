@@ -5,34 +5,51 @@ import {
   onMounted,
   ref,
   watch,
+  type ExtractPropTypes,
   type PropType,
 } from "vue";
-import type { WatermarkProps } from "./types.ts";
 
-export default defineComponent({
-  name: "Watermark",
-  props: {
-    content: { type: [String, Array] as PropType<string | string[]>, default: "" },
-    image: { type: String, default: "" },
-    width: { type: Number, default: 240 },
-    height: { type: Number, default: 189 },
-    rotate: { type: Number, default: -22 },
-    zIndex: { type: Number, default: 999 },
-    fullscreen: { type: Boolean, default: false },
-    antiTamper: { type: Boolean, default: true },
-    font: {
-      type: Object as PropType<WatermarkProps["font"]>,
-      default: () => ({
-        color: "rgba(128, 128, 128, 0.15)",
-        fontSize: 15,
-        fontWeight: "normal",
-        fontFamily: "sans-serif",
-        fontStyle: "normal",
-      }),
-    },
-    gap: { type: Array as any as PropType<[number, number]>, default: () => [40, 40] },
-    offset: { type: Array as any as PropType<[number, number]>, default: () => [20, 20] },
+export interface Font {
+  color?: string;
+  fontSize?: number;
+  fontWeight?: string | number;
+  fontFamily?: string;
+  fontStyle?: "normal" | "italic" | "oblique";
+}
+export interface WatermarkTextItem extends Font {
+  text: string;
+}
+export const watermarkProps = {
+  content: {
+    type: [String, Array] as PropType<string | string[] | WatermarkTextItem[]>,
+    default: "",
   },
+  image: { type: String, default: "" },
+  width: { type: Number, default: 240 },
+  height: { type: Number, default: 189 },
+  rotate: { type: Number, default: -22 },
+  zIndex: { type: Number, default: 999 },
+  fullscreen: { type: Boolean, default: false },
+  antiTamper: { type: Boolean, default: true },
+  font: {
+    type: Object as PropType<Font>,
+    default: () => ({
+      color: "rgba(128, 128, 128, 0.15)",
+      fontSize: 15,
+      fontWeight: "normal",
+      fontFamily: "sans-serif",
+      fontStyle: "normal",
+    }),
+  },
+  gap: { type: Array as any as PropType<[number, number]>, default: () => [40, 40] },
+  offset: { type: Array as any as PropType<[number, number]>, default: () => [20, 20] },
+  layout: { type: String as PropType<"stagger" | "grid">, default: "stagger" },
+};
+export type WatermarkProps = ExtractPropTypes<typeof watermarkProps>;
+
+const Watermark = defineComponent({
+  name: "Watermark",
+  props: watermarkProps,
   setup(props, { slots }) {
     const containerRef = ref<HTMLDivElement | null>(null);
     const watermarkRef = ref<HTMLDivElement | null>(null);
@@ -42,15 +59,26 @@ export default defineComponent({
     let base64Url = ref("");
 
     // 渲染 Canvas 生成 Base64 水印图
+    // 将坐标系变换锁在 img.onload 内部，保证图片水印完美倾斜
     const createWatermarkBase64 = (): Promise<string> => {
       return new Promise((resolve) => {
         const canvas = document.createElement("canvas");
         const ratio = window.devicePixelRatio || 1;
 
-        const canvasWidth = props.width + props.gap[0];
-        const canvasHeight = props.height + props.gap[1];
+        // 单个格子的基础总宽高
+        const cellW = props.width + props.gap[0];
+        const cellH = props.height + props.gap[1];
 
-        // 关键高清优化：根据物理像素比放大画布
+        // 读取用户传入的偏移量，如果没有传则兜底为 0
+        const offsetX = props.offset?.[0] ?? 0;
+        const offsetY = props.offset?.[1] ?? 0;
+
+        const isStagger = props.layout === "stagger";
+
+        // 画布整体宽高（交错模式翻倍）
+        const canvasWidth = isStagger ? cellW * 2 : cellW;
+        const canvasHeight = isStagger ? cellH * 2 : cellH;
+
         canvas.width = canvasWidth * ratio;
         canvas.height = canvasHeight * ratio;
 
@@ -58,55 +86,107 @@ export default defineComponent({
         if (!ctx) return resolve("");
 
         ctx.scale(ratio, ratio);
-        ctx.translate(canvasWidth / 2, canvasHeight / 2);
-        ctx.rotate((props.rotate * Math.PI) / 180);
 
+        // 统一的单格子渲染逻辑
+        const drawSingleCell = (
+          ctx: CanvasRenderingContext2D,
+          centerX: number,
+          centerY: number,
+          imgObj?: HTMLImageElement
+        ) => {
+          ctx.save();
+          ctx.translate(centerX, centerY);
+          ctx.rotate((props.rotate * Math.PI) / 180);
+
+          if (imgObj) {
+            ctx.drawImage(imgObj, -props.width / 2, -props.height / 2, props.width, props.height);
+          } else {
+            drawTextWatermark(ctx);
+          }
+          ctx.restore();
+        };
+
+        // 渲染整体网格的方法（将偏移量 offsetX / offsetY 注入到每一个基础坐标中）
+        const renderAllCells = (imgObj?: HTMLImageElement) => {
+          if (isStagger) {
+            // 【交错模式】同样加上起始 offset 偏置
+            // 奇数行
+            drawSingleCell(ctx, cellW / 2 + offsetX, cellH / 2 + offsetY, imgObj);
+            drawSingleCell(ctx, cellW + cellW / 2 + offsetX, cellH / 2 + offsetY, imgObj);
+
+            // 偶数行（错开平移 + offset）
+            drawSingleCell(ctx, 0 + offsetX, cellH + cellH / 2 + offsetY, imgObj);
+            drawSingleCell(ctx, cellW + offsetX, cellH + cellH / 2 + offsetY, imgObj);
+            drawSingleCell(ctx, cellW * 2 + offsetX, cellH + cellH / 2 + offsetY, imgObj);
+          } else {
+            // 【传统常规模式】基础坐标直接加上 offset 偏移
+            drawSingleCell(ctx, cellW / 2 + offsetX, cellH / 2 + offsetY, imgObj);
+          }
+          resolve(canvas.toDataURL());
+        };
+
+        // 判断是走图片流还是文字流
         if (props.image) {
-          // 图片水印模式
           const img = new Image();
           img.crossOrigin = "anonymous";
           img.src = props.image;
           img.onload = () => {
-            ctx.drawImage(img, -props.width / 2, -props.height / 2, props.width, props.height);
-            resolve(canvas.toDataURL());
+            renderAllCells(img);
           };
-          img.onerror = () => drawTextWatermark(ctx, resolve, canvas); // 降级为文本
+          img.onerror = () => {
+            renderAllCells();
+          };
         } else {
-          // 文本水印模式
-          drawTextWatermark(ctx, resolve, canvas);
+          renderAllCells();
         }
       });
     };
 
-    const drawTextWatermark = (
-      ctx: CanvasRenderingContext2D,
-      resolve: any,
-      canvas: HTMLCanvasElement
-    ) => {
-      const fontMerged = {
+    const drawTextWatermark = (ctx: CanvasRenderingContext2D) => {
+      const globalFont = {
         color: "rgba(128, 128, 128, 0.15)",
         fontSize: 15,
         fontWeight: "normal",
+        fontStyle: "normal", // 👈 全局默认 fontStyle
         fontFamily: "sans-serif",
         ...props.font,
       };
-      const fSize =
-        typeof fontMerged.fontSize === "number" ? `${fontMerged.fontSize}px` : fontMerged.fontSize;
 
-      ctx.font = `${fontMerged.fontWeight} ${fSize} ${fontMerged.fontFamily}`;
-      ctx.fillStyle = fontMerged.color;
+      const rawContents = Array.isArray(props.content) ? props.content : [props.content || ""];
+      const contents: WatermarkTextItem[] = rawContents.map((item) => {
+        if (typeof item === "string") {
+          return { text: item };
+        }
+        return item;
+      });
+
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
-      const contents = Array.isArray(props.content) ? props.content : [props.content || ""];
-      const lineHeight = (typeof fontMerged.fontSize === "number" ? fontMerged.fontSize : 16) + 6;
-
-      contents.forEach((text, index) => {
-        const yOffset = (index - (contents.length - 1) / 2) * lineHeight;
-        ctx.fillText(text, 0, yOffset);
+      let totalHeight = 0;
+      const lineHeights = contents.map((item) => {
+        const size = item.fontSize || globalFont.fontSize;
+        return size + 8;
       });
+      totalHeight = lineHeights.reduce((a, b) => a + b, 0);
 
-      resolve(canvas.toDataURL());
+      let currentY = -totalHeight / 2;
+
+      contents.forEach((item, index) => {
+        const fSize = item.fontSize || globalFont.fontSize;
+        const fWeight = item.fontWeight || globalFont.fontWeight;
+        const fStyle = item.fontStyle || globalFont.fontStyle; // 👈 动态读取单行配置
+        const fColor = item.color || globalFont.color;
+
+        // 【严格格式化 Canvas Font 规则】：必须遵循 [style] [weight] [size]px [family]
+        ctx.font = `${fStyle} ${fWeight} ${fSize}px ${globalFont.fontFamily}`;
+        ctx.fillStyle = fColor;
+
+        const yOffset = currentY + lineHeights[index] / 2;
+        ctx.fillText(item.text, 0, yOffset);
+
+        currentY += lineHeights[index];
+      });
     };
 
     // 创建/注入水印 DOM
@@ -116,15 +196,12 @@ export default defineComponent({
       const targetContainer = props.fullscreen ? document.body : containerRef.value;
       if (!targetContainer) return;
 
-      // 暂时断开监听器，避免在自我销毁与更新过程中产生无限死循环
       disconnectObservers();
 
-      // 如果旧的防篡改节点存在，直接干掉
       if (watermarkRef.value && watermarkRef.value.parentNode) {
         watermarkRef.value.parentNode.removeChild(watermarkRef.value);
       }
 
-      //创建外部包装壳
       const wmWrapper = document.createElement("div");
       const wmStyle = {
         position: props.fullscreen ? "fixed" : "absolute",
@@ -140,17 +217,20 @@ export default defineComponent({
       Object.assign(wmWrapper.style, wmStyle);
       wmWrapper.setAttribute("data-wm-root", "true");
 
-      // 接入 Shadow DOM 形成天然样式沙箱
       const shadowRoot = wmWrapper.attachShadow({ mode: "closed" });
 
       const wmInner = document.createElement("div");
+      const cellW = props.width + props.gap[0];
+      const cellH = props.height + props.gap[1];
+      const isStagger = props.layout === "stagger";
+
       const innerStyle = {
         width: "100%",
         height: "100%",
-        backgroundSize: `${props.width + props.gap[0]}px ${props.height + props.gap[1]}px`,
+        // 外部容器的平铺尺寸宽度和高度需无缝与大网格同步
+        backgroundSize: `${isStagger ? cellW * 2 : cellW}px ${isStagger ? cellH * 2 : cellH}px`,
         backgroundImage: `url(${base64Url.value})`,
         backgroundRepeat: "repeat",
-        backgroundPosition: `${props.offset[0]}px ${props.offset[1]}px`,
         pointerEvents: "none",
       };
       Object.assign(wmInner.style, innerStyle);
@@ -159,7 +239,6 @@ export default defineComponent({
       targetContainer.appendChild(wmWrapper);
       watermarkRef.value = wmWrapper;
 
-      // 开启无死角防篡改守护
       if (props.antiTamper) {
         nextTick(() => {
           initAntiTamper(targetContainer, wmWrapper);
@@ -167,9 +246,7 @@ export default defineComponent({
       }
     };
 
-    // 高防篡改拦截算法
     const initAntiTamper = (parent: HTMLElement, self: HTMLElement) => {
-      // 禁止删除node
       parentObserver = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
           const removedNodes = Array.from(mutation.removedNodes);
@@ -181,7 +258,6 @@ export default defineComponent({
       });
       parentObserver.observe(parent, { childList: true });
 
-      // 禁止修改 style
       selfObserver = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
           if (mutation.type === "attributes") {
@@ -211,6 +287,7 @@ export default defineComponent({
         props.gap,
         props.offset,
         props.font,
+        props.layout,
       ],
       () => {
         renderWatermark();
@@ -243,3 +320,5 @@ export default defineComponent({
     };
   },
 });
+
+export default Watermark;

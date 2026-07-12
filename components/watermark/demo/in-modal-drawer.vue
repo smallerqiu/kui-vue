@@ -1,16 +1,16 @@
 <template>
-  <Modal v-model="isModalVisible" title="涉密核心资产审批" :footer="null">
+  <Modal v-model="isModalVisible" title="涉密核心资产审批">
     <Watermark :content="['审批专用', '张三 2026-07-10', 'IP: 192.168.1.100']">
-      <div style="padding: 24px; height: 400px">
-        <h4>核心敏感薪酬表单</h4>
-      </div>
+      <Flex style="background-color: #f5f5f510; height: 500px" align="center" justify="center">
+        <p>核心敏感数据</p>
+      </Flex>
     </Watermark>
   </Modal>
-  <Drawer v-model="isDrawerVisible" title="涉密核心资产审批" :footer="null">
+  <Drawer v-model="isDrawerVisible" title="涉密核心资产审批">
     <Watermark :content="['审批专用', '张三 2026-07-10', 'IP: 192.168.1.100']">
-      <div style="padding: 24px; height: 400px">
-        <h4>核心敏感薪酬表单</h4>
-      </div>
+      <Flex style="background-color: #f5f5f510; height: 500px" align="center" justify="center">
+        <p>核心敏感数据</p>
+      </Flex>
     </Watermark>
   </Drawer>
   <Space>

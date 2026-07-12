@@ -40,7 +40,7 @@ const inputProps = {
   onSearch: {
     type: Function as PropType<(value: string) => void>,
   },
-  maxlength: Number,
+  //maxlength: Number,
   // "onUpdate:modelValue": Function as PropType<(value: string) => void>,
   onIconClick: { type: Function as PropType<(e: PointerEvent) => void> },
   onClear: { type: Function as PropType<() => void> },

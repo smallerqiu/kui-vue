@@ -1,0 +1,45 @@
+@import "../../styles/less-css-var.less";
+.k-qrcode {
+  position: relative;
+  display: inline-block;
+  box-sizing: content-box;
+  border-radius: var(--kui-border-radius-card);
+  padding: 12px;
+  border: 1px solid var(--kui-color-border);
+}
+.k-qrcode-borderless {
+  border: 0;
+  padding: 0;
+}
+.k-qrcode-loading-wrapper,
+.k-qrcode-scanned-wrapper,
+.k-qrcode-expired-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  cursor: pointer;
+  line-height: 1;
+  font-size: 14px;
+}
+.k-qrcode-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--kui-color-spin-mask);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  border-radius: var(--kui-border-radius-card);
+}
+
+.k-qrcode-expired {
+  font-size: 14px;
+  color: var(--kui-color-font);
+  margin: 0;
+}

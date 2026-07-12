@@ -1,5 +1,6 @@
 <template>
   <Watermark
+    content="图片不可用时展示"
     image="https://cdn.chuchur.com/img/thumb.png"
     style="width: 100%; height: 500px"
     :width="150"
@@ -8,4 +9,3 @@
   >
   </Watermark>
 </template>
-多行
