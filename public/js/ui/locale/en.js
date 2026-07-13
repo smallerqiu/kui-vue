@@ -1,5 +1,5 @@
 /*!
- * kui-vue v5.0.0
+ * kui-vue v5.3.0
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
  * Homepage: https://k-ui.cn
@@ -43,6 +43,12 @@ var en_default = {
 			goto: "Go to",
 			items: "items",
 			total: "Total"
+		},
+		qrcode: {
+			expired: "QR code expired",
+			scanned: "Already scanned",
+			refresh: "Click to refresh",
+			loading: "Loading..."
 		},
 		select: {
 			placeholder: "Select",

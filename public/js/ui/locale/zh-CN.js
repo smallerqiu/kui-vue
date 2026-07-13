@@ -1,5 +1,5 @@
 /*!
- * kui-vue v5.0.0
+ * kui-vue v5.3.0
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
  * Homepage: https://k-ui.cn
@@ -43,6 +43,12 @@ var zh_CN_default = {
 			goto: "跳至",
 			items: "条数据",
 			total: "共"
+		},
+		qrcode: {
+			expired: "二维码已失效",
+			scanned: "已扫描",
+			refresh: "点击刷新",
+			loading: "加载中..."
 		},
 		select: {
 			placeholder: "请选择",

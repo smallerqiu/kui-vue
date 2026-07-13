@@ -1,5 +1,5 @@
 /*!
- * kui-vue v5.0.0
+ * kui-vue v5.3.0
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
  * Homepage: https://k-ui.cn
@@ -43,6 +43,12 @@ var el_default = {
 			goto: "Μετάβαση σε",
 			items: "",
 			total: "Σύνολο"
+		},
+		qrcode: {
+			expired: "Τον κώδικα QR έχει λήξει",
+			scanned: "Έχει σαρωθεί",
+			refresh: "Κάντε κλικ για να ενημερώσετε",
+			loading: "Φόρτωση..."
 		},
 		select: {
 			placeholder: "Επιλογή",

@@ -1,5 +1,5 @@
 /*!
- * kui-vue v5.0.0
+ * kui-vue v5.3.0
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
  * Homepage: https://k-ui.cn
@@ -43,6 +43,12 @@ var vi_default = {
 			goto: "Nhảy tới",
 			items: "",
 			total: "Tổng"
+		},
+		qrcode: {
+			expired: "Mã QR đã hết hạn",
+			scanned: "Đã quét",
+			refresh: "Nhấn để làm mới",
+			loading: "Đang tải..."
 		},
 		select: {
 			placeholder: "Chọn",

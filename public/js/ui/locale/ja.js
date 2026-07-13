@@ -1,5 +1,5 @@
 /*!
- * kui-vue v5.0.0
+ * kui-vue v5.3.0
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
  * Homepage: https://k-ui.cn
@@ -43,6 +43,12 @@ var ja_default = {
 			goto: "ジャンプ先",
 			items: "",
 			total: "総計"
+		},
+		qrcode: {
+			expired: "QRコードの有効期限が切れました",
+			scanned: "すでにスキャンされています",
+			refresh: "クリックして更新",
+			loading: "ロード中..."
 		},
 		select: {
 			placeholder: "選択してください",

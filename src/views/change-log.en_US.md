@@ -13,6 +13,18 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 5.3.0
+
+`2026-7-13`
+
+- Added `QRCode` component
+- Added `Watermark` component
+- Fixed maximization issue in `Modal`
+- Fixed default value issue in `Page` pagination
+- Fixed dropdown positioning issue in `Dropdown`
+- Fixed image dragging issue in `Image`
+- Fixed several attribute issues in `Input`
+
 ## 5.2.3
 
 `2026-6-8`
@@ -23,15 +35,15 @@ rm -rf node_modules/.vite
 
 `2026-5-18`
 
-- Fixed the read-only attribute issue for `Input` and `Textarea`  
-- Fixed the width issue for `Modal`  
+- Fixed the read-only attribute issue for `Input` and `Textarea`
+- Fixed the width issue for `Modal`
 - Fixed the abnormal `class` attribute issue for `Tag`
 
 ## 5.2.1
 
 `2026-5-10`
 
-- Enhanced `Table` slot functionality  
+- Enhanced `Table` slot functionality
 - `Form` child component exception issue
 
 ## 5.2.0

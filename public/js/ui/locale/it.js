@@ -1,5 +1,5 @@
 /*!
- * kui-vue v5.0.0
+ * kui-vue v5.3.0
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
  * Homepage: https://k-ui.cn
@@ -43,6 +43,12 @@ var it_default = {
 			goto: "Vai a",
 			items: "",
 			total: "Totale"
+		},
+		qrcode: {
+			expired: "Codice QR scaduto",
+			scanned: "Già scansionato",
+			refresh: "Clicca per aggiornare",
+			loading: "Caricamento..."
 		},
 		select: {
 			placeholder: "Seleziona",
