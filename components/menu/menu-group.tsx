@@ -1,6 +1,6 @@
 import { defineComponent, type ExtractPropTypes } from "vue";
 
-export const menuGroupProps = {
+const menuGroupProps = {
   title: { type: String, required: true },
 };
 

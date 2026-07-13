@@ -48,20 +48,14 @@ dayjs.extend(localeData);
 
 type DatePickerValueType = "date" | "timestamp" | "unix" | "string";
 type DatePickerModeType =
-  | "year"
-  | "month"
-  | "date"
-  | "time"
-  | "dateTime"
-  | "dateRange"
-  | "dateTimeRange";
+  "year" | "month" | "date" | "time" | "dateTime" | "dateRange" | "dateTimeRange";
 
 interface DatePickerPresetsType {
   label: string;
   value: () => any;
 }
 
-export const datePickerProps = {
+const datePickerProps = {
   modelValue: { type: [Date, Object, Array, String, Number], default: null },
   startDate: { type: [Date, Object, String, Number], default: null },
   endDate: { type: [Date, Object, String, Number], default: null },

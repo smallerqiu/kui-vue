@@ -21,7 +21,7 @@ export interface TreeExpandEvent {
   expanded: boolean;
   node: TreeNode;
 }
-export const treeProps = {
+const treeProps = {
   data: Array as PropType<TreeNode[]>,
   selectedKeys: Array as PropType<string[]>,
   expandedKeys: Array as PropType<string[]>,

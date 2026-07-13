@@ -9,7 +9,7 @@ import {
 import { type BooleanType, type SizeType } from "../const/types";
 import type { IconType } from "../icon";
 import Star from "./star";
-export const rateProps = {
+const rateProps = {
   modelValue: { type: Number, default: 0 },
   allowClear: { type: Boolean as BooleanType, default: true },
   allowHalf: Boolean as BooleanType,

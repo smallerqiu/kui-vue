@@ -1,6 +1,6 @@
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 export type TimelineMode = "left" | "right" | "center" | "alternate";
-export const timelineProps = {
+const timelineProps = {
   mode: {
     type: String as PropType<TimelineMode>,
     default: "left",

@@ -4,7 +4,7 @@ import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 import type { UploadFile } from "./index";
 
-export const selectorProps = {
+const selectorProps = {
   disabled: Boolean as BooleanType,
   name: { type: String, default: "file" },
   accept: String,

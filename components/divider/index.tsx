@@ -1,7 +1,7 @@
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType, DirectionType } from "../const/types";
 
-export const dividerProps = {
+const dividerProps = {
   type: {
     type: String as PropType<DirectionType>,
     default: "horizontal",

@@ -21,7 +21,7 @@ import zhCN from "../locale/zh-CN";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
-export const popconfirmProps = {
+const popconfirmProps = {
   dark: Boolean as BooleanType,
   show: Boolean as BooleanType,
   title: [String, Number, Object, Array],

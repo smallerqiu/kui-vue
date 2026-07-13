@@ -10,7 +10,7 @@ import {
 import { type BooleanType, type SizeType, type ThemeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 
-export const inputGroupProps = {
+const inputGroupProps = {
   block: { type: Boolean as PropType<boolean | undefined>, default: false },
   compact: { type: Boolean as BooleanType, default: true },
   theme: { type: String as PropType<ThemeType>, default: "fill" },

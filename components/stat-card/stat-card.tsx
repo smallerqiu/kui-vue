@@ -15,7 +15,7 @@ export interface StatNumberItem {
   autoAnimateOnce?: boolean;
 }
 
-export const statCardProps = {
+const statCardProps = {
   title: String,
   precision: { type: Number, default: 0 },
   items: { type: Array as PropType<StatNumberItem[]>, default: () => [] },

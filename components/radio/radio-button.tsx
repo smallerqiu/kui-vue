@@ -4,7 +4,7 @@ import type { BooleanType, ShapeType, SizeType } from "../const/types";
 import type { IconType } from "../icon";
 import type { ChangeEvent } from "./types";
 
-export const radioButtonProps = {
+const radioButtonProps = {
   modelValue: { type: [Boolean], default: false },
   label: { type: String },
   value: { type: [String, Number] },

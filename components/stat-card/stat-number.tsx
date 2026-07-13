@@ -4,7 +4,7 @@ import type { BooleanType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 import CountUp from "./countup";
 
-export const statNumberProps = {
+const statNumberProps = {
   modelValue: {
     type: [Number],
     required: true,

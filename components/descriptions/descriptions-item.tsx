@@ -1,7 +1,7 @@
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType, DirectionType } from "../const/types";
 
-export const descriptionsItemProps = {
+const descriptionsItemProps = {
   label: String,
   span: { type: Number, default: 1 },
   type: String as PropType<"label" | "content">,

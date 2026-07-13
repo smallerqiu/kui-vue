@@ -14,7 +14,7 @@ export type OptionSelectEvent = {
   value: string | number;
   label: string | number;
 };
-export const optionProps = {
+const optionProps = {
   value: { type: [String, Number] as PropType<string | number>, required: true },
   label: { type: [String, Number, Object] as PropType<string | number | VNodeChild> },
   disabled: Boolean as BooleanType,

@@ -28,7 +28,7 @@ export interface UploadFile {
   xhr?: XMLHttpRequest;
 }
 
-export const uploadProps = {
+const uploadProps = {
   method: { type: String, default: "post" },
   name: { type: String, default: "file" },
   action: { type: String, required: true as const },

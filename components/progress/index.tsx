@@ -14,7 +14,7 @@ export type ProgressStatus = "active" | "exception" | "success" | "normal";
 export type ProgressStroke = "round" | "butt" | "square";
 export type ProgressType = "line" | "circle" | "dashboard";
 
-export const progressProps = {
+const progressProps = {
   percent: { type: Number, default: 0 },
   strokeWidth: { type: Number, default: 6 },
   color: String,

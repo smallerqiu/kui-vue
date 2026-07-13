@@ -33,12 +33,7 @@ import { setPlacement } from "../utils/placement";
 
 type TreeSelectValue = string | string[] | null | undefined;
 type TreeSelectPlacement =
-  | "top"
-  | "top-left"
-  | "top-right"
-  | "bottom"
-  | "bottom-left"
-  | "bottom-right";
+  "top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right";
 
 interface SearchEventTarget extends EventTarget {
   value?: string;
@@ -46,7 +41,7 @@ interface SearchEventTarget extends EventTarget {
   focus?: () => void;
 }
 
-export const treeSelectProps = {
+const treeSelectProps = {
   placeholder: String,
   size: {
     type: String as PropType<SizeType>,

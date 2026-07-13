@@ -19,7 +19,7 @@ import { transfer } from "../directives/transfer";
 import zhCN from "../locale/zh-CN";
 import { toggleContainerScroll } from "../utils/vnode";
 
-export const drawerProps = {
+const drawerProps = {
   modelValue: Boolean,
   title: { type: String, default: "Title" },
   width: { type: [Number, String] as PropType<number | string>, default: 520 },

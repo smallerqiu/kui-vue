@@ -5,7 +5,7 @@ import type { BooleanType, SizeType, ValueType } from "../const/types";
 import Icon from "../icon";
 import { getValueWithType } from "../utils/checked";
 
-export const switchProps = {
+const switchProps = {
   checked: {
     type: Boolean as BooleanType,
     default: false,

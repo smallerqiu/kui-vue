@@ -14,7 +14,7 @@ import Icon, { type IconType } from "../icon";
 import { Input } from "../input";
 import { isValidBig, normalize } from "../utils/number";
 
-export const inputNumberProps = {
+const inputNumberProps = {
   modelValue: [Number, String] as PropType<number | string>,
   min: { type: Number, default: -Infinity },
   max: { type: Number, default: Infinity },

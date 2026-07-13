@@ -18,7 +18,7 @@ import { transfer } from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
-export const dropdownProps = {
+const dropdownProps = {
   trigger: {
     type: String as PropType<TriggerType>,
     default: "hover",

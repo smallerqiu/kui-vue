@@ -3,7 +3,7 @@ import type { ShapeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 import Avatar from "./avatar";
 
-export const avatarGroupProps = {
+const avatarGroupProps = {
   maxCount: Number,
   shape: {
     type: String as PropType<ShapeType>,

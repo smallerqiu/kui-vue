@@ -3,7 +3,7 @@ import type { BooleanType, DirectionType, SizeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 import DescriptionsItem from "./descriptions-item";
 
-export const descriptionsProps = {
+const descriptionsProps = {
   bordered: Boolean as BooleanType,
   column: { type: Number, default: 3 },
   layout: { type: String as PropType<DirectionType>, default: "horizontal" },

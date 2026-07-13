@@ -21,7 +21,7 @@ import Icon, { type IconType } from "../icon";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
-export const submenuProps = {
+const submenuProps = {
   disabled: Boolean as BooleanType,
   title: String as PropType<string | VNodeChild>,
   isPopup: Boolean as BooleanType,

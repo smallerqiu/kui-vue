@@ -1,7 +1,7 @@
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType } from "../const/types";
 
-export const inputBoxProps = {
+const inputBoxProps = {
   multiple: Boolean as BooleanType,
   disabled: Boolean as BooleanType,
   size: String,

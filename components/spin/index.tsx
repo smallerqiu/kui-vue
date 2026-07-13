@@ -2,7 +2,7 @@ import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent, ref, watch } from "vue";
 import type { SizeType, SpinModeType } from "../const/types.ts";
 
-export const spinProps = {
+const spinProps = {
   modelValue: { type: Boolean, default: true },
   delay: { type: Number, default: 500 },
   size: {

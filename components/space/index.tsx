@@ -2,7 +2,7 @@ import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { cloneVNode, defineComponent, h, provide } from "vue";
 import { type BooleanType, type SizeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
-export const spaceProps = {
+const spaceProps = {
   align: {
     type: String as PropType<"start" | "end" | "center" | "baseline">,
   },

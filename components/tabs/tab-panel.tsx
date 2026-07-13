@@ -11,7 +11,7 @@ import {
 } from "vue";
 import type { BooleanType } from "../const/types";
 import type { IconType } from "../icon";
-export const tabPanelProps = {
+const tabPanelProps = {
   title: String,
   icon: Array as PropType<IconType[]>,
   disabled: Boolean as BooleanType,

@@ -16,7 +16,7 @@ import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
 
-export const tabsProps = {
+const tabsProps = {
   modelValue: [String, Number],
   card: Boolean as BooleanType,
   sample: Boolean as BooleanType,

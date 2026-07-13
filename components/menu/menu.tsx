@@ -18,7 +18,7 @@ export interface MenuSelectEvent {
   key: string;
   keyPath: string[];
 }
-export const menuProps = {
+const menuProps = {
   theme: String,
   mode: { type: String as PropType<DirectionType>, default: "vertical" },
   modelValue: { type: Array as PropType<string[]>, default: () => [] },

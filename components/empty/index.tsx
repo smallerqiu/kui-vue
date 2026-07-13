@@ -12,7 +12,7 @@ import {
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
 
-export const emptyProps = {
+const emptyProps = {
   description: [String, Boolean],
   image: String,
   imageStyle: Object as PropType<CSSProperties>,

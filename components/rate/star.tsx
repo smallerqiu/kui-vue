@@ -4,7 +4,7 @@ import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 import Tooltip from "../tooltip";
 
-export const starProps = {
+const starProps = {
   character: [String, Function] as PropType<string | ((index: number) => any)>,
   tooltips: String,
   percent: Number,

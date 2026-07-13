@@ -13,7 +13,7 @@ import { type IconType } from "../icon";
 import Dropdown from "./dropdown";
 import TriggerButton from "./trigger";
 
-export const dropdownButtonProps = {
+const dropdownButtonProps = {
   size: String as PropType<SizeType>,
   shape: String as PropType<ShapeType>,
   disabled: Boolean as BooleanType,

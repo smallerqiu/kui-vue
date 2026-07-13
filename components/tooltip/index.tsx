@@ -19,7 +19,7 @@ import { isColor } from "../utils/color";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
-export const tooltipProps = {
+const tooltipProps = {
   show: Boolean as BooleanType,
   title: [String, Number, Object, Array] as PropType<any>,
   color: String,

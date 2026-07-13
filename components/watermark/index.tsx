@@ -8,6 +8,7 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
+import type { BooleanType } from "../const/types";
 
 export interface Font {
   color?: string;
@@ -19,7 +20,7 @@ export interface Font {
 export interface WatermarkTextItem extends Font {
   text: string;
 }
-export const watermarkProps = {
+const watermarkProps = {
   content: {
     type: [String, Array] as PropType<string | string[] | WatermarkTextItem[]>,
     default: "",
@@ -29,8 +30,8 @@ export const watermarkProps = {
   height: { type: Number, default: 189 },
   rotate: { type: Number, default: -22 },
   zIndex: { type: Number, default: 999 },
-  fullscreen: { type: Boolean, default: false },
-  antiTamper: { type: Boolean, default: true },
+  fullscreen: { type: Boolean as BooleanType, default: false },
+  antiTamper: { type: Boolean as BooleanType, default: true },
   font: {
     type: Object as PropType<Font>,
     default: () => ({

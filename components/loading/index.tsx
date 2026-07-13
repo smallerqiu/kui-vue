@@ -10,7 +10,7 @@ import {
 } from "vue";
 import { getAppContext } from "../config/context";
 
-export const loadingProps = {
+const loadingProps = {
   height: { type: [Number, String], default: 2 },
 };
 

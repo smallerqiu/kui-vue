@@ -17,7 +17,7 @@ import type { BooleanType } from "../const/types";
 import { getPosition } from "../utils/mouse";
 import { getClosestStep } from "../utils/number";
 
-export const sliderProps = {
+const sliderProps = {
   modelValue: { type: [Array, Number] as PropType<number[] | number>, default: 0 },
   min: { type: Number, default: 0 },
   max: { type: Number, default: 100 },

@@ -19,7 +19,7 @@ export interface Column {
   children?: Column[];
 }
 
-export const tableProps = {
+const tableProps = {
   data: { type: Array, default: () => [] },
   columns: { type: Array as PropType<Column[]>, default: () => [] },
   selectedKeys: { type: Array as PropType<string[]>, default: () => [] },

@@ -18,7 +18,7 @@ import { colors } from "../const/var";
 import Icon from "../icon";
 import { isColor } from "../utils/color";
 
-export const tagProps = {
+const tagProps = {
   closeable: Boolean as BooleanType,
   color: String as ColorType,
   shape: String as PropType<ShapeType>,

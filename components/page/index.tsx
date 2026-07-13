@@ -14,7 +14,7 @@ import InputNumber from "../input-number";
 import zhCN from "../locale/zh-CN";
 import { Select } from "../select";
 
-export const pageProps = {
+const pageProps = {
   disabled: Boolean as BooleanType,
   showSizer: Boolean as BooleanType,
   showTotal: { type: Boolean as BooleanType, default: true },

@@ -1,7 +1,7 @@
 import { defineComponent, type ExtractPropTypes, type PropType, ref, watch } from "vue";
 import type { BooleanType, SizeType, ThemeType } from "../const/types";
 import type { ChangeEvent } from "./types";
-export const radioProps = {
+const radioProps = {
   modelValue: { type: [Boolean, String, Number], default: false },
   value: { type: [String, Number, Boolean] },
   label: { type: String },

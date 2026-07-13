@@ -7,7 +7,7 @@ import Progress from "../progress";
 import Tooltip from "../tooltip";
 import type { UploadFile } from "./index";
 
-export const uploadFileListProps = {
+const uploadFileListProps = {
   showUploadList: { type: Boolean as BooleanType, default: true },
   locale: Object as PropType<any>,
   type: {

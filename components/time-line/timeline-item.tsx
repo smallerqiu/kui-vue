@@ -1,7 +1,7 @@
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
 import Icon from "../icon";
 
-export const timelineItemProps = {
+const timelineItemProps = {
   color: String,
   icon: [String, Array] as PropType<any>,
   time: String,

@@ -13,7 +13,7 @@ import type { BooleanType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
 
-export const menuItemProps = {
+const menuItemProps = {
   icon: Array as PropType<IconType[]>,
   title: String as PropType<string | VNodeChild>,
   disabled: Boolean as BooleanType,

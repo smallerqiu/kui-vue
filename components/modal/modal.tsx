@@ -18,7 +18,7 @@ import type { BooleanType } from "../const/types";
 import { transfer } from "../directives/transfer";
 import zhCN from "../locale/zh-CN";
 
-export const modalProps = {
+const modalProps = {
   modelValue: Boolean as BooleanType,
   title: String,
   okText: String,

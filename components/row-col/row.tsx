@@ -1,6 +1,6 @@
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { defineComponent, provide, ref, watch } from "vue";
-export const rowProps = {
+const rowProps = {
   gutter: [Number, Array] as PropType<number | [number, number]>,
   type: { type: String, default: "flex" },
   justify: {

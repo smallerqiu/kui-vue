@@ -11,13 +11,14 @@ import {
   type PropType,
 } from "vue";
 import { Button } from "../button";
+import type { BooleanType } from "../const/types";
 import Spin from "../spin";
-export const qrCodeProps = {
+const qrCodeProps = {
   value: { type: String, required: true },
   size: { type: Number, default: 160 },
   colorDark: { type: String, default: "var(--kui-color-reverse)" },
   colorLight: { type: String, default: "var(--kui-color-bg)" },
-  bordered: { type: Boolean, default: true },
+  bordered: { type: Boolean as BooleanType, default: true },
   status: {
     type: String as PropType<"active" | "loading" | "expired" | "scanned">,
     default: "active",
@@ -26,7 +27,7 @@ export const qrCodeProps = {
   logoSize: { type: Number },
   margin: { type: Number, default: 0 },
   logoRadius: { type: Number, default: 4 },
-  logoBorder: { type: Boolean, default: true },
+  logoBorder: { type: Boolean as BooleanType, default: true },
   errorLevel: { type: String as PropType<"L" | "M" | "Q" | "H">, default: "M" },
 };
 export type QRCodeProps = ExtractPropTypes<typeof qrCodeProps>;

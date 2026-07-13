@@ -1,7 +1,7 @@
 import type { CSSProperties, ExtractPropTypes, Ref } from "vue";
 import { defineComponent, inject } from "vue";
 
-export const colProps = {
+const colProps = {
   span: Number,
   offset: Number,
   flex: [String, Number],

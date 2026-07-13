@@ -31,7 +31,7 @@ export interface RadioOption {
   [key: string]: any;
 }
 
-export const radioGroupProps = {
+const radioGroupProps = {
   modelValue: { type: [String, Number], default: "" },
   disabled: Boolean as BooleanType,
   direction: {

@@ -13,12 +13,12 @@ import type { BooleanType } from "../const/types";
 
 const SiderHookKey: InjectionKey<(mounted: boolean) => void> = Symbol("SiderHookKey");
 
-export const layoutProps = {
+const layoutProps = {
   suffixCls: { type: String, default: "layout" },
   hasSider: { type: Boolean as BooleanType, default: undefined }, // 允许手动指定是否有 Sider
 };
 
-export const siderProps = {
+const siderProps = {
   suffixCls: { type: String, default: "layout-sider" },
   width: { type: [Number, String], default: 200 },
   collapsedWidth: { type: [Number, String], default: 80 },

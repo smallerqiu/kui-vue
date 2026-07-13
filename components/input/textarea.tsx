@@ -9,7 +9,7 @@ import {
 } from "vue";
 import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
 
-export const textAreaProps = {
+const textAreaProps = {
   modelValue: [String, Number, Object, Array] as PropType<any>,
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: { type: String as PropType<ShapeType> },
