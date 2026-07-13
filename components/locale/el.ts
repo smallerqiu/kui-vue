@@ -37,6 +37,12 @@ export default {
       items: "",
       total: "Σύνολο",
     },
+    qrcode: {
+      expired: "Τον κώδικα QR έχει λήξει",
+      scanned: "Έχει σαρωθεί",
+      refresh: "Κάντε κλικ για να ενημερώσετε",
+      loading: "Φόρτωση...",
+    },
     select: {
       placeholder: "Επιλογή",
       loading: "Φόρτωση...",

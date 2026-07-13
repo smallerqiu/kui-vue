@@ -53,7 +53,7 @@ const info = () => {
 
 const show = () => {
   modal.show({
-    title: "I ams a modal",
+    title: "I am a modal",
     content: "See the light through the mist.",
     icon: Moon,
     color: "#eccb23",

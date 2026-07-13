@@ -37,6 +37,12 @@ export default {
       items: "",
       total: "Всего",
     },
+    qrcode: {
+      expired: "QR-код исчерпан",
+      scanned: "Уже просканировано",
+      refresh: "Нажмите, чтобы обновить",
+      loading: "Загрузка...",
+    },
     select: {
       placeholder: "Выбрать",
       loading: "Загрузка...",

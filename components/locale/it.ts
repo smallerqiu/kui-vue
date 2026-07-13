@@ -37,6 +37,12 @@ export default {
       items: "",
       total: "Totale",
     },
+    qrcode: {
+      expired: "Codice QR scaduto",
+      scanned: "Già scansionato",
+      refresh: "Clicca per aggiornare",
+      loading: "Caricamento...",
+    },
     select: {
       placeholder: "Seleziona",
       loading: "Caricamento...",

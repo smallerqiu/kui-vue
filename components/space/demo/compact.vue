@@ -99,6 +99,13 @@
       </Select>
       <TreeSelect :tree-data="treeData" clearable style="width: 200px"></TreeSelect>
     </Space>
+    <Space compact>
+      <Select modelValue="Option1-1">
+        <Option value="Option1-1">Option1-1</Option>
+        <Option value="Option1-2">Option1-2</Option>
+      </Select>
+      <ColorPicker />
+    </Space>
   </Space>
 </template>
 <script setup lang="ts">

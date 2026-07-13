@@ -37,6 +37,12 @@ export default {
       items: "",
       total: "ทั้งหมด",
     },
+    qrcode: {
+      expired: "คิวรีดับหมดอายุ",
+      scanned: "ถูกสแกนแล้ว",
+      refresh: "คลิกเพื่อรีเฟรช",
+      loading: "กำลังโหลด...",
+    },
     select: {
       placeholder: "เลือก",
       loading: "ไม่พบข้อมูลที่ตรงกัน...",

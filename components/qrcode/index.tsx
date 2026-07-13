@@ -1,7 +1,9 @@
 import Color from "color";
 import { toCanvas, type QRCodeRenderersOptions } from "qrcode";
 import {
+  computed,
   defineComponent,
+  inject,
   onBeforeUnmount,
   onMounted,
   ref,
@@ -12,7 +14,10 @@ import {
 } from "vue";
 import { Button } from "../button";
 import type { BooleanType } from "../const/types";
+import zhCN from "../locale/zh-CN";
 import Spin from "../spin";
+export type QRCodeStatus = "active" | "loading" | "expired" | "scanned";
+export type QRCodeErrorLevel = "L" | "M" | "Q" | "H";
 const qrCodeProps = {
   value: { type: String, required: true },
   size: { type: Number, default: 160 },
@@ -20,7 +25,7 @@ const qrCodeProps = {
   colorLight: { type: String, default: "var(--kui-color-bg)" },
   bordered: { type: Boolean as BooleanType, default: true },
   status: {
-    type: String as PropType<"active" | "loading" | "expired" | "scanned">,
+    type: String as PropType<QRCodeStatus>,
     default: "active",
   },
   logo: { type: String, default: "" },
@@ -28,7 +33,7 @@ const qrCodeProps = {
   margin: { type: Number, default: 0 },
   logoRadius: { type: Number, default: 4 },
   logoBorder: { type: Boolean as BooleanType, default: true },
-  errorLevel: { type: String as PropType<"L" | "M" | "Q" | "H">, default: "M" },
+  errorLevel: { type: String as PropType<QRCodeErrorLevel>, default: "M" },
 };
 export type QRCodeProps = ExtractPropTypes<typeof qrCodeProps>;
 
@@ -40,8 +45,15 @@ const QRCode = defineComponent({
     const canvasRef = ref<HTMLCanvasElement | null>(null);
     let rootObserver: MutationObserver | null = null;
 
+    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
+    const locale = computed(() => {
+      return injectedLocale instanceof Object && "value" in injectedLocale
+        ? injectedLocale.value
+        : injectedLocale;
+    });
+
     const initThemeObserver = () => {
-      const rootEl = document.documentElement; // 或者是 document.body，根据你实际绑定的元素来
+      const rootEl = document.documentElement;
 
       rootObserver = new MutationObserver((mutations) => {
         for (const mutation of mutations) {
@@ -62,7 +74,6 @@ const QRCode = defineComponent({
         const tempDiv = document.createElement("div");
         tempDiv.style.color = colorStr;
         document.body.appendChild(tempDiv);
-        // 让浏览器原生把 var(--xxx) 转换为 rgb(x, x, x)
         let computedColor = window.getComputedStyle(tempDiv).color;
         computedColor = Color(computedColor).hex();
         document.body.removeChild(tempDiv);
@@ -71,7 +82,7 @@ const QRCode = defineComponent({
       return colorStr;
     };
 
-    // 核心绘制方法：融合高清屏适配与 Logo 异步渲染
+    // 适配与 Logo 异步渲染
     const drawQRCode = async () => {
       if (!canvasRef.value) return;
 
@@ -98,7 +109,7 @@ const QRCode = defineComponent({
             dark: realDark,
             light: realLight,
           },
-          errorCorrectionLevel: errorLevel, // 强行开启最高的 H 级别纠错，保证正中间塞 Logo 后依然百分百能被识别
+          errorCorrectionLevel: errorLevel,
         };
 
         // 预渲染到一个临时的内存 canvas 中，再复制过来，避免多次缩放失真
@@ -147,7 +158,6 @@ const QRCode = defineComponent({
       }
     };
 
-    // 暴露外层极其有用的原生 API：允许业务一键导出/下载高精度的 PNG 二维码
     const download = (fileName = "qrcode.png") => {
       if (!canvasRef.value) return;
       const url = canvasRef.value.toDataURL("image/png");
@@ -195,7 +205,9 @@ const QRCode = defineComponent({
         <div class="k-qrcode-mask">
           {props.status === "loading" && (
             <div class="k-qrcode-loading-wrapper">
-              {slots.loading ? slots.loading() : [<Spin size="small" />, <span>Loading...</span>]}
+              {slots.loading
+                ? slots.loading()
+                : [<Spin size="small" />, <span>{locale.value?.k.qrcode.loading}</span>]}
             </div>
           )}
           {props.status === "expired" && (
@@ -204,9 +216,9 @@ const QRCode = defineComponent({
                 slots.expired()
               ) : (
                 <>
-                  <div class="k-qrcode-expired">二维码已失效</div>
+                  <div class="k-qrcode-expired">{locale.value?.k.qrcode.expired}</div>
                   <Button size="small" type="text">
-                    点击刷新
+                    {locale.value?.k.qrcode.refresh}
                   </Button>
                 </>
               )}
@@ -214,7 +226,7 @@ const QRCode = defineComponent({
           )}
           {props.status === "scanned" && (
             <div class="k-qrcode-scanned-wrapper">
-              {slots.scanned ? slots.scanned() : <>已扫描</>}
+              {slots.scanned ? slots.scanned() : <>{locale.value?.k.qrcode.scanned}</>}
             </div>
           )}
         </div>

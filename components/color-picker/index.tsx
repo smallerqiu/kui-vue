@@ -91,16 +91,16 @@ const ColorPicker = defineComponent({
       document.removeEventListener("click", outsideClick);
     });
     const updatePopPosition = () => {
-      // nextTick(() => {
-      setPlacement({
-        refSelection,
-        refPopper,
-        currentPlacement,
-        transOrigin,
-        top,
-        left,
+      nextTick(() => {
+        setPlacement({
+          refSelection,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
+        });
       });
-      // });
     };
     const outsideClick = (e: MouseEvent) => {
       const ctx = refSelection.value?.$el || refSelection.value;

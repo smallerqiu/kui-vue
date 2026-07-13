@@ -37,6 +37,12 @@ export default {
       items: "",
       total: "Tổng",
     },
+    qrcode: {
+      expired: "Mã QR đã hết hạn",
+      scanned: "Đã quét",
+      refresh: "Nhấn để làm mới",
+      loading: "Đang tải...",
+    },
     select: {
       placeholder: "Chọn",
       loading: "Đang tải...",

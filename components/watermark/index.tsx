@@ -20,6 +20,8 @@ export interface Font {
 export interface WatermarkTextItem extends Font {
   text: string;
 }
+export type WatermarkLayoutType = "stagger" | "grid";
+
 const watermarkProps = {
   content: {
     type: [String, Array] as PropType<string | string[] | WatermarkTextItem[]>,
@@ -42,9 +44,9 @@ const watermarkProps = {
       fontStyle: "normal",
     }),
   },
-  gap: { type: Array as any as PropType<[number, number]>, default: () => [40, 40] },
-  offset: { type: Array as any as PropType<[number, number]>, default: () => [20, 20] },
-  layout: { type: String as PropType<"stagger" | "grid">, default: "stagger" },
+  gap: { type: Array as any as PropType<number[]>, default: () => [40, 40] },
+  offset: { type: Array as any as PropType<number[]>, default: () => [20, 20] },
+  layout: { type: String as PropType<WatermarkLayoutType>, default: "stagger" },
 };
 export type WatermarkProps = ExtractPropTypes<typeof watermarkProps>;
 

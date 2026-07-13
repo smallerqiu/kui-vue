@@ -94,17 +94,17 @@ const Dropdown = defineComponent({
     };
     const updatePosition = (e?: MouseEvent) => {
       const position = e ? { x: e.clientX, y: e.clientY } : null;
-      // nextTick(() => {
-      setPlacement({
-        refSelection,
-        position,
-        refPopper,
-        currentPlacement,
-        transOrigin,
-        top,
-        left,
+      nextTick(() => {
+        setPlacement({
+          refSelection,
+          position,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
+        });
       });
-      // });
     };
 
     const openChange = (opened?: boolean) => {

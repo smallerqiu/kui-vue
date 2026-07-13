@@ -37,6 +37,12 @@ export default {
       items: "",
       total: "총",
     },
+    qrcode: {
+      expired: "QR 코드 만료",
+      scanned: "이미 스캔됨",
+      refresh: "다시 불러오려면 클릭하세요",
+      loading: "불러오는 중...",
+    },
     select: {
       placeholder: "선택",
       loading: "불러오는 중...",

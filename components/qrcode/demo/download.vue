@@ -1,8 +1,10 @@
 <template>
   <Space vertical>
-    <Input v-model="url" />
-    <QRCode :value="url" :size="128" logo="/favicon.png" ref="qrcode" />
-    <Button type="primary" @click="qrcode.download()">Download</Button>
+    <Space compact>
+      <Input v-model="url" />
+      <Button type="primary" @click="qrcodeRef.download()">Download</Button>
+    </Space>
+    <QRCode :value="url" :size="128" logo="/favicon.png" ref="qrcodeRef" />
     <Poptip>
       <template #content>
         <QRCode :value="url" :size="128" :bordered="false" logo="/favicon.png" />
@@ -12,8 +14,8 @@
   </Space>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 const url = ref("https://k-ui.cn");
-const qrcode = ref(null);
+const qrcodeRef = ref();
 </script>

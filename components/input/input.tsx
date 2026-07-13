@@ -24,6 +24,7 @@ const inputProps = {
   clearable: { type: Boolean as BooleanType, default: true },
   visiblePasswordIcon: { type: Boolean as BooleanType, default: true },
   size: { type: String as PropType<SizeType> },
+  value: { type: [String, Number, Array, Object] as PropType<any> },
   modelValue: { type: [String, Number, Array, Object] as PropType<any> },
   disabled: Boolean as BooleanType,
   type: {
@@ -55,7 +56,7 @@ const Input = defineComponent({
   name: "Input",
   props: inputProps,
   setup(props, { slots, emit, attrs, expose }) {
-    const currentValue = ref(props.modelValue);
+    const currentValue = ref(props.modelValue ?? props.value);
     const focused = ref(false);
     const showPassword = ref(false);
     const inputRef = ref<any>();

@@ -37,6 +37,12 @@ export default {
       items: "items",
       total: "Total",
     },
+    qrcode: {
+      expired: "QR-Code abgelaufen",
+      scanned: "bereits abgeschlossen",
+      refresh: "Klicken Sie, um zu aktualisieren",
+      loading: "Laden...",
+    },
     select: {
       placeholder: "bitte wählen",
       loading: "Laden...",

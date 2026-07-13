@@ -37,6 +37,12 @@ export default {
       items: "",
       total: "総計",
     },
+    qrcode: {
+      expired: "QRコードの有効期限が切れました",
+      scanned: "すでにスキャンされています",
+      refresh: "クリックして更新",
+      loading: "ロード中...",
+    },
     select: {
       placeholder: "選択してください",
       loading: "ロード中...",

@@ -114,7 +114,7 @@ export { default as Progress } from "./progress";
 export type { ProgressProps, ProgressStatus, ProgressStroke, ProgressType } from "./progress";
 
 export { default as QRCode } from "./qrcode";
-export type { QRCodeProps } from "./qrcode";
+export type { QRCodeErrorLevel, QRCodeProps, QRCodeStatus } from "./qrcode";
 
 export { Radio, RadioButton, RadioGroup } from "./radio";
 export type { RadioButtonProps, RadioGroupProps, RadioOption, RadioProps } from "./radio";
@@ -176,7 +176,7 @@ export { default as Upload } from "./upload";
 export type { UploadChangeEvent, UploadContext, UploadFile, UploadProps } from "./upload";
 
 export { default as Watermark } from "./watermark";
-export type { WatermarkProps } from "./watermark";
+export type { WatermarkLayoutType, WatermarkProps } from "./watermark";
 
 export { default as theme } from "./utils/theme";
 

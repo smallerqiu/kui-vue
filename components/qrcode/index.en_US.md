@@ -1,27 +1,60 @@
-# QRCode 二维码
+# QRCode
 
-能够将文本转换生成二维码的组件，支持自定义配色和 Logo 配置。
+A component that converts text into QR codes, supporting custom colors and logo configuration.
 
-## 何时使用
+## When to Use
 
-- 当需要将文本转换成为二维码时使用。
+- Use this component when you need to convert text into a scannable QR code.
 
-## 代码演示
+## Examples
 
-[基本用法](./demo/basic.vue)
+[Basic Usage](./demo/basic.vue)
 
-- 最简单的用法。
+- The simplest usage.
 
-[不同的状态](./demo/status.vue)
+[Different states](./demo/status.vue)
 
-- 可以通过 status 的值控制二维码的状态，提供了 active、expired、loading、scanned 四个值。
+- Control the QR code state via the `status` prop. Supported values: `active`, `expired`, `loading`, and `scanned`.
 
-[自定义](./demo/custom.vue)
+[Custom Properties](./demo/custom.vue)
 
-- 可以通过一些自定义属性来自定义二维码展示方式。
+- Customize the QR code display using various configurable properties.
 
-[卡片和下载](./demo/download.vue)
+[Cards and Downloads](./demo/download.vue)
 
-- 在卡片中展示, 和下载二维码。
+- Display the QR code within a card and enable downloading.
+
+[Custom Status](./demo/custom-status.vue)
+
+- Customize the display for different status states.
 
 ## API
+
+| Property   | Description                                                                                                                                                                                                                               | Type                                              | Default                      |
+| :--------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------ | :--------------------------- |
+| value      | Text content or redirect URL encoded in the QR code.                                                                                                                                                                                      | `string`                                          | Required                     |
+| size       | Side length of the square QR code in `px`. Optimized for high-DPI displays to prevent blurring on large screens.                                                                                                                          | `number`                                          | `160`                        |
+| colorDark  | Foreground color (the color of QR code modules). Supports hex, RGB, and CSS variables. Automatically re-renders when the root attribute `theme-mode` changes.                                                                             | `string`                                          | `"var(--kui-color-reverse)"` |
+| colorLight | Background color. Supports hex, RGB, and CSS variables. For dark mode, use dark tones and avoid full transparency to ensure scan reliability.                                                                                             | `string`                                          | `"var(--kui-color-bg)"`      |
+| bordered   | Whether to display an outer container with a subtle shadow and rounded corners for enhanced visual appeal.                                                                                                                                | `boolean`                                         | `true`                       |
+| status     | Current business state of the QR code. Options:<br>• `'active'`: Scannable<br>• `'loading'`: Loading secure link<br>• `'expired'`: Expired (shows refresh button)<br>• `'scanned'`: Successfully scanned (customizable overlay via slots) | `'active' \| 'loading' \| 'expired' \| 'scanned'` | `'active'`                   |
+| logo       | URL (network or Base64) of the logo displayed at the center of the QR code.                                                                                                                                                               | `string`                                          | -                            |
+| logoSize   | Size of the centered logo in `px`. If omitted, defaults to 22% of the QR code size.                                                                                                                                                       | `number`                                          | -                            |
+| logoRadius | Border radius of the centered logo in `px`.                                                                                                                                                                                               | `number`                                          | `4`                          |
+| logoBorder | Whether to add a white protective border around the logo. Prevents visual clutter by separating QR modules from the logo.                                                                                                                 | `boolean`                                         | `true`                       |
+| margin     | Quiet zone (white border) width around the QR code matrix, measured in module counts.                                                                                                                                                     | `number`                                          | `0`                          |
+| errorLevel | Error correction level. Options: `'L'` (7%), `'M'` (15%), `'Q'` (25%), `'H'` (30%).<br>_Note: When embedding a logo, it is recommended to use `'M'` or `'H'` to ensure reliable scanning even if the center is obscured._                 | `'L' \| 'M' \| 'Q' \| 'H'`                        | `'M'`                        |
+
+### Events
+
+| Event Name | Description                                                                                                         | Callback Signature |
+| :--------- | :------------------------------------------------------------------------------------------------------------------ | :----------------- |
+| refresh    | Triggered when clicking the refresh button on the overlay while `status` is `'expired'`. Used to fetch new QR data. | `() => void`       |
+
+### Slots
+
+| Slot Name | Description                                              |
+| :-------- | :------------------------------------------------------- |
+| loading   | Custom overlay for `status="loading"`.                   |
+| expired   | Custom overlay and retry message for `status="expired"`. |
+| scanned   | Custom overlay for `status="scanned"`.                   |

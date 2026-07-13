@@ -858,16 +858,16 @@ const DatePicker = defineComponent({
       }
     };
     const updatePosition = () => {
-      // nextTick(() => {
-      setPlacement({
-        refSelection,
-        refPopper,
-        currentPlacement,
-        transOrigin,
-        top,
-        left,
+      nextTick(() => {
+        setPlacement({
+          refSelection,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
+        });
       });
-      // });
     };
     onMounted(() => {
       if (props.opened) updatePosition();

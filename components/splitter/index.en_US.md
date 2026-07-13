@@ -6,6 +6,8 @@
 - When you need to freely drag and adjust the size of each area.
 - When you need to specify the maximum and minimum width or height of an area.
 
+## Examples
+
 [Basic Usage](./demo/basic.vue?show=vertical)
 
 - Initialize panel size, panel size limit.

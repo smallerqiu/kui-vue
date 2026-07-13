@@ -37,6 +37,12 @@ export default {
       items: "條數據",
       total: "共",
     },
+    qrcode: {
+      expired: "二維碼已失效",
+      scanned: "已掃描",
+      refresh: "點擊刷新",
+      loading: "加載中...",
+    },
     select: {
       placeholder: "請選擇",
       loading: "加載中…",

@@ -59,6 +59,7 @@ declare module "vue" {
     Poptip: (typeof Comps)["Poptip"];
     Popconfirm: (typeof Comps)["Popconfirm"];
     Progress: (typeof Comps)["Progress"];
+    QRCode: (typeof Comps)["QRCode"];
     Radio: (typeof Comps)["Radio"];
     RadioButton: (typeof Comps)["RadioButton"];
     RadioGroup: (typeof Comps)["RadioGroup"];
@@ -91,6 +92,7 @@ declare module "vue" {
     Col: (typeof Comps)["Col"];
     Row: (typeof Comps)["Row"];
     Upload: (typeof Comps)["Upload"];
+    Watermark: (typeof Comps)["Watermark"];
   }
 }
 
@@ -99,6 +101,4 @@ declare module "*.less" {
   export default content;
 }
 
-
-export { };
-
+export {};

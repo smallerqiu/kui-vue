@@ -24,13 +24,14 @@
   </Space>
 </template>
 
-<script setup>
+<script setup lang="ts">
+import type { QRCodeErrorLevel } from "kui-vue";
 import { ref } from "vue";
 import { KSwitch } from "../../components";
 const url = "https://k-ui.cn";
 const color = ref("#4CAF50");
 const size = ref(100);
 const margin = ref(0);
-const errorLevel = ref("L");
+const errorLevel = ref<QRCodeErrorLevel>("L");
 const bordered = ref(true);
 </script>

@@ -224,7 +224,7 @@ const Page = defineComponent({
     };
     const renderSize = () => {
       let prop = {
-        value: defaultPageSize.value,
+        modelValue: defaultPageSize.value,
         size: props.size,
         clearable: false,
         theme: props.theme,

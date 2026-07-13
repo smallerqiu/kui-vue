@@ -7,7 +7,7 @@ Add a watermark to a specific area of the page.
 - Use when you need to add a watermark to identify copyright ownership.
 - Suitable for preventing information theft.
 
-## Code Demonstrations
+## Examples
 
 [Basic Usage](./demo/basic.vue?show=vertical)
 

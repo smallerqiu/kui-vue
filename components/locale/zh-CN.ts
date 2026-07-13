@@ -37,6 +37,12 @@ export default {
       items: "条数据",
       total: "共",
     },
+    qrcode: {
+      expired: "二维码已失效",
+      scanned: "已扫描",
+      refresh: "点击刷新",
+      loading: "加载中...",
+    },
     select: {
       placeholder: "请选择",
       loading: "加载中...",

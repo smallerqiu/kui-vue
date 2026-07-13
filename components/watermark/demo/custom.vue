@@ -37,6 +37,7 @@
   </Row>
 </template>
 <script setup lang="ts">
+import type { WatermarkLayoutType } from "kui-vue";
 import { ref } from "vue";
 
 const content = ref("Kui Vue");
@@ -45,5 +46,5 @@ const fontSize = ref(16);
 const rotate = ref(45);
 const gap = ref([16, 16]);
 const offset = ref([8, 8]);
-const layout = ref("stagger");
+const layout = ref<WatermarkLayoutType>("stagger");
 </script>

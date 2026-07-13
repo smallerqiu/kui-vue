@@ -37,6 +37,12 @@ export default {
       items: "",
       total: "Всього",
     },
+    qrcode: {
+      expired: "QR-код вичерпано",
+      scanned: "Вже проскановано",
+      refresh: "Натисніть, щоб оновити",
+      loading: "Завантаження...",
+    },
     select: {
       placeholder: "Обрати",
       loading: "Завантаження...",

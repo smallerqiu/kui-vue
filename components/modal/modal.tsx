@@ -243,11 +243,13 @@ const Modal = defineComponent({
         );
       }
 
-      const style = {
-        width: typeof width === "number" ? `${width}px` : width,
-        top: `${currentTop.value}px`,
-        left: `${left.value}px`,
-      };
+      const style = props.maximized
+        ? null
+        : {
+            width: typeof width === "number" ? `${width}px` : width,
+            top: `${currentTop.value}px`,
+            left: `${left.value}px`,
+          };
       const classes = [
         "k-modal",
         {

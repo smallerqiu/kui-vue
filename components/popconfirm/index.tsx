@@ -63,16 +63,16 @@ const Popconfirm = defineComponent({
     const hideTimer = ref();
     const showTimer = ref();
     const updatePosition = () => {
-      // nextTick(() => {
-      setPlacement({
-        refSelection,
-        refPopper,
-        currentPlacement,
-        transOrigin,
-        top,
-        left,
+      nextTick(() => {
+        setPlacement({
+          refSelection,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
+        });
       });
-      // });
     };
     onMounted(() => {
       updatePosition();
