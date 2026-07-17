@@ -13,6 +13,10 @@ Globally display operation feedback information.
 
 - Informational feedback prompt.
 
+[Grouping](./demo/grouping.vue)
+
+- Notifications with the same grouping will reuse the existing entry—only updating the content and resetting the timer without creating a new one.
+
 [Custom Icon](./demo/icon.vue)
 
 - Custom icon.

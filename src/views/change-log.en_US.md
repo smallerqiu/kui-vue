@@ -13,6 +13,12 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 5.3.1
+
+`2026-7-17`
+
+- The `message` component now supports the `grouping` property. Messages sharing the same `grouping` value will be merged into a single notification.
+
 ## 5.3.0
 
 `2026-7-13`

@@ -13,6 +13,8 @@ export interface MessageOptions {
   icon?: IconType[];
   color?: string;
   onClose?: () => void;
+  /** 相同 grouping 的通知会复用同一条目，只更新内容和重置计时器，不会新增 */
+  grouping?: string;
 }
 export interface MessageApi {
   name: "message";

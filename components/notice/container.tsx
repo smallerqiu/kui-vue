@@ -12,7 +12,25 @@ export default defineComponent({
     const options = ref<any[]>([]);
 
     const show = (option: ContentProps) => {
-      let { duration = 3.5, onClose, closable, noticeType } = option;
+      let { duration = 3.5, onClose, closable, noticeType, grouping } = option;
+
+      // 相同 grouping 的通知只更新内容，不新增条目
+      if (grouping) {
+        const existingItem = options.value.find((item) => item.grouping === grouping);
+        if (existingItem) {
+          existingItem.content = option.content;
+          existingItem.type = option.type;
+          if (option.icon !== undefined) existingItem.icon = option.icon;
+          if (option.color !== undefined) existingItem.color = option.color;
+          // 重置自动关闭计时器
+          clearTimeout(existingItem.__timer);
+          if (duration > 0) {
+            existingItem.__timer = setTimeout(existingItem.__callback, duration * 1000);
+          }
+          return existingItem.__callback;
+        }
+      }
+
       const key = getUuid();
       let timer: NodeJS.Timeout | undefined = undefined;
       let callback = () => {
@@ -24,7 +42,7 @@ export default defineComponent({
       if ((closable === true && noticeType == "message") || noticeType == "notice") {
         option.onClose = () => callback();
       }
-      options.value.push({ ...option, key });
+      options.value.push({ ...option, key, __timer: timer, __callback: callback });
 
       return callback;
     };

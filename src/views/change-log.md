@@ -15,6 +15,12 @@ vite 好像有缓存, 可手动清除
 rm -rf node_modules/.vite
 ```
 
+## 5.3.1
+
+`2026-7-17`
+
+- `message` 组件新增grouping属性.相同 grouping ,只弹出一个提示消息.
+
 ## 5.3.0
 
 `2026-7-13`

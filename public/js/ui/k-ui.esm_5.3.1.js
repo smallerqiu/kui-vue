@@ -1,5 +1,5 @@
 /*!
- * kui-vue v5.3.0
+ * kui-vue v5.3.1
  * Copyright 2017-present, kui-vue.
  * All rights reserved.
  * Homepage: https://k-ui.cn
@@ -10125,7 +10125,8 @@ var content_default = /* @__PURE__ */ defineComponent({
 		noticeType: {
 			type: String,
 			default: "message"
-		}
+		},
+		grouping: String
 	},
 	setup(props, { emit }) {
 		const onClose = () => {
@@ -10186,7 +10187,19 @@ var container_default = /* @__PURE__ */ defineComponent({
 	setup(ps, { expose }) {
 		const options = ref([]);
 		const show = (option) => {
-			let { duration = 3.5, onClose, closable, noticeType } = option;
+			let { duration = 3.5, onClose, closable, noticeType, grouping } = option;
+			if (grouping) {
+				const existingItem = options.value.find((item) => item.grouping === grouping);
+				if (existingItem) {
+					existingItem.content = option.content;
+					existingItem.type = option.type;
+					if (option.icon !== void 0) existingItem.icon = option.icon;
+					if (option.color !== void 0) existingItem.color = option.color;
+					clearTimeout(existingItem.__timer);
+					if (duration > 0) existingItem.__timer = setTimeout(existingItem.__callback, duration * 1e3);
+					return existingItem.__callback;
+				}
+			}
 			const key = getUuid();
 			let timer = void 0;
 			let callback = () => {
@@ -10198,7 +10211,9 @@ var container_default = /* @__PURE__ */ defineComponent({
 			if (closable === true && noticeType == "message" || noticeType == "notice") option.onClose = () => callback();
 			options.value.push({
 				...option,
-				key
+				key,
+				__timer: timer,
+				__callback: callback
 			});
 			return callback;
 		};

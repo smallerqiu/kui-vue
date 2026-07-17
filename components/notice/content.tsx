@@ -14,6 +14,7 @@ export const contentProps = {
   closable: Boolean as BooleanType,
   onClose: Function as PropType<() => void>,
   noticeType: { type: String as PropType<"message" | "notice">, default: "message" },
+  grouping: String,
 };
 
 export type ContentProps = ExtractPropTypes<typeof contentProps>;
