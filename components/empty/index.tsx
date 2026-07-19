@@ -11,9 +11,8 @@ import {
 } from "vue";
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
-
 const emptyProps = {
-  description: [String, Boolean],
+  description: { type: [String, Boolean], default: null },
   image: String,
   imageStyle: Object as PropType<CSSProperties>,
 };

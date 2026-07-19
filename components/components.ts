@@ -22,6 +22,9 @@ export type { BadgeProps, BadgeStatusType } from "./badge";
 export { Button, ButtonGroup } from "./button";
 export type { ButtonGroupProps, ButtonProps } from "./button";
 
+export { default as Cascader } from "./cascader";
+export type { CascaderOption, CascaderProps } from "./cascader/types";
+
 export { default as Card } from "./card";
 export type { CardProps } from "./card";
 

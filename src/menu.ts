@@ -188,6 +188,12 @@ const navData = [
         icon: ListCollapse,
       },
       {
+        title: "级联选择",
+        sub: "Cascader",
+        name: "cascader",
+        icon: ListCollapse,
+      },
+      {
         title: "描述列表",
         sub: "Descriptions",
         name: "descriptions",
