@@ -1,52 +1,54 @@
 import { nextTick } from "vue";
+
 const THEME_KEY = "theme-mode";
+
 const toggleTheme = (): boolean => {
-  const isDark = localStorage.getItem(THEME_KEY) == "dark";
-  const root = document.documentElement;
-  if (isDark) {
-    root.setAttribute(THEME_KEY, "light");
-    localStorage.setItem(THEME_KEY, "light");
-  } else {
-    root.setAttribute(THEME_KEY, "dark");
-    localStorage.setItem(THEME_KEY, "dark");
-  }
+  const isDark = localStorage.getItem(THEME_KEY) === "dark";
+  const nextTheme = isDark ? "light" : "dark";
+  document.documentElement.setAttribute(THEME_KEY, nextTheme);
+  localStorage.setItem(THEME_KEY, nextTheme);
   return !isDark;
 };
 
 const Theme = {
   name: "Theme",
-  setThemeMode(event: MouseEvent, callback: (isDark: boolean) => void): void {
+  setThemeMode(event: MouseEvent, callback?: (isDark: boolean) => void): void {
     const isAppearanceTransition =
       document.startViewTransition !== undefined &&
       !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     if (!isAppearanceTransition || !event) {
       const isDark = toggleTheme();
       callback?.(isDark);
+      return;
     }
-    const x = event.clientX;
-    const y = event.clientY;
-    const endRadius = Math.hypot(
-      Math.max(x, window.innerWidth - x),
-      Math.max(y, window.innerHeight - y)
-    );
-    let isDark = localStorage.getItem(THEME_KEY) == "dark";
+    const ratio = window.devicePixelRatio || 1;
+
+    const x = event.clientX * ratio;
+    const y = event.clientY * ratio;
+
+    const endRadius =
+      Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y)) * ratio;
+
+    const willBeDark = localStorage.getItem(THEME_KEY) !== "dark";
 
     const transition = document.startViewTransition(async () => {
-      isDark = toggleTheme();
-      callback?.(isDark);
+      toggleTheme();
+      callback?.(willBeDark);
       await nextTick();
     });
 
     transition.ready.then(() => {
       const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`];
+
       const animate = document.documentElement.animate(
         {
-          clipPath: !isDark ? clipPath.reverse() : clipPath,
+          clipPath: willBeDark ? clipPath : [...clipPath].reverse(),
         },
         {
-          duration: 500,
+          duration: 500 * ratio,
           easing: "ease-in-out",
-          pseudoElement: !isDark ? "::view-transition-old(root)" : "::view-transition-new(root)",
+          pseudoElement: willBeDark ? "::view-transition-new(root)" : "::view-transition-old(root)",
         }
       );
       animate.onfinish = () => {
