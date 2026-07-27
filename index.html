@@ -5,6 +5,60 @@
     <link rel="icon" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>一套基于Vue.js的桌面UI组件库- KUI</title>
+    <style>
+      #app-loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      }
+
+      .loading-logo {
+        width: 60px;
+        height: 60px;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+
+      .loading-dots {
+        display: flex;
+        gap: 8px;
+      }
+
+      .loading-dots span {
+        width: 8px;
+        height: 8px;
+        background-color: #ccc;
+        border-radius: 50%;
+        animation: loadingDot 1.2s infinite;
+      }
+
+      .loading-dots span:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .loading-dots span:nth-child(2) {
+        animation-delay: 0.4s;
+      }
+      .loading-dots span:nth-child(3) {
+        animation-delay: 0.8s;
+      }
+
+      @keyframes loadingDot {
+        0%,
+        100% {
+          background-color: #ccc;
+        }
+        50% {
+          background-color: #666;
+        }
+      }
+    </style>
     <script type="importmap">
       {
         "imports": {
@@ -25,7 +79,16 @@
     <script src="/js/gtag.js"></script>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <div id="app-loading">
+        <img src="/favicon.png" alt="Kui Vue" class="loading-logo" />
+        <div class="loading-dots">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
