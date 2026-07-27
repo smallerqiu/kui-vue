@@ -85,33 +85,40 @@ Using a script tag for global use:
 </script>
 ```
 
-# 👌 Platform Support
-
-Kui supports all major modern browsers.
-
-| [<img alt="chrome" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png)<br>chrome | [<img alt="firefox" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png)<br>firefox | [<img alt="safari" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png)<br>safari | [<img alt="IE/Edge" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png)<br> IE/Edge | [<img alt="electron" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png)<br>Electron |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| latest 2 versions                                                                                                                                                                                                 | latest 2 versions                                                                                                                                                                                                       | latest 2 versions                                                                                                                                                                                                 | Edge                                                                                                                                                                                                         | latest 2 versions                                                                                                                                                                                                             |
-
-# Local Development
-
-Clone the repository locally:
+## Local Development
 
 ```bash
-$ git clone git@github.com:smallerqiu/kui-vue.git
-$ cd kui-vue
-$ npm install
-$ npm start
+git clone git@github.com:smallerqiu/kui-vue.git
+cd kui-vue
+pnpm install
+pnpm dev
 ```
 
-Open the browser to visit http://127.0.0.1:7005
+The documentation development server runs at [http://localhost:7005](http://localhost:7005) by default.
 
-# Ecosystem Links
+Common commands:
 
-[Kui for react](https://react.k-ui.cn)
+```bash
+pnpm dev          # Start the documentation development server
+pnpm typecheck    # Run TypeScript checks
+pnpm build:docs   # Build the documentation site
+pnpm build        # Build the component library and styles
+```
 
-# License
+## Browser Support
 
-[MIT](http://opensource.org/licenses/MIT)
+KUI Vue supports the latest two versions of major modern browsers, including Chrome, Edge, Firefox, and Safari. Internet Explorer is not supported.
 
-Copyright (c) 2017-present, Qiu
+## Contributing
+
+Issues and pull requests are welcome. Before submitting code, please ensure that the type checks and relevant builds pass.
+
+- [GitHub repository](https://github.com/smallerqiu/kui-vue)
+- [Gitee repository](https://gitee.com/chuchur/kui-vue)
+- [Issue tracker](https://gitee.com/chuchur/kui-vue/issues)
+
+## License
+
+[MIT](./LICENSE)
+
+Copyright © 2017-present Qiu

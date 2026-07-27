@@ -30,23 +30,23 @@
 
 | 属性              | 说明                                                                                   | 类型                   | 默认值      |
 | :---------------- | :------------------------------------------------------------------------------------- | :--------------------- | :---------- |
-| **v-model**       | 选中项的路径值数组（如 `['zhejiang', 'hangzhou', 'xihu']`）。                          | `(string \| number)[]` | `[]`        |
-| **options**       | 可选择的级联数据源树状结构。                                                           | `CascaderOption[]`     | `[]`        |
-| **placeholder**   | 当没有任何选择路径时的兜底提示占位文案。                                               | `string`               | `"请选择"`  |
-| **disabled**      | 是否完全禁用整个组件交互。                                                             | `boolean`              | `false`     |
-| **clearable**     | 是否支持一键清空所选路径。                                                             | `boolean`              | `true`      |
-| **size**          | 组件的大小尺寸规格。可选值：`'large'` \| `'small'` \| `undefined`。                    | `string`               | `undefined` |
-| **expandTrigger** | 下一级菜单的展开交互触发方式。可选值：`'click'` (点击) 或 `'hover'` (鼠标悬浮即展开)。 | `'click' \| 'hover'`   | `'click'`   |
-| **showAllLevels** | 是否展示完整选中的祖先路径。若为 `false` 则仅在输入框内显示最终的末端叶子节点。        | `boolean`              | `true`      |
-| **separator**     | 当 `showAllLevels` 开启时，各层级标签之间的多级分隔符。                                | `string`               | `" / "`     |
+| v-model       | 选中项的路径值数组（如 `['zhejiang', 'hangzhou', 'xihu']`）。                          | `(string \| number)[]` | `[]`        |
+| options       | 可选择的级联数据源树状结构。                                                           | `CascaderOption[]`     | `[]`        |
+| placeholder   | 当没有任何选择路径时的兜底提示占位文案。                                               | `string`               | `"请选择"`  |
+| disabled      | 是否完全禁用整个组件交互。                                                             | `boolean`              | `false`     |
+| clearable     | 是否支持一键清空所选路径。                                                             | `boolean`              | `true`      |
+| size          | 组件的大小尺寸规格。可选值：`'large'` \| `'small'` \| `undefined`。                    | `string`               | `undefined` |
+| expandTrigger | 下一级菜单的展开交互触发方式。可选值：`'click'` (点击) 或 `'hover'` (鼠标悬浮即展开)。 | `'click' \| 'hover'`   | `'click'`   |
+| showAllLevels | 是否展示完整选中的祖先路径。若为 `false` 则仅在输入框内显示最终的末端叶子节点。        | `boolean`              | `true`      |
+| separator     | 当 `showAllLevels` 开启时，各层级标签之间的多级分隔符。                                | `string`               | `" / "`     |
 
 ## CascaderOption
 
-在配置 `KCascader` 的 `options` 数据源时，每一个节点都必须遵循 `CascaderOption` 对象规范。它支持树状向下无限延伸：
+在配置 `Cascader` 的 `options` 数据源时，每一个节点都必须遵循 `CascaderOption` 对象规范。它支持树状向下无限延伸：
 
 | 属性         | 说明                                                                                                                       | 类型               | 默认值      |
 | :----------- | :------------------------------------------------------------------------------------------------------------------------- | :----------------- | :---------- |
-| **value**    | **必填。** 当前节点的唯一标识符（常对应后端的 `id` 或 `code`）。全路径选中时，`v-model` 最终收集的就是由该属性组成的数组。 | `string \| number` | -           |
-| **label**    | **必填。** 当前节点在下拉菜单以及输入框中展示给用户看的纯文本内容（如 `"浙江省"`、`"杭州市"`）。                           | `string`           | -           |
-| **disabled** | 是否禁用当前选项。开启后该行文本变灰且不可点击，同时其下方的所有子层级都将被同步锁定。                                     | `boolean`          | `false`     |
-| **children** | 下一级的子节点数据源。当节点包含此属性且数组不为空时，组件右侧会自动渲染出向右生长的展开箭头。                             | `CascaderOption[]` | `undefined` |
+| value    | **必填。** 当前节点的唯一标识符（常对应后端的 `id` 或 `code`）。全路径选中时，`v-model` 最终收集的就是由该属性组成的数组。 | `string \| number` | -           |
+| label    | **必填。** 当前节点在下拉菜单以及输入框中展示给用户看的纯文本内容（如 `"浙江省"`、`"杭州市"`）。                           | `string`           | -           |
+| disabled | 是否禁用当前选项。开启后该行文本变灰且不可点击，同时其下方的所有子层级都将被同步锁定。                                     | `boolean`          | `false`     |
+| children | 下一级的子节点数据源。当节点包含此属性且数组不为空时，组件右侧会自动渲染出向右生长的展开箭头。                             | `CascaderOption[]` | `undefined` |

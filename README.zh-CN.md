@@ -19,18 +19,9 @@
 
 ![theme](demo.png)
 
-[English](README.md) | 简体中文
+[English](README.md) · 简体中文
 
 </div>
-
-# 文档
-
-- [快速开始](https://k-ui.cn/guide/quick-started)
-- [组件总览](https://k-ui.cn/guide/components)
-- [暗色模式](https://k-ui.cn/guide/dark-mode)
-- [Icons](https://k-ui.cn/components/icons)
-- [国际化](https://k-ui.cn/guide/language)
-- [更新日志](https://k-ui.cn/guide/change-log)
 
 # 特性
 
@@ -42,21 +33,28 @@
 - 支持 [Nuxt.js](https://nuxtjs.org/)
 - 支持 Electron
 
+# 文档
+
+- [快速开始](https://k-ui.cn/guide/quick-started)
+- [组件总览](https://k-ui.cn/guide/components)
+- [暗色模式](https://k-ui.cn/guide/dark-mode)
+- [Icons](https://k-ui.cn/components/icons)
+- [国际化](https://k-ui.cn/guide/language)
+- [更新日志](https://k-ui.cn/guide/change-log)
+
 # 安装
 
-```bash
-npm install kui-vue --save
-```
+使用 pnpm：
 
 ```bash
-npm add kui-vue
+pnpm add kui-vue
 ```
 
+也可以使用 npm、Yarn 或 Bun：
+
 ```bash
+npm install kui-vue
 yarn add kui-vue
-```
-
-```bash
 bun add kui-vue
 ```
 
@@ -85,33 +83,40 @@ bun add kui-vue
 </script>
 ```
 
-# 平台支持
-
-Kui 支持所有主要的现代浏览器。
-
-| [<img alt="chrome" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/chrome/chrome.png)<br>chrome | [<img alt="firefox" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/firefox/firefox.png)<br>firefox | [<img alt="safari" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/safari/safari.png)<br>safari | [<img alt="IE/Edge" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/edge/edge.png)<br> IE/Edge | [<img alt="electron" height="24px" src="https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png" />](https://cdnjs.cloudflare.com/ajax/libs/browser-logos/70.4.0/electron/electron.png)<br>Electron |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| latest 2 versions                                                                                                                                                                                                 | latest 2 versions                                                                                                                                                                                                       | latest 2 versions                                                                                                                                                                                                 | Edge                                                                                                                                                                                                         | latest 2 versions                                                                                                                                                                                                             |
-
-# 本地开发
-
-克隆仓库到本地:
+## 本地开发
 
 ```bash
-$ git clone git@github.com:smallerqiu/kui-vue.git
-$ cd kui-vue
-$ npm install
-$ npm start
+git clone git@github.com:smallerqiu/kui-vue.git
+cd kui-vue
+pnpm install
+pnpm dev
 ```
 
-打开浏览器访问 http://127.0.0.1:7005
+文档开发服务器默认运行在 [http://localhost:7005](http://localhost:7005)。
 
-# 生态
+常用命令：
 
-[Kui for react](https://react.k-ui.cn)
+```bash
+pnpm dev          # 启动文档开发服务器
+pnpm typecheck    # TypeScript 类型检查
+pnpm build:docs   # 构建文档站
+pnpm build        # 构建组件库及样式
+```
 
-# 协议
+## 浏览器支持
 
-[MIT](http://opensource.org/licenses/MIT)
+支持主流现代浏览器的最近两个版本，包括 Chrome、Edge、Firefox 和 Safari；不支持 Internet Explorer。
 
-Copyright (c) 2017-present, Chuchur
+## 参与贡献
+
+欢迎提交 Issue 和 Pull Request。在提交代码前，请确保类型检查和相关构建能够通过。
+
+- [GitHub 仓库](https://github.com/smallerqiu/kui-vue)
+- [Gitee 仓库](https://gitee.com/chuchur/kui-vue)
+- [问题反馈](https://gitee.com/chuchur/kui-vue/issues)
+
+## 开源协议
+
+[MIT](./LICENSE)
+
+Copyright © 2017-present Qiu

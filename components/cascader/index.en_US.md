@@ -1,52 +1,52 @@
-# Cascader 级联选择
+# Cascader
 
-级联选择框。
+A cascading selection box.
 
-## 何时使用
+## When to Use
 
-- 需要从一组相关联的数据集合进行选择，例如省市区，公司层级，事物分类等。
-- 从一个较大的数据集合中进行选择时，用多级分类进行分隔，方便选择。
-- 比起 Select 组件，可以在同一个浮层中完成选择，有较好的体验。
+- Used for selecting from a set of related data collections, such as provinces/cities/districts, company hierarchies, or category classifications.
+- Ideal for selecting from large datasets by separating them into multiple hierarchical levels for easier navigation.
+- Offers a better user experience compared to the Select component by allowing selections to be completed within a single floating layer.
 
-## 代码演示
+## Examples
 
-[基础省市区三级联动](./demo/basic.vue)
+[Basic](./demo/basic.vue)
 
-- 最基础的级联选择，开启 showAllLevels 以在输入框中完整展示用户选择的行政链路。
+- The most basic cascader usage. Enable `showAllLevels` to display the complete administrative path selected by the user in the input box.
 
-[电商多级类目选择](./demo/hover.vue)
+[Trigger and Levels](./demo/hover.vue)
 
-- Hover 触发 + 仅展示最后一级,在电商后台管理商品或发布宝贝时，目录通常极深。采用 `expandTrigger="hover"` 可以极大地减少用户的点击次数，同时 `showAllLevels="false"` 可以让界面在选中后显得更加干净利落。
+- Hover trigger + Display only the last level. In e-commerce back-office systems when managing products or publishing listings, category trees are often extremely deep. Using `expandTrigger="hover"` significantly reduces the number of clicks required, while `showAllLevels="false"` keeps the interface cleaner after selection.
 
-[禁用特定分支](./demo/disabled.vue)
+[Disabled](./demo/disabled.vue)
 
-- 在分配系统权限或派发工单时，部分部门或处于停用状态的子分支（如整改中的分公司）需要整体置灰。利用 disabled 属性可以一键封锁其下所有链路。
+- When assigning system permissions or dispatching work orders, certain departments or inactive sub-branches (e.g., subsidiaries under rectification) need to be grayed out entirely. Utilizing the `disabled` property allows locking all paths underneath with one setting.
 
-[尺寸/形态](./demo/size.vue)
+[Size](./demo/size.vue)
 
-- 配合不同的页面排版（如紧凑的弹窗表单或开阔的配置面板），展示组件在不同 size 约束下的高视觉表现力
+- Demonstrates the component's strong visual adaptability across different `size` constraints, suitable for various layouts such as compact modal forms or spacious configuration panels.
 
 ## API
 
-| 属性              | 说明                                                                                   | 类型                   | 默认值      |
-| :---------------- | :------------------------------------------------------------------------------------- | :--------------------- | :---------- |
-| **v-model**       | 选中项的路径值数组（如 `['zhejiang', 'hangzhou', 'xihu']`）。                          | `(string \| number)[]` | `[]`        |
-| **options**       | 可选择的级联数据源树状结构。                                                           | `CascaderOption[]`     | `[]`        |
-| **placeholder**   | 当没有任何选择路径时的兜底提示占位文案。                                               | `string`               | `"请选择"`  |
-| **disabled**      | 是否完全禁用整个组件交互。                                                             | `boolean`              | `false`     |
-| **clearable**     | 是否支持一键清空所选路径。                                                             | `boolean`              | `true`      |
-| **size**          | 组件的大小尺寸规格。可选值：`'large'` \| `'small'` \| `undefined`。                    | `string`               | `undefined` |
-| **expandTrigger** | 下一级菜单的展开交互触发方式。可选值：`'click'` (点击) 或 `'hover'` (鼠标悬浮即展开)。 | `'click' \| 'hover'`   | `'click'`   |
-| **showAllLevels** | 是否展示完整选中的祖先路径。若为 `false` 则仅在输入框内显示最终的末端叶子节点。        | `boolean`              | `true`      |
-| **separator**     | 当 `showAllLevels` 开启时，各层级标签之间的多级分隔符。                                | `string`               | `" / "`     |
+| Property      | Description                                                                                                         | Type                   | Default           |
+| :------------ | :------------------------------------------------------------------------------------------------------------------ | :--------------------- | :---------------- |
+| v-model       | Array of path values for the selected item (e.g., `['zhejiang', 'hangzhou', 'xihu']`).                              | `(string \| number)[]` | `[]`              |
+| options       | Tree-structured data source for cascading options.                                                                  | `CascaderOption[]`     | `[]`              |
+| placeholder   | Fallback placeholder text displayed when no path is selected.                                                       | `string`               | `"Please select"` |
+| disabled      | Whether to completely disable interaction for the entire component.                                                 | `boolean`              | `false`           |
+| clearable     | Whether to support clearing the selected path with one click.                                                       | `boolean`              | `true`            |
+| size          | Size specification of the component. Options: `'large'` \| `'small'` \| `undefined`.                                | `string`               | `undefined`       |
+| expandTrigger | Interaction mode for expanding the next-level menu. Options: `'click'` or `'hover'`.                                | `'click' \| 'hover'`   | `'click'`         |
+| showAllLevels | Whether to display the full selected ancestor path. If `false`, only the final leaf node is shown in the input box. | `boolean`              | `true`            |
+| separator     | Separator between labels of different levels when `showAllLevels` is enabled.                                       | `string`               | `" / "`           |
 
 ## CascaderOption
 
-在配置 `KCascader` 的 `options` 数据源时，每一个节点都必须遵循 `CascaderOption` 对象规范。它支持树状向下无限延伸：
+When configuring the `options` data source for `Cascader`, each node must conform to the `CascaderOption` object specification. It supports infinite nesting:
 
-| 属性         | 说明                                                                                                                       | 类型               | 默认值      |
-| :----------- | :------------------------------------------------------------------------------------------------------------------------- | :----------------- | :---------- |
-| **value**    | **必填。** 当前节点的唯一标识符（常对应后端的 `id` 或 `code`）。全路径选中时，`v-model` 最终收集的就是由该属性组成的数组。 | `string \| number` | -           |
-| **label**    | **必填。** 当前节点在下拉菜单以及输入框中展示给用户看的纯文本内容（如 `"浙江省"`、`"杭州市"`）。                           | `string`           | -           |
-| **disabled** | 是否禁用当前选项。开启后该行文本变灰且不可点击，同时其下方的所有子层级都将被同步锁定。                                     | `boolean`          | `false`     |
-| **children** | 下一级的子节点数据源。当节点包含此属性且数组不为空时，组件右侧会自动渲染出向右生长的展开箭头。                             | `CascaderOption[]` | `undefined` |
+| Property | Description                                                                                                                                                                               | Type               | Default     |
+| :------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------- | :---------- |
+| value    | **Required.** Unique identifier for the current node (often corresponds to backend `id` or `code`). When the full path is selected, `v-model` collects an array composed of these values. | `string \| number` | -           |
+| label    | **Required.** Plain text content displayed to users in the dropdown menu and input box (e.g., `"Zhejiang"`, `"Hangzhou"`).                                                                | `string`           | -           |
+| disabled | Whether to disable the current option. When enabled, the row appears grayed out and unclickable, and all its child levels will be locked synchronously.                                   | `boolean`          | `false`     |
+| children | Data source for the next-level child nodes. When this property exists and the array is not empty, a right-facing expansion arrow is automatically rendered on the component.              | `CascaderOption[]` | `undefined` |

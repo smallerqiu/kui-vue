@@ -16,7 +16,7 @@ import { setPlacement } from "../utils/placement";
 import { cascaderProps, type CascaderOption } from "./types.ts";
 
 const Cascader = defineComponent({
-  name: "KCascader",
+  name: "Cascader",
   props: cascaderProps,
   emits: ["update:modelValue", "change", "openChange"],
   setup(props, { emit, slots }) {

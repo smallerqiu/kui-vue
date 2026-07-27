@@ -35,6 +35,9 @@
       "kui-vue": [
         "./components/index.ts"
       ],
+      "kui-vue/*": [
+        "./components/*"
+      ],
       "@/*": [
         "/*"
       ]
@@ -52,6 +55,7 @@
     "components/**/*.ts",
     "components/**/*.tsx",
     "components/**/*.vue",
+    "vite.config*.ts"
   ],
   "exclude": [
     "node_modules",
