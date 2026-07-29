@@ -7,7 +7,7 @@
  */
 
 import zh_CN_default from "./locale/zh-CN.js";
-import { Comment, Fragment, Text, Transition, TransitionGroup, cloneVNode, computed, createTextVNode, createVNode, defineComponent, getCurrentInstance, h, inject, isVNode, mergeProps, nextTick, onBeforeMount, onBeforeUnmount, onMounted, onUnmounted, onUpdated, provide, reactive, readonly, ref, render, resolveDirective, toRefs, vShow, watch, withDirectives } from "vue";
+import { Comment, Fragment, Teleport, Text, Transition, TransitionGroup, cloneVNode, computed, createTextVNode, createVNode, defineComponent, getCurrentInstance, h, inject, isVNode, mergeProps, nextTick, onBeforeMount, onBeforeUnmount, onMounted, onUnmounted, onUpdated, provide, reactive, readonly, ref, render, resolveDirective, toRefs, vShow, watch, withDirectives } from "vue";
 import dayjs from "dayjs";
 //#region \0rolldown/runtime.js
 var __create = Object.create;
@@ -311,6 +311,10 @@ var Search = [{
 }];
 var Star = [{
 	d: "M11.5 2.25A0.5 0.5 0 0 1 12.5 2.25L14.75 7A2 2 0 0 0 16.5 8.25L21.5 9A0.5 0.5 0 0 1 21.75 9.75L18 13.5A2 2 0 0 0 17.5 15.25L18.5 20.5A0.5 0.5 0 0 1 17.5 21L13 18.5A2 2 0 0 0 11 18.5L6.5 21A0.5 0.5 0 0 1 5.75 20.5L6.5 15.25A2 2 0 0 0 6 13.5L2.25 9.75A0.5 0.5 0 0 1 2.5 9L7.5 8.25A2 2 0 0 0 9.25 7z",
+	s: "fill:none;stroke:currentcolor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+}];
+var Triangle = [{
+	d: "M13.75 4A2 2 0 0 0 10.25 4L2.25 18A2 2 0 0 0 4 21H20A2 2 0 0 0 21.75 18z",
 	s: "fill:none;stroke:currentcolor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
 }];
 var X = [{
@@ -1100,6 +1104,418 @@ var ButtonGroup = /* @__PURE__ */ defineComponent({
 				["k-btn-group-circle"]: shape.value === "circle",
 				["k-btn-group-square"]: shape.value === "square"
 			}] }, [slots.default?.()]);
+		};
+	}
+});
+//#endregion
+//#region components/empty/index.tsx
+var Empty = /* @__PURE__ */ defineComponent({
+	name: "Empty",
+	props: {
+		description: {
+			type: [String, Boolean],
+			default: null
+		},
+		image: String,
+		imageStyle: Object
+	},
+	setup(props, { slots, attrs }) {
+		const injectedLocale = inject("locale", zh_CN_default);
+		const locale = computed(() => {
+			return injectedLocale instanceof Object && "value" in injectedLocale ? injectedLocale.value : injectedLocale;
+		});
+		return () => {
+			const { image, imageStyle, description } = props;
+			return createVNode("div", {
+				...attrs,
+				class: "k-empty"
+			}, [createVNode("div", { "class": "k-empty-content" }, [
+				(() => {
+					if (!image && !slots.image) return createVNode(Icon, {
+						"type": Inbox,
+						"class": "k-empty-icon",
+						"strokeWidth": "0.01em"
+					}, null);
+					else if (slots.image) return slots.image();
+					else return createVNode("img", {
+						src: image,
+						class: "k-empty-image",
+						style: imageStyle,
+						alt: description || locale.value?.k.empty.description || "Empty state image"
+					}, null);
+				})(),
+				description !== false ? createVNode("p", { "class": "k-empty-description" }, [description || slots.description?.() || locale.value?.k.empty.description]) : null,
+				slots.default ? createVNode("div", { "class": "k-empty-footer" }, [slots.default()]) : null
+			])]);
+		};
+	}
+});
+//#endregion
+//#region components/utils/placement.ts
+function setPlacement({ refSelection, refPopper, currentPlacement, position = null, transOrigin, top, left, offset = 3 }) {
+	if (!refPopper.value) return;
+	let rect = null;
+	const isMouseMode = position && typeof position.x === "number" && typeof position.y === "number";
+	if (isMouseMode) rect = {
+		width: 0,
+		height: 0,
+		top: position.y,
+		bottom: position.y,
+		left: position.x,
+		right: position.x
+	};
+	else if (refSelection?.value) {
+		const instance = refSelection.value;
+		rect = (instance.$el || instance).getBoundingClientRect?.();
+	} else return;
+	const pickerH = refPopper.value.offsetHeight;
+	const pickerW = refPopper.value.offsetWidth;
+	const { clientHeight, clientWidth, scrollTop, scrollLeft } = document.documentElement;
+	const centerLeft = rect.left + rect.width / 2 - pickerW / 2;
+	const centerTop = rect.top + rect.height / 2 - pickerH / 2;
+	const check = {
+		top: rect.top > pickerH + offset,
+		bottom: clientHeight - rect.bottom > pickerH + offset,
+		left: rect.left > pickerW + offset,
+		right: clientWidth - rect.right > pickerW + offset,
+		alignLeft: clientWidth - rect.left > pickerW,
+		alignRight: rect.right > pickerW,
+		alignTop: clientHeight - rect.top > pickerH,
+		alignBottom: rect.bottom > pickerH,
+		centerH: centerLeft > 0 && centerLeft + pickerW < clientWidth,
+		centerV: centerTop > 0 && centerTop + pickerH < clientHeight
+	};
+	let [side, align] = currentPlacement.value.split("-");
+	if (isMouseMode && !align) {
+		if (side === "top" || side === "bottom") align = "left";
+		else if (side === "left" || side === "right") align = "top";
+	}
+	if (side === "top" && !check.top && check.bottom) side = "bottom";
+	else if (side === "bottom" && !check.bottom && check.top) side = "top";
+	else if (side === "left" && !check.left && check.right) side = "right";
+	else if (side === "right" && !check.right && check.left) side = "left";
+	if (side === "top" || side === "bottom") {
+		if (align === "left" && !check.alignLeft && check.alignRight) align = "right";
+		else if (align === "right" && !check.alignRight && check.alignLeft) align = "left";
+		else if (!align && !check.centerH) {
+			if (check.alignLeft) align = "left";
+			else if (check.alignRight) align = "right";
+		}
+	} else if (side === "left" || side === "right") {
+		if (align === "top" && !check.alignTop && check.alignBottom) align = "bottom";
+		else if (align === "bottom" && !check.alignBottom && check.alignTop) align = "top";
+		else if (!align && !check.centerV) {
+			if (check.alignTop) align = "top";
+			else if (check.alignBottom) align = "bottom";
+		}
+	}
+	const finalPlacement = align ? `${side}-${align}` : side;
+	let calcTop = 0;
+	let calcLeft = 0;
+	let originX = "center";
+	let originY = "center";
+	if (side === "top") {
+		calcTop = rect.top - pickerH - offset;
+		originY = "bottom";
+	} else if (side === "bottom") {
+		calcTop = rect.bottom + offset;
+		originY = "top";
+	} else if (align === "top") {
+		calcTop = rect.top;
+		originY = "top";
+	} else if (align === "bottom") {
+		calcTop = rect.bottom - pickerH;
+		originY = "bottom";
+	} else {
+		calcTop = rect.top + (rect.height - pickerH) / 2;
+		originY = "center";
+	}
+	if (side === "left") {
+		calcLeft = rect.left - pickerW - offset;
+		originX = "right";
+	} else if (side === "right") {
+		calcLeft = rect.right + offset;
+		originX = "left";
+	} else if (align === "left") {
+		calcLeft = rect.left;
+		originX = "left";
+	} else if (align === "right") {
+		calcLeft = rect.right - pickerW;
+		originX = "right";
+	} else {
+		calcLeft = rect.left + (rect.width - pickerW) / 2;
+		originX = "center";
+	}
+	if (calcLeft < 0) calcLeft = 0;
+	else if (calcLeft + pickerW > clientWidth) calcLeft = clientWidth - pickerW;
+	if (calcTop < 0) calcTop = 0;
+	else if (calcTop + pickerH > clientHeight) calcTop = clientHeight - pickerH;
+	top.value = calcTop + scrollTop;
+	left.value = calcLeft + scrollLeft;
+	transOrigin.value = `${originX} ${originY}`;
+	if (currentPlacement.value !== finalPlacement) currentPlacement.value = finalPlacement;
+}
+//#endregion
+//#region components/cascader/index.tsx
+var Cascader = /* @__PURE__ */ defineComponent({
+	name: "Cascader",
+	props: {
+		modelValue: {
+			type: Array,
+			default: () => []
+		},
+		options: {
+			type: Array,
+			default: () => []
+		},
+		theme: {
+			type: String,
+			default: "fill"
+		},
+		bordered: {
+			type: Boolean,
+			default: true
+		},
+		shape: String,
+		showArrow: {
+			type: Boolean,
+			default: true
+		},
+		placeholder: {
+			type: String,
+			default: ""
+		},
+		icon: [Array],
+		arrowIcon: [Array],
+		emptyText: String,
+		disabled: Boolean,
+		clearable: {
+			type: Boolean,
+			default: true
+		},
+		size: String,
+		expandTrigger: {
+			type: String,
+			default: "click"
+		},
+		showAllLevels: {
+			type: Boolean,
+			default: true
+		},
+		separator: {
+			type: String,
+			default: " / "
+		},
+		placement: {
+			type: String,
+			default: "bottom-left"
+		}
+	},
+	emits: [
+		"update:modelValue",
+		"change",
+		"openChange"
+	],
+	setup(props, { emit, slots }) {
+		const visible = ref(false);
+		const rendered = ref(false);
+		const refSelection = ref(null);
+		const refPopper = ref(null);
+		const currentPlacement = ref(props.placement);
+		const transOrigin = ref("top");
+		const left = ref(0);
+		const top = ref(0);
+		const minWidth = ref(0);
+		const activePath = ref([]);
+		watch(() => props.modelValue, (newVal) => {
+			if (newVal && newVal.length > 0) {
+				const path = [];
+				let currentOptions = props.options;
+				for (const val of newVal) {
+					const target = currentOptions.find((o) => o.value === val);
+					if (target) {
+						path.push(target);
+						currentOptions = target.children || [];
+					} else break;
+				}
+				activePath.value = path;
+			} else activePath.value = [];
+		}, {
+			immediate: true,
+			deep: true
+		});
+		const menus = computed(() => {
+			const result = [props.options];
+			for (let i = 0; i < activePath.value.length; i++) {
+				const option = activePath.value[i];
+				if (option.children && option.children.length > 0) result.push(option.children);
+				else break;
+			}
+			return result;
+		});
+		const displayLabel = computed(() => {
+			if (!props.modelValue || props.modelValue.length === 0) return "";
+			const labels = [];
+			let currentOptions = props.options;
+			for (const val of props.modelValue) {
+				const match = currentOptions.find((o) => o.value === val);
+				if (match) {
+					labels.push(match.label);
+					currentOptions = match.children || [];
+				} else labels.push(String(val));
+			}
+			return props.showAllLevels ? labels.join(props.separator) : labels[labels.length - 1];
+		});
+		const updatePosition = () => {
+			nextTick(() => {
+				minWidth.value = refSelection.value?.offsetWidth || 0;
+				setPlacement({
+					refSelection,
+					refPopper,
+					currentPlacement,
+					transOrigin,
+					top,
+					left
+				});
+			});
+		};
+		const toggleMenu = (show = null) => {
+			if (props.disabled) return;
+			const isFirstRender = !rendered.value;
+			if (isFirstRender) {
+				rendered.value = true;
+				document.addEventListener("click", outsideClick);
+			}
+			if (show !== null ? show : !visible.value) if (isFirstRender) nextTick(() => {
+				visible.value = true;
+				emit("openChange", true);
+				nextTick(() => updatePosition());
+			});
+			else {
+				visible.value = true;
+				emit("openChange", true);
+				nextTick(() => updatePosition());
+			}
+			else {
+				visible.value = false;
+				emit("openChange", false);
+			}
+		};
+		const outsideClick = (e) => {
+			const selectionEl = refSelection.value;
+			const popperEl = refPopper.value;
+			if (selectionEl && !selectionEl.contains(e.target) && popperEl && !popperEl.contains(e.target)) {
+				visible.value = false;
+				emit("openChange", false);
+			}
+		};
+		onBeforeUnmount(() => {
+			document.removeEventListener("click", outsideClick);
+		});
+		const handleOptionClick = (option, columnIndex, isHoverTrigger = false) => {
+			if (option.disabled) return;
+			const nextPath = activePath.value.slice(0, columnIndex);
+			nextPath[columnIndex] = option;
+			activePath.value = nextPath;
+			if (!(option.children && option.children.length > 0) && !isHoverTrigger) {
+				const finalValue = activePath.value.map((item) => item.value);
+				emit("update:modelValue", finalValue);
+				emit("change", finalValue);
+				visible.value = false;
+				emit("openChange", false);
+			} else updatePosition();
+		};
+		const handleClear = (e) => {
+			e.stopPropagation();
+			emit("update:modelValue", []);
+			emit("change", []);
+			activePath.value = [];
+			updatePosition();
+		};
+		const renderDropdown = () => {
+			if (!rendered.value) return null;
+			const popperProps = {
+				ref: refPopper,
+				style: {
+					left: `${left.value}px`,
+					top: `${top.value}px`,
+					transformOrigin: transOrigin.value
+				},
+				class: ["k-cascader-dropdown", { "k-cascader-dropdown-sm": props.size === "small" }]
+			};
+			const isEmpty = !props.options || props.options.length === 0;
+			return createVNode(Teleport, { "to": "body" }, { default: () => [createVNode(Transition, {
+				"name": "k-cascader",
+				"appear": true
+			}, { default: () => [visible.value && createVNode("div", popperProps, [isEmpty ? createVNode(Empty, null, null) : createVNode("div", { "class": "k-cascader-dropdown-menus" }, [menus.value.map((menuItems, columnIndex) => createVNode("ul", {
+				"class": "k-cascader-dropdown-menu k-scroll",
+				"key": columnIndex
+			}, [menuItems.map((item) => {
+				const isActive = activePath.value[columnIndex]?.value === item.value;
+				const isSelected = props.modelValue[columnIndex] === item.value;
+				const hasChildren = item.children && item.children.length > 0;
+				return createVNode("li", {
+					"class": ["k-cascader-dropdown-item", {
+						"k-cascader-dropdown-item-active": isActive,
+						"k-cascader-dropdown-item-selected": isSelected,
+						"k-cascader-dropdown-item-disabled": item.disabled
+					}],
+					"key": item.value,
+					"onClick": () => handleOptionClick(item, columnIndex, false),
+					"onMouseenter": () => {
+						if (props.expandTrigger === "hover" && hasChildren) handleOptionClick(item, columnIndex, true);
+					}
+				}, [createVNode("span", null, [item.label]), hasChildren && createVNode(Icon, {
+					"class": "k-cascader-item-arrow",
+					"type": ChevronRight
+				}, null)]);
+			})]))])])] })] });
+		};
+		return () => {
+			const { disabled, showArrow, size, placeholder, clearable, theme, bordered, arrowIcon, shape, icon } = props;
+			const hasValue = props.modelValue && props.modelValue.length > 0;
+			const showClear = clearable && !disabled && hasValue;
+			const rootClasses = ["k-cascader", {
+				"k-cascader-disabled": disabled,
+				"k-cascader-opened": visible.value,
+				"k-cascader-borderless": bordered === false,
+				"k-cascader-circle": shape === "circle",
+				"k-cascader-square": shape === "square",
+				"k-cascader-fill": theme === "fill",
+				"k-cascader-lg": size === "large",
+				"k-cascader-sm": size === "small",
+				"k-cascader-has-clear": showClear
+			}];
+			const arrowNode = showArrow ? createVNode(Icon, {
+				"class": "k-cascader-arrow",
+				"type": arrowIcon || ChevronDown,
+				"style": { transform: visible.value ? "rotate(180deg)" : "rotate(0deg)" }
+			}, null) : null;
+			return createVNode("div", {
+				"ref": refSelection,
+				"class": rootClasses,
+				"tabindex": disabled ? void 0 : 0,
+				"onClick": () => toggleMenu()
+			}, [
+				icon ? createVNode(Icon, {
+					"type": icon,
+					"class": "k-cascader-icon"
+				}, null) : null,
+				createVNode("div", { "class": "k-cascader-selection" }, [hasValue ? createVNode("div", {
+					"class": "k-cascader-label",
+					"key": "label"
+				}, [displayLabel.value]) : createVNode("div", {
+					"class": "k-cascader-placeholder",
+					"key": "placeholder"
+				}, [placeholder || "请选择"])]),
+				arrowNode,
+				showClear && createVNode(Icon, {
+					"class": "k-cascader-clearable",
+					"onClick": handleClear,
+					"type": CircleX
+				}, null),
+				renderDropdown()
+			]);
 		};
 	}
 });
@@ -3796,111 +4212,6 @@ var transfer = {
 	}
 };
 //#endregion
-//#region components/utils/placement.ts
-function setPlacement({ refSelection, refPopper, currentPlacement, position = null, transOrigin, top, left, offset = 3 }) {
-	if (!refPopper.value) return;
-	let rect = null;
-	const isMouseMode = position && typeof position.x === "number" && typeof position.y === "number";
-	if (isMouseMode) rect = {
-		width: 0,
-		height: 0,
-		top: position.y,
-		bottom: position.y,
-		left: position.x,
-		right: position.x
-	};
-	else if (refSelection?.value) {
-		const instance = refSelection.value;
-		rect = (instance.$el || instance).getBoundingClientRect?.();
-	} else return;
-	const pickerH = refPopper.value.offsetHeight;
-	const pickerW = refPopper.value.offsetWidth;
-	const { clientHeight, clientWidth, scrollTop, scrollLeft } = document.documentElement;
-	const centerLeft = rect.left + rect.width / 2 - pickerW / 2;
-	const centerTop = rect.top + rect.height / 2 - pickerH / 2;
-	const check = {
-		top: rect.top > pickerH + offset,
-		bottom: clientHeight - rect.bottom > pickerH + offset,
-		left: rect.left > pickerW + offset,
-		right: clientWidth - rect.right > pickerW + offset,
-		alignLeft: clientWidth - rect.left > pickerW,
-		alignRight: rect.right > pickerW,
-		alignTop: clientHeight - rect.top > pickerH,
-		alignBottom: rect.bottom > pickerH,
-		centerH: centerLeft > 0 && centerLeft + pickerW < clientWidth,
-		centerV: centerTop > 0 && centerTop + pickerH < clientHeight
-	};
-	let [side, align] = currentPlacement.value.split("-");
-	if (isMouseMode && !align) {
-		if (side === "top" || side === "bottom") align = "left";
-		else if (side === "left" || side === "right") align = "top";
-	}
-	if (side === "top" && !check.top && check.bottom) side = "bottom";
-	else if (side === "bottom" && !check.bottom && check.top) side = "top";
-	else if (side === "left" && !check.left && check.right) side = "right";
-	else if (side === "right" && !check.right && check.left) side = "left";
-	if (side === "top" || side === "bottom") {
-		if (align === "left" && !check.alignLeft && check.alignRight) align = "right";
-		else if (align === "right" && !check.alignRight && check.alignLeft) align = "left";
-		else if (!align && !check.centerH) {
-			if (check.alignLeft) align = "left";
-			else if (check.alignRight) align = "right";
-		}
-	} else if (side === "left" || side === "right") {
-		if (align === "top" && !check.alignTop && check.alignBottom) align = "bottom";
-		else if (align === "bottom" && !check.alignBottom && check.alignTop) align = "top";
-		else if (!align && !check.centerV) {
-			if (check.alignTop) align = "top";
-			else if (check.alignBottom) align = "bottom";
-		}
-	}
-	const finalPlacement = align ? `${side}-${align}` : side;
-	let calcTop = 0;
-	let calcLeft = 0;
-	let originX = "center";
-	let originY = "center";
-	if (side === "top") {
-		calcTop = rect.top - pickerH - offset;
-		originY = "bottom";
-	} else if (side === "bottom") {
-		calcTop = rect.bottom + offset;
-		originY = "top";
-	} else if (align === "top") {
-		calcTop = rect.top;
-		originY = "top";
-	} else if (align === "bottom") {
-		calcTop = rect.bottom - pickerH;
-		originY = "bottom";
-	} else {
-		calcTop = rect.top + (rect.height - pickerH) / 2;
-		originY = "center";
-	}
-	if (side === "left") {
-		calcLeft = rect.left - pickerW - offset;
-		originX = "right";
-	} else if (side === "right") {
-		calcLeft = rect.right + offset;
-		originX = "left";
-	} else if (align === "left") {
-		calcLeft = rect.left;
-		originX = "left";
-	} else if (align === "right") {
-		calcLeft = rect.right - pickerW;
-		originX = "right";
-	} else {
-		calcLeft = rect.left + (rect.width - pickerW) / 2;
-		originX = "center";
-	}
-	if (calcLeft < 0) calcLeft = 0;
-	else if (calcLeft + pickerW > clientWidth) calcLeft = clientWidth - pickerW;
-	if (calcTop < 0) calcTop = 0;
-	else if (calcTop + pickerH > clientHeight) calcTop = clientHeight - pickerH;
-	top.value = calcTop + scrollTop;
-	left.value = calcLeft + scrollLeft;
-	transOrigin.value = `${originX} ${originY}`;
-	if (currentPlacement.value !== finalPlacement) currentPlacement.value = finalPlacement;
-}
-//#endregion
 //#region components/utils/share.ts
 var clamp = (n, min, max) => Math.min(max, Math.max(min, n));
 //#endregion
@@ -5078,46 +5389,6 @@ var Option = /* @__PURE__ */ defineComponent({
 				}],
 				onClick: onSelect
 			}, [createVNode("span", null, [labelText.value, multiple ? createVNode(Icon, { "type": Check }, null) : null])]);
-		};
-	}
-});
-//#endregion
-//#region components/empty/index.tsx
-var Empty = /* @__PURE__ */ defineComponent({
-	name: "Empty",
-	props: {
-		description: [String, Boolean],
-		image: String,
-		imageStyle: Object
-	},
-	setup(props, { slots, attrs }) {
-		const injectedLocale = inject("locale", zh_CN_default);
-		const locale = computed(() => {
-			return injectedLocale instanceof Object && "value" in injectedLocale ? injectedLocale.value : injectedLocale;
-		});
-		return () => {
-			const { image, imageStyle, description } = props;
-			return createVNode("div", {
-				...attrs,
-				class: "k-empty"
-			}, [createVNode("div", { "class": "k-empty-content" }, [
-				(() => {
-					if (!image && !slots.image) return createVNode(Icon, {
-						"type": Inbox,
-						"class": "k-empty-icon",
-						"strokeWidth": "0.01em"
-					}, null);
-					else if (slots.image) return slots.image();
-					else return createVNode("img", {
-						src: image,
-						class: "k-empty-image",
-						style: imageStyle,
-						alt: description || locale.value?.k.empty.description || "Empty state image"
-					}, null);
-				})(),
-				description !== false ? createVNode("p", { "class": "k-empty-description" }, [description || slots.description?.() || locale.value?.k.empty.description]) : null,
-				slots.default ? createVNode("div", { "class": "k-empty-footer" }, [slots.default()]) : null
-			])]);
 		};
 	}
 });
@@ -15877,10 +16148,12 @@ var Table = /* @__PURE__ */ defineComponent({
 					col,
 					index: idx
 				}) || col.title, col.sorter && createVNode("span", { "class": "k-table-sorter" }, [createVNode(Icon, {
-					"type": ChevronUp,
+					"type": Triangle,
+					"reverseFill": true,
 					"class": ["k-table-sorter-up", sortState.key === col.key && sortState.order === "asc" && "k-table-sorter-active"]
 				}, null), createVNode(Icon, {
-					"type": ChevronDown,
+					"type": Triangle,
+					"reverseFill": true,
 					"class": ["k-table-sorter-down", sortState.key === col.key && sortState.order === "desc" && "k-table-sorter-active"]
 				}, null)])])])),
 				isSplit.value && rowIndex === 0 && createVNode("th", {
@@ -18007,15 +18280,10 @@ var Watermark = /* @__PURE__ */ defineComponent({
 //#region components/utils/theme.ts
 var THEME_KEY = "theme-mode";
 var toggleTheme = () => {
-	const isDark = localStorage.getItem(THEME_KEY) == "dark";
-	const root = document.documentElement;
-	if (isDark) {
-		root.setAttribute(THEME_KEY, "light");
-		localStorage.setItem(THEME_KEY, "light");
-	} else {
-		root.setAttribute(THEME_KEY, "dark");
-		localStorage.setItem(THEME_KEY, "dark");
-	}
+	const isDark = localStorage.getItem(THEME_KEY) === "dark";
+	const nextTheme = isDark ? "light" : "dark";
+	document.documentElement.setAttribute(THEME_KEY, nextTheme);
+	localStorage.setItem(THEME_KEY, nextTheme);
 	return !isDark;
 };
 var Theme = {
@@ -18024,22 +18292,24 @@ var Theme = {
 		if (!(document.startViewTransition !== void 0 && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) || !event) {
 			const isDark = toggleTheme();
 			callback?.(isDark);
+			return;
 		}
-		const x = event.clientX;
-		const y = event.clientY;
-		const endRadius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y));
-		let isDark = localStorage.getItem(THEME_KEY) == "dark";
+		const ratio = window.devicePixelRatio || 1;
+		const x = event.clientX * ratio;
+		const y = event.clientY * ratio;
+		const endRadius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y)) * ratio;
+		const willBeDark = localStorage.getItem(THEME_KEY) !== "dark";
 		const transition = document.startViewTransition(async () => {
-			isDark = toggleTheme();
-			callback?.(isDark);
+			toggleTheme();
+			callback?.(willBeDark);
 			await nextTick();
 		});
 		transition.ready.then(() => {
 			const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`];
-			const animate = document.documentElement.animate({ clipPath: !isDark ? clipPath.reverse() : clipPath }, {
-				duration: 500,
+			const animate = document.documentElement.animate({ clipPath: willBeDark ? clipPath : [...clipPath].reverse() }, {
+				duration: 500 * ratio,
 				easing: "ease-in-out",
-				pseudoElement: !isDark ? "::view-transition-old(root)" : "::view-transition-new(root)"
+				pseudoElement: willBeDark ? "::view-transition-new(root)" : "::view-transition-old(root)"
 			});
 			animate.onfinish = () => {
 				transition.skipTransition();
@@ -18065,6 +18335,7 @@ var components_exports = /* @__PURE__ */ __exportAll({
 	Card: () => Card,
 	Carousel: () => Carousel,
 	CarouselItem: () => CarouselItem,
+	Cascader: () => Cascader,
 	Checkbox: () => Checkbox,
 	CheckboxGroup: () => CheckboxGroup,
 	Col: () => Col,
@@ -18177,4 +18448,4 @@ var UI = {
 var install = UI.install;
 var version = UI.version;
 //#endregion
-export { Affix, Alert, Anchor, AnchorLink, Avatar, AvatarGroup, BackTop, Badge, Breadcrumb, BreadcrumbItem, Button, ButtonGroup, Card, Carousel, CarouselItem, Checkbox, CheckboxGroup, Col, Collapse, CollapsePanel, ColorPicker, ConfigProvider, Content, DatePicker, Descriptions, DescriptionsItem, Divider, Drawer, Dropdown, DropdownButton, Empty, Flex, Footer, Form, FormItem, Grid, GridItem, Header, Icon, ImageGroup, Input, InputGroup, InputNumber, KImage, Switch as KSwitch, Layout, Menu, MenuDivider, MenuGroup, MenuItem, modal_default as Modal, Option, Page, Popconfirm, Poptip, Progress, QRCode, Radio, RadioButton, RadioGroup, Rate, Row, Select, Sider, Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText, Slider, Space, Spin, Splitter, SplitterPanel, StatCard, StatNumber, SubMenu, TabPanel, Table, Tabs, Tag, TextArea, TimeLine, TimeLineItem, Tooltip, Tree, TreeSelect, Upload, Watermark, UI as default, install, loading, message, modal, notice, Theme as theme, version };
+export { Affix, Alert, Anchor, AnchorLink, Avatar, AvatarGroup, BackTop, Badge, Breadcrumb, BreadcrumbItem, Button, ButtonGroup, Card, Carousel, CarouselItem, Cascader, Checkbox, CheckboxGroup, Col, Collapse, CollapsePanel, ColorPicker, ConfigProvider, Content, DatePicker, Descriptions, DescriptionsItem, Divider, Drawer, Dropdown, DropdownButton, Empty, Flex, Footer, Form, FormItem, Grid, GridItem, Header, Icon, ImageGroup, Input, InputGroup, InputNumber, KImage, Switch as KSwitch, Layout, Menu, MenuDivider, MenuGroup, MenuItem, modal_default as Modal, Option, Page, Popconfirm, Poptip, Progress, QRCode, Radio, RadioButton, RadioGroup, Rate, Row, Select, Sider, Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText, Slider, Space, Spin, Splitter, SplitterPanel, StatCard, StatNumber, SubMenu, TabPanel, Table, Tabs, Tag, TextArea, TimeLine, TimeLineItem, Tooltip, Tree, TreeSelect, Upload, Watermark, UI as default, install, loading, message, modal, notice, Theme as theme, version };
