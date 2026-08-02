@@ -23,7 +23,13 @@
           </Option>
         </Select>
       </div>
-      <Menu v-model="topMenu" mode="horizontal" class="top-menu" :items="items" @select="go" />
+      <Menu
+        v-model="topMenu"
+        mode="horizontal"
+        class="top-menu"
+        :items="items"
+        @select="menuSelect"
+      />
       <Space>
         <ColorPicker
           v-model="themeColor"
@@ -170,7 +176,7 @@ const changeThemeColor = (v: string) => {
 const changeMode = (event: MouseEvent) => {
   theme.setThemeMode(event, (v: boolean) => (themeMode.value = v ? "dark" : "light"));
 };
-const go = ({ key }: MenuSelectEvent) => {
+const menuSelect = ({ key }: MenuSelectEvent) => {
   if (key == "home") {
     topMenu.value = ["home"];
     router.push("/");

@@ -245,6 +245,7 @@ const Page = defineComponent({
         theme: props.theme,
         disabled: props.disabled,
         clearable: false,
+        min: 1,
         // value: defaultPage.value,
         onChange: (page?: number) => {
           if (page == undefined) {

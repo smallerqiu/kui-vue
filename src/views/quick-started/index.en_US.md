@@ -5,7 +5,7 @@
 > - Vue 2 reached its end of life on December 31, 2023.
 > - UI libraries based on Vue 2 have ceased maintenance. Please upgrade as soon as possible.
 
-Before you begin, if you are new to Vue, it is recommended to first review the Vue documentation and related resources: [vue](https://vuejs.org)，[vuex](https://vuex.vuejs.org)，[vue-router](http://router.vuejs.org/)，[vite](https://vite.dev/)，[vue-devtools](https://github.com/vuejs/vue-devtools).
+Before you begin, if you are new to Vue, it is recommended to first review the Vue documentation and related resources: [vue](https://vuejs.org)，[pinia](https://pinia.vuejs.org)，[vue-router](http://router.vuejs.org/)，[vite](https://vite.dev/)，[vue-devtools](https://github.com/vuejs/vue-devtools).
 
 ## 1. Initialize a Project
 

@@ -13,6 +13,15 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 5.4.1
+
+`2026-8-2`
+
+- Add `Cascader` cascade selection component 
+- Improve `Empty` description text display problem 
+- Improve `Page` jump negative number problem 
+- Improve Theme switch display problem in 2k,4k resolution.
+
 ## 5.3.1
 
 `2026-7-17`

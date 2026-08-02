@@ -33,7 +33,7 @@ export default defineConfig(({ mode }) => {
       alias: {
         "@": path.resolve(__dirname, "/src"),
         "kui-vue": path.resolve(__dirname, "./components"),
-        vue: `http://localhost:7005/js/vue/vue.esm-browser${isProd ? ".prod" : ""}.js`,
+        // vue: `http://localhost:7005/js/vue/vue.esm-browser${isProd ? ".prod" : ""}.js`,
         // "kui-icons": `${import.meta.env.VITE_APP_IMPORT_URL}/js/kui-icons.esm.js`,
       },
       extensions: [".js", ".ts", ".jsx", ".tsx", ".json", ".vue", "md"],
@@ -73,7 +73,7 @@ export default defineConfig(({ mode }) => {
               if (id.includes("kui-vue")) return "ui-lib";
               if (id.includes("vue")) return "vue";
               if (id.includes("dayjs")) return "dayjs";
-              if (id.includes("vue-router") || id.includes("vuex")) return "vue-vendor";
+              if (id.includes("vue-router") || id.includes("pinia")) return "vue-vendor";
             }
           },
         },
