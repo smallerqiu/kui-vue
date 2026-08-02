@@ -5,9 +5,49 @@ import {
   parse,
   rewriteDefault,
 } from "@vue/compiler-sfc";
+import dayjs from "dayjs";
+import "dayjs/locale/de";
+import "dayjs/locale/zh-cn";
+import * as Icons from "kui-icons";
 import * as Kui from "kui-vue";
+import kuiLocaleDe from "kui-vue/locale/de";
+import kuiLocaleEn from "kui-vue/locale/en";
+import kuiLocaleZhCN from "kui-vue/locale/zh-CN";
 import { transform } from "sucrase";
 import * as Vue from "vue";
+
+const runtimeModules: Record<string, unknown> = {
+  vue: Vue,
+  "kui-vue": Kui,
+  "kui-icons": Icons,
+  "kui-vue/locale/de": kuiLocaleDe,
+  "kui-vue/locale/en": kuiLocaleEn,
+  "kui-vue/locale/zh-CN": kuiLocaleZhCN,
+  dayjs,
+  "dayjs/locale/de": {},
+  "dayjs/locale/zh-cn": {},
+};
+
+function runtimeRequire(id: string) {
+  if (id in runtimeModules) return runtimeModules[id];
+  throw new Error(`Demo 暂不支持运行时导入模块 \"${id}\"`);
+}
+
+function removeInlineTypeImports(code: string) {
+  return code.replace(
+    /import\s*{([\s\S]*?)}\s*from\s*(["'][^"']+["'])/g,
+    (_, specifiers: string, source: string) => {
+      const runtimeSpecifiers = specifiers
+        .split(",")
+        .map((specifier) => specifier.trim())
+        .filter((specifier) => specifier && !specifier.startsWith("type "));
+      return runtimeSpecifiers.length
+        ? `import { ${runtimeSpecifiers.join(", ")} } from ${source}`
+        : "";
+    }
+  );
+}
+
 export interface ParseParams {
   source: string;
   id: string;
@@ -34,17 +74,8 @@ export async function parseCode({
       // 编译 script，并在内部处理好 bindings
       const compiledScript = compileScript(descriptor, { id: scopeId });
 
-      // dev
-      // 将 export default 转换为 const __sfc__ =
-      // scriptCode = rewriteDefault(compiledScript.content, "__sfc__");
-      // ---
-
-      // prod for ts
-      const { code: transpiledCode } = transform(compiledScript.content, {
-        transforms: ["typescript"],
-      });
-      scriptCode = rewriteDefault(transpiledCode, "__sfc__");
-      //---
+      // 保留 import，最后与 template 一起转换，避免 Blob 中残留裸模块导入。
+      scriptCode = rewriteDefault(compiledScript.content, "__sfc__");
     } else {
       scriptCode = "const __sfc__ = {}";
     }
@@ -78,7 +109,7 @@ export async function parseCode({
       cssCode += compiledStyle.code + "\n";
     }
 
-    const finalCode = `
+    const moduleCode = `
       ${templateCode}
       ${scriptCode}
       __sfc__.render = render;
@@ -86,11 +117,15 @@ export async function parseCode({
       export default __sfc__;
     `;
 
-    const blob = new Blob([finalCode], { type: "text/javascript" });
-    const url = URL.createObjectURL(blob);
-
-    const { default: component } = await import(/* @vite-ignore */ url);
-    URL.revokeObjectURL(url);
+    // 浏览器无法从 Blob 解析 `vue`、`kui-vue` 这类裸模块名。将运行时代码
+    // 转成 CommonJS，并从当前文档应用已经打包的模块中解析，不依赖 import map。
+    const { code: executableCode } = transform(removeInlineTypeImports(moduleCode), {
+      transforms: ["typescript", "imports"],
+    });
+    const demoModule = { exports: {} as Record<string, any> };
+    const execute = new Function("require", "module", "exports", executableCode);
+    execute(runtimeRequire, demoModule, demoModule.exports);
+    const component = demoModule.exports.default;
 
     if (currentApp.value) {
       currentApp.value.unmount();

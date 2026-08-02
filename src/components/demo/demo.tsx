@@ -11,7 +11,6 @@ import {
 } from "vue";
 import { getTransitionProp } from "../../../components/base/transition";
 import { copyToClipboard } from "../../../components/utils/share";
-import { parseCode } from "./transform";
 
 const Demo = defineComponent({
   name: "Demo",
@@ -40,8 +39,9 @@ const Demo = defineComponent({
     const error = ref("");
 
     const currentApp = ref();
-    const reload = () => {
+    const reload = async () => {
       const source = codeRef.value?.innerText || (slots.code?.()?.[0]?.children as string) || "";
+      const { parseCode } = await import("./transform");
       parseCode({
         source: source,
         viewRef,

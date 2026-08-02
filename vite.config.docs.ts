@@ -43,38 +43,36 @@ export default defineConfig(({ mode }) => {
       sourcemap: false,
       minify: "terser",
       rollupOptions: {
-        external: [
-          "vue",
-          "kui-vue",
-          "@vue/compiler-sfc",
-          "kui-icons",
-          "dayjs",
-          "dayjs/locale/zh-cn",
-          "dayjs/locale/de",
-        ],
         output: {
           entryFileNames: "js/[name]-[hash].js",
           chunkFileNames: "js/[name]-[hash].js",
           assetFileNames: (assetInfo) => {
-            if (assetInfo.name && assetInfo.name.endsWith(".css")) {
+            if (assetInfo.names.some((name) => name.endsWith(".css"))) {
               return "css/[name]-[hash][extname]";
             }
-            if (assetInfo.name && /\.(png|jpe?g|gif|svg|webp|avif|ico)$/.test(assetInfo.name)) {
+            if (assetInfo.names.some((name) => /\.(png|jpe?g|gif|svg|webp|avif|ico)$/.test(name))) {
               return "img/[name]-[hash][extname]";
             }
-            if (assetInfo.name && /\.(woff2?|eot|ttf|otf)$/.test(assetInfo.name)) {
+            if (assetInfo.names.some((name) => /\.(woff2?|eot|ttf|otf)$/.test(name))) {
               return "fonts/[name]-[hash][extname]";
             }
             return "assets/[name]-[hash][extname]";
           },
           manualChunks(id) {
-            if (id.includes("node_modules")) {
-              if (id.includes("kui-icons")) return "ui-icons";
-              if (id.includes("kui-vue")) return "ui-lib";
-              if (id.includes("vue")) return "vue";
-              if (id.includes("dayjs")) return "dayjs";
-              if (id.includes("vue-router") || id.includes("pinia")) return "vue-vendor";
-            }
+            if (!id.includes("/node_modules/")) return;
+
+            // 只匹配 node_modules 后的真实包路径。不能直接判断 id.includes("kui-vue")，
+            // 因为项目目录本身就叫 kui-vue，会把所有第三方依赖都塞进同一个 chunk。
+            const packagePath = id.split("/node_modules/").at(-1) || "";
+            if (packagePath.startsWith("kui-icons/")) return "ui-icons";
+            if (packagePath.startsWith("@vue/compiler-sfc/")) return "sfc-compiler";
+            if (packagePath.startsWith("@vue/compiler-")) return "vue-compiler";
+            if (packagePath.startsWith("sucrase/")) return "demo-transpiler";
+            if (packagePath.startsWith("vue/") || packagePath.startsWith("@vue/")) return "vue";
+            if (packagePath.startsWith("vue-router/") || packagePath.startsWith("pinia/"))
+              return "vue-vendor";
+            if (packagePath.startsWith("dayjs/")) return "dayjs";
+            return "vendor";
           },
         },
       },
