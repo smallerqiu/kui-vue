@@ -2,7 +2,7 @@
 
 ![kui](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square)
 
-4.x 版本支持 `Vue3`, 基于 `Vue2` 的文档请参阅 <https://v3.k-ui.cn>
+4.x+ 版本支持 `Vue3`, 基于 `Vue2` 的文档请参阅 <https://v3.k-ui.cn>
 遇到问题,请在 [Github](https://github.com/smallerqiu/kui-vue/issues) 提issue
 
 ```bash

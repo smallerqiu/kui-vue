@@ -1,6 +1,6 @@
 # Changelog
 
-Version 4.x supports `Vue 3`. For Vue 2-based documentation, please refer to <https://v3.k-ui.cn>.
+Version 4.x+ supports `Vue 3`. For Vue 2-based documentation, please refer to <https://v3.k-ui.cn>.
 If you encounter any issues, please submit them via [Github](https://github.com/smallerqiu/kui-vue/issues).
 
 ```bash
