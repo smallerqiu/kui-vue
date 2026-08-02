@@ -19,7 +19,7 @@ const Cascader = defineComponent({
   name: "Cascader",
   props: cascaderProps,
   emits: ["update:modelValue", "change", "openChange"],
-  setup(props, { emit, slots }) {
+  setup(props, { emit }) {
     const visible = ref(false);
     const rendered = ref(false);
 

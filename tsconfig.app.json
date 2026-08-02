@@ -55,6 +55,7 @@
     "components/**/*.ts",
     "components/**/*.tsx",
     "components/**/*.vue",
+    "plugins/**/*.ts",
     "vite.config*.ts"
   ],
   "exclude": [

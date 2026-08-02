@@ -59,6 +59,7 @@ Dropdown selector.
 | onOpenChange | Triggered when dropdown expands or collapses                                      | (opened: boolean) => void                  | -             |
 | onSearch     | Triggered during search                                                           | (e: InputEvent) => void                    | -             |
 | onClear      | Triggered when the clear button is clicked                                        | () => void                                 | -             |
+| arrowIcon    | Custom arrow icon                                                                 | string                                     | -             |
 
 ## Option API
 

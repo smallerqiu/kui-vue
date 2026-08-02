@@ -59,6 +59,7 @@
 | onSearch     | 搜索时触发                                                 | (e: InputEvent) => void                    | -          |
 | onOpenChange | 下拉框展开或收起时触发                                     | (opened: boolean) => void                  | -          |
 | onClear      | 点击清除按钮时触发                                         | () => void                                 | -          |
+| arrowIcon    | 自定义箭头图标                                             | string                                     | -          |
 
 ## Option API
 
