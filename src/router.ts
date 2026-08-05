@@ -16,6 +16,10 @@ const router = createRouter({
       path: "/preview-en",
       component: () => import("./views/test/preview.vue"),
     },
+    {
+      path: "/:pathMatch(.*)*",
+      redirect: "/guide/quick-started",
+    },
   ],
   scrollBehavior(to, _, savedPosition) {
     if (savedPosition) {
