@@ -22,10 +22,7 @@
         'border-radius': '5px',
       }"
     >
-      <Button>Button</Button>
-      <Button>Button</Button>
-      <Button>Button</Button>
-      <Button>Button</Button>
+      <Button v-for="x in 3" :key="x">Button</Button>
     </Flex>
   </Flex>
 </template>
