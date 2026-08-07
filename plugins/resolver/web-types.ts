@@ -1,18 +1,17 @@
 import fs from "fs";
 import path from "path";
-import pkg from "../../package.json";
-import { getPropsData } from "./vetur";
-
+import pkg from "../../package.json" with { type: "json" };
+import { getPropsData } from "./vetur.ts";
 export const generateWebTypesConfig = (componentNames: string[]) => {
-  const entryFilePath = path.resolve(__dirname, "../../components/index.ts");
+  const entryFilePath = path.resolve(import.meta.dirname, "../../components/index.ts");
 
   // 构造 web-types 基础结构
   const webTypes = {
     $schema: "https://raw.githubusercontent.com/JetBrains/web-types/master/schema/web-types.json",
-    name: "kui-vue", 
+    name: "kui-vue",
     version: pkg.version,
     "description-markup": "markdown",
-    "js-types-syntax": "typescript",   
+    "js-types-syntax": "typescript",
     contributions: {
       html: {
         elements: componentNames.map((name) => {
@@ -44,7 +43,7 @@ export const generateWebTypesConfig = (componentNames: string[]) => {
     },
   };
 
-  const distDir = path.resolve(__dirname, "../../vetur");
+  const distDir = path.resolve(import.meta.dirname, "../../vetur");
   if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true });
 
   fs.writeFileSync(path.resolve(distDir, "web-types.json"), JSON.stringify(webTypes, null, 2));

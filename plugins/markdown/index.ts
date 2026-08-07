@@ -78,7 +78,7 @@ export default function vitePluginKuiMd(): Plugin {
         return `<${componentName} />`;
       });
 
-      // fs.writeFileSync(path.join(__dirname, "demo.md"), processedMarkdown);
+      // fs.writeFileSync(path.join(import.meta.dirname, "demo.md"), processedMarkdown);
       const mainHtml = markdown.render(processedMarkdown);
       const result = `
 <template>
@@ -95,7 +95,7 @@ const copy = (text) => {
   message.success("Copied.");
 };
 </script>`;
-      // fs.writeFileSync(path.join(__dirname, "demo.html"), result);
+      // fs.writeFileSync(path.join(import.meta.dirname, "demo.html"), result);
       return { code: result, map: null };
     },
   };

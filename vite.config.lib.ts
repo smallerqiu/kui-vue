@@ -2,8 +2,8 @@ import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import path from "path";
 import { defineConfig } from "vite";
-import banner from "./plugins/banner";
-import { getLocaleEntries } from "./vite.config";
+import banner from "./plugins/banner/index.ts";
+import { getLocaleEntries } from "./vite.config.ts";
 
 export default defineConfig({
   publicDir: false,
@@ -12,7 +12,7 @@ export default defineConfig({
     outDir: "lib",
     lib: {
       entry: {
-        index: path.resolve(__dirname, "components/index.ts"),
+        index: path.resolve(import.meta.dirname, "components/index.ts"),
         ...getLocaleEntries(),
       },
       name: "kui",

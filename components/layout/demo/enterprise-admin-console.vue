@@ -15,18 +15,18 @@
         :inlineCollapsed="collapsed"
       >
       </Menu>
-      <Button
-        type="text"
-        block
-        @click="collapsed = !collapsed"
-        :icon="collapsed ? PanelLeftOpen : PanelLeftClose"
-      >
-      </Button>
     </Sider>
 
     <Layout>
       <Header class="admin-header">
         <div class="header-left">
+          <Button
+            type="text"
+            block
+            @click="collapsed = !collapsed"
+            :icon="collapsed ? PanelLeftOpen : PanelLeftClose"
+          >
+          </Button>
           <Breadcrumb>
             <BreadcrumbItem>Home</BreadcrumbItem>
             <BreadcrumbItem>User Management</BreadcrumbItem>

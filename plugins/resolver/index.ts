@@ -1,13 +1,13 @@
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
-import { globalComponents } from "../../components/utils/vue";
-import { generateVeturConfig } from "./vetur";
-import { generateWebTypesConfig } from "./web-types";
-const __dirname = fileURLToPath(new URL(".", import.meta.url));
+// import { fileURLToPath } from "url";
+import { globalComponents } from "../../components/utils/vue.ts";
+import { generateVeturConfig } from "./vetur.ts";
+import { generateWebTypesConfig } from "./web-types.ts";
+// const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 export const getComponentNames = (): string[] => {
-  const entryPath = path.resolve(__dirname, "../../components/components.ts");
+  const entryPath = path.resolve(import.meta.dirname, "../../components/components.ts");
   if (!fs.existsSync(entryPath)) return [];
   const content = fs.readFileSync(entryPath, "utf-8");
 
@@ -55,12 +55,12 @@ declare module '@vue/runtime-core' {
 
 export {}
 `;
-  const distDir = path.resolve(__dirname, "../../types");
+  const distDir = path.resolve(import.meta.dirname, "../../types");
   if (!fs.existsSync(distDir)) fs.mkdirSync(distDir);
   fs.writeFileSync(path.resolve(distDir, "global.d.ts"), template);
   console.log("Global types generated with PascalCase names.");
 
-  const indexPath = path.resolve(__dirname, "../../types/index.d.ts");
+  const indexPath = path.resolve(import.meta.dirname, "../../types/index.d.ts");
 
   if (fs.existsSync(indexPath)) {
     const content = fs.readFileSync(indexPath, "utf-8");

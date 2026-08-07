@@ -3,8 +3,8 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 import path from "path";
 import { defineConfig } from "vite";
 import VueRouter from "vue-router/vite";
-import banner from "./plugins/banner";
-import vueMarkdown from "./plugins/markdown";
+import banner from "./plugins/banner/index.ts";
+import vueMarkdown from "./plugins/markdown/index.ts";
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
@@ -31,8 +31,8 @@ export default defineConfig(({ mode }) => {
     ],
     resolve: {
       alias: {
-        "@": path.resolve(__dirname, "/"),
-        "kui-vue": path.resolve(__dirname, "./components"),
+        "@": path.resolve(import.meta.dirname, "/"),
+        "kui-vue": path.resolve(import.meta.dirname, "./components"),
         // vue: `http://localhost:7005/js/vue/vue.esm-browser${isProd ? ".prod" : ""}.js`,
         // "kui-icons": `${import.meta.env.VITE_APP_IMPORT_URL}/js/kui-icons.esm.js`,
       },

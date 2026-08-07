@@ -4,18 +4,18 @@ import fs from "fs";
 import path from "path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
-import banner from "./plugins/banner";
-import { generateGlobalDts } from "./plugins/resolver";
+import banner from "./plugins/banner/index.ts";
+import { generateGlobalDts } from "./plugins/resolver/index.ts";
 
 export const getLocaleEntries = () => {
-  const localePath = path.resolve(__dirname, "components/locale");
+  const localePath = path.resolve(import.meta.dirname, "components/locale");
   if (!fs.existsSync(localePath)) return {};
   const files = fs.readdirSync(localePath);
   const entries: Record<string, string> = {};
   files.forEach((file) => {
     if (file.endsWith(".ts") || file.endsWith(".js")) {
       const name = file.replace(/\.(ts|js)$/, "");
-      entries[`locale/${name}`] = path.resolve(__dirname, `components/locale/${file}`);
+      entries[`locale/${name}`] = path.resolve(import.meta.dirname, `components/locale/${file}`);
     }
   });
   return entries;
@@ -30,7 +30,7 @@ export default defineConfig({
       insertTypesEntry: true,
       tsconfigPath: "./tsconfig.app.json",
       outDirs: "./types/",
-      entryRoot: path.resolve(__dirname, "components"),
+      entryRoot: path.resolve(import.meta.dirname, "components"),
       exclude: ["node_modules/**", "src/**", "plugins"],
       include: ["components/**/*.ts", "components/**/*.tsx"],
       afterBuild: () => {
@@ -41,16 +41,16 @@ export default defineConfig({
     banner(),
   ],
   build: {
-    outDir: "es", 
+    outDir: "es",
     lib: {
       entry: {
-        index: path.resolve(__dirname, "components/index.ts"),
+        index: path.resolve(import.meta.dirname, "components/index.ts"),
         ...getLocaleEntries(),
       },
       formats: ["es"],
       fileName: (_, entryName) => `${entryName}.js`,
     },
-    minify: false, 
+    minify: false,
     rollupOptions: {
       external: ["vue", "dayjs"],
       output: {

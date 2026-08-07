@@ -65,7 +65,7 @@ import { ArrowUpRight, Languages, LogoGithub, LogoKui, Moon, Search, Sun } from 
 import { Icon, type MenuSelectEvent, theme } from "kui-vue";
 import { computed, h, inject, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { version } from "../../package.json";
+import { version } from "../../package.json" with { type: "json" };
 import { routeData } from "../menu";
 const route = useRoute();
 const router = useRouter();

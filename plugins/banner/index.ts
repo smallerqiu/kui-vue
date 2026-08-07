@@ -1,9 +1,9 @@
 import fs from "node:fs";
 import { resolve } from "node:path";
 import type { PluginOption as VitePluginOption, ResolvedConfig as ViteResolvedConfig } from "vite";
-import pkg from "../../package.json";
-import type { PluginConfig, UnionPluginOptions } from "./types";
-import { getPluginConfig } from "./utils";
+import pkg from "../../package.json" with { type: "json" };
+import type { PluginConfig, UnionPluginOptions } from "./types.ts";
+import { getPluginConfig } from "./utils.ts";
 const bannerText = `/*!
  * ${pkg.name} v${pkg.version}
  * Copyright 2017-present, kui-vue.
@@ -12,7 +12,7 @@ const bannerText = `/*!
  * Author: Qiu / https://chuchur.com
  */\n`;
 
-export type { BannerPluginOptions, ContentCallback, PluginConfig } from "./types";
+export type { BannerPluginOptions, ContentCallback, PluginConfig } from "./types.ts";
 
 // Extends the config from `vite.config.ts`
 let viteConfig: ViteResolvedConfig;
@@ -67,7 +67,7 @@ export default function (pluginOptions?: UnionPluginOptions) {
               myContent = setContent(fileName) ?? "";
             }
 
-            myContent = bannerText
+            myContent = bannerText;
 
             if (myContent) {
               // If the banner content has comment symbol, use it directly

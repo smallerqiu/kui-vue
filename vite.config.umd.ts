@@ -2,7 +2,7 @@ import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import path from "path";
 import { defineConfig } from "vite";
-import banner from "./plugins/banner";
+import banner from "./plugins/banner/index.ts";
 
 export default defineConfig({
   define: {
@@ -13,7 +13,7 @@ export default defineConfig({
   build: {
     outDir: "dist",
     lib: {
-      entry: path.resolve(__dirname, "components/index.ts"),
+      entry: path.resolve(import.meta.dirname, "components/index.ts"),
       name: "kui",
       formats: ["umd"],
       fileName: () => "index.js",

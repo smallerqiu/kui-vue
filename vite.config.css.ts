@@ -1,7 +1,7 @@
 import autoprefixer from "autoprefixer";
 import path from "path";
 import { defineConfig } from "vite";
-import banner from "./plugins/banner";
+import banner from "./plugins/banner/index.ts";
 
 export default defineConfig({
   publicDir: false,
@@ -18,7 +18,7 @@ export default defineConfig({
     outDir: "style",
     assetsDir: "",
     rollupOptions: {
-      input: path.resolve(__dirname, "components/styles/index.less"),
+      input: path.resolve(import.meta.dirname, "components/styles/index.less"),
       output: {
         assetFileNames: "index.css",
       },

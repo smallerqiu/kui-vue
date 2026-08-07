@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import { Node, Project, TypeFormatFlags } from "ts-morph";
 import { JsxEmit } from "typescript";
-import { fileURLToPath } from "url";
+// import { fileURLToPath } from "url";
 
 /**
  * 解析 Markdown 表格提取属性和描述
@@ -49,11 +49,11 @@ const project = new Project({
   },
 });
 
-const __dirname = fileURLToPath(new URL(".", import.meta.url));
+// const __dirname = fileURLToPath(new URL(".", import.meta.url));
 
 // 预加载所有组件源码以建立类型上下文
-project.addSourceFilesAtPaths(path.resolve(__dirname, "../../components/**/*.ts"));
-project.addSourceFilesAtPaths(path.resolve(__dirname, "../../components/**/*.tsx"));
+project.addSourceFilesAtPaths(path.resolve(import.meta.dirname, "../../components/**/*.ts"));
+project.addSourceFilesAtPaths(path.resolve(import.meta.dirname, "../../components/**/*.tsx"));
 
 /**
  * 提取组件的 Props 属性并关联文档描述
@@ -132,7 +132,7 @@ export const generateVeturConfig = (componentNames: string[]) => {
   const attributes: Record<string, any> = {};
 
   // 组件库总入口文件
-  const entryFilePath = path.resolve(__dirname, "../../components/index.ts");
+  const entryFilePath = path.resolve(import.meta.dirname, "../../components/index.ts");
   // componentNames = componentNames.slice(0, 1);
   componentNames.forEach((name) => {
     const kebabName = name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
@@ -157,7 +157,7 @@ export const generateVeturConfig = (componentNames: string[]) => {
     });
   });
 
-  const distDir = path.resolve(__dirname, "../../vetur");
+  const distDir = path.resolve(import.meta.dirname, "../../vetur");
   if (!fs.existsSync(distDir)) fs.mkdirSync(distDir, { recursive: true });
 
   fs.writeFileSync(path.resolve(distDir, "tags.json"), JSON.stringify(tags, null, 2));
