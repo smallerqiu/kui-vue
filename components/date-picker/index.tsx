@@ -132,6 +132,7 @@ const DatePicker = defineComponent({
     const transOrigin = ref("bottom");
     const refPopper = ref<HTMLElement | null>(null);
     const refSelection = ref<HTMLElement | null>(null);
+    let positionRaf = 0;
     // console.log(local);
 
     // DOM 引用，用于滚动计算
@@ -857,21 +858,47 @@ const DatePicker = defineComponent({
       }
     };
     const updatePosition = () => {
-      nextTick(() => {
-        setPlacement({
-          refSelection,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
+      cancelAnimationFrame(positionRaf);
+      positionRaf = requestAnimationFrame(() => {
+        nextTick(() => {
+          if (!isVisible.value) return;
+          setPlacement({
+            refSelection,
+            refPopper,
+            currentPlacement,
+            transOrigin,
+            top,
+            left,
+          });
         });
       });
     };
     onMounted(() => {
       if (props.opened) updatePosition();
+      document.addEventListener("scroll", updatePosition, true);
     });
-    onUnmounted(() => document.removeEventListener("click", handleClickOutside));
+    onUnmounted(() => {
+      cancelAnimationFrame(positionRaf);
+      document.removeEventListener("click", handleClickOutside);
+      document.removeEventListener("scroll", updatePosition, true);
+    });
+
+    watch(
+      () => props.placement,
+      (placement) => {
+        currentPlacement.value = placement;
+        if (isVisible.value) updatePosition();
+      }
+    );
+
+    watch(
+      () => props.opened,
+      (opened) => {
+        if (opened) rendered.value = true;
+        isVisible.value = opened;
+        if (opened) nextTick(updatePosition);
+      }
+    );
 
     const onClear = (e: PointerEvent) => {
       e.stopPropagation();

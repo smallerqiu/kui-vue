@@ -59,30 +59,48 @@ const Popconfirm = defineComponent({
     const transOrigin = ref("bottom");
     const hideTimer = ref();
     const showTimer = ref();
+    let positionRaf = 0;
     const updatePosition = () => {
-      nextTick(() => {
-        setPlacement({
-          refSelection,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
+      cancelAnimationFrame(positionRaf);
+      positionRaf = requestAnimationFrame(() => {
+        nextTick(() => {
+          if (!visible.value) return;
+          setPlacement({
+            refSelection,
+            refPopper,
+            currentPlacement,
+            transOrigin,
+            top,
+            left,
+          });
         });
       });
     };
     onMounted(() => {
       updatePosition();
       window.addEventListener("resize", updatePosition);
+      document.addEventListener("scroll", updatePosition, true);
     });
     onUnmounted(() => {
+      cancelAnimationFrame(positionRaf);
+      clearTimeout(hideTimer.value);
+      clearTimeout(showTimer.value);
       document.removeEventListener("click", outsideClick);
+      document.removeEventListener("scroll", updatePosition, true);
       window.removeEventListener("resize", updatePosition);
     });
     watch(
       () => props.show,
       (nv) => {
         visible.value = nv || false;
+        if (nv) updatePosition();
+      }
+    );
+    watch(
+      () => props.placement,
+      (placement) => {
+        currentPlacement.value = placement;
+        if (visible.value) updatePosition();
       }
     );
     watch(

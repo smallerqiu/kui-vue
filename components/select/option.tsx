@@ -30,7 +30,7 @@ const Option = defineComponent({
   name: "Option",
   props: optionProps,
   setup(props, { slots, emit, attrs }) {
-    const labelText = computed(() => props.label || slots.default?.() || props.value);
+    const labelText = computed(() => props.label ?? slots.default?.() ?? props.value);
 
     const checked = computed(() => props.checked);
     const onSelect = () => {
@@ -51,6 +51,9 @@ const Option = defineComponent({
           },
         ],
         onClick: onSelect,
+        role: "option",
+        "aria-selected": checked.value,
+        "aria-disabled": disabled,
       };
       return (
         <li {...liProps}>

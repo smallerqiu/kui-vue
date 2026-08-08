@@ -53,7 +53,7 @@ const Dropdown = defineComponent({
     const left = ref(0);
     const top = ref(0);
     const rendered = ref(false);
-    const showTimer = ref<NodeJS.Timeout>();
+    const showTimer = ref<ReturnType<typeof setTimeout>>();
     provide("dropdown", true);
     onMounted(() => {
       if (props.show) {

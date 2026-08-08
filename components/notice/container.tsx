@@ -32,7 +32,7 @@ export default defineComponent({
       }
 
       const key = getUuid();
-      let timer: NodeJS.Timeout | undefined = undefined;
+      let timer: ReturnType<typeof setTimeout> | undefined = undefined;
       let callback = () => {
         typeof onClose === "function" && onClose();
         options.value = options.value.filter((item) => item.key !== key);

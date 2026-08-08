@@ -89,7 +89,7 @@ const Select = defineComponent({
     const rendered = ref(false);
     const currentValue = ref<any[]>(
       props.multiple
-        ? ((props.modelValue || []) as any[])
+        ? ([...(Array.isArray(props.modelValue) ? props.modelValue : [])] as any[])
         : isEmpty(props.modelValue)
           ? []
           : [props.modelValue]
@@ -107,10 +107,11 @@ const Select = defineComponent({
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(props.placement);
-    const queryInputEventTimer = ref<NodeJS.Timeout>();
+    const queryInputEventTimer = ref<ReturnType<typeof setTimeout>>();
+    const clearQueryTimer = ref<ReturnType<typeof setTimeout>>();
+    let positionRaf = 0;
     const activeIndex = ref(-1);
 
-    const reallySize = ref(0);
     const ctxFocused = ref(false);
 
     watch(
@@ -135,7 +136,11 @@ const Select = defineComponent({
     watch(
       () => props.modelValue,
       (v) => {
-        currentValue.value = props.multiple ? ((v || []) as any[]) : isEmpty(v) ? [] : [v];
+        currentValue.value = props.multiple
+          ? [...(Array.isArray(v) ? v : [])]
+          : isEmpty(v)
+            ? []
+            : [v];
         if (visible.value) {
           updatePosition();
         }
@@ -145,7 +150,9 @@ const Select = defineComponent({
     const scrollOptionIntoView = () => {
       const containerEl = refPopper.value;
       if (!containerEl) return;
-      const optionEl = containerEl.children[0].children[activeIndex.value] as HTMLElement;
+      const optionEl =
+        containerEl.querySelectorAll<HTMLElement>(".k-select-item")[activeIndex.value];
+      if (!optionEl) return;
       const optionTop = optionEl.offsetTop;
       const optionHeight = optionEl.offsetHeight;
       const containerHeight = containerEl.clientHeight;
@@ -162,26 +169,18 @@ const Select = defineComponent({
         return;
       }
       if (visible.value) {
-        if (e.key === "ArrowDown") {
+        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+          const options = filterOptions();
+          const direction = e.key === "ArrowDown" ? 1 : -1;
           let index = activeIndex.value;
-          if (index < reallySize.value - 1) {
-            index += 1;
-          } else {
-            index = 0;
+          for (let count = 0; count < options.length; count += 1) {
+            index = (index + direction + options.length) % options.length;
+            if (!options[index]?.disabled) {
+              activeIndex.value = index;
+              nextTick(scrollOptionIntoView);
+              break;
+            }
           }
-          activeIndex.value = index;
-          scrollOptionIntoView();
-          e.preventDefault();
-          return;
-        } else if (e.key === "ArrowUp") {
-          let index = activeIndex.value;
-          if (index >= 1) {
-            index -= 1;
-          } else {
-            index = reallySize.value - 1;
-          }
-          activeIndex.value = index;
-          scrollOptionIntoView();
           e.preventDefault();
           return;
         } else if (
@@ -189,12 +188,15 @@ const Select = defineComponent({
           activeIndex.value >= 0 &&
           (ctxFocused.value || queryInputFocused.value)
         ) {
-          const { label, value } = optionsData.value[activeIndex.value];
+          const option = filterOptions()[activeIndex.value];
+          if (!option || option.disabled) return;
+          const { label, value } = option;
           onSelect({ label, value });
           e.preventDefault();
           return;
         } else if (e.key === "Escape" && (ctxFocused.value || queryInputFocused.value)) {
           visible.value = false;
+          emit("openChange", false);
           clearQuery();
           e.preventDefault();
         }
@@ -202,8 +204,12 @@ const Select = defineComponent({
     };
 
     onBeforeUnmount(() => {
+      cancelAnimationFrame(positionRaf);
+      clearTimeout(queryInputEventTimer.value);
+      clearTimeout(clearQueryTimer.value);
       document.removeEventListener("keydown", onKeydown);
       document.removeEventListener("click", outsideClick);
+      document.removeEventListener("scroll", updatePosition, true);
     });
 
     const labelText = computed(() => {
@@ -218,15 +224,19 @@ const Select = defineComponent({
     });
 
     const updatePosition = () => {
-      nextTick(() => {
-        minWidth.value = refSelection.value?.offsetWidth || 0;
-        setPlacement({
-          refSelection,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
+      cancelAnimationFrame(positionRaf);
+      positionRaf = requestAnimationFrame(() => {
+        nextTick(() => {
+          if (!visible.value) return;
+          minWidth.value = refSelection.value?.offsetWidth || 0;
+          setPlacement({
+            refSelection,
+            refPopper,
+            currentPlacement,
+            transOrigin,
+            top,
+            left,
+          });
         });
       });
     };
@@ -236,6 +246,7 @@ const Select = defineComponent({
         minWidth.value = refSelection.value?.offsetWidth || 0;
       });
       document.addEventListener("keydown", onKeydown);
+      document.addEventListener("scroll", updatePosition, true);
     });
 
     const outsideClick = (e: MouseEvent) => {
@@ -246,7 +257,9 @@ const Select = defineComponent({
         ctx &&
         !ctx.contains(e.target as Node)
       ) {
+        const wasVisible = visible.value;
         visible.value = false;
+        if (wasVisible) emit("openChange", false);
         clearQuery();
       }
     };
@@ -262,7 +275,8 @@ const Select = defineComponent({
     const clearQuery = () => {
       activeIndex.value = -1;
       if (props.filterable || hasSearchEvent) {
-        setTimeout(() => {
+        clearTimeout(clearQueryTimer.value);
+        clearQueryTimer.value = setTimeout(() => {
           queryKey.value = "";
           if (queryInputRef.value) {
             queryInputRef.value.value = "";
@@ -425,7 +439,7 @@ const Select = defineComponent({
       children.forEach((child: any) => {
         if (child?.props) {
           const { label, value, disabled } = child.props;
-          const resolvedLabel = label || child?.children?.default?.()?.[0]?.children || value;
+          const resolvedLabel = label ?? child?.children?.default?.()?.[0]?.children ?? value;
           data.push({
             value,
             disabled,
@@ -441,7 +455,7 @@ const Select = defineComponent({
       const filter = props.filterable && key.trim() !== "";
       return filter
         ? optionsData.value.filter((item) =>
-            (item.label as string).toLowerCase().includes(key.toLowerCase())
+            String(item.label).toLowerCase().includes(key.toLowerCase())
           )
         : optionsData.value;
     };
@@ -449,7 +463,6 @@ const Select = defineComponent({
     const renderOptions = () => {
       const optionNodes: any[] = [];
       const nodes = filterOptions();
-      reallySize.value = nodes.length;
       nodes.forEach((item, index) => {
         const { label, value, disabled } = { ...item };
         const checked = isChecked(value);

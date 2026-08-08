@@ -47,6 +47,10 @@ const Tooltip = defineComponent({
     const transOrigin = ref("bottom");
     const hideTimer = ref<any>();
     const showTimer = ref<any>();
+    const anchorVisible = ref(false);
+    let positionRaf = 0;
+    let intersectionObserver: IntersectionObserver | null = null;
+    let resizeObserver: ResizeObserver | null = null;
 
     const updateShow = (value: boolean) => {
       visible.value = value;
@@ -54,14 +58,18 @@ const Tooltip = defineComponent({
     };
 
     const updatePosition = () => {
-      nextTick(() => {
-        setPlacement({
-          refSelection,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
+      cancelAnimationFrame(positionRaf);
+      positionRaf = requestAnimationFrame(() => {
+        nextTick(() => {
+          if (!visible.value || !anchorVisible.value) return;
+          setPlacement({
+            refSelection,
+            refPopper,
+            currentPlacement,
+            transOrigin,
+            top,
+            left,
+          });
         });
       });
     };
@@ -69,10 +77,31 @@ const Tooltip = defineComponent({
     onMounted(() => {
       updatePosition();
       window.addEventListener("resize", updatePosition);
+      document.addEventListener("scroll", updatePosition, true);
+      const selection = (refSelection.value as any)?.$el || refSelection.value;
+      if (selection && typeof IntersectionObserver !== "undefined") {
+        intersectionObserver = new IntersectionObserver(([entry]) => {
+          anchorVisible.value = entry.isIntersecting;
+          if (entry.isIntersecting) updatePosition();
+        });
+        intersectionObserver.observe(selection);
+      } else {
+        anchorVisible.value = true;
+        updatePosition();
+      }
+      if (typeof ResizeObserver !== "undefined") {
+        resizeObserver = new ResizeObserver(updatePosition);
+        if (selection) resizeObserver.observe(selection);
+        if (refPopper.value) resizeObserver.observe(refPopper.value);
+      }
     });
 
     onUnmounted(() => {
+      cancelAnimationFrame(positionRaf);
+      intersectionObserver?.disconnect();
+      resizeObserver?.disconnect();
       window.removeEventListener("resize", updatePosition);
+      document.removeEventListener("scroll", updatePosition, true);
       clearTimeout(hideTimer.value);
       clearTimeout(showTimer.value);
     });
@@ -81,6 +110,15 @@ const Tooltip = defineComponent({
       () => props.show,
       (nv) => {
         visible.value = nv;
+        if (nv) updatePosition();
+      }
+    );
+
+    watch(
+      () => props.placement,
+      (placement) => {
+        currentPlacement.value = placement;
+        if (visible.value) updatePosition();
       }
     );
 
@@ -190,7 +228,7 @@ const Tooltip = defineComponent({
       const tooltipOverlay = rendered.value ? (
         <Teleport to="body">
           <Transition name={`k-${preCls}`}>
-            <div v-show={visible.value} {...overlayProps}>
+            <div v-show={visible.value && anchorVisible.value} {...overlayProps}>
               <div {...contentProps}>
                 <div class={`k-${preCls}-title`}>{title}</div>
                 <div class={`k-${preCls}-arrow`}>

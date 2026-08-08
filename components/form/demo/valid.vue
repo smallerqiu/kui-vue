@@ -125,7 +125,7 @@ const validateReadme = (_: FormRule, value: any, callback: (error?: Error) => vo
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
 const time = ref(60);
-const timer = ref<NodeJS.Timeout>();
+const timer = ref<ReturnType<typeof setTimeout>>();
 const size = ref<SizeType>("medium");
 const formRef = ref<FormContext>();
 const treeData = [

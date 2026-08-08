@@ -115,7 +115,7 @@ const TreeSelect = defineComponent({
     const rendered = ref(false);
     const currentValue = ref<string[]>(
       props.multiple
-        ? ((props.modelValue || []) as string[])
+        ? [...(Array.isArray(props.modelValue) ? props.modelValue : [])]
         : isEmpty(props.modelValue)
           ? []
           : [props.modelValue as string]
@@ -135,6 +135,7 @@ const TreeSelect = defineComponent({
     const currentPlacement = ref<TreeSelectPlacement>(props.placement);
     const queryInputEventTimer = ref<number | undefined>(undefined);
     const clearQueryTimer = ref<number | undefined>(undefined);
+    let positionRaf = 0;
 
     const defaultExpandedKeys = ref<string[]>([...(props.treeExpandedKeys || [])]);
 
@@ -150,7 +151,7 @@ const TreeSelect = defineComponent({
       () => props.modelValue,
       (v) => {
         currentValue.value = props.multiple
-          ? ((v || []) as string[])
+          ? [...(Array.isArray(v) ? v : [])]
           : isEmpty(v)
             ? []
             : [v as string];
@@ -164,21 +165,27 @@ const TreeSelect = defineComponent({
     });
 
     onBeforeUnmount(() => {
+      cancelAnimationFrame(positionRaf);
       document.removeEventListener("click", outsideClick);
+      document.removeEventListener("scroll", updatePosition, true);
       clearTimeout(queryInputEventTimer.value);
       clearTimeout(clearQueryTimer.value);
     });
 
     const updatePosition = () => {
-      nextTick(() => {
-        minWidth.value = refSelection.value ? refSelection.value.offsetWidth : "";
-        setPlacement({
-          refSelection,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
+      cancelAnimationFrame(positionRaf);
+      positionRaf = requestAnimationFrame(() => {
+        nextTick(() => {
+          if (!visible.value) return;
+          minWidth.value = refSelection.value ? refSelection.value.offsetWidth : "";
+          setPlacement({
+            refSelection,
+            refPopper,
+            currentPlacement,
+            transOrigin,
+            top,
+            left,
+          });
         });
       });
     };
@@ -187,6 +194,7 @@ const TreeSelect = defineComponent({
       nextTick(() => {
         minWidth.value = refSelection.value ? refSelection.value.offsetWidth : "";
       });
+      document.addEventListener("scroll", updatePosition, true);
     });
 
     const openChange = (opened: boolean) => {

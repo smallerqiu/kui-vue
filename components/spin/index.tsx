@@ -21,7 +21,7 @@ const Spin = defineComponent({
   props: spinProps,
   setup(props, { slots }) {
     const spinning = ref(props.modelValue);
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout>;
     watch(
       () => props.modelValue,
       (nv) => {

@@ -73,6 +73,7 @@ const ColorPicker = defineComponent({
     const currentAlpha = ref(1);
     const currentHue = ref(0);
     const hideTimer = ref();
+    let positionRaf = 0;
 
     watch(
       () => props.modelValue,
@@ -80,24 +81,39 @@ const ColorPicker = defineComponent({
         currentColor.value = v || "#000000ff";
       }
     );
+    watch(
+      () => props.placement,
+      (placement) => {
+        currentPlacement.value = placement;
+        if (visible.value) updatePopPosition();
+      }
+    );
     onMounted(() => {
       if (props.modelValue) {
         currentAlpha.value = Color(props.modelValue).alpha();
         currentHue.value = Color(props.modelValue).hue();
       }
+      document.addEventListener("scroll", updatePopPosition, true);
     });
     onBeforeUnmount(() => {
+      cancelAnimationFrame(positionRaf);
+      clearTimeout(hideTimer.value);
       document.removeEventListener("click", outsideClick);
+      document.removeEventListener("scroll", updatePopPosition, true);
     });
     const updatePopPosition = () => {
-      nextTick(() => {
-        setPlacement({
-          refSelection,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
+      cancelAnimationFrame(positionRaf);
+      positionRaf = requestAnimationFrame(() => {
+        nextTick(() => {
+          if (!visible.value) return;
+          setPlacement({
+            refSelection,
+            refPopper,
+            currentPlacement,
+            transOrigin,
+            top,
+            left,
+          });
         });
       });
     };

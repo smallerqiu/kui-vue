@@ -30,7 +30,7 @@ const Demo = defineComponent({
     const codeRef = ref<HTMLElement>();
     const codeOrigin = ref<string>();
     const viewRef = ref(null);
-    const timer = ref<NodeJS.Timeout>();
+    const timer = ref<ReturnType<typeof setTimeout>>();
     const buildState = reactive({
       text: $t("text.build_tip"),
       state: "success" as BadgeStatusType,

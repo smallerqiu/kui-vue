@@ -14,7 +14,7 @@ export default defineComponent({
     tooltipVisible: { type: Boolean as BooleanType, default: null },
     tipFormatter: Function as PropType<(value: number) => string | number>,
     dragging: Boolean as BooleanType, // 接收父组件传入的拖拽状态
-    onDragStart: Function as PropType<(e: MouseEvent) => void>,
+    onDragStart: Function as PropType<(e: MouseEvent | TouchEvent) => void>,
     onKeydownUpdate: Function as PropType<(e: KeyboardEvent, idx: number) => void>,
   },
   setup(props, { emit, expose }) {
@@ -74,6 +74,12 @@ export default defineComponent({
         style: thumbStyle.value,
         ref: elRef,
         tabindex: props.disabled ? undefined : 0,
+        role: "slider",
+        "aria-valuemin": props.min,
+        "aria-valuemax": props.max,
+        "aria-valuenow": props.value,
+        "aria-orientation": props.vertical ? "vertical" : "horizontal",
+        "aria-disabled": props.disabled,
         onMousedown: handleDown,
         onTouchstart: handleDown,
         onKeydown: (e: KeyboardEvent) => emit("keydownUpdate", e),

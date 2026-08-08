@@ -49,6 +49,9 @@ const Slider = defineComponent({
     };
 
     const railRef = ref();
+    let resizeObserver: ResizeObserver | null = null;
+    let activeMove: ((e: MouseEvent | TouchEvent) => void) | null = null;
+    let activeUp: (() => void) | null = null;
     // 记录当前正在拖拽的是哪一个滑块 (0 或 1，-1表示未拖拽)
     const draggingIndex = ref(-1);
 
@@ -64,8 +67,10 @@ const Slider = defineComponent({
 
     const formatValue = (val: number | number[]): number | number[] => {
       if (props.range) {
-        const arr = Array.isArray(val) ? [...val] : [props.min, props.min];
-        return sortValue(arr.map((v) => getClosestStep(v, props)));
+        const arr = Array.isArray(val) ? val : [props.min, props.min];
+        const first = arr[0] ?? props.min;
+        const second = arr[1] ?? first;
+        return sortValue([first, second].map((v) => getClosestStep(v, props)));
       }
       return getClosestStep(val as number, props);
     };
@@ -79,18 +84,25 @@ const Slider = defineComponent({
     onMounted(() => {
       updateSize();
       window.addEventListener("resize", updateSize);
+      if (railRef.value && typeof ResizeObserver !== "undefined") {
+        resizeObserver = new ResizeObserver(updateSize);
+        resizeObserver.observe(railRef.value);
+      }
     });
 
     onUnmounted(() => {
+      stopDragging();
+      resizeObserver?.disconnect();
+      resizeObserver = null;
       window.removeEventListener("resize", updateSize);
     });
 
     watch(
-      () => props.modelValue,
+      () => [props.modelValue, props.min, props.max, props.step, props.range, props.marks],
       (nv) => {
         // 只有当不在拖拽状态时，才响应外部变化，防止拖拽时的抖动
         if (draggingIndex.value === -1) {
-          internalValue.value = formatValue(nv);
+          internalValue.value = formatValue(nv[0] as number | number[]);
         }
       },
       { immediate: true }
@@ -118,7 +130,9 @@ const Slider = defineComponent({
         : distFromPhysicalStart;
 
       // 计算比例并映射回数值
-      const percent = Math.max(0, Math.min(1, (distFromLogicalStart - R) / (W - size)));
+      const available = W - size;
+      const percent =
+        available > 0 ? Math.max(0, Math.min(1, (distFromLogicalStart - R) / available)) : 0;
       const rawValue = new Big(props.max - props.min).times(percent).plus(props.min);
       return getClosestStep(Number(rawValue), props);
     };
@@ -126,6 +140,7 @@ const Slider = defineComponent({
     // 处理滑块拖动
     const handleThumbMove = (e: MouseEvent | TouchEvent) => {
       if (props.disabled || draggingIndex.value === -1) return;
+      if (e.cancelable) e.preventDefault();
 
       const newValue = getValueFromEvent(e);
       let nextInternal = null;
@@ -181,23 +196,33 @@ const Slider = defineComponent({
       emit("change", internalValue.value);
     };
 
+    const stopDragging = () => {
+      draggingIndex.value = -1;
+      if (activeMove) {
+        document.removeEventListener("mousemove", activeMove);
+        document.removeEventListener("touchmove", activeMove);
+      }
+      if (activeUp) {
+        document.removeEventListener("mouseup", activeUp);
+        document.removeEventListener("touchend", activeUp);
+        document.removeEventListener("touchcancel", activeUp);
+      }
+      activeMove = null;
+      activeUp = null;
+    };
+
     const handleThumbDown = (index: number) => {
       if (props.disabled) return;
+      stopDragging();
       draggingIndex.value = index;
 
-      const onMove = (e: MouseEvent | TouchEvent) => handleThumbMove(e);
-      const onUp = () => {
-        draggingIndex.value = -1;
-        document.removeEventListener("mousemove", onMove);
-        document.removeEventListener("mouseup", onUp);
-        document.removeEventListener("touchmove", onMove);
-        document.removeEventListener("touchend", onUp);
-      };
-
-      document.addEventListener("mousemove", onMove);
-      document.addEventListener("mouseup", onUp);
-      document.addEventListener("touchmove", onMove, { passive: false });
-      document.addEventListener("touchend", onUp);
+      activeMove = handleThumbMove;
+      activeUp = stopDragging;
+      document.addEventListener("mousemove", activeMove);
+      document.addEventListener("mouseup", activeUp);
+      document.addEventListener("touchmove", activeMove, { passive: false });
+      document.addEventListener("touchend", activeUp);
+      document.addEventListener("touchcancel", activeUp);
     };
 
     const handleKeydown = (e: KeyboardEvent, index: number) => {
@@ -222,6 +247,8 @@ const Slider = defineComponent({
           let nextIdx = isPlus ? currIdx + 1 : currIdx - 1;
           nextIdx = Math.max(0, Math.min(mKeys.length - 1, nextIdx));
           nextValue = mKeys[nextIdx];
+        } else {
+          return;
         }
       } else {
         nextValue = Number(new Big(targetValue).plus(isPlus ? props.step : -props.step));
