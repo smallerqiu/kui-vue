@@ -89,4 +89,4 @@
 | onRemove       | 移除文件回调                  | (event: UploadChangeEvent) => void     |
 | onExceed       | limit异常时回调               | () => void                             |
 | onSizeError    | minSize, maxSize异常时回调    | (event: UploadChangeEvent) => void     |
-| onBeforeUpdate | 上传之前的回调                | (item: UploadFile, file: File) => void |
+| onBeforeUpload | 上传之前的回调                | (item: UploadFile, file: File) => void |

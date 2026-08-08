@@ -70,3 +70,4 @@
 | onChange     | 默认值改变之后的回调                                                                                               | (date: Date \| Date[], dateStr: string \| string[]) => void | -          |
 | onOpenChange | 下拉框展开或收起时触发                                                                                             | (opened: boolean) => void                                   | -          |
 | onClear      | 点击清除按钮时触发                                                                                                 | () => void                                                  | -          |
+| opened       | 默认是否展示下拉框                                                                                                 | bool                                                        | false      |

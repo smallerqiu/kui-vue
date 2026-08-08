@@ -90,4 +90,4 @@ Uploading is the process of publishing information (web pages, text, images, vid
 | onRemove       | Callback when file is removed                             | (event: UploadChangeEvent) => void     |
 | onExceed       | Callback when limit is exceeded                           | () => void                             |
 | onSizeError    | Callback when minSize, maxSize error occurs               | (event: UploadChangeEvent) => void     |
-| onBeforeUpdate | Callback before upload                                    | (item: UploadFile, file: File) => void |
+| onBeforeUpload | Callback before upload                                    | (item: UploadFile, file: File) => void |
