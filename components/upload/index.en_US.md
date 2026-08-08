@@ -76,8 +76,8 @@ Uploading is the process of publishing information (web pages, text, images, vid
 | uploadText     | Auxiliary text for upload area                                                                              | string                         | -       |
 | uploadSubText  | Secondary auxiliary text for upload area                                                                    | string                         | -       |
 | limit          | Maximum number of files allowed to upload                                                                   | number                         | -       |
-| minSize        | Minimum file size unit for upload (KB)                                                                      | string                         | -       |
-| maxSize        | Maximum file size unit for upload (KB)                                                                      | string                         | -       |
+| minSize        | Minimum file size unit for upload (KB)                                                                      | number                         | -       |
+| maxSize        | Maximum file size unit for upload (KB)                                                                      | number                         | -       |
 | transformFile  | Transform file before uploading. Supports returning a Promise object                                        | (file: File) => Promise<File\> | -       |
 | type           | After selecting the file to upload, the displayed format                                                    | [picture,list]                 | -       |
 

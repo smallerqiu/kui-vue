@@ -42,11 +42,16 @@ export default defineComponent({
     };
 
     const selectFiles = (e: Event | DragEvent) => {
+      if (props.disabled) {
+        e.preventDefault();
+        dragOver.value = false;
+        return;
+      }
       const files = (e as DragEvent).dataTransfer
         ? (e as DragEvent).dataTransfer?.files
         : (e.target as HTMLInputElement).files;
       if (files && files.length > 0) emit("select", files);
-      if (e.target) (e.target as HTMLInputElement).value = "";
+      if (e.target instanceof HTMLInputElement) e.target.value = "";
       e.preventDefault();
       dragOver.value = false;
     };
@@ -83,16 +88,17 @@ export default defineComponent({
         locale,
       } = props;
       const isPicture = type === "picture";
-      const isLimitExceeded = !!(limit && fileList && fileList.length >= limit);
+      const isLimitExceeded =
+        limit !== undefined && limit >= 0 && !!fileList && fileList.length >= limit;
       const showSelector = !isPicture || !isLimitExceeded;
       if (!showSelector) return null;
 
       let addProps = {
         class: ["k-upload-add", { "k-upload-drag-over": dragOver.value }],
-        onDragenter: draggable ? onDragEnter : undefined,
-        onDrop: draggable ? onDrop : undefined,
-        onDragover: draggable ? onDragOver : undefined,
-        onDragleave: draggable ? onDragLeave : undefined,
+        onDragenter: draggable && !disabled ? onDragEnter : undefined,
+        onDrop: draggable && !disabled ? onDrop : undefined,
+        onDragover: draggable && !disabled ? onDragOver : undefined,
+        onDragleave: draggable && !disabled ? onDragLeave : undefined,
         onClick: triggerSelect,
       };
 

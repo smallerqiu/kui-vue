@@ -5,7 +5,6 @@ import {
   type ExtractPropTypes,
   inject,
   onBeforeUnmount,
-  onMounted,
   type PropType,
   ref,
   watch,
@@ -13,15 +12,9 @@ import {
 import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 import createInstance from "./instance";
+import { imageGroupKey } from "./context";
 import type { ImagePreviewProps } from "./preview";
 import { loadImage } from "./utils";
-
-interface ImageGroupContext {
-  show: (props: ImagePreviewProps, slots: any) => void;
-  destroy: () => void;
-  register: (src?: string) => void;
-  unregister: (src?: string) => void;
-}
 
 const imageProps = {
   alt: String,
@@ -47,11 +40,9 @@ const KImage = defineComponent({
     const loading = ref(false);
     const showPlaceholder = ref(false);
     const imageUrl = ref<string>();
-    const imgWidth = ref(0);
-    const imgHeight = ref(0);
-
     const preview = ref();
-    const ImageGroup = inject<ImageGroupContext | null>("ImageGroup", null);
+    const ImageGroup = inject(imageGroupKey, null);
+    let cancelLoad = () => {};
 
     // global api
     const togglePanel = () => {
@@ -78,9 +69,6 @@ const KImage = defineComponent({
         preview.value.destroy();
         preview.value = null;
       }
-      if (ImageGroup) {
-        ImageGroup.destroy();
-      }
     };
 
     expose({ show, destroy, togglePanel });
@@ -91,9 +79,6 @@ const KImage = defineComponent({
       const options = {
         onClose: () => {
           emit("close");
-          setTimeout(() => {
-            destroy();
-          }, 200);
         },
         onSwitch: (index: number) => {
           emit("switch", index);
@@ -107,17 +92,16 @@ const KImage = defineComponent({
     };
 
     const reload = () => {
+      cancelLoad();
       const { src, placeholder } = props;
       if (src) {
         loading.value = true;
-        loadImage(
+        cancelLoad = loadImage(
           src,
-          ({ width, height }) => {
+          () => {
             showPlaceholder.value = false;
             loading.value = false;
             imageUrl.value = src;
-            imgWidth.value = width;
-            imgHeight.value = height;
           },
           () => {
             loading.value = false;
@@ -131,19 +115,19 @@ const KImage = defineComponent({
       }
     };
 
+    watch(() => [props.src, props.placeholder], reload, { immediate: true });
+
     watch(
-      () => props.src,
-      () => {
-        reload();
-      }
+      () => props.origin || props.src,
+      (src, oldSrc) => {
+        ImageGroup?.unregister(oldSrc);
+        ImageGroup?.register(src);
+      },
+      { immediate: true }
     );
 
-    onMounted(() => {
-      reload();
-      ImageGroup?.register(props.origin || props.src);
-    });
-
     onBeforeUnmount(() => {
+      cancelLoad();
       destroy();
       ImageGroup?.unregister(props.origin || props.src);
     });
@@ -153,8 +137,8 @@ const KImage = defineComponent({
 
       const containerProps = {
         style: {
-          width: width ? `${width}px` : undefined,
-          height: height ? `${height}px` : undefined,
+          width: typeof width === "number" ? `${width}px` : width,
+          height: typeof height === "number" ? `${height}px` : height,
         },
         class: "k-image",
         onClick: showPreview,

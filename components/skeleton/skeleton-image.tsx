@@ -1,25 +1,15 @@
 import { Images } from "kui-icons";
-import { type CSSProperties, defineComponent, ref, watch } from "vue";
+import { type CSSProperties, defineComponent } from "vue";
 import Icon from "../icon";
 import { skeletonProps } from "./types";
+import { useSkeletonLoading } from "./use-skeleton-loading";
 const SkeletonImage = defineComponent({
   name: "SkeletonImage",
   props: skeletonProps,
   setup(ps, { slots }) {
-    const show = ref(ps.loading);
-    const timer = ref();
-    watch(
+    const show = useSkeletonLoading(
       () => ps.loading,
-      (v) => {
-        if (v) {
-          show.value = v;
-        } else {
-          clearTimeout(timer.value);
-          timer.value = setTimeout(() => {
-            show.value = v;
-          }, ps.delay);
-        }
-      }
+      () => ps.delay
     );
     return () => {
       let { animated, radius, size } = ps;
@@ -40,18 +30,22 @@ const SkeletonImage = defineComponent({
       };
       let child = slots.default?.();
 
-      if (radius) {
+      if (radius !== undefined) {
         innerProps.style["border-radius"] = `${radius}px`;
       }
 
-      if (!isNaN(Number(size))) {
+      if (Array.isArray(size)) {
+        const width = Number.isFinite(size[0]) ? Math.max(0, size[0]) : 96;
+        const height = Number.isFinite(size[1]) ? Math.max(0, size[1]) : width;
+        innerProps.style.width = `${width}px`;
+        innerProps.style.height = `${height}px`;
+        innerProps.style.minWidth = `${width}px`;
+        innerProps.style.minHeight = `${height}px`;
+      } else if (typeof size === "number") {
         innerProps.style.width = `${size}px`;
         innerProps.style.height = `${size}px`;
-      }
-
-      if (Array.isArray(size)) {
-        innerProps.style.width = `${size[0]}px`;
-        innerProps.style.height = `${size[1]}px`;
+        innerProps.style.minWidth = `${size}px`;
+        innerProps.style.minHeight = `${size}px`;
       }
       return (
         <div {...props}>

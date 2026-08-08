@@ -1,6 +1,16 @@
 import { Triangle } from "kui-icons";
-import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
-import { computed, defineComponent, h, onMounted, onUpdated, reactive, ref, watch } from "vue";
+import type { CSSProperties, ExtractPropTypes, PropType, VNodeChild } from "vue";
+import {
+  computed,
+  defineComponent,
+  h,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  reactive,
+  ref,
+  watch,
+} from "vue";
 import { Checkbox, type ChangeEvent } from "../checkbox";
 import type { BooleanType, SizeType } from "../const/types";
 import Empty from "../empty";
@@ -13,17 +23,25 @@ export interface Column {
   width?: number;
   fixed?: "left" | "right";
   sorter?: boolean | ((state: SortState) => void);
-  render?: (h: any, record: any, colIndex: number, rowIndex: number, col: Column) => void;
+  render?: (
+    h: typeof import("vue").h,
+    record: any,
+    colIndex: number,
+    rowIndex: number,
+    col: Column
+  ) => VNodeChild;
   colSpan?: number | ((record: any, index: number) => number);
   rowSpan?: number | ((record: any, index: number) => number);
   children?: Column[];
 }
 
+export type TableKey = string | number;
+
 const tableProps = {
   data: { type: Array, default: () => [] },
   columns: { type: Array as PropType<Column[]>, default: () => [] },
-  selectedKeys: { type: Array as PropType<string[]>, default: () => [] },
-  disabledKeys: { type: Array as PropType<string[]>, default: () => [] },
+  selectedKeys: { type: Array as PropType<TableKey[]>, default: () => [] },
+  disabledKeys: { type: Array as PropType<TableKey[]>, default: () => [] },
   rowKey: { type: String, default: "key" },
   scroll: {
     type: Object as PropType<{ x?: number | string; y?: number | string }>,
@@ -40,12 +58,10 @@ const tableProps = {
   onSort: { type: Function as PropType<(state: SortState) => void> },
   onRowClick: { type: Function as PropType<(record: any, index: number) => void> },
   onSelect: {
-    type: Function as PropType<
-      (record: any, selected: boolean, selectedKeys: (string | number)[]) => void
-    >,
+    type: Function as PropType<(record: any, selected: boolean, selectedKeys: TableKey[]) => void>,
   },
   onSelectAll: {
-    type: Function as PropType<(selected: boolean, selectedKeys: (string | number)[]) => void>,
+    type: Function as PropType<(selected: boolean, selectedKeys: TableKey[]) => void>,
   },
 };
 
@@ -136,11 +152,11 @@ const Table = defineComponent({
       return { rows, maxDepth };
     });
 
-    const isDisabled = (key: string) => props.disabledKeys && props.disabledKeys.includes(key);
+    const isDisabled = (key: TableKey) => props.disabledKeys.includes(key);
 
     const selectionState = computed(() => {
       const enableData = props.data.filter((item: any) => !isDisabled(item[props.rowKey]));
-      if (enableData.length === 0) return { all: false, indeterminate: false };
+      if (enableData.length === 0) return { all: false, indeterminate: false, disabled: true };
 
       const checkedCount = enableData.filter((item: any) =>
         innerSelectedKeys.value.has(item[props.rowKey])
@@ -149,6 +165,7 @@ const Table = defineComponent({
       return {
         all: checkedCount > 0 && checkedCount === enableData.length,
         indeterminate: checkedCount > 0 && checkedCount < enableData.length,
+        disabled: false,
       };
     });
 
@@ -212,6 +229,7 @@ const Table = defineComponent({
     };
 
     let scrollRafId = 0;
+    let resizeObserver: ResizeObserver | null = null;
     const handleBodyScroll = (target: HTMLElement) => {
       // const target = e?.target;
       if (!target) return;
@@ -234,25 +252,40 @@ const Table = defineComponent({
 
     const measureScrollbar = () => {
       if (bodyWrapperRef.value) {
-        const width =
+        const width = Math.max(
+          0,
           bodyWrapperRef.value.offsetWidth -
-          bodyWrapperRef.value.clientWidth -
-          (props.bordered ? 1 : 0);
+            bodyWrapperRef.value.clientWidth -
+            (props.bordered ? 1 : 0)
+        );
         if (scrollbarWidth.value !== width) scrollbarWidth.value = width;
       }
     };
 
     onMounted(() => {
-      if (isSplit.value) {
+      if (bodyWrapperRef.value) {
         measureScrollbar();
-        if (bodyWrapperRef.value) handleBodyScroll(bodyWrapperRef.value);
-      } else if (bodyWrapperRef.value) {
         handleBodyScroll(bodyWrapperRef.value);
+        if (typeof ResizeObserver !== "undefined") {
+          resizeObserver = new ResizeObserver(() => {
+            measureScrollbar();
+            if (bodyWrapperRef.value) handleBodyScroll(bodyWrapperRef.value);
+          });
+          resizeObserver.observe(bodyWrapperRef.value);
+        }
       }
     });
 
-    onUpdated(() => {
-      if (isSplit.value) measureScrollbar();
+    watch(isSplit, async () => {
+      await nextTick();
+      measureScrollbar();
+      if (bodyWrapperRef.value) handleBodyScroll(bodyWrapperRef.value);
+    });
+
+    onBeforeUnmount(() => {
+      resizeObserver?.disconnect();
+      resizeObserver = null;
+      cancelAnimationFrame(scrollRafId);
     });
 
     const handleSort = (col: Column) => {
@@ -264,8 +297,9 @@ const Table = defineComponent({
         sortState.order =
           sortState.order === "asc" ? "desc" : sortState.order === "desc" ? null : "asc";
       }
-      if (typeof col.sorter === "function") col.sorter(sortState);
-      emit("sort", sortState);
+      const nextState = { ...sortState };
+      if (typeof col.sorter === "function") col.sorter(nextState);
+      emit("sort", nextState);
     };
 
     const processedData = computed(() => {
@@ -298,10 +332,10 @@ const Table = defineComponent({
       emit("selectAll", checked, rows);
     };
 
-    const toggleOne = (e: ChangeEvent, record: any, key: string) => {
+    const toggleOne = (e: ChangeEvent, record: any, key: TableKey) => {
       if (isDisabled(key)) return;
       const newSet = new Set(innerSelectedKeys.value);
-      newSet.has(key) ? newSet.delete(key) : newSet.add(key);
+      e.checked ? newSet.add(key) : newSet.delete(key);
       innerSelectedKeys.value = newSet;
       const rows = Array.from(newSet);
       emit("update:selectedKeys", rows);
@@ -349,56 +383,57 @@ const Table = defineComponent({
                     checked={selectionState.value.all}
                     indeterminate={selectionState.value.indeterminate}
                     onChange={toggleAll}
-                    disabled={
-                      props.data.length > 0 &&
-                      props.data.every((item: any) => isDisabled(item[props.rowKey]))
-                    }
+                    disabled={selectionState.value.disabled}
                   />
                 </th>
               )}
 
-              {row.map((col: Column, idx: number) => (
-                <th
-                  key={col.key || idx}
-                  colspan={col.colSpan as number}
-                  rowspan={col.rowSpan as number}
-                  class={getFixedClass(col, idx)}
-                  style={fixedInfo.value.header[col.key]}
-                  onClick={() => handleSort(col)}
-                >
-                  <div class="k-table-header-col">
-                    {slots[`header-${col.key}`]?.({
-                      value: col.title,
-                      col,
-                      index: idx,
-                    }) || col.title}
-                    {col.sorter && (
-                      <span class="k-table-sorter">
-                        <Icon
-                          type={Triangle}
-                          reverseFill={true}
-                          class={[
-                            "k-table-sorter-up",
-                            sortState.key === col.key &&
-                              sortState.order === "asc" &&
-                              "k-table-sorter-active",
-                          ]}
-                        />
-                        <Icon
-                          type={Triangle}
-                          reverseFill={true}
-                          class={[
-                            "k-table-sorter-down",
-                            sortState.key === col.key &&
-                              sortState.order === "desc" &&
-                              "k-table-sorter-active",
-                          ]}
-                        />
-                      </span>
-                    )}
-                  </div>
-                </th>
-              ))}
+              {row.map((col: Column, idx: number) => {
+                const headerContent = slots[`header-${col.key}`]?.({
+                  value: col.title,
+                  col,
+                  index: idx,
+                });
+                const leafIndex = flattedColumns.value.findIndex((item) => item.key === col.key);
+                return (
+                  <th
+                    key={col.key || idx}
+                    colspan={col.colSpan as number}
+                    rowspan={col.rowSpan as number}
+                    class={getFixedClass(col, leafIndex)}
+                    style={fixedInfo.value.header[col.key]}
+                    onClick={() => handleSort(col)}
+                  >
+                    <div class="k-table-header-col">
+                      {headerContent ?? col.title}
+                      {col.sorter && (
+                        <span class="k-table-sorter">
+                          <Icon
+                            type={Triangle}
+                            reverseFill={true}
+                            class={[
+                              "k-table-sorter-up",
+                              sortState.key === col.key &&
+                                sortState.order === "asc" &&
+                                "k-table-sorter-active",
+                            ]}
+                          />
+                          <Icon
+                            type={Triangle}
+                            reverseFill={true}
+                            class={[
+                              "k-table-sorter-down",
+                              sortState.key === col.key &&
+                                sortState.order === "desc" &&
+                                "k-table-sorter-active",
+                            ]}
+                          />
+                        </span>
+                      )}
+                    </div>
+                  </th>
+                );
+              })}
               {isSplit.value && rowIndex === 0 && (
                 <th
                   rowspan={maxDepth}
@@ -442,11 +477,19 @@ const Table = defineComponent({
           let rowspan = 1;
           let colspan = 1;
 
-          if (col.rowSpan) {
+          if (col.rowSpan !== undefined) {
             rowspan = typeof col.rowSpan === "function" ? col.rowSpan(record, i) : col.rowSpan;
           }
-          if (col.colSpan) {
+          if (col.colSpan !== undefined) {
             colspan = typeof col.colSpan === "function" ? col.colSpan(record, i) : col.colSpan;
+          }
+
+          rowspan = Number.isFinite(rowspan) ? Math.max(0, Math.floor(rowspan)) : 1;
+          colspan = Number.isFinite(colspan) ? Math.max(0, Math.floor(colspan)) : 1;
+
+          if (rowspan === 0 || colspan === 0) {
+            matrix[i][j].show = false;
+            continue;
           }
 
           if (rowspan === 1 && colspan === 1) continue;
@@ -504,6 +547,17 @@ const Table = defineComponent({
                 const attrs: Record<string, any> = {};
                 if (cellState.rowSpan > 1) attrs.rowspan = cellState.rowSpan;
                 if (cellState.colSpan > 1) attrs.colspan = cellState.colSpan;
+                const slotContent = slots[col.key]?.({
+                  record,
+                  col,
+                  colIndex,
+                  rowIndex,
+                  value: record[col.key],
+                });
+                const cellContent =
+                  slotContent ??
+                  col.render?.(h, record, colIndex, rowIndex, col) ??
+                  record[col.key];
                 return (
                   <td
                     key={col.key}
@@ -511,15 +565,7 @@ const Table = defineComponent({
                     class={getFixedClass(col, colIndex)}
                     style={fixedInfo.value.body[col.key]}
                   >
-                    {slots[col.key]?.({
-                      record,
-                      col,
-                      colIndex,
-                      rowIndex,
-                      value: record[col.key],
-                    }) ||
-                      col.render?.(h, record, colIndex, rowIndex, col) ||
-                      record[col.key]}
+                    {cellContent}
                   </td>
                 );
               })}

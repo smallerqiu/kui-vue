@@ -1,10 +1,4 @@
-import {
-  compileScript,
-  compileStyle,
-  compileTemplate,
-  parse,
-  rewriteDefault,
-} from "@vue/compiler-sfc";
+import { compileScript, compileStyle, compileTemplate, parse } from "@vue/compiler-sfc";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import "dayjs/locale/zh-cn";
@@ -33,21 +27,6 @@ function runtimeRequire(id: string) {
   throw new Error(`Demo 暂不支持运行时导入模块 \"${id}\"`);
 }
 
-function removeInlineTypeImports(code: string) {
-  return code.replace(
-    /import\s*{([\s\S]*?)}\s*from\s*(["'][^"']+["'])/g,
-    (_, specifiers: string, source: string) => {
-      const runtimeSpecifiers = specifiers
-        .split(",")
-        .map((specifier) => specifier.trim())
-        .filter((specifier) => specifier && !specifier.startsWith("type "));
-      return runtimeSpecifiers.length
-        ? `import { ${runtimeSpecifiers.join(", ")} } from ${source}`
-        : "";
-    }
-  );
-}
-
 export interface ParseParams {
   source: string;
   id: string;
@@ -66,16 +45,25 @@ export async function parseCode({
 }: ParseParams) {
   try {
     error.value = "";
-    const { descriptor } = parse(source);
+    const { descriptor, errors: parseErrors } = parse(source, { filename: "Demo.vue" });
+    if (parseErrors.length) throw parseErrors[0];
     const scopeId = `data-v-${id}`;
+    const isTypeScript = [descriptor.script?.lang, descriptor.scriptSetup?.lang].includes("ts");
 
     let scriptCode = "";
+    let bindingMetadata;
     if (descriptor.script || descriptor.scriptSetup) {
-      // 编译 script，并在内部处理好 bindings
-      const compiledScript = compileScript(descriptor, { id: scopeId });
+      // 浏览器版 compiler-sfc 需要显式启用 TypeScript parser，才能稳定处理
+      // `import type` 和 `import { type Foo }` 两种语法。
+      const compiledScript = compileScript(descriptor, {
+        id: scopeId,
+        babelParserPlugins: isTypeScript ? ["typescript"] : [],
+        genDefaultAs: "__sfc__",
+      });
+      bindingMetadata = compiledScript.bindings;
 
       // 保留 import，最后与 template 一起转换，避免 Blob 中残留裸模块导入。
-      scriptCode = rewriteDefault(compiledScript.content, "__sfc__");
+      scriptCode = compiledScript.content;
     } else {
       scriptCode = "const __sfc__ = {}";
     }
@@ -89,11 +77,11 @@ export async function parseCode({
         scoped: true,
         filename: "App.vue",
         compilerOptions: {
-          bindingMetadata: descriptor.scriptSetup
-            ? compileScript(descriptor, { id: scopeId }).bindings
-            : undefined,
+          bindingMetadata: descriptor.scriptSetup ? bindingMetadata : undefined,
+          expressionPlugins: isTypeScript ? ["typescript"] : undefined,
         },
       });
+      if (compiledTemplate.errors.length) throw compiledTemplate.errors[0];
       // 将模板中的 export function render 替换掉，防止冲突
       templateCode = compiledTemplate.code.replace(/export\ (function|const)\ render/, "$1 render");
     }
@@ -106,6 +94,7 @@ export async function parseCode({
         scoped: s.scoped,
         filename: "App.vue",
       });
+      if (compiledStyle.errors.length) throw compiledStyle.errors[0];
       cssCode += compiledStyle.code + "\n";
     }
 
@@ -119,7 +108,7 @@ export async function parseCode({
 
     // 浏览器无法从 Blob 解析 `vue`、`kui-vue` 这类裸模块名。将运行时代码
     // 转成 CommonJS，并从当前文档应用已经打包的模块中解析，不依赖 import map。
-    const { code: executableCode } = transform(removeInlineTypeImports(moduleCode), {
+    const { code: executableCode } = transform(moduleCode, {
       transforms: ["typescript", "imports"],
     });
     const demoModule = { exports: {} as Record<string, any> };

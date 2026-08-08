@@ -1,26 +1,16 @@
 import type { CSSProperties } from "vue";
-import { defineComponent, ref, watch } from "vue";
+import { defineComponent } from "vue";
 
 import { skeletonProps } from "./types";
+import { useSkeletonLoading } from "./use-skeleton-loading";
 
 const SkeletonButton = defineComponent({
   name: "SkeletonButton",
   props: skeletonProps,
   setup(props, { slots }) {
-    const show = ref(props.loading);
-    const timer = ref();
-    watch(
+    const show = useSkeletonLoading(
       () => props.loading,
-      (v) => {
-        if (v) {
-          show.value = v;
-        } else {
-          clearTimeout(timer.value);
-          timer.value = setTimeout(() => {
-            show.value = v;
-          }, props.delay);
-        }
-      }
+      () => props.delay
     );
     return () => {
       let { size, animated, block, shape, width } = props;
@@ -39,14 +29,14 @@ const SkeletonButton = defineComponent({
           {
             "k-skeleton-btn-lg": size == "large",
             "k-skeleton-btn-sm": size == "small",
-            [`k-skeleton-btn-${shape}`]: shape != "round",
+            [`k-skeleton-btn-${shape}`]: !!shape && shape !== "default",
           },
         ],
         style: {} as CSSProperties,
       };
       let child = slots.default?.();
 
-      if (width) {
+      if (width !== undefined) {
         innerProps.style.width = `${width}px`;
       }
       return <div {..._props}>{child && !show.value ? child : <span {...innerProps}></span>}</div>;

@@ -8,11 +8,11 @@ export const skeletonProps = {
   block: Boolean as BooleanType,
   width: Number,
   delay: { type: Number, default: 500 },
-  shape: String as PropType<ShapeType>,
+  shape: String as PropType<ShapeType | "default">,
   size: [Number, String, Array] as PropType<number | SizeType | number[]>,
   title: { type: Number, default: 35 },
   rows: { type: Number, default: 3 },
   avatar: {
-    type: [Boolean, Object] as PropType<boolean | { size: SizeType; shape: ShapeType }>,
+    type: [Boolean, Object] as PropType<boolean | { size?: SizeType; shape?: ShapeType }>,
   },
 };

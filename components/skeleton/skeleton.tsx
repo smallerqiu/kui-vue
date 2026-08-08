@@ -1,6 +1,7 @@
-import { defineComponent, type ExtractPropTypes, ref, watch } from "vue";
+import { defineComponent, type ExtractPropTypes } from "vue";
 
-import { skeletonProps } from './types';
+import { skeletonProps } from "./types";
+import { useSkeletonLoading } from "./use-skeleton-loading";
 
 export type SkeletonProps = ExtractPropTypes<typeof skeletonProps>;
 
@@ -8,20 +9,9 @@ const Skeleton = defineComponent({
   name: "Skeleton",
   props: skeletonProps,
   setup(ps, { slots }) {
-    const show = ref(ps.loading);
-    const timer = ref();
-    watch(
+    const show = useSkeletonLoading(
       () => ps.loading,
-      (v) => {
-        if (v) {
-          show.value = v;
-        } else {
-          clearTimeout(timer.value);
-          timer.value = setTimeout(() => {
-            show.value = v;
-          }, ps.delay);
-        }
-      }
+      () => ps.delay
     );
 
     const renderAvatar = () => {
@@ -52,13 +42,17 @@ const Skeleton = defineComponent({
     };
     const renderContent = () => {
       const { title, rows } = ps;
-      let lines = new Array(rows).fill("");
+      const rowCount = Math.max(0, Math.floor(rows));
+      const titleWidth = Math.min(100, Math.max(0, title));
+      const lines = new Array(rowCount).fill("");
       return (
         <div class="k-skeleton-content">
-          {title > 0 ? <div class="k-skeleton-title" style={`width:${title}%`}></div> : null}
+          {titleWidth > 0 ? (
+            <div class="k-skeleton-title" style={{ width: `${titleWidth}%` }}></div>
+          ) : null}
           <ul class="k-skeleton-paragraph">
-            {lines.map(() => (
-              <li />
+            {lines.map((_, index) => (
+              <li key={index} />
             ))}
           </ul>
         </div>

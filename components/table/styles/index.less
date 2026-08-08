@@ -369,8 +369,15 @@
     }
     .k-table-body {
       border-right: 1px solid var(--kui-color-border);
+      border-bottom: 1px solid var(--kui-color-border);
       border-top: 1px solid var(--kui-color-border);
       border-left: 1px solid var(--kui-color-border);
+
+      // 底边由滚动容器负责，保证空数据和固定高度滚动时边框始终闭合。
+      // 最后一行不再重复绘制，避免滚动到底部时出现双边框。
+      tbody > tr:last-child > td {
+        border-bottom: 0;
+      }
     }
     .k-table-footer {
       border-right: 1px solid var(--kui-color-border);

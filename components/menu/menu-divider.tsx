@@ -1,6 +1,5 @@
 import { defineComponent, inject } from "vue";
 
-
 const MenuDivider = defineComponent({
   name: "MenuDivider",
   setup() {

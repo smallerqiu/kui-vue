@@ -1,16 +1,16 @@
 import { defineComponent, provide, toRefs, type ExtractPropTypes, type PropType } from "vue";
-import type { ShapeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 import Avatar from "./avatar";
+import { avatarGroupContextKey, type AvatarShape, type AvatarSize } from "./context";
 
 const avatarGroupProps = {
   maxCount: Number,
   shape: {
-    type: String as PropType<ShapeType>,
+    type: String as PropType<AvatarShape>,
     default: "circle",
   },
   size: {
-    type: [String, Number] as PropType<number | "large" | "small" | "default">,
+    type: [String, Number] as PropType<AvatarSize>,
     default: "default",
   },
 };
@@ -23,7 +23,7 @@ const AvatarGroup = defineComponent({
   setup(props, { slots }) {
     const { shape, size } = toRefs(props);
 
-    provide("KAvatarGroup", {
+    provide(avatarGroupContextKey, {
       shape,
       size,
     });
@@ -34,12 +34,13 @@ const AvatarGroup = defineComponent({
 
       let childrenToShow = [...children];
 
-      if (maxCount && maxCount < children.length) {
-        childrenToShow = children.slice(0, maxCount);
-        const restCount = children.length - maxCount;
+      if (maxCount != null && maxCount >= 0 && maxCount < children.length) {
+        const visibleCount = Math.floor(maxCount);
+        childrenToShow = children.slice(0, visibleCount);
+        const restCount = children.length - visibleCount;
 
         childrenToShow.push(
-          <Avatar shape={props.shape} size={props.size}>
+          <Avatar key="__avatar_group_rest__" shape={props.shape} size={props.size}>
             {`+${restCount}`}
           </Avatar>
         );

@@ -8,6 +8,7 @@ export type {
   MenuGroupProps,
   MenuItemProps,
   MenuOptionsProps,
-  MenuProps, MenuSelectEvent, SubMenuProps
+  MenuProps,
+  MenuSelectEvent,
+  SubMenuProps,
 };
-

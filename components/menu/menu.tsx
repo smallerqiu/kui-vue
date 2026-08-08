@@ -1,7 +1,7 @@
 import {
   defineComponent,
   inject,
-  onMounted,
+  onBeforeUnmount,
   provide,
   ref,
   watch,
@@ -45,22 +45,25 @@ const Menu = defineComponent({
   name: "Menu",
   props: menuProps,
   setup(props, { emit, slots }) {
-    const defaultSelectedKeys = ref(props.modelValue || []);
-    const defaultOpenKeys = ref(props.openKeys || []);
+    const defaultSelectedKeys = ref([...(props.modelValue || [])]);
+    const defaultOpenKeys = ref(props.inlineCollapsed ? [] : [...(props.openKeys || [])]);
     const currentMode = ref(props.mode);
     const currentInlineCollapsed = ref(props.inlineCollapsed);
-    const tempOpenKeys = ref(props.openKeys || []);
+    const popupInlineCollapsed = ref(props.inlineCollapsed);
+    const tempOpenKeys = ref([...(props.openKeys || [])]);
+    const collapseTimer = ref<ReturnType<typeof setTimeout>>();
 
     provide("menu-open-keys", defaultOpenKeys);
     provide("menu-selected-keys", defaultSelectedKeys);
     provide("menu-mode", currentMode);
     provide("menu-inline-collapsed", currentInlineCollapsed);
+    provide("menu-popup-inline-collapsed", popupInlineCollapsed);
     const dropdown = inject("dropdown", null);
 
     watch(
       () => props.modelValue,
       (value) => {
-        defaultSelectedKeys.value = value;
+        defaultSelectedKeys.value = [...value];
       }
     );
 
@@ -68,37 +71,57 @@ const Menu = defineComponent({
       () => props.mode,
       (value) => {
         currentMode.value = value;
-        setCollapsed(value === "vertical");
+        if (value === "vertical") {
+          collapseOpenKeys();
+        } else if (!props.inlineCollapsed) {
+          restoreOpenKeys();
+        }
       }
     );
 
     watch(
       () => props.openKeys,
       (value) => {
-        defaultOpenKeys.value = value;
+        if (props.inlineCollapsed || currentMode.value === "vertical") {
+          tempOpenKeys.value = [...value];
+        } else {
+          defaultOpenKeys.value = [...value];
+        }
       }
     );
 
     watch(
       () => props.inlineCollapsed,
       (collapsed) => {
-        currentInlineCollapsed.value = collapsed;
-        setCollapsed(collapsed);
+        clearTimeout(collapseTimer.value);
+        if (collapsed) {
+          // 宽度和子菜单同时开始收缩；等垂直离场完成后再把子树移入 body。
+          currentInlineCollapsed.value = true;
+          collapseOpenKeys();
+          collapseTimer.value = setTimeout(() => {
+            popupInlineCollapsed.value = true;
+          }, 200);
+        } else {
+          // 先把子树移回 inline 位置，再同时恢复宽度和之前打开的子菜单。
+          popupInlineCollapsed.value = false;
+          currentInlineCollapsed.value = false;
+          restoreOpenKeys();
+        }
       }
     );
-    onMounted(() => {
-      setCollapsed(props.inlineCollapsed);
+
+    onBeforeUnmount(() => {
+      clearTimeout(collapseTimer.value);
     });
 
-    const setCollapsed = (collapsed?: boolean) => {
-      if (collapsed) {
-        if (defaultOpenKeys.value.length > 0) {
-          tempOpenKeys.value = defaultOpenKeys.value;
-        }
-        defaultOpenKeys.value = [];
-      } else {
-        defaultOpenKeys.value = tempOpenKeys.value;
+    const collapseOpenKeys = () => {
+      if (defaultOpenKeys.value.length > 0) {
+        tempOpenKeys.value = [...defaultOpenKeys.value];
       }
+      defaultOpenKeys.value = [];
+    };
+    const restoreOpenKeys = () => {
+      defaultOpenKeys.value = [...tempOpenKeys.value];
     };
     const dropdownMenuSelected = inject<
       ((data: { key: string; keyPath: string[] }) => void) | null
@@ -109,7 +132,7 @@ const Menu = defineComponent({
       } else {
         defaultSelectedKeys.value = defaultSelectedKeys.value.filter((x) => x !== key);
       }
-      emit("update:value", defaultSelectedKeys.value);
+      emit("update:modelValue", defaultSelectedKeys.value);
       emit("select", { key, keyPath });
 
       if (
@@ -118,7 +141,7 @@ const Menu = defineComponent({
         currentInlineCollapsed.value
       ) {
         if (defaultOpenKeys.value.length > 0) {
-          tempOpenKeys.value = defaultOpenKeys.value;
+          tempOpenKeys.value = [...defaultOpenKeys.value];
         }
         defaultOpenKeys.value = [];
       }
@@ -132,7 +155,9 @@ const Menu = defineComponent({
         if (!opened) {
           defaultOpenKeys.value = defaultOpenKeys.value.filter((x) => x !== key);
         } else {
-          defaultOpenKeys.value.push(key);
+          defaultOpenKeys.value = defaultOpenKeys.value.includes(key)
+            ? defaultOpenKeys.value
+            : [...defaultOpenKeys.value, key];
         }
       }
       emit("update:openKeys", defaultOpenKeys.value);
@@ -142,12 +167,14 @@ const Menu = defineComponent({
     provide("selectedKeysChange", selectedKeysChange);
 
     return () => {
-      const preCls = dropdown ? "dropdown-menu k-scroll" : "menu";
+      const preCls = dropdown ? "dropdown-menu" : "menu";
       const { items } = props;
       const cls = [
-        `k-${preCls} k-${preCls}-${currentMode.value}`,
+        `k-${preCls}`,
+        `k-${preCls}-${currentMode.value}`,
         {
-          [`k-${preCls}-inline-collapsed`]: props.inlineCollapsed,
+          "k-scroll": dropdown,
+          [`k-${preCls}-inline-collapsed`]: currentInlineCollapsed.value,
         },
       ];
       return (

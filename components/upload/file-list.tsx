@@ -25,7 +25,7 @@ export default defineComponent({
   name: "UploadFileList",
   props: uploadFileListProps,
   setup(props, { emit, slots }) {
-    const getPreview = (item: any) => {
+    const getPreview = (item: UploadFile) => {
       if (item.preview) return <img src={item.preview} alt="" />;
       if (item.url) return <img src={item.url} alt="" />;
       return null;
@@ -39,12 +39,13 @@ export default defineComponent({
     return () => {
       const { showUploadList, type, fileList, locale } = props;
       const isPicture = type === "picture";
+      const visibleFiles = showUploadList ? fileList : [];
 
       if (!showUploadList && !isPicture) return null;
 
       return (showUploadList && !isPicture) || isPicture ? (
         <div class={`k-upload-${isPicture ? "picture" : "file"}-list`}>
-          {fileList.map((item, i) => {
+          {visibleFiles.map((item, i) => {
             const statusText =
               item.status === "success"
                 ? locale?.k.upload.successful
@@ -95,6 +96,7 @@ export default defineComponent({
                   size="small"
                   icon={X}
                   class={`k-upload-file-${isPicture ? "picture" : "item"}-remove`}
+                  disabled={props.disabled}
                   onClick={() => handleRemove(i, item)}
                 />
               </div>

@@ -22,15 +22,17 @@
 
 ## API
 
-| 属性  | 说明                         | 类型                       | 默认值  |
-| ----- | ---------------------------- | -------------------------- | ------- |
-| icon  | 设置头像的图标类型           | string,number              | 400     |
-| shape | 指定头像的形状 circle,square | string                     | circle  |
-| size  | 设置头像的大小               | large,small,default,number | default |
-| src   | 图片类头像的资源地址         | string                     | -       |
+| 属性    | 说明                                                 | 类型                          | 默认值  |
+| ------- | ---------------------------------------------------- | ----------------------------- | ------- |
+| icon    | 设置头像图标，也可覆盖图片加载失败时默认的 User 图标 | IconType                      | -       |
+| shape   | 指定头像形状                                         | circle, square                | circle  |
+| size    | 设置头像大小                                         | large, small, default, number | default |
+| src     | 图片资源地址                                         | string                        | -       |
+| alt     | 图片无法显示时的替代文本                             | string                        | -       |
+| onError | 图片加载失败回调；返回 `false` 可阻止切换回退内容    | (event: Event) => boolean     | -       |
 
 ## AvatarGroup API
 
 | 属性     | 说明               | 类型   | 默认值 |
 | -------- | ------------------ | ------ | ------ |
-| maxCount | 最多展示多少个图像 | NUmber | -      |
+| maxCount | 最多展示多少个头像 | number | -      |

@@ -22,15 +22,17 @@ Used to represent users or things, supports image, icon, or character display.
 
 ## API
 
-| Property | Description                                     | Type                          | Default |
-| -------- | ----------------------------------------------- | ----------------------------- | ------- |
-| icon     | Set the icon type for the avatar                | string,number                 | 400     |
-| shape    | Specify the shape of the avatar: circle, square | string                        | circle  |
-| size     | Set the size of the avatar                      | large, small, default, number | default |
-| src      | Resource address for image avatar               | string                        | -       |
+| Property | Description                                                          | Type                          | Default |
+| -------- | -------------------------------------------------------------------- | ----------------------------- | ------- |
+| icon     | Avatar icon; overrides the default User fallback when an image fails | IconType                      | -       |
+| shape    | Avatar shape                                                         | circle, square                | circle  |
+| size     | Avatar size                                                          | large, small, default, number | default |
+| src      | Image source                                                         | string                        | -       |
+| alt      | Alternative text when the image cannot be displayed                  | string                        | -       |
+| onError  | Image error callback; return `false` to prevent rendering fallback   | (event: Event) => boolean     | -       |
 
 ## AvatarGroup API
 
-| Property | Description                         | Type   | Default |
-| -------- | ----------------------------------- | ------ | ------- |
-| maxCount | Maximum number of images to display | NUmber | -       |
+| Property | Description                          | Type   | Default |
+| -------- | ------------------------------------ | ------ | ------- |
+| maxCount | Maximum number of avatars to display | number | -       |

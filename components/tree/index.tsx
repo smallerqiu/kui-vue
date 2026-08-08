@@ -1,6 +1,7 @@
 import { ChevronRight, CircleMinus, CirclePlus, Loading } from "kui-icons";
 import {
   defineComponent,
+  inject,
   nextTick,
   reactive,
   ref,
@@ -15,6 +16,7 @@ import { Button } from "../button";
 import Checkbox, { type ChangeEvent } from "../checkbox";
 import type { BooleanType } from "../const/types";
 import Icon from "../icon";
+import { treeSelectContextKey } from "./context";
 import { buildTree, updateParentIndeterminate, type TreeNode } from "./utils";
 export interface TreeExpandEvent {
   key: string;
@@ -34,8 +36,6 @@ const treeProps = {
   showExtra: { type: Boolean as BooleanType, default: false },
   multiple: { type: Boolean as BooleanType, default: false },
   checkStrictly: Boolean as BooleanType,
-  selectAsCheck: Boolean as BooleanType,
-  queryKey: String,
   onExpand: {
     type: Function as PropType<(result: TreeExpandEvent) => void>,
   },
@@ -80,10 +80,11 @@ const Tree = defineComponent({
   name: "Tree",
   props: treeProps,
   setup(props, { emit, slots }) {
+    const treeSelect = inject(treeSelectContextKey, null);
     const defaultData = ref<TreeNode[]>([]);
-    const defaultSelectedKeys = ref<string[]>(props.selectedKeys || []);
-    const defaultExpandedKeys = ref<string[]>(props.expandedKeys || []);
-    const defaultCheckedKeys = ref<string[]>(props.checkedKeys || []);
+    const defaultSelectedKeys = ref<string[]>([...(props.selectedKeys || [])]);
+    const defaultExpandedKeys = ref<string[]>([...(props.expandedKeys || [])]);
+    const defaultCheckedKeys = ref<string[]>([...(props.checkedKeys || [])]);
     const dragNode = reactive<DragState>({
       key: null,
       data: null,
@@ -384,6 +385,7 @@ const Tree = defineComponent({
         .map((node: TreeNode) => node.key);
 
       defaultCheckedKeys.value = checkedNodes;
+      emit("update:checkedKeys", checkedNodes);
       emit("check", item, event.checked, checkedNodes);
     };
 
@@ -400,8 +402,8 @@ const Tree = defineComponent({
     const onSelect = (item: TreeNode) => {
       if (item.disabled) return;
 
-      if (props.selectAsCheck) {
-        toggleCheck({ checked: !item.selected }, item);
+      if (treeSelect?.checkOnClick.value && props.checkable) {
+        toggleCheck({ checked: !item.checked }, item);
         return;
       }
 
@@ -642,7 +644,7 @@ const Tree = defineComponent({
     watch(
       () => props.checkedKeys,
       (nv: string[] | undefined) => {
-        defaultCheckedKeys.value = nv || [];
+        defaultCheckedKeys.value = [...(nv || [])];
         rebuildTree();
       }
     );
@@ -650,7 +652,7 @@ const Tree = defineComponent({
     watch(
       () => props.selectedKeys,
       (nv: string[] | undefined) => {
-        defaultSelectedKeys.value = nv || [];
+        defaultSelectedKeys.value = [...(nv || [])];
         rebuildTree();
       }
     );
@@ -658,7 +660,7 @@ const Tree = defineComponent({
     watch(
       () => props.expandedKeys,
       (nv: string[] | undefined) => {
-        defaultExpandedKeys.value = nv || [];
+        defaultExpandedKeys.value = [...(nv || [])];
         rebuildTree();
       }
     );
@@ -666,25 +668,38 @@ const Tree = defineComponent({
     return () => {
       const showLine = props.showLine;
       const directory = props.directory;
-      const queryKey = props.queryKey;
+      const query = treeSelect?.query.value.trim().toLocaleLowerCase() || "";
+      const nodeMap = new Map(defaultData.value.map((node) => [node.key, node]));
+      let visibleNodes: TreeNode[];
 
-      const visibleNodes = defaultData.value.filter((node: TreeNode) => {
-        if (node.level === 0) return true;
-        if (queryKey && queryKey.trim().length && String(node.title).indexOf(queryKey) === -1) {
-          return false;
-        }
+      if (query) {
+        const matchedKeys = new Set<string>();
+        defaultData.value.forEach((node) => {
+          if (
+            !String(node.title ?? "")
+              .toLocaleLowerCase()
+              .includes(query)
+          )
+            return;
 
-        let current = node;
-        while (current.parentKey) {
-          const parent = defaultData.value.find((item: TreeNode) => item.key === current.parentKey);
-          if (!parent || !parent.expanded) {
-            return false;
+          let current: TreeNode | undefined = node;
+          while (current) {
+            matchedKeys.add(current.key);
+            current = current.parentKey ? nodeMap.get(current.parentKey) : undefined;
           }
-          current = parent;
-        }
-
-        return true;
-      });
+        });
+        visibleNodes = defaultData.value.filter((node) => matchedKeys.has(node.key));
+      } else {
+        visibleNodes = defaultData.value.filter((node) => {
+          let current = node;
+          while (current.parentKey) {
+            const parent = nodeMap.get(current.parentKey);
+            if (!parent?.expanded) return false;
+            current = parent;
+          }
+          return true;
+        });
+      }
 
       const onProps = getTransitionProp("k-tree-slide");
 

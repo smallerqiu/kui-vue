@@ -1,11 +1,11 @@
 import {
-  cloneVNode,
   type CSSProperties,
   defineComponent,
   type ExtractPropTypes,
   getCurrentInstance,
   inject,
   nextTick,
+  onBeforeUnmount,
   onMounted,
   type PropType,
   provide,
@@ -19,12 +19,10 @@ import { getTransitionProp } from "../base/transition";
 import type { BooleanType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 import { setPlacement } from "../utils/placement";
-import { getChildren } from "../utils/vnode";
 
 const submenuProps = {
   disabled: Boolean as BooleanType,
-  title: String as PropType<string | VNodeChild>,
-  isPopup: Boolean as BooleanType,
+  title: [String, Number, Object, Array] as PropType<VNodeChild>,
   icon: Array as PropType<IconType[]>,
 };
 
@@ -52,10 +50,13 @@ const SubMenu = defineComponent({
     const transOrigin = ref("bottom left");
     const popTimer = ref();
     const inlineCollapsed = inject("menu-inline-collapsed", ref(false));
+    const popupInlineCollapsed = inject("menu-popup-inline-collapsed", ref(false));
     const dropdown = inject("dropdown", null);
     const preCls = dropdown ? "dropdown-menu-submenu" : "menu-submenu";
 
-    const rendered = ref(false);
+    // inline 模式先在原位置渲染；切换为折叠模式后由 Teleport 移动同一棵子树。
+    // horizontal/vertical 初始仍保持懒渲染，第一次交互时才创建 popup。
+    const rendered = ref(menuMode.value === "inline" && !popupInlineCollapsed.value);
 
     onMounted(() => {
       nextTick(() => {
@@ -66,6 +67,10 @@ const SubMenu = defineComponent({
           updatePosition();
         }
       });
+    });
+
+    onBeforeUnmount(() => {
+      clearTimeout(popTimer.value);
     });
 
     const clearCurrentPopTimer = () => {
@@ -114,8 +119,15 @@ const SubMenu = defineComponent({
         });
       });
     };
-    const renderPopper = () => {
-      // pop
+    const usePopup = () =>
+      menuMode.value === "horizontal" ||
+      menuMode.value === "vertical" ||
+      popupInlineCollapsed.value;
+
+    const renderChildren = () => {
+      const popup = usePopup();
+      if (popup && !rendered.value) return null;
+
       const opened = openKeys.value.indexOf(key) >= 0;
       let leftValue = left.value;
       if ((menuMode?.value == "horizontal" && keyPah.length) || menuMode.value == "vertical") {
@@ -140,47 +152,27 @@ const SubMenu = defineComponent({
           hidePopTimer?.();
         },
       };
-      const children = getChildren(slots.default?.());
-      const menuItems = children.map((child) => {
-        // if (child.type.name == "MenuItem") {
-        return cloneVNode(child, { isPopup: true });
-        // }
-      });
-      return rendered.value ? (
-        <Teleport to="body">
-          <Transition name={`k-${preCls}-popup`}>
-            <div class={`k-${preCls}-popup`} v-show={opened} {...popperPros}>
-              <div class={`k-${preCls}-sub`}>
-                <ul class={`k-menu k-menu-vertical`}>{menuItems}</ul>
+
+      const transitionProps = popup
+        ? { name: `k-${preCls}-popup` }
+        : getTransitionProp("k-collapse-slide");
+      const containerProps = popup
+        ? { class: `k-${preCls}-popup`, ...popperPros }
+        : { class: `k-${preCls}-sub` };
+
+      return (
+        <Teleport to="body" disabled={!popup}>
+          <Transition {...transitionProps}>
+            <div {...containerProps} v-show={opened}>
+              <div class={popup ? `k-${preCls}-sub` : undefined}>
+                <ul class={`k-menu k-menu-${popup ? "vertical" : menuMode.value}`}>
+                  {slots.default?.()}
+                </ul>
               </div>
             </div>
           </Transition>
         </Teleport>
-      ) : null;
-    };
-    const renderSubmenu = () => {
-      const opened = openKeys.value.indexOf(key) >= 0;
-      // todo: mode 从inline 切换 vertical 时 会卡一下
-      const popper = renderPopper();
-      if (menuMode.value != "horizontal") {
-        const transitionProps = getTransitionProp("k-collapse-slide");
-        const node = [
-          <Transition {...transitionProps}>
-            <div
-              class={`k-${preCls}-sub`}
-              v-show={opened && !inlineCollapsed.value && menuMode.value != "vertical"}
-            >
-              <ul class={`k-menu k-menu-${menuMode.value}`}>{slots.default?.()}</ul>
-            </div>
-          </Transition>,
-        ];
-        if (inlineCollapsed.value || menuMode.value == "vertical") {
-          popper && node.push(popper);
-        }
-        return node;
-      } else {
-        return popper;
-      }
+      );
     };
 
     return () => {
@@ -214,10 +206,10 @@ const SubMenu = defineComponent({
           }, 200);
         };
       }
-      if (keyPah.length && menuMode.value != "horizontal" && !props.isPopup) {
+      if (keyPah.length && menuMode.value === "inline" && !inlineCollapsed.value) {
         titleProps.style.paddingLeft = `${keyPah.length * 16 + 16}px`;
       }
-      let title = props.title || slots.title?.();
+      let title = props.title ?? slots.title?.();
 
       const titleNode = (
         <div {...titleProps}>
@@ -238,11 +230,11 @@ const SubMenu = defineComponent({
           [`k-${preCls}-disabled`]: props.disabled,
         },
       ];
-      const popper = renderSubmenu();
+      const children = renderChildren();
       return (
         <li class={classes}>
           {titleNode}
-          {popper}
+          {children}
         </li>
       );
     };

@@ -1,20 +1,21 @@
 import { ChevronUp } from "kui-icons";
 import {
   Transition,
+  computed,
   defineComponent,
   getCurrentInstance,
+  inject,
   nextTick,
   ref,
   watch,
   type ExtractPropTypes,
 } from "vue";
 import { getTransitionProp } from "../base/transition";
-import type { BooleanType } from "../const/types";
 import Icon from "../icon";
+import { collapseContextKey, type CollapseKey } from "./context";
 
 const collapsePanelProps = {
   title: String,
-  active: Boolean as BooleanType,
 };
 
 export type CollapsePanelProps = ExtractPropTypes<typeof collapsePanelProps>;
@@ -24,21 +25,22 @@ const CollapsePanel = defineComponent({
   props: collapsePanelProps,
   setup(props, { slots, emit }) {
     const instance = getCurrentInstance();
-    const expanded = ref(props.active);
-    const rendered = ref(props.active);
+    const collapse = inject(collapseContextKey, null);
+    const key = instance?.vnode.key as CollapseKey | null;
+    const active = computed(() => key != null && !!collapse?.openKeys.value.includes(key));
+    const expanded = ref(active.value);
+    const rendered = ref(active.value);
 
-    watch(
-      () => props.active,
-      (nv) => {
-        rendered.value = true;
-        nextTick(() => {
-          expanded.value = nv;
-        });
-      }
-    );
+    watch(active, (nv) => {
+      if (nv) rendered.value = true;
+      nextTick(() => {
+        expanded.value = nv;
+      });
+    });
 
     const handleClick = () => {
-      const key = instance?.vnode.key;
+      if (key == null) return;
+      collapse?.toggle(key);
       emit("expand", key);
     };
 

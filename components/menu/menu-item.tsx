@@ -15,9 +15,8 @@ import { getChildren } from "../utils/vnode";
 
 const menuItemProps = {
   icon: Array as PropType<IconType[]>,
-  title: String as PropType<string | VNodeChild>,
+  title: [String, Number, Object, Array] as PropType<VNodeChild>,
   disabled: Boolean as BooleanType,
-  isPopup: Boolean as BooleanType,
 };
 
 export type MenuItemProps = ExtractPropTypes<typeof menuItemProps>;
@@ -27,12 +26,12 @@ const MenuItem = defineComponent({
   props: menuItemProps,
 
   setup(props, { slots }) {
-    let { icon, disabled, title } = props;
     const instance = getCurrentInstance();
     const key = instance?.vnode.key;
 
     const selectedKeys = inject<Ref<string[]>>("menu-selected-keys", ref([]));
     const mode = inject<Ref<string>>("menu-mode");
+    const inlineCollapsed = inject<Ref<boolean>>("menu-inline-collapsed", ref(false));
     const dropdown = inject("dropdown", null);
     const active = ref(false);
     const keyPah = inject("menu-key-path", []);
@@ -41,9 +40,10 @@ const MenuItem = defineComponent({
 
     onMounted(() => {
       const selected = selectedKeys.value.indexOf(key as string) >= 0;
-      selected && selectedKeysChange?.(key as string, selected, keyPah);
+      if (selected) selectedKeys.value = [...keyPah, key as string];
     });
     return () => {
+      const { icon, disabled, title } = props;
       const preCls = dropdown ? "dropdown-menu" : "menu";
       const selected = selectedKeys.value.indexOf(key as string) >= 0 && !dropdown;
       const _props = {
@@ -57,9 +57,7 @@ const MenuItem = defineComponent({
         ],
         style: {
           paddingLeft:
-            (mode?.value == "inline" || mode?.value == "vertical") &&
-            keyPah.length &&
-            !props.isPopup
+            mode?.value === "inline" && !inlineCollapsed.value && keyPah.length
               ? `${keyPah.length * 16 + 16}px`
               : undefined,
         },
@@ -79,7 +77,7 @@ const MenuItem = defineComponent({
 
       // 没有子集的时候才展示
       let titleNode = (
-        <span class={`k-${preCls}-title-content`}>{title || getChildren(slots.default?.())}</span>
+        <span class={`k-${preCls}-title-content`}>{title ?? getChildren(slots.default?.())}</span>
       );
       let iconNode = slots.icon ? (
         <span class={`k-${preCls}-item-icon`}>{slots.icon()}</span>

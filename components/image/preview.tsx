@@ -56,10 +56,10 @@ const ImagePreview = defineComponent({
     showPanel: Boolean as BooleanType,
   },
   setup(props, { emit, slots, expose }) {
-    const { value, type, src, origin, showPanel, data } = toRefs(props);
+    const { value, type, src, origin, showPanel } = toRefs(props);
     const state = reactive({
       scale: 1,
-      data,
+      data: [...props.data],
       rotate: 0,
       startPos: { x: 0, y: 0 },
       initPos: { x: 0, y: 0 },
@@ -80,6 +80,10 @@ const ImagePreview = defineComponent({
     const refImage = ref<HTMLElement>();
     const panelRef = ref<HTMLElement>();
     const maxScale = 10;
+    let cancelLoad = () => {};
+    let downloadRequest: XMLHttpRequest | null = null;
+    let onClose: ImagePreviewProps["onClose"];
+    let onSwitch: ImagePreviewProps["onSwitch"];
     const updatePanelRight = () => {
       state.panelRight = panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
     };
@@ -98,8 +102,10 @@ const ImagePreview = defineComponent({
 
     const close = () => {
       state.visible = false;
-      emit("input", false);
+      mouseup();
+      emit("update:value", false);
       emit("close");
+      onClose?.();
     };
 
     const mousewheel = (e: WheelEvent) => {
@@ -114,7 +120,8 @@ const ImagePreview = defineComponent({
       if (!state.visible) return;
 
       if (refImage.value && refImage.value.contains(e.target as HTMLElement)) {
-        if ((e as MouseEvent).button && (e as MouseEvent).button != 0) return;
+        if (e instanceof MouseEvent && e.button !== 0) return;
+        state.touch = e.type.startsWith("touch");
         let [x, y] = getPosition(e);
 
         state.isMouseDown = true;
@@ -126,6 +133,9 @@ const ImagePreview = defineComponent({
             passive: false,
           });
           document.addEventListener("touchend", mouseup as EventListener, {
+            passive: false,
+          });
+          document.addEventListener("touchcancel", mouseup as EventListener, {
             passive: false,
           });
         } else {
@@ -182,17 +192,13 @@ const ImagePreview = defineComponent({
     };
 
     const mouseup = () => {
-      if (!state.visible) return;
       state.isMouseDown = false;
-      resetPosition();
-
-      if (state.touch) {
-        document.removeEventListener("touchmove", mousemove as EventListener);
-        document.removeEventListener("touchend", mouseup as EventListener);
-      } else {
-        document.removeEventListener("mousemove", mousemove as EventListener);
-        document.removeEventListener("mouseup", mouseup as EventListener);
-      }
+      if (state.visible) resetPosition();
+      document.removeEventListener("touchmove", mousemove as EventListener);
+      document.removeEventListener("touchend", mouseup as EventListener);
+      document.removeEventListener("touchcancel", mouseup as EventListener);
+      document.removeEventListener("mousemove", mousemove as EventListener);
+      document.removeEventListener("mouseup", mouseup as EventListener);
     };
 
     const mousemove = (e: MouseEvent | TouchEvent) => {
@@ -209,32 +215,41 @@ const ImagePreview = defineComponent({
     };
 
     const switchImage = (left?: boolean) => {
-      state.scale = 1;
-      const data = props.data || [];
+      const data = state.data;
+      if (!data.length) return;
       const index = data.indexOf(state.src);
-      let newIndex = index;
+      let newIndex = index < 0 ? 0 : index;
       newIndex = left ? newIndex - 1 : newIndex + 1;
       newIndex = Math.max(0, newIndex);
       newIndex = Math.min(newIndex, data.length - 1);
-
-      state.src = data[newIndex];
-
-      if ((left && index == 0) || (!left && index == data.length - 1)) return;
+      if (newIndex === index) return;
+      resetTransform();
+      state.src = data[newIndex] || "";
       emit("switch", newIndex);
+      onSwitch?.(newIndex);
     };
 
     const download = () => {
       if (!state.error) {
+        downloadRequest?.abort();
         const x = new XMLHttpRequest();
+        downloadRequest = x;
         x.open("GET", state.src, true);
         x.responseType = "blob";
         x.onload = function () {
+          if (x.status < 200 || x.status >= 300) {
+            downloadRequest = null;
+            return;
+          }
           const url = window.URL.createObjectURL(x.response);
           const a = document.createElement("a");
           a.href = url;
           a.download = "";
           a.click();
+          window.URL.revokeObjectURL(url);
+          downloadRequest = null;
         };
+        x.onerror = () => (downloadRequest = null);
         x.send();
       }
     };
@@ -242,8 +257,10 @@ const ImagePreview = defineComponent({
     const togglePanel = () => {
       state.isShowPanel = !state.isShowPanel;
       emit("togglePanel", state.isShowPanel);
-      nextTick(() => resetPosition());
-      updatePanelRight();
+      nextTick(() => {
+        updatePanelRight();
+        resetPosition();
+      });
     };
 
     const getPanel = () => {
@@ -289,10 +306,15 @@ const ImagePreview = defineComponent({
     watch(
       () => state.src,
       (src) => {
-        if (state.type == "media" || !src) return;
+        cancelLoad();
+        state.error = false;
+        if (state.type == "media" || !src) {
+          state.loading = false;
+          return;
+        }
 
         state.loading = true;
-        loadImage(
+        cancelLoad = loadImage(
           src,
           () => {
             state.loading = false;
@@ -303,7 +325,8 @@ const ImagePreview = defineComponent({
             state.error = true;
           }
         );
-      }
+      },
+      { immediate: true }
     );
 
     watch(
@@ -316,13 +339,8 @@ const ImagePreview = defineComponent({
 
     onMounted(() => {
       if (typeof window !== "undefined") {
-        const touch =
-          "ontouchstart" in window ||
-          navigator.maxTouchPoints > 0 ||
-          (window.matchMedia && window.matchMedia("(pointer: coarse)").matches);
-        state.touch = touch;
-        const event = touch ? "touchstart" : "mousedown";
-        document.addEventListener(event, mousedown, { passive: false });
+        document.addEventListener("touchstart", mousedown, { passive: false });
+        document.addEventListener("mousedown", mousedown, { passive: false });
         document.addEventListener("wheel", mousewheel, { passive: false });
 
         document.addEventListener("keydown", escToClose);
@@ -330,22 +348,37 @@ const ImagePreview = defineComponent({
     });
 
     onBeforeUnmount(() => {
+      cancelLoad();
+      downloadRequest?.abort();
+      mouseup();
+      document.removeEventListener("touchstart", mousedown);
+      document.removeEventListener("mousedown", mousedown);
       document.removeEventListener("wheel", mousewheel);
       document.removeEventListener("keydown", escToClose);
     });
 
-    const show = (props: ImagePreviewProps) => {
-      if (props?.src) {
-        state.src = props.src;
-      }
-      if (props?.type) {
-        state.type = props.type;
-      }
+    const resetTransform = () => {
+      state.scale = 1;
+      state.rotate = 0;
+      state.vertical = true;
+      state.left = 0;
+      state.top = 0;
+    };
+
+    const show = (options: ImagePreviewProps) => {
+      resetTransform();
+      state.data = [...(options.data || [])];
+      state.src = options.src || "";
+      state.type = options.type;
+      state.isShowPanel = Boolean(options.showPanel);
+      onClose = options.onClose;
+      onSwitch = options.onSwitch;
       state.visible = true;
+      nextTick(updatePanelRight);
     };
 
     const escToClose = (e: KeyboardEvent) => {
-      if (e.keyCode === 27) {
+      if (e.key === "Escape" && state.visible) {
         close();
       }
     };
@@ -430,7 +463,7 @@ const ImagePreview = defineComponent({
                   <li
                     class={[
                       "k-image-preview-action",
-                      { "k-image-preview-action-disabled": scale >= 5 },
+                      { "k-image-preview-action-disabled": scale >= maxScale },
                     ]}
                     onClick={() => setScale(true)}
                   >
@@ -460,7 +493,7 @@ const ImagePreview = defineComponent({
                   </div>
                 ) : null}
               </div>
-              {props.data.length > 1
+              {data.length > 1
                 ? [
                     <div
                       class={[

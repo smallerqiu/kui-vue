@@ -97,8 +97,8 @@ const columns = [
 | ------------ | ------------------------- | ---------------------------------------------------------------------------- | -------- |
 | bordered     | 是否显示边框              | bool                                                                         | false    |
 | checkable    | 是否显示勾选框            | bool                                                                         | false    |
-| selectedKeys | 勾选的key集合             | string[]                                                                     | -        |
-| disabledKeys | 禁用的key集合             | string[]                                                                     | -        |
+| selectedKeys | 勾选的key集合             | (string \| number)[]                                                         | -        |
+| disabledKeys | 禁用的key集合             | (string \| number)[]                                                         | -        |
 | size         | 值为`small`时展示紧凑模式 | string                                                                       | -        |
 | emptyText    | 没有数据时展示的提示      | string                                                                       | 赞无数据 |
 | loading      | 表格异步加载模式          | bool                                                                         | false    |
@@ -113,14 +113,14 @@ const columns = [
 
 ## Column API
 
-| 属性    | 说明                             | 类型                                                                           | 默认值 |
-| ------- | -------------------------------- | ------------------------------------------------------------------------------ | ------ |
-| title   | 列头显示文字                     | string                                                                         | -      |
-| key     | 对应列内容的字段名               | string                                                                         | -      |
-| fixed   | 列固定的方向                     | left,right                                                                     | -      |
-| sorter  | 排序,为`true`时,本地排序         | boolean \| (state: SortState) => void                                          | -      |
-| width   | 列宽                             | number                                                                         | -      |
-| rowSpan | 行合并单位,为 0 时将不渲染当前行 | number                                                                         | -      |
-| colSpan | 列合并单位,为 0 时将不渲染当前列 | number                                                                         | -      |
-| render  | 自定义渲染                       | (h: any, record: any, colIndex: number, rowIndex: number, col: Column) => void | -      |
-| scroll  | 滚动属性                         | {x:[number ,string],y:[number , string]}                                       | -      |
+| 属性    | 说明                             | 类型                                               | 默认值 |
+| ------- | -------------------------------- | -------------------------------------------------- | ------ |
+| title   | 列头显示文字                     | string                                             | -      |
+| key     | 对应列内容的字段名               | string                                             | -      |
+| fixed   | 列固定的方向                     | left,right                                         | -      |
+| sorter  | 排序,为`true`时,本地排序         | boolean \| (state: SortState) => void              | -      |
+| width   | 列宽                             | number                                             | -      |
+| rowSpan | 行合并单位,为 0 时将不渲染当前行 | number                                             | -      |
+| colSpan | 列合并单位,为 0 时将不渲染当前列 | number                                             | -      |
+| render  | 自定义渲染                       | (h, record, colIndex, rowIndex, col) => VNodeChild | -      |
+| scroll  | 滚动属性                         | {x:[number ,string],y:[number , string]}           | -      |

@@ -4,7 +4,7 @@ import {
   defineComponent,
   inject,
   nextTick,
-  onBeforeMount,
+  onBeforeUnmount,
   onMounted,
   ref,
   Teleport,
@@ -43,8 +43,9 @@ export type ModalProps = ExtractPropTypes<typeof modalProps>;
 
 const Modal = defineComponent({
   name: "Modal",
+  inheritAttrs: false,
   props: modalProps,
-  setup(props, { slots, emit }) {
+  setup(props, { attrs, slots, emit }) {
     const visible = ref<boolean | undefined>(props.modelValue);
     const rendered = ref(false);
     const showInner = ref(props.modelValue);
@@ -67,10 +68,6 @@ const Modal = defineComponent({
       }
     };
 
-    onBeforeMount(() => {
-      document.removeEventListener("mousedown", mousedown);
-      props.escKey && document.removeEventListener("keydown", escToClose);
-    });
     onMounted(() => {
       document.addEventListener("mousedown", mousedown);
       props.escKey && document.addEventListener("keydown", escToClose);
@@ -78,6 +75,11 @@ const Modal = defineComponent({
       if (props.modelValue) {
         toggle(true);
       }
+    });
+    onBeforeUnmount(() => {
+      mouseup();
+      document.removeEventListener("mousedown", mousedown);
+      document.removeEventListener("keydown", escToClose);
     });
     watch(
       () => props.modelValue,
@@ -245,8 +247,8 @@ const Modal = defineComponent({
         ? null
         : {
             width: typeof width === "number" ? `${width}px` : width,
-            top: `${currentTop.value}px`,
-            left: `${left.value}px`,
+            top: props.centered ? undefined : `${currentTop.value}px`,
+            left: props.centered ? undefined : `${left.value}px`,
           };
       const classes = [
         "k-modal",
@@ -256,10 +258,12 @@ const Modal = defineComponent({
           "k-modal-centered": props.centered,
           "k-modal-has-footer": props.footer !== null,
         },
+        attrs.class,
       ];
+      const { class: _, ...rootAttrs } = attrs;
       return rendered.value ? (
         <Teleport to="body">
-          <div class={classes}>
+          <div {...rootAttrs} class={classes}>
             {maskNode}
             <div
               class="k-modal-wrap"

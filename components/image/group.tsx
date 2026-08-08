@@ -1,11 +1,13 @@
 import {
-    defineComponent,
-    type ExtractPropTypes,
-    onUnmounted,
-    type PropType,
-    provide,
-    ref
+  computed,
+  defineComponent,
+  type ExtractPropTypes,
+  onUnmounted,
+  type PropType,
+  provide,
+  ref,
 } from "vue";
+import { imageGroupKey } from "./context";
 import createInstance from "./instance";
 import type { ImagePreviewProps } from "./preview";
 
@@ -19,14 +21,15 @@ const ImageGroup = defineComponent({
   name: "ImageGroup",
   props: imageGroupProps,
   setup(props, { slots }) {
-    const data = ref(props.data || []);
+    const registered = ref<string[]>([]);
+    const data = computed(() => (props.data ? [...props.data] : [...registered.value]));
     const preview = ref();
     const show = (props: ImagePreviewProps, slots: any) => {
+      const options = { ...props, data: data.value };
       if (!preview.value) {
-        props.data = data.value;
-        preview.value = createInstance({ ...props }, slots);
+        preview.value = createInstance(options, slots);
       }
-      preview.value.show(props);
+      preview.value.show(options);
     };
     const togglePanel = () => {
       if (preview.value) {
@@ -34,14 +37,15 @@ const ImageGroup = defineComponent({
       }
     };
 
-    const register = (item: string) => {
-      data.value.push(item);
+    const register = (item?: string) => {
+      if (item) registered.value.push(item);
     };
 
-    const unregister = (item: string) => {
-      const index = data.value.indexOf(item);
+    const unregister = (item?: string) => {
+      if (!item) return;
+      const index = registered.value.indexOf(item);
       if (index >= 0) {
-        data.value.splice(index, 1);
+        registered.value.splice(index, 1);
       }
     };
     const destroy = () => {
@@ -51,12 +55,10 @@ const ImageGroup = defineComponent({
       }
     };
 
-    provide("ImageGroup", {
+    provide(imageGroupKey, {
       show,
-      destroy,
       register,
       unregister,
-      data,
       togglePanel,
     });
 
@@ -68,5 +70,5 @@ const ImageGroup = defineComponent({
       return <div class="k-image-group">{slots.default?.()}</div>;
     };
   },
-}) 
+});
 export default ImageGroup;

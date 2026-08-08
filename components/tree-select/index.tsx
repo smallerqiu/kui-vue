@@ -4,8 +4,9 @@ import {
   defineComponent,
   inject,
   nextTick,
-  onBeforeMount,
+  onBeforeUnmount,
   onMounted,
+  provide,
   ref,
   Teleport,
   Transition,
@@ -27,7 +28,8 @@ import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
 import Tree, { type TreeExpandEvent } from "../tree";
-import { buildTree, type TreeNode } from "../tree/utils";
+import { treeSelectContextKey } from "../tree/context";
+import type { TreeNode } from "../tree/utils";
 import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
 
@@ -61,7 +63,6 @@ const treeSelectProps = {
   loading: Boolean as BooleanType,
   bordered: { type: Boolean as BooleanType, default: true },
   showArrow: { type: Boolean as BooleanType, default: true },
-  options: Array,
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   emptyText: String,
   icon: [Array] as PropType<IconType[]>,
@@ -73,9 +74,6 @@ const treeSelectProps = {
   treeShowIcon: { type: Boolean as BooleanType, default: true },
   treeCheckStrictly: Boolean as BooleanType,
   treeExpandedKeys: Array as PropType<string[]>,
-  treeCheckedKeys: Array as PropType<string[]>,
-  treeSelectedKeys: Array as PropType<string[]>,
-  treeExpandedAll: Boolean as BooleanType,
   treeLoadData: {
     type: Function as PropType<(node: TreeNode) => Promise<any>>,
   },
@@ -104,7 +102,7 @@ const TreeSelect = defineComponent({
     resize,
   },
   props: treeSelectProps,
-  setup(props, { emit, attrs }) {
+  setup(props, { emit }) {
     const injectedLocale = inject<Record<string, any>>("locale", zhCN);
 
     const locale = computed(() => {
@@ -128,7 +126,7 @@ const TreeSelect = defineComponent({
     const minWidth = ref<string | number>("");
     const queryInputFocused = ref(false);
     const queryInputRef = ref<HTMLInputElement | null>(null);
-    const hasSearchEvent = !!attrs.onSearch;
+    const hasSearchEvent = typeof props.onSearch === "function";
     const refPopper = ref<HTMLElement | null>(null);
     const transOrigin = ref("bottom");
     const refSelection = ref<HTMLElement | null>(null);
@@ -136,12 +134,9 @@ const TreeSelect = defineComponent({
     const top = ref(0);
     const currentPlacement = ref<TreeSelectPlacement>(props.placement);
     const queryInputEventTimer = ref<number | undefined>(undefined);
+    const clearQueryTimer = ref<number | undefined>(undefined);
 
-    const hasLoad = !!props.treeLoadData;
-    const defaultExpandedKeys = ref<string[]>(props.treeExpandedKeys || []);
-    const defaultCheckedKeys = ref<string[]>(props.treeCheckedKeys || []);
-
-    const ctxFocused = ref(false);
+    const defaultExpandedKeys = ref<string[]>([...(props.treeExpandedKeys || [])]);
 
     watch(
       () => props.placement,
@@ -163,8 +158,15 @@ const TreeSelect = defineComponent({
       }
     );
 
-    onBeforeMount(() => {
+    provide(treeSelectContextKey, {
+      checkOnClick: computed(() => !!props.treeCheckable),
+      query: queryKey,
+    });
+
+    onBeforeUnmount(() => {
       document.removeEventListener("click", outsideClick);
+      clearTimeout(queryInputEventTimer.value);
+      clearTimeout(clearQueryTimer.value);
     });
 
     const updatePosition = () => {
@@ -208,7 +210,8 @@ const TreeSelect = defineComponent({
 
     const clearQuery = () => {
       if (props.filterable || hasSearchEvent) {
-        setTimeout(() => {
+        clearTimeout(clearQueryTimer.value);
+        clearQueryTimer.value = window.setTimeout(() => {
           queryKey.value = "";
           if (queryInputRef.value) {
             queryInputRef.value.value = "";
@@ -323,34 +326,40 @@ const TreeSelect = defineComponent({
       }
     };
 
-    const optionsData = computed(() => {
-      return buildTree({
-        data: props.treeData || [],
-        expandedKeys: defaultExpandedKeys.value,
-        selectedKeys: currentValue.value,
-        checkedKeys: defaultCheckedKeys.value,
-        hasLoad,
-        checkStrictly: props.treeCheckStrictly,
-      });
-    });
-
     const labelText = computed<string[]>(() => {
       const lookup: Record<string, string> = {};
-      optionsData.value.forEach((item: TreeNode) => {
-        lookup[String(item.key)] = item.title || item.key;
-      });
+      const collectLabels = (nodes: TreeNode[]) => {
+        nodes.forEach((item) => {
+          lookup[String(item.key)] = item.title || item.key;
+          if (item.children?.length) collectLabels(item.children);
+        });
+      };
+      collectLabels(props.treeData || []);
       return currentValue.value.map((val: string) => {
         const hit = lookup[String(val)];
         return hit || val;
       });
     });
 
-    watch(
-      () => props.treeCheckedKeys,
-      (nv) => {
-        defaultCheckedKeys.value = nv || [];
+    const hasMatchingNode = computed(() => {
+      const query = queryKey.value.trim().toLocaleLowerCase();
+      const nodes = props.treeData || [];
+      if (!query) return nodes.length > 0;
+
+      const stack = [...nodes];
+      while (stack.length) {
+        const node = stack.pop()!;
+        if (
+          String(node.title ?? "")
+            .toLocaleLowerCase()
+            .includes(query)
+        ) {
+          return true;
+        }
+        if (node.children?.length) stack.push(...node.children);
       }
-    );
+      return false;
+    });
 
     watch(
       () => props.treeExpandedKeys,
@@ -411,16 +420,15 @@ const TreeSelect = defineComponent({
     const renderTree = () => {
       const treePropsData: Record<string, unknown> = {
         checkable: props.treeCheckable,
-        loading: props.loading,
         data: props.treeData,
+        showLine: props.treeShowLine,
+        showIcon: props.treeShowIcon,
         multiple: props.multiple || props.treeCheckable,
         checkStrictly: props.treeCheckStrictly,
         expandedKeys: defaultExpandedKeys.value.slice(),
         selectedKeys: currentValue.value.slice(),
         checkedKeys: currentValue.value.slice(),
-        selectAsCheck: props.treeCheckable,
         loadData: props.treeLoadData,
-        queryKey: queryKey.value,
         onSelect,
         onExpand,
         onCheck,
@@ -478,7 +486,7 @@ const TreeSelect = defineComponent({
             <div v-show={visible.value} {...overlayProps}>
               {props.loading ? (
                 loadingNode
-              ) : props.treeData && props.treeData.length ? (
+              ) : hasMatchingNode.value ? (
                 renderTree()
               ) : (
                 <Empty
@@ -606,8 +614,6 @@ const TreeSelect = defineComponent({
         class: classes,
         style: styles,
         onClick: () => toggle(),
-        onFocus: () => (ctxFocused.value = true),
-        onBlur: () => (ctxFocused.value = false),
         ref: refSelection,
       };
       return (

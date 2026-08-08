@@ -2,17 +2,20 @@ import { createVNode, render } from "vue";
 import { getAppContext } from "../config/context";
 import Preview from "./preview";
 
-const createInstance = (props = {}, slots:any) => {
-  const containerId = `k-image-preview-box`;
-  let container = document.getElementById(containerId);
-  if (!container) {
-    container = document.createElement("div");
-    container.id = containerId;
-    document.body.appendChild(container);
-  }
-  const vm = createVNode(Preview, props, slots);
-  render(vm, container);
+let seed = 0;
+
+const createInstance = (props = {}, slots: any) => {
+  const container = document.createElement("div");
+  container.id = `k-image-preview-box-${++seed}`;
+  document.body.appendChild(container);
+  const {
+    onClose: _onClose,
+    onSwitch: _onSwitch,
+    ...previewProps
+  } = props as Record<string, unknown>;
+  const vm = createVNode(Preview, previewProps, slots);
   vm.appContext = getAppContext()?.appContext || null;
+  render(vm, container);
   const instance = vm.component?.exposed;
   if (instance) {
     instance.destroy = () => {

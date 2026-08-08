@@ -1,3 +1,4 @@
+import { User } from "kui-icons";
 import {
   computed,
   defineComponent,
@@ -5,24 +6,28 @@ import {
   onBeforeUnmount,
   onMounted,
   ref,
+  watch,
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import type { ShapeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
+import { getChildren } from "../utils/vnode";
+import { avatarGroupContextKey, type AvatarShape, type AvatarSize } from "./context";
 
 const avatarProps = {
   icon: [Array] as PropType<IconType[]>,
   shape: {
-    type: String as PropType<ShapeType>,
+    type: String as PropType<AvatarShape>,
     default: "circle",
   },
   size: {
-    type: [Number, String] as PropType<number | "large" | "small" | "default">,
+    type: [Number, String] as PropType<AvatarSize>,
     default: "default",
   },
   src: String,
+  alt: String,
+  onError: Function as PropType<(event: Event) => boolean | void>,
 };
 
 export type AvatarProps = ExtractPropTypes<typeof avatarProps>;
@@ -31,15 +36,24 @@ const Avatar = defineComponent({
   name: "Avatar",
   props: avatarProps,
   setup(props, { slots }) {
-    const group = inject<any>("KAvatarGroup", null);
+    const group = inject(avatarGroupContextKey, null);
 
     const innerRef = ref<HTMLElement | null>(null);
     const rootRef = ref<HTMLElement | null>(null);
     const textStyles = ref<CSSProperties>({});
+    const imageFailed = ref(false);
     let observer: ResizeObserver | null = null;
+    let animationFrame = 0;
 
     const computedSize = computed(() => group?.size?.value || props.size);
     const computedShape = computed(() => group?.shape?.value || props.shape);
+
+    watch(
+      () => props.src,
+      () => {
+        imageFailed.value = false;
+      }
+    );
 
     const updateSize = () => {
       if (innerRef.value && rootRef.value) {
@@ -60,12 +74,15 @@ const Avatar = defineComponent({
     };
 
     onMounted(() => {
-      observer = new ResizeObserver(() => {
-        window.requestAnimationFrame(updateSize);
-      });
+      if (typeof ResizeObserver !== "undefined") {
+        observer = new ResizeObserver(() => {
+          cancelAnimationFrame(animationFrame);
+          animationFrame = window.requestAnimationFrame(updateSize);
+        });
 
-      if (rootRef.value) observer.observe(rootRef.value);
-      if (innerRef.value) observer.observe(innerRef.value);
+        if (rootRef.value) observer.observe(rootRef.value);
+        if (innerRef.value) observer.observe(innerRef.value);
+      }
 
       updateSize();
     });
@@ -73,6 +90,7 @@ const Avatar = defineComponent({
     onBeforeUnmount(() => {
       observer?.disconnect();
       observer = null;
+      cancelAnimationFrame(animationFrame);
     });
 
     return () => {
@@ -88,9 +106,11 @@ const Avatar = defineComponent({
         rootStyles.fontSize = `${sizeVal / 2}px`;
       }
 
-      const children = slots.default?.();
+      const children = getChildren(slots.default?.());
       const hasIcon = children?.some((c: any) => c.type?.name === "Icon");
       const isText = children?.length === 1 && typeof children[0].children === "string";
+      const showImage = !!src && !imageFailed.value;
+      const fallbackIcon = imageFailed.value && src ? icon || User : icon;
 
       const rootProps = {
         ref: rootRef,
@@ -100,8 +120,8 @@ const Avatar = defineComponent({
           {
             "k-avatar-lg": sizeVal === "large",
             "k-avatar-sm": sizeVal === "small",
-            "k-avatar-image": src,
-            "k-avatar-icon": icon || hasIcon,
+            "k-avatar-image": showImage,
+            "k-avatar-icon": fallbackIcon || hasIcon,
             "k-avatar-square": shapeVal === "square",
           },
         ],
@@ -113,12 +133,16 @@ const Avatar = defineComponent({
         style: textStyles.value,
       };
 
+      const handleImageError = (event: Event) => {
+        if (props.onError?.(event) !== false) imageFailed.value = true;
+      };
+
       return (
         <div {...rootProps}>
-          {icon ? (
-            <Icon type={icon} />
-          ) : src ? (
-            <img src={src} alt="" />
+          {showImage ? (
+            <img src={src} alt={props.alt || ""} onError={handleImageError} />
+          ) : fallbackIcon ? (
+            <Icon type={fallbackIcon} />
           ) : isText ? (
             <span {...textProps}>{children}</span>
           ) : (

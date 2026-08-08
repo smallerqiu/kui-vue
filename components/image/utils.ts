@@ -3,7 +3,7 @@ interface ImageInfo {
   height: number;
 }
 export const loadImage = (src: string, callback?: (info: ImageInfo) => void, err?: () => void) => {
-  if (!src) return;
+  if (!src) return () => {};
 
   let image: HTMLImageElement | null = new Image();
   let isCompleted = false;
@@ -18,7 +18,7 @@ export const loadImage = (src: string, callback?: (info: ImageInfo) => void, err
 
   image.onload = () => {
     if (!isCompleted && image) {
-      const { width, height } = image;
+      const { naturalWidth: width, naturalHeight: height } = image;
       callback && callback({ width, height });
     }
     cleanup();
@@ -32,4 +32,5 @@ export const loadImage = (src: string, callback?: (info: ImageInfo) => void, err
   };
 
   image.src = src;
+  return cleanup;
 };

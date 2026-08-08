@@ -15,6 +15,37 @@ vite 好像有缓存, 可手动清除
 rm -rf node_modules/.vite
 ```
 
+## 5.4.2
+
+`2026-8-8`
+
+### 功能优化
+
+- 弹出层组件全面升级为 Vue 3 `Teleport`。
+- 优化 Menu 折叠、展开动画及子菜单状态恢复。
+- Avatar 图片加载失败时展示默认 User 图标。
+- 优化 Demo 在线编译器对 TypeScript 语法的支持。
+- 完善 Table、Upload 等组件的 TypeScript 类型。
+
+### Bug 修复
+
+- 修复 Modal 命令式调用样式丢失及居中位置偏下。
+- 修复 Menu 折叠时子菜单动画丢失、选中状态异常。
+- 修复 TreeSelect 搜索无匹配数据时 Empty 不显示。
+- 修复 Table 空数据、固定表头场景下边框缺失。
+- 修复 Table 勾选、合并单元格、固定列及滚动状态异常。
+- 修复 Upload 请求方法无效、状态判断、文件删除和资源泄漏。
+- 修复 Image 多实例冲突、加载竞态、预览数据不同步及事件泄漏。
+- 修复 Avatar、Skeleton 的加载状态、尺寸和资源清理问题。
+- 修复 Input 浏览器自动填充背景色异常。
+- 修复 Demo 编译 `import type` 语法时报错。
+
+### 重构
+
+- 简化 Menu、Collapse、Tree/TreeSelect 的内部状态传递。
+- 移除冗余的 `isPopup`、`active`、`selectAsCheck` 和 `queryKey`。
+- 移除旧的 `v-transfer` 指令。
+
 ## 5.4.1
 
 `2026-8-2`

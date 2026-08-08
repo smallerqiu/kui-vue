@@ -97,8 +97,8 @@ const columns = [
 | ------------ | -------------------------------------------------------- | ---------------------------------------------------------------------------- | ------- |
 | bordered     | Whether to display borders                               | bool                                                                         | false   |
 | checkable    | Whether to show checkboxes                               | bool                                                                         | false   |
-| selectedKeys | Collection of selected keys                              | string[]                                                                     | -       |
-| disabledKeys | Disabled key set                                         | string[]                                                                     | -       |
+| selectedKeys | Collection of selected keys                              | (string \| number)[]                                                         | -       |
+| disabledKeys | Disabled key set                                         | (string \| number)[]                                                         | -       |
 | size         | Display compact mode when the value is `small`           | string                                                                       | -       |
 | emptyText    | Prompt displayed when there is no data                   | string                                                                       | No Data |
 | loading      | Table asynchronous loading mode                          | bool                                                                         | false   |
@@ -113,14 +113,14 @@ const columns = [
 
 ## Column API
 
-| Property | Description                                                        | Type                                                                           | Default |
-| -------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------- |
-| title    | Header display text                                                | string                                                                         | -       |
-| key      | Corresponding column field name                                    | string                                                                         | -       |
-| fixed    | Column fixed direction                                             | left,right                                                                     | -       |
-| sorter   | Sorting, when `true`, local sorting is enabled                     | boolean \| (state: SortState) => void                                          | -       |
-| width    | Column width                                                       | number                                                                         | -       |
-| rowSpan  | Row merge unit, when 0, the current row will not be rendered       | number                                                                         | -       |
-| colSpan  | Column merge unit, when 0, the current column will not be rendered | number                                                                         | -       |
-| render   | Custom rendering                                                   | (h: any, record: any, colIndex: number, rowIndex: number, col: Column) => void | -       |
-| scroll   | Scrolling attributes                                               | {x:[number ,string],y:[number , string]}                                       | -       |
+| Property | Description                                                        | Type                                               | Default |
+| -------- | ------------------------------------------------------------------ | -------------------------------------------------- | ------- |
+| title    | Header display text                                                | string                                             | -       |
+| key      | Corresponding column field name                                    | string                                             | -       |
+| fixed    | Column fixed direction                                             | left,right                                         | -       |
+| sorter   | Sorting, when `true`, local sorting is enabled                     | boolean \| (state: SortState) => void              | -       |
+| width    | Column width                                                       | number                                             | -       |
+| rowSpan  | Row merge unit, when 0, the current row will not be rendered       | number                                             | -       |
+| colSpan  | Column merge unit, when 0, the current column will not be rendered | number                                             | -       |
+| render   | Custom rendering                                                   | (h, record, colIndex, rowIndex, col) => VNodeChild | -       |
+| scroll   | Scrolling attributes                                               | {x:[number ,string],y:[number , string]}           | -       |

@@ -1,24 +1,14 @@
-import { type CSSProperties, defineComponent, ref, watch } from "vue";
+import { type CSSProperties, defineComponent } from "vue";
 
 import { skeletonProps } from "./types";
+import { useSkeletonLoading } from "./use-skeleton-loading";
 const SkeletonText = defineComponent({
   name: "SkeletonText",
   props: skeletonProps,
   setup(ps, { slots }) {
-    const show = ref(ps.loading);
-    const timer = ref();
-    watch(
+    const show = useSkeletonLoading(
       () => ps.loading,
-      (v) => {
-        if (v) {
-          show.value = v;
-        } else {
-          clearTimeout(timer.value);
-          timer.value = setTimeout(() => {
-            show.value = v;
-          }, ps.delay);
-        }
-      }
+      () => ps.delay
     );
     return () => {
       let { size, animated, width } = ps;
@@ -42,7 +32,7 @@ const SkeletonText = defineComponent({
       };
       let child = slots.default?.();
 
-      if (width) {
+      if (width !== undefined) {
         innerProps.style.width = `${width}px`;
       }
       return <div {...props}>{child && !show.value ? child : <span {...innerProps}></span>}</div>;

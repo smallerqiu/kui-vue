@@ -102,7 +102,7 @@ export default defineComponent({
       let footer = <div class="k-toast-footer">{footerNode}</div>;
 
       let classes = [
-        "k-modal k-toast",
+        "k-toast",
         {
           [`k-toast-${type}`]: icons[type] != undefined,
         },

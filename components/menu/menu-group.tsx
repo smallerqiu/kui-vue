@@ -1,7 +1,7 @@
-import { defineComponent, type ExtractPropTypes } from "vue";
+import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
 
 const menuGroupProps = {
-  title: { type: String, required: true },
+  title: [String, Number, Object, Array] as PropType<VNodeChild>,
 };
 
 export type MenuGroupProps = ExtractPropTypes<typeof menuGroupProps>;
@@ -11,7 +11,7 @@ const MenuGroup = defineComponent({
   props: menuGroupProps,
   setup(props, { slots }) {
     return () => {
-      const titleNode = props.title || slots.title?.();
+      const titleNode = props.title ?? slots.title?.();
       return (
         <li class="k-menu-item-group">
           <div class="k-menu-item-group-title">{titleNode}</div>

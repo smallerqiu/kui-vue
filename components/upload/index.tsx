@@ -3,6 +3,7 @@ import {
   computed,
   defineComponent,
   inject,
+  onBeforeUnmount,
   reactive,
   ref,
   watch,
@@ -43,7 +44,7 @@ const uploadProps = {
   accept: String,
   headers: Object as PropType<Record<string, string>>,
   showUploadList: { type: Boolean as BooleanType, default: true },
-  transformFile: Function as PropType<(file: File) => Promise<File>>,
+  transformFile: Function as PropType<(file: File) => File | Promise<File>>,
   fileList: { type: Array as PropType<UploadFile[]>, default: () => [] },
   autoTrigger: { type: Boolean as BooleanType, default: true },
   limit: Number,
@@ -83,12 +84,22 @@ const Upload = defineComponent({
 
     const innerFileList = ref<UploadFile[]>([...(props.fileList || [])]);
     const uploadTemp = reactive<Record<string, File>>({});
+    const generatedPreviewUrls = new Set<string>();
+    let unmounted = false;
 
     // Watch for fileList changes
     watch(
       () => props.fileList,
       (newVal) => {
-        innerFileList.value = [...(newVal || [])];
+        const nextList = [...(newVal || [])];
+        const activePreviews = new Set(nextList.map((item) => item.preview).filter(Boolean));
+        generatedPreviewUrls.forEach((url) => {
+          if (!activePreviews.has(url)) {
+            URL.revokeObjectURL(url);
+            generatedPreviewUrls.delete(url);
+          }
+        });
+        innerFileList.value = nextList;
       },
       { deep: true }
     );
@@ -115,11 +126,12 @@ const Upload = defineComponent({
     const onSelectFiles = (files: FileList | File[]) => {
       const { limit, minSize, maxSize } = props;
       const fileArray = Array.from(files).filter((f) => f.name !== ".DS_Store");
+      let exceeded = false;
 
-      fileArray.forEach((file, index) => {
+      fileArray.forEach((file) => {
         const currentCount = innerFileList.value.length;
-        if (limit && currentCount >= limit) {
-          if (index === 0) emit("exceed");
+        if (limit !== undefined && limit >= 0 && currentCount >= limit) {
+          exceeded = true;
           return;
         }
 
@@ -132,12 +144,12 @@ const Upload = defineComponent({
           preview: null,
         };
 
-        if (file.type?.startsWith("image/")) {
-          const isImageByName = (name = "") =>
-            /\.(png|jpe?g|gif|webp|bmp|ico|svg|avif|apng)$/i.test(name);
-          if (isImageByName(file.name)) {
-            item.preview = window.URL.createObjectURL(file);
-          }
+        const isImage =
+          file.type?.startsWith("image/") ||
+          /\.(png|jpe?g|gif|webp|bmp|ico|svg|avif|apng)$/i.test(file.name);
+        if (isImage) {
+          item.preview = URL.createObjectURL(file);
+          generatedPreviewUrls.add(item.preview);
         }
 
         const fileSizeInKB = file.size / 1024;
@@ -156,6 +168,7 @@ const Upload = defineComponent({
         handleSelect({ item, file });
       });
 
+      if (exceeded) emit("exceed");
       emit("selectFiles", innerFileList.value);
     };
 
@@ -169,16 +182,30 @@ const Upload = defineComponent({
       if (props.autoTrigger) uploadFile(reactiveItem, file);
     };
 
-    const handleRemove = ({ index }: { index: number; file: UploadFile }) => {
-      const item = innerFileList.value[index];
+    const handleRemove = ({ index, file }: { index: number; file: UploadFile }) => {
+      const currentIndex = innerFileList.value.findIndex(
+        (item) => item === file || (!!file.uid && item.uid === file.uid)
+      );
+      const removeIndex = currentIndex >= 0 ? currentIndex : index;
+      const item = innerFileList.value[removeIndex];
       if (!item) return;
 
-      if (item.xhr) item.xhr.abort();
+      if (item.xhr) {
+        item.xhr.onreadystatechange = null;
+        item.xhr.onerror = null;
+        item.xhr.upload.onloadstart = null;
+        item.xhr.upload.onprogress = null;
+        item.xhr.abort();
+        item.xhr = undefined;
+      }
 
-      innerFileList.value.splice(index, 1);
+      innerFileList.value.splice(removeIndex, 1);
       item.uid && delete uploadTemp[item.uid];
 
-      if (item.preview) window.URL.revokeObjectURL(item.preview);
+      if (item.preview && generatedPreviewUrls.has(item.preview)) {
+        URL.revokeObjectURL(item.preview);
+        generatedPreviewUrls.delete(item.preview);
+      }
 
       emit("update:fileList", innerFileList.value);
       emit("remove", { file: item, fileList: innerFileList.value });
@@ -197,16 +224,25 @@ const Upload = defineComponent({
     const uploadFile = (item: UploadFile, file: File) => {
       emit("beforeUpload", item, file);
       if (props.transformFile) {
-        props.transformFile(file).then((res) => {
-          toUpload(item, res);
-        });
+        Promise.resolve(props.transformFile(file))
+          .then((res) => {
+            if (unmounted || !innerFileList.value.includes(item)) return;
+            toUpload(item, res);
+          })
+          .catch((error) => {
+            if (unmounted || !innerFileList.value.includes(item)) return;
+            item.errorText = error instanceof Error ? error.message : String(error || "");
+            item.status = "error";
+            item.uid && delete uploadTemp[item.uid];
+            triggerUpdate(item);
+          });
       } else {
         toUpload(item, file);
       }
     };
 
     const toUpload = (item: UploadFile, file: File) => {
-      const { action, name, headers, data } = props;
+      const { action, method, name, headers, data } = props;
       const formdata = new FormData();
       formdata.append(name, file);
 
@@ -216,8 +252,9 @@ const Upload = defineComponent({
 
       const xhr = new XMLHttpRequest();
       item.xhr = xhr;
+      let settled = false;
 
-      xhr.open("post", action);
+      xhr.open(method.toUpperCase(), action);
       if (headers) {
         for (const k in headers) {
           xhr.setRequestHeader(k, headers[k]);
@@ -225,8 +262,9 @@ const Upload = defineComponent({
       }
 
       xhr.onreadystatechange = () => {
-        if (xhr.readyState === 4) {
-          if (xhr.status === 200) {
+        if (xhr.readyState === 4 && !settled) {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            settled = true;
             item.status = "success";
             item.percent = 100;
             try {
@@ -235,6 +273,7 @@ const Upload = defineComponent({
               item.response = xhr.responseText;
             }
             item.uid && delete uploadTemp[item.uid];
+            item.xhr = undefined;
             triggerUpdate(item);
           } else {
             handleError();
@@ -254,14 +293,31 @@ const Upload = defineComponent({
       };
 
       const handleError = () => {
+        if (settled) return;
+        settled = true;
         item.status = "error";
         item.uid && delete uploadTemp[item.uid];
+        item.xhr = undefined;
         triggerUpdate(item);
       };
 
       xhr.onerror = handleError;
       xhr.send(formdata);
     };
+
+    onBeforeUnmount(() => {
+      unmounted = true;
+      innerFileList.value.forEach((item) => {
+        if (!item.xhr) return;
+        item.xhr.onreadystatechange = null;
+        item.xhr.onerror = null;
+        item.xhr.upload.onloadstart = null;
+        item.xhr.upload.onprogress = null;
+        item.xhr.abort();
+      });
+      generatedPreviewUrls.forEach((url) => URL.revokeObjectURL(url));
+      generatedPreviewUrls.clear();
+    });
 
     expose({ upload });
 

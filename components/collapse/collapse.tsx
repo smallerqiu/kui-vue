@@ -1,6 +1,6 @@
-import { cloneVNode, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, provide, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType } from "../const/types";
-import { getChildren } from "../utils/vnode";
+import { collapseContextKey, type CollapseKey } from "./context";
 
 const collapseProps = {
   openKeys: {
@@ -18,12 +18,12 @@ const Collapse = defineComponent({
   name: "Collapse",
   props: collapseProps,
   setup(props, { slots, emit }) {
-    const defaultOpenKeys = ref<(string | number)[]>(props.openKeys || []);
+    const defaultOpenKeys = ref<CollapseKey[]>([...(props.openKeys || [])]);
 
     watch(
       () => props.openKeys,
       (nv) => {
-        defaultOpenKeys.value = nv;
+        defaultOpenKeys.value = [...nv];
       }
     );
 
@@ -42,6 +42,11 @@ const Collapse = defineComponent({
       emit("update:openKeys", value);
     };
 
+    provide(collapseContextKey, {
+      openKeys: defaultOpenKeys,
+      toggle: change,
+    });
+
     return () => {
       const rootProps = {
         class: [
@@ -52,16 +57,7 @@ const Collapse = defineComponent({
         ],
       };
 
-      const children = getChildren(slots.default?.());
-
-      return (
-        <div {...rootProps}>
-          {children?.map((child) => {
-            const active = defaultOpenKeys.value.includes(child.key as string | number);
-            return cloneVNode(child, { active, onExpand: change });
-          })}
-        </div>
-      );
+      return <div {...rootProps}>{slots.default?.()}</div>;
     };
   },
 });
