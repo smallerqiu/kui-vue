@@ -156,6 +156,24 @@
   }
 }
 
+// 保留浏览器账号/密码自动填充能力，但不让 autofill 改写组件背景。
+// 不能用带 alpha 的主题色绘制 inset shadow，否则会与外层背景发生二次叠色。
+.k-input[single],
+.k-input[multiple] .k-input-text {
+  &:autofill,
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus,
+  &:-webkit-autofill:active {
+    color: var(--kui-color-text);
+    caret-color: var(--kui-color-text);
+    -webkit-text-fill-color: var(--kui-color-text);
+    transition:
+      border 0.3s ease-in-out,
+      background-color 999999s ease-out 0s;
+  }
+}
+
 .k-textarea {
   max-width: 100%;
   min-height: 32px;
