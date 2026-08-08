@@ -7,6 +7,7 @@ import {
   onBeforeMount,
   onMounted,
   ref,
+  Teleport,
   Transition,
   watch,
   type CSSProperties,
@@ -22,7 +23,6 @@ import type {
   ThemeType,
 } from "../const/types";
 import resize from "../directives/resize";
-import { transfer } from "../directives/transfer";
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
@@ -101,7 +101,6 @@ export type TreeSelectProps = ExtractPropTypes<typeof treeSelectProps>;
 const TreeSelect = defineComponent({
   name: "TreeSelect",
   directives: {
-    transfer,
     resize,
   },
   props: treeSelectProps,
@@ -474,20 +473,22 @@ const TreeSelect = defineComponent({
       );
 
       return (
-        <Transition name={preCls}>
-          <div v-transfer={true} v-show={visible.value} {...overlayProps}>
-            {props.loading ? (
-              loadingNode
-            ) : props.treeData && props.treeData.length ? (
-              renderTree()
-            ) : (
-              <Empty
-                onClick={emptyClick}
-                description={props.emptyText || locale.value?.k?.select?.emptyText}
-              />
-            )}
-          </div>
-        </Transition>
+        <Teleport to="body">
+          <Transition name={preCls}>
+            <div v-show={visible.value} {...overlayProps}>
+              {props.loading ? (
+                loadingNode
+              ) : props.treeData && props.treeData.length ? (
+                renderTree()
+              ) : (
+                <Empty
+                  onClick={emptyClick}
+                  description={props.emptyText || locale.value?.k?.select?.emptyText}
+                />
+              )}
+            </div>
+          </Transition>
+        </Teleport>
       );
     };
 

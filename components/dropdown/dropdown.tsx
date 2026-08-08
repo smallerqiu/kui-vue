@@ -1,6 +1,7 @@
 import {
   type ExtractPropTypes,
   type PropType,
+  Teleport,
   Transition,
   cloneVNode,
   defineComponent,
@@ -14,7 +15,6 @@ import {
 
 import type { BooleanType, DropPlacementsType, TriggerType } from "../const/types";
 import resize from "../directives/resize";
-import { transfer } from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
@@ -41,7 +41,6 @@ export type DropdownProps = ExtractPropTypes<typeof dropdownProps>;
 const Dropdown = defineComponent({
   name: "Dropdown",
   directives: {
-    transfer,
     resize,
   },
   props: dropdownProps,
@@ -206,28 +205,30 @@ const Dropdown = defineComponent({
       };
       const overlay =
         rendered.value && slots.overlay ? (
-          <Transition name="k-dropdown">
-            <div v-transfer={true} v-resize={updatePosition} v-show={visible.value} {..._props}>
-              <div class={`k-dropdown-content`}>
-                <div class={`k-dropdown-body`}>{slots.overlay?.()}</div>
-                {props.arrow ? (
-                  <div class={`k-dropdown-arrow`}>
-                    <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
-                      <path
-                        d="M24,0.97087 L24,1.97087 C20,1.97087 18.5,2.97087 16.5,4.97087 C14.5,6.97087 14,7.97087 12,7.97087 C10,7.97087 9.5,6.97087 7.5,4.97087 C5.5,2.97087 4,1.97087 0,1.97087 L0,0.97087 L24,0.97087 Z"
-                        id="ot"
-                      />
-                      <path
-                        d="M24,0 L24,1 C20.032328,1 18.1576594,1.985435 16.1576594,3.985435 C14.1576594,5.985435 13.3847825,7 12,7 C10.6152175,7 9.81306952,5.985435 7.81306952,3.985435 C5.81306952,1.985435 4.0114261,1 0,1 L0,0 L24,0 Z"
-                        id="in"
-                        stroke="currentcolor"
-                      />
-                    </svg>
-                  </div>
-                ) : null}
+          <Teleport to="body">
+            <Transition name="k-dropdown">
+              <div v-resize={updatePosition} v-show={visible.value} {..._props}>
+                <div class={`k-dropdown-content`}>
+                  <div class={`k-dropdown-body`}>{slots.overlay?.()}</div>
+                  {props.arrow ? (
+                    <div class={`k-dropdown-arrow`}>
+                      <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
+                        <path
+                          d="M24,0.97087 L24,1.97087 C20,1.97087 18.5,2.97087 16.5,4.97087 C14.5,6.97087 14,7.97087 12,7.97087 C10,7.97087 9.5,6.97087 7.5,4.97087 C5.5,2.97087 4,1.97087 0,1.97087 L0,0.97087 L24,0.97087 Z"
+                          id="ot"
+                        />
+                        <path
+                          d="M24,0 L24,1 C20.032328,1 18.1576594,1.985435 16.1576594,3.985435 C14.1576594,5.985435 13.3847825,7 12,7 C10.6152175,7 9.81306952,5.985435 7.81306952,3.985435 C5.81306952,1.985435 4.0114261,1 0,1 L0,0 L24,0 Z"
+                          id="in"
+                          stroke="currentcolor"
+                        />
+                      </svg>
+                    </div>
+                  ) : null}
+                </div>
               </div>
-            </div>
-          </Transition>
+            </Transition>
+          </Teleport>
         ) : null;
 
       let nodes = getChildren(slots.default?.());

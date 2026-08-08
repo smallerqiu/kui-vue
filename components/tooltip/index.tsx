@@ -5,6 +5,7 @@ import {
   onMounted,
   onUnmounted,
   ref,
+  Teleport,
   Transition,
   watch,
   type CSSProperties,
@@ -14,7 +15,6 @@ import {
 } from "vue";
 import { type BooleanType, type PlacementsType } from "../const/types";
 import { colors } from "../const/var";
-import { transfer } from "../directives/transfer";
 import { isColor } from "../utils/color";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
@@ -35,7 +35,6 @@ export type TooltipProps = ExtractPropTypes<typeof tooltipProps>;
 
 const Tooltip = defineComponent({
   name: "Tooltip",
-  directives: { transfer },
   props: tooltipProps,
   setup(props, { slots, attrs, emit }) {
     const rendered = ref(props.show);
@@ -189,18 +188,20 @@ const Tooltip = defineComponent({
         } as CSSProperties,
       };
       const tooltipOverlay = rendered.value ? (
-        <Transition name={`k-${preCls}`}>
-          <div v-transfer={true} v-show={visible.value} {...overlayProps}>
-            <div {...contentProps}>
-              <div class={`k-${preCls}-title`}>{title}</div>
-              <div class={`k-${preCls}-arrow`}>
-                <svg {...arrowProps} viewBox="0 0 24 7">
-                  <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z"></path>
-                </svg>
+        <Teleport to="body">
+          <Transition name={`k-${preCls}`}>
+            <div v-show={visible.value} {...overlayProps}>
+              <div {...contentProps}>
+                <div class={`k-${preCls}-title`}>{title}</div>
+                <div class={`k-${preCls}-arrow`}>
+                  <svg {...arrowProps} viewBox="0 0 24 7">
+                    <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z"></path>
+                  </svg>
+                </div>
               </div>
             </div>
-          </div>
-        </Transition>
+          </Transition>
+        </Teleport>
       ) : null;
 
       return [nodeWrapper, tooltipOverlay];

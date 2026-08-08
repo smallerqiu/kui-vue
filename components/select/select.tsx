@@ -7,6 +7,7 @@ import {
   onBeforeUnmount,
   onMounted,
   ref,
+  Teleport,
   Transition,
   watch,
   type CSSProperties,
@@ -14,7 +15,6 @@ import {
   type PropType,
 } from "vue";
 import resize from "../directives/resize";
-import { transfer } from "../directives/transfer";
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
@@ -74,7 +74,6 @@ export type SelectProps = ExtractPropTypes<typeof selectProps>;
 const Select = defineComponent({
   name: "Select",
   directives: {
-    transfer,
     resize,
   },
   props: selectProps,
@@ -519,20 +518,22 @@ const Select = defineComponent({
         </div>
       );
       return (
-        <Transition name={`${preCls}`}>
-          <div v-transfer={true} v-show={visible.value} {...popperProps}>
-            {props.loading ? (
-              loadingNode
-            ) : optionNodes.length ? (
-              <ul>{optionNodes}</ul>
-            ) : (
-              <Empty
-                onClick={emptyClick}
-                description={props.emptyText || locale.value?.k.select.emptyText}
-              />
-            )}
-          </div>
-        </Transition>
+        <Teleport to="body">
+          <Transition name={`${preCls}`}>
+            <div v-show={visible.value} {...popperProps}>
+              {props.loading ? (
+                loadingNode
+              ) : optionNodes.length ? (
+                <ul>{optionNodes}</ul>
+              ) : (
+                <Empty
+                  onClick={emptyClick}
+                  description={props.emptyText || locale.value?.k.select.emptyText}
+                />
+              )}
+            </div>
+          </Transition>
+        </Teleport>
       );
     };
 

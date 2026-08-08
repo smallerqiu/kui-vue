@@ -7,6 +7,7 @@ import {
   onBeforeUnmount,
   onMounted,
   ref,
+  Teleport,
   Transition,
   watch,
   type CSSProperties,
@@ -15,7 +16,6 @@ import {
 } from "vue";
 import { Button } from "../button";
 import type { DrawerPlacementsType } from "../const/types";
-import { transfer } from "../directives/transfer";
 import zhCN from "../locale/zh-CN";
 import { toggleContainerScroll } from "../utils/vnode";
 
@@ -44,7 +44,6 @@ export type DrawerProps = ExtractPropTypes<typeof drawerProps>;
 
 const Drawer = defineComponent({
   name: "Drawer",
-  directives: { transfer },
   props: drawerProps,
   setup(props, { slots, emit }) {
     const injectedLocale = inject<Record<string, any>>("locale", zhCN);
@@ -177,23 +176,25 @@ const Drawer = defineComponent({
       ) : null;
       const drawerProps = { class: "k-drawer-box", style: styles };
       return rendered.value ? (
-        <div class={classes} v-transfer={target}>
-          {maskNode}
-          <div class="k-drawer-wrap" tabindex={-1} v-show={opened.value}>
-            <Transition name={transitionName}>
-              <div v-show={visible.value} {...drawerProps}>
-                <div class="k-drawer-content">
-                  <div class="k-drawer-header">
-                    {closeNode}
-                    <div class="k-drawer-header-inner">{title}</div>
+        <Teleport to={target}>
+          <div class={classes}>
+            {maskNode}
+            <div class="k-drawer-wrap" tabindex={-1} v-show={opened.value}>
+              <Transition name={transitionName}>
+                <div v-show={visible.value} {...drawerProps}>
+                  <div class="k-drawer-content">
+                    <div class="k-drawer-header">
+                      {closeNode}
+                      <div class="k-drawer-header-inner">{title}</div>
+                    </div>
+                    <div class="k-drawer-body">{slots.default?.()}</div>
+                    {footNode}
                   </div>
-                  <div class="k-drawer-body">{slots.default?.()}</div>
-                  {footNode}
                 </div>
-              </div>
-            </Transition>
+              </Transition>
+            </div>
           </div>
-        </div>
+        </Teleport>
       ) : null;
     };
   },

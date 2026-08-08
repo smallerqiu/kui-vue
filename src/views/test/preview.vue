@@ -42,7 +42,7 @@
         </Space>
       </Space>
       <Space>
-        <Modal title="Basic Modal" :modelValue="true" :transfer="false" :mask="false">
+        <Modal title="Basic Modal" :modelValue="true" :mask="false">
           I am a Modal. I can do many things.
         </Modal>
       </Space>

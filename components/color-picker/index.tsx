@@ -1,6 +1,5 @@
 import Color, { type ColorObject } from "color";
 import resize from "../directives/resize";
-import { transfer } from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
 import { cloneNodes } from "../utils/vnode";
 import Alpha from "./alpha";
@@ -17,6 +16,7 @@ import {
   onMounted,
   type PropType,
   ref,
+  Teleport,
   Transition,
   watch,
 } from "vue";
@@ -55,7 +55,6 @@ export type ColorPickerProps = ExtractPropTypes<typeof colorPickerProps>;
 const ColorPicker = defineComponent({
   name: "ColorPicker",
   directives: {
-    transfer,
     resize,
   },
   props: colorPickerProps,
@@ -224,56 +223,58 @@ const ColorPicker = defineComponent({
 
       // let [r, g, b] = hslToRgb(color.H, color.S, color.L);
       return (
-        <Transition name="k-color-picker">
-          <div v-transfer={true} v-show={visible.value} {..._props}>
-            <div class="k-color-picker-body">
-              <Paint
-                hue={currentHue.value}
-                modelValue={currentColor.value}
-                onUpdateRGB={onUpdateRGB}
-              />
-              <div class="k-color-picker-bar">
-                <div class="k-color-picker-avatar">
-                  <div
-                    class="k-color-picker-avatar-inner"
-                    style={`background-color:${currentColor.value}`}
-                  ></div>
+        <Teleport to="body">
+          <Transition name="k-color-picker">
+            <div v-show={visible.value} {..._props}>
+              <div class="k-color-picker-body">
+                <Paint
+                  hue={currentHue.value}
+                  modelValue={currentColor.value}
+                  onUpdateRGB={onUpdateRGB}
+                />
+                <div class="k-color-picker-bar">
+                  <div class="k-color-picker-avatar">
+                    <div
+                      class="k-color-picker-avatar-inner"
+                      style={`background-color:${currentColor.value}`}
+                    ></div>
+                  </div>
+                  <div class="k-color-picker-bar-box">
+                    <Hue hue={currentHue.value} onUpdateHue={onUpdateHue} />
+                    {!props.disabledAlpha ? (
+                      <Alpha modelValue={currentColor.value} onUpdateAlpha={onUpdateAlpha} />
+                    ) : null}
+                  </div>
                 </div>
-                <div class="k-color-picker-bar-box">
-                  <Hue hue={currentHue.value} onUpdateHue={onUpdateHue} />
-                  {!props.disabledAlpha ? (
-                    <Alpha modelValue={currentColor.value} onUpdateAlpha={onUpdateAlpha} />
-                  ) : null}
-                </div>
+                <Mode
+                  mode={currentMode.value}
+                  modelValue={currentColor.value}
+                  disabledAlpha={props.disabledAlpha}
+                  onUpdateMode={onUpdateMode}
+                  onUpdateColorValue={updateColorValue}
+                />
+                <Presets
+                  onUpdateColor={updateColor}
+                  modelValue={props.presets}
+                  color={currentColor.value}
+                />
               </div>
-              <Mode
-                mode={currentMode.value}
-                modelValue={currentColor.value}
-                disabledAlpha={props.disabledAlpha}
-                onUpdateMode={onUpdateMode}
-                onUpdateColorValue={updateColorValue}
-              />
-              <Presets
-                onUpdateColor={updateColor}
-                modelValue={props.presets}
-                color={currentColor.value}
-              />
+              <div class={`k-color-picker-arrow`}>
+                <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
+                  <path
+                    id="ot"
+                    d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                  />
+                  <path
+                    stroke="currentcolor"
+                    id="in"
+                    d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                  />
+                </svg>
+              </div>
             </div>
-            <div class={`k-color-picker-arrow`}>
-              <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
-                <path
-                  id="ot"
-                  d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
-                />
-                <path
-                  stroke="currentcolor"
-                  id="in"
-                  d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
-                />
-              </svg>
-            </div>
-          </div>
-        </Transition>
+          </Transition>
+        </Teleport>
       );
     };
 

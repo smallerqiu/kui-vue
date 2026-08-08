@@ -7,6 +7,7 @@ import {
   onBeforeMount,
   onMounted,
   ref,
+  Teleport,
   Transition,
   watch,
   type ExtractPropTypes,
@@ -15,7 +16,6 @@ import {
 import { Button } from "../button";
 import { getMousePoint } from "../config/context";
 import type { BooleanType } from "../const/types";
-import { transfer } from "../directives/transfer";
 import zhCN from "../locale/zh-CN";
 
 const modalProps = {
@@ -25,7 +25,6 @@ const modalProps = {
   cancelText: String,
   width: { type: [Number, String] as PropType<number | string>, default: 520 },
   top: { type: Number as PropType<number>, default: 100 },
-  transfer: { type: Boolean as BooleanType, default: true },
   mask: { type: Boolean as BooleanType, default: true },
   maskClosable: { type: Boolean as BooleanType, default: false },
   maximized: Boolean as BooleanType,
@@ -44,7 +43,6 @@ export type ModalProps = ExtractPropTypes<typeof modalProps>;
 
 const Modal = defineComponent({
   name: "Modal",
-  directives: { transfer },
   props: modalProps,
   setup(props, { slots, emit }) {
     const visible = ref<boolean | undefined>(props.modelValue);
@@ -260,23 +258,25 @@ const Modal = defineComponent({
         },
       ];
       return rendered.value ? (
-        <div class={classes} v-transfer={props.transfer}>
-          {maskNode}
-          <div
-            class="k-modal-wrap"
-            tabindex="-1"
-            role="dialog"
-            v-show={showInner.value}
-            onClick={clickMaskToClose}
-          >
-            <Transition name="k-modal-zoom">
-              <div class="k-modal-inner" ref={refModal} v-show={visible.value} style={style}>
-                {contentNode}
-                <div tabindex="0"></div>
-              </div>
-            </Transition>
+        <Teleport to="body">
+          <div class={classes}>
+            {maskNode}
+            <div
+              class="k-modal-wrap"
+              tabindex="-1"
+              role="dialog"
+              v-show={showInner.value}
+              onClick={clickMaskToClose}
+            >
+              <Transition name="k-modal-zoom">
+                <div class="k-modal-inner" ref={refModal} v-show={visible.value} style={style}>
+                  {contentNode}
+                  <div tabindex="0"></div>
+                </div>
+              </Transition>
+            </div>
           </div>
-        </div>
+        </Teleport>
       ) : null;
     };
   },

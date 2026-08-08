@@ -5,12 +5,12 @@ import {
   onMounted,
   onUnmounted,
   ref,
+  Teleport,
   Transition,
   watch,
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import { transfer } from "../directives/transfer";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
@@ -38,9 +38,6 @@ const poptipProps = {
 };
 const Poptip = defineComponent({
   name: "Poptip",
-  directives: {
-    transfer,
-  },
   props: poptipProps,
   setup(props, { slots, attrs, emit }) {
     const rendered = ref(props.show);
@@ -189,27 +186,29 @@ const Poptip = defineComponent({
       if (rendered.value) {
         childNodes.push(
           // const overlay = rendered.value ? (
-          <Transition name={`k-${preCls}`}>
-            <div class={cls} v-transfer={true} v-show={visible.value} {..._props}>
-              <div class={`k-${preCls}-content`}>
-                {title ? <div class={`k-${preCls}-title`}>{title}</div> : null}
-                <div class={`k-${preCls}-body`}>{content}</div>
-                <div class={`k-${preCls}-arrow`}>
-                  <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
-                    <path
-                      id="ot"
-                      d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
-                    />
-                    <path
-                      stroke="currentcolor"
-                      id="in"
-                      d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
-                    />
-                  </svg>
+          <Teleport to="body">
+            <Transition name={`k-${preCls}`}>
+              <div class={cls} v-show={visible.value} {..._props}>
+                <div class={`k-${preCls}-content`}>
+                  {title ? <div class={`k-${preCls}-title`}>{title}</div> : null}
+                  <div class={`k-${preCls}-body`}>{content}</div>
+                  <div class={`k-${preCls}-arrow`}>
+                    <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
+                      <path
+                        id="ot"
+                        d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                      />
+                      <path
+                        stroke="currentcolor"
+                        id="in"
+                        d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Transition>
+            </Transition>
+          </Teleport>
           // ) : null;
         );
       }

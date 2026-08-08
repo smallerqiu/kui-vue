@@ -20,6 +20,7 @@ import {
   onMounted,
   onUnmounted,
   ref,
+  Teleport,
   Transition,
   watch,
   type ExtractPropTypes,
@@ -34,7 +35,6 @@ import type {
   ThemeType,
 } from "../const/types";
 import resize from "../directives/resize";
-import { transfer } from "../directives/transfer";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
 import { setPlacement } from "../utils/placement";
@@ -101,7 +101,6 @@ export type DatePickerProps = ExtractPropTypes<typeof datePickerProps>;
 const DatePicker = defineComponent({
   name: "DatePicker",
   directives: {
-    transfer,
     resize,
   },
   props: datePickerProps,
@@ -1035,21 +1034,23 @@ const DatePicker = defineComponent({
         ) : null;
       };
       const overlay = rendered.value ? (
-        <Transition name="k-date-picker">
-          <div v-transfer={true} v-show={isVisible.value} {...overlayProps}>
-            {renderPresets()}
-            <div class="k-picker-container">
-              {renderExtraHeader()}
-              {renderHeader()}
-              {currentView.value === "year" && renderYearTable()}
-              {currentView.value === "month" && renderMonthTable()}
-              {currentView.value === "date" && renderDateTable()}
-              {currentView.value === "time" && renderTimePicker()}
-              {renderFooter()}
-              {renderExtraFooter()}
+        <Teleport to="body">
+          <Transition name="k-date-picker">
+            <div v-show={isVisible.value} {...overlayProps}>
+              {renderPresets()}
+              <div class="k-picker-container">
+                {renderExtraHeader()}
+                {renderHeader()}
+                {currentView.value === "year" && renderYearTable()}
+                {currentView.value === "month" && renderMonthTable()}
+                {currentView.value === "date" && renderDateTable()}
+                {currentView.value === "time" && renderTimePicker()}
+                {renderFooter()}
+                {renderExtraFooter()}
+              </div>
             </div>
-          </div>
-        </Transition>
+          </Transition>
+        </Teleport>
       ) : null;
 
       return (

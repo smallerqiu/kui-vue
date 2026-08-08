@@ -11,12 +11,12 @@ import {
   provide,
   type Ref,
   ref,
+  Teleport,
   Transition,
   type VNodeChild,
 } from "vue";
 import { getTransitionProp } from "../base/transition";
 import type { BooleanType } from "../const/types";
-import { transfer } from "../directives/transfer";
 import Icon, { type IconType } from "../icon";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
@@ -32,7 +32,6 @@ export type SubMenuProps = ExtractPropTypes<typeof submenuProps>;
 
 const SubMenu = defineComponent({
   name: "SubMenu",
-  directives: { transfer },
   props: submenuProps,
   setup(props, { slots }) {
     const refSelection = ref<HTMLElement | null>(null);
@@ -148,13 +147,15 @@ const SubMenu = defineComponent({
         // }
       });
       return rendered.value ? (
-        <Transition name={`k-${preCls}-popup`}>
-          <div class={`k-${preCls}-popup`} v-show={opened} v-transfer={true} {...popperPros}>
-            <div class={`k-${preCls}-sub`}>
-              <ul class={`k-menu k-menu-vertical`}>{menuItems}</ul>
+        <Teleport to="body">
+          <Transition name={`k-${preCls}-popup`}>
+            <div class={`k-${preCls}-popup`} v-show={opened} {...popperPros}>
+              <div class={`k-${preCls}-sub`}>
+                <ul class={`k-menu k-menu-vertical`}>{menuItems}</ul>
+              </div>
             </div>
-          </div>
-        </Transition>
+          </Transition>
+        </Teleport>
       ) : null;
     };
     const renderSubmenu = () => {
