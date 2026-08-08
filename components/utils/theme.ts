@@ -22,13 +22,8 @@ const Theme = {
       callback?.(isDark);
       return;
     }
-    const ratio = window.devicePixelRatio || 1;
-
-    const x = event.clientX * ratio;
-    const y = event.clientY * ratio;
-
-    const endRadius =
-      Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y)) * ratio;
+    const clientX = event.clientX;
+    const clientY = event.clientY;
 
     const willBeDark = localStorage.getItem(THEME_KEY) !== "dark";
 
@@ -39,16 +34,37 @@ const Theme = {
     });
 
     transition.ready.then(() => {
-      const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`];
+      const pseudoElement = willBeDark
+        ? "::view-transition-new(root)"
+        : "::view-transition-old(root)";
+      // View Transition clip paths use CSS pixels. Account for a visual viewport
+      // offset (for example, when the page is pinch-zoomed) without applying DPR.
+      const viewport = window.visualViewport;
+      const x = clientX + (viewport?.offsetLeft || 0);
+      const y = clientY + (viewport?.offsetTop || 0);
+      const snapshotWidth = document.documentElement.clientWidth;
+      const snapshotHeight = document.documentElement.clientHeight;
+      const endRadius = Math.hypot(Math.max(x, snapshotWidth - x), Math.max(y, snapshotHeight - y));
+      const xPercent = (x / snapshotWidth) * 100;
+      const yPercent = (y / snapshotHeight) * 100;
+      // A circle percentage resolves against the normalized diagonal. Using only
+      // percentages keeps the animation correct whether the snapshot uses CSS or
+      // device pixels (notably Chrome on macOS Retina displays).
+      const normalizedDiagonal = Math.hypot(snapshotWidth, snapshotHeight) / Math.SQRT2;
+      const radiusPercent = (endRadius / normalizedDiagonal) * 100;
+      const clipPath = [
+        `circle(0% at ${xPercent}% ${yPercent}%)`,
+        `circle(${radiusPercent}% at ${xPercent}% ${yPercent}%)`,
+      ];
 
       const animate = document.documentElement.animate(
         {
           clipPath: willBeDark ? clipPath : [...clipPath].reverse(),
         },
         {
-          duration: 500 * ratio,
+          duration: 500,
           easing: "ease-in-out",
-          pseudoElement: willBeDark ? "::view-transition-new(root)" : "::view-transition-old(root)",
+          pseudoElement,
         }
       );
       animate.onfinish = () => {
