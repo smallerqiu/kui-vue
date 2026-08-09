@@ -1,12 +1,5 @@
 import { CircleCheck, CircleX, Info, TriangleAlert } from "kui-icons";
-import {
-  defineComponent,
-  type DefineComponent,
-  type ExtractPropTypes,
-  type HTMLAttributes,
-  type PropType,
-  type VNodeChild,
-} from "vue";
+import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
 import Icon, { type IconType } from "../icon";
 
 export type ResultStatus = "success" | "error" | "info" | "warning" | "403" | "404" | "500";
@@ -18,7 +11,7 @@ const resultProps = {
   icon: Array as PropType<IconType[]>,
 };
 
-export type ResultProps = Partial<ExtractPropTypes<typeof resultProps>> & HTMLAttributes;
+export type ResultProps = ExtractPropTypes<typeof resultProps>;
 
 const statusIcons: Record<ResultStatus, IconType[]> = {
   success: CircleCheck,
@@ -74,4 +67,4 @@ const Result = defineComponent({
   },
 });
 
-export default Result as DefineComponent<ResultProps>;
+export default Result;

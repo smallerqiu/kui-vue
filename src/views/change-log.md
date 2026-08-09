@@ -25,6 +25,7 @@ rm -rf node_modules/.vite
 - 新增 组件 `FeatureCard`。
 - 新增 组件 `Result`。
 - 新增 组件 `FeedbackPanel`。
+- 新增 组件 `CardMeta`以丰富`Card`。
 - `Badge` 组件新增 `pill` 属性, 展示胶囊外观。
 - 弹出层组件全面升级为 Vue 3 `Teleport`。
 - 优化 `Menu` 折叠、展开动画及子菜单状态恢复。

@@ -23,6 +23,7 @@ rm -rf node_modules/.vite
 - Added the 'FeatureCard' component.
 - Added the 'Result' component.
 - Added the 'FeedbackPanel' component.
+- Added the 'CardMeta' component to enhance the 'Card'.。
 - The 'Badge' component now features a 'pill' attribute to display the capsule's appearance.
 - The popup layer components have been fully upgraded to Vue 3 'Teleport'.
 - Optimized menu folding, expansion animations, and submenu state recovery.

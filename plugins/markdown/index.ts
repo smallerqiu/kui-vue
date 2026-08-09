@@ -1,13 +1,13 @@
 import fs from "fs";
 import hashId from "hash-sum";
 import hljs from "highlight.js";
-import MarkdownIt from "markdown-it";
+import MarkdownIt, { type MarkdownIt as MarkdownItType } from "markdown-it";
 import anchor from "markdown-it-anchor";
 import path from "path";
 import { type Plugin } from "vite";
 
 export default function vitePluginKuiMd(): Plugin {
-  const markdown: MarkdownIt = new MarkdownIt({
+  const markdown: MarkdownItType = new MarkdownIt({
     html: true,
     breaks: true,
     highlight: (code: string, lang: string) => {

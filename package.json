@@ -51,7 +51,8 @@
     "format": "prettier --write .",
     "format:md": "prettier --write ./components/*/index*.md",
     "tsc": "vue-tsc --build --declaration --emitDeclarationOnly",
-    "type-check": "vue-tsc --build --noEmit"
+    "type-check": "vue-tsc --build --noEmit",
+    "check": "vue-tsc -p tsconfig.app.json --noEmit --pretty false"
   },
   "author": {
     "name": "Qiu",

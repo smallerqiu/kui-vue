@@ -10,6 +10,7 @@ import {
   Teleport,
   Transition,
   watch,
+  type ComponentPublicInstance,
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
@@ -30,7 +31,10 @@ const drawerProps = {
   closable: { type: Boolean, default: true },
   footer: { type: Boolean, default: true },
   maskClosable: { type: Boolean, default: true },
-  target: { type: Function as PropType<() => HTMLElement>, default: () => document.body },
+  target: {
+    type: Function as PropType<() => HTMLElement | ComponentPublicInstance | null | undefined>,
+    default: () => document.body,
+  },
   mask: { type: Boolean, default: true },
   loading: { type: Boolean, default: false },
   escKey: { type: Boolean, default: true },
@@ -58,6 +62,12 @@ const Drawer = defineComponent({
     const visible = ref(props.modelValue);
     const opened = ref(props.modelValue);
 
+    const resolveTarget = () => {
+      const target = props.target?.();
+      const element = target && "$el" in target ? target.$el : target;
+      return element instanceof HTMLElement ? element : document.body;
+    };
+
     watch(
       () => props.modelValue,
       (nv) => {
@@ -71,7 +81,7 @@ const Drawer = defineComponent({
 
     onBeforeUnmount(() => {
       props.escKey && document.removeEventListener("keydown", escToClose);
-      toggleContainerScroll(props.target(), false);
+      toggleContainerScroll(resolveTarget(), false);
     });
 
     const toggle = (value: boolean) => {
@@ -146,7 +156,7 @@ const Drawer = defineComponent({
       ) : null;
 
       const transitionName = `k-drawer-${placement}`;
-      const target = props.target();
+      const target = resolveTarget();
       const isBody = target === document.body;
 
       const classes = [

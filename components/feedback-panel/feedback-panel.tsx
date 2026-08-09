@@ -1,12 +1,5 @@
 import { CircleCheck, CircleX, Info, TriangleAlert } from "kui-icons";
-import {
-  defineComponent,
-  type DefineComponent,
-  type ExtractPropTypes,
-  type HTMLAttributes,
-  type PropType,
-  type VNodeChild,
-} from "vue";
+import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
 import Icon, { type IconType } from "../icon";
 
 export type FeedbackPanelKind = "positive" | "negative" | "caution" | "neutral";
@@ -19,8 +12,7 @@ const feedbackPanelProps = {
   compact: Boolean,
 };
 
-export type FeedbackPanelProps = Partial<ExtractPropTypes<typeof feedbackPanelProps>> &
-  HTMLAttributes;
+export type FeedbackPanelProps = ExtractPropTypes<typeof feedbackPanelProps>;
 
 const symbols: Record<FeedbackPanelKind, IconType[]> = {
   positive: CircleCheck,
@@ -73,4 +65,4 @@ const FeedbackPanel = defineComponent({
   },
 });
 
-export default FeedbackPanel as DefineComponent<FeedbackPanelProps>;
+export default FeedbackPanel;

@@ -13,6 +13,7 @@ export interface NoticeOptions {
   icon?: IconType[];
   color?: string;
   onClose?: () => void;
+  grouping?: string;
 }
 export interface NoticeApi {
   name: "notice";

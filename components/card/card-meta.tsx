@@ -1,11 +1,4 @@
-import {
-  defineComponent,
-  type DefineComponent,
-  type ExtractPropTypes,
-  type HTMLAttributes,
-  type PropType,
-  type VNodeChild,
-} from "vue";
+import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
 import Avatar from "../avatar/avatar";
 
 const cardMetaProps = {
@@ -14,7 +7,7 @@ const cardMetaProps = {
   description: [String, Number, Object] as PropType<VNodeChild>,
 };
 
-export type CardMetaProps = Partial<ExtractPropTypes<typeof cardMetaProps>> & HTMLAttributes;
+export type CardMetaProps = ExtractPropTypes<typeof cardMetaProps>;
 
 const CardMeta = defineComponent({
   name: "CardMeta",
@@ -44,4 +37,4 @@ const CardMeta = defineComponent({
   },
 });
 
-export default CardMeta as DefineComponent<CardMetaProps>;
+export default CardMeta;

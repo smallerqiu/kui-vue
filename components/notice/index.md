@@ -16,6 +16,10 @@
 
 - `Notice` 的基本用法
 
+[合并通知](./demo/grouping.vue)
+
+- 相同 `grouping` 的通知复用已有条目，只更新内容并重新计时。
+
 [带图标的提醒](./demo/types.vue)
 
 - 通过调用不同的方法，可展示不同的类型
@@ -52,3 +56,4 @@
 | icon     | 自定义图标                             | string        | -      |
 | color    | 自定义图标颜色                         | string        | -      |
 | onClose  | 关闭时的回调                           | () => void    | -      |
+| grouping | 通知分组，相同值的通知不会重复创建     | string        | -      |

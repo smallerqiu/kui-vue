@@ -21,5 +21,3 @@ Embeds status, supporting information, and next steps within page content.
 | description | Supporting message | VNodeChild                                   | -       |
 | symbol      | Custom marker      | IconType                                     | -       |
 | compact     | Compact layout     | boolean                                      | false   |
-
-Supports `symbol`, `heading`, `description`, `default`, and `actions` slots.
