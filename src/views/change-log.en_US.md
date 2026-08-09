@@ -13,13 +13,46 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 5.5.1
+
+`2026-8-8`
+
+### Feature Optimization
+
+- Added the 'FeatureCard' component.
+- The 'Badge' component now features a 'pill' attribute to display the capsule's appearance.
+- The popup layer components have been fully upgraded to Vue 3 'Teleport'.
+- Optimized menu folding, expansion animations, and submenu state recovery.
+- Display the default User icon when the Avatar image fails to load.
+- Optimized support for TypeScript syntax in the Demo online compiler.
+- Improve TypeScript types for components like Table and Upload.
+
+### Bug fix
+
+- Fixed lost Modal command call styles and undercentered position.
+- Fixed missing submenu animations and abnormal selection status when folding Menu.
+- Fixed Empty not displaying when searching for unmatched data in TreeSelect.
+- Fixed missing borders in table empty data and fixed table header scenarios.
+- Fixed abnormal checks, merged cells, fixed columns, and scrolling status in Table.
+- Fixed invalid upload request methods, status checks, file deletion, and resource leaks.
+- Fixed multi-instance conflicts in Images, loading races, preview data asynchrony, and event leakage.
+- Fixed loading status, size, and resource cleanup issues for Avatar and Skeleton.
+- Fixed abnormal background color abnormalities in the Input browser's auto-fill mode.
+- Fixed an error when compiling the 'import type' syntax in Demo.
+
+### Refactoring
+
+- Simplifies internal state transfer for Menu, Collapse, and Tree/TreeSelect.
+- Remove redundant 'isPopup', 'active', 'selectAsCheck', and 'queryKey'.
+- Remove the old 'v-transfer' command.
+
 ## 5.4.1
 
 `2026-8-2`
 
-- Add `Cascader` cascade selection component 
-- Improve `Empty` description text display problem 
-- Improve `Page` jump negative number problem 
+- Add `Cascader` cascade selection component
+- Improve `Empty` description text display problem
+- Improve `Page` jump negative number problem
 - Improve Theme switch display problem in 2k,4k resolution.
 
 ## 5.3.1

@@ -1,6 +1,5 @@
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { defineComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
-import resize from "../directives/resize";
 
 const affixProps = {
   offsetTop: { type: Number, default: 0 },
@@ -20,16 +19,20 @@ export type AffixProps = ExtractPropTypes<typeof affixProps>;
 
 const Affix = defineComponent({
   name: "Affix",
-  directives: { resize },
   props: affixProps,
+  emits: {
+    change: (_affixed: boolean) => true,
+  },
   setup(props, { slots, emit }) {
     const affixRef = ref<HTMLElement>();
+    const innerRef = ref<HTMLElement>();
 
     const fixed = ref(false);
     const styles = ref<CSSProperties>({});
     const placeholderStyles = ref<CSSProperties>({});
     let resizeObserver: ResizeObserver | null = null;
     let target: HTMLElement | Window | null = null;
+    let frameId: number | null = null;
 
     const getTarget = () => {
       const res = props.target?.();
@@ -37,7 +40,8 @@ const Affix = defineComponent({
     };
 
     const updatePosition = () => {
-      if (!affixRef.value || !target) return;
+      frameId = null;
+      if (!affixRef.value || !innerRef.value || !target) return;
       const rect = affixRef.value.getBoundingClientRect();
       const isWindow = target === window;
       const targetRect = !isWindow
@@ -52,6 +56,7 @@ const Affix = defineComponent({
           styles.value = {
             position: "fixed",
             bottom: `${window.innerHeight - targetRect.bottom + props.offsetBottom}px`,
+            left: `${rect.left}px`,
             width: `${rect.width}px`,
           };
         } else {
@@ -65,6 +70,7 @@ const Affix = defineComponent({
           styles.value = {
             position: "fixed",
             top: `${targetRect.top + (props.offsetTop || 0)}px`,
+            left: `${rect.left}px`,
             width: `${rect.width}px`,
           };
         } else {
@@ -74,7 +80,7 @@ const Affix = defineComponent({
       }
 
       placeholderStyles.value = isFixed
-        ? { height: `${rect.height}px`, width: `${rect.width}px` }
+        ? { height: `${innerRef.value.getBoundingClientRect().height}px` }
         : {};
       if (fixed.value !== isFixed) {
         fixed.value = isFixed;
@@ -82,25 +88,37 @@ const Affix = defineComponent({
       }
     };
 
+    const scheduleUpdate = () => {
+      if (frameId !== null) return;
+      frameId = requestAnimationFrame(updatePosition);
+    };
+
     const removeEventListeners = () => {
-      target?.removeEventListener("scroll", updatePosition);
-      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", scheduleUpdate, true);
+      window.removeEventListener("resize", scheduleUpdate);
       resizeObserver?.disconnect();
       resizeObserver = null;
+      if (frameId !== null) {
+        cancelAnimationFrame(frameId);
+        frameId = null;
+      }
     };
 
     const addEventListeners = () => {
+      if (!affixRef.value || !innerRef.value) return;
       target = getTarget();
       if (!target) return;
 
-      target.addEventListener("scroll", updatePosition);
-      window.addEventListener("resize", updatePosition);
+      window.addEventListener("scroll", scheduleUpdate, true);
+      window.addEventListener("resize", scheduleUpdate);
 
-      if (target !== window && "ResizeObserver" in window) {
-        resizeObserver = new ResizeObserver(updatePosition);
-        resizeObserver.observe(target as HTMLElement);
+      if ("ResizeObserver" in window) {
+        resizeObserver = new ResizeObserver(scheduleUpdate);
+        resizeObserver.observe(affixRef.value!);
+        resizeObserver.observe(innerRef.value!);
+        if (target !== window) resizeObserver.observe(target as HTMLElement);
       }
-      updatePosition();
+      scheduleUpdate();
     };
 
     onBeforeUnmount(() => {
@@ -126,12 +144,13 @@ const Affix = defineComponent({
       };
 
       const innerProps = {
+        ref: innerRef,
         style: styles.value,
         class: ["k-affix", { "k-affix-fixed": fixed.value }],
       };
 
       return (
-        <div {...wrapperProps} v-resize={updatePosition}>
+        <div {...wrapperProps}>
           <div {...innerProps}>{slots.default?.()}</div>
         </div>
       );

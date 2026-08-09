@@ -49,6 +49,6 @@ const Card = defineComponent({
       );
     };
   },
-}) 
+});
 
 export default Card;

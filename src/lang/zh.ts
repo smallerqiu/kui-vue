@@ -1,7 +1,20 @@
 export default {
   index: {
-    desc: "一套基于Vue.js的桌面UI组件库",
+    badge: "为 Vue 3 构建",
+    title_suffix: "简洁、可靠的桌面端组件库",
+    desc: "一套注重细节与开发体验的 Vue 3 UI 组件库，提供完整类型、主题能力和丰富的基础组件。",
     btn_quick_start: "快速上手",
+    preview_title: "项目概览",
+    preview_desc: "实时数据与运行状态",
+    feature_fast: "轻量易用",
+    feature_fast_desc: "清晰一致的 API，按需引入，快速搭建稳定的产品界面。",
+    feature_types: "TypeScript 友好",
+    feature_types_desc: "完善的类型定义与编辑器提示，让组件使用和维护更安心。",
+    feature_theme: "灵活主题",
+    feature_theme_desc: "基于 CSS Variables 的主题系统，支持暗色模式与品牌色定制。",
+    explore_eyebrow: "组件预览",
+    explore_title: "从常用组件开始",
+    explore_all: "浏览全部组件",
   },
   text: {
     components: "组件",

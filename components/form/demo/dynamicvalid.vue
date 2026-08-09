@@ -83,7 +83,7 @@ const remove = (index: number) => {
   form.webs.splice(index, 1);
 };
 const submit = () => {
-  formRef.value?.validate(({ valid }) => {
+  formRef.value?.validate().then(({ valid }) => {
     message[valid ? "success" : "error"](valid ? "success" : "failed");
   });
 };

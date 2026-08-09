@@ -31,16 +31,13 @@ const formProps = {
   onReset: {
     type: Function as PropType<() => void>,
   },
-  // onChange: { //TODO
-  //   type: Function as PropType<(e: FormChangeEvent) => void>,
-  // },
 };
 
 export interface FormExpose {
-  validate: (callback?: (result: { valid: boolean }) => void) => void;
+  validate: (callback?: (result: FormSubmitEvent) => void) => Promise<FormSubmitEvent>;
   reset: () => void;
-  test: (key: string) => void;
-  submit: (e: FormSubmitEvent) => void;
+  test: (key: string) => Promise<boolean> | undefined;
+  submit: () => Promise<void>;
 }
 
 export type FormProps = ExtractPropTypes<typeof formProps>;
@@ -52,12 +49,11 @@ const Form = defineComponent({
     const formRef = ref(null);
     const model = props.model;
     const formItems = ref<Record<string, any>>({});
-    // const formItems = ref<Map<string, any>>(new Map());
 
     const { rules, size, shape, theme, disabled, layout, name, labelCol, wrapperCol } =
       toRefs(props);
 
-    const updateMode = (prop: string, value = null) => {
+    const updateModel = (prop: string, value = null) => {
       const { o, k } = getPropByPath(model, prop);
       // console.log(o, k, value);
       if (o) {
@@ -74,7 +70,7 @@ const Form = defineComponent({
     const reset = () => {
       form.cleaned = false;
       Object.keys(formItems.value).forEach((prop) => {
-        updateMode(prop);
+        updateModel(prop);
         formItems.value[prop].valid = true;
       });
       nextTick(() => {
@@ -117,29 +113,24 @@ const Form = defineComponent({
       submit();
       return false;
     };
-    const submit = () => {
-      validate(({ valid }) => {
-        emit("submit", { valid });
-      });
+    const submit = async () => {
+      const { valid } = await validate();
+      emit("submit", { valid });
     };
 
-    const validate = (callback?: (result: { valid: boolean }) => void) => {
-      let result = true;
-      Object.keys(formItems.value).forEach((key) => {
-        // let item = formItems.value.get(key);
-        let item = formItems.value[key];
+    const validate = async (callback?: (result: FormSubmitEvent) => void) => {
+      let valid = true;
+      for (const key of Object.keys(formItems.value)) {
+        const item = formItems.value[key];
         const rules = item.rules || (props.rules || {})[item.prop];
-        if (rules) {
-          const valid = item.validate(rules);
-          if (!valid) result = false;
-        }
-      });
+        if (rules && !(await item.validate(rules))) valid = false;
+      }
+      const result = { valid };
 
       if (typeof callback === "function") {
-        // const modelCopy = JSON.parse(JSON.stringify(model.value || "{}"));
-        // callback({ valid: result, model: modelCopy });
-        callback({ valid: result });
+        callback(result);
       }
+      return result;
     };
 
     const register = (item: any) => {
@@ -163,7 +154,7 @@ const Form = defineComponent({
       shape,
       theme,
       getValueFromProp,
-      updateMode,
+      updateModel,
       register,
       unregister,
       labelCol,

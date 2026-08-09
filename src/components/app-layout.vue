@@ -73,7 +73,7 @@
 import AppHeader from "./app-header.vue";
 // import AppFooter from "./app-footer";
 import { ChevronLeft, ChevronRight, Menu as MenuIcon, X } from "kui-icons";
-import { computed, inject, onMounted, reactive, ref, Transition } from "vue";
+import { computed, inject, onMounted, reactive, ref, Transition, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { navData, routeData } from "../menu";
 const router = useRouter();
@@ -96,7 +96,7 @@ const navTo = (e: MouseEvent, t: boolean) => {
   let c = t ? nextNavData : prevNavData;
   let path = `/${c.key == "guide" ? "guide" : "components"}/${c.name}${lang.value == "en" ? "-en" : ""}`;
   router.push(path);
-  setActiveKey({ path });
+  // setActiveKey({ path });
 };
 const menuSelect = () => {
   showMiniNav.value = false;
@@ -123,4 +123,10 @@ const setActiveKey = ({ path }: { path: string }) => {
 onMounted(() => {
   setActiveKey(route);
 });
+watch(
+  () => route.fullPath,
+  (path: string) => {
+    setActiveKey({ path });
+  }
+);
 </script>

@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref, type PropType } from "vue";
+import { computed, defineComponent, ref, type CSSProperties, type PropType } from "vue";
 import type { BooleanType } from "../const/types";
 import Tooltip from "../tooltip";
 
@@ -34,7 +34,7 @@ export default defineComponent({
       return Math.max(0, Math.min(100, ((props.value - props.min) / diff) * 100));
     });
 
-    const thumbStyle = computed(() => {
+    const thumbStyle = computed<CSSProperties>(() => {
       const p = percent.value;
       const size = props.size === "small" ? 18 : 24;
 
@@ -63,6 +63,7 @@ export default defineComponent({
         ? props.tipFormatter(props.value)
         : String(props.value);
       const showTooltip = props.tooltipVisible === true ? true : props.dragging || isHover.value;
+      const orientation = props.vertical ? "vertical" : "horizontal";
       const thumpProps = {
         class: [
           "k-slider-thumb",
@@ -78,7 +79,6 @@ export default defineComponent({
         "aria-valuemin": props.min,
         "aria-valuemax": props.max,
         "aria-valuenow": props.value,
-        "aria-orientation": props.vertical ? "vertical" : "horizontal",
         "aria-disabled": props.disabled,
         onMousedown: handleDown,
         onTouchstart: handleDown,
@@ -93,7 +93,7 @@ export default defineComponent({
           show={showTooltip && !props.disabled}
           placement={props.vertical ? "right" : "top"}
         >
-          <div {...thumpProps} />
+          <div {...thumpProps} aria-orientation={orientation} />
         </Tooltip>
       );
     };

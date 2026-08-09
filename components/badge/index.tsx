@@ -10,6 +10,7 @@ export type BadgeStatusType = "default" | "success" | "error" | "warning";
 const badgeProps = {
   count: [String, Number],
   dot: Boolean as BooleanType,
+  pill: Boolean as BooleanType,
   color: String,
   status: {
     type: String as PropType<BadgeStatusType>,
@@ -26,7 +27,7 @@ const Badge = defineComponent({
   props: badgeProps,
   setup(props, { slots }) {
     return () => {
-      const { maxCount, count, dot, color, status, text } = props;
+      const { maxCount, count, dot, pill, color, status, text } = props;
 
       const children = slots.default?.();
       const hasChildren = !!(children && children.length > 0);
@@ -86,7 +87,7 @@ const Badge = defineComponent({
       }
 
       const rootProps = {
-        class: "k-badge",
+        class: ["k-badge", { "k-badge-pill": pill }],
       };
 
       return (

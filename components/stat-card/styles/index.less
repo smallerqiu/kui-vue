@@ -25,7 +25,9 @@
   flex: 1;
 }
 .k-stat-card-item-reverse {
-  flex-direction: column-reverse;
+  .k-stat-card-item-desc {
+    order: -1;
+  }
 }
 .k-stat-card-item-value {
   font-size: 20px;
@@ -34,6 +36,19 @@
 .k-stat-card-item-desc {
   color: var(--kui-color-text-description);
   font-size: 12px;
+}
+.k-stat-card-item-trend {
+  color: var(--kui-color-text-description);
+  font-size: 12px;
+}
+.k-stat-card-item-trend-success {
+  color: var(--kui-color-success);
+}
+.k-stat-card-item-trend-danger {
+  color: var(--kui-color-danger);
+}
+.k-stat-card-item-trend-warning {
+  color: var(--kui-color-warning);
 }
 .k-stat-number {
   font-family: monospace;

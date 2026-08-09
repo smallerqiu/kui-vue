@@ -257,7 +257,7 @@ const sendCode = () => {
   }, 1000);
 };
 const submit = () => {
-  formRef.value?.validate(({ valid }) => {
+  formRef.value?.validate().then(({ valid }) => {
     message[valid ? "success" : "error"](valid ? "success" : "failed");
   });
 };

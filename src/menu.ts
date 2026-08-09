@@ -180,6 +180,13 @@ const navData = [
     children: [
       { title: "头像", sub: "Avatar", name: "avatar", icon: SmilePlus },
       { title: "卡片", sub: "Card", name: "card", icon: CreditCard },
+      { title: "功能卡片", sub: "FeatureCard", name: "feature-card", icon: CreditCard },
+      {
+        title: "统计卡片",
+        sub: "StatCard",
+        name: "stat-card",
+        icon: ChartColumnDecreasing,
+      },
       { title: "走马灯", sub: "Carousel", name: "carousel", icon: GalleryHorizontal },
       {
         title: "折叠面板",
@@ -201,12 +208,7 @@ const navData = [
       },
       { title: "图片", sub: "Image", name: "image", icon: Image },
       { title: "二维码", sub: "QRCode", name: "qrcode", icon: QrCode },
-      {
-        title: "统计卡片",
-        sub: "StatCard",
-        name: "stat-card",
-        icon: ChartColumnDecreasing,
-      },
+
       { title: "表格", sub: "Table", name: "table", icon: Table },
       { title: "时间轴", sub: "TimeLine", name: "time-line", icon: List },
       { title: "树形控件", sub: "Tree", name: "tree", icon: FolderTree },

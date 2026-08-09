@@ -34,7 +34,7 @@ const validatePassword = (_: FormRule, value: any, callback: (error?: Error) => 
   if (!value) {
     callback(new Error("Please input your password"));
   } else {
-    formRef.value?.test("confirm_password");
+    form.value.confirm_password && formRef.value?.test("confirm_password");
     callback();
   }
 };
@@ -65,7 +65,7 @@ const rules: Record<string, FormRule[]> = {
   confirm_password: [{ validator: validateRePassword }],
 };
 const submit = () => {
-  formRef.value?.validate(({ valid }) => {
+  formRef.value?.validate().then(({ valid }) => {
     message[valid ? "success" : "error"](valid ? "success" : "failed");
   });
 };

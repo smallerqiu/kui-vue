@@ -12,6 +12,10 @@
 
 - 用于 Dashboard 场景 , 结合 `Grid` 可以很好的适配多种设备.
 
+[趋势信息](./demo/trend.vue?show=vertical)
+
+- 通过 `trend` 展示趋势或补充信息，使用 `trendStatus` 设置状态颜色。
+
 [基本用法](./demo/basic.vue)
 
 - 只展示数字
@@ -34,17 +38,19 @@
 
 ### items Options
 
-| 属性            | 说明                         | 类型   | 默认值 |
-| --------------- | ---------------------------- | ------ | ------ |
-| value           | 数值                         | number | -      |
-| desc            | 数值描述                     | string | []     |
-| prefix          | 数值的前置内容               | string | -      |
-| suffix          | 数值的后置内容               | string | -      |
-| precision       | 数值精度                     | number | 0      |
-| separator       | 分隔符                       | string | -      |
-| duration        | 数值动态展示时间(秒)         | number | 1.2    |
-| autoAnimate     | 当目标可见时触发动画         | bool   | true   |
-| autoAnimateOnce | 自动动画触发器仅运行一次动画 | bool   | true   |
+| 属性            | 说明                         | 类型                                | 默认值  |
+| --------------- | ---------------------------- | ----------------------------------- | ------- |
+| value           | 数值                         | number                              | -       |
+| desc            | 数值描述                     | string                              | []      |
+| trend           | 趋势或补充信息               | VNodeChild                          | -       |
+| trendStatus     | 趋势状态                     | `default, success, danger, warning` | default |
+| prefix          | 数值的前置内容               | string                              | -       |
+| suffix          | 数值的后置内容               | string                              | -       |
+| precision       | 数值精度                     | number                              | 0       |
+| separator       | 分隔符                       | string                              | -       |
+| duration        | 数值动态展示时间(秒)         | number                              | 1.2     |
+| autoAnimate     | 当目标可见时触发动画         | bool                                | true    |
+| autoAnimateOnce | 自动动画触发器仅运行一次动画 | bool                                | true    |
 
 ## StatNumber API
 

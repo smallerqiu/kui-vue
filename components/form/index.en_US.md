@@ -86,12 +86,12 @@ export default {
 
 ## Form Expose API
 
-| Property | Description                                                                      | Type                                                     | Default |
-| -------- | -------------------------------------------------------------------------------- | -------------------------------------------------------- | ------- |
-| test     | Method for validating a single field in a form                                   | (key:string)=>void                                       | -       |
-| reset    | Reset the entire form, clearing all field values and removing validation results | ()=>void                                                 | -       |
-| submit   | Submit the form and validate                                                     | ()=>void                                                 | -       |
-| validate | Validate the form                                                                | (callback?: (result: { valid: boolean }) => void) =>void | -       |
+| Property | Description                                                                      | Type                                                                             | Default |
+| -------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------- |
+| test     | Method for validating a single field in a form                                   | (key:string)=>Promise\<boolean>                                                  | -       |
+| reset    | Reset the entire form, clearing all field values and removing validation results | ()=>void                                                                         | -       |
+| submit   | Submit the form and validate                                                     | ()=>Promise\<void>                                                               | -       |
+| validate | Validate the form                                                                | (callback?: (result: { valid: boolean }) => void)=>Promise\<{ valid: boolean }\> | -       |
 
 ## FormItem API
 
@@ -103,12 +103,12 @@ export default {
 
 ## rules API
 
-| Property  | Description                                                                                                                                                                                    | Type                                                                    | Default |
-| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- | ------- |
-| required  | Whether it is a required field                                                                                                                                                                 | bool                                                                    | false   |
-| message   | Prompt message when validation fails                                                                                                                                                           | string                                                                  | -       |
-| validator | Custom validation method, see example                                                                                                                                                          | (rule: FormRule, value: any, callback: (error?: Error) => void) => void | -       |
-| type      | Data type validation. Provides three validation methods: `mobile` (phone), `mail` (email), `number` (numeric type judgment)                                                                    | string                                                                  | -       |
-| pattern   | Custom regular expression validation. For example, password strength containing numbers, letters, and special symbols can be written as `/(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,20}/` | string                                                                  | -       |
-| min       | Minimum field length validation                                                                                                                                                                | number                                                                  | -       |
-| max       | Maximum field length validation                                                                                                                                                                | number                                                                  | -       |
+| Property  | Description                                                                                                                                                                                    | Type                                                                                      | Default |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------- |
+| required  | Whether it is a required field                                                                                                                                                                 | bool                                                                                      | false   |
+| message   | Prompt message when validation fails                                                                                                                                                           | string                                                                                    | -       |
+| validator | Custom validation method, see example                                                                                                                                                          | (rule: FormRule, value: any, callback: (error?: Error) => void) => void \| Promise\<void> | -       |
+| type      | Data type validation. Provides three validation methods: `mobile` (phone), `mail` (email), `number` (numeric type judgment)                                                                    | string                                                                                    | -       |
+| pattern   | Custom regular expression validation. For example, password strength containing numbers, letters, and special symbols can be written as `/(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,20}/` | string                                                                                    | -       |
+| min       | Minimum field length validation                                                                                                                                                                | number                                                                                    | -       |
+| max       | Maximum field length validation                                                                                                                                                                | number                                                                                    | -       |

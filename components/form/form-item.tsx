@@ -22,7 +22,7 @@ import type { ColProps, FormRule } from "./types";
 
 interface FormContext {
   getValueFromProp?: (prop: string | undefined) => any;
-  rules?: Record<string, FormRule[]>;
+  rules?: Record<string, FormRule | FormRule[]>;
   register?: (item: any) => void;
   unregister?: (item: any) => void;
   layout?: "inline" | DirectionType;
@@ -31,7 +31,7 @@ interface FormContext {
   shape?: ShapeType;
   disabled?: boolean;
   theme?: ThemeType;
-  updateMode?: (prop: string, value: any) => void;
+  updateModel?: (prop: string, value: any) => void;
   labelCol?: ColProps;
   wrapperCol?: ColProps;
   cleaned?: boolean;
@@ -64,8 +64,8 @@ const FormItem = defineComponent({
 
     const Form = inject<FormContext>("Form", {});
 
-    const test = (rule: FormRule) => {
-      let isValid = valid.value;
+    const test = async (rule: FormRule) => {
+      let isValid = true;
       const itemValue = Form.getValueFromProp?.(props.prop);
       let msg = rule.message;
 
@@ -76,102 +76,123 @@ const FormItem = defineComponent({
             itemValue !== undefined &&
             itemValue !== "" &&
             itemValue !== false;
-        msg = msg || locale.value?.k.form.required.replace("{label}", props.label || props.prop);
-      } else {
-        if (rule.pattern) {
-          isValid = rule.pattern.test(itemValue);
-        } else if (rule.type) {
-          switch (rule.type) {
-            case "mail":
-              isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/.test(itemValue);
-              msg = msg || locale.value?.k.form.email;
-              break;
-            case "mobile":
-              isValid = /^[1][3-9][0-9]{9}$/.test(itemValue);
-              msg = msg || locale.value?.k.form.mobile;
-              break;
-            case "number":
-              isValid = /^(-?\d+)(\.\d+)?$/.test(itemValue);
-              if (isValid) {
-                if (rule.min !== undefined && itemValue < rule.min) {
-                  isValid = false;
-                  msg = msg || locale.value?.k.form.num_min.replace("{min}", rule.min);
-                } else if (rule.max !== undefined && itemValue > rule.max) {
-                  isValid = false;
-                  msg = msg || locale.value?.k.form.num_max.replace("{max}", rule.max);
-                }
-              }
-              msg = msg || locale.value?.k.form.number;
-              break;
-            default:
-              break;
-          }
-        } else if (typeof rule.validator === "function") {
-          rule.validator(rule, itemValue, (error) => {
-            isValid = error === undefined;
-            if (error) {
-              msg = error.message;
-            }
-          });
-        } else if (rule.min !== undefined || rule.max !== undefined) {
-          const valueType = typeof itemValue;
-
-          if (rule.min !== undefined) {
-            if (Array.isArray(itemValue)) {
-              isValid = itemValue.length >= rule.min;
-            } else if (valueType === "string") {
-              isValid = itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length >= rule.min;
-            } else if (valueType === "number") {
-              isValid = itemValue >= rule.min;
-            }
-          }
-
-          if (rule.max !== undefined && isValid) {
-            if (Array.isArray(itemValue)) {
-              isValid = itemValue.length <= rule.max;
-            } else if (valueType === "string") {
-              isValid = itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length <= rule.max;
-            } else if (valueType === "number") {
-              isValid = itemValue <= rule.max;
-            }
-          }
-          msg = msg || "Incorrect length";
+        if (!isValid) {
+          msg = msg || locale.value?.k.form.required.replace("{label}", props.label || props.prop);
         }
+      } else if (rule.pattern) {
+        isValid = rule.pattern.test(itemValue);
+      } else if (rule.type) {
+        switch (rule.type) {
+          case "mail":
+            isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/.test(itemValue);
+            msg = msg || locale.value?.k.form.email;
+            break;
+          case "mobile":
+            isValid = /^[1][3-9][0-9]{9}$/.test(itemValue);
+            msg = msg || locale.value?.k.form.mobile;
+            break;
+          case "number":
+            isValid = /^(-?\d+)(\.\d+)?$/.test(itemValue);
+            if (isValid) {
+              if (rule.min !== undefined && itemValue < rule.min) {
+                isValid = false;
+                msg = msg || locale.value?.k.form.num_min.replace("{min}", rule.min);
+              } else if (rule.max !== undefined && itemValue > rule.max) {
+                isValid = false;
+                msg = msg || locale.value?.k.form.num_max.replace("{max}", rule.max);
+              }
+            }
+            msg = msg || locale.value?.k.form.number;
+            break;
+          default:
+            break;
+        }
+      } else if (typeof rule.validator === "function") {
+        const error = await new Promise<Error | undefined>((resolve) => {
+          let settled = false;
+          const done = (error?: Error) => {
+            if (settled) return;
+            settled = true;
+            resolve(error);
+          };
+          try {
+            const result = rule.validator?.(rule, itemValue, done);
+            if (result && typeof result.then === "function") {
+              result
+                .then(() => done())
+                .catch((error) => {
+                  done(error instanceof Error ? error : new Error(String(error)));
+                });
+            }
+          } catch (error) {
+            done(error instanceof Error ? error : new Error(String(error)));
+          }
+        });
+        isValid = error === undefined;
+        if (error) msg = error.message;
+      } else if (rule.min !== undefined || rule.max !== undefined) {
+        const valueType = typeof itemValue;
+        const empty =
+          itemValue === null ||
+          itemValue === undefined ||
+          itemValue === "" ||
+          (Array.isArray(itemValue) && itemValue.length === 0);
+        if (rule.min !== undefined) {
+          if (empty) {
+            isValid = false;
+          } else if (Array.isArray(itemValue)) {
+            isValid = itemValue.length >= rule.min;
+          } else if (valueType === "string") {
+            isValid = itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length >= rule.min;
+          } else if (valueType === "number") {
+            isValid = itemValue != null && itemValue !== undefined && itemValue >= rule.min;
+          }
+        }
+        if (rule.max !== undefined && isValid) {
+          if (empty) {
+            isValid = false;
+          } else if (Array.isArray(itemValue)) {
+            isValid = itemValue.length <= rule.max;
+          } else if (valueType === "string") {
+            isValid = itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length <= rule.max;
+          } else if (valueType === "number") {
+            isValid = itemValue != null && itemValue !== undefined && itemValue <= rule.max;
+          }
+        }
+        msg = msg || "Incorrect length";
       }
-
-      message.value = msg;
-      valid.value = isValid;
-      return isValid;
+      return { valid: isValid, message: msg };
     };
 
-    const validate = (rules: any) => {
+    const validate = async (rules: FormRule | FormRule[]) => {
       if (!rules) return true;
 
-      if (rules.constructor === Object) return test(rules);
-
-      const sortedRules = [...rules].sort((a) => (a.required ? -1 : 0));
-      for (let i = 0; i < sortedRules.length; i++) {
-        let isValid = test(sortedRules[i]);
-        if (!isValid) {
-          break;
-        }
+      if (rules.constructor === Object) {
+        const result = await test(rules);
+        valid.value = result.valid;
+        message.value = result.message;
+        return result.valid;
       }
-      return valid.value;
+
+      const sortedRules = [...(rules as FormRule[])].sort((a) => (a.required ? -1 : 0));
+      let result = { valid: true, message: undefined as string | undefined };
+      for (let i = 0; i < sortedRules.length; i++) {
+        result = await test(sortedRules[i]);
+        if (!result.valid) break;
+      }
+      valid.value = result.valid;
+      message.value = result.message;
+      return result.valid;
     };
 
     const testValue = () => {
       if (props.prop) {
         const rules = props.rules || (Form.rules || {})[props.prop];
-        rules && validate(rules);
+        if (rules) void validate(rules);
       }
     };
     const { prop, rules } = toRefs(props);
-    const formItem = reactive({
-      prop,
-      rules,
-      valid,
-      validate,
-    });
+    const formItem = reactive({ prop, rules, valid, validate });
     onMounted(() => {
       if (props.prop) {
         Form.register?.(formItem);
@@ -239,24 +260,19 @@ const FormItem = defineComponent({
             <div class="k-form-item-content">
               {children.map((child) => {
                 if (isVNode(child)) {
-                  // const tag = (child.type as any)?.name;
                   const value = prop ? (Form.getValueFromProp?.(prop) ?? undefined) : undefined;
                   const propsData = child?.props || {};
-                  const size = propsData.size || Form.size;
-                  const theme = propsData.theme || Form.theme;
-                  const shape = propsData.shape || Form.shape;
-                  const disabled = propsData.disabled || Form.disabled;
                   const childProps: Record<string, any> = {
                     id,
-                    size,
-                    disabled,
-                    theme,
-                    shape,
+                    size: propsData.size || Form.size,
+                    disabled: propsData.disabled || Form.disabled,
+                    theme: propsData.theme || Form.theme,
+                    shape: propsData.shape || Form.shape,
                   };
                   if (prop) {
                     childProps.modelValue = value;
                     childProps["onUpdate:modelValue"] = (value: any) => {
-                      Form.updateMode?.(prop, value);
+                      Form.updateModel?.(prop, value);
                     };
                   }
 

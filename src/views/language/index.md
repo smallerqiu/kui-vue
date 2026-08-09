@@ -14,7 +14,7 @@ KUI 组件内部默认使用中文，若希望使用其他语言，则需要进�
 </template>
 
 <script setup lang="ts">
-  import en from "kui-vue/components/locale/en";
+  import en from "kui-vue/locale/en";
 </script>
 ```
 

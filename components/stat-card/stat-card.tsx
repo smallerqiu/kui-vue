@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType, VNode } from "vue";
+import type { ExtractPropTypes, PropType, VNode, VNodeChild } from "vue";
 import { defineComponent } from "vue";
 import type { BooleanType } from "../const/types";
 import StatNumber from "./stat-number";
@@ -11,6 +11,8 @@ export interface StatNumberItem {
   prefix?: string | VNode;
   suffix?: string | VNode;
   desc?: string;
+  trend?: VNodeChild;
+  trendStatus?: "default" | "success" | "danger" | "warning";
   autoAnimate?: boolean;
   autoAnimateOnce?: boolean;
 }
@@ -30,10 +32,14 @@ export type StatCardProps = ExtractPropTypes<typeof statCardProps>;
 const StatCard = defineComponent({
   name: "StatCard",
   props: statCardProps,
-  setup(props, { slots }) {
+  setup(props, { slots, attrs }) {
     return () => {
+      const { class: customClass, ...restAttrs } = attrs;
       return (
-        <div class={["k-stat-card", { "k-stat-card-bordered": props.bordered }]}>
+        <div
+          {...restAttrs}
+          class={["k-stat-card", customClass, { "k-stat-card-bordered": props.bordered }]}
+        >
           {props.title && <div class="k-stat-card-title">{props.title}</div>}
           <div class="k-stat-card-items">
             {(props.items || []).map((item, index) => {
@@ -50,6 +56,7 @@ const StatCard = defineComponent({
                       }}
                       modelValue={item.value}
                       autoAnimate={item.autoAnimate}
+                      autoAnimateOnce={item.autoAnimateOnce}
                       duration={item.duration}
                       precision={item.precision !== undefined ? item.precision : props.precision}
                       separator={item.separator !== undefined ? item.separator : props.separator}
@@ -57,6 +64,16 @@ const StatCard = defineComponent({
                     />
                   </div>
                   <div class="k-stat-card-item-desc">{item.desc}</div>
+                  {item.trend !== undefined && (
+                    <div
+                      class={[
+                        "k-stat-card-item-trend",
+                        `k-stat-card-item-trend-${item.trendStatus || "default"}`,
+                      ]}
+                    >
+                      {item.trend}
+                    </div>
+                  )}
                 </div>
               );
             })}

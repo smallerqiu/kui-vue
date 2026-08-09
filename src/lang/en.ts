@@ -1,7 +1,23 @@
 export default {
   index: {
-    desc: "A set of desktop UI component library based on Vue.js",
-    btn_quick_start: "Quick Started",
+    badge: "Built for Vue 3",
+    title_suffix: "A clean, reliable UI library for the desktop web",
+    desc: "A detail-oriented Vue 3 component library with complete types, flexible themes, and practical building blocks.",
+    btn_quick_start: "Get started",
+    preview_title: "Project overview",
+    preview_desc: "Live data and system status",
+    feature_fast: "Simple and efficient",
+    feature_fast_desc:
+      "Consistent APIs and on-demand imports for building dependable interfaces quickly.",
+    feature_types: "TypeScript ready",
+    feature_types_desc:
+      "Complete type definitions and editor hints make components easier to use and maintain.",
+    feature_theme: "Flexible theming",
+    feature_theme_desc:
+      "A CSS Variables based theme system with dark mode and brand color customization.",
+    explore_eyebrow: "Explore components",
+    explore_title: "Start with the essentials",
+    explore_all: "View all components",
   },
   text: {
     components: "Components",

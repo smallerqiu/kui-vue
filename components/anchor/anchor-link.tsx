@@ -1,4 +1,11 @@
-import { defineComponent, inject, onBeforeUnmount, onMounted, type ExtractPropTypes } from "vue";
+import {
+  defineComponent,
+  inject,
+  onBeforeUnmount,
+  onMounted,
+  watch,
+  type ExtractPropTypes,
+} from "vue";
 import type { AnchorContext } from "./anchor";
 
 const anchorLinkProps = {
@@ -21,6 +28,14 @@ const AnchorLink = defineComponent({
     onBeforeUnmount(() => {
       props.href && anchorContext?.unregisterLink(props.href);
     });
+
+    watch(
+      () => props.href,
+      (href, previousHref) => {
+        previousHref && anchorContext?.unregisterLink(previousHref);
+        href && anchorContext?.registerLink(href);
+      }
+    );
 
     const handleClick = (e: MouseEvent) => {
       e.preventDefault();

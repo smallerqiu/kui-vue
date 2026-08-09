@@ -27,6 +27,8 @@ export type { CascaderOption, CascaderProps } from "./cascader/types";
 
 export { default as Card } from "./card";
 export type { CardProps } from "./card";
+export { default as FeatureCard } from "./feature-card";
+export type { FeatureCardProps } from "./feature-card";
 
 export { Carousel, CarouselItem } from "./carousel";
 export type { CarouselProps } from "./carousel";

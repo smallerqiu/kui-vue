@@ -15,12 +15,14 @@ vite 好像有缓存, 可手动清除
 rm -rf node_modules/.vite
 ```
 
-## 5.4.2
+## 5.5.1
 
 `2026-8-8`
 
 ### 功能优化
 
+- 新增 组件 `FeatureCard`。
+- `Badge` 组件新增 `pill` 属性, 展示胶囊外观。
 - 弹出层组件全面升级为 Vue 3 `Teleport`。
 - 优化 Menu 折叠、展开动画及子菜单状态恢复。
 - Avatar 图片加载失败时展示默认 User 图标。

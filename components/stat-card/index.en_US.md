@@ -12,6 +12,10 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 - Used in Dashboard scenarios. Combined with `Grid`, it can adapt well to various devices.
 
+[Trend Information](./demo/trend.vue?show=vertical)
+
+- Use `trend` for trends or supplementary information and `trendStatus` for its status color.
+
 [Basic Usage](./demo/basic.vue)
 
 - Display Numbers Only
@@ -34,17 +38,19 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 ### items Options
 
-| Property        | Description                                       | Type   | Default |
-| --------------- | ------------------------------------------------- | ------ | ------- |
-| value           | Numerical value                                   | number | -       |
-| desc            | Numerical description                             | string | []      |
-| prefix          | Prefix content of numerical value                 | string | -       |
-| suffix          | Suffix content of numerical value                 | string | -       |
-| precision       | Numerical precision                               | number | 0       |
-| separator       | Separator                                         | string | -       |
-| duration        | Numerical dynamic display time (seconds)          | number | 1.2     |
-| autoAnimate     | Trigger animation when target becomes visible     | bool   | true    |
-| autoAnimateOnce | Run animation only once for auto-animate triggers | bool   | true    |
+| Property        | Description                                       | Type                                | Default |
+| --------------- | ------------------------------------------------- | ----------------------------------- | ------- |
+| value           | Numerical value                                   | number                              | -       |
+| desc            | Numerical description                             | string                              | []      |
+| trend           | Trend or supplementary content                    | VNodeChild                          | -       |
+| trendStatus     | Trend status                                      | `default, success, danger, warning` | default |
+| prefix          | Prefix content of numerical value                 | string                              | -       |
+| suffix          | Suffix content of numerical value                 | string                              | -       |
+| precision       | Numerical precision                               | number                              | 0       |
+| separator       | Separator                                         | string                              | -       |
+| duration        | Numerical dynamic display time (seconds)          | number                              | 1.2     |
+| autoAnimate     | Trigger animation when target becomes visible     | bool                                | true    |
+| autoAnimateOnce | Run animation only once for auto-animate triggers | bool                                | true    |
 
 ## StatNumber API
 

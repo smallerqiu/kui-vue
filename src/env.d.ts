@@ -74,6 +74,7 @@ declare module "vue" {
     SkeletonImage: (typeof Comps)["SkeletonImage"];
     SkeletonText: (typeof Comps)["SkeletonText"];
     StatCard: (typeof Comps)["StatCard"];
+    FeatureCard: (typeof Comps)["FeatureCard"];
     StatNumber: (typeof Comps)["StatNumber"];
     Slider: (typeof Comps)["Slider"];
     Space: (typeof Comps)["Space"];

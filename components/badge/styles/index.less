@@ -143,3 +143,26 @@
     background-color: var(--kui-color-lime);
   }
 }
+
+.k-badge-pill {
+  gap: 9px;
+  padding: 6px 11px;
+  border: 1px solid var(--kui-color-border);
+  border-radius: 999px;
+  background: var(--kui-color-bg-component);
+
+  .k-badge-status-dot {
+    width: 7px;
+    height: 7px;
+  }
+
+  .k-badge-status-success {
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--kui-color-success) 16%, transparent);
+  }
+
+  .k-badge-status-text {
+    margin-left: 0;
+    color: var(--kui-color-text-secondary);
+    font-size: 13px;
+  }
+}
