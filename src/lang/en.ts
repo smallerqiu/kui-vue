@@ -1,7 +1,7 @@
 export default {
   index: {
     badge: "Built for Vue 3",
-    title_suffix: "A clean, reliable UI library for the desktop web",
+    title_suffix: "A clean, beautiful UI library for the desktop web",
     desc: "A detail-oriented Vue 3 component library with complete types, flexible themes, and practical building blocks.",
     btn_quick_start: "Get started",
     preview_title: "Project overview",

@@ -1,7 +1,7 @@
 export default {
   index: {
     badge: "为 Vue 3 构建",
-    title_suffix: "简洁、可靠的桌面端组件库",
+    title_suffix: "简洁、漂亮的桌面端组件库",
     desc: "一套注重细节与开发体验的 Vue 3 UI 组件库，提供完整类型、主题能力和丰富的基础组件。",
     btn_quick_start: "快速上手",
     preview_title: "项目概览",

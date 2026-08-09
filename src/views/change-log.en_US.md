@@ -15,7 +15,7 @@ rm -rf node_modules/.vite
 
 ## 5.5.1
 
-`2026-8-8`
+`2026-8-9`
 
 ### Feature Optimization
 

@@ -2,20 +2,14 @@
   <Button :disabled="loading" @click="showSkeleton">Reload</Button>
   <br />
   <br />
-  <div class="demo-skeleton-list">
-    <div class="demo-skeleton-item" v-for="_ in 3">
+  <Space class="demo-skeleton-list" vertical block>
+    <Card class="demo-skeleton-item" v-for="_ in 3">
       <Skeleton avatar :loading="loading" :rows="2" animated>
-        <Space>
-          <Avatar size="large">{{ item.name }}</Avatar>
-          <Space vertical align="start">
-            <h4>{{ item.name }}</h4>
-            <p class="sub-desc">{{ item.intro }}</p>
-          </Space>
-        </Space>
+        <CardMeta :avatar="item.name" :title="item.name" :description="item.intro"> </CardMeta>
         <p class="desc">{{ item.desc }}</p>
       </Skeleton>
-    </div>
-  </div>
+    </Card>
+  </Space>
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
