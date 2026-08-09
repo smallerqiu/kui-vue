@@ -14,6 +14,10 @@
 
 ## 代码演示
 
+[基础布局](./demo/basic.vue?show=vertical)
+
+- 基础布局
+
 [现代企业级管理后台 (Enterprise Admin Console)](./demo/enterprise-admin-console.vue?show=vertical)
 
 - 最常见的“侧边导航 + 顶部工具栏”结构，适用于 SaaS 产品、CMS 后台或 ERP 系统。

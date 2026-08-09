@@ -1,11 +1,11 @@
 <template>
   <div class="demo-affix-scroll" ref="containerRef">
     <div class="demo-affix-inner">
-      <div style="padding:50px 0;" />
+      <div style="padding: 50px 0" />
       <Affix :target="() => containerRef" :offsetTop="50">
         <Button type="primary">Affix at the top of container</Button>
       </Affix>
-      <div style="padding:200px 0;" />
+      <div style="padding: 200px 0" />
       <Affix :target="() => containerRef" :offsetBottom="50">
         <Button type="primary">Affix at the bottom of container</Button>
       </Affix>
@@ -21,7 +21,7 @@ const containerRef = ref();
 <style scoped>
 .demo-affix-scroll {
   height: 300px;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-image:
     linear-gradient(-45deg, #cdcdcd 25%, #eeeeee50 0),
     linear-gradient(45deg, #cdcdcd 25%, #eeeeee50 0),

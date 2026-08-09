@@ -113,3 +113,31 @@
     border-radius: 13px 13px 0 0;
   }
 }
+
+.demo-layout {
+  text-align: center;
+  & > .k-layout {
+    color: var(--kui-color-text-description);
+    min-width: calc(50% - 8px);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .k-layout-header {
+    background-color: var(--kui-color-bg-3);
+    height: 64px;
+    line-height: 64px;
+  }
+  .k-layout-footer {
+    background-color: var(--kui-color-bg-3);
+  }
+  .k-layout-content {
+    min-height: 120px;
+    line-height: 120px;
+    background-color: var(--kui-color-bg-2);
+  }
+  .k-layout-sider {
+    line-height: 120px;
+    background-color: var(--kui-color-bg-4);
+    width: 30%;
+  }
+}

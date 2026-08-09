@@ -14,6 +14,10 @@ Assists with page-level overall layout.
 
 ## Examples
 
+[基础布局](./demo/basic.vue?show=vertical)
+
+- Basic Layout
+
 [Modern Enterprise Admin Console](./demo/enterprise-admin-console.vue?show=vertical)
 
 - The most common "sidebar navigation + top toolbar" structure, suitable for SaaS products, CMS backends, or ERP systems.

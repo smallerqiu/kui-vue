@@ -1,5 +1,5 @@
 <template>
-  <Flex class="demo-Layout" size="small" wrap>
+  <Flex class="demo-layout" size="small" wrap>
     <Layout>
       <Header>Header</Header>
       <Content>Content</Content>
@@ -31,32 +31,4 @@
     </Layout>
   </Flex>
 </template>
-<style scoped>
-.demo-Layout {
-  text-align: center;
-}
-.demo-Layout > .Layout {
-  color: var(--kui-color-text-description);
-  min-width: calc(50% - 8px);
-  border-radius: 10px;
-  overflow: hidden;
-}
-.demo-Layout .Layout-header {
-  background-color: var(--kui-color-bg-3);
-  height: 64px;
-  line-height: 64px;
-}
-.demo-Layout .Layout-footer {
-  background-color: var(--kui-color-bg-3);
-}
-.demo-Layout .Layout-content {
-  min-height: 120px;
-  line-height: 120px;
-  background-color: var(--kui-color-bg-2);
-}
-.demo-Layout .Layout-sider {
-  line-height: 120px;
-  background-color: var(--kui-color-bg-4);
-  width: 30%;
-}
-</style>
+<style lang="less"></style>
