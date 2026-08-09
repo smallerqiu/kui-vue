@@ -43,6 +43,7 @@ declare module "vue" {
     Icon: (typeof Comps)["Icon"];
     Input: (typeof Comps)["Input"];
     InputGroup: (typeof Comps)["InputGroup"];
+    InputOTP: (typeof Comps)["InputOTP"];
     TextArea: (typeof Comps)["TextArea"];
     InputNumber: (typeof Comps)["InputNumber"];
     Content: (typeof Comps)["Content"];

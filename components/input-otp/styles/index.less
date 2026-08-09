@@ -1,0 +1,100 @@
+@import "../../styles/less-css-var.less";
+
+.k-input-otp {
+  display: inline-flex;
+  max-width: 100%;
+  gap: 8px;
+
+  .k-input-otp-separator {
+    display: inline-flex;
+    align-items: center;
+    color: var(--kui-color-text-secondary);
+  }
+
+  .k-input-otp-item {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid var(--kui-color-border);
+    border-radius: var(--kui-border-radius);
+    color: var(--kui-color-text);
+    background-color: var(--kui-color-bg);
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+    caret-color: var(--kui-color-primary);
+    transition:
+      border-color 0.2s ease-in-out,
+      box-shadow 0.2s ease-in-out;
+
+    &:hover {
+      border-color: var(--kui-color-primary);
+    }
+    &:focus {
+      z-index: 1;
+      border-color: var(--kui-color-primary);
+      box-shadow: var(--kui-component-shadow);
+      outline: 2px solid var(--kui-color-outline);
+      outline-offset: 1px;
+    }
+    &:disabled {
+      cursor: not-allowed;
+      color: var(--kui-color-text-disabled);
+      background: var(--kui-color-bg-component-disabled);
+    }
+  }
+}
+
+.k-input-otp-fill .k-input-otp-item {
+  border-color: transparent;
+  background-color: var(--kui-color-bg-component);
+
+  &:hover,
+  &:focus {
+    border-color: transparent;
+  }
+}
+
+.k-input-otp-underlined .k-input-otp-item {
+  border-width: 0 0 1px;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+.k-input-otp-square .k-input-otp-item {
+  border-radius: 2px;
+}
+
+.k-input-otp-circle .k-input-otp-item {
+  border-radius: 50%;
+}
+
+.k-input-otp-readonly .k-input-otp-item {
+  cursor: default;
+}
+
+.k-input-otp-sm {
+  gap: 6px;
+  .k-input-otp-item {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    line-height: 32px;
+  }
+}
+
+.k-input-otp-lg {
+  gap: 10px;
+  .k-input-otp-item {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--kui-border-radius-lg);
+    font-size: 22px;
+    line-height: 48px;
+  }
+}

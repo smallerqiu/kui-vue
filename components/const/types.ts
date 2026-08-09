@@ -16,12 +16,7 @@ export type PlacementsType =
   | "right-bottom";
 export type DrawerPlacementsType = "left" | "right" | "top" | "bottom";
 export type DropPlacementsType =
-  | "top"
-  | "top-left"
-  | "top-right"
-  | "bottom"
-  | "bottom-left"
-  | "bottom-right";
+  "top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right";
 
 export type ValueType = "string" | "number" | "boolean";
 export type SizeType = "small" | "medium" | "large";
@@ -29,7 +24,7 @@ export type ShapeType = "circle" | "square" | "round";
 export type BooleanType = PropType<boolean | undefined>;
 
 export type ButtonType = "primary" | "danger" | "warning" | "default" | "text" | "link";
-export type ThemeType = "outline" | "fill" | "default" | "solid" | "dashed" | "card";
+export type ThemeType = "outline" | "fill" | "default" | "solid" | "dashed" | "card" | "underlined";
 
 export type RadioType = "radio" | "button";
 export type DirectionType = "horizontal" | "vertical" | "inline";

@@ -79,6 +79,9 @@ export type { IconProps, IconType } from "./icon";
 export { Input, InputGroup, TextArea } from "./input";
 export type { InputGroupProps, InputProps, TextAreaProps } from "./input";
 
+export { default as InputOTP } from "./input-otp";
+export type { InputOTPProps, InputOTPValidator } from "./input-otp";
+
 export { default as InputNumber } from "./input-number";
 export type { InputNumberProps } from "./input-number";
 
