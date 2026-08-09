@@ -21,13 +21,16 @@ rm -rf node_modules/.vite
 
 ### 功能优化
 
+- 新增 组件 `InputOTP`。
 - 新增 组件 `FeatureCard`。
+- 新增 组件 `Result`。
+- 新增 组件 `FeedbackPanel`。
 - `Badge` 组件新增 `pill` 属性, 展示胶囊外观。
 - 弹出层组件全面升级为 Vue 3 `Teleport`。
-- 优化 Menu 折叠、展开动画及子菜单状态恢复。
-- Avatar 图片加载失败时展示默认 User 图标。
-- 优化 Demo 在线编译器对 TypeScript 语法的支持。
-- 完善 Table、Upload 等组件的 TypeScript 类型。
+- 优化 `Menu` 折叠、展开动画及子菜单状态恢复。
+- `Avatar` 图片加载失败时展示默认 `User` 图标。
+- 优化 `Demo` 在线编译器对 `TypeScript` 语法的支持。
+- 完善 `Table`、`Upload` 等组件的 `TypeScript` 类型。
 
 ### Bug 修复
 

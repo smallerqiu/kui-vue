@@ -1,4 +1,5 @@
 (function () {
+  if (location.port != "") return;
   window.dataLayer = window.dataLayer || [];
   function gtag() {
     dataLayer.push(arguments);

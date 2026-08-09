@@ -1,0 +1,94 @@
+@import "../../styles/less-css-var.less";
+
+.k-feedback-panel {
+  --k-feedback-panel-color: var(--kui-color-primary);
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 18px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 24px;
+  border: 1px solid var(--kui-color-border);
+  border-left: 4px solid var(--k-feedback-panel-color);
+  border-radius: var(--kui-border-radius-lg);
+  background: var(--kui-color-bg);
+
+  .k-feedback-panel-mark {
+    display: flex;
+    justify-content: center;
+  }
+  .k-feedback-panel-mark-inner {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    color: var(--k-feedback-panel-color);
+    background: color-mix(in srgb, var(--k-feedback-panel-color) 12%, transparent);
+    font-size: 25px;
+  }
+  .k-feedback-panel-main {
+    min-width: 0;
+  }
+  .k-feedback-panel-heading {
+    color: var(--kui-color-text-title);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+  .k-feedback-panel-description {
+    margin-top: 5px;
+    color: var(--kui-color-text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .k-feedback-panel-details {
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: var(--kui-border-radius);
+    color: var(--kui-color-text);
+    background: var(--kui-color-bg-component);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .k-feedback-panel-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+}
+
+.k-feedback-panel-positive {
+  --k-feedback-panel-color: var(--kui-color-success);
+}
+.k-feedback-panel-negative {
+  --k-feedback-panel-color: var(--kui-color-danger);
+}
+.k-feedback-panel-caution {
+  --k-feedback-panel-color: var(--kui-color-warning);
+}
+.k-feedback-panel-compact {
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 12px;
+  padding: 16px;
+  .k-feedback-panel-mark-inner {
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    font-size: 21px;
+  }
+  .k-feedback-panel-heading {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .k-feedback-panel {
+    grid-template-columns: 1fr;
+  }
+  .k-feedback-panel-mark {
+    justify-content: flex-start;
+  }
+}

@@ -130,6 +130,12 @@ export type { RadioButtonProps, RadioGroupProps, RadioOption, RadioProps } from 
 export { default as Rate } from "./rate";
 export type { RateProps } from "./rate";
 
+export { default as Result } from "./result";
+export type { ResultProps, ResultStatus } from "./result";
+
+export { default as FeedbackPanel } from "./feedback-panel";
+export type { FeedbackPanelKind, FeedbackPanelProps } from "./feedback-panel";
+
 export { Option, Select } from "./select";
 export type { OptionProps, SelectOption, SelectProps } from "./select";
 

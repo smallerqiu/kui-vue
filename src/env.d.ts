@@ -66,6 +66,7 @@ declare module "vue" {
     RadioButton: (typeof Comps)["RadioButton"];
     RadioGroup: (typeof Comps)["RadioGroup"];
     Rate: (typeof Comps)["Rate"];
+    Result: (typeof Comps)["Result"];
     Option: (typeof Comps)["Option"];
     Select: (typeof Comps)["Select"];
     ConfigProvider: (typeof Comps)["ConfigProvider"];
@@ -76,6 +77,7 @@ declare module "vue" {
     SkeletonText: (typeof Comps)["SkeletonText"];
     StatCard: (typeof Comps)["StatCard"];
     FeatureCard: (typeof Comps)["FeatureCard"];
+    FeedbackPanel: (typeof Comps)["FeedbackPanel"];
     StatNumber: (typeof Comps)["StatNumber"];
     Slider: (typeof Comps)["Slider"];
     Space: (typeof Comps)["Space"];
