@@ -20,11 +20,24 @@
 
 - 通过 `bordered` 属性控制边框，通过 `title` 属性控制标题。
 
+[封面与信息](./demo/cover.vue?show=vertical)
+
+- 使用 `cover` 展示封面图片，并通过 `CardMeta` 展示头像、标题和描述。
+
 ## API
 
-| 属性     | 说明             | 类型         | 默认值 |
-| -------- | ---------------- | ------------ | ------ |
-| title    | 卡片的标题       | string、slot | -      |
-| icon     | 卡片标题的图标   | string       | -      |
-| bordered | 卡片是否显示边框 | bool         | true   |
-| extra    | 卡片标题扩展     | slot         | -      |
+| 属性     | 说明                           | 类型               | 默认值 |
+| -------- | ------------------------------ | ------------------ | ------ |
+| title    | 卡片的标题                     | string、slot       | -      |
+| icon     | 卡片标题的图标                 | string             | -      |
+| bordered | 卡片是否显示边框               | bool               | true   |
+| extra    | 卡片标题扩展                   | slot               | -      |
+| cover    | 卡片封面，设置后不显示卡片头部 | string、VNodeChild | -      |
+
+## CardMeta API
+
+| 属性        | 说明     | 类型               | 默认值 |
+| ----------- | -------- | ------------------ | ------ |
+| avatar      | 头像     | string、VNodeChild | -      |
+| title       | 标题     | string、VNodeChild | -      |
+| description | 描述内容 | string、VNodeChild | -      |

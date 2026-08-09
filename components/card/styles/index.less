@@ -37,6 +37,48 @@
     padding: 16px;
     font-size: 14px;
   }
+
+  .k-card-cover {
+    overflow: hidden;
+    border-radius: var(--kui-border-radius-card) var(--kui-border-radius-card) 0 0;
+
+    > img {
+      display: block;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+  }
+
+  .k-card-meta {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .k-card-meta-avatar {
+    flex: none;
+  }
+
+  .k-card-meta-content {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .k-card-meta-title {
+    overflow: hidden;
+    color: var(--kui-color-text-title);
+    font-weight: 600;
+    line-height: 1.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .k-card-meta-description {
+    margin-top: 4px;
+    color: var(--kui-color-text-description);
+    line-height: 1.6;
+  }
 }
 
 .k-card-bordered {

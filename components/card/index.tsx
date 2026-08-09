@@ -1,11 +1,13 @@
-import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
 import type { BooleanType } from "../const/types";
 import Icon, { type IconType } from "../icon";
+import CardMeta from "./card-meta";
 
 const cardProps = {
   bordered: { type: Boolean as BooleanType, default: false },
   title: String,
   icon: [Array] as PropType<IconType[]>,
+  cover: [String, Object] as PropType<string | VNodeChild>,
 };
 
 export type CardProps = ExtractPropTypes<typeof cardProps>;
@@ -15,15 +17,23 @@ const Card = defineComponent({
   props: cardProps,
   setup(props, { slots, attrs }) {
     return () => {
-      const { title, icon, bordered } = props;
+      const { title, icon, bordered, cover } = props;
 
       const extraSlot = slots.extra?.();
       const titleSlot = slots.title?.();
       const selfSlot = slots.default?.();
+      const coverSlot = slots.cover?.();
 
       const extraNode = extraSlot ? <div class="k-card-extra">{extraSlot}</div> : null;
       const iconNode = icon ? <Icon type={icon} class="k-card-title-icon" /> : null;
       const titleNode = title ? <span class="k-card-title">{title}</span> : titleSlot || null;
+      const coverNode = coverSlot?.length ? (
+        coverSlot
+      ) : typeof cover === "string" ? (
+        <img src={cover} alt="" />
+      ) : (
+        cover
+      );
 
       const rootProps = {
         ...attrs,
@@ -31,13 +41,16 @@ const Card = defineComponent({
           "k-card",
           {
             "k-card-bordered": bordered,
+            "k-card-has-cover": !!coverNode,
           },
+          attrs.class,
         ],
       };
 
       return (
         <div {...rootProps}>
-          {titleNode && (
+          {coverNode && <div class="k-card-cover">{coverNode}</div>}
+          {!coverNode && titleNode && (
             <div class="k-card-head">
               {iconNode}
               {titleNode}
@@ -51,4 +64,6 @@ const Card = defineComponent({
   },
 });
 
+export type { CardMetaProps } from "./card-meta";
+export { CardMeta };
 export default Card;

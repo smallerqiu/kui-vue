@@ -20,11 +20,24 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 
 - Control the border with the `bordered` property and the title with the `title` property.
 
+[Cover and Meta](./demo/cover.vue?show=vertical)
+
+- Display a cover image with `cover`, and use `CardMeta` for an avatar, title, and description.
+
 ## API
 
-| Property | Description                        | Type         | Default |
-| -------- | ---------------------------------- | ------------ | ------- |
-| title    | Card title                         | string, slot | -       |
-| icon     | Icon for the card title            | string       | -       |
-| bordered | Whether the card displays a border | bool         | true    |
-| extra    | Card title extension               | slot         | -       |
+| Property | Description                                | Type               | Default |
+| -------- | ------------------------------------------ | ------------------ | ------- |
+| title    | Card title                                 | string, slot       | -       |
+| icon     | Icon for the card title                    | string             | -       |
+| bordered | Whether the card displays a border         | bool               | true    |
+| extra    | Card title extension                       | slot               | -       |
+| cover    | Card cover; hides the card header when set | string, VNodeChild | -       |
+
+## CardMeta API
+
+| Property    | Description | Type               | Default |
+| ----------- | ----------- | ------------------ | ------- |
+| avatar      | Avatar      | string, VNodeChild | -       |
+| title       | Title       | string、VNodeChild | -       |
+| description | Description | string、VNodeChild | -       |
