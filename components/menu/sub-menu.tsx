@@ -1,3 +1,4 @@
+import { type DropdownContext, DropdownContextKey } from "kui-vue/dropdown/dropdown-context";
 import {
   type CSSProperties,
   defineComponent,
@@ -45,7 +46,7 @@ const SubMenu = defineComponent({
     const instance = getCurrentInstance();
     const key = instance?.vnode.key as string;
 
-    // const dropdownContext = inject<DropdownContext | null>(DropdownContextKey, null);
+    const dropdownContext = inject<DropdownContext | null>(DropdownContextKey, null);
     const menuContext = inject<MenuContext | null>(MenuContextKey, null);
     const subMenuContext = inject<SubMenuContext | null>(SubMenuContextKey, null);
 
@@ -56,16 +57,14 @@ const SubMenu = defineComponent({
 
     // inline 模式先在原位置渲染；切换为折叠模式后由 Teleport 移动同一棵子树。
     // horizontal/vertical 初始仍保持懒渲染，第一次交互时才创建 popup。
-    const rendered = ref(
-      menuContext?.mode.value === "inline" && !menuContext?.popupInlineCollapsed.value
-    );
+    const rendered = ref(menuContext?.mode === "inline" && !menuContext?.popupInlineCollapsed);
 
     onMounted(() => {
       nextTick(() => {
         const width = refSelection.value?.offsetWidth;
         minWidth.value = `${width}px`;
 
-        if (menuContext?.openKeys.value.includes(key)) {
+        if (menuContext?.openKeys.includes(key)) {
           updatePosition();
         }
       });
@@ -103,9 +102,9 @@ const SubMenu = defineComponent({
       // the second level menu show right top
       // or the mode is vertical
       if (
-        (menuContext?.mode.value == "horizontal" && subMenuContext?.keyPath.length) ||
-        menuContext?.mode.value == "vertical" ||
-        (menuContext?.mode.value == "inline" && menuContext?.inlineCollapsed.value)
+        (menuContext?.mode == "horizontal" && subMenuContext?.keyPath.length) ||
+        menuContext?.mode == "vertical" ||
+        (menuContext?.mode == "inline" && menuContext?.inlineCollapsed)
       ) {
         currentPlacement.value = "right-top";
       }
@@ -122,19 +121,19 @@ const SubMenu = defineComponent({
       });
     };
     const usePopup = () =>
-      menuContext?.mode.value === "horizontal" ||
-      menuContext?.mode.value === "vertical" ||
-      menuContext?.popupInlineCollapsed.value;
+      menuContext?.mode === "horizontal" ||
+      menuContext?.mode === "vertical" ||
+      menuContext?.popupInlineCollapsed;
 
     const renderChildren = () => {
       const popup = usePopup();
       if (popup && !rendered.value) return null;
 
-      const opened = menuContext?.openKeys.value.includes(key);
+      const opened = menuContext?.openKeys.includes(key);
       let leftValue = left.value;
       if (
-        (menuContext?.mode?.value == "horizontal" && subMenuContext?.keyPath.length) ||
-        menuContext?.mode.value == "vertical"
+        (menuContext?.mode == "horizontal" && subMenuContext?.keyPath.length) ||
+        menuContext?.mode == "vertical"
       ) {
         leftValue += 3;
       }
@@ -142,7 +141,7 @@ const SubMenu = defineComponent({
         ref: refPopper,
         "k-placement": currentPlacement.value,
         style: {
-          minWidth: menuContext?.mode.value == "horizontal" ? minWidth.value : null,
+          minWidth: menuContext?.mode == "horizontal" ? minWidth.value : null,
           top: top.value + "px",
           left: leftValue + "px",
           transformOrigin: transOrigin.value,
@@ -151,10 +150,12 @@ const SubMenu = defineComponent({
           clearCurrentPopTimer();
           menuContext?.openKeysChange?.(key as string, true, subMenuContext?.keyPath || []);
           subMenuContext?.clearPopTimer?.();
+          dropdownContext?.clearPopTimer?.();
         },
         onMouseleave: () => {
           hideCurrentPopTimer();
           subMenuContext?.hidePopTimer?.();
+          dropdownContext?.clearPopTimer?.();
         },
       };
 
@@ -170,7 +171,7 @@ const SubMenu = defineComponent({
           <Transition {...transitionProps}>
             <div {...containerProps} v-show={opened}>
               <div class={popup ? `k-${preCls}-sub` : undefined}>
-                <ul class={`k-menu k-menu-${popup ? "vertical" : menuContext?.mode.value}`}>
+                <ul class={`k-menu k-menu-${popup ? "vertical" : menuContext?.mode}`}>
                   {slots.default?.()}
                 </ul>
               </div>
@@ -181,21 +182,21 @@ const SubMenu = defineComponent({
     };
 
     return () => {
-      const selected = menuContext?.selectedKeys.value.includes(key) && !menuContext?.dropdown;
-      const opened = menuContext?.openKeys.value.includes(key);
+      const selected = menuContext?.selectedKeys.includes(key) && !menuContext?.dropdown;
+      const opened = menuContext?.openKeys.includes(key);
       let titleProps: Record<string, any> = {
         class: `k-${preCls}-title`,
         style: {} as CSSProperties,
       };
-      if (menuContext?.mode.value == "inline" && !menuContext?.inlineCollapsed.value) {
+      if (menuContext?.mode == "inline" && !menuContext?.inlineCollapsed) {
         titleProps.onClick = () => {
           if (props.disabled) return;
           menuContext?.openKeysChange?.(key as string, !opened, subMenuContext?.keyPath || []);
         };
       } else if (
-        menuContext?.mode.value == "horizontal" ||
-        menuContext?.mode.value == "vertical" ||
-        menuContext?.inlineCollapsed.value
+        menuContext?.mode == "horizontal" ||
+        menuContext?.mode == "vertical" ||
+        menuContext?.inlineCollapsed
       ) {
         // popper
         titleProps.ref = refSelection;
@@ -213,8 +214,8 @@ const SubMenu = defineComponent({
       }
       if (
         subMenuContext?.keyPath.length &&
-        menuContext?.mode.value === "inline" &&
-        !menuContext?.inlineCollapsed.value
+        menuContext?.mode === "inline" &&
+        !menuContext?.inlineCollapsed
       ) {
         titleProps.style.paddingLeft = `${(subMenuContext?.keyPath || []).length * 16 + 16}px`;
       }
@@ -224,7 +225,7 @@ const SubMenu = defineComponent({
         <div {...titleProps}>
           {props.icon ? <Icon type={props.icon} class="k-menu-item-icon" /> : null}
           {<span class={`k-${preCls}-title-content`}>{title}</span>}
-          {menuContext?.mode.value == "horizontal" && !subMenuContext?.keyPath.length ? null : (
+          {menuContext?.mode == "horizontal" && !subMenuContext?.keyPath.length ? null : (
             <i class={`k-${preCls}-arrow`} />
           )}
         </div>

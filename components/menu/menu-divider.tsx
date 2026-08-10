@@ -1,11 +1,12 @@
+import { DropdownContextKey, type DropdownContext } from "kui-vue/dropdown/dropdown-context";
 import { defineComponent, inject } from "vue";
 
 const MenuDivider = defineComponent({
   name: "MenuDivider",
   setup() {
-    const dropdown = inject("dropdown", null);
+    const dropdownContext = inject<DropdownContext | null>(DropdownContextKey, null);
     return () => {
-      const preCls = dropdown ? "dropdown-menu" : "menu";
+      const preCls = dropdownContext ? "dropdown-menu" : "menu";
       return <li class={`k-${preCls}-item-divider`} />;
     };
   },

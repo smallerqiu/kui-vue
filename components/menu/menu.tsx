@@ -165,7 +165,7 @@ const Menu = defineComponent({
       mode: currentMode,
       inlineCollapsed: currentInlineCollapsed,
       popupInlineCollapsed,
-      dropdown: dropdownContext?.dropdown !== null,
+      dropdown: dropdownContext != null,
       openKeysChange,
       selectedKeysChange,
     });

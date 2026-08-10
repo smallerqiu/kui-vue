@@ -36,15 +36,15 @@ const MenuItem = defineComponent({
     const menuContext = inject<MenuContext | null>(MenuContextKey, null);
     const subMenuContext = inject<SubMenuContext | null>(SubMenuContextKey, null);
     const active = ref(false);
+    console.log(menuContext?.selectedKeys);
     onMounted(() => {
-      // const selected = selectedKeys.value.indexOf(key as string) >= 0;
-      // if (selected) selectedKeys.value = [...keyPah, key as string];
+      // const selected = selectedKeys.indexOf(key as string) >= 0;
+      // if (selected) selectedKeys = [...keyPah, key as string];
     });
     return () => {
       const { icon, disabled, title } = props;
       const preCls = menuContext?.dropdown ? "dropdown-menu" : "menu";
-      const selected =
-        menuContext?.selectedKeys.value.includes(key as string) && !menuContext?.dropdown;
+      const selected = menuContext?.selectedKeys.includes(key as string) && !menuContext?.dropdown;
       const _props = {
         class: [
           `k-${preCls}-item`,
@@ -56,8 +56,8 @@ const MenuItem = defineComponent({
         ],
         style: {
           paddingLeft:
-            menuContext?.mode?.value === "inline" &&
-            !menuContext?.inlineCollapsed.value &&
+            menuContext?.mode === "inline" &&
+            !menuContext?.inlineCollapsed &&
             subMenuContext?.keyPath.length
               ? `${subMenuContext?.keyPath.length * 16 + 16}px`
               : undefined,
