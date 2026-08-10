@@ -1,29 +1,25 @@
 import { Comment, Fragment, Text, cloneVNode, isVNode } from "vue";
 
-export function cloneNodes(vnode:any, props:any, merge = false, cloneTransition?: boolean) {
+export function cloneNodes(vnode: any, props: any, merge = false, cloneTransition?: boolean) {
   return vnode.length == 1
     ? cloneVNode(vnode[0], props, merge)
     : cloneVNode(<span>{vnode}</span>, props, merge, cloneTransition);
 }
 export function getChildren(VNodes?: any[]) {
   const result: any[] = [];
-  const loop = (nodes?: any[]) => {
-    nodes?.forEach((vnode) => {
-      if (!isVNode(vnode)) return;
-      if (vnode.type === Comment) return;
-      if (vnode.type === Text && vnode.children?.toString().trim() === "") return;
+  VNodes?.forEach((vnode) => {
+    if (!isVNode(vnode)) return;
+    if (vnode.type === Comment) return;
+    if (vnode.type === Text && vnode.children?.toString().trim() === "") return;
 
-      // 处理 Fragment 节点
-      if (vnode.type === Fragment && Array.isArray(vnode.children)) {
-        loop(vnode.children);
-        return;
-      }
+    // 处理 Fragment 节点
+    if (vnode.type === Fragment && Array.isArray(vnode.children)) {
+      result.push(...getChildren(vnode.children));
+      return;
+    }
 
-      result.push(vnode);
-    });
-  };
-
-  loop(VNodes);
+    result.push(vnode);
+  });
   return result;
 }
 

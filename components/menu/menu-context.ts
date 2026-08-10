@@ -1,10 +1,12 @@
+import type { DirectionType } from "kui-vue/const/types";
+
 export const MenuContextKey = Symbol("menu-context");
 export const SubMenuContextKey = Symbol("sub-menu-context");
 
 export interface MenuContext {
   openKeys: string[];
   selectedKeys: string[];
-  mode: "horizontal" | "vertical" | "inline";
+  mode: DirectionType;
   inlineCollapsed: boolean;
   popupInlineCollapsed: boolean;
   dropdown: boolean;
