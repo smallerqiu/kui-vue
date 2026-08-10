@@ -17,6 +17,7 @@ import type { BooleanType, DropPlacementsType, TriggerType } from "../const/type
 import resize from "../directives/resize";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
+import { DropdownContextKey } from "./dropdown-context";
 
 const dropdownProps = {
   trigger: {
@@ -54,7 +55,6 @@ const Dropdown = defineComponent({
     const top = ref(0);
     const rendered = ref(false);
     const showTimer = ref<ReturnType<typeof setTimeout>>();
-    provide("dropdown", true);
     onMounted(() => {
       if (props.show) {
         toggle(true);
@@ -64,7 +64,6 @@ const Dropdown = defineComponent({
       document.removeEventListener("click", outsideClick);
     });
     const clearPopTimer = () => clearTimeout(showTimer.value);
-    provide("clearPopTimer", clearPopTimer);
 
     watch(
       () => props.placement,
@@ -137,7 +136,6 @@ const Dropdown = defineComponent({
     const hidePopper = () => {
       openChange(false);
     };
-    provide("dropdown-menu-selected", hidePopper);
 
     const clickEvent = () => {
       if (props.disabled) {
@@ -176,8 +174,14 @@ const Dropdown = defineComponent({
       }
     };
 
-    provide("dropdown-trigger-in", mouseEnterEvent);
-    provide("dropdown-trigger-out", mouseLeaveEvent);
+    provide(DropdownContextKey, {
+      dropdown: true,
+      menuSelected: hidePopper,
+      triggerIn: mouseEnterEvent,
+      triggerOut: mouseLeaveEvent,
+      clearPopTimer,
+    });
+
     return () => {
       const _props = {
         ref: refPopper,

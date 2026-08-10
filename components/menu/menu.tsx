@@ -3,6 +3,7 @@ import {
   inject,
   onBeforeUnmount,
   provide,
+  reactive,
   ref,
   watch,
   type ExtractPropTypes,
@@ -10,8 +11,10 @@ import {
   type VNode,
 } from "vue";
 
+import { DropdownContextKey, type DropdownContext } from "kui-vue/dropdown/dropdown-context";
 import type { BooleanType, DirectionType } from "../const/types";
 import type { IconType } from "../icon";
+import { MenuContextKey } from "./menu-context";
 import RecursiveMenu from "./recursive-menu";
 
 export interface MenuSelectEvent {
@@ -52,13 +55,7 @@ const Menu = defineComponent({
     const popupInlineCollapsed = ref(props.inlineCollapsed);
     const tempOpenKeys = ref([...(props.openKeys || [])]);
     const collapseTimer = ref<ReturnType<typeof setTimeout>>();
-
-    provide("menu-open-keys", defaultOpenKeys);
-    provide("menu-selected-keys", defaultSelectedKeys);
-    provide("menu-mode", currentMode);
-    provide("menu-inline-collapsed", currentInlineCollapsed);
-    provide("menu-popup-inline-collapsed", popupInlineCollapsed);
-    const dropdown = inject("dropdown", null);
+    const dropdownContext = inject<DropdownContext | null>(DropdownContextKey, null);
 
     watch(
       () => props.modelValue,
@@ -123,9 +120,7 @@ const Menu = defineComponent({
     const restoreOpenKeys = () => {
       defaultOpenKeys.value = [...tempOpenKeys.value];
     };
-    const dropdownMenuSelected = inject<
-      ((data: { key: string; keyPath: string[] }) => void) | null
-    >("dropdown-menu-selected", null);
+
     const selectedKeysChange = (key: string, selected: boolean, keyPath: string[]) => {
       if (selected) {
         defaultSelectedKeys.value = [...keyPath, key];
@@ -145,7 +140,7 @@ const Menu = defineComponent({
         }
         defaultOpenKeys.value = [];
       }
-      dropdownMenuSelected?.({ key, keyPath });
+      dropdownContext?.menuSelected?.({ key, keyPath });
     };
 
     const openKeysChange = (key: string, opened: boolean, keyPath: string[]) => {
@@ -163,17 +158,28 @@ const Menu = defineComponent({
       emit("update:openKeys", defaultOpenKeys.value);
       emit("openChange", defaultOpenKeys.value);
     };
-    provide("openKeysChange", openKeysChange);
-    provide("selectedKeysChange", selectedKeysChange);
+
+    const menuState = reactive({
+      openKeys: defaultOpenKeys,
+      selectedKeys: defaultSelectedKeys,
+      mode: currentMode,
+      inlineCollapsed: currentInlineCollapsed,
+      popupInlineCollapsed,
+      dropdown: dropdownContext?.dropdown !== null,
+      openKeysChange,
+      selectedKeysChange,
+    });
+
+    provide(MenuContextKey, menuState);
 
     return () => {
-      const preCls = dropdown ? "dropdown-menu" : "menu";
+      const preCls = menuState.dropdown ? "dropdown-menu" : "menu";
       const { items } = props;
       const cls = [
         `k-${preCls}`,
         `k-${preCls}-${currentMode.value}`,
         {
-          "k-scroll": dropdown,
+          "k-scroll": menuState.dropdown,
           [`k-${preCls}-inline-collapsed`]: currentInlineCollapsed.value,
         },
       ];

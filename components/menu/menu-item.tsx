@@ -6,12 +6,17 @@ import {
   ref,
   type ExtractPropTypes,
   type PropType,
-  type Ref,
   type VNodeChild,
 } from "vue";
 import type { BooleanType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
+import {
+  MenuContextKey,
+  SubMenuContextKey,
+  type MenuContext,
+  type SubMenuContext,
+} from "./menu-context";
 
 const menuItemProps = {
   icon: Array as PropType<IconType[]>,
@@ -28,24 +33,18 @@ const MenuItem = defineComponent({
   setup(props, { slots }) {
     const instance = getCurrentInstance();
     const key = instance?.vnode.key;
-
-    const selectedKeys = inject<Ref<string[]>>("menu-selected-keys", ref([]));
-    const mode = inject<Ref<string>>("menu-mode");
-    const inlineCollapsed = inject<Ref<boolean>>("menu-inline-collapsed", ref(false));
-    const dropdown = inject("dropdown", null);
+    const menuContext = inject<MenuContext | null>(MenuContextKey, null);
+    const subMenuContext = inject<SubMenuContext | null>(SubMenuContextKey, null);
     const active = ref(false);
-    const keyPah = inject("menu-key-path", []);
-    const selectedKeysChange =
-      inject<(key: string, selected: boolean, keyPath: string[]) => void>("selectedKeysChange");
-
     onMounted(() => {
-      const selected = selectedKeys.value.indexOf(key as string) >= 0;
-      if (selected) selectedKeys.value = [...keyPah, key as string];
+      // const selected = selectedKeys.value.indexOf(key as string) >= 0;
+      // if (selected) selectedKeys.value = [...keyPah, key as string];
     });
     return () => {
       const { icon, disabled, title } = props;
-      const preCls = dropdown ? "dropdown-menu" : "menu";
-      const selected = selectedKeys.value.indexOf(key as string) >= 0 && !dropdown;
+      const preCls = menuContext?.dropdown ? "dropdown-menu" : "menu";
+      const selected =
+        menuContext?.selectedKeys.value.includes(key as string) && !menuContext?.dropdown;
       const _props = {
         class: [
           `k-${preCls}-item`,
@@ -57,21 +56,21 @@ const MenuItem = defineComponent({
         ],
         style: {
           paddingLeft:
-            mode?.value === "inline" && !inlineCollapsed.value && keyPah.length
-              ? `${keyPah.length * 16 + 16}px`
+            menuContext?.mode?.value === "inline" &&
+            !menuContext?.inlineCollapsed.value &&
+            subMenuContext?.keyPath.length
+              ? `${subMenuContext?.keyPath.length * 16 + 16}px`
               : undefined,
         },
         onMouseenter: () => {
-          if (disabled) return;
-          active.value = true;
+          if (!disabled) active.value = true;
         },
         onMouseleave: () => {
-          if (disabled) return;
-          active.value = false;
+          if (!disabled) active.value = false;
         },
         onClick: () => {
-          if (disabled) return;
-          selectedKeysChange?.(key as string, true, keyPah);
+          if (!disabled)
+            menuContext?.selectedKeysChange?.(key as string, true, subMenuContext?.keyPath || []);
         },
       };
 

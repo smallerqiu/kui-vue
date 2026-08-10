@@ -6,7 +6,6 @@ const MenuDivider = defineComponent({
     const dropdown = inject("dropdown", null);
     return () => {
       const preCls = dropdown ? "dropdown-menu" : "menu";
-
       return <li class={`k-${preCls}-item-divider`} />;
     };
   },
