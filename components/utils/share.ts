@@ -1,12 +1,12 @@
 export const isClient = typeof window !== "undefined" && typeof document !== "undefined";
 // export const isWorker = typeof WorkerGlobalScope !== "undefined" && globalThis instanceof WorkerGlobalScope;
-export const isDef = <T = any>(val?: T): val is T => typeof val !== "undefined";
-export const notNullish = <T = any>(val?: T | null | undefined): val is T => val != null;
-export const assert = (condition: boolean, ...infos: any[]) => {
+export const isDef = <T = unknown>(val?: T): val is T => typeof val !== "undefined";
+export const notNullish = <T = unknown>(val?: T | null | undefined): val is T => val != null;
+export const assert = (condition: boolean, ...infos: unknown[]) => {
   if (!condition) console.warn(...infos);
 };
 const toString = Object.prototype.toString;
-export const isObject = (val: any): val is object => toString.call(val) === "[object Object]";
+export const isObject = (val: unknown): val is object => toString.call(val) === "[object Object]";
 export const now = () => Date.now();
 export const timestamp = () => +Date.now();
 export const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));

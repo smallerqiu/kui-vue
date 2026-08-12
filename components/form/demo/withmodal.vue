@@ -65,9 +65,13 @@ const userRules: FormRule = {
   ],
 };
 const visible = ref(false);
+interface GroupUser {
+  username: string;
+  age: string;
+}
 const group = ref({
   name: "",
-  list: [] as any[],
+  list: [] as GroupUser[],
 });
 const onSubmit = (e: FormSubmitEvent) => {
   if (e.valid) {

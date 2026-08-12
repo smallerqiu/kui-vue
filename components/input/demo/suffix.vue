@@ -4,8 +4,8 @@
     <Input
       placeholder="Please input the captcha"
       :maxlength="8"
-      :prefix="h(Icon, { type: Search }) as any"
-      :suffix="h(Tag, { theme: 'outline' }, { default: () => '⌘K' }) as any"
+      :prefix="h(Icon, { type: Search })"
+      :suffix="h(Tag, { theme: 'outline' }, { default: () => '⌘K' })"
     >
     </Input>
     <Input placeholder="Please input the captcha" :maxlength="8">

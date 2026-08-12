@@ -3,6 +3,7 @@ import {
   computed,
   defineComponent,
   inject,
+  isRef,
   nextTick,
   onBeforeUnmount,
   onMounted,
@@ -14,6 +15,7 @@ import {
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
+  type Ref,
 } from "vue";
 import { Button } from "../button";
 import type { DrawerPlacementsType } from "../const/types";
@@ -50,12 +52,11 @@ const Drawer = defineComponent({
   name: "Drawer",
   props: drawerProps,
   setup(props, { slots, emit }) {
-    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
+    type Locale = typeof zhCN;
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
 
-    const locale = computed(() => {
-      return injectedLocale instanceof Object && "value" in injectedLocale
-        ? (injectedLocale as any).value
-        : injectedLocale;
+    const locale = computed<Locale>(() => {
+      return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
 
     const rendered = ref(props.modelValue);

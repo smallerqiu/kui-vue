@@ -1,4 +1,4 @@
-import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType, type VNode } from "vue";
 import type { BooleanType, DirectionType, SizeType, ThemeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 import Checkbox, { type ChangeEvent } from "./checkbox";
@@ -9,10 +9,11 @@ export interface CheckboxOption {
   disabled?: boolean;
   [key: string]: any;
 }
+type CheckboxValue = string | number | boolean;
 
 const checkboxGroupProps = {
   modelValue: {
-    type: Array as PropType<any[]>,
+    type: Array as PropType<CheckboxValue[]>,
     default: () => [],
   },
   theme: { type: String as PropType<ThemeType>, default: "fill" },
@@ -26,7 +27,7 @@ const checkboxGroupProps = {
     type: String as PropType<SizeType>,
   },
   onChange: {
-    type: Function as PropType<(value: any[]) => void>,
+    type: Function as PropType<(value: CheckboxValue[]) => void>,
   },
 };
 
@@ -46,6 +47,7 @@ const CheckboxGroup = defineComponent({
     );
 
     const onChange = ({ value }: ChangeEvent) => {
+      if (value === undefined) return;
       const val = [...currentValue.value];
       const index = val.indexOf(value);
 
@@ -64,18 +66,20 @@ const CheckboxGroup = defineComponent({
         return options;
       }
 
-      const data: any[] = [];
+      const data: CheckboxOption[] = [];
       const children = getChildren(slots.default?.());
 
-      children.forEach((child: any) => {
+      children.forEach((child: VNode) => {
         if (child?.props) {
-          const { label, value, disabled } = child.props;
+          const { label, value, disabled } = child.props as CheckboxOption;
+          if (value === undefined) return;
           // Try to resolve label from slots if not a prop
-          const resolvedLabel = label || child.children?.default?.()?.[0]?.children || value;
+          const childSlots = child.children as { default?: () => VNode[] } | null;
+          const resolvedLabel = label || childSlots?.default?.()?.[0]?.children?.toString() || value;
           data.push({
             value,
             disabled,
-            label: resolvedLabel,
+            label: String(resolvedLabel),
           });
         }
       });
@@ -89,18 +93,19 @@ const CheckboxGroup = defineComponent({
         class: ["k-checkbox-group", { "k-checkbox-group-vertical": direction === "vertical" }],
       };
 
-      const nodes = optionsData.value.map((option) => (
-        <Checkbox
+      const nodes = optionsData.value.map((option) => {
+        if (option.value === undefined) return null;
+        return <Checkbox
           key={option.value}
-          label={option.label}
+          label={option.label === undefined ? undefined : String(option.label)}
           value={option.value}
           checked={currentValue.value.indexOf(option.value) > -1}
           disabled={disabled || option.disabled}
           theme={theme}
           size={size}
           onChange={onChange}
-        />
-      ));
+        />;
+      });
 
       return <div {...rootProps}>{nodes}</div>;
     };

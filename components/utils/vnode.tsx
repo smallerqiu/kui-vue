@@ -1,6 +1,11 @@
-import { Comment, Fragment, Text, cloneVNode, isVNode } from "vue";
+import { Comment, Fragment, Text, cloneVNode, isVNode, type VNode } from "vue";
 
-export function cloneNodes(vnode: any, props: any, merge = false, cloneTransition?: boolean) {
+export function cloneNodes(
+  vnode: VNode[],
+  props: Record<string, unknown>,
+  merge = false,
+  cloneTransition?: boolean
+) {
   return vnode.length == 1
     ? cloneVNode(vnode[0], props, merge)
     : cloneVNode(<span>{vnode}</span>, props, merge, cloneTransition);

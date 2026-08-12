@@ -1,18 +1,18 @@
 import { Star as StarIcon } from "kui-icons";
-import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
 import type { BooleanType } from "../const/types";
-import Icon from "../icon";
+import Icon, { type IconType } from "../icon";
 import Tooltip from "../tooltip";
 
 const starProps = {
-  character: [String, Function] as PropType<string | ((index: number) => any)>,
+  character: [String, Function] as PropType<string | ((index: number) => VNodeChild)>,
   tooltips: String,
   percent: Number,
   full: Boolean as BooleanType,
   half: Boolean as BooleanType,
   allowHalf: Boolean as BooleanType,
   disabled: Boolean as BooleanType,
-  icon: [String, Function, Array] as PropType<any>,
+  icon: [Array, Function] as PropType<IconType[] | ((index: number) => IconType[])>,
   size: [Number, String] as PropType<number | string>,
   index: { type: Number, required: true as const },
   symbolReverseFill: Boolean as BooleanType,

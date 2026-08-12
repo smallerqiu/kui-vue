@@ -15,14 +15,14 @@ import {
   type ThemeType,
 } from "../const/types";
 import { colors } from "../const/var";
-import Icon from "../icon";
+import Icon, { type IconType } from "../icon";
 import { isColor } from "../utils/color";
 
 const tagProps = {
   closeable: Boolean as BooleanType,
   color: String as ColorType,
   shape: String as PropType<ShapeType>,
-  icon: [String, Array] as PropType<any>,
+  icon: Array as PropType<IconType[]>,
   size: {
     type: String as PropType<SizeType>,
     default: "small",

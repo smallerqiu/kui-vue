@@ -12,6 +12,7 @@ import {
   type ExtractPropTypes,
   type PropType,
   type VNode,
+  type VNodeChild,
 } from "vue";
 import { type BooleanType, type PlacementsType } from "../const/types";
 import { colors } from "../const/var";
@@ -21,7 +22,7 @@ import { getChildren } from "../utils/vnode";
 
 const tooltipProps = {
   show: Boolean as BooleanType,
-  title: [String, Number, Object, Array] as PropType<any>,
+  title: [String, Number, Object, Array] as PropType<VNodeChild>,
   color: String,
   disabled: Boolean as BooleanType,
   width: [Number, String] as PropType<number | string>,
@@ -45,8 +46,8 @@ const Tooltip = defineComponent({
     const top = ref(0);
     const currentPlacement = ref(props.placement);
     const transOrigin = ref("bottom");
-    const hideTimer = ref<any>();
-    const showTimer = ref<any>();
+    const hideTimer = ref<ReturnType<typeof setTimeout>>();
+    const showTimer = ref<ReturnType<typeof setTimeout>>();
     const anchorVisible = ref(false);
     let positionRaf = 0;
     let intersectionObserver: IntersectionObserver | null = null;

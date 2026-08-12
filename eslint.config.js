@@ -33,7 +33,7 @@ export default tseslint.config(
       // 'prefer-const': 'off',
       "vue/multi-word-component-names": "off",
       // 'vue/no-mutating-props': 'warn',
-      // 'vue/no-reserved-component-names': 'off',
+      "vue/no-reserved-component-names": "off",
       // 'vue/no-unused-vars': 'warn',
       // 'vue/require-v-for-key': 'warn',
       // 'vue/valid-v-for': 'warn',

@@ -2,6 +2,8 @@ import { Plus } from "kui-icons";
 import { defineComponent, ref, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType } from "../const/types";
 import Icon from "../icon";
+import type { IconType } from "../icon";
+import zhCN from "../locale/zh-CN";
 import type { UploadFile } from "./index";
 
 const selectorProps = {
@@ -14,9 +16,9 @@ const selectorProps = {
   uploadText: String,
   uploadSubText: String,
   draggable: Boolean as BooleanType,
-  locale: Object as PropType<any>,
+  locale: Object as PropType<typeof zhCN>,
   fileList: Array as PropType<UploadFile[]>,
-  uploadIcon: [String, Object, Array] as PropType<any>,
+  uploadIcon: Array as PropType<IconType[]>,
   type: {
     type: String as PropType<"list" | "picture">,
     default: "list",
@@ -91,6 +93,9 @@ export default defineComponent({
       const isLimitExceeded =
         limit !== undefined && limit >= 0 && !!fileList && fileList.length >= limit;
       const showSelector = !isPicture || !isLimitExceeded;
+      const directoryProps: { webkitdirectory?: string } = directory
+        ? { webkitdirectory: "true" }
+        : {};
       if (!showSelector) return null;
 
       let addProps = {
@@ -108,7 +113,7 @@ export default defineComponent({
             <input
               type="file"
               class="k-upload-file"
-              {...({ webkitdirectory: directory ? "true" : undefined } as any)}
+              {...directoryProps}
               name={name}
               accept={accept}
               disabled={disabled}

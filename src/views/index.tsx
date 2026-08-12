@@ -18,6 +18,11 @@ import AppHeader from "../components/app-header.vue";
 export default defineComponent({
   setup() {
     const $t = inject<(key: string) => string>("$t", (key: string) => key);
+    const features: Array<[typeof Zap, string, string]> = [
+      [Zap, "feature_fast", "feature_fast_desc"],
+      [Code, "feature_types", "feature_types_desc"],
+      [Palette, "feature_theme", "feature_theme_desc"],
+    ];
     return () => {
       return (
         <Layout class="index">
@@ -131,14 +136,10 @@ export default defineComponent({
             </section>
 
             <section class="index-features">
-              {[
-                [Zap, "feature_fast", "feature_fast_desc"],
-                [Code, "feature_types", "feature_types_desc"],
-                [Palette, "feature_theme", "feature_theme_desc"],
-              ].map(([icon, title, desc]) => (
+              {features.map(([icon, title, desc]) => (
                 <FeatureCard
                   bordered={true}
-                  icon={icon as any}
+                  icon={icon}
                   title={$t(`index.${title}`)}
                   desc={$t(`index.${desc}`)}
                 />

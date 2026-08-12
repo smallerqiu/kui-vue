@@ -1,9 +1,9 @@
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
-import Icon from "../icon";
+import Icon, { type IconType } from "../icon";
 
 const timelineItemProps = {
   color: String,
-  icon: [String, Array] as PropType<any>,
+  icon: Array as PropType<IconType[]>,
   time: String,
   extra: String,
 };

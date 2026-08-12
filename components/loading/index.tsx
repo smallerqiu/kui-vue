@@ -24,8 +24,8 @@ const LoadingComponent = defineComponent({
     const percent = ref(0);
     const animate = ref(false);
     const isError = ref(false);
-    const updateTimer = ref<any>();
-    const hideTimer = ref<any>();
+    const updateTimer = ref<ReturnType<typeof setInterval>>();
+    const hideTimer = ref<ReturnType<typeof setTimeout>>();
 
     const start = () => {
       percent.value = 0;
@@ -99,9 +99,17 @@ const LoadingComponent = defineComponent({
   },
 });
 
-let loadInstance: any = null;
+interface LoadingInstance {
+  start: () => void;
+  finish: () => void;
+  error: () => void;
+  update: (percent: number) => void;
+  destroy: () => void;
+}
 
-const createInstance = (props?: LoadingProps, context?: any) => {
+let loadInstance: LoadingInstance | null = null;
+
+const createInstance = (props?: LoadingProps) => {
   const containerId = `k-loading-box`;
   let container = document.getElementById(containerId);
   if (!container) {
@@ -114,11 +122,11 @@ const createInstance = (props?: LoadingProps, context?: any) => {
   const vm = createVNode(LoadingComponent, props);
 
   // 关联应用上下文
-  vm.appContext = context?.appContext || getAppContext()?.appContext;
+  vm.appContext = getAppContext()?.appContext ?? null;
 
   render(vm, container);
 
-  const instance = vm.component?.exposed;
+  const instance = vm.component?.exposed as LoadingInstance | null;
   if (instance) {
     const loadingInstance = instance as typeof instance & { destroy: () => void };
     loadingInstance.destroy = () => {
@@ -132,19 +140,19 @@ const createInstance = (props?: LoadingProps, context?: any) => {
 
 const loading = {
   start() {
-    if (!loadInstance) loadInstance = createInstance();
-    loadInstance.start();
+    loadInstance ??= createInstance();
+    loadInstance?.start();
   },
   finish() {
     loadInstance?.finish();
   },
   error() {
-    if (!loadInstance) loadInstance = createInstance();
-    loadInstance.error();
+    loadInstance ??= createInstance();
+    loadInstance?.error();
   },
   update(pt: number) {
-    if (!loadInstance) loadInstance = createInstance();
-    loadInstance.update(pt);
+    loadInstance ??= createInstance();
+    loadInstance?.update(pt);
   },
   destroy() {
     loadInstance?.destroy?.();

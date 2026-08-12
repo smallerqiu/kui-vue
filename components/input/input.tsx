@@ -24,8 +24,8 @@ const inputProps = {
   clearable: { type: Boolean as BooleanType, default: true },
   visiblePasswordIcon: { type: Boolean as BooleanType, default: true },
   size: { type: String as PropType<SizeType> },
-  value: { type: [String, Number, Array, Object] as PropType<any> },
-  modelValue: { type: [String, Number, Array, Object] as PropType<any> },
+  value: { type: [String, Number, Array, Object] as PropType<unknown> },
+  modelValue: { type: [String, Number, Array, Object] as PropType<unknown> },
   disabled: Boolean as BooleanType,
   type: {
     type: String as PropType<"text" | "password" | "hidden">,
@@ -49,7 +49,7 @@ const inputProps = {
 };
 
 export type InputProps = Partial<ExtractPropTypes<typeof inputProps>> &
-  Omit<InputHTMLAttributes, "onChange">;
+  Omit<InputHTMLAttributes, "onChange" | "prefix">;
 
 const Input = defineComponent({
   inheritAttrs: false,
@@ -59,7 +59,7 @@ const Input = defineComponent({
     const currentValue = ref(props.modelValue ?? props.value);
     const focused = ref(false);
     const showPassword = ref(false);
-    const inputRef = ref<any>();
+    const inputRef = ref<HTMLInputElement | HTMLTextAreaElement>();
     const parentSize = inject<SizeType | undefined>("size", undefined);
 
     provide("size", props.size || parentSize);
@@ -89,7 +89,7 @@ const Input = defineComponent({
       showPassword.value = !showPassword.value;
     };
 
-    const getSuffix = (slotSuffix: any[]) => {
+    const getSuffix = (slotSuffix: VNodeChild[]) => {
       const { suffix, visiblePasswordIcon, type } = props;
       if (type === "password" && visiblePasswordIcon) {
         return (
@@ -210,7 +210,7 @@ const Input = defineComponent({
         const preChildren = slotPrefix.length ? (
           <div class="k-input-group-prefix">{slotPrefix}</div>
         ) : null;
-        const innerChildren: any[] = [];
+        const innerChildren: VNodeChild[] = [];
         if (icon)
           innerChildren.push(
             <Icon
@@ -246,7 +246,7 @@ const Input = defineComponent({
         );
       } else {
         const suffixNode = getSuffix(slotSuffix);
-        const children: any[] = [];
+        const children: VNodeChild[] = [];
         if (icon)
           children.push(
             <Icon

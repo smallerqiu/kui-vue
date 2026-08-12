@@ -8,6 +8,9 @@ import {
   type DefineComponent,
   type ExtractPropTypes,
   type PropType,
+  type Ref,
+  type VNode,
+  type VNodeChild,
 } from "vue";
 import type { BooleanType, ButtonType, ShapeType, SizeType, ThemeType } from "../const/types";
 import { colors } from "../const/var";
@@ -48,7 +51,10 @@ const Button = defineComponent({
   name: "Button",
   props: buttonProps,
   setup(props, { slots, attrs }) {
-    const buttonGroup = inject<any>("KButtonGroup", null);
+    const buttonGroup = inject<{ size?: SizeType; shape?: Ref<ShapeType> } | null>(
+      "KButtonGroup",
+      null
+    );
     const parentSize = inject<string | null>("size", null);
 
     const computedSize = computed(() => {
@@ -70,13 +76,14 @@ const Button = defineComponent({
 
     return () => {
       const iconOnly = () => {
-        const excluded = children.value.filter((c: any) => c.type !== Comment);
+        const excluded = children.value.filter((c: VNode) => c.type !== Comment);
         if (!excluded?.length) {
           return props.icon || props.loading;
         }
         if (excluded.length === 1) {
           const type = excluded[0].type;
-          return type && (type.name === "Icon" || type === Icon);
+          return type &&
+            ((typeof type === "object" && "name" in type && type.name === "Icon") || type === Icon);
         }
         return false;
       };
@@ -98,14 +105,14 @@ const Button = defineComponent({
         },
       ];
 
-      let childNodes: any[] = [];
+      let childNodes: VNodeChild[] = [];
       const iconType = props.loading ? Loading : props.icon;
 
       if (iconType) {
         childNodes.push(<Icon type={iconType} spin={props.loading} />);
       }
 
-      const processedChildren = children.value?.map((c: any) => {
+      const processedChildren = children.value?.map((c: VNode) => {
         return typeof c.children === "string" ? <span>{c.children.trim()}</span> : c;
       });
 

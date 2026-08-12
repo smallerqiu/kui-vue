@@ -1,5 +1,5 @@
 import Big from "big.js";
-export const isEmpty = (value: any): boolean => {
+export const isEmpty = (value: unknown): boolean => {
   return (
     value == null || // null 或 undefined
     (typeof value === "string" && value.trim() === "") || // 空字符串
@@ -8,23 +8,23 @@ export const isEmpty = (value: any): boolean => {
   );
 };
 
-export const isRealNum = (val: any): boolean => {
+export const isRealNum = (val: unknown): boolean => {
   if (val === null || val === "" || Array.isArray(val)) return false;
   try {
-    new Big(val);
+    new Big(String(val));
     return true;
   } catch (e) {
     return false;
   }
 };
 
-export const normalize = (val: any, precision?: number) => {
+export const normalize = (val: unknown, precision?: number) => {
   if (!isRealNum(val)) return "";
-  const b = new Big(val);
+  const b = new Big(String(val));
   return precision !== undefined ? b.toFixed(precision) : b.toFixed();
 };
 
-export const isValidBig = (val: any) => {
+export const isValidBig = (val: unknown) => {
   if (val === null || val === undefined || val === "") return false;
 
   const str = String(val).trim();
@@ -38,12 +38,12 @@ export const isValidBig = (val: any) => {
   }
 };
 
-const toBigSafe = (val: any) => {
+const toBigSafe = (val: unknown) => {
   try {
     if (val === null || val === undefined || val === "") {
       throw new Error();
     }
-    return new Big(val);
+    return new Big(String(val));
   } catch (e) {
     // console.error(`Slider Error: [${name}] is an invalid number:`, val);
     return new Big(0); // 降级处理

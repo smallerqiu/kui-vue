@@ -5,6 +5,7 @@ import {
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
+  type VNodeChild,
 } from "vue";
 import { type BooleanType, type SizeType } from "../const/types";
 import type { IconType } from "../icon";
@@ -19,8 +20,8 @@ const rateProps = {
   tooltips: Array as PropType<string[]>,
   disabled: Boolean as BooleanType,
   count: { type: Number, default: 5 },
-  character: [String, Function] as PropType<string | ((index: number) => any)>,
-  icon: [Array, Function] as PropType<IconType[] | ((index: number) => any)>,
+  character: [String, Function] as PropType<string | ((index: number) => VNodeChild)>,
+  icon: [Array, Function] as PropType<IconType[] | ((index: number) => IconType[])>,
   symbolReverseFill: Boolean as BooleanType,
   strokeWidth: { type: Number, default: 1 },
   onChange: {

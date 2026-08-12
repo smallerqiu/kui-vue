@@ -63,8 +63,8 @@ export default defineComponent({
               placeholder="Enter keyword to search for icons, then click on the icon to copy it."
               clearable
               onChange={searchIcons}
-              prefix={(<Icon type={kuiIcons.Search} />) as any}
-              suffix={(<Tag>⌘K</Tag>) as any}
+              prefix={<Icon type={kuiIcons.Search} />}
+              suffix={<Tag>⌘K</Tag>}
             ></Input>
           </Flex>
         </Affix>

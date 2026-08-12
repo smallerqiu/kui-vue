@@ -525,7 +525,7 @@ const DatePicker = defineComponent({
 
       if (props.mode === "dateTimeRange") {
         idx = timeEditSide.value === "start" ? 0 : 1;
-        let value = innerValue.value as (Dayjs | null)[];
+        const value = innerValue.value as (Dayjs | null)[];
         if (value && value[idx]) {
           activeDate = value[idx]!;
         } else if (Array.isArray(innerValue.value) && innerValue.value[idx] === null) {

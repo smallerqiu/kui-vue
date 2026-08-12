@@ -3,6 +3,7 @@ import {
   computed,
   defineComponent,
   inject,
+  isRef,
   nextTick,
   onBeforeUnmount,
   onMounted,
@@ -13,6 +14,9 @@ import {
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
+  type Ref,
+  type VNode,
+  type VNodeChild,
 } from "vue";
 import resize from "../directives/resize";
 import Empty from "../empty";
@@ -36,6 +40,7 @@ export interface SelectOption {
   value: string | number;
   disabled?: boolean;
 }
+type SelectValue = string | number;
 const selectProps = {
   placeholder: String,
   size: {
@@ -47,7 +52,7 @@ const selectProps = {
   },
   width: Number,
   maxTagCount: Number,
-  modelValue: [String, Number, Array] as PropType<string | number | any[]>,
+  modelValue: [String, Number, Array] as PropType<SelectValue | SelectValue[]>,
   clearable: { type: Boolean as BooleanType, default: true },
   filterable: Boolean as BooleanType,
   block: Boolean as BooleanType,
@@ -64,7 +69,7 @@ const selectProps = {
   shape: String as PropType<ShapeType>,
   arrowIcon: [Array] as PropType<IconType[]>,
   onSearch: Function as PropType<(e: InputEvent) => void>,
-  onChange: Function as PropType<(value: string | number | any[]) => void>,
+  onChange: Function as PropType<(value: SelectValue | SelectValue[]) => void>,
   onSelect: Function as PropType<(option: SelectOption) => void>,
   onOpenChange: Function as PropType<(opened: boolean) => void>,
 };
@@ -78,22 +83,19 @@ const Select = defineComponent({
   },
   props: selectProps,
   setup(props, { slots, emit }) {
-    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
-    const locale = computed(() => {
-      return injectedLocale instanceof Object && "value" in injectedLocale
-        ? injectedLocale.value
-        : injectedLocale;
+    type Locale = typeof zhCN;
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const locale = computed<Locale>(() => {
+      return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
 
     const visible = ref(false);
     const rendered = ref(false);
-    const currentValue = ref<any[]>(
-      props.multiple
-        ? ([...(Array.isArray(props.modelValue) ? props.modelValue : [])] as any[])
-        : isEmpty(props.modelValue)
-          ? []
-          : [props.modelValue]
-    );
+    const toValueArray = (value: SelectValue | SelectValue[] | undefined): SelectValue[] => {
+      if (Array.isArray(value)) return [...value];
+      return value === undefined || isEmpty(value) ? [] : [value];
+    };
+    const currentValue = ref<SelectValue[]>(toValueArray(props.modelValue));
     const queryInputVisible = ref(false);
     const queryKey = ref("");
     const queryInputMirrorRef = ref<HTMLElement | null>(null);
@@ -137,10 +139,8 @@ const Select = defineComponent({
       () => props.modelValue,
       (v) => {
         currentValue.value = props.multiple
-          ? [...(Array.isArray(v) ? v : [])]
-          : isEmpty(v)
-            ? []
-            : [v];
+          ? toValueArray(Array.isArray(v) ? v : [])
+          : toValueArray(v);
         if (visible.value) {
           updatePosition();
         }
@@ -264,7 +264,8 @@ const Select = defineComponent({
       }
     };
 
-    const isChecked = (value: string | number | boolean) => {
+    const isChecked = (value: unknown) => {
+      if (typeof value !== "string" && typeof value !== "number") return false;
       if (props.multiple) {
         return currentValue.value?.indexOf(value) >= 0;
       } else {
@@ -436,10 +437,15 @@ const Select = defineComponent({
 
       const data: SelectOption[] = [];
       const children = getChildren(slots.default?.());
-      children.forEach((child: any) => {
-        if (child?.props) {
-          const { label, value, disabled } = child.props;
-          const resolvedLabel = label ?? child?.children?.default?.()?.[0]?.children ?? value;
+      children.forEach((child: VNode) => {
+        if (child.props) {
+          const { label, value, disabled } = child.props as {
+            label?: SelectOption["label"];
+            value: SelectValue;
+            disabled?: boolean;
+          };
+          const childSlots = child.children as { default?: () => VNode[] } | null;
+          const resolvedLabel = label ?? childSlots?.default?.()?.[0]?.children?.toString() ?? value;
           data.push({
             value,
             disabled,
@@ -461,7 +467,7 @@ const Select = defineComponent({
     };
 
     const renderOptions = () => {
-      const optionNodes: any[] = [];
+      const optionNodes: VNodeChild[] = [];
       const nodes = filterOptions();
       nodes.forEach((item, index) => {
         const { label, value, disabled } = { ...item };
@@ -564,7 +570,7 @@ const Select = defineComponent({
         shape,
         filterable,
       } = props;
-      let childNode: any[] = [];
+      const childNode: VNodeChild[] = [];
       const finalArrowIcon = arrowIcon || ChevronDown;
 
       const queryInputProps = {
