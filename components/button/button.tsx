@@ -90,7 +90,7 @@ const Button = defineComponent({
           ["k-btn-block"]: !!props.block,
           ["k-btn-loading"]: props.loading,
           ["k-btn-icon-only"]: iconOnly(),
-          [`k-btn-${props.color}`]: props.color && colors.includes(props.color as any),
+          [`k-btn-${props.color}`]: props.color && colors.includes(props.color),
           ["k-btn-lg"]: computedSize.value === "large",
           ["k-btn-circle"]: computedShape.value === "circle",
           ["k-btn-square"]: computedShape.value === "square",

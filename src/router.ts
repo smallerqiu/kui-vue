@@ -83,8 +83,12 @@ router.addRoute({
 });
 
 router.afterEach((to) => {
-  const _hmt = (window as any)._hmt;
-  const gtag = (window as any).gtag;
+  const analyticsWindow = window as Window & {
+    _hmt?: { push: (args: unknown[]) => void };
+    gtag?: (...args: unknown[]) => void;
+  };
+  const _hmt = analyticsWindow._hmt;
+  const gtag = analyticsWindow.gtag;
   typeof _hmt != "undefined" && _hmt.push(["_trackPageview", to.fullPath]);
 
   if (typeof gtag !== "undefined") {

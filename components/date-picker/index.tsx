@@ -141,7 +141,7 @@ const DatePicker = defineComponent({
     // 面板显示的基准日期
     const panelDate = ref(dayjs());
     // 内部存储值 (Dayjs Object 或 Array<Dayjs>)
-    const innerValue = ref<any[] | Dayjs | null>(null);
+    const innerValue = ref<(Dayjs | null)[] | Dayjs | null>(null);
     // 输入框显示文本
     const textValue = ref("");
     const textValueStart = ref(""); // 范围模式-开始
@@ -204,7 +204,7 @@ const DatePicker = defineComponent({
         let activeDate = dayjs();
         if (props.mode === "dateTimeRange") {
           const idx = timeEditSide.value === "start" ? 0 : 1;
-          let value = innerValue.value as any[];
+          let value = innerValue.value as (Dayjs | null)[];
           if (value && value[idx]) activeDate = value[idx];
         } else {
           if (innerValue.value && !Array.isArray(innerValue.value)) activeDate = innerValue.value;
@@ -452,13 +452,14 @@ const DatePicker = defineComponent({
       if (isRange.value) {
         let newVal = Array.isArray(innerValue.value) ? [...innerValue.value] : [];
         // 清理一下可能的 null
-        newVal = newVal.filter((x) => x);
+        newVal = newVal.filter((x): x is Dayjs => x !== null);
 
         if (newVal.length === 2 || newVal.length === 0) {
           newVal = [date.startOf("day")];
         } else {
           const first = newVal[0];
           const second = date;
+          if (!first) return;
 
           let start, end;
           if (second.isBefore(first)) {
@@ -524,9 +525,9 @@ const DatePicker = defineComponent({
 
       if (props.mode === "dateTimeRange") {
         idx = timeEditSide.value === "start" ? 0 : 1;
-        let value = innerValue.value as any[];
+        let value = innerValue.value as (Dayjs | null)[];
         if (value && value[idx]) {
-          activeDate = value[idx];
+          activeDate = value[idx]!;
         } else if (Array.isArray(innerValue.value) && innerValue.value[idx] === null) {
           return;
         }
@@ -543,7 +544,7 @@ const DatePicker = defineComponent({
       }
 
       if (props.mode === "dateTimeRange") {
-        const newArr = [...((innerValue.value as any[]) || [null, null])];
+        const newArr = [...((innerValue.value as (Dayjs | null)[]) || [null, null])];
         newArr[idx] = nextDate;
         innerValue.value = newArr;
         emitValue(false);
@@ -764,7 +765,7 @@ const DatePicker = defineComponent({
       let activeDate = dayjs();
       if (props.mode === "dateTimeRange") {
         const idx = timeEditSide.value === "start" ? 0 : 1;
-        let value = innerValue.value as any[];
+        let value = innerValue.value as (Dayjs | null)[];
         if (value && value[idx]) activeDate = value[idx];
       } else if (innerValue.value && !Array.isArray(innerValue.value)) {
         activeDate = innerValue.value;
@@ -815,7 +816,7 @@ const DatePicker = defineComponent({
     const renderFooter = () => {
       if (!props.mode.includes("Time")) return null;
       if (props.mode === "dateTimeRange") {
-        const [s, e] = ((innerValue.value as any[]) || [null, null]).map((d) =>
+        const [s, e] = ((innerValue.value as (Dayjs | null)[]) || [null, null]).map((d) =>
           d ? d.format("HH:mm:ss") : "--:--:--"
         );
         return (

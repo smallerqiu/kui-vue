@@ -44,8 +44,8 @@ const watermarkProps = {
       fontStyle: "normal",
     }),
   },
-  gap: { type: Array as any as PropType<number[]>, default: () => [40, 40] },
-  offset: { type: Array as any as PropType<number[]>, default: () => [20, 20] },
+  gap: { type: Array as PropType<number[]>, default: () => [40, 40] },
+  offset: { type: Array as PropType<number[]>, default: () => [20, 20] },
   layout: { type: String as PropType<WatermarkLayoutType>, default: "stagger" },
 };
 export type WatermarkProps = ExtractPropTypes<typeof watermarkProps>;

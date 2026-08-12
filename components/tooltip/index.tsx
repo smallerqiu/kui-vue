@@ -78,7 +78,7 @@ const Tooltip = defineComponent({
       updatePosition();
       window.addEventListener("resize", updatePosition);
       document.addEventListener("scroll", updatePosition, true);
-      const selection = (refSelection.value as any)?.$el || refSelection.value;
+      const selection = (refSelection.value as HTMLElement & { $el?: Element })?.$el || refSelection.value;
       if (selection && typeof IntersectionObserver !== "undefined") {
         intersectionObserver = new IntersectionObserver(([entry]) => {
           anchorVisible.value = entry.isIntersecting;
@@ -210,7 +210,7 @@ const Tooltip = defineComponent({
         class: [`k-${preCls}-content`],
         style: {
           backgroundColor: isColor(color)
-            ? colors.includes(color as any)
+            ? colors.some((preset) => preset === color)
               ? `var(--kui-color-${color})`
               : color
             : undefined,
@@ -219,7 +219,7 @@ const Tooltip = defineComponent({
       const arrowProps = {
         style: {
           fill: isColor(color)
-            ? colors.includes(color as any)
+            ? colors.some((preset) => preset === color)
               ? `var(--kui-color-${color})`
               : color
             : "currentcolor",

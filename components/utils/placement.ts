@@ -42,7 +42,7 @@ export function setPlacement({
   } else if (refSelection?.value) {
     // 元素模式：真实 DOM 矩形
     const instance = refSelection.value;
-    const selection = (instance as any).$el || instance;
+    const selection = (instance as HTMLElement & { $el?: HTMLElement }).$el || instance;
     rect = selection.getBoundingClientRect?.();
   } else {
     return;

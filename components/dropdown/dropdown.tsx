@@ -80,7 +80,7 @@ const Dropdown = defineComponent({
     );
 
     const outsideClick = (e: PointerEvent) => {
-      const ctx = (refSelection.value as any)?.$el || refSelection.value;
+      const ctx = (refSelection.value as HTMLElement & { $el?: HTMLElement })?.$el || refSelection.value;
       if (!refPopper.value) return;
       const target = e.target as HTMLElement;
       if (

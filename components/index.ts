@@ -1,4 +1,4 @@
-import type { App } from "vue";
+import type { App, Component } from "vue";
 import * as components from "./components";
 import { globalComponents, installGlobal } from "./utils/vue";
 export * from "./components";
@@ -6,8 +6,8 @@ const UI = {
   version: import.meta.env.version as string,
   lang: {},
   install: (app: App) => {
-    Object.keys(components).forEach((key) => {
-      const component = (components as any)[key];
+    const componentEntries = Object.entries(components) as [string, Component][];
+    componentEntries.forEach(([key, component]) => {
       if (globalComponents.includes(key)) {
         installGlobal(app, component);
       } else if (!key.startsWith("K")) {

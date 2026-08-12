@@ -26,35 +26,34 @@ const Flex = defineComponent({
   name: "Flex",
   props: flexProps,
   setup(props, { slots }) {
-    provide("size", props.size as any);
+    provide("size", props.size);
 
     return () => {
-      let { align, justify, vertical, size, wrap } = props as any;
+      const { justify, vertical, size, wrap } = props;
+      let { align } = props;
       align = !vertical && !align ? "center" : align;
 
-      const _props: any = {
-        style: {} as CSSProperties,
-        class: [
-          "k-flex",
-          {
-            [`k-flex-vertical`]: vertical,
-            [`k-flex-wrap`]: wrap,
-            [`k-flex-align-${align}`]: align,
-            [`k-flex-justify-${justify}`]: justify,
-          },
-        ],
-      };
+      const style: CSSProperties = {};
+      const className = [
+        "k-flex",
+        {
+          [`k-flex-vertical`]: vertical,
+          [`k-flex-wrap`]: wrap,
+          [`k-flex-align-${align}`]: align,
+          [`k-flex-justify-${justify}`]: justify,
+        },
+      ];
 
       if (Array.isArray(size)) {
-        _props.style = { gap: `${size[1]}px ${size[0]}px` } as CSSProperties;
-      } else if (/small|medium|large/.test(size)) {
+        style.gap = `${size[1]}px ${size[0]}px`;
+      } else if (typeof size === "string" && /small|medium|large/.test(size)) {
         const sizes: Record<string, number> = { small: 8, medium: 16, large: 24, default: 16 };
-        _props.style.gap = sizes[size] + "px";
+        style.gap = sizes[size] + "px";
       } else if (size !== undefined && size !== null) {
-        _props.style.gap = `${size}px`;
+        style.gap = `${size}px`;
       }
 
-      return <div {..._props}>{slots.default?.()}</div>;
+      return <div class={className} style={style}>{slots.default?.()}</div>;
     };
   },
 });

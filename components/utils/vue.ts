@@ -1,4 +1,4 @@
-import type { App, Component } from "vue";
+import type { App, Component, Plugin } from "vue";
 // export type WithInstall<T> = T & Plugin;
 
 const globalComponents = ["message", "modal", "notice", "loading", "theme"];
@@ -8,12 +8,12 @@ export const installGlobal = (app: App, component: Component) => {
     app.config.globalProperties[`$${component.name}`] = component;
   }
 };
-export const WithInstall = <T>(component: T)  => {
-  const c = component as any;
+export const WithInstall = <T extends Component>(component: T): T & Plugin => {
+  const c = component as T & Plugin & { name: string };
   c.install = function (app: App) {
     app.component(c.name, c);
     installGlobal(app, c);
   };
 
-  return component //as WithInstall<T> ;
+  return c;
 };

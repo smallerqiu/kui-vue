@@ -250,7 +250,7 @@ const Select = defineComponent({
     });
 
     const outsideClick = (e: MouseEvent) => {
-      const ctx = (refSelection.value as any)?.$el || refSelection.value;
+      const ctx = (refSelection.value as HTMLElement & { $el?: HTMLElement })?.$el || refSelection.value;
       if (
         refPopper.value &&
         !refPopper.value.contains(e.target as Node) &&

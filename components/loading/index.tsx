@@ -120,7 +120,8 @@ const createInstance = (props?: LoadingProps, context?: any) => {
 
   const instance = vm.component?.exposed;
   if (instance) {
-    (instance as any).destroy = () => {
+    const loadingInstance = instance as typeof instance & { destroy: () => void };
+    loadingInstance.destroy = () => {
       render(null, container!);
       if (container?.parentNode) container.parentNode.removeChild(container);
       loadInstance = null;
