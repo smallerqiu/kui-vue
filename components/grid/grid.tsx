@@ -20,18 +20,19 @@ const Grid = defineComponent({
   name: "Grid",
   props: gridProps,
   setup(props, { slots }) {
-    const gridRef = ref();
+    const gridRef = ref<HTMLElement | null>(null);
     const breakpoint = useBreakpoint(gridRef);
 
-    const resolveResponsive = (val: any, fallback: any) => {
+    const resolveResponsive = <T,>(val: T | Record<string, T> | undefined, fallback: T): T => {
       if (val === undefined) return fallback;
-      if (typeof val !== "object") return val;
+      if (typeof val !== "object" || val === null) return val;
+      const responsive = val as Record<string, T>;
       const order = ["xxl", "xl", "lg", "md", "sm", "xs"];
       const currentIndex = order.indexOf(breakpoint?.value || "md");
 
       for (let i = currentIndex; i < order.length; i++) {
         const key = order[i];
-        if (val[key] !== undefined) return val[key];
+        if (responsive[key] !== undefined) return responsive[key];
       }
       return fallback;
     };

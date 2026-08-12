@@ -18,15 +18,15 @@
   </Space>
 </template>
 <script setup lang="ts">
-import dayjs from "dayjs";
+import dayjs, { type Dayjs } from "dayjs";
 import { ref } from "vue";
 const value1 = ref();
 const value2 = ref([]);
-const setDate1 = (emit: (fn: any) => void) => {
+const setDate1 = (emit: (date: Dayjs) => void) => {
   let date = dayjs().add(-1, "d");
   emit(date);
 };
-const setDate2 = (emit: (fn: any) => void) => {
+const setDate2 = (emit: (date: Dayjs[]) => void) => {
   let date = [dayjs().add(-7, "d"), dayjs()];
   emit(date);
 };

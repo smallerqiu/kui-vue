@@ -13,8 +13,8 @@ const SkeletonButton = defineComponent({
       () => props.delay
     );
     return () => {
-      let { size, animated, block, shape, width } = props;
-      let _props = {
+      const { size, animated, block, shape, width } = props;
+      const _props = {
         class: [
           "k-skeleton k-skeleton-ele",
           {
@@ -23,7 +23,7 @@ const SkeletonButton = defineComponent({
           },
         ],
       };
-      let innerProps = {
+      const innerProps = {
         class: [
           "k-skeleton-btn",
           {
@@ -34,7 +34,7 @@ const SkeletonButton = defineComponent({
         ],
         style: {} as CSSProperties,
       };
-      let child = slots.default?.();
+      const child = slots.default?.();
 
       if (width !== undefined) {
         innerProps.style.width = `${width}px`;

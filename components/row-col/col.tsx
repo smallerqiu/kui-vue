@@ -25,8 +25,8 @@ const Col = defineComponent({
 
     return () => {
       const gutter = inject<Ref<number[] | number>>("gutter")?.value;
-      let { offset, span, flex } = props;
-      let _props = {
+      const { offset, span, flex } = props;
+      const _props = {
         class: [
           `k-col`,
           {
@@ -36,7 +36,7 @@ const Col = defineComponent({
         style: {} as CSSProperties,
       };
       if (Array.isArray(gutter)) {
-        let [v = 0, _h = 0] = gutter;
+        const [v = 0, _h = 0] = gutter;
         if (v == _h && v > 0) {
           _props.style.padding = `${v / 2}px`;
         } else if (v > 0 && _h > 0) {

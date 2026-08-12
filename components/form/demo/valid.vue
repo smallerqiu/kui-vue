@@ -110,13 +110,13 @@
 <script setup lang="ts">
 import { message, type FormContext, type FormRule, type SizeType } from "kui-vue";
 import { reactive, ref } from "vue";
-const validatePass = (_: FormRule, value: any, callback: (error?: Error) => void) => {
+const validatePass = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {
   if (value !== form.password) {
     return callback(new Error("Please confirm the password"));
   }
   callback();
 };
-const validateReadme = (_: FormRule, value: any, callback: (error?: Error) => void) => {
+const validateReadme = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {
   if (value !== true) {
     return callback(new Error("请阅读服务条款"));
   }

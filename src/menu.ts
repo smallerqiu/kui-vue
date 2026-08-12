@@ -188,9 +188,9 @@ const navData = [
   },
 ];
 
-const routeData = navData.reduce((current: any[], { key, children }) => {
-  current.push(...children);
-  children.map((x: any) => (x.key = key));
-  return current;
-}, []);
+type NavGroup = (typeof navData)[number];
+export type NavItem = NavGroup["children"][number] & { key: string };
+const routeData: NavItem[] = navData.flatMap(({ key, children }) =>
+  children.map((item) => ({ ...item, key }))
+);
 export { navData, routeData };

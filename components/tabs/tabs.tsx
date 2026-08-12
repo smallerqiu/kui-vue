@@ -75,9 +75,9 @@ const Tabs = defineComponent({
       // show active tab in client
       const nav = navScrollRef.value;
       // let totalWidth = panel.offsetWidth
-      let clientWidth = navBoxRef.value.clientWidth;
+      const clientWidth = navBoxRef.value.clientWidth;
       let navLeft = navOffsetLeft.value;
-      let { offsetLeft, offsetWidth } = target;
+      const { offsetLeft, offsetWidth } = target;
 
       // min left
       if (navLeft + offsetLeft < 0) {
@@ -95,8 +95,8 @@ const Tabs = defineComponent({
       nextTick(() => {
         const nav = navScrollRef.value;
         if (!nav) return;
-        let totalWidth = nav.offsetWidth;
-        let clientWidth = navBoxRef.value.clientWidth;
+        const totalWidth = nav.offsetWidth;
+        const clientWidth = navBoxRef.value.clientWidth;
         let navLeft = navOffsetLeft.value;
         if (clientWidth + navLeft < clientWidth) {
           navLeft = clientWidth - totalWidth;
@@ -121,8 +121,8 @@ const Tabs = defineComponent({
       //control left or right
 
       const panel = navScrollRef.value;
-      let totalWidth = panel.offsetWidth;
-      let clientWidth = navBoxRef.value.clientWidth;
+      const totalWidth = panel.offsetWidth;
+      const clientWidth = navBoxRef.value.clientWidth;
       let navLeft = navOffsetLeft.value;
       // console.log(totalWidth, clientWidth)
       if (direction == "right") {
@@ -176,7 +176,7 @@ const Tabs = defineComponent({
         const nav = navRef.value.children[currentIndex.value];
         if (nav) {
           const inkBar = inkBarRef.value;
-          let offsetLeft = nav.offsetLeft;
+          const offsetLeft = nav.offsetLeft;
           if (props.centered) {
             // offsetLeft = (navBoxRef.value.offsetWidth - offsetLeft) ;
           }
@@ -238,7 +238,7 @@ const Tabs = defineComponent({
         },
       ];
 
-      let scrollStyle: CSSProperties = {},
+      const scrollStyle: CSSProperties = {},
         paneStyle: CSSProperties = {};
 
       if (animated && !card && !sample) {

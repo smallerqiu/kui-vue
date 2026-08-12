@@ -1,4 +1,4 @@
-import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, type ExtractPropTypes, type PropType, type Ref } from "vue";
 import type { BooleanType } from "../const/types";
 
 const inputBoxProps = {
@@ -9,9 +9,9 @@ const inputBoxProps = {
   theme: String,
   shape: String,
   inputType: String,
-  value: [String, Number, Object] as PropType<string | number | any>,
+  value: [String, Number, Object] as PropType<unknown>,
   showPassword: Boolean as BooleanType,
-  inputRef: Object as PropType<any>,
+  inputRef: Object as PropType<Ref<HTMLInputElement | HTMLTextAreaElement | undefined>>,
   // htmlAttrs: { type: Object as PropType<any>, default: () => ({}) },
 };
 

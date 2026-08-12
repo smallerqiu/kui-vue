@@ -20,19 +20,19 @@ const Radio = defineComponent({
   name: "Radio",
   props: radioProps,
   setup(props, { slots, emit }) {
-    const isChecked = ref<any>(props.modelValue || props.checked);
+    const isChecked = ref(Boolean(props.modelValue || props.checked));
     // const theme = inject("theme", null);
     // console.log(props.theme,theme)
     watch(
       () => props.modelValue,
       (v) => {
-        isChecked.value = v;
+        isChecked.value = Boolean(v);
       }
     );
     watch(
       () => props.checked,
       (v) => {
-        isChecked.value = v;
+        isChecked.value = Boolean(v);
       }
     );
 

@@ -250,7 +250,8 @@ const Select = defineComponent({
     });
 
     const outsideClick = (e: MouseEvent) => {
-      const ctx = (refSelection.value as HTMLElement & { $el?: HTMLElement })?.$el || refSelection.value;
+      const ctx =
+        (refSelection.value as HTMLElement & { $el?: HTMLElement })?.$el || refSelection.value;
       if (
         refPopper.value &&
         !refPopper.value.contains(e.target as Node) &&
@@ -429,7 +430,7 @@ const Select = defineComponent({
     };
 
     const optionsData = computed(() => {
-      let { options, loading } = props;
+      const { options, loading } = props;
       if (loading) return [];
       if (options && options.length > 0) {
         return options;
@@ -445,7 +446,8 @@ const Select = defineComponent({
             disabled?: boolean;
           };
           const childSlots = child.children as { default?: () => VNode[] } | null;
-          const resolvedLabel = label ?? childSlots?.default?.()?.[0]?.children?.toString() ?? value;
+          const resolvedLabel =
+            label ?? childSlots?.default?.()?.[0]?.children?.toString() ?? value;
           data.push({
             value,
             disabled,

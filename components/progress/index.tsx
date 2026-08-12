@@ -6,6 +6,7 @@ import {
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
+  type VNodeChild,
 } from "vue";
 import type { BooleanType, SizeType } from "../const/types";
 import Icon from "../icon";
@@ -18,7 +19,7 @@ const progressProps = {
   percent: { type: Number, default: 0 },
   strokeWidth: { type: Number, default: 6 },
   color: String,
-  format: Function as PropType<(percent: number) => any>,
+  format: Function as PropType<(percent: number) => VNodeChild>,
   width: Number,
   strokeHeight: Number,
   gapDegree: { type: Number, default: 75 },
@@ -57,7 +58,7 @@ const Progress = defineComponent({
     const renderTip = (status: ProgressProps["status"], type: ProgressProps["type"]) => {
       if (!props.showInfo) return null;
 
-      let text: any = `${currentPercent.value}%`;
+      let text: VNodeChild = `${currentPercent.value}%`;
       if (props.format) {
         text = props.format(currentPercent.value);
       } else {

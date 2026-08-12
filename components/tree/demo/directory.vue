@@ -162,9 +162,9 @@ const append = (e: MouseEvent, node: TreeNode) => {
 const deleteNode = (e: MouseEvent, node: TreeNode) => {
   e.preventDefault();
   const loop = (
-    data: any[],
+    data: TreeNode[],
     key: string | number,
-    callback: (d: any, i: number, a: any[]) => void
+    callback: (d: TreeNode, i: number, a: TreeNode[]) => void
   ) => {
     for (let i = 0; i < data.length; i++) {
       if (data[i].key === key) {

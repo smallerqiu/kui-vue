@@ -58,6 +58,7 @@ const data = reactive([
     tags: ["Go", "Python"],
   },
 ]);
+type TableRow = (typeof data)[number];
 const columns: Column[] = [
   { title: "Name", key: "name" },
   { title: "Age", key: "age" },
@@ -76,13 +77,13 @@ const moveDown = (rowIndex: number) => {
 const deleteRow = (rowIndex: number) => {
   data.splice(rowIndex, 1);
 };
-const show = (record: any) => {
+const show = (record: TableRow) => {
   modal.info({
     title: "Hi",
     content: `My name is ${record.name}`,
   });
 };
-const rowClick = (data: any) => {
+const rowClick = (data: TableRow) => {
   message.info("Test row click: " + data.name);
 };
 </script>

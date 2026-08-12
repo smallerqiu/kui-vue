@@ -1,7 +1,7 @@
-import { defineComponent, provide, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, provide, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
 
 const breadcrumbProps = {
-  separator: { type: [String, Object] as PropType<string | any>, default: "/" },
+  separator: { type: [String, Object] as PropType<VNodeChild>, default: "/" },
 };
 
 export type BreadcrumbProps = ExtractPropTypes<typeof breadcrumbProps>;

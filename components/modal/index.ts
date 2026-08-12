@@ -8,7 +8,7 @@ export type { ModalProps } from "./modal";
 let modalList: any[] = [];
 recordMousePoint();
 
-let showModal = (props = {}) => {
+const showModal = (props = {}) => {
   const context = getCurrentInstance();
   const container = document.createElement("div");
   document.body.appendChild(container);
@@ -18,7 +18,7 @@ let showModal = (props = {}) => {
   vm.appContext = context?.appContext || getAppContext()?.appContext || null;
   render(vm, container);
 
-  let instance = vm.component?.exposed;
+  const instance = vm.component?.exposed;
   if (instance) {
     instance.destroy = () => {
       instance.hide();

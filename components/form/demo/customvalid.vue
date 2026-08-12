@@ -24,13 +24,14 @@
 import { message, type FormContext, type FormRule } from "kui-vue";
 import { ref } from "vue";
 const formRef = ref<FormContext>();
-const validateIDNumber = (_: FormRule, value: any, callback: (error?: Error) => void) => {
-  if (value && !/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(value)) {
+const validateIDNumber = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {
+  const text = String(value ?? "");
+  if (text && !/(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(text)) {
     return callback(new Error("Please enter the correct ID number"));
   }
   callback();
 };
-const validatePassword = (_: FormRule, value: any, callback: (error?: Error) => void) => {
+const validatePassword = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {
   if (!value) {
     callback(new Error("Please input your password"));
   } else {
@@ -38,7 +39,7 @@ const validatePassword = (_: FormRule, value: any, callback: (error?: Error) => 
     callback();
   }
 };
-const validateRePassword = (_: FormRule, value: any, callback: (error?: Error) => void) => {
+const validateRePassword = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {
   if (!value) {
     callback(new Error("Please input your password again"));
   } else if (value != form.value.password) {

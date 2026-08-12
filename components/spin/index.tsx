@@ -36,7 +36,7 @@ const Spin = defineComponent({
       }
     );
     return () => {
-      let { mode, size } = props;
+      const { mode, size } = props;
       const classes = [
         {
           [`k-spin-loading`]: spinning.value,

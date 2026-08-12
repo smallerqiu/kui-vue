@@ -1,6 +1,6 @@
 import type { ValueType } from "../const/types";
 
-export const getValueWithType = (checked: any, vType: ValueType) => {
+export const getValueWithType = (checked: unknown, vType: ValueType) => {
   let value = checked;
   switch (vType) {
     case "string":

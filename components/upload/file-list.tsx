@@ -6,10 +6,11 @@ import Icon from "../icon";
 import Progress from "../progress";
 import Tooltip from "../tooltip";
 import type { UploadFile } from "./index";
+import zhCN from "../locale/zh-CN";
 
 const uploadFileListProps = {
   showUploadList: { type: Boolean as BooleanType, default: true },
-  locale: Object as PropType<any>,
+  locale: Object as PropType<typeof zhCN>,
   type: {
     type: String as PropType<"list" | "picture">,
     default: "list",

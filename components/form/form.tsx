@@ -12,7 +12,7 @@ const formProps = {
     type: String as PropType<DirectionType>,
     default: "horizontal",
   },
-  model: Object as PropType<Record<string, any>>,
+  model: Object as PropType<Record<string, unknown>>,
   name: String,
   labelCol: Object as PropType<ColProps>,
   wrapperCol: Object as PropType<ColProps>,
@@ -47,8 +47,14 @@ const Form = defineComponent({
   props: formProps,
   setup(props, { emit, slots, expose }) {
     const formRef = ref(null);
-    const model = props.model;
-    const formItems = ref<Record<string, any>>({});
+    const model = props.model ?? {};
+    interface RegisteredFormItem {
+      prop: string;
+      rules?: FormRule | FormRule[];
+      valid: boolean;
+      validate: (rules: FormRule | FormRule[]) => Promise<boolean>;
+    }
+    const formItems = ref<Record<string, RegisteredFormItem>>({});
 
     const { rules, size, shape, theme, disabled, layout, name, labelCol, wrapperCol } =
       toRefs(props);
@@ -83,23 +89,26 @@ const Form = defineComponent({
       const item = formItems.value[key];
       // const item = formItems.value.get(key);
       if (item) {
-        const rules = item.rules || (props.rules || {})[item.prop];
+      const rules = item.rules || (item.prop ? (props.rules || {})[item.prop] : undefined);
         if (rules) {
           return item.validate(rules);
         }
       }
     };
 
-    const getPropByPath = (obj: any, path: string) => {
+    const getPropByPath = (obj: Record<string, unknown>, path: string) => {
       // console.log("path", obj, path);
-      let tempObj = obj;
+      let tempObj: Record<string, unknown> | undefined = obj;
       path = path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "");
       const keyArr = path.split(".");
       let i = 0;
       for (let len = keyArr.length; i < len - 1; ++i) {
         if (!tempObj) break;
-        let key = keyArr[i];
-        tempObj = tempObj[key];
+        const key = keyArr[i];
+        const next: unknown = tempObj[key];
+        tempObj = typeof next === "object" && next !== null
+          ? next as Record<string, unknown>
+          : undefined;
       }
       const lastKey = keyArr[keyArr.length - 1];
       return {
@@ -133,12 +142,12 @@ const Form = defineComponent({
       return result;
     };
 
-    const register = (item: any) => {
+    const register = (item: RegisteredFormItem) => {
       // formItems.value.set(item.prop, item);
-      formItems.value[item.prop] = item;
+      if (item.prop) formItems.value[item.prop] = item;
     };
-    const unregister = (item: any) => {
-      delete formItems.value[item.prop];
+    const unregister = (item: RegisteredFormItem) => {
+      if (item.prop) delete formItems.value[item.prop];
       // formItems.value.delete(item.prop);
     };
 

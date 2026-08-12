@@ -107,7 +107,9 @@ const Avatar = defineComponent({
       }
 
       const children = getChildren(slots.default?.());
-      const hasIcon = children?.some((c: any) => c.type?.name === "Icon");
+      const hasIcon = children?.some(
+        (c) => typeof c.type === "object" && "name" in c.type && c.type.name === "Icon"
+      );
       const isText = children?.length === 1 && typeof children[0].children === "string";
       const showImage = !!src && !imageFailed.value;
       const fallbackIcon = imageFailed.value && src ? icon || User : icon;

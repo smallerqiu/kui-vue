@@ -3,12 +3,14 @@ import {
   computed,
   defineComponent,
   inject,
+  isRef,
   onBeforeUnmount,
   reactive,
   ref,
   watch,
   type ExtractPropTypes,
   type PropType,
+  type Ref,
 } from "vue";
 import type { BooleanType, UploadStatusType } from "../const/types";
 import { type IconType } from "../icon";
@@ -24,7 +26,7 @@ export interface UploadFile {
   status?: UploadStatusType;
   percent?: number;
   preview?: string | null;
-  response?: any;
+  response?: unknown;
   errorText?: string;
   xhr?: XMLHttpRequest;
 }
@@ -37,7 +39,7 @@ const uploadProps = {
     type: String as PropType<"list" | "picture">,
     default: "list",
   },
-  data: { type: Object as PropType<Record<string, any>>, default: () => ({}) },
+  data: { type: Object as PropType<Record<string, string | Blob>>, default: () => ({}) },
   disabled: Boolean as BooleanType,
   directory: Boolean as BooleanType,
   multiple: Boolean as BooleanType,
@@ -77,9 +79,10 @@ const Upload = defineComponent({
   name: "Upload",
   props: uploadProps,
   setup(props, { emit, slots, expose }) {
-    const injectedLocale = inject<any>("locale", zhCN);
-    const locale = computed(() => {
-      return injectedLocale?.value || injectedLocale || zhCN;
+    type Locale = typeof zhCN;
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const locale = computed<Locale>(() => {
+      return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
 
     const innerFileList = ref<UploadFile[]>([...(props.fileList || [])]);

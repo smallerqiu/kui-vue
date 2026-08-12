@@ -7,7 +7,6 @@ export interface CheckboxOption {
   label?: string;
   value?: string | number;
   disabled?: boolean;
-  [key: string]: any;
 }
 type CheckboxValue = string | number | boolean;
 

@@ -5,7 +5,7 @@ export default defineComponent({
   name: "Paint",
   props: {
     hue: { type: Number, default: 0 },
-    modelValue: { type: [String, Object] as PropType<any>, required: true },
+    modelValue: { type: [String, Object] as PropType<Parameters<typeof Color>[0]>, required: true },
     onUpdateRGB: Function as PropType<(color: ColorObject) => void>,
   },
   setup(props, { emit }) {

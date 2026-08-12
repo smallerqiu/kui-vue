@@ -30,9 +30,9 @@ export interface CountUpOptions {
   /** Numeral glyph substitution */
   numerals?: string[];
   /** Callback called when animation completes */
-  onCompleteCallback?: (() => any) | null;
+  onCompleteCallback?: (() => void) | null;
   /** Callback called when animation starts */
-  onStartCallback?: (() => any) | null;
+  onStartCallback?: (() => void) | null;
   /** Plugin for alternate animations */
   plugin?: CountUpPlugin;
   /** Trigger animation when target becomes visible @default false */
@@ -80,8 +80,8 @@ export class CountUp {
     autoAnimateDelay: 200,
     autoAnimateOnce: false,
   };
-  private rAF: any;
-  private autoAnimateTimeout: any;
+  private rAF = 0;
+  private autoAnimateTimeout?: ReturnType<typeof setTimeout>;
   private startTime: number | null = null;
   private remaining: number = 0;
   private finalEndVal: number | null = null; // for smart easing
@@ -119,7 +119,10 @@ export class CountUp {
     this.startVal = this.validateValue(this.options.startVal || 0);
     this.frameVal = this.startVal;
     this.endVal = this.validateValue(endVal as number);
-    this.options.decimalPlaces = Math.max(0 || (this.options.decimalPlaces as number));
+    this.options.decimalPlaces = Math.max(
+      0,
+      typeof this.options.decimalPlaces === "number" ? this.options.decimalPlaces : 0
+    );
     this.resetDuration();
     this.options.separator = String(this.options.separator);
     this.useEasing = this.options.useEasing || false;
@@ -170,7 +173,7 @@ export class CountUp {
       },
       { threshold: 0 }
     );
-    this.el && this.observer.observe(this.el);
+    if (this.el) this.observer.observe(this.el);
   }
 
   /** Disconnect the IntersectionObserver and stop watching this element. */
@@ -221,7 +224,7 @@ export class CountUp {
   }
 
   /** Start the animation. Optionally pass a callback that fires on completion. */
-  start(callback?: (args?: any) => any): void {
+  start(callback?: () => void): void {
     if (this.error) {
       return;
     }
@@ -351,7 +354,7 @@ export class CountUp {
   }
 
   /** Return true if the value is a finite number. */
-  ensureNumber(n: any): boolean {
+  ensureNumber(n: unknown): n is number {
     return typeof n === "number" && !isNaN(n);
   }
 

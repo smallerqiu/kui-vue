@@ -5,11 +5,12 @@ import { Input } from "../input";
 import InputNumber from "../input-number";
 import { Select } from "../select";
 import { isColor } from "../utils/color";
+type ColorMode = "hex" | "rgb" | "hsl";
 export default defineComponent({
   name: "Mode",
   props: {
     modelValue: [String, Object],
-    mode: { type: String as PropType<"hex" | "rgb" | "hsl">, default: "hex" },
+    mode: { type: String as PropType<ColorMode>, default: "hex" },
     disabledAlpha: Boolean as BooleanType,
     onUpdateMode: Function as PropType<(mode: "hex" | "rgb" | "hsl") => void>,
     onUpdateColorValue: Function as PropType<(color: ColorInstance) => void>,
@@ -70,9 +71,11 @@ export default defineComponent({
       emit("updateColorValue", color);
     };
 
-    const changeMode = (v: any) => {
-      currentMode.value = v;
-      emit("updateMode", v);
+    const changeMode = (v: string | number | (string | number)[]) => {
+      if (Array.isArray(v) || !["hex", "rgb", "hsl"].includes(String(v))) return;
+      const mode = String(v) as ColorMode;
+      currentMode.value = mode;
+      emit("updateMode", mode);
     };
     return () => {
       const nodes = [];

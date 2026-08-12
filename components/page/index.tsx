@@ -3,10 +3,12 @@ import {
   computed,
   defineComponent,
   inject,
+  isRef,
   ref,
   watch,
   type ExtractPropTypes,
   type PropType,
+  type Ref,
 } from "vue";
 import type { BooleanType, SizeType, ThemeType } from "../const/types";
 import Icon from "../icon";
@@ -42,12 +44,11 @@ const Page = defineComponent({
     const pageCount = ref(Math.ceil(props.total / props.pageSize) || 1);
     const defaultPage = ref(props.page);
     const defaultPageSize = ref(props.pageSize);
-    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
+    type Locale = typeof zhCN;
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
 
-    const locale = computed(() => {
-      return injectedLocale instanceof Object && "value" in injectedLocale
-        ? injectedLocale.value
-        : injectedLocale;
+    const locale = computed<Locale>(() => {
+      return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
     watch(
       () => props.pageSize,
@@ -186,8 +187,9 @@ const Page = defineComponent({
       emit("update:page", page);
       emit("change", defaultPage.value, defaultPageSize.value);
     };
-    const changeSize = (value: any) => {
-      defaultPageSize.value = value;
+    const changeSize = (value: string | number | (string | number)[]) => {
+      if (Array.isArray(value)) return;
+      defaultPageSize.value = Number(value);
       pageCount.value = Math.ceil(props.total / defaultPageSize.value) || 1;
       if (defaultPage.value > pageCount.value) {
         defaultPage.value = pageCount.value;

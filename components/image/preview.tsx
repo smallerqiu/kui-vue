@@ -122,7 +122,7 @@ const ImagePreview = defineComponent({
       if (refImage.value && refImage.value.contains(e.target as HTMLElement)) {
         if (e instanceof MouseEvent && e.button !== 0) return;
         state.touch = e.type.startsWith("touch");
-        let [x, y] = getPosition(e);
+        const [x, y] = getPosition(e);
 
         state.isMouseDown = true;
         state.startPos = { x, y };
@@ -157,9 +157,9 @@ const ImagePreview = defineComponent({
 
       if (!refImage.value) return;
 
-      let offsetWidth = refImage.value.offsetWidth;
-      let offsetHeight = refImage.value.offsetHeight;
-      let panelWidth = panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
+      const offsetWidth = refImage.value.offsetWidth;
+      const offsetHeight = refImage.value.offsetHeight;
+      const panelWidth = panelRef.value && state.isShowPanel ? panelRef.value.offsetWidth : 0;
       let newWidth = offsetWidth;
       let newHeight = offsetHeight;
 
@@ -169,7 +169,7 @@ const ImagePreview = defineComponent({
       }
 
       if (newWidth * scale >= innerWidth - panelWidth) {
-        let maxLeft = (newWidth * scale - (innerWidth - panelWidth)) / 2;
+        const maxLeft = (newWidth * scale - (innerWidth - panelWidth)) / 2;
         if (left >= maxLeft) {
           state.left = maxLeft;
         } else if (state.left < -maxLeft) {
@@ -180,7 +180,7 @@ const ImagePreview = defineComponent({
       }
 
       if (newHeight * scale >= innerHeight) {
-        let maxTop = (newHeight * scale - innerHeight) / 2;
+        const maxTop = (newHeight * scale - innerHeight) / 2;
         if (top >= maxTop) {
           state.top = maxTop;
         } else if (top < -maxTop) {
@@ -205,7 +205,7 @@ const ImagePreview = defineComponent({
       if (!state.visible) return;
       if (state.isMouseDown) {
         e.preventDefault();
-        let [clientX, clientY] = getPosition(e);
+        const [clientX, clientY] = getPosition(e);
 
         const { x, y } = state.startPos;
         state.left += clientX - x;

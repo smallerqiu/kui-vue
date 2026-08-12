@@ -5,7 +5,7 @@ const affixProps = {
   offsetTop: { type: Number, default: 0 },
   offsetBottom: Number,
   target: {
-    type: Function as PropType<() => any>,
+    type: Function as PropType<() => Window | HTMLElement | null>,
     default: () => {
       return typeof window !== "undefined" ? window : null;
     },
@@ -36,7 +36,7 @@ const Affix = defineComponent({
 
     const getTarget = () => {
       const res = props.target?.();
-      return res?.value || res;
+      return res;
     };
 
     const updatePosition = () => {

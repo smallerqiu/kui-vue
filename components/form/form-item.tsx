@@ -4,6 +4,7 @@ import {
   computed,
   defineComponent,
   inject,
+  isRef,
   isVNode,
   onBeforeUnmount,
   onMounted,
@@ -12,6 +13,7 @@ import {
   toRefs,
   Transition,
   watch,
+  type Ref,
 } from "vue";
 import zhCN from "../locale/zh-CN";
 import { Col, Row } from "../row-col";
@@ -21,20 +23,27 @@ import type { DirectionType, ShapeType, ThemeType } from "../const/types";
 import type { ColProps, FormRule } from "./types";
 
 interface FormContext {
-  getValueFromProp?: (prop: string | undefined) => any;
+  getValueFromProp?: (prop: string | undefined) => unknown;
   rules?: Record<string, FormRule | FormRule[]>;
-  register?: (item: any) => void;
-  unregister?: (item: any) => void;
+  register?: (item: FormItemRegistration) => void;
+  unregister?: (item: FormItemRegistration) => void;
   layout?: "inline" | DirectionType;
   name?: string;
   size?: "large" | "small";
   shape?: ShapeType;
   disabled?: boolean;
   theme?: ThemeType;
-  updateModel?: (prop: string, value: any) => void;
+  updateModel?: (prop: string, value: unknown) => void;
   labelCol?: ColProps;
   wrapperCol?: ColProps;
   cleaned?: boolean;
+}
+
+interface FormItemRegistration {
+  prop?: string;
+  rules?: FormRule | FormRule[];
+  valid: boolean;
+  validate: (rules: FormRule | FormRule[]) => Promise<boolean>;
 }
 
 const formItemProps = {
@@ -51,12 +60,11 @@ const FormItem = defineComponent({
   name: "FormItem",
   props: formItemProps,
   setup(props, { slots }) {
-    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
+    type Locale = typeof zhCN;
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
 
-    const locale = computed(() => {
-      return injectedLocale instanceof Object && "value" in injectedLocale
-        ? injectedLocale.value
-        : injectedLocale;
+    const locale = computed<Locale>(() => {
+      return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
 
     const valid = ref(true);
@@ -77,29 +85,30 @@ const FormItem = defineComponent({
             itemValue !== "" &&
             itemValue !== false;
         if (!isValid) {
-          msg = msg || locale.value?.k.form.required.replace("{label}", props.label || props.prop);
+          msg = msg || locale.value.k.form.required.replace("{label}", props.label || props.prop || "");
         }
       } else if (rule.pattern) {
-        isValid = rule.pattern.test(itemValue);
+        isValid = rule.pattern.test(String(itemValue ?? ""));
       } else if (rule.type) {
         switch (rule.type) {
           case "mail":
-            isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/.test(itemValue);
+            isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/.test(String(itemValue ?? ""));
             msg = msg || locale.value?.k.form.email;
             break;
           case "mobile":
-            isValid = /^[1][3-9][0-9]{9}$/.test(itemValue);
-            msg = msg || locale.value?.k.form.mobile;
+            isValid = /^[1][3-9][0-9]{9}$/.test(String(itemValue ?? ""));
+            msg = msg || locale.value.k.form.phone;
             break;
           case "number":
-            isValid = /^(-?\d+)(\.\d+)?$/.test(itemValue);
+            isValid = /^(-?\d+)(\.\d+)?$/.test(String(itemValue ?? ""));
             if (isValid) {
-              if (rule.min !== undefined && itemValue < rule.min) {
+              const numericValue = Number(itemValue);
+              if (rule.min !== undefined && numericValue < rule.min) {
                 isValid = false;
-                msg = msg || locale.value?.k.form.num_min.replace("{min}", rule.min);
-              } else if (rule.max !== undefined && itemValue > rule.max) {
+                msg = msg || locale.value.k.form.num_min.replace("{min}", String(rule.min));
+              } else if (rule.max !== undefined && numericValue > rule.max) {
                 isValid = false;
-                msg = msg || locale.value?.k.form.num_max.replace("{max}", rule.max);
+                msg = msg || locale.value.k.form.num_max.replace("{max}", String(rule.max));
               }
             }
             msg = msg || locale.value?.k.form.number;
@@ -131,7 +140,6 @@ const FormItem = defineComponent({
         isValid = error === undefined;
         if (error) msg = error.message;
       } else if (rule.min !== undefined || rule.max !== undefined) {
-        const valueType = typeof itemValue;
         const empty =
           itemValue === null ||
           itemValue === undefined ||
@@ -142,10 +150,10 @@ const FormItem = defineComponent({
             isValid = false;
           } else if (Array.isArray(itemValue)) {
             isValid = itemValue.length >= rule.min;
-          } else if (valueType === "string") {
+          } else if (typeof itemValue === "string") {
             isValid = itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length >= rule.min;
-          } else if (valueType === "number") {
-            isValid = itemValue != null && itemValue !== undefined && itemValue >= rule.min;
+          } else if (typeof itemValue === "number") {
+            isValid = itemValue >= rule.min;
           }
         }
         if (rule.max !== undefined && isValid) {
@@ -153,10 +161,10 @@ const FormItem = defineComponent({
             isValid = false;
           } else if (Array.isArray(itemValue)) {
             isValid = itemValue.length <= rule.max;
-          } else if (valueType === "string") {
+          } else if (typeof itemValue === "string") {
             isValid = itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length <= rule.max;
-          } else if (valueType === "number") {
-            isValid = itemValue != null && itemValue !== undefined && itemValue <= rule.max;
+          } else if (typeof itemValue === "number") {
+            isValid = itemValue <= rule.max;
           }
         }
         msg = msg || "Incorrect length";
@@ -167,7 +175,7 @@ const FormItem = defineComponent({
     const validate = async (rules: FormRule | FormRule[]) => {
       if (!rules) return true;
 
-      if (rules.constructor === Object) {
+      if (!Array.isArray(rules)) {
         const result = await test(rules);
         valid.value = result.valid;
         message.value = result.message;
@@ -220,7 +228,7 @@ const FormItem = defineComponent({
       const { label, prop } = props;
       const rules = props.rules || (prop ? Form.rules?.[prop] : undefined) || [];
       const required =
-        rules.constructor === Object
+        !Array.isArray(rules)
           ? (rules as FormRule).required
           : rules.filter((r: FormRule) => r.required).length > 0;
 
@@ -262,7 +270,7 @@ const FormItem = defineComponent({
                 if (isVNode(child)) {
                   const value = prop ? (Form.getValueFromProp?.(prop) ?? undefined) : undefined;
                   const propsData = child?.props || {};
-                  const childProps: Record<string, any> = {
+                  const childProps: Record<string, unknown> = {
                     id,
                     size: propsData.size || Form.size,
                     disabled: propsData.disabled || Form.disabled,
@@ -271,7 +279,7 @@ const FormItem = defineComponent({
                   };
                   if (prop) {
                     childProps.modelValue = value;
-                    childProps["onUpdate:modelValue"] = (value: any) => {
+                    childProps["onUpdate:modelValue"] = (value: unknown) => {
                       Form.updateModel?.(prop, value);
                     };
                   }

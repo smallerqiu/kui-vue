@@ -4,7 +4,13 @@
 <script setup lang="ts">
 import type { Column, SortState } from "kui-vue";
 import { onMounted, ref } from "vue";
-const data = ref<any[]>([]);
+interface TableRow {
+  key: string;
+  name: string;
+  age: number;
+  mail: string;
+}
+const data = ref<TableRow[]>([]);
 const loading = ref(false);
 const columns: Column[] = [
   { title: "Name", key: "name", sorter: true },
@@ -24,7 +30,7 @@ const sort = ({ key, order }: SortState) => {
   console.log(key, order);
 };
 
-const fetch = (key?: string, order?: any) => {
+const fetch = (key?: string, order?: SortState["order"]) => {
   console.log(key, order);
   loading.value = true;
   // 模拟异步加载数据排序

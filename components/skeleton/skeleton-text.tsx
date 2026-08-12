@@ -11,8 +11,8 @@ const SkeletonText = defineComponent({
       () => ps.delay
     );
     return () => {
-      let { size, animated, width } = ps;
-      let props = {
+      const { size, animated, width } = ps;
+      const props = {
         class: [
           "k-skeleton k-skeleton-ele",
           {
@@ -20,7 +20,7 @@ const SkeletonText = defineComponent({
           },
         ],
       };
-      let innerProps = {
+      const innerProps = {
         class: [
           "k-skeleton-text",
           {
@@ -30,7 +30,7 @@ const SkeletonText = defineComponent({
         ],
         style: {} as CSSProperties,
       };
-      let child = slots.default?.();
+      const child = slots.default?.();
 
       if (width !== undefined) {
         innerProps.style.width = `${width}px`;

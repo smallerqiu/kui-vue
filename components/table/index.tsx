@@ -25,20 +25,21 @@ export interface Column {
   sorter?: boolean | ((state: SortState) => void);
   render?: (
     h: typeof import("vue").h,
-    record: any,
+    record: TableRecord,
     colIndex: number,
     rowIndex: number,
     col: Column
   ) => VNodeChild;
-  colSpan?: number | ((record: any, index: number) => number);
-  rowSpan?: number | ((record: any, index: number) => number);
+  colSpan?: number | ((record: TableRecord, index: number) => number);
+  rowSpan?: number | ((record: TableRecord, index: number) => number);
   children?: Column[];
 }
 
 export type TableKey = string | number;
+export type TableRecord = Record<string, unknown>;
 
 const tableProps = {
-  data: { type: Array, default: () => [] },
+  data: { type: Array as PropType<TableRecord[]>, default: () => [] },
   columns: { type: Array as PropType<Column[]>, default: () => [] },
   selectedKeys: { type: Array as PropType<TableKey[]>, default: () => [] },
   disabledKeys: { type: Array as PropType<TableKey[]>, default: () => [] },
@@ -56,9 +57,11 @@ const tableProps = {
   loading: Boolean as BooleanType,
   emptyText: String,
   onSort: { type: Function as PropType<(state: SortState) => void> },
-  onRowClick: { type: Function as PropType<(record: any, index: number) => void> },
+  onRowClick: { type: Function as PropType<(record: TableRecord, index: number) => void> },
   onSelect: {
-    type: Function as PropType<(record: any, selected: boolean, selectedKeys: TableKey[]) => void>,
+    type: Function as PropType<
+      (record: TableRecord, selected: boolean, selectedKeys: TableKey[]) => void
+    >,
   },
   onSelectAll: {
     type: Function as PropType<(selected: boolean, selectedKeys: TableKey[]) => void>,
@@ -153,13 +156,17 @@ const Table = defineComponent({
     });
 
     const isDisabled = (key: TableKey) => props.disabledKeys.includes(key);
+    const getRowKey = (record: TableRecord): TableKey => {
+      const key = record[props.rowKey];
+      return typeof key === "string" || typeof key === "number" ? key : String(key ?? "");
+    };
 
     const selectionState = computed(() => {
-      const enableData = props.data.filter((item: any) => !isDisabled(item[props.rowKey]));
+      const enableData = props.data.filter((item) => !isDisabled(getRowKey(item)));
       if (enableData.length === 0) return { all: false, indeterminate: false, disabled: true };
 
-      const checkedCount = enableData.filter((item: any) =>
-        innerSelectedKeys.value.has(item[props.rowKey])
+      const checkedCount = enableData.filter((item) =>
+        innerSelectedKeys.value.has(getRowKey(item))
       ).length;
 
       return {
@@ -303,15 +310,18 @@ const Table = defineComponent({
     };
 
     const processedData = computed(() => {
-      let list = [...props.data];
+      const list = [...props.data];
       if (sortState.key && sortState.order) {
         const col = flattedColumns.value.find((c) => c.key === sortState.key);
         if (col && col.sorter === true) {
-          list.sort((a: any, b: any) => {
+          list.sort((a, b) => {
             const valA = a[sortState.key];
             const valB = b[sortState.key];
             if (valA === valB) return 0;
-            return sortState.order === "asc" ? (valA > valB ? 1 : -1) : valA > valB ? -1 : 1;
+            const comparison = String(valA ?? "").localeCompare(String(valB ?? ""), undefined, {
+              numeric: true,
+            });
+            return sortState.order === "asc" ? comparison : -comparison;
           });
         }
       }
@@ -320,10 +330,14 @@ const Table = defineComponent({
 
     const toggleAll = ({ checked }: ChangeEvent) => {
       const newSet = new Set(innerSelectedKeys.value);
-      props.data.forEach((item: any) => {
-        const key = item[props.rowKey];
+      props.data.forEach((item) => {
+        const key = getRowKey(item);
         if (!isDisabled(key)) {
-          checked ? newSet.add(key) : newSet.delete(key);
+          if (checked) {
+            newSet.add(key);
+          } else {
+            newSet.delete(key);
+          }
         }
       });
       innerSelectedKeys.value = newSet;
@@ -332,10 +346,14 @@ const Table = defineComponent({
       emit("selectAll", checked, rows);
     };
 
-    const toggleOne = (e: ChangeEvent, record: any, key: TableKey) => {
+    const toggleOne = (e: ChangeEvent, record: TableRecord, key: TableKey) => {
       if (isDisabled(key)) return;
       const newSet = new Set(innerSelectedKeys.value);
-      e.checked ? newSet.add(key) : newSet.delete(key);
+      if (e.checked) {
+        newSet.add(key);
+      } else {
+        newSet.delete(key);
+      }
       innerSelectedKeys.value = newSet;
       const rows = Array.from(newSet);
       emit("update:selectedKeys", rows);
@@ -517,8 +535,8 @@ const Table = defineComponent({
 
     const renderTbody = () => (
       <tbody>
-        {processedData.value.map((record: any, rowIndex) => {
-          const rowId = record[props.rowKey];
+        {processedData.value.map((record, rowIndex) => {
+          const rowId = getRowKey(record);
           return (
             <tr
               key={rowId}
@@ -544,7 +562,7 @@ const Table = defineComponent({
 
                 if (!cellState || !cellState.show) return null;
 
-                const attrs: Record<string, any> = {};
+                const attrs: Record<string, number> = {};
                 if (cellState.rowSpan > 1) attrs.rowspan = cellState.rowSpan;
                 if (cellState.colSpan > 1) attrs.colspan = cellState.colSpan;
                 const slotContent = slots[col.key]?.({
@@ -557,7 +575,7 @@ const Table = defineComponent({
                 const cellContent =
                   slotContent ??
                   col.render?.(h, record, colIndex, rowIndex, col) ??
-                  record[col.key];
+                  (record[col.key] as VNodeChild);
                 return (
                   <td
                     key={col.key}

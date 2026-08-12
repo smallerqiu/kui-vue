@@ -2,7 +2,7 @@ import { defineComponent, type CSSProperties, type ExtractPropTypes, type PropTy
 import type { BooleanType } from "../const/types";
 
 const parseStyle = (styleString: string) => {
-  const styles: any = {};
+  const styles: Record<string, string | number> = {};
   if (!styleString) return styles;
 
   styleString.split(";").forEach((rule) => {

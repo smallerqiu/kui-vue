@@ -28,7 +28,7 @@ const Row = defineComponent({
 
     return () => {
       const { align, justify, gutter } = props;
-      let _props = {
+      const _props = {
         class: [
           "k-row",
           {
@@ -40,7 +40,7 @@ const Row = defineComponent({
         style: {} as CSSProperties,
       };
       if (Array.isArray(gutter)) {
-        let [v = 0, _h = 0] = gutter;
+        const [v = 0, _h = 0] = gutter;
         if (v == _h && v > 0) {
           _props.style.margin = `-${v / 2}px`;
         } else if (v > 0 && _h > 0) {

@@ -23,7 +23,7 @@ const Skeleton = defineComponent({
         if (avatar.size) size = avatar.size;
         if (avatar.shape) shape = avatar.shape;
       }
-      let props = {
+      const props = {
         class: [
           "k-skeleton-avatar",
           {
@@ -60,9 +60,9 @@ const Skeleton = defineComponent({
     };
 
     return () => {
-      let { animated } = ps;
+      const { animated } = ps;
 
-      let props = {
+      const props = {
         class: [
           "k-skeleton",
           {
@@ -70,9 +70,9 @@ const Skeleton = defineComponent({
           },
         ],
       };
-      let nodeAvatar = renderAvatar();
-      let nodeContent = renderContent();
-      let child = slots.default?.();
+      const nodeAvatar = renderAvatar();
+      const nodeContent = renderContent();
+      const child = slots.default?.();
       return <div {...props}>{child && !show.value ? child : [nodeAvatar, nodeContent]}</div>;
     };
   },

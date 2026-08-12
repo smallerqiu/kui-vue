@@ -9,7 +9,7 @@ export interface TabsPaneLike {
     title?: string;
     closable?: boolean;
     disabled?: boolean;
-    [key: string]: any;
+    [key: string]: unknown;
   };
 }
 

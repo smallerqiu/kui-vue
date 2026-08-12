@@ -8,12 +8,11 @@ export interface FormRule {
   message?: string;
   validator?: (
     rule: FormRule,
-    value: any,
+    value: unknown,
     callback: (error?: Error) => void
   ) => void | Promise<void>;
   pattern?: RegExp;
   type?: "mobile" | "mail" | "number";
   min?: number;
   max?: number;
-  [key: string]: any;
 }

@@ -66,6 +66,7 @@ const data = ref([
     isEdit: false,
   },
 ]);
+type TableRow = (typeof data.value)[number];
 const columns: Column[] = [
   { title: "Name", key: "name" },
   { title: "House price", key: "age" },
@@ -73,7 +74,7 @@ const columns: Column[] = [
   { title: "Operate", key: "action" },
 ];
 const count = ref(4);
-const save = (record: any) => {
+const save = (record: TableRow) => {
   console.log(record);
   record.isEdit = false;
   message.success("Save successfully!");
@@ -83,7 +84,7 @@ const removeRow = (key: string) => {
 };
 const add = () => {
   const key = count.value;
-  let record: any = {
+  const record: TableRow = {
     key,
     name: `Name ${key}`,
     age: 30,

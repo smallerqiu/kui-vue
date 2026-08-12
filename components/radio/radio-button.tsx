@@ -1,6 +1,6 @@
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
-import type { BooleanType, ShapeType, SizeType } from "../const/types";
+import type { BooleanType, ButtonType, ShapeType, SizeType, ThemeType } from "../const/types";
 import type { IconType } from "../icon";
 import type { ChangeEvent } from "./types";
 
@@ -8,7 +8,7 @@ const radioButtonProps = {
   modelValue: { type: [Boolean], default: false },
   label: { type: String },
   value: { type: [String, Number] },
-  theme: String,
+  theme: String as PropType<ThemeType>,
   disabled: Boolean as BooleanType,
   checked: Boolean as BooleanType,
   icon: Array as PropType<IconType[]>,
@@ -58,14 +58,14 @@ const RadioButton = defineComponent({
     };
 
     return () => {
-      const buttonProps: Record<string, any> = {
+      const buttonProps = {
         // ...props,
         disabled: props.disabled,
         size: props.size,
         icon: props.icon,
         theme: props.theme,
         shape: props.shape,
-        type: isChecked.value ? "primary" : "default",
+        type: (isChecked.value ? "primary" : "default") as ButtonType,
         ...attrs,
         onClick: handleClick,
       };

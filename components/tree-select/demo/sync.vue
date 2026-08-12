@@ -19,7 +19,7 @@ const expandedKeys = ref([]);
 const expand = (data: TreeExpandEvent) => {
   console.log(data);
 };
-const insertChildren = (nodes: any[], targetKey: string, childrenData: any[]) => {
+const insertChildren = (nodes: TreeNode[], targetKey: string, childrenData: TreeNode[]) => {
   for (const node of nodes) {
     if (node.key === targetKey) {
       // 找到目标节点，插入数据

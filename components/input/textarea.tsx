@@ -10,8 +10,8 @@ import {
 import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
 
 const textAreaProps = {
-  value: [String, Number, Object, Array] as PropType<any>,
-  modelValue: [String, Number, Object, Array] as PropType<any>,
+  value: [String, Number, Array] as PropType<string | number | readonly string[] | null>,
+  modelValue: [String, Number, Array] as PropType<string | number | readonly string[] | null>,
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: { type: String as PropType<ShapeType> },
   size: String as PropType<SizeType>,

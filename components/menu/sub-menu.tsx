@@ -184,7 +184,7 @@ const SubMenu = defineComponent({
     return () => {
       const selected = menuContext?.selectedKeys.includes(key) && !menuContext?.dropdown;
       const opened = menuContext?.openKeys.includes(key);
-      let titleProps: Record<string, any> = {
+      const titleProps: Record<string, any> = {
         class: `k-${preCls}-title`,
         style: {} as CSSProperties,
       };
@@ -219,7 +219,7 @@ const SubMenu = defineComponent({
       ) {
         titleProps.style.paddingLeft = `${(subMenuContext?.keyPath || []).length * 16 + 16}px`;
       }
-      let title = props.title ?? slots.title?.();
+      const title = props.title ?? slots.title?.();
 
       const titleNode = (
         <div {...titleProps}>

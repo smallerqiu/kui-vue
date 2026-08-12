@@ -12,8 +12,8 @@ const SkeletonImage = defineComponent({
       () => ps.delay
     );
     return () => {
-      let { animated, radius, size } = ps;
-      let props = {
+      const { animated, radius, size } = ps;
+      const props = {
         class: [
           "k-skeleton k-skeleton-ele",
           {
@@ -21,14 +21,14 @@ const SkeletonImage = defineComponent({
           },
         ],
       };
-      let innerProps = {
+      const innerProps = {
         class: ["k-skeleton-image"],
         style: {} as CSSProperties,
         // style: {
         //   'border-radius': radius ? radius + 'px' : ''
         // }
       };
-      let child = slots.default?.();
+      const child = slots.default?.();
 
       if (radius !== undefined) {
         innerProps.style["border-radius"] = `${radius}px`;

@@ -16,6 +16,7 @@ import {
   computed,
   defineComponent,
   inject,
+  isRef,
   nextTick,
   onMounted,
   onUnmounted,
@@ -25,6 +26,7 @@ import {
   watch,
   type ExtractPropTypes,
   type PropType,
+  type Ref,
 } from "vue";
 import { Button } from "../button";
 import type {
@@ -52,13 +54,25 @@ type DatePickerModeType =
 
 interface DatePickerPresetsType {
   label: string;
-  value: () => any;
+  value: () => DatePickerInput | DatePickerInput[];
 }
+type DatePickerInput = string | number | Date | Dayjs;
 
 const datePickerProps = {
-  modelValue: { type: [Date, Object, Array, String, Number], default: null },
-  startDate: { type: [Date, Object, String, Number], default: null },
-  endDate: { type: [Date, Object, String, Number], default: null },
+  modelValue: {
+    type: [Date, Object, Array, String, Number] as PropType<
+      DatePickerInput | DatePickerInput[] | null
+    >,
+    default: null,
+  },
+  startDate: {
+    type: [Date, Object, String, Number] as PropType<DatePickerInput | null>,
+    default: null,
+  },
+  endDate: {
+    type: [Date, Object, String, Number] as PropType<DatePickerInput | null>,
+    default: null,
+  },
   valueType: {
     type: String as PropType<DatePickerValueType>,
     default: "string",
@@ -106,13 +120,10 @@ const DatePicker = defineComponent({
   props: datePickerProps,
 
   setup(props, { emit, slots }) {
-    const injectedLocale = inject("locale", zhCN);
-    const locale = computed<Record<string, any>>(() => {
-      return (
-        (injectedLocale instanceof Object && "value" in injectedLocale
-          ? injectedLocale.value
-          : injectedLocale) || zhCN
-      );
+    type Locale = typeof zhCN;
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const locale = computed<Locale>(() => {
+      return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
     const local = () => {
       return dayjs().locale(localeName.value).localeData();
@@ -136,7 +147,7 @@ const DatePicker = defineComponent({
     // console.log(local);
 
     // DOM 引用，用于滚动计算
-    const timeColRefs = ref<Record<string, any>>({});
+    const timeColRefs = ref<Record<string, HTMLElement | null>>({});
 
     // 面板显示的基准日期
     const panelDate = ref(dayjs());
@@ -204,7 +215,7 @@ const DatePicker = defineComponent({
         let activeDate = dayjs();
         if (props.mode === "dateTimeRange") {
           const idx = timeEditSide.value === "start" ? 0 : 1;
-          let value = innerValue.value as (Dayjs | null)[];
+          const value = innerValue.value as (Dayjs | null)[];
           if (value && value[idx]) activeDate = value[idx];
         } else {
           if (innerValue.value && !Array.isArray(innerValue.value)) activeDate = innerValue.value;
@@ -252,7 +263,7 @@ const DatePicker = defineComponent({
       }
     };
 
-    const parsePropValue = (val: any) => {
+    const parsePropValue = (val: DatePickerInput | null | undefined) => {
       if (val === null || val === undefined || val === "") return null;
       let d;
       if (props.valueType === "unix") {
@@ -284,7 +295,7 @@ const DatePicker = defineComponent({
           if (!isFocus.value) syncTextFromValue();
           // 设置面板基准时间
           if (innerValue.value[0]) panelDate.value = innerValue.value[0];
-        } else {
+        } else if (!Array.isArray(val)) {
           const d = parsePropValue(val);
           innerValue.value = d;
           if (!isFocus.value) syncTextFromValue();
@@ -779,7 +790,10 @@ const DatePicker = defineComponent({
               ? activeDate.minute()
               : activeDate.second();
         return (
-          <ul class="k-picker-time-col" ref={(el) => (timeColRefs.value[type] = el)}>
+          <ul
+            class="k-picker-time-col"
+            ref={(el) => (timeColRefs.value[type] = el instanceof HTMLElement ? el : null)}
+          >
             {Array.from({ length: max }).map((_, i) => {
               const tempDate = activeDate.set(type, i);
               const isDisabled = checkTimeDisabled(tempDate);
@@ -1020,7 +1034,7 @@ const DatePicker = defineComponent({
           if (isRange.value && Array.isArray(date)) {
             innerValue.value = [dayjs(date[0]), dayjs(date[1])];
             emitValue(true);
-          } else {
+          } else if (!Array.isArray(date)) {
             innerValue.value = dayjs(date);
             emitValue(true);
           }
@@ -1041,11 +1055,11 @@ const DatePicker = defineComponent({
           );
         }
       };
-      const extraEmit = (date: any) => {
+      const extraEmit = (date: DatePickerInput | DatePickerInput[]) => {
         if (isRange.value && Array.isArray(date)) {
           innerValue.value = [dayjs(date[0]), dayjs(date[1])];
           emitValue(true);
-        } else {
+        } else if (!Array.isArray(date)) {
           innerValue.value = dayjs(date);
           emitValue(true);
         }

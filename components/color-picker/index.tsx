@@ -61,7 +61,8 @@ const ColorPicker = defineComponent({
 
   setup(props, { emit, slots }) {
     const currentMode = ref(props.mode);
-    const currentColor = ref(props.modelValue || "#000000ff");
+    type ColorInstance = ReturnType<typeof Color>;
+    const currentColor = ref<string | ColorInstance>(props.modelValue || "#000000ff");
     const visible = ref(false);
     const refPopper = ref();
     const refSelection = ref();
@@ -174,7 +175,7 @@ const ColorPicker = defineComponent({
       let text = getColor();
       return props.showText ? <div class="k-color-picker-trigger-text">{text}</div> : null;
     };
-    const onUpdate = (color: any) => {
+    const onUpdate = (color: string | ColorInstance) => {
       currentColor.value = color;
       const value = getColor();
       emit("update:modelValue", value);
@@ -204,14 +205,14 @@ const ColorPicker = defineComponent({
         clearTimeout(hideTimer.value);
       }, 0);
     };
-    const updateColorValue = (color: any) => {
+    const updateColorValue = (color: ColorInstance) => {
       // console.log(color.string(), currentAlpha.value);
       currentAlpha.value = color.alpha();
       currentColor.value = color;
       currentHue.value = color.hue();
       onUpdate(color);
     };
-    const updateColor = (color: any) => {
+    const updateColor = (color: ColorInstance) => {
       currentAlpha.value = color.alpha();
       currentHue.value = color.hue();
       updateColorValue(color.rgb());

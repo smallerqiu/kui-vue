@@ -19,8 +19,10 @@ export default defineComponent({
     };
     const getOffsetChars = (targetValue: number) => {
       const finalChars = format(targetValue);
-      return finalChars.map((char: any) =>
-        /\d/.test(char) ? (char > 5 ? char - 5 : char == 5 ? 8 : char * 1 + 5) : char
+      return finalChars.map((char) =>
+        /\d/.test(char)
+          ? String(Number(char) > 5 ? Number(char) - 5 : char === "5" ? 8 : Number(char) + 5)
+          : char
       );
     };
 

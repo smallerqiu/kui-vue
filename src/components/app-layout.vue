@@ -73,18 +73,18 @@
 import AppHeader from "./app-header.vue";
 // import AppFooter from "./app-footer";
 import { ChevronLeft, ChevronRight, Menu as MenuIcon, X } from "kui-icons";
-import { computed, inject, onMounted, reactive, ref, Transition, watch } from "vue";
+import { computed, inject, onMounted, reactive, ref, Transition, watch, type Ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { navData, routeData } from "../menu";
+import { navData, routeData, type NavItem } from "../menu";
 const router = useRouter();
 const route = useRoute();
 const showMiniNav = ref(false);
-const nextNavData = reactive<Record<string, any>>({});
-const prevNavData = reactive<Record<string, any>>({});
+const nextNavData = reactive<Partial<NavItem>>({});
+const prevNavData = reactive<Partial<NavItem>>({});
 const activeName = ref<string[]>([]);
 const openKeys = ["start", "basic", "layouts", "navigation", "forms", "data", "notices", "other"];
 
-const locale = inject<Record<string, any>>("locale");
+const locale = inject<Ref<{ name?: string }>>("locale");
 const $t = inject<(key: string) => string>("$t", (key: string) => key);
 
 const lang = computed(() => {

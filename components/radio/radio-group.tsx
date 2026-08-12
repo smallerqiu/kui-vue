@@ -8,6 +8,7 @@ import {
   watch,
   type ExtractPropTypes,
   type PropType,
+  type VNodeChild,
 } from "vue";
 import type {
   BooleanType,
@@ -28,7 +29,6 @@ export interface RadioOption {
   value?: string | number;
   disabled?: boolean;
   icon?: IconType[];
-  [key: string]: any;
 }
 
 const radioGroupProps = {
@@ -54,19 +54,19 @@ const RadioGroup = defineComponent({
   name: "RadioGroup",
   props: radioGroupProps,
   setup(props, { slots, emit }) {
-    const rootRef = ref();
-    const observerRef = ref();
+    const rootRef = ref<HTMLElement | null>(null);
+    const observerRef = ref<ResizeObserver | null>(null);
     const currentValue = ref(props.modelValue);
-    const itemRefs = new Map<string | number, any>();
+    const itemRefs = new Map<string | number, HTMLElement>();
     const isVertical = computed(() => props.direction === "vertical");
     const segStyle = ref(
       isVertical.value ? { height: "0px", top: "0px" } : { width: "0px", left: "0px" }
     );
     const changed = ref(false);
-    const setItemRef = (el: any, value: string | number) => {
-      if (el) {
-        itemRefs.set(value, el.$el || el);
-      }
+    const setItemRef = (el: unknown, value: string | number) => {
+      if (!el || typeof el !== "object") return;
+      const element = "$el" in el ? el.$el : el;
+      if (element instanceof HTMLElement) itemRefs.set(value, element);
     };
     const updateSeg = () => {
       if (props.theme !== "card" || props.type !== "button") return;
@@ -90,7 +90,7 @@ const RadioGroup = defineComponent({
       observerRef.value = new ResizeObserver(() => {
         updateSize();
       });
-      observerRef.value.observe(rootRef.value);
+      if (rootRef.value) observerRef.value.observe(rootRef.value);
     });
     onUnmounted(() => {
       if (observerRef.value) observerRef.value.disconnect();
@@ -119,7 +119,7 @@ const RadioGroup = defineComponent({
         options = [];
         const children = getChildren(slots.default?.());
         children.forEach((child) => {
-          let { label, value, disabled, icon } = child.props;
+          const { label, value, disabled, icon } = child.props;
           options?.push({
             value,
             icon,
@@ -134,12 +134,12 @@ const RadioGroup = defineComponent({
       const isButton = props.type === "button";
       const isCard = props.theme === "card";
       let options = optionsData.value;
-      let nodes: any = [];
+      const nodes: VNodeChild[] = [];
       const Component = isButton ? RadioButton : Radio;
       options.forEach((option) =>
         nodes.push(
           <Component
-            ref={(el: any) => setItemRef(el, option.value!)}
+            ref={(el) => setItemRef(el, option.value!)}
             key={option.label}
             label={option.label}
             value={option.value}

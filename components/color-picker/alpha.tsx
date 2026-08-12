@@ -5,7 +5,7 @@ import { clamp } from "../utils/share";
 export default defineComponent({
   name: "Alpha",
   props: {
-    modelValue: { type: [String, Object] as PropType<any>, required: true },
+    modelValue: { type: [String, Object] as PropType<Parameters<typeof Color>[0]>, required: true },
     onUpdateAlpha: Function as PropType<(alpha: number) => void>,
   },
   setup(props, { emit }) {
@@ -83,7 +83,7 @@ export default defineComponent({
         />
         <span
           class="k-color-picker-alpha-dot"
-          style={{ left: `${dotPos.value}px`, backgroundColor: props.modelValue }}
+          style={{ left: `${dotPos.value}px`, backgroundColor: Color(props.modelValue).string() }}
         />
       </div>
     );

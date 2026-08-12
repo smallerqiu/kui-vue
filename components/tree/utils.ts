@@ -17,7 +17,7 @@ export interface TreeNode {
   dropping?: boolean;
   level?: number;
   isLastChild?: boolean;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export interface BuildTreeOptions {

@@ -9,6 +9,7 @@ import kuiLocaleEn from "kui-vue/locale/en";
 import kuiLocaleZhCN from "kui-vue/locale/zh-CN";
 import { transform } from "sucrase";
 import * as Vue from "vue";
+import type { App, Component, Ref } from "vue";
 
 const runtimeModules: Record<string, unknown> = {
   vue: Vue,
@@ -30,10 +31,10 @@ function runtimeRequire(id: string) {
 export interface ParseParams {
   source: string;
   id: string;
-  viewRef: any;
-  error: any;
-  currentApp: any;
-  buildState: any;
+  viewRef: Ref<HTMLElement | null>;
+  error: Ref<string>;
+  currentApp: Ref<App<Element> | null>;
+  buildState: { state: string; text: string };
 }
 export async function parseCode({
   source,
@@ -111,10 +112,11 @@ export async function parseCode({
     const { code: executableCode } = transform(moduleCode, {
       transforms: ["typescript", "imports"],
     });
-    const demoModule = { exports: {} as Record<string, any> };
+    const demoModule: { exports: { default?: Component } } = { exports: {} };
     const execute = new Function("require", "module", "exports", executableCode);
     execute(runtimeRequire, demoModule, demoModule.exports);
     const component = demoModule.exports.default;
+    if (!component) throw new Error("Demo component was not exported");
 
     if (currentApp.value) {
       currentApp.value.unmount();
@@ -130,6 +132,7 @@ export async function parseCode({
     const mountNode = document.createElement("div");
     mountNode.setAttribute(scopeId, "");
 
+    if (!viewRef.value) throw new Error("Demo mount element is unavailable");
     viewRef.value.innerHTML = "";
     viewRef.value.appendChild(mountNode);
     app.mount(mountNode);
@@ -139,10 +142,10 @@ export async function parseCode({
     updateStyle(id, cssCode);
     buildState.state = "success";
     buildState.text = "Build Success";
-  } catch (err: any) {
+  } catch (err: unknown) {
     buildState.state = "error";
     buildState.text = "Build Error";
-    error.value = err.message;
+    error.value = err instanceof Error ? err.message : String(err);
     console.error("Render Error:", err);
   }
 }

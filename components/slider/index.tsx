@@ -44,8 +44,8 @@ const Slider = defineComponent({
     const size = inject("size", undefined);
     const railWidth = ref(0);
     const thumbRefs = ref<HTMLElement[]>([]);
-    const setThumbRef = (el: any, index: number) => {
-      if (el) thumbRefs.value[index] = el;
+    const setThumbRef = (el: unknown, index: number) => {
+      if (el instanceof HTMLElement) thumbRefs.value[index] = el;
     };
 
     const railRef = ref();
@@ -121,8 +121,8 @@ const Slider = defineComponent({
       const R = size / 2;
 
       // 获取点击位置距离【物理起点】（Left/Bottom）的距离
-      let [x, y] = getPosition(e);
-      let distFromPhysicalStart = props.vertical ? rect.bottom - y : x - rect.left;
+      const [x, y] = getPosition(e);
+      const distFromPhysicalStart = props.vertical ? rect.bottom - y : x - rect.left;
 
       // 如果是反向，转换成距离【逻辑起点】（Right/Top）的距离
       const distFromLogicalStart = props.reverse

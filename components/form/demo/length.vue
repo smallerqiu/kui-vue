@@ -64,7 +64,7 @@
 import type { FormSubmitEvent } from "kui-vue";
 import { message, type FormRule } from "kui-vue";
 import { reactive } from "vue";
-const validatePass = (_: FormRule, value: any, callback: (error?: Error) => void) => {
+const validatePass = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {
   if (value !== form.password) {
     return callback(new Error("The two passwords do not match!"));
   }
@@ -72,7 +72,7 @@ const validatePass = (_: FormRule, value: any, callback: (error?: Error) => void
 };
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
-const form = reactive<Record<string, any>>({
+const form = reactive<Record<string, unknown>>({
   number: "",
   text: "",
   email: "",

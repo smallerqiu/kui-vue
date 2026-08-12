@@ -5,6 +5,17 @@ export interface OdometerOptions {
   lastDigitDelay?: number; // delay last digit in animation, in seconds, 0 to deactivate
 }
 
+interface DigitCell {
+  container: HTMLSpanElement;
+  current?: string | null;
+  position: number;
+  new: boolean;
+  lastTimeAdd: number;
+  lastTimer?: ReturnType<typeof setTimeout>;
+  nextToAdd?: HTMLSpanElement | null;
+  timerClean?: ReturnType<typeof setTimeout> | null;
+}
+
 const rAF =
   window.requestAnimationFrame ||
   function (callback) {
@@ -20,7 +31,7 @@ export class Odometer implements CountUpPlugin {
     lastDigitDelay: 0.25,
   };
 
-  private cell_digits: any = null;
+  private cell_digits: DigitCell[] | null = null;
 
   constructor(options?: OdometerOptions) {
     this.options = {
@@ -39,7 +50,7 @@ export class Odometer implements CountUpPlugin {
       // avoid adding more than once
       if (!document.querySelector("style[odometer]")) {
         // add styles for odometer numbers
-        let style = document.createElement("style");
+        const style = document.createElement("style");
         style.setAttribute("odometer", "odometer");
         style.innerHTML =
           ".odometer-numbers{display:inline-flex;line-height:100%;overflow-y:hidden}.odometer-numbers>span{display:flex;flex-direction:column;justify-content:start;align-items:center;height:1em;will-change:transform;transform:translateY(0)}";
@@ -69,10 +80,11 @@ export class Odometer implements CountUpPlugin {
         current: undefined,
         position: createdNow ? 1 : 0,
         new: true,
+        lastTimeAdd: Date.now(),
       });
     }
 
-    function appendDigit(cell: any, newDigit: any) {
+    function appendDigit(cell: DigitCell, newDigit: HTMLSpanElement) {
       cell.position--;
       cell.container.appendChild(newDigit);
       cell.lastTimeAdd = +new Date();
@@ -86,7 +98,7 @@ export class Odometer implements CountUpPlugin {
       } else cell.container.style.transform = `translateY(${cell.position}em)`;
     }
 
-    function pushDigit(cell: any, newDigit: any) {
+    function pushDigit(cell: DigitCell, newDigit: HTMLSpanElement) {
       const { lastDigitDelay = 0.25, duration = 0.8 } = options;
       // if there was another cell waiting to be added, we add it here
       if (cell.nextToAdd) {
@@ -106,7 +118,7 @@ export class Odometer implements CountUpPlugin {
         // if not, we delay the push
         cell.nextToAdd = newDigit;
         cell.lastTimer = setTimeout(() => {
-          appendDigit(cell, cell.nextToAdd);
+          if (cell.nextToAdd) appendDigit(cell, cell.nextToAdd);
           cell.nextToAdd = null;
         }, duration * 1000);
       }
@@ -115,14 +127,14 @@ export class Odometer implements CountUpPlugin {
     // we add all sequence cell_digits that are new in formatted number
     // or remove cells no more exist (we put blank cells)
     const len = Math.max(formatted.length, this.cell_digits.length);
-    for (let i: any = 0; i < len; i++) {
+    for (let i = 0; i < len; i++) {
       // cell has changed
-      let ch = i < formatted.length ? formatted.charAt(i) : null;
+      const ch = i < formatted.length ? formatted.charAt(i) : null;
       const cell = this.cell_digits[i];
       if (cell.current != ch) {
         cell.current = ch;
 
-        let newDigit = document.createElement("span");
+        const newDigit = document.createElement("span");
         newDigit.innerHTML = ch === null ? blank : ch;
 
         // the last delay animation only if there is a minimum of 3 elements
@@ -132,7 +144,7 @@ export class Odometer implements CountUpPlugin {
           pushDigit(cell, newDigit);
         }
 
-        clearTimeout(cell.timerClean);
+        if (cell.timerClean) clearTimeout(cell.timerClean);
 
         // when animation end, we can remove all extra animated cells
         cell.timerClean = setTimeout(
@@ -142,9 +154,11 @@ export class Odometer implements CountUpPlugin {
             cell.container.style.transition = "none"; // temporally clear animation transition
             rAF(() => {
               cell.position = -1;
-              // we remove all childs except last
-              while (cell.container.children.length > 1)
-                cell.container.removeChild(cell.container.firstChild);
+              // we remove all child except last
+              while (cell.container.children.length > 1) {
+                const firstChild = cell.container.firstChild;
+                if (firstChild) cell.container.removeChild(firstChild);
+              }
               //insert blank space (forcing width to avoid weird behaviour in comma)
               const digitBlank = document.createElement("span");
               digitBlank.innerHTML = blank;

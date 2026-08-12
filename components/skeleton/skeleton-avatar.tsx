@@ -15,9 +15,9 @@ const SkeletonAvatar = defineComponent({
     );
 
     return () => {
-      let { size, animated, radius, shape } = props;
+      const { size, animated, radius, shape } = props;
       const avatarShape = shape || "circle";
-      let _props = {
+      const _props = {
         class: [
           "k-skeleton k-skeleton-ele",
           {
@@ -25,7 +25,7 @@ const SkeletonAvatar = defineComponent({
           },
         ],
       };
-      let innerProps = {
+      const innerProps = {
         class: [
           "k-skeleton-avatar",
           {
@@ -36,7 +36,7 @@ const SkeletonAvatar = defineComponent({
         ],
         style: {} as CSSProperties,
       };
-      let child = slots.default?.();
+      const child = slots.default?.();
 
       if (!isNaN(Number(size))) {
         innerProps.style.width = `${size}px`;
