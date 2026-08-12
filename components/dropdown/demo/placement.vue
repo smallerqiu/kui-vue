@@ -1,6 +1,6 @@
 <template>
   <Space wrap>
-    <template v-for="placement in placements">
+    <template v-for="placement in placements" :key="placement">
       <Dropdown :placement="placement">
         <Button>{{ placement }}</Button>
         <template #overlay>

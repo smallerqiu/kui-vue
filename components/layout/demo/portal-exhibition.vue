@@ -18,7 +18,7 @@
 
     <Content>
       <Carousel :loop="true">
-        <CarouselItem v-for="_ in 3" style="height: 300px">
+        <CarouselItem v-for="_ in 3" style="height: 300px" :key="_">
           <div class="hero">
             <h1>Connecting beauty with technology</h1>
             <p>A minimalist enterprise-grade UI component library for Vue 3</p>

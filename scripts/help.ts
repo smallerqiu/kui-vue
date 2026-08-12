@@ -180,6 +180,7 @@ for (const file of matches) {
   //
 
   //rename jsx to tsx
+  let parentDir = "";
   const tsx = path.join("components", parentDir, "demo", "index.tsx");
   console.log(tsx);
   fs.renameSync(file, tsx);

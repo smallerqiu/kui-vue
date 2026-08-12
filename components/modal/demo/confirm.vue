@@ -44,7 +44,7 @@ const Async = () => {
   });
 };
 const closeAll = () => {
-  for (var o = 0; o < 3; o++) {
+  for (let o = 0; o < 3; o++) {
     setTimeout(() => {
       modal.confirm({
         title: "Destroy All",

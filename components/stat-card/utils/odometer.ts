@@ -33,13 +33,13 @@ export class Odometer implements CountUpPlugin {
   public render(elem: HTMLElement | HTMLInputElement, formatted: string): void {
     // render DOM here
     const options = this.options;
-    var createdNow = false;
+    let createdNow = false;
     if (!this.cell_digits) {
       createdNow = true;
       // avoid adding more than once
       if (!document.querySelector("style[odometer]")) {
         // add styles for odometer numbers
-        var style = document.createElement("style");
+        let style = document.createElement("style");
         style.setAttribute("odometer", "odometer");
         style.innerHTML =
           ".odometer-numbers{display:inline-flex;line-height:100%;overflow-y:hidden}.odometer-numbers>span{display:flex;flex-direction:column;justify-content:start;align-items:center;height:1em;will-change:transform;transform:translateY(0)}";
@@ -56,7 +56,7 @@ export class Odometer implements CountUpPlugin {
     const transitionDigit = `transform ${options.duration}s ease-out`;
 
     // appearing new cell_digits
-    for (var i = this.cell_digits.length; i < formatted.length; i++) {
+    for (let i = this.cell_digits.length; i < formatted.length; i++) {
       // create a container
       const container = document.createElement("span");
       container.style.transition = transitionDigit;
@@ -115,14 +115,14 @@ export class Odometer implements CountUpPlugin {
     // we add all sequence cell_digits that are new in formatted number
     // or remove cells no more exist (we put blank cells)
     const len = Math.max(formatted.length, this.cell_digits.length);
-    for (var i: any = 0; i < len; i++) {
+    for (let i: any = 0; i < len; i++) {
       // cell has changed
-      var ch = i < formatted.length ? formatted.charAt(i) : null;
+      let ch = i < formatted.length ? formatted.charAt(i) : null;
       const cell = this.cell_digits[i];
       if (cell.current != ch) {
         cell.current = ch;
 
-        var newDigit = document.createElement("span");
+        let newDigit = document.createElement("span");
         newDigit.innerHTML = ch === null ? blank : ch;
 
         // the last delay animation only if there is a minimum of 3 elements

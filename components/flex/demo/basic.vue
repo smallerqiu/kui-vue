@@ -12,6 +12,7 @@
           height: '40px',
           width: direction === 'vertical' ? '25%' : '100%',
         }"
+        :key="x"
       ></div>
     </Flex>
   </Flex>

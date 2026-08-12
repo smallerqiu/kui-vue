@@ -1,6 +1,6 @@
 <template>
   <Carousel :modelValue="2" :loop="true" autoplay :height="300">
-    <CarouselItem v-for="x in 3" class="item">{{ x }}</CarouselItem>
+    <CarouselItem v-for="x in 3" class="item" :key="x">{{ x }}</CarouselItem>
   </Carousel>
 </template>
 

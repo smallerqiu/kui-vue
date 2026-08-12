@@ -39,7 +39,7 @@ const transformFile = (file: File) => {
       );
       // canvas to file obj
       let data = canvas.toDataURL("image/png");
-      var arr = data.split(","),
+      let arr = data.split(","),
         mime = arr[0].match(/:(.*?);/) || [],
         b64str = atob(arr[1]),
         n = b64str.length,

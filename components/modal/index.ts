@@ -42,8 +42,8 @@ export interface ModalApiProps {
   content: string;
   color?: string;
   icon?: IconType[];
-  onOk?: Function;
-  onCancel?: Function;
+  onOk?: () => void;
+  onCancel?: () => void;
   type?: "info" | "success" | "error" | "warning" | "confirm";
 }
 export interface ModalApi {
