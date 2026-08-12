@@ -12,6 +12,7 @@ import {
   watch,
   type ExtractPropTypes,
   type PropType,
+  type VNodeChild,
 } from "vue";
 import { Button } from "../button";
 import { getMousePoint } from "../config/context";
@@ -56,7 +57,7 @@ const Modal = defineComponent({
     const startPos = ref({ x: 0, y: 0 });
     const refModal = ref();
     const refHeader = ref();
-    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
+    const injectedLocale = inject<typeof zhCN | { value: typeof zhCN }>("locale", zhCN);
     const locale = computed(() => {
       return injectedLocale instanceof Object && "value" in injectedLocale
         ? injectedLocale.value
@@ -200,7 +201,7 @@ const Modal = defineComponent({
       let okText = props.okText || locale.value?.k.common.ok;
       let cancelText = props.cancelText || locale.value?.k.common.cancel;
       //content
-      let contentNode: any = slots.content?.();
+      let contentNode: VNodeChild = slots.content?.();
       if (!contentNode) {
         const contents = [];
         props.showClose &&

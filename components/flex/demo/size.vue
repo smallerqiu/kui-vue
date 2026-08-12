@@ -21,7 +21,7 @@ import { ref } from "vue";
 const flexSize = ref<SizeType>("small");
 const customize = ref(8);
 const isCustomize = ref(false);
-const changeSize = (value: any) => {
-  flexSize.value = value;
+const changeSize = (value: string | number | (string | number)[]) => {
+  if (value === "small" || value === "medium" || value === "large") flexSize.value = value;
 };
 </script>

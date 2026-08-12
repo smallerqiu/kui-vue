@@ -21,7 +21,7 @@ export default defineComponent({
     },
   },
   setup(ps, { expose, emit }) {
-    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
+    const injectedLocale = inject<typeof zhCN | { value: typeof zhCN }>("locale", zhCN);
 
     const locale = computed(() => {
       return injectedLocale instanceof Object && "value" in injectedLocale
@@ -30,8 +30,9 @@ export default defineComponent({
     });
     const loading = ref(false);
     const visible = ref(false);
-    const isPromise = (obj: any): boolean => {
-      return typeof obj === "object" && typeof obj.then === "function";
+    const isPromise = (obj: unknown): obj is PromiseLike<unknown> => {
+      return typeof obj === "object" && obj !== null && "then" in obj &&
+        typeof (obj as { then?: unknown }).then === "function";
     };
     const show = () => {
       visible.value = true;
@@ -50,7 +51,7 @@ export default defineComponent({
       let fun = onOk ? onOk() : {};
       if (isPromise(fun)) {
         loading.value = true;
-        fun
+        Promise.resolve(fun)
           .then(() => {
             hide();
           })

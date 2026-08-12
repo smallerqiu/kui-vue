@@ -34,15 +34,15 @@ const zh = {
   ...local_zh,
 };
 
-const t = (obj: any, path: string, defaultValue = null) => {
+const t = (obj: unknown, path: string, defaultValue: unknown = null) => {
   if (obj == null || !path) return defaultValue;
 
   const keys = String(path).split(".").filter(Boolean);
-  let cur = obj;
+  let cur: unknown = obj;
 
   for (const k of keys) {
-    if (cur != null && Object.prototype.hasOwnProperty.call(cur, k)) {
-      cur = cur[k];
+    if (typeof cur === "object" && cur !== null && Object.prototype.hasOwnProperty.call(cur, k)) {
+      cur = (cur as Record<string, unknown>)[k];
     } else {
       return defaultValue;
     }
@@ -50,7 +50,7 @@ const t = (obj: any, path: string, defaultValue = null) => {
   return cur;
 };
 
-const $t = (key: string, defaultValue?: any) => t(messages.value, key, defaultValue);
+const $t = (key: string, defaultValue?: unknown) => t(messages.value, key, defaultValue);
 
 const changeLang = () => {
   const value = lang.value === "en" ? "zh" : "en";

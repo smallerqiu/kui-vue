@@ -29,7 +29,7 @@ const options = [
 ];
 const cities = ref("wuhan");
 
-const change = (v: any) => {
+const change = (v: string | number) => {
   console.log(v);
 };
 </script>

@@ -21,7 +21,7 @@ const value1 = ref(true);
 const value2 = ref("1");
 const value3 = ref(1);
 const checked = ref(true);
-const change = (val: any) => {
+const change = (val: string | number | boolean) => {
   console.log(val);
 };
 </script>

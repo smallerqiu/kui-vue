@@ -9,6 +9,7 @@ import {
   type ExtractPropTypes,
   type PropType,
   type VNodeChild,
+  type VNode,
 } from "vue";
 import type {
   BooleanType,
@@ -119,12 +120,13 @@ const RadioGroup = defineComponent({
         options = [];
         const children = getChildren(slots.default?.());
         children.forEach((child) => {
-          const { label, value, disabled, icon } = child.props;
+          const { label, value, disabled, icon } = (child.props ?? {}) as RadioOption;
+          const childSlots = child.children as { default?: () => VNode[] } | null;
           options?.push({
             value,
             icon,
             disabled,
-            label: label || child.children?.default()[0].children || value,
+            label: String(label || childSlots?.default?.()[0]?.children?.toString() || value || ""),
           });
         });
       }

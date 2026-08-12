@@ -128,8 +128,11 @@ export const getPropsData = (componentPath: string, propsName: string, component
  * 生成 Vetur 配置文件
  */
 export const generateVeturConfig = (componentNames: string[]) => {
-  const tags: Record<string, any> = {};
-  const attributes: Record<string, any> = {};
+  const tags: Record<string, { description: string; attributes: string[] }> = {};
+  const attributes: Record<
+    string,
+    { description?: string; type: string; options?: string[] }
+  > = {};
 
   // 组件库总入口文件
   const entryFilePath = path.resolve(import.meta.dirname, "../../components/index.ts");

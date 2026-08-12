@@ -10,8 +10,8 @@ export function cloneNodes(
     ? cloneVNode(vnode[0], props, merge)
     : cloneVNode(<span>{vnode}</span>, props, merge, cloneTransition);
 }
-export function getChildren(VNodes?: any[]) {
-  const result: any[] = [];
+export function getChildren(VNodes?: unknown[]) {
+  const result: VNode[] = [];
   VNodes?.forEach((vnode) => {
     if (!isVNode(vnode)) return;
     if (vnode.type === Comment) return;

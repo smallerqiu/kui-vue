@@ -1,17 +1,17 @@
 import { Card, Grid, GridItem, Icon } from "kui-vue";
-import { defineComponent, inject } from "vue";
-import { navData } from "../../menu";
+import { defineComponent, inject, type Ref } from "vue";
+import { navData, type NavItem } from "../../menu";
 export default defineComponent({
   setup() {
     const $t = inject<(key: string) => string>("$t", (key: string) => key);
-    const locale = inject<Record<string, any>>("locale");
-    const renderChildren = (children: any[]) => {
+    const locale = inject<Ref<{ name?: string }>>("locale");
+    const renderChildren = (children: Omit<NavItem, "key">[], groupKey: string) => {
       return (
         <Grid itemMinWidth={200} xGap={16} yGap={16}>
           {children.map((item) => {
             return (
               <GridItem>
-                <router-link to={`/${item.key == "guide" ? "guide" : "components"}/${item.name}`}>
+                <router-link to={`/${groupKey == "guide" ? "guide" : "components"}/${item.name}`}>
                   <Card
                     bordered
                     title={`${item.sub} ${locale?.value.name != "en" ? item.title : ""}`}
@@ -30,7 +30,7 @@ export default defineComponent({
       return (
         <div class="all-components">
           {nav.map((item) => {
-            return [<h2>{$t(item.title)}</h2>, renderChildren(item.children)];
+            return [<h2>{$t(item.title)}</h2>, renderChildren(item.children, item.key)];
           })}
         </div>
       );

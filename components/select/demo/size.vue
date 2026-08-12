@@ -25,7 +25,7 @@ const data = [
   { label: "Pear", value: 3 },
   { label: "Grape", value: 4 },
 ];
-const setSize = (value: any) => {
-  size.value = value;
+const setSize = (value: string | number | (string | number)[]) => {
+  if (value === "small" || value === "medium" || value === "large") size.value = value;
 };
 </script>

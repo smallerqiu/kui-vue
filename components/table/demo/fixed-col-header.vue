@@ -11,8 +11,8 @@
 <script setup lang="ts">
 import type { Column } from "kui-vue";
 
-const _columns = [],
-  dataItem: any = {};
+const _columns: Column[] = [],
+  dataItem: Record<string, string> = {};
 for (let i = 0; i < 20; i++) {
   _columns.push({ title: "Col" + i, key: "address" + i, width: 150 });
   dataItem["address" + i] = "Hubei Wuhan SoftBase No.128";

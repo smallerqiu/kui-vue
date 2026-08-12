@@ -23,7 +23,7 @@ const Empty = defineComponent({
   name: "Empty",
   props: emptyProps,
   setup(props, { slots, attrs }) {
-    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
+    const injectedLocale = inject<typeof zhCN | { value: typeof zhCN }>("locale", zhCN);
 
     const locale = computed(() => {
       return injectedLocale instanceof Object && "value" in injectedLocale
@@ -50,7 +50,9 @@ const Empty = defineComponent({
             src: image,
             class: "k-empty-image",
             style: imageStyle, // 通过属性展开应用样式
-            alt: description || locale.value?.k.empty.description || "Empty state image", // 添加 alt 属性以提高可访问性
+            alt: typeof description === "string"
+              ? description
+              : locale.value?.k.empty.description || "Empty state image",
           };
           return <img {...imgProps} />;
         }

@@ -75,7 +75,7 @@ const treeSelectProps = {
   treeCheckStrictly: Boolean as BooleanType,
   treeExpandedKeys: Array as PropType<string[]>,
   treeLoadData: {
-    type: Function as PropType<(node: TreeNode) => Promise<any>>,
+    type: Function as PropType<(node: TreeNode) => Promise<unknown>>,
   },
   onChange: {
     type: Function as PropType<(value: TreeSelectValue) => void>,
@@ -103,7 +103,7 @@ const TreeSelect = defineComponent({
   },
   props: treeSelectProps,
   setup(props, { emit }) {
-    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
+    const injectedLocale = inject<typeof zhCN | { value: typeof zhCN }>("locale", zhCN);
 
     const locale = computed(() => {
       return injectedLocale instanceof Object && "value" in injectedLocale

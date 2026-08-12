@@ -6,6 +6,7 @@ import {
   inject,
   onBeforeUnmount,
   type PropType,
+  type Slots,
   ref,
   watch,
 } from "vue";
@@ -52,7 +53,7 @@ const KImage = defineComponent({
       }
     };
     // global api
-    const show = (props: ImagePreviewProps, slots: any) => {
+    const show = (props: ImagePreviewProps, slots: Slots) => {
       if (ImageGroup) {
         ImageGroup.show(props, slots);
         return;

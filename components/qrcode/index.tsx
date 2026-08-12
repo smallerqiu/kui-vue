@@ -45,7 +45,7 @@ const QRCode = defineComponent({
     const canvasRef = ref<HTMLCanvasElement | null>(null);
     let rootObserver: MutationObserver | null = null;
 
-    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
+    const injectedLocale = inject<typeof zhCN | { value: typeof zhCN }>("locale", zhCN);
     const locale = computed(() => {
       return injectedLocale instanceof Object && "value" in injectedLocale
         ? injectedLocale.value

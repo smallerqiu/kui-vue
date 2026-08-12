@@ -11,7 +11,7 @@ import { Flex } from "kui-vue";
 import { h, ref } from "vue";
 const sizes = ref([]);
 
-const resize = (value: any) => {
+const resize = (value: number[]) => {
   sizes.value = value;
 };
 const Text = (p: { text: string }) => {

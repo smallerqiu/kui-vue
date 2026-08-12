@@ -4,11 +4,13 @@ import {
   type ExtractPropTypes,
   onUnmounted,
   type PropType,
+  type Slots,
   provide,
   ref,
 } from "vue";
 import { imageGroupKey } from "./context";
 import createInstance from "./instance";
+import type { ImagePreviewInstance } from "./instance";
 import type { ImagePreviewProps } from "./preview";
 
 const imageGroupProps = {
@@ -23,13 +25,13 @@ const ImageGroup = defineComponent({
   setup(props, { slots }) {
     const registered = ref<string[]>([]);
     const data = computed(() => (props.data ? [...props.data] : [...registered.value]));
-    const preview = ref();
-    const show = (props: ImagePreviewProps, slots: any) => {
+    const preview = ref<ImagePreviewInstance | null>(null);
+    const show = (props: ImagePreviewProps, slots: Slots) => {
       const options = { ...props, data: data.value };
       if (!preview.value) {
         preview.value = createInstance(options, slots);
       }
-      preview.value.show(options);
+      preview.value?.show(options);
     };
     const togglePanel = () => {
       if (preview.value) {

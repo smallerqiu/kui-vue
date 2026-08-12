@@ -145,7 +145,7 @@ const Input = defineComponent({
           slotControls.length > 0) &&
         type !== "hidden";
 
-      const inputBoxProps: Record<string, any> = {
+      const inputBoxProps: Record<string, unknown> = {
         // htmlAttrs: { ...attrs },
         ...attrs,
         disabled,

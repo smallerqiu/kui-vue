@@ -132,7 +132,7 @@ const rules: FormRule = {
   email: [{ required: true }, { type: "mail" }],
   age: [{ required: true }, { type: "number", min: 10, max: 50 }],
 };
-const langs: Record<string, any> = {
+const langs: Record<string, typeof en> = {
   en,
   zh,
   de,

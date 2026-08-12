@@ -184,7 +184,7 @@ const SubMenu = defineComponent({
     return () => {
       const selected = menuContext?.selectedKeys.includes(key) && !menuContext?.dropdown;
       const opened = menuContext?.openKeys.includes(key);
-      const titleProps: Record<string, any> = {
+      const titleProps: Record<string, unknown> & { style: CSSProperties } = {
         class: `k-${preCls}-title`,
         style: {} as CSSProperties,
       };

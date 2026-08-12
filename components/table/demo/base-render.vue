@@ -56,13 +56,16 @@ const columns: Column[] = [
   {
     title: "Tags",
     key: "tags",
-    render: (h, { tags }, _) => {
+    render: (h, record) => {
+      const tags = Array.isArray(record.tags)
+        ? record.tags.filter((tag): tag is string => typeof tag === "string")
+        : [];
       return h(
         Space,
         {},
         {
           default: () =>
-            tags.map(function (tag: any) {
+            tags.map(function (tag) {
               return h(
                 Tag,
                 {

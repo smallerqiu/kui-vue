@@ -23,7 +23,7 @@ const options = [
 ];
 const cities = ref(["wuhan"]);
 
-const change = (v: any[]) => {
+const change = (v: (string | number | boolean)[]) => {
   console.log(v);
 };
 </script>

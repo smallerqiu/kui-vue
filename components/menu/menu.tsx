@@ -39,7 +39,7 @@ export interface MenuOptionsProps {
   key: string;
   disabled?: boolean;
   children?: MenuOptionsProps[];
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export type MenuProps = ExtractPropTypes<typeof menuProps>;

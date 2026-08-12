@@ -35,7 +35,7 @@
   <SkeletonImage :animated="animated" :radius="radius" :size="imgSize" />
 </template>
 <script setup lang="ts">
-import type { ShapeType } from "kui-vue";
+import type { ShapeType, SizeType } from "kui-vue";
 import { ref } from "vue";
 
 const sizes = [
@@ -54,7 +54,7 @@ const avatarShapes = [
 ];
 const imgSize = ref([196, 96]);
 const animated = ref(false);
-const size = ref<any>("default");
+const size = ref<"default" | SizeType>("default");
 const block = ref(false);
 const radius = ref(10);
 const avatarShape = ref<ShapeType>("square");

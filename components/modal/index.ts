@@ -5,7 +5,12 @@ import Modal from "./modal";
 import Toast from "./toast";
 export type { ModalProps } from "./modal";
 
-let modalList: any[] = [];
+interface ModalInstance {
+  show: () => void;
+  hide: () => void;
+  destroy: () => void;
+}
+let modalList: ModalInstance[] = [];
 recordMousePoint();
 
 const showModal = (props = {}) => {
@@ -18,7 +23,7 @@ const showModal = (props = {}) => {
   vm.appContext = context?.appContext || getAppContext()?.appContext || null;
   render(vm, container);
 
-  const instance = vm.component?.exposed;
+  const instance = vm.component?.exposed as ModalInstance | null;
   if (instance) {
     instance.destroy = () => {
       instance.hide();

@@ -63,7 +63,7 @@ const treeProps = {
     type: Function as PropType<(node: TreeNode, event: DragEvent) => void>,
   },
   loadData: {
-    type: Function as PropType<(node: TreeNode) => Promise<any>>,
+    type: Function as PropType<(node: TreeNode) => Promise<unknown>>,
   },
 };
 

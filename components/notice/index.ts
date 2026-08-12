@@ -2,8 +2,10 @@ import type { VNode } from "vue";
 import type { NoticeType } from "../const/types";
 import type { IconType } from "../icon";
 import { createInstance } from "./instance";
+import type { NoticeInstance } from "./instance";
+import type { ContentProps } from "./content";
 
-let noticeInstance: Record<string, any> | null | undefined = null;
+let noticeInstance: NoticeInstance | null | undefined = null;
 
 export interface NoticeOptions {
   type?: NoticeType;
@@ -30,7 +32,7 @@ const notice: NoticeApi = {
     if (!noticeInstance) {
       noticeInstance = createInstance("notice");
     }
-    const props = Object.assign(options, { noticeType: "notice" });
+    const props: ContentProps = { ...options, noticeType: "notice" };
     noticeInstance?.show(props);
   },
   destroy() {

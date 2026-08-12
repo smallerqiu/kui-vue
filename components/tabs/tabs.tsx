@@ -14,6 +14,7 @@ import {
 } from "vue";
 import type { BooleanType } from "../const/types";
 import Icon from "../icon";
+import type { IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
 
 const tabsProps = {
@@ -166,7 +167,8 @@ const Tabs = defineComponent({
     const updateIndex = () => {
       nextTick(() => {
         const nodes = getChildren(slots.default?.());
-        currentIndex.value = nodes?.map((p) => p.key).indexOf(defaultActiveKey.value);
+        currentIndex.value = nodes.map((p, index) => String(p.key ?? index))
+          .indexOf(String(defaultActiveKey.value));
         resetActivePosition();
         updateInkBarPosition();
       });
@@ -199,9 +201,14 @@ const Tabs = defineComponent({
     const navNodes = computed(() => {
       const nodes = getChildren(slots.default?.());
       return nodes?.map((panel, index) => {
-        const key = panel.key;
+        const key = String(panel.key ?? index);
 
-        let { icon, title, closable, disabled } = panel.props;
+        let { icon, title, closable, disabled } = (panel.props ?? {}) as {
+          icon?: IconType[];
+          title?: string;
+          closable?: boolean;
+          disabled?: boolean;
+        };
         disabled = disabled !== undefined && disabled != false;
         closable = closable !== undefined;
         const prop = {

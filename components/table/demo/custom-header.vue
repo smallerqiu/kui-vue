@@ -55,7 +55,7 @@ const columns: Column[] = [
     width: 90,
   },
 ];
-const show = (record: any) => {
+const show = (record: Record<string, unknown>) => {
   modal.info({
     title: "More",
     content: `My name is ${record.name}`,

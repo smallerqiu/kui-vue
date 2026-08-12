@@ -63,7 +63,7 @@ const Space = defineComponent({
       const vNodes = [];
       for (let i = 0; i < children.length; i++) {
         const pre = props.vertical ? "vertical-" : "";
-        const p: Record<string, any> = {
+        const p: Record<string, unknown> = {
           class: {
             [`k-space-${pre}first-item`]: i === 0,
             [`k-space-${pre}item`]: i > 0 && i < children.length - 1,

@@ -42,7 +42,7 @@ const Popconfirm = defineComponent({
   name: "Popconfirm",
   props: popconfirmProps,
   setup(props, { slots, attrs, emit }) {
-    const injectedLocale = inject<Record<string, any>>("locale", zhCN);
+    const injectedLocale = inject<typeof zhCN | { value: typeof zhCN }>("locale", zhCN);
 
     const locale = computed(() => {
       return injectedLocale instanceof Object && "value" in injectedLocale

@@ -146,7 +146,7 @@ const Poptip = defineComponent({
     };
     return () => {
       const title = slots.title?.() || props.title;
-      const content: any = slots.content?.() || props.content;
+      const content = slots.content?.() || props.content;
       const preCls = "poptip";
       const cls = [
         `k-${preCls}`,
@@ -155,7 +155,7 @@ const Poptip = defineComponent({
           [`k-${preCls}-dark`]: props.dark,
         },
       ];
-      const wpProps: Record<string, any> & {} = {
+      const wpProps: Record<string, unknown> = {
         ref: refSelection,
         onMouseleave: hide,
       };

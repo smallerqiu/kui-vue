@@ -1,6 +1,11 @@
 import { defineComponent, ref, TransitionGroup, type TransitionProps } from "vue";
 import { getTransitionProp } from "../base/transition";
 import Content, { type ContentProps } from "./content";
+interface NoticeItem extends ContentProps {
+  key: string;
+  __timer?: ReturnType<typeof setTimeout>;
+  __callback: () => void;
+}
 let count = 0;
 function getUuid() {
   const timestamp = Date.now();
@@ -9,7 +14,7 @@ function getUuid() {
 export default defineComponent({
   props: { type: String },
   setup(ps, { expose }) {
-    const options = ref<any[]>([]);
+    const options = ref<NoticeItem[]>([]);
 
     const show = (option: ContentProps) => {
       let { duration = 3.5, onClose, closable, noticeType, grouping } = option;
