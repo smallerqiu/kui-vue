@@ -1,8 +1,33 @@
 import fs from "fs";
 import path from "path";
-import { Node, Project, TypeFormatFlags } from "ts-morph";
+import { Node, Project, Type, TypeFormatFlags } from "ts-morph";
 import { JsxEmit } from "typescript";
-// import { fileURLToPath } from "url";
+
+export interface PropData {
+  name: string;
+  description: string;
+  type: string;
+  eventName?: string;
+  boolean: boolean;
+  documented: boolean;
+  documentationPath: string;
+}
+
+export const toKebabCase = (name: string): string =>
+  name
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .replace(/([A-Z])([A-Z][a-z])/g, "$1-$2")
+    .toLowerCase();
+
+export const getComponentTagNames = (name: string): string[] => {
+  const tagName = toKebabCase(name);
+  return name.startsWith("K") ? [tagName] : [tagName, `k-${tagName}`];
+};
+
+export const getPropsNameCandidates = (componentName: string): string[] => {
+  const normalizedName = componentName.replace(/^K(?=[A-Z])/, "").replace(/^TimeLine/, "Timeline");
+  return [...new Set([`${componentName}Props`, `${normalizedName}Props`])];
+};
 
 /**
  * 解析 Markdown 表格提取属性和描述
@@ -16,10 +41,10 @@ const getDocDescriptions = (mdPath: string): Record<string, string> => {
   const lines = content.split("\n"); // 按行处理
 
   lines.forEach((line) => {
-    // 通过 | 分割并过滤掉两侧的空字符串（解决错位关键）
+    // Ignore escaped pipes inside Markdown cells.
     const columns = line
-      .split("|")
-      .map((c) => c.trim())
+      .split(/(?<!\\)\|/)
+      .map((c) => c.trim().replace(/\\\|/g, "|"))
       .filter((c) => c !== "");
 
     // 确保这一行至少有属性名和描述两列
@@ -27,8 +52,10 @@ const getDocDescriptions = (mdPath: string): Record<string, string> => {
       const rawProp = columns[0];
       const description = columns[1];
 
-      // 排除表头 "Property" 和 分割线 "---"
-      if (rawProp.toLowerCase() !== "property" && !rawProp.includes("---")) {
+      const normalizedProp = rawProp.toLowerCase();
+      const isHeader = ["property", "prop", "属性"].includes(normalizedProp);
+      const isSeparator = /^:?-{3,}:?$/.test(rawProp);
+      if (!isHeader && !isSeparator) {
         // 统一小写存储，确保 offsetTop 能匹配到 offsettop
         descriptions[rawProp.toLowerCase()] = description;
       }
@@ -49,8 +76,6 @@ const project = new Project({
   },
 });
 
-// const __dirname = fileURLToPath(new URL(".", import.meta.url));
-
 // 预加载所有组件源码以建立类型上下文
 project.addSourceFilesAtPaths(path.resolve(import.meta.dirname, "../../components/**/*.ts"));
 project.addSourceFilesAtPaths(path.resolve(import.meta.dirname, "../../components/**/*.tsx"));
@@ -58,11 +83,24 @@ project.addSourceFilesAtPaths(path.resolve(import.meta.dirname, "../../component
 /**
  * 提取组件的 Props 属性并关联文档描述
  */
-export const getPropsData = (componentPath: string, propsName: string, componentName: string) => {
+const isBooleanType = (type: Type): boolean => {
+  const types = type.isUnion()
+    ? type.getUnionTypes().filter((item) => !item.isUndefined())
+    : [type];
+  return types.length > 0 && types.every((item) => item.isBoolean() || item.isBooleanLiteral());
+};
+
+export const getPropsData = (
+  componentPath: string,
+  propsNames: string | string[]
+): PropData[] => {
   const sourceFile =
     project.getSourceFile(componentPath) || project.addSourceFileAtPath(componentPath);
   const exportSymbols = sourceFile.getExportSymbols();
-  const targetSymbol = exportSymbols.find((s) => s.getName() === propsName);
+  const candidates = Array.isArray(propsNames) ? propsNames : [propsNames];
+  const targetSymbol = candidates
+    .map((name) => exportSymbols.find((symbol) => symbol.getName() === name))
+    .find((symbol) => symbol !== undefined);
 
   if (!targetSymbol) return [];
 
@@ -80,22 +118,26 @@ export const getPropsData = (componentPath: string, propsName: string, component
   const type = aliasedSymbol.getDeclaredType();
   const properties = type.getApparentProperties(); // 获取包含继承的所有属性
 
-  const props: { name: string; description: string; type: string }[] = [];
+  const props: PropData[] = [];
 
   properties.forEach((prop) => {
     const name = prop.getName();
     if (name.startsWith("_")) return;
 
+    const propDecls = prop.getDeclarations();
+    const isProjectProp = propDecls.some(
+      (declaration) => !declaration.getSourceFile().getFilePath().includes("/node_modules/")
+    );
+    if (!isProjectProp) return;
+
     // 提取真实 TS 类型字符串
-    const propType = prop
-      .getTypeAtLocation(declarations[0])
-      .getText(undefined, TypeFormatFlags.UseAliasDefinedOutsideCurrentScope);
+    const type = prop.getTypeAtLocation(declarations[0]);
+    const propType = type.getText(undefined, TypeFormatFlags.UseAliasDefinedOutsideCurrentScope);
 
     // 匹配描述：优先 MD 表格（全小写匹配），次之 JSDoc
     const lowerName = name.toLowerCase();
     let description = docMap[lowerName];
 
-    const propDecls = prop.getDeclarations();
     if (!description && propDecls.length > 0 && Node.isJSDocable(propDecls[0])) {
       description = propDecls[0]
         .getJsDocs()
@@ -103,21 +145,16 @@ export const getPropsData = (componentPath: string, propsName: string, component
         .join(" ");
     }
 
-    // 缺失文档提醒
-    // TODO : 缺少文档, 需要补全, 待完善
-    // console.log('lowerName :',lowerName)
-    // console.log('docMap:',docMap)
-    if (!docMap[lowerName]) {
-      if (!/Option|TextArea|Input|Select|GridItem|Grid|Empty|Button/.test(componentName))
-        console.warn(
-          `\x1b[33m[Vetur Warning]\x1b[0m Component <${componentName}>: Property "${name}" is missing in ${mdPath}`
-        );
-    }
-
     props.push({
       name,
       description: description || `Props for ${name}`,
       type: propType,
+      eventName: /^on[A-Z]/.test(name)
+        ? `${name.charAt(2).toLowerCase()}${name.slice(3)}`
+        : undefined,
+      boolean: isBooleanType(type),
+      documented: Boolean(docMap[lowerName]),
+      documentationPath: mdPath,
     });
   });
 
@@ -129,34 +166,26 @@ export const getPropsData = (componentPath: string, propsName: string, component
  */
 export const generateVeturConfig = (componentNames: string[]) => {
   const tags: Record<string, { description: string; attributes: string[] }> = {};
-  const attributes: Record<
-    string,
-    { description?: string; type: string; options?: string[] }
-  > = {};
+  const attributes: Record<string, { description?: string; type: string; options?: string[] }> = {};
 
   // 组件库总入口文件
   const entryFilePath = path.resolve(import.meta.dirname, "../../components/index.ts");
-  // componentNames = componentNames.slice(0, 1);
   componentNames.forEach((name) => {
-    const kebabName = name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
-    const propsName = `${name}Props`;
+    const propList = getPropsData(entryFilePath, getPropsNameCandidates(name));
 
-    const propList = getPropsData(entryFilePath, propsName, name);
-
-    // 写入 tags.json 定义
-    tags[kebabName] = {
-      description: `Kui Vue component: ${name}`,
-      attributes: propList.map((p) => p.name),
-    };
-
-    // 写入 attributes.json 定义
-    propList.forEach((p) => {
-      attributes[`${kebabName}/${p.name}`] = {
-        description: p.description,
-        type: p.type,
-        // 如果是布尔值，Vetur 会提供特定的补全
-        options: p.type.includes("boolean") ? ["true", "false"] : undefined,
+    getComponentTagNames(name).forEach((tagName) => {
+      tags[tagName] = {
+        description: `Kui Vue component: ${name}`,
+        attributes: propList.map((prop) => prop.eventName ?? prop.name),
       };
+
+      propList.forEach((prop) => {
+        attributes[`${tagName}/${prop.eventName ?? prop.name}`] = {
+          description: prop.description,
+          type: prop.type,
+          options: prop.boolean ? ["true", "false"] : undefined,
+        };
+      });
     });
   });
 

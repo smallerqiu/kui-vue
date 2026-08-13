@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import pkg from "../../package.json" with { type: "json" };
-import { getPropsData } from "./vetur.ts";
+import { getComponentTagNames, getPropsData, getPropsNameCandidates } from "./vetur.ts";
 export const generateWebTypesConfig = (componentNames: string[]) => {
   const entryFilePath = path.resolve(import.meta.dirname, "../../components/index.ts");
 
@@ -14,30 +14,31 @@ export const generateWebTypesConfig = (componentNames: string[]) => {
     "js-types-syntax": "typescript",
     contributions: {
       html: {
-        elements: componentNames.map((name) => {
-          const kebabName = name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
-          const propsName = `${name}Props`;
+        elements: componentNames.flatMap((name) => {
+          const propList = getPropsData(entryFilePath, getPropsNameCandidates(name));
+          const attributes = propList.filter((prop) => !prop.eventName);
+          const events = propList.filter((prop) => prop.eventName);
 
-          const propList = getPropsData(entryFilePath, propsName, name);
-
-          return {
-            name: kebabName,
+          return getComponentTagNames(name).map((tagName) => ({
+            name: tagName,
             source: {
               symbol: name,
             },
             description: `Kui Vue component: ${name}`,
-            "doc-url": `https://k-ui.cn/components/${kebabName}`,
-            attributes: propList.map((p) => ({
-              name: p.name,
-              description: p.description,
+            "doc-url": `https://k-ui.cn/components/${tagName.replace(/^k-/, "")}`,
+            attributes: attributes.map((prop) => ({
+              name: prop.name,
+              description: prop.description,
               value: {
-                type: p.type,
+                type: prop.type,
                 kind: "expression",
               },
             })),
-            // TODO: 支持事件
-            events: [],
-          };
+            events: events.map((prop) => ({
+              name: prop.eventName as string,
+              description: prop.description,
+            })),
+          }));
         }),
       },
     },

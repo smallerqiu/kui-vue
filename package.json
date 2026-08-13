@@ -75,6 +75,7 @@
     "lint": "eslint . --cache --cache-location node_modules/.cache/eslint/.eslintcache",
     "lint:fix": "eslint . --fix --cache --cache-location node_modules/.cache/eslint/.eslintcache",
     "package:check": "publint --strict && node scripts/check-package-exports.mjs",
+    "check:api-docs": "node --experimental-strip-types scripts/check-api-docs.ts",
     "verify": "pnpm lint && pnpm typecheck && pnpm typecheck:exports && pnpm test && pnpm build && pnpm package:check"
   },
   "author": {
