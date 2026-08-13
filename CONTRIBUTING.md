@@ -20,3 +20,5 @@ pnpm typecheck
 pnpm typecheck:exports
 pnpm build
 ```
+
+Or run all required checks with `pnpm verify`.
