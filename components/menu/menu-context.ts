@@ -1,7 +1,5 @@
+import type { InjectionKey } from "vue";
 import type { DirectionType } from "kui-vue/const/types";
-
-export const MenuContextKey = Symbol("menu-context");
-export const SubMenuContextKey = Symbol("sub-menu-context");
 
 export interface MenuContext {
   openKeys: string[];
@@ -19,3 +17,6 @@ export interface SubMenuContext {
   clearPopTimer: () => void;
   hidePopTimer: () => void;
 }
+
+export const MenuContextKey: InjectionKey<MenuContext> = Symbol("menu-context");
+export const SubMenuContextKey: InjectionKey<SubMenuContext> = Symbol("sub-menu-context");

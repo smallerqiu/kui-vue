@@ -26,8 +26,8 @@
 
 <script setup lang="ts">
 import type { QRCodeErrorLevel } from "kui-vue";
+import { KSwitch } from "kui-vue";
 import { ref } from "vue";
-import { KSwitch } from "../../components";
 const url = "https://k-ui.cn";
 const color = ref("#4CAF50");
 const size = ref(100);

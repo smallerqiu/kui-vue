@@ -1,8 +1,7 @@
 import { CircleCheck, CircleX, Info, TriangleAlert } from "kui-icons";
 import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
 import Icon, { type IconType } from "../icon";
-
-export type ResultStatus = "success" | "error" | "info" | "warning" | "403" | "404" | "500";
+import type { ResultStatus } from "./types";
 
 const resultProps = {
   status: { type: String as PropType<ResultStatus>, default: "info" },
@@ -68,3 +67,5 @@ const Result = defineComponent({
 });
 
 export default Result;
+
+export type { ResultStatus } from "./types";

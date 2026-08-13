@@ -33,14 +33,8 @@ import type {
   SizeType,
   ThemeType,
 } from "../const/types";
-import Option, { type OptionSelectEvent } from "./option"; // 导入 Option 组件
-
-export interface SelectOption {
-  label: string | number;
-  value: string | number;
-  disabled?: boolean;
-}
-type SelectValue = string | number;
+import Option from "./option";
+import type { OptionSelectEvent, SelectOption, SelectValue } from "./types";
 const selectProps = {
   placeholder: String,
   size: {
@@ -695,3 +689,5 @@ const Select = defineComponent({
   },
 });
 export default Select;
+
+export type { SelectOption } from "./types";

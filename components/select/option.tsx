@@ -10,10 +10,7 @@ import {
 } from "vue";
 import { type BooleanType } from "../const/types";
 import Icon from "../icon";
-export type OptionSelectEvent = {
-  value: string | number;
-  label: string | number;
-};
+import type { OptionSelectEvent } from "./types";
 const optionProps = {
   value: { type: [String, Number] as PropType<string | number>, required: true },
   label: { type: [String, Number, Object] as PropType<string | number | VNodeChild> },
@@ -67,3 +64,5 @@ const Option = defineComponent({
   },
 });
 export default Option as DefineComponent<OptionProps>;
+
+export type { OptionSelectEvent } from "./types";

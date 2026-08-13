@@ -1,11 +1,7 @@
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { defineComponent, provide } from "vue";
-import { type BooleanType, type SizeType } from "../const/types";
-
-export type FlexSizeType = SizeType | number | (string | number)[];
-export type FlexAlignType = "start" | "flex-start" | "end" | "flex-end" | "center" | "baseline";
-export type FlexJustifyType =
-  "flex-start" | "center" | "flex-end" | "space-between" | "space-around" | "space-evenly";
+import type { BooleanType } from "../const/types";
+import type { FlexAlignType, FlexJustifyType, FlexSizeType } from "./types";
 const flexProps = {
   align: {
     type: String as PropType<FlexAlignType>,
@@ -59,3 +55,5 @@ const Flex = defineComponent({
 });
 
 export default Flex;
+
+export type { FlexAlignType, FlexJustifyType, FlexSizeType } from "./types";

@@ -9,17 +9,9 @@ import {
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
-  type Ref,
 } from "vue";
 import type { BooleanType } from "../const/types";
-
-// 定义 provide/inject 的接口，确保类型安全
-export interface AnchorContext {
-  activeLink: Ref<string>;
-  registerLink: (link: string) => void;
-  unregisterLink: (link: string) => void;
-  handleScrollTo: (link: string) => void;
-}
+import { anchorContextKey } from "./context";
 
 const anchorProps = {
   affix: { type: Boolean as BooleanType, default: true },
@@ -182,7 +174,7 @@ const Anchor = defineComponent({
       scrollEndTimer = setTimeout(finishClickScrolling, 1000);
     };
 
-    provide<AnchorContext>("kAnchor", {
+    provide(anchorContextKey, {
       activeLink,
       registerLink: (link: string) => {
         links.add(link);

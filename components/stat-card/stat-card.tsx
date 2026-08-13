@@ -1,21 +1,8 @@
-import type { ExtractPropTypes, PropType, VNode, VNodeChild } from "vue";
+import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent } from "vue";
 import type { BooleanType } from "../const/types";
 import StatNumber from "./stat-number";
-
-export interface StatNumberItem {
-  value: number;
-  duration?: number;
-  precision?: number;
-  separator?: string;
-  prefix?: string | VNode;
-  suffix?: string | VNode;
-  desc?: string;
-  trend?: VNodeChild;
-  trendStatus?: "default" | "success" | "danger" | "warning";
-  autoAnimate?: boolean;
-  autoAnimateOnce?: boolean;
-}
+import type { StatNumberItem } from "./types";
 
 const statCardProps = {
   title: String,
@@ -84,3 +71,5 @@ const StatCard = defineComponent({
   },
 });
 export default StatCard;
+
+export type { StatNumberItem } from "./types";

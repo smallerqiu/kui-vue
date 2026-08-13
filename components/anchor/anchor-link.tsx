@@ -6,7 +6,7 @@ import {
   watch,
   type ExtractPropTypes,
 } from "vue";
-import type { AnchorContext } from "./anchor";
+import { anchorContextKey } from "./context";
 
 const anchorLinkProps = {
   href: { type: String, required: true },
@@ -19,7 +19,7 @@ const AnchorLink = defineComponent({
   name: "AnchorLink",
   props: anchorLinkProps,
   setup(props, { slots, attrs }) {
-    const anchorContext = inject<AnchorContext | null>("kAnchor", null);
+    const anchorContext = inject(anchorContextKey, null);
 
     onMounted(() => {
       if (props.href) anchorContext?.registerLink(props.href);

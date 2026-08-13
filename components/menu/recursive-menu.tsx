@@ -1,5 +1,5 @@
 import { defineComponent, type PropType } from "vue";
-import type { MenuOptionsProps } from "./menu";
+import type { MenuOptionsProps } from "./types";
 import MenuItem from "./menu-item";
 import RecursiveSubMenu from "./recursive-menu";
 import SubMenu from "./sub-menu";

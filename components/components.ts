@@ -191,7 +191,12 @@ export { default as Upload } from "./upload";
 export type { UploadChangeEvent, UploadContext, UploadFile, UploadProps } from "./upload";
 
 export { default as Watermark } from "./watermark";
-export type { WatermarkLayoutType, WatermarkProps } from "./watermark";
+export type {
+  WatermarkFont,
+  WatermarkLayoutType,
+  WatermarkProps,
+  WatermarkTextItem,
+} from "./watermark";
 
 export { default as theme } from "./utils/theme";
 

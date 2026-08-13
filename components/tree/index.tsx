@@ -17,12 +17,8 @@ import Checkbox, { type ChangeEvent } from "../checkbox";
 import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 import { treeSelectContextKey } from "./context";
+import type { TreeExpandEvent } from "./types";
 import { buildTree, updateParentIndeterminate, type TreeNode } from "./utils";
-export interface TreeExpandEvent {
-  key: string;
-  expanded: boolean;
-  node: TreeNode;
-}
 const treeProps = {
   data: Array as PropType<TreeNode[]>,
   selectedKeys: Array as PropType<string[]>,
@@ -727,3 +723,5 @@ const Tree = defineComponent({
 });
 
 export default Tree;
+
+export type { TreeExpandEvent } from "./types";

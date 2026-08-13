@@ -5,8 +5,7 @@ import {
   type PropType,
   type VNode,
 } from "vue";
-import type { BooleanType } from "../const/types";
-export type BadgeStatusType = "default" | "success" | "error" | "warning";
+import type { BadgeStatusType, BooleanType } from "../const/types";
 const badgeProps = {
   count: [String, Number],
   dot: Boolean as BooleanType,
@@ -102,3 +101,5 @@ const Badge = defineComponent({
 });
 
 export default Badge;
+
+export type { BadgeStatusType } from "../const/types";

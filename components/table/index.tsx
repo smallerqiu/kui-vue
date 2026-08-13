@@ -16,27 +16,7 @@ import type { BooleanType, SizeType } from "../const/types";
 import Empty from "../empty";
 import Icon from "../icon";
 import Spin from "../spin";
-
-export interface Column {
-  key: string;
-  title: string;
-  width?: number;
-  fixed?: "left" | "right";
-  sorter?: boolean | ((state: SortState) => void);
-  render?: (
-    h: typeof import("vue").h,
-    record: TableRecord,
-    colIndex: number,
-    rowIndex: number,
-    col: Column
-  ) => VNodeChild;
-  colSpan?: number | ((record: TableRecord, index: number) => number);
-  rowSpan?: number | ((record: TableRecord, index: number) => number);
-  children?: Column[];
-}
-
-export type TableKey = string | number;
-export type TableRecord = Record<string, unknown>;
+import type { Column, SortState, TableKey, TableRecord } from "./types";
 
 const tableProps = {
   data: { type: Array as PropType<TableRecord[]>, default: () => [] },
@@ -75,11 +55,6 @@ interface Matrix {
 }
 
 export type TableProps = ExtractPropTypes<typeof tableProps>;
-
-export interface SortState {
-  key: string;
-  order: null | "desc" | "asc";
-}
 
 const Table = defineComponent({
   name: "Table",
@@ -676,3 +651,5 @@ const Table = defineComponent({
 });
 
 export default Table;
+
+export type { Column, SortState, TableKey, TableRecord } from "./types";

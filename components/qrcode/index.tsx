@@ -16,8 +16,7 @@ import { Button } from "../button";
 import type { BooleanType } from "../const/types";
 import zhCN from "../locale/zh-CN";
 import Spin from "../spin";
-export type QRCodeStatus = "active" | "loading" | "expired" | "scanned";
-export type QRCodeErrorLevel = "L" | "M" | "Q" | "H";
+import type { QRCodeErrorLevel, QRCodeStatus } from "./types";
 const qrCodeProps = {
   value: { type: String, required: true },
   size: { type: Number, default: 160 },
@@ -256,3 +255,5 @@ const QRCode = defineComponent({
 });
 
 export default QRCode;
+
+export type { QRCodeErrorLevel, QRCodeStatus } from "./types";

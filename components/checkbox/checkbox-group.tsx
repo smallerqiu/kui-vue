@@ -1,14 +1,8 @@
 import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType, type VNode } from "vue";
 import type { BooleanType, DirectionType, SizeType, ThemeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
-import Checkbox, { type ChangeEvent } from "./checkbox";
-
-export interface CheckboxOption {
-  label?: string;
-  value?: string | number;
-  disabled?: boolean;
-}
-type CheckboxValue = string | number | boolean;
+import Checkbox from "./checkbox";
+import type { CheckboxChangeEvent, CheckboxOption, CheckboxValue } from "./types";
 
 const checkboxGroupProps = {
   modelValue: {
@@ -45,7 +39,7 @@ const CheckboxGroup = defineComponent({
       }
     );
 
-    const onChange = ({ value }: ChangeEvent) => {
+    const onChange = ({ value }: CheckboxChangeEvent) => {
       if (value === undefined) return;
       const val = [...currentValue.value];
       const index = val.indexOf(value);

@@ -12,8 +12,8 @@
   </Space>
 </template>
 <script setup lang="ts">
+import type { SizeType } from "kui-vue";
 import { ref } from "vue";
-import type { SizeType } from "../../const/types";
 const size = ref<SizeType>("medium");
 const value1 = ref(0);
 const value2 = ref([0, 1]);

@@ -3,6 +3,7 @@ import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } fro
 import type { BooleanType, SizeType, ThemeType, ValueType } from "../const/types";
 import Icon from "../icon";
 import { getValueWithType } from "../utils/checked";
+import type { CheckboxChangeEvent } from "./types";
 
 const checkboxProps = {
   checked: {
@@ -20,14 +21,9 @@ const checkboxProps = {
     type: String as PropType<SizeType>,
   },
   onChange: {
-    type: Function as PropType<(e: ChangeEvent) => void>,
+    type: Function as PropType<(e: CheckboxChangeEvent) => void>,
   },
 };
-export interface ChangeEvent {
-  value?: string | number | boolean;
-  label?: string | number;
-  checked: boolean;
-}
 
 export type CheckboxProps = ExtractPropTypes<typeof checkboxProps>;
 
@@ -58,7 +54,7 @@ const Checkbox = defineComponent({
         checked: checked,
         value: props.value,
         label: props.label || slots.default?.(),
-      } as ChangeEvent);
+      } as CheckboxChangeEvent);
       emit("update:modelValue", value);
       emit("update:checked", checked);
     };

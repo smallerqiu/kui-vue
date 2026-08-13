@@ -12,24 +12,12 @@ import {
   type PropType,
   type Ref,
 } from "vue";
-import type { BooleanType, UploadStatusType } from "../const/types";
+import type { BooleanType } from "../const/types";
 import { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
 import FileList from "./file-list";
 import Selector from "./selector";
-
-export interface UploadFile {
-  uid?: string;
-  url?: string;
-  filename?: string;
-  size?: string;
-  status?: UploadStatusType;
-  percent?: number;
-  preview?: string | null;
-  response?: unknown;
-  errorText?: string;
-  xhr?: XMLHttpRequest;
-}
+import type { UploadChangeEvent, UploadFile } from "./types";
 
 const uploadProps = {
   method: { type: String, default: "post" },
@@ -65,11 +53,6 @@ const uploadProps = {
 };
 
 export type UploadProps = ExtractPropTypes<typeof uploadProps>;
-
-export interface UploadChangeEvent {
-  file: UploadFile;
-  fileList: UploadFile[];
-}
 
 export interface UploadContext extends UploadProps {
   upload: () => void;
@@ -393,3 +376,5 @@ const Upload = defineComponent({
   },
 });
 export default Upload;
+
+export type { UploadChangeEvent, UploadFile } from "./types";

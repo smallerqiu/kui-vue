@@ -11,8 +11,7 @@ import {
   type VNodeChild,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
-
-export type InputOTPValidator = (value: string) => boolean;
+import type { InputOTPValidator } from "./types";
 
 const inputOTPProps = {
   modelValue: { type: [String, Number] as PropType<string | number>, default: "" },
@@ -187,3 +186,5 @@ const InputOTP = defineComponent({
 });
 
 export default InputOTP as DefineComponent<InputOTPProps>;
+
+export type { InputOTPValidator } from "./types";

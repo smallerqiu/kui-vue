@@ -10,10 +10,7 @@ import {
 } from "vue";
 import type { BooleanType, SizeType } from "../const/types";
 import Icon from "../icon";
-
-export type ProgressStatus = "active" | "exception" | "success" | "normal";
-export type ProgressStroke = "round" | "butt" | "square";
-export type ProgressType = "line" | "circle" | "dashboard";
+import type { ProgressStatus, ProgressStroke, ProgressType } from "./types";
 
 const progressProps = {
   percent: { type: Number, default: 0 },
@@ -195,3 +192,5 @@ const Progress = defineComponent({
   },
 });
 export default Progress;
+
+export type { ProgressStatus, ProgressStroke, ProgressType } from "./types";

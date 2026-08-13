@@ -5,7 +5,7 @@ import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 import Progress from "../progress";
 import Tooltip from "../tooltip";
-import type { UploadFile } from "./index";
+import type { UploadFile } from "./types";
 import zhCN from "../locale/zh-CN";
 
 const uploadFileListProps = {

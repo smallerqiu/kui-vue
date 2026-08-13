@@ -1,5 +1,6 @@
 import { defineComponent, type CSSProperties, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType } from "../const/types";
+import type { IconType } from "./types";
 
 const parseStyle = (styleString: string) => {
   const styles: Record<string, string | number> = {};
@@ -15,11 +16,6 @@ const parseStyle = (styleString: string) => {
 
   return styles;
 };
-
-export interface IconType {
-  d: string;
-  s?: string;
-}
 
 const iconProps = {
   type: Array as PropType<IconType[]>,
@@ -89,3 +85,5 @@ const Icon = defineComponent({
 });
 
 export default Icon;
+
+export type { IconType } from "./types";

@@ -1,4 +1,5 @@
-import Menu, { type MenuOptionsProps, type MenuProps, type MenuSelectEvent } from "./menu";
+import Menu, { type MenuProps } from "./menu";
+import type { MenuOptionsProps, MenuSelectEvent } from "./types";
 import MenuDivider from "./menu-divider";
 import MenuGroup, { type MenuGroupProps } from "./menu-group";
 import MenuItem, { type MenuItemProps } from "./menu-item";

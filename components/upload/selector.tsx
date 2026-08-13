@@ -4,7 +4,7 @@ import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 import type { IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
-import type { UploadFile } from "./index";
+import type { UploadFile } from "./types";
 
 const selectorProps = {
   disabled: Boolean as BooleanType,

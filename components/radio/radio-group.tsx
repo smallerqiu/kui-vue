@@ -19,18 +19,10 @@ import type {
   SizeType,
   ThemeType,
 } from "../const/types";
-import type { IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
 import Radio from "./radio";
 import RadioButton from "./radio-button";
-import type { ChangeEvent } from "./types";
-
-export interface RadioOption {
-  label?: string;
-  value?: string | number;
-  disabled?: boolean;
-  icon?: IconType[];
-}
+import type { ChangeEvent, RadioOption } from "./types";
 
 const radioGroupProps = {
   modelValue: { type: [String, Number], default: "" },

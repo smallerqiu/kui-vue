@@ -9,18 +9,7 @@ import {
   type PropType,
 } from "vue";
 import type { BooleanType } from "../const/types";
-
-export interface Font {
-  color?: string;
-  fontSize?: number;
-  fontWeight?: string | number;
-  fontFamily?: string;
-  fontStyle?: "normal" | "italic" | "oblique";
-}
-export interface WatermarkTextItem extends Font {
-  text: string;
-}
-export type WatermarkLayoutType = "stagger" | "grid";
+import type { WatermarkFont, WatermarkLayoutType, WatermarkTextItem } from "./types";
 
 const watermarkProps = {
   content: {
@@ -35,7 +24,7 @@ const watermarkProps = {
   fullscreen: { type: Boolean as BooleanType, default: false },
   antiTamper: { type: Boolean as BooleanType, default: true },
   font: {
-    type: Object as PropType<Font>,
+    type: Object as PropType<WatermarkFont>,
     default: () => ({
       color: "rgba(128, 128, 128, 0.15)",
       fontSize: 15,
@@ -324,3 +313,10 @@ const Watermark = defineComponent({
 });
 
 export default Watermark;
+
+export type {
+  WatermarkFont as Font,
+  WatermarkFont,
+  WatermarkLayoutType,
+  WatermarkTextItem,
+} from "./types";

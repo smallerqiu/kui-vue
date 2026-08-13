@@ -1,11 +1,7 @@
 import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent, nextTick, provide, reactive, ref, toRefs } from "vue";
 import type { BooleanType, DirectionType, ShapeType, SizeType, ThemeType } from "../const/types";
-import type { ColProps, FormRule } from "./types";
-
-export interface FormSubmitEvent {
-  valid: boolean;
-}
+import type { ColProps, FormRule, FormSubmitEvent } from "./types";
 
 const formProps = {
   layout: {
@@ -32,13 +28,6 @@ const formProps = {
     type: Function as PropType<() => void>,
   },
 };
-
-export interface FormExpose {
-  validate: (callback?: (result: FormSubmitEvent) => void) => Promise<FormSubmitEvent>;
-  reset: () => void;
-  test: (key: string) => Promise<boolean> | undefined;
-  submit: () => Promise<void>;
-}
 
 export type FormProps = ExtractPropTypes<typeof formProps>;
 

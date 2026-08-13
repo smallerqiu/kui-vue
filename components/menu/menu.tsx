@@ -8,19 +8,13 @@ import {
   watch,
   type ExtractPropTypes,
   type PropType,
-  type VNode,
 } from "vue";
 
 import { DropdownContextKey, type DropdownContext } from "kui-vue/dropdown/dropdown-context";
 import type { BooleanType, DirectionType } from "../const/types";
-import type { IconType } from "../icon";
 import { MenuContextKey } from "./menu-context";
 import RecursiveMenu from "./recursive-menu";
-
-export interface MenuSelectEvent {
-  key: string;
-  keyPath: string[];
-}
+import type { MenuOptionsProps, MenuSelectEvent } from "./types";
 const menuProps = {
   theme: String,
   mode: { type: String as PropType<DirectionType>, default: "vertical" },
@@ -33,15 +27,6 @@ const menuProps = {
   onOpenChange: { type: Function as PropType<(openKeys: string[]) => void> },
 };
 
-export interface MenuOptionsProps {
-  icon?: IconType[];
-  title?: string | VNode;
-  key: string;
-  disabled?: boolean;
-  children?: MenuOptionsProps[];
-  [key: string]: unknown;
-}
-
 export type MenuProps = ExtractPropTypes<typeof menuProps>;
 
 const Menu = defineComponent({
@@ -51,8 +36,8 @@ const Menu = defineComponent({
     const defaultSelectedKeys = ref([...(props.modelValue || [])]);
     const defaultOpenKeys = ref(props.inlineCollapsed ? [] : [...(props.openKeys || [])]);
     const currentMode = ref(props.mode);
-    const currentInlineCollapsed = ref(props.inlineCollapsed);
-    const popupInlineCollapsed = ref(props.inlineCollapsed);
+    const currentInlineCollapsed = ref(!!props.inlineCollapsed);
+    const popupInlineCollapsed = ref(!!props.inlineCollapsed);
     const tempOpenKeys = ref([...(props.openKeys || [])]);
     const collapseTimer = ref<ReturnType<typeof setTimeout>>();
     const dropdownContext = inject<DropdownContext | null>(DropdownContextKey, null);
@@ -196,3 +181,5 @@ const Menu = defineComponent({
   },
 });
 export default Menu;
+
+export type { MenuOptionsProps, MenuSelectEvent } from "./types";
