@@ -4,7 +4,7 @@
   "version": "5.5.1",
   "type": "module",
   "description": "A lightweight desktop UI component library suitable for Vue.js 3.",
-  "main": "lib/index.js",
+  "main": "lib/index.cjs",
   "module": "es/index.js",
   "unpkg": "dist/index.js",
   "jsdelivr": "dist/index.js",
@@ -12,18 +12,28 @@
   "types": "types/index.d.ts",
   "exports": {
     ".": {
-      "types": "./types/index.d.ts",
-      "import": "./es/index.js",
-      "require": "./lib/index.js"
+      "import": {
+        "types": "./types/index.d.ts",
+        "default": "./es/index.js"
+      },
+      "require": {
+        "types": "./types/index.d.cts",
+        "default": "./lib/index.cjs"
+      }
     },
     "./dist/*": "./dist/*",
     "./global": {
       "types": "./types/global.d.ts"
     },
     "./locale/*": {
-      "types": "./types/locale/*.d.ts",
-      "import": "./es/locale/*.js",
-      "require": "./lib/locale/*.js"
+      "import": {
+        "types": "./types/locale/*.d.ts",
+        "default": "./es/locale/*.js"
+      },
+      "require": {
+        "types": "./types/locale/*.d.cts",
+        "default": "./lib/locale/*.cjs"
+      }
     },
     "./style/*": "./style/*"
   },
@@ -37,26 +47,35 @@
     "types"
   ],
   "license": "MIT",
+  "sideEffects": [
+    "**/*.css",
+    "**/*.less"
+  ],
+  "engines": {
+    "node": ">=20.19.0",
+    "pnpm": ">=10"
+  },
+  "packageManager": "pnpm@11.20.0",
   "scripts": {
-    "start": "npm run dev",
+    "start": "pnpm dev",
     "dev": "vite --config vite.config.docs.ts",
-    "build": "npm run build:css && npm run build:lib && npm run build:umd && npm run build:es",
+    "build": "pnpm build:css && pnpm build:lib && pnpm build:umd && pnpm build:es && pnpm build:types:compat",
     "build:es": "vite build",
     "build:lib": "vite build --config vite.config.lib.ts",
     "build:umd": "vite build --config vite.config.umd.ts",
     "build:css": "vite build --config vite.config.css.ts",
+    "build:types:compat": "node scripts/create-cjs-types.mjs",
     "build:docs": "vite build --config vite.config.docs.ts",
     "preview": "vite preview --outDir docs",
-    "typecheck": "tsc -p tsconfig.app.json --noEmit",
+    "typecheck": "vue-tsc -p tsconfig.app.json --noEmit --pretty false",
     "typecheck:exports": "tsc -p tsconfig.type-exports.json --noEmit",
+    "test": "vitest run",
     "format": "prettier --write .",
     "format:md": "prettier --write ./components/*/index*.md",
-    "tsc": "vue-tsc --build --declaration --emitDeclarationOnly",
-    "type-check": "vue-tsc --build --noEmit",
-    "check": "vue-tsc -p tsconfig.app.json --noEmit --pretty false",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "verify": "pnpm lint && pnpm typecheck && pnpm typecheck:exports && pnpm build"
+    "lint": "eslint . --cache --cache-location node_modules/.cache/eslint/.eslintcache",
+    "lint:fix": "eslint . --fix --cache --cache-location node_modules/.cache/eslint/.eslintcache",
+    "package:check": "publint --strict && node scripts/check-package-exports.mjs",
+    "verify": "pnpm lint && pnpm typecheck && pnpm typecheck:exports && pnpm test && pnpm build && pnpm package:check"
   },
   "author": {
     "name": "Qiu",
@@ -65,7 +84,7 @@
   "homepage": "https://k-ui.cn",
   "repository": {
     "type": "git",
-    "url": "https://github.com/smallerqiu/kui-vue"
+    "url": "git+https://github.com/smallerqiu/kui-vue.git"
   },
   "bugs": {
     "url": "https://github.com/smallerqiu/kui-vue/issues",
@@ -115,6 +134,7 @@
     "@vitejs/plugin-vue": "^6.0.8",
     "@vitejs/plugin-vue-jsx": "^5.1.6",
     "@vue/compiler-sfc": "^3.5.41",
+    "@vue/test-utils": "^2.4.11",
     "@vue/tsconfig": "^0.9.1",
     "eslint": "^10.8.1",
     "eslint-plugin-vue": "^10.10.0",
@@ -122,10 +142,12 @@
     "globals": "^17.9.0",
     "hash-sum": "^2.0.0",
     "highlight.js": "^11.11.1",
+    "jsdom": "^30.0.1",
     "less": "^4.8.1",
     "markdown-it": "^15.0.0",
     "markdown-it-anchor": "^9.2.1",
     "prettier": "^3.9.6",
+    "publint": "^0.3.23",
     "sucrase": "^3.35.1",
     "terser": "^5.49.2",
     "ts-morph": "^28.0.0",
@@ -133,6 +155,7 @@
     "typescript-eslint": "^8.67.0",
     "vite": "^8.2.1",
     "vite-plugin-dts": "^5.0.3",
+    "vitest": "^4.1.10",
     "vue-router": "^5.2.0",
     "vue-tsc": "^3.3.9"
   },

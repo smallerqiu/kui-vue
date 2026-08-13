@@ -86,7 +86,7 @@ You can manually resize the browser window to observe the effect.
 | itemMinWidth | Auto-fill mode. Set the minimum width of child items. Grid will automatically calculate the number of columns based on container width. | number                   | -       |
 | align        | Vertical alignment of child items within grid cells                                                                                     | string (center, start..) | -       |
 | justify      | Horizontal alignment of child items within grid cells.                                                                                  | string (center, start..) | -       |
-| debug        | Debug mode. When enabled, red transparent background columns are displayed to facilitate developer layout alignment.                    | bool                  | false   |
+| debug        | Debug mode. When enabled, red transparent background columns are displayed to facilitate developer layout alignment.                    | bool                     | false   |
 
 ## GridItem API
 
@@ -95,7 +95,7 @@ You can manually resize the browser window to observe the effect.
 | span     | number of columns occupied. When set to 0, it will be completely hidden (display: none) at this breakpoint | number, string, Object | 1       |
 | rowSpan  | number of rows occupied. Combined with the container's autoRows, asymmetric layouts can be achieved        | number, string, Object | 1       |
 | offset   | number of columns to offset to the left. Used to create whitespace without using blank placeholders.       | number, Object         | 0       |
-| suffix   | Fixed at the end. When set to true, the item will be forced to the end of the current row.                 | bool                | false   |
+| suffix   | Fixed at the end. When set to true, the item will be forced to the end of the current row.                 | bool                   | false   |
 
 ## Breakpoints
 

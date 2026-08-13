@@ -15,6 +15,7 @@ export interface FormRule {
   type?: "mobile" | "mail" | "number";
   min?: number;
   max?: number;
+  trigger?: "blur" | "change";
 }
 
 export interface FormSubmitEvent {

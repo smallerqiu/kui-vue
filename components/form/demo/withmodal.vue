@@ -57,7 +57,7 @@ const form = ref({
   username: "",
   age: "",
 });
-const userRules: FormRule = {
+const userRules: Record<string, FormRule[]> = {
   username: [{ required: true, message: "Please input the organization name" }],
   age: [
     { required: true, message: "Please input the age." },

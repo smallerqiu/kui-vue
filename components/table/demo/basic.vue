@@ -22,7 +22,7 @@
 </template>
 <script setup lang="ts">
 import { ArrowDown, ArrowUp, Moon, Sun, Trash2 } from "kui-icons";
-import { message, modal, type Column } from "kui-vue";
+import { message, modal, type Column, type TableRecord } from "kui-vue";
 import { reactive } from "vue";
 const data = reactive([
   {
@@ -83,7 +83,7 @@ const show = (record: TableRow) => {
     content: `My name is ${record.name}`,
   });
 };
-const rowClick = (data: TableRow) => {
-  message.info("Test row click: " + data.name);
+const rowClick = (record: TableRecord) => {
+  message.info("Test row click: " + String(record.name));
 };
 </script>

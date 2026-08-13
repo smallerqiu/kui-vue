@@ -17,7 +17,7 @@ export default defineConfig({
       },
       name: "kui",
       formats: ["cjs"],
-      fileName: (_, entryName) => `${entryName}.js`,
+      fileName: (_, entryName) => `${entryName}.cjs`,
     },
     minify: "terser",
     terserOptions: {

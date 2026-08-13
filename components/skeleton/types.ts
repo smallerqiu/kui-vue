@@ -9,7 +9,7 @@ export const skeletonProps = {
   width: Number,
   delay: { type: Number, default: 500 },
   shape: String as PropType<ShapeType | "default">,
-  size: [Number, String, Array] as PropType<number | SizeType | number[]>,
+  size: [Number, String, Array] as PropType<number | SizeType | "default" | number[]>,
   title: { type: Number, default: 35 },
   rows: { type: Number, default: 3 },
   avatar: {

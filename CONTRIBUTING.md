@@ -18,7 +18,9 @@ Run the following before submitting changes:
 pnpm lint
 pnpm typecheck
 pnpm typecheck:exports
+pnpm test
 pnpm build
+pnpm package:check
 ```
 
 Or run all required checks with `pnpm verify`.

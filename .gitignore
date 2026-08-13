@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
+.eslintcache
 /dist
 /es
 /lib
@@ -7,6 +8,8 @@ node_modules
 /docs
 /types
 /vetur
+.pnpm-store
+.sixth
 
 # local env files
 .env.local

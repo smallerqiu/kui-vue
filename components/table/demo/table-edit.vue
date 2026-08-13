@@ -10,7 +10,7 @@
       <template v-else>{{ value }}</template>
     </template>
     <template #age="{ value, record }">
-      <Input v-model="record.age" size="small" v-if="record.isEdit" />
+      <InputNumber v-model="record.age" size="small" v-if="record.isEdit" />
       <template v-else>{{ value }}</template>
     </template>
     <template #action="{ record }">
@@ -85,7 +85,7 @@ const removeRow = (key: string) => {
 const add = () => {
   const key = count.value;
   const record: TableRow = {
-    key,
+    key: String(key),
     name: `Name ${key}`,
     age: 30,
     address: `China Wuhan no.${key}`,

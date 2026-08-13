@@ -170,8 +170,9 @@ const deleteNode = (e: MouseEvent, node: TreeNode) => {
       if (data[i].key === key) {
         return callback(data[i], i, data);
       }
-      if (data[i].children) {
-        loop(data[i].children, key, callback);
+      const children = data[i].children;
+      if (children) {
+        loop(children, key, callback);
       }
     }
   };

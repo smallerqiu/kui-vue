@@ -79,19 +79,22 @@ const rules = ref({
 });
 const labelCol = { span: 8 };
 const wrapperCol = { span: 16 };
-const files = ref<UploadFile[]>([]);
+const files = ref<string[]>([]);
+const getResponseUrl = (file: UploadFile) => (file.response as { url?: string } | undefined)?.url;
 const uploadFile = ({ file }: UploadChangeEvent) => {
   console.log(file);
   loading.value = true;
   if (file.status == "success") {
     loading.value = false;
-    form.file = file.response.url;
+    form.file = getResponseUrl(file) || "";
     formRef.value?.test("file");
   }
 };
 const uploadFiles = ({ file }: UploadChangeEvent) => {
   if (file.status == "success") {
-    files.value.push(file.response.url);
+    const url = getResponseUrl(file);
+    if (!url) return;
+    files.value.push(url);
     form.files = files.value.join(",");
     // form.files.push(file.response.url);
     formRef.value?.test("files");
@@ -100,8 +103,9 @@ const uploadFiles = ({ file }: UploadChangeEvent) => {
 const remove = ({ file }: UploadChangeEvent) => {
   // 删除文件的时候 要对应的从表单中删除相对应的url
   if (file.status == "success") {
-    let url = file.response.url;
-    let index = form.files.indexOf(url);
+    const url = getResponseUrl(file);
+    if (!url) return;
+    const index = files.value.indexOf(url);
     files.value.splice(index, 1);
     form.files = files.value.join(",");
     formRef.value?.test("files");
@@ -109,7 +113,7 @@ const remove = ({ file }: UploadChangeEvent) => {
 };
 const uploadAvatar = ({ file }: UploadChangeEvent) => {
   if (file.status == "success") {
-    form.avatar = file.response.url;
+    form.avatar = getResponseUrl(file) || "";
     formRef.value?.test("avatar");
   }
 };

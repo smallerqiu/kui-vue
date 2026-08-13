@@ -112,11 +112,12 @@ const getPath = (path: string) => {
   };
 };
 const setActiveKey = ({ path }: { path: string }) => {
-  let { current = {}, prev = {}, next = {} } = getPath(path);
+  const { current, prev, next } = getPath(path);
+  if (!current) return;
   // console.log(current, prev, next);
   Object.assign(prevNavData, prev);
   Object.assign(nextNavData, next);
-  let { title, sub, name } = current;
+  const { title, sub, name } = current;
   document.title = `${lang.value != "en" ? title : ""} ${sub || ""} - KUI`;
   activeName.value = [name];
 };

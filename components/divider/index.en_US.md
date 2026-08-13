@@ -23,9 +23,9 @@ Dividing line that separates content.
 
 ## API
 
-| Parameter   | Description                                      | Type    | Default    |
-| ----------- | ------------------------------------------------ | ------- | ---------- |
-| text        | Divider text                                     | string  | -          |
-| dashed      | Whether it is a dashed line                      | bool | false      |
-| orientation | The position of the divider title : left right   | string  | center     |
-| type        | Horizontal or vertical type: horizontal vertical | string  | horizontal |
+| Parameter   | Description                                      | Type   | Default    |
+| ----------- | ------------------------------------------------ | ------ | ---------- |
+| text        | Divider text                                     | string | -          |
+| dashed      | Whether it is a dashed line                      | bool   | false      |
+| orientation | The position of the divider title : left right   | string | center     |
+| type        | Horizontal or vertical type: horizontal vertical | string | horizontal |

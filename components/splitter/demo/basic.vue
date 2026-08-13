@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { Flex } from "kui-vue";
 import { h, ref } from "vue";
-const sizes = ref([]);
+const sizes = ref<number[]>([]);
 
 const resize = (value: number[]) => {
   sizes.value = value;

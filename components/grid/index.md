@@ -86,7 +86,7 @@ Layout 及其子组件（Header, Sider, Content, Footer）属于页面骨架级�
 | itemMinWidth | 自动填充模式。设置子项最小宽度，Grid 将根据容器宽度自动计算列数。 | number                    | -      |
 | align        | 子项在网格单元格内的垂直对齐方式                                  | string ( center, start..) | -      |
 | justify      | 子项在网格单元格内的水平对齐方式。                                | string ( center, start..) | -      |
-| debug        | 调试模式。开启后会显示红色透明背景列，方便开发者校对布局。        | bool                   | false  |
+| debug        | 调试模式。开启后会显示红色透明背景列，方便开发者校对布局。        | bool                      | false  |
 
 ## GridItem API
 
@@ -95,7 +95,7 @@ Layout 及其子组件（Header, Sider, Content, Footer）属于页面骨架级�
 | span    | 占据的列数。设为 0 时会在该断点下彻底隐藏（display: none） | number,string,Object | 1      |
 | rowSpan | 占据的行数。配合容器的 autoRows 可实现非对称布局           | number,string,Object | 1      |
 | offset  | 左侧偏移的列数。用于在不使用空白占位符的情况下产生留白。   | number, Object       | 0      |
-| suffix  | 尾部固定。设为 true 时，该项将强制移动到当前行的末尾。     | bool              | false  |
+| suffix  | 尾部固定。设为 true 时，该项将强制移动到当前行的末尾。     | bool                 | false  |
 
 ## Breakpoints
 

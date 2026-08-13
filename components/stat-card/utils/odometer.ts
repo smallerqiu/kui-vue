@@ -16,11 +16,13 @@ interface DigitCell {
   timerClean?: ReturnType<typeof setTimeout> | null;
 }
 
-const rAF =
-  window.requestAnimationFrame ||
-  function (callback) {
-    window.setTimeout(callback, 1000 / 60);
-  };
+const rAF = (callback: FrameRequestCallback) => {
+  if (typeof window !== "undefined" && window.requestAnimationFrame) {
+    window.requestAnimationFrame(callback);
+    return;
+  }
+  setTimeout(() => callback(Date.now()), 1000 / 60);
+};
 
 export class Odometer implements CountUpPlugin {
   version = "1.0";

@@ -23,7 +23,7 @@ const uploadRef = ref<UploadContext>();
 const disabled = ref(true);
 const prams = ref({
   type: "image",
-  time: Date.now(),
+  time: String(Date.now()),
 });
 const headers = ref({
   authorization: "here is token",

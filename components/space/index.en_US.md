@@ -56,9 +56,9 @@ Avoid components sticking together, create uniform space.
 | Property | Description                                    | Type                                 | Default |
 | -------- | ---------------------------------------------- | ------------------------------------ | ------- |
 | align    | Alignment method                               | `start`, `end`, `center`, `baseline` | center  |
-| vertical | Whether to display vertically                  | bool                              | false   |
+| vertical | Whether to display vertically                  | bool                                 | false   |
 | size     | Spacing size                                   | `small`, `medium`, `large`, number   | small   |
-| wrap     | Whether to wrap                                | bool                              | false   |
+| wrap     | Whether to wrap                                | bool                                 | false   |
 | split    | Set split                                      | v-slot                               | -       |
-| compact  | Whether to use compact mode                    | bool                              | false   |
-| block    | Option to adjust width to parent element width | bool                              | false   |
+| compact  | Whether to use compact mode                    | bool                                 | false   |
+| block    | Option to adjust width to parent element width | bool                                 | false   |

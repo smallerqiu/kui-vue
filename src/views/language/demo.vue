@@ -127,7 +127,7 @@ const form = reactive({
   email: "",
   age: "",
 });
-const rules: FormRule = {
+const rules: Record<string, FormRule[]> = {
   name: [{ required: true }],
   email: [{ required: true }, { type: "mail" }],
   age: [{ required: true }, { type: "number", min: 10, max: 50 }],

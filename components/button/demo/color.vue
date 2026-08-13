@@ -30,5 +30,5 @@ const colors = [
   "purple",
   "pink",
   "brown",
-];
+] as const;
 </script>

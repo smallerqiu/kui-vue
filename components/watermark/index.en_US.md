@@ -31,8 +31,8 @@ Add a watermark to a specific area of the page.
 
 ## API
 
-| Property       | Description                                                                                                                                                   | Type                                        | Default    |
-| :------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------ | :--------- |
+| Property   | Description                                                                                                                                                   | Type                                        | Default    |
+| :--------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------ | :------------------------------------------ | :--------- |
 | content    | The text content of the watermark. Accepts a string or an array for multi-line support. Passing an array of objects allows independent styling for each line. | `string \| string[] \| WatermarkTextItem[]` | `""`       |
 | image      | The source URL (Base64 or URL) of the image watermark. If provided, the image watermark takes priority over text.                                             | `string`                                    | `""`       |
 | width      | Width of a single watermark cell, in `px`.                                                                                                                    | `number`                                    | `240`      |
@@ -50,9 +50,9 @@ Add a watermark to a specific area of the page.
 
 When passing an array of objects to `content`, each element is a `WatermarkTextItem`. This allows you to override global configurations and define fine-grained, heterogeneous styles for each individual line:
 
-| Property       | Description                                                                                                                                                                             | Type                                | Default                    |
-| :------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------- | :------------------------- |
-| text       | The text content for the current line.                                                                                                                                                  | `string`                            | Required               |
+| Property   | Description                                                                                                                                                                             | Type                                | Default                    |
+| :--------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :---------------------------------- | :------------------------- |
+| text       | The text content for the current line.                                                                                                                                                  | `string`                            | Required                   |
 | color      | Independent control over the text color for the current line. Supports various CSS color formats (e.g., hex, RGBA). Often used to highlight warnings or de-emphasize audit backgrounds. | `string`                            | Inherits `font.color`      |
 | fontSize   | Independent control over the font size for the current line, in `px`. Ideal for creating visual hierarchy (e.g., large titles paired with smaller subtitles).                           | `number`                            | Inherits `font.fontSize`   |
 | fontWeight | Independent control over the font weight for the current line (e.g., `bold` or numeric values like `500`).                                                                              | `string \| number`                  | Inherits `font.fontWeight` |
