@@ -4,7 +4,30 @@ import hljs from "highlight.js";
 import MarkdownIt, { type MarkdownIt as MarkdownItType } from "markdown-it";
 import anchor from "markdown-it-anchor";
 import path from "path";
+import { transform } from "sucrase";
 import { type Plugin } from "vite";
+
+const escapeTemplateInterpolation = (code: string) =>
+  code.replace(/{{/g, "&#123;&#123;").replace(/}}/g, "&#125;&#125;");
+
+const highlightSfc = (code: string) =>
+  escapeTemplateInterpolation(hljs.highlight(code, { language: "html" }).value).replace(
+    /\n/g,
+    "<br>"
+  );
+
+export const toJavaScriptSfc = (source: string) =>
+  source.replace(
+    /<script([^>]*)\blang\s*=\s*["']ts["']([^>]*)>([\s\S]*?)<\/script>/gi,
+    (_, beforeLang: string, afterLang: string, script: string) => {
+      const attributes = `${beforeLang}${afterLang}`.trim();
+      const output = transform(script, {
+        transforms: ["typescript"],
+        disableESTransforms: true,
+      }).code.trim();
+      return `<script${attributes ? ` ${attributes}` : ""}>\n${output}\n</script>`;
+    }
+  );
 
 export default function vitePluginKuiMd(): Plugin {
   const markdown: MarkdownItType = new MarkdownIt({
@@ -48,11 +71,8 @@ export default function vitePluginKuiMd(): Plugin {
 
           const absolutePath = path.resolve(path.dirname(id), src);
           const demoCode = fs.readFileSync(absolutePath, "utf-8").trim();
-          let highlighted = hljs.highlight(demoCode, {
-            language: "html",
-          }).value;
-
-          highlighted = highlighted.replace(/{{/g, "&#123;&#123;").replace(/}}/g, "&#125;&#125;");
+          const highlightedTypeScript = highlightSfc(demoCode);
+          const highlightedJavaScript = highlightSfc(toJavaScriptSfc(demoCode));
 
           demoImports.push(`import ${componentName} from '${src}';`);
 
@@ -61,7 +81,8 @@ export default function vitePluginKuiMd(): Plugin {
 <Demo id="${_id}" direction="${direction}">
     <template #title>${title}</template>
     <template #component><${componentName} /></template>
-    <template #code><pre><code class="hljs language-js">${highlighted.replace(/\n/g, "<br>")}</code></pre></template>
+    <template #code-ts><pre><code class="hljs language-html">${highlightedTypeScript}</code></pre></template>
+    <template #code-js><pre><code class="hljs language-html">${highlightedJavaScript}</code></pre></template>
     <template #description>
       ${renderedDescription.trim().replace(/\n/g, "<br>")}
     </template>

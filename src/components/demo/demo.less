@@ -9,7 +9,9 @@
     padding: 20px;
     box-sizing: border-box;
   }
-
+  .k-code {
+    outline: none;
+  }
   .k-desc {
     margin: 30px 0 0;
     border-top: 1px solid var(--kui-color-border);
@@ -54,7 +56,7 @@
     transition: all 0.3s ease;
     position: relative;
     outline: none;
-    background-color: var(--kui-color-bg-container);
+    // background-color: var(--kui-color-bg-container);
     .k-code-pre {
       height: 100%;
       min-height: 100%;
@@ -89,6 +91,7 @@
     cursor: pointer;
   }
   .k-code-tools {
+    box-shadow: 0 0 9px 2px #00000024;
     position: absolute;
     right: 0;
     top: 0;
@@ -135,16 +138,12 @@
       flex: 1px;
       overflow: auto;
       border-radius: 0 12px 12px 0;
-
       pre {
         border-radius: 0 12px 12px 0;
         flex: 1;
         box-sizing: border-box;
         background-color: transparent;
         border: none;
-      }
-      .hljs {
-        background-color: transparent;
       }
     }
   }
@@ -155,7 +154,7 @@
 }
 
 .k-desc-content p code {
-  padding: 0.15em .5em;
+  padding: 0.15em 0.5em;
   background-color: var(--kui-color-bg-container);
   border-radius: 4px;
   color: var(--kui-color-primary);

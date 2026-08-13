@@ -1,8 +1,9 @@
 import { Copy, ListChevronsDownUp, ListChevronsUpDown, Undo2 } from "kui-icons";
-import { Badge, Button, message, Tooltip, type BadgeStatusType } from "kui-vue";
+import { Badge, Button, message, RadioGroup, Tooltip, type BadgeStatusType } from "kui-vue";
 import {
   defineComponent,
   inject,
+  nextTick,
   onBeforeUnmount,
   onMounted,
   reactive,
@@ -29,18 +30,25 @@ const Demo = defineComponent({
     const expanded = ref(props.direction != "vertical");
     const codeRef = ref<HTMLElement>();
     const codeOrigin = ref<string>();
+    const codeLanguage = ref<"ts" | "js">("ts");
     const viewRef = ref(null);
     const timer = ref<ReturnType<typeof setTimeout>>();
     const buildState = reactive({
       text: $t("text.build_tip"),
       state: "success" as BadgeStatusType,
     });
+    const codeLangOptions = [
+      { value: "ts", label: "TS" },
+      { value: "js", label: "JS" },
+    ];
 
     const error = ref("");
 
     const currentApp = ref();
     const reload = async () => {
-      const source = codeRef.value?.innerText || (slots.code?.()?.[0]?.children as string) || "";
+      const activeCodeSlot = codeLanguage.value === "ts" ? slots["code-ts"] : slots["code-js"];
+      const source =
+        codeRef.value?.innerText || (activeCodeSlot?.()?.[0]?.children as string) || "";
       const { parseCode } = await import("./transform");
       parseCode({
         source: source,
@@ -74,6 +82,12 @@ const Demo = defineComponent({
           }
         });
       }
+    };
+    const switchCodeLanguage = async (language: "ts" | "js") => {
+      if (codeLanguage.value === language) return;
+      codeLanguage.value = language;
+      await nextTick();
+      codeOrigin.value = codeRef.value?.innerHTML;
     };
     onMounted(() => {
       codeOrigin.value = codeRef.value?.innerHTML;
@@ -111,9 +125,16 @@ const Demo = defineComponent({
               <div {...refProps}>{slots.component?.()}</div>
             </div>
             <Transition {...transitionProps}>
-              <div v-show={expanded.value} class="k-code-box" contenteditable onInput={renderCode}>
+              <div v-show={expanded.value} class="k-code-box">
                 <div class="k-code-tools">
                   <Badge status={buildState.state} text={buildState.text} />
+                  <RadioGroup
+                    options={codeLangOptions}
+                    onChange={(value) => switchCodeLanguage(value)}
+                    type="button"
+                    size="small"
+                    v-model={codeLanguage.value}
+                  />
                   <Tooltip title={$t("text.copy_code")}>
                     <Button type="text" size="small" icon={Copy} onClick={copyCode} />
                   </Tooltip>
@@ -121,8 +142,8 @@ const Demo = defineComponent({
                     <Button type="text" size="small" icon={Undo2} onClick={restoreCode} />
                   </Tooltip>
                 </div>
-                <div ref={codeRef} class="k-code k-scroll">
-                  {slots.code?.()}
+                <div ref={codeRef} class="k-code k-scroll" contenteditable onInput={renderCode}>
+                  {codeLanguage.value === "ts" ? slots["code-ts"]?.() : slots["code-js"]?.()}
                 </div>
               </div>
             </Transition>

@@ -16,7 +16,8 @@ code.hljs {
   Current colors taken from GitHub's CSS
 */
 .hljs {
-  color: #24292e;
+  background-color: var(--kui-color-bg-component);
+  height: 100%;
 }
 .hljs-doctag,
 .hljs-keyword,
@@ -48,7 +49,7 @@ code.hljs {
 .hljs-meta .hljs-string,
 .hljs-regexp,
 .hljs-string {
-  color: #032f62;
+  color: #73a500;
 }
 .hljs-built_in,
 .hljs-symbol {
@@ -90,13 +91,6 @@ code.hljs {
 .hljs-deletion {
   color: #b31d28;
   background-color: #ffeef0;
-}
-
-.hljs {
-  background: #00000014;
-}
-.hljs {
-  color: #818181;
 }
 
 img {
