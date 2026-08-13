@@ -19,14 +19,14 @@ export const loadImage = (src: string, callback?: (info: ImageInfo) => void, err
   image.onload = () => {
     if (!isCompleted && image) {
       const { naturalWidth: width, naturalHeight: height } = image;
-      callback && callback({ width, height });
+      callback?.({ width, height });
     }
     cleanup();
   };
 
   image.onerror = () => {
     if (!isCompleted) {
-      err && err();
+      err?.();
     }
     cleanup();
   };

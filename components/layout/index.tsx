@@ -47,7 +47,8 @@ const LayoutMain = defineComponent({
 
     // 提供给子组件 Sider 调用的注册函数
     const collectSider = (mounted: boolean) => {
-      mounted ? siders.value.push("sider") : siders.value.pop();
+      if (mounted) siders.value.push("sider");
+      else siders.value.pop();
     };
 
     provide(SiderHookKey, collectSider);

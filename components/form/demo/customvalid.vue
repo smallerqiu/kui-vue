@@ -35,7 +35,7 @@ const validatePassword = (_: FormRule, value: unknown, callback: (error?: Error)
   if (!value) {
     callback(new Error("Please input your password"));
   } else {
-    form.value.confirm_password && formRef.value?.test("confirm_password");
+    if (form.value.confirm_password) formRef.value?.test("confirm_password");
     callback();
   }
 };

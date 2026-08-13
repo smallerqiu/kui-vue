@@ -39,7 +39,7 @@ const insertChildren = (nodes: TreeNode[], targetKey: string, childrenData: Tree
 
 let loadCount = 0;
 const loadData = (node: TreeNode) => {
-  return new Promise<void>((resolve, _) => {
+  return new Promise<void>((resolve) => {
     loadCount += 1;
     //模拟异步请求
     setTimeout(() => {

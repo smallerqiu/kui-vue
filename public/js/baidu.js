@@ -1,4 +1,4 @@
-var _hmt = _hmt || [];
+window._hmt = window._hmt || [];
 (function () {
   if (location.port != "") return;
   let hm = document.createElement("script");

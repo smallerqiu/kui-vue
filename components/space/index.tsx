@@ -24,7 +24,7 @@ const Space = defineComponent({
     provide("size", props.size);
     return () => {
       const size = props.size;
-      let children = getChildren(slots.default?.());
+      const children = getChildren(slots.default?.());
 
       // console.log(children);
       const split = slots.split?.();

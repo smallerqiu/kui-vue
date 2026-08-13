@@ -71,7 +71,7 @@ const Modal = defineComponent({
 
     onMounted(() => {
       document.addEventListener("mousedown", mousedown);
-      props.escKey && document.addEventListener("keydown", escToClose);
+      if (props.escKey) document.addEventListener("keydown", escToClose);
 
       if (props.modelValue) {
         toggle(true);
@@ -127,8 +127,8 @@ const Modal = defineComponent({
     };
     const updateOrigin = () => {
       if (refModal.value) {
-        let { x, y } = getMousePoint();
-        let p = getOffset(refModal.value);
+        const { x, y } = getMousePoint();
+        const p = getOffset(refModal.value);
         refModal.value.style["transform-origin"] = `${x - p.left}px ${y - p.top}px`;
       }
     };
@@ -155,7 +155,7 @@ const Modal = defineComponent({
     };
     const mousemove = (e: MouseEvent) => {
       if (isMousePressed.value && props.draggable) {
-        let { x, y } = startPos.value;
+        const { x, y } = startPos.value;
         left.value += e.clientX - x;
         currentTop.value = currentTop.value ?? 100;
         currentTop.value += e.clientY - y;
@@ -187,7 +187,7 @@ const Modal = defineComponent({
     };
 
     return () => {
-      let { draggable, width } = props;
+      const { draggable, width } = props;
 
       //mask
       let maskNode = null;
@@ -198,13 +198,13 @@ const Modal = defineComponent({
           </Transition>
         );
       }
-      let okText = props.okText || locale.value?.k.common.ok;
-      let cancelText = props.cancelText || locale.value?.k.common.cancel;
+      const okText = props.okText || locale.value?.k.common.ok;
+      const cancelText = props.cancelText || locale.value?.k.common.cancel;
       //content
       let contentNode: VNodeChild = slots.content?.();
       if (!contentNode) {
         const contents = [];
-        props.showClose &&
+        if (props.showClose) {
           contents.push(
             <Button
               icon={X}
@@ -214,12 +214,14 @@ const Modal = defineComponent({
               type="text"
             ></Button>
           );
-        props.title !== null &&
+        }
+        if (props.title !== null) {
           contents.push(
             <div class="k-modal-header" ref={refHeader}>
               <div class="k-modal-header-inner">{props.title}</div>
             </div>
           );
+        }
         contents.push(<div class="k-modal-body">{slots.default?.()}</div>);
 
         //footer
@@ -261,7 +263,8 @@ const Modal = defineComponent({
         },
         attrs.class,
       ];
-      const { class: _, ...rootAttrs } = attrs;
+      const rootAttrs = { ...attrs };
+      delete rootAttrs.class;
       return rendered.value ? (
         <Teleport to="body">
           <div {...rootAttrs} class={classes}>

@@ -44,7 +44,7 @@ const columns: Column[] = [
   {
     title: "Gender",
     key: "gender",
-    render: (h, { gender }, _) => {
+    render: (h, { gender }) => {
       return h(Icon, {
         type: gender == 1 ? Sun : Moon,
         color: gender == 1 ? "blue" : "#f50cff",
@@ -81,7 +81,7 @@ const columns: Column[] = [
   {
     title: "Operate",
     key: "action",
-    render: (h, record, _) => {
+    render: (h, record) => {
       return h(
         Button,
         {

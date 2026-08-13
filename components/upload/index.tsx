@@ -203,7 +203,7 @@ const Upload = defineComponent({
       }
 
       innerFileList.value.splice(removeIndex, 1);
-      item.uid && delete uploadTemp[item.uid];
+      if (item.uid) delete uploadTemp[item.uid];
 
       if (item.preview && generatedPreviewUrls.has(item.preview)) {
         URL.revokeObjectURL(item.preview);
@@ -236,7 +236,7 @@ const Upload = defineComponent({
             if (unmounted || !innerFileList.value.includes(item)) return;
             item.errorText = error instanceof Error ? error.message : String(error || "");
             item.status = "error";
-            item.uid && delete uploadTemp[item.uid];
+            if (item.uid) delete uploadTemp[item.uid];
             triggerUpdate(item);
           });
       } else {
@@ -272,10 +272,10 @@ const Upload = defineComponent({
             item.percent = 100;
             try {
               item.response = JSON.parse(xhr.responseText);
-            } catch (e) {
+            } catch {
               item.response = xhr.responseText;
             }
-            item.uid && delete uploadTemp[item.uid];
+            if (item.uid) delete uploadTemp[item.uid];
             item.xhr = undefined;
             triggerUpdate(item);
           } else {
@@ -299,7 +299,7 @@ const Upload = defineComponent({
         if (settled) return;
         settled = true;
         item.status = "error";
-        item.uid && delete uploadTemp[item.uid];
+        if (item.uid) delete uploadTemp[item.uid];
         item.xhr = undefined;
         triggerUpdate(item);
       };

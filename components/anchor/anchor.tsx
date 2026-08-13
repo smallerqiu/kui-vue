@@ -36,8 +36,8 @@ const Anchor = defineComponent({
   name: "Anchor",
   props: anchorProps,
   emits: {
-    change: (_activeLink: string) => true,
-    click: (_link: string) => true,
+    change: (activeLink: string) => typeof activeLink === "string",
+    click: (link: string) => typeof link === "string",
   },
   setup(props, { slots, emit, attrs }) {
     const activeLink = ref("");

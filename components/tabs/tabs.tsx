@@ -203,14 +203,14 @@ const Tabs = defineComponent({
       return nodes?.map((panel, index) => {
         const key = String(panel.key ?? index);
 
-        let { icon, title, closable, disabled } = (panel.props ?? {}) as {
+        const { icon, title, closable: panelClosable, disabled: panelDisabled } = (panel.props ?? {}) as {
           icon?: IconType[];
           title?: string;
           closable?: boolean;
           disabled?: boolean;
         };
-        disabled = disabled !== undefined && disabled != false;
-        closable = closable !== undefined;
+        const disabled = panelDisabled !== undefined && panelDisabled != false;
+        const closable = panelClosable !== undefined;
         const prop = {
           class: [
             "k-tabs-tab",

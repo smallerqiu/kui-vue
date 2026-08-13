@@ -73,7 +73,7 @@
 import AppHeader from "./app-header.vue";
 // import AppFooter from "./app-footer";
 import { ChevronLeft, ChevronRight, Menu as MenuIcon, X } from "kui-icons";
-import { computed, inject, onMounted, reactive, ref, Transition, watch, type Ref } from "vue";
+import { computed, inject, onMounted, reactive, ref, watch, type Ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { navData, routeData, type NavItem } from "../menu";
 const router = useRouter();
@@ -102,7 +102,7 @@ const menuSelect = () => {
   showMiniNav.value = false;
 };
 const getPath = (path: string) => {
-  let [_, n] = path.split("/").filter((x) => x);
+  const [, n] = path.split("/").filter((x) => x);
   let index = routeData.findIndex((x) => x.name == n.replace("-en", ""));
 
   return {

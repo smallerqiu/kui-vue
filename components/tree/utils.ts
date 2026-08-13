@@ -108,17 +108,7 @@ export const buildTree = ({
     const [node, level, pNodeKey, visiblePrefixes, isLastChild] = current;
     const key = node.key;
     const hasChildren = !!(node.children && node.children.length > 0);
-    let isLeaf = false;
-
-    if (node.isLeaf === true) {
-      isLeaf = true;
-    } else if (hasChildren) {
-      isLeaf = false;
-    } else if (hasLoad) {
-      isLeaf = false;
-    } else {
-      isLeaf = true;
-    }
+    const isLeaf = node.isLeaf === true || (!hasChildren && !hasLoad);
 
     result.push({
       ...node,

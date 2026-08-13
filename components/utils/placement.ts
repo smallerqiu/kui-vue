@@ -25,7 +25,7 @@ export function setPlacement({
   if (!refPopper.value) return;
 
   // 模式检测 & 基准矩形
-  let rect = null;
+  let rect: { width: number; height: number; top: number; bottom: number; left: number; right: number };
   // 是否是鼠标右键/坐标模式
   const isMouseMode = position && typeof position.x === "number" && typeof position.y === "number";
 
@@ -116,10 +116,10 @@ export function setPlacement({
   const finalPlacement = align ? `${side}-${align}` : side;
 
   //  坐标计算
-  let calcTop = 0;
-  let calcLeft = 0;
-  let originX = "center";
-  let originY = "center";
+  let calcTop: number;
+  let calcLeft: number;
+  let originX: string;
+  let originY: string;
 
   // Y 轴
   if (side === "top") {

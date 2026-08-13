@@ -112,8 +112,8 @@ const Page = defineComponent({
           array.push(i);
         }
       }
-      let child = array.map((p, i) => {
-        let prop = {
+      const child = array.map((p, i) => {
+        const prop = {
           class: ["k-pager-item", { "k-pager-item-active": page == p }],
           key: i,
           onClick: (e: MouseEvent) => toPage(e, p),
@@ -126,7 +126,7 @@ const Page = defineComponent({
       });
 
       if (showPrevMore) {
-        let p = {
+        const p = {
           class: "k-pager-item k-pager-more",
           onMouseenter: () => (prevPageGroup.value = true),
           onMouseleave: () => (prevPageGroup.value = false),
@@ -140,7 +140,7 @@ const Page = defineComponent({
         child.unshift(moreNode);
       }
       if (showNextMore) {
-        let p = {
+        const p = {
           class: "k-pager-item k-pager-more",
           onMouseenter: () => (nextPageGroup.value = true),
           onMouseleave: () => (nextPageGroup.value = false),
@@ -211,7 +211,7 @@ const Page = defineComponent({
       return null;
     };
     const renderLast = () => {
-      let pCount = pageCount.value;
+      const pCount = pageCount.value;
       if (pCount > 1) {
         return (
           <li
@@ -225,7 +225,7 @@ const Page = defineComponent({
       return null;
     };
     const renderSize = () => {
-      let prop = {
+      const prop = {
         modelValue: defaultPageSize.value,
         size: props.size,
         clearable: false,
@@ -240,8 +240,8 @@ const Page = defineComponent({
     };
 
     const renderElevator = () => {
-      let { size } = props;
-      let _props = {
+      const { size } = props;
+      const _props = {
         class: "k-page-options-elevator",
         size,
         theme: props.theme,
@@ -254,7 +254,7 @@ const Page = defineComponent({
             return;
           }
 
-          let pCount = pageCount.value;
+          const pCount = pageCount.value;
           if (page > pCount) page = pCount;
           if (page < 1) page = 1;
 

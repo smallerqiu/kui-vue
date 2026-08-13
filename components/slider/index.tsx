@@ -143,7 +143,7 @@ const Slider = defineComponent({
       if (e.cancelable) e.preventDefault();
 
       const newValue = getValueFromEvent(e);
-      let nextInternal = null;
+      let nextInternal: number | number[];
 
       if (props.range) {
         const oldValues = [...(internalValue.value as number[])];
@@ -232,7 +232,7 @@ const Slider = defineComponent({
       if (!isPlus && !isMinus) return;
       e.preventDefault();
 
-      let nextValue = 0;
+      let nextValue: number;
       const currentValues = props.range
         ? [...(internalValue.value as number[])]
         : [internalValue.value];
@@ -335,14 +335,13 @@ const Slider = defineComponent({
         const start = props.range ? `${pos1}px` : "0px";
         const length = props.range ? `${pos2 - pos1}px` : `${pos2}px`;
 
-        let style = {};
-        if (props.vertical) {
-          style = props.reverse
+        const style = props.vertical
+          ? props.reverse
             ? { top: start, height: length }
-            : { bottom: start, height: length };
-        } else {
-          style = props.reverse ? { right: start, width: length } : { left: start, width: length };
-        }
+            : { bottom: start, height: length }
+          : props.reverse
+            ? { right: start, width: length }
+            : { left: start, width: length };
         const trackProps = {
           class: "k-slider-track",
           style,
@@ -359,14 +358,11 @@ const Slider = defineComponent({
             {mKeys.map((val) => {
               const coord = getCoord(val);
               // 判断激活状态：值是否在当前选中范围内
-              let isActive = false;
-              if (props.range && Array.isArray(internalValue.value)) {
-                isActive = val >= internalValue.value[0] && val <= internalValue.value[1];
-              } else {
-                isActive = val <= (internalValue.value as number);
-              }
+              const isActive = props.range && Array.isArray(internalValue.value)
+                ? val >= internalValue.value[0] && val <= internalValue.value[1]
+                : val <= (internalValue.value as number);
 
-              let style: CSSProperties = {};
+              let style: CSSProperties;
               if (vertical) {
                 // 垂直模式：根据方向使用 bottom 或 top
                 style = reverse

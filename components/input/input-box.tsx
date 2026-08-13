@@ -12,7 +12,6 @@ const inputBoxProps = {
   value: [String, Number, Object] as PropType<unknown>,
   showPassword: Boolean as BooleanType,
   inputRef: Object as PropType<Ref<HTMLInputElement | HTMLTextAreaElement | undefined>>,
-  // htmlAttrs: { type: Object as PropType<any>, default: () => ({}) },
 };
 
 export type InputBoxProps = ExtractPropTypes<typeof inputBoxProps>;

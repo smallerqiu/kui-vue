@@ -59,7 +59,7 @@ const Watermark = defineComponent({
 
     let parentObserver: MutationObserver | null = null;
     let selfObserver: MutationObserver | null = null;
-    let base64Url = ref("");
+    const base64Url = ref("");
 
     // 渲染 Canvas 生成 Base64 水印图
     // 将坐标系变换锁在 img.onload 内部，保证图片水印完美倾斜
@@ -166,12 +166,11 @@ const Watermark = defineComponent({
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
 
-      let totalHeight = 0;
       const lineHeights = contents.map((item) => {
         const size = item.fontSize || globalFont.fontSize;
         return size + 8;
       });
-      totalHeight = lineHeights.reduce((a, b) => a + b, 0);
+      const totalHeight = lineHeights.reduce((a, b) => a + b, 0);
 
       let currentY = -totalHeight / 2;
 

@@ -26,7 +26,7 @@ export default defineComponent({
       );
     };
     return () => {
-      let nav = navData.filter((x) => x.key != "guide");
+      const nav = navData.filter((x) => x.key != "guide");
       return (
         <div class="all-components">
           {nav.map((item) => {

@@ -73,10 +73,10 @@ const MenuItem = defineComponent({
       };
 
       // 没有子集的时候才展示
-      let titleNode = (
+      const titleNode = (
         <span class={`k-${preCls}-title-content`}>{title ?? getChildren(slots.default?.())}</span>
       );
-      let iconNode = slots.icon ? (
+      const iconNode = slots.icon ? (
         <span class={`k-${preCls}-item-icon`}>{slots.icon()}</span>
       ) : icon ? (
         <Icon type={icon} class={`k-${preCls}-item-icon`} />

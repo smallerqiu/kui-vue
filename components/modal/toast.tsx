@@ -47,8 +47,8 @@ export default defineComponent({
       hide,
     });
     const ok = () => {
-      let { onOk } = ps;
-      let fun = onOk ? onOk() : {};
+      const { onOk } = ps;
+      const fun = onOk ? onOk() : {};
       if (isPromise(fun)) {
         loading.value = true;
         Promise.resolve(fun)
@@ -61,15 +61,15 @@ export default defineComponent({
       }
     };
     const cancel = () => {
-      let { onCancel } = ps;
-      typeof onCancel == "function" && onCancel();
+      const { onCancel } = ps;
+      if (typeof onCancel == "function") onCancel();
       hide();
     };
 
     return () => {
       //icons
-      let { title, content, color, type, icon, cancelText, okText } = ps;
-      let icons = {
+      const { title, content, color, type, icon, cancelText, okText } = ps;
+      const icons = {
         info: Info,
         error: CircleX,
         success: CircleCheck,
@@ -77,7 +77,7 @@ export default defineComponent({
         confirm: CircleQuestionMark,
       };
       //header
-      let header = (
+      const header = (
         <div class="k-toast-header">
           {type || icon ? (
             <Icon class="k-toast-icon" type={icon || icons[type]} color={color} />
@@ -87,9 +87,9 @@ export default defineComponent({
       );
 
       //body
-      let body = <div class="k-toast-content">{content}</div>;
+      const body = <div class="k-toast-content">{content}</div>;
       //footer
-      let footerNode = [
+      const footerNode = [
         <Button type="primary" loading={loading.value} onClick={ok}>
           {okText || locale.value?.k.common.ok}
         </Button>,
@@ -100,9 +100,9 @@ export default defineComponent({
           <Button onClick={cancel}> {cancelText || locale.value?.k.common.cancel}</Button>
         );
       }
-      let footer = <div class="k-toast-footer">{footerNode}</div>;
+      const footer = <div class="k-toast-footer">{footerNode}</div>;
 
-      let classes = [
+      const classes = [
         "k-toast",
         {
           [`k-toast-${type}`]: icons[type] != undefined,

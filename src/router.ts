@@ -50,10 +50,10 @@ router.beforeEach(function (to) {
 // demo routes
 const demoGlobs = import.meta.glob("../components/**/index*.md");
 const demoRoutes: RouteRecordRaw[] = [];
-for (let key in demoGlobs) {
+for (const key in demoGlobs) {
   // console.log(key);
   const name = key.split("/")[2];
-  let route: RouteRecordRaw = {
+  const route: RouteRecordRaw = {
     path: key.includes("US") ? name + "-en" : name,
     component: () => demoGlobs[key](),
   };
@@ -63,10 +63,10 @@ for (let key in demoGlobs) {
 // docs routes
 const docsGlobs = import.meta.glob("./views/**/*.md");
 const docsRoutes: RouteRecordRaw[] = [];
-for (let key in docsGlobs) {
+for (const key in docsGlobs) {
   // console.log(key);
   const name = key.split("/")[2].replace(/.md|.en_US.md/g, "");
-  let route: RouteRecordRaw = {
+  const route: RouteRecordRaw = {
     path: key.includes("US") ? name + "-en" : name,
     component: () => docsGlobs[key](),
   };
@@ -89,7 +89,7 @@ router.afterEach((to) => {
   };
   const _hmt = analyticsWindow._hmt;
   const gtag = analyticsWindow.gtag;
-  typeof _hmt != "undefined" && _hmt.push(["_trackPageview", to.fullPath]);
+  if (typeof _hmt != "undefined") _hmt.push(["_trackPageview", to.fullPath]);
 
   if (typeof gtag !== "undefined") {
     gtag("config", "G-1KNV6YTVBM", {

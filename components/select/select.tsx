@@ -633,7 +633,7 @@ const Select = defineComponent({
         </div>
       );
       childNode.push(labelsNode);
-      placeNode && childNode.push(placeNode);
+      if (placeNode) childNode.push(placeNode);
 
       if ((filterable || hasSearchEvent) && !multiple) {
         childNode.push(queryNode);

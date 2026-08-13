@@ -47,7 +47,7 @@ export default function vitePluginKuiMd(): Plugin {
           const _id = "k-" + hashId(id);
 
           const absolutePath = path.resolve(path.dirname(id), src);
-          let demoCode = fs.readFileSync(absolutePath, "utf-8").trim();
+          const demoCode = fs.readFileSync(absolutePath, "utf-8").trim();
           let highlighted = hljs.highlight(demoCode, {
             language: "html",
           }).value;

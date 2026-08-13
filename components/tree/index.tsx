@@ -335,6 +335,8 @@ const Tree = defineComponent({
             }
           }
           if (index > -1) {
+            // Tree drag-and-drop keeps the existing mutable-data API for backward compatibility.
+            // eslint-disable-next-line vue/no-mutating-props
             nodeToMove = props.data.splice(index, 1)[0];
           }
         }

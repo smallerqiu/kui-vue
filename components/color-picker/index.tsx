@@ -172,7 +172,7 @@ const ColorPicker = defineComponent({
       return text;
     };
     const renderTriggerText = () => {
-      let text = getColor();
+      const text = getColor();
       return props.showText ? <div class="k-color-picker-trigger-text">{text}</div> : null;
     };
     const onUpdate = (color: string | ColorInstance) => {
@@ -307,8 +307,8 @@ const ColorPicker = defineComponent({
     };
 
     return () => {
-      let drop = renderDrop();
-      let style = [
+      const drop = renderDrop();
+      const style = [
         "k-color-picker",
         {
           "k-color-picker-opened": visible.value,

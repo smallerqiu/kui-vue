@@ -26,8 +26,8 @@ export default defineComponent({
       emit("close");
     };
     return () => {
-      let { noticeType, type, content, title, closable, icon, color } = props;
-      let icons = {
+      const { noticeType, type, content, title, closable, icon, color } = props;
+      const icons = {
         info: Info,
         error: CircleX,
         success: CircleCheck,

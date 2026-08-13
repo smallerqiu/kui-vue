@@ -13,7 +13,7 @@ export const isRealNum = (val: unknown): boolean => {
   try {
     new Big(String(val));
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 };
@@ -33,7 +33,7 @@ export const isValidBig = (val: unknown) => {
   try {
     new Big(str);
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 };
@@ -44,7 +44,7 @@ const toBigSafe = (val: unknown) => {
       throw new Error();
     }
     return new Big(String(val));
-  } catch (e) {
+  } catch {
     // console.error(`Slider Error: [${name}] is an invalid number:`, val);
     return new Big(0); // 降级处理
   }

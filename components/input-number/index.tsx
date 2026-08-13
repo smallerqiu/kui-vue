@@ -61,7 +61,7 @@ const InputNumber = defineComponent({
         if (props.min !== -Infinity && b.lt(props.min)) b = new Big(props.min);
 
         return props.precision !== undefined ? b.toFixed(props.precision) : b.toFixed();
-      } catch (e) {
+      } catch {
         return innerValue.value;
       }
     };

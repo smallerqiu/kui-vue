@@ -80,7 +80,7 @@ const Rate = defineComponent({
 
     return () => {
       const tpValue = tempValue.value !== null ? tempValue.value : initValue.value;
-      let {
+      const {
         count,
         allowHalf,
         character,
@@ -89,8 +89,8 @@ const Rate = defineComponent({
         icon,
         showScore,
         color,
-        size,
       } = props;
+      let { size } = props;
 
       if (typeof size === "string") {
         const sizeValue = { small: 20, medium: 24, large: 32, default: 24 };

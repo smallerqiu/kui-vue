@@ -22,24 +22,24 @@ const AnchorLink = defineComponent({
     const anchorContext = inject<AnchorContext | null>("kAnchor", null);
 
     onMounted(() => {
-      props.href && anchorContext?.registerLink(props.href);
+      if (props.href) anchorContext?.registerLink(props.href);
     });
 
     onBeforeUnmount(() => {
-      props.href && anchorContext?.unregisterLink(props.href);
+      if (props.href) anchorContext?.unregisterLink(props.href);
     });
 
     watch(
       () => props.href,
       (href, previousHref) => {
-        previousHref && anchorContext?.unregisterLink(previousHref);
-        href && anchorContext?.registerLink(href);
+        if (previousHref) anchorContext?.unregisterLink(previousHref);
+        if (href) anchorContext?.registerLink(href);
       }
     );
 
     const handleClick = (e: MouseEvent) => {
       e.preventDefault();
-      props.href && anchorContext?.handleScrollTo(props.href);
+      if (props.href) anchorContext?.handleScrollTo(props.href);
     };
 
     return () => {

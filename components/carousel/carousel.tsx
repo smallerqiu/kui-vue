@@ -46,7 +46,7 @@ const Carousel = defineComponent({
     provide("height", props.height);
 
     const flatten = (nodes: VNode[]): VNode[] => {
-      let result: VNode[] = [];
+      const result: VNode[] = [];
       nodes.forEach((vnode) => {
         if (vnode.type === Fragment && Array.isArray(vnode.children)) {
           result.push(...flatten(vnode.children as VNode[]));

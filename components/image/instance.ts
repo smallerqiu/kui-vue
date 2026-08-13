@@ -16,11 +16,9 @@ const createInstance = (props = {}, slots: Slots) => {
   const container = document.createElement("div");
   container.id = `k-image-preview-box-${++seed}`;
   document.body.appendChild(container);
-  const {
-    onClose: _onClose,
-    onSwitch: _onSwitch,
-    ...previewProps
-  } = props as Record<string, unknown>;
+  const previewProps = { ...props } as Record<string, unknown>;
+  delete previewProps.onClose;
+  delete previewProps.onSwitch;
   const vm = createVNode(Preview, previewProps, slots);
   vm.appContext = getAppContext()?.appContext || null;
   render(vm, container);

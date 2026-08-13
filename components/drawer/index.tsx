@@ -77,11 +77,11 @@ const Drawer = defineComponent({
     );
 
     onMounted(() => {
-      props.escKey && document.addEventListener("keydown", escToClose);
+      if (props.escKey) document.addEventListener("keydown", escToClose);
     });
 
     onBeforeUnmount(() => {
-      props.escKey && document.removeEventListener("keydown", escToClose);
+      if (props.escKey) document.removeEventListener("keydown", escToClose);
       toggleContainerScroll(resolveTarget(), false);
     });
 

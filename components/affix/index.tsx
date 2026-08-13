@@ -21,7 +21,7 @@ const Affix = defineComponent({
   name: "Affix",
   props: affixProps,
   emits: {
-    change: (_affixed: boolean) => true,
+    change: (affixed: boolean) => typeof affixed === "boolean",
   },
   setup(props, { slots, emit }) {
     const affixRef = ref<HTMLElement>();
@@ -47,7 +47,7 @@ const Affix = defineComponent({
       const targetRect = !isWindow
         ? (target as HTMLElement).getBoundingClientRect()
         : { top: 0, bottom: window.innerHeight };
-      let isFixed = false;
+      let isFixed: boolean;
 
       if (props.offsetBottom !== undefined) {
         const offset = targetRect.bottom - rect.bottom - props.offsetBottom;

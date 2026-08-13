@@ -395,7 +395,7 @@ const DatePicker = defineComponent({
       else currentView.value = "date";
 
       // 打开时，如果没有值，面板显示当前时间；如果有值，显示选中值的时间
-      let base = dayjs().locale(localeName.value);
+      const base = dayjs().locale(localeName.value);
       if (!innerValue.value) {
         panelDate.value = base;
       } else if (!Array.isArray(innerValue.value)) {
@@ -776,7 +776,7 @@ const DatePicker = defineComponent({
       let activeDate = dayjs();
       if (props.mode === "dateTimeRange") {
         const idx = timeEditSide.value === "start" ? 0 : 1;
-        let value = innerValue.value as (Dayjs | null)[];
+        const value = innerValue.value as (Dayjs | null)[];
         if (value && value[idx]) activeDate = value[idx];
       } else if (innerValue.value && !Array.isArray(innerValue.value)) {
         activeDate = innerValue.value;
@@ -807,7 +807,7 @@ const DatePicker = defineComponent({
                   ]}
                   onClick={(e) => {
                     e.stopPropagation();
-                    !isDisabled && handleTimeScrollPick(type, i);
+                    if (!isDisabled) handleTimeScrollPick(type, i);
                   }}
                 >
                   {String(i).padStart(2, "0")}
@@ -1030,7 +1030,7 @@ const DatePicker = defineComponent({
       };
       const presetEmit = ({ value }: DatePickerPresetsType) => {
         if (typeof value === "function") {
-          let date = value();
+          const date = value();
           if (isRange.value && Array.isArray(date)) {
             innerValue.value = [dayjs(date[0]), dayjs(date[1])];
             emitValue(true);

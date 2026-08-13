@@ -34,7 +34,7 @@ const Async = () => {
     title: "Are you sure to do this?",
     content: "This operation is irreversible, proceed with caution!!!",
     onOk: () => {
-      return new Promise((resolve, _) => {
+      return new Promise((resolve) => {
         setTimeout(resolve, 2000);
       });
     },
@@ -54,7 +54,7 @@ const closeAll = () => {
           modal.destroyAll();
         },
         onOk: () => {
-          return new Promise((resolve, _) => {
+          return new Promise((resolve) => {
             setTimeout(resolve, 2000);
           });
         },

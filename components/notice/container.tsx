@@ -17,7 +17,7 @@ export default defineComponent({
     const options = ref<NoticeItem[]>([]);
 
     const show = (option: ContentProps) => {
-      let { duration = 3.5, onClose, closable, noticeType, grouping } = option;
+      const { duration = 3.5, onClose, closable, noticeType, grouping } = option;
 
       // 相同 grouping 的通知只更新内容，不新增条目
       if (grouping) {
@@ -38,12 +38,12 @@ export default defineComponent({
 
       const key = getUuid();
       let timer: ReturnType<typeof setTimeout> | undefined = undefined;
-      let callback = () => {
-        typeof onClose === "function" && onClose();
+      const callback = () => {
+        if (typeof onClose === "function") onClose();
         options.value = options.value.filter((item) => item.key !== key);
         clearTimeout(timer);
       };
-      duration > 0 && (timer = setTimeout(callback, duration * 1000));
+      if (duration > 0) timer = setTimeout(callback, duration * 1000);
       if ((closable === true && noticeType == "message") || noticeType == "notice") {
         option.onClose = () => callback();
       }
@@ -68,8 +68,8 @@ export default defineComponent({
         transitionProps = { ...p, ...transitionProps };
       }
 
-      let children = options.value.map((item) => {
-        let props = { ...item };
+      const children = options.value.map((item) => {
+        const props = { ...item };
         return <Content {...props} />;
       });
       return (

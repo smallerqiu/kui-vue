@@ -25,7 +25,7 @@ const runtimeModules: Record<string, unknown> = {
 
 function runtimeRequire(id: string) {
   if (id in runtimeModules) return runtimeModules[id];
-  throw new Error(`Demo 暂不支持运行时导入模块 \"${id}\"`);
+  throw new Error(`Demo 暂不支持运行时导入模块 "${id}"`);
 }
 
 export interface ParseParams {
@@ -84,7 +84,7 @@ export async function parseCode({
       });
       if (compiledTemplate.errors.length) throw compiledTemplate.errors[0];
       // 将模板中的 export function render 替换掉，防止冲突
-      templateCode = compiledTemplate.code.replace(/export\ (function|const)\ render/, "$1 render");
+      templateCode = compiledTemplate.code.replace(/export (function|const) render/, "$1 render");
     }
 
     let cssCode = "";

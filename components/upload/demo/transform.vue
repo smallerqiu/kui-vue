@@ -21,7 +21,7 @@ const headers = ref({
   authorization: "here is token",
 });
 const transformFile = (file: File) => {
-  return new Promise<File>((res, _) => {
+  return new Promise<File>((res) => {
     const canvas = document.createElement("canvas");
     const ctx = canvas.getContext("2d", { willReadFrequently: true });
 
@@ -47,7 +47,7 @@ const transformFile = (file: File) => {
       while (n--) {
         u8arr[n] = b64str.charCodeAt(n);
       }
-      const [_, ftype] = mime;
+      const [, ftype] = mime;
       const newFile = new File([u8arr], filename, { type: ftype });
       res(newFile);
     };

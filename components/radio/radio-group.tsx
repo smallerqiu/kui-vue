@@ -135,7 +135,7 @@ const RadioGroup = defineComponent({
     return () => {
       const isButton = props.type === "button";
       const isCard = props.theme === "card";
-      let options = optionsData.value;
+      const options = optionsData.value;
       const nodes: VNodeChild[] = [];
       const Component = isButton ? RadioButton : Radio;
       options.forEach((option) =>

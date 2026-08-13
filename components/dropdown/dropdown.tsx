@@ -235,7 +235,7 @@ const Dropdown = defineComponent({
           </Teleport>
         ) : null;
 
-      let nodes = getChildren(slots.default?.());
+      const nodes = getChildren(slots.default?.());
       const pp = props.target
         ? {}
         : {

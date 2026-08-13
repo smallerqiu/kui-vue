@@ -98,7 +98,7 @@ export default defineComponent({
         : {};
       if (!showSelector) return null;
 
-      let addProps = {
+      const addProps = {
         class: ["k-upload-add", { "k-upload-drag-over": dragOver.value }],
         onDragenter: draggable && !disabled ? onDragEnter : undefined,
         onDrop: draggable && !disabled ? onDrop : undefined,

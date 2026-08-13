@@ -21,10 +21,10 @@ const item = {
   desc: "Dozens of useful and aesthetically pleasing components, a very user-friendly API suitable for developers of any skill level, comprehensive documentation, and support for Electron, SSR, Nuxt.js...",
 };
 const showSkeleton = () => {
-  ((loading.value = true),
-    setTimeout(() => {
-      loading.value = false;
-    }, 3000));
+  loading.value = true;
+  setTimeout(() => {
+    loading.value = false;
+  }, 3000);
 };
 </script>
 <style>

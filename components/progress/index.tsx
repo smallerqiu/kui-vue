@@ -162,7 +162,8 @@ const Progress = defineComponent({
       return null;
     };
     return () => {
-      let { type, status, size, width, showInfo } = props;
+      const { type, size, width, showInfo } = props;
+      let { status } = props;
       if (currentPercent.value === 100 && status !== "exception") {
         status = "success";
       }

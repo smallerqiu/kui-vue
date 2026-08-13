@@ -98,7 +98,7 @@ const Demo = defineComponent({
       );
 
       const scopeIdAttr = `data-v-${props.id}`;
-      let refProps = {
+      const refProps = {
         class: `k-content k-scroll k-demo-view-${props.id}`,
         ref: viewRef,
         [scopeIdAttr]: "",
