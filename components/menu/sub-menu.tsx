@@ -1,4 +1,4 @@
-import { type DropdownContext, DropdownContextKey } from "kui-vue/dropdown/dropdown-context";
+import { type DropdownContext, DropdownContextKey } from "../dropdown/dropdown-context";
 import {
   type CSSProperties,
   defineComponent,

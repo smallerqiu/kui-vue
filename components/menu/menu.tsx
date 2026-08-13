@@ -10,7 +10,7 @@ import {
   type PropType,
 } from "vue";
 
-import { DropdownContextKey, type DropdownContext } from "kui-vue/dropdown/dropdown-context";
+import { DropdownContextKey, type DropdownContext } from "../dropdown/dropdown-context";
 import type { BooleanType, DirectionType } from "../const/types";
 import { MenuContextKey } from "./menu-context";
 import RecursiveMenu from "./recursive-menu";

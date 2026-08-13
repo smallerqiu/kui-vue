@@ -1,5 +1,5 @@
 import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
-import type { TimelineMode } from "./types";
+import type { TimelineMode } from "../const/types";
 const timelineProps = {
   mode: {
     type: String as PropType<TimelineMode>,
@@ -25,4 +25,4 @@ const TimeLine = defineComponent({
 
 export default TimeLine;
 
-export type { TimelineMode } from "./types";
+export type { TimelineMode } from "../const/types";

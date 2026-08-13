@@ -13,10 +13,9 @@ import {
   type PropType,
 } from "vue";
 import { Button } from "../button";
-import type { BooleanType } from "../const/types";
+import type { BooleanType, QRCodeErrorLevel, QRCodeStatus } from "../const/types";
 import zhCN from "../locale/zh-CN";
 import Spin from "../spin";
-import type { QRCodeErrorLevel, QRCodeStatus } from "./types";
 const qrCodeProps = {
   value: { type: String, required: true },
   size: { type: Number, default: 160 },
@@ -256,4 +255,4 @@ const QRCode = defineComponent({
 
 export default QRCode;
 
-export type { QRCodeErrorLevel, QRCodeStatus } from "./types";
+export type { QRCodeErrorLevel, QRCodeStatus } from "../const/types";

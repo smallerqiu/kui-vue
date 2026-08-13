@@ -8,9 +8,14 @@ import {
   type PropType,
   type VNodeChild,
 } from "vue";
-import type { BooleanType, SizeType } from "../const/types";
+import type {
+  BooleanType,
+  ProgressStatus,
+  ProgressStroke,
+  ProgressType,
+  SizeType,
+} from "../const/types";
 import Icon from "../icon";
-import type { ProgressStatus, ProgressStroke, ProgressType } from "./types";
 
 const progressProps = {
   percent: { type: Number, default: 0 },
@@ -193,4 +198,4 @@ const Progress = defineComponent({
 });
 export default Progress;
 
-export type { ProgressStatus, ProgressStroke, ProgressType } from "./types";
+export type { ProgressStatus, ProgressStroke, ProgressType } from "../const/types";
