@@ -25,3 +25,9 @@ export interface Column {
   rowSpan?: number | ((record: TableRecord, index: number) => number);
   children?: Column[];
 }
+
+export interface TableTreeRow {
+  record: TableRecord;
+  depth: number;
+  hasChildren: boolean;
+}

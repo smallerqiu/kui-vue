@@ -455,6 +455,44 @@
       }
     }
   }
+
+  .k-table-tree-cell {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .k-table-tree-toggle,
+  .k-table-tree-indent {
+    flex: 0 0 22px;
+    width: 22px;
+    height: 22px;
+  }
+
+  .k-table-tree-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: var(--kui-border-radius);
+    background: transparent;
+    color: var(--kui-color-icon);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--kui-color-primary);
+      background: var(--kui-color-table-col-hover);
+    }
+
+    .k-icon {
+      font-size: 14px;
+    }
+  }
+
+  .k-table-tree-content {
+    min-width: 0;
+  }
 }
 .k-table-striped {
   tbody tr:nth-child(even) {

@@ -51,6 +51,10 @@ const columns = [
 
 - 一个普通的表格
 
+[树形数据](./demo/tree.vue?show=vertical)
+
+- 数据包含 `children` 时自动启用树形表格，支持受控展开、默认展开、缩进、勾选和点击行展开。
+
 [基本用法(使用render)](./demo/base-render.vue?show=vertical)
 
 - 使用自定义`render`来初始化表格
@@ -105,11 +109,19 @@ const columns = [
 | data         | 显示的结构化数据          | any[]                                                                        | []       |
 | columns      | 表格列的配置描述，        | Column[]                                                                     | []       |
 | rowKey       | 勾选时的依据              | string                                                                       | key      |
+| childrenColumnName | 子节点字段名 | string | children |
+| expandedKeys | 受控展开行 key 集合，支持 `v-model:expanded-keys` | (string \| number)[] | - |
+| defaultExpandedKeys | 默认展开行 key 集合 | (string \| number)[] | [] |
+| defaultExpandAllRows | 默认展开所有树节点 | bool | false |
+| expandRowByClick | 点击行时展开或收起 | bool | false |
+| indentSize | 每级树节点缩进距离 | number | 20 |
 | striped      | 是否展示斑马条纹          | bool                                                                         | false    |
 | onRowClick   | 单击某一行时触发          | (record: any, index: number) => void                                         | -        |
 | onSort       | 点击排序时触发            | (state: SortState) => void                                                   | -        |
 | onSelect     | 点击复选框时触发          | (record: any, selected: boolean, selectedKeys: (string \| number)[]) => void | -        |
 | onSelectAll  | 点击Table头部复选框时触发 | (selected: boolean, selectedKeys: (string \| number)[]) => void              | -        |
+| onExpand | 展开状态变化时触发 | (expanded: boolean, record: TableRecord) => void | - |
+| onExpandedKeysChange | 展开 key 集合变化时触发 | (expandedKeys: (string \| number)[]) => void | - |
 
 ## Column API
 

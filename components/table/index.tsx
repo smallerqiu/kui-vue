@@ -1,4 +1,4 @@
-import { Triangle } from "kui-icons";
+import { ChevronDown, ChevronRight, Triangle } from "kui-icons";
 import type { CSSProperties, ExtractPropTypes, PropType, VNodeChild } from "vue";
 import {
   computed,
@@ -17,6 +17,7 @@ import Empty from "../empty";
 import Icon from "../icon";
 import Spin from "../spin";
 import type { Column, SortState, TableKey, TableRecord } from "./types";
+import { countColumnLeaves, flattenColumns, flattenTreeData } from "./utils";
 
 const tableProps = {
   data: { type: Array as PropType<TableRecord[]>, default: () => [] },
@@ -24,6 +25,12 @@ const tableProps = {
   selectedKeys: { type: Array as PropType<TableKey[]>, default: () => [] },
   disabledKeys: { type: Array as PropType<TableKey[]>, default: () => [] },
   rowKey: { type: String, default: "key" },
+  childrenColumnName: { type: String, default: "children" },
+  expandedKeys: Array as PropType<TableKey[]>,
+  defaultExpandedKeys: { type: Array as PropType<TableKey[]>, default: () => [] },
+  defaultExpandAllRows: Boolean as BooleanType,
+  expandRowByClick: Boolean as BooleanType,
+  indentSize: { type: Number, default: 20 },
   scroll: {
     type: Object as PropType<{ x?: number | string; y?: number | string }>,
     default: () => ({}),
@@ -46,6 +53,12 @@ const tableProps = {
   onSelectAll: {
     type: Function as PropType<(selected: boolean, selectedKeys: TableKey[]) => void>,
   },
+  onExpand: {
+    type: Function as PropType<(expanded: boolean, record: TableRecord) => void>,
+  },
+  onExpandedKeysChange: {
+    type: Function as PropType<(expandedKeys: TableKey[]) => void>,
+  },
 };
 
 interface Matrix {
@@ -64,6 +77,7 @@ const Table = defineComponent({
     const bodyWrapperRef = ref<HTMLElement>();
     const scrollbarWidth = ref(0);
     const innerSelectedKeys = ref(new Set(props.selectedKeys));
+    const innerExpandedKeys = ref(new Set<TableKey>(props.defaultExpandedKeys));
     const isSplit = computed(() => !!props.scroll.y);
     const sortState = reactive<SortState>({ key: "", order: null });
     const pingLeft = ref(false);
@@ -75,18 +89,7 @@ const Table = defineComponent({
         innerSelectedKeys.value = new Set(val);
       }
     );
-    const getFlattedColumns = (cols: Column[]): Column[] => {
-      const result: Column[] = [];
-      cols.forEach((col) => {
-        if (col.children && col.children.length > 0) {
-          result.push(...getFlattedColumns(col.children));
-        } else {
-          result.push(col);
-        }
-      });
-      return result;
-    };
-    const flattedColumns = computed(() => getFlattedColumns(props.columns));
+    const flattedColumns = computed(() => flattenColumns(props.columns));
 
     const headerRows = computed(() => {
       const rows: Column[][] = [];
@@ -108,13 +111,7 @@ const Table = defineComponent({
         cols.forEach((col) => {
           const cell: Column = { ...col };
           // 计算 colSpan (叶子节点总数)
-          const getLeafCount = (c: Column): number => {
-            if (c.children && c.children.length) {
-              return c.children.reduce((acc, item) => acc + getLeafCount(item), 0);
-            }
-            return 1;
-          };
-          cell.colSpan = getLeafCount(col);
+          cell.colSpan = countColumnLeaves(col);
 
           // 计算 rowSpan
           if (col.children && col.children.length > 0) {
@@ -135,9 +132,62 @@ const Table = defineComponent({
       const key = record[props.rowKey];
       return typeof key === "string" || typeof key === "number" ? key : String(key ?? "");
     };
+    if (props.defaultExpandAllRows) {
+      innerExpandedKeys.value = new Set(
+        flattenTreeData({
+          data: props.data,
+          childrenColumnName: props.childrenColumnName,
+          getKey: getRowKey,
+        })
+          .filter((row) => row.hasChildren)
+          .map((row) => getRowKey(row.record))
+      );
+    }
+    const currentExpandedKeys = computed(() =>
+      props.expandedKeys ? new Set(props.expandedKeys) : innerExpandedKeys.value
+    );
+    const sortRecords = (records: TableRecord[]) => {
+      const list = [...records];
+      if (sortState.key && sortState.order) {
+        const col = flattedColumns.value.find((item) => item.key === sortState.key);
+        if (col?.sorter === true) {
+          list.sort((first, second) => {
+            const firstValue = first[sortState.key];
+            const secondValue = second[sortState.key];
+            if (firstValue === secondValue) return 0;
+            const comparison = String(firstValue ?? "").localeCompare(
+              String(secondValue ?? ""),
+              undefined,
+              { numeric: true }
+            );
+            return sortState.order === "asc" ? comparison : -comparison;
+          });
+        }
+      }
+      return list;
+    };
+    const allTreeRows = computed(() =>
+      flattenTreeData({
+        data: props.data,
+        childrenColumnName: props.childrenColumnName,
+        getKey: getRowKey,
+      })
+    );
+    const visibleTreeRows = computed(() =>
+      flattenTreeData({
+        data: props.data,
+        childrenColumnName: props.childrenColumnName,
+        expandedKeys: currentExpandedKeys.value,
+        getKey: getRowKey,
+        sortRecords,
+      })
+    );
+    const treeEnabled = computed(() => allTreeRows.value.some((row) => row.hasChildren));
 
     const selectionState = computed(() => {
-      const enableData = props.data.filter((item) => !isDisabled(getRowKey(item)));
+      const enableData = allTreeRows.value
+        .map((row) => row.record)
+        .filter((item) => !isDisabled(getRowKey(item)));
       if (enableData.length === 0) return { all: false, indeterminate: false, disabled: true };
 
       const checkedCount = enableData.filter((item) =>
@@ -284,28 +334,9 @@ const Table = defineComponent({
       emit("sort", nextState);
     };
 
-    const processedData = computed(() => {
-      const list = [...props.data];
-      if (sortState.key && sortState.order) {
-        const col = flattedColumns.value.find((c) => c.key === sortState.key);
-        if (col && col.sorter === true) {
-          list.sort((a, b) => {
-            const valA = a[sortState.key];
-            const valB = b[sortState.key];
-            if (valA === valB) return 0;
-            const comparison = String(valA ?? "").localeCompare(String(valB ?? ""), undefined, {
-              numeric: true,
-            });
-            return sortState.order === "asc" ? comparison : -comparison;
-          });
-        }
-      }
-      return list;
-    });
-
     const toggleAll = ({ checked }: ChangeEvent) => {
       const newSet = new Set(innerSelectedKeys.value);
-      props.data.forEach((item) => {
+      allTreeRows.value.forEach(({ record: item }) => {
         const key = getRowKey(item);
         if (!isDisabled(key)) {
           if (checked) {
@@ -333,6 +364,19 @@ const Table = defineComponent({
       const rows = Array.from(newSet);
       emit("update:selectedKeys", rows);
       emit("select", record, e.checked, rows);
+    };
+
+    const toggleExpand = (record: TableRecord) => {
+      const key = getRowKey(record);
+      const next = new Set(currentExpandedKeys.value);
+      const expanded = !next.has(key);
+      if (expanded) next.add(key);
+      else next.delete(key);
+      if (props.expandedKeys === undefined) innerExpandedKeys.value = next;
+      const keys = [...next];
+      emit("update:expandedKeys", keys);
+      emit("expandedKeysChange", keys);
+      emit("expand", expanded, record);
     };
 
     const renderColGroup = (isHeader = false) => (
@@ -445,7 +489,7 @@ const Table = defineComponent({
     };
 
     const mergeMatrix = computed(() => {
-      const data = processedData.value;
+      const data = visibleTreeRows.value.map((row) => row.record);
       const cols = flattedColumns.value;
 
       // 结构: matrix[rowIndex][colIndex] = { rowSpan: 1, colSpan: 1, show: true }
@@ -510,13 +554,15 @@ const Table = defineComponent({
 
     const renderTbody = () => (
       <tbody>
-        {processedData.value.map((record, rowIndex) => {
+        {visibleTreeRows.value.map(({ record, depth, hasChildren }, rowIndex) => {
           const rowId = getRowKey(record);
           return (
             <tr
               key={rowId}
               onClick={(e) => {
-                e.stopPropagation();
+                const target = e.target as HTMLElement;
+                if (target.closest(".k-checkbox, .k-table-tree-toggle")) return;
+                if (props.expandRowByClick && hasChildren) toggleExpand(record);
                 emit("rowClick", record, rowIndex);
               }}
             >
@@ -558,7 +604,39 @@ const Table = defineComponent({
                     class={getFixedClass(col, colIndex)}
                     style={fixedInfo.value.body[col.key]}
                   >
-                    {cellContent}
+                    {treeEnabled.value && colIndex === 0 ? (
+                      <div
+                        class="k-table-tree-cell"
+                        style={{ paddingLeft: `${depth * props.indentSize}px` }}
+                      >
+                        {hasChildren ? (
+                          <button
+                            type="button"
+                            class="k-table-tree-toggle"
+                            aria-label={
+                              currentExpandedKeys.value.has(rowId)
+                                ? "Collapse row"
+                                : "Expand row"
+                            }
+                            aria-expanded={currentExpandedKeys.value.has(rowId)}
+                            onClick={() => toggleExpand(record)}
+                          >
+                            <Icon
+                              type={
+                                currentExpandedKeys.value.has(rowId)
+                                  ? ChevronDown
+                                  : ChevronRight
+                              }
+                            />
+                          </button>
+                        ) : (
+                          <span class="k-table-tree-indent" />
+                        )}
+                        <span class="k-table-tree-content">{cellContent}</span>
+                      </div>
+                    ) : (
+                      cellContent
+                    )}
                   </td>
                 );
               })}
@@ -598,7 +676,7 @@ const Table = defineComponent({
           "k-table-ping-right": pingRight.value,
         },
       ];
-      const isEmpty = !props.data || !props.data.length || !props.columns || !props.columns.length;
+      const isEmpty = !visibleTreeRows.value.length || !props.columns.length;
 
       // 拆分模式下的 Header
       const splitHeader = isSplit.value && (
@@ -652,4 +730,4 @@ const Table = defineComponent({
 
 export default Table;
 
-export type { Column, SortState, TableKey, TableRecord } from "./types";
+export type { Column, SortState, TableKey, TableRecord, TableTreeRow } from "./types";

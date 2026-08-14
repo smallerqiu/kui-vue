@@ -164,7 +164,7 @@ export { Splitter, SplitterPanel } from "./splitter";
 export type { SplitterPanelProps, SplitterProps } from "./splitter";
 
 export { default as Table } from "./table";
-export type { Column, SortState, TableKey, TableProps, TableRecord } from "./table";
+export type { Column, SortState, TableKey, TableProps, TableRecord, TableTreeRow } from "./table";
 
 export { default as Tooltip } from "./tooltip";
 export type { TooltipProps } from "./tooltip";
