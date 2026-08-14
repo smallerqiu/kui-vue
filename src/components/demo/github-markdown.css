@@ -92,7 +92,9 @@ code.hljs {
   color: #b31d28;
   background-color: #ffeef0;
 }
-
+.hljs-tag {
+  color: #535252;
+}
 img {
   max-width: 100%;
 }
