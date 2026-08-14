@@ -177,9 +177,20 @@ export function setPlacement({
     else if (calcTop + pickerH > clientHeight) calcTop = clientHeight - pickerH;
   }
 
-  // 赋值
-  top.value = calcTop + scrollTop;
-  left.value = calcLeft + scrollLeft;
+  // Convert viewport coordinates to the popper's actual positioning context.
+  // This keeps placement correct when ConfigProvider teleports overlays into a
+  // positioned local theme container instead of document.body.
+  const offsetParent = refPopper.value.offsetParent as HTMLElement | null;
+  const isDocumentRoot =
+    !offsetParent || offsetParent === document.body || offsetParent === document.documentElement;
+  if (isDocumentRoot) {
+    top.value = calcTop + scrollTop;
+    left.value = calcLeft + scrollLeft;
+  } else {
+    const parentRect = offsetParent.getBoundingClientRect();
+    top.value = calcTop - parentRect.top + offsetParent.scrollTop;
+    left.value = calcLeft - parentRect.left + offsetParent.scrollLeft;
+  }
   transOrigin.value = `${originX} ${originY}`;
 
   if (currentPlacement.value !== finalPlacement) {

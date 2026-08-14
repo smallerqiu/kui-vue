@@ -4,16 +4,17 @@
   display: inline-flex;
   min-width: 80px;
   vertical-align: middle;
-  color: var(--kui-color-text);
-  font-size: 14px;
+  color: var(--kui-control-text);
+  font-size: var(--kui-font-size);
+  position: relative;
   outline: none;
   box-sizing: border-box;
   align-items: center;
-  border-radius: var(--kui-border-radius);
-  border: 1px solid var(--kui-color-border);
+  border-radius: var(--kui-control-radius);
+  border: 1px solid var(--kui-control-border);
   padding: 0 8px;
-  transition: border 0.3s ease-in-out;
-  line-height: 1.571;
+  transition: border var(--kui-motion-duration-slow) var(--kui-motion-easing);
+  line-height: var(--kui-line-height);
   position: relative;
   &:not(.k-select-disabled, .k-select-borderless):focus {
     outline: 2px solid var(--kui-color-outline);
@@ -45,7 +46,7 @@
   }
 
   .k-select-icon {
-    font-size: 16px;
+    font-size: var(--kui-font-size-lg);
     color: var(--kui-color-icon);
     margin-right: 5px;
   }
@@ -65,8 +66,8 @@
       padding: 0;
       background: none;
       outline: none;
-      font-size: 14px;
-      color: var(--kui-color-text);
+      font-size: var(--kui-font-size);
+      color: var(--kui-control-text);
     }
   }
 
@@ -80,18 +81,18 @@
 
     .k-select-tag {
       padding: 2px 5px;
-      border: 1px solid var(--kui-color-border);
+      border: 1px solid var(--kui-control-border);
       background-color: var(--kui-color-bg-component);
-      border-radius: var(--kui-border-radius);
+      border-radius: var(--kui-control-radius);
       display: inline-flex;
       align-items: center;
-      font-size: 12px;
+      font-size: var(--kui-font-size-sm);
       position: relative;
       line-height: 1;
       transition: all 0.25s ease-in-out;
 
       .k-icon {
-        font-size: 14px;
+        font-size: var(--kui-font-size);
       }
     }
 
@@ -114,12 +115,13 @@
     left: 0;
     top: 0;
     z-index: 1;
-    font-size: 12px;
+    font-size: var(--kui-font-size-sm);
   }
 
   &-placeholder {
-    font-size: 14px;
+    font-size: var(--kui-font-size);
     z-index: 0;
+    line-height: var(--kui-line-height);
     overflow: hidden;
     text-overflow: ellipsis;
     color: var(--kui-color-text-placeholder);
@@ -139,20 +141,19 @@
     background: transparent;
     box-sizing: border-box;
     width: 100%;
-    line-height: 1.571;
+    line-height: var(--kui-line-height);
     cursor: pointer;
-    font-size: 14px;
+    font-size: var(--kui-font-size);
     transition: font-size 0.25s ease-in-out;
   }
 
   &-arrow {
-    font-size: 14px;
+    font-size: var(--kui-font-size);
     box-sizing: border-box;
     transform: rotate(0deg);
     transform-origin: center;
-    transition:
-      transform 0.3s ease-in-out,
-      font-size 0.25s ease-in-out;
+    transition: transform var(--kui-motion-duration-slow) var(--kui-motion-easing);
+    transition: font-size 0.25s ease-in-out;
     color: var(--kui-color-icon);
     margin-left: 8px;
 
@@ -167,7 +168,7 @@
   &-clearable {
     position: absolute;
     right: 8px;
-    font-size: 14px;
+    font-size: var(--kui-font-size);
     color: var(--kui-color-icon);
     display: none;
     cursor: pointer;
@@ -181,8 +182,8 @@
 
   .k-select-search-mirror,
   .k-select-search {
-    font-size: 14px;
-    color: var(--kui-color-text);
+    font-size: var(--kui-font-size);
+    color: var(--kui-control-text);
   }
 
   &.k-select-circle {
@@ -243,14 +244,14 @@
 .k-select-dropdown {
   -webkit-user-select: none;
   user-select: none;
-  border-radius: var(--kui-border-radius);
+  border-radius: var(--kui-control-radius);
   width: auto;
   max-height: 200px;
   overflow: auto;
-  background-color: var(--kui-color-bg-pop);
-  border: 1px solid var(--kui-color-pop-border);
+  background-color: var(--kui-popup-bg);
+  border: 1px solid var(--kui-popup-border);
   box-sizing: border-box;
-  box-shadow: var(--kui-pop-shadow);
+  box-shadow: var(--kui-popup-shadow);
 
   position: absolute;
   z-index: 1003;
@@ -266,13 +267,13 @@
 
   .k-select-loading {
     padding: 10px;
-    font-size: 14px;
-    color: var(--kui-color-text);
+    font-size: var(--kui-font-size);
+    color: var(--kui-control-text);
     display: flex;
     align-items: center;
 
     .k-icon {
-      font-size: 14px;
+      font-size: var(--kui-font-size);
     }
 
     span {
@@ -285,8 +286,8 @@
     line-height: 1;
     padding: 8px 8px;
     clear: both;
-    color: var(--kui-color-text);
-    font-size: 14px;
+    color: var(--kui-control-text);
+    font-size: var(--kui-font-size);
     white-space: nowrap;
     list-style: none;
     width: 100%;
@@ -295,7 +296,7 @@
     text-overflow: ellipsis;
     cursor: pointer;
     position: relative;
-    border-radius: var(--kui-border-radius);
+    border-radius: var(--kui-control-radius);
     margin-bottom: 1px;
 
     &:not(.k-select-item-disabled, .k-select-item-selected):hover {
@@ -323,7 +324,7 @@
   }
 
   .k-select-item-active {
-    background: var(--kui-color-hover);
+    background: var(--kui-color-item-hover);
   }
 
   .k-select-item-selected {
@@ -337,7 +338,7 @@
   }
 
   .k-select-item-disabled {
-    background: var(--kui-color-item-disable);
+    background: var(--kui-color-item-disabled);
     color: var(--kui-color-text-disabled);
     cursor: not-allowed;
   }
@@ -351,7 +352,7 @@
 
 .k-select-dropdown-sm {
   .k-select-item {
-    font-size: 12px;
+    font-size: var(--kui-font-size-sm);
   }
 }
 
@@ -359,7 +360,7 @@
   padding: 0 var(--kui-padding-inline-sm);
 
   .k-select-icon {
-    font-size: 14px;
+    font-size: var(--kui-font-size);
     margin-right: 3px;
   }
 
@@ -376,29 +377,29 @@
   }
 
   .k-select-arrow {
-    font-size: 12px;
+    font-size: var(--kui-font-size-sm);
     margin-left: 4px;
   }
 
   .k-select-clearable {
     right: 4px;
-    font-size: 12px;
+    font-size: var(--kui-font-size-sm);
   }
 
   .k-select-label {
     line-height: 22px;
     height: 22px;
-    font-size: 12px;
+    font-size: var(--kui-font-size-sm);
   }
 
   .k-select-placeholder {
-    font-size: 12px;
+    font-size: var(--kui-font-size-sm);
   }
 
   .k-select-search-wrap {
     .k-select-search {
       height: 12px;
-      font-size: 12px;
+      font-size: var(--kui-font-size-sm);
     }
   }
 
@@ -411,7 +412,7 @@
       line-height: 1;
 
       .k-icon {
-        font-size: 14px;
+        font-size: var(--kui-font-size);
       }
     }
 
@@ -419,7 +420,7 @@
       padding: 2px 0;
 
       .k-select-search {
-        font-size: 12px;
+        font-size: var(--kui-font-size-sm);
         height: 12px;
         line-height: 12px;
         left: 0;
@@ -430,18 +431,18 @@
 
   .k-select-search-mirror,
   .k-select-search {
-    font-size: 12px;
-    color: var(--kui-color-text);
+    font-size: var(--kui-font-size-sm);
+    color: var(--kui-control-text);
   }
 }
 
 .k-select-lg {
   .k-select-placeholder {
-    font-size: 16px;
+    font-size: var(--kui-font-size-lg);
   }
 
   .k-select-selection {
-    font-size: 16px;
+    font-size: var(--kui-font-size-lg);
     min-height: 38px;
   }
 
@@ -460,7 +461,7 @@
   .k-select-label {
     line-height: 38px;
     height: 38px;
-    font-size: 16px;
+    font-size: var(--kui-font-size-lg);
   }
 
   .k-select-search-wrap {
@@ -472,11 +473,11 @@
   .k-select-labels {
     .k-select-tag {
       padding: 7px;
-      font-size: 14px;
+      font-size: var(--kui-font-size);
       line-height: 1;
 
       .k-icon {
-        font-size: 16px;
+        font-size: var(--kui-font-size-lg);
       }
     }
 
@@ -486,7 +487,7 @@
         line-height: 28px;
         left: 0;
         float: left;
-        font-size: 16px;
+        font-size: var(--kui-font-size-lg);
       }
     }
   }
@@ -509,7 +510,7 @@
 
 .k-select-disabled {
   color: var(--kui-color-text-disabled);
-  background: var(--kui-color-bg-component-disabled);
+  background: var(--kui-control-bg-disabled);
 
   .k-select-label {
     cursor: not-allowed;
@@ -520,7 +521,7 @@
   }
 
   .k-select-arrow {
-    color: var(--kui-color-disable-border);
+    color: var(--kui-color-border-disabled);
   }
 }
 

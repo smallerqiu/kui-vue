@@ -3,6 +3,7 @@ import {
   computed,
   defineComponent,
   inject,
+  isRef,
   nextTick,
   onBeforeUnmount,
   onMounted,
@@ -12,10 +13,12 @@ import {
   watch,
   type ExtractPropTypes,
   type PropType,
+  type Ref,
   type VNodeChild,
 } from "vue";
 import { Button } from "../button";
 import { getMousePoint } from "../config/context";
+import { usePopupContainer } from "../config/popup";
 import type { BooleanType } from "../const/types";
 import zhCN from "../locale/zh-CN";
 
@@ -47,6 +50,7 @@ const Modal = defineComponent({
   inheritAttrs: false,
   props: modalProps,
   setup(props, { attrs, slots, emit }) {
+    const getPopupContainer = usePopupContainer();
     const visible = ref<boolean | undefined>(props.modelValue);
     const rendered = ref(false);
     const showInner = ref(props.modelValue);
@@ -57,11 +61,10 @@ const Modal = defineComponent({
     const startPos = ref({ x: 0, y: 0 });
     const refModal = ref();
     const refHeader = ref();
-    const injectedLocale = inject<typeof zhCN | { value: typeof zhCN }>("locale", zhCN);
-    const locale = computed(() => {
-      return injectedLocale instanceof Object && "value" in injectedLocale
-        ? injectedLocale.value
-        : injectedLocale;
+    type Locale = typeof zhCN;
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const locale = computed<Locale>(() => {
+      return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
     const escToClose = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -266,7 +269,7 @@ const Modal = defineComponent({
       const rootAttrs = { ...attrs };
       delete rootAttrs.class;
       return rendered.value ? (
-        <Teleport to="body">
+        <Teleport to={getPopupContainer()}>
           <div {...rootAttrs} class={classes}>
             {maskNode}
             <div

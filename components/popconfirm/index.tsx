@@ -3,6 +3,7 @@ import {
   computed,
   defineComponent,
   inject,
+  isRef,
   nextTick,
   onMounted,
   onUnmounted,
@@ -12,8 +13,10 @@ import {
   watch,
   type ExtractPropTypes,
   type PropType,
+  type Ref,
 } from "vue";
 import { Button } from "../button";
+import { usePopupContainer } from "../config/popup";
 import type { BooleanType, PlacementsType } from "../const/types";
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
@@ -41,12 +44,12 @@ const Popconfirm = defineComponent({
   name: "Popconfirm",
   props: popconfirmProps,
   setup(props, { slots, attrs, emit }) {
-    const injectedLocale = inject<typeof zhCN | { value: typeof zhCN }>("locale", zhCN);
+    type Locale = typeof zhCN;
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const getPopupContainer = usePopupContainer();
 
-    const locale = computed(() => {
-      return injectedLocale instanceof Object && "value" in injectedLocale
-        ? injectedLocale.value
-        : injectedLocale;
+    const locale = computed<Locale>(() => {
+      return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
     const rendered = ref(props.show);
     const visible = ref(props.show);
@@ -196,7 +199,7 @@ const Popconfirm = defineComponent({
       if (rendered.value) {
         childNodes.push(
           // const overlay = rendered.value ? (
-          <Teleport to="body">
+          <Teleport to={getPopupContainer()}>
             <Transition name={`k-${preCls}`}>
               <div class={cls} v-show={visible.value} {..._props}>
                 <div class={`k-${preCls}-content`}>

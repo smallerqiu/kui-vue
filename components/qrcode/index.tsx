@@ -4,6 +4,7 @@ import {
   computed,
   defineComponent,
   inject,
+  isRef,
   onBeforeUnmount,
   onMounted,
   ref,
@@ -11,6 +12,7 @@ import {
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
+  type Ref,
 } from "vue";
 import { Button } from "../button";
 import type { BooleanType, QRCodeErrorLevel, QRCodeStatus } from "../const/types";
@@ -42,14 +44,11 @@ const QRCode = defineComponent({
   setup(props, { emit, slots, expose }) {
     const canvasRef = ref<HTMLCanvasElement | null>(null);
     let rootObserver: MutationObserver | null = null;
-
-    const injectedLocale = inject<typeof zhCN | { value: typeof zhCN }>("locale", zhCN);
-    const locale = computed(() => {
-      return injectedLocale instanceof Object && "value" in injectedLocale
-        ? injectedLocale.value
-        : injectedLocale;
+    type Locale = typeof zhCN;
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const locale = computed<Locale>(() => {
+      return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
-
     const initThemeObserver = () => {
       const rootEl = document.documentElement;
 

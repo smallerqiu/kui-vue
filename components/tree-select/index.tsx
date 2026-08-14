@@ -3,6 +3,7 @@ import {
   computed,
   defineComponent,
   inject,
+  isRef,
   nextTick,
   onBeforeUnmount,
   onMounted,
@@ -14,8 +15,10 @@ import {
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
+  type Ref,
   type VNodeChild,
 } from "vue";
+import { usePopupContainer } from "../config/popup";
 import type {
   BooleanType,
   DropPlacementsType,
@@ -103,12 +106,12 @@ const TreeSelect = defineComponent({
   },
   props: treeSelectProps,
   setup(props, { emit }) {
-    const injectedLocale = inject<typeof zhCN | { value: typeof zhCN }>("locale", zhCN);
+    type Locale = typeof zhCN;
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const getPopupContainer = usePopupContainer();
 
-    const locale = computed(() => {
-      return injectedLocale instanceof Object && "value" in injectedLocale
-        ? injectedLocale.value
-        : injectedLocale;
+    const locale = computed<Locale>(() => {
+      return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
 
     const visible = ref(false);
@@ -489,7 +492,7 @@ const TreeSelect = defineComponent({
       );
 
       return (
-        <Teleport to="body">
+        <Teleport to={getPopupContainer()}>
           <Transition name={preCls}>
             <div v-show={visible.value} {...overlayProps}>
               {props.loading ? (

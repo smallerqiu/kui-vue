@@ -15,8 +15,8 @@
     height: 20px;
     border-radius: 10px;
     min-width: 20px;
-    background: #ed3f14;
-    color: #fff;
+    background: var(--kui-color-danger);
+    color: var(--kui-color-text-on-solid);
     line-height: 1;
     font-size: 12px;
     white-space: nowrap;
@@ -33,8 +33,8 @@
     display: inline-block;
     border-radius: 10px;
     min-width: 20px;
-    background: #ed3f14;
-    color: #fff;
+    background: var(--kui-color-danger);
+    color: var(--kui-color-text-on-solid);
     height: 20px;
     line-height: 20px;
     text-align: center;
@@ -42,7 +42,7 @@
     font-size: 12px;
     box-sizing: border-box;
     white-space: nowrap;
-    box-shadow: 0 0 0 2px #fff;
+    box-shadow: 0 0 0 2px var(--kui-color-bg);
     top: 0;
     bottom: 0;
   }
@@ -94,7 +94,7 @@
   }
 
   &-status-default {
-    background-color: #ddd;
+    background-color: var(--kui-color-border-disabled);
   }
 
   &-status-pink {
@@ -177,7 +177,7 @@
 
   .k-badge-status-text {
     margin-left: 0;
-    color: var(--kui-color-text-secondary);
+    color: var(--kui-color-text-description);
     font-size: 13px;
   }
 }

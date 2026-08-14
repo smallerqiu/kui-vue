@@ -18,6 +18,7 @@ import {
   type Ref,
 } from "vue";
 import { Button } from "../button";
+import { usePopupContainer } from "../config/popup";
 import type { DrawerPlacementsType } from "../const/types";
 import zhCN from "../locale/zh-CN";
 import { toggleContainerScroll } from "../utils/vnode";
@@ -35,7 +36,6 @@ const drawerProps = {
   maskClosable: { type: Boolean, default: true },
   target: {
     type: Function as PropType<() => HTMLElement | ComponentPublicInstance | null | undefined>,
-    default: () => document.body,
   },
   mask: { type: Boolean, default: true },
   loading: { type: Boolean, default: false },
@@ -54,7 +54,7 @@ const Drawer = defineComponent({
   setup(props, { slots, emit }) {
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
-
+    const getPopupContainer = usePopupContainer();
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
@@ -66,7 +66,7 @@ const Drawer = defineComponent({
     const resolveTarget = () => {
       const target = props.target?.();
       const element = target && "$el" in target ? target.$el : target;
-      return element instanceof HTMLElement ? element : document.body;
+      return element instanceof HTMLElement ? element : getPopupContainer();
     };
 
     watch(

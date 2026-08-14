@@ -62,7 +62,6 @@ const FormItem = defineComponent({
   setup(props, { slots }) {
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
-
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
@@ -85,14 +84,17 @@ const FormItem = defineComponent({
             itemValue !== "" &&
             itemValue !== false;
         if (!isValid) {
-          msg = msg || locale.value.k.form.required.replace("{label}", props.label || props.prop || "");
+          msg =
+            msg || locale.value.k.form.required.replace("{label}", props.label || props.prop || "");
         }
       } else if (rule.pattern) {
         isValid = rule.pattern.test(String(itemValue ?? ""));
       } else if (rule.type) {
         switch (rule.type) {
           case "mail":
-            isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/.test(String(itemValue ?? ""));
+            isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/.test(
+              String(itemValue ?? "")
+            );
             msg = msg || locale.value?.k.form.email;
             break;
           case "mobile":
@@ -227,10 +229,9 @@ const FormItem = defineComponent({
     return () => {
       const { label, prop } = props;
       const rules = props.rules || (prop ? Form.rules?.[prop] : undefined) || [];
-      const required =
-        !Array.isArray(rules)
-          ? (rules as FormRule).required
-          : rules.filter((r: FormRule) => r.required).length > 0;
+      const required = !Array.isArray(rules)
+        ? (rules as FormRule).required
+        : rules.filter((r: FormRule) => r.required).length > 0;
 
       const classes = [
         "k-form-item",

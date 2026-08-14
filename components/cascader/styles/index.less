@@ -5,16 +5,16 @@
   min-width: 80px;
   box-sizing: border-box;
   vertical-align: middle;
-  color: var(--kui-color-text);
-  font-size: 14px;
+  color: var(--kui-control-text);
+  font-size: var(--kui-font-size);
   position: relative;
   outline: none;
   align-items: center;
-  border-radius: var(--kui-border-radius);
-  border: 1px solid var(--kui-color-border);
+  border-radius: var(--kui-control-radius);
+  border: 1px solid var(--kui-control-border);
   padding: 0 8px;
-  transition: border 0.3s ease-in-out;
-  line-height: 1.571;
+  transition: border var(--kui-motion-duration-slow) var(--kui-motion-easing);
+  line-height: var(--kui-line-height);
   cursor: pointer;
 
   &:not(.k-cascader-disabled, .k-cascader-borderless):focus {
@@ -40,7 +40,7 @@
   }
 
   &-icon {
-    font-size: 16px;
+    font-size: var(--kui-font-size-lg);
     color: var(--kui-color-icon);
     margin-right: 5px;
   }
@@ -59,16 +59,16 @@
   }
 
   &-arrow {
-    font-size: 14px;
+    font-size: var(--kui-font-size);
     color: var(--kui-color-icon);
     margin-left: 8px;
-    transition: transform 0.3s ease-in-out;
+    transition: transform var(--kui-motion-duration-slow) var(--kui-motion-easing);
   }
 
   &-clearable {
     position: absolute;
     right: 8px;
-    font-size: 14px;
+    font-size: var(--kui-font-size);
     color: var(--kui-color-icon);
     display: none;
     opacity: 0;
@@ -95,7 +95,7 @@
   &-disabled {
     cursor: not-allowed;
     color: var(--kui-color-text-disabled);
-    background: var(--kui-color-bg-component-disabled);
+    background: var(--kui-control-bg-disabled);
   }
 }
 
@@ -125,10 +125,10 @@
 .k-cascader-dropdown {
   -webkit-user-select: none;
   user-select: none;
-  border-radius: var(--kui-border-radius);
-  background-color: var(--kui-color-bg-pop);
-  border: 1px solid var(--kui-color-pop-border);
-  box-shadow: var(--kui-pop-shadow);
+  border-radius: var(--kui-control-radius);
+  background-color: var(--kui-popup-bg);
+  border: 1px solid var(--kui-popup-border);
+  box-shadow: var(--kui-popup-shadow);
   position: absolute;
   z-index: 1003;
   display: inline-flex;
@@ -150,7 +150,7 @@
     list-style: none;
     box-sizing: border-box;
     height: 100%;
-    border-right: 1px solid var(--kui-color-pop-border);
+    border-right: 1px solid var(--kui-popup-border);
 
     &:last-child {
       border-right: none;
@@ -159,13 +159,13 @@
 
   &-item {
     padding: 5px 12px;
-    color: var(--kui-color-text);
-    font-size: 14px;
+    color: var(--kui-control-text);
+    font-size: var(--kui-font-size);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     cursor: pointer;
-    border-radius: var(--kui-border-radius);
+    border-radius: var(--kui-control-radius);
     margin-bottom: 1px;
     display: flex;
     align-items: center;
@@ -188,16 +188,16 @@
     }
 
     &-disabled {
-      background: var(--kui-color-item-disable);
+      background: var(--kui-color-item-disabled);
       color: var(--kui-color-text-disabled);
       cursor: not-allowed;
       &:hover {
-        background: var(--kui-color-item-disable);
+        background: var(--kui-color-item-disabled);
       }
     }
 
     .k-cascader-item-arrow {
-      font-size: 12px;
+      font-size: var(--kui-font-size-sm);
       color: var(--kui-color-icon);
     }
   }
@@ -238,7 +238,7 @@
   padding: 0 var(--kui-padding-inline-sm);
 
   .k-cascader-icon {
-    font-size: 14px;
+    font-size: var(--kui-font-size);
     margin-right: 3px;
   }
 
@@ -255,33 +255,33 @@
   }
 
   .k-cascader-arrow {
-    font-size: 12px;
+    font-size: var(--kui-font-size-sm);
     margin-left: 4px;
   }
 
   .k-cascader-clearable {
     right: 4px;
-    font-size: 12px;
+    font-size: var(--kui-font-size-sm);
   }
 
   .k-cascader-label {
     line-height: 22px;
     height: 22px;
-    font-size: 12px;
+    font-size: var(--kui-font-size-sm);
   }
 
   .k-cascader-placeholder {
-    font-size: 12px;
+    font-size: var(--kui-font-size-sm);
   }
 }
 
 .k-cascader-lg {
   .k-cascader-placeholder {
-    font-size: 16px;
+    font-size: var(--kui-font-size-lg);
   }
 
   .k-cascader-selection {
-    font-size: 16px;
+    font-size: var(--kui-font-size-lg);
     min-height: 38px;
   }
 
@@ -300,6 +300,6 @@
   .k-cascader-label {
     line-height: 38px;
     height: 38px;
-    font-size: 16px;
+    font-size: var(--kui-font-size-lg);
   }
 }

@@ -8,15 +8,6 @@
 ::-webkit-resizer — 出现在某些元素底角的可拖动调整大小手柄。
 */
 
-::selection {
-  background-color: var(--kui-color-primary);
-  color: #fff;
-}
-input::placeholder,
-textarea::placeholder {
-  color: var(--kui-color-text-placeholder);
-}
-
 .k-scroll {
   /* 滑块颜色 轨道颜色 */
   scrollbar-color: var(--kui-color-scrollbar-thumb) transparent;
@@ -49,41 +40,4 @@ textarea::placeholder {
   &::-webkit-resizer {
     background-color: transparent;
   }
-}
-
-a {
-  color: var(--kui-color-primary);
-  text-decoration: none;
-}
-
-// theme
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-  isolation: isolate;
-  will-change: transform, opacity;
-}
-
-[theme-mode="light"]::view-transition-old(root) {
-  z-index: 999;
-}
-
-[theme-mode="light"]::view-transition-new(root) {
-  z-index: 1;
-}
-
-[theme-mode="dark"]::view-transition-old(root) {
-  z-index: 1;
-}
-
-[theme-mode="dark"]::view-transition-new(root) {
-  z-index: 999;
-}
-
-:root {
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-  // transition: none !important;
 }

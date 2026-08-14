@@ -1,13 +1,13 @@
 @import "../../styles/less-css-var.less";
 .k-btn {
-  color: var(--kui-color-text);
-  font-size: 14px;
-  height: 32px;
+  color: var(--kui-control-text);
+  font-size: var(--kui-font-size);
+  height: var(--kui-control-height);
   line-height: 1;
   padding: 0 15px;
   box-sizing: border-box;
   flex-shrink: 0;
-  border-radius: var(--kui-border-radius);
+  border-radius: var(--kui-control-radius);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -16,9 +16,9 @@
   user-select: none;
   border: 1px solid transparent;
   transition:
-    height 0.3s ease-in-out,
-    width 0.3s ease-in-out,
-    filter 0.3s ease-in-out,
+    height var(--kui-motion-duration-slow) var(--kui-motion-easing),
+    width var(--kui-motion-duration-slow) var(--kui-motion-easing),
+    filter var(--kui-motion-duration-slow) var(--kui-motion-easing),
     outline 0.1s ease-in-out,
     font-size 0.3s ease;
   z-index: 0;
@@ -34,51 +34,51 @@
   }
 
   .k-icon {
-    font-size: 14px;
+    font-size: var(--kui-font-size);
     vertical-align: middle;
   }
   &.k-btn-icon-only {
     padding: 0;
-    height: 32px;
+    height: var(--kui-control-height);
     width: 32px;
   }
 }
 
 .k-btn-sm {
-  height: 24px;
-  font-size: 12px;
+  height: var(--kui-control-height-sm);
+  font-size: var(--kui-font-size-sm);
   padding: 0 8px;
   gap: 4px;
 
   [class^="k-icon"] {
-    font-size: 12px;
+    font-size: var(--kui-font-size-sm);
   }
   &.k-btn-icon-only {
     padding: 0;
-    height: 24px;
+    height: var(--kui-control-height-sm);
     width: 24px;
     min-width: 24px;
   }
 }
 .k-btn-lg {
-  height: 40px;
-  font-size: 16px;
+  height: var(--kui-control-height-lg);
+  font-size: var(--kui-font-size-lg);
   padding: 0 15px;
   gap: 10px;
   border-radius: var(--kui-border-radius-lg);
 
   .k-icon {
-    font-size: 16px;
+    font-size: var(--kui-font-size-lg);
   }
   &.k-btn-icon-only {
     padding: 0;
-    height: 40px;
+    height: var(--kui-control-height-lg);
     width: 40px;
   }
 }
 
 .k-btn-dashed {
-  border-color: var(--kui-color-border);
+  border-color: var(--kui-control-border);
 }
 
 .k-btn-text {
@@ -139,7 +139,7 @@
 
 .k-btn-primary:not(.k-btn-outline, .k-btn-dashed, .k-btn-fill, .k-btn-card) {
   border: none;
-  color: #fff;
+  color: var(--kui-color-text-on-solid);
   background: var(--kui-color-primary);
   border-color: var(--kui-color-primary);
   &:not(:disabled):hover {
@@ -152,7 +152,7 @@
 
 .k-btn-danger:not(.k-btn-outline, .k-btn-dashed, .k-btn-fill, .k-btn-card) {
   border: none;
-  color: #fff;
+  color: var(--kui-color-text-on-solid);
   border-color: var(--kui-color-danger);
   background: var(--kui-color-danger);
   &:not(:disabled):hover {
@@ -165,7 +165,7 @@
 
 .k-btn-warning:not(.k-btn-outline, .k-btn-dashed, .k-btn-fill, .k-btn-card) {
   border: none;
-  color: #fff;
+  color: var(--kui-color-text-on-solid);
   border-color: var(--kui-color-warning);
   background: var(--kui-color-warning);
   &:not(:disabled):hover {
@@ -204,7 +204,7 @@
   }
 
   &.k-btn-default {
-    border-color: var(--kui-color-border);
+    border-color: var(--kui-control-border);
   }
   &.k-btn-pink {
     color: var(--kui-color-pink-3);
@@ -301,7 +301,7 @@
 }
 
 .k-btn-solid {
-  color: #fff;
+  color: var(--kui-color-text-on-solid);
   border: none;
   position: relative;
   overflow: hidden;
@@ -400,7 +400,7 @@
   &:disabled {
     background: none;
     &::before {
-      background-color: var(--kui-color-bg-component-disabled);
+      background-color: var(--kui-control-bg-disabled);
     }
   }
 }
@@ -425,7 +425,7 @@
   }
 }
 .k-btn:not(.k-btn-link, .k-btn-text, .k-btn-solid):disabled {
-  background-color: var(--kui-color-bg-component-disabled);
+  background-color: var(--kui-control-bg-disabled);
 }
 .k-btn:disabled {
   cursor: not-allowed;

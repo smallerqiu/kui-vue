@@ -15,6 +15,7 @@ import {
 } from "vue";
 import { type BooleanType, type PlacementsType } from "../const/types";
 import { colors } from "../const/var";
+import { usePopupContainer } from "../config/popup";
 import { isColor } from "../utils/color";
 import { setPlacement } from "../utils/placement";
 import { cloneNodes, getChildren } from "../utils/vnode";
@@ -37,6 +38,7 @@ const Tooltip = defineComponent({
   name: "Tooltip",
   props: tooltipProps,
   setup(props, { slots, attrs, emit }) {
+    const getPopupContainer = usePopupContainer();
     const rendered = ref(props.show);
     const visible = ref(props.show);
     const refPopper = ref<HTMLElement | null>(null);
@@ -221,7 +223,7 @@ const Tooltip = defineComponent({
         } as CSSProperties,
       };
       const tooltipOverlay = rendered.value ? (
-        <Teleport to="body">
+        <Teleport to={getPopupContainer()}>
           <Transition name={`k-${preCls}`}>
             <div v-show={visible.value && anchorVisible.value} {...overlayProps}>
               <div {...contentProps}>

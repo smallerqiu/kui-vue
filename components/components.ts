@@ -141,6 +141,7 @@ export { Option, Select } from "./select";
 export type { OptionProps, SelectOption, SelectProps } from "./select";
 
 export { default as ConfigProvider } from "./config";
+export type { ConfigProviderProps } from "./config";
 
 export { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText } from "./skeleton";
 export type { SkeletonProps } from "./skeleton";

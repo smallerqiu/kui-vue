@@ -16,6 +16,7 @@ import {
   type VNodeChild,
 } from "vue";
 import { getTransitionProp } from "../base/transition";
+import { usePopupContainer } from "../config/popup";
 import type { BooleanType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 import { setPlacement } from "../utils/placement";
@@ -38,6 +39,7 @@ const SubMenu = defineComponent({
   name: "SubMenu",
   props: submenuProps,
   setup(props, { slots }) {
+    const getPopupContainer = usePopupContainer();
     const refSelection = ref<HTMLElement | null>(null);
     const refPopper = ref<HTMLElement | null>(null);
     const top = ref(0);
@@ -167,7 +169,7 @@ const SubMenu = defineComponent({
         : { class: `k-${preCls}-sub` };
 
       return (
-        <Teleport to="body" disabled={!popup}>
+        <Teleport to={getPopupContainer()} disabled={!popup}>
           <Transition {...transitionProps}>
             <div {...containerProps} v-show={opened}>
               <div class={popup ? `k-${preCls}-sub` : undefined}>

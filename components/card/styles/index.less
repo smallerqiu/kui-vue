@@ -1,14 +1,14 @@
 @import "../../styles/less-css-var.less";
 
 .k-card {
-  background: var(--kui-color-bg-component);
+  background: var(--kui-card-bg);
   position: relative;
-  border-radius: var(--kui-border-radius-card);
+  border-radius: var(--kui-card-radius);
   color: var(--kui-color-text);
 
   .k-card-head {
     position: relative;
-    padding: 16px;
+    padding: var(--kui-card-padding);
     line-height: 1;
     display: flex;
     align-items: center;
@@ -34,13 +34,13 @@
   }
 
   .k-card-body {
-    padding: 16px;
+    padding: var(--kui-card-padding);
     font-size: 14px;
   }
 
   .k-card-cover {
     overflow: hidden;
-    border-radius: var(--kui-border-radius-card) var(--kui-border-radius-card) 0 0;
+    border-radius: var(--kui-card-radius) var(--kui-card-radius) 0 0;
 
     > img {
       display: block;
@@ -82,9 +82,9 @@
 }
 
 .k-card-bordered {
-  border: 1px solid var(--kui-color-border);
+  border: 1px solid var(--kui-card-border);
   background-color: transparent;
   .k-card-head {
-    border-bottom: 1px solid var(--kui-color-border);
+    border-bottom: 1px solid var(--kui-card-border);
   }
 }

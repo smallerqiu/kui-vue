@@ -8,25 +8,25 @@
   .k-input-otp-separator {
     display: inline-flex;
     align-items: center;
-    color: var(--kui-color-text-secondary);
+    color: var(--kui-color-text-description);
   }
 
   .k-input-otp-item {
     width: 40px;
-    height: 40px;
+    height: var(--kui-control-height-lg);
     padding: 0;
     box-sizing: border-box;
-    border: 1px solid var(--kui-color-border);
-    border-radius: var(--kui-border-radius);
-    color: var(--kui-color-text);
-    background-color: var(--kui-color-bg);
+    border: 1px solid var(--kui-control-border);
+    border-radius: var(--kui-control-radius);
+    color: var(--kui-control-text);
+    background-color: var(--kui-control-bg);
     font-size: 18px;
-    line-height: 40px;
+    line-height: var(--kui-control-height-lg);
     text-align: center;
     caret-color: var(--kui-color-primary);
     transition:
-      border-color 0.2s ease-in-out,
-      box-shadow 0.2s ease-in-out;
+      border-color var(--kui-motion-duration) var(--kui-motion-easing),
+      box-shadow var(--kui-motion-duration) var(--kui-motion-easing);
 
     &:hover {
       border-color: var(--kui-color-primary);
@@ -41,7 +41,7 @@
     &:disabled {
       cursor: not-allowed;
       color: var(--kui-color-text-disabled);
-      background: var(--kui-color-bg-component-disabled);
+      background: var(--kui-control-bg-disabled);
     }
   }
 }
@@ -82,9 +82,9 @@
   gap: 6px;
   .k-input-otp-item {
     width: 32px;
-    height: 32px;
-    font-size: 14px;
-    line-height: 32px;
+    height: var(--kui-control-height);
+    font-size: var(--kui-font-size);
+    line-height: var(--kui-control-height);
   }
 }
 

@@ -18,6 +18,7 @@ import {
   type VNode,
   type VNodeChild,
 } from "vue";
+import { usePopupContainer } from "../config/popup";
 import resize from "../directives/resize";
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
@@ -79,6 +80,7 @@ const Select = defineComponent({
   setup(props, { slots, emit }) {
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const getPopupContainer = usePopupContainer();
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
@@ -533,7 +535,7 @@ const Select = defineComponent({
         </div>
       );
       return (
-        <Teleport to="body">
+        <Teleport to={getPopupContainer()}>
           <Transition name={`${preCls}`}>
             <div v-show={visible.value} {...popperProps}>
               {props.loading ? (

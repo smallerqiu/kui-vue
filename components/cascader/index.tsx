@@ -11,6 +11,7 @@ import {
   type CSSProperties,
 } from "vue";
 import Empty from "../empty";
+import { usePopupContainer } from "../config/popup";
 import Icon from "../icon";
 import { setPlacement } from "../utils/placement";
 import { cascaderProps, type CascaderOption } from "./types.ts";
@@ -20,6 +21,7 @@ const Cascader = defineComponent({
   props: cascaderProps,
   emits: ["update:modelValue", "change", "openChange"],
   setup(props, { emit }) {
+    const getPopupContainer = usePopupContainer();
     const visible = ref(false);
     const rendered = ref(false);
 
@@ -215,7 +217,7 @@ const Cascader = defineComponent({
       const isEmpty = !props.options || props.options.length === 0;
 
       return (
-        <Teleport to="body">
+        <Teleport to={getPopupContainer()}>
           {/* 👈 核心修复：加上 appear 属性，强制首次渲染时也触发入场动画 */}
           <Transition name="k-cascader" appear>
             {visible.value && (

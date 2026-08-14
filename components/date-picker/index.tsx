@@ -29,6 +29,7 @@ import {
   type Ref,
 } from "vue";
 import { Button } from "../button";
+import { usePopupContainer } from "../config/popup";
 import type {
   BooleanType,
   DropPlacementsType,
@@ -122,6 +123,7 @@ const DatePicker = defineComponent({
   setup(props, { emit, slots }) {
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const getPopupContainer = usePopupContainer();
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
@@ -1076,7 +1078,7 @@ const DatePicker = defineComponent({
         ) : null;
       };
       const overlay = rendered.value ? (
-        <Teleport to="body">
+        <Teleport to={getPopupContainer()}>
           <Transition name="k-date-picker">
             <div v-show={isVisible.value} {...overlayProps}>
               {renderPresets()}

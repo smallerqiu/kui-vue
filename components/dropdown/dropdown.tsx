@@ -14,6 +14,7 @@ import {
 } from "vue";
 
 import type { BooleanType, DropPlacementsType, TriggerType } from "../const/types";
+import { usePopupContainer } from "../config/popup";
 import resize from "../directives/resize";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
@@ -46,6 +47,7 @@ const Dropdown = defineComponent({
   },
   props: dropdownProps,
   setup(props, { slots, emit, attrs }) {
+    const getPopupContainer = usePopupContainer();
     const visible = ref(props.show);
     const refSelection = ref<HTMLElement | null>(null);
     const currentPlacement = ref(props.placement);
@@ -209,7 +211,7 @@ const Dropdown = defineComponent({
       };
       const overlay =
         rendered.value && slots.overlay ? (
-          <Teleport to="body">
+          <Teleport to={getPopupContainer()}>
             <Transition name="k-dropdown">
               <div v-resize={updatePosition} v-show={visible.value} {..._props}>
                 <div class={`k-dropdown-content`}>

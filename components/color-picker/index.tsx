@@ -2,6 +2,7 @@ import Color, { type ColorObject } from "color";
 import resize from "../directives/resize";
 import { setPlacement } from "../utils/placement";
 import { cloneNodes } from "../utils/vnode";
+import { usePopupContainer } from "../config/popup";
 import Alpha from "./alpha";
 import Hue from "./hue";
 import Mode from "./mode";
@@ -60,6 +61,7 @@ const ColorPicker = defineComponent({
   props: colorPickerProps,
 
   setup(props, { emit, slots }) {
+    const getPopupContainer = usePopupContainer();
     const currentMode = ref(props.mode);
     type ColorInstance = ReturnType<typeof Color>;
     const currentColor = ref<string | ColorInstance>(props.modelValue || "#000000ff");
@@ -240,7 +242,7 @@ const ColorPicker = defineComponent({
 
       // let [r, g, b] = hslToRgb(color.H, color.S, color.L);
       return (
-        <Teleport to="body">
+        <Teleport to={getPopupContainer()}>
           <Transition name="k-color-picker">
             <div v-show={visible.value} {..._props}>
               <div class="k-color-picker-body">

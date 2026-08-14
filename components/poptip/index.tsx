@@ -10,6 +10,7 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
+import { usePopupContainer } from "../config/popup";
 import { setPlacement } from "../utils/placement";
 import { cloneNodes, getChildren } from "../utils/vnode";
 
@@ -39,6 +40,7 @@ const Poptip = defineComponent({
   name: "Poptip",
   props: poptipProps,
   setup(props, { slots, attrs, emit }) {
+    const getPopupContainer = usePopupContainer();
     const rendered = ref(props.show);
     const visible = ref(props.show);
     const refPopper = ref();
@@ -195,7 +197,7 @@ const Poptip = defineComponent({
       if (rendered.value) {
         childNodes.push(
           // const overlay = rendered.value ? (
-          <Teleport to="body">
+          <Teleport to={getPopupContainer()}>
             <Transition name={`k-${preCls}`}>
               <div class={cls} v-show={visible.value} {..._props}>
                 <div class={`k-${preCls}-content`}>

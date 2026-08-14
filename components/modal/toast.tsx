@@ -1,5 +1,5 @@
 import { CircleAlert, CircleCheck, CircleQuestionMark, CircleX, Info } from "kui-icons";
-import { computed, defineComponent, inject, ref, type PropType } from "vue";
+import { computed, defineComponent, inject, isRef, ref, type PropType, type Ref } from "vue";
 import { Button } from "../button";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
@@ -21,18 +21,20 @@ export default defineComponent({
     },
   },
   setup(ps, { expose, emit }) {
-    const injectedLocale = inject<typeof zhCN | { value: typeof zhCN }>("locale", zhCN);
-
-    const locale = computed(() => {
-      return injectedLocale instanceof Object && "value" in injectedLocale
-        ? injectedLocale.value
-        : injectedLocale;
+    type Locale = typeof zhCN;
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const locale = computed<Locale>(() => {
+      return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
     const loading = ref(false);
     const visible = ref(false);
     const isPromise = (obj: unknown): obj is PromiseLike<unknown> => {
-      return typeof obj === "object" && obj !== null && "then" in obj &&
-        typeof (obj as { then?: unknown }).then === "function";
+      return (
+        typeof obj === "object" &&
+        obj !== null &&
+        "then" in obj &&
+        typeof (obj as { then?: unknown }).then === "function"
+      );
     };
     const show = () => {
       visible.value = true;

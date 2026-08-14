@@ -3,11 +3,13 @@ import {
   computed,
   defineComponent,
   inject,
+  isRef,
   type CSSProperties,
   type DefineComponent,
   type ExtractPropTypes,
   type HTMLAttributes,
   type PropType,
+  type Ref,
 } from "vue";
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
@@ -23,12 +25,10 @@ const Empty = defineComponent({
   name: "Empty",
   props: emptyProps,
   setup(props, { slots, attrs }) {
-    const injectedLocale = inject<typeof zhCN | { value: typeof zhCN }>("locale", zhCN);
-
-    const locale = computed(() => {
-      return injectedLocale instanceof Object && "value" in injectedLocale
-        ? injectedLocale.value
-        : injectedLocale;
+    type Locale = typeof zhCN;
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const locale = computed<Locale>(() => {
+      return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
 
     return () => {
@@ -50,9 +50,10 @@ const Empty = defineComponent({
             src: image,
             class: "k-empty-image",
             style: imageStyle, // 通过属性展开应用样式
-            alt: typeof description === "string"
-              ? description
-              : locale.value?.k.empty.description || "Empty state image",
+            alt:
+              typeof description === "string"
+                ? description
+                : locale.value?.k.empty.description || "Empty state image",
           };
           return <img {...imgProps} />;
         }

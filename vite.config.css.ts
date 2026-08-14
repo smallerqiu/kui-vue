@@ -18,9 +18,14 @@ export default defineConfig({
     outDir: "style",
     assetsDir: "",
     rollupOptions: {
-      input: path.resolve(import.meta.dirname, "components/styles/index.less"),
+      input: {
+        index: path.resolve(import.meta.dirname, "components/styles/index.less"),
+        components: path.resolve(import.meta.dirname, "components/styles/components.less"),
+        base: path.resolve(import.meta.dirname, "components/styles/base.less"),
+        theme: path.resolve(import.meta.dirname, "components/styles/less-css-var.less"),
+      },
       output: {
-        assetFileNames: "index.css",
+        assetFileNames: "[name].css",
       },
     },
     emptyOutDir: false,

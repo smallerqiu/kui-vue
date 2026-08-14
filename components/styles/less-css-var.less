@@ -1,9 +1,29 @@
 @import "./less-var.less";
 :root {
-  /* 基础尺寸 */
+  /* Radius */
   --kui-border-radius: @radius;
   --kui-border-radius-lg: @radius-lg;
   --kui-border-radius-card: @cardRadius;
+
+  /* Control sizes */
+  --kui-control-height-sm: 24px;
+  --kui-control-height: 32px;
+  --kui-control-height-lg: 40px;
+
+  /* Typography */
+  --kui-font-size-sm: 12px;
+  --kui-font-size: 14px;
+  --kui-font-size-lg: 16px;
+  --kui-line-height: 1.571;
+  --kui-line-height-heading: 1.4;
+
+  /* Spacing */
+  --kui-spacing-1: 4px;
+  --kui-spacing-2: 8px;
+  --kui-spacing-3: 12px;
+  --kui-spacing-4: 16px;
+  --kui-spacing-5: 20px;
+  --kui-spacing-6: 24px;
 
   --kui-padding-block-sm: 2px;
   --kui-padding-block: 6px;
@@ -11,6 +31,35 @@
   --kui-padding-inline-sm: 6px;
   --kui-padding-inline: 8px;
   --kui-padding-inline-lg: 10px;
+
+  /* Motion */
+  --kui-motion-duration-fast: 0.15s;
+  --kui-motion-duration: 0.2s;
+  --kui-motion-duration-slow: 0.3s;
+  --kui-motion-easing: ease-in-out;
+
+  /* Layering */
+  --kui-z-index-popup: 1000;
+  --kui-z-index-overlay: 1002;
+  --kui-z-index-message: 1010;
+
+  /* Component-level tokens */
+  --kui-control-bg: var(--kui-color-bg);
+  --kui-control-bg-fill: var(--kui-color-bg-component);
+  --kui-control-bg-disabled: var(--kui-color-bg-component-disabled);
+  --kui-control-border: var(--kui-color-border);
+  --kui-control-border-hover: var(--kui-color-primary);
+  --kui-control-border-focus: var(--kui-color-primary);
+  --kui-control-text: var(--kui-color-text);
+  --kui-control-radius: var(--kui-border-radius);
+  --kui-card-bg: var(--kui-color-bg-component);
+  --kui-card-border: var(--kui-color-border);
+  --kui-card-radius: var(--kui-border-radius-card);
+  --kui-card-padding: var(--kui-spacing-4);
+  --kui-popup-bg: var(--kui-color-bg-pop);
+  --kui-popup-border: var(--kui-color-pop-border);
+  --kui-popup-radius: var(--kui-border-radius);
+  --kui-popup-shadow: var(--kui-pop-shadow);
 
   .kui-color-vars();
 
@@ -34,13 +83,17 @@
   --kui-color-text-title: @title-color; /* 标题 */
   --kui-color-text-description: @description-color; /* 描述/次要 */
   --kui-color-text-placeholder: @placeholder-color; /* 占位符 */
+  --kui-color-text-on-solid: #fff;
+  --kui-color-control-thumb: #fff;
+  --kui-color-control-thumb-text: @gray-9;
+  --kui-color-checkerboard: #cdcdcd;
   --kui-color-icon: @icon-color;
   --kui-color-icon-hover: @icon-color-hover;
   --kui-color-icon-active: @icon-color-active;
   /* 边框与分割线  */
   --kui-color-border: @border-color;
   --kui-color-pop-border: @pop-border-color;
-  --kui-color-outline: @outline-color;
+  --kui-color-outline: color-mix(in srgb, var(--kui-color-primary) 20%, transparent);
   --kui-color-border-disabled: @disable-border-color;
   --kui-color-border-split: @spite-color;
 
@@ -62,6 +115,7 @@
   --kui-color-bg-component-hover: @component-color-hover;
   --kui-color-bg-component-active: @component-color-active;
   --kui-color-bg-component-disabled: @component-color-disabled;
+  --kui-color-bg-component-overlay: @component-overlay-color;
   --kui-color-bg-elevated: @dark-gray-4; /* Modal/Popover 背景 */
 
   --kui-color-scrollbar-thumb: @scrollbar-thumb-color;
@@ -70,7 +124,7 @@
   /* --- 交互项 (Item) 暗黑适配 --- */
   --kui-color-item-hover: @item-hover-color;
   --kui-color-item-active: @item-active-color;
-  --kui-color-item-selected: @item-selected-color;
+  --kui-color-item-selected: color-mix(in srgb, var(--kui-color-primary) 20%, transparent);
   --kui-color-item-disabled: @item-disabled-color;
 
   /* table */
@@ -80,7 +134,7 @@
   --kui-color-table-col-active: @table-col-bg-color-active;
 
   /* 阴影 */
-  --kui-component-shadow: @component-shadow;
+  --kui-component-shadow: 0 0 2px color-mix(in srgb, var(--kui-color-primary) 10%, transparent);
   --kui-color-shadow: @shadow-color;
   --kui-color-mask: @mask-color;
   --kui-color-spin-mask: @spin-mask-color;
@@ -95,6 +149,11 @@
   --kui-color-bg-7: @gray-7;
   --kui-color-bg-8: @gray-8;
   --kui-color-bg-9: @gray-9;
+
+  /* Compatibility aliases. New code should use the canonical names above. */
+  --kui-color-text-secondary: var(--kui-color-text-description);
+  --kui-color-placeholder: var(--kui-color-text-placeholder);
+  --kui-color-item-disable: var(--kui-color-item-disabled);
 }
 
 .theme-dark-vars() {
@@ -111,6 +170,10 @@
   --kui-color-text-title: @dark-title-color; /* 标题 */
   --kui-color-text-description: @dark-description-color; /* 描述/次要 */
   --kui-color-text-placeholder: @dark-placeholder-color; /* 占位符 */
+  --kui-color-text-on-solid: #fff;
+  --kui-color-control-thumb: #fff;
+  --kui-color-control-thumb-text: @gray-9;
+  --kui-color-checkerboard: #666;
   --kui-color-icon: @dark-icon-color;
   --kui-color-icon-hover: @dark-icon-color-hover;
   --kui-color-icon-active: @dark-icon-color-active;
@@ -129,6 +192,9 @@
   --kui-color-bg-component-hover: @dark-component-color-hover;
   --kui-color-bg-component-active: @dark-component-color-active;
   --kui-color-bg-component-disabled: @dark-component-color-disabled;
+  --kui-color-bg-component-overlay: @dark-component-overlay-color;
+  --kui-color-bg-elevated: @dark-gray-4;
+  --kui-color-bg-pop-dark: @dark-pop-color;
 
   --kui-color-scrollbar-thumb: @dark-scrollbar-thumb-color;
   --kui-color-scrollbar-thumb-hover: @dark-scrollbar-thumb-color-hover;
@@ -137,7 +203,8 @@
   --kui-color-border: @dark-border-color;
   --kui-color-pop-border: @dark-pop-border-color;
   --kui-color-border-disabled: @dark-disable-border-color;
-  --kui-color-border-split: @spite-color;
+  --kui-color-border-split: @dark-spite-color;
+  --kui-color-outline: color-mix(in srgb, var(--kui-color-primary) 20%, transparent);
 
   /* table */
   --kui-color-table-row: @dark-table-row-bg-color;
@@ -149,12 +216,14 @@
   --kui-color-shadow: @dark-shadow-color;
   --kui-color-mask: @dark-mask-color;
   --kui-color-spin-mask: @dark-spin-mask-color;
-  // --kui-color-border-shadow: @dark-border-shadow;
+  --kui-component-shadow: 0 0 2px color-mix(in srgb, var(--kui-color-primary) 10%, transparent);
+  --kui-pop-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  --kui-color-border-shadow: @dark-border-shadow;
 
   /* --- 交互项 (Item) 暗黑适配 --- */
   --kui-color-item-hover: @dark-item-hover-color;
   --kui-color-item-active: @dark-item-active-color;
-  --kui-color-item-selected: @dark-item-selected-color;
+  --kui-color-item-selected: color-mix(in srgb, var(--kui-color-primary) 20%, transparent);
   --kui-color-item-disabled: @dark-item-disabled-color;
 
   --kui-color-bg-1: @dark-gray-1;
@@ -170,13 +239,13 @@
 
 .kui-color-vars() {
   --kui-color-primary: @main;
-  --kui-color-primary-hover: @main-1;
-  --kui-color-primary-active: @main-2;
-  --kui-color-primary-1: @main-1;
-  --kui-color-primary-3: @main-3;
-  --kui-color-primary-6: @main-6;
-  --kui-color-primary-8: @main-8;
-  --kui-color-primary-9: @main-9;
+  --kui-color-primary-hover: color-mix(in srgb, var(--kui-color-primary) 90%, transparent);
+  --kui-color-primary-active: color-mix(in srgb, var(--kui-color-primary) 80%, transparent);
+  --kui-color-primary-1: color-mix(in srgb, var(--kui-color-primary) 90%, transparent);
+  --kui-color-primary-3: color-mix(in srgb, var(--kui-color-primary) 70%, transparent);
+  --kui-color-primary-6: color-mix(in srgb, var(--kui-color-primary) 40%, transparent);
+  --kui-color-primary-8: color-mix(in srgb, var(--kui-color-primary) 20%, transparent);
+  --kui-color-primary-9: color-mix(in srgb, var(--kui-color-primary) 10%, transparent);
 
   --kui-color-success: @success;
   --kui-color-success-1: @success-1;

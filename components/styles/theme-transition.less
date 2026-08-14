@@ -1,0 +1,23 @@
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  isolation: isolate;
+  will-change: transform, opacity;
+}
+
+[theme-mode="light"]::view-transition-old(root),
+[theme-mode="dark"]::view-transition-new(root) {
+  z-index: 999;
+}
+
+[theme-mode="light"]::view-transition-new(root),
+[theme-mode="dark"]::view-transition-old(root) {
+  z-index: 1;
+}
+
+:root {
+  transition:
+    background-color var(--kui-motion-duration-slow) var(--kui-motion-easing),
+    color var(--kui-motion-duration-slow) var(--kui-motion-easing);
+}
