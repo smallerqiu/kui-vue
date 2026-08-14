@@ -202,7 +202,7 @@ const Input = defineComponent({
           },
           attrs.class,
         ],
-        multiple,
+        "data-multiple": "",
         style: attrs.style as CSSProperties,
       };
 

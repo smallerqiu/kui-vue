@@ -293,12 +293,16 @@
 }
 
 .k-menu-horizontal {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
   border-bottom: 1px solid var(--kui-color-border);
   white-space: nowrap;
   font-size: 0;
   line-height: 1;
   flex-direction: row;
-  padding: 0;
+  flex-wrap: nowrap;
   gap: 16px 32px;
   padding: 0 16px;
   .k-menu-icon-temp {
@@ -307,12 +311,12 @@
 
   .k-menu-item,
   .k-menu-submenu {
+    flex: 0 0 auto;
     line-height: 1;
     position: relative;
     cursor: pointer;
     font-size: 14px;
     z-index: 3;
-    display: inline-block;
     list-style: none;
     top: 1px;
     vertical-align: bottom;
@@ -517,9 +521,9 @@
 }
 
 .k-menu-submenu-fade-leave-active {
-  animation-fill-mode: both;
   transform-origin: 0% 0%;
   animation: k-menu-zoom 0.2s cubic-bezier(0.215, 0.61, 0.355, 1) reverse;
+  animation-fill-mode: both;
 }
 
 @keyframes drop-down {
@@ -546,8 +550,8 @@
   &[k-placement="right-top"],
   &[k-placement="left-top"],
   &[k-placement="right-bottom"] {
-    animation-fill-mode: both;
     animation: k-menu-zoom 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation-fill-mode: both;
   }
 }
 
@@ -556,8 +560,8 @@
   &[k-placement="right-top"],
   &[k-placement="left-top"],
   &[k-placement="right-bottom"] {
-    animation-fill-mode: both;
     animation: k-menu-zoom 0.2s cubic-bezier(0.215, 0.61, 0.355, 1) reverse;
+    animation-fill-mode: both;
   }
 
   &[k-placement="top-left"],
@@ -565,6 +569,7 @@
   &[k-placement="bottom-left"],
   &[k-placement="bottom-right"] {
     animation: drop-down 0.3s reverse;
+    animation-fill-mode: both;
   }
 }
 

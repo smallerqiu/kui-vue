@@ -28,9 +28,13 @@ const Demo = defineComponent({
     const $t = inject<(key: string) => string>("$t", (key: string) => key);
 
     const expanded = ref(props.direction != "vertical");
-    const codeRef = ref<HTMLElement>();
-    const codeOrigin = ref<string>();
+    const codeRefs = {
+      ts: ref<HTMLElement>(),
+      js: ref<HTMLElement>(),
+    };
     const codeLanguage = ref<"ts" | "js">("ts");
+    const codeOrigins: Partial<Record<"ts" | "js", string>> = {};
+    const currentCodeNode = () => codeRefs[codeLanguage.value].value;
     const viewRef = ref(null);
     const timer = ref<ReturnType<typeof setTimeout>>();
     const buildState = reactive({
@@ -48,7 +52,7 @@ const Demo = defineComponent({
     const reload = async () => {
       const activeCodeSlot = codeLanguage.value === "ts" ? slots["code-ts"] : slots["code-js"];
       const source =
-        codeRef.value?.innerText || (activeCodeSlot?.()?.[0]?.children as string) || "";
+        currentCodeNode()?.innerText || (activeCodeSlot?.()?.[0]?.children as string) || "";
       const { parseCode } = await import("./transform");
       parseCode({
         source: source,
@@ -69,12 +73,17 @@ const Demo = defineComponent({
       }, 500);
     };
     const restoreCode = () => {
-      if (codeRef.value && codeOrigin.value) codeRef.value.innerHTML = codeOrigin.value;
+      const origin = codeOrigins[codeLanguage.value];
+      const codeNode = currentCodeNode();
+      if (codeNode && origin !== undefined) {
+        codeNode.innerHTML = origin;
+      }
       reload();
     };
     const copyCode = () => {
-      if (codeRef.value) {
-        copyToClipboard(codeRef.value?.innerText).then((result) => {
+      const codeNode = currentCodeNode();
+      if (codeNode) {
+        copyToClipboard(codeNode.innerText).then((result) => {
           if (result) {
             message.success("Copied!");
           } else {
@@ -87,10 +96,11 @@ const Demo = defineComponent({
       if (codeLanguage.value === language) return;
       codeLanguage.value = language;
       await nextTick();
-      codeOrigin.value = codeRef.value?.innerHTML;
+      reload();
     };
     onMounted(() => {
-      codeOrigin.value = codeRef.value?.innerHTML;
+      codeOrigins.ts = codeRefs.ts.value?.innerHTML || "";
+      codeOrigins.js = codeRefs.js.value?.innerHTML || "";
     });
     onBeforeUnmount(() => {
       if (currentApp.value) {
@@ -144,8 +154,23 @@ const Demo = defineComponent({
                     <Button type="text" size="small" icon={Undo2} onClick={restoreCode} />
                   </Tooltip>
                 </div>
-                <div ref={codeRef} class="k-code k-scroll" contenteditable onInput={renderCode}>
-                  {codeLanguage.value === "ts" ? slots["code-ts"]?.() : slots["code-js"]?.()}
+                <div
+                  v-show={codeLanguage.value === "ts"}
+                  ref={codeRefs.ts}
+                  class="k-code k-scroll"
+                  contenteditable
+                  onInput={renderCode}
+                >
+                  {slots["code-ts"]?.()}
+                </div>
+                <div
+                  v-show={codeLanguage.value === "js"}
+                  ref={codeRefs.js}
+                  class="k-code k-scroll"
+                  contenteditable
+                  onInput={renderCode}
+                >
+                  {slots["code-js"]?.()}
                 </div>
               </div>
             </Transition>

@@ -2,13 +2,10 @@
 
 .k-tree-select {
   display: inline-flex;
-  min-width: 0;
   min-width: 80px;
-  box-sizing: border-box;
   vertical-align: middle;
   color: var(--kui-color-text);
   font-size: 14px;
-  position: relative;
   outline: none;
   box-sizing: border-box;
   align-items: center;
@@ -36,7 +33,6 @@
     -ms-user-select: none;
     user-select: none;
     cursor: pointer;
-    position: relative;
     min-height: 30px;
     position: relative;
     display: inline-flex;
@@ -126,7 +122,6 @@
   &-placeholder {
     font-size: 14px;
     z-index: 0;
-    line-height: 1.571;
     overflow: hidden;
     text-overflow: ellipsis;
     color: var(--kui-color-text-placeholder);
@@ -157,8 +152,9 @@
     box-sizing: border-box;
     transform: rotate(0deg);
     transform-origin: center;
-    transition: transform 0.3s ease-in-out;
-    transition: font-size 0.25s ease-in-out;
+    transition:
+      transform 0.3s ease-in-out,
+      font-size 0.25s ease-in-out;
     color: var(--kui-color-icon);
     margin-left: 8px;
 

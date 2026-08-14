@@ -1,6 +1,6 @@
 @import "../../styles/less-css-var.less";
 
-.k-input[multiple] {
+.k-input[data-multiple] {
   position: relative;
   display: inline-flex;
   width: 100%;
@@ -54,7 +54,6 @@
   .k-input-text {
     padding-left: 0;
     border: none;
-    line-height: 1;
     padding: 0;
     font-size: 14px;
     color: var(--kui-color-text);
@@ -118,7 +117,7 @@
   }
 }
 
-.k-input[single],
+.k-input[data-single],
 .k-textarea {
   box-sizing: border-box;
   display: inline-block;
@@ -140,7 +139,6 @@
   &:focus {
     box-shadow: var(--kui-component-shadow);
     border-color: var(--kui-color-primary);
-    outline: none;
     outline-offset: 1px;
     outline: 2px solid var(--kui-color-outline);
   }
@@ -158,8 +156,8 @@
 
 // 保留浏览器账号/密码自动填充能力，但不让 autofill 改写组件背景。
 // 不能用带 alpha 的主题色绘制 inset shadow，否则会与外层背景发生二次叠色。
-.k-input[single],
-.k-input[multiple] .k-input-text {
+.k-input[data-single],
+.k-input[data-multiple] .k-input-text {
   &:autofill,
   &:-webkit-autofill,
   &:-webkit-autofill:hover,
@@ -229,13 +227,13 @@
 .k-textarea-lg:not(.k-textarea-square) {
   border-radius: var(--kui-border-radius-lg);
 }
-.k-input-sm[single] {
+.k-input-sm[data-single] {
   padding: 2px var(--kui-padding-inline-sm);
   height: 24px;
   font-size: 12px;
 }
 
-.k-input-sm[multiple] {
+.k-input-sm[data-multiple] {
   padding: 0 var(--kui-padding-inline-sm);
   gap: 4px;
   height: 24px;
@@ -267,7 +265,7 @@
   }
 }
 
-.k-input-lg[single] {
+.k-input-lg[data-single] {
   padding: 2px 10px;
   height: 40px;
   font-size: 16px;
@@ -294,7 +292,7 @@
   }
 }
 
-.k-input-lg[multiple] {
+.k-input-lg[data-multiple] {
   height: 40px;
   border-radius: var(--kui-border-radius-lg);
 
@@ -326,8 +324,8 @@
   display: none;
 }
 
-.k-input-fill[multiple],
-.k-input-fill[single],
+.k-input-fill[data-multiple],
+.k-input-fill[data-single],
 .k-textarea-fill {
   border-color: transparent;
   background-color: var(--kui-color-bg-component);
@@ -345,14 +343,14 @@
   }
 }
 
-.k-input-circle[single] {
+.k-input-circle[data-single] {
   border-radius: 20px;
 }
-.k-input-square[single] {
+.k-input-square[data-single] {
   border-radius: 2px;
 }
 
-.k-input-disabled[multiple] {
+.k-input-disabled[data-multiple] {
   cursor: not-allowed;
   color: var(--kui-color-text-disabled);
   background: var(--kui-color-bg-component-disabled);
