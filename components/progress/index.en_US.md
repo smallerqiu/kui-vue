@@ -47,7 +47,7 @@ When an operation takes a long time to complete, display the current progress an
 | format        | Custom progress bar text                                                             | (percent: number) => any \| VNode | -       |
 | status        | Progress bar status, provides four types: `active`, `exception`, `success`, `normal` | string                            | normal  |
 | type          | Progress bar type, provides three types: `line`, `circle`, `dashboard`               | string                            | -       |
-| showInfo      | Whether to show progress text                                                        | bool                              | true    |
+| showInfo      | Whether to show progress text                                                        | boolean                             | true    |
 | gapDegree     | Dashboard progress bar gap angle, can be 0 ~ 295                                     | number                            | 75      |
 | strokeWidth   | Circular progress bar line width                                                     | number                            | 6       |
 | strokeHeight  | Progress bar line height                                                             | number                            | -       |

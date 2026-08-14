@@ -52,10 +52,10 @@
 | startDate    | 开始时间 (取值)                                                                                                    | any                                                         | -          |
 | endDate      | 结束时间 (取值)                                                                                                    | any                                                         | -          |
 | mode         | 使用 `mode` 属性，可以自定义日期显示类型，提供 `year`,`month`,`date`,`time`,`dateTime`,`dateRange`,`dateTimeRange` | string                                                      | date       |
-| disabled     | 是否禁用组件                                                                                                       | bool                                                        | false      |
+| disabled     | 是否禁用组件                                                                                                       | boolean                                                       | false      |
 | size         | 按钮尺寸,可选值 `small`、`large`                                                                                   | string                                                      | -          |
-| clearable    | 是否显示清除图标                                                                                                   | bool                                                        | true       |
-| editable     | 是否可编辑                                                                                                         | bool                                                        | true       |
+| clearable    | 是否显示清除图标                                                                                                   | boolean                                                       | true       |
+| editable     | 是否可编辑                                                                                                         | boolean                                                       | true       |
 | placeholder  | 提示语                                                                                                             | string, string[]                                            | -          |
 | disabledDate | 不可选择的日期                                                                                                     | (date: Date) => boolean                                     | -          |
 | disabledTime | 不可选择的时间                                                                                                     | (date: Date) => boolean                                     | -          |
@@ -63,11 +63,11 @@
 | theme        | theme='fill' 时呈现浅色主题                                                                                        | string                                                      | -          |
 | dateIcon     | 自定义图标                                                                                                         | string                                                      | -          |
 | shape        | 组件呈现的形式                                                                                                     | [circle,square]                                             | -          |
-| bordered     | 是否展示边框                                                                                                       | bool                                                        | false      |
+| bordered     | 是否展示边框                                                                                                       | boolean                                                       | false      |
 | placement    | 下拉展示的方位                                                                                                     | string                                                      | -          |
 | valueType    | 默认输出的值的类型                                                                                                 | ["date" ,"timestamp" , "unix" , "string"]                   | -          |
 | presets      | 预设的日期                                                                                                         | DatePickerPresetsType[]                                     | -          |
 | onChange     | 默认值改变之后的回调                                                                                               | (date: Date \| Date[], dateStr: string \| string[]) => void | -          |
 | onOpenChange | 下拉框展开或收起时触发                                                                                             | (opened: boolean) => void                                   | -          |
 | onClear      | 点击清除按钮时触发                                                                                                 | () => void                                                  | -          |
-| opened       | 默认是否展示下拉框                                                                                                 | bool                                                        | false      |
+| opened       | 默认是否展示下拉框                                                                                                 | boolean                                                       | false      |

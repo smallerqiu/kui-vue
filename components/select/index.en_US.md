@@ -40,16 +40,16 @@ Dropdown selector.
 | modelValue   | Specifies the `value` of the selected item, can use `v-model` for two-way binding | string, number                             | -             |
 | width        | Component width                                                                   | string, number                             | -             |
 | placeholder  | Default text of selector                                                          | string                                     | Please select |
-| disabled     | Whether current item is disabled                                                  | bool                                       | false         |
+| disabled     | Whether current item is disabled                                                  | boolean                                      | false         |
 | size         | Component size, provides two sizes: `small`, `large`, default is normal           | string                                     | -             |
 | emptyText    | Prompt displayed when no data                                                     | string                                     | 'No data yet' |
 | maxTagCount  | Maximum number of tags to display, excess shown with ellipsis                     | number                                     | -             |
-| multiple     | Whether to display in multiple selection mode                                     | bool                                       | false         |
-| loading      | Whether to show asynchronous loading                                              | bool                                       | false         |
-| clearable    | Whether options can be cleared                                                    | bool                                       | false         |
-| bordered     | Whether to show border                                                            | bool                                       | true          |
-| extendWidth  | Whether dropdown width matches input width                                        | bool                                       | true          |
-| showArrow    | Whether to show dropdown button                                                   | bool                                       | true          |
+| multiple     | Whether to display in multiple selection mode                                     | boolean                                      | false         |
+| loading      | Whether to show asynchronous loading                                              | boolean                                      | false         |
+| clearable    | Whether options can be cleared                                                    | boolean                                      | false         |
+| bordered     | Whether to show border                                                            | boolean                                      | true          |
+| extendWidth  | Whether dropdown width matches input width                                        | boolean                                      | true          |
+| showArrow    | Whether to show dropdown button                                                   | boolean                                      | true          |
 | options      | options data, if set, no need to manually construct Option nodes                  | SelectOption[]                             | []            |
 | theme        | The theme of Select                                                               | string                                     | fill          |
 | icon         | Custom icon                                                                       | string                                     | -             |
@@ -68,4 +68,4 @@ Dropdown selector.
 | key      | Same meaning as value. If Vue requires this setting, this value should be the same as value, then value setting can be omitted | string, number | -       |
 | value    | Option value, used for filtering by default, required                                                                          | string, number | -       |
 | label    | Option display content                                                                                                         | string, number | -       |
-| disabled | Whether current item is disabled                                                                                               | bool           | false   |
+| disabled | Whether current item is disabled                                                                                               | boolean          | false   |

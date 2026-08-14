@@ -85,22 +85,22 @@ Similar to the Select selection control, when the selectable data structure is a
 | modelValue       | Specify the `value` of the selected item, can use `v-model` for two-way binding | string, number, any[]            | -             |
 | width            | Component width                                                                 | string, number                   | -             |
 | placeholder      | Default text of selector                                                        | string                           | Please select |
-| disabled         | Whether current item is disabled                                                | bool                             | false         |
+| disabled         | Whether current item is disabled                                                | boolean                            | false         |
 | size             | Component size, provides two sizes: `small`, `large`, default is normal         | string                           | -             |
 | emptyText        | Prompt displayed when no data                                                   | string                           | 'No data yet' |
-| multiple         | Whether to display in multiple selection mode                                   | bool                             | false         |
-| loading          | Asynchronous loading state                                                      | bool                             | false         |
-| clearable        | Whether options can be cleared                                                  | bool                             | false         |
-| bordered         | Whether to show border                                                          | bool                             | true          |
-| showArrow        | Whether to show dropdown button                                                 | bool                             | true          |
+| multiple         | Whether to display in multiple selection mode                                   | boolean                            | false         |
+| loading          | Asynchronous loading state                                                      | boolean                            | false         |
+| clearable        | Whether options can be cleared                                                  | boolean                            | false         |
+| bordered         | Whether to show border                                                          | boolean                            | true          |
+| showArrow        | Whether to show dropdown button                                                 | boolean                            | true          |
 | theme            | The theme of TreeSelect                                                         | string                           | fill          |
 | icon             | Custom icon                                                                     | string                           | -             |
 | shape            | When shape='circle', displays rounded corners                                   | string                           | -             |
 | treeLoadData     | Method to asynchronously load data                                              | (node: TreeNode) => Promise<any\> | -             |
 | treeData         | Array of nestable node properties, data to generate `tree`                      | TreeNode[]                       | []            |
-| treeCheckable    | Whether to show checkbox                                                        | bool                             | false         |
-| showLine         | Whether to show connecting lines                                                | bool                             | false         |
-| showIcon         | Whether to show icons                                                           | bool                             | true          |
+| treeCheckable    | Whether to show checkbox                                                        | boolean                            | false         |
+| showLine         | Whether to show connecting lines                                                | boolean                            | false         |
+| showIcon         | Whether to show icons                                                           | boolean                            | true          |
 | treeExpandedKeys | Specify expanded nodes                                                          | string[]                         | []            |
 
 ## TreeSelect Events

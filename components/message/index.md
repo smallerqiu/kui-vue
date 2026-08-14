@@ -55,7 +55,7 @@
 | type     | 提示类型，提供 `info`、`success`、`error`、`warning` 四种可选类型 | string       | info   |
 | content  | 提示内容                                                          | string,Vnode | -      |
 | duration | 自动关闭的延时，单位秒，0 为 不自动关闭                           | number       | 3      |
-| closable | 是否可手动关闭                                                    | bool         | false  |
+| closable | 是否可手动关闭                                                    | boolean        | false  |
 | icon     | 自定义图标                                                        | string       | -      |
 | color    | 自定义图标颜色                                                    | string       | -      |
 | onClose  | 关闭时的回调                                                      | () => void   | -      |

@@ -51,9 +51,9 @@
 | suffix              | 扩展后缀                                   | string,Slot             | -      |
 | prefix              | 扩展前缀                                   | string,Slot             | -      |
 | theme               | 主题                                       | string                  | fill   |
-| clearable           | 是否显示清除按钮                           | bool                    | false  |
-| visiblePassword     | 密码出事化明文显示                         | bool                    | false  |
-| visiblePasswordIcon | 是否显示切换按钮或者控制密码显隐           | bool                    | true   |
+| clearable           | 是否显示清除按钮                           | boolean                   | false  |
+| visiblePassword     | 密码出事化明文显示                         | boolean                   | false  |
+| visiblePasswordIcon | 是否显示切换按钮或者控制密码显隐           | boolean                   | true   |
 | onSearch            | 搜索事件的回调                             | (value: string) => void | -      |
 | onIconClick         | 图标点击事件的回调                         | (e: Event) => void      | -      |
 | onClear             | 按下清除按钮的回调                         | () => void              | -      |
@@ -63,6 +63,6 @@
 
 | 属性    | 说明                                           | 类型   | 默认值 |
 | ------- | ---------------------------------------------- | ------ | ------ |
-| block   | 是否继承父集宽度                               | bool   | false  |
-| compact | 是否使用紧促模式                               | bool   | false  |
+| block   | 是否继承父集宽度                               | boolean  | false  |
+| compact | 是否使用紧促模式                               | boolean  | false  |
 | size    | 子组件的间距,可选值 `small`、`large`，默认不选 | string | -      |

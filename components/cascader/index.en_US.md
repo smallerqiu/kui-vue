@@ -39,9 +39,9 @@ A cascading selection box.
 | expandTrigger | Interaction mode for expanding the next-level menu. Options: `'click'` or `'hover'`.                                | `'click' \| 'hover'`   | `'click'`         |
 | showAllLevels | Whether to display the full selected ancestor path. If `false`, only the final leaf node is shown in the input box. | `boolean`              | `true`            |
 | separator     | Separator between labels of different levels when `showAllLevels` is enabled.                                       | `string`               | `" / "`           |
-| bordered      | Whether to display borders                                                                                          | `bool`                 | true              |
+| bordered      | Whether to display borders                                                                                          | `boolean`                 | true              |
 | theme         | Theme                                                                                                               | `string`               | fill              |
-| showArrow     | Whether to display the dropdown button                                                                              | `bool`                 | true              |
+| showArrow     | Whether to display the dropdown button                                                                              | `boolean`                 | true              |
 | icon          | Custom Icon                                                                                                         | `string`               | -                 |
 | shape         | shape='circle' 时呈现圆角                                                                                           | `string`               | -                 |
 | placement     | Dropdown orientation                                                                                                | `string`               | -                 |

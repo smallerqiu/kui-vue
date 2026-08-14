@@ -39,9 +39,9 @@
 | expandTrigger | 下一级菜单的展开交互触发方式。可选值：`'click'` (点击) 或 `'hover'` (鼠标悬浮即展开)。 | `'click' \| 'hover'`   | `'click'`   |
 | showAllLevels | 是否展示完整选中的祖先路径。若为 `false` 则仅在输入框内显示最终的末端叶子节点。        | `boolean`              | `true`      |
 | separator     | 当 `showAllLevels` 开启时，各层级标签之间的多级分隔符。                                | `string`               | `" / "`     |
-| bordered      | 是否显示边框                                                                           | bool                   | true        |
+| bordered      | 是否显示边框                                                                           | boolean                  | true        |
 | theme         | 主题                                                                                   | string                 | fill        |
-| showArrow     | 是否显示下拉按钮                                                                       | bool                   | true        |
+| showArrow     | 是否显示下拉按钮                                                                       | boolean                  | true        |
 | icon          | 自定义图标                                                                             | string                 | -           |
 | shape         | shape='circle' 时呈现圆角                                                              | string                 | -           |
 | placement     | 下拉展示的方位                                                                         | string                 | -           |

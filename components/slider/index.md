@@ -43,14 +43,14 @@
 | modelValue     | 设置当前取值(v-model)                                                      | number,number[]                     | 0      |
 | min            | 最小值                                                                     | number                              | 0      |
 | max            | 最大值                                                                     | number                              | 100    |
-| range          | 是否支持两边同时可滑动                                                     | bool                                | false  |
-| disabled       | 滑块是否禁用                                                               | bool                                | false  |
+| range          | 是否支持两边同时可滑动                                                     | boolean                               | false  |
+| disabled       | 滑块是否禁用                                                               | boolean                               | false  |
 | step           | 间距大小 , 步长，取值必须大于 0，并且可被 (max - min) 整除                 | number                              | 1      |
 | tipFormatter   | 设置Tooltip的展示格式，默认显示当前选值                                    | (value: number) => string           | -      |
-| vertical       | 是否设置方向为垂直                                                         | bool                                | false  |
+| vertical       | 是否设置方向为垂直                                                         | boolean                               | false  |
 | marks          | 刻度，key 的类型必须为 number 且取值在闭区间 [min, max] 内                 | Object                              | -      |
-| included       | marks 不为空对象时有效，值为 true 时表示值为包含关系，false 表示并列       | bool                                | true   |
-| tooltipVisible | 值为true时，Tooltip 将会始终显示；否则始终不显示，哪怕在拖拽及移入时。     | bool                                | false  |
-| reverse        | 是否倒序排列                                                               | bool                                | false  |
+| included       | marks 不为空对象时有效，值为 true 时表示值为包含关系，false 表示并列       | boolean                               | true   |
+| tooltipVisible | 值为true时，Tooltip 将会始终显示；否则始终不显示，哪怕在拖拽及移入时。     | boolean                               | false  |
+| reverse        | 是否倒序排列                                                               | boolean                               | false  |
 | size           | 组件显示的尺寸大小                                                         | string                              | -      |
 | onChange       | 当 Slider 的值发生改变时，会触发 change 事件，并把改变后的值作为参数传入。 | (value: number \| number[]) => void | -      |

@@ -28,5 +28,5 @@ Displays the current page's position in the system hierarchy and allows navigati
 | --------- | ----------------------------------------------------------------------------- | ------ | ------- |
 | separator | Custom separator                                                              | string | /       |
 | href      | Custom link function, used with `vue-router`                                  | string | -       |
-| replace   | When routing jumps, enabling `replace` will not add a new record to `history` | bool   | false   |
+| replace   | When routing jumps, enabling `replace` will not add a new record to `history` | boolean  | false   |
 | icon      | Button icon                                                                   | string | -       |

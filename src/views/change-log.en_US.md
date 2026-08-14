@@ -113,7 +113,7 @@ rm -rf node_modules/.vite
 `2026-5-4`
 
 - Added `Splitter` component
-- Optimized `CheckBox` and `Switch` components to support outputting `bool` (true/false) and `number` (0/1)
+- Optimized `CheckBox` and `Switch` components to support outputting `boolean` (true/false) and `number` (0/1)
 - Added `loading` function to `message`
 - Improved `RadioGroup`
 - Form validation enhancements

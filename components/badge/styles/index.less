@@ -58,6 +58,7 @@
     border-radius: 50%;
     background: var(--kui-color-danger);
     z-index: 10;
+    flex-shrink: 0;
   }
 
   &-no-child {
@@ -71,6 +72,7 @@
     width: 6px;
     height: 6px;
     border-radius: 50%;
+    flex-shrink: 0;
   }
 
   &-status-text {
@@ -142,6 +144,21 @@
   &-status-lime {
     background-color: var(--kui-color-lime);
   }
+
+  &-status-active {
+    &::after {
+      content: "";
+      z-index: 0;
+      background-color: inherit;
+      border-radius: 50%;
+      width: 6px;
+      height: 6px;
+      animation: 1.2s ease-out infinite badge-active;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
 }
 
 .k-badge-pill {
@@ -152,17 +169,25 @@
   background: var(--kui-color-bg-component);
 
   .k-badge-status-dot {
-    width: 7px;
-    height: 7px;
-  }
-
-  .k-badge-status-success {
     box-shadow: 0 0 0 4px color-mix(in srgb, var(--kui-color-success) 16%, transparent);
+  }
+  .k-badge-status-active {
+    box-shadow: none;
   }
 
   .k-badge-status-text {
     margin-left: 0;
     color: var(--kui-color-text-secondary);
     font-size: 13px;
+  }
+}
+@keyframes badge-active {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(3);
   }
 }

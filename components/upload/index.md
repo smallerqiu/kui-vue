@@ -62,13 +62,13 @@
 | action         | 上传的地址                                                                                                                     | string                         | -      |
 | method         | 上传请求的 http method                                                                                                         | string                         | post   |
 | data           | 上传可能所需的其它参数                                                                                                         | Object                         | -      |
-| disabled       | 是否禁用                                                                                                                       | bool                           | false  |
+| disabled       | 是否禁用                                                                                                                       | boolean                          | false  |
 | headers        | 设置上传的请求头部                                                                                                             | Object                         | -      |
-| multiple       | 是否支持多选文件                                                                                                               | bool                           | false  |
-| directory      | 是否支持上传目录                                                                                                               | bool                           | false  |
-| showUploadList | 是否显示上传列表                                                                                                               | bool                           | true   |
-| autoTrigger    | 是否自动上传                                                                                                                   | bool                           | true   |
-| draggable      | 是否支持拖拽上传                                                                                                               | bool                           | false  |
+| multiple       | 是否支持多选文件                                                                                                               | boolean                          | false  |
+| directory      | 是否支持上传目录                                                                                                               | boolean                          | false  |
+| showUploadList | 是否显示上传列表                                                                                                               | boolean                          | true   |
+| autoTrigger    | 是否自动上传                                                                                                                   | boolean                          | true   |
+| draggable      | 是否支持拖拽上传                                                                                                               | boolean                          | false  |
 | fileList       | 上传的文件列表                                                                                                                 | UploadFile[]                   | false  |
 | name           | 发到后台的文件参数名,默认`file`                                                                                                | string                         | 'file' |
 | uploadIcon     | 上传域的辅助图标                                                                                                               | string                         | Add    |

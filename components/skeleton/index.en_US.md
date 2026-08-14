@@ -43,9 +43,9 @@ Provide a placeholder graphic combination at positions where content needs to be
 
 | Property | Description                                                              | Type                 | Default |
 | -------- | ------------------------------------------------------------------------ | -------------------- | ------- |
-| animated | Whether to show animation effect                                         | bool                 | false   |
-| avatar   | Whether to show avatar placeholder                                       | bool, AvatarProps    | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | bool                 | false   |
+| animated | Whether to show animation effect                                         | boolean                | false   |
+| avatar   | Whether to show avatar placeholder                                       | boolean, AvatarProps    | false   |
+| loading  | When true, show placeholder. Otherwise directly display child components | boolean                | false   |
 | rows     | Set the number of paragraph placeholder lines                            | number               | 3       |
 | width    | Set the width of title placeholder                                       | number(%)            | 35      |
 | delay    | Debounce (animation delay closing)                                       | number(milliseconds) | 500     |
@@ -55,29 +55,29 @@ Provide a placeholder graphic combination at positions where content needs to be
 
 | Property | Description                                                              | Type                                | Default |
 | -------- | ------------------------------------------------------------------------ | ----------------------------------- | ------- |
-| animated | Whether to show animation effect                                         | bool                                | false   |
+| animated | Whether to show animation effect                                         | boolean                               | false   |
 | radius   | Specify the border radius of the image                                   | number                              | -       |
 | shape    | Specify the shape of the avatar                                          | circle \| square                    | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | bool                                | false   |
+| loading  | When true, show placeholder. Otherwise directly display child components | boolean                               | false   |
 | size     | Set the size of avatar placeholder                                       | number \| large \| small \| default | -       |
 
 ## Button Props
 
 | Property | Description                                                              | Type                       | Default |
 | -------- | ------------------------------------------------------------------------ | -------------------------- | ------- |
-| animated | Whether to show animation effect                                         | bool                       | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | bool                       | false   |
+| animated | Whether to show animation effect                                         | boolean                      | false   |
+| loading  | When true, show placeholder. Otherwise directly display child components | boolean                      | false   |
 | shape    | Specify the shape of the button                                          | circle \| round \| default | -       |
 | size     | Set the button size                                                      | large \| small \| default  | -       |
-| block    | Option to adjust button width to its parent width                        | bool                       | false   |
+| block    | Option to adjust button width to its parent width                        | boolean                      | false   |
 | width    | Button width                                                             | number                     | -       |
 
 ## Text Props
 
 | Property | Description                                                              | Type                      | Default |
 | -------- | ------------------------------------------------------------------------ | ------------------------- | ------- |
-| animated | Whether to show animation effect                                         | bool                      | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | bool                      | false   |
+| animated | Whether to show animation effect                                         | boolean                     | false   |
+| loading  | When true, show placeholder. Otherwise directly display child components | boolean                     | false   |
 | size     | Set the text size                                                        | large \| small \| default | -       |
 | width    | Text width                                                               | number                    | -       |
 
@@ -85,7 +85,7 @@ Provide a placeholder graphic combination at positions where content needs to be
 
 | Property | Description                                                              | Type             | Default |
 | -------- | ------------------------------------------------------------------------ | ---------------- | ------- |
-| animated | Whether to show animation effect                                         | bool             | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | bool             | false   |
+| animated | Whether to show animation effect                                         | boolean            | false   |
+| loading  | When true, show placeholder. Otherwise directly display child components | boolean            | false   |
 | radius   | Specify the border radius of the image                                   | number           | -       |
 | size     | Image width (height)                                                     | number\|number[] | -       |

@@ -7,6 +7,8 @@
       <div class="badge-box"></div>
     </Badge>
     <Badge status="success" text="Success" />
+    <Badge status="success" text="Success active" active />
     <Badge pill status="success" text="success" />
+    <Badge pill status="success" text="success active" active />
   </Space>
 </template>

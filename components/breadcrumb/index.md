@@ -28,5 +28,5 @@
 | --------- | -------------------------------------------------------- | ------ | ------ |
 | separator | 自定义分隔符                                             | string | /      |
 | href      | 自定义链接函数,和 `vue-router` 配合使用                  | string | -      |
-| replace   | 路由跳转时，开启 `replace` 将不会向 `history` 添加新记录 | bool   | false  |
+| replace   | 路由跳转时，开启 `replace` 将不会向 `history` 添加新记录 | boolean  | false  |
 | icon      | 按钮的图标                                               | string | -      |

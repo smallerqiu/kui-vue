@@ -32,7 +32,7 @@ Commonly seen in detail page information display.
 
 | Property | Description                                                                     | Type                       | Default    |
 | -------- | ------------------------------------------------------------------------------- | -------------------------- | ---------- |
-| bordered | Whether to show the border                                                      | bool                       | false      |
+| bordered | Whether to show the border                                                      | boolean                      | false      |
 | column   | The number of DescriptionItems in one row                                       | number                     | 3          |
 | extra    | The operation area of the description list, displayed in the upper right corner | string, slot               | -          |
 | layout   | Description layout                                                              | horizontal \| vertical     | horizontal |

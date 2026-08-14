@@ -33,8 +33,8 @@
 | precision      | 数值精度                  | number            | 0         |
 | statNumberType | 数值变化类型              | `rollup, countup` | 'countup' |
 | separator      | 分隔符                    | string            | -         |
-| reverse        | 数值/数值描述是否反相排列 | bool              | false     |
-| bordered       | 是否显示边框              | bool              | false     |
+| reverse        | 数值/数值描述是否反相排列 | boolean             | false     |
+| bordered       | 是否显示边框              | boolean             | false     |
 
 ### items Options
 
@@ -49,8 +49,8 @@
 | precision       | 数值精度                     | number                              | 0       |
 | separator       | 分隔符                       | string                              | -       |
 | duration        | 数值动态展示时间(秒)         | number                              | 1.2     |
-| autoAnimate     | 当目标可见时触发动画         | bool                                | true    |
-| autoAnimateOnce | 自动动画触发器仅运行一次动画 | bool                                | true    |
+| autoAnimate     | 当目标可见时触发动画         | boolean                               | true    |
+| autoAnimateOnce | 自动动画触发器仅运行一次动画 | boolean                               | true    |
 
 ## StatNumber API
 
@@ -63,5 +63,5 @@
 | precision       | 数值精度                     | number            | 0         |
 | type            | 数值变化类型                 | `rollup, countup` | 'countup' |
 | separator       | 分隔符                       | string            | -         |
-| autoAnimate     | 当目标可见时触发动画         | bool              | true      |
-| autoAnimateOnce | 自动动画触发器仅运行一次动画 | bool              | true      |
+| autoAnimate     | 当目标可见时触发动画         | boolean             | true      |
+| autoAnimateOnce | 自动动画触发器仅运行一次动画 | boolean             | true      |

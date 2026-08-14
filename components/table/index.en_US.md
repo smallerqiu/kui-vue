@@ -99,23 +99,23 @@ const columns = [
 
 | Property     | Description                                              | Type                                                                         | Default |
 | ------------ | -------------------------------------------------------- | ---------------------------------------------------------------------------- | ------- |
-| bordered     | Whether to display borders                               | bool                                                                         | false   |
-| checkable    | Whether to show checkboxes                               | bool                                                                         | false   |
+| bordered     | Whether to display borders                               | boolean                                                                        | false   |
+| checkable    | Whether to show checkboxes                               | boolean                                                                        | false   |
 | selectedKeys | Collection of selected keys                              | (string \| number)[]                                                         | -       |
 | disabledKeys | Disabled key set                                         | (string \| number)[]                                                         | -       |
 | size         | Display compact mode when the value is `small`           | string                                                                       | -       |
 | emptyText    | Prompt displayed when there is no data                   | string                                                                       | No Data |
-| loading      | Table asynchronous loading mode                          | bool                                                                         | false   |
+| loading      | Table asynchronous loading mode                          | boolean                                                                        | false   |
 | data         | Structured data to be displayed                          | any[]                                                                        | []      |
 | columns      | Configuration description of table columns               | Column[]                                                                     | []      |
 | rowKey       | Basis for selection                                      | string                                                                       | key     |
 | childrenColumnName | Field containing child records | string | children |
 | expandedKeys | Controlled expanded row keys; supports `v-model:expanded-keys` | (string \| number)[] | - |
 | defaultExpandedKeys | Initially expanded row keys | (string \| number)[] | [] |
-| defaultExpandAllRows | Expand every tree node initially | bool | false |
-| expandRowByClick | Toggle expansion by clicking a row | bool | false |
+| defaultExpandAllRows | Expand every tree node initially | boolean| false |
+| expandRowByClick | Toggle expansion by clicking a row | boolean| false |
 | indentSize | Indentation per tree level | number | 20 |
-| striped      | Whether to display zebra stripes                         | bool                                                                         | false   |
+| striped      | Whether to display zebra stripes                         | boolean                                                                        | false   |
 | onRowClick   | Triggered when clicking a row                            | (record: any, index: number) => void                                         | -       |
 | onSort       | Triggered when clicking to sort                          | (state: SortState) => void                                                   | -       |
 | onSelect     | Triggered when clicking the checkbox                     | (record: any, selected: boolean, selectedKeys: (string \| number)[]) => void | -       |

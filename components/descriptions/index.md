@@ -32,7 +32,7 @@
 
 | 属性     | 说明                                      | 类型                       | 默认值     |
 | -------- | ----------------------------------------- | -------------------------- | ---------- |
-| bordered | 是否展示边框                              | bool                       | false      |
+| bordered | 是否展示边框                              | boolean                      | false      |
 | column   | 一行的 DescriptionItems 数量              | number                     | 3          |
 | extra    | 描述列表的操作区域，显示在右上方          | string,slot                | -          |
 | layout   | 描述布局                                  | horizontal \| vertical     | horizontal |

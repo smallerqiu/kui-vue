@@ -31,10 +31,10 @@
 | modelValue    | 颜色值,可以使用 `v-model` 双向绑定                 | string                    | -           |
 | mode          | 颜色展示类型,提供 3 种模式(`hex` 、 `rgb` 、`hsl`) | string                    | 'hex'       |
 | presets       | 自定义颜色盘                                       | string[]                  | -           |
-| disabledAlpha | 是否禁用透明                                       | bool                      | false       |
-| disabled      | 是否失效状态                                       | bool                      | false       |
+| disabledAlpha | 是否禁用透明                                       | boolean                     | false       |
+| disabled      | 是否失效状态                                       | boolean                     | false       |
 | trigger       | 下拉触发形式                                       | [hover,click]             | hover       |
-| showText      | 是否展示颜色文字                                   | bool                      | false       |
+| showText      | 是否展示颜色文字                                   | boolean                     | false       |
 | size          | 颜色选择器的尺寸                                   | [small,medium,large]      | -           |
 | placement     | 颜色选择器的放置位置                               | string                    | bottom-left |
 | onUpdateMode  | 颜色模式更新时触发                                 | (mode: ColorMode) => void | -           |

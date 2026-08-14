@@ -39,20 +39,20 @@ Folders, organizational structures, biological classifications, countries and re
 | Property      | Description                                                                                                       | Type                              | Default |
 | ------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------- | ------- |
 | data          | Array of nestable node properties, data to generate `tree`                                                        | TreeNode[]                        | []      |
-| checkable     | Whether to show checkbox                                                                                          | bool                              | false   |
-| draggable     | Whether it can be dragged                                                                                         | bool                              | false   |
-| showLine      | Whether to show connecting lines                                                                                  | bool                              | false   |
-| showIcon      | Whether to show icons                                                                                             | bool                              | true    |
+| checkable     | Whether to show checkbox                                                                                          | boolean                             | false   |
+| draggable     | Whether it can be dragged                                                                                         | boolean                             | false   |
+| showLine      | Whether to show connecting lines                                                                                  | boolean                             | false   |
+| showIcon      | Whether to show icons                                                                                             | boolean                             | true    |
 | extra         | Extension element                                                                                                 | slot(node)                        | -       |
-| showExtra     | Whether to show extension elements by default                                                                     | bool                              | false   |
-| checkStrictly | In checkable state, node selection is completely controlled (parent-child node selection state no longer related) | bool                              | false   |
+| showExtra     | Whether to show extension elements by default                                                                     | boolean                             | false   |
+| checkStrictly | In checkable state, node selection is completely controlled (parent-child node selection state no longer related) | boolean                             | false   |
 | checkedKeys   | Tree nodes with checked checkboxes                                                                                | string[]                          | []      |
 | expandedKeys  | Specify expanded nodes                                                                                            | string[]                          | []      |
 | selectedKeys  | Selected nodes                                                                                                    | string[]                          | []      |
-| multiple      | Whether to support multiple selection                                                                             | bool                              | false   |
-| loading       | Asynchronous loading state                                                                                        | bool                              | false   |
+| multiple      | Whether to support multiple selection                                                                             | boolean                             | false   |
+| loading       | Asynchronous loading state                                                                                        | boolean                             | false   |
 | loadData      | Method to asynchronously load data                                                                                | (node: TreeNode) => Promise<any\> | -       |
-| directory     | Does not display as a directory tree                                                                              | bool                              | false   |
+| directory     | Does not display as a directory tree                                                                              | boolean                             | false   |
 
 ## TreeNode API
 
@@ -60,9 +60,9 @@ Folders, organizational structures, biological classifications, countries and re
 | -------- | ------------------------------------------------------------------------------------- | ---------- | ------- |
 | title    | Node title                                                                            | string     | -       |
 | icon     | Custom icon                                                                           | string     | -       |
-| disabled | Whether node is disabled                                                              | bool       | false   |
+| disabled | Whether node is disabled                                                              | boolean      | false   |
 | children | Child nodes                                                                           | TreeNode[] | -       |
-| isLeaf   | Set as leaf node (effective when loadData is set). false will force it as parent node | bool       | false   |
+| isLeaf   | Set as leaf node (effective when loadData is set). false will force it as parent node | boolean      | false   |
 
 ### Events
 

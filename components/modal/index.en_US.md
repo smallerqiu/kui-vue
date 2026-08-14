@@ -33,25 +33,25 @@ Modal dialog box.
 
 | Property     | Description                                                                 | Type                  | Default |
 | ------------ | --------------------------------------------------------------------------- | --------------------- | ------- |
-| modelValue   | Whether the dialog is displayed, can use v-model for two-way binding.       | bool                  | false   |
+| modelValue   | Whether the dialog is displayed, can use v-model for two-way binding.       | boolean                 | false   |
 | title        | Dialog title                                                                | string                | -       |
 | width        | Dialog width                                                                | number, string        | 520     |
 | okText       | OK button text                                                              | string                | OK      |
 | cancelText   | Cancel button text                                                          | string                | Cancel  |
-| draggable    | Whether the modal can be dragged, not available in confirm mode             | bool                  | false   |
-| centered     | Whether the window can be centered, not available in confirm mode           | bool                  | false   |
-| maximized    | Whether the modal can be maximized, not available in confirm mode           | bool                  | false   |
-| maskClosable | Whether clicking the mask closes the modal, if not, Esc key will be invalid | bool                  | true    |
-| escKey       | Whether to support closing with Esc key                                     | bool                  | true    |
-| footer       | When `footer=false`, the bottom button is not displayed.                    | bool,Slot             | true    |
-| loading      | When set to `true`, the confirm button will be in a loading state           | bool                  | false   |
+| draggable    | Whether the modal can be dragged, not available in confirm mode             | boolean                 | false   |
+| centered     | Whether the window can be centered, not available in confirm mode           | boolean                 | false   |
+| maximized    | Whether the modal can be maximized, not available in confirm mode           | boolean                 | false   |
+| maskClosable | Whether clicking the mask closes the modal, if not, Esc key will be invalid | boolean                 | true    |
+| escKey       | Whether to support closing with Esc key                                     | boolean                 | true    |
+| footer       | When `footer=false`, the bottom button is not displayed.                    | boolean,Slot             | true    |
+| loading      | When set to `true`, the confirm button will be in a loading state           | boolean                 | false   |
 | top          | Distance from the top of the window                                         | number                | -       |
-| showClose    | Whether to display the close button                                         | bool                  | false   |
-| mask         | Whether to show the mask                                                    | bool                  | true    |
+| showClose    | Whether to display the close button                                         | boolean                 | false   |
+| mask         | Whether to show the mask                                                    | boolean                 | true    |
 | onOk         | Callback when OK is clicked, `Note: will not close Modal`                   | () => void            | -       |
 | onCancel     | Callback when Cancel is clicked                                             | () => void            | -       |
 | onClose      | Callback when window closes                                                 | () => void            | -       |
-| onOpenChange | Callback for opening or closing a window                                    | (opened:bool) => void | -       |
+| onOpenChange | Callback for opening or closing a window                                    | (opened:boolean) => void | -       |
 
 ## Modal.method()
 

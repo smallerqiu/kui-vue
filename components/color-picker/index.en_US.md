@@ -31,10 +31,10 @@ Freely output colors.
 | modelValue    | Color value, can use `v-model` for two-way binding              | string                    | -           |
 | mode          | Color display type, provides 3 modes (`hex` , `rgb` ,`hsl`)     | string                    | 'hex'       |
 | presets       | Custom color palette                                            | string[]                  | -           |
-| disabledAlpha | Whether to disable transparency                                 | bool                      | false       |
-| disabled      | Is it in an invalid state?                                      | bool                      | false       |
+| disabledAlpha | Whether to disable transparency                                 | boolean                     | false       |
+| disabled      | Is it in an invalid state?                                      | boolean                     | false       |
 | trigger       | Pull-down trigger mode                                          | [hover,click]             | click       |
-| showText      | Whether to display colored text                                 | bool                      | false       |
+| showText      | Whether to display colored text                                 | boolean                     | false       |
 | size          | Size of the color picker                                        | [small,medium,large]      | -           |
 | placement     | Placement of the color picker                                   | string                    | bottom-left |
 | onUpdateMode  | Triggered when the color mode is updated                        | (mode: ColorMode) => void | -           |

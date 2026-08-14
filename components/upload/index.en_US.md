@@ -63,13 +63,13 @@ Uploading is the process of publishing information (web pages, text, images, vid
 | action         | Upload address                                                                                              | string                         | -       |
 | method         | HTTP method for upload request                                                                              | string                         | post    |
 | data           | Other parameters that may be required for upload                                                            | Object                         | -       |
-| disabled       | Whether disabled                                                                                            | bool                           | false   |
+| disabled       | Whether disabled                                                                                            | boolean                          | false   |
 | headers        | Set upload request headers                                                                                  | Object                         | -       |
-| multiple       | Whether to support multiple file selection                                                                  | bool                           | false   |
-| directory      | Whether to support directory upload                                                                         | bool                           | false   |
-| showUploadList | Whether to show upload list                                                                                 | bool                           | true    |
-| autoTrigger    | Whether to auto upload                                                                                      | bool                           | true    |
-| draggable      | Whether to support drag and drop upload                                                                     | bool                           | false   |
+| multiple       | Whether to support multiple file selection                                                                  | boolean                          | false   |
+| directory      | Whether to support directory upload                                                                         | boolean                          | false   |
+| showUploadList | Whether to show upload list                                                                                 | boolean                          | true    |
+| autoTrigger    | Whether to auto upload                                                                                      | boolean                          | true    |
+| draggable      | Whether to support drag and drop upload                                                                     | boolean                          | false   |
 | fileList       | Uploaded file list                                                                                          | UploadFile[]                   | -       |
 | name           | File parameter name sent to backend, default `file`                                                         | string                         | 'file'  |
 | uploadIcon     | Auxiliary icon for upload area                                                                              | string                         | Add     |

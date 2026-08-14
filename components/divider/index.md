@@ -26,6 +26,6 @@
 | 参数        | 说明                                  | 类型   | 默认值     |
 | ----------- | ------------------------------------- | ------ | ---------- |
 | text        | 分割线文字                            | string | -          |
-| dashed      | 是否虚线                              | bool   | false      |
+| dashed      | 是否虚线                              | boolean  | false      |
 | orientation | 分割线标题的位置：left right          | string | center     |
 | type        | 水平还是垂直类型: horizontal vertical | string | horizontal |

@@ -33,7 +33,7 @@ Small labels for marking and categorization.
 
 | Property  | Description                                                         | Type            | Default |
 | --------- | ------------------------------------------------------------------- | --------------- | ------- |
-| closeable | Whether to show close button                                        | bool            | false   |
+| closeable | Whether to show close button                                        | boolean           | false   |
 | color     | Tag color                                                           | string          | -       |
 | icon      | Tag icon                                                            | string          | -       |
 | onClose   | Callback event when tag is closed                                   | () => void      | -       |

@@ -37,7 +37,7 @@ Previewable images.
 | origin      | The large image displayed when clicking the image      | string                  | -       |
 | placeholder | The placeholder displayed when the image fails to load | string                  | -       |
 | imgStyle    | The style of the image                                 | Object                  | -       |
-| showPanel   | Whether to display the extension panel by default      | bool                    | false   |
+| showPanel   | Whether to display the extension panel by default      | boolean                   | false   |
 | onClose     | Close trigger event                                    | () => void              | -       |
 | switch      | Multi-image switch trigger event                       | (index: number) => void | -       |
 | tool        | Custom toolbar buttons                                 | slot                    | -       |

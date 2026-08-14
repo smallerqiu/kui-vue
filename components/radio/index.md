@@ -33,11 +33,11 @@
 
 | 属性       | 说明                     | 类型                     | 默认值 |
 | ---------- | ------------------------ | ------------------------ | ------ |
-| modelValue | 是否选中状态(v-model)    | bool                     | false  |
-| checked    | 是否选中状态             | bool                     | false  |
+| modelValue | 是否选中状态(v-model)    | boolean                    | false  |
+| checked    | 是否选中状态             | boolean                    | false  |
 | label      | 文字提示                 | string 、 number         | -      |
 | value      | 组合使用时的值           | string 、 number         | -      |
-| disabled   | 是否禁用当前项           | bool                     | false  |
+| disabled   | 是否禁用当前项           | boolean                    | false  |
 | icon       | RadioButton 自定义图标   | IconType[]               | -      |
 | onChange   | 在选项状态发生改变时回调 | (e: ChangeEvent) => void | -      |
 

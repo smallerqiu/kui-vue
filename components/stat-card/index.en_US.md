@@ -33,8 +33,8 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 | precision      | Numerical precision                                      | number              | 0         |
 | statNumberType | Numerical change type                                    | `rollup`, `countup` | 'countup' |
 | separator      | Separator                                                | string              | -         |
-| reverse        | Whether to reverse number/number description arrangement | bool                | false     |
-| bordered       | Show border or not                                       | bool                | false     |
+| reverse        | Whether to reverse number/number description arrangement | boolean               | false     |
+| bordered       | Show border or not                                       | boolean               | false     |
 
 ### items Options
 
@@ -49,8 +49,8 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 | precision       | Numerical precision                               | number                              | 0       |
 | separator       | Separator                                         | string                              | -       |
 | duration        | Numerical dynamic display time (seconds)          | number                              | 1.2     |
-| autoAnimate     | Trigger animation when target becomes visible     | bool                                | true    |
-| autoAnimateOnce | Run animation only once for auto-animate triggers | bool                                | true    |
+| autoAnimate     | Trigger animation when target becomes visible     | boolean                               | true    |
+| autoAnimateOnce | Run animation only once for auto-animate triggers | boolean                               | true    |
 
 ## StatNumber API
 
@@ -63,5 +63,5 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 | precision       | Numerical precision                               | number              | 0         |
 | type            | Numerical change type                             | `rollup`, `countup` | 'countup' |
 | separator       | Separator                                         | string              | -         |
-| autoAnimate     | Trigger animation when target becomes visible     | bool                | true      |
-| autoAnimateOnce | Run animation only once for auto-animate triggers | bool                | true      |
+| autoAnimate     | Trigger animation when target becomes visible     | boolean               | true      |
+| autoAnimateOnce | Run animation only once for auto-animate triggers | boolean               | true      |

@@ -47,7 +47,7 @@
 | format        | 自定义进度条文字                                                 | (percent: number) => any \| VNode | -      |
 | status        | 进度条状态,提供四种类型: `active`,`exception`,`success`,`normal` | string                            | normal |
 | type          | 进度条类型,提供三种类型: `line`,`circle`,`dashboard`             | string                            | -      |
-| showInfo      | 是否显示进度文字                                                 | bool                              | true   |
+| showInfo      | 是否显示进度文字                                                 | boolean                             | true   |
 | gapDegree     | 仪表盘进度条缺口角度，可取值 0 ~ 295                             | number                            | 75     |
 | strokeWidth   | 圆形进度条线的宽度                                               | number                            | 6      |
 | strokeHeight  | 进度条线的高度                                                   | number                            | -      |

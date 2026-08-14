@@ -99,23 +99,23 @@ const columns = [
 
 | 属性         | 说明                      | 类型                                                                         | 默认值   |
 | ------------ | ------------------------- | ---------------------------------------------------------------------------- | -------- |
-| bordered     | 是否显示边框              | bool                                                                         | false    |
-| checkable    | 是否显示勾选框            | bool                                                                         | false    |
+| bordered     | 是否显示边框              | boolean                                                                        | false    |
+| checkable    | 是否显示勾选框            | boolean                                                                        | false    |
 | selectedKeys | 勾选的key集合             | (string \| number)[]                                                         | -        |
 | disabledKeys | 禁用的key集合             | (string \| number)[]                                                         | -        |
 | size         | 值为`small`时展示紧凑模式 | string                                                                       | -        |
 | emptyText    | 没有数据时展示的提示      | string                                                                       | 赞无数据 |
-| loading      | 表格异步加载模式          | bool                                                                         | false    |
+| loading      | 表格异步加载模式          | boolean                                                                        | false    |
 | data         | 显示的结构化数据          | any[]                                                                        | []       |
 | columns      | 表格列的配置描述，        | Column[]                                                                     | []       |
 | rowKey       | 勾选时的依据              | string                                                                       | key      |
 | childrenColumnName | 子节点字段名 | string | children |
 | expandedKeys | 受控展开行 key 集合，支持 `v-model:expanded-keys` | (string \| number)[] | - |
 | defaultExpandedKeys | 默认展开行 key 集合 | (string \| number)[] | [] |
-| defaultExpandAllRows | 默认展开所有树节点 | bool | false |
-| expandRowByClick | 点击行时展开或收起 | bool | false |
+| defaultExpandAllRows | 默认展开所有树节点 | boolean| false |
+| expandRowByClick | 点击行时展开或收起 | boolean| false |
 | indentSize | 每级树节点缩进距离 | number | 20 |
-| striped      | 是否展示斑马条纹          | bool                                                                         | false    |
+| striped      | 是否展示斑马条纹          | boolean                                                                        | false    |
 | onRowClick   | 单击某一行时触发          | (record: any, index: number) => void                                         | -        |
 | onSort       | 点击排序时触发            | (state: SortState) => void                                                   | -        |
 | onSelect     | 点击复选框时触发          | (record: any, selected: boolean, selectedKeys: (string \| number)[]) => void | -        |

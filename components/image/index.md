@@ -37,7 +37,7 @@
 | origin      | 点击图片展示的大图                              | string                  | -      |
 | placeholder | 图片加载失败时展示的占位符                      | string                  | -      |
 | imgStyle    | 图片的 style                                    | Object                  | -      |
-| showPanel   | 默认是否展示扩展面板                            | bool                    | false  |
+| showPanel   | 默认是否展示扩展面板                            | boolean                   | false  |
 | onClose     | 关闭触发事件                                    | () => void              | -      |
 | switch      | 多图切换触发事件                                | (index: number) => void | -      |
 | tool        | 自定义工具栏按钮                                | slot                    | -      |

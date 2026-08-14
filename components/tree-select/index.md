@@ -43,30 +43,30 @@
 | modelValue       | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | string,number,any[]               | -          |
 | width            | 组件宽度                                                   | string,number                     | -          |
 | placeholder      | 选择框默认文字                                             | string                            | 请选择     |
-| disabled         | 是否禁用当前项                                             | bool                              | false      |
+| disabled         | 是否禁用当前项                                             | boolean                             | false      |
 | size             | 组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常       | string                            | -          |
 | placement        | 下拉菜单弹出位置                                           | string                            | bottom-left |
 | emptyText        | 没有数据时展示的提示                                       | string                            | '赞无数据' |
-| multiple         | 是否呈现多选模式                                           | bool                              | false      |
-| block            | 是否占满父容器宽度                                         | bool                              | false      |
+| multiple         | 是否呈现多选模式                                           | boolean                             | false      |
+| block            | 是否占满父容器宽度                                         | boolean                             | false      |
 | maxTagCount      | 多选时最多展示的标签数量                                   | number                            | -          |
-| filterable       | 是否支持搜索过滤                                           | bool                              | false      |
-| loading          | 异步加载状态                                               | bool                              | false      |
-| clearable        | 是否可以清空选项                                           | bool                              | false      |
-| bordered         | 是否显示边框                                               | bool                              | true       |
-| showArrow        | 是否显示下拉按钮                                           | bool                              | true       |
+| filterable       | 是否支持搜索过滤                                           | boolean                             | false      |
+| loading          | 异步加载状态                                               | boolean                             | false      |
+| clearable        | 是否可以清空选项                                           | boolean                             | false      |
+| bordered         | 是否显示边框                                               | boolean                             | true       |
+| showArrow        | 是否显示下拉按钮                                           | boolean                             | true       |
 | arrowIcon        | 自定义下拉箭头图标                                         | IconType[]                        | -          |
 | theme            | 主题                                                       | string                            | fill       |
 | icon             | 自定义图标                                                 | string                            | -          |
 | shape            | shape='circle' 时呈现圆角                                  | string                            | -          |
 | treeLoadData     | 异步加载数据的方法                                         | (node: TreeNode) => Promise<any\> | -          |
 | treeData         | 可嵌套的节点属性的数组，生成 `tree` 的数据                 | TreeNode[]                        | []         |
-| treeCheckable    | 是否显示多选框                                             | bool                              | false      |
-| treeCheckStrictly | 是否严格遵循父子节点不关联的勾选方式                      | bool                              | false      |
-| showLine         | 是否展示连接线                                             | bool                              | false      |
-| showIcon         | 是否展示图标                                               | bool                              | true       |
-| treeShowIcon     | 是否展示树节点图标                                         | bool                              | true       |
-| treeShowLine     | 是否展示树节点连接线                                       | bool                              | false      |
+| treeCheckable    | 是否显示多选框                                             | boolean                             | false      |
+| treeCheckStrictly | 是否严格遵循父子节点不关联的勾选方式                      | boolean                             | false      |
+| showLine         | 是否展示连接线                                             | boolean                             | false      |
+| showIcon         | 是否展示图标                                               | boolean                             | true       |
+| treeShowIcon     | 是否展示树节点图标                                         | boolean                             | true       |
+| treeShowLine     | 是否展示树节点连接线                                       | boolean                             | false      |
 | treeExpandedKeys | 指定展开的节点                                             | string[]                          | []         |
 
 ## Tree 事件

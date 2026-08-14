@@ -16,6 +16,7 @@ const badgeProps = {
     default: "default",
   },
   text: String as PropType<string | VNode>,
+  active: Boolean as BooleanType,
   maxCount: { type: Number, default: 99 },
 };
 
@@ -48,6 +49,7 @@ const Badge = defineComponent({
           class: [
             "k-badge-status-dot",
             {
+              "k-badge-status-active": props.active,
               [`k-badge-status-${status}`]: !!status,
               [`k-badge-status-${color}`]: color && !isHexColor,
             },

@@ -33,14 +33,14 @@
 
 | 属性          | 说明                                          | 类型                  | 默认值 |
 | ------------- | --------------------------------------------- | --------------------- | ------ |
-| checked       | 是否选中状态，可以使用 `v-model` 双向绑定数据 | bool                  | false  |
+| checked       | 是否选中状态，可以使用 `v-model` 双向绑定数据 | boolean                 | false  |
 | label         | 显示的文字                                    | string 、 number      | -      |
 | value         | 结合使用时表示的值                            | string、number        | -      |
-| disabled      | 是否禁用当前项                                | bool                  | false  |
-| indeterminate | 组合辅助选项控制半选状态                      | bool                  | false  |
+| disabled      | 是否禁用当前项                                | boolean                 | false  |
+| indeterminate | 组合辅助选项控制半选状态                      | boolean                 | false  |
 | modelValue    | 组合使用时表示的值                            | string、number        | -      |
 | theme         | 组件呈现主题,默认'fill'                       | string                | fill   |
-| valueType     | 单位选项的输出值的类型                        | [string,number,bool]  | bool   |
+| valueType     | 单位选项的输出值的类型                        | [string,number,boolean]  | boolean  |
 | onChange      | 在选项状态发生改变时回调                      | (e:ChangeEvent)=>void | -      |
 
 ## CheckboxGroup API
@@ -48,7 +48,7 @@
 | 属性       | 说明                                                 | 类型             | 默认值     |
 | ---------- | ---------------------------------------------------- | ---------------- | ---------- |
 | modelValue | 用于设置当前选中的值,可以使用 `v-model` 双向绑定数据 | any[]            | -          |
-| disabled   | 是否禁用组件                                         | bool             | false      |
+| disabled   | 是否禁用组件                                         | boolean            | false      |
 | onChange   | 在选项状态发生改变时触发，返回当前选中的项和状态     | (any[])=>void    | -          |
 | direction  | 布局方向,可选值 `horizontal`、`vertical`             | string           | horizontal |
 | options    | 可以指定子项 `checkbox`                              | CheckboxOption[] | -          |

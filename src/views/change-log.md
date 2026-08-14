@@ -115,7 +115,7 @@ rm -rf node_modules/.vite
 `2026-5-4`
 
 - 新增`Splitter` 组件
-- `CheckBox`,`Switch` 组件优化,支持输出`bool`(true / false), `number`(0 / 1)
+- `CheckBox`,`Switch` 组件优化,支持输出`boolean`(true / false), `number`(0 / 1)
 - `message` 新增 `loading`函数
 - `RadioGroup` 优化
 - 表单验证优化

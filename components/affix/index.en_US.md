@@ -27,5 +27,5 @@ Use this feature cautiously when the visible area of the page is small to avoid 
 | ------------ | ----------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ------- |
 | offsetTop    | Triggered when the specified offset from the top of the window is reached                                                           | string, number       | 0       |
 | offsetBottom | Triggered when the specified offset from the bottom of the window is reached                                                        | string, number       | -       |
-| onChange     | Triggered when the fixed state changes                                                                                              | (fixed:bool) => void | -       |
+| onChange     | Triggered when the fixed state changes                                                                                              | (fixed:boolean) => void | -       |
 | target       | Set the element whose scroll event the Affix needs to listen to. The value is a function that returns the corresponding DOM element | HTMLElement          | window  |

@@ -34,6 +34,6 @@
 | -------- | ---------------------------------------------- | ------------------------------------------------------------------------- | ------- |
 | align    | Alignment method                               | Refer to https://developer.mozilla.org/zh-CN/docs/Web/CSS/align-items     | center  |
 | justify  | Set the alignment of elements on the main axis | Refer to https://developer.mozilla.org/zh-CN/docs/Web/CSS/justify-content | center  |
-| vertical | Whether to display vertically                  | bool                                                                      | false   |
+| vertical | Whether to display vertically                  | boolean                                                                     | false   |
 | size     | Spacing size                                   | `small`, `medium`, `large`, number, number[]                              | -       |
-| wrap     | Whether to wrap                                | bool                                                                      | false   |
+| wrap     | Whether to wrap                                | boolean                                                                     | false   |

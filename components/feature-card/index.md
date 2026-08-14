@@ -19,4 +19,4 @@
 | icon     | 图标         | IconType | -      |
 | title    | 标题         | string   | -      |
 | desc     | 描述内容     | string   | -      |
-| bordered | 是否显示边框 | bool     | false  |
+| bordered | 是否显示边框 | boolean    | false  |

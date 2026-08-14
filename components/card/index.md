@@ -30,7 +30,7 @@
 | -------- | ------------------------------ | ------------------ | ------ |
 | title    | 卡片的标题                     | string、slot       | -      |
 | icon     | 卡片标题的图标                 | string             | -      |
-| bordered | 卡片是否显示边框               | bool               | true   |
+| bordered | 卡片是否显示边框               | boolean              | true   |
 | extra    | 卡片标题扩展                   | slot               | -      |
 | cover    | 卡片封面，设置后不显示卡片头部 | string、VNodeChild | -      |
 

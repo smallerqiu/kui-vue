@@ -33,14 +33,14 @@ Switch selector.
 
 | Property           | Description                                                               | Type                     | Default |
 | ------------------ | ------------------------------------------------------------------------- | ------------------------ | ------- |
-| checked            | Specify whether currently selected, can use `v-model` for two-way binding | bool                     | false   |
-| modelValue         | Value bound through `v-model`                                           | string, number, bool     | -       |
-| disabled           | Disable switch                                                            | bool                     | false   |
-| loading            | Show a loading state and disable interaction                              | bool                     | false   |
+| checked            | Specify whether currently selected, can use `v-model` for two-way binding | boolean                  | false   |
+| modelValue         | Value bound through `v-model`                                             | string, number, boolean  | -       |
+| disabled           | Disable switch                                                            | boolean                  | false   |
+| loading            | Show a loading state and disable interaction                              | boolean                  | false   |
 | type               | Theme color, can pass `success`, `warning`, `danger`, `primary`           | string                   | -       |
 | size               | Component size, when value is `small` displays small size                 | string                   | -       |
 | checked(unchecked) | Content when selected (not selected)                                      | slot                     | -       |
 | true-text          | Text displayed when `checked` is `true`                                   | string                   | -       |
 | false-text         | Text displayed when `checked` is `false`                                  | string                   | -       |
-| valueType          | The type of output value for the unit option                              | [string,number,bool]     | bool    |
+| valueType          | The type of output value for the unit option                              | [string,number,boolean]  | boolean |
 | onChange           | Triggered when `checked` changes, callback                                | (value: boolean) => void | -       |

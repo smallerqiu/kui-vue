@@ -19,4 +19,4 @@ Used to present product features, navigation entries, or capability descriptions
 | icon     | Icon                   | IconType | -       |
 | title    | Title                  | string   | -       |
 | desc     | Description            | string   | -       |
-| bordered | Whether to show border | bool     | false   |
+| bordered | Whether to show border | boolean    | false   |
