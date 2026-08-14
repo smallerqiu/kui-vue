@@ -46,7 +46,7 @@
         <Space> TreeSelect : <TreeSelect :treeData="[]" style="width: 180px" /> </Space>
         <Space>
           Image :
-          <KImage :width="120" :height="120" src="https://cdn.chuchur.com/upload/cat/cat1.jpg" />
+          <Image :width="120" :height="120" src="https://cdn.chuchur.com/upload/cat/cat1.jpg" />
         </Space>
         <Space>
           <Upload

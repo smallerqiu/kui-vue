@@ -1,5 +1,5 @@
 <template>
-  Animated: <KSwitch v-model="animated" />
+  Animated: <Switch v-model="animated" />
   <Tabs v-model="current" :animated="animated">
     <TabPanel key="1" title="Tab 1"> Content of Tab Pane 1 </TabPanel>
     <TabPanel key="2" title="Tab 2"> Content of Tab Pane 2 </TabPanel>

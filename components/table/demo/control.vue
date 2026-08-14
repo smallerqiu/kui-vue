@@ -6,14 +6,14 @@
         <RadioButton value="medium" label="Medium" />
         <RadioButton value="small" label="Small" />
       </RadioGroup>
-      Border: <k-switch v-model="bordered" />
+      Border: <Switch v-model="bordered" />
       Loading:
-      <k-switch v-model="loading" />
-      Checkbox: <k-switch v-model="checkable" />
+      <Switch v-model="loading" />
+      Checkbox: <Switch v-model="checkable" />
       Empty:
-      <k-switch v-model="empty" @change="setEmpty" />
+      <Switch v-model="empty" @change="setEmpty" />
       Striped:
-      <k-switch v-model="striped" />
+      <Switch v-model="striped" />
     </Space>
     <Table
       :data="dataSource"

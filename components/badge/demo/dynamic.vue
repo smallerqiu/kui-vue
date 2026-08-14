@@ -9,7 +9,7 @@
     <Badge :dot="show">
       <a href="#">Link</a>
     </Badge>
-    <k-switch @change="show = !show" />
+    <Switch @change="show = !show" />
   </Space>
   <Divider />
   <Space :size="20">

@@ -8,7 +8,7 @@
     </Spin>
     <br />
     <br />
-    Loading state：<KSwitch v-model="spinning" />
+    Loading state：<Switch v-model="spinning" />
   </div>
 </template>
 <script setup lang="ts">

@@ -26,7 +26,7 @@ const switchProps = {
 export type SwitchProps = ExtractPropTypes<typeof switchProps>;
 
 const Switch = defineComponent({
-  name: "KSwitch",
+  name: "Switch",
   props: switchProps,
   setup(props, { slots, emit }) {
     const isChecked = ref(props.modelValue || props.checked);

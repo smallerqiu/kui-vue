@@ -90,10 +90,7 @@ const isBooleanType = (type: Type): boolean => {
   return types.length > 0 && types.every((item) => item.isBoolean() || item.isBooleanLiteral());
 };
 
-export const getPropsData = (
-  componentPath: string,
-  propsNames: string | string[]
-): PropData[] => {
+export const getPropsData = (componentPath: string, propsNames: string | string[]): PropData[] => {
   const sourceFile =
     project.getSourceFile(componentPath) || project.addSourceFileAtPath(componentPath);
   const exportSymbols = sourceFile.getExportSymbols();

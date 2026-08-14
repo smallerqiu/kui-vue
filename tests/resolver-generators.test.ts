@@ -11,16 +11,17 @@ const componentEntry = path.resolve(import.meta.dirname, "../components/index.ts
 
 describe("resolver generators", () => {
   it("converts component names to Vue template tag names", () => {
-    expect(toKebabCase("KImage")).toBe("k-image");
+    expect(toKebabCase("Image")).toBe("image");
     expect(toKebabCase("InputOTP")).toBe("input-otp");
     expect(toKebabCase("QRCode")).toBe("qr-code");
     expect(getComponentTagNames("Button")).toEqual(["button", "k-button"]);
-    expect(getComponentTagNames("KSwitch")).toEqual(["k-switch"]);
+    expect(getComponentTagNames("Image")).toEqual(["Image"]);
+    expect(getComponentTagNames("Switch")).toEqual(["Switch"]);
   });
 
   it("resolves non-standard props type names", () => {
-    expect(getPropsNameCandidates("KImage")).toEqual(["KImageProps", "ImageProps"]);
-    expect(getPropsNameCandidates("KSwitch")).toEqual(["KSwitchProps", "SwitchProps"]);
+    expect(getPropsNameCandidates("Image")).toEqual(["ImageProps"]);
+    expect(getPropsNameCandidates("Switch")).toEqual(["SwitchProps"]);
     expect(getPropsNameCandidates("TimeLineItem")).toEqual([
       "TimeLineItemProps",
       "TimelineItemProps",

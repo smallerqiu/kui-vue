@@ -1,6 +1,6 @@
 <template>
   <Space vertical>
-    <KImage
+    <Image
       :width="120"
       :height="120"
       src="https://cdn.chuchur.com/upload/demo/test_300.jpg"
@@ -14,7 +14,7 @@
       <template #panel>
         <div>Some thing here.</div>
       </template>
-    </KImage>
+    </Image>
   </Space>
 </template>
 <script setup lang="ts">

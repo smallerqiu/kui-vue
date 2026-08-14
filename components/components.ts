@@ -71,7 +71,7 @@ export type { FlexAlignType, FlexJustifyType, FlexProps, FlexSizeType } from "./
 export { Grid, GridItem } from "./grid";
 export type { GridItemProps, GridProps } from "./grid";
 
-export { ImageGroup, KImage } from "./image";
+export { Image, ImageGroup } from "./image";
 export type { ImageGroupProps, ImageProps } from "./image";
 
 export { default as Icon } from "./icon";
@@ -157,7 +157,7 @@ export type { SpaceProps } from "./space";
 export { default as Spin } from "./spin";
 export type { SpinProps } from "./spin";
 
-export { default as KSwitch } from "./switch";
+export { default as Switch } from "./switch";
 export type { SwitchProps } from "./switch";
 
 export { Splitter, SplitterPanel } from "./splitter";

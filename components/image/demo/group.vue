@@ -1,11 +1,11 @@
 <template>
   <Space vertical>
     <ImageGroup>
-      <KImage :width="80" :height="80" v-for="(item, index) in data" :key="index" :src="item" />
+      <Image :width="80" :height="80" v-for="(item, index) in data" :key="index" :src="item" />
     </ImageGroup>
     <code>Use group data</code>
     <ImageGroup :data="data">
-      <KImage :width="80" :height="80" src="https://cdn.chuchur.com/upload/demo/test_300.jpg" />
+      <Image :width="80" :height="80" src="https://cdn.chuchur.com/upload/demo/test_300.jpg" />
     </ImageGroup>
   </Space>
 </template>

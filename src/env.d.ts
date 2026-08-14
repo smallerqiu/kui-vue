@@ -39,8 +39,9 @@ declare module "vue" {
     Flex: (typeof Comps)["Flex"];
     Grid: (typeof Comps)["Grid"];
     GridItem: (typeof Comps)["GridItem"];
+    Image: (typeof Comps)["Image"];
+    KImage: (typeof Comps)["Image"];
     ImageGroup: (typeof Comps)["ImageGroup"];
-    KImage: (typeof Comps)["KImage"];
     Icon: (typeof Comps)["Icon"];
     Input: (typeof Comps)["Input"];
     InputGroup: (typeof Comps)["InputGroup"];
@@ -85,7 +86,8 @@ declare module "vue" {
     Splitter: (typeof Comps)["Splitter"];
     SplitterPanel: (typeof Comps)["SplitterPanel"];
     Spin: (typeof Comps)["Spin"];
-    KSwitch: (typeof Comps)["KSwitch"];
+    Switch: (typeof Comps)["Switch"];
+    KSwitch: (typeof Comps)["Switch"];
     Table: (typeof Comps)["Table"];
     Tooltip: (typeof Comps)["Tooltip"];
     TabPanel: (typeof Comps)["TabPanel"];

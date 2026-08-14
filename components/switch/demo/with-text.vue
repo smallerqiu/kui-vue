@@ -1,21 +1,21 @@
 <template>
   <Space vertical align="start">
-    <k-switch true-text="Yes" false-text="No" />
-    <k-switch true-text="｜" false-text="〇" />
-    <k-switch true-text="｜" false-text="〇" checked />
-    <k-switch true-text="On" false-text="Off" />
-    <k-switch>
+    <Switch true-text="Yes" false-text="No" />
+    <Switch true-text="｜" false-text="〇" />
+    <Switch true-text="｜" false-text="〇" checked />
+    <Switch true-text="On" false-text="Off" />
+    <Switch>
       <template #checked><Icon :type="Check" /></template>
       <template #unchecked><Icon :type="X" /></template>
-    </k-switch>
-    <k-switch>
+    </Switch>
+    <Switch>
       <template #checked><Icon :type="LogoApple" /></template>
       <template #unchecked><Icon :type="LogoMicrosoft" /></template>
-    </k-switch>
-    <k-switch>
+    </Switch>
+    <Switch>
       <template #unchecked><Icon :type="Plane" /></template>
       <template #checked><Icon :type="Wifi" /></template>
-    </k-switch>
+    </Switch>
   </Space>
 </template>
 <script setup lang="ts">

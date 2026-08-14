@@ -15,30 +15,30 @@
         <Space :size="20">
           <RadioGroup :options="options" modelValue="3" />
           <RadioGroup :options="optionsDisabled" disabled modelValue="5" />
-          <KSwitch checked />
-          <KSwitch />
-          <KSwitch checked disabled />
-          <KSwitch disabled />
+          <Switch checked />
+          <Switch />
+          <Switch checked disabled />
+          <Switch disabled />
         </Space>
         <Space :size="20">
           <CheckboxGroup :options="options" :modelValue="['3']" />
           <CheckboxGroup :options="optionsDisabled" disabled :modelValue="['5']" />
-          <KSwitch checked>
+          <Switch checked>
             <template #checked><Icon :type="Check" /></template>
             <template #unchecked><Icon :type="X" /></template>
-          </KSwitch>
-          <KSwitch>
+          </Switch>
+          <Switch>
             <template #checked><Icon :type="Check" /></template>
             <template #unchecked><Icon :type="X" /></template>
-          </KSwitch>
-          <KSwitch checked disabled
+          </Switch>
+          <Switch checked disabled
             ><template #checked><Icon :type="Check" /></template>
             <template #unchecked><Icon :type="X" /></template
-          ></KSwitch>
-          <KSwitch disabled>
+          ></Switch>
+          <Switch disabled>
             <template #checked><Icon :type="Check" /></template>
             <template #unchecked><Icon :type="X" /></template>
-          </KSwitch>
+          </Switch>
         </Space>
       </Space>
       <Space>

@@ -1,7 +1,12 @@
 import fs from "fs";
 import path from "path";
 import pkg from "../../package.json" with { type: "json" };
-import { getComponentTagNames, getPropsData, getPropsNameCandidates } from "./vetur.ts";
+import {
+  getComponentTagNames,
+  getPropsData,
+  getPropsNameCandidates,
+  toKebabCase,
+} from "./vetur.ts";
 export const generateWebTypesConfig = (componentNames: string[]) => {
   const entryFilePath = path.resolve(import.meta.dirname, "../../components/index.ts");
 
@@ -25,7 +30,7 @@ export const generateWebTypesConfig = (componentNames: string[]) => {
               symbol: name,
             },
             description: `Kui Vue component: ${name}`,
-            "doc-url": `https://k-ui.cn/components/${tagName.replace(/^k-/, "")}`,
+            "doc-url": `https://k-ui.cn/components/${toKebabCase(name)}`,
             attributes: attributes.map((prop) => ({
               name: prop.name,
               description: prop.description,
@@ -34,7 +39,7 @@ export const generateWebTypesConfig = (componentNames: string[]) => {
                 kind: "expression",
               },
             })),
-            events: events.map((prop) => ({
+            "js/events": events.map((prop) => ({
               name: prop.eventName as string,
               description: prop.description,
             })),

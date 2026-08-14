@@ -35,7 +35,8 @@ describe("component resolver", () => {
     const componentNames = getComponentNames();
 
     expect(componentNames).toContain("Button");
-    expect(componentNames).toContain("KSwitch");
+    expect(componentNames).toContain("Image");
+    expect(componentNames).toContain("Switch");
     expect(componentNames).not.toContain("message");
   });
 });

@@ -1,8 +1,8 @@
 <template>
   <Space vertical align="start">
-    <k-switch disabled />
+    <Switch disabled />
     <Space>
-      <k-switch :disabled="disabled" v-model="checked" />
+      <Switch :disabled="disabled" v-model="checked" />
       <Button size="small" @click="checked = !checked">
         {{ checked ? "Uncheck" : "Check" }}
       </Button>
@@ -10,9 +10,9 @@
         {{ disabled ? "Enable" : "Disabled" }}
       </Button>
     </Space>
-    <k-switch disabled true-text="Yes" false-text="No" />
-    <k-switch disabled true-text="Yes" false-text="No" checked />
-    <k-switch disabled true-text="Yes" false-text="No" checked size="small" />
+    <Switch disabled true-text="Yes" false-text="No" />
+    <Switch disabled true-text="Yes" false-text="No" checked />
+    <Switch disabled true-text="Yes" false-text="No" checked size="small" />
   </Space>
 </template>
 <script setup lang="ts">

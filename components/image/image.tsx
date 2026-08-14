@@ -34,8 +34,8 @@ const imageProps = {
 
 export type ImageProps = ExtractPropTypes<typeof imageProps>;
 
-const KImage = defineComponent({
-  name: "KImage",
+const Image = defineComponent({
+  name: "Image",
   props: imageProps,
   setup(props, { emit, slots, expose }) {
     const loading = ref(false);
@@ -181,4 +181,4 @@ const KImage = defineComponent({
   },
 });
 
-export default KImage;
+export default Image;

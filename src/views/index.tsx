@@ -1,15 +1,5 @@
 import { ArrowRight, Code, Layers, LogoGithub, Palette, Zap } from "kui-icons";
-import {
-  Badge,
-  Button,
-  FeatureCard,
-  Icon,
-  KSwitch,
-  Layout,
-  Progress,
-  StatCard,
-  Tag,
-} from "kui-vue";
+import { Badge, Button, FeatureCard, Icon, Layout, Progress, StatCard, Switch, Tag } from "kui-vue";
 import { defineComponent, inject } from "vue";
 import "../assets/css/home.less";
 import AppFooter from "../components/app-footer.vue";
@@ -123,7 +113,7 @@ export default defineComponent({
                       <div class="preview-panel">
                         <div class="preview-panel-head">
                           <strong>Usage</strong>
-                          <KSwitch size="small" modelValue />
+                          <Switch size="small" modelValue />
                         </div>
                         <Progress percent={72} showInfo={false} />
                         <Progress percent={48} showInfo={false} />

@@ -1,6 +1,6 @@
 <template>
   <Space vertical>
-    <KSwitch />
-    <KSwitch size="small" />
+    <Switch />
+    <Switch size="small" />
   </Space>
 </template>

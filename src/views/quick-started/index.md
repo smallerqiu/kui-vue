@@ -54,6 +54,3 @@ app.use(kui).mount("#app");
 
 - 组件支持全小写或首字母大写，如：`Button` , `KButton`或者 `k-button` :
 
-[特殊组件](./image.vue)
-
-- 注意 `Switch` 、 `Image`组件只支持 以k开头 :

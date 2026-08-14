@@ -1,6 +1,6 @@
 <template>
   <div style="width: 256px">
-    <KSwitch true-text="dark" false-text="light" @change="change" :checked="theme == 'dark'" />
+    <Switch true-text="dark" false-text="light" @change="change" :checked="theme == 'dark'" />
     <br />
     <br />
     <Menu v-model="current" :openKeys="openKeys" :theme="theme" mode="inline" :items="items" />

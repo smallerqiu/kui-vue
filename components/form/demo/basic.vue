@@ -69,7 +69,7 @@
         </CheckboxGroup>
       </FormItem>
       <FormItem label="Switch">
-        <KSwitch true-text="Yes" false-text="No" />
+        <Switch true-text="Yes" false-text="No" />
       </FormItem>
       <FormItem label="Text">
         <TextArea placeholder="Please input..." />

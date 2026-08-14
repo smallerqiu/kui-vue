@@ -20,13 +20,13 @@
         <Radio value="H">H</Radio>
       </RadioGroup>
     </Space>
-    <Space>Border: <KSwitch v-model="bordered" /></Space>
+    <Space>Border: <Switch v-model="bordered" /></Space>
   </Space>
 </template>
 
 <script setup lang="ts">
 import type { QRCodeErrorLevel } from "kui-vue";
-import { KSwitch } from "kui-vue";
+import { Switch } from "kui-vue";
 import { ref } from "vue";
 const url = "https://k-ui.cn";
 const color = ref("#4CAF50");

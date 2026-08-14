@@ -1,8 +1,8 @@
 <template>
-  <Space style="max-width:520px;" vertical block>
+  <Space style="max-width: 520px" vertical block>
     <code>
       Reversed:
-      <KSwitch v-model="reverse" size="small" />
+      <Switch v-model="reverse" size="small" />
     </code>
     <Slider v-model="v1" :reverse="reverse" />
     <Slider v-model="v2" range :reverse="reverse" :marks="{ 40: '40°C', 50: '50°C' }" />

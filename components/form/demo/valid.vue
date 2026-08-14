@@ -91,7 +91,7 @@
         </CheckboxGroup>
       </FormItem>
       <FormItem label="Hardcore" prop="hardcore">
-        <KSwitch true-text="Yes" false-text="No" />
+        <Switch true-text="Yes" false-text="No" />
       </FormItem>
       <FormItem label="Other" prop="other">
         <TextArea placeholder="Maximum 10 characters" v-model="form.other" />
