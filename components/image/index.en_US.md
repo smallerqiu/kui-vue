@@ -32,6 +32,7 @@ Previewable images.
 | width       | The width of the component                             | [string, number]        | -       |
 | height      | The height of the component                            | [string, number]        | -       |
 | src         | The default address of the image to display            | string                  | -       |
+| alt         | Alternative text when the image cannot be displayed    | string                  | -       |
 | type        | Make Preview display video tag, values ['img','media'] | string                  | img     |
 | origin      | The large image displayed when clicking the image      | string                  | -       |
 | placeholder | The placeholder displayed when the image fails to load | string                  | -       |

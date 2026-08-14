@@ -130,7 +130,9 @@ const Demo = defineComponent({
                   <Badge status={buildState.state} text={buildState.text} />
                   <RadioGroup
                     options={codeLangOptions}
-                    onChange={(value) => switchCodeLanguage(value)}
+                    onChange={(value) => {
+                      if (value === "ts" || value === "js") switchCodeLanguage(value);
+                    }}
                     type="button"
                     size="small"
                     v-model={codeLanguage.value}

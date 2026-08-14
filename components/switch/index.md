@@ -34,7 +34,9 @@
 | 属性               | 说明                                                      | 类型                     | 默认值 |
 | ------------------ | --------------------------------------------------------- | ------------------------ | ------ |
 | checked            | 指定当前是否选中，可以使用 `v-model` 双向绑定数据         | bool                     | false  |
+| modelValue         | `v-model` 绑定值                                        | string、number、bool     | -      |
 | disabled           | 禁用开关                                                  | bool                     | false  |
+| loading            | 是否显示加载状态并禁用交互                                | bool                     | false  |
 | type               | 主题颜色 可传入 `success`，`warning`，`danger`，`primary` | string                   | -      |
 | size               | 组件尺寸，值为`small`展示小尺寸                           | string                   | -      |
 | checked(unchecked) | 选中(非选中)时的内容                                      | slot                     | -      |

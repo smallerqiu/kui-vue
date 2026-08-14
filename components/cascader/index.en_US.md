@@ -30,7 +30,7 @@ A cascading selection box.
 
 | Property      | Description                                                                                                         | Type                   | Default           |
 | :------------ | :------------------------------------------------------------------------------------------------------------------ | :--------------------- | :---------------- |
-| v-model       | Array of path values for the selected item (e.g., `['zhejiang', 'hangzhou', 'xihu']`).                              | `(string \| number)[]` | `[]`              |
+| modelValue    | Array of path values bound through `v-model` (e.g., `['zhejiang', 'hangzhou', 'xihu']`).                            | `(string \| number)[]` | `[]`              |
 | options       | Tree-structured data source for cascading options.                                                                  | `CascaderOption[]`     | `[]`              |
 | placeholder   | Fallback placeholder text displayed when no path is selected.                                                       | `string`               | `"Please select"` |
 | disabled      | Whether to completely disable interaction for the entire component.                                                 | `boolean`              | `false`           |

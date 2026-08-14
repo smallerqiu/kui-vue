@@ -45,20 +45,28 @@ Similar to the Select selection control, when the selectable data structure is a
 | placeholder      | Default text of selector                                                        | string                            | Please select |
 | disabled         | Whether current item is disabled                                                | bool                              | false         |
 | size             | Component size, provides two sizes: `small`, `large`, default is normal         | string                            | -             |
+| placement        | Dropdown placement                                                              | string                            | bottom-left   |
 | emptyText        | Prompt displayed when no data                                                   | string                            | 'No data yet' |
 | multiple         | Whether to display in multiple selection mode                                   | bool                              | false         |
+| block            | Whether to fill the parent width                                                 | bool                              | false         |
+| maxTagCount      | Maximum number of tags displayed in multiple mode                               | number                            | -             |
+| filterable       | Whether search filtering is enabled                                              | bool                              | false         |
 | loading          | Asynchronous loading state                                                      | bool                              | false         |
 | clearable        | Whether options can be cleared                                                  | bool                              | false         |
 | bordered         | Whether to show border                                                          | bool                              | true          |
 | showArrow        | Whether to show dropdown button                                                 | bool                              | true          |
+| arrowIcon        | Custom dropdown arrow icon                                                      | IconType[]                        | -             |
 | theme            | The theme of TreeSelect                                                         | string                            | fill          |
 | icon             | Custom icon                                                                     | string                            | -             |
 | shape            | When shape='circle', displays rounded corners                                   | string                            | -             |
 | treeLoadData     | Method to asynchronously load data                                              | (node: TreeNode) => Promise<any\> | -             |
 | treeData         | Array of nestable node properties, data to generate `tree`                      | TreeNode[]                        | []            |
 | treeCheckable    | Whether to show checkbox                                                        | bool                              | false         |
+| treeCheckStrictly | Whether parent and child check states are independent                           | bool                              | false         |
 | showLine         | Whether to show connecting lines                                                | bool                              | false         |
 | showIcon         | Whether to show icons                                                           | bool                              | true          |
+| treeShowIcon     | Whether to show tree node icons                                                 | bool                              | true          |
+| treeShowLine     | Whether to show tree connection lines                                           | bool                              | false         |
 | treeExpandedKeys | Specify expanded nodes                                                          | string[]                          | []            |
 
 ## TreeSelect Events

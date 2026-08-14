@@ -38,6 +38,7 @@ Radio button.
 | label      | Text prompt                        | string, number           | -       |
 | value      | Value when used in combination     | string 、 number         | -       |
 | disabled   | Whether current item is disabled   | bool                     | false   |
+| icon       | Custom RadioButton icon            | IconType[]               | -       |
 | onChange   | Callback when option state changes | (e: ChangeEvent) => void | -       |
 
 ## RadioGroup API

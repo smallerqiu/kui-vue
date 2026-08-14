@@ -34,7 +34,9 @@ Switch selector.
 | Property           | Description                                                               | Type                     | Default |
 | ------------------ | ------------------------------------------------------------------------- | ------------------------ | ------- |
 | checked            | Specify whether currently selected, can use `v-model` for two-way binding | bool                     | false   |
+| modelValue         | Value bound through `v-model`                                           | string, number, bool     | -       |
 | disabled           | Disable switch                                                            | bool                     | false   |
+| loading            | Show a loading state and disable interaction                              | bool                     | false   |
 | type               | Theme color, can pass `success`, `warning`, `danger`, `primary`           | string                   | -       |
 | size               | Component size, when value is `small` displays small size                 | string                   | -       |
 | checked(unchecked) | Content when selected (not selected)                                      | slot                     | -       |

@@ -44,3 +44,12 @@
 | target       | 触发下拉的元素                                                               | VNode               | -           |
 | disabled     | 是否允许触发下拉                                                             | bool                | false       |
 | onOpenChange | 打开或关闭Dropdown时触发                                                     | (opened:bool)=>void | -           |
+
+### DropdownButton API
+
+| 属性    | 说明                 | 类型                  | 默认值       |
+| ------- | -------------------- | --------------------- | ------------ |
+| size    | 按钮尺寸             | `small`、`large`      | -            |
+| shape   | 按钮形状             | `circle`、`square`    | -            |
+| icon    | 自定义下拉按钮图标   | IconType[]            | Ellipsis     |
+| onClick | 点击主按钮时触发     | (e: MouseEvent)=>void | -            |

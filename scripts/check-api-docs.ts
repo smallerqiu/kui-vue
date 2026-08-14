@@ -6,7 +6,16 @@ const componentEntry = path.resolve(import.meta.dirname, "../components/index.ts
 
 // Keep the scope of the previous in-build check. These components intentionally
 // inherit or share props that are not all documented in their own API tables.
-const ignoredComponents = /Option|TextArea|Input|Select|GridItem|Grid|Empty|Button/;
+const ignoredComponents = new Set([
+  "Option",
+  "TextArea",
+  "Input",
+  "Select",
+  "GridItem",
+  "Grid",
+  "Empty",
+  "Button",
+]);
 
 interface MissingDoc {
   component: string;
@@ -15,20 +24,27 @@ interface MissingDoc {
 }
 
 const missingDocs: MissingDoc[] = [];
+const documentationFiles = ["index.md", "index.en_US.md"];
 
 getComponentNames().forEach((componentName) => {
-  if (ignoredComponents.test(componentName)) return;
+  if (ignoredComponents.has(componentName)) return;
 
-  const props = getPropsData(componentEntry, getPropsNameCandidates(componentName));
+  documentationFiles.forEach((documentationFile) => {
+    const props = getPropsData(
+      componentEntry,
+      getPropsNameCandidates(componentName),
+      documentationFile
+    );
 
-  props.forEach((prop) => {
-    if (!prop.documented) {
-      missingDocs.push({
-        component: componentName,
-        property: prop.name,
-        documentationPath: prop.documentationPath,
-      });
-    }
+    props.forEach((prop) => {
+      if (!prop.documented) {
+        missingDocs.push({
+          component: componentName,
+          property: prop.name,
+          documentationPath: prop.documentationPath,
+        });
+      }
+    });
   });
 });
 

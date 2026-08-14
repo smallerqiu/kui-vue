@@ -63,3 +63,16 @@ Folders, organizational structures, biological classifications, countries and re
 | disabled | Whether node is disabled                                                              | bool       | false   |
 | children | Child nodes                                                                           | TreeNode[] | -       |
 | isLeaf   | Set as leaf node (effective when loadData is set). false will force it as parent node | bool       | false   |
+
+### Events
+
+| Property    | Description                              | Callback Parameters                                                              |
+| ----------- | ---------------------------------------- | -------------------------------------------------------------------------------- |
+| onSelect    | Triggered when a tree node is clicked    | (node: TreeNode) => void                                                         |
+| onCheck     | Triggered when a checkbox is clicked     | (node: TreeNode, checked: boolean, checkedKeys: string[]) => void                |
+| onExpand    | Triggered when a node expands or collapses | (result: TreeExpandEvent) => void                                              |
+| onDragStart | Triggered when dragging starts           | (node: TreeNode, event: DragEvent) => void                                       |
+| onDragEnd   | Triggered when dragging ends             | (node: TreeNode, event: DragEvent) => void                                       |
+| onDragEnter | Triggered when a dragged node enters     | (node: TreeNode, event: DragEvent) => void                                       |
+| onDragLeave | Triggered when a dragged node leaves     | (node: TreeNode, event: DragEvent) => void                                       |
+| onDrop      | Triggered when a node is dropped         | (node: { dragNode: TreeNode; dropNode: TreeNode }, event: DragEvent) => void     |

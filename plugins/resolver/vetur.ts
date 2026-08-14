@@ -19,7 +19,17 @@ export const toKebabCase = (name: string): string =>
     .replace(/([A-Z])([A-Z][a-z])/g, "$1-$2")
     .toLowerCase();
 
+const normalizeDocumentationKey = (name: string): string =>
+  name
+    .replace(/`/g, "")
+    .trim()
+    .toLowerCase()
+    .replace(/[-_]/g, "");
+
 export const getComponentTagNames = (name: string): string[] => {
+  // These names collide with native/SVG tags when lower-cased. Keep their
+  // PascalCase spelling so editor metadata resolves the Kui components.
+  if (name === "Image" || name === "Switch") return [name];
   const tagName = toKebabCase(name);
   return name.startsWith("K") ? [tagName] : [tagName, `k-${tagName}`];
 };
@@ -53,11 +63,13 @@ const getDocDescriptions = (mdPath: string): Record<string, string> => {
       const description = columns[1];
 
       const normalizedProp = rawProp.toLowerCase();
-      const isHeader = ["property", "prop", "属性"].includes(normalizedProp);
+      const isHeader =
+        ["property", "属性"].includes(normalizedProp) ||
+        (normalizedProp === "prop" && /^(description|说明)$/i.test(description));
       const isSeparator = /^:?-{3,}:?$/.test(rawProp);
       if (!isHeader && !isSeparator) {
         // 统一小写存储，确保 offsetTop 能匹配到 offsettop
-        descriptions[rawProp.toLowerCase()] = description;
+        descriptions[normalizeDocumentationKey(rawProp)] = description;
       }
     }
   });
@@ -90,7 +102,11 @@ const isBooleanType = (type: Type): boolean => {
   return types.length > 0 && types.every((item) => item.isBoolean() || item.isBooleanLiteral());
 };
 
-export const getPropsData = (componentPath: string, propsNames: string | string[]): PropData[] => {
+export const getPropsData = (
+  componentPath: string,
+  propsNames: string | string[],
+  documentationFileName = "index.md"
+): PropData[] => {
   const sourceFile =
     project.getSourceFile(componentPath) || project.addSourceFileAtPath(componentPath);
   const exportSymbols = sourceFile.getExportSymbols();
@@ -108,8 +124,7 @@ export const getPropsData = (componentPath: string, propsNames: string | string[
 
   // 定位组件真实的物理目录并读取 md
   const componentDir = path.dirname(declarations[0].getSourceFile().getFilePath());
-  // const mdPath = path.join(componentDir, "index.en_US.md");
-  const mdPath = path.join(componentDir, "index.md");
+  const mdPath = path.join(componentDir, documentationFileName);
   const docMap = getDocDescriptions(mdPath);
 
   const type = aliasedSymbol.getDeclaredType();
@@ -131,9 +146,17 @@ export const getPropsData = (componentPath: string, propsNames: string | string[
     const type = prop.getTypeAtLocation(declarations[0]);
     const propType = type.getText(undefined, TypeFormatFlags.UseAliasDefinedOutsideCurrentScope);
 
-    // 匹配描述：优先 MD 表格（全小写匹配），次之 JSDoc
-    const lowerName = name.toLowerCase();
-    let description = docMap[lowerName];
+    const eventName = /^on[A-Z]/.test(name)
+      ? `${name.charAt(2).toLowerCase()}${name.slice(3)}`
+      : undefined;
+    // Vue documentation commonly uses kebab-case props and event names without
+    // the on-prefix. Treat those spellings as the same public API entry.
+    const documentedDescription = [name, eventName]
+      .filter((candidate): candidate is string => Boolean(candidate))
+      .map(normalizeDocumentationKey)
+      .map((candidate) => docMap[candidate])
+      .find(Boolean);
+    let description = documentedDescription;
 
     if (!description && propDecls.length > 0 && Node.isJSDocable(propDecls[0])) {
       description = propDecls[0]
@@ -146,11 +169,9 @@ export const getPropsData = (componentPath: string, propsNames: string | string[
       name,
       description: description || `Props for ${name}`,
       type: propType,
-      eventName: /^on[A-Z]/.test(name)
-        ? `${name.charAt(2).toLowerCase()}${name.slice(3)}`
-        : undefined,
+      eventName,
       boolean: isBooleanType(type),
-      documented: Boolean(docMap[lowerName]),
+      documented: Boolean(documentedDescription),
       documentationPath: mdPath,
     });
   });

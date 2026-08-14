@@ -53,3 +53,7 @@
 | theme      | 主题                     | `light`、`outline`、`underlined` | outline |
 | shape      | 外观形状                 | `square`、`circle`               | -       |
 | complete   | 输入达到指定长度时触发   | (value) => void                  | -       |
+| update:modelValue | 绑定值更新时触发   | (value: string) => void          | -       |
+| change     | 输入值变化时触发         | (value: string) => void          | -       |
+| focus      | 输入框获得焦点时触发     | (event: FocusEvent) => void      | -       |
+| blur       | 输入框失去焦点时触发     | (event: FocusEvent) => void      | -       |

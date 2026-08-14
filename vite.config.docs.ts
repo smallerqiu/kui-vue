@@ -7,7 +7,7 @@ import banner from "./plugins/banner/index.ts";
 import vueMarkdown from "./plugins/markdown/index.ts";
 
 // https://vite.dev/config/
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ command, mode }) => {
   const isProd = mode === "production";
   console.log("isProd:", isProd);
   return {
@@ -21,6 +21,7 @@ export default defineConfig(({ mode }) => {
       VueRouter({
         routesFolder: ["src/views"],
         extensions: [".tsx"],
+        watch: command === "serve",
       }),
       vueMarkdown(),
       vueJsx(),
@@ -31,7 +32,7 @@ export default defineConfig(({ mode }) => {
     ],
     resolve: {
       alias: {
-        "@": path.resolve(import.meta.dirname, "/"),
+        "@": path.resolve(import.meta.dirname, "./"),
         "kui-vue": path.resolve(import.meta.dirname, "./components"),
         // vue: `http://localhost:7005/js/vue/vue.esm-browser${isProd ? ".prod" : ""}.js`,
         // "kui-icons": `${import.meta.env.VITE_APP_IMPORT_URL}/js/kui-icons.esm.js`,

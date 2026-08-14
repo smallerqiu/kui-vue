@@ -53,3 +53,7 @@ Used for SMS codes, email codes, and one-time passwords.
 | theme      | Visual theme                        | `light`, `outline`, `underlined` | outline |
 | shape      | Field shape                         | `square`, `circle`               | -       |
 | complete   | Emitted when all characters exist   | (value) => void                  | -       |
+| update:modelValue | Emitted when the bound value changes | (value: string) => void       | -       |
+| change     | Emitted when the input value changes   | (value: string) => void       | -       |
+| focus      | Emitted when an input receives focus   | (event: FocusEvent) => void   | -       |
+| blur       | Emitted when an input loses focus      | (event: FocusEvent) => void   | -       |

@@ -44,3 +44,12 @@ When there are too many operation commands on the page, this component can be us
 | target       | Element that triggers the dropdown                                                  | VNode               | -           |
 | disabled     | Whether dropdown triggering is allowed                                              | bool                | false       |
 | onOpenChange | Triggered when opening or closing a Dropdown                                        | (opened:bool)=>void | -           |
+
+### DropdownButton API
+
+| Property | Description                              | Type                  | Default  |
+| -------- | ---------------------------------------- | --------------------- | -------- |
+| size     | Button size                              | `small`, `large`      | -        |
+| shape    | Button shape                             | `circle`, `square`    | -        |
+| icon     | Custom dropdown trigger icon             | IconType[]            | Ellipsis |
+| onClick  | Triggered when the main button is clicked | (e: MouseEvent)=>void | -        |

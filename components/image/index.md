@@ -32,6 +32,7 @@
 | width       | 组件的宽度                                      | [string、number]        | -      |
 | height      | 组件的高度                                      | [string、number]        | -      |
 | src         | 图片默认展示的地址                              | string                  | -      |
+| alt         | 图片无法显示时的替代文本                        | string                  | -      |
 | type        | 使 Preview 展示 video 标签，取值['img','media'] | string                  | img    |
 | origin      | 点击图片展示的大图                              | string                  | -      |
 | placeholder | 图片加载失败时展示的占位符                      | string                  | -      |
