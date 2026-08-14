@@ -58,25 +58,28 @@ export default function vitePluginKuiMd(): Plugin {
       const demoImports: string[] = [];
       let demoCount = 0;
 
-      // \[(.*?)\]\((.*?\.vue)\) : 匹配 [标题](./路径.vue)
-      // \s*\n\s*-\s+(.*)       : 匹配换行后的横杠及其后面的描述内容
-      // const demoReg = /\[(.*?)\]\((.*?\.vue)(?:\?show=(.*?))?\)\s*\n\s*-\s+(.*)/g;
-      const demoReg = /\[(.*?)\]\((.*?\.vue)(?:\?show=(.*?))?\)\s*\n((?:\s*-\s+.*(?:\n|$))+)/g;
+      const demoReg =
+        /\[(.*?)\]\((.*?\.(?:vue|tsx))(\?[^)]*)?\)(?:\s*\n((?:\s*-\s+.*(?:\n|$))+))?/g;
 
-      let processedMarkdown = code.replace(
+      const processedMarkdown = code.replace(
         demoReg,
-        (_, title, src, direction = "horizontal", descBlock) => {
+        (_, title: string, src: string, query = "", descBlock = "") => {
           const componentName = `KuiDemo${demoCount++}`;
-          const _id = "k-" + hashId(id);
+          const params = new URLSearchParams(query.replace(/^\?/, ""));
+          const direction = params.get("show") === "vertical" ? "vertical" : "horizontal";
+          const useDemo = params.get("demo") !== "false";
 
+          demoImports.push(`import ${componentName} from '${src}';`);
+          if (!useDemo) return `<${componentName} />`;
+
+          const _id = "k-" + hashId(id);
           const absolutePath = path.resolve(path.dirname(id), src);
           const demoCode = fs.readFileSync(absolutePath, "utf-8").trim();
           const highlightedTypeScript = highlightSfc(demoCode);
           const highlightedJavaScript = highlightSfc(toJavaScriptSfc(demoCode));
-
-          demoImports.push(`import ${componentName} from '${src}';`);
-
-          const renderedDescription = markdown.render(descBlock.replace(/-/g, ""));
+          const renderedDescription = descBlock
+            ? markdown.render(descBlock.replace(/^\s*-\s?/gm, ""))
+            : "";
           return `
 <Demo id="${_id}" direction="${direction}">
     <template #title>${title}</template>
@@ -89,15 +92,6 @@ export default function vitePluginKuiMd(): Plugin {
 </Demo>\n`;
         }
       );
-
-      const jsxReg = /\[(.*?)\]\((.*?\.tsx)\)/g;
-
-      processedMarkdown = processedMarkdown.replace(jsxReg, (_, __, src) => {
-        // console.log(t, src);
-        const componentName = `KuiDemo${demoCount++}`;
-        demoImports.push(`import ${componentName} from '${src}';`);
-        return `<${componentName} />`;
-      });
 
       // fs.writeFileSync(path.join(import.meta.dirname, "demo.md"), processedMarkdown);
       const mainHtml = markdown.render(processedMarkdown);

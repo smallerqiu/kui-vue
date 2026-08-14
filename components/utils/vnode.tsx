@@ -6,7 +6,7 @@ export function cloneNodes(
   merge = false,
   cloneTransition?: boolean
 ) {
-  return vnode.length == 1
+  return vnode.length == 1 && vnode[0].type !== Text
     ? cloneVNode(vnode[0], props, merge)
     : cloneVNode(<span>{vnode}</span>, props, merge, cloneTransition);
 }

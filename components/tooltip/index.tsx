@@ -1,5 +1,4 @@
 import {
-  cloneVNode,
   defineComponent,
   nextTick,
   onMounted,
@@ -18,7 +17,7 @@ import { type BooleanType, type PlacementsType } from "../const/types";
 import { colors } from "../const/var";
 import { isColor } from "../utils/color";
 import { setPlacement } from "../utils/placement";
-import { getChildren } from "../utils/vnode";
+import { cloneNodes, getChildren } from "../utils/vnode";
 
 const tooltipProps = {
   show: Boolean as BooleanType,
@@ -172,12 +171,7 @@ const Tooltip = defineComponent({
       };
 
       const children = getChildren(slots.default?.()) as VNode[];
-      const nodes = children?.map((node) => {
-        const pp = children.length === 1 ? { ...attrs, ...wpProps } : { ...attrs };
-        return cloneVNode(node, pp, true, true);
-      });
-
-      const nodeWrapper = nodes.length > 1 ? <span {...wpProps}>{nodes}</span> : nodes[0];
+      const nodeWrapper = cloneNodes(children, { ...attrs, ...wpProps }, true, true);
 
       const styles: CSSProperties = {
         left: `${left.value}px`,

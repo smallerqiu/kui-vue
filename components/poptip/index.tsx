@@ -1,5 +1,4 @@
 import {
-  cloneVNode,
   defineComponent,
   nextTick,
   onMounted,
@@ -12,7 +11,7 @@ import {
   type PropType,
 } from "vue";
 import { setPlacement } from "../utils/placement";
-import { getChildren } from "../utils/vnode";
+import { cloneNodes, getChildren } from "../utils/vnode";
 
 import type { PlacementsType } from "../const/types";
 
@@ -169,15 +168,7 @@ const Poptip = defineComponent({
         wpProps.onBlur = hide;
       }
       const children = getChildren(slots.default?.());
-      const nodes = children?.map((node) => {
-        let pp = { ...attrs };
-
-        if (children.length == 1) {
-          pp = { ...pp, ...wpProps };
-        }
-        return cloneVNode(node, pp, true, true);
-      });
-      const nodeWrapper = nodes.length > 1 ? <span {...wpProps}>{...nodes}</span> : nodes[0];
+      const nodeWrapper = cloneNodes(children, { ...attrs, ...wpProps }, true, true);
 
       const styles = {
         left: `${left.value}px`,

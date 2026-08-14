@@ -18,7 +18,7 @@ npm install --save kui-icons
 </script>
 ```
 
-[IconList](./demo/search.tsx)
+[IconList](./demo/search.tsx?demo=false)
 
 [基本用法](./demo/basic.vue)
 

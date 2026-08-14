@@ -18,7 +18,7 @@ Use
 </script>
 ```
 
-[IconList](./demo/search.tsx)
+[IconList](./demo/search.tsx?demo=false)
 
 [Basic Usage](./demo/basic.vue)
 
