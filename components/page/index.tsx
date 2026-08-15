@@ -10,7 +10,7 @@ import {
   type PropType,
   type Ref,
 } from "vue";
-import type { BooleanType, SizeType, ThemeType } from "../const/types";
+import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
 import Icon from "../icon";
 import InputNumber from "../input-number";
 import zhCN from "../locale/zh-CN";
@@ -22,6 +22,7 @@ const pageProps = {
   showTotal: { type: Boolean as BooleanType, default: true },
   showElevator: Boolean as BooleanType,
   theme: { type: String as PropType<ThemeType>, default: "fill" },
+  shape: { type: String as PropType<ShapeType>, default: "round" },
   sizeData: { type: Array as PropType<number[]>, default: () => [10, 15, 20, 30, 40] },
   size: {
     type: String as PropType<SizeType>,
@@ -276,9 +277,11 @@ const Page = defineComponent({
     return () => {
       const classes = [
           "k-page",
+          `k-page-${props.shape}`,
           {
             ["k-page-sm"]: props.size == "small",
             "k-page-fill": props.theme == "fill",
+            "k-page-outline": props.theme == "outline",
             "k-page-disabled": props.disabled,
           },
         ],

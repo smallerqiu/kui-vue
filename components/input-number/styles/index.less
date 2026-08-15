@@ -15,7 +15,7 @@
   padding-left: var(--kui-padding-inline);
   overflow: hidden;
   font-size: var(--kui-font-size);
-  outline: 1px solid transparent;
+  outline: var(--kui-focus-ring-width) solid transparent;
   &:not(.k-input-number-fill, .k-input-number-disabled):hover {
     border-color: var(--kui-color-primary);
   }
@@ -31,10 +31,10 @@
   }
 }
 .k-input-number-circle {
-  border-radius: 20px;
+  border-radius: var(--kui-shape-circle);
 }
 .k-input-number-square {
-  border-radius: 2px;
+  border-radius: var(--kui-shape-square);
 }
 .k-input-number-controls {
   transition: all 0.15s ease-in-out;
@@ -93,7 +93,7 @@
 }
 .k-input-number-focus {
   outline-offset: 1px;
-  outline: 2px solid var(--kui-color-outline);
+  outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
 }
 .k-input-number-focus:not(.k-input-number-fill, .k-input-number-disabled) {
   border-color: var(--kui-color-primary);
@@ -223,7 +223,7 @@
 
 .k-input-number-fill {
   border-color: transparent;
-  background-color: var(--kui-color-bg-component);
+  background-color: var(--kui-theme-fill-bg);
 
   &:focus,
   &.k-input-number-focus {

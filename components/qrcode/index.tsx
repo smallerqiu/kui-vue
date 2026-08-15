@@ -15,7 +15,7 @@ import {
   type Ref,
 } from "vue";
 import { Button } from "../button";
-import type { BooleanType, QRCodeErrorLevel, QRCodeStatus } from "../const/types";
+import type { BooleanType, QRCodeErrorLevel, QRCodeStatus, ShapeType, ThemeType } from "../const/types";
 import zhCN from "../locale/zh-CN";
 import Spin from "../spin";
 const qrCodeProps = {
@@ -24,6 +24,8 @@ const qrCodeProps = {
   colorDark: { type: String, default: "var(--kui-color-reverse)" },
   colorLight: { type: String, default: "var(--kui-color-bg)" },
   bordered: { type: Boolean as BooleanType, default: true },
+  theme: { type: String as PropType<ThemeType>, default: "outline" },
+  shape: { type: String as PropType<ShapeType>, default: "round" },
   status: {
     type: String as PropType<QRCodeStatus>,
     default: "active",
@@ -64,16 +66,17 @@ const QRCode = defineComponent({
       rootObserver.observe(rootEl, {
         attributes: true,
         attributeFilter: ["theme-mode"], // 只对 theme-mode 敏感，性能损耗几乎为 0
+        subtree: true,
       });
     };
     const parseCssVariable = (colorStr: string): string => {
       if (colorStr.trim().startsWith("var(")) {
         const tempDiv = document.createElement("div");
         tempDiv.style.color = colorStr;
-        document.body.appendChild(tempDiv);
+        (canvasRef.value?.parentElement || document.body).appendChild(tempDiv);
         let computedColor = window.getComputedStyle(tempDiv).color;
         computedColor = Color(computedColor).hex();
-        document.body.removeChild(tempDiv);
+        tempDiv.remove();
         return computedColor || "#000000";
       }
       return colorStr;
@@ -239,7 +242,12 @@ const QRCode = defineComponent({
       return (
         <div
           style={wrapperStyle}
-          class={["k-qrcode", { "k-qrcode-borderless": props.bordered === false }]}
+          class={[
+            "k-qrcode",
+            `k-qrcode-${props.shape}`,
+            `k-qrcode-${props.theme}`,
+            { "k-qrcode-plain": props.bordered === false },
+          ]}
         >
           <canvas
             ref={canvasRef}

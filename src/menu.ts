@@ -78,7 +78,7 @@ const navData = [
       },
       { title: "国际化", sub: "Multilingual", name: "language", icon: Languages },
       { title: "更新日志", sub: "Change Log", name: "change-log", icon: FileText },
-      // { title: "定制主题", sub: "Themes", name: "theme", icon: "theme" },
+      { title: "定制主题", sub: "Themes", name: "theme", icon: Palette },
       { title: "暗色模式", sub: "Dark Mode", name: "dark-mode", icon: PaintBucket },
       { title: "组件总览", sub: "All Components", name: "components", icon: Component },
     ],

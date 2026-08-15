@@ -11,7 +11,7 @@
     <TreeSelect :treeData="data" block placeholder="No Arrow" :showArrow="false" />
     <TreeSelect :treeData="data" block placeholder="Custom Arrow" :arrowIcon="ArrowDownFromLine" />
     <TreeSelect filterable block theme="outline" :treeData="data" placeholder="Outline theme" />
-    <TreeSelect :bordered="false" :treeData="data" block placeholder="No Border" theme="solid" />
+    <TreeSelect theme="plain" :treeData="data" block placeholder="Plain" />
   </Space>
 </template>
 <script setup lang="ts">

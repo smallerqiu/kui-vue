@@ -24,6 +24,10 @@
 
 - 使用 `cover` 展示封面图片，并通过 `CardMeta` 展示头像、标题和描述。
 
+[外观与形状](./demo/appearance.vue)
+
+- Card 与其他表面组件共用 `theme` 和 `shape` 外观体系。
+
 ## API
 
 | 属性     | 说明                           | 类型               | 默认值 |
@@ -31,6 +35,8 @@
 | title    | 卡片的标题                     | string、slot       | -      |
 | icon     | 卡片标题的图标                 | string             | -      |
 | bordered | 卡片是否显示边框               | boolean              | true   |
+| theme    | 外观主题                       | default、fill、outline、plain | fill |
+| shape    | 外框形状                       | round、square、circle | round |
 | extra    | 卡片标题扩展                   | slot               | -      |
 | cover    | 卡片封面，设置后不显示卡片头部 | string、VNodeChild | -      |
 

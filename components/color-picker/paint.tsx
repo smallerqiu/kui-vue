@@ -1,5 +1,5 @@
 import Color, { type ColorObject } from "color";
-import { defineComponent, onMounted, reactive, ref, watch, type PropType } from "vue";
+import { defineComponent, onBeforeUnmount, onMounted, reactive, ref, watch, type PropType } from "vue";
 import { clamp } from "../utils/share";
 export default defineComponent({
   name: "Paint",
@@ -11,6 +11,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const refPaint = ref<HTMLCanvasElement | null>(null);
     const dotPos = reactive({ x: 0, y: 0 });
+    let dragging = false;
 
     const renderPaint = () => {
       const canvas = refPaint.value;
@@ -37,8 +38,10 @@ export default defineComponent({
 
     const updatePos = () => {
       const hsv = Color(props.modelValue).hsv().object();
-      dotPos.x = (hsv.s / 100) * 234 - 7;
-      dotPos.y = (1 - hsv.v / 100) * 136 - 7;
+      const rect = refPaint.value?.getBoundingClientRect();
+      if (!rect) return;
+      dotPos.x = (hsv.s / 100) * rect.width - 7;
+      dotPos.y = (1 - hsv.v / 100) * rect.height - 7;
     };
 
     const handleMove = (e: MouseEvent) => {
@@ -48,6 +51,9 @@ export default defineComponent({
       const x = clamp(e.clientX - left, 0, width);
       const y = clamp(e.clientY - top, 0, height);
 
+      dotPos.x = x - 7;
+      dotPos.y = y - 7;
+
       const s = (x / width) * 100;
       const v = (1 - y / height) * 100;
       const color = Color().hsv(props.hue, s, v);
@@ -55,25 +61,29 @@ export default defineComponent({
     };
 
     const onMouseDown = (e: MouseEvent) => {
+      dragging = true;
       handleMove(e);
       document.addEventListener("mousemove", handleMove);
-      document.addEventListener(
-        "mouseup",
-        () => {
-          document.removeEventListener("mousemove", handleMove);
-        },
-        { once: true }
-      );
+      document.addEventListener("mouseup", onMouseUp, { once: true });
+    };
+
+    const onMouseUp = () => {
+      dragging = false;
+      document.removeEventListener("mousemove", handleMove);
     };
 
     watch([() => props.hue, () => props.modelValue], () => {
       renderPaint();
-      updatePos();
+      if (!dragging) updatePos();
     });
 
     onMounted(() => {
       renderPaint();
       updatePos();
+    });
+    onBeforeUnmount(() => {
+      document.removeEventListener("mousemove", handleMove);
+      document.removeEventListener("mouseup", onMouseUp);
     });
 
     return () => (

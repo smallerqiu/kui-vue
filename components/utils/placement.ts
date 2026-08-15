@@ -1,4 +1,38 @@
 import type { Ref } from "vue";
+
+const popupThemeSources = new Map<HTMLElement, HTMLElement>();
+let popupThemeObserver: MutationObserver | null = null;
+
+const syncPopupTheme = (popup: HTMLElement, source: HTMLElement) => {
+  const owner = source.closest<HTMLElement>("[theme-mode]");
+  const mode = owner?.getAttribute("theme-mode");
+  const currentMode = popup.getAttribute("theme-mode");
+  if (mode === "light" || mode === "dark") {
+    if (currentMode !== mode) popup.setAttribute("theme-mode", mode);
+  } else if (currentMode !== null) {
+    popup.removeAttribute("theme-mode");
+  }
+};
+
+const inheritPopupTheme = (popup: HTMLElement, source: HTMLElement) => {
+  popupThemeSources.set(popup, source);
+  syncPopupTheme(popup, source);
+  if (popupThemeObserver || typeof document === "undefined") return;
+  popupThemeObserver = new MutationObserver(() => {
+    popupThemeSources.forEach((themeSource, themePopup) => {
+      if (!themePopup.isConnected || !themeSource.isConnected) {
+        popupThemeSources.delete(themePopup);
+        return;
+      }
+      syncPopupTheme(themePopup, themeSource);
+    });
+  });
+  popupThemeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["theme-mode"],
+    subtree: true,
+  });
+};
 interface PlacementOptions {
   refSelection: Ref<HTMLElement | null>;
   refPopper: Ref<HTMLElement | null>;
@@ -24,8 +58,19 @@ export function setPlacement({
 }: PlacementOptions) {
   if (!refPopper.value) return;
 
+  const sourceInstance = refSelection?.value as (HTMLElement & { $el?: HTMLElement }) | null;
+  const sourceElement = sourceInstance?.$el || sourceInstance;
+  if (sourceElement instanceof HTMLElement) inheritPopupTheme(refPopper.value, sourceElement);
+
   // 模式检测 & 基准矩形
-  let rect: { width: number; height: number; top: number; bottom: number; left: number; right: number };
+  let rect: {
+    width: number;
+    height: number;
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+  };
   // 是否是鼠标右键/坐标模式
   const isMouseMode = position && typeof position.x === "number" && typeof position.y === "number";
 

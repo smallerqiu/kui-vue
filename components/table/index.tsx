@@ -12,7 +12,7 @@ import {
   watch,
 } from "vue";
 import { Checkbox, type ChangeEvent } from "../checkbox";
-import type { BooleanType, SizeType } from "../const/types";
+import type { BooleanType, ShapeType, SizeType } from "../const/types";
 import Empty from "../empty";
 import Icon from "../icon";
 import Spin from "../spin";
@@ -40,6 +40,7 @@ const tableProps = {
   },
   striped: Boolean as BooleanType,
   bordered: { type: Boolean as BooleanType, default: false },
+  shape: { type: String as PropType<ShapeType>, default: "round" },
   checkable: Boolean as BooleanType,
   loading: Boolean as BooleanType,
   emptyText: String,
@@ -671,6 +672,7 @@ const Table = defineComponent({
           "k-table-striped": props.striped,
           "k-table-sm": props.size == "small",
           "k-table-lg": props.size == "large",
+          [`k-table-${props.shape}`]: props.shape,
           "k-table-bordered": props.bordered,
           "k-table-ping-left": pingLeft.value,
           "k-table-ping-right": pingRight.value,

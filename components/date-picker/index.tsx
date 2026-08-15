@@ -942,7 +942,7 @@ const DatePicker = defineComponent({
         "k-datepicker",
         { "k-datepicker-opened": isFocus.value },
         //   { 'k-datepicker-range': isRange },
-        { "k-datepicker-borderless": props.bordered === false },
+        { "k-datepicker-borderless": props.bordered === false || props.theme === "plain" },
         { "k-datepicker-sm": props.size == "small" },
         { "k-datepicker-lg": props.size == "large" },
         //   { 'k-datepicker-with-time': withTime },

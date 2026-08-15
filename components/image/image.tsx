@@ -10,7 +10,7 @@ import {
   ref,
   watch,
 } from "vue";
-import type { BooleanType } from "../const/types";
+import type { BooleanType, ShapeType, ThemeType } from "../const/types";
 import Icon from "../icon";
 import createInstance from "./instance";
 import { imageGroupKey } from "./context";
@@ -28,6 +28,8 @@ const imageProps = {
   data: Array,
   imgStyle: Object as PropType<CSSProperties>,
   showPanel: Boolean as BooleanType,
+  theme: { type: String as PropType<ThemeType>, default: "plain" },
+  shape: { type: String as PropType<ShapeType>, default: "round" },
   onClose: Function as PropType<() => void>,
   onSwitch: Function as PropType<(index: number) => void>,
 };
@@ -141,7 +143,7 @@ const Image = defineComponent({
           width: typeof width === "number" ? `${width}px` : width,
           height: typeof height === "number" ? `${height}px` : height,
         },
-        class: "k-image",
+        class: ["k-image", `k-image-${props.theme}`, `k-image-${props.shape}`],
         onClick: showPreview,
       };
 

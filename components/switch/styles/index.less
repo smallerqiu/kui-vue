@@ -4,7 +4,7 @@
   min-width: 44px;
   height: 24px;
   line-height: 22px;
-  border-radius: 12px;
+  border-radius: var(--kui-shape-circle);
   vertical-align: middle;
   border: none;
   background-color: var(--kui-color-bg-component);
@@ -22,10 +22,10 @@
   color: var(--kui-color-text);
   padding: 0;
   flex-shrink: 0;
-  outline: 2px solid transparent;
+  outline: var(--kui-focus-ring-width) solid transparent;
   outline-offset: 1px;
   &:focus {
-    outline: 2px solid var(--kui-color-outline);
+    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
   }
 
   .k-icon {
@@ -70,6 +70,16 @@
     top: 50%;
     margin-top: -8px;
   }
+}
+
+.k-switch-square {
+  border-radius: var(--kui-shape-square);
+}
+
+.k-switch-round,
+.k-switch-default,
+.k-switch-circle {
+  border-radius: var(--kui-shape-circle);
 }
 
 .k-switch-sm {

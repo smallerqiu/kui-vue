@@ -125,6 +125,7 @@ const Avatar = defineComponent({
             "k-avatar-image": showImage,
             "k-avatar-icon": fallbackIcon || hasIcon,
             "k-avatar-square": shapeVal === "square",
+            "k-avatar-round": shapeVal === "round",
           },
         ],
       };

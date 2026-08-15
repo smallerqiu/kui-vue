@@ -72,6 +72,21 @@ const Demo = defineComponent({
         reload();
       }, 500);
     };
+    const handleCodeKeydown = (event: KeyboardEvent) => {
+      if (event.key !== "Enter" && event.key !== "Tab") return;
+      event.preventDefault();
+      const selection = window.getSelection();
+      if (!selection?.rangeCount) return;
+      const range = selection.getRangeAt(0);
+      range.deleteContents();
+      const textNode = document.createTextNode(event.key === "Tab" ? "  " : "\n");
+      range.insertNode(textNode);
+      range.setStartAfter(textNode);
+      range.collapse(true);
+      selection.removeAllRanges();
+      selection.addRange(range);
+      renderCode();
+    };
     const restoreCode = () => {
       const origin = codeOrigins[codeLanguage.value];
       const codeNode = currentCodeNode();
@@ -160,6 +175,7 @@ const Demo = defineComponent({
                   class="k-code k-scroll"
                   contenteditable
                   onInput={renderCode}
+                  onKeydown={handleCodeKeydown}
                 >
                   {slots["code-ts"]?.()}
                 </div>
@@ -169,6 +185,7 @@ const Demo = defineComponent({
                   class="k-code k-scroll"
                   contenteditable
                   onInput={renderCode}
+                  onKeydown={handleCodeKeydown}
                 >
                   {slots["code-js"]?.()}
                 </div>

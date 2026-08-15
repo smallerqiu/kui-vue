@@ -1,7 +1,7 @@
 import { CircleAlert, CircleCheck, CircleX, Info, X } from "kui-icons";
 import { defineComponent, ref, Transition, type ExtractPropTypes, type PropType } from "vue";
 import { getTransitionProp } from "../base/transition";
-import type { BooleanType } from "../const/types";
+import type { BooleanType, ShapeType, ThemeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 
 const alertProps = {
@@ -15,6 +15,8 @@ const alertProps = {
   message: String,
   description: String,
   bordered: Boolean as BooleanType,
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  shape: { type: String as PropType<ShapeType>, default: "round" },
   onClose: {
     type: Function as PropType<(e: MouseEvent) => void>,
   },
@@ -68,6 +70,8 @@ const Alert = defineComponent({
             "k-alert-has-icon": props.showIcon,
             "k-alert-has-close": props.closable,
             "k-alert-bordered": props.bordered,
+            [`k-alert-theme-${props.theme}`]: props.theme,
+            [`k-alert-shape-${props.shape}`]: props.shape,
             "k-alert-has-description": props.description,
           },
         ],

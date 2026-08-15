@@ -7,7 +7,7 @@
     <QRCode :value="url" :size="128" logo="/favicon.png" ref="qrcodeRef" />
     <Poptip>
       <template #content>
-        <QRCode :value="url" :size="128" :bordered="false" logo="/favicon.png" />
+        <QRCode :value="url" :size="128" theme="plain" logo="/favicon.png" />
       </template>
       <Button type="primary">Hover me</Button>
     </Poptip>

@@ -193,15 +193,15 @@
 @dark-layout-color: @dark-gray-3;
 
 // 容器背景色
-@container-color: @gray-3;
-@dark-container-color: @dark-gray-4;
+@container-color: @page-color;
+@dark-container-color: @dark-gray-3;
 
 // 组件背景色
 @component: #353a41b3;
-@component-color: mix(#353a41, @page-color, 28%);
-@component-color-hover: mix(#353a41, @page-color, 32%);
-@component-color-active: mix(#353a41, @page-color, 35%);
-@component-color-disabled: mix(#353a41, @page-color, 24%);
+@component-color: @gray-2;
+@component-color-hover: @gray-3;
+@component-color-active: #e7e7e7;
+@component-color-disabled: @gray-1;
 @component-overlay-color: fadeout(@component, 60%);
 //mix instead of fadeout
 // @component-color: mix(@component, @page-color, 40%);
@@ -210,10 +210,10 @@
 // @component-color-disabled: mix(@component, @page-color, 35%);
 
 @dark-component: #585d64d8;
-@dark-component-color: mix(#585d64, @dark-page-color, 34%);
-@dark-component-color-hover: mix(#585d64, @dark-page-color, 38%);
-@dark-component-color-active: mix(#585d64, @dark-page-color, 42%);
-@dark-component-color-disabled: mix(#585d64, @dark-page-color, 28%);
+@dark-component-color: @dark-gray-4;
+@dark-component-color-hover: @dark-gray-5;
+@dark-component-color-active: #383838;
+@dark-component-color-disabled: @dark-gray-3;
 @dark-component-overlay-color: fadeout(@dark-component, 60%);
 //
 // @dark-component-color: mix(@dark-component, @dark-page-color, 40%);
@@ -223,16 +223,16 @@
 
 // 列表项背景色
 @item: #40464eb1;
-@item-hover-color: fadeout(@item, 60%);
-@item-active-color: fadeout(@item, 55%);
+@item-hover-color: @gray-2;
+@item-active-color: @gray-3;
 @item-selected-color: fadeout(@main, 80%);
-@item-disabled-color: fadeout(@item, 60%);
+@item-disabled-color: @gray-1;
 
 @dark-item: #686e76b6;
-@dark-item-hover-color: fadeout(@dark-item, 60%);
-@dark-item-active-color: fadeout(@dark-item, 55%);
+@dark-item-hover-color: @dark-gray-4;
+@dark-item-active-color: @dark-gray-5;
 @dark-item-selected-color: fadeout(@main, 80%);
-@dark-item-disabled-color: fadeout(@dark-item, 60%);
+@dark-item-disabled-color: @dark-gray-3;
 
 // 悬浮背景色
 @pop-color: #fff;
@@ -248,7 +248,7 @@
 
 // 占位符颜色
 @placeholder-color: @gray-6;
-@dark-placeholder-color: @dark-gray-7;
+@dark-placeholder-color: @gray-6;
 
 // 骨架屏颜色
 @skeleton-color: rgba(0, 0, 0, 0.107);
@@ -305,14 +305,3 @@
 
 @dark-scrollbar-thumb-color: rgba(117, 117, 117, 0.465);
 @dark-scrollbar-thumb-color-hover: rgba(0, 0, 0, 0.1);
-
-// 表格
-@table-row-bg-color: @gray-2;
-@table-col-bg-color: @gray-2;
-@table-col-bg-color-hover: @gray-3;
-@table-col-bg-color-active: #e6e6e6;
-
-@dark-table-row-bg-color: #202121;
-@dark-table-col-bg-color: #202121;
-@dark-table-col-bg-color-hover: #232424;
-@dark-table-col-bg-color-active: #242525;

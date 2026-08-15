@@ -125,6 +125,19 @@
     }
   }
 }
+.k-page-outline:not(.k-page-disabled) {
+  .k-pager-item:not(.k-pager-more) {
+    border: 1px solid var(--kui-color-border);
+  }
+  .k-pager-item:not(.k-pager-item-disabled, .k-pager-item-active):hover {
+    border-color: var(--kui-color-primary);
+    color: var(--kui-color-primary);
+  }
+  .k-pager-item-active {
+    border-color: var(--kui-color-primary);
+    color: var(--kui-color-primary);
+  }
+}
 .k-page-disabled {
   cursor: not-allowed;
   color: var(--kui-color-text-disabled);

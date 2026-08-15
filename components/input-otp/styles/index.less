@@ -35,7 +35,7 @@
       z-index: 1;
       border-color: var(--kui-color-primary);
       box-shadow: var(--kui-component-shadow);
-      outline: 2px solid var(--kui-color-outline);
+      outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
       outline-offset: 1px;
     }
     &:disabled {
@@ -48,7 +48,7 @@
 
 .k-input-otp-fill .k-input-otp-item {
   border-color: transparent;
-  background-color: var(--kui-color-bg-component);
+  background-color: var(--kui-theme-fill-bg);
 
   &:hover,
   &:focus {
@@ -67,11 +67,11 @@
 }
 
 .k-input-otp-square .k-input-otp-item {
-  border-radius: 2px;
+  border-radius: var(--kui-shape-square);
 }
 
 .k-input-otp-circle .k-input-otp-item {
-  border-radius: 50%;
+  border-radius: var(--kui-shape-circle);
 }
 
 .k-input-otp-readonly .k-input-otp-item {

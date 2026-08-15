@@ -1,6 +1,6 @@
 import type { InjectionKey, Ref } from "vue";
 
-export type AvatarShape = "circle" | "square";
+export type AvatarShape = "circle" | "square" | "round";
 export type AvatarSize = number | "large" | "small" | "default";
 
 export interface AvatarGroupContext {

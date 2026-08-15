@@ -649,7 +649,7 @@ const Select = defineComponent({
           "k-select-disabled": disabled,
           "k-select-block": props.block,
           "k-select-opened": visible.value,
-          "k-select-borderless": bordered === false,
+          "k-select-borderless": bordered === false || theme === "plain",
           "k-select-lg": size === "large",
           "k-select-sm": size === "small",
           "k-select-fill": theme === "fill",

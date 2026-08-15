@@ -62,6 +62,27 @@ import "kui-vue/style/base.css";
 }
 ```
 
+## 外观与形状
+
+通用控件使用 `round`、`circle`、`square` 三种形状。未传 `shape` 时等同于 `round`；旧的 `default` 值仍兼容。`theme` 的基础外观为 `default`、`fill`、`outline`、`plain`，其中 `plain` 等同于输入类组件原有的 `bordered=false`。
+
+如果需要整套界面（包括弹层容器）切换为方形，可在根节点设置 `shape-mode="square"`。它会统一覆盖控件、卡片和弹层的圆角令牌；组件自身的 `shape` 仍用于局部覆盖。滑块手柄、状态点等具有圆形语义的元素不会被改成方形。
+
+```html
+<html shape-mode="square">
+```
+
+```css
+:root {
+  --kui-shape-round: 6px;
+  --kui-shape-circle: 9999px;
+  --kui-shape-square: 2px;
+  --kui-theme-fill-bg: rgb(53 58 65 / 10%);
+}
+```
+
+`fill` 使用半透明叠加面，在 Table、Card 等容器内部仍能保留层级；控件内部的原生 input 保持透明，避免内外层重复叠色。
+
 ## 明暗主题
 
 在根节点或局部容器设置 `theme-mode`：
@@ -70,9 +91,9 @@ import "kui-vue/style/base.css";
 <div theme-mode="dark">...</div>
 ```
 
-局部主题中的下拉框、气泡和弹窗默认会 Teleport 到 `body`。通过 `ConfigProvider` 指定弹层容器，弹层就能继承局部主题变量：
+Select、DatePicker、Poptip 等带触发元素的弹层即使 Teleport 到 `body`，也会自动跟随最近的 `theme-mode`。Modal 等没有触发元素的独立覆盖层，或需要继承局部自定义 Token 时，可通过 `ConfigProvider` 指定弹层容器：
 
-```vue
+```html
 <template>
   <div ref="themeRoot" theme-mode="dark">
     <ConfigProvider :getPopupContainer="() => themeRoot">

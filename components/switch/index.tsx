@@ -1,7 +1,7 @@
 import { Loading } from "kui-icons";
 import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent, ref, watch } from "vue";
-import type { BooleanType, SizeType, ValueType } from "../const/types";
+import type { BooleanType, ShapeType, SizeType, ValueType } from "../const/types";
 import Icon from "../icon";
 import { getValueWithType } from "../utils/checked";
 
@@ -18,6 +18,7 @@ const switchProps = {
   size: {
     type: String as PropType<SizeType>,
   },
+  shape: { type: String as PropType<ShapeType>, default: "round" },
   trueText: String,
   falseText: String,
   onChange: Function as PropType<(value: boolean) => void>,
@@ -64,6 +65,7 @@ const Switch = defineComponent({
           ["k-switch-disabled"]: disabled || loading,
           [`k-switch-${type}`]: !!type,
           ["k-switch-sm"]: props.size == "small",
+          [`k-switch-${props.shape}`]: props.shape,
         },
       ];
       const children = slots.checked?.() || trueText || slots.unchecked?.() || falseText;

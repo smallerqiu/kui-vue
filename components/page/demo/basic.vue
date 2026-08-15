@@ -2,6 +2,17 @@
   <Space vertical>
     <Page v-model:page="page" v-model:pageSize="size" :total="50" @change="onChange" />
     <Page v-model:page="page" v-model:pageSize="size" :total="50" @change="onChange" disabled />
+    <code>theme & shape</code>
+    <Page
+      v-model:page="page"
+      v-model:pageSize="size"
+      theme="outline"
+      shape="round"
+      :total="50"
+      @change="onChange"
+    />
+    <Page v-model:page="page" v-model:pageSize="size" shape="circle" :total="50" @change="onChange" />
+    <Page v-model:page="page" v-model:pageSize="size" shape="square" :total="50" @change="onChange" />
   </Space>
 </template>
 <script setup lang="ts">

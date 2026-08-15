@@ -290,7 +290,7 @@ const Cascader = defineComponent({
         {
           "k-cascader-disabled": disabled,
           "k-cascader-opened": visible.value,
-          "k-cascader-borderless": bordered === false,
+          "k-cascader-borderless": bordered === false || theme === "plain",
           "k-cascader-circle": shape === "circle",
           "k-cascader-square": shape === "square",
           "k-cascader-fill": theme === "fill",

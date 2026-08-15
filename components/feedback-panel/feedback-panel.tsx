@@ -1,6 +1,6 @@
 import { CircleCheck, CircleX, Info, TriangleAlert } from "kui-icons";
 import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
-import type { FeedbackPanelKind } from "../const/types";
+import type { FeedbackPanelKind, ShapeType, ThemeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 
 const feedbackPanelProps = {
@@ -9,6 +9,8 @@ const feedbackPanelProps = {
   description: [String, Number, Object] as PropType<VNodeChild>,
   symbol: Array as PropType<IconType[]>,
   compact: Boolean,
+  theme: { type: String as PropType<ThemeType>, default: "outline" },
+  shape: { type: String as PropType<ShapeType>, default: "round" },
 };
 
 export type FeedbackPanelProps = ExtractPropTypes<typeof feedbackPanelProps>;
@@ -38,6 +40,8 @@ const FeedbackPanel = defineComponent({
           class={[
             "k-feedback-panel",
             `k-feedback-panel-${props.kind}`,
+            `k-feedback-panel-theme-${props.theme}`,
+            `k-feedback-panel-shape-${props.shape}`,
             { "k-feedback-panel-compact": props.compact },
             customClass,
           ]}

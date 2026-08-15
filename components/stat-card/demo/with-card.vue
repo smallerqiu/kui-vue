@@ -1,14 +1,14 @@
 <template>
   <Space vertical class="demo-view-fill">
-    <Card :bordered="false">
+    <Card theme="plain">
       <StatNumber v-model="value" prefix="$" suffix="%" style="font-size: 2em;" />
     </Card>
-    <Card :bordered="false" title="Today's Trends">
+    <Card theme="plain" title="Today's Trends">
       <StatNumber v-model="value" suffix="%" style="font-size: 2em;color:green">
         <template #prefix><Icon :type="ArrowUp" /></template>
       </StatNumber>
     </Card>
-    <Card :bordered="false" title="Yesterday's Trend">
+    <Card theme="plain" title="Yesterday's Trend">
       <StatNumber v-model="value" suffix="%" style="font-size: 2em;color: red;" type="rollup">
         <template #prefix><Icon :type="ArrowDown" /></template>
       </StatNumber>

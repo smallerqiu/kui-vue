@@ -20,11 +20,11 @@ export type DropPlacementsType =
 
 export type ValueType = "string" | "number" | "boolean";
 export type SizeType = "small" | "medium" | "large";
-export type ShapeType = "circle" | "square" | "round";
+export type ShapeType = "circle" | "square" | "round" | "default";
 export type BooleanType = PropType<boolean | undefined>;
 
 export type ButtonType = "primary" | "danger" | "warning" | "default" | "text" | "link";
-export type ThemeType = "outline" | "fill" | "default" | "solid" | "dashed" | "card" | "underlined";
+export type ThemeType = "outline" | "fill" | "plain" | "default" | "solid" | "dashed" | "card" | "underlined";
 
 export type RadioType = "radio" | "button";
 export type DirectionType = "horizontal" | "vertical" | "inline";

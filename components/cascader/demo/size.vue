@@ -38,9 +38,8 @@
     <Cascader
       v-model="value"
       :options="simpleOptions"
-      placeholder="No Border"
-      theme="solid"
-      :bordered="false"
+      placeholder="Plain"
+      theme="plain"
       style="width: 240px"
     />
     <Cascader

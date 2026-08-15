@@ -20,7 +20,6 @@
       </FormItem>
       <FormItem label="Theme">
         <RadioGroup v-model="state.theme">
-          <Radio value="default" label="Default" />
           <Radio value="fill" label="Fill" />
           <Radio value="outline" label="Outline" />
         </RadioGroup>
@@ -87,8 +86,8 @@ import { reactive } from "vue";
 const state = reactive({
   disabled: false,
   size: "medium" as SizeType,
-  shape: "default" as ShapeType,
-  theme: "default" as ThemeType,
+  shape: "round" as ShapeType,
+  theme: "fill" as ThemeType,
 });
 const treeData = [
   {

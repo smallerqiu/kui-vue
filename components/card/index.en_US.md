@@ -24,6 +24,10 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 
 - Display a cover image with `cover`, and use `CardMeta` for an avatar, title, and description.
 
+[Appearance](./demo/appearance.vue)
+
+- Card shares the common `theme` and `shape` appearance system.
+
 ## API
 
 | Property | Description                                | Type               | Default |
@@ -31,6 +35,8 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 | title    | Card title                                 | string, slot       | -       |
 | icon     | Icon for the card title                    | string             | -       |
 | bordered | Whether the card displays a border         | boolean              | true    |
+| theme    | Surface theme                              | default, fill, outline, plain | fill |
+| shape    | Surface shape                              | round, square, circle | round |
 | extra    | Card title extension                       | slot               | -       |
 | cover    | Card cover; hides the card header when set | string, VNodeChild | -       |
 

@@ -156,9 +156,9 @@ const toggle = () => {
 <style scoped lang="less">
 .demo-dark {
   padding: 20px 0;
-  color: #ddd;
+  color: var(--kui-color-text);
   margin: 20px;
-  background: var(--kui-color-back);
+  background: var(--kui-color-bg);
 }
 .k-demo-layout {
   .logo-box {

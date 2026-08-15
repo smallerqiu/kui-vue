@@ -1,6 +1,6 @@
 import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent } from "vue";
-import type { BooleanType } from "../const/types";
+import type { BooleanType, ShapeType, ThemeType } from "../const/types";
 import StatNumber from "./stat-number";
 import type { StatNumberItem } from "./types";
 
@@ -12,6 +12,8 @@ const statCardProps = {
   statNumberType: String as PropType<"rollup" | "countup">,
   reverse: Boolean as BooleanType,
   bordered: { type: Boolean as BooleanType, default: false },
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  shape: { type: String as PropType<ShapeType>, default: "round" },
 };
 
 export type StatCardProps = ExtractPropTypes<typeof statCardProps>;
@@ -25,7 +27,15 @@ const StatCard = defineComponent({
       return (
         <div
           {...restAttrs}
-          class={["k-stat-card", customClass, { "k-stat-card-bordered": props.bordered }]}
+          class={[
+            "k-stat-card",
+            customClass,
+            {
+              "k-stat-card-bordered": props.bordered,
+              [`k-stat-card-${props.theme}`]: props.theme,
+              [`k-stat-card-${props.shape}`]: props.shape,
+            },
+          ]}
         >
           {props.title && <div class="k-stat-card-title">{props.title}</div>}
           <div class="k-stat-card-items">

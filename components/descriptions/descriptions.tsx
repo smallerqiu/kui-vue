@@ -1,5 +1,5 @@
 import { defineComponent, type ExtractPropTypes, type PropType, type VNode } from "vue";
-import type { BooleanType, DirectionType, SizeType } from "../const/types";
+import type { BooleanType, DirectionType, ShapeType, SizeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 import DescriptionsItem from "./descriptions-item";
 
@@ -10,6 +10,7 @@ const descriptionsProps = {
   title: String,
   extra: String,
   size: { type: String as PropType<SizeType> },
+  shape: { type: String as PropType<ShapeType>, default: "round" },
 };
 
 export type DescriptionsProps = ExtractPropTypes<typeof descriptionsProps>;
@@ -111,6 +112,7 @@ const Descriptions = defineComponent({
             "k-descriptions-bordered": bordered,
             "k-descriptions-medium": size === "medium",
             "k-descriptions-sm": size === "small",
+            [`k-descriptions-${props.shape}`]: props.shape,
           },
         ],
       };

@@ -1,5 +1,5 @@
 import { defineComponent, provide, ref, watch, type ExtractPropTypes, type PropType } from "vue";
-import type { BooleanType } from "../const/types";
+import type { BooleanType, ShapeType, ThemeType } from "../const/types";
 import { collapseContextKey, type CollapseKey } from "./context";
 
 const collapseProps = {
@@ -9,6 +9,8 @@ const collapseProps = {
   },
   accordion: Boolean as BooleanType,
   sample: Boolean as BooleanType,
+  theme: { type: String as PropType<ThemeType>, default: "outline" },
+  shape: { type: String as PropType<ShapeType>, default: "round" },
   onChange: Function as PropType<(key: string | number) => void>,
 };
 
@@ -53,6 +55,8 @@ const Collapse = defineComponent({
           "k-collapse",
           {
             "k-collapse-sample": props.sample,
+            [`k-collapse-${props.theme}`]: props.theme,
+            [`k-collapse-${props.shape}`]: props.shape,
           },
         ],
       };

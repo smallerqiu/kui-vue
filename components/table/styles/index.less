@@ -46,11 +46,11 @@
     border-radius: var(--kui-border-radius);
   }
   .k-table-header-bar {
-    background: var(--kui-color-table-col);
+    background: var(--kui-color-bg-component);
   }
   .k-table-header,
   .k-table-footer {
-    background-color: var(--kui-color-table-col);
+    background-color: var(--kui-color-bg-component);
     padding: 16px;
   }
   table {
@@ -79,7 +79,7 @@
     }
 
     tr > th {
-      background: var(--kui-color-table-row);
+      background: var(--kui-color-bg-component);
       font-weight: 500;
       overflow-wrap: break-word;
       text-align: left;
@@ -125,10 +125,10 @@
       }
 
       &:hover {
-        background: var(--kui-color-table-col-hover);
+        background: var(--kui-color-bg-component-hover);
       }
       &:active {
-        background: var(--kui-color-table-col-active);
+        background: var(--kui-color-bg-component-active);
       }
 
       .k-table-sorter {
@@ -196,24 +196,24 @@
       }
 
       &:hover {
-        background: var(--kui-color-table-row);
+        background: var(--kui-color-bg-component-hover);
 
         .k-table-cell-fix-left,
         .k-table-cell-fix-right {
-          background-color: var(--kui-color-table-row);
+          background-color: var(--kui-color-bg-component-hover);
         }
       }
     }
 
     .k-table-expand-row {
       &:hover {
-        background: var(--kui-color-table-row);
+        background: var(--kui-color-bg-component-hover);
       }
     }
 
     td table {
       tbody > tr:hover {
-        background: var(--kui-color-table-row);
+        background: var(--kui-color-bg-component-hover);
       }
     }
   }
@@ -221,7 +221,7 @@
   .k-table-thead {
     border-top-left-radius: var(--kui-border-radius);
     border-top-right-radius: var(--kui-border-radius);
-    background: var(--kui-color-table-row);
+    background: var(--kui-color-bg-component);
   }
 
   &-thead {
@@ -482,7 +482,7 @@
 
     &:hover {
       color: var(--kui-color-primary);
-      background: var(--kui-color-table-col-hover);
+      background: var(--kui-color-item-hover);
     }
 
     .k-icon {
@@ -496,6 +496,10 @@
 }
 .k-table-striped {
   tbody tr:nth-child(even) {
-    background: var(--kui-color-table-col);
+    background: var(--kui-color-bg-1);
+  }
+
+  tbody tr:hover {
+    background: var(--kui-color-bg-component-hover);
   }
 }

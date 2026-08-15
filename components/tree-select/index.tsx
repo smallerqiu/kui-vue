@@ -603,7 +603,7 @@ const TreeSelect = defineComponent({
           "k-tree-select-disabled": props.disabled,
           "k-tree-select-block": props.block,
           "k-tree-select-opened": visible.value,
-          "k-tree-select-borderless": props.bordered === false,
+          "k-tree-select-borderless": props.bordered === false || props.theme === "plain",
           "k-tree-select-lg": props.size === "large",
           "k-tree-select-sm": props.size === "small",
           "k-tree-select-fill": props.theme === "fill",

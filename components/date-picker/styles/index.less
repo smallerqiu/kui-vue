@@ -19,13 +19,13 @@
   flex-shrink: 0;
   align-items: center;
   padding: 0 8px;
-  outline: 2px solid transparent;
+  outline: var(--kui-focus-ring-width) solid transparent;
   outline-offset: 1px;
   &:hover {
     border-color: var(--kui-color-primary);
   }
   &:focus {
-    outline: 2px solid var(--kui-color-outline);
+    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
   }
 
   .k-datepicker-selection {
@@ -85,7 +85,7 @@
 
 .k-datepicker-fill {
   border-color: transparent;
-  background-color: var(--kui-color-bg-component);
+  background-color: var(--kui-theme-fill-bg);
 
   &:hover,
   &:focus {
@@ -95,10 +95,10 @@
 }
 
 .k-datepicker-circle {
-  border-radius: 30px;
+  border-radius: var(--kui-shape-circle);
 }
 .k-datepicker-square {
-  border-radius: 2px;
+  border-radius: var(--kui-shape-square);
 }
 
 .k-datepicker-range {
@@ -117,13 +117,13 @@
 
 .k-datepicker-opened {
   border-color: var(--kui-color-primary);
-  outline: 2px solid var(--kui-color-outline);
+  outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
   &.k-datepicker-fill {
     border-color: transparent;
     box-shadow: none;
   }
   &:focus {
-    outline: 2px solid var(--kui-color-outline);
+    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
   }
 }
 
@@ -300,7 +300,7 @@
       background: var(--kui-color-primary);
       right: 1px;
       top: 1px;
-      border-radius: 50%;
+      border-radius: var(--kui-shape-circle);
     }
   }
   .k-picker-header-label {
