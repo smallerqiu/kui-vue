@@ -13,10 +13,6 @@ const router = createRouter({
       component: () => import("./views/test/index.vue"),
     },
     {
-      path: "/preview-en",
-      component: () => import("./views/test/preview.vue"),
-    },
-    {
       path: "/:pathMatch(.*)*",
       redirect: "/guide/quick-started",
     },

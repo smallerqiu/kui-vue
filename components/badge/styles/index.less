@@ -169,7 +169,19 @@
   background: var(--kui-color-bg-component);
 
   .k-badge-status-dot {
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--kui-color-success) 16%, transparent);
+    &::after {
+      content: "";
+      z-index: 0;
+      background-color: inherit;
+      border-radius: 50%;
+      width: 6px;
+      height: 6px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: scale(2.5);
+      opacity: 0.2;
+    }
   }
   .k-badge-status-active {
     box-shadow: none;

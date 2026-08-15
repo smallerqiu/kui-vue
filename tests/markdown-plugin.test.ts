@@ -19,4 +19,18 @@ const count: number = props.initial ?? 0
     expect(result).not.toContain("interface Props");
     expect(result).not.toContain(": number");
   });
+
+  it("keeps value imports referenced only by the Vue template", () => {
+    const source = `<template><Icon :type="ChevronDown" /></template>
+<script setup lang="ts">
+import type { IconProps } from "kui-vue";
+import { ChevronDown, Search, Power } from "kui-icons";
+</script>`;
+
+    const result = toJavaScriptSfc(source);
+
+    expect(result).toContain('import { ChevronDown, Search, Power } from "kui-icons";');
+    expect(result).not.toContain("import type");
+    expect(result).toContain("<script setup>");
+  });
 });

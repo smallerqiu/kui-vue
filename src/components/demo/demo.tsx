@@ -1,3 +1,7 @@
+import { CodeJar, type CodeJar as CodeJarInstance } from "codejar";
+import hljs from "highlight.js/lib/core";
+import typescript from "highlight.js/lib/languages/typescript";
+import xml from "highlight.js/lib/languages/xml";
 import { Copy, ListChevronsDownUp, ListChevronsUpDown, Undo2 } from "kui-icons";
 import { Badge, Button, message, RadioGroup, Tooltip, type BadgeStatusType } from "kui-vue";
 import {
@@ -12,6 +16,30 @@ import {
 } from "vue";
 import { getTransitionProp } from "../../../components/base/transition";
 import { copyToClipboard } from "../../../components/utils/share";
+
+// XML grammar delegates <script> blocks to "javascript". TypeScript is a
+// superset here, so registering its grammar also covers both TS and JS demos.
+hljs.registerLanguage("javascript", typescript);
+hljs.registerLanguage("typescript", typescript);
+hljs.registerLanguage("xml", xml);
+
+const readHighlightedSource = (editor: HTMLElement) => {
+  const root = editor.querySelector("code") || editor;
+  let source = "";
+  const visit = (node: Node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      source += node.nodeValue || "";
+      return;
+    }
+    if (node instanceof HTMLBRElement) {
+      source += "\n";
+      return;
+    }
+    node.childNodes.forEach(visit);
+  };
+  visit(root);
+  return source;
+};
 
 const Demo = defineComponent({
   name: "Demo",
@@ -34,7 +62,8 @@ const Demo = defineComponent({
     };
     const codeLanguage = ref<"ts" | "js">("ts");
     const codeOrigins: Partial<Record<"ts" | "js", string>> = {};
-    const currentCodeNode = () => codeRefs[codeLanguage.value].value;
+    const codeJars: Partial<Record<"ts" | "js", CodeJarInstance>> = {};
+    const currentCodeJar = () => codeJars[codeLanguage.value];
     const viewRef = ref(null);
     const timer = ref<ReturnType<typeof setTimeout>>();
     const buildState = reactive({
@@ -51,8 +80,7 @@ const Demo = defineComponent({
     const currentApp = ref();
     const reload = async () => {
       const activeCodeSlot = codeLanguage.value === "ts" ? slots["code-ts"] : slots["code-js"];
-      const source =
-        currentCodeNode()?.innerText || (activeCodeSlot?.()?.[0]?.children as string) || "";
+      const source = currentCodeJar()?.toString() || (activeCodeSlot?.()?.[0]?.children as string) || "";
       const { parseCode } = await import("./transform");
       parseCode({
         source: source,
@@ -72,33 +100,15 @@ const Demo = defineComponent({
         reload();
       }, 500);
     };
-    const handleCodeKeydown = (event: KeyboardEvent) => {
-      if (event.key !== "Enter" && event.key !== "Tab") return;
-      event.preventDefault();
-      const selection = window.getSelection();
-      if (!selection?.rangeCount) return;
-      const range = selection.getRangeAt(0);
-      range.deleteContents();
-      const textNode = document.createTextNode(event.key === "Tab" ? "  " : "\n");
-      range.insertNode(textNode);
-      range.setStartAfter(textNode);
-      range.collapse(true);
-      selection.removeAllRanges();
-      selection.addRange(range);
-      renderCode();
-    };
     const restoreCode = () => {
       const origin = codeOrigins[codeLanguage.value];
-      const codeNode = currentCodeNode();
-      if (codeNode && origin !== undefined) {
-        codeNode.innerHTML = origin;
-      }
+      if (origin !== undefined) currentCodeJar()?.updateCode(origin);
       reload();
     };
     const copyCode = () => {
-      const codeNode = currentCodeNode();
-      if (codeNode) {
-        copyToClipboard(codeNode.innerText).then((result) => {
+      const code = currentCodeJar()?.toString();
+      if (code !== undefined) {
+        copyToClipboard(code).then((result) => {
           if (result) {
             message.success("Copied!");
           } else {
@@ -114,10 +124,27 @@ const Demo = defineComponent({
       reload();
     };
     onMounted(() => {
-      codeOrigins.ts = codeRefs.ts.value?.innerHTML || "";
-      codeOrigins.js = codeRefs.js.value?.innerHTML || "";
+      (["ts", "js"] as const).forEach((language) => {
+        const editor = codeRefs[language].value;
+        if (!editor) return;
+        const source = readHighlightedSource(editor);
+        codeOrigins[language] = source;
+        const jar = CodeJar(
+          editor,
+          (element) => {
+            element.innerHTML = hljs.highlight(element.textContent || "", { language: "xml" }).value;
+          },
+          { tab: "  ", spellcheck: false }
+        );
+        jar.updateCode(source, false);
+        jar.onUpdate(renderCode);
+        codeJars[language] = jar;
+      });
     });
     onBeforeUnmount(() => {
+      codeJars.ts?.destroy();
+      codeJars.js?.destroy();
+      clearTimeout(timer.value);
       if (currentApp.value) {
         currentApp.value?.unmount();
       }
@@ -172,20 +199,14 @@ const Demo = defineComponent({
                 <div
                   v-show={codeLanguage.value === "ts"}
                   ref={codeRefs.ts}
-                  class="k-code k-scroll"
-                  contenteditable
-                  onInput={renderCode}
-                  onKeydown={handleCodeKeydown}
+                  class="k-code k-scroll hljs"
                 >
                   {slots["code-ts"]?.()}
                 </div>
                 <div
                   v-show={codeLanguage.value === "js"}
                   ref={codeRefs.js}
-                  class="k-code k-scroll"
-                  contenteditable
-                  onInput={renderCode}
-                  onKeydown={handleCodeKeydown}
+                  class="k-code k-scroll hljs"
                 >
                   {slots["code-js"]?.()}
                 </div>

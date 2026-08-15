@@ -74,6 +74,9 @@
 
 .k-switch-square {
   border-radius: var(--kui-shape-square);
+  &::before {
+    border-radius: 2px;
+  }
 }
 
 .k-switch-round,
@@ -91,6 +94,11 @@
     height: 12px;
     border-radius: 12px;
     left: 2px;
+  }
+  &.k-switch-square {
+    &::before {
+      border-radius: 2px;
+    }
   }
 
   &:active {

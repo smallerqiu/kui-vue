@@ -24,6 +24,9 @@ export const toJavaScriptSfc = (source: string) =>
       const output = transform(script, {
         transforms: ["typescript"],
         disableESTransforms: true,
+        // Vue templates may reference imports that do not appear in the
+        // <script> AST, so they must not be treated as unused here.
+        keepUnusedImports: true,
       }).code.trim();
       return `<script${attributes ? ` ${attributes}` : ""}>\n${output}\n</script>`;
     }

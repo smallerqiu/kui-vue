@@ -11,6 +11,15 @@
   }
   .k-code {
     outline: none;
+    box-sizing: border-box;
+    padding: 12px 20px 20px;
+    white-space: pre;
+    tab-size: 2;
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    caret-color: var(--kui-color-text);
   }
   .k-desc {
     margin: 30px 0 0;
@@ -137,8 +146,8 @@
     border-bottom-right-radius: 12px;
     overflow: hidden;
     .k-code {
-      display: flex;
-      flex: 1px;
+      display: block;
+      flex: 1;
       overflow: auto;
       border-radius: 0 12px 12px 0;
       pre {
