@@ -1,8 +1,9 @@
 import { createVNode, getCurrentInstance, render } from "vue";
 import { getAppContext, recordMousePoint } from "../config/context";
 import type { IconType } from "../icon";
-import Modal from "./modal";
+import Modal, { ModalPanel } from "./modal";
 import Toast from "./toast";
+export { ModalPanel };
 export type { ModalProps } from "./modal";
 
 interface ModalInstance {

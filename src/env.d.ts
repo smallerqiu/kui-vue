@@ -26,7 +26,9 @@ declare module "vue" {
     Collapse: (typeof Comps)["Collapse"];
     CollapsePanel: (typeof Comps)["CollapsePanel"];
     ColorPicker: (typeof Comps)["ColorPicker"];
+    ColorPickerPanel: (typeof Comps)["ColorPickerPanel"];
     DatePicker: (typeof Comps)["DatePicker"];
+    DatePickerPanel: (typeof Comps)["DatePickerPanel"];
     Descriptions: (typeof Comps)["Descriptions"];
     DescriptionsItem: (typeof Comps)["DescriptionsItem"];
     Drawer: (typeof Comps)["Drawer"];
@@ -59,9 +61,14 @@ declare module "vue" {
     MenuItem: (typeof Comps)["MenuItem"];
     SubMenu: (typeof Comps)["SubMenu"];
     Modal: (typeof Comps)["Modal"];
+    ModalPanel: (typeof Comps)["ModalPanel"];
+    MessagePanel: (typeof Comps)["MessagePanel"];
+    NoticePanel: (typeof Comps)["NoticePanel"];
     Page: (typeof Comps)["Page"];
     Poptip: (typeof Comps)["Poptip"];
+    PoptipPanel: (typeof Comps)["PoptipPanel"];
     Popconfirm: (typeof Comps)["Popconfirm"];
+    PopconfirmPanel: (typeof Comps)["PopconfirmPanel"];
     Progress: (typeof Comps)["Progress"];
     QRCode: (typeof Comps)["QRCode"];
     Radio: (typeof Comps)["Radio"];
@@ -90,6 +97,7 @@ declare module "vue" {
     KSwitch: (typeof Comps)["Switch"];
     Table: (typeof Comps)["Table"];
     Tooltip: (typeof Comps)["Tooltip"];
+    TooltipPanel: (typeof Comps)["TooltipPanel"];
     TabPanel: (typeof Comps)["TabPanel"];
     Tabs: (typeof Comps)["Tabs"];
     TimeLine: (typeof Comps)["TimeLine"];

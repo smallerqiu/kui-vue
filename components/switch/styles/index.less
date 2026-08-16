@@ -7,7 +7,7 @@
   border-radius: var(--kui-shape-circle);
   vertical-align: middle;
   border: none;
-  background-color: var(--kui-color-bg-component);
+  background-color: var(--kui-theme-fill-bg);
   font-size: 12px;
   position: relative;
   cursor: pointer;
@@ -85,6 +85,14 @@
   border-radius: var(--kui-shape-circle);
 }
 
+[shape-mode="square"] .k-switch {
+  border-radius: var(--kui-shape-square);
+
+  &::before {
+    border-radius: var(--kui-shape-square);
+  }
+}
+
 .k-switch-sm {
   min-width: 28px;
   height: 16px;
@@ -154,7 +162,7 @@
 }
 
 .k-switch-disabled {
-  opacity: 0.6;
+  opacity: var(--kui-disabled-opacity);
   cursor: not-allowed;
 
   .k-switch-loading {

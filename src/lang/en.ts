@@ -36,6 +36,7 @@ export default {
     langTip: "切换简体中文",
     start: "Started",
     universal: "Universal",
+    effects: "Visual Effects",
     layout: "Layouts",
     navigation: "Navigation",
     form: "Forms",

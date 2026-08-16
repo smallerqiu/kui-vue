@@ -17,8 +17,9 @@ interface GridContext {
 
 const GridItem = defineComponent({
   name: "GridItem",
+  inheritAttrs: false,
   props: gridItemProps,
-  setup(props, { slots }) {
+  setup(props, { attrs, slots }) {
     const context: GridContext | undefined = inject(GRID_KEY);
     const itemStyle = computed(() => {
       if (!context) return {};
@@ -50,13 +51,17 @@ const GridItem = defineComponent({
       return styles;
     });
 
-    const itemProps = {
-      class: "k-grid-item",
-      style: itemStyle.value,
-    };
-
     return () => {
-      return <div {...itemProps}>{slots.default?.()}</div>;
+      const { class: customClass, style: customStyle, ...restAttrs } = attrs;
+      return (
+        <div
+          {...restAttrs}
+          class={["k-grid-item", customClass]}
+          style={[itemStyle.value, customStyle]}
+        >
+          {slots.default?.()}
+        </div>
+      );
     };
   },
 });

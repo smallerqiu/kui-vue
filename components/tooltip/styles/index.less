@@ -14,7 +14,7 @@
     background: @dark-pop-color;
     box-shadow: 0 2px 8px @shadow-color;
     color: var(--kui-color-text-on-solid);
-    border-radius: var(--kui-popup-radius);
+    border-radius: var(--kui-card-radius);
     position: relative;
     min-width: 36px;
   }
@@ -314,4 +314,11 @@
 
 .k-tooltip-leave-active {
   animation: k-pop-zoom 0.3s reverse;
+}
+
+.k-tooltip-panel {
+  position: relative;
+  inset: auto;
+  z-index: auto;
+  transform: none;
 }

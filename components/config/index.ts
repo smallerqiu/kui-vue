@@ -1,12 +1,15 @@
 import {
   defineComponent,
   getCurrentInstance,
+  inject,
+  isRef,
   provide,
   ref,
   watch,
   type ExtractPropTypes,
   type PropType,
 } from "vue";
+import zhCN from "../locale/zh-CN";
 import { setAppContext } from "./context";
 import { popupContainerKey, type PopupContainerGetter } from "./popup";
 const configProviderProps = {
@@ -23,7 +26,10 @@ const ConfigProvider = defineComponent({
   name: "ConfigProvider",
   props: configProviderProps,
   setup(props, { slots }) {
-    const locale = ref(props.locale);
+    const inheritedLocale = inject("locale", zhCN);
+    const getInheritedLocale = () =>
+      isRef(inheritedLocale) ? inheritedLocale.value : inheritedLocale;
+    const locale = ref(props.locale || getInheritedLocale());
     provide("locale", locale);
     if (props.getPopupContainer) provide(popupContainerKey, props.getPopupContainer);
     const instance = getCurrentInstance();
@@ -33,9 +39,9 @@ const ConfigProvider = defineComponent({
     const context = getCurrentInstance();
     setAppContext(context);
     watch(
-      () => props.locale,
-      (newVal) => {
-        locale.value = newVal;
+      [() => props.locale, getInheritedLocale],
+      ([newVal, parentLocale]) => {
+        locale.value = newVal || parentLocale;
       },
       { immediate: true }
     );

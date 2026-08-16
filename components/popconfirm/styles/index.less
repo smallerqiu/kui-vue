@@ -138,7 +138,7 @@
   background: var(--kui-popup-bg);
   box-shadow: var(--kui-popup-shadow);
 
-  border-radius: var(--kui-popup-radius);
+  border-radius: var(--kui-card-radius);
   position: relative;
   border: 1px solid var(--kui-popup-border);
 
@@ -208,4 +208,11 @@
 
 .k-popconfirm-leave-active {
   animation: k-pop-zoom 0.3s reverse;
+}
+
+.k-popconfirm-panel {
+  position: relative;
+  inset: auto;
+  z-index: auto;
+  transform: none;
 }

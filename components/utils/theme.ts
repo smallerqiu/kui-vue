@@ -3,7 +3,7 @@ import { nextTick } from "vue";
 const THEME_KEY = "theme-mode";
 
 const toggleTheme = (): boolean => {
-  const isDark = localStorage.getItem(THEME_KEY) === "dark";
+  const isDark = document.documentElement.getAttribute(THEME_KEY) === "dark";
   const nextTheme = isDark ? "light" : "dark";
   document.documentElement.setAttribute(THEME_KEY, nextTheme);
   localStorage.setItem(THEME_KEY, nextTheme);
@@ -25,7 +25,7 @@ const Theme = {
     const clientX = event.clientX;
     const clientY = event.clientY;
 
-    const willBeDark = localStorage.getItem(THEME_KEY) !== "dark";
+    const willBeDark = document.documentElement.getAttribute(THEME_KEY) !== "dark";
 
     const transition = document.startViewTransition(async () => {
       toggleTheme();

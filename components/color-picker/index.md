@@ -29,6 +29,7 @@
 | 属性          | 说明                                               | 类型                      | 默认值      |
 | ------------- | -------------------------------------------------- | ------------------------- | ----------- |
 | modelValue    | 颜色值,可以使用 `v-model` 双向绑定                 | string                    | -           |
+| opened        | 默认是否展开颜色面板                               | boolean                   | false       |
 | mode          | 颜色展示类型,提供 3 种模式(`hex` 、 `rgb` 、`hsl`) | string                    | 'hex'       |
 | presets       | 自定义颜色盘                                       | string[]                  | -           |
 | disabledAlpha | 是否禁用透明                                       | boolean                     | false       |

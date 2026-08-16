@@ -139,6 +139,11 @@
   border: 1px solid var(--kui-popup-border);
   -webkit-user-select: none;
   user-select: none;
+  width: 272px;
+}
+.k-datepicker-panel {
+  position: relative;
+  z-index: auto;
 }
 .k-picker-presets {
   display: flex;
@@ -212,9 +217,9 @@
 }
 
 .k-picker-container {
-  width: 272px;
   display: flex;
   flex-direction: column;
+  width: 100%;
   .k-picker-extra-header,
   .k-picker-extra-footer {
     padding: 10px;
@@ -380,6 +385,7 @@
     align-items: center;
     cursor: pointer;
     flex: 1;
+    color: var(--kui-control-text);
     &:hover {
       background: var(--kui-color-item-hover);
     }
@@ -439,7 +445,7 @@
     }
   }
   .k-picker-time-item.active {
-    background: var(--kui-color-item-selected);
+    background: var(--kui-color-item-active);
     color: var(--kui-color-primary);
     font-weight: bold;
     opacity: 1;
@@ -448,7 +454,7 @@
   .k-picker-day-disabled,
   .k-picker-time-disabled {
     color: var(--kui-color-text-disabled);
-    opacity: 0.7;
+    opacity: var(--kui-disabled-opacity);
     cursor: not-allowed;
   }
 }

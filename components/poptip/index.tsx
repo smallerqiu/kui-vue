@@ -1,5 +1,6 @@
 import {
   defineComponent,
+  h,
   nextTick,
   onMounted,
   onUnmounted,
@@ -14,7 +15,7 @@ import { usePopupContainer } from "../config/popup";
 import { setPlacement } from "../utils/placement";
 import { cloneNodes, getChildren } from "../utils/vnode";
 
-import type { PlacementsType } from "../const/types";
+import type { BooleanType, PlacementsType } from "../const/types";
 
 export type PoptipProps = ExtractPropTypes<typeof poptipProps>;
 
@@ -35,14 +36,15 @@ const poptipProps = {
   onClose: {
     type: Function as PropType<() => void>,
   },
+  panelOnly: Boolean as BooleanType,
 };
 const Poptip = defineComponent({
   name: "Poptip",
   props: poptipProps,
   setup(props, { slots, attrs, emit }) {
     const getPopupContainer = usePopupContainer();
-    const rendered = ref(props.show);
-    const visible = ref(props.show);
+    const rendered = ref(props.show || props.panelOnly);
+    const visible = ref(props.show || props.panelOnly);
     const refPopper = ref();
     const refSelection = ref();
     const left = ref(0);
@@ -69,6 +71,7 @@ const Poptip = defineComponent({
       });
     };
     onMounted(() => {
+      if (props.panelOnly) return;
       updatePosition();
       window.addEventListener("resize", updatePosition);
       document.addEventListener("scroll", updatePosition, true);
@@ -149,6 +152,40 @@ const Poptip = defineComponent({
       const title = slots.title?.() || props.title;
       const content = slots.content?.() || props.content;
       const preCls = "poptip";
+      const contentNode = (
+        <div class={`k-${preCls}-content`}>
+          {title ? <div class={`k-${preCls}-title`}>{title}</div> : null}
+          <div class={`k-${preCls}-body`}>{content}</div>
+          <div class={`k-${preCls}-arrow`}>
+            <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
+              <path
+                id="ot"
+                d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+              />
+              <path
+                stroke="currentcolor"
+                id="in"
+                d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+              />
+            </svg>
+          </div>
+        </div>
+      );
+      if (props.panelOnly) {
+        return (
+          <div
+            class={[
+              `k-${preCls}`,
+              `k-${preCls}-panel`,
+              `k-${preCls}-has-arrow`,
+              { [`k-${preCls}-dark`]: props.dark },
+            ]}
+            k-placement={props.placement}
+          >
+            {contentNode}
+          </div>
+        );
+      }
       const cls = [
         `k-${preCls}`,
         {
@@ -200,23 +237,7 @@ const Poptip = defineComponent({
           <Teleport to={getPopupContainer()}>
             <Transition name={`k-${preCls}`}>
               <div class={cls} v-show={visible.value} {..._props}>
-                <div class={`k-${preCls}-content`}>
-                  {title ? <div class={`k-${preCls}-title`}>{title}</div> : null}
-                  <div class={`k-${preCls}-body`}>{content}</div>
-                  <div class={`k-${preCls}-arrow`}>
-                    <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
-                      <path
-                        id="ot"
-                        d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
-                      />
-                      <path
-                        stroke="currentcolor"
-                        id="in"
-                        d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
-                      />
-                    </svg>
-                  </div>
-                </div>
+                {contentNode}
               </div>
             </Transition>
           </Teleport>
@@ -226,5 +247,14 @@ const Poptip = defineComponent({
       return childNodes;
     };
   },
+});
+export const PoptipPanel = defineComponent({
+  name: "PoptipPanel",
+  inheritAttrs: false,
+  props: poptipProps,
+  setup:
+    (props, { attrs, slots }) =>
+    () =>
+      h(Poptip, { ...attrs, ...props, panelOnly: true }, slots),
 });
 export default Poptip;

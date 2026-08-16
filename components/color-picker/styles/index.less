@@ -85,7 +85,7 @@
   }
 
   .k-color-picker-color {
-    opacity: 0.5;
+    opacity: var(--kui-disabled-opacity);
   }
 }
 
@@ -408,6 +408,11 @@
       transform: translateX(-50%);
     }
   }
+}
+
+.k-color-picker-panel {
+  position: relative;
+  z-index: auto;
 }
 
 .k-color-picker-circle {

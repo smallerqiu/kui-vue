@@ -1,35 +1,38 @@
 import type { Ref } from "vue";
 
-const popupThemeSources = new Map<HTMLElement, HTMLElement>();
-let popupThemeObserver: MutationObserver | null = null;
+const popupAppearanceSources = new Map<HTMLElement, HTMLElement>();
+let popupAppearanceObserver: MutationObserver | null = null;
+const inheritedAppearanceAttributes = ["theme-mode", "shape-mode"] as const;
 
-const syncPopupTheme = (popup: HTMLElement, source: HTMLElement) => {
-  const owner = source.closest<HTMLElement>("[theme-mode]");
-  const mode = owner?.getAttribute("theme-mode");
-  const currentMode = popup.getAttribute("theme-mode");
-  if (mode === "light" || mode === "dark") {
-    if (currentMode !== mode) popup.setAttribute("theme-mode", mode);
-  } else if (currentMode !== null) {
-    popup.removeAttribute("theme-mode");
-  }
+const syncPopupAppearance = (popup: HTMLElement, source: HTMLElement) => {
+  inheritedAppearanceAttributes.forEach((attribute) => {
+    const owner = source.closest<HTMLElement>(`[${attribute}]`);
+    const value = owner?.getAttribute(attribute);
+    const currentValue = popup.getAttribute(attribute);
+    if (value) {
+      if (currentValue !== value) popup.setAttribute(attribute, value);
+    } else if (currentValue !== null) {
+      popup.removeAttribute(attribute);
+    }
+  });
 };
 
-const inheritPopupTheme = (popup: HTMLElement, source: HTMLElement) => {
-  popupThemeSources.set(popup, source);
-  syncPopupTheme(popup, source);
-  if (popupThemeObserver || typeof document === "undefined") return;
-  popupThemeObserver = new MutationObserver(() => {
-    popupThemeSources.forEach((themeSource, themePopup) => {
-      if (!themePopup.isConnected || !themeSource.isConnected) {
-        popupThemeSources.delete(themePopup);
+const inheritPopupAppearance = (popup: HTMLElement, source: HTMLElement) => {
+  popupAppearanceSources.set(popup, source);
+  syncPopupAppearance(popup, source);
+  if (popupAppearanceObserver || typeof document === "undefined") return;
+  popupAppearanceObserver = new MutationObserver(() => {
+    popupAppearanceSources.forEach((appearanceSource, appearancePopup) => {
+      if (!appearancePopup.isConnected || !appearanceSource.isConnected) {
+        popupAppearanceSources.delete(appearancePopup);
         return;
       }
-      syncPopupTheme(themePopup, themeSource);
+      syncPopupAppearance(appearancePopup, appearanceSource);
     });
   });
-  popupThemeObserver.observe(document.documentElement, {
+  popupAppearanceObserver.observe(document.documentElement, {
     attributes: true,
-    attributeFilter: ["theme-mode"],
+    attributeFilter: [...inheritedAppearanceAttributes],
     subtree: true,
   });
 };
@@ -60,7 +63,7 @@ export function setPlacement({
 
   const sourceInstance = refSelection?.value as (HTMLElement & { $el?: HTMLElement }) | null;
   const sourceElement = sourceInstance?.$el || sourceInstance;
-  if (sourceElement instanceof HTMLElement) inheritPopupTheme(refPopper.value, sourceElement);
+  if (sourceElement instanceof HTMLElement) inheritPopupAppearance(refPopper.value, sourceElement);
 
   // 模式检测 & 基准矩形
   let rect: {

@@ -1,4 +1,10 @@
-import type { CSSProperties, DefineComponent, ExtractPropTypes, HTMLAttributes } from "vue";
+import type {
+  CSSProperties,
+  DefineComponent,
+  ExtractPropTypes,
+  HTMLAttributes,
+  PropType,
+} from "vue";
 import { computed, defineComponent, provide, ref } from "vue";
 import type { BooleanType } from "../const/types";
 import { GRID_KEY, useBreakpoint } from "./useBreakpoint";
@@ -12,14 +18,16 @@ const gridProps = {
   itemMinWidth: { type: Number },
   align: { type: String },
   justify: { type: String },
+  flow: { type: String as PropType<CSSProperties["gridAutoFlow"]>, default: "row" },
   debug: { type: Boolean as BooleanType },
 };
 export type GridProps = Partial<ExtractPropTypes<typeof gridProps>> & HTMLAttributes;
 
 const Grid = defineComponent({
   name: "Grid",
+  inheritAttrs: false,
   props: gridProps,
-  setup(props, { slots }) {
+  setup(props, { attrs, slots }) {
     const gridRef = ref<HTMLElement | null>(null);
     const breakpoint = useBreakpoint(gridRef);
 
@@ -59,19 +67,25 @@ const Grid = defineComponent({
         gridAutoRows: props.autoRows,
         alignItems: props.align,
         justifyItems: props.justify,
+        gridAutoFlow: props.flow,
       };
       if (props.debug && typeof activeCols === "number") {
         style.backgroundImage = `repeating-linear-gradient(to right, rgba(255,0,0,0.05) 0, rgba(255,0,0,0.05) ${100 / activeCols}%, transparent ${100 / activeCols}%, transparent ${200 / activeCols}%)`;
       }
       return style;
     });
-    const gridProps = {
-      class: "k-grid",
-      style: gridStyle.value,
-      ref: gridRef,
-    };
     return () => {
-      return <div {...gridProps}>{slots.default?.()}</div>;
+      const { class: customClass, style: customStyle, ...restAttrs } = attrs;
+      return (
+        <div
+          {...restAttrs}
+          class={["k-grid", customClass]}
+          style={[gridStyle.value, customStyle]}
+          ref={gridRef}
+        >
+          {slots.default?.()}
+        </div>
+      );
     };
   },
 });

@@ -17,6 +17,7 @@ import {
   CreditCard,
   DecimalsArrowRight,
   FileText,
+  Flame,
   FolderTree,
   Form,
   GalleryHorizontal,
@@ -89,6 +90,14 @@ const navData = [
     children: [
       { title: "按钮", sub: "Button", name: "button", icon: SquareMousePointer },
       { title: "图标", sub: "Icon", name: "icon", icon: Heart },
+    ],
+  },
+  {
+    title: "menu.effects",
+    key: "effects",
+    children: [
+      { title: "涟漪", sub: "Ripple", name: "ripple", icon: CircleDot },
+      { title: "火焰边框", sub: "FlameWrap", name: "flame-wrap", icon: Flame },
     ],
   },
   {

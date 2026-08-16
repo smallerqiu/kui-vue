@@ -2,6 +2,7 @@ import { X } from "kui-icons";
 import {
   computed,
   defineComponent,
+  h,
   inject,
   isRef,
   nextTick,
@@ -42,6 +43,7 @@ const modalProps = {
   onOk: { type: Function as PropType<() => void> },
   onCancel: { type: Function as PropType<() => void> },
   onOpenChange: { type: Function as PropType<(opened: boolean) => void> },
+  panelOnly: Boolean as BooleanType,
 };
 export type ModalProps = ExtractPropTypes<typeof modalProps>;
 
@@ -51,9 +53,9 @@ const Modal = defineComponent({
   props: modalProps,
   setup(props, { attrs, slots, emit }) {
     const getPopupContainer = usePopupContainer();
-    const visible = ref<boolean | undefined>(props.modelValue);
-    const rendered = ref(false);
-    const showInner = ref(props.modelValue);
+    const visible = ref<boolean | undefined>(props.panelOnly || props.modelValue);
+    const rendered = ref(props.panelOnly);
+    const showInner = ref(props.panelOnly || props.modelValue);
     const left = ref(0);
     const currentTop = ref(props.top);
     const isMousePressed = ref(false);
@@ -139,11 +141,11 @@ const Modal = defineComponent({
       emit("ok");
     };
     const cancel = () => {
-      toggle(false);
+      if (!props.panelOnly) toggle(false);
       emit("cancel");
     };
     const close = () => {
-      toggle(false);
+      if (!props.panelOnly) toggle(false);
       emit("close");
     };
     const clickMaskToClose = (e: MouseEvent) => {
@@ -263,33 +265,47 @@ const Modal = defineComponent({
           "k-modal-maximized": props.maximized,
           "k-modal-centered": props.centered,
           "k-modal-has-footer": props.footer !== null,
+          "k-modal-panel": props.panelOnly,
         },
         attrs.class,
       ];
       const rootAttrs = { ...attrs };
       delete rootAttrs.class;
-      return rendered.value ? (
-        <Teleport to={getPopupContainer()}>
-          <div {...rootAttrs} class={classes}>
-            {maskNode}
-            <div
-              class="k-modal-wrap"
-              tabindex="-1"
-              role="dialog"
-              v-show={showInner.value}
-              onClick={clickMaskToClose}
-            >
-              <Transition name="k-modal-zoom">
-                <div class="k-modal-inner" ref={refModal} v-show={visible.value} style={style}>
-                  {contentNode}
-                  <div tabindex="0"></div>
-                </div>
-              </Transition>
-            </div>
+      const panel = rendered.value ? (
+        <div {...rootAttrs} class={classes}>
+          {maskNode}
+          <div
+            class="k-modal-wrap"
+            tabindex="-1"
+            role="dialog"
+            v-show={showInner.value}
+            onClick={clickMaskToClose}
+          >
+            <Transition name="k-modal-zoom">
+              <div class="k-modal-inner" ref={refModal} v-show={visible.value} style={style}>
+                {contentNode}
+                <div tabindex="0"></div>
+              </div>
+            </Transition>
           </div>
-        </Teleport>
+        </div>
       ) : null;
+      return props.panelOnly ? panel : <Teleport to={getPopupContainer()}>{panel}</Teleport>;
     };
   },
+});
+
+export const ModalPanel = defineComponent({
+  name: "ModalPanel",
+  inheritAttrs: false,
+  props: modalProps,
+  setup:
+    (props, { attrs, slots }) =>
+    () =>
+      h(
+        Modal,
+        { ...attrs, ...props, modelValue: true, mask: false, panelOnly: true },
+        slots
+      ),
 });
 export default Modal;

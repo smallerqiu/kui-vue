@@ -2,6 +2,7 @@ import { CircleQuestionMark } from "kui-icons";
 import {
   computed,
   defineComponent,
+  h,
   inject,
   isRef,
   nextTick,
@@ -36,6 +37,7 @@ const popconfirmProps = {
   },
   onCancel: { type: Function as PropType<() => void> },
   onOk: { type: Function as PropType<() => void> },
+  panelOnly: Boolean as BooleanType,
 };
 
 export type PopconfirmProps = ExtractPropTypes<typeof popconfirmProps>;
@@ -51,8 +53,8 @@ const Popconfirm = defineComponent({
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
-    const rendered = ref(props.show);
-    const visible = ref(props.show);
+    const rendered = ref(props.show || props.panelOnly);
+    const visible = ref(props.show || props.panelOnly);
     const refPopper = ref();
     const refSelection = ref();
     const left = ref(0);
@@ -79,6 +81,7 @@ const Popconfirm = defineComponent({
       });
     };
     onMounted(() => {
+      if (props.panelOnly) return;
       updatePosition();
       window.addEventListener("resize", updatePosition);
       document.addEventListener("scroll", updatePosition, true);
@@ -159,6 +162,50 @@ const Popconfirm = defineComponent({
     return () => {
       const title = slots.title?.() || props.title;
       const preCls = "popconfirm";
+      const contentNode = (
+        <div class={`k-${preCls}-content`}>
+          <div class={`k-${preCls}-body`}>
+            <Icon type={CircleQuestionMark} />
+            <div class={`k-${preCls}-title`}>{title}</div>
+          </div>
+          <div class={`k-${preCls}-footer`}>
+            <Button size="small" onClick={cancel}>
+              {props.cancelText || locale.value?.k.common.cancel}
+            </Button>
+            <Button size="small" type="primary" onClick={ok}>
+              {props.okText || locale.value?.k.common.ok}
+            </Button>
+          </div>
+          <div class={`k-${preCls}-arrow`}>
+            <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
+              <path
+                d="M24,0.97087 L24,1.97087 C20,1.97087 18.5,2.97087 16.5,4.97087 C14.5,6.97087 14,7.97087 12,7.97087 C10,7.97087 9.5,6.97087 7.5,4.97087 C5.5,2.97087 4,1.97087 0,1.97087 L0,0.97087 L24,0.97087 Z"
+                id="ot"
+              />
+              <path
+                d="M24,0 L24,1 C20.032328,1 18.1576594,1.985435 16.1576594,3.985435 C14.1576594,5.985435 13.3847825,7 12,7 C10.6152175,7 9.81306952,5.985435 7.81306952,3.985435 C5.81306952,1.985435 4.0114261,1 0,1 L0,0 L24,0 Z"
+                id="in"
+                stroke="currentcolor"
+              />
+            </svg>
+          </div>
+        </div>
+      );
+      if (props.panelOnly) {
+        return (
+          <div
+            class={[
+              `k-${preCls}`,
+              `k-${preCls}-panel`,
+              `k-${preCls}-has-arrow`,
+              { [`k-${preCls}-dark`]: props.dark },
+            ]}
+            k-placement={props.placement}
+          >
+            {contentNode}
+          </div>
+        );
+      }
       const cls = [
         `k-${preCls}`,
         {
@@ -202,34 +249,7 @@ const Popconfirm = defineComponent({
           <Teleport to={getPopupContainer()}>
             <Transition name={`k-${preCls}`}>
               <div class={cls} v-show={visible.value} {..._props}>
-                <div class={`k-${preCls}-content`}>
-                  <div class={`k-${preCls}-body`}>
-                    <Icon type={CircleQuestionMark} />
-                    <div class={`k-${preCls}-title`}>{title}</div>
-                  </div>
-                  <div class={`k-${preCls}-footer`}>
-                    <Button size="small" onClick={cancel}>
-                      {props.cancelText || locale.value?.k.common.cancel}
-                    </Button>
-                    <Button size="small" type="primary" onClick={ok}>
-                      {props.okText || locale.value?.k.common.ok}
-                    </Button>
-                  </div>
-                  <div class={`k-${preCls}-arrow`}>
-                    <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
-                      <path
-                        d="M24,0.97087 L24,1.97087 C20,1.97087 18.5,2.97087 16.5,4.97087 C14.5,6.97087 14,7.97087 12,7.97087 C10,7.97087 9.5,6.97087 7.5,4.97087 C5.5,2.97087 4,1.97087 0,1.97087 L0,0.97087 L24,0.97087 Z"
-                        id="ot"
-                      />
-                      <path
-                        d="M24,0 L24,1 C20.032328,1 18.1576594,1.985435 16.1576594,3.985435 C14.1576594,5.985435 13.3847825,7 12,7 C10.6152175,7 9.81306952,5.985435 7.81306952,3.985435 C5.81306952,1.985435 4.0114261,1 0,1 L0,0 L24,0 Z"
-                        id="in"
-                        stroke="currentcolor"
-                      />
-                      {/* <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z"></path> */}
-                    </svg>
-                  </div>
-                </div>
+                {contentNode}
               </div>
             </Transition>
           </Teleport>
@@ -239,5 +259,14 @@ const Popconfirm = defineComponent({
       return childNodes;
     };
   },
+});
+export const PopconfirmPanel = defineComponent({
+  name: "PopconfirmPanel",
+  inheritAttrs: false,
+  props: popconfirmProps,
+  setup:
+    (props, { attrs, slots }) =>
+    () =>
+      h(Popconfirm, { ...attrs, ...props, panelOnly: true }, slots),
 });
 export default Popconfirm;

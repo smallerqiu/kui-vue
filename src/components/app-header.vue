@@ -129,12 +129,9 @@ const items = computed(() => {
   ];
 });
 onMounted(() => {
-  let localThemeMode = localStorage.getItem("theme-mode") || "";
+  const currentThemeMode = document.documentElement.getAttribute("theme-mode") || "light";
   let localThemeColor = localStorage.getItem("themeColor") || "";
-  if (localThemeMode) {
-    document.documentElement.setAttribute("theme-mode", localThemeMode);
-    themeMode.value = localThemeMode;
-  }
+  themeMode.value = currentThemeMode;
   if (localThemeColor) {
     themeColor.value = localThemeColor;
     changeThemeColor(localThemeColor);

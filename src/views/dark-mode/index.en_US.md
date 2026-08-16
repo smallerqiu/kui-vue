@@ -86,8 +86,6 @@ monitor.addEventListener("change", matchMode);
 
 Add the 'theme-mode=dark' or 'theme-mode=light' attribute to the top-level element, and the components under this element will use the corresponding mode's color variables.
 
-> Note: Local dark/light mode does not apply to pop-up layers.
-
 [Local darkening](./local.vue?show=vertical)
 
 - Control local dark mode by setting the `theme-mode` attribute of the top-level element

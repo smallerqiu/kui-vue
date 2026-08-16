@@ -11,6 +11,7 @@ import Presets from "./presets";
 
 import {
   defineComponent,
+  h,
   type ExtractPropTypes,
   nextTick,
   onBeforeUnmount,
@@ -25,6 +26,7 @@ import type { BooleanType, DropPlacementsType, SizeType } from "../const/types";
 type ColorMode = "hex" | "rgb" | "hsl";
 const colorPickerProps = {
   modelValue: String,
+  opened: Boolean as BooleanType,
   disabled: Boolean as BooleanType,
   disabledAlpha: Boolean as BooleanType,
   showText: Boolean as BooleanType,
@@ -49,6 +51,7 @@ const colorPickerProps = {
   onChange: { type: Function as PropType<(color: string) => void> },
   onUpdateMode: { type: Function as PropType<(mode: ColorMode) => void> },
   onOpenChange: { type: Function as PropType<(open: boolean) => void> },
+  panelOnly: Boolean as BooleanType,
 };
 
 export type ColorPickerProps = ExtractPropTypes<typeof colorPickerProps>;
@@ -65,14 +68,14 @@ const ColorPicker = defineComponent({
     const currentMode = ref(props.mode);
     type ColorInstance = ReturnType<typeof Color>;
     const currentColor = ref<string | ColorInstance>(props.modelValue || "#000000ff");
-    const visible = ref(false);
+    const visible = ref(props.opened || props.panelOnly);
     const refPopper = ref();
     const refSelection = ref();
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(props.placement);
     const transOrigin = ref("bottom");
-    const rendered = ref(false);
+    const rendered = ref(props.opened || props.panelOnly);
     const currentAlpha = ref(1);
     const currentHue = ref(0);
     const hideTimer = ref();
@@ -91,18 +94,29 @@ const ColorPicker = defineComponent({
         if (visible.value) updatePopPosition();
       }
     );
+    watch(
+      () => props.opened,
+      (opened) => {
+        if (opened) rendered.value = true;
+        visible.value = opened;
+        if (opened) nextTick(updatePopPosition);
+      }
+    );
     onMounted(() => {
       if (props.modelValue) {
         currentAlpha.value = Color(props.modelValue).alpha();
         currentHue.value = Color(props.modelValue).hue();
       }
-      document.addEventListener("scroll", updatePopPosition, true);
+      if (!props.panelOnly) {
+        if (props.opened) updatePopPosition();
+        document.addEventListener("scroll", updatePopPosition, true);
+      }
     });
     onBeforeUnmount(() => {
       cancelAnimationFrame(positionRaf);
       clearTimeout(hideTimer.value);
       document.removeEventListener("click", outsideClick);
-      document.removeEventListener("scroll", updatePopPosition, true);
+      if (!props.panelOnly) document.removeEventListener("scroll", updatePopPosition, true);
     });
     const updatePopPosition = () => {
       cancelAnimationFrame(positionRaf);
@@ -133,7 +147,7 @@ const ColorPicker = defineComponent({
       }
     };
     const openChange = (opened: boolean) => {
-      visible.value = opened;
+      visible.value = props.panelOnly || opened;
       emit("openChange", opened);
     };
     const toggle = (open: boolean) => {
@@ -228,71 +242,78 @@ const ColorPicker = defineComponent({
           "k-color-picker-dropdown",
           {
             "k-color-picker-disabled-alpha": props.disabledAlpha,
+            "k-color-picker-panel": props.panelOnly,
           },
         ],
-        style: {
-          left: `${left.value}px`,
-          top: `${top.value}px`,
-          transformOrigin: transOrigin.value,
-        },
+        style: props.panelOnly
+          ? undefined
+          : {
+              left: `${left.value}px`,
+              top: `${top.value}px`,
+              transformOrigin: transOrigin.value,
+            },
         onMouseenter: () => {
           clearTimeout(hideTimer.value);
         },
       };
 
       // let [r, g, b] = hslToRgb(color.H, color.S, color.L);
-      return (
-        <Teleport to={getPopupContainer()}>
-          <Transition name="k-color-picker">
-            <div v-show={visible.value} {..._props}>
-              <div class="k-color-picker-body">
-                <Paint
-                  hue={currentHue.value}
-                  modelValue={currentColor.value}
-                  onUpdateRGB={onUpdateRGB}
-                />
-                <div class="k-color-picker-bar">
-                  <div class="k-color-picker-avatar">
-                    <div
-                      class="k-color-picker-avatar-inner"
-                      style={`background-color:${currentColor.value}`}
-                    ></div>
-                  </div>
-                  <div class="k-color-picker-bar-box">
-                    <Hue hue={currentHue.value} onUpdateHue={onUpdateHue} />
-                    {!props.disabledAlpha ? (
-                      <Alpha modelValue={currentColor.value} onUpdateAlpha={onUpdateAlpha} />
-                    ) : null}
-                  </div>
-                </div>
-                <Mode
-                  mode={currentMode.value}
-                  modelValue={currentColor.value}
-                  disabledAlpha={props.disabledAlpha}
-                  onUpdateMode={onUpdateMode}
-                  onUpdateColorValue={updateColorValue}
-                />
-                <Presets
-                  onUpdateColor={updateColor}
-                  modelValue={props.presets}
-                  color={currentColor.value}
-                />
+      const panel = (
+        <div v-show={visible.value} {..._props}>
+          <div class="k-color-picker-body">
+            <Paint
+              hue={currentHue.value}
+              modelValue={currentColor.value}
+              onUpdateRGB={onUpdateRGB}
+            />
+            <div class="k-color-picker-bar">
+              <div class="k-color-picker-avatar">
+                <div
+                  class="k-color-picker-avatar-inner"
+                  style={`background-color:${currentColor.value}`}
+                ></div>
               </div>
-              <div class={`k-color-picker-arrow`}>
-                <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
-                  <path
-                    id="ot"
-                    d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
-                  />
-                  <path
-                    stroke="currentcolor"
-                    id="in"
-                    d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
-                  />
-                </svg>
+              <div class="k-color-picker-bar-box">
+                <Hue hue={currentHue.value} onUpdateHue={onUpdateHue} />
+                {!props.disabledAlpha ? (
+                  <Alpha modelValue={currentColor.value} onUpdateAlpha={onUpdateAlpha} />
+                ) : null}
               </div>
             </div>
-          </Transition>
+            <Mode
+              mode={currentMode.value}
+              modelValue={currentColor.value}
+              disabledAlpha={props.disabledAlpha}
+              onUpdateMode={onUpdateMode}
+              onUpdateColorValue={updateColorValue}
+            />
+            <Presets
+              onUpdateColor={updateColor}
+              modelValue={props.presets}
+              color={currentColor.value}
+            />
+          </div>
+          {!props.panelOnly && (
+            <div class={`k-color-picker-arrow`}>
+              <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
+                <path
+                  id="ot"
+                  d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                />
+                <path
+                  stroke="currentcolor"
+                  id="in"
+                  d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                />
+              </svg>
+            </div>
+          )}
+        </div>
+      );
+      if (props.panelOnly) return panel;
+      return (
+        <Teleport to={getPopupContainer()}>
+          <Transition name="k-color-picker">{panel}</Transition>
         </Teleport>
       );
     };
@@ -310,6 +331,7 @@ const ColorPicker = defineComponent({
 
     return () => {
       const drop = renderDrop();
+      if (props.panelOnly) return drop;
       const style = [
         "k-color-picker",
         {
@@ -355,5 +377,15 @@ const ColorPicker = defineComponent({
       );
     };
   },
+});
+
+export const ColorPickerPanel = defineComponent({
+  name: "ColorPickerPanel",
+  inheritAttrs: false,
+  props: colorPickerProps,
+  setup:
+    (props, { attrs }) =>
+    () =>
+      h(ColorPicker, { ...attrs, ...props, panelOnly: true }),
 });
 export default ColorPicker;

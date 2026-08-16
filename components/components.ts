@@ -31,6 +31,9 @@ export type { CardMetaProps, CardProps } from "./card";
 export { default as FeatureCard } from "./feature-card";
 export type { FeatureCardProps } from "./feature-card";
 
+export { default as FlameWrap } from "./flame-wrap";
+export type { FlameWrapInstance, FlameWrapOptions, FlameWrapProps } from "./flame-wrap";
+
 export { Carousel, CarouselItem } from "./carousel";
 export type { CarouselProps } from "./carousel";
 
@@ -40,10 +43,10 @@ export type { ChangeEvent, CheckboxGroupProps, CheckboxOption, CheckboxProps } f
 export { Collapse, CollapsePanel } from "./collapse";
 export type { CollapsePanelProps, CollapseProps } from "./collapse";
 
-export { default as ColorPicker } from "./color-picker";
+export { ColorPickerPanel, default as ColorPicker } from "./color-picker";
 export type { ColorPickerProps } from "./color-picker";
 
-export { default as DatePicker } from "./date-picker";
+export { DatePickerPanel, default as DatePicker } from "./date-picker";
 export type { DatePickerProps } from "./date-picker";
 
 export { Descriptions, DescriptionsItem } from "./descriptions";
@@ -103,8 +106,9 @@ export type {
 
 export { default as message } from "./message";
 export type { MessageOptions } from "./message";
+export { MessagePanel, NoticePanel } from "./notice/content";
 
-export { modal, default as Modal } from "./modal";
+export { modal, ModalPanel, default as Modal } from "./modal";
 export type { ModalApiProps, ModalProps } from "./modal";
 
 export { default as notice } from "./notice";
@@ -113,14 +117,17 @@ export type { NoticeOptions } from "./notice";
 export { default as Page } from "./page";
 export type { PageProps } from "./page";
 
-export { default as Poptip } from "./poptip";
+export { PoptipPanel, default as Poptip } from "./poptip";
 export type { PoptipProps } from "./poptip";
 
-export { default as Popconfirm } from "./popconfirm";
+export { PopconfirmPanel, default as Popconfirm } from "./popconfirm";
 export type { PopconfirmProps } from "./popconfirm";
 
 export { default as Progress } from "./progress";
 export type { ProgressProps, ProgressStatus, ProgressStroke, ProgressType } from "./progress";
+
+export { default as Ripple } from "./ripple";
+export type { RippleInstance, RippleOptions, RippleProps, RippleTrigger } from "./ripple";
 
 export { default as QRCode } from "./qrcode";
 export type { QRCodeErrorLevel, QRCodeProps, QRCodeStatus } from "./qrcode";
@@ -167,7 +174,7 @@ export type { SplitterPanelProps, SplitterProps } from "./splitter";
 export { default as Table } from "./table";
 export type { Column, SortState, TableKey, TableProps, TableRecord, TableTreeRow } from "./table";
 
-export { default as Tooltip } from "./tooltip";
+export { TooltipPanel, default as Tooltip } from "./tooltip";
 export type { TooltipProps } from "./tooltip";
 
 export { TabPanel, Tabs } from "./tabs";

@@ -29,6 +29,7 @@ Freely output colors.
 | Property      | Description                                                     | Type                      | Default     |
 | ------------- | --------------------------------------------------------------- | ------------------------- | ----------- |
 | modelValue    | Color value, can use `v-model` for two-way binding              | string                    | -           |
+| opened        | Whether the color panel is displayed by default                 | boolean                   | false       |
 | mode          | Color display type, provides 3 modes (`hex` , `rgb` ,`hsl`)     | string                    | 'hex'       |
 | presets       | Custom color palette                                            | string[]                  | -           |
 | disabledAlpha | Whether to disable transparency                                 | boolean                     | false       |

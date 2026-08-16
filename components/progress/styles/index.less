@@ -6,7 +6,7 @@
   width: 100%;
   .k-progress-inner {
     display: inline-block;
-    border-radius: 10px;
+    border-radius: var(--kui-control-radius);
     background-color: var(--kui-color-bg-component);
     stroke: var(--kui-color-bg-component);
     overflow: hidden;
@@ -14,7 +14,7 @@
   }
   .k-progress-bg {
     height: 8px;
-    border-radius: 10px;
+    border-radius: var(--kui-control-radius);
     background-color: var(--kui-color-primary);
     stroke: var(--kui-color-primary);
     width: 30%;
@@ -99,7 +99,7 @@
       height: 100%;
       background-color: var(--kui-color-bg);
       opacity: 0;
-      border-radius: 10px;
+      border-radius: inherit;
       animation: k-progress-active 2.4s linear infinite;
     }
   }

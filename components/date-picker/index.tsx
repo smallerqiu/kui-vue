@@ -15,6 +15,7 @@ import {
 import {
   computed,
   defineComponent,
+  h,
   inject,
   isRef,
   nextTick,
@@ -85,6 +86,7 @@ const datePickerProps = {
   presets: Array as PropType<DatePickerPresetsType[]>,
   disabled: { type: Boolean as BooleanType },
   opened: { type: Boolean as BooleanType },
+  panelOnly: { type: Boolean as BooleanType },
   clearable: { type: Boolean as BooleanType, default: true },
   editable: { type: Boolean as BooleanType, default: true },
   placeholder: { type: [String, Array] as PropType<string | string[]>, default: "" },
@@ -136,9 +138,9 @@ const DatePicker = defineComponent({
     });
 
     // --- 状态定义 ---
-    const isVisible = ref(props.opened);
+    const isVisible = ref(props.opened || props.panelOnly);
     const isFocus = ref(false);
-    const rendered = ref(props.opened);
+    const rendered = ref(props.opened || props.panelOnly);
     const currentPlacement = ref(props.placement);
     const left = ref(0);
     const top = ref(0);
@@ -208,7 +210,7 @@ const DatePicker = defineComponent({
     };
 
     const openChange = (opened: boolean) => {
-      isVisible.value = opened;
+      isVisible.value = props.panelOnly || opened;
       emit("openChange", opened);
     };
 
@@ -334,13 +336,13 @@ const DatePicker = defineComponent({
           innerValue.value = dates;
           syncTextFromValue();
 
-          if (closePanel) openChange(false);
+          if (closePanel && !props.panelOnly) openChange(false);
         }
       } else {
         emit("update:modelValue", formatOutputValue(innerValue.value));
         emit("change", innerValue.value, getStr(innerValue.value));
         syncTextFromValue();
-        if (closePanel) openChange(false);
+        if (closePanel && !props.panelOnly) openChange(false);
       }
     };
 
@@ -891,13 +893,15 @@ const DatePicker = defineComponent({
       });
     };
     onMounted(() => {
-      if (props.opened) updatePosition();
-      document.addEventListener("scroll", updatePosition, true);
+      if (!props.panelOnly) {
+        if (props.opened) updatePosition();
+        document.addEventListener("scroll", updatePosition, true);
+      }
     });
     onUnmounted(() => {
       cancelAnimationFrame(positionRaf);
       document.removeEventListener("click", handleClickOutside);
-      document.removeEventListener("scroll", updatePosition, true);
+      if (!props.panelOnly) document.removeEventListener("scroll", updatePosition, true);
     });
 
     watch(
@@ -963,13 +967,15 @@ const DatePicker = defineComponent({
       ];
       const dateIcon = props.mode == "time" ? Clock : props.dateIcon || CalendarDays;
       const overlayProps = {
-        class: "k-datepicker-overlay",
+        class: ["k-datepicker-overlay", { "k-datepicker-panel": props.panelOnly }],
         ref: refPopper,
-        style: {
-          left: `${left.value}px`,
-          top: `${top.value}px`,
-          transformOrigin: transOrigin.value,
-        },
+        style: props.panelOnly
+          ? undefined
+          : {
+              left: `${left.value}px`,
+              top: `${top.value}px`,
+              transformOrigin: transOrigin.value,
+            },
         mode: props.mode,
       };
 
@@ -1077,25 +1083,31 @@ const DatePicker = defineComponent({
           <div class="k-picker-extra-footer">{slots.footer({ emit: extraEmit })}</div>
         ) : null;
       };
-      const overlay = rendered.value ? (
-        <Teleport to={getPopupContainer()}>
-          <Transition name="k-date-picker">
-            <div v-show={isVisible.value} {...overlayProps}>
-              {renderPresets()}
-              <div class="k-picker-container">
-                {renderExtraHeader()}
-                {renderHeader()}
-                {currentView.value === "year" && renderYearTable()}
-                {currentView.value === "month" && renderMonthTable()}
-                {currentView.value === "date" && renderDateTable()}
-                {currentView.value === "time" && renderTimePicker()}
-                {renderFooter()}
-                {renderExtraFooter()}
-              </div>
-            </div>
-          </Transition>
-        </Teleport>
+      const panel = rendered.value ? (
+        <div v-show={isVisible.value} {...overlayProps}>
+          {renderPresets()}
+          <div class="k-picker-container">
+            {renderExtraHeader()}
+            {renderHeader()}
+            {currentView.value === "year" && renderYearTable()}
+            {currentView.value === "month" && renderMonthTable()}
+            {currentView.value === "date" && renderDateTable()}
+            {currentView.value === "time" && renderTimePicker()}
+            {renderFooter()}
+            {renderExtraFooter()}
+          </div>
+        </div>
       ) : null;
+
+      const overlay = props.panelOnly ? (
+        panel
+      ) : (
+        <Teleport to={getPopupContainer()}>
+          <Transition name="k-date-picker">{panel}</Transition>
+        </Teleport>
+      );
+
+      if (props.panelOnly) return panel;
 
       return (
         <div class={classes} ref={refSelection} tabindex={props.disabled ? undefined : 0}>
@@ -1110,6 +1122,16 @@ const DatePicker = defineComponent({
       );
     };
   },
+});
+
+export const DatePickerPanel = defineComponent({
+  name: "DatePickerPanel",
+  inheritAttrs: false,
+  props: datePickerProps,
+  setup:
+    (props, { attrs, slots }) =>
+    () =>
+      h(DatePicker, { ...attrs, ...props, panelOnly: true }, slots),
 });
 
 export default DatePicker;

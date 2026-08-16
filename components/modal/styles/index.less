@@ -32,13 +32,14 @@
     border: 1px solid var(--kui-popup-border);
     z-index: 1001;
     outline: 0;
-    border-radius: var(--kui-popup-radius);
+    border-radius: var(--kui-card-radius);
     top: 100px;
     overflow: hidden;
     margin: 0 auto;
     box-shadow: var(--kui-popup-shadow);
     min-width: 200px;
     width: 480px;
+    box-sizing: border-box;
   }
 
   .k-modal-content {
@@ -171,7 +172,7 @@
     background: var(--kui-popup-bg);
     border-radius: var(--kui-border-radius);
     padding: 20px;
-    border-radius: var(--kui-popup-radius);
+    border-radius: var(--kui-card-radius);
     overflow: hidden;
   }
 
@@ -263,4 +264,19 @@
 
 .k-modal-zoom-leave-active {
   animation: k-modal-zoom 0.25s cubic-bezier(0.78, 0.14, 0.15, 0.86) reverse;
+}
+
+.k-modal.k-modal-panel {
+  position: relative;
+
+  .k-modal-wrap,
+  .k-modal-inner {
+    width: auto;
+    height: auto;
+    position: static;
+    inset: auto;
+    transform: none;
+    margin: 0;
+    overflow: visible;
+  }
 }

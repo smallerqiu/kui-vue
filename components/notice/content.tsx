@@ -1,5 +1,5 @@
 import { CircleAlert, CircleCheck, CircleX, Info, Loading, X } from "kui-icons";
-import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, h, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
 import type { BooleanType, NoticeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
@@ -19,7 +19,7 @@ export const contentProps = {
 
 export type ContentProps = ExtractPropTypes<typeof contentProps>;
 
-export default defineComponent({
+const NoticeContent = defineComponent({
   props: contentProps,
   setup(props, { emit }) {
     const onClose = () => {
@@ -39,7 +39,7 @@ export default defineComponent({
         `k-${noticeType}-box`,
         {
           [`k-${noticeType}-${type}`]: type,
-          "k-notice-has-icon": AlertIcon,
+          "k-notice-has-icon": AlertIcon && noticeType == "notice",
         },
       ];
 
@@ -76,3 +76,25 @@ export default defineComponent({
     };
   },
 });
+
+export const MessagePanel = defineComponent({
+  name: "MessagePanel",
+  inheritAttrs: false,
+  props: contentProps,
+  setup:
+    (props, { attrs, slots }) =>
+    () =>
+      h(NoticeContent, { ...attrs, ...props, noticeType: "message", closable: false }, slots),
+});
+
+export const NoticePanel = defineComponent({
+  name: "NoticePanel",
+  inheritAttrs: false,
+  props: contentProps,
+  setup:
+    (props, { attrs, slots }) =>
+    () =>
+      h(NoticeContent, { ...attrs, ...props, noticeType: "notice", closable: false }, slots),
+});
+
+export default NoticeContent;

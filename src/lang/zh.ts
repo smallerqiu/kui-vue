@@ -33,6 +33,7 @@ export default {
     langTip: "Switch to English",
     start: "开始",
     universal: "通用",
+    effects: "视觉特效",
     layout: "布局",
     navigation: "导航",
     form: "表单",

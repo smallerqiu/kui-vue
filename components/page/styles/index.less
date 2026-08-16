@@ -105,6 +105,11 @@
   }
 }
 .k-page-fill:not(.k-page-disabled) {
+  .k-pager-item:not(.k-pager-next, .k-pager-prev) {
+    border-color: var(--kui-theme-fill-border);
+    background-color: var(--kui-theme-fill-bg);
+  }
+
   .k-pager-item:not(.k-pager-item-disabled, .k-pager-item-active) {
     &:hover {
       background-color: var(--kui-color-item-hover);

@@ -1,5 +1,6 @@
 import {
   defineComponent,
+  h,
   nextTick,
   onMounted,
   onUnmounted,
@@ -13,9 +14,9 @@ import {
   type VNode,
   type VNodeChild,
 } from "vue";
+import { usePopupContainer } from "../config/popup";
 import { type BooleanType, type PlacementsType } from "../const/types";
 import { colors } from "../const/var";
-import { usePopupContainer } from "../config/popup";
 import { isColor } from "../utils/color";
 import { setPlacement } from "../utils/placement";
 import { cloneNodes, getChildren } from "../utils/vnode";
@@ -30,6 +31,7 @@ const tooltipProps = {
     type: String as PropType<PlacementsType>,
     default: "top",
   },
+  panelOnly: Boolean as BooleanType,
 };
 
 export type TooltipProps = ExtractPropTypes<typeof tooltipProps>;
@@ -39,8 +41,8 @@ const Tooltip = defineComponent({
   props: tooltipProps,
   setup(props, { slots, attrs, emit }) {
     const getPopupContainer = usePopupContainer();
-    const rendered = ref(props.show);
-    const visible = ref(props.show);
+    const rendered = ref(props.show || props.panelOnly);
+    const visible = ref(props.show || props.panelOnly);
     const refPopper = ref<HTMLElement | null>(null);
     const refSelection = ref<HTMLElement | null>(null);
     const left = ref(0);
@@ -49,7 +51,7 @@ const Tooltip = defineComponent({
     const transOrigin = ref("bottom");
     const hideTimer = ref<ReturnType<typeof setTimeout>>();
     const showTimer = ref<ReturnType<typeof setTimeout>>();
-    const anchorVisible = ref(false);
+    const anchorVisible = ref(props.panelOnly);
     let positionRaf = 0;
     let intersectionObserver: IntersectionObserver | null = null;
     let resizeObserver: ResizeObserver | null = null;
@@ -77,10 +79,12 @@ const Tooltip = defineComponent({
     };
 
     onMounted(() => {
+      if (props.panelOnly) return;
       updatePosition();
       window.addEventListener("resize", updatePosition);
       document.addEventListener("scroll", updatePosition, true);
-      const selection = (refSelection.value as HTMLElement & { $el?: Element })?.$el || refSelection.value;
+      const selection =
+        (refSelection.value as HTMLElement & { $el?: Element })?.$el || refSelection.value;
       if (selection && typeof IntersectionObserver !== "undefined") {
         intersectionObserver = new IntersectionObserver(([entry]) => {
           anchorVisible.value = entry.isIntersecting;
@@ -194,10 +198,12 @@ const Tooltip = defineComponent({
         style: styles,
         ref: refPopper,
         onMouseenter: () => {
+          if (props.panelOnly) return;
           clearTimeout(hideTimer.value);
           if (!props.disabled) updateShow(true);
         },
         onMouseleave: () => {
+          if (props.panelOnly) return;
           showTimer.value = setTimeout(() => {
             if (!props.show) updateShow(false);
           }, 300);
@@ -222,25 +228,45 @@ const Tooltip = defineComponent({
             : "currentcolor",
         } as CSSProperties,
       };
-      const tooltipOverlay = rendered.value ? (
-        <Teleport to={getPopupContainer()}>
-          <Transition name={`k-${preCls}`}>
-            <div v-show={visible.value && anchorVisible.value} {...overlayProps}>
-              <div {...contentProps}>
-                <div class={`k-${preCls}-title`}>{title}</div>
-                <div class={`k-${preCls}-arrow`}>
-                  <svg {...arrowProps} viewBox="0 0 24 7">
-                    <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z"></path>
-                  </svg>
-                </div>
-              </div>
+      const panel = rendered.value ? (
+        <div
+          v-show={visible.value && anchorVisible.value}
+          {...overlayProps}
+          class={[overlayProps.class, { "k-tooltip-panel": props.panelOnly }]}
+          style={props.panelOnly ? undefined : overlayProps.style}
+          onMouseenter={props.panelOnly ? undefined : overlayProps.onMouseenter}
+          onMouseleave={props.panelOnly ? undefined : overlayProps.onMouseleave}
+        >
+          <div {...contentProps}>
+            <div class={`k-${preCls}-title`}>{title}</div>
+            <div class={`k-${preCls}-arrow`}>
+              <svg {...arrowProps} viewBox="0 0 24 7">
+                <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z"></path>
+              </svg>
             </div>
-          </Transition>
-        </Teleport>
+          </div>
+        </div>
       ) : null;
+
+      if (props.panelOnly) return panel;
+
+      const tooltipOverlay = (
+        <Teleport to={getPopupContainer()}>
+          <Transition name={`k-${preCls}`}>{panel}</Transition>
+        </Teleport>
+      );
 
       return [nodeWrapper, tooltipOverlay];
     };
   },
+});
+export const TooltipPanel = defineComponent({
+  name: "TooltipPanel",
+  inheritAttrs: false,
+  props: tooltipProps,
+  setup:
+    (props, { attrs, slots }) =>
+    () =>
+      h(Tooltip, { ...attrs, ...props, panelOnly: true }, slots),
 });
 export default Tooltip;
