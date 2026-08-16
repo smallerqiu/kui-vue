@@ -44,3 +44,4 @@ Switch selector.
 | false-text         | Text displayed when `checked` is `false`                                  | string                   | -       |
 | valueType          | The type of output value for the unit option                              | [string,number,boolean]  | boolean |
 | onChange           | Triggered when `checked` changes, callback                                | (value: boolean) => void | -       |
+| shape              | Switch shape: `round` or `square`                                         | ShapeType                | round   |

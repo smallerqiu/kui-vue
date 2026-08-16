@@ -44,3 +44,4 @@
 | false-text         | 当 `checked` 为 `false` 时 ，显示的文字                   | string                   | -      |
 | valueType          | 单位选项的输出值的类型                                    | [string,number,boolean]     | boolean  |
 | onChange           | 当 `checked` 改变时触发，回调                             | (value: boolean) => void | -      |
+| shape              | 开关形状，可选 `round`、`square`                          | ShapeType                | round  |

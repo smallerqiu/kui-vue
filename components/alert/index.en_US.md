@@ -37,3 +37,5 @@ Warning prompts to display information that needs attention.
 | bordered    | Whether to display the border                                                    | boolean        | false   |
 | onClose     | Callback function triggered when closing                                         | ()=>void     | -       |
 | icon        | Custom icon                                                                      | IconPath[]   | -       |
+| theme       | Appearance: `default`, `fill`, `outline`, or `plain`                             | ThemeType    | default |
+| shape       | Shape: `round`, `circle`, or `square`                                            | ShapeType    | round   |

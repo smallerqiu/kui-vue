@@ -136,3 +136,9 @@ const columns = [
 | colSpan  | Column merge unit, when 0, the current column will not be rendered | number                                             | -       |
 | render   | Custom rendering                                                   | (h, record, colIndex, rowIndex, col) => VNodeChild | -       |
 | scroll   | Scrolling attributes                                               | {x:[number ,string],y:[number , string]}           | -       |
+
+### Common appearance
+
+| Property | Description | Type      | Default |
+| -------- | ----------- | --------- | ------- |
+| shape    | Table shape | ShapeType | round   |

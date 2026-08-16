@@ -36,3 +36,4 @@ Separate long lists using pagination, loading only one page at a time.
 | size         | When value is 'small', displays small size                                      | string                               | -                |
 | theme        | The theme of page                                                               | string                               | fill             |
 | onChange     | Callback when page number or page size changes, returns the changed page number | (page:number, pageSize:number)=>void | -                |
+| shape        | Pagination item shape                                                        | ShapeType                           | round            |

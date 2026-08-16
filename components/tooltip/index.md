@@ -32,3 +32,4 @@
 | width     | 展示的宽度,默认为内容区域的大小                                                                                                                                            | string       | -      |
 | disabled  | 禁用状态                                                                                                                                                                   | boolean        | false  |
 | show      | 初始化时是否展示                                                                                                                                                           | boolean        | false  |
+| panelOnly | 仅渲染提示面板，不需要触发元素                                                                                                                                             | boolean        | false  |

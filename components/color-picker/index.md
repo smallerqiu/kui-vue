@@ -41,3 +41,4 @@
 | onUpdateMode  | 颜色模式更新时触发                                 | (mode: ColorMode) => void | -           |
 | onChange      | 颜色值改变的时候触发,返回颜色的值                  | (color: string) => void   | -           |
 | onOpenChange  | 颜色选择器展开或者收起的时候触发                   | (opened: boolean) => void | -           |
+| panelOnly     | 仅渲染颜色选择面板，不显示触发输入框               | boolean                   | false       |

@@ -80,3 +80,9 @@ Parameter options is an object, specific description as follows:
 | color      | Modal icon color, available when type is toast                                                                                                                | string     | -       |
 | onOk       | Callback when OK is clicked                                                                                                                                   | () => void | -       |
 | onCancel   | Callback when Cancel is clicked                                                                                                                               | () => void | -       |
+
+### Panel presentation
+
+| Property  | Description                                              | Type    | Default |
+| --------- | -------------------------------------------------------- | ------- | ------- |
+| panelOnly | Render only the dialog panel without overlay or Teleport | boolean | false   |

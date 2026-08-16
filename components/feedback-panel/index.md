@@ -21,3 +21,5 @@
 | description | 辅助说明   | VNodeChild                                   | -       |
 | symbol      | 自定义标记 | IconType                                     | -       |
 | compact     | 紧凑显示   | boolean                                      | false   |
+| theme       | 外观主题   | ThemeType                                    | default |
+| shape       | 面板形状   | ShapeType                                    | round   |

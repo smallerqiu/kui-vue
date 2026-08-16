@@ -58,3 +58,10 @@
 | loading | 自定义 `status="loading"` 时的全局加载状态遮罩。       |
 | expired | 自定义 `status="expired"` 时的失效状态遮罩与重试文案。 |
 | scanned | 自定义 `status="scanned"` 时的已扫描状态遮罩。         |
+
+### 通用外观
+
+| 属性  | 说明       | 类型      | 默认值  |
+| ----- | ---------- | --------- | ------- |
+| theme | 二维码外观 | ThemeType | default |
+| shape | 二维码形状 | ShapeType | round   |

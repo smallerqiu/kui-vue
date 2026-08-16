@@ -37,6 +37,8 @@
 | accordion | 是否开启手风琴模式，开启后每次至多展开一个面板                | boolean                           | false  |
 | sample    | 是否开启简洁模式                                              | boolean                           | false  |
 | onChange  | 切换面板时触发回调，返回当前选项卡的 `name`                   | (key: string \| number) => void | -      |
+| theme     | 外观主题                                                     | ThemeType                       | default |
+| shape     | 面板形状                                                     | ShapeType                       | round   |
 
 ## Panel
 

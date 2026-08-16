@@ -7,10 +7,10 @@
     }"
   >
     <div class="local-theme-toolbar">
-      <div>
+      <Space vertical>
         <strong>Component overview</strong>
         <span>Light and dark component states</span>
-      </div>
+      </Space>
       <Space>
         <Button type="primary" theme="outline" @click="dark = !dark">
           {{ dark ? "Light mode" : "Dark mode" }}
@@ -358,10 +358,10 @@ const menuItems: MenuOptionsProps[] = [
   margin-bottom: 12px;
   padding: 2px;
 
-  > div {
-    display: grid;
-    gap: 2px;
-  }
+  // > div {
+  //   display: grid;
+  //   gap: 2px;
+  // }
 
   span {
     color: var(--kui-color-text-description);

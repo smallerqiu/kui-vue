@@ -35,3 +35,4 @@
 | cancelText | 取消按钮的文字，                                                                                                                                                           | string       | 取消   |
 | onCancel   | 点击取消的回调，                                                                                                                                                           | () => void   | -      |
 | onOk       | 点击确定的回调，                                                                                                                                                           | () => void   | -      |
+| panelOnly  | 仅渲染确认面板，不需要触发元素                                                                                                                                             | boolean      | false  |

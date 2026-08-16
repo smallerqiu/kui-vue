@@ -58,3 +58,10 @@ A component that converts text into QR codes, supporting custom colors and logo 
 | loading   | Custom overlay for `status="loading"`.                   |
 | expired   | Custom overlay and retry message for `status="expired"`. |
 | scanned   | Custom overlay for `status="scanned"`.                   |
+
+### Common appearance
+
+| Property | Description       | Type      | Default |
+| -------- | ----------------- | --------- | ------- |
+| theme    | QR appearance     | ThemeType | default |
+| shape    | QR container shape | ShapeType | round   |

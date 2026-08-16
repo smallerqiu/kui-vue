@@ -65,3 +65,10 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 | separator       | Separator                                         | string              | -         |
 | autoAnimate     | Trigger animation when target becomes visible     | boolean               | true      |
 | autoAnimateOnce | Run animation only once for auto-animate triggers | boolean               | true      |
+
+### Common appearance
+
+| Property | Description      | Type      | Default |
+| -------- | ---------------- | --------- | ------- |
+| theme    | Appearance theme | ThemeType | default |
+| shape    | Card shape       | ShapeType | round   |

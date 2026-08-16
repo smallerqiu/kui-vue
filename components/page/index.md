@@ -36,3 +36,4 @@
 | size         | 值为'small' 时，呈现小尺寸               | string                               | -                |
 | theme        | 主题                                     | string                               | fill             |
 | onChange     | 页码,页码组 改变的回调，返回改变后的页码 | (page:number, pageSize:number)=>void | -                |
+| shape        | 分页项形状                               | ShapeType                           | round            |

@@ -48,3 +48,10 @@ Previewable images.
 | Property | Description | Type     | Default |
 | -------- | ----------- | -------- | ------- |
 | data     | Image data  | string[] | -       |
+
+### Common appearance
+
+| Property | Description      | Type      | Default |
+| -------- | ---------------- | --------- | ------- |
+| theme    | Appearance theme | ThemeType | default |
+| shape    | Image shape      | ShapeType | round   |

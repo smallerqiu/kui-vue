@@ -136,3 +136,9 @@ const columns = [
 | colSpan | 列合并单位,为 0 时将不渲染当前列 | number                                             | -      |
 | render  | 自定义渲染                       | (h, record, colIndex, rowIndex, col) => VNodeChild | -      |
 | scroll  | 滚动属性                         | {x:[number ,string],y:[number , string]}           | -      |
+
+### 通用外观
+
+| 属性  | 说明     | 类型      | 默认值 |
+| ----- | -------- | --------- | ------ |
+| shape | 表格形状 | ShapeType | round  |

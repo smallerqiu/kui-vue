@@ -1,7 +1,7 @@
 {
   "name": "kui-vue",
   "private": false,
-  "version": "5.5.1",
+  "version": "5.6.0",
   "type": "module",
   "description": "A lightweight desktop UI component library suitable for Vue.js 3.",
   "main": "lib/index.cjs",
@@ -65,7 +65,7 @@
     "build:umd": "vite build --config vite.config.umd.ts",
     "build:css": "vite build --config vite.config.css.ts",
     "build:types:compat": "node scripts/create-cjs-types.mjs",
-    "build:docs": "vite build --config vite.config.docs.ts",
+    "build:docs": "pnpm check:api-docs && vite build --config vite.config.docs.ts",
     "preview": "vite preview --outDir docs",
     "typecheck": "vue-tsc -p tsconfig.app.json --noEmit --pretty false",
     "typecheck:exports": "tsc -p tsconfig.type-exports.json --noEmit",

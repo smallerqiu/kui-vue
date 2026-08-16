@@ -65,3 +65,10 @@
 | separator       | 分隔符                       | string            | -         |
 | autoAnimate     | 当目标可见时触发动画         | boolean             | true      |
 | autoAnimateOnce | 自动动画触发器仅运行一次动画 | boolean             | true      |
+
+### 通用外观
+
+| 属性  | 说明     | 类型      | 默认值  |
+| ----- | -------- | --------- | ------- |
+| theme | 外观主题 | ThemeType | default |
+| shape | 卡片形状 | ShapeType | round   |

@@ -57,7 +57,8 @@ Two concepts: row `row` and column `col`. Specific usage is as follows:
 | span                     | Occupied columns from 0~24; `0` hides the column            | number          | -       |
 | offset                   | Left offset from 0~24                                       | number          | -       |
 | order                    | Column order from 0~24                                      | number          | -       |
-| push / pull              | Move the column right / left by 0~24 columns                | number          | -       |
+| push                     | Move the column right by 0~24 columns                       | number          | -       |
+| pull                     | Move the column left by 0~24 columns                        | number          | -       |
 | flex                     | Flex fill, such as `1`, `auto`, `100px`, or `1 1 200px`     | number / string | -       |
 | xs                       | `<576px`; accepts a span number or a responsive object      | number / ColSize | -      |
 | sm                       | `≥576px`                                                    | number / ColSize | -      |

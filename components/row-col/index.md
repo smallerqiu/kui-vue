@@ -57,7 +57,8 @@
 | span                     | 栅格占位格数，可选值为 0~24，`0` 表示隐藏             | number                      | -      |
 | offset                   | 栅格左侧间隔格数，可选值为 0~24                       | number                      | -      |
 | order                    | 栅格顺序，可选值为 0~24                               | number                      | -      |
-| push / pull              | 栅格向右 / 向左移动的格数，可选值为 0~24              | number                      | -      |
+| push                     | 栅格向右移动的格数，可选值为 0~24                     | number                      | -      |
+| pull                     | 栅格向左移动的格数，可选值为 0~24                     | number                      | -      |
 | flex                     | Flex 布局填充，例如 `1`、`auto`、`100px`、`1 1 200px` | number / string             | -      |
 | xs                       | `<576px`，数字表示 span，也支持响应式对象              | number / ColSize            | -      |
 | sm                       | `≥576px`                                              | number / ColSize            | -      |

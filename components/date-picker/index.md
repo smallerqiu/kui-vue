@@ -71,3 +71,4 @@
 | onOpenChange | 下拉框展开或收起时触发                                                                                             | (opened: boolean) => void                                   | -          |
 | onClear      | 点击清除按钮时触发                                                                                                 | () => void                                                  | -          |
 | opened       | 默认是否展示下拉框                                                                                                 | boolean                                                       | false      |
+| panelOnly    | 仅渲染日期选择面板，不显示触发输入框                                                                               | boolean                                                       | false      |

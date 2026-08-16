@@ -41,3 +41,4 @@ Freely output colors.
 | onUpdateMode  | Triggered when the color mode is updated                        | (mode: ColorMode) => void | -           |
 | onChange      | Triggered when the color value changes, returns the color value | (color: string) => void   | -           |
 | onOpenChange  | Triggered when the color picker expands or collapses            | (opened: boolean) => void | -           |
+| panelOnly     | Render only the color panel without the trigger input           | boolean                   | false       |

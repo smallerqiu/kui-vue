@@ -46,3 +46,9 @@ Commonly seen in detail page information display.
 | label    | Description of the content  | string \| slot | -       |
 | span     | number of columns displayed | number         | 1       |
 | type     | Show title or content       | string         | -       |
+
+### Common appearance
+
+| Property | Description             | Type      | Default |
+| -------- | ----------------------- | --------- | ------- |
+| shape    | Description list shape  | ShapeType | round   |

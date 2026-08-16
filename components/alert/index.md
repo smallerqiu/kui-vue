@@ -37,3 +37,5 @@
 | closable    | 是否显示关闭按钮                                                    | boolean        | false   |
 | onClose     | 关闭时触发的回调函数                                                | ()=>void     | -       |
 | icon        | 自定义的图标                                                        | IconPath[]   | -       |
+| theme       | 外观主题，可选 `default`、`fill`、`outline`、`plain`                | ThemeType    | default |
+| shape       | 形状，可选 `round`、`circle`、`square`                              | ShapeType    | round   |

@@ -38,3 +38,4 @@
 | show      | 默认是否展示                                                                                                                                                               | boolean         | false  |
 | dark      | 是否使用暗色主题                                                                                                                                                           | boolean         | false  |
 | onClose   | 关闭时的回调                                                                                                                                                               | () => void    | -      |
+| panelOnly | 仅渲染气泡面板，不需要触发元素                                                                                                                                             | boolean       | false  |

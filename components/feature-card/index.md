@@ -20,3 +20,5 @@
 | title    | 标题         | string   | -      |
 | desc     | 描述内容     | string   | -      |
 | bordered | 是否显示边框 | boolean    | false  |
+| theme    | 外观主题     | ThemeType | default |
+| shape    | 卡片形状     | ShapeType | round   |
