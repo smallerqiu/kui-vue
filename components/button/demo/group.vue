@@ -1,5 +1,5 @@
 <template>
-  <Space>
+  <Space vertical>
     <ButtonGroup>
       <Button>Address</Button>
       <Button :icon="User"></Button>
@@ -24,6 +24,11 @@
       </template>
       <template #icon><Icon :type="UserPlus" /></template>
     </DropdownButton>
+    <ButtonGroup>
+      <Button>Left</Button>
+      <Button>Center</Button>
+      <Button>Right</Button>
+    </ButtonGroup>
   </Space>
 </template>
 <script setup lang="ts">

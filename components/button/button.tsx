@@ -109,7 +109,20 @@ const Button = defineComponent({
       const iconType = props.loading ? Loading : props.icon;
 
       if (iconType) {
-        childNodes.push(<Icon type={iconType} spin={props.loading} />);
+        childNodes.push(
+          props.loading ? (
+            <span
+              class={[
+                "k-btn-loading-icon",
+                { "k-btn-loading-icon-replace": !!props.icon },
+              ]}
+            >
+              <Icon type={iconType} spin />
+            </span>
+          ) : (
+            <Icon type={iconType} />
+          )
+        );
       }
 
       const processedChildren = children.value?.map((c: VNode) => {

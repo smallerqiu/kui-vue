@@ -18,13 +18,15 @@
   transition:
     height var(--kui-motion-duration-slow) var(--kui-motion-easing),
     width var(--kui-motion-duration-slow) var(--kui-motion-easing),
+    opacity var(--kui-motion-duration) var(--kui-motion-easing),
     filter var(--kui-motion-duration-slow) var(--kui-motion-easing),
     outline 0.1s ease-in-out,
     font-size 0.3s ease;
   z-index: 0;
   white-space: nowrap;
   cursor: pointer;
-  gap: 8px;
+  --kui-button-gap: 8px;
+  gap: var(--kui-button-gap);
   outline: 0px solid transparent;
   outline-offset: 1px;
 
@@ -48,7 +50,7 @@
   height: var(--kui-control-height-sm);
   font-size: var(--kui-font-size-sm);
   padding: 0 8px;
-  gap: 4px;
+  --kui-button-gap: 4px;
 
   [class^="k-icon"] {
     font-size: var(--kui-font-size-sm);
@@ -64,7 +66,7 @@
   height: var(--kui-control-height-lg);
   font-size: var(--kui-font-size-lg);
   padding: 0 15px;
-  gap: 10px;
+  --kui-button-gap: 10px;
   border-radius: var(--kui-border-radius-lg);
 
   .k-icon {
@@ -118,6 +120,54 @@
 
 .k-btn-loading {
   opacity: 0.8;
+}
+
+.k-btn-loading-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 1em;
+  overflow: hidden;
+  transform-origin: center;
+  animation: k-btn-loading-icon-in var(--kui-motion-duration-slow) var(--kui-motion-easing)
+    both;
+
+  &.k-btn-loading-icon-replace {
+    animation-name: k-btn-loading-icon-replace-in;
+  }
+}
+
+@keyframes k-btn-loading-icon-in {
+  from {
+    width: 0;
+    margin-right: calc(0px - var(--kui-button-gap));
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  to {
+    width: 1em;
+    margin-right: 0;
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes k-btn-loading-icon-replace-in {
+  from {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .k-btn-loading-icon {
+    animation-duration: 0.01ms;
+  }
 }
 
 .k-btn-circle {
