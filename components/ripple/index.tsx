@@ -47,8 +47,14 @@ const Ripple = defineComponent({
     const contentHeight = ref<number>();
     let instance: RippleInstance | null = null;
     let sizeObserver: ResizeObserver | null = null;
+    let mountFrame = 0;
 
-    const options = (): RippleOptions => ({ ...props });
+    // Vue includes every declared prop on `props`, even when it was not
+    // provided. Do not let those undefined entries overwrite engine defaults.
+    const options = (): RippleOptions =>
+      Object.fromEntries(
+        Object.entries(props).filter(([, value]) => value !== undefined)
+      ) as RippleOptions;
     const isNative = () => supported.value && nativeReady.value && !failed.value;
 
     const measure = () => {
@@ -90,11 +96,15 @@ const Ripple = defineComponent({
         await nextTick();
         connectSizeObserver();
       }
+      await new Promise<void>((resolve) => {
+        mountFrame = requestAnimationFrame(() => resolve());
+      });
       create();
     });
 
     watch(props, () => instance?.setOptions(options()), { deep: true });
     onBeforeUnmount(() => {
+      cancelAnimationFrame(mountFrame);
       sizeObserver?.disconnect();
       instance?.destroy();
     });
@@ -139,6 +149,7 @@ const Ripple = defineComponent({
               inset: 0,
               width: "100%",
               height: "100%",
+              display: "block",
               pointerEvents: "none",
             },
           }),

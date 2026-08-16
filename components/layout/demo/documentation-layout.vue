@@ -51,7 +51,7 @@ import { LogoKui } from "kui-icons";
 </script>
 <style scoped>
 .demo-docs-layout {
-  height: 100vh;
+  height: 60vh;
   display: flex;
   flex-direction: column;
 }

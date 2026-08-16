@@ -43,7 +43,7 @@
     position: absolute;
     z-index: 0;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    background-color: var(--kui-color-item-active);
+    background-color: var(--kui-color-bg);
     border-radius: var(--kui-border-radius);
     pointer-events: none;
   }
@@ -320,11 +320,11 @@
       outline: 0px solid transparent;
     }
     &:hover:not(:disabled)::after {
-      background-color: var(--kui-color-item-active);
+      background-color: var(--kui-color-bg);
     }
   }
   .k-btn-primary::after {
-    background-color: var(--kui-color-item-active);
+    background-color: var(--kui-color-bg);
   }
 }
 .k-radio-button-changed {

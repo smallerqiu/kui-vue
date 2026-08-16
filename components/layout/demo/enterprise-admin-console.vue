@@ -90,7 +90,7 @@ const items = [
 </script>
 <style scoped>
 .admin-wrapper {
-  min-height: 100vh;
+  min-height: 60vh;
   border: 1px solid var(--kui-color-border);
 }
 

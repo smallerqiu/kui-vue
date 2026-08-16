@@ -1,10 +1,18 @@
-import { defineComponent, provide, toRefs, type ExtractPropTypes, type PropType } from "vue";
+import {
+  defineComponent,
+  provide,
+  toRefs,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
 import { getChildren } from "../utils/vnode";
 import Avatar from "./avatar";
 import { avatarGroupContextKey, type AvatarShape, type AvatarSize } from "./context";
 
 const avatarGroupProps = {
   maxCount: Number,
+  spacing: Number,
   shape: {
     type: String as PropType<AvatarShape>,
     default: "circle",
@@ -31,6 +39,11 @@ const AvatarGroup = defineComponent({
     return () => {
       const children = getChildren(slots.default?.());
       const { maxCount } = props;
+      const defaultOverlap =
+        typeof props.size === "number"
+          ? Math.max(0, Math.round(props.size / 4))
+          : { small: 6, default: 8, large: 10 }[props.size];
+      const overlap = Math.max(0, props.spacing ?? defaultOverlap);
 
       let childrenToShow = [...children];
 
@@ -48,6 +61,9 @@ const AvatarGroup = defineComponent({
 
       const groupProps = {
         class: "k-avatar-group",
+        style: {
+          "--kui-avatar-group-overlap": `-${overlap}px`,
+        } as CSSProperties,
       };
 
       return <div {...groupProps}>{childrenToShow}</div>;

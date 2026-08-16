@@ -193,7 +193,7 @@ export { default as Tag } from "./tag";
 export type { TagProps } from "./tag";
 
 export { Col, Row } from "./row-col";
-export type { ColProps, RowProps } from "./row-col";
+export type { ColProps, ColResponsiveSize, ColSize, RowProps } from "./row-col";
 
 export { default as Upload } from "./upload";
 export type { UploadChangeEvent, UploadContext, UploadFile, UploadProps } from "./upload";

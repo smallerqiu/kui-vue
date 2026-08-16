@@ -8,11 +8,11 @@
 
 完整燃烧和折射依赖实验性的 HTML-in-Canvas API。目前可在 Chrome Canary 149+ 开启 `chrome://flags/#canvas-draw-element` 后体验；生产环境需要参加 HTML-in-Canvas Origin Trial。其他浏览器会保留内容并降级展示外围火焰。
 
-[基础用法](./demo/basic.vue)
+[基础用法](./demo/basic.vue?show=vertical)
 
 - 使用默认冷色火焰包裹交互内容。
 
-[自定义火焰](./demo/custom.vue)
+[自定义火焰](./demo/custom.vue?show=vertical)
 
 - 配置暖色火焰、火星、烟雾和动画速度。
 

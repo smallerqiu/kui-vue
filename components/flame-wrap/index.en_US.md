@@ -8,11 +8,11 @@ Draws animated flames, sparks, smoke, and heat refraction around live content.
 
 Full burning and refraction rely on the experimental HTML-in-Canvas API. Test it in Chrome Canary 149+ with `chrome://flags/#canvas-draw-element` enabled. Production usage requires the HTML-in-Canvas Origin Trial. Other browsers preserve the content and fall back to the outer flame effect.
 
-[Basic](./demo/basic.vue)
+[Basic](./demo/basic.vue?show=vertical)
 
 - Wraps interactive content with the default cool flame.
 
-[Custom flame](./demo/custom.vue)
+[Custom flame](./demo/custom.vue?show=vertical)
 
 - Configures warm color, sparks, smoke, and animation speed.
 

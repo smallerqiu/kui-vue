@@ -8,11 +8,11 @@
 
 完整折射依赖实验性的 HTML-in-Canvas API。目前可在 Chrome Canary 149+ 开启 `chrome://flags/#canvas-draw-element` 后体验；生产环境需要参加 HTML-in-Canvas Origin Trial。其他浏览器会自动降级为 WebGL 波纹叠层。
 
-[基础用法](./demo/basic.vue)
+[基础用法](./demo/basic.vue?show=vertical)
 
 - 点击内容区域产生水波。
 
-[自定义效果](./demo/options.vue)
+[自定义效果](./demo/options.vue?show=vertical)
 
 - 使用 hover 触发并调整水波参数。
 
@@ -31,4 +31,3 @@
 | shine | 波峰高光强度 | `number` | `0.5` |
 | interval | 自动水波间隔秒数，`0` 表示关闭 | `number` | `0` |
 
-默认插槽用于放置被水波效果包裹的内容。

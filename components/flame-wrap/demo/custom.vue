@@ -12,18 +12,13 @@ import { FlameWrap } from "kui-vue";
       :sparks="2"
       :smoke="0.6"
       :radius="18"
-      :style="{
-        minHeight: '180px',
-        borderRadius: '18px',
-        background: 'var(--kui-color-bg-component)',
-      }"
     >
-      <div style="padding: 32px">
+      <Card :style="{ padding: '20px', height: '120px' }">
         <h3 style="margin: 0 0 8px">Warm flame</h3>
         <p style="margin: 0; color: var(--kui-color-text-secondary)">
           可以调整颜色、火焰高度、火星、烟雾和燃烧速度。
         </p>
-      </div>
+      </Card>
     </FlameWrap>
   </div>
 </template>

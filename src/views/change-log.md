@@ -15,6 +15,23 @@ vite 好像有缓存, 可手动清除
 rm -rf node_modules/.vite
 ```
 
+## 5.6.0
+
+`2026-8-16`
+
+- 新增 组件 `Ripple`。
+- 新增 组件 `FlameWrap`。
+- Menu 组件扩展优化。
+- Avatar 组件扩展优化。
+- Table 组件支持Tree 数据。
+- Badge 动画优化。
+- Grid 新增 flow 属性，支持 row dense 自动补位, 修复 Grid 的响应式样式及外部 class/style 不更新问题。
+- Row,Col 增加xl,sm 等属性支持响应式。
+- Notice 新增grouping属性.相同 grouping ,只弹出一个提示消息.
+- 一些Pop组件支持 Panel形式展示.
+- theme 切换默认优化.
+- ColorPicker 面板颜色拖选修复.
+
 ## 5.5.1
 
 `2026-8-9`

@@ -7,7 +7,7 @@ Code snippet
       :cols="{ xs: 2, md: 6, xl: 8 }"
       :x-gap="20"
       :y-gap="20"
-      auto-rows="120px"
+      auto-rows="200px"
       :style="{ gridAutoFlow: 'dense' }"
     >
       <GridItem v-for="item in features" :key="item.id" :span="item.span" :row-span="item.rowSpan">

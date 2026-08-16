@@ -33,6 +33,9 @@ Used to represent users or things, supports image, icon, or character display.
 
 ## AvatarGroup API
 
-| Property | Description                          | Type   | Default |
-| -------- | ------------------------------------ | ------ | ------- |
-| maxCount | Maximum number of avatars to display | number | -       |
+| Property | Description                                                     | Type                          | Default |
+| -------- | --------------------------------------------------------------- | ----------------------------- | ------- |
+| maxCount | Maximum number of avatars to display                            | number                        | -       |
+| size     | Sets child size and adjusts their overlap proportionally        | large, small, default, number | default |
+| spacing  | Child avatar overlap in pixels; `0` disables overlap            | number                        | auto    |
+| shape    | Sets the shape of all child avatars                             | circle, square, round         | circle  |

@@ -140,7 +140,6 @@ void main () {
   }
 
   vec2 offs = grad * uRefraction / uResolution;
-  vec4 base = page(pUv + offs);
   vec3 col;
   if (uDispersion > 0.001) {
     float d = uDispersion * 0.35;
@@ -154,9 +153,21 @@ void main () {
   }
   col += glint;
   col *= 1.0 - shade;
-  float effectAlpha = clamp(glint * 0.9 + shade * 0.5, 0.0, 0.85);
-  outColor = vec4(col, max(base.a, effectAlpha));
+  // The layout subtree remains interactive in the DOM. Its WebGL copy must
+  // fully cover it, otherwise transparent texels reveal a stationary second
+  // copy underneath the refracted one.
+  outColor = vec4(col, 1.0);
 }`;
+
+function getBackgroundStack(element: HTMLElement): string[] {
+  const colors: string[] = [];
+  for (let current: HTMLElement | null = element.parentElement; current; current = current.parentElement) {
+    const color = getComputedStyle(current).backgroundColor;
+    if (color === "transparent" || /rgba\([^)]*,\s*0(?:\.0+)?\s*\)$/.test(color)) continue;
+    colors.push(color);
+  }
+  return colors.reverse();
+}
 
 export function supportsHtmlInCanvas(): boolean {
   if (typeof document === "undefined") return false;
@@ -200,6 +211,10 @@ export function createRipple(
     paintable.onpaint = () => {
       try {
         sourceCtx!.reset();
+        for (const background of getBackgroundStack(content)) {
+          sourceCtx!.fillStyle = background;
+          sourceCtx!.fillRect(0, 0, source.width, source.height);
+        }
         const transform = sourceCtx!.drawElementImage!(content, 0, 0);
         // HTML-in-Canvas keeps the interactive DOM subtree separate from the
         // pixels drawn into the canvas. Apply the returned matrix so both stay

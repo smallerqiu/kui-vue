@@ -46,7 +46,7 @@ import { Files, GitBranch, Search } from "kui-icons";
 </script>
 <style scoped>
 .ide-layout {
-  height: 100vh;
+  height: 60vh;
   background: #1e1e1e;
   color: #ccc;
   overflow: hidden;

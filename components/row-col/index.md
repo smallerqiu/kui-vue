@@ -25,6 +25,10 @@
 
 - 通过设置 `offset` 属性，将列进行左右偏移，偏移栅格数为 `offset` 的值。
 
+[响应式栅格](./demo/responsive.vue?show=vertical)
+
+- 提供 `xs`、`sm`、`md`、`lg`、`xl`、`xxl` 六档响应式尺寸。可直接传入占位格数，也可以使用包含 `span`、`offset`、`order`、`push`、`pull` 的对象。
+
 [Flex 对齐](./demo/align.vue?show=vertical)
 
 - Flex 子元素垂直对齐。
@@ -48,8 +52,26 @@
 
 ## Col API
 
-| 属性   | 说明                                   | 类型          | 默认值 |
-| ------ | -------------------------------------- | ------------- | ------ |
-| span   | 栅格的占位格数，可选值为0~24的整数     | number        | -      |
-| offset | 栅格左侧的间隔格数，可选值为1~24的整数 | number        | -      |
-| flex   | flex 布局填充                          | number,string | -      |
+| 属性                     | 说明                                                  | 类型                        | 默认值 |
+| ------------------------ | ----------------------------------------------------- | --------------------------- | ------ |
+| span                     | 栅格占位格数，可选值为 0~24，`0` 表示隐藏             | number                      | -      |
+| offset                   | 栅格左侧间隔格数，可选值为 0~24                       | number                      | -      |
+| order                    | 栅格顺序，可选值为 0~24                               | number                      | -      |
+| push / pull              | 栅格向右 / 向左移动的格数，可选值为 0~24              | number                      | -      |
+| flex                     | Flex 布局填充，例如 `1`、`auto`、`100px`、`1 1 200px` | number / string             | -      |
+| xs                       | `<576px`，数字表示 span，也支持响应式对象              | number / ColSize            | -      |
+| sm                       | `≥576px`                                              | number / ColSize            | -      |
+| md                       | `≥768px`                                              | number / ColSize            | -      |
+| lg                       | `≥992px`                                              | number / ColSize            | -      |
+| xl                       | `≥1200px`                                             | number / ColSize            | -      |
+| xxl                      | `≥1600px`                                             | number / ColSize            | -      |
+
+```ts
+interface ColSize {
+  span?: number;
+  offset?: number;
+  order?: number;
+  push?: number;
+  pull?: number;
+}
+```

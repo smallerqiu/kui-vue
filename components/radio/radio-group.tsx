@@ -8,8 +8,8 @@ import {
   watch,
   type ExtractPropTypes,
   type PropType,
-  type VNodeChild,
   type VNode,
+  type VNodeChild,
 } from "vue";
 import type {
   BooleanType,

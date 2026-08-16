@@ -56,8 +56,13 @@ const FlameWrap = defineComponent({
     const contentHeight = ref<number>();
     let instance: FlameWrapInstance | null = null;
     let sizeObserver: ResizeObserver | null = null;
+    let mountFrame = 0;
 
-    const options = (): FlameWrapOptions => ({ ...props });
+    // Keep the vanilla defaults for props that the Vue caller did not pass.
+    const options = (): FlameWrapOptions =>
+      Object.fromEntries(
+        Object.entries(props).filter(([, value]) => value !== undefined)
+      ) as FlameWrapOptions;
     const isNative = () => supported.value && nativeReady.value && !failed.value;
     const measure = () => {
       const content = contentRef.value;
@@ -94,10 +99,14 @@ const FlameWrap = defineComponent({
         await nextTick();
         connectSizeObserver();
       }
+      await new Promise<void>((resolve) => {
+        mountFrame = requestAnimationFrame(() => resolve());
+      });
       create();
     });
     watch(props, () => instance?.setOptions(options()), { deep: true });
     onBeforeUnmount(() => {
+      cancelAnimationFrame(mountFrame);
       sizeObserver?.disconnect();
       instance?.destroy();
     });
@@ -147,6 +156,7 @@ const FlameWrap = defineComponent({
               left: `${-glow}px`,
               width: `calc(100% + ${glow * 2}px)`,
               height: `calc(100% + ${reach + glow}px)`,
+              display: "block",
               pointerEvents: "none",
             },
           }),

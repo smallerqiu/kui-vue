@@ -51,8 +51,8 @@ const Row = defineComponent({
             _props.style.marginRight = `-${v / 2}px`;
           }
           if (_h > 0) {
-            _props.style.marginTop = `-${v / 2}px`;
-            _props.style.marginTop = `-${v / 2}px`;
+            _props.style.marginTop = `-${_h / 2}px`;
+            _props.style.marginBottom = `-${_h / 2}px`;
           }
         }
       } else if (gutter && gutter > 0) {

@@ -111,10 +111,118 @@ const themeRoot = ref<HTMLElement>();
 
 ## 主要 Token 分类
 
-- 品牌及状态：`--kui-color-primary`、`success`、`warning`、`danger`
-- 文字：`--kui-color-text`、`text-title`、`text-description`、`text-placeholder`
-- 背景：`--kui-color-bg`、`bg-layout`、`bg-container`、`bg-component`、`bg-pop`
-- 交互项：`--kui-color-item-hover`、`item-active`、`item-selected`、`item-disabled`
-- 组件：`--kui-control-*`、`--kui-card-*`、`--kui-popup-*`
-- 尺寸：`--kui-control-height-*`、`--kui-font-size-*`、`--kui-spacing-*`
-- 动效：`--kui-motion-duration-*`、`--kui-motion-easing`
+Token 按“基础语义 → 组件语义 → 组件样式”逐层使用。通常先修改颜色、文字、背景等基础语义；只有某一类组件需要特殊外观时，才覆盖 `control`、`card` 或 `popup` Token。
+
+| 分类 | 主要 Token | 实际影响 |
+| --- | --- | --- |
+| 品牌及状态 | `--kui-color-primary`、`--kui-color-success`、`--kui-color-warning`、`--kui-color-danger` | Button、链接、选中项、校验状态、Progress 等强调色 |
+| 文字层级 | `--kui-color-text-title`、`--kui-color-text`、`--kui-color-text-description`、`--kui-color-text-placeholder` | 标题、正文、辅助说明和输入占位文字 |
+| 页面与容器 | `--kui-color-bg-layout`、`--kui-color-bg-container`、`--kui-color-bg-component`、`--kui-color-bg-pop` | 页面底色、内容区域、组件表面和下拉面板 |
+| 交互状态 | `--kui-color-item-hover`、`--kui-color-item-active`、`--kui-color-item-selected`、`--kui-color-item-disabled` | Menu、Select、Tree、Table 等列表项状态 |
+| 控件 | `--kui-control-bg`、`--kui-control-border`、`--kui-control-radius` | Input、Select、Button 等表单控件 |
+| 面板 | `--kui-card-*`、`--kui-popup-*` | Card、Modal 等内容面板，以及 DatePicker、ColorPicker 等选择面板 |
+| 尺寸与动效 | `--kui-control-height-*`、`--kui-font-size-*`、`--kui-spacing-*`、`--kui-motion-*` | 整体密度、字号、间距和动画速度 |
+
+### 示例：定制一套品牌主题
+
+下面是一份可以直接使用的主题。自定义样式应放在 KUI 样式之后，确保变量能够覆盖默认值。
+
+```ts
+import "kui-vue/style/index.css";
+import "./brand-theme.css";
+```
+
+```css
+/* brand-theme.css：浅色主题 */
+:root,
+[theme-mode="light"] {
+  /* 修改主色即可自动派生 hover、active 和透明强调层 */
+  --kui-color-primary: #6750e8;
+  --kui-color-success: #14804a;
+  --kui-color-warning: #c76b00;
+  --kui-color-danger: #d92d20;
+
+  /* 从页面底色到浮层逐级抬高，避免所有区域混成一层 */
+  --kui-color-bg-layout: #f6f7fb;
+  --kui-color-bg-container: #ffffff;
+  --kui-color-bg: #ffffff;
+  --kui-color-bg-component: #f2f3f8;
+  --kui-color-bg-pop: #ffffff;
+
+  --kui-color-text-title: #191b23;
+  --kui-color-text: #30323b;
+  --kui-color-text-description: #737783;
+  --kui-color-text-placeholder: #969aa5;
+
+  --kui-color-item-hover: #f0eefc;
+  --kui-color-item-active: #e8e4fb;
+  --kui-color-item-selected: color-mix(in srgb, var(--kui-color-primary) 16%, transparent);
+  --kui-color-item-disabled: #f4f4f6;
+}
+
+/* 深色主题需要单独提供表面和文字层级 */
+[theme-mode="dark"] {
+  --kui-color-primary: #9385ff;
+  --kui-color-bg-layout: #111217;
+  --kui-color-bg-container: #181a21;
+  --kui-color-bg: #181a21;
+  --kui-color-bg-component: #22242d;
+  --kui-color-bg-pop: #282a34;
+
+  --kui-color-text-title: #f5f6fa;
+  --kui-color-text: #e1e3e9;
+  --kui-color-text-description: #a4a8b3;
+  --kui-color-text-placeholder: #777c88;
+
+  --kui-color-item-hover: #292c36;
+  --kui-color-item-active: #30333f;
+  --kui-color-item-selected: color-mix(in srgb, var(--kui-color-primary) 22%, transparent);
+  --kui-color-item-disabled: #1d1f27;
+}
+```
+
+背景 Token 不建议全部设置成同一个颜色。`layout → container → component → pop` 保持轻微层级差，Table 内嵌 Input、Card 内放置 Button，以及浮层覆盖页面时才容易辨认。
+
+### 示例：只调整控件密度
+
+这组修改会同时影响 Input、Select、Button、DatePicker 等使用通用控件尺寸的组件：
+
+```css
+:root {
+  --kui-control-height-sm: 28px;
+  --kui-control-height: 36px;
+  --kui-control-height-lg: 44px;
+
+  --kui-font-size-sm: 12px;
+  --kui-font-size: 14px;
+  --kui-font-size-lg: 16px;
+
+  --kui-spacing-2: 8px;
+  --kui-spacing-3: 12px;
+  --kui-spacing-4: 16px;
+}
+```
+
+### 示例：只定制某个区域
+
+CSS Variables 会向下继承，因此无需创建另一份组件样式。下面只有管理后台区域使用紧凑、方形的控件和面板：
+
+```html
+<section class="admin-panel">
+  <Input placeholder="Search" />
+  <Card title="Orders">...</Card>
+</section>
+```
+
+```css
+.admin-panel {
+  --kui-control-height: 30px;
+  --kui-control-radius: 2px;
+  --kui-card-radius: 2px;
+  --kui-popup-radius: 2px;
+  --kui-card-padding: 12px;
+  --kui-motion-duration: 0.15s;
+}
+```
+
+如果只希望 Card 特殊，而不改变 Input 和弹层，应覆盖 `--kui-card-*`；如果希望整个区域统一变化，则优先覆盖基础语义 Token 或使用 `shape-mode`、`theme-mode`。

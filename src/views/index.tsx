@@ -26,9 +26,9 @@ export default defineComponent({
     ];
     return () => {
       return (
-        <Layout class="index">
-          <AppHeader />
-          <Ripple>
+        <Ripple>
+          <Layout class="index">
+            <AppHeader />
             <main class="index-main">
               <section class="index-hero">
                 <div class="hero-copy">
@@ -171,9 +171,9 @@ export default defineComponent({
                 </div>
               </section>
             </main>
-          </Ripple>
-          <AppFooter />
-        </Layout>
+            <AppFooter />
+          </Layout>
+        </Ripple>
       );
     };
   },

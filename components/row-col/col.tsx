@@ -1,10 +1,31 @@
-import type { CSSProperties, ExtractPropTypes, Ref } from "vue";
+import type { CSSProperties, ExtractPropTypes, PropType, Ref } from "vue";
 import { defineComponent, inject } from "vue";
+
+export interface ColSize {
+  span?: number;
+  offset?: number;
+  order?: number;
+  push?: number;
+  pull?: number;
+}
+
+export type ColResponsiveSize = number | ColSize;
+
+const responsiveProp = [Number, Object] as PropType<ColResponsiveSize>;
 
 const colProps = {
   span: Number,
   offset: Number,
+  order: Number,
+  push: Number,
+  pull: Number,
   flex: [String, Number],
+  xs: responsiveProp,
+  sm: responsiveProp,
+  md: responsiveProp,
+  lg: responsiveProp,
+  xl: responsiveProp,
+  xxl: responsiveProp,
 };
 
 export type ColProps = ExtractPropTypes<typeof colProps>;
@@ -25,14 +46,32 @@ const Col = defineComponent({
 
     return () => {
       const gutter = inject<Ref<number[] | number>>("gutter")?.value;
-      const { offset, span, flex } = props;
+      const { offset, span, order, push, pull, flex } = props;
+      const classes: string[] = ["k-col"];
+
+      const addGridClasses = (value: ColResponsiveSize | undefined, breakpoint?: string) => {
+        if (value === undefined) return;
+        const prefix = breakpoint ? `k-col-${breakpoint}` : "k-col";
+        if (typeof value === "number") {
+          if (value >= 0 && value <= 24) classes.push(`${prefix}-${value}`);
+          return;
+        }
+        (["span", "offset", "order", "push", "pull"] as const).forEach((key) => {
+          const current = value[key];
+          if (current !== undefined && current >= 0 && current <= 24) {
+            classes.push(key === "span" ? `${prefix}-${current}` : `${prefix}-${key}-${current}`);
+          }
+        });
+      };
+
+      addGridClasses(span);
+      addGridClasses({ offset, order, push, pull });
+      (["xs", "sm", "md", "lg", "xl", "xxl"] as const).forEach((breakpoint) => {
+        addGridClasses(props[breakpoint], breakpoint);
+      });
+
       const _props = {
-        class: [
-          `k-col`,
-          {
-            [`k-col-${span}`]: span,
-          },
-        ],
+        class: classes,
         style: {} as CSSProperties,
       };
       if (Array.isArray(gutter)) {
@@ -47,8 +86,8 @@ const Col = defineComponent({
             _props.style.paddingRight = `${v / 2}px`;
           }
           if (_h > 0) {
-            _props.style.paddingTop = `${v / 2}px`;
-            _props.style.paddingTop = `${v / 2}px`;
+            _props.style.paddingTop = `${_h / 2}px`;
+            _props.style.paddingBottom = `${_h / 2}px`;
           }
         }
       } else if (gutter && gutter > 0) {
@@ -57,9 +96,6 @@ const Col = defineComponent({
       }
       if (flex) {
         _props.style.flex = parseFlex(flex);
-      }
-      if (offset && offset > 0 && offset <= 24) {
-        _props.class.push(`k-col-offset-${offset}`);
       }
       return <div {..._props}>{slots.default?.()}</div>;
     };

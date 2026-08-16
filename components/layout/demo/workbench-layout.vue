@@ -60,7 +60,7 @@ const showDetail = ref(true);
 
 <style scoped>
 .workbench-layout {
-  height: 100vh;
+  height: 60vh;
   border: 1px solid var(--kui-color-border);
   background: var(--kui-color-bg);
 }

@@ -25,6 +25,10 @@ Two concepts: row `row` and column `col`. Specific usage is as follows:
 
 - By setting the `offset` attribute, columns can be offset left or right, with the offset grid count being the value of `offset`.
 
+[Responsive Grid](./demo/responsive.vue?show=vertical)
+
+- Six responsive sizes are available: `xs`, `sm`, `md`, `lg`, `xl`, and `xxl`. Pass a span number directly, or an object containing `span`, `offset`, `order`, `push`, and `pull`.
+
 [Flex Alignment](./demo/align.vue?show=vertical)
 
 - Vertical alignment of Flex child elements.
@@ -48,8 +52,26 @@ Two concepts: row `row` and column `col`. Specific usage is as follows:
 
 ## Col API
 
-| Property | Description                                                     | Type           | Default |
-| -------- | --------------------------------------------------------------- | -------------- | ------- |
-| span     | number of grid columns occupied, can be integer from 0~24       | number         | -       |
-| offset   | number of grid columns to offset left, can be integer from 1~24 | number         | -       |
-| flex     | Flex layout fill                                                | number, string | -       |
+| Property                 | Description                                                 | Type            | Default |
+| ------------------------ | ----------------------------------------------------------- | --------------- | ------- |
+| span                     | Occupied columns from 0~24; `0` hides the column            | number          | -       |
+| offset                   | Left offset from 0~24                                       | number          | -       |
+| order                    | Column order from 0~24                                      | number          | -       |
+| push / pull              | Move the column right / left by 0~24 columns                | number          | -       |
+| flex                     | Flex fill, such as `1`, `auto`, `100px`, or `1 1 200px`     | number / string | -       |
+| xs                       | `<576px`; accepts a span number or a responsive object      | number / ColSize | -      |
+| sm                       | `≥576px`                                                    | number / ColSize | -      |
+| md                       | `≥768px`                                                    | number / ColSize | -      |
+| lg                       | `≥992px`                                                    | number / ColSize | -      |
+| xl                       | `≥1200px`                                                   | number / ColSize | -      |
+| xxl                      | `≥1600px`                                                   | number / ColSize | -      |
+
+```ts
+interface ColSize {
+  span?: number;
+  offset?: number;
+  order?: number;
+  push?: number;
+  pull?: number;
+}
+```

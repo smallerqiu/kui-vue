@@ -8,11 +8,11 @@ Adds WebGL-rendered water ripples and refraction over live DOM content.
 
 Full refraction relies on the experimental HTML-in-Canvas API. Test it in Chrome Canary 149+ with `chrome://flags/#canvas-draw-element` enabled. Production usage requires the HTML-in-Canvas Origin Trial. Other browsers fall back to a WebGL ripple overlay.
 
-[Basic](./demo/basic.vue)
+[Basic](./demo/basic.vue?show=vertical)
 
 - Click the content area to create a ripple.
 
-[Custom effect](./demo/options.vue)
+[Custom effect](./demo/options.vue?show=vertical)
 
 - Uses hover triggering with customized wave parameters.
 
@@ -31,4 +31,3 @@ Full refraction relies on the experimental HTML-in-Canvas API. Test it in Chrome
 | shine | Crest highlight intensity | `number` | `0.5` |
 | interval | Ambient ripple interval; `0` disables it | `number` | `0` |
 
-Use the default slot for content wrapped by the effect.
