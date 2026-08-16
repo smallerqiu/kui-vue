@@ -1,6 +1,6 @@
 <template>
   <Flex vertical size="medium">
-    <RadioGroup v-model="flexSize" @change="changeSize">
+    <RadioGroup modelValue="small" @change="changeSize">
       <Radio value="small" label="Small" />
       <Radio value="medium" label="Medium" />
       <Radio value="large" label="Large" />
@@ -16,12 +16,13 @@
   </Flex>
 </template>
 <script setup lang="ts">
-import type { SizeType } from "kui-vue";
+import type { FlexSizeType } from "kui-vue";
 import { ref } from "vue";
-const flexSize = ref<SizeType>("small");
+const flexSize = ref<FlexSizeType>("small");
 const customize = ref(8);
 const isCustomize = ref(false);
 const changeSize = (value: string | number | (string | number)[]) => {
-  if (value === "small" || value === "medium" || value === "large") flexSize.value = value;
+  if (value === "small" || value === "medium" || value === "large" || typeof value == "number")
+    flexSize.value = value;
 };
 </script>
