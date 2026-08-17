@@ -3,7 +3,7 @@ import {
   computed,
   defineComponent,
   nextTick,
-  onBeforeMount,
+  onBeforeUnmount,
   onMounted,
   provide,
   ref,
@@ -12,9 +12,10 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
+import { Button } from "../button";
 import type { BooleanType } from "../const/types";
-import Icon from "../icon";
 import type { IconType } from "../icon";
+import Icon from "../icon";
 import { getChildren } from "../utils/vnode";
 
 const tabsProps = {
@@ -49,6 +50,8 @@ const Tabs = defineComponent({
     const navScrollRef = ref();
     const navBoxRef = ref();
     const inkBarRef = ref();
+    let layoutRaf = 0;
+    let resizeObserver: ResizeObserver | null = null;
 
     provide("tabActiveKey", defaultActiveKey);
 
@@ -60,91 +63,72 @@ const Tabs = defineComponent({
         updateIndex();
       }
     );
-    onMounted(() => {
-      nextTick(() => {
-        updateIndex();
-      });
-      window.addEventListener("resize", resetNavPosition);
-    });
-    onBeforeMount(() => {
-      window.removeEventListener("resize", resetNavPosition);
-    });
-
     const resetActivePosition = () => {
-      const target = navRef.value.children[currentIndex.value];
+      const target = navRef.value?.children[currentIndex.value] as HTMLElement | undefined;
       if (!target) return;
-      // show active tab in client
       const nav = navScrollRef.value;
-      // let totalWidth = panel.offsetWidth
-      const clientWidth = navBoxRef.value.clientWidth;
+      const navBox = navBoxRef.value;
+      if (!nav || !navBox) return;
+      const clientWidth = navBox.clientWidth;
       let navLeft = navOffsetLeft.value;
       const { offsetLeft, offsetWidth } = target;
 
-      // min left
       if (navLeft + offsetLeft < 0) {
         navLeft = -offsetLeft;
+      } else if (offsetLeft + offsetWidth + navLeft > clientWidth) {
+        navLeft = clientWidth - offsetLeft - offsetWidth;
       }
-      //max right
-      else if (clientWidth - navLeft < offsetLeft + offsetWidth) {
-        navLeft -= offsetLeft + offsetWidth + navLeft - clientWidth + 2; //marginRight
-      }
-      navOffsetLeft.value = navLeft;
-      nav.style.transform = `translate3d(${navLeft}px,0,0)`;
+      applyOffset(navLeft);
     };
-    const resetNavPosition = () => {
-      // when one tab removed or append
-      nextTick(() => {
-        const nav = navScrollRef.value;
-        if (!nav) return;
-        const totalWidth = nav.offsetWidth;
-        const clientWidth = navBoxRef.value.clientWidth;
-        let navLeft = navOffsetLeft.value;
-        if (clientWidth + navLeft < clientWidth) {
-          navLeft = clientWidth - totalWidth;
-        }
-        if (navLeft > 0) navLeft = 0;
-        navOffsetLeft.value = navLeft;
 
-        nextBtnDisabled.value = navLeft == clientWidth - totalWidth;
-        prevBtnDisabled.value = navLeft == 0;
+    const getMaxOffset = () => {
+      const navBox = navBoxRef.value;
+      const nav = navRef.value;
+      if (!navBox || !nav) return 0;
+      return Math.max(0, nav.scrollWidth - navBox.clientWidth);
+    };
 
-        nav.style.transform = `translate3d(${navLeft}px,0,0)`;
+    const applyOffset = (offset: number) => {
+      const nav = navScrollRef.value;
+      if (!nav) return;
+      const maxOffset = getMaxOffset();
+      const next = Math.min(0, Math.max(-maxOffset, offset));
+      navOffsetLeft.value = next;
+      prevBtnDisabled.value = next >= -0.5;
+      nextBtnDisabled.value = maxOffset <= 0.5 || next <= -maxOffset + 0.5;
+      nav.style.transform = `translate3d(${next}px,0,0)`;
+    };
 
-        resetActivePosition();
-        updateInkBarPosition();
-        updateNav();
+    const updateNav = () => {
+      const maxOffset = getMaxOffset();
+      scrollable.value = maxOffset > 0.5;
+      applyOffset(navOffsetLeft.value);
+    };
+
+    const updateLayout = () => {
+      updateNav();
+      resetActivePosition();
+      updateInkBarPosition();
+    };
+
+    const scheduleLayout = () => {
+      cancelAnimationFrame(layoutRaf);
+      layoutRaf = requestAnimationFrame(() => {
+        nextTick(updateLayout);
       });
     };
+
+    const resetNavPosition = () => scheduleLayout();
 
     provide("tabUpdateNav", resetNavPosition);
 
     const scroll = (direction: string) => {
       //control left or right
 
-      const panel = navScrollRef.value;
-      const totalWidth = panel.offsetWidth;
-      const clientWidth = navBoxRef.value.clientWidth;
-      let navLeft = navOffsetLeft.value;
-      // console.log(totalWidth, clientWidth)
-      if (direction == "right") {
-        const endWidth = totalWidth - clientWidth + navLeft;
-        if (endWidth > clientWidth) {
-          navLeft -= clientWidth;
-        } else if (endWidth > 0) {
-          navLeft -= endWidth;
-        }
-      } else {
-        if (navLeft < -clientWidth) {
-          navLeft += clientWidth;
-        } else if (navLeft < 0) {
-          navLeft = 0;
-        }
-      }
-      nextBtnDisabled.value = navLeft == clientWidth - totalWidth;
-      prevBtnDisabled.value = navLeft == 0;
-
-      navOffsetLeft.value = navLeft;
-      panel.style.transform = `translate3d(${navLeft}px,0,0)`;
+      const navBox = navBoxRef.value;
+      if (!navBox) return;
+      const delta = direction === "right" ? -navBox.clientWidth : navBox.clientWidth;
+      applyOffset(navOffsetLeft.value + delta);
     };
 
     const closeTab = (key: string, e: PointerEvent) => {
@@ -167,17 +151,18 @@ const Tabs = defineComponent({
     const updateIndex = () => {
       nextTick(() => {
         const nodes = getChildren(slots.default?.());
-        currentIndex.value = nodes.map((p, index) => String(p.key ?? index))
+        currentIndex.value = nodes
+          .map((p, index) => String(p.key ?? index))
           .indexOf(String(defaultActiveKey.value));
-        resetActivePosition();
-        updateInkBarPosition();
+        scheduleLayout();
       });
     };
     const updateInkBarPosition = () => {
       if (!props.card && !props.sample) {
-        const nav = navRef.value.children[currentIndex.value];
+        const nav = navRef.value?.children[currentIndex.value];
         if (nav) {
           const inkBar = inkBarRef.value;
+          if (!inkBar) return;
           const offsetLeft = nav.offsetLeft;
           if (props.centered) {
             // offsetLeft = (navBoxRef.value.offsetWidth - offsetLeft) ;
@@ -187,23 +172,38 @@ const Tabs = defineComponent({
         }
       }
     };
-    const updateNav = () => {
-      nextTick(() => {
-        // update inkBar position
 
-        // set panel has scroll arrow
-        const navBox = navBoxRef.value;
-        if (!navBox) return;
-        scrollable.value = navBox.scrollWidth > navBox.clientWidth;
+    onMounted(() => {
+      nextTick(() => {
+        updateIndex();
+        if (typeof ResizeObserver !== "undefined") {
+          resizeObserver = new ResizeObserver(scheduleLayout);
+          if (navBoxRef.value) resizeObserver.observe(navBoxRef.value);
+          if (navRef.value) resizeObserver.observe(navRef.value);
+        } else {
+          window.addEventListener("resize", scheduleLayout);
+        }
+        scheduleLayout();
       });
-    };
+    });
+
+    onBeforeUnmount(() => {
+      cancelAnimationFrame(layoutRaf);
+      if (resizeObserver) resizeObserver.disconnect();
+      else window.removeEventListener("resize", scheduleLayout);
+    });
 
     const navNodes = computed(() => {
       const nodes = getChildren(slots.default?.());
       return nodes?.map((panel, index) => {
         const key = String(panel.key ?? index);
 
-        const { icon, title, closable: panelClosable, disabled: panelDisabled } = (panel.props ?? {}) as {
+        const {
+          icon,
+          title,
+          closable: panelClosable,
+          disabled: panelDisabled,
+        } = (panel.props ?? {}) as {
           icon?: IconType[];
           title?: string;
           closable?: boolean;
@@ -263,15 +263,15 @@ const Tabs = defineComponent({
           <div class="k-tabs-bar">
             <div class={navCls}>
               {scrollable.value ? (
-                <span
-                  class={[
-                    "k-tabs-tab-btn-prev",
-                    { "k-tabs-tab-btn-prev-disabled": prevBtnDisabled.value },
-                  ]}
+                <Button
+                  type="text"
+                  size="large"
+                  disabled={prevBtnDisabled.value}
+                  class={["k-tabs-tab-btn-prev"]}
                   onClick={() => scroll("left")}
                 >
                   <Icon type={ChevronLeft} />
-                </span>
+                </Button>
               ) : null}
               <div class="k-tabs-nav-wrap" ref={navBoxRef}>
                 <div class="k-tabs-nav" style={scrollStyle} ref={navScrollRef}>
@@ -282,21 +282,23 @@ const Tabs = defineComponent({
                 </div>
               </div>
               {scrollable.value ? (
-                <span
-                  class={[
-                    "k-tabs-tab-btn-next",
-                    { "k-tabs-tab-btn-next-disabled": nextBtnDisabled.value },
-                  ]}
+                <Button
+                  type="text"
+                  size="large"
+                  disabled={nextBtnDisabled.value}
+                  class={["k-tabs-tab-btn-next"]}
                   onClick={() => scroll("right")}
                 >
                   <Icon type={ChevronRight} />
-                </span>
+                </Button>
               ) : null}
             </div>
             {slots.extra ? <div class="k-tabs-extra">{slots.extra()}</div> : null}
           </div>
-          <div class="k-tabs-content" style={paneStyle}>
-            {slots.default?.()}
+          <div class="k-tabs-wrapper">
+            <div class="k-tabs-content" style={paneStyle}>
+              {slots.default?.()}
+            </div>
           </div>
         </div>
       );

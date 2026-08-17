@@ -78,7 +78,15 @@ const Sider = defineComponent({
       collectSider?.(false);
     });
 
-    return () => <aside class={`k-${props.suffixCls}`}>{slots.default?.()}</aside>;
+    const siderWidth = props.collapsible && props.collapsed ? props.collapsedWidth : props.width;
+    const siderStyle = {
+      width: typeof siderWidth === "number" ? `${siderWidth}px` : siderWidth,
+    };
+    return () => (
+      <aside class={`k-${props.suffixCls}`} style={siderStyle}>
+        {slots.default?.()}
+      </aside>
+    );
   },
 });
 

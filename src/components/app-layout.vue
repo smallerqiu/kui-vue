@@ -2,7 +2,10 @@
   <Layout class="root">
     <AppHeader />
     <Layout class="main">
-      <Sider :class="['docs-k-layout-sider', { 'docs-k-layout-sider-show': showMiniNav }]">
+      <Sider
+        :class="['docs-k-layout-sider', { 'docs-k-layout-sider-show': showMiniNav }]"
+        :width="272"
+      >
         <Button
           size="large"
           :icon="showMiniNav ? X : MenuIcon"

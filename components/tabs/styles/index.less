@@ -1,8 +1,6 @@
 @import "../../styles/less-css-var.less";
 
 .k-tabs {
-  overflow: hidden;
-
   .k-tabs-bar {
     border-bottom: 1px solid var(--kui-color-border);
     margin: 0 0 16px;
@@ -14,14 +12,10 @@
       cursor: pointer;
       text-align: center;
       font-size: 20px;
-      padding: 6px 5px 0;
+      padding: 0;
       color: var(--kui-color-icon);
-    }
-
-    .k-tabs-tab-btn-next-disabled,
-    .k-tabs-tab-btn-prev-disabled {
-      color: var(--kui-color-text-disabled);
-      cursor: not-allowed;
+      width: 25px;
+      outline: 0;
     }
 
     .k-tabs-nav-container {
@@ -134,6 +128,9 @@
       display: none;
       visibility: hidden;
     }
+  }
+  .k-tabs-wrapper {
+    overflow: hidden;
   }
 }
 
