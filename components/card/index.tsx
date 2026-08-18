@@ -1,5 +1,5 @@
 import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
-import type { BooleanType, ShapeType, ThemeType } from "../const/types";
+import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 import CardMeta from "./card-meta";
 
@@ -7,6 +7,7 @@ const cardProps = {
   bordered: { type: Boolean as BooleanType, default: false },
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
+  size: { type: String as PropType<SizeType>, default: "medium" },
   title: String,
   icon: [Array] as PropType<IconType[]>,
   cover: [String, Object] as PropType<string | VNodeChild>,
@@ -19,7 +20,7 @@ const Card = defineComponent({
   props: cardProps,
   setup(props, { slots, attrs }) {
     return () => {
-      const { title, icon, bordered, cover, theme, shape } = props;
+      const { title, icon, bordered, cover, theme, shape, size } = props;
 
       const extraSlot = slots.extra?.();
       const titleSlot = slots.title?.();
@@ -45,6 +46,7 @@ const Card = defineComponent({
             "k-card-bordered": bordered,
             [`k-card-${theme}`]: theme,
             [`k-card-${shape}`]: shape,
+            [`k-card-${size}`]: size,
             "k-card-has-cover": !!coverNode,
           },
           attrs.class,

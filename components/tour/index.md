@@ -22,15 +22,15 @@
 
 ## Tour API
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| modelValue | 显示状态（v-model） | boolean | false |
-| defaultOpen | 初始显示状态 | boolean | false |
-| current | 当前步骤 | number | - |
-| defaultCurrent | 初始步骤 | number | 0 |
-| steps | 引导步骤 | TourStep[] | [] |
-| mask | 显示遮罩 | boolean | true |
-| closable | 显示关闭按钮 | boolean | true |
-| onChange | 步骤变化 | function | - |
-| onOpenChange | 显示状态变化 | function | - |
-| onFinish | 完成引导 | function | - |
+| 属性           | 说明                | 类型       | 默认值 |
+| -------------- | ------------------- | ---------- | ------ |
+| modelValue     | 显示状态（v-model） | boolean    | false  |
+| defaultOpen    | 初始显示状态        | boolean    | false  |
+| current        | 当前步骤            | number     | -      |
+| defaultCurrent | 初始步骤            | number     | 0      |
+| steps          | 引导步骤            | TourStep[] | []     |
+| mask           | 显示遮罩            | boolean    | true   |
+| closable       | 显示关闭按钮        | boolean    | true   |
+| onChange       | 步骤变化            | function   | -      |
+| onOpenChange   | 显示状态变化        | function   | -      |
+| onFinish       | 完成引导            | function   | -      |

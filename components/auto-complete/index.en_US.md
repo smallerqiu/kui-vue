@@ -1,5 +1,9 @@
 # AutoComplete
 
+Provide candidates based on the input while retaining the ability for free text entry.
+
+## Examples
+
 [Basic](./demo/basic.vue)
 
 - Supports free input, filtering, and keyboard selection.

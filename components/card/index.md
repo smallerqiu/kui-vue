@@ -12,6 +12,10 @@
 
 - 通过 `title` 和 `icon` 可设置标题和图标
 
+[卡片尺寸](./demo/size.vue)
+
+- 使用 `size` 调整卡片头部和内容区域的间距密度。
+
 [边框](./demo/border.vue)
 
 - `bordered` 可以设置是否显示边框
@@ -37,6 +41,7 @@
 | bordered | 卡片是否显示边框               | boolean              | true   |
 | theme    | 外观主题                       | default、fill、outline、plain | fill |
 | shape    | 外框形状                       | round、square、circle | round |
+| size     | 卡片尺寸                       | small、medium、large | medium |
 | extra    | 卡片标题扩展                   | slot               | -      |
 | cover    | 卡片封面，设置后不显示卡片头部 | string、VNodeChild | -      |
 

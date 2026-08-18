@@ -5,7 +5,7 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
 import { InputTag, Space } from "kui-vue";
+import { ref } from "vue";
 const tags = ref(["设计", "开发"]);
 </script>

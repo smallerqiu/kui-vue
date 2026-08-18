@@ -1,13 +1,13 @@
 <template>
   <Space vertical>
     <code>value: {{ value || "-" }}</code>
-    <AutoComplete v-model="value" :options="options" placeholder="输入城市" />
-    <Button size="small" @click="value = '深圳'">设为深圳</Button>
+    <AutoComplete v-model="value" :options="options" placeholder="Please choose city" />
+    <Button size="small" @click="value = 'Shenzhen'">Shenzhen</Button>
   </Space>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
 import { AutoComplete, Button, Space } from "kui-vue";
+import { ref } from "vue";
 const value = ref("");
-const options = ["北京", "上海", "广州", "深圳", "杭州"];
+const options = ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Hangzhou"];
 </script>

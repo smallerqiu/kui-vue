@@ -172,6 +172,15 @@
   }
 }
 
+// disabled 必须放在 autofill 规则之后，避免浏览器的文字填充色覆盖禁用色。
+.k-input[data-single]:disabled,
+.k-input-disabled[data-multiple] .k-input-text:disabled {
+  color: var(--kui-color-text-disabled);
+  caret-color: var(--kui-color-text-disabled);
+  -webkit-text-fill-color: var(--kui-color-text-disabled);
+  opacity: 1;
+}
+
 .k-textarea {
   max-width: 100%;
   min-height: var(--kui-control-height);

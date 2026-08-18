@@ -2,12 +2,12 @@
   <AutoComplete
     v-model="value"
     clearable
-    placeholder="搜索框架"
+    placeholder="Please input"
     :options="['Vue', 'React', 'Solid', 'Svelte']"
   />
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
 import { AutoComplete } from "kui-vue";
+import { ref } from "vue";
 const value = ref("");
 </script>

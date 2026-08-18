@@ -3,13 +3,13 @@
     v-model="value"
     :options="options"
     :loading="loading"
-    placeholder="输入商品名称"
+    placeholder="Please input."
     @search="search"
   />
 </template>
 <script setup lang="ts">
-import { onBeforeUnmount, ref } from "vue";
 import { AutoComplete } from "kui-vue";
+import { onBeforeUnmount, ref } from "vue";
 
 interface ProductResponse {
   products: Array<{ title: string }>;

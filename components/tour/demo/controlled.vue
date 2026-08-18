@@ -12,8 +12,8 @@
   />
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
 import { Button, Space, Tour } from "kui-vue";
+import { ref } from "vue";
 const open = ref(false);
 const current = ref(0);
 const steps = [

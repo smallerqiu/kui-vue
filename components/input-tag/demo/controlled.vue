@@ -6,7 +6,7 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
 import { Button, InputTag, Space } from "kui-vue";
+import { ref } from "vue";
 const tags = ref(["Vue", "TypeScript"]);
 </script>

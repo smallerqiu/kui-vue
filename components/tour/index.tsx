@@ -77,12 +77,28 @@ export default defineComponent({
       const placement = step.placement ?? "bottom";
       const panelStyle = rect
         ? placement === "top"
-          ? { left: `${rect.left + rect.width / 2}px`, top: `${rect.top - 12}px`, transform: "translate(-50%, -100%)" }
+          ? {
+              left: `${rect.left + rect.width / 2}px`,
+              top: `${rect.top - 12}px`,
+              transform: "translate(-50%, -100%)",
+            }
           : placement === "left"
-            ? { left: `${rect.left - 12}px`, top: `${rect.top + rect.height / 2}px`, transform: "translate(-100%, -50%)" }
+            ? {
+                left: `${rect.left - 12}px`,
+                top: `${rect.top + rect.height / 2}px`,
+                transform: "translate(-100%, -50%)",
+              }
             : placement === "right"
-              ? { left: `${rect.right + 12}px`, top: `${rect.top + rect.height / 2}px`, transform: "translateY(-50%)" }
-              : { left: `${rect.left + rect.width / 2}px`, top: `${rect.bottom + 12}px`, transform: "translateX(-50%)" }
+              ? {
+                  left: `${rect.right + 12}px`,
+                  top: `${rect.top + rect.height / 2}px`,
+                  transform: "translateY(-50%)",
+                }
+              : {
+                  left: `${rect.left + rect.width / 2}px`,
+                  top: `${rect.bottom + 12}px`,
+                  transform: "translateX(-50%)",
+                }
         : { left: "50%", top: "50%", transform: "translate(-50%, -50%)" };
       const next = () => {
         if (index.value < props.steps.length - 1) go(index.value + 1);
@@ -96,9 +112,7 @@ export default defineComponent({
           <div class="k-tour-root">
             <Transition name="k-modal-fade">
               <div v-show={visible.value} class="k-tour-overlay">
-                {props.mask && (
-                  <div class={["k-tour-mask", { "k-tour-mask-spotlight": !!rect }]} />
-                )}
+                {props.mask && <div class={["k-tour-mask", { "k-tour-mask-spotlight": !!rect }]} />}
                 {props.mask && rect && (
                   <div
                     class="k-tour-focus"
@@ -112,16 +126,40 @@ export default defineComponent({
                 )}
               </div>
             </Transition>
-            <section v-show={visible.value} class={["k-tour-panel", `k-tour-${placement}`]} style={panelStyle} role="dialog" aria-modal="true">
-              {props.closable && <Button class="k-tour-close" type="text" size="small" aria-label="Close" onClick={close}>×</Button>}
+            <section
+              v-show={visible.value}
+              class={["k-tour-panel", `k-tour-${placement}`]}
+              style={panelStyle}
+              role="dialog"
+              aria-modal="true"
+            >
+              {props.closable && (
+                <Button
+                  class="k-tour-close"
+                  type="text"
+                  size="small"
+                  aria-label="Close"
+                  onClick={close}
+                >
+                  ×
+                </Button>
+              )}
               {step.cover && <div class="k-tour-cover">{step.cover}</div>}
               {step.title && <h3>{step.title}</h3>}
               <div class="k-tour-description">{step.description}</div>
               <footer>
-                <span>{index.value + 1} / {props.steps.length}</span>
+                <span>
+                  {index.value + 1} / {props.steps.length}
+                </span>
                 <div class="k-tour-actions">
-                  {index.value > 0 && <Button size="small" onClick={() => go(index.value - 1)}>上一步</Button>}
-                  <Button size="small" type="primary" onClick={next}>{index.value < props.steps.length - 1 ? "下一步" : "完成"}</Button>
+                  {index.value > 0 && (
+                    <Button size="small" onClick={() => go(index.value - 1)}>
+                      上一步
+                    </Button>
+                  )}
+                  <Button size="small" type="primary" onClick={next}>
+                    {index.value < props.steps.length - 1 ? "下一步" : "完成"}
+                  </Button>
                 </div>
               </footer>
             </section>

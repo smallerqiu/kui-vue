@@ -7,13 +7,22 @@
   <Tour v-model="open" :steps="steps" />
 </template>
 <script setup lang="ts">
-import { computed, ref } from "vue";
 import { Button, Space, Tour } from "kui-vue";
+import { computed, ref } from "vue";
 const open = ref(false);
 const leftTarget = ref<{ $el?: HTMLElement }>();
 const rightTarget = ref<{ $el?: HTMLElement }>();
 const steps = computed(() => [
-  { target: () => leftTarget.value?.$el ?? null, title: "底部", description: "默认显示在目标底部。" },
-  { target: () => rightTarget.value?.$el ?? null, title: "左侧", description: "空间不足时可调整方向。", placement: "left" as const },
+  {
+    target: () => leftTarget.value?.$el ?? null,
+    title: "底部",
+    description: "默认显示在目标底部。",
+  },
+  {
+    target: () => rightTarget.value?.$el ?? null,
+    title: "左侧",
+    description: "空间不足时可调整方向。",
+    placement: "left" as const,
+  },
 ]);
 </script>

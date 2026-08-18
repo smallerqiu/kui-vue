@@ -121,14 +121,14 @@
   }
 }
 
-:where(.k-select-circle, .k-tree-select-circle, .k-input-circle) {
-  :where(.k-select-tag, .k-tree-select-tag, .k-input-tag-item) {
+:is(.k-select.k-select-circle, .k-tree-select.k-tree-select-circle, .k-input.k-input-circle) {
+  :is(.k-select-tag, .k-tree-select-tag, .k-input-tag-item) {
     border-radius: var(--kui-shape-circle);
   }
 }
 
-:where(.k-select-square, .k-tree-select-square, .k-input-square) {
-  :where(.k-select-tag, .k-tree-select-tag, .k-input-tag-item) {
+:is(.k-select.k-select-square, .k-tree-select.k-tree-select-square, .k-input.k-input-square) {
+  :is(.k-select-tag, .k-tree-select-tag, .k-input-tag-item) {
     border-radius: var(--kui-shape-square);
   }
 }

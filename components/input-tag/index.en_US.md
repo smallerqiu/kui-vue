@@ -1,5 +1,9 @@
 # InputTag
 
+Convert continuous input into an addable and removable tag collection.
+
+## Examples
+
 [Basic](./demo/basic.vue)
 
 - Press Enter to add and Backspace to remove tags.
@@ -22,18 +26,18 @@
 
 ## InputTag API
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| modelValue | Tags (v-model) | string[] | - |
-| defaultValue | Initial tags | string[] | [] |
-| placeholder | Placeholder | string | - |
-| size | Size | small\|medium\|large | medium |
-| theme | Theme | fill\|outline\|plain | fill |
-| shape | Shape | circle\|square\|round\|default | default |
-| disabled | Disabled | boolean | false |
-| allowDuplicates | Allow duplicates | boolean | false |
-| max | Maximum count | number | - |
-| separators | Commit keys | string[] | [','] |
-| onChange | Tags change | function | - |
-| onAdd | Tag added | function | - |
-| onRemove | Tag removed | function | - |
+| Property        | Description      | Type                           | Default |
+| --------------- | ---------------- | ------------------------------ | ------- |
+| modelValue      | Tags (v-model)   | string[]                       | -       |
+| defaultValue    | Initial tags     | string[]                       | []      |
+| placeholder     | Placeholder      | string                         | -       |
+| size            | Size             | small\|medium\|large           | medium  |
+| theme           | Theme            | fill\|outline\|plain           | fill    |
+| shape           | Shape            | circle\|square\|round\|default | default |
+| disabled        | Disabled         | boolean                        | false   |
+| allowDuplicates | Allow duplicates | boolean                        | false   |
+| max             | Maximum count    | number                         | -       |
+| separators      | Commit keys      | string[]                       | [',']   |
+| onChange        | Tags change      | function                       | -       |
+| onAdd           | Tag added        | function                       | -       |
+| onRemove        | Tag removed      | function                       | -       |

@@ -3,8 +3,8 @@
   <Tour v-model="open" :mask="false" :steps="steps" />
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
 import { Button, Tour } from "kui-vue";
+import { ref } from "vue";
 const open = ref(false);
 const steps = [
   { title: "无遮罩模式", description: "适合不希望打断用户当前操作的轻量提示。" },
