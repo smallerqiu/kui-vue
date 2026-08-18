@@ -1,0 +1,91 @@
+.k-steps {
+  display: flex;
+  width: 100%;
+}
+.k-step {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  color: var(--kui-color-text-description);
+}
+.k-step-main {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 10px;
+}
+.k-step-dot {
+  display: inline-flex;
+  flex: 0 0 28px;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--kui-control-border);
+  border-radius: var(--kui-shape-circle);
+  background: var(--kui-control-bg);
+  transition: all var(--kui-motion-duration-slow) var(--kui-motion-easing);
+}
+.k-step-line {
+  flex: 1;
+  min-width: 24px;
+  height: 1px;
+  margin: 14px 12px 0;
+  background: var(--kui-control-border);
+}
+.k-step:last-child .k-step-line {
+  visibility: hidden;
+}
+.k-step-content {
+  min-width: 0;
+}
+.k-step-title {
+  color: var(--kui-color-text-title);
+  white-space: nowrap;
+  font-weight: 500;
+}
+.k-step-description {
+  margin-top: 6px;
+  font-size: 13px;
+}
+.k-step-finish .k-step-dot,
+.k-step-process .k-step-dot {
+  color: var(--kui-color-text-on-solid);
+  border-color: var(--kui-color-primary);
+  background: var(--kui-color-primary);
+}
+.k-step-finish .k-step-line {
+  background: var(--kui-color-primary);
+}
+.k-step-error .k-step-dot {
+  color: var(--kui-color-danger);
+  border-color: var(--kui-color-danger);
+}
+.k-step-clickable {
+  cursor: pointer;
+}
+.k-steps-vertical {
+  flex-direction: column;
+}
+.k-steps-vertical .k-step {
+  position: relative;
+  min-height: 96px;
+  flex: none;
+}
+.k-steps-vertical .k-step-main {
+  align-items: flex-start;
+  gap: 14px;
+}
+.k-steps-vertical .k-step-content {
+  padding-top: 3px;
+}
+.k-steps-vertical .k-step-line {
+  position: absolute;
+  top: 38px;
+  bottom: 10px;
+  left: 13px;
+  width: 1px;
+  min-width: 0;
+  height: auto;
+  margin: 0;
+}

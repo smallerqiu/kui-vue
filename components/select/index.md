@@ -25,6 +25,10 @@
 
 - 通过设置 `filterable` 值来呈现过滤模式 > filterable 和 onSearch 不可以同时使用, 搜索的结果会被过滤
 
+[创建选项](./demo/allow-create.vue)
+
+- 多选模式下设置 `allowCreate`，输入不存在的内容后按 Enter 可创建并选中该选项
+
 [尺寸](./demo/size.vue)
 
 - 通过 `width` 和 `size` 可控制组件尺寸大小
@@ -40,16 +44,17 @@
 | modelValue   | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | string,number                              | -          |
 | width        | 组件宽度                                                   | string,number                              | -          |
 | placeholder  | 选择框默认文字                                             | string                                     | 请选择     |
-| disabled     | 是否禁用当前项                                             | boolean                                      | false      |
+| disabled     | 是否禁用当前项                                             | boolean                                    | false      |
 | size         | 组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常       | string                                     | -          |
 | emptyText    | 没有数据时展示的提示                                       | string                                     | '赞无数据' |
 | maxTagCount  | 最多展示多少个tag,超出部分以点点点展示                     | number                                     | -          |
-| multiple     | 是否呈现多选模式                                           | boolean                                      | false      |
-| loading      | 是否显示异步加载                                           | boolean                                      | false      |
-| clearable    | 是否可以清空选项                                           | boolean                                      | false      |
-| bordered     | 是否显示边框                                               | boolean                                      | true       |
-| extendWidth  | 下拉框的宽度是否与input一致                                | boolean                                      | true       |
-| showArrow    | 是否显示下拉按钮                                           | boolean                                      | true       |
+| multiple     | 是否呈现多选模式                                           | boolean                                    | false      |
+| allowCreate  | 多选时是否允许输入并创建不存在的选项                       | boolean                                    | false      |
+| loading      | 是否显示异步加载                                           | boolean                                    | false      |
+| clearable    | 是否可以清空选项                                           | boolean                                    | false      |
+| bordered     | 是否显示边框                                               | boolean                                    | true       |
+| extendWidth  | 下拉框的宽度是否与input一致                                | boolean                                    | true       |
+| showArrow    | 是否显示下拉按钮                                           | boolean                                    | true       |
 | options      | options 数据，如果设置则不需要手动构造 Option 节点         | SelectOption[]                             | []         |
 | theme        | 主题                                                       | string                                     | fill       |
 | icon         | 自定义图标                                                 | string                                     | -          |
@@ -68,4 +73,4 @@
 | key      | 和 value 含义一致。如果 Vue 需要你设置此项，此项值与 value 的值相同，然后可以省略 value 设置 | string,number | -      |
 | value    | 选项值，默认根据此属性值进行筛选，必填                                                       | string,number | -      |
 | label    | 选项显示的内容                                                                               | string,number | -      |
-| disabled | 是否禁用当前项                                                                               | boolean         | false  |
+| disabled | 是否禁用当前项                                                                               | boolean       | false  |

@@ -608,7 +608,7 @@ const TreeSelect = defineComponent({
           "k-tree-select-sm": props.size === "small",
           "k-tree-select-fill": props.theme === "fill",
           "k-tree-select-has-icon": !!props.icon,
-          "k-tree-select-circle": props.shape === "circle" && !props.multiple,
+          "k-tree-select-circle": props.shape === "circle",
           "k-tree-select-square": props.shape == "square",
           "k-tree-select-multiple": props.multiple,
           "k-tree-select-show-search": queryInputFocused.value,

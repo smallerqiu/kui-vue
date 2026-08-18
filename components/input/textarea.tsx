@@ -53,10 +53,10 @@ const TextArea = defineComponent({
         class: [
           "k-textarea",
           {
-            [`k-textarea-fill`]: theme === "fill",
-            [`k-textarea-outline`]: theme === "outline",
+            [`k-textarea-${theme}`]: !!theme && theme !== "outline",
             "k-textarea-sm": size === "small",
             "k-textarea-square": shape === "square",
+            "k-textarea-circle": shape === "circle",
             "k-textarea-lg": size === "large",
           },
         ],

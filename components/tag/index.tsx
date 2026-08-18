@@ -66,7 +66,7 @@ const Tag = defineComponent({
           "k-tag-has-color": isCustomColor,
           "k-tag-closeable": closeable,
           "k-tag-hidden": hidden.value,
-          "k-tag-fill": props.theme === "fill",
+          [`k-tag-${props.theme}`]: !!props.theme,
         },
       ];
 

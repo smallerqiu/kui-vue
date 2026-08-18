@@ -50,6 +50,7 @@ const selectProps = {
   modelValue: [String, Number, Array] as PropType<SelectValue | SelectValue[]>,
   clearable: { type: Boolean as BooleanType, default: true },
   filterable: Boolean as BooleanType,
+  allowCreate: Boolean as BooleanType,
   block: Boolean as BooleanType,
   disabled: Boolean as BooleanType,
   multiple: Boolean as BooleanType,
@@ -92,13 +93,16 @@ const Select = defineComponent({
       return value === undefined || isEmpty(value) ? [] : [value];
     };
     const currentValue = ref<SelectValue[]>(toValueArray(props.modelValue));
+    const createdOptions = ref<SelectOption[]>([]);
     const queryInputVisible = ref(false);
     const queryKey = ref("");
     const queryInputMirrorRef = ref<HTMLElement | null>(null);
     const minWidth = ref(0);
-    const queryInputFocused = ref(false);
     const queryInputRef = ref<HTMLInputElement | null>(null);
     const hasSearchEvent = !!props.onSearch;
+    const searchable = computed(
+      () => props.filterable || hasSearchEvent || (props.multiple && props.allowCreate)
+    );
     const refPopper = ref<HTMLElement | null>(null);
     const transOrigin = ref("bottom");
     const refSelection = ref<HTMLElement | null>(null);
@@ -109,8 +113,6 @@ const Select = defineComponent({
     const clearQueryTimer = ref<ReturnType<typeof setTimeout>>();
     let positionRaf = 0;
     const activeIndex = ref(-1);
-
-    const ctxFocused = ref(false);
 
     watch(
       () => props.placement,
@@ -157,53 +159,10 @@ const Select = defineComponent({
       containerEl.scrollTop = targetScroll;
     };
 
-    const onKeydown = (e: KeyboardEvent) => {
-      if ((!visible.value || optionsData.value.length === 0) && ctxFocused.value) {
-        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-          toggle();
-        }
-        return;
-      }
-      if (visible.value) {
-        if (e.key === "ArrowDown" || e.key === "ArrowUp") {
-          const options = filterOptions();
-          const direction = e.key === "ArrowDown" ? 1 : -1;
-          let index = activeIndex.value;
-          for (let count = 0; count < options.length; count += 1) {
-            index = (index + direction + options.length) % options.length;
-            if (!options[index]?.disabled) {
-              activeIndex.value = index;
-              nextTick(scrollOptionIntoView);
-              break;
-            }
-          }
-          e.preventDefault();
-          return;
-        } else if (
-          e.key === "Enter" &&
-          activeIndex.value >= 0 &&
-          (ctxFocused.value || queryInputFocused.value)
-        ) {
-          const option = filterOptions()[activeIndex.value];
-          if (!option || option.disabled) return;
-          const { label, value } = option;
-          onSelect({ label, value });
-          e.preventDefault();
-          return;
-        } else if (e.key === "Escape" && (ctxFocused.value || queryInputFocused.value)) {
-          visible.value = false;
-          emit("openChange", false);
-          clearQuery();
-          e.preventDefault();
-        }
-      }
-    };
-
     onBeforeUnmount(() => {
       cancelAnimationFrame(positionRaf);
       clearTimeout(queryInputEventTimer.value);
       clearTimeout(clearQueryTimer.value);
-      document.removeEventListener("keydown", onKeydown);
       document.removeEventListener("click", outsideClick);
       document.removeEventListener("scroll", updatePosition, true);
     });
@@ -241,7 +200,6 @@ const Select = defineComponent({
       nextTick(() => {
         minWidth.value = refSelection.value?.offsetWidth || 0;
       });
-      document.addEventListener("keydown", onKeydown);
       document.addEventListener("scroll", updatePosition, true);
     });
 
@@ -270,16 +228,20 @@ const Select = defineComponent({
       }
     };
 
+    const resetQueryInput = () => {
+      queryKey.value = "";
+      if (queryInputRef.value) {
+        queryInputRef.value.value = "";
+        queryInputRef.value.style.width = "";
+      }
+    };
+
     const clearQuery = () => {
       activeIndex.value = -1;
-      if (props.filterable || hasSearchEvent) {
+      if (searchable.value) {
         clearTimeout(clearQueryTimer.value);
         clearQueryTimer.value = setTimeout(() => {
-          queryKey.value = "";
-          if (queryInputRef.value) {
-            queryInputRef.value.value = "";
-            queryInputRef.value.style.width = "";
-          }
+          resetQueryInput();
           queryInputVisible.value = false;
         }, 300);
       }
@@ -300,12 +262,9 @@ const Select = defineComponent({
           currentValue.value.push(value);
         }
         updatePosition();
-        if (hasSearchEvent || props.filterable) {
-          if (queryInputRef.value) {
-            queryInputRef.value.value = "";
-            queryInputRef.value.style.width = "";
-          }
-          queryKey.value = "";
+        if (searchable.value) {
+          resetQueryInput();
+          activeIndex.value = optionsData.value.findIndex((option) => option.value === value);
           showQuery();
         }
       } else {
@@ -358,7 +317,6 @@ const Select = defineComponent({
       if (queryInputVisible.value) {
         nextTick(() => {
           queryInputRef.value?.focus();
-          queryInputFocused.value = true;
         });
       }
     };
@@ -386,11 +344,10 @@ const Select = defineComponent({
     };
 
     const showQuery = () => {
-      if (props.filterable || hasSearchEvent) {
+      if (searchable.value) {
         queryInputVisible.value = true;
         nextTick(() => {
           queryInputRef.value?.focus();
-          queryInputFocused.value = true;
         });
       }
     };
@@ -429,7 +386,12 @@ const Select = defineComponent({
       const { options, loading } = props;
       if (loading) return [];
       if (options && options.length > 0) {
-        return options;
+        return [
+          ...options,
+          ...createdOptions.value.filter(
+            (created) => !options.some((option) => option.value === created.value)
+          ),
+        ];
       }
 
       const data: SelectOption[] = [];
@@ -451,7 +413,12 @@ const Select = defineComponent({
           });
         }
       });
-      return data;
+      return [
+        ...data,
+        ...createdOptions.value.filter(
+          (created) => !data.some((option) => option.value === created.value)
+        ),
+      ];
     });
 
     const filterOptions = () => {
@@ -494,6 +461,94 @@ const Select = defineComponent({
           emitValue();
           updatePosition();
         }
+      }
+    };
+
+    const moveActive = (direction: 1 | -1) => {
+      const options = filterOptions();
+      if (options.length === 0) {
+        activeIndex.value = -1;
+        return;
+      }
+      let index = activeIndex.value;
+      for (let count = 0; count < options.length; count += 1) {
+        index = (index + direction + options.length) % options.length;
+        if (!options[index]?.disabled) {
+          activeIndex.value = index;
+          nextTick(scrollOptionIntoView);
+          return;
+        }
+      }
+    };
+
+    const createFromQuery = (): boolean => {
+      if (!props.multiple || !props.allowCreate) return false;
+      const value = queryKey.value.trim();
+      if (!value) return false;
+
+      const normalizedValue = value.toLocaleLowerCase();
+      const existing = optionsData.value.find(
+        (option) =>
+          String(option.value).trim().toLocaleLowerCase() === normalizedValue ||
+          String(option.label).trim().toLocaleLowerCase() === normalizedValue
+      );
+      if (existing) {
+        if (!existing.disabled && !isChecked(existing.value)) {
+          onSelect(existing);
+        } else {
+          resetQueryInput();
+          activeIndex.value = optionsData.value.findIndex(
+            (option) => option.value === existing.value
+          );
+          showQuery();
+        }
+        return true;
+      }
+
+      const option: SelectOption = { label: value, value };
+      createdOptions.value.push(option);
+      onSelect(option);
+      return true;
+    };
+
+    const closeDropdown = () => {
+      if (!visible.value) return;
+      visible.value = false;
+      emit("openChange", false);
+      clearQuery();
+    };
+
+    const onKeydown = (e: KeyboardEvent) => {
+      if (props.disabled) return;
+
+      if (!visible.value) {
+        if (["Enter", " ", "ArrowDown", "ArrowUp"].includes(e.key)) {
+          toggle(true);
+          if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+            nextTick(() => moveActive(e.key === "ArrowDown" ? 1 : -1));
+          }
+          e.preventDefault();
+        }
+        return;
+      }
+
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        moveActive(e.key === "ArrowDown" ? 1 : -1);
+        e.preventDefault();
+      } else if (e.key === "Enter") {
+        const option = filterOptions()[activeIndex.value];
+        if (option && !option.disabled) {
+          onSelect(option);
+          e.preventDefault();
+        } else if (createFromQuery()) {
+          e.preventDefault();
+        }
+      } else if (e.key === "Escape") {
+        closeDropdown();
+        refSelection.value?.focus();
+        e.preventDefault();
+      } else if (e.key === "Tab") {
+        closeDropdown();
       }
     };
 
@@ -654,10 +709,10 @@ const Select = defineComponent({
           "k-select-sm": size === "small",
           "k-select-fill": theme === "fill",
           "k-select-has-icon": !!icon,
-          "k-select-circle": shape === "circle" && !multiple,
+          "k-select-circle": shape === "circle",
           "k-select-square": shape === "square",
           "k-select-multiple": multiple,
-          "k-select-show-search": queryInputFocused.value,
+          "k-select-show-search": queryInputVisible.value,
           "k-select-show-tags": multiple && !isEmpty(labelText.value),
           "k-select-has-clear": showClear.value,
         },
@@ -671,8 +726,11 @@ const Select = defineComponent({
         class: rootClasses,
         style: rootStyles,
         onClick: () => toggle(),
-        onFocus: () => (ctxFocused.value = true),
-        onBlur: () => (ctxFocused.value = false),
+        onKeydown,
+        role: "combobox",
+        "aria-expanded": visible.value,
+        "aria-haspopup": "listbox" as const,
+        "aria-disabled": disabled,
         ref: refSelection,
       };
 
