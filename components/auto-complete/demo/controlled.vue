@@ -6,7 +6,6 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { AutoComplete, Button, Space } from "kui-vue";
 import { ref } from "vue";
 const value = ref("");
 const options = ["Beijing", "Shanghai", "Guangzhou", "Shenzhen", "Hangzhou"];

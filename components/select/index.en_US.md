@@ -47,7 +47,7 @@ Dropdown selector.
 | disabled     | Whether current item is disabled                                                  | boolean                                    | false         |
 | size         | Component size, provides two sizes: `small`, `large`, default is normal           | string                                     | -             |
 | emptyText    | Prompt displayed when no data                                                     | string                                     | 'No data yet' |
-| maxTagCount  | Maximum number of tags to display, excess shown with ellipsis                     | number                                     | -             |
+| maxTagCount  | Maximum visible tags in multiple mode; excess tags are shown in a Tooltip         | number                                     | -             |
 | multiple     | Whether to display in multiple selection mode                                     | boolean                                    | false         |
 | allowCreate  | Whether multiple mode can create missing options from entered text                | boolean                                    | false         |
 | loading      | Whether to show asynchronous loading                                              | boolean                                    | false         |

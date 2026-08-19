@@ -47,7 +47,7 @@
 | disabled     | 是否禁用当前项                                             | boolean                                    | false      |
 | size         | 组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常       | string                                     | -          |
 | emptyText    | 没有数据时展示的提示                                       | string                                     | '赞无数据' |
-| maxTagCount  | 最多展示多少个tag,超出部分以点点点展示                     | number                                     | -          |
+| maxTagCount  | 多选时最多展示的标签数，超出部分通过 Tooltip 展示          | number                                     | -          |
 | multiple     | 是否呈现多选模式                                           | boolean                                    | false      |
 | allowCreate  | 多选时是否允许输入并创建不存在的选项                       | boolean                                    | false      |
 | loading      | 是否显示异步加载                                           | boolean                                    | false      |

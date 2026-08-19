@@ -1,4 +1,4 @@
-import { ChevronDown, CircleX, Loading, X } from "kui-icons";
+import { ChevronDown, CircleX, Loading } from "kui-icons";
 import {
   computed,
   defineComponent,
@@ -23,6 +23,9 @@ import resize from "../directives/resize";
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
+import Space from "../space";
+import Tag from "../tag";
+import Tooltip from "../tooltip";
 import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
@@ -327,10 +330,9 @@ const Select = defineComponent({
       emit("change", result);
     };
 
-    const removeTag = (e: MouseEvent, index: number) => {
+    const removeTag = (index: number) => {
       if (props.disabled) return;
       currentValue.value.splice(index, 1);
-      e.stopPropagation();
       updatePosition();
       emitValue();
     };
@@ -656,18 +658,54 @@ const Select = defineComponent({
         ) : null;
 
       const renderTags = () => {
-        let tags = labelText.value.map((label, i) => {
-          return (
-            <span class="k-select-tag" key={label}>
-              {label}
-              <Icon type={X} onClick={(e) => removeTag(e, i)} />
-            </span>
-          );
-        });
-        if (props.maxTagCount && props.maxTagCount > 0 && tags.length > props.maxTagCount) {
-          tags = tags.slice(0, props.maxTagCount);
+        const labels = labelText.value;
+        const hasDisplayLimit =
+          typeof props.maxTagCount === "number" && Number.isFinite(props.maxTagCount);
+        const displayCount = hasDisplayLimit
+          ? Math.max(0, Math.floor(props.maxTagCount as number))
+          : labels.length;
+        const visibleLabels = labels.slice(0, displayCount);
+        const hiddenLabels = labels.slice(displayCount);
+        const tagSize = size || "medium";
+        const tags = visibleLabels.map((label, index) => (
+          <Tag
+            key={`${label}-${index}`}
+            size={tagSize}
+            shape={shape}
+            theme={theme}
+            compact
+            closeable={!disabled}
+            onClose={() => removeTag(index)}
+          >
+            {label}
+          </Tag>
+        ));
+
+        if (hiddenLabels.length) {
           tags.push(
-            <span class="k-select-tag">+{labelText.value.length - props.maxTagCount}...</span>
+            <Tooltip
+              title={
+                <Space wrap size={4}>
+                  {hiddenLabels.map((label, index) => (
+                    <Tag
+                      key={`${label}-${index}`}
+                      size="small"
+                      shape={shape}
+                      theme="fill"
+                      compact
+                      closeable={!disabled}
+                      onClose={() => removeTag(displayCount + index)}
+                    >
+                      {label}
+                    </Tag>
+                  ))}
+                </Space>
+              }
+            >
+              <Tag size={tagSize} shape={shape} theme={theme} compact>
+                +{hiddenLabels.length}...
+              </Tag>
+            </Tooltip>
           );
         }
         return tags;

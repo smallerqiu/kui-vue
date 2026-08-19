@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import { Button, FlameWrap, Space, Tag } from "kui-vue";
-</script>
-
 <template>
   <div style="padding: 150px 60px 48px">
     <FlameWrap :radius="18">

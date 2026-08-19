@@ -111,7 +111,7 @@
     background-color: var(--kui-color-lime-9);
   }
 }
-.k-tag-fill {
+.k-tag.k-tag-fill {
   border-color: transparent;
   background-color: var(--kui-theme-fill-bg);
 }
@@ -156,6 +156,42 @@
 
   &.k-tag-circle {
     border-radius: 20px;
+  }
+}
+
+.k-tag-compact {
+  height: 22px;
+  padding: 0 6px;
+  font-size: var(--kui-font-size-sm);
+
+  &.k-tag-closeable {
+    padding-right: 4px;
+  }
+
+  .k-tag-close {
+    font-size: var(--kui-font-size);
+  }
+
+  &.k-tag-sm {
+    height: 18px;
+    padding: 0 5px;
+
+    &.k-tag-closeable {
+      padding-right: 3px;
+    }
+  }
+
+  &.k-tag-lg {
+    height: 28px;
+    padding: 0 8px;
+
+    &.k-tag-closeable {
+      padding-right: 6px;
+    }
+
+    .k-tag-text {
+      font-size: var(--kui-font-size);
+    }
   }
 }
 .k-tag-hidden {

@@ -11,7 +11,6 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-import { Button, Space, Steps } from "kui-vue";
 const current = ref(0);
 const items = [{ title: "填写信息" }, { title: "确认内容" }, { title: "完成" }];
 </script>

@@ -7,7 +7,7 @@
   />
 </template>
 <script setup lang="ts">
-import { AutoComplete, type AutoCompleteOption } from "kui-vue";
+import { type AutoCompleteOption } from "kui-vue";
 import { ref } from "vue";
 const value = ref("");
 const options = ["Apple", "Apricot", "Banana", "Blueberry"];

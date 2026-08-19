@@ -11,6 +11,5 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { AutoComplete, Space } from "kui-vue";
 const options = ["Vue", "Vite", "Vitest"];
 </script>

@@ -5,7 +5,6 @@
   </Space>
 </template>
 <script setup lang="ts">
-import { Space, Steps } from "kui-vue";
 const items = [{ title: "提交" }, { title: "校验失败" }, { title: "完成" }];
 const customStatusItems = [
   { title: "已完成", status: "finish" as const },

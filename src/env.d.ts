@@ -3,6 +3,7 @@ import * as Comps from "../components/index.ts";
 
 declare module "vue" {
   export interface GlobalComponents {
+    AutoComplete: (typeof Comps)["AutoComplete"];
     Affix: (typeof Comps)["Affix"];
     Alert: (typeof Comps)["Alert"];
     Anchor: (typeof Comps)["Anchor"];
@@ -39,6 +40,7 @@ declare module "vue" {
     Form: (typeof Comps)["Form"];
     FormItem: (typeof Comps)["FormItem"];
     Flex: (typeof Comps)["Flex"];
+    FlameWrap: (typeof Comps)["FlameWrap"];
     Grid: (typeof Comps)["Grid"];
     GridItem: (typeof Comps)["GridItem"];
     Image: (typeof Comps)["Image"];
@@ -46,6 +48,7 @@ declare module "vue" {
     ImageGroup: (typeof Comps)["ImageGroup"];
     Icon: (typeof Comps)["Icon"];
     Input: (typeof Comps)["Input"];
+    InputTag: (typeof Comps)["InputTag"];
     InputGroup: (typeof Comps)["InputGroup"];
     InputOTP: (typeof Comps)["InputOTP"];
     TextArea: (typeof Comps)["TextArea"];
@@ -55,6 +58,7 @@ declare module "vue" {
     Header: (typeof Comps)["Header"];
     Layout: (typeof Comps)["Layout"];
     Sider: (typeof Comps)["Sider"];
+    Mentions: (typeof Comps)["Mentions"];
     Menu: (typeof Comps)["Menu"];
     MenuDivider: (typeof Comps)["MenuDivider"];
     MenuGroup: (typeof Comps)["MenuGroup"];
@@ -72,6 +76,7 @@ declare module "vue" {
     Progress: (typeof Comps)["Progress"];
     QRCode: (typeof Comps)["QRCode"];
     Radio: (typeof Comps)["Radio"];
+    Ripple: (typeof Comps)["Ripple"];
     RadioButton: (typeof Comps)["RadioButton"];
     RadioGroup: (typeof Comps)["RadioGroup"];
     Rate: (typeof Comps)["Rate"];
@@ -93,6 +98,7 @@ declare module "vue" {
     Splitter: (typeof Comps)["Splitter"];
     SplitterPanel: (typeof Comps)["SplitterPanel"];
     Spin: (typeof Comps)["Spin"];
+    Steps: (typeof Comps)["Steps"];
     Switch: (typeof Comps)["Switch"];
     KSwitch: (typeof Comps)["Switch"];
     Table: (typeof Comps)["Table"];
@@ -105,6 +111,7 @@ declare module "vue" {
     Tree: (typeof Comps)["Tree"];
     TreeSelect: (typeof Comps)["TreeSelect"];
     Tag: (typeof Comps)["Tag"];
+    Tour: (typeof Comps)["Tour"];
     Col: (typeof Comps)["Col"];
     Row: (typeof Comps)["Row"];
     Upload: (typeof Comps)["Upload"];

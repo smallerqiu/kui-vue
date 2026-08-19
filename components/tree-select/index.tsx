@@ -1,4 +1,4 @@
-import { ChevronDown, CircleX, LoaderCircle, X } from "kui-icons";
+import { ChevronDown, CircleX, LoaderCircle } from "kui-icons";
 import {
   computed,
   defineComponent,
@@ -30,6 +30,9 @@ import resize from "../directives/resize";
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
+import Space from "../space";
+import Tag from "../tag";
+import Tooltip from "../tooltip";
 import Tree, { type TreeExpandEvent } from "../tree";
 import { treeSelectContextKey } from "../tree/context";
 import type { TreeNode } from "../tree/utils";
@@ -279,10 +282,9 @@ const TreeSelect = defineComponent({
       emit("change", result);
     };
 
-    const removeTag = (e: MouseEvent, index: number) => {
+    const removeTag = (index: number) => {
       if (props.disabled) return;
       currentValue.value.splice(index, 1);
-      e.stopPropagation();
       emitValue();
       updatePosition();
     };
@@ -549,22 +551,56 @@ const TreeSelect = defineComponent({
         ) : null;
 
       const renderTags = () => {
-        let tags = labelText.value.map((label: string, i: number) => {
-          return (
-            <span class="k-tree-select-tag" key={String(label)}>
-              {label}
-              <Icon type={X} onClick={(e: MouseEvent) => removeTag(e, i)} />
-            </span>
-          );
-        });
+        const labels = labelText.value;
+        const hasDisplayLimit =
+          typeof props.maxTagCount === "number" && Number.isFinite(props.maxTagCount);
+        const displayCount = hasDisplayLimit
+          ? Math.max(0, Math.floor(props.maxTagCount as number))
+          : labels.length;
+        const visibleLabels = labels.slice(0, displayCount);
+        const hiddenLabels = labels.slice(displayCount);
+        const tagSize = props.size || "medium";
+        const tags = visibleLabels.map((label, index) => (
+          <Tag
+            key={`${label}-${index}`}
+            size={tagSize}
+            shape={props.shape}
+            theme={props.theme}
+            compact
+            closeable={!props.disabled}
+            onClose={() => removeTag(index)}
+          >
+            {label}
+          </Tag>
+        ));
 
-        if (props.maxTagCount && props.maxTagCount > 0 && tags.length > props.maxTagCount) {
-          tags = tags.slice(0, props.maxTagCount);
+        if (hiddenLabels.length) {
           tags.push(
-            <span class="k-tree-select-tag">+{labelText.value.length - props.maxTagCount}...</span>
+            <Tooltip
+              title={
+                <Space wrap size={4}>
+                  {hiddenLabels.map((label, index) => (
+                    <Tag
+                      key={`${label}-${index}`}
+                      size="small"
+                      shape={props.shape}
+                      theme="fill"
+                      compact
+                      closeable={!props.disabled}
+                      onClose={() => removeTag(displayCount + index)}
+                    >
+                      {label}
+                    </Tag>
+                  ))}
+                </Space>
+              }
+            >
+              <Tag size={tagSize} shape={props.shape} theme={props.theme} compact>
+                +{hiddenLabels.length}...
+              </Tag>
+            </Tooltip>
           );
         }
-
         return tags;
       };
 

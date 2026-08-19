@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import { FlameWrap } from "kui-vue";
-</script>
-
 <template>
   <div style="padding: 130px 60px 48px">
     <FlameWrap

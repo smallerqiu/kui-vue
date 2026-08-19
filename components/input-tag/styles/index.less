@@ -1,54 +1,134 @@
-.k-input-tag.k-input[data-multiple] {
-  height: auto;
-  min-height: var(--kui-control-height);
-  padding-top: 3px;
-  padding-bottom: 3px;
+@import "../../styles/less-css-var.less";
+
+.k-input-tag {
+  box-sizing: border-box;
+  display: flex;
   flex-wrap: wrap;
-  overflow: visible;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+  min-height: var(--kui-control-height);
+  padding: 3px var(--kui-padding-tag-box-inline);
+  color: var(--kui-control-text);
+  border: 1px solid var(--kui-control-border);
+  border-radius: var(--kui-control-radius);
+  background: var(--kui-control-bg);
+  transition:
+    border-color var(--kui-motion-duration) var(--kui-motion-easing),
+    box-shadow var(--kui-motion-duration) var(--kui-motion-easing);
+
+  &:not(.k-input-tag-disabled, .k-input-tag-fill, .k-input-tag-plain):hover {
+    border-color: var(--kui-color-primary);
+  }
+
+  &:focus-within {
+    border-color: var(--kui-color-primary);
+    box-shadow: var(--kui-component-shadow);
+    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+    outline-offset: 1px;
+  }
+
+  .k-input-tag-input {
+    box-sizing: border-box;
+    flex: 1 0 80px;
+    min-width: 80px;
+    height: 22px;
+    padding: 0;
+    color: var(--kui-control-text);
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font: inherit;
+    font-size: var(--kui-font-size);
+
+    &::placeholder {
+      color: var(--kui-color-text-placeholder);
+    }
+  }
+
+  .k-input-tag-clearable {
+    flex: none;
+    color: var(--kui-color-icon);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity var(--kui-motion-duration) var(--kui-motion-easing);
+
+    &:hover {
+      color: var(--kui-color-icon-hover);
+    }
+
+    &:active {
+      color: var(--kui-color-icon-active);
+    }
+  }
+
+  &.k-input-tag-has-clear:hover .k-input-tag-clearable {
+    opacity: 1;
+  }
 }
-.k-input-tag.k-input[data-multiple]:focus-within {
-  border-color: var(--kui-color-primary);
-  box-shadow: var(--kui-component-shadow);
-  outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
-  outline-offset: 1px;
+
+.k-input-tag-block {
+  width: 100%;
 }
-.k-input-tag.k-input-fill[data-multiple]:focus-within,
-.k-input-tag.k-input-plain[data-multiple]:focus-within {
+.k-input-tag-sm {
+  min-height: var(--kui-control-height-sm);
+  padding: 2px var(--kui-padding-tag-box-inline-sm);
+
+  .k-input-tag-input {
+    height: 18px;
+    font-size: var(--kui-font-size-sm);
+  }
+}
+
+.k-input-tag-lg {
+  min-height: var(--kui-control-height-lg);
+  padding: 5px var(--kui-padding-tag-box-inline-lg);
+
+  .k-input-tag-input {
+    height: 28px;
+    font-size: var(--kui-font-size-lg);
+  }
+}
+
+.k-input-tag-fill {
   border-color: transparent;
-  box-shadow: none;
+  background: var(--kui-theme-fill-bg);
+
+  &:focus-within {
+    border-color: transparent;
+    box-shadow: none;
+  }
 }
-.k-input-tag.k-input[data-multiple] .k-input-tag-item {
-  padding: 2px 5px;
-  font-size: var(--kui-font-size-sm);
-}
-.k-input-tag.k-input[data-multiple] .k-input-tag-item .k-icon {
-  color: var(--kui-color-icon);
-  cursor: pointer;
-  font-size: var(--kui-font-size);
-}
-.k-input-tag.k-input[data-multiple] .k-input-tag-input {
-  min-width: 80px;
-  padding: 2px 0;
-}
-.k-input-tag.k-input-sm[data-multiple] .k-input-tag-item {
-  padding: 1px 5px;
-  font-size: var(--kui-font-size-sm);
-}
-.k-input-tag.k-input-lg[data-multiple] .k-input-tag-item {
-  padding: 5px 8px;
-  font-size: var(--kui-font-size);
-}
-.k-input-tag.k-input-circle[data-multiple] .k-input-tag-item {
+
+// .k-input-tag-plain {
+//   border-color: transparent;
+//   background: transparent;
+
+//   &:focus-within {
+//     border-color: transparent;
+//     box-shadow: none;
+//   }
+// }
+
+.k-input-tag-circle {
   border-radius: var(--kui-shape-circle);
 }
-.k-input-tag.k-input-square[data-multiple] .k-input-tag-item {
+
+.k-input-tag-square {
   border-radius: var(--kui-shape-square);
 }
-.k-input-tag.k-input-disabled[data-multiple] .k-input-tag-item,
-.k-input-tag.k-input-disabled[data-multiple] .k-input-tag-input {
+
+.k-input-tag-disabled {
   color: var(--kui-color-text-disabled);
-  -webkit-text-fill-color: var(--kui-color-text-disabled);
-}
-.k-input-tag.k-input-disabled[data-multiple] .k-input-tag-item .k-icon {
-  color: var(--kui-color-text-disabled);
+  background: var(--kui-control-bg-disabled);
+  cursor: not-allowed;
+
+  .k-input-tag-item.k-tag,
+  .k-input-tag-item .k-tag-close,
+  .k-input-tag-input {
+    color: var(--kui-color-text-disabled);
+    cursor: not-allowed;
+    -webkit-text-fill-color: var(--kui-color-text-disabled);
+  }
 }

@@ -83,7 +83,7 @@
   }
 }
 
-:where(.k-tag, .k-select-tag, .k-tree-select-tag, .k-input-tag-item) {
+.k-tag {
   box-sizing: border-box;
   display: inline-flex;
   align-items: center;
@@ -98,39 +98,6 @@
 .k-tag-plain {
   border-color: transparent;
   background: transparent;
-}
-
-:where(.k-select-fill, .k-tree-select-fill, .k-input-fill) {
-  :where(.k-select-tag, .k-tree-select-tag, .k-input-tag-item) {
-    border-color: transparent;
-    background: var(--kui-color-bg);
-  }
-}
-
-:where(.k-select-sm, .k-tree-select-sm, .k-input-sm) {
-  :where(.k-select-tag, .k-tree-select-tag, .k-input-tag-item) {
-    padding: 1px 5px;
-    font-size: var(--kui-font-size-sm);
-  }
-}
-
-:where(.k-select-lg, .k-tree-select-lg, .k-input-lg) {
-  :where(.k-select-tag, .k-tree-select-tag, .k-input-tag-item) {
-    padding: 5px 8px;
-    font-size: var(--kui-font-size);
-  }
-}
-
-:is(.k-select.k-select-circle, .k-tree-select.k-tree-select-circle, .k-input.k-input-circle) {
-  :is(.k-select-tag, .k-tree-select-tag, .k-input-tag-item) {
-    border-radius: var(--kui-shape-circle);
-  }
-}
-
-:is(.k-select.k-select-square, .k-tree-select.k-tree-select-square, .k-input.k-input-square) {
-  :is(.k-select-tag, .k-tree-select-tag, .k-input-tag-item) {
-    border-radius: var(--kui-shape-square);
-  }
 }
 
 .k-input-otp-plain .k-input-otp-item {

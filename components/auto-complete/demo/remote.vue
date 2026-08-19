@@ -8,7 +8,6 @@
   />
 </template>
 <script setup lang="ts">
-import { AutoComplete } from "kui-vue";
 import { onBeforeUnmount, ref } from "vue";
 
 interface ProductResponse {

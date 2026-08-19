@@ -20,6 +20,7 @@ import { isColor } from "../utils/color";
 
 const tagProps = {
   closeable: Boolean as BooleanType,
+  compact: Boolean as BooleanType,
   color: String as ColorType,
   shape: String as PropType<ShapeType>,
   icon: Array as PropType<IconType[]>,
@@ -50,7 +51,7 @@ const Tag = defineComponent({
     };
 
     return () => {
-      const { shape, icon, size, color, closeable } = props;
+      const { shape, icon, size, color, closeable, compact } = props;
 
       const isPresetColor = color && colors.some((preset) => preset === color);
       const isCustomColor = color && isColor(color) && !isPresetColor;
@@ -65,6 +66,7 @@ const Tag = defineComponent({
           "k-tag-square": shape === "square",
           "k-tag-has-color": isCustomColor,
           "k-tag-closeable": closeable,
+          "k-tag-compact": compact,
           "k-tag-hidden": hidden.value,
           [`k-tag-${props.theme}`]: !!props.theme,
         },

@@ -14,30 +14,38 @@ Convert continuous input into an addable and removable tag collection.
 
 [Maximum count](./demo/limit.vue)
 
-- Limit the number of tags with max.
+- Use `max` to limit the total number of tags and `maxTagCount` to limit visible tags.
 
 [Separators](./demo/separators.vue)
 
 - Commit tags with comma or semicolon.
 
+[Size](./demo/size.vue)
+
+- Different sizes.
+
 [Appearance and disabled](./demo/appearance.vue)
 
-- Shows size, theme, shape, and disabled states.
+- Shows theme, shape, and disabled states.
 
 ## InputTag API
 
-| Property        | Description      | Type                           | Default |
-| --------------- | ---------------- | ------------------------------ | ------- |
-| modelValue      | Tags (v-model)   | string[]                       | -       |
-| defaultValue    | Initial tags     | string[]                       | []      |
-| placeholder     | Placeholder      | string                         | -       |
-| size            | Size             | small\|medium\|large           | medium  |
-| theme           | Theme            | fill\|outline\|plain           | fill    |
-| shape           | Shape            | circle\|square\|round\|default | default |
-| disabled        | Disabled         | boolean                        | false   |
-| allowDuplicates | Allow duplicates | boolean                        | false   |
-| max             | Maximum count    | number                         | -       |
-| separators      | Commit keys      | string[]                       | [',']   |
-| onChange        | Tags change      | function                       | -       |
-| onAdd           | Tag added        | function                       | -       |
-| onRemove        | Tag removed      | function                       | -       |
+| Property        | Description                                        | Type                           | Default |
+| --------------- | -------------------------------------------------- | ------------------------------ | ------- |
+| modelValue      | Tags (v-model)                                     | string[]                       | -       |
+| value           | Initial tags                                       | string[]                       | []      |
+| placeholder     | Placeholder                                        | string                         | -       |
+| size            | Size                                               | small\|medium\|large           | medium  |
+| theme           | Theme                                              | fill\|outline\|plain           | fill    |
+| shape           | Shape                                              | circle\|square\|round\|default | default |
+| disabled        | Disabled                                           | boolean                        | false   |
+| clearable       | Whether to show the clear button                   | boolean                        | false   |
+| block           | Fill the parent width                              | boolean                        | false   |
+| allowDuplicates | Allow duplicates                                   | boolean                        | false   |
+| max             | Maximum count                                      | number                         | -       |
+| maxTagCount     | Maximum visible tags; the remainder is shown as +N | number                         | -       |
+| separators      | Commit keys                                        | string[]                       | [',']   |
+| onChange        | Tags change                                        | function                       | -       |
+| onAdd           | Tag added                                          | function                       | -       |
+| onRemove        | Tag removed                                        | function                       | -       |
+| onClear         | Tags cleared                                       | function                       | -       |

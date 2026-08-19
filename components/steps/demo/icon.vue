@@ -2,9 +2,9 @@
   <Steps :current="1" :items="items" />
 </template>
 <script setup lang="ts">
-import { h } from "vue";
 import { CircleCheck, CreditCard, User } from "kui-icons";
-import { Icon, Steps } from "kui-vue";
+import { Icon } from "kui-vue";
+import { h } from "vue";
 const items = [
   { title: "账号信息", icon: h(Icon, { type: User }) },
   { title: "支付方式", icon: h(Icon, { type: CreditCard }) },

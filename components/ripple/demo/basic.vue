@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import { Button, Ripple, Space, Tag } from "kui-vue";
-</script>
-
 <template>
   <Ripple
     :style="{

@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import { Ripple } from "kui-vue";
-</script>
-
 <template>
   <Ripple
     trigger="hover"

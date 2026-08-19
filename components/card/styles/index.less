@@ -1,8 +1,6 @@
 @import "../../styles/less-css-var.less";
 
 .k-card {
-  --kui-card-size-padding: var(--kui-card-padding);
-  --kui-card-meta-gap: var(--kui-spacing-3);
   background: var(--kui-card-bg);
   position: relative;
   border-radius: var(--kui-card-radius);
@@ -10,7 +8,7 @@
 
   .k-card-head {
     position: relative;
-    padding: var(--kui-card-size-padding);
+    padding: var(--kui-card-padding);
     line-height: 1;
     display: flex;
     align-items: center;
@@ -36,7 +34,7 @@
   }
 
   .k-card-body {
-    padding: var(--kui-card-size-padding);
+    padding: var(--kui-card-padding);
     font-size: 14px;
   }
 
@@ -57,7 +55,7 @@
   .k-card-meta {
     display: flex;
     align-items: flex-start;
-    gap: var(--kui-card-meta-gap);
+    gap: var(--kui-spacing-3);
   }
 
   .k-card-meta-avatar {
@@ -86,13 +84,25 @@
 }
 
 .k-card-small {
-  --kui-card-size-padding: var(--kui-spacing-3);
-  --kui-card-meta-gap: var(--kui-spacing-2);
+  .k-card-head,
+  .k-card-body {
+    padding: var(--kui-spacing-3);
+  }
+
+  .k-card-meta {
+    gap: var(--kui-spacing-2);
+  }
 }
 
 .k-card-large {
-  --kui-card-size-padding: var(--kui-spacing-5);
-  --kui-card-meta-gap: var(--kui-spacing-4);
+  .k-card-head,
+  .k-card-body {
+    padding: var(--kui-spacing-5);
+  }
+
+  .k-card-meta {
+    gap: var(--kui-spacing-4);
+  }
 }
 
 .k-card-bordered {
