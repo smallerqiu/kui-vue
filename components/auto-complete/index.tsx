@@ -19,11 +19,11 @@ import {
   type VNodeChild,
 } from "vue";
 import { usePopupContainer } from "../config/popup";
-import { Input } from "../input";
+import type { ShapeType, SizeType, ThemeType } from "../const/types";
 import Icon from "../icon";
+import { Input } from "../input";
 import zhCN from "../locale/zh-CN";
 import { setPlacement } from "../utils/placement";
-import type { ShapeType, SizeType, ThemeType } from "../const/types";
 
 export interface AutoCompleteOption {
   value: string;
@@ -32,7 +32,7 @@ export interface AutoCompleteOption {
 }
 const propsDef = {
   modelValue: String,
-  defaultValue: { type: String, default: "" },
+  value: { type: String, default: "" },
   options: { type: Array as PropType<Array<string | AutoCompleteOption>>, default: () => [] },
   open: { type: Boolean, default: undefined },
   defaultOpen: Boolean,
@@ -70,7 +70,7 @@ export default defineComponent({
       isRef(injectedLocale) ? injectedLocale.value : injectedLocale
     );
     const getPopupContainer = usePopupContainer();
-    const inner = ref(props.defaultValue);
+    const inner = ref(props.value);
     const innerOpen = ref(props.defaultOpen);
     const active = ref(-1);
     const root = ref<HTMLElement | null>(null);
@@ -269,6 +269,7 @@ export default defineComponent({
                 "k-select-dropdown",
                 "k-auto-complete-dropdown",
                 { "k-select-dropdown-sm": props.size === "small" },
+                { "k-select-dropdown-sm": props.size === "large" },
               ]}
               role="listbox"
             >

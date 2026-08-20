@@ -582,6 +582,7 @@ const Select = defineComponent({
           {
             "k-select-dropdown-multiple": props.multiple,
             "k-select-dropdown-sm": props.size === "small",
+            "k-select-dropdown-lg": props.size === "large",
           },
         ],
       };

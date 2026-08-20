@@ -33,7 +33,7 @@ Provide candidates based on the input while retaining the ability for free text 
 | Property     | Description                                        | Type                           | Default |
 | ------------ | -------------------------------------------------- | ------------------------------ | ------- |
 | modelValue   | Value (v-model)                                    | string                         | -       |
-| defaultValue | Initial value                                      | string                         | ''      |
+| value        | Initial value                                      | string                         | ''      |
 | options      | Suggestions                                        | (string\|AutoCompleteOption)[] | []      |
 | open         | Open state                                         | boolean                        | false   |
 | defaultOpen  | Initial open state                                 | boolean                        | false   |

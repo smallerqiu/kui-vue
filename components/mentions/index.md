@@ -16,6 +16,11 @@
 
 - 自定义候选项的匹配规则。
 
+
+[尺寸](./demo/size.vue)
+
+- 展示不同尺寸。
+
 [尺寸、主题与形状](./demo/appearance.vue)
 
 - 展示不同输入框外观。
@@ -37,7 +42,7 @@
 | 属性         | 说明              | 类型                                                        | 默认值      |
 | ------------ | ----------------- | ----------------------------------------------------------- | ----------- |
 | modelValue   | 文本值（v-model） | string                                                      | -           |
-| defaultValue | 初始文本          | string                                                      | ''          |
+| value        | 初始文本          | string                                                      | ''          |
 | options      | 候选项            | (string\|MentionOption)[]                                   | []          |
 | triggers     | 触发字符          | string[]                                                    | ['@']       |
 | placeholder  | 占位文本          | string                                                      | -           |

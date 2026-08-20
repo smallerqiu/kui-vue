@@ -53,7 +53,7 @@ describe("new components", () => {
 
   it("shows and handles the AutoComplete clear button only when it has a value", async () => {
     const wrapper = mount(AutoComplete, {
-      props: { clearable: true, defaultValue: "Vue", options: ["Vue"] },
+      props: { clearable: true, value: "Vue", options: ["Vue"] },
     });
     const clear = wrapper.find(".k-input-clearable");
     expect(clear.exists()).toBe(true);
@@ -97,7 +97,7 @@ describe("new components", () => {
   it("validates remote results before replacing the rendered options", async () => {
     const wrapper = mount(AutoComplete, {
       props: {
-        defaultValue: "rea",
+        value: "rea",
         options: ["React"],
         onSearch: () => undefined,
       },
@@ -144,7 +144,7 @@ describe("new components", () => {
   });
 
   it("adds, deduplicates and removes InputTag values", async () => {
-    const wrapper = mount(InputTag, { props: { defaultValue: ["Vue"] } });
+    const wrapper = mount(InputTag, { props: { value: ["Vue"] } });
     const input = wrapper.find("input");
     await input.setValue("React");
     await input.trigger("keydown", { key: "Enter" });

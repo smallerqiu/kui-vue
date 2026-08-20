@@ -33,7 +33,7 @@
 | 属性         | 说明                     | 类型                           | 默认值  |
 | ------------ | ------------------------ | ------------------------------ | ------- |
 | modelValue   | 输入值（v-model）        | string                         | -       |
-| defaultValue | 初始值                   | string                         | ''      |
+| value        | 初始值                   | string                         | ''      |
 | options      | 候选项                   | (string\|AutoCompleteOption)[] | []      |
 | open         | 展开状态                 | boolean                        | false   |
 | defaultOpen  | 初始展开状态             | boolean                        | false   |

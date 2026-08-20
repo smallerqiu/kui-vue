@@ -9,16 +9,16 @@ import {
   Teleport,
   Transition,
   watch,
-  type ExtractPropTypes,
   type CSSProperties,
+  type ExtractPropTypes,
   type PropType,
   type VNodeChild,
 } from "vue";
-import Empty from "../empty";
 import { usePopupContainer } from "../config/popup";
+import type { DropPlacementsType, ShapeType, SizeType, ThemeType } from "../const/types";
+import Empty from "../empty";
 import { TextArea } from "../input";
 import { setPlacement } from "../utils/placement";
-import type { DropPlacementsType, ShapeType, SizeType, ThemeType } from "../const/types";
 
 export interface MentionOption {
   value: string;
@@ -27,11 +27,11 @@ export interface MentionOption {
 }
 const propsDef = {
   modelValue: String,
-  defaultValue: { type: String, default: "" },
+  value: { type: String, default: "" },
   options: { type: Array as PropType<Array<string | MentionOption>>, default: () => [] },
   triggers: { type: Array as PropType<string[]>, default: () => ["@"] },
   placeholder: String,
-  rows: { type: Number, default: 2 },
+  rows: { type: Number, default: 1 },
   placement: { type: String as PropType<DropPlacementsType>, default: "bottom-left" },
   size: String as PropType<SizeType>,
   shape: String as PropType<ShapeType>,
@@ -49,7 +49,7 @@ export default defineComponent({
   props: propsDef,
   setup(props, { emit, attrs, slots }) {
     const getPopupContainer = usePopupContainer();
-    const inner = ref(props.defaultValue);
+    const inner = ref(props.value);
     const query = ref<{ start: number; trigger: string; text: string }>();
     const active = ref(0);
     const root = ref<HTMLElement | null>(null);
@@ -201,7 +201,14 @@ export default defineComponent({
       });
     };
     return () => (
-      <div ref={root} class={["k-mentions", attrs.class]}>
+      <div
+        ref={root}
+        class={[
+          "k-mentions",
+          { "k-mentions-sm": props.size == "small", "k-mentions-lg": props.size == "large" },
+          attrs.class,
+        ]}
+      >
         <TextArea
           {...attrs}
           class={undefined}
@@ -249,6 +256,7 @@ export default defineComponent({
                 "k-select-dropdown",
                 "k-mentions-dropdown",
                 { "k-select-dropdown-sm": props.size === "small" },
+                { "k-select-dropdown-lg": props.size === "large" },
               ]}
               role="listbox"
             >

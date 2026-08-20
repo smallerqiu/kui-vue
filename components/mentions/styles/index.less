@@ -1,3 +1,4 @@
+@import "../../styles/less-css-var.less";
 .k-mentions {
   position: relative;
   display: inline-block;
@@ -5,10 +6,20 @@
 }
 .k-mentions > .k-textarea {
   width: 100%;
+  resize: none;
 }
 .k-mentions-dropdown {
   position: absolute;
   right: auto;
   bottom: auto;
   min-width: 180px;
+}
+.k-mentions-sm .k-textarea {
+  height: var(--kui-control-height-sm);
+  min-height: var(--kui-control-height-sm);
+}
+
+.k-mentions-lg .k-textarea {
+  height: var(--kui-control-height-lg);
+  min-height: var(--kui-control-height-lg);
 }

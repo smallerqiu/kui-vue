@@ -12,6 +12,10 @@
 
 - Customize suggestion matching.
 
+[Size](./demo/size.vue)
+
+- Display different sizes.
+
 [Size, theme and shape](./demo/appearance.vue)
 
 - Shows several textarea appearances.
@@ -33,7 +37,7 @@
 | Property     | Description                  | Type                                                        | Default     |
 | ------------ | ---------------------------- | ----------------------------------------------------------- | ----------- |
 | modelValue   | Text (v-model)               | string                                                      | -           |
-| defaultValue | Initial text                 | string                                                      | ''          |
+| value        | Initial text                 | string                                                      | ''          |
 | options      | Suggestions                  | (string\|MentionOption)[]                                   | []          |
 | triggers     | Trigger strings              | string[]                                                    | ['@']       |
 | placeholder  | Placeholder                  | string                                                      | -           |
