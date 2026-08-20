@@ -582,9 +582,9 @@ const TreeSelect = defineComponent({
                   {hiddenLabels.map((label, index) => (
                     <Tag
                       key={`${label}-${index}`}
-                      size="small"
+                      size={tagSize}
                       shape={props.shape}
-                      theme="fill"
+                      theme={props.theme}
                       compact
                       closeable={!props.disabled}
                       onClose={() => removeTag(displayCount + index)}

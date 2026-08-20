@@ -689,9 +689,9 @@ const Select = defineComponent({
                   {hiddenLabels.map((label, index) => (
                     <Tag
                       key={`${label}-${index}`}
-                      size="small"
+                      size={tagSize}
                       shape={shape}
-                      theme="fill"
+                      theme={theme}
                       compact
                       closeable={!disabled}
                       onClose={() => removeTag(displayCount + index)}
