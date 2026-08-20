@@ -1,3 +1,4 @@
+import { CircleX, Loading } from "kui-icons";
 import {
   computed,
   defineComponent,
@@ -17,6 +18,7 @@ import {
 import { usePopupContainer } from "../config/popup";
 import type { DropPlacementsType, ShapeType, SizeType, ThemeType } from "../const/types";
 import Empty from "../empty";
+import Icon from "../icon";
 import { TextArea } from "../input";
 import { setPlacement } from "../utils/placement";
 
@@ -31,6 +33,10 @@ const propsDef = {
   options: { type: Array as PropType<Array<string | MentionOption>>, default: () => [] },
   triggers: { type: Array as PropType<string[]>, default: () => ["@"] },
   placeholder: String,
+  disabled: Boolean,
+  clearable: { type: Boolean, default: true },
+  loading: Boolean,
+  loadingText: String,
   rows: { type: Number, default: 1 },
   placement: { type: String as PropType<DropPlacementsType>, default: "bottom-left" },
   size: String as PropType<SizeType>,
@@ -40,6 +46,8 @@ const propsDef = {
   filterOption: Function as PropType<(query: string, option: MentionOption) => boolean>,
   onChange: Function as PropType<(value: string) => void>,
   onSelect: Function as PropType<(option: MentionOption, trigger: string) => void>,
+  onSearch: Function as PropType<(query: string, trigger: string) => void>,
+  onClear: Function as PropType<() => void>,
 };
 export type MentionsProps = ExtractPropTypes<typeof propsDef>;
 
@@ -145,18 +153,20 @@ export default defineComponent({
     const normalized = computed(() =>
       props.options.map((item) => (typeof item === "string" ? { value: item, label: item } : item))
     );
-    const getMatches = (state: NonNullable<typeof query.value>) =>
-      normalized.value.filter((option) =>
+    const getMatches = (state: NonNullable<typeof query.value>) => {
+      if (props.onSearch && !props.filterOption) return normalized.value;
+      return normalized.value.filter((option) =>
         props.filterOption
           ? props.filterOption(state.text, option)
           : option.value.toLocaleLowerCase().includes(state.text.toLocaleLowerCase())
       );
+    };
     const update = (next: string) => {
       inner.value = next;
       emit("update:modelValue", next);
       emit("change", next);
     };
-    const updateQuery = (text: string, caret: number) => {
+    const updateQuery = (text: string, caret: number, search = false) => {
       const prefix = text.slice(0, caret);
       let found: typeof query.value;
       props.triggers.forEach((trigger) => {
@@ -172,10 +182,22 @@ export default defineComponent({
       query.value = found;
       active.value = 0;
       if (found) {
-        shownMatches.value = getMatches(found);
+        shownMatches.value = props.onSearch && search && found.text ? [] : getMatches(found);
+        if (search && found.text) emit("search", found.text, found.trigger);
         nextTick(updateDropdownPosition);
+      } else {
+        shownMatches.value = [];
       }
     };
+    watch(
+      () => props.options,
+      () => {
+        if (!query.value) return;
+        shownMatches.value = getMatches(query.value);
+        nextTick(updateDropdownPosition);
+      },
+      { deep: true }
+    );
     onMounted(() => {
       window.addEventListener("resize", updateDropdownPosition);
       window.addEventListener("scroll", updateDropdownPosition, true);
@@ -200,12 +222,29 @@ export default defineComponent({
         getTextarea()?.setSelectionRange(position, position);
       });
     };
+    const updateQueryFromCaret = () => {
+      const element = getTextarea();
+      if (element) updateQuery(current.value, element.selectionStart);
+    };
+    const clear = (event: MouseEvent) => {
+      event.stopPropagation();
+      update("");
+      query.value = undefined;
+      shownMatches.value = [];
+      emit("clear");
+      nextTick(() => getTextarea()?.focus());
+    };
     return () => (
       <div
         ref={root}
         class={[
           "k-mentions",
-          { "k-mentions-sm": props.size == "small", "k-mentions-lg": props.size == "large" },
+          {
+            "k-mentions-sm": props.size == "small",
+            "k-mentions-lg": props.size == "large",
+            "k-mentions-disabled": props.disabled,
+            "k-mentions-has-clear": props.clearable && !!current.value && !props.disabled,
+          },
           attrs.class,
         ]}
       >
@@ -215,6 +254,7 @@ export default defineComponent({
           ref={textarea}
           modelValue={current.value}
           placeholder={props.placeholder}
+          disabled={props.disabled}
           rows={props.rows}
           size={props.size}
           shape={props.shape}
@@ -223,12 +263,15 @@ export default defineComponent({
             update(value);
             nextTick(() => {
               const element = getTextarea();
-              if (element) updateQuery(value, element.selectionStart);
+              if (element) updateQuery(value, element.selectionStart, true);
             });
           }}
-          onClick={() => {
-            const element = getTextarea();
-            if (element) updateQuery(current.value, element.selectionStart);
+          onClick={updateQueryFromCaret}
+          onSelect={updateQueryFromCaret}
+          onKeyup={(event: KeyboardEvent) => {
+            if (["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+              updateQueryFromCaret();
+            }
           }}
           onKeydown={(event: KeyboardEvent) => {
             if (!query.value) return;
@@ -246,6 +289,9 @@ export default defineComponent({
             } else if (event.key === "Escape") query.value = undefined;
           }}
         />
+        {props.clearable && current.value && !props.disabled && (
+          <Icon class="k-mentions-clearable" type={CircleX} onClick={clear} />
+        )}
         <Teleport to={getPopupContainer()}>
           <Transition name="k-select">
             <div
@@ -260,7 +306,12 @@ export default defineComponent({
               ]}
               role="listbox"
             >
-              {shownMatches.value.length ? (
+              {props.loading ? (
+                <div class="k-select-loading k-mentions-loading">
+                  <Icon type={Loading} spin />
+                  {props.loadingText && <span>{props.loadingText || "Loading..."}</span>}
+                </div>
+              ) : shownMatches.value.length ? (
                 <ul>
                   {shownMatches.value.map((option, index) => (
                     <li

@@ -1,6 +1,7 @@
 @import "../../styles/less-css-var.less";
 
 .k-input-tag {
+  position: relative;
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
@@ -48,7 +49,10 @@
   }
 
   .k-input-tag-clearable {
-    flex: none;
+    position: absolute;
+    top: 50%;
+    right: var(--kui-padding-tag-box-inline);
+    transform: translateY(-50%);
     color: var(--kui-color-icon);
     cursor: pointer;
     opacity: 0;
@@ -66,6 +70,10 @@
   &.k-input-tag-has-clear:hover .k-input-tag-clearable {
     opacity: 1;
   }
+
+  &.k-input-tag-has-clear {
+    padding-right: 30px;
+  }
 }
 
 .k-input-tag-block {
@@ -79,6 +87,14 @@
     height: 18px;
     font-size: var(--kui-font-size-sm);
   }
+
+  .k-input-tag-clearable {
+    right: var(--kui-padding-tag-box-inline-sm);
+  }
+
+  &.k-input-tag-has-clear {
+    padding-right: 26px;
+  }
 }
 
 .k-input-tag-lg {
@@ -88,6 +104,14 @@
   .k-input-tag-input {
     height: 28px;
     font-size: var(--kui-font-size-lg);
+  }
+
+  .k-input-tag-clearable {
+    right: var(--kui-padding-tag-box-inline-lg);
+  }
+
+  &.k-input-tag-has-clear {
+    padding-right: 34px;
   }
 }
 

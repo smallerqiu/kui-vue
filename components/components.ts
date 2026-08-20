@@ -192,6 +192,17 @@ export type { TooltipProps } from "./tooltip";
 export { default as Tour } from "./tour";
 export type { TourProps, TourStep } from "./tour";
 
+export { default as Transfer } from "./transfer";
+export type { TransferItem, TransferKey, TransferProps } from "./transfer";
+
+export {
+  default as Typography,
+  TypographyParagraph,
+  TypographyText,
+  TypographyTitle,
+} from "./typography";
+export type { TypographyProps } from "./typography";
+
 export { TabPanel, Tabs } from "./tabs";
 export type { TabPanelProps, TabsProps } from "./tabs";
 

@@ -1,12 +1,117 @@
-.k-tour-root { position: fixed; z-index: 3000; inset: 0; pointer-events: none; }
-.k-tour-overlay { position: absolute; inset: 0; }
-.k-tour-mask { position: absolute; inset: 0; background: var(--kui-color-mask); pointer-events: auto; }
-.k-tour-mask-spotlight { background: transparent; }
-.k-tour-focus { position: fixed; z-index: 1; border-radius: var(--kui-popup-radius); box-shadow: 0 0 0 9999px var(--kui-color-mask); pointer-events: none; transition: all var(--kui-motion-duration-slow) var(--kui-motion-easing); }
-.k-tour-panel { position: fixed; z-index: 2; box-sizing: border-box; width: 320px; padding: var(--kui-padding-inline-lg); color: var(--kui-control-text); background: var(--kui-popup-bg); border: 1px solid var(--kui-popup-border); border-radius: var(--kui-popup-radius); box-shadow: var(--kui-popup-shadow); pointer-events: auto; }
-.k-tour-panel h3 { margin: 0 28px var(--kui-padding-block-sm) 0; color: var(--kui-color-text-title); font-size: var(--kui-font-size-lg); }
-.k-tour-description { color: var(--kui-color-text-description); font-size: var(--kui-font-size); line-height: var(--kui-line-height); }
-.k-tour-close.k-btn { position: absolute; top: 6px; right: 6px; width: var(--kui-control-height-sm); padding: 0; font-size: var(--kui-font-size-lg); }
-.k-tour-cover { margin: calc(0px - var(--kui-padding-inline-lg)) calc(0px - var(--kui-padding-inline-lg)) var(--kui-padding-block-lg); overflow: hidden; border-radius: var(--kui-popup-radius) var(--kui-popup-radius) 0 0; }
-.k-tour-panel footer { display: flex; align-items: center; justify-content: space-between; margin-top: var(--kui-padding-block-lg); color: var(--kui-color-text-description); font-size: var(--kui-font-size-sm); }
-.k-tour-actions { display: flex; gap: var(--kui-padding-inline-sm); }
+.k-tour-root {
+  position: fixed;
+  z-index: 3000;
+  inset: 0;
+  pointer-events: none;
+}
+.k-tour-overlay {
+  position: absolute;
+  inset: 0;
+}
+.k-tour-mask {
+  position: absolute;
+  inset: 0;
+  background: var(--kui-color-mask);
+  pointer-events: auto;
+}
+.k-tour-mask-spotlight {
+  background: transparent;
+}
+.k-tour-focus {
+  position: fixed;
+  z-index: 1;
+  border-radius: var(--kui-popup-radius);
+  box-shadow: 0 0 0 9999px var(--kui-color-mask);
+  pointer-events: none;
+  transition: all var(--kui-motion-duration-slow) var(--kui-motion-easing);
+}
+.k-tour-panel {
+  position: fixed;
+  z-index: 2;
+  box-sizing: border-box;
+  width: 320px;
+  padding: var(--kui-padding-inline-lg);
+  color: var(--kui-control-text);
+  background: var(--kui-popup-bg);
+  border: 1px solid var(--kui-popup-border);
+  border-radius: var(--kui-card-radius);
+  box-shadow: var(--kui-popup-shadow);
+  pointer-events: auto;
+}
+.k-tour-arrow {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  width: 24px;
+  height: 9px;
+  color: var(--kui-popup-bg);
+  pointer-events: none;
+}
+.k-tour-arrow svg {
+  width: 100%;
+  height: 100%;
+  fill: currentcolor;
+}
+.k-tour-arrow-outline {
+  stroke: var(--kui-popup-border);
+  stroke-width: 0.1em;
+}
+.k-tour-arrow-inner {
+  stroke: currentcolor;
+}
+.k-tour-top .k-tour-arrow {
+  bottom: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.k-tour-bottom .k-tour-arrow {
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%) rotate(180deg);
+}
+.k-tour-left .k-tour-arrow {
+  top: 50%;
+  right: -14px;
+  transform: translateY(-50%) rotate(-90deg);
+}
+.k-tour-right .k-tour-arrow {
+  top: 50%;
+  left: -14px;
+  transform: translateY(-50%) rotate(90deg);
+}
+.k-tour-panel h3 {
+  margin: 0 28px var(--kui-padding-block-sm) 0;
+  color: var(--kui-color-text-title);
+  font-size: var(--kui-font-size-lg);
+}
+.k-tour-description {
+  color: var(--kui-color-text-description);
+  font-size: var(--kui-font-size);
+  line-height: var(--kui-line-height);
+}
+.k-tour-close.k-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: var(--kui-control-height-sm);
+  padding: 0;
+  font-size: var(--kui-font-size-lg);
+}
+.k-tour-cover {
+  margin: calc(0px - var(--kui-padding-inline-lg)) calc(0px - var(--kui-padding-inline-lg))
+    var(--kui-padding-block-lg);
+  overflow: hidden;
+  border-radius: var(--kui-popup-radius) var(--kui-popup-radius) 0 0;
+}
+.k-tour-panel footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--kui-padding-block-lg);
+  color: var(--kui-color-text-description);
+  font-size: var(--kui-font-size-sm);
+}
+.k-tour-actions {
+  display: flex;
+  gap: var(--kui-padding-inline-sm);
+}

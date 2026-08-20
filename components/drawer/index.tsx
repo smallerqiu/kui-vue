@@ -62,11 +62,19 @@ const Drawer = defineComponent({
     const rendered = ref(props.modelValue);
     const visible = ref(props.modelValue);
     const opened = ref(props.modelValue);
-
     const resolveTarget = () => {
       const target = props.target?.();
       const element = target && "$el" in target ? target.$el : target;
       return element instanceof HTMLElement ? element : getPopupContainer();
+    };
+    let scrollTarget: HTMLElement | null = null;
+    let scrollLocked = false;
+    const updateScrollLock = (lock: boolean) => {
+      if (scrollLocked === lock) return;
+      if (lock) scrollTarget = resolveTarget();
+      toggleContainerScroll(scrollTarget, lock);
+      scrollLocked = lock;
+      if (!lock) scrollTarget = null;
     };
 
     watch(
@@ -78,11 +86,12 @@ const Drawer = defineComponent({
 
     onMounted(() => {
       if (props.escKey) document.addEventListener("keydown", escToClose);
+      updateScrollLock(props.modelValue);
     });
 
     onBeforeUnmount(() => {
       if (props.escKey) document.removeEventListener("keydown", escToClose);
-      toggleContainerScroll(resolveTarget(), false);
+      updateScrollLock(false);
     });
 
     const toggle = (value: boolean) => {
@@ -91,6 +100,7 @@ const Drawer = defineComponent({
         toggle(true);
       } else {
         if (value) {
+          updateScrollLock(true);
           nextTick(() => {
             visible.value = value;
             opened.value = value;
@@ -98,6 +108,7 @@ const Drawer = defineComponent({
             emit("openChange", true);
           });
         } else {
+          updateScrollLock(false);
           visible.value = false;
           setTimeout(() => {
             opened.value = false;

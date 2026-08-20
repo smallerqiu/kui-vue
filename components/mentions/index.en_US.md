@@ -12,6 +12,10 @@
 
 - Customize suggestion matching.
 
+[Remote search](./demo/remote.vue)
+
+- After a trigger, typing at least one character emits `search` so suggestions can be updated asynchronously.
+
 [Size](./demo/size.vue)
 
 - Display different sizes.
@@ -34,19 +38,25 @@
 
 ## Mentions API
 
-| Property     | Description                  | Type                                                        | Default     |
-| ------------ | ---------------------------- | ----------------------------------------------------------- | ----------- |
-| modelValue   | Text (v-model)               | string                                                      | -           |
-| value        | Initial text                 | string                                                      | ''          |
-| options      | Suggestions                  | (string\|MentionOption)[]                                   | []          |
-| triggers     | Trigger strings              | string[]                                                    | ['@']       |
-| placeholder  | Placeholder                  | string                                                      | -           |
-| rows         | Textarea rows                | number                                                      | 2           |
-| placement    | Preferred dropdown placement | top\|top-left\|top-right\|bottom\|bottom-left\|bottom-right | bottom-left |
-| size         | Size                         | small\|medium\|large                                        | medium      |
-| theme        | Theme                        | fill\|outline\|plain                                        | fill        |
-| shape        | Shape                        | circle\|square\|round\|default                              | default     |
-| emptyText    | Empty-state text             | string                                                      | No data     |
-| filterOption | Custom filter                | function                                                    | -           |
-| onChange     | Text change                  | function                                                    | -           |
-| onSelect     | Mention selection            | function                                                    | -           |
+| Property     | Description                            | Type                                                        | Default     |
+| ------------ | -------------------------------------- | ----------------------------------------------------------- | ----------- |
+| modelValue   | Text (v-model)                         | string                                                      | -           |
+| value        | Initial text                           | string                                                      | ''          |
+| options      | Suggestions                            | (string\|MentionOption)[]                                   | []          |
+| triggers     | Trigger strings                        | string[]                                                    | ['@']       |
+| placeholder  | Placeholder                            | string                                                      | -           |
+| disabled     | Disabled                               | boolean                                                     | false       |
+| clearable    | Whether to show clear button           | boolean                                                     | false       |
+| loading      | Whether remote suggestions are loading | boolean                                                     | false       |
+| loadingText  | Loading text                           | string                                                      | -           |
+| rows         | Textarea rows                          | number                                                      | 1           |
+| placement    | Preferred dropdown placement           | top\|top-left\|top-right\|bottom\|bottom-left\|bottom-right | bottom-left |
+| size         | Size                                   | small\|medium\|large                                        | medium      |
+| theme        | Theme                                  | fill\|outline\|plain                                        | fill        |
+| shape        | Shape                                  | circle\|square\|round\|default                              | default     |
+| emptyText    | Empty-state text                       | string                                                      | No data     |
+| filterOption | Custom filter                          | function                                                    | -           |
+| onChange     | Text change                            | function                                                    | -           |
+| onSelect     | Mention selection                      | function                                                    | -           |
+| onSearch     | Remote search with query and trigger   | (query, trigger) => void                                    | -           |
+| onClear      | Text cleared                           | function                                                    | -           |

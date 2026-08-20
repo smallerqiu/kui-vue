@@ -22,6 +22,7 @@ import { getMousePoint } from "../config/context";
 import { usePopupContainer } from "../config/popup";
 import type { BooleanType } from "../const/types";
 import zhCN from "../locale/zh-CN";
+import { toggleContainerScroll } from "../utils/vnode";
 
 const modalProps = {
   modelValue: Boolean as BooleanType,
@@ -63,6 +64,12 @@ const Modal = defineComponent({
     const startPos = ref({ x: 0, y: 0 });
     const refModal = ref();
     const refHeader = ref();
+    let scrollLocked = false;
+    const updateScrollLock = (lock: boolean) => {
+      if (props.panelOnly || scrollLocked === lock) return;
+      toggleContainerScroll(typeof document === "undefined" ? null : document.body, lock);
+      scrollLocked = lock;
+    };
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
     const locale = computed<Locale>(() => {
@@ -86,6 +93,7 @@ const Modal = defineComponent({
       mouseup();
       document.removeEventListener("mousedown", mousedown);
       document.removeEventListener("keydown", escToClose);
+      updateScrollLock(false);
     });
     watch(
       () => props.modelValue,
@@ -108,6 +116,7 @@ const Modal = defineComponent({
         toggle(true);
       } else {
         if (value) {
+          updateScrollLock(true);
           nextTick(() => {
             visible.value = value;
             showInner.value = value;
@@ -121,6 +130,7 @@ const Modal = defineComponent({
             });
           });
         } else {
+          updateScrollLock(false);
           visible.value = false;
           setTimeout(() => {
             showInner.value = false;
@@ -302,10 +312,6 @@ export const ModalPanel = defineComponent({
   setup:
     (props, { attrs, slots }) =>
     () =>
-      h(
-        Modal,
-        { ...attrs, ...props, modelValue: true, mask: false, panelOnly: true },
-        slots
-      ),
+      h(Modal, { ...attrs, ...props, modelValue: true, mask: false, panelOnly: true }, slots),
 });
 export default Modal;

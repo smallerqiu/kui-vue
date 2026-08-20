@@ -1,0 +1,96 @@
+.k-transfer {
+  display: flex;
+  align-items: center;
+  gap: var(--kui-spacing-md);
+  color: var(--kui-color-text);
+}
+.k-transfer-list {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  height: 300px;
+  overflow: hidden;
+  border: 1px solid var(--kui-color-border);
+  border-radius: var(--kui-card-radius);
+  background: var(--kui-color-bg-component);
+}
+.k-transfer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 42px;
+  padding: 0 var(--kui-spacing-md);
+  border-bottom: 1px solid var(--kui-color-border);
+  font-size: var(--kui-font-size-sm);
+}
+.k-transfer-header label,
+.k-transfer-item {
+  display: flex;
+  align-items: center;
+  gap: var(--kui-spacing-sm);
+}
+.k-transfer-search {
+  display: flex;
+  align-items: center;
+  gap: var(--kui-spacing-xs);
+  margin: var(--kui-spacing-sm);
+  padding: 0 var(--kui-spacing-sm);
+  min-height: 32px;
+  border: 1px solid var(--kui-color-border);
+  border-radius: var(--kui-control-radius);
+  color: var(--kui-color-text-placeholder);
+}
+.k-transfer-search input {
+  min-width: 0;
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+}
+.k-transfer-body {
+  flex: 1;
+  overflow: auto;
+  padding: var(--kui-spacing-xs) 0;
+}
+.k-transfer-item {
+  min-height: 36px;
+  padding: 0 var(--kui-spacing-md);
+  cursor: pointer;
+  transition: background var(--kui-motion-duration-fast);
+}
+.k-transfer-item:hover {
+  background: var(--kui-color-item-hover);
+}
+.k-transfer-item.is-disabled,
+.k-transfer.is-disabled {
+  color: var(--kui-color-text-disabled);
+  cursor: not-allowed;
+}
+.k-transfer-item-content {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+}
+.k-transfer-item-content small {
+  color: var(--kui-color-text-description);
+}
+.k-transfer-operations {
+  display: flex;
+  flex-direction: column;
+  gap: var(--kui-spacing-sm);
+}
+@media (max-width: 640px) {
+  .k-transfer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .k-transfer-list {
+    width: 100%;
+  }
+  .k-transfer-operations {
+    flex-direction: row;
+    justify-content: center;
+  }
+}

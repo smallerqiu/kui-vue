@@ -112,6 +112,11 @@ declare module "vue" {
     TreeSelect: (typeof Comps)["TreeSelect"];
     Tag: (typeof Comps)["Tag"];
     Tour: (typeof Comps)["Tour"];
+    Transfer: (typeof Comps)["Transfer"];
+    Typography: (typeof Comps)["Typography"];
+    TypographyText: (typeof Comps)["TypographyText"];
+    TypographyParagraph: (typeof Comps)["TypographyParagraph"];
+    TypographyTitle: (typeof Comps)["TypographyTitle"];
     Col: (typeof Comps)["Col"];
     Row: (typeof Comps)["Row"];
     Upload: (typeof Comps)["Upload"];

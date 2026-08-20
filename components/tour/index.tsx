@@ -1,3 +1,4 @@
+import { X } from "kui-icons";
 import {
   computed,
   defineComponent,
@@ -12,6 +13,7 @@ import {
   type VNodeChild,
 } from "vue";
 import { Button } from "../button";
+import { toggleContainerScroll } from "../utils/vnode";
 
 export interface TourStep {
   target?: HTMLElement | null | (() => HTMLElement | null);
@@ -45,6 +47,12 @@ export default defineComponent({
     const visible = computed(() => props.modelValue ?? innerOpen.value);
     const index = computed(() => props.current ?? innerCurrent.value);
     const refresh = () => (tick.value += 1);
+    let scrollLocked = false;
+    const updateScrollLock = (lock: boolean) => {
+      if (typeof document === "undefined" || scrollLocked === lock) return;
+      toggleContainerScroll(document.body, lock);
+      scrollLocked = lock;
+    };
     watch(
       () => props.modelValue,
       (value) => {
@@ -54,11 +62,14 @@ export default defineComponent({
     onMounted(() => {
       window.addEventListener("resize", refresh);
       window.addEventListener("scroll", refresh, true);
+      updateScrollLock(visible.value);
     });
     onBeforeUnmount(() => {
       window.removeEventListener("resize", refresh);
       window.removeEventListener("scroll", refresh, true);
+      updateScrollLock(false);
     });
+    watch(visible, updateScrollLock);
     const close = () => {
       innerOpen.value = false;
       emit("update:modelValue", false);
@@ -133,6 +144,20 @@ export default defineComponent({
               role="dialog"
               aria-modal="true"
             >
+              {rect && (
+                <div class="k-tour-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 8">
+                    <path
+                      class="k-tour-arrow-outline"
+                      d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                    />
+                    <path
+                      class="k-tour-arrow-inner"
+                      d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+                    />
+                  </svg>
+                </div>
+              )}
               {props.closable && (
                 <Button
                   class="k-tour-close"
@@ -140,9 +165,8 @@ export default defineComponent({
                   size="small"
                   aria-label="Close"
                   onClick={close}
-                >
-                  ×
-                </Button>
+                  icon={X}
+                ></Button>
               )}
               {step.cover && <div class="k-tour-cover">{step.cover}</div>}
               {step.title && <h3>{step.title}</h3>}
