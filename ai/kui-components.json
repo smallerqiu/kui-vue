@@ -1,7 +1,7 @@
 {
   "$schema": "https://k-ui.cn/schema/kui-components.schema.json",
   "library": "kui-vue",
-  "version": "5.6.0",
+  "version": "5.7.0",
   "homepage": "https://k-ui.cn",
   "components": [
     {
@@ -3051,7 +3051,7 @@
         {
           "name": "mode",
           "description": "Use the `mode` property to customize the date display type. Options: `year`, `month`, `date`, `time`, `dateTime`, `dateRange`, `dateTimeRange`",
-          "descriptionZh": "使用 `mode` 属性，可以自定义日期显示类型，提供 `year`,`month`,`date`,`time`,`dateTime`,`dateRange`,`dateTimeRange`",
+          "descriptionZh": "使用 `mode` 属性，可以自定义日期显示类型，提供 `year`、`month`、`date`、`time`、`dateTime`、`dateRange`、`dateTimeRange`",
           "descriptionEn": "Use the `mode` property to customize the date display type. Options: `year`, `month`, `date`, `time`, `dateTime`, `dateRange`, `dateTimeRange`",
           "type": "DatePickerModeType",
           "boolean": false,
@@ -3503,9 +3503,9 @@
         },
         {
           "name": "title",
-          "description": "Drawer title. When null or false, the title is not displayed",
-          "descriptionZh": "抽屉标题,为null或false时不显示标题",
-          "descriptionEn": "Drawer title. When null or false, the title is not displayed",
+          "description": "Drawer title",
+          "descriptionZh": "抽屉标题",
+          "descriptionEn": "Drawer title",
           "type": "string",
           "boolean": false,
           "documented": true
@@ -3522,7 +3522,7 @@
         {
           "name": "placement",
           "description": "The display direction of the drawer. Provides 4 display methods: `left`, `top`, `right`, `bottom`",
-          "descriptionZh": "抽屉显示方向，提供 `left` , `top` , `right` , `bottom` 4种展示方式",
+          "descriptionZh": "抽屉显示方向，提供 `left`、`top`、`right`、`bottom` 4种展示方式",
           "descriptionEn": "The display direction of the drawer. Provides 4 display methods: `left`, `top`, `right`, `bottom`",
           "type": "DrawerPlacementsType",
           "boolean": false,
@@ -3539,9 +3539,9 @@
         },
         {
           "name": "footer",
-          "description": "Footer content. Set `footer=null` to not display the footer",
-          "descriptionZh": "页脚内容，不显示页脚设置`footer=null`即可",
-          "descriptionEn": "Footer content. Set `footer=null` to not display the footer",
+          "description": "Whether to show the footer; the slot with the same name customizes its content",
+          "descriptionZh": "是否显示页脚，也可通过同名插槽自定义页脚内容",
+          "descriptionEn": "Whether to show the footer; the slot with the same name customizes its content",
           "type": "boolean",
           "boolean": true,
           "documented": true
@@ -3732,10 +3732,10 @@
         },
         {
           "name": "target",
-          "description": "Element that triggers the dropdown",
-          "descriptionZh": "触发下拉的元素",
-          "descriptionEn": "Element that triggers the dropdown",
-          "type": "Record<string, any> | undefined",
+          "description": "Ref of the external element or component that triggers the dropdown",
+          "descriptionZh": "外部触发元素或组件的引用",
+          "descriptionEn": "Ref of the external element or component that triggers the dropdown",
+          "type": "Ref<HTMLElement | ComponentPublicInstance | null, HTMLElement | ComponentPublicInstance | null> | undefined",
           "boolean": false,
           "documented": true
         },
@@ -4011,9 +4011,9 @@
       "props": [
         {
           "name": "description",
-          "description": "Custom description content",
-          "descriptionZh": "自定义描述内容",
-          "descriptionEn": "Custom description content",
+          "description": "Custom description content; set to `false` to hide it",
+          "descriptionZh": "自定义描述内容，设置为 `false` 时隐藏",
+          "descriptionEn": "Custom description content; set to `false` to hide it",
           "type": "string | boolean | undefined",
           "boolean": false,
           "documented": true
@@ -7376,7 +7376,7 @@
         {
           "name": "placement",
           "description": "Position where the tooltip appears",
-          "descriptionZh": "提示框出现的位置，可选值为`top`，`top-left`，`top-right`，`bottom`，`bottom-left`，`bottom-right`，`left`，`left-top`，`left-bottom`，`right`，`right-top`，`right-bottom`",
+          "descriptionZh": "提示框出现的位置，可选值为`top`、`top-left`、`top-right`、`bottom`、`bottom-left`、`bottom-right`、`left`、`left-top`、`left-bottom`、`right`、`right-top`、`right-bottom`",
           "descriptionEn": "Position where the tooltip appears",
           "type": "PlacementsType",
           "boolean": false,
@@ -7384,9 +7384,9 @@
         },
         {
           "name": "trigger",
-          "description": "Trigger method, optional values: `hover` (hover) `click` (click)",
-          "descriptionZh": "触发方式，可选值为 `hover`（悬停）`click`（点击）",
-          "descriptionEn": "Trigger method, optional values: `hover` (hover) `click` (click)",
+          "description": "Trigger method: `hover`, `click`, or `focus`",
+          "descriptionZh": "触发方式，可选值为 `hover`（悬停）、`click`（点击）、`focus`（聚焦）",
+          "descriptionEn": "Trigger method: `hover`, `click`, or `focus`",
           "type": "\"click\" | \"hover\" | \"focus\"",
           "boolean": false,
           "documented": true
@@ -7424,7 +7424,7 @@
           "description": "Displayed title",
           "descriptionZh": "显示的标题",
           "descriptionEn": "Displayed title",
-          "type": "string | number | unknown[] | Record<string, any> | undefined",
+          "type": "VNodeChild",
           "boolean": false,
           "documented": true
         },
@@ -7515,7 +7515,7 @@
         {
           "name": "placement",
           "description": "Position where the tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom`",
-          "descriptionZh": "提示框出现的位置，可选值为`top`，`top-left`，`top-right`，`bottom`，`bottom-left`，`bottom-right`，`left`，`left-top`，`left-bottom`，`right`，`right-top`，`right-bottom`",
+          "descriptionZh": "提示框出现的位置，可选值为`top`、`top-left`、`top-right`、`bottom`、`bottom-left`、`bottom-right`、`left`、`left-top`、`left-bottom`、`right`、`right-top`、`right-bottom`",
           "descriptionEn": "Position where the tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom`",
           "type": "PlacementsType",
           "boolean": false,
@@ -7526,7 +7526,7 @@
           "description": "Displayed title",
           "descriptionZh": "显示的标题",
           "descriptionEn": "Displayed title",
-          "type": "string | number | unknown[] | Record<string, any> | undefined",
+          "type": "VNodeChild",
           "boolean": false,
           "documented": true
         },
@@ -7651,7 +7651,7 @@
         {
           "name": "type",
           "description": "Progress bar type, provides three types: `line`, `circle`, `dashboard`",
-          "descriptionZh": "进度条类型,提供三种类型: `line`,`circle`,`dashboard`",
+          "descriptionZh": "进度条类型,提供三种类型: `line`、`circle`、`dashboard`",
           "descriptionEn": "Progress bar type, provides three types: `line`, `circle`, `dashboard`",
           "type": "ProgressType",
           "boolean": false,
@@ -7660,7 +7660,7 @@
         {
           "name": "status",
           "description": "Progress bar status, provides four types: `active`, `exception`, `success`, `normal`",
-          "descriptionZh": "进度条状态,提供四种类型: `active`,`exception`,`success`,`normal`",
+          "descriptionZh": "进度条状态,提供四种类型: `active`、`exception`、`success`、`normal`",
           "descriptionEn": "Progress bar status, provides four types: `active`, `exception`, `success`, `normal`",
           "type": "ProgressStatus",
           "boolean": false,
@@ -9089,7 +9089,7 @@
         {
           "name": "size",
           "description": "Component size, provides two sizes: `small`, `large`, default is normal",
-          "descriptionZh": "组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常",
+          "descriptionZh": "组件尺寸大小,提供`small`、`large`两种尺寸，默认为正常",
           "descriptionEn": "Component size, provides two sizes: `small`, `large`, default is normal",
           "type": "SizeType | undefined",
           "boolean": false,
@@ -10351,7 +10351,7 @@
         {
           "name": "type",
           "description": "Theme color, can pass `success`, `warning`, `danger`, `primary`",
-          "descriptionZh": "主题颜色 可传入 `success`，`warning`，`danger`，`primary`",
+          "descriptionZh": "主题颜色 可传入 `success`、`warning`、`danger`、`primary`",
           "descriptionEn": "Theme color, can pass `success`, `warning`, `danger`, `primary`",
           "type": "string | undefined",
           "boolean": false,
@@ -10995,7 +10995,7 @@
         {
           "name": "placement",
           "description": "Position where tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom`",
-          "descriptionZh": "提示框出现的位置，可选值为`top`，`top-left`，`top-right`，`bottom`，`bottom-left`，`bottom-right`，`left`，`left-top`，`left-bottom`，`right`，`right-top`，`right-bottom`",
+          "descriptionZh": "提示框出现的位置，可选值为`top`、`top-left`、`top-right`、`bottom`、`bottom-left`、`bottom-right`、`left`、`left-top`、`left-bottom`、`right`、`right-top`、`right-bottom`",
           "descriptionEn": "Position where tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom`",
           "type": "PlacementsType",
           "boolean": false,
@@ -11903,7 +11903,7 @@
         {
           "name": "mode",
           "description": "Can change relative position of timeline and content by setting `mode`: `left`, `center`, `alternate`, `right`",
-          "descriptionZh": "通过设置 `mode` 可以改变时间轴和内容的相对位置 `left` ,`center`, `alternate` , `right`",
+          "descriptionZh": "通过设置 `mode` 可以改变时间轴和内容的相对位置 `left`、`center`、`alternate`、`right`",
           "descriptionEn": "Can change relative position of timeline and content by setting `mode`: `left`, `center`, `alternate`, `right`",
           "type": "TimelineMode",
           "boolean": false,
@@ -12496,7 +12496,7 @@
         {
           "name": "size",
           "description": "Component size, provides two sizes: `small`, `large`, default is normal",
-          "descriptionZh": "组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常",
+          "descriptionZh": "组件尺寸大小,提供`small`、`large`两种尺寸，默认为正常",
           "descriptionEn": "Component size, provides two sizes: `small`, `large`, default is normal",
           "type": "SizeType | undefined",
           "boolean": false,

@@ -30,11 +30,11 @@
 | 属性        | 说明                                                                | 类型         | 默认值  |
 | ----------- | ------------------------------------------------------------------- | ------------ | ------- |
 | type        | 按钮类型，可选值为 `success`、`info`、`warning`、`error` 或者不设置 | string       | warning |
-| message     | 警告提示内容                                                        | string，Slot | -       |
+| message     | 警告提示内容                                                        | string, slot | -       |
 | description | 警告提示的辅助性文字介绍                                            | string       | -       |
-| showIcon    | 是否显示图标                                                        | boolean        | false   |
-| bordered    | 是否展示边框                                                        | boolean        | false   |
-| closable    | 是否显示关闭按钮                                                    | boolean        | false   |
+| showIcon    | 是否显示图标                                                        | boolean      | false   |
+| bordered    | 是否展示边框                                                        | boolean      | false   |
+| closable    | 是否显示关闭按钮                                                    | boolean      | false   |
 | onClose     | 关闭时触发的回调函数                                                | ()=>void     | -       |
 | icon        | 自定义的图标                                                        | IconPath[]   | -       |
 | theme       | 外观主题，可选 `default`、`fill`、`outline`、`plain`                | ThemeType    | default |

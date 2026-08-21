@@ -34,22 +34,22 @@ When there are too many operation commands on the page, this component can be us
 
 ## Dropdown API
 
-| Property     | Description                                                                         | Type                | Default     |
-| ------------ | ----------------------------------------------------------------------------------- | ------------------- | ----------- |
-| show         | Whether the dropdown is displayed by default(v-model).                              | boolean               | false       |
-| trigger      | Trigger method. Supports 3 methods: hover (default), click, custom                  | string              | hover       |
-| placement    | Menu popup position: bottomLeft bottomCenter bottomRight topLeft topCenter topRight | string              | bottom-left |
-| theme        | The component renders the theme, defaulting to 'fill'.                              | string              | fill        |
-| arrow        | Whether to display the arrow                                                        | boolean               | false       |
-| target       | Element that triggers the dropdown                                                  | VNode               | -           |
-| disabled     | Whether dropdown triggering is allowed                                              | boolean               | false       |
-| onOpenChange | Triggered when opening or closing a Dropdown                                        | (opened:boolean)=>void | -           |
+| Property     | Description                                                                         | Type                                        | Default     |
+| ------------ | ----------------------------------------------------------------------------------- | ------------------------------------------- | ----------- |
+| show         | Whether the dropdown is displayed by default(v-model).                              | boolean                                     | false       |
+| trigger      | Trigger method. Supports 3 methods: hover (default), click, custom                  | string                                      | hover       |
+| placement    | Menu popup position: bottomLeft bottomCenter bottomRight topLeft topCenter topRight | string                                      | bottom-left |
+| theme        | The component renders the theme, defaulting to 'fill'.                              | string                                      | fill        |
+| arrow        | Whether to display the arrow                                                        | boolean                                     | false       |
+| target       | Ref of the external element or component that triggers the dropdown                 | Ref<HTMLElement \| ComponentPublicInstance> | -           |
+| disabled     | Whether dropdown triggering is allowed                                              | boolean                                     | false       |
+| onOpenChange | Triggered when opening or closing a Dropdown                                        | (opened:boolean)=>void                      | -           |
 
 ### DropdownButton API
 
-| Property | Description                              | Type                  | Default  |
-| -------- | ---------------------------------------- | --------------------- | -------- |
-| size     | Button size                              | `small`, `large`      | -        |
-| shape    | Button shape                             | `circle`, `square`    | -        |
-| icon     | Custom dropdown trigger icon             | IconType[]            | Ellipsis |
+| Property | Description                               | Type                  | Default  |
+| -------- | ----------------------------------------- | --------------------- | -------- |
+| size     | Button size                               | 'small' \| 'large'    | -        |
+| shape    | Button shape                              | 'circle' \| 'square'  | -        |
+| icon     | Custom dropdown trigger icon              | IconType[]            | Ellipsis |
 | onClick  | Triggered when the main button is clicked | (e: MouseEvent)=>void | -        |

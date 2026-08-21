@@ -48,12 +48,12 @@ Also provides global configuration and global destruction methods:
 
 Parameter `options` is an object, specific description as follows:
 
-| Property | Description                                       | Type          | Default |
-| -------- | ------------------------------------------------- | ------------- | ------- |
-| title    | Notification title                                | string        | -       |
-| content  | Prompt content                                    | string, VNode | -       |
-| duration | Auto-close delay, in seconds, 0 means not closed  | number        | 3       |
-| icon     | Custom icon                                       | string        | -       |
-| color    | Custom icon color                                 | string        | -       |
-| onClose  | Callback when closing                             | () => void    | -       |
-| grouping | Group key; notices with the same value are reused | string        | -       |
+| Property | Description                                       | Type            | Default |
+| -------- | ------------------------------------------------- | --------------- | ------- |
+| title    | Notification title                                | string          | -       |
+| content  | Prompt content                                    | string \| VNode | -       |
+| duration | Auto-close delay, in seconds, 0 means not closed  | number          | 3       |
+| icon     | Custom icon                                       | string          | -       |
+| color    | Custom icon color                                 | string          | -       |
+| onClose  | Callback when closing                             | () => void      | -       |
+| grouping | Group key; notices with the same value are reused | string          | -       |

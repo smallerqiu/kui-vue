@@ -42,7 +42,7 @@ Move and select items between two lists.
 | operations   | Right and left operation labels | [string, string]                           | ['', '']             |
 | searchable   | Enable search                   | boolean                                    | false                |
 | disabled     | Disable the component           | boolean                                    | false                |
-| theme        | Appearance theme                | outline \| fill                            | outline              |
+| theme        | Appearance theme                | 'outline' \| 'fill'                        | outline              |
 | filterOption | Custom filter                   | (keyword, item) => boolean                 | -                    |
 | render       | Custom item renderer            | (item) => VNodeChild                       | -                    |
 | change       | Emitted after moving items      | (targetKeys, direction, movedKeys) => void | -                    |
@@ -60,7 +60,7 @@ Move and select items between two lists.
 
 ### Slots
 
-| Name   | Description        | Parameters               |
-| ------ | ------------------ | ------------------------ |
-| item   | Custom item        | `{ item: TransferItem }` |
-| footer | Custom list footer | `{ direction }`          |
+| Name   | Description        | Parameters             |
+| ------ | ------------------ | ---------------------- |
+| item   | Custom item        | { item: TransferItem } |
+| footer | Custom list footer | { direction }          |

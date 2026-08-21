@@ -13,6 +13,74 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 5.7.0
+
+`2026-8-21`
+
+### New components
+
+- Added `AutoComplete` with local and remote search, controlled visibility, empty-value opening, loading, clearing, themes, sizes, and shapes.
+- Added `CheckCard` and `CheckCardGroup` for standalone and grouped card selection with custom content and appearances.
+- Added `InputTag` with controlled values, separators, limits, duplicate handling, and collapsed tags.
+- Added `Mentions` with multiple triggers, filtering, remote data, loading and empty states, configurable rows, and popup placement.
+- Added `Steps` and `Step` with horizontal and vertical layouts, statuses, custom icons, clickable steps, and controlled state.
+- Added `Tour` with controlled steps, masks, placement, and custom content.
+- Added `Transfer` with search, disabled states, events, custom rendering, themes, and a pagination-friendly footer slot.
+- Added `Typography` Text, Title, and Paragraph variants with copy, edit, Tooltip, and expandable ellipsis capabilities.
+- Added the `VirtualList` primitive with fixed item heights, overscan, and programmatic scrolling.
+
+### Enhancements
+
+- Improved `Select` keyboard navigation; added creatable multiple options, virtual scrolling, large data support, and collapsed selection tags.
+- Added virtual scrolling to `Table`, `Tree`, and `TreeSelect`; improved striped rows with fixed columns in virtual tables.
+- Added the `simple` mode to `Page`; with `showElevator`, the current page can be edited directly.
+- Added overflow navigation and responsive measurements to `Tabs`; the active indicator now updates after dynamic title changes.
+- Added custom loading icons to `Button` and refined button groups, states, and animations.
+- Added Card sizes and aligned `theme`, `size`, and `shape` behavior across Input, Select, TreeSelect, and related controls.
+- Unified masks and scroll locking across `Modal`, `Drawer`, and `Tour` to reduce layout shifts when overlays open.
+
+### Styling and experience
+
+- Unified tag styling across `InputTag`, `Select`, `TreeSelect`, and `Tag`, including light/dark modes, sizes, and shapes.
+- Standardized input, dropdown, empty-state, and overlay animations; consolidated reusable motion definitions.
+- Added global typography, box-sizing, and scrollbar foundations with macOS and Windows font stacks.
+- Adopted shared control-height CSS variables more consistently for small, medium, and large components.
+- Moved component-specific styles back into their component files and merged duplicate selectors.
+- Expanded bilingual documentation and functional demos for the new components, virtual scrolling, Typography, and Transfer.
+
+### Bug fixes
+
+- Fixed dropdown flashes in `AutoComplete` and `Mentions` after selection, query removal, or empty remote results.
+- Fixed `Mentions` popup positioning at the caret and automatic placement when space is limited.
+- Fixed `Select` query cleanup, duplicate creation, and keyboard navigation restarting from the first option after selection.
+- Fixed the `Tabs` active indicator position after dynamic title changes.
+- Fixed the `DatePicker` date-grid class name and seven-column layout.
+
+### AI and tooling
+
+- Published version-matched component metadata, JSON Schema, `llms.txt`, and `llms-full.txt`.
+- Added a Kui Vue Agent Skill, project initializer CLI, and MCP server for component search, exact API lookup, recommendations, and template prop validation.
+- Added 20 AI Vue SFC evaluation cases and CI checks for generated AI assets and evaluations.
+- Added bilingual AI integration guides and npm exports for `kui-vue/metadata`, `kui-vue/metadata/schema`, and `kui-vue/skill`.
+- Expanded ESLint, type checking, API documentation checks, tests, builds, and package validation, and updated development dependencies.
+
+## 5.6.0
+
+`2026-8-16`
+
+- Added component `Ripple`.
+- Added component `FlameWrap`.
+- Menu component extended and optimized.
+- Avatar component extended and optimized.
+- Table component now supports Tree data.
+- Badge animation optimized.
+- Grid: added `flow` property to support row dense auto-fill; fixed issues where responsive styles and external class/style were not updating.
+- Row and Col: added xl, sm and other attributes to support responsiveness.
+- Notice: added `grouping` property; with the same grouping, only one notification message is shown.
+- Some Pop components now support display in Panel form.
+- Theme switching default behavior optimized.
+不- ColorPicker: fixed color dragging selection in the panel.
+
 ## 5.5.1
 
 `2026-8-9`

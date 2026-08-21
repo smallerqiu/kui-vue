@@ -42,7 +42,7 @@
 | operations   | 向右、向左按钮文案               | [string, string]                           | ['', '']             |
 | searchable   | 是否可搜索                       | boolean                                    | false                |
 | disabled     | 是否禁用                         | boolean                                    | false                |
-| theme        | 外观主题                         | outline \| fill                            | outline              |
+| theme        | 外观主题                         | 'outline' \| 'fill'                        | outline              |
 | filterOption | 自定义搜索方法                   | (keyword, item) => boolean                 | -                    |
 | render       | 自定义项目内容                   | (item) => VNodeChild                       | -                    |
 | change       | 数据移动时触发                   | (targetKeys, direction, movedKeys) => void | -                    |
@@ -60,7 +60,7 @@
 
 ### Slots
 
-| 名称   | 说明           | 参数                     |
-| ------ | -------------- | ------------------------ |
-| item   | 自定义数据项   | `{ item: TransferItem }` |
-| footer | 自定义列表底部 | `{ direction }`          |
+| 名称   | 说明           | 参数                   |
+| ------ | -------------- | ---------------------- |
+| item   | 自定义数据项   | { item: TransferItem } |
+| footer | 自定义列表底部 | { direction }          |

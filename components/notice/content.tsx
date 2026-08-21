@@ -1,5 +1,5 @@
 import { CircleAlert, CircleCheck, CircleX, Info, Loading, X } from "kui-icons";
-import { defineComponent, h, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, h, type ExtractPropTypes, type PropType, type VNode } from "vue";
 import { Button } from "../button";
 import type { BooleanType, NoticeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
@@ -7,7 +7,7 @@ import Icon, { type IconType } from "../icon";
 export const contentProps = {
   type: { type: String as PropType<NoticeType> },
   title: String,
-  content: [String, Object],
+  content: [String, Object] as PropType<string | VNode>,
   icon: Array as PropType<IconType[]>,
   color: String,
   duration: Number,

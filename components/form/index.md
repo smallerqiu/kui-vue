@@ -69,20 +69,20 @@ export default {
 
 ## Form API
 
-| 属性       | 说明                                                                           | 类型                           | 默认值     |
-| ---------- | ------------------------------------------------------------------------------ | ------------------------------ | ---------- |
-| model      | 表单数据对象                                                                   | Object                         | -          |
-| rules      | 表单验证规则，                                                                 | boolean                          | false      |
-| name       | 表单名称，会作为表单字段 id 前缀使用                                           | string                         | -          |
-| labelCol   | label 标签布局，同 `<Col>` 组件，设置 span offset 值，如 {span: 3, offset: 12} | {span:number,offset:number}    | -          |
-| wrapperCol | 控件 标签布局，同 `<Col>` 组件，设置 span offset 值，如 {span: 15, offset: 12} | {span:number,offset:number}    | -          |
-| theme      | 组件呈现主题                                                                   | string                         | -          |
-| size       | 子组件的尺寸                                                                   | string                         | -          |
-| layout     | 表单布局                                                                       | [horizontal ,vertical ,inline] | horizontal |
-| shape      | 子组件的形状                                                                   | [circle,square]                | horizontal |
-| disabled   | 表单是否可用                                                                   | boolean                          | true       |
-| onReset    | 表单重置后的回调                                                               | ()=> void                      | -          |
-| onSubmit   | 提交表单时触发事件                                                             | (e: SubmitEvent)=> void        | -          |
+| 属性       | 说明                                                                           | 类型                                   | 默认值     |
+| ---------- | ------------------------------------------------------------------------------ | -------------------------------------- | ---------- |
+| model      | 表单数据对象                                                                   | Object                                 | -          |
+| rules      | 表单验证规则，                                                                 | boolean                                | false      |
+| name       | 表单名称，会作为表单字段 id 前缀使用                                           | string                                 | -          |
+| labelCol   | label 标签布局，同 `<Col>` 组件，设置 span offset 值，如 {span: 3, offset: 12} | {span:number,offset:number}            | -          |
+| wrapperCol | 控件 标签布局，同 `<Col>` 组件，设置 span offset 值，如 {span: 15, offset: 12} | {span:number,offset:number}            | -          |
+| theme      | 组件呈现主题                                                                   | string                                 | -          |
+| size       | 子组件的尺寸                                                                   | string                                 | -          |
+| layout     | 表单布局                                                                       | 'horizontal' \| 'vertical' \| 'inline' | horizontal |
+| shape      | 子组件的形状                                                                   | 'circle' \| 'square'                   | horizontal |
+| disabled   | 表单是否可用                                                                   | boolean                                | true       |
+| onReset    | 表单重置后的回调                                                               | ()=> void                              | -          |
+| onSubmit   | 提交表单时触发事件                                                             | (e: SubmitEvent)=> void                | -          |
 
 ## Form Expose API
 
@@ -105,7 +105,7 @@ export default {
 
 | 属性      | 说明                                                                                                                  | 类型                                                                                      | 默认值 |
 | --------- | --------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------ |
-| required  | 是否必填字段                                                                                                          | boolean                                                                                     | false  |
+| required  | 是否必填字段                                                                                                          | boolean                                                                                   | false  |
 | message   | 校验不通过提示语                                                                                                      | string                                                                                    | -      |
 | validator | 自定义校验方法，可参见示例                                                                                            | (rule: FormRule, value: any, callback: (error?: Error) => void) => void \| Promise\<void> | -      |
 | type      | 数据类型校验，提供三种校验方式 `mobile`手机， `mail`邮箱， `number`数字类型判断                                       | string                                                                                    | -      |

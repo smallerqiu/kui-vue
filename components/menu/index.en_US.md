@@ -43,46 +43,46 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 | Property        | Description                                                       | Type                                              | Default  |
 | --------------- | ----------------------------------------------------------------- | ------------------------------------------------- | -------- |
 | modelValue      | Currently selected menu item (v-model)                            | string: []                                        | -        |
-| theme           | Theme color                                                       | [light, dark]                                     | light    |
+| theme           | Theme color                                                       | 'light' \| 'dark'                                 | light    |
 | items           | Menu data                                                         | MenuOptionsProps[]                                | -        |
 | openKeys        | Currently expanded SubMenu menu item key array                    | string[]                                          | -        |
 | selectedKeys    | Currently selected menu item, can use v-model binding             | string[]                                          | -        |
 | mode            | Menu type, supports three modes: vertical, horizontal, and inline | string: vertical vertical-right horizontal inline | vertical |
 | onSelect        | Called when MenuItem is clicked                                   | (data: MenuSelectEvent) => void                   | -        |
 | onOpenChange    | Callback when SubMenu expands/collapses                           | (openKeys: string[])=>void                        | -        |
-| accordion       | Whether only one menu item can be expanded                        | boolean                                             | false    |
-| inlineCollapsed | Whether the menu is collapsed in inline mode                      | boolean                                             | false    |
+| accordion       | Whether only one menu item can be expanded                        | boolean                                           | false    |
+| inlineCollapsed | Whether the menu is collapsed in inline mode                      | boolean                                           | false    |
 
 ### Menu(items)
 
 | Property | Description                              | Type               | Default |
 | -------- | ---------------------------------------- | ------------------ | ------- |
 | icon     | Item icon                                | string             | -       |
-| disabled | Whether disabled                         | boolean              | false   |
+| disabled | Whether disabled                         | boolean            | false   |
 | key      | Unique identifier for item               | string             | -       |
 | title    | Suspended title displayed when collapsed | string             | -       |
 | children | Menu children                            | MenuOptionsProps[] | -       |
 
 ### MenuItem
 
-| Property | Description                              | Type   | Default |
-| -------- | ---------------------------------------- | ------ | ------- |
-| icon     | Item icon                                | string | -       |
-| disabled | Whether disabled                         | boolean  | false   |
-| key      | Unique identifier for item               | string | -       |
-| title    | Suspended title displayed when collapsed | string | -       |
+| Property | Description                              | Type    | Default |
+| -------- | ---------------------------------------- | ------- | ------- |
+| icon     | Item icon                                | string  | -       |
+| disabled | Whether disabled                         | boolean | false   |
+| key      | Unique identifier for item               | string  | -       |
+| title    | Suspended title displayed when collapsed | string  | -       |
 
 ### SubMenu
 
-| Property | Description                | Type          | Default |
-| -------- | -------------------------- | ------------- | ------- |
-| icon     | Item icon                  | string        | -       |
-| disabled | Whether disabled           | boolean         | false   |
-| key      | Unique identifier for item | string        | -       |
-| title    | Submenu item value         | string, slots | -       |
+| Property | Description                | Type         | Default |
+| -------- | -------------------------- | ------------ | ------- |
+| icon     | Item icon                  | string       | -       |
+| disabled | Whether disabled           | boolean      | false   |
+| key      | Unique identifier for item | string       | -       |
+| title    | Submenu item value         | string, slot | -       |
 
 ### MenuGroup
 
-| Property | Description | Type          | Default |
-| -------- | ----------- | ------------- | ------- |
-| title    | Group title | string, slots | -       |
+| Property | Description | Type         | Default |
+| -------- | ----------- | ------------ | ------- |
+| title    | Group title | string, slot | -       |

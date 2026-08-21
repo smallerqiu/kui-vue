@@ -43,26 +43,26 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 
 ## Input API
 
-| Property            | Description                                                         | Type                       | Default |
-| ------------------- | ------------------------------------------------------------------- | -------------------------- | ------- |
-| modelValue          | Bound value, can use `v-model` for two-way binding                  | string, number             | -       |
-| value               | Initial value for uncontrolled usage                                | unknown                    | -       |
-| type                | Native input type                                                   | text \| password \| hidden | text    |
-| inputType           | Internal input element type, normally left as input                 | string                     | input   |
-| disabled            | Whether the input is disabled                                       | boolean                    | false   |
-| shape               | Input shape                                                         | ShapeType                  | -       |
-| size                | Button size, optional values `small`, `large`, default not selected | string                     | -       |
-| icon                | Input box icon                                                      | string                     | -       |
-| suffix              | Extension suffix                                                    | string, Slot               | -       |
-| prefix              | Extension prefix                                                    | string, Slot               | -       |
-| theme               | The theme of Input                                                  | string                     | fill    |
-| clearable           | Whether to show the clear button                                    | boolean                    | false   |
-| visiblePassword     | Password initially displayed in plain text                          | boolean                    | false   |
-| visiblePasswordIcon | Whether to show the toggle button or control password visibility    | boolean                    | true    |
-| onSearch            | Search event callback                                               | (value: string) => void    | -       |
-| onIconClick         | Callback for icon click event                                       | (e: Event) => void         | -       |
-| onClear             | Callback for pressing the clear button                              | () => void                 | -       |
-| onChange            | Callback when the input box content changes                         | (value: string) => void    | -       |
+| Property            | Description                                                         | Type                             | Default |
+| ------------------- | ------------------------------------------------------------------- | -------------------------------- | ------- |
+| modelValue          | Bound value, can use `v-model` for two-way binding                  | string \| number                 | -       |
+| value               | Initial value for uncontrolled usage                                | unknown                          | -       |
+| type                | Native input type                                                   | 'text' \| 'password' \| 'hidden' | text    |
+| inputType           | Internal input element type, normally left as input                 | string                           | input   |
+| disabled            | Whether the input is disabled                                       | boolean                          | false   |
+| shape               | Input shape                                                         | ShapeType                        | -       |
+| size                | Button size, optional values `small`, `large`, default not selected | string                           | -       |
+| icon                | Input box icon                                                      | string                           | -       |
+| suffix              | Extension suffix                                                    | string, slot                     | -       |
+| prefix              | Extension prefix                                                    | string, slot                     | -       |
+| theme               | The theme of Input                                                  | string                           | fill    |
+| clearable           | Whether to show the clear button                                    | boolean                          | false   |
+| visiblePassword     | Password initially displayed in plain text                          | boolean                          | false   |
+| visiblePasswordIcon | Whether to show the toggle button or control password visibility    | boolean                          | true    |
+| onSearch            | Search event callback                                               | (value: string) => void          | -       |
+| onIconClick         | Callback for icon click event                                       | (e: Event) => void               | -       |
+| onClear             | Callback for pressing the clear button                              | () => void                       | -       |
+| onChange            | Callback when the input box content changes                         | (value: string) => void          | -       |
 
 ## TextArea API
 

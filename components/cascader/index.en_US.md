@@ -28,33 +28,33 @@ A cascading selection box.
 
 ## API
 
-| Property      | Description                                                                                                         | Type                   | Default           |
-| :------------ | :------------------------------------------------------------------------------------------------------------------ | :--------------------- | :---------------- |
-| modelValue    | Array of path values bound through `v-model` (e.g., `['zhejiang', 'hangzhou', 'xihu']`).                            | `(string \| number)[]` | `[]`              |
-| options       | Tree-structured data source for cascading options.                                                                  | `CascaderOption[]`     | `[]`              |
-| placeholder   | Fallback placeholder text displayed when no path is selected.                                                       | `string`               | `"Please select"` |
-| disabled      | Whether to completely disable interaction for the entire component.                                                 | `boolean`              | `false`           |
-| clearable     | Whether to support clearing the selected path with one click.                                                       | `boolean`              | `true`            |
-| size          | Size specification of the component. Options: `'large'` \| `'small'` \| `undefined`.                                | `string`               | `undefined`       |
-| expandTrigger | Interaction mode for expanding the next-level menu. Options: `'click'` or `'hover'`.                                | `'click' \| 'hover'`   | `'click'`         |
-| showAllLevels | Whether to display the full selected ancestor path. If `false`, only the final leaf node is shown in the input box. | `boolean`              | `true`            |
-| separator     | Separator between labels of different levels when `showAllLevels` is enabled.                                       | `string`               | `" / "`           |
-| bordered      | Whether to display borders                                                                                          | `boolean`                 | true              |
-| theme         | Theme                                                                                                               | `string`               | fill              |
-| showArrow     | Whether to display the dropdown button                                                                              | `boolean`                 | true              |
-| icon          | Custom Icon                                                                                                         | `string`               | -                 |
-| shape         | shape='circle' 时呈现圆角                                                                                           | `string`               | -                 |
-| placement     | Dropdown orientation                                                                                                | `string`               | -                 |
-| emptyText     | No data available.                                                                                                  | `string`               | 'No Data'         |
-| arrowIcon     | Custom arrow icon                                                                                                   | string                 | -                 |
+| Property      | Description                                                                                                         | Type                 | Default           |
+| :------------ | :------------------------------------------------------------------------------------------------------------------ | :------------------- | :---------------- |
+| modelValue    | Array of path values bound through `v-model` (e.g., `['zhejiang', 'hangzhou', 'xihu']`).                            | (string \| number)[] | `[]`              |
+| options       | Tree-structured data source for cascading options.                                                                  | CascaderOption[]     | `[]`              |
+| placeholder   | Fallback placeholder text displayed when no path is selected.                                                       | string               | `"Please select"` |
+| disabled      | Whether to completely disable interaction for the entire component.                                                 | boolean              | `false`           |
+| clearable     | Whether to support clearing the selected path with one click.                                                       | boolean              | `true`            |
+| size          | Size specification of the component. Options: `'large'` \| `'small'` \| `undefined`.                                | string               | `undefined`       |
+| expandTrigger | Interaction mode for expanding the next-level menu. Options: `'click'` or `'hover'`.                                | 'click' \| 'hover'   | `'click'`         |
+| showAllLevels | Whether to display the full selected ancestor path. If `false`, only the final leaf node is shown in the input box. | boolean              | `true`            |
+| separator     | Separator between labels of different levels when `showAllLevels` is enabled.                                       | string               | `" / "`           |
+| bordered      | Whether to display borders                                                                                          | boolean              | true              |
+| theme         | Theme                                                                                                               | string               | fill              |
+| showArrow     | Whether to display the dropdown button                                                                              | boolean              | true              |
+| icon          | Custom Icon                                                                                                         | string               | -                 |
+| shape         | shape='circle' 时呈现圆角                                                                                           | string               | -                 |
+| placement     | Dropdown orientation                                                                                                | string               | -                 |
+| emptyText     | No data available.                                                                                                  | string               | 'No Data'         |
+| arrowIcon     | Custom arrow icon                                                                                                   | string               | -                 |
 
 ## CascaderOption
 
 When configuring the `options` data source for `Cascader`, each node must conform to the `CascaderOption` object specification. It supports infinite nesting:
 
-| Property | Description                                                                                                                                                                               | Type               | Default     |
-| :------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :----------------- | :---------- |
-| value    | **Required.** Unique identifier for the current node (often corresponds to backend `id` or `code`). When the full path is selected, `v-model` collects an array composed of these values. | `string \| number` | -           |
-| label    | **Required.** Plain text content displayed to users in the dropdown menu and input box (e.g., `"Zhejiang"`, `"Hangzhou"`).                                                                | `string`           | -           |
-| disabled | Whether to disable the current option. When enabled, the row appears grayed out and unclickable, and all its child levels will be locked synchronously.                                   | `boolean`          | `false`     |
-| children | Data source for the next-level child nodes. When this property exists and the array is not empty, a right-facing expansion arrow is automatically rendered on the component.              | `CascaderOption[]` | `undefined` |
+| Property | Description                                                                                                                                                                               | Type             | Default     |
+| :------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------- | :---------- |
+| value    | **Required.** Unique identifier for the current node (often corresponds to backend `id` or `code`). When the full path is selected, `v-model` collects an array composed of these values. | string \| number | -           |
+| label    | **Required.** Plain text content displayed to users in the dropdown menu and input box (e.g., `"Zhejiang"`, `"Hangzhou"`).                                                                | string           | -           |
+| disabled | Whether to disable the current option. When enabled, the row appears grayed out and unclickable, and all its child levels will be locked synchronously.                                   | boolean          | `false`     |
+| children | Data source for the next-level child nodes. When this property exists and the array is not empty, a right-facing expansion arrow is automatically rendered on the component.              | CascaderOption[] | `undefined` |

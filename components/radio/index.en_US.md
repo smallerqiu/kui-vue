@@ -33,11 +33,11 @@ Radio button.
 
 | Property   | Description                        | Type                     | Default |
 | ---------- | ---------------------------------- | ------------------------ | ------- |
-| modelValue | Whether selected (v-model)         | boolean                    | false   |
-| checked    | Whether selected                   | boolean                    | false   |
-| label      | Text prompt                        | string, number           | -       |
-| value      | Value when used in combination     | string 、 number         | -       |
-| disabled   | Whether current item is disabled   | boolean                    | false   |
+| modelValue | Whether selected (v-model)         | boolean                  | false   |
+| checked    | Whether selected                   | boolean                  | false   |
+| label      | Text prompt                        | string \| number         | -       |
+| value      | Value when used in combination     | string \| number         | -       |
+| disabled   | Whether current item is disabled   | boolean                  | false   |
 | icon       | Custom RadioButton icon            | IconType[]               | -       |
 | onChange   | Callback when option state changes | (e: ChangeEvent) => void | -       |
 

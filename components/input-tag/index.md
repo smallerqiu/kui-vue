@@ -30,22 +30,22 @@
 
 ## InputTag API
 
-| 属性            | 说明                                | 类型                           | 默认值  |
-| --------------- | ----------------------------------- | ------------------------------ | ------- |
-| modelValue      | 标签值（v-model）                   | string[]                       | -       |
-| value           | 初始标签                            | string[]                       | []      |
-| placeholder     | 占位文本                            | string                         | -       |
-| size            | 尺寸                                | small\|medium\|large           | medium  |
-| theme           | 主题                                | fill\|outline\|plain           | fill    |
-| shape           | 形状                                | circle\|square\|round\|default | default |
-| disabled        | 禁用                                | boolean                        | false   |
-| clearable       | 是否显示一键清空按钮                | boolean                        | false   |
-| block           | 宽度撑满父容器                      | boolean                        | false   |
-| allowDuplicates | 允许重复                            | boolean                        | false   |
-| max             | 最大标签数                          | number                         | -       |
-| maxTagCount     | 最多展示的标签数，超出部分显示为 +N | number                         | -       |
-| separators      | 提交按键                            | string[]                       | [',']   |
-| onChange        | 标签变化                            | function                       | -       |
-| onAdd           | 新增标签                            | function                       | -       |
-| onRemove        | 删除标签                            | function                       | -       |
-| onClear         | 清空标签                            | function                       | -       |
+| 属性            | 说明                                | 类型                                         | 默认值  |
+| --------------- | ----------------------------------- | -------------------------------------------- | ------- |
+| modelValue      | 标签值（v-model）                   | string[]                                     | -       |
+| value           | 初始标签                            | string[]                                     | []      |
+| placeholder     | 占位文本                            | string                                       | -       |
+| size            | 尺寸                                | 'small' \| 'medium' \| 'large'               | medium  |
+| theme           | 主题                                | 'fill' \| 'outline' \| 'plain'               | fill    |
+| shape           | 形状                                | 'circle' \| 'square' \| 'round' \| 'default' | default |
+| disabled        | 禁用                                | boolean                                      | false   |
+| clearable       | 是否显示一键清空按钮                | boolean                                      | false   |
+| block           | 宽度撑满父容器                      | boolean                                      | false   |
+| allowDuplicates | 允许重复                            | boolean                                      | false   |
+| max             | 最大标签数                          | number                                       | -       |
+| maxTagCount     | 最多展示的标签数，超出部分显示为 +N | number                                       | -       |
+| separators      | 提交按键                            | string[]                                     | [',']   |
+| onChange        | 标签变化                            | function                                     | -       |
+| onAdd           | 新增标签                            | function                                     | -       |
+| onRemove        | 删除标签                            | function                                     | -       |
+| onClear         | 清空标签                            | function                                     | -       |

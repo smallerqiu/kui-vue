@@ -26,24 +26,24 @@ When standard numerical values need to be obtained.
 
 ## InputNumber API
 
-| Property   | Description                                                                 | Type                                | Default   |
-| ---------- | --------------------------------------------------------------------------- | ----------------------------------- | --------- |
-| min        | Minimum value                                                               | number                              | -Infinity |
-| max        | Maximum value                                                               | number                              | Infinity  |
-| step       | Step value for each change, can be a decimal                                | number, string                      | 1         |
-| modelValue | The value of InputNumber(v-model)                                           | number                              | -         |
-| formatter  | Specifies the format of the value displayed in the input box                | (value: string \| number) => string | -         |
-| parser     | Specifies how to convert back from formatter to number, used with formatter | (value: string) => string \| number | -         |
-| size       | Input box size                                                              | string                              | -         |
-| disabled   | Disabled                                                                    | boolean                               | -         |
-| readonly   | Whether the input is read-only                                              | boolean                               | false     |
-| precision  | Numerical precision                                                         | number                              | -         |
-| shape      | Component appearance                                                        | `circle` , `square`                 | -         |
-| suffix     | Custom suffix                                                               | string, slot                        | -         |
-| prefix     | Prefix content                                                              | string, slot                        | -         |
-| controls   | Whether to show increase/decrease buttons                                   | boolean                               | true      |
-| clearable  | Whether to show clear button                                                | boolean                               | false     |
-| theme      | The component renders the theme                                             | string                              | fill      |
-| icon       | Custom increment/decrement icons                                            | IconType[]                          | -         |
-| placeholder | Input placeholder                                                          | string                              | -         |
-| onChange   | Change callback                                                             | (value: number) => void             | -         |
+| Property    | Description                                                                 | Type                                | Default   |
+| ----------- | --------------------------------------------------------------------------- | ----------------------------------- | --------- |
+| min         | Minimum value                                                               | number                              | -Infinity |
+| max         | Maximum value                                                               | number                              | Infinity  |
+| step        | Step value for each change, can be a decimal                                | number \| string                    | 1         |
+| modelValue  | The value of InputNumber(v-model)                                           | number                              | -         |
+| formatter   | Specifies the format of the value displayed in the input box                | (value: string \| number) => string | -         |
+| parser      | Specifies how to convert back from formatter to number, used with formatter | (value: string) => string \| number | -         |
+| size        | Input box size                                                              | string                              | -         |
+| disabled    | Disabled                                                                    | boolean                             | -         |
+| readonly    | Whether the input is read-only                                              | boolean                             | false     |
+| precision   | Numerical precision                                                         | number                              | -         |
+| shape       | Component appearance                                                        | 'circle' \| 'square'                | -         |
+| suffix      | Custom suffix                                                               | string, slot                        | -         |
+| prefix      | Prefix content                                                              | string, slot                        | -         |
+| controls    | Whether to show increase/decrease buttons                                   | boolean                             | true      |
+| clearable   | Whether to show clear button                                                | boolean                             | false     |
+| theme       | The component renders the theme                                             | string                              | fill      |
+| icon        | Custom increment/decrement icons                                            | IconType[]                          | -         |
+| placeholder | Input placeholder                                                           | string                              | -         |
+| onChange    | Change callback                                                             | (value: number) => void             | -         |

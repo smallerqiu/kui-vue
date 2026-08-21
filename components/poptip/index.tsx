@@ -10,6 +10,7 @@ import {
   watch,
   type ExtractPropTypes,
   type PropType,
+  type VNodeChild,
 } from "vue";
 import { usePopupContainer } from "../config/popup";
 import { setPlacement } from "../utils/placement";
@@ -22,7 +23,7 @@ export type PoptipProps = ExtractPropTypes<typeof poptipProps>;
 const poptipProps = {
   dark: Boolean,
   show: Boolean,
-  title: [String, Number, Object, Array],
+  title: [String, Number, Object, Array] as PropType<VNodeChild>,
   content: String,
   width: [Number, String],
   trigger: {

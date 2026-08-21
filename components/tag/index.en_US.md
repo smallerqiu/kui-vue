@@ -31,13 +31,13 @@ Small labels for marking and categorization.
 
 ## Tag API
 
-| Property  | Description                                                         | Type            | Default |
-| --------- | ------------------------------------------------------------------- | --------------- | ------- |
-| closeable | Whether to show close button                                        | boolean         | false   |
-| compact   | Whether to use the compact size for embedding in input controls     | boolean         | false   |
-| color     | Tag color                                                           | string          | -       |
-| icon      | Tag icon                                                            | string          | -       |
-| onClose   | Callback event when tag is closed                                   | () => void      | -       |
-| size      | Button size, optional values `small`, `large`, default not selected | string          | -       |
-| theme     | The component renders the theme                                     | string          | fill    |
-| shape     | The shape in which the component is presented                       | [circle,square] | circle  |
+| Property  | Description                                                         | Type                 | Default |
+| --------- | ------------------------------------------------------------------- | -------------------- | ------- |
+| closeable | Whether to show close button                                        | boolean              | false   |
+| compact   | Whether to use the compact size for embedding in input controls     | boolean              | false   |
+| color     | Tag color                                                           | string               | -       |
+| icon      | Tag icon                                                            | string               | -       |
+| onClose   | Callback event when tag is closed                                   | () => void           | -       |
+| size      | Button size, optional values `small`, `large`, default not selected | string               | -       |
+| theme     | The component renders the theme                                     | string               | fill    |
+| shape     | The shape in which the component is presented                       | 'circle' \| 'square' | circle  |

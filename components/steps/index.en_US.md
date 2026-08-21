@@ -26,13 +26,13 @@
 
 ## Steps API
 
-| Property  | Description    | Type                 | Default    |
-| --------- | -------------- | -------------------- | ---------- |
-| current   | Current step   | number               | 0          |
-| direction | Direction      | horizontal\|vertical | horizontal |
-| status    | Current status | process\|error       | process    |
-| items     | Step data      | StepItem[]           | -          |
-| onChange  | Step click     | function             | -          |
+| Property  | Description    | Type                       | Default    |
+| --------- | -------------- | -------------------------- | ---------- |
+| current   | Current step   | number                     | 0          |
+| direction | Direction      | 'horizontal' \| 'vertical' | horizontal |
+| status    | Current status | 'process' \| 'error'       | process    |
+| items     | Step data      | StepItem[]                 | -          |
+| onChange  | Step click     | function                   | -          |
 
 ## Step API
 

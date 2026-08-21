@@ -50,12 +50,12 @@ Also provides global configuration and global destruction methods:
 
 Parameter `options` is an object, specific description as follows:
 
-| Property | Description                                                                      | Type          | Default |
-| -------- | -------------------------------------------------------------------------------- | ------------- | ------- |
-| type     | Prompt type, provides four optional types: `info`, `success`, `error`, `warning` | string        | info    |
-| content  | Prompt content                                                                   | string, Vnode | -       |
-| duration | Auto-close delay, in seconds, 0 means not auto-closed                            | number        | 3       |
+| Property | Description                                                                      | Type            | Default |
+| -------- | -------------------------------------------------------------------------------- | --------------- | ------- |
+| type     | Prompt type, provides four optional types: `info`, `success`, `error`, `warning` | string          | info    |
+| content  | Prompt content                                                                   | string \| VNode | -       |
+| duration | Auto-close delay, in seconds, 0 means not auto-closed                            | number          | 3       |
 | closable | Whether it can be manually closed                                                | boolean         | false   |
-| icon     | Custom icon                                                                      | string        | -       |
-| color    | Custom icon color                                                                | string        | -       |
-| onClose  | Callback when closing                                                            | () => void    | -       |
+| icon     | Custom icon                                                                      | string          | -       |
+| color    | Custom icon color                                                                | string          | -       |
+| onClose  | Callback when closing                                                            | () => void      | -       |

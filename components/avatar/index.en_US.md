@@ -22,20 +22,20 @@ Used to represent users or things, supports image, icon, or character display.
 
 ## API
 
-| Property | Description                                                          | Type                          | Default |
-| -------- | -------------------------------------------------------------------- | ----------------------------- | ------- |
-| icon     | Avatar icon; overrides the default User fallback when an image fails | IconType                      | -       |
-| shape    | Avatar shape                                                         | circle, square                | circle  |
-| size     | Avatar size                                                          | large, small, default, number | default |
-| src      | Image source                                                         | string                        | -       |
-| alt      | Alternative text when the image cannot be displayed                  | string                        | -       |
-| onError  | Image error callback; return `false` to prevent rendering fallback   | (event: Event) => boolean     | -       |
+| Property | Description                                                          | Type                                      | Default |
+| -------- | -------------------------------------------------------------------- | ----------------------------------------- | ------- |
+| icon     | Avatar icon; overrides the default User fallback when an image fails | IconType                                  | -       |
+| shape    | Avatar shape                                                         | 'circle' \| 'square'                      | circle  |
+| size     | Avatar size                                                          | 'large' \| 'small' \| 'default' \| number | default |
+| src      | Image source                                                         | string                                    | -       |
+| alt      | Alternative text when the image cannot be displayed                  | string                                    | -       |
+| onError  | Image error callback; return `false` to prevent rendering fallback   | (event: Event) => boolean                 | -       |
 
 ## AvatarGroup API
 
-| Property | Description                                                     | Type                          | Default |
-| -------- | --------------------------------------------------------------- | ----------------------------- | ------- |
-| maxCount | Maximum number of avatars to display                            | number                        | -       |
-| size     | Sets child size and adjusts their overlap proportionally        | large, small, default, number | default |
-| spacing  | Child avatar overlap in pixels; `0` disables overlap            | number                        | auto    |
-| shape    | Sets the shape of all child avatars                             | circle, square, round         | circle  |
+| Property | Description                                              | Type                                      | Default |
+| -------- | -------------------------------------------------------- | ----------------------------------------- | ------- |
+| maxCount | Maximum number of avatars to display                     | number                                    | -       |
+| size     | Sets child size and adjusts their overlap proportionally | 'large' \| 'small' \| 'default' \| number | default |
+| spacing  | Child avatar overlap in pixels; `0` disables overlap     | number                                    | auto    |
+| shape    | Sets the shape of all child avatars                      | 'circle' \| 'square' \| 'round'           | circle  |

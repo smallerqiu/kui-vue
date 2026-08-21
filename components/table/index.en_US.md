@@ -136,7 +136,7 @@ const columns = [
 | -------- | ------------------------------------------------------------------ | -------------------------------------------------- | ------- |
 | title    | Header display text                                                | string                                             | -       |
 | key      | Corresponding column field name                                    | string                                             | -       |
-| fixed    | Column fixed direction                                             | left,right                                         | -       |
+| fixed    | Column fixed direction                                             | 'left' \| 'right'                                  | -       |
 | sorter   | Sorting, when `true`, local sorting is enabled                     | boolean \| (state: SortState) => void              | -       |
 | width    | Column width                                                       | number                                             | -       |
 | rowSpan  | Row merge unit, when 0, the current row will not be rendered       | number                                             | -       |

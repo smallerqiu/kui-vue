@@ -38,13 +38,13 @@ Generally appears in the upper right corner of notification icons or avatars, us
 
 ## API
 
-| Property | Description                                                                           | Type           | Default |
-| -------- | ------------------------------------------------------------------------------------- | -------------- | ------- |
-| count    | The text to display                                                                   | String，number | -       |
-| color    | Badge color                                                                           | string         | -       |
-| maxCount | The maximum numeric value to display. Values above this will be shown with a '+' sign | number         | 99      |
-| dot      | Do not display the number, only a small red dot                                       | boolean        | false   |
-| pill     | Use a pill appearance for a status badge                                              | boolean        | false   |
-| text     | If status is set, text sets the display text of the status dot                        | string         | ''      |
-| status   | Set Badge as a status dot                                                             | string         | ''      |
-| active   | The dot is in the active state.                                                       | boolean        | false   |
+| Property | Description                                                                           | Type             | Default |
+| -------- | ------------------------------------------------------------------------------------- | ---------------- | ------- |
+| count    | The text to display                                                                   | String \| number | -       |
+| color    | Badge color                                                                           | string           | -       |
+| maxCount | The maximum numeric value to display. Values above this will be shown with a '+' sign | number           | 99      |
+| dot      | Do not display the number, only a small red dot                                       | boolean          | false   |
+| pill     | Use a pill appearance for a status badge                                              | boolean          | false   |
+| text     | If status is set, text sets the display text of the status dot                        | string           | ''      |
+| status   | Set Badge as a status dot                                                             | string           | ''      |
+| active   | The dot is in the active state.                                                       | boolean          | false   |

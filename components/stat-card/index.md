@@ -26,45 +26,45 @@
 
 ## API
 
-| 属性           | 说明                      | 类型              | 默认值    |
-| -------------- | ------------------------- | ----------------- | --------- |
-| title          | 卡片标题                  | string            | -         |
-| items          | 展示的数据                | StatNumberItem[]  | []        |
-| precision      | 数值精度                  | number            | 0         |
-| statNumberType | 数值变化类型              | `rollup, countup` | 'countup' |
-| separator      | 分隔符                    | string            | -         |
-| reverse        | 数值/数值描述是否反相排列 | boolean             | false     |
-| bordered       | 是否显示边框              | boolean             | false     |
+| 属性           | 说明                      | 类型                  | 默认值    |
+| -------------- | ------------------------- | --------------------- | --------- |
+| title          | 卡片标题                  | string                | -         |
+| items          | 展示的数据                | StatNumberItem[]      | []        |
+| precision      | 数值精度                  | number                | 0         |
+| statNumberType | 数值变化类型              | 'rollup' \| 'countup' | 'countup' |
+| separator      | 分隔符                    | string                | -         |
+| reverse        | 数值/数值描述是否反相排列 | boolean               | false     |
+| bordered       | 是否显示边框              | boolean               | false     |
 
 ### items Options
 
-| 属性            | 说明                         | 类型                                | 默认值  |
-| --------------- | ---------------------------- | ----------------------------------- | ------- |
-| value           | 数值                         | number                              | -       |
-| desc            | 数值描述                     | string                              | []      |
-| trend           | 趋势或补充信息               | VNodeChild                          | -       |
-| trendStatus     | 趋势状态                     | `default, success, danger, warning` | default |
-| prefix          | 数值的前置内容               | string                              | -       |
-| suffix          | 数值的后置内容               | string                              | -       |
-| precision       | 数值精度                     | number                              | 0       |
-| separator       | 分隔符                       | string                              | -       |
-| duration        | 数值动态展示时间(秒)         | number                              | 1.2     |
-| autoAnimate     | 当目标可见时触发动画         | boolean                               | true    |
-| autoAnimateOnce | 自动动画触发器仅运行一次动画 | boolean                               | true    |
+| 属性            | 说明                         | 类型                                            | 默认值  |
+| --------------- | ---------------------------- | ----------------------------------------------- | ------- |
+| value           | 数值                         | number                                          | -       |
+| desc            | 数值描述                     | string                                          | []      |
+| trend           | 趋势或补充信息               | VNodeChild                                      | -       |
+| trendStatus     | 趋势状态                     | 'default' \| 'success' \| 'danger' \| 'warning' | default |
+| prefix          | 数值的前置内容               | string                                          | -       |
+| suffix          | 数值的后置内容               | string                                          | -       |
+| precision       | 数值精度                     | number                                          | 0       |
+| separator       | 分隔符                       | string                                          | -       |
+| duration        | 数值动态展示时间(秒)         | number                                          | 1.2     |
+| autoAnimate     | 当目标可见时触发动画         | boolean                                         | true    |
+| autoAnimateOnce | 自动动画触发器仅运行一次动画 | boolean                                         | true    |
 
 ## StatNumber API
 
-| 属性            | 说明                         | 类型              | 默认值    |
-| --------------- | ---------------------------- | ----------------- | --------- |
-| modelValue      | 数值(v-model)                | number            | -         |
-| duration        | 数值动态展示时间(秒)         | number            | 1.2       |
-| prefix          | 数值的前置内容               | string            | -         |
-| suffix          | 数值的后置内容               | string            | -         |
-| precision       | 数值精度                     | number            | 0         |
-| type            | 数值变化类型                 | `rollup, countup` | 'countup' |
-| separator       | 分隔符                       | string            | -         |
-| autoAnimate     | 当目标可见时触发动画         | boolean             | true      |
-| autoAnimateOnce | 自动动画触发器仅运行一次动画 | boolean             | true      |
+| 属性            | 说明                         | 类型                  | 默认值    |
+| --------------- | ---------------------------- | --------------------- | --------- |
+| modelValue      | 数值(v-model)                | number                | -         |
+| duration        | 数值动态展示时间(秒)         | number                | 1.2       |
+| prefix          | 数值的前置内容               | string                | -         |
+| suffix          | 数值的后置内容               | string                | -         |
+| precision       | 数值精度                     | number                | 0         |
+| type            | 数值变化类型                 | 'rollup' \| 'countup' | 'countup' |
+| separator       | 分隔符                       | string                | -         |
+| autoAnimate     | 当目标可见时触发动画         | boolean               | true      |
+| autoAnimateOnce | 自动动画触发器仅运行一次动画 | boolean               | true      |
 
 ### 通用外观
 

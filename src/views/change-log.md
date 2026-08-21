@@ -15,6 +15,57 @@ vite 好像有缓存, 可手动清除
 rm -rf node_modules/.vite
 ```
 
+## 5.7.0
+
+`2026-8-21`
+
+### 新增组件
+
+- 新增 `AutoComplete` 自动完成组件，支持本地/远程搜索、受控展开、空值展开控制、加载状态、清除、主题、尺寸和形状。
+- 新增 `CheckCard`、`CheckCardGroup` 卡片选择组件，支持单独选择、单选组、自定义内容和多种外观。
+- 新增 `InputTag` 标签输入组件，支持受控值、分隔符录入、数量限制、重复项控制和标签折叠。
+- 新增 `Mentions` 提及组件，支持多触发符、过滤、远程数据、加载与空状态、行数和弹层位置控制。
+- 新增 `Steps`、`Step` 步骤条组件，支持水平/垂直布局、状态、图标、点击切换和受控模式。
+- 新增 `Tour` 漫游式引导组件，支持受控步骤、遮罩、定位和自定义内容。
+- 新增 `Transfer` 穿梭框组件，支持搜索、禁用、事件、自定义渲染、主题和分页插槽。
+- 新增 `Typography` 排版组件，提供 Text、Title、Paragraph，支持复制、编辑、Tooltip 和展开/折叠省略文本。
+- 新增 `VirtualList` 基础虚拟列表组件，支持固定项高度、超扫描和滚动定位。
+
+### 功能增强
+
+- `Select` 完善键盘导航，新增多选创建选项能力，并支持虚拟滚动、大数据选项和多选标签折叠。
+- `Table`、`Tree`、`TreeSelect` 新增虚拟滚动；修正虚拟表格固定列与斑马纹的配合表现。
+- `Page` 新增 `simple` 简洁分页模式；结合 `showElevator` 时可直接编辑当前页码。
+- `Tabs` 新增溢出滚动导航和响应式测量，动态修改标题后会重新计算激活线位置。
+- `Button` 支持自定义加载图标，并优化按钮组、状态和动画表现。
+- `Card` 补充尺寸能力；`Input`、`Select`、`TreeSelect` 等组件进一步统一 `theme`、`size`、`shape` 行为。
+- `Modal`、`Drawer`、`Tour` 统一遮罩表现和滚动锁定逻辑，改善页面打开弹层时的布局抖动。
+
+### 样式与体验优化
+
+- 统一 `InputTag`、`Select`、`TreeSelect` 和 `Tag` 的标签样式，兼容亮色/暗色模式、尺寸和形状。
+- 统一输入框、下拉框、空状态和弹层动画；整理并复用公共 motion 动画定义。
+- 增加全局字体、排版、盒模型和滚动条基础样式，适配 macOS 与 Windows 字体环境。
+- 推进组件高度 CSS Variables 在 small、medium、large 尺寸中的统一使用。
+- 整理公共组件样式，将组件专属规则合并回各自样式文件，减少重复选择器。
+- 扩充新增组件及虚拟滚动、Typography、Transfer 等组件的中英文文档和功能 Demo。
+
+### Bug 修复
+
+- 修复 `AutoComplete` 和 `Mentions` 选中、删除查询或远程搜索无结果时下拉内容闪烁的问题。
+- 修复 `Mentions` 下拉框未跟随光标、空间不足时不能自动调整位置的问题。
+- 修复 `Select` 回车选择后查询未清空、可创建重复项及再次键盘导航从首项开始的问题。
+- 修复 `Tabs` 标题动态变化后激活线位置不正确的问题。
+- 修复 `DatePicker` 日期布局问题。
+
+### AI 与工程化
+
+- 发布与当前版本同步的组件 metadata、JSON Schema、`llms.txt` 和 `llms-full.txt`。
+- 新增 Kui Vue Agent Skill、项目初始化 CLI 和 MCP Server，支持组件搜索、API 查询、组件推荐及模板属性校验。
+- 新增 20 个 AI Vue SFC 评测用例，并将 AI 资产一致性与评测接入 CI。
+- 新增中英文 AI 辅助开发指南；npm 包开放 `kui-vue/metadata`、`kui-vue/metadata/schema` 和 `kui-vue/skill` 导出。
+- 完善 ESLint、类型检查、API 文档检查、测试、构建和发布包校验流程，并升级开发依赖。
+
 ## 5.6.0
 
 `2026-8-16`

@@ -30,13 +30,13 @@
 
 ## Steps API
 
-| 属性      | 说明     | 类型                 | 默认值     |
-| --------- | -------- | -------------------- | ---------- |
-| current   | 当前步骤 | number               | 0          |
-| direction | 排列方向 | horizontal\|vertical | horizontal |
-| status    | 当前状态 | process\|error       | process    |
-| items     | 步骤数据 | StepItem[]           | -          |
-| onChange  | 点击步骤 | function             | -          |
+| 属性      | 说明     | 类型                       | 默认值     |
+| --------- | -------- | -------------------------- | ---------- |
+| current   | 当前步骤 | number                     | 0          |
+| direction | 排列方向 | 'horizontal' \| 'vertical' | horizontal |
+| status    | 当前状态 | 'process' \| 'error'       | process    |
+| items     | 步骤数据 | StepItem[]                 | -          |
+| onChange  | 点击步骤 | function                   | -          |
 
 ## Step API
 

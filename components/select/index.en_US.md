@@ -45,8 +45,8 @@ Dropdown selector.
 
 | Property     | Description                                                                       | Type                                       | Default       |
 | ------------ | --------------------------------------------------------------------------------- | ------------------------------------------ | ------------- |
-| modelValue   | Specifies the `value` of the selected item, can use `v-model` for two-way binding | string, number                             | -             |
-| width        | Component width                                                                   | string, number                             | -             |
+| modelValue   | Specifies the `value` of the selected item, can use `v-model` for two-way binding | string \| number                           | -             |
+| width        | Component width                                                                   | string \| number                           | -             |
 | placeholder  | Default text of selector                                                          | string                                     | Please select |
 | disabled     | Whether current item is disabled                                                  | boolean                                    | false         |
 | size         | Component size, provides two sizes: `small`, `large`, default is normal           | string                                     | -             |
@@ -79,11 +79,11 @@ Dropdown selector.
 
 ## Option API
 
-| Property | Description                                                                                                                    | Type           | Default |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------- | ------- |
-| key      | Same meaning as value. If Vue requires this setting, this value should be the same as value, then value setting can be omitted | string, number | -       |
-| value    | Option value, used for filtering by default, required                                                                          | string, number | -       |
-| label    | Option display content                                                                                                         | string, number | -       |
-| disabled | Whether current item is disabled                                                                                               | boolean        | false   |
-| active   | Whether this is the current keyboard-focused option                                                                            | boolean        | false   |
-| checked  | Whether the option is selected                                                                                                 | boolean        | false   |
+| Property | Description                                                                                                                    | Type             | Default |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------- | ------- |
+| key      | Same meaning as value. If Vue requires this setting, this value should be the same as value, then value setting can be omitted | string \| number | -       |
+| value    | Option value, used for filtering by default, required                                                                          | string \| number | -       |
+| label    | Option display content                                                                                                         | string \| number | -       |
+| disabled | Whether current item is disabled                                                                                               | boolean          | false   |
+| active   | Whether this is the current keyboard-focused option                                                                            | boolean          | false   |
+| checked  | Whether the option is selected                                                                                                 | boolean          | false   |

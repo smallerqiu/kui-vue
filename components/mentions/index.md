@@ -42,25 +42,25 @@
 
 ## Mentions API
 
-| 属性         | 说明                               | 类型                                                        | 默认值      |
-| ------------ | ---------------------------------- | ----------------------------------------------------------- | ----------- |
-| modelValue   | 文本值（v-model）                  | string                                                      | -           |
-| value        | 初始文本                           | string                                                      | ''          |
-| options      | 候选项                             | (string\|MentionOption)[]                                   | []          |
-| triggers     | 触发字符                           | string[]                                                    | ['@']       |
-| placeholder  | 占位文本                           | string                                                      | -           |
-| disabled     | 是否禁用                           | boolean                                                     | false       |
-| clearable    | 是否显示清空按钮                   | boolean                                                     | false       |
-| loading      | 是否显示远程搜索加载状态           | boolean                                                     | false       |
-| loadingText  | 加载提示文字                       | string                                                      | -           |
-| rows         | 文本域行数                         | number                                                      | 1           |
-| placement    | 下拉菜单优先位置                   | top\|top-left\|top-right\|bottom\|bottom-left\|bottom-right | bottom-left |
-| size         | 尺寸                               | small\|medium\|large                                        | medium      |
-| theme        | 主题                               | fill\|outline\|plain                                        | fill        |
-| shape        | 形状                               | circle\|square\|round\|default                              | default     |
-| emptyText    | 空状态说明                         | string                                                      | 暂无数据    |
-| filterOption | 自定义过滤                         | function                                                    | -           |
-| onChange     | 文本变化                           | function                                                    | -           |
-| onSelect     | 选择提及                           | function                                                    | -           |
-| onSearch     | 远程搜索，参数为查询文本和触发字符 | (query, trigger) => void                                    | -           |
-| onClear      | 清空文本                           | function                                                    | -           |
+| 属性         | 说明                               | 类型                                                                              | 默认值      |
+| ------------ | ---------------------------------- | --------------------------------------------------------------------------------- | ----------- |
+| modelValue   | 文本值（v-model）                  | string                                                                            | -           |
+| value        | 初始文本                           | string                                                                            | ''          |
+| options      | 候选项                             | (string \| MentionOption)[]                                                       | []          |
+| triggers     | 触发字符                           | string[]                                                                          | ['@']       |
+| placeholder  | 占位文本                           | string                                                                            | -           |
+| disabled     | 是否禁用                           | boolean                                                                           | false       |
+| clearable    | 是否显示清空按钮                   | boolean                                                                           | false       |
+| loading      | 是否显示远程搜索加载状态           | boolean                                                                           | false       |
+| loadingText  | 加载提示文字                       | string                                                                            | -           |
+| rows         | 文本域行数                         | number                                                                            | 1           |
+| placement    | 下拉菜单优先位置                   | 'top' \| 'top-left' \| 'top-right' \| 'bottom' \| 'bottom-left' \| 'bottom-right' | bottom-left |
+| size         | 尺寸                               | 'small' \| 'medium' \| 'large'                                                    | medium      |
+| theme        | 主题                               | 'fill' \| 'outline' \| 'plain'                                                    | fill        |
+| shape        | 形状                               | 'circle' \| 'square' \| 'round' \| 'default'                                      | default     |
+| emptyText    | 空状态说明                         | string                                                                            | 暂无数据    |
+| filterOption | 自定义过滤                         | function                                                                          | -           |
+| onChange     | 文本变化                           | function                                                                          | -           |
+| onSelect     | 选择提及                           | function                                                                          | -           |
+| onSearch     | 远程搜索，参数为查询文本和触发字符 | (query, trigger) => void                                                          | -           |
+| onClear      | 清空文本                           | function                                                                          | -           |

@@ -16,15 +16,15 @@ Full refraction relies on the experimental HTML-in-Canvas API. Test it in Chrome
 
 ## API
 
-| Property   | Description                              | Type                           | Default   |
-| ---------- | ---------------------------------------- | ------------------------------ | --------- |
-| trigger    | Ripple trigger                           | `'click' \| 'hover' \| 'none'` | `'click'` |
-| amplitude  | Wave height, recommended range 0–3       | `number`                       | `0.5`     |
-| speed      | Propagation speed multiplier             | `number`                       | `0.65`    |
-| wavelength | Distance between crests in px            | `number`                       | `80`      |
-| rings      | Crests in each wave train                | `number`                       | `2`       |
-| decay      | Energy decay rate                        | `number`                       | `1`       |
-| refraction | Refraction strength in px                | `number`                       | `100`     |
-| dispersion | Chromatic dispersion                     | `number`                       | `0.5`     |
-| shine      | Crest highlight intensity                | `number`                       | `0.5`     |
-| interval   | Ambient ripple interval; `0` disables it | `number`                       | `0`       |
+| Property   | Description                              | Type                         | Default   |
+| ---------- | ---------------------------------------- | ---------------------------- | --------- |
+| trigger    | Ripple trigger                           | 'click' \| 'hover' \| 'none' | `'click'` |
+| amplitude  | Wave height, recommended range 0–3       | number                       | `0.5`     |
+| speed      | Propagation speed multiplier             | number                       | `0.65`    |
+| wavelength | Distance between crests in px            | number                       | `80`      |
+| rings      | Crests in each wave train                | number                       | `2`       |
+| decay      | Energy decay rate                        | number                       | `1`       |
+| refraction | Refraction strength in px                | number                       | `100`     |
+| dispersion | Chromatic dispersion                     | number                       | `0.5`     |
+| shine      | Crest highlight intensity                | number                       | `0.5`     |
+| interval   | Ambient ripple interval; `0` disables it | number                       | `0`       |

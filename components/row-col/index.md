@@ -43,29 +43,29 @@
 
 ## Row API
 
-| 属性    | 说明                                                                             | 类型            | 默认值  |
-| ------- | -------------------------------------------------------------------------------- | --------------- | ------- |
-| align   | flex 布局下的垂直对齐方式：`top` `middle` `bottom`                               | string          | `top`   |
-| justify | flex 布局下的水平排列方式：`start` `end` `center` `space-around` `space-between` | string          | `start` |
-| gutter  | 栅格间距，单位 px，左右平分,使用数组形式同时设置 [水平间距, 垂直间距]            | number,number[] | -       |
-| type    | 布局模式，可选 flex，现代浏览器 下有效                                           | string          |         |
+| 属性    | 说明                                                                             | 类型               | 默认值  |
+| ------- | -------------------------------------------------------------------------------- | ------------------ | ------- |
+| align   | flex 布局下的垂直对齐方式：`top` `middle` `bottom`                               | string             | `top`   |
+| justify | flex 布局下的水平排列方式：`start` `end` `center` `space-around` `space-between` | string             | `start` |
+| gutter  | 栅格间距，单位 px，左右平分,使用数组形式同时设置 [水平间距, 垂直间距]            | number \| number[] | -       |
+| type    | 布局模式，可选 flex，现代浏览器 下有效                                           | string             |         |
 
 ## Col API
 
-| 属性                     | 说明                                                  | 类型                        | 默认值 |
-| ------------------------ | ----------------------------------------------------- | --------------------------- | ------ |
-| span                     | 栅格占位格数，可选值为 0~24，`0` 表示隐藏             | number                      | -      |
-| offset                   | 栅格左侧间隔格数，可选值为 0~24                       | number                      | -      |
-| order                    | 栅格顺序，可选值为 0~24                               | number                      | -      |
-| push                     | 栅格向右移动的格数，可选值为 0~24                     | number                      | -      |
-| pull                     | 栅格向左移动的格数，可选值为 0~24                     | number                      | -      |
-| flex                     | Flex 布局填充，例如 `1`、`auto`、`100px`、`1 1 200px` | number / string             | -      |
-| xs                       | `<576px`，数字表示 span，也支持响应式对象              | number / ColSize            | -      |
-| sm                       | `≥576px`                                              | number / ColSize            | -      |
-| md                       | `≥768px`                                              | number / ColSize            | -      |
-| lg                       | `≥992px`                                              | number / ColSize            | -      |
-| xl                       | `≥1200px`                                             | number / ColSize            | -      |
-| xxl                      | `≥1600px`                                             | number / ColSize            | -      |
+| 属性   | 说明                                                  | 类型              | 默认值 |
+| ------ | ----------------------------------------------------- | ----------------- | ------ |
+| span   | 栅格占位格数，可选值为 0~24，`0` 表示隐藏             | number            | -      |
+| offset | 栅格左侧间隔格数，可选值为 0~24                       | number            | -      |
+| order  | 栅格顺序，可选值为 0~24                               | number            | -      |
+| push   | 栅格向右移动的格数，可选值为 0~24                     | number            | -      |
+| pull   | 栅格向左移动的格数，可选值为 0~24                     | number            | -      |
+| flex   | Flex 布局填充，例如 `1`、`auto`、`100px`、`1 1 200px` | number \| string  | -      |
+| xs     | `<576px`，数字表示 span，也支持响应式对象             | number \| ColSize | -      |
+| sm     | `≥576px`                                              | number \| ColSize | -      |
+| md     | `≥768px`                                              | number \| ColSize | -      |
+| lg     | `≥992px`                                              | number \| ColSize | -      |
+| xl     | `≥1200px`                                             | number \| ColSize | -      |
+| xxl    | `≥1600px`                                             | number \| ColSize | -      |
 
 ```ts
 interface ColSize {

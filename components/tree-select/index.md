@@ -44,11 +44,11 @@
 
 | 属性              | 说明                                                       | 类型                              | 默认值      |
 | ----------------- | ---------------------------------------------------------- | --------------------------------- | ----------- |
-| modelValue        | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | string,number,any[]               | -           |
-| width             | 组件宽度                                                   | string,number                     | -           |
+| modelValue        | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | string \| number \| any[]         | -           |
+| width             | 组件宽度                                                   | string \| number                  | -           |
 | placeholder       | 选择框默认文字                                             | string                            | 请选择      |
 | disabled          | 是否禁用当前项                                             | boolean                           | false       |
-| size              | 组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常       | string                            | -           |
+| size              | 组件尺寸大小,提供`small`、`large`两种尺寸，默认为正常      | string                            | -           |
 | placement         | 下拉菜单弹出位置                                           | string                            | bottom-left |
 | emptyText         | 没有数据时展示的提示                                       | string                            | '赞无数据'  |
 | multiple          | 是否呈现多选模式                                           | boolean                           | false       |
@@ -83,7 +83,7 @@
 | ------------ | ---------------------- | --------------------------------------------------------- |
 | onTreeSelect | 点击树节点时触发       | (value: string, label: string, selected: boolean) => void |
 | onSearch     | 搜索时触发             | (e: InputEvent) => void                                   |
-| onChange     | 值改变时触发           | (value: string\|string[]) => void                         |
+| onChange     | 值改变时触发           | (value: string \| string[]) => void                       |
 | onTreeExpand | Tree节点展开时触发     | (result: TreeExpandEvent) => void                         |
 | onOpenChange | 下拉框展开或收起时触发 | (opened: boolean) => void                                 |
 | onClear      | 清空时触发             | () => void                                                |

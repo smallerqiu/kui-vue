@@ -15,6 +15,7 @@ import {
   type ExtractPropTypes,
   type PropType,
   type Ref,
+  type VNodeChild,
 } from "vue";
 import { Button } from "../button";
 import { usePopupContainer } from "../config/popup";
@@ -27,7 +28,7 @@ import { cloneNodes, getChildren } from "../utils/vnode";
 const popconfirmProps = {
   dark: Boolean as BooleanType,
   show: Boolean as BooleanType,
-  title: [String, Number, Object, Array],
+  title: [String, Number, Object, Array] as PropType<VNodeChild>,
   width: [Number, String],
   okText: { type: String },
   cancelText: { type: String },

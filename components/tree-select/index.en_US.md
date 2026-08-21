@@ -44,8 +44,8 @@ Similar to the Select selection control, when the selectable data structure is a
 
 | Property          | Description                                                                     | Type                              | Default       |
 | ----------------- | ------------------------------------------------------------------------------- | --------------------------------- | ------------- |
-| modelValue        | Specify the `value` of the selected item, can use `v-model` for two-way binding | string, number, any[]             | -             |
-| width             | Component width                                                                 | string, number                    | -             |
+| modelValue        | Specify the `value` of the selected item, can use `v-model` for two-way binding | string \| number \| any[]         | -             |
+| width             | Component width                                                                 | string \| number                  | -             |
 | placeholder       | Default text of selector                                                        | string                            | Please select |
 | disabled          | Whether current item is disabled                                                | boolean                           | false         |
 | size              | Component size, provides two sizes: `small`, `large`, default is normal         | string                            | -             |
@@ -83,7 +83,7 @@ Similar to the Select selection control, when the selectable data structure is a
 | ------------ | ------------------------------------------------ | --------------------------------------------------------- |
 | onTreeSelect | Triggered when tree node is clicked              | (value: string, label: string, selected: boolean) => void |
 | onSearch     | Triggered during search                          | (e: InputEvent) => void                                   |
-| onChange     | Triggered when the value changes                 | (value: string\|string[]) => void                         |
+| onChange     | Triggered when the value changes                 | (value: string \| string[]) => void                       |
 | onTreeExpand | Triggered when a tree node is expanded           | (result: TreeExpandEvent) => void                         |
 | onOpenChange | Triggered when the dropdown expands or collapses | (opened: boolean) => void                                 |
 | onClear      | Triggered when cleared                           | () => void                                                |

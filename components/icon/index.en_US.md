@@ -29,9 +29,9 @@ Use
 | Property    | Description                                                          | Type              | Default |
 | ----------- | -------------------------------------------------------------------- | ----------------- | ------- |
 | type        | Icon type. Follows the icon naming convention                        | IconPath[]        | -       |
-| size        | The size of the icon, unit is px                                     | string, number    | -       |
+| size        | The size of the icon, unit is px                                     | string \| number  | -       |
 | color       | The color of the icon                                                | string            | -       |
-| spin        | Whether to have rotation animation                                   | boolean             | false   |
+| spin        | Whether to have rotation animation                                   | boolean           | false   |
 | strokeWidth | The line thickness of the icon                                       | number            | 2       |
 | onClick     | Click event                                                          | (e:Event) => void | -       |
-| reverseFill | Icon borders and inverted fills are only supported for closed icons. | boolean             | false   |
+| reverseFill | Icon borders and inverted fills are only supported for closed icons. | boolean           | false   |

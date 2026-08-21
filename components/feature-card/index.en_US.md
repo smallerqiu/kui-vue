@@ -14,11 +14,11 @@ Used to present product features, navigation entries, or capability descriptions
 
 ## API
 
-| Property | Description            | Type     | Default |
-| -------- | ---------------------- | -------- | ------- |
-| icon     | Icon                   | IconType | -       |
-| title    | Title                  | string   | -       |
-| desc     | Description            | string   | -       |
-| bordered | Whether to show border | boolean    | false   |
+| Property | Description            | Type      | Default |
+| -------- | ---------------------- | --------- | ------- |
+| icon     | Icon                   | IconType  | -       |
+| title    | Title                  | string    | -       |
+| desc     | Description            | string    | -       |
+| bordered | Whether to show border | boolean   | false   |
 | theme    | Appearance theme       | ThemeType | default |
 | shape    | Card shape             | ShapeType | round   |

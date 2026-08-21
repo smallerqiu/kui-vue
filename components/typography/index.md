@@ -32,23 +32,23 @@
 
 `Typography`、`TypographyText`、`TypographyParagraph` 和 `TypographyTitle` 共享以下属性。
 
-| 属性       | 说明                       | 类型                                        | 默认值 |
-| ---------- | -------------------------- | ------------------------------------------- | ------ |
-| modelValue | 文本内容，可使用 `v-model` | string                                      | -      |
-| tag        | 渲染的 HTML 标签           | TypographyTag                               | -      |
-| type       | 语义颜色                   | `secondary`、`success`、`warning`、`danger` | -      |
-| strong     | 加粗                       | boolean                                     | false  |
-| italic     | 斜体                       | boolean                                     | false  |
-| underline  | 下划线                     | boolean                                     | false  |
-| delete     | 删除线                     | boolean                                     | false  |
-| mark       | 标记样式                   | boolean                                     | false  |
-| code       | 行内代码样式               | boolean                                     | false  |
-| disabled   | 禁用状态                   | boolean                                     | false  |
-| copyable   | 允许复制及配置操作提示     | boolean、TypographyCopyableOptions          | false  |
-| editable   | 允许编辑及配置操作提示     | boolean、TypographyEditableOptions          | false  |
-| ellipsis   | 文本省略、提示和展开配置   | boolean、number、TypographyEllipsisOptions  | false  |
-| copy       | 复制后触发                 | (text) => void                              | -      |
-| change     | 编辑完成后触发             | (text) => void                              | -      |
+| 属性       | 说明                       | 类型                                              | 默认值 |
+| ---------- | -------------------------- | ------------------------------------------------- | ------ |
+| modelValue | 文本内容，可使用 `v-model` | string                                            | -      |
+| tag        | 渲染的 HTML 标签           | TypographyTag                                     | -      |
+| type       | 语义颜色                   | 'secondary' \| 'success' \| 'warning' \| 'danger' | -      |
+| strong     | 加粗                       | boolean                                           | false  |
+| italic     | 斜体                       | boolean                                           | false  |
+| underline  | 下划线                     | boolean                                           | false  |
+| delete     | 删除线                     | boolean                                           | false  |
+| mark       | 标记样式                   | boolean                                           | false  |
+| code       | 行内代码样式               | boolean                                           | false  |
+| disabled   | 禁用状态                   | boolean                                           | false  |
+| copyable   | 允许复制及配置操作提示     | boolean \| TypographyCopyableOptions              | false  |
+| editable   | 允许编辑及配置操作提示     | boolean \| TypographyEditableOptions              | false  |
+| ellipsis   | 文本省略、提示和展开配置   | boolean \| number \| TypographyEllipsisOptions    | false  |
+| copy       | 复制后触发                 | (text) => void                                    | -      |
+| change     | 编辑完成后触发             | (text) => void                                    | -      |
 
 ### TypographyCopyableOptions
 
@@ -65,10 +65,10 @@
 
 ### TypographyEllipsisOptions
 
-| 属性         | 说明                               | 类型            | 默认值   |
-| ------------ | ---------------------------------- | --------------- | -------- |
-| rows         | 最大显示行数                       | number          | 1        |
-| expandable   | 是否显示展开/折叠操作              | boolean         | false    |
-| expandText   | 展开操作文案                       | string          | More     |
-| collapseText | 折叠操作文案                       | string          | Collapse |
-| tooltip      | 省略时显示完整文本或自定义提示内容 | boolean、string | false    |
+| 属性         | 说明                               | 类型              | 默认值   |
+| ------------ | ---------------------------------- | ----------------- | -------- |
+| rows         | 最大显示行数                       | number            | 1        |
+| expandable   | 是否显示展开/折叠操作              | boolean           | false    |
+| expandText   | 展开操作文案                       | string            | More     |
+| collapseText | 折叠操作文案                       | string            | Collapse |
+| tooltip      | 省略时显示完整文本或自定义提示内容 | boolean \| string | false    |

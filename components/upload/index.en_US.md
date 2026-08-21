@@ -63,13 +63,13 @@ Uploading is the process of publishing information (web pages, text, images, vid
 | action         | Upload address                                                                                              | string                         | -       |
 | method         | HTTP method for upload request                                                                              | string                         | post    |
 | data           | Other parameters that may be required for upload                                                            | Object                         | -       |
-| disabled       | Whether disabled                                                                                            | boolean                          | false   |
+| disabled       | Whether disabled                                                                                            | boolean                        | false   |
 | headers        | Set upload request headers                                                                                  | Object                         | -       |
-| multiple       | Whether to support multiple file selection                                                                  | boolean                          | false   |
-| directory      | Whether to support directory upload                                                                         | boolean                          | false   |
-| showUploadList | Whether to show upload list                                                                                 | boolean                          | true    |
-| autoTrigger    | Whether to auto upload                                                                                      | boolean                          | true    |
-| draggable      | Whether to support drag and drop upload                                                                     | boolean                          | false   |
+| multiple       | Whether to support multiple file selection                                                                  | boolean                        | false   |
+| directory      | Whether to support directory upload                                                                         | boolean                        | false   |
+| showUploadList | Whether to show upload list                                                                                 | boolean                        | true    |
+| autoTrigger    | Whether to auto upload                                                                                      | boolean                        | true    |
+| draggable      | Whether to support drag and drop upload                                                                     | boolean                        | false   |
 | fileList       | Uploaded file list                                                                                          | UploadFile[]                   | -       |
 | name           | File parameter name sent to backend, default `file`                                                         | string                         | 'file'  |
 | uploadIcon     | Auxiliary icon for upload area                                                                              | string                         | Add     |
@@ -79,7 +79,7 @@ Uploading is the process of publishing information (web pages, text, images, vid
 | minSize        | Minimum file size unit for upload (KB)                                                                      | number                         | -       |
 | maxSize        | Maximum file size unit for upload (KB)                                                                      | number                         | -       |
 | transformFile  | Transform file before uploading. Supports returning a Promise object                                        | (file: File) => Promise<File\> | -       |
-| type           | After selecting the file to upload, the displayed format                                                    | [picture,list]                 | -       |
+| type           | After selecting the file to upload, the displayed format                                                    | 'picture' \| 'list'            | -       |
 
 ## Event API
 

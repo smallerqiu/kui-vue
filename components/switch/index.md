@@ -31,17 +31,17 @@
 
 ### API
 
-| 属性               | 说明                                                      | 类型                     | 默认值 |
-| ------------------ | --------------------------------------------------------- | ------------------------ | ------ |
-| checked            | 指定当前是否选中，可以使用 `v-model` 双向绑定数据         | boolean                    | false  |
-| modelValue         | `v-model` 绑定值                                        | string、number、bool     | -      |
-| disabled           | 禁用开关                                                  | boolean                    | false  |
-| loading            | 是否显示加载状态并禁用交互                                | boolean                    | false  |
-| type               | 主题颜色 可传入 `success`，`warning`，`danger`，`primary` | string                   | -      |
-| size               | 组件尺寸，值为`small`展示小尺寸                           | string                   | -      |
-| checked(unchecked) | 选中(非选中)时的内容                                      | slot                     | -      |
-| true-text          | 当 `checked` 为 `true` 时 ，显示的文字                    | string                   | -      |
-| false-text         | 当 `checked` 为 `false` 时 ，显示的文字                   | string                   | -      |
-| valueType          | 单位选项的输出值的类型                                    | [string,number,boolean]     | boolean  |
-| onChange           | 当 `checked` 改变时触发，回调                             | (value: boolean) => void | -      |
-| shape              | 开关形状，可选 `round`、`square`                          | ShapeType                | round  |
+| 属性               | 说明                                                      | 类型                              | 默认值  |
+| ------------------ | --------------------------------------------------------- | --------------------------------- | ------- |
+| checked            | 指定当前是否选中，可以使用 `v-model` 双向绑定数据         | boolean                           | false   |
+| modelValue         | `v-model` 绑定值                                          | string \| number \| boolean       | -       |
+| disabled           | 禁用开关                                                  | boolean                           | false   |
+| loading            | 是否显示加载状态并禁用交互                                | boolean                           | false   |
+| type               | 主题颜色 可传入 `success`、`warning`、`danger`、`primary` | string                            | -       |
+| size               | 组件尺寸，值为`small`展示小尺寸                           | string                            | -       |
+| checked(unchecked) | 选中(非选中)时的内容                                      | slot                              | -       |
+| true-text          | 当 `checked` 为 `true` 时 ，显示的文字                    | string                            | -       |
+| false-text         | 当 `checked` 为 `false` 时 ，显示的文字                   | string                            | -       |
+| valueType          | 单位选项的输出值的类型                                    | 'string' \| 'number' \| 'boolean' | boolean |
+| onChange           | 当 `checked` 改变时触发，回调                             | (value: boolean) => void          | -       |
+| shape              | 开关形状，可选 `round`、`square`                          | ShapeType                         | round   |

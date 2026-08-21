@@ -37,17 +37,17 @@ When an operation takes a long time to complete, display the current progress an
 
 ## API
 
-| Property      | Description                                                                          | Type                              | Default |
-| ------------- | ------------------------------------------------------------------------------------ | --------------------------------- | ------- |
-| percent       | Progress percentage                                                                  | number                            | 0       |
-| color         | Progress bar color                                                                   | string                            | -       |
-| strokeLinecap | Progress bar style                                                                   | [round \| square \| butt]         | round   |
-| width         | Circular progress bar canvas width, in px                                            | number                            | -       |
-| size          | When value is `small`, displays small size                                           | string                            | -       |
-| format        | Custom progress bar text                                                             | (percent: number) => any \| VNode | -       |
-| status        | Progress bar status, provides four types: `active`, `exception`, `success`, `normal` | string                            | normal  |
-| type          | Progress bar type, provides three types: `line`, `circle`, `dashboard`               | string                            | -       |
-| showInfo      | Whether to show progress text                                                        | boolean                             | true    |
-| gapDegree     | Dashboard progress bar gap angle, can be 0 ~ 295                                     | number                            | 75      |
-| strokeWidth   | Circular progress bar line width                                                     | number                            | 6       |
-| strokeHeight  | Progress bar line height                                                             | number                            | -       |
+| Property      | Description                                                                          | Type                            | Default |
+| ------------- | ------------------------------------------------------------------------------------ | ------------------------------- | ------- |
+| percent       | Progress percentage                                                                  | number                          | 0       |
+| color         | Progress bar color                                                                   | string                          | -       |
+| strokeLinecap | Progress bar style                                                                   | 'round' \| 'square' \| 'butt'   | round   |
+| width         | Circular progress bar canvas width, in px                                            | number                          | -       |
+| size          | When value is `small`, displays small size                                           | string                          | -       |
+| format        | Custom progress bar text                                                             | (percent: number) => VNodeChild | -       |
+| status        | Progress bar status, provides four types: `active`, `exception`, `success`, `normal` | string                          | normal  |
+| type          | Progress bar type, provides three types: `line`, `circle`, `dashboard`               | string                          | -       |
+| showInfo      | Whether to show progress text                                                        | boolean                         | true    |
+| gapDegree     | Dashboard progress bar gap angle, can be 0 ~ 295                                     | number                          | 75      |
+| strokeWidth   | Circular progress bar line width                                                     | number                          | 6       |
+| strokeHeight  | Progress bar line height                                                             | number                          | -       |

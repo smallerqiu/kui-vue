@@ -43,26 +43,26 @@
 
 ## Input API
 
-| 属性                | 说明                                       | 类型                       | 默认值 |
-| ------------------- | ------------------------------------------ | -------------------------- | ------ |
-| modelValue          | 绑定的值，可使用 `v-model` 双向绑定        | string 、 number           | -      |
-| value               | 非受控输入框的初始值                       | unknown                    | -      |
-| type                | 原生输入类型                               | text \| password \| hidden | text   |
-| inputType           | 内部输入元素类型，通常保持为 input         | string                     | input  |
-| disabled            | 是否禁用输入框                             | boolean                    | false  |
-| shape               | 输入框形状                                 | ShapeType                  | -      |
-| size                | 按钮尺寸,可选值 `small`、`large`，默认不选 | string                     | -      |
-| icon                | 输入框图标                                 | string                     | -      |
-| suffix              | 扩展后缀                                   | string,Slot                | -      |
-| prefix              | 扩展前缀                                   | string,Slot                | -      |
-| theme               | 主题                                       | string                     | fill   |
-| clearable           | 是否显示清除按钮                           | boolean                    | false  |
-| visiblePassword     | 密码出事化明文显示                         | boolean                    | false  |
-| visiblePasswordIcon | 是否显示切换按钮或者控制密码显隐           | boolean                    | true   |
-| onSearch            | 搜索事件的回调                             | (value: string) => void    | -      |
-| onIconClick         | 图标点击事件的回调                         | (e: Event) => void         | -      |
-| onClear             | 按下清除按钮的回调                         | () => void                 | -      |
-| onChange            | 输入框内容变化时的回调                     | (value: string) => void    | -      |
+| 属性                | 说明                                       | 类型                             | 默认值 |
+| ------------------- | ------------------------------------------ | -------------------------------- | ------ |
+| modelValue          | 绑定的值，可使用 `v-model` 双向绑定        | string \| number                 | -      |
+| value               | 非受控输入框的初始值                       | unknown                          | -      |
+| type                | 原生输入类型                               | 'text' \| 'password' \| 'hidden' | text   |
+| inputType           | 内部输入元素类型，通常保持为 input         | string                           | input  |
+| disabled            | 是否禁用输入框                             | boolean                          | false  |
+| shape               | 输入框形状                                 | ShapeType                        | -      |
+| size                | 按钮尺寸,可选值 `small`、`large`，默认不选 | string                           | -      |
+| icon                | 输入框图标                                 | string                           | -      |
+| suffix              | 扩展后缀                                   | string, slot                     | -      |
+| prefix              | 扩展前缀                                   | string, slot                     | -      |
+| theme               | 主题                                       | string                           | fill   |
+| clearable           | 是否显示清除按钮                           | boolean                          | false  |
+| visiblePassword     | 密码出事化明文显示                         | boolean                          | false  |
+| visiblePasswordIcon | 是否显示切换按钮或者控制密码显隐           | boolean                          | true   |
+| onSearch            | 搜索事件的回调                             | (value: string) => void          | -      |
+| onIconClick         | 图标点击事件的回调                         | (e: Event) => void               | -      |
+| onClear             | 按下清除按钮的回调                         | () => void                       | -      |
+| onChange            | 输入框内容变化时的回调                     | (value: string) => void          | -      |
 
 ## TextArea API
 

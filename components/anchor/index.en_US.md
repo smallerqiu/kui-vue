@@ -23,7 +23,7 @@ It is necessary to display the anchor links available for navigation on the curr
 | affix     | Fixed mode                                                                          | boolean               | true    |
 | offsetTop | Triggered when the distance from the top of the window reaches the specified offset | number                | -       |
 | bounds    | Boundary of the anchor area                                                         | number                | 5       |
-| container | Specifies the scrolling container                                                   | string, HTMLElement   | -       |
+| container | Specifies the scrolling container                                                   | string \| HTMLElement | -       |
 | onChange  | Listens for changes in anchor links and returns the currently focused Link          | (link:string) => void | -       |
 | onClick   | Click event for Anchor                                                              | (link:string) => void | -       |
 

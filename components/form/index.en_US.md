@@ -69,20 +69,20 @@ export default {
 
 ## Form API
 
-| Property   | Description                                                                                           | Type                           | Default    |
-| ---------- | ----------------------------------------------------------------------------------------------------- | ------------------------------ | ---------- |
-| model      | Form data object                                                                                      | Object                         | -          |
-| rules      | Form validation rules                                                                                 | boolean                          | false      |
-| name       | Form name, will be used as the id prefix for form fields                                              | string                         | -          |
-| labelCol   | Label layout, same as the `<Col>` component, set span offset values, such as {span: 3, offset: 12}    | {span:number,offset:number}    | -          |
-| wrapperCol | Control layout, same as the `<Col>` component, set span offset values, such as {span: 15, offset: 12} | {span:number,offset:number}    | -          |
-| theme      | The component renders the theme                                                                       | string                         | -          |
-| size       | Sub component size                                                                                    | string                         | -          |
-| layout     | Form layout                                                                                           | [horizontal ,vertical ,inline] | horizontal |
-| shape      | Sub component shape                                                                                   | [circle,square]                | horizontal |
-| disabled   | Whether the form is enabled                                                                           | boolean                          | true       |
-| onReset    | Reset the entire form, reset all field values to empty and remove validation results                  | ()=> void                      | -          |
-| onSubmit   | Trigger event when submitting the form                                                                | (e: FormSubmitEvent) => void   | -          |
+| Property   | Description                                                                                           | Type                                   | Default    |
+| ---------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------- | ---------- |
+| model      | Form data object                                                                                      | Object                                 | -          |
+| rules      | Form validation rules                                                                                 | boolean                                | false      |
+| name       | Form name, will be used as the id prefix for form fields                                              | string                                 | -          |
+| labelCol   | Label layout, same as the `<Col>` component, set span offset values, such as {span: 3, offset: 12}    | {span:number,offset:number}            | -          |
+| wrapperCol | Control layout, same as the `<Col>` component, set span offset values, such as {span: 15, offset: 12} | {span:number,offset:number}            | -          |
+| theme      | The component renders the theme                                                                       | string                                 | -          |
+| size       | Sub component size                                                                                    | string                                 | -          |
+| layout     | Form layout                                                                                           | 'horizontal' \| 'vertical' \| 'inline' | horizontal |
+| shape      | Sub component shape                                                                                   | 'circle' \| 'square'                   | horizontal |
+| disabled   | Whether the form is enabled                                                                           | boolean                                | true       |
+| onReset    | Reset the entire form, reset all field values to empty and remove validation results                  | ()=> void                              | -          |
+| onSubmit   | Trigger event when submitting the form                                                                | (e: FormSubmitEvent) => void           | -          |
 
 ## Form Expose API
 
@@ -105,7 +105,7 @@ export default {
 
 | Property  | Description                                                                                                                                                                                    | Type                                                                                      | Default |
 | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------- |
-| required  | Whether it is a required field                                                                                                                                                                 | boolean                                                                                     | false   |
+| required  | Whether it is a required field                                                                                                                                                                 | boolean                                                                                   | false   |
 | message   | Prompt message when validation fails                                                                                                                                                           | string                                                                                    | -       |
 | validator | Custom validation method, see example                                                                                                                                                          | (rule: FormRule, value: any, callback: (error?: Error) => void) => void \| Promise\<void> | -       |
 | type      | Data type validation. Provides three validation methods: `mobile` (phone), `mail` (email), `number` (numeric type judgment)                                                                    | string                                                                                    | -       |

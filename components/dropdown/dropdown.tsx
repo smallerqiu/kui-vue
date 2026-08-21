@@ -1,6 +1,8 @@
 import {
   type ExtractPropTypes,
+  type ComponentPublicInstance,
   type PropType,
+  type Ref,
   Teleport,
   Transition,
   cloneVNode,
@@ -32,7 +34,7 @@ const dropdownProps = {
     type: String as PropType<DropPlacementsType>,
     default: "bottom-left",
   },
-  target: Object,
+  target: Object as PropType<Ref<HTMLElement | ComponentPublicInstance | null>>,
   onOpenChange: {
     type: Function as PropType<(opened: boolean) => void>,
   },
@@ -82,7 +84,8 @@ const Dropdown = defineComponent({
     );
 
     const outsideClick = (e: PointerEvent) => {
-      const ctx = (refSelection.value as HTMLElement & { $el?: HTMLElement })?.$el || refSelection.value;
+      const ctx =
+        (refSelection.value as HTMLElement & { $el?: HTMLElement })?.$el || refSelection.value;
       if (!refPopper.value) return;
       const target = e.target as HTMLElement;
       if (

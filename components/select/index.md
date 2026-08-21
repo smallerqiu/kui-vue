@@ -45,11 +45,11 @@
 
 | 属性         | 说明                                                       | 类型                                       | 默认值      |
 | ------------ | ---------------------------------------------------------- | ------------------------------------------ | ----------- |
-| modelValue   | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | string,number                              | -           |
-| width        | 组件宽度                                                   | string,number                              | -           |
+| modelValue   | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | string \| number                           | -           |
+| width        | 组件宽度                                                   | string \| number                           | -           |
 | placeholder  | 选择框默认文字                                             | string                                     | 请选择      |
 | disabled     | 是否禁用当前项                                             | boolean                                    | false       |
-| size         | 组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常       | string                                     | -           |
+| size         | 组件尺寸大小,提供`small`、`large`两种尺寸，默认为正常      | string                                     | -           |
 | placement    | 下拉菜单弹出位置                                           | DropPlacementsType                         | bottom-left |
 | emptyText    | 没有数据时展示的提示                                       | string                                     | '赞无数据'  |
 | maxTagCount  | 多选时最多展示的标签数，超出部分通过 Tooltip 展示          | number                                     | -           |
@@ -79,11 +79,11 @@
 
 ## Option API
 
-| 属性     | 说明                                                                                         | 类型          | 默认值 |
-| -------- | -------------------------------------------------------------------------------------------- | ------------- | ------ |
-| key      | 和 value 含义一致。如果 Vue 需要你设置此项，此项值与 value 的值相同，然后可以省略 value 设置 | string,number | -      |
-| value    | 选项值，默认根据此属性值进行筛选，必填                                                       | string,number | -      |
-| label    | 选项显示的内容                                                                               | string,number | -      |
-| disabled | 是否禁用当前项                                                                               | boolean       | false  |
-| active   | 是否为当前键盘聚焦项                                                                         | boolean       | false  |
-| checked  | 是否处于选中状态                                                                             | boolean       | false  |
+| 属性     | 说明                                                                                         | 类型             | 默认值 |
+| -------- | -------------------------------------------------------------------------------------------- | ---------------- | ------ |
+| key      | 和 value 含义一致。如果 Vue 需要你设置此项，此项值与 value 的值相同，然后可以省略 value 设置 | string \| number | -      |
+| value    | 选项值，默认根据此属性值进行筛选，必填                                                       | string \| number | -      |
+| label    | 选项显示的内容                                                                               | string \| number | -      |
+| disabled | 是否禁用当前项                                                                               | boolean          | false  |
+| active   | 是否为当前键盘聚焦项                                                                         | boolean          | false  |
+| checked  | 是否处于选中状态                                                                             | boolean          | false  |

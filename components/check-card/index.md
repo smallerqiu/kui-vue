@@ -37,8 +37,8 @@
 | checkedSymbol | 选中时的 Symbol 图标                 | IconType[]                     | -       |
 | showIndicator | 是否显示右上角选中标记               | boolean                        | true    |
 | disabled      | 是否禁用                             | boolean                        | false   |
-| theme         | 外观主题                             | `outline` \| `fill`            | outline |
-| size          | 尺寸                                 | `small` \| `medium` \| `large` | medium  |
+| theme         | 外观主题                             | 'outline' \| 'fill'            | outline |
+| size          | 尺寸                                 | 'small' \| 'medium' \| 'large' | medium  |
 | shape         | 形状                                 | ShapeType                      | round   |
 | change        | 选择状态变化时触发                   | (event) => void                | -       |
 
@@ -49,20 +49,20 @@
 | modelValue | 当前选项值，可用 `v-model` | string \| number               | -          |
 | options    | 卡片选项                   | CheckCardOption[]              | -          |
 | disabled   | 是否禁用整个卡片组         | boolean                        | false      |
-| direction  | 排列方向                   | `horizontal` \| `vertical`     | horizontal |
-| theme      | 卡片主题                   | `outline` \| `fill`            | outline    |
-| size       | 卡片尺寸                   | `small` \| `medium` \| `large` | medium     |
+| direction  | 排列方向                   | 'horizontal' \| 'vertical'     | horizontal |
+| theme      | 卡片主题                   | 'outline' \| 'fill'            | outline    |
+| size       | 卡片尺寸                   | 'small' \| 'medium' \| 'large' | medium     |
 | shape      | 卡片形状                   | ShapeType                      | round      |
 | change     | 当前选择变化时触发         | (value) => void                | -          |
 
 ## CheckCard Slots
 
-| 名称        | 说明             | 参数          |
-| ----------- | ---------------- | ------------- |
-| default     | 标题描述后的内容 | `{ checked }` |
-| title       | 自定义标题       | `{ checked }` |
-| description | 自定义描述       | `{ checked }` |
-| symbol      | 自定义 Symbol    | `{ checked }` |
+| 名称        | 说明             | 参数        |
+| ----------- | ---------------- | ----------- |
+| default     | 标题描述后的内容 | { checked } |
+| title       | 自定义标题       | { checked } |
+| description | 自定义描述       | { checked } |
+| symbol      | 自定义 Symbol    | { checked } |
 
 ## CheckCardGroup Slots
 

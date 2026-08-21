@@ -24,12 +24,12 @@ Can be used to replace the system default `title` prompt, providing a text expla
 
 ## API
 
-| Property  | Description                                                                                                                                                                                       | Type          | Default |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- | ------- |
-| title     | Displayed title                                                                                                                                                                                   | string, Slots | -       |
-| color     | Background color                                                                                                                                                                                  | string        | -       |
-| placement | Position where tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom` | string        | top     |
-| width     | Display width, defaults to content area size                                                                                                                                                      | string        | -       |
-| disabled  | Disabled status                                                                                                                                                                                   | boolean         | false   |
-| show      | Whether to display during initialization                                                                                                                                                          | boolean         | false   |
-| panelOnly | Render only the tooltip panel without a trigger                                                                                                                                                  | boolean         | false   |
+| Property  | Description                                                                                                                                                                                       | Type         | Default |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------- |
+| title     | Displayed title                                                                                                                                                                                   | string, slot | -       |
+| color     | Background color                                                                                                                                                                                  | string       | -       |
+| placement | Position where tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom` | string       | top     |
+| width     | Display width, defaults to content area size                                                                                                                                                      | string       | -       |
+| disabled  | Disabled status                                                                                                                                                                                   | boolean      | false   |
+| show      | Whether to display during initialization                                                                                                                                                          | boolean      | false   |
+| panelOnly | Render only the tooltip panel without a trigger                                                                                                                                                   | boolean      | false   |

@@ -53,17 +53,17 @@ Vue.use(Button);
 
 ## API
 
-| Property | Description                                                                                          | Type                                       | Default |
-| -------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------- |
-| type     | Set the button type                                                                                  | `primary` \| `link`\| `dashed` \| `danger` | -       |
-| htmlType | Set the native type value of the button                                                              | string                                     | button  |
-| disabled | Disabled state of the button                                                                         | boolean                                    | false   |
-| size     | Button size,                                                                                         | [small,large]                              | -       |
-| color    | Preset semantic color                                                                                | ColorType                                  | -       |
-| shape    | When shape=circle, presents a circular button                                                        | boolean                                    | false   |
-| theme    | Button theme                                                                                         | [solid,fill,normal]                        | -       |
-| icon     | Button icon                                                                                          | string                                     | -       |
-| loading  | Whether the button is in loading mode                                                                | boolean                                    | false   |
-| href     | The address to jump to when clicked. Specifying this property makes the button behave like an a link | string                                     | -       |
-| target   | Equivalent to the target attribute of an a link, takes effect when href exists                       | string                                     | -       |
-| block    | Option to fit button width to its parent width                                                       | boolean                                    | false   |
+| Property | Description                                                                                          | Type                                        | Default |
+| -------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------- | ------- |
+| type     | Set the button type                                                                                  | 'primary' \| 'link' \| 'dashed' \| 'danger' | -       |
+| htmlType | Set the native type value of the button                                                              | string                                      | button  |
+| disabled | Disabled state of the button                                                                         | boolean                                     | false   |
+| size     | Button size,                                                                                         | 'small' \| 'large'                          | -       |
+| color    | Preset semantic color                                                                                | ColorType                                   | -       |
+| shape    | When shape=circle, presents a circular button                                                        | boolean                                     | false   |
+| theme    | Button theme                                                                                         | 'solid' \| 'fill' \| 'normal'               | -       |
+| icon     | Button icon                                                                                          | string                                      | -       |
+| loading  | Whether the button is in loading mode                                                                | boolean                                     | false   |
+| href     | The address to jump to when clicked. Specifying this property makes the button behave like an a link | string                                      | -       |
+| target   | Equivalent to the target attribute of an a link, takes effect when href exists                       | string                                      | -       |
+| block    | Option to fit button width to its parent width                                                       | boolean                                     | false   |

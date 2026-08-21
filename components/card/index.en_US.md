@@ -34,21 +34,21 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 
 ## API
 
-| Property | Description                                | Type               | Default |
-| -------- | ------------------------------------------ | ------------------ | ------- |
-| title    | Card title                                 | string, slot       | -       |
-| icon     | Icon for the card title                    | string             | -       |
-| bordered | Whether the card displays a border         | boolean              | true    |
-| theme    | Surface theme                              | default, fill, outline, plain | fill |
-| shape    | Surface shape                              | round, square, circle | round |
-| size     | Card size                                  | small, medium, large | medium |
-| extra    | Card title extension                       | slot               | -       |
-| cover    | Card cover; hides the card header when set | string, VNodeChild | -       |
+| Property | Description                                | Type                                        | Default |
+| -------- | ------------------------------------------ | ------------------------------------------- | ------- |
+| title    | Card title                                 | string, slot                                | -       |
+| icon     | Icon for the card title                    | string                                      | -       |
+| bordered | Whether the card displays a border         | boolean                                     | true    |
+| theme    | Surface theme                              | 'default' \| 'fill' \| 'outline' \| 'plain' | fill    |
+| shape    | Surface shape                              | 'round' \| 'square' \| 'circle'             | round   |
+| size     | Card size                                  | 'small' \| 'medium' \| 'large'              | medium  |
+| extra    | Card title extension                       | slot                                        | -       |
+| cover    | Card cover; hides the card header when set | VNodeChild                                  | -       |
 
 ## CardMeta API
 
-| Property    | Description | Type               | Default |
-| ----------- | ----------- | ------------------ | ------- |
-| avatar      | Avatar      | string, VNodeChild | -       |
-| title       | Title       | string、VNodeChild | -       |
-| description | Description | string、VNodeChild | -       |
+| Property    | Description | Type       | Default |
+| ----------- | ----------- | ---------- | ------- |
+| avatar      | Avatar      | VNodeChild | -       |
+| title       | Title       | VNodeChild | -       |
+| description | Description | VNodeChild | -       |

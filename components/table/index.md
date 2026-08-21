@@ -136,7 +136,7 @@ const columns = [
 | ------- | -------------------------------- | -------------------------------------------------- | ------ |
 | title   | 列头显示文字                     | string                                             | -      |
 | key     | 对应列内容的字段名               | string                                             | -      |
-| fixed   | 列固定的方向                     | left,right                                         | -      |
+| fixed   | 列固定的方向                     | 'left' \| 'right'                                  | -      |
 | sorter  | 排序,为`true`时,本地排序         | boolean \| (state: SortState) => void              | -      |
 | width   | 列宽                             | number                                             | -      |
 | rowSpan | 行合并单位,为 0 时将不渲染当前行 | number                                             | -      |

@@ -26,9 +26,9 @@ Rating component.
 | Property          | Description                                 | Type                    | Default |
 | ----------------- | ------------------------------------------- | ----------------------- | ------- |
 | modelValue        | Current value, controlled value(v-model)    | number                  | -       |
-| allowClear        | Whether to allow clearing by clicking again | boolean                   | false   |
-| allowHalf         | Whether to allow half selection             | boolean                   | false   |
-| showScore         | Whether to show score                       | boolean                   | false   |
+| allowClear        | Whether to allow clearing by clicking again | boolean                 | false   |
+| allowHalf         | Whether to allow half selection             | boolean                 | false   |
+| showScore         | Whether to show score                       | boolean                 | false   |
 | character         | Custom character                            | string                  | -       |
 | count             | Total number of stars                       | number                  | -       |
 | icon              | Custom display icon                         | Icon                    | -       |
@@ -37,5 +37,5 @@ Rating component.
 | disabled          | Read-only, cannot interact                  | string                  | -       |
 | tooltips          | Custom prompt information for each item     | string[]                | -       |
 | onChange          | Callback when selecting                     | (value: number) => void | -       |
-| symbolReverseFill | Symbol Inverted Fill Color                  | boolean                   | false   |
+| symbolReverseFill | Symbol Inverted Fill Color                  | boolean                 | false   |
 | strokeWidth       | Symbol Border Unit                          | number                  | 1       |

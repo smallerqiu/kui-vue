@@ -1,3 +1,4 @@
+import type { VNode } from "vue";
 import type { NoticeType } from "../const/types";
 import type { IconType } from "../icon";
 import type { ContentProps } from "../notice/content";
@@ -7,7 +8,7 @@ let messageInstance: NoticeInstance | null = null;
 
 export interface MessageOptions {
   type?: NoticeType;
-  content?: string;
+  content?: string | VNode;
   duration?: number;
   closable?: boolean;
   icon?: IconType[];
@@ -18,11 +19,11 @@ export interface MessageOptions {
 }
 export interface MessageApi {
   name: "message";
-  info(content: string, duration?: number, onClose?: () => void): void;
-  success(content: string, duration?: number, onClose?: () => void): void;
-  warning(content: string, duration?: number, onClose?: () => void): void;
-  error(content: string, duration?: number, onClose?: () => void): void;
-  loading(content: string, duration?: number): () => void;
+  info(content: string | VNode, duration?: number, onClose?: () => void): void;
+  success(content: string | VNode, duration?: number, onClose?: () => void): void;
+  warning(content: string | VNode, duration?: number, onClose?: () => void): void;
+  error(content: string | VNode, duration?: number, onClose?: () => void): void;
+  loading(content: string | VNode, duration?: number): () => void;
   show(options: MessageOptions): () => void;
   destroy(): void;
 }
@@ -42,19 +43,19 @@ const message: MessageApi = {
       messageInstance = null;
     }
   },
-  info(content: string, duration?: number, onClose?: () => void) {
+  info(content: string | VNode, duration?: number, onClose?: () => void) {
     return this.show({ type: "info", content, duration, onClose });
   },
-  error(content: string, duration?: number, onClose?: () => void) {
+  error(content: string | VNode, duration?: number, onClose?: () => void) {
     return this.show({ type: "error", content, duration, onClose });
   },
-  success(content: string, duration?: number, onClose?: () => void) {
+  success(content: string | VNode, duration?: number, onClose?: () => void) {
     return this.show({ type: "success", content, duration, onClose });
   },
-  warning(content: string, duration?: number, onClose?: () => void) {
+  warning(content: string | VNode, duration?: number, onClose?: () => void) {
     return this.show({ type: "warning", content, duration, onClose });
   },
-  loading(content: string, duration?: number) {
+  loading(content: string | VNode, duration?: number) {
     return this.show({ type: "loading", content, duration });
   },
 };

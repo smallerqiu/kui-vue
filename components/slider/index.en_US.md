@@ -40,17 +40,17 @@ When users need to select within a numerical range/custom range, it can be conti
 
 | Property       | Description                                                                                       | Type                                | Default |
 | -------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- |
-| modelValue     | Set current value (v-model)                                                                       | number, number[]                    | 0       |
+| modelValue     | Set current value (v-model)                                                                       | number \| number[]                  | 0       |
 | min            | Minimum value                                                                                     | number                              | 0       |
 | max            | Maximum value                                                                                     | number                              | 100     |
-| range          | Whether to support sliding on both sides simultaneously                                           | boolean                               | false   |
-| disabled       | Whether the slider is disabled                                                                    | boolean                               | false   |
+| range          | Whether to support sliding on both sides simultaneously                                           | boolean                             | false   |
+| disabled       | Whether the slider is disabled                                                                    | boolean                             | false   |
 | step           | Step size, must be greater than 0 and divisible by (max - min)                                    | number                              | 1       |
 | tipFormatter   | Set Tooltip display format, defaults to current value                                             | (value: number) => string           | number  |
-| vertical       | Whether to set direction to vertical                                                              | boolean                               | false   |
+| vertical       | Whether to set direction to vertical                                                              | boolean                             | false   |
 | marks          | Scale marks, key type must be number and value in closed interval [min, max]                      | Object                              | -       |
-| included       | Effective when marks is not empty object, true means inclusive relationship, false means parallel | boolean                               | true    |
-| tooltipVisible | When true, Tooltip will always display; otherwise never display, even when dragging and hovering  | boolean                               | false   |
-| reverse        | Sort in reverse order                                                                             | boolean                               | false   |
+| included       | Effective when marks is not empty object, true means inclusive relationship, false means parallel | boolean                             | true    |
+| tooltipVisible | When true, Tooltip will always display; otherwise never display, even when dragging and hovering  | boolean                             | false   |
+| reverse        | Sort in reverse order                                                                             | boolean                             | false   |
 | size           | The size of Slider                                                                                | string                              | -       |
 | onChange       | Triggered when Slider value changes, passes the changed value as parameter                        | (value: number \| number[]) => void | -       |

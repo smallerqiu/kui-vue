@@ -38,12 +38,12 @@ Render only data near the viewport to improve large-list performance.
 
 ## Slots
 
-| Name    | Description | Parameters        |
-| ------- | ----------- | ----------------- |
-| default | Custom item | `{ item, index }` |
+| Name    | Description | Parameters      |
+| ------- | ----------- | --------------- |
+| default | Custom item | { item, index } |
 
 ## Methods
 
-| Name          | Description       | Parameters        |
-| ------------- | ----------------- | ----------------- |
-| scrollToIndex | Scroll to an item | `(index, align?)` |
+| Name          | Description       | Parameters      |
+| ------------- | ----------------- | --------------- |
+| scrollToIndex | Scroll to an item | (index, align?) |

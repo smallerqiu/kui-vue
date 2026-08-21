@@ -30,25 +30,25 @@ Provide candidates based on the input while retaining the ability for free text 
 
 ## AutoComplete API
 
-| Property     | Description                                        | Type                           | Default |
-| ------------ | -------------------------------------------------- | ------------------------------ | ------- |
-| modelValue   | Value (v-model)                                    | string                         | -       |
-| value        | Initial value                                      | string                         | ''      |
-| options      | Suggestions                                        | (string\|AutoCompleteOption)[] | []      |
-| open         | Open state                                         | boolean                        | false   |
-| defaultOpen  | Initial open state                                 | boolean                        | false   |
-| showOnEmpty  | Show suggestions when an empty input is focused    | boolean                        | false   |
-| clearable    | Show the clear button on hover when a value exists | boolean                        | false   |
-| disabled     | Disabled                                           | boolean                        | false   |
-| loading      | Loading state                                      | boolean                        | false   |
-| loadingText  | Loading text                                       | string                         | Loading |
-| placeholder  | Placeholder                                        | string                         | -       |
-| size         | Size                                               | small\|medium\|large           | medium  |
-| theme        | Theme                                              | fill\|outline\|plain           | fill    |
-| shape        | Shape                                              | circle\|square\|round\|default | default |
-| filterOption | Filter strategy                                    | boolean\|function              | true    |
-| onChange     | Value change                                       | function                       | -       |
-| onClear      | Clear callback                                     | () => void                     | -       |
-| onSearch     | Search callback                                    | (value: string) => void        | -       |
-| onSelect     | Option selection                                   | function                       | -       |
-| onOpenChange | Open state change                                  | function                       | -       |
+| Property     | Description                                        | Type                                         | Default |
+| ------------ | -------------------------------------------------- | -------------------------------------------- | ------- |
+| modelValue   | Value (v-model)                                    | string                                       | -       |
+| value        | Initial value                                      | string                                       | ''      |
+| options      | Suggestions                                        | (string \| AutoCompleteOption)[]             | []      |
+| open         | Open state                                         | boolean                                      | false   |
+| defaultOpen  | Initial open state                                 | boolean                                      | false   |
+| showOnEmpty  | Show suggestions when an empty input is focused    | boolean                                      | false   |
+| clearable    | Show the clear button on hover when a value exists | boolean                                      | false   |
+| disabled     | Disabled                                           | boolean                                      | false   |
+| loading      | Loading state                                      | boolean                                      | false   |
+| loadingText  | Loading text                                       | string                                       | Loading |
+| placeholder  | Placeholder                                        | string                                       | -       |
+| size         | Size                                               | 'small' \| 'medium' \| 'large'               | medium  |
+| theme        | Theme                                              | 'fill' \| 'outline' \| 'plain'               | fill    |
+| shape        | Shape                                              | 'circle' \| 'square' \| 'round' \| 'default' | default |
+| filterOption | Filter strategy                                    | boolean \| 'function'                        | true    |
+| onChange     | Value change                                       | function                                     | -       |
+| onClear      | Clear callback                                     | () => void                                   | -       |
+| onSearch     | Search callback                                    | (value: string) => void                      | -       |
+| onSelect     | Option selection                                   | function                                     | -       |
+| onOpenChange | Open state change                                  | function                                     | -       |

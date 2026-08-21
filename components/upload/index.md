@@ -62,13 +62,13 @@
 | action         | 上传的地址                                                                                                                     | string                         | -      |
 | method         | 上传请求的 http method                                                                                                         | string                         | post   |
 | data           | 上传可能所需的其它参数                                                                                                         | Object                         | -      |
-| disabled       | 是否禁用                                                                                                                       | boolean                          | false  |
+| disabled       | 是否禁用                                                                                                                       | boolean                        | false  |
 | headers        | 设置上传的请求头部                                                                                                             | Object                         | -      |
-| multiple       | 是否支持多选文件                                                                                                               | boolean                          | false  |
-| directory      | 是否支持上传目录                                                                                                               | boolean                          | false  |
-| showUploadList | 是否显示上传列表                                                                                                               | boolean                          | true   |
-| autoTrigger    | 是否自动上传                                                                                                                   | boolean                          | true   |
-| draggable      | 是否支持拖拽上传                                                                                                               | boolean                          | false  |
+| multiple       | 是否支持多选文件                                                                                                               | boolean                        | false  |
+| directory      | 是否支持上传目录                                                                                                               | boolean                        | false  |
+| showUploadList | 是否显示上传列表                                                                                                               | boolean                        | true   |
+| autoTrigger    | 是否自动上传                                                                                                                   | boolean                        | true   |
+| draggable      | 是否支持拖拽上传                                                                                                               | boolean                        | false  |
 | fileList       | 上传的文件列表                                                                                                                 | UploadFile[]                   | false  |
 | name           | 发到后台的文件参数名,默认`file`                                                                                                | string                         | 'file' |
 | uploadIcon     | 上传域的辅助图标                                                                                                               | string                         | Add    |
@@ -78,7 +78,7 @@
 | minSize        | 上传文件最小单位(KB)                                                                                                           | number                         | -      |
 | maxSize        | 上传文件最大单位(KB)                                                                                                           | number                         | -      |
 | transformFile  | 在上传之前转换文件。支持返回一个 Promise 对象                                                                                  | (file: File) => Promise<File\> | -      |
-| type           | 选择上传文件之后, 所呈现的形式                                                                                                 | [picture,list]                 | -      |
+| type           | 选择上传文件之后, 所呈现的形式                                                                                                 | 'picture' \| 'list'            | -      |
 
 ## Event API
 
