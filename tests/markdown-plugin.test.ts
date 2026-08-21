@@ -57,6 +57,27 @@ import { ChevronDown, Search, Power } from "kui-icons";
     );
   });
 
+  it("gives every rendered demo a source version key", async () => {
+    const markdownPath = path.resolve("components/transfer/index.md");
+    const plugin = vitePluginKuiMd();
+    const transform = plugin.transform;
+    if (typeof transform !== "function") throw new Error("Expected a transform hook");
+    const result = await transform.call(
+      { addWatchFile: vi.fn() } as unknown as TransformPluginContext,
+      fs.readFileSync(markdownPath, "utf-8"),
+      markdownPath
+    );
+    const code = typeof result === "object" && result && "code" in result ? result.code : "";
+    const ids = [...code.matchAll(/<Demo id="([^"]+)"/g)].map((match) => match[1]);
+    const versionKeys = [...code.matchAll(/<KuiDemo\d+ key="([^"]+)"/g)].map((match) => match[1]);
+
+    expect(ids.length).toBeGreaterThan(1);
+    expect(new Set(ids).size).toBe(ids.length);
+    expect(versionKeys).toHaveLength(ids.length);
+    expect(versionKeys.every(Boolean)).toBe(true);
+    expect(code).toMatch(/import KuiDemo0 from '.+\.vue\?kui-demo=[^']+';/);
+  });
+
   it("invalidates the importing markdown module when a demo changes", async () => {
     const markdownPath = path.resolve("components/transfer/index.md");
     const demoPath = path.resolve("components/transfer/demo/basic.vue");

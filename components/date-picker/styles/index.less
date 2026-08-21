@@ -242,7 +242,7 @@
   }
   .k-picker-body {
     position: relative;
-    min-height: 283px;
+    min-height: 262px;
     padding: 0 10px 10px 10px;
     box-sizing: border-box;
     display: flex;
@@ -250,27 +250,35 @@
     flex: 1;
   }
   .k-picker-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
     font-weight: 500;
+
     .k-picker-weekday {
-      width: 36px;
       height: 36px;
-      display: inline-block;
+      display: block;
       text-align: center;
       line-height: 36px;
       color: var(--kui-color-text-placeholder);
       font-size: var(--kui-font-size-sm);
     }
   }
+
+  .k-picker-date-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+
   .k-picker-day {
     cursor: pointer;
     color: var(--kui-control-text);
     border-radius: var(--kui-control-radius);
     position: relative;
-    display: inline-block;
+    display: block;
     text-align: center;
     overflow: hidden;
     border: 1px solid transparent;
-    width: var(--kui-control-height);
+    width: calc(100% - 4px);
     height: var(--kui-control-height);
     line-height: var(--kui-control-height);
     font-size: var(--kui-font-size);
@@ -400,7 +408,7 @@
   }
   .k-picker-time-picker {
     display: flex;
-    height: 282px;
+    height: 262px;
     border-top: 1px solid var(--kui-control-border);
   }
   .k-picker-time-col {

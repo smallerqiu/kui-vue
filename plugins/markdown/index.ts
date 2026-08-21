@@ -82,27 +82,29 @@ export default function vitePluginKuiMd(): Plugin {
           const direction = params.get("show") === "vertical" ? "vertical" : "horizontal";
           const useDemo = params.get("demo") !== "false";
 
-          demoImports.push(`import ${componentName} from '${src}';`);
-          if (!useDemo) return `<${componentName} />`;
-
-          const _id = "k-" + hashId(id);
           const absolutePath = path.resolve(path.dirname(id), src);
           const normalizedPath = path.normalize(absolutePath);
+          const demoCode = fs.readFileSync(absolutePath, "utf-8").trim();
+          const demoVersion = hashId(demoCode);
+          const importSource = useDemo ? `${src}?kui-demo=${demoVersion}` : src;
+          demoImports.push(`import ${componentName} from '${importSource}';`);
+          if (!useDemo) return `<${componentName} />`;
+
           dependencies.add(normalizedPath);
           const importers = demoImporters.get(normalizedPath) ?? new Set<string>();
           importers.add(id);
           demoImporters.set(normalizedPath, importers);
           this.addWatchFile(absolutePath);
-          const demoCode = fs.readFileSync(absolutePath, "utf-8").trim();
+          const demoId = "k-" + hashId(`${id}:${normalizedPath}`);
           const highlightedTypeScript = highlightSfc(demoCode);
           const highlightedJavaScript = highlightSfc(toJavaScriptSfc(demoCode));
           const renderedDescription = descBlock
             ? markdown.render(descBlock.replace(/^\s*-\s?/gm, ""))
             : "";
           return `
-<Demo id="${_id}" direction="${direction}">
+<Demo id="${demoId}" direction="${direction}">
     <template #title>${title}</template>
-    <template #component><${componentName} /></template>
+    <template #component><${componentName} key="${demoVersion}" /></template>
     <template #code-ts><pre><code class="hljs language-html">${highlightedTypeScript}</code></pre></template>
     <template #code-js><pre><code class="hljs language-html">${highlightedJavaScript}</code></pre></template>
     <template #description>

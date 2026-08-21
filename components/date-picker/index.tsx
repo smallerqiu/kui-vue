@@ -715,7 +715,7 @@ const DatePicker = defineComponent({
               </span>
             ))}
           </div>
-          <div class="v-dp-table" onMouseleave={() => (hoverDate.value = null)}>
+          <div class="k-picker-date-grid" onMouseleave={() => (hoverDate.value = null)}>
             {days.map((item, idx) => {
               const date = item.d;
               const isDisabled = props.disabledDate(date.toDate());
