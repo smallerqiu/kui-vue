@@ -1,27 +1,45 @@
 <p align="center">
-    <a href="https://k-ui.cn">
-        <img width="100" src="https://cdn.chuchur.com/img/logo-kui.svg">
-    </a>
+  <a href="https://k-ui.cn">
+    <img width="88" src="https://cdn.chuchur.com/img/logo-kui.svg" alt="KUI Vue 标志">
+  </a>
 </p>
-<h1 align="center">
-   Kui for Vue
-</h1>
+<h1 align="center">KUI Vue</h1>
 
-<div align="center">
+<p align="center">
+  <strong>面向 Vue 3 的现代 TypeScript UI 组件库。</strong>
+</p>
 
-轻量级桌面UI组件库for Vue.js
+<p align="center">
+  70+ 精心设计的组件 · 明暗主题 · 支持 SSR 与 Nuxt · 灵活的设计 Token
+</p>
 
-[![kui-vue](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square)](https://www.npmjs.org/package/kui-vue)
-[![NPM downloads](http://img.shields.io/npm/dm/kui-vue.svg?style=flat-square)](https://npmjs.org/package/kui-vue)
-[![NPM downloads](https://img.shields.io/npm/dt/kui-vue.svg?style=flat-square)](https://npmjs.org/package/kui-vue)
-![JS gzip size](http://img.badgesize.io/https://unpkg.com/kui-vue/dist/index.js?compression=gzip&label=gzip%20size:%20JS&style=flat-square)
-![CSS gzip size](http://img.badgesize.io/https://unpkg.com/kui-vue/style/index.css?compression=gzip&label=gzip%20size:%20CSS&style=flat-square)
+<p align="center">
+  <a href="https://www.npmjs.com/package/kui-vue"><img src="https://img.shields.io/npm/v/kui-vue?style=flat-square&color=5b9cff" alt="npm 版本"></a>
+  <a href="https://www.npmjs.com/package/kui-vue"><img src="https://img.shields.io/npm/dm/kui-vue?style=flat-square&color=5b9cff" alt="npm 下载量"></a>
+  <a href="https://github.com/smallerqiu/kui-vue/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/smallerqiu/kui-vue/ci.yml?branch=master&style=flat-square&label=CI" alt="CI 状态"></a>
+  <a href="https://github.com/smallerqiu/kui-vue"><img src="https://img.shields.io/github/stars/smallerqiu/kui-vue?style=flat-square&color=5b9cff" alt="GitHub Stars"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/npm/l/kui-vue?style=flat-square" alt="MIT 许可证"></a>
+</p>
 
-![theme](demo.png)
+<p align="center">
+  <a href="https://k-ui.cn"><strong>文档</strong></a> ·
+  <a href="https://k-ui.cn/guide/quick-started">快速开始</a> ·
+  <a href="https://k-ui.cn/guide/components">组件总览</a> ·
+  <a href="https://k-ui.cn/guide/dark-mode">暗色模式</a> ·
+  <a href="https://github.com/smallerqiu/kui-vue/issues">问题反馈</a>
+</p>
 
-[English](README.md) · 简体中文
+<p align="center">
+  <a href="README.md">English</a> · 简体中文
+</p>
 
-</div>
+<p align="center">
+  <a href="https://k-ui.cn">
+    <img src=".github/assets/demo.png" alt="KUI Vue 组件库预览">
+  </a>
+</p>
+
+<p align="center"><code>pnpm add kui-vue</code></p>
 
 # 特性
 

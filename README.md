@@ -1,27 +1,45 @@
 <p align="center">
-    <a href="https://k-ui.cn">
-        <img width="100" src="https://cdn.chuchur.com/img/logo-kui.svg">
-    </a>
+  <a href="https://k-ui.cn">
+    <img width="88" src="https://cdn.chuchur.com/img/logo-kui.svg" alt="KUI Vue logo">
+  </a>
 </p>
-<h1 align="center">
-   Kui for Vue
-</h1>
+<h1 align="center">KUI Vue</h1>
 
-<div align="center">
+<p align="center">
+  <strong>A modern, TypeScript-first UI component library for Vue 3.</strong>
+</p>
 
-Lightweight Desktop UI Component Library for Vue.js
+<p align="center">
+  70+ polished components · Light &amp; dark themes · SSR &amp; Nuxt ready · Flexible design tokens
+</p>
 
-[![kui-vue](https://img.shields.io/npm/v/kui-vue.svg?style=flat-square)](https://www.npmjs.org/package/kui-vue)
-[![NPM downloads](http://img.shields.io/npm/dm/kui-vue.svg?style=flat-square)](https://npmjs.org/package/kui-vue)
-[![NPM downloads](https://img.shields.io/npm/dt/kui-vue.svg?style=flat-square)](https://npmjs.org/package/kui-vue)
-![JS gzip size](http://img.badgesize.io/https://unpkg.com/kui-vue/dist/index.js?compression=gzip&label=gzip%20size:%20JS&style=flat-square)
-![CSS gzip size](http://img.badgesize.io/https://unpkg.com/kui-vue/style/index.css?compression=gzip&label=gzip%20size:%20CSS&style=flat-square)
+<p align="center">
+  <a href="https://www.npmjs.com/package/kui-vue"><img src="https://img.shields.io/npm/v/kui-vue?style=flat-square&color=5b9cff" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/kui-vue"><img src="https://img.shields.io/npm/dm/kui-vue?style=flat-square&color=5b9cff" alt="npm downloads"></a>
+  <a href="https://github.com/smallerqiu/kui-vue/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/smallerqiu/kui-vue/ci.yml?branch=master&style=flat-square&label=CI" alt="CI status"></a>
+  <a href="https://github.com/smallerqiu/kui-vue"><img src="https://img.shields.io/github/stars/smallerqiu/kui-vue?style=flat-square&color=5b9cff" alt="GitHub stars"></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/npm/l/kui-vue?style=flat-square" alt="MIT license"></a>
+</p>
 
-![theme](demo.png)
+<p align="center">
+  <a href="https://k-ui.cn"><strong>Documentation</strong></a> ·
+  <a href="https://k-ui.cn/guide/quick-started">Quick Start</a> ·
+  <a href="https://k-ui.cn/guide/components">Components</a> ·
+  <a href="https://k-ui.cn/guide/dark-mode">Dark Mode</a> ·
+  <a href="https://github.com/smallerqiu/kui-vue/issues">Issues</a>
+</p>
 
-English | [简体中文](README.zh-CN.md)
+<p align="center">
+  English · <a href="README.zh-CN.md">简体中文</a>
+</p>
 
-</div>
+<p align="center">
+  <a href="https://k-ui.cn">
+    <img src=".github/assets/demo.png" alt="KUI Vue component library preview">
+  </a>
+</p>
+
+<p align="center"><code>pnpm add kui-vue</code></p>
 
 # Documentation
 
