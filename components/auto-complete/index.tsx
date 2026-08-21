@@ -279,7 +279,7 @@ export default defineComponent({
                       "k-select-dropdown",
                       "k-auto-complete-dropdown",
                       { "k-select-dropdown-sm": props.size === "small" },
-                      { "k-select-dropdown-sm": props.size === "large" },
+                      { "k-select-dropdown-lg": props.size === "large" },
                     ]}
                     role="listbox"
                   >

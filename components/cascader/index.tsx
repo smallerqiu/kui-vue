@@ -10,8 +10,8 @@ import {
   watch,
   type CSSProperties,
 } from "vue";
-import Empty from "../empty";
 import { usePopupContainer } from "../config/popup";
+import Empty from "../empty";
 import Icon from "../icon";
 import { setPlacement } from "../utils/placement";
 import { cascaderProps, type CascaderOption } from "./types.ts";
@@ -212,7 +212,13 @@ const Cascader = defineComponent({
           top: `${top.value}px`,
           transformOrigin: transOrigin.value,
         } as CSSProperties,
-        class: ["k-cascader-dropdown", { "k-cascader-dropdown-sm": props.size === "small" }],
+        class: [
+          "k-cascader-dropdown",
+          {
+            "k-cascader-dropdown-sm": props.size === "small",
+            "k-cascader-dropdown-lg": props.size === "large",
+          },
+        ],
       };
       const isEmpty = !props.options || props.options.length === 0;
 
