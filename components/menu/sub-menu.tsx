@@ -129,7 +129,7 @@ const SubMenu = defineComponent({
 
     const renderChildren = () => {
       const popup = usePopup();
-      if (popup && !rendered.value) return null;
+      if (popup && !rendered.value) return [];
 
       const opened = menuContext?.openKeys.includes(key);
       let leftValue = left.value;

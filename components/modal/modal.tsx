@@ -300,7 +300,8 @@ const Modal = defineComponent({
           </div>
         </div>
       ) : null;
-      return props.panelOnly ? panel : <Teleport to={getPopupContainer()}>{panel}</Teleport>;
+      if (props.panelOnly) return panel;
+      return rendered.value ? <Teleport to={getPopupContainer()}>{panel}</Teleport> : null;
     };
   },
 });

@@ -45,6 +45,7 @@ export default defineComponent({
     const innerCurrent = ref(props.defaultCurrent);
     const tick = ref(0);
     const visible = computed(() => props.modelValue ?? innerOpen.value);
+    const rendered = ref(visible.value);
     const index = computed(() => props.current ?? innerCurrent.value);
     const refresh = () => (tick.value += 1);
     let scrollLocked = false;
@@ -69,7 +70,10 @@ export default defineComponent({
       window.removeEventListener("scroll", refresh, true);
       updateScrollLock(false);
     });
-    watch(visible, updateScrollLock);
+    watch(visible, (value) => {
+      if (value) rendered.value = true;
+      updateScrollLock(value);
+    });
     const close = () => {
       innerOpen.value = false;
       emit("update:modelValue", false);
@@ -82,7 +86,7 @@ export default defineComponent({
     return () => {
       void tick.value;
       const step = props.steps[index.value];
-      if (!step) return null;
+      if (!rendered.value || !step) return null;
       const target = typeof step.target === "function" ? step.target() : step.target;
       const rect = target?.getBoundingClientRect();
       const placement = step.placement ?? "bottom";

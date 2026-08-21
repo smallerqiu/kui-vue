@@ -59,6 +59,7 @@ export default defineComponent({
     const getPopupContainer = usePopupContainer();
     const inner = ref(props.value);
     const query = ref<{ start: number; trigger: string; text: string }>();
+    const rendered = ref(false);
     const active = ref(0);
     const root = ref<HTMLElement | null>(null);
     const dropdown = ref<HTMLElement | null>(null);
@@ -69,6 +70,13 @@ export default defineComponent({
     const transOrigin = ref("left top");
     const currentPlacement = ref<string>(props.placement);
     const textarea = ref<{ $el?: HTMLTextAreaElement } | HTMLTextAreaElement>();
+    watch(
+      query,
+      (value) => {
+        if (value) rendered.value = true;
+      },
+      { flush: "sync" }
+    );
     const getTextarea = () =>
       textarea.value instanceof HTMLTextAreaElement ? textarea.value : textarea.value?.$el;
     const getCaretRect = (element: HTMLTextAreaElement) => {
@@ -292,51 +300,55 @@ export default defineComponent({
         {props.clearable && current.value && !props.disabled && (
           <Icon class="k-mentions-clearable" type={CircleX} onClick={clear} />
         )}
-        <Teleport to={getPopupContainer()}>
-          <Transition name="k-select">
-            <div
-              ref={dropdown}
-              v-show={!!query.value}
-              style={dropdownStyle.value}
-              class={[
-                "k-select-dropdown",
-                "k-mentions-dropdown",
-                { "k-select-dropdown-sm": props.size === "small" },
-                { "k-select-dropdown-lg": props.size === "large" },
-              ]}
-              role="listbox"
-            >
-              {props.loading ? (
-                <div class="k-select-loading k-mentions-loading">
-                  <Icon type={Loading} spin />
-                  {props.loadingText && <span>{props.loadingText || "Loading..."}</span>}
-                </div>
-              ) : shownMatches.value.length ? (
-                <ul>
-                  {shownMatches.value.map((option, index) => (
-                    <li
-                      role="option"
-                      aria-selected={active.value === index}
-                      class={[
-                        "k-select-item",
-                        {
-                          "k-select-item-active": active.value === index,
-                          "k-select-item-disabled": option.disabled,
-                        },
-                      ]}
-                      onMousedown={(event) => event.preventDefault()}
-                      onClick={() => choose(option)}
-                    >
-                      {option.label ?? option.value}
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                (slots.empty?.() ?? <Empty description={props.emptyText} />)
-              )}
-            </div>
-          </Transition>
-        </Teleport>
+        {rendered.value
+          ? [
+              <Teleport key="overlay" to={getPopupContainer()}>
+                <Transition name="k-select">
+                  <div
+                    ref={dropdown}
+                    v-show={!!query.value}
+                    style={dropdownStyle.value}
+                    class={[
+                      "k-select-dropdown",
+                      "k-mentions-dropdown",
+                      { "k-select-dropdown-sm": props.size === "small" },
+                      { "k-select-dropdown-lg": props.size === "large" },
+                    ]}
+                    role="listbox"
+                  >
+                    {props.loading ? (
+                      <div class="k-select-loading k-mentions-loading">
+                        <Icon type={Loading} spin />
+                        {props.loadingText && <span>{props.loadingText || "Loading..."}</span>}
+                      </div>
+                    ) : shownMatches.value.length ? (
+                      <ul>
+                        {shownMatches.value.map((option, index) => (
+                          <li
+                            role="option"
+                            aria-selected={active.value === index}
+                            class={[
+                              "k-select-item",
+                              {
+                                "k-select-item-active": active.value === index,
+                                "k-select-item-disabled": option.disabled,
+                              },
+                            ]}
+                            onMousedown={(event) => event.preventDefault()}
+                            onClick={() => choose(option)}
+                          >
+                            {option.label ?? option.value}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      (slots.empty?.() ?? <Empty description={props.emptyText} />)
+                    )}
+                  </div>
+                </Transition>
+              </Teleport>,
+            ]
+          : []}
       </div>
     );
   },

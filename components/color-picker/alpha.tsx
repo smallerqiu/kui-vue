@@ -31,8 +31,11 @@ export default defineComponent({
     };
 
     const updatePos = () => {
+      const canvas = refPaint.value;
+      if (!canvas) return;
       const a = Color(props.modelValue).alpha();
-      dotPos.value = a * 190 - 7;
+      const width = canvas.getBoundingClientRect().width || canvas.width;
+      dotPos.value = a * width - 7;
     };
 
     const handleMove = (e: MouseEvent) => {

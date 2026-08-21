@@ -1099,15 +1099,15 @@ const DatePicker = defineComponent({
         </div>
       ) : null;
 
-      const overlay = props.panelOnly ? (
-        panel
-      ) : (
-        <Teleport to={getPopupContainer()}>
-          <Transition name="k-date-picker">{panel}</Transition>
-        </Teleport>
-      );
-
       if (props.panelOnly) return panel;
+
+      const overlay = rendered.value
+        ? [
+            <Teleport key="overlay" to={getPopupContainer()}>
+              <Transition name="k-date-picker">{panel}</Transition>
+            </Teleport>,
+          ]
+        : [];
 
       return (
         <div class={classes} ref={refSelection} tabindex={props.disabled ? undefined : 0}>

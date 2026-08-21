@@ -49,6 +49,7 @@ rm -rf node_modules/.vite
 - 推进组件高度 CSS Variables 在 small、medium、large 尺寸中的统一使用。
 - 整理公共组件样式，将组件专属规则合并回各自样式文件，减少重复选择器。
 - 扩充新增组件及虚拟滚动、Typography、Transfer 等组件的中英文文档和功能 Demo。
+- 优化组件渲染逻辑，确保在面板未打开时不创建 Teleport。
 
 ### Bug 修复
 
@@ -57,6 +58,7 @@ rm -rf node_modules/.vite
 - 修复 `Select` 回车选择后查询未清空、可创建重复项及再次键盘导航从首项开始的问题。
 - 修复 `Tabs` 标题动态变化后激活线位置不正确的问题。
 - 修复 `DatePicker` 日期布局问题。
+- 修复 `ColorPicker` 色盘值定位问题。
 
 ### AI 与工程化
 

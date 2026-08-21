@@ -47,6 +47,7 @@ rm -rf node_modules/.vite
 - Adopted shared control-height CSS variables more consistently for small, medium, and large components.
 - Moved component-specific styles back into their component files and merged duplicate selectors.
 - Expanded bilingual documentation and functional demos for the new components, virtual scrolling, Typography, and Transfer.
+- Optimize component rendering logic to ensure that Teleport is not created when the panel is not open.
 
 ### Bug fixes
 
@@ -55,6 +56,7 @@ rm -rf node_modules/.vite
 - Fixed `Select` query cleanup, duplicate creation, and keyboard navigation restarting from the first option after selection.
 - Fixed the `Tabs` active indicator position after dynamic title changes.
 - Fixed the `DatePicker` date-grid class name and seven-column layout.
+- Fix the issue with the `ColorPicker` color wheel value positioning.
 
 ### AI and tooling
 

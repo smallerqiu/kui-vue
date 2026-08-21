@@ -1,11 +1,21 @@
 import Color, { type ColorObject } from "color";
-import { defineComponent, onBeforeUnmount, onMounted, reactive, ref, watch, type PropType } from "vue";
+import {
+  defineComponent,
+  nextTick,
+  onBeforeUnmount,
+  onMounted,
+  reactive,
+  ref,
+  watch,
+  type PropType,
+} from "vue";
 import { clamp } from "../utils/share";
 export default defineComponent({
   name: "Paint",
   props: {
     hue: { type: Number, default: 0 },
     modelValue: { type: [String, Object] as PropType<Parameters<typeof Color>[0]>, required: true },
+    visible: { type: Boolean, default: true },
     onUpdateRGB: Function as PropType<(color: ColorObject) => void>,
   },
   setup(props, { emit }) {
@@ -76,6 +86,17 @@ export default defineComponent({
       renderPaint();
       if (!dragging) updatePos();
     });
+    watch(
+      () => props.visible,
+      (visible) => {
+        if (!visible) return;
+        nextTick(() => {
+          renderPaint();
+          if (!dragging) updatePos();
+        });
+      },
+      { flush: "post" }
+    );
 
     onMounted(() => {
       renderPaint();

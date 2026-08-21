@@ -249,14 +249,16 @@ const Tooltip = defineComponent({
       ) : null;
 
       if (props.panelOnly) return panel;
-
-      const tooltipOverlay = (
-        <Teleport to={getPopupContainer()}>
-          <Transition name={`k-${preCls}`}>{panel}</Transition>
-        </Teleport>
-      );
-
-      return [nodeWrapper, tooltipOverlay];
+      return [
+        nodeWrapper,
+        ...(rendered.value
+          ? [
+              <Teleport to={getPopupContainer()}>
+                <Transition name={`k-${preCls}`}>{panel}</Transition>
+              </Teleport>,
+            ]
+          : []),
+      ];
     };
   },
 });

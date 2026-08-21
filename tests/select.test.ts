@@ -8,6 +8,23 @@ afterEach(() => {
 });
 
 describe("Select", () => {
+  it("does not create a Teleport before the dropdown is used", async () => {
+    const wrapper = mount(Select, {
+      attachTo: document.body,
+      props: { options: [{ label: "Alpha", value: "alpha" }] },
+    });
+
+    expect(wrapper.html()).not.toContain("teleport");
+    expect(document.body.querySelector(".k-select-dropdown")).toBeNull();
+
+    await wrapper.trigger("click");
+    await nextTick();
+
+    expect(wrapper.html()).toContain("teleport start");
+    expect(document.body.querySelector(".k-select-dropdown")).not.toBeNull();
+    wrapper.unmount();
+  });
+
   it("selects multiple options and emits the updated value", async () => {
     const wrapper = mount(Select, {
       attachTo: document.body,

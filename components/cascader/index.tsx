@@ -203,7 +203,7 @@ const Cascader = defineComponent({
     // 渲染动态的多级弹窗列表
     const renderDropdown = () => {
       // 首次未触发时，body 保持绝对干净
-      if (!rendered.value) return null;
+      if (!rendered.value) return [];
 
       const popperProps = {
         ref: refPopper,
@@ -216,8 +216,8 @@ const Cascader = defineComponent({
       };
       const isEmpty = !props.options || props.options.length === 0;
 
-      return (
-        <Teleport to={getPopupContainer()}>
+      return [
+        <Teleport key="overlay" to={getPopupContainer()}>
           {/* 👈 核心修复：加上 appear 属性，强制首次渲染时也触发入场动画 */}
           <Transition name="k-cascader" appear>
             {visible.value && (
@@ -265,8 +265,8 @@ const Cascader = defineComponent({
               </div>
             )}
           </Transition>
-        </Teleport>
-      );
+        </Teleport>,
+      ];
     };
 
     return () => {

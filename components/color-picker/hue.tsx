@@ -27,8 +27,10 @@ export default defineComponent({
     };
 
     const updatePos = () => {
-      // 190 是 CSS 中定义的宽度，减去圆点宽度的一半
-      dotPos.value = (props.hue / 360) * 190 - 7;
+      const canvas = refPaint.value;
+      if (!canvas) return;
+      const width = canvas.getBoundingClientRect().width || canvas.width;
+      dotPos.value = (props.hue / 360) * width - 7;
     };
 
     const handleMove = (e: MouseEvent) => {

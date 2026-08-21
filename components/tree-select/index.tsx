@@ -473,7 +473,7 @@ const TreeSelect = defineComponent({
     });
 
     const renderOverlay = () => {
-      if (!rendered.value) return null;
+      if (!rendered.value) return [];
 
       const preCls = "k-tree-select";
       const overlayProps = {
@@ -502,8 +502,8 @@ const TreeSelect = defineComponent({
         </div>
       );
 
-      return (
-        <Teleport to={getPopupContainer()}>
+      return [
+        <Teleport key="overlay" to={getPopupContainer()}>
           <Transition name={preCls}>
             <div v-show={visible.value} {...overlayProps}>
               {props.loading ? (
@@ -518,8 +518,8 @@ const TreeSelect = defineComponent({
               )}
             </div>
           </Transition>
-        </Teleport>
-      );
+        </Teleport>,
+      ];
     };
 
     return () => {

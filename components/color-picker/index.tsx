@@ -65,26 +65,46 @@ const ColorPicker = defineComponent({
 
   setup(props, { emit, slots }) {
     const getPopupContainer = usePopupContainer();
+    const initialColor = props.modelValue || "#000000ff";
+    const initialColorValue = Color(initialColor);
     const currentMode = ref(props.mode);
     type ColorInstance = ReturnType<typeof Color>;
-    const currentColor = ref<string | ColorInstance>(props.modelValue || "#000000ff");
-    const visible = ref(props.opened || props.panelOnly);
+    const currentColor = ref<string | ColorInstance>(initialColor);
+    const visible = ref(Boolean(props.opened || props.panelOnly));
     const refPopper = ref();
     const refSelection = ref();
     const left = ref(0);
     const top = ref(0);
     const currentPlacement = ref(props.placement);
     const transOrigin = ref("bottom");
-    const rendered = ref(props.opened || props.panelOnly);
-    const currentAlpha = ref(1);
-    const currentHue = ref(0);
+    const rendered = ref(Boolean(props.opened || props.panelOnly));
+    const currentAlpha = ref(initialColorValue.alpha());
+    const currentHue = ref(initialColorValue.hue());
     const hideTimer = ref();
     let positionRaf = 0;
+    let outsideClickListening = false;
+
+    const syncOutsideClickListener = (opened: boolean) => {
+      if (props.panelOnly || outsideClickListening === opened) return;
+      if (opened) document.addEventListener("click", outsideClick);
+      else document.removeEventListener("click", outsideClick);
+      outsideClickListening = opened;
+    };
 
     watch(
       () => props.modelValue,
       (v) => {
-        currentColor.value = v || "#000000ff";
+        const value = v || "#000000ff";
+        const color = Color(value);
+        currentColor.value = value;
+        currentAlpha.value = color.alpha();
+        currentHue.value = color.hue();
+      }
+    );
+    watch(
+      () => props.mode,
+      (mode) => {
+        currentMode.value = mode;
       }
     );
     watch(
@@ -97,25 +117,24 @@ const ColorPicker = defineComponent({
     watch(
       () => props.opened,
       (opened) => {
-        if (opened) rendered.value = true;
-        visible.value = opened;
-        if (opened) nextTick(updatePopPosition);
+        const nextVisible = Boolean(props.panelOnly || opened);
+        if (nextVisible) rendered.value = true;
+        visible.value = nextVisible;
+        syncOutsideClickListener(nextVisible);
+        if (nextVisible && !props.panelOnly) nextTick(updatePopPosition);
       }
     );
     onMounted(() => {
-      if (props.modelValue) {
-        currentAlpha.value = Color(props.modelValue).alpha();
-        currentHue.value = Color(props.modelValue).hue();
-      }
       if (!props.panelOnly) {
         if (props.opened) updatePopPosition();
+        syncOutsideClickListener(visible.value);
         document.addEventListener("scroll", updatePopPosition, true);
       }
     });
     onBeforeUnmount(() => {
       cancelAnimationFrame(positionRaf);
       clearTimeout(hideTimer.value);
-      document.removeEventListener("click", outsideClick);
+      syncOutsideClickListener(false);
       if (!props.panelOnly) document.removeEventListener("scroll", updatePopPosition, true);
     });
     const updatePopPosition = () => {
@@ -134,20 +153,21 @@ const ColorPicker = defineComponent({
         });
       });
     };
-    const outsideClick = (e: MouseEvent) => {
+    const outsideClick = (e: Event) => {
       const ctx = refSelection.value?.$el || refSelection.value;
       if (
         refPopper.value &&
-        !refPopper.value.contains(e.target) &&
+        !refPopper.value.contains(e.target as Node) &&
         ctx &&
-        !ctx.contains(e.target)
+        !ctx.contains(e.target as Node)
       ) {
         clearTimeout(hideTimer.value);
         hideTimer.value = setTimeout(() => openChange(false), 200);
       }
     };
     const openChange = (opened: boolean) => {
-      visible.value = props.panelOnly || opened;
+      visible.value = Boolean(props.panelOnly || opened);
+      syncOutsideClickListener(visible.value);
       emit("openChange", opened);
     };
     const toggle = (open: boolean) => {
@@ -157,7 +177,6 @@ const ColorPicker = defineComponent({
       if (open) {
         if (!rendered.value) {
           rendered.value = true;
-          document.addEventListener("click", outsideClick);
           nextTick(() => {
             openChange(true);
             nextTick(() => {
@@ -234,7 +253,7 @@ const ColorPicker = defineComponent({
       updateColorValue(color.rgb());
     };
     const renderDrop = () => {
-      if (!rendered.value) return null;
+      if (!rendered.value) return props.panelOnly ? null : [];
       const _props = {
         ref: refPopper,
         "k-placement": currentPlacement.value,
@@ -264,6 +283,7 @@ const ColorPicker = defineComponent({
             <Paint
               hue={currentHue.value}
               modelValue={currentColor.value}
+              visible={visible.value}
               onUpdateRGB={onUpdateRGB}
             />
             <div class="k-color-picker-bar">

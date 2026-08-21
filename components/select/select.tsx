@@ -567,7 +567,7 @@ const Select = defineComponent({
     });
 
     const renderOverlay = () => {
-      if (!rendered.value) return null;
+      if (!rendered.value) return [];
 
       const options = filterOptions();
       const preCls = "k-select";
@@ -596,8 +596,8 @@ const Select = defineComponent({
           <span>{locale.value?.k.select.loading}</span>
         </div>
       );
-      return (
-        <Teleport to={getPopupContainer()}>
+      return [
+        <Teleport key="overlay" to={getPopupContainer()}>
           <Transition name={`${preCls}`}>
             <div v-show={visible.value} {...popperProps}>
               {props.loading ? (
@@ -627,8 +627,8 @@ const Select = defineComponent({
               )}
             </div>
           </Transition>
-        </Teleport>
-      );
+        </Teleport>,
+      ];
     };
 
     return () => {
