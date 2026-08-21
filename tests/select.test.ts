@@ -122,7 +122,7 @@ describe("Select", () => {
 
     expect(input.element.value).toBe("");
     expect(wrapper.emitted("update:modelValue")).toHaveLength(1);
-    expect(wrapper.findAll(".k-select-tag")).toHaveLength(1);
+    expect(wrapper.findAll(".k-tag")).toHaveLength(1);
     wrapper.unmount();
   });
 
@@ -144,6 +144,27 @@ describe("Select", () => {
     await input.trigger("keydown", { key: "Enter" });
 
     expect(wrapper.emitted("update:modelValue")).toBeUndefined();
+    wrapper.unmount();
+  });
+
+  it("virtualizes large option lists and keeps selection working", async () => {
+    const wrapper = mount(Select, {
+      attachTo: document.body,
+      props: {
+        virtual: true,
+        options: Array.from({ length: 1000 }, (_, index) => ({
+          label: `Option ${index + 1}`,
+          value: index + 1,
+        })),
+      },
+    });
+
+    await wrapper.find(".k-select").trigger("click");
+    await nextTick();
+    const renderedOptions = document.body.querySelectorAll<HTMLElement>(".k-select-item");
+    expect(renderedOptions.length).toBeLessThan(30);
+    renderedOptions[0]?.click();
+    expect(wrapper.emitted("update:modelValue")?.at(-1)).toEqual([1]);
     wrapper.unmount();
   });
 });

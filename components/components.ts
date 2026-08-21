@@ -247,6 +247,9 @@ export type {
   WatermarkTextItem,
 } from "./watermark";
 
+export { default as VirtualList } from "./virtual-list";
+export type { VirtualListKey, VirtualListProps } from "./virtual-list";
+
 export { default as theme } from "./utils/theme";
 
 export type {

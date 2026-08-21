@@ -1,0 +1,25 @@
+@import "../../styles/less-css-var.less";
+
+.k-virtual-list {
+  position: relative;
+  overflow: auto;
+  contain: strict;
+}
+
+.k-virtual-list-spacer {
+  position: relative;
+  width: 100%;
+}
+
+.k-virtual-list-items {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  will-change: transform;
+}
+
+.k-virtual-list-item {
+  box-sizing: border-box;
+  overflow: hidden;
+}

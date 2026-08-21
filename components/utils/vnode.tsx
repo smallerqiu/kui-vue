@@ -69,7 +69,7 @@ export const toggleContainerScroll = (target: HTMLElement | null, lock: boolean)
     target.style.setProperty("--kui-scrollbar-width", `${scrollbarWidth}px`);
     if (target === document.body) {
       target.style.overflowY = "hidden";
-      target.style.width = `calc(100% - ${scrollbarWidth}px)`;
+      // target.style.width = `calc(100% - ${scrollbarWidth}px)`;
     } else {
       target.style.overflow = "hidden";
       if (scrollbarWidth > 0) {

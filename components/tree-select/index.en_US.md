@@ -36,6 +36,10 @@ Similar to the Select selection control, when the selectable data structure is a
 
 - Some strange and unusual things.
 
+[Virtual Scrolling](./demo/virtual.vue)
+
+- Enable virtual scrolling for large data sets to render only visible tree nodes in the dropdown.
+
 ## TreeSelect API
 
 | Property          | Description                                                                     | Type                              | Default       |
@@ -68,6 +72,10 @@ Similar to the Select selection control, when the selectable data structure is a
 | treeShowIcon      | Whether to show tree node icons                                                 | boolean                           | true          |
 | treeShowLine      | Whether to show tree connection lines                                           | boolean                           | false         |
 | treeExpandedKeys  | Specify expanded nodes                                                          | string[]                          | []            |
+| virtual           | Whether to enable virtual scrolling for tree nodes                              | boolean                           | false         |
+| virtualHeight     | Virtual dropdown viewport height                                                | number \| string                  | 260           |
+| itemHeight        | Fixed virtual node height                                                       | number                            | 28            |
+| overscan          | Number of nodes rendered outside the viewport                                   | number                            | 5             |
 
 ## TreeSelect Events
 

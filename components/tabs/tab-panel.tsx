@@ -5,6 +5,7 @@ import {
   onBeforeUnmount,
   onMounted,
   ref,
+  watch,
   type ExtractPropTypes,
   type PropType,
   type Ref,
@@ -21,7 +22,7 @@ export type TabPanelProps = ExtractPropTypes<typeof tabPanelProps>;
 const TabPanel = defineComponent({
   name: "TabPanel",
   props: tabPanelProps,
-  setup(_, { slots }) {
+  setup(props, { slots }) {
     const instance = getCurrentInstance();
     const key = instance?.vnode.key;
     const activeKey = inject<Ref<string | null>>("tabActiveKey", ref(null));
@@ -29,6 +30,11 @@ const TabPanel = defineComponent({
 
     onMounted(() => tabUpdateNav?.());
     onBeforeUnmount(() => tabUpdateNav?.());
+    watch(
+      () => props.title,
+      () => tabUpdateNav?.(),
+      { flush: "post" }
+    );
     // console.log(activeKey.value, key);
     return () => {
       return (

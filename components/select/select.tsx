@@ -26,6 +26,7 @@ import zhCN from "../locale/zh-CN";
 import Space from "../space";
 import Tag from "../tag";
 import Tooltip from "../tooltip";
+import VirtualList from "../virtual-list";
 import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
@@ -67,6 +68,9 @@ const selectProps = {
   icon: [Array] as PropType<IconType[]>,
   shape: String as PropType<ShapeType>,
   arrowIcon: [Array] as PropType<IconType[]>,
+  virtual: Boolean as BooleanType,
+  itemHeight: { type: Number, default: 33 },
+  overscan: { type: Number, default: 5 },
   onSearch: Function as PropType<(e: InputEvent) => void>,
   onChange: Function as PropType<(value: SelectValue | SelectValue[]) => void>,
   onSelect: Function as PropType<(option: SelectOption) => void>,
@@ -116,6 +120,7 @@ const Select = defineComponent({
     const clearQueryTimer = ref<ReturnType<typeof setTimeout>>();
     let positionRaf = 0;
     const activeIndex = ref(-1);
+    const virtualListRef = ref<{ scrollToIndex: (index: number, align?: "auto") => void }>();
 
     watch(
       () => props.placement,
@@ -149,6 +154,10 @@ const Select = defineComponent({
     );
 
     const scrollOptionIntoView = () => {
+      if (props.virtual) {
+        virtualListRef.value?.scrollToIndex(activeIndex.value, "auto");
+        return;
+      }
       const containerEl = refPopper.value;
       if (!containerEl) return;
       const optionEl =
@@ -433,27 +442,21 @@ const Select = defineComponent({
         : optionsData.value;
     };
 
-    const renderOptions = () => {
-      const optionNodes: VNodeChild[] = [];
-      const nodes = filterOptions();
-      nodes.forEach((item, index) => {
-        const { label, value, disabled } = { ...item };
-        const checked = isChecked(value);
-        optionNodes.push(
-          <Option
-            onSelect={onSelect}
-            onMouseenter={() => onMouseenter(index)}
-            key={`${value}-${label}`}
-            active={activeIndex.value === index}
-            value={value}
-            label={label}
-            disabled={disabled}
-            checked={checked}
-            multiple={props.multiple}
-          />
-        );
-      });
-      return optionNodes;
+    const renderOption = (item: SelectOption, index: number) => {
+      const { label, value, disabled } = item;
+      return (
+        <Option
+          onSelect={onSelect}
+          onMouseenter={() => onMouseenter(index)}
+          key={`${value}-${String(label)}`}
+          active={activeIndex.value === index}
+          value={value}
+          label={label}
+          disabled={disabled}
+          checked={isChecked(value)}
+          multiple={props.multiple}
+        />
+      );
     };
 
     const queryKeydown = ({ key }: KeyboardEvent) => {
@@ -566,7 +569,7 @@ const Select = defineComponent({
     const renderOverlay = () => {
       if (!rendered.value) return null;
 
-      const optionNodes = renderOptions();
+      const options = filterOptions();
       const preCls = "k-select";
       const popperProps = {
         ref: refPopper,
@@ -583,6 +586,7 @@ const Select = defineComponent({
             "k-select-dropdown-multiple": props.multiple,
             "k-select-dropdown-sm": props.size === "small",
             "k-select-dropdown-lg": props.size === "large",
+            "k-select-dropdown-virtual": props.virtual,
           },
         ],
       };
@@ -598,8 +602,23 @@ const Select = defineComponent({
             <div v-show={visible.value} {...popperProps}>
               {props.loading ? (
                 loadingNode
-              ) : optionNodes.length ? (
-                <ul>{optionNodes}</ul>
+              ) : options.length ? (
+                props.virtual ? (
+                  <VirtualList
+                    ref={virtualListRef}
+                    data={options}
+                    height={Math.min(200, options.length * props.itemHeight)}
+                    itemHeight={props.itemHeight}
+                    overscan={props.overscan}
+                    itemKey={(item) => (item as SelectOption).value}
+                    v-slots={{
+                      default: ({ item, index }: { item: SelectOption; index: number }) =>
+                        renderOption(item, index),
+                    }}
+                  />
+                ) : (
+                  <ul>{options.map(renderOption)}</ul>
+                )
               ) : (
                 <Empty
                   onClick={emptyClick}

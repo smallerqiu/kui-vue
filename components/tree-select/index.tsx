@@ -79,6 +79,10 @@ const treeSelectProps = {
   treeShowLine: Boolean as BooleanType,
   treeShowIcon: { type: Boolean as BooleanType, default: true },
   treeCheckStrictly: Boolean as BooleanType,
+  virtual: Boolean as BooleanType,
+  virtualHeight: { type: [Number, String] as PropType<number | string>, default: 260 },
+  itemHeight: { type: Number, default: 28 },
+  overscan: { type: Number, default: 5 },
   treeExpandedKeys: Array as PropType<string[]>,
   treeLoadData: {
     type: Function as PropType<(node: TreeNode) => Promise<unknown>>,
@@ -442,6 +446,10 @@ const TreeSelect = defineComponent({
         selectedKeys: currentValue.value.slice(),
         checkedKeys: currentValue.value.slice(),
         loadData: props.treeLoadData,
+        virtual: props.virtual,
+        height: props.virtualHeight,
+        itemHeight: props.itemHeight,
+        overscan: props.overscan,
         onSelect,
         onExpand,
         onCheck,
@@ -482,6 +490,7 @@ const TreeSelect = defineComponent({
           {
             "k-tree-select-dropdown-multiple": props.multiple,
             "k-tree-select-dropdown-sm": props.size === "small",
+            "k-tree-select-dropdown-virtual": props.virtual,
           },
         ],
       };

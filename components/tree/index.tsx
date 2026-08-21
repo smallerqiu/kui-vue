@@ -16,6 +16,7 @@ import { Button } from "../button";
 import Checkbox, { type ChangeEvent } from "../checkbox";
 import type { BooleanType } from "../const/types";
 import Icon from "../icon";
+import VirtualList from "../virtual-list";
 import { treeSelectContextKey } from "./context";
 import type { TreeExpandEvent } from "./types";
 import { buildTree, updateParentIndeterminate, type TreeNode } from "./utils";
@@ -32,6 +33,10 @@ const treeProps = {
   showExtra: { type: Boolean as BooleanType, default: false },
   multiple: { type: Boolean as BooleanType, default: false },
   checkStrictly: Boolean as BooleanType,
+  virtual: Boolean as BooleanType,
+  height: { type: [Number, String] as PropType<number | string>, default: 300 },
+  itemHeight: { type: Number, default: 28 },
+  overscan: { type: Number, default: 5 },
   onExpand: {
     type: Function as PropType<(result: TreeExpandEvent) => void>,
   },
@@ -711,11 +716,26 @@ const Tree = defineComponent({
             },
           ]}
         >
-          <div class="k-tree-node-list">
-            <TransitionGroup {...onProps} tag="div">
-              {visibleNodes.map((item: TreeNode, index: number) => renderTreeNode(item, index))}
-            </TransitionGroup>
-          </div>
+          {props.virtual ? (
+            <VirtualList
+              class="k-tree-node-list k-tree-virtual-list"
+              data={visibleNodes}
+              height={props.height}
+              itemHeight={props.itemHeight}
+              overscan={props.overscan}
+              itemKey="key"
+              v-slots={{
+                default: ({ item, index }: { item: unknown; index: number }) =>
+                  renderTreeNode(item as TreeNode, index),
+              }}
+            />
+          ) : (
+            <div class="k-tree-node-list">
+              <TransitionGroup {...onProps} tag="div">
+                {visibleNodes.map((item: TreeNode, index: number) => renderTreeNode(item, index))}
+              </TransitionGroup>
+            </div>
+          )}
         </div>
       );
     };

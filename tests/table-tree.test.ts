@@ -28,4 +28,29 @@ describe("Table tree data", () => {
     expect(wrapper.findAll("tbody tr")).toHaveLength(2);
     wrapper.unmount();
   });
+
+  it("renders only a virtual window for large tables", async () => {
+    const data = Array.from({ length: 1000 }, (_, index) => ({
+      key: index,
+      name: `Row ${index}`,
+    }));
+    const wrapper = mount(Table, {
+      props: {
+        data,
+        columns: [{ key: "name", title: "Name", width: 160, fixed: "right" }],
+        virtual: true,
+        scroll: { y: 200 },
+        itemHeight: 40,
+        overscan: 2,
+      },
+    });
+    const body = wrapper.get<HTMLElement>(".k-table-body");
+    Object.defineProperty(body.element, "clientHeight", { value: 200 });
+    await body.trigger("scroll");
+    await wrapper.vm.$nextTick();
+
+    expect(wrapper.findAll("tbody tr:not(.k-table-virtual-spacer)").length).toBeLessThan(20);
+    expect(wrapper.find(".k-table-virtual-spacer-bottom").exists()).toBe(true);
+    expect(wrapper.find(".k-table-row-even .k-table-cell-fix-right").exists()).toBe(true);
+  });
 });

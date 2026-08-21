@@ -16,6 +16,7 @@ import type { BooleanType, ShapeType, SizeType } from "../const/types";
 import Empty from "../empty";
 import Icon from "../icon";
 import Spin from "../spin";
+import { getVirtualRange } from "../virtual-list";
 import type { Column, SortState, TableKey, TableRecord } from "./types";
 import { countColumnLeaves, flattenColumns, flattenTreeData } from "./utils";
 
@@ -44,6 +45,9 @@ const tableProps = {
   checkable: Boolean as BooleanType,
   loading: Boolean as BooleanType,
   emptyText: String,
+  virtual: Boolean as BooleanType,
+  itemHeight: { type: Number, default: 44 },
+  overscan: { type: Number, default: 5 },
   onSort: { type: Function as PropType<(state: SortState) => void> },
   onRowClick: { type: Function as PropType<(record: TableRecord, index: number) => void> },
   onSelect: {
@@ -83,6 +87,8 @@ const Table = defineComponent({
     const sortState = reactive<SortState>({ key: "", order: null });
     const pingLeft = ref(false);
     const pingRight = ref(false);
+    const bodyScrollTop = ref(0);
+    const bodyViewportHeight = ref(0);
 
     watch(
       () => props.selectedKeys,
@@ -184,6 +190,24 @@ const Table = defineComponent({
       })
     );
     const treeEnabled = computed(() => allTreeRows.value.some((row) => row.hasChildren));
+    const virtualEnabled = computed(() => props.virtual && Boolean(props.scroll.y));
+    const virtualRange = computed(() =>
+      getVirtualRange({
+        count: visibleTreeRows.value.length,
+        scrollTop: bodyScrollTop.value,
+        viewportHeight: bodyViewportHeight.value,
+        itemHeight: props.itemHeight,
+        overscan: props.overscan,
+      })
+    );
+    const renderedTreeRows = computed(() => {
+      const start = virtualEnabled.value ? virtualRange.value.start : 0;
+      const end = virtualEnabled.value ? virtualRange.value.end : visibleTreeRows.value.length;
+      return visibleTreeRows.value.slice(start, end).map((row, index) => ({
+        ...row,
+        rowIndex: start + index,
+      }));
+    });
 
     const selectionState = computed(() => {
       const enableData = allTreeRows.value
@@ -266,6 +290,7 @@ const Table = defineComponent({
     const handleBodyScroll = (target: HTMLElement) => {
       // const target = e?.target;
       if (!target) return;
+      bodyScrollTop.value = target.scrollTop;
       if (scrollRafId) cancelAnimationFrame(scrollRafId);
       scrollRafId = requestAnimationFrame(() => {
         const { scrollLeft, scrollWidth, clientWidth } = target;
@@ -285,6 +310,7 @@ const Table = defineComponent({
 
     const measureScrollbar = () => {
       if (bodyWrapperRef.value) {
+        bodyViewportHeight.value = bodyWrapperRef.value.clientHeight;
         const width = Math.max(
           0,
           bodyWrapperRef.value.offsetWidth -
@@ -553,13 +579,29 @@ const Table = defineComponent({
       return matrix;
     });
 
+    const renderVirtualSpacer = (height: number, position: "top" | "bottom") =>
+      height > 0 ? (
+        <tr
+          class={["k-table-virtual-spacer", `k-table-virtual-spacer-${position}`]}
+          aria-hidden="true"
+        >
+          <td
+            colspan={flattedColumns.value.length + (props.checkable ? 1 : 0)}
+            style={{ height: `${height}px` }}
+          />
+        </tr>
+      ) : null;
+
     const renderTbody = () => (
       <tbody>
-        {visibleTreeRows.value.map(({ record, depth, hasChildren }, rowIndex) => {
+        {virtualEnabled.value && renderVirtualSpacer(virtualRange.value.offset, "top")}
+        {renderedTreeRows.value.map(({ record, depth, hasChildren, rowIndex }) => {
           const rowId = getRowKey(record);
           return (
             <tr
               key={rowId}
+              class={virtualEnabled.value && rowIndex % 2 === 1 ? "k-table-row-even" : undefined}
+              style={virtualEnabled.value ? { height: `${props.itemHeight}px` } : undefined}
               onClick={(e) => {
                 const target = e.target as HTMLElement;
                 if (target.closest(".k-checkbox, .k-table-tree-toggle")) return;
@@ -615,18 +657,14 @@ const Table = defineComponent({
                             type="button"
                             class="k-table-tree-toggle"
                             aria-label={
-                              currentExpandedKeys.value.has(rowId)
-                                ? "Collapse row"
-                                : "Expand row"
+                              currentExpandedKeys.value.has(rowId) ? "Collapse row" : "Expand row"
                             }
                             aria-expanded={currentExpandedKeys.value.has(rowId)}
                             onClick={() => toggleExpand(record)}
                           >
                             <Icon
                               type={
-                                currentExpandedKeys.value.has(rowId)
-                                  ? ChevronDown
-                                  : ChevronRight
+                                currentExpandedKeys.value.has(rowId) ? ChevronDown : ChevronRight
                               }
                             />
                           </button>
@@ -644,6 +682,13 @@ const Table = defineComponent({
             </tr>
           );
         })}
+        {virtualEnabled.value &&
+          renderVirtualSpacer(
+            virtualRange.value.total -
+              virtualRange.value.offset -
+              renderedTreeRows.value.length * props.itemHeight,
+            "bottom"
+          )}
       </tbody>
     );
 
@@ -676,6 +721,7 @@ const Table = defineComponent({
           "k-table-bordered": props.bordered,
           "k-table-ping-left": pingLeft.value,
           "k-table-ping-right": pingRight.value,
+          "k-table-virtual": virtualEnabled.value,
         },
       ];
       const isEmpty = !visibleTreeRows.value.length || !props.columns.length;

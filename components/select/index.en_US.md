@@ -37,6 +37,10 @@ Dropdown selector.
 
 - Some strange things.
 
+[Virtual scrolling](./demo/virtual.vue?show=vertical)
+
+- Renders only nearby options for large data sets while preserving search and keyboard controls.
+
 ## Select API
 
 | Property     | Description                                                                       | Type                                       | Default       |
@@ -65,6 +69,9 @@ Dropdown selector.
 | onSearch     | Triggered during search                                                           | (e: InputEvent) => void                    | -             |
 | onClear      | Triggered when the clear button is clicked                                        | () => void                                 | -             |
 | arrowIcon    | Custom arrow icon                                                                 | string                                     | -             |
+| virtual      | Enable virtual scrolling                                                          | boolean                                    | false         |
+| itemHeight   | Fixed virtual option height                                                       | number                                     | 33            |
+| overscan     | Extra virtual options rendered around the viewport                                | number                                     | 5             |
 
 ## Option API
 

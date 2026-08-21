@@ -115,6 +115,7 @@ declare module "vue" {
     Tag: (typeof Comps)["Tag"];
     Tour: (typeof Comps)["Tour"];
     Transfer: (typeof Comps)["Transfer"];
+    VirtualList: (typeof Comps)["VirtualList"];
     Typography: (typeof Comps)["Typography"];
     TypographyText: (typeof Comps)["TypographyText"];
     TypographyParagraph: (typeof Comps)["TypographyParagraph"];

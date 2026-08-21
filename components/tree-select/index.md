@@ -36,6 +36,10 @@
 
 - 一些奇奇怪怪的东西
 
+[虚拟滚动](./demo/virtual.vue)
+
+- 大数据量时启用虚拟滚动，仅渲染下拉框可视区域内的树节点。
+
 ## TreeSelect API
 
 | 属性              | 说明                                                       | 类型                              | 默认值      |
@@ -68,6 +72,10 @@
 | treeShowIcon      | 是否展示树节点图标                                         | boolean                           | true        |
 | treeShowLine      | 是否展示树节点连接线                                       | boolean                           | false       |
 | treeExpandedKeys  | 指定展开的节点                                             | string[]                          | []          |
+| virtual           | 是否启用树节点虚拟滚动                                     | boolean                           | false       |
+| virtualHeight     | 虚拟滚动下拉视口高度                                       | number \| string                  | 260         |
+| itemHeight        | 虚拟滚动节点高度                                           | number                            | 28          |
+| overscan          | 可视区域外预渲染的节点数量                                 | number                            | 5           |
 
 ## Tree 事件
 

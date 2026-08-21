@@ -34,25 +34,33 @@
 
 - 展示目录、连接线、拖动、复选框、图标、扩展
 
+[虚拟滚动](./demo/virtual.vue)
+
+- 大数据量时设置 `virtual`，仅渲染可视区域内的节点。虚拟滚动要求节点高度固定。
+
 ## Tree API
 
 | 属性          | 说明                                                         | 类型                              | 默认值 |
 | ------------- | ------------------------------------------------------------ | --------------------------------- | ------ |
 | data          | 可嵌套的节点属性的数组，生成 `tree` 的数据                   | TreeNode[]                        | []     |
-| checkable     | 是否显示多选框                                               | boolean                             | false  |
-| draggable     | 是否可以拖拽                                                 | boolean                             | false  |
-| showLine      | 是否展示连接线                                               | boolean                             | false  |
-| showIcon      | 是否展示图标                                                 | boolean                             | true   |
+| checkable     | 是否显示多选框                                               | boolean                           | false  |
+| draggable     | 是否可以拖拽                                                 | boolean                           | false  |
+| showLine      | 是否展示连接线                                               | boolean                           | false  |
+| showIcon      | 是否展示图标                                                 | boolean                           | true   |
 | extra         | 扩展元素                                                     | slot(node)                        | -      |
-| showExtra     | 是否默认展示扩展元素                                         | boolean                             | false  |
-| checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | boolean                             | false  |
+| showExtra     | 是否默认展示扩展元素                                         | boolean                           | false  |
+| checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | boolean                           | false  |
 | checkedKeys   | 选中复选框的树节点                                           | string[]                          | []     |
 | expandedKeys  | 指定展开的节点                                               | string[]                          | []     |
 | selectedKeys  | 选中的节点                                                   | string[]                          | []     |
-| multiple      | 是否支持多选                                                 | boolean                             | false  |
-| loading       | 异步加载状态                                                 | boolean                             | false  |
+| multiple      | 是否支持多选                                                 | boolean                           | false  |
+| loading       | 异步加载状态                                                 | boolean                           | false  |
 | loadData      | 异步加载数据的方法                                           | (node: TreeNode) => Promise<any\> | -      |
-| directory     | 是不显示为目录树                                             | boolean                             | false  |
+| directory     | 是不显示为目录树                                             | boolean                           | false  |
+| virtual       | 是否启用虚拟滚动                                             | boolean                           | false  |
+| height        | 虚拟滚动视口高度                                             | number \| string                  | 300    |
+| itemHeight    | 虚拟滚动节点高度                                             | number                            | 28     |
+| overscan      | 可视区域外预渲染的节点数量                                   | number                            | 5      |
 
 ## TreeNode API
 
@@ -60,9 +68,9 @@
 | -------- | ------------------------------------------------------------------------ | ---------- | ------ |
 | title    | 节点标题                                                                 | string     | -      |
 | icon     | 自定义图标                                                               | string     | -      |
-| disabled | 是否禁用节点                                                             | boolean      | false  |
+| disabled | 是否禁用节点                                                             | boolean    | false  |
 | children | 子节点                                                                   | TreeNode[] | -      |
-| isLeaf   | 设置为叶子节点 (设置了 loadData 时有效)。为 false 时会强制将其作为父节点 | boolean      | false  |
+| isLeaf   | 设置为叶子节点 (设置了 loadData 时有效)。为 false 时会强制将其作为父节点 | boolean    | false  |
 
 ## Tree 事件
 

@@ -37,6 +37,10 @@
 
 - 一些奇奇怪怪的东西
 
+[虚拟滚动](./demo/virtual.vue?show=vertical)
+
+- 大量选项时仅渲染视口附近的内容，并保持搜索与键盘操作。
+
 ## Select API
 
 | 属性         | 说明                                                       | 类型                                       | 默认值     |
@@ -65,6 +69,9 @@
 | onOpenChange | 下拉框展开或收起时触发                                     | (opened: boolean) => void                  | -          |
 | onClear      | 点击清除按钮时触发                                         | () => void                                 | -          |
 | arrowIcon    | 自定义箭头图标                                             | string                                     | -          |
+| virtual      | 是否启用虚拟滚动                                           | boolean                                    | false      |
+| itemHeight   | 虚拟滚动选项的固定高度                                     | number                                     | 33         |
+| overscan     | 虚拟滚动额外渲染的选项数量                                 | number                                     | 5          |
 
 ## Option API
 

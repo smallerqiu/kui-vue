@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, it, vi } from "vitest";
-import { h, nextTick } from "vue";
+import { defineComponent, h, nextTick, ref } from "vue";
 import { TabPanel, Tabs } from "../components/tabs";
 
 const flushLayout = async () => {
@@ -9,6 +9,30 @@ const flushLayout = async () => {
 };
 
 describe("Tabs scroll navigation", () => {
+  it("updates the ink bar when the active panel title changes", async () => {
+    const title = ref("Short");
+    const Demo = defineComponent(
+      () => () =>
+        h(Tabs, { modelValue: "first" }, () => [
+          h(TabPanel, { key: "first", title: title.value }, () => "Content"),
+        ])
+    );
+    const wrapper = mount(Demo, { attachTo: document.body });
+    const tab = wrapper.get<HTMLElement>(".k-tabs-tab").element;
+    Object.defineProperty(tab, "offsetWidth", {
+      configurable: true,
+      get: () => (tab.textContent?.length ?? 0) * 10,
+    });
+
+    await flushLayout();
+    expect(wrapper.get<HTMLElement>(".k-tabs-ink-bar").element.style.width).toBe("50px");
+
+    title.value = "A much longer title";
+    await flushLayout();
+    expect(wrapper.get<HTMLElement>(".k-tabs-ink-bar").element.style.width).toBe("190px");
+    wrapper.unmount();
+  });
+
   it("keeps the active tab visible when its container becomes narrower", async () => {
     const originalResizeObserver = globalThis.ResizeObserver;
     let triggerResize = () => {};
