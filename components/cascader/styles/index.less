@@ -197,12 +197,22 @@
     }
 
     .k-cascader-item-arrow {
-      font-size: var(--kui-font-size-sm);
+      font-size: inherit;
       color: var(--kui-color-icon);
     }
   }
   .k-empty {
     min-width: 160px;
+  }
+}
+.k-cascader-dropdown-sm {
+  .k-cascader-dropdown-item {
+    font-size: var(--kui-font-size-sm);
+  }
+}
+.k-cascader-dropdown-lg {
+  .k-cascader-dropdown-item {
+    font-size: var(--kui-font-size-lg);
   }
 }
 .k-cascader-fill {

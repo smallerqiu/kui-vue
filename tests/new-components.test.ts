@@ -123,7 +123,14 @@ describe("new components", () => {
 
   it("applies theme and size to input components and dropdowns", () => {
     const autoComplete = mount(AutoComplete, {
-      props: { size: "small", theme: "plain", shape: "circle", defaultOpen: true },
+      props: {
+        size: "small",
+        theme: "plain",
+        shape: "circle",
+        defaultOpen: true,
+        showOnEmpty: true,
+        options: ["Vue"],
+      },
     });
     expect(autoComplete.find(".k-input").classes()).toContain("k-input-sm");
     expect(autoComplete.find(".k-input").classes()).toContain("k-input-plain");

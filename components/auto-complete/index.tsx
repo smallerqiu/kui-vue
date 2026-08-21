@@ -76,7 +76,21 @@ export default defineComponent({
     const active = ref(-1);
     const root = ref<HTMLElement | null>(null);
     const dropdown = ref<HTMLElement | null>(null);
-    const shownOptions = shallowRef<AutoCompleteOption[]>([]);
+    const current = computed(() => props.modelValue ?? inner.value);
+    const normalized = computed(() =>
+      props.options.map((item) => (typeof item === "string" ? { value: item, label: item } : item))
+    );
+    const filter = (value: string) =>
+      normalized.value.filter((option) =>
+        typeof props.filterOption === "function"
+          ? props.filterOption(value, option)
+          : !props.filterOption ||
+            option.value.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+      );
+    const initiallyOpen = props.open ?? props.defaultOpen;
+    const shownOptions = shallowRef<AutoCompleteOption[]>(
+      initiallyOpen && (current.value || props.showOnEmpty) ? filter(current.value) : []
+    );
     const suppressRemoteOptions = ref(false);
     const top = ref(0);
     const left = ref(0);
@@ -89,10 +103,6 @@ export default defineComponent({
         if (value !== undefined) inner.value = value;
       }
     );
-    const current = computed(() => props.modelValue ?? inner.value);
-    const normalized = computed(() =>
-      props.options.map((item) => (typeof item === "string" ? { value: item, label: item } : item))
-    );
     const hasOptions = computed(() => normalized.value.length > 0);
     const visible = computed(
       () => (props.loading || shownOptions.value.length > 0) && (props.open ?? innerOpen.value)
@@ -104,13 +114,6 @@ export default defineComponent({
       },
       { immediate: true, flush: "sync" }
     );
-    const filter = (value: string) =>
-      normalized.value.filter((option) =>
-        typeof props.filterOption === "function"
-          ? props.filterOption(value, option)
-          : !props.filterOption ||
-            option.value.toLocaleLowerCase().includes(value.toLocaleLowerCase())
-      );
     const updatePosition = () => {
       cancelAnimationFrame(positionRaf);
       positionRaf = requestAnimationFrame(() => {
@@ -177,7 +180,14 @@ export default defineComponent({
       }
     );
     onMounted(() => {
-      if (visible.value) refreshOptions();
+      if (
+        (props.open ?? innerOpen.value) &&
+        (current.value || props.showOnEmpty) &&
+        !props.loading
+      ) {
+        const hasMatches = refreshOptions();
+        if (!hasMatches) setOpen(false);
+      }
       document.addEventListener("scroll", updatePosition, true);
       window.addEventListener("resize", updatePosition);
     });
