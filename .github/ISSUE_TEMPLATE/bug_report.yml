@@ -1,0 +1,63 @@
+name: Bug Report / 缺陷报告
+description: Report a reproducible problem in kui-vue. / 报告可复现的问题。
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping improve kui-vue. Please provide a minimal reproduction whenever possible.
+  - type: checkboxes
+    attributes:
+      label: Prerequisites / 提交前确认
+      options:
+        - label: I searched existing issues and did not find a duplicate. / 我已搜索现有 Issue，确认没有重复。
+          required: true
+        - label: I have read the documentation. / 我已阅读相关文档。
+          required: true
+  - type: input
+    attributes:
+      label: Version / 版本
+      placeholder: e.g. 5.6.0
+    validations:
+      required: true
+  - type: dropdown
+    attributes:
+      label: Browser / 浏览器
+      multiple: true
+      options:
+        - Chrome
+        - Edge
+        - Firefox
+        - Safari
+        - Other
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Reproduction / 最小复现
+      description: Repository, StackBlitz, CodeSandbox, or another accessible link.
+      placeholder: https://...
+  - type: textarea
+    attributes:
+      label: Steps to reproduce / 复现步骤
+      placeholder: |
+        1. Render ...
+        2. Click ...
+        3. See ...
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Expected behavior / 期望行为
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Actual behavior / 实际行为
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional context / 其他信息
+      description: Screenshots, console output, operating system, Vue version, and other useful details.

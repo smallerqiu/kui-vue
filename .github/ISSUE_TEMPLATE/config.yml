@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation / 文档
+    url: https://k-ui.cn
+    about: Check the documentation before opening an issue. / 提交前请先查阅文档。
+  - name: Discussions / 讨论
+    url: https://github.com/smallerqiu/kui-vue/discussions
+    about: For usage help and open-ended discussions. / 适合使用交流和开放性讨论。

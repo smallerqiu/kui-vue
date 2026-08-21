@@ -1,0 +1,31 @@
+name: Good First Issue / 新手任务
+description: Maintainers can describe a beginner-friendly contribution. / 由维护者发布适合新贡献者的任务。
+title: "[Good First Issue]: "
+labels:
+  - good first issue
+body:
+  - type: markdown
+    attributes:
+      value: This form is intended for maintainers to prepare a well-scoped task for new contributors.
+  - type: textarea
+    attributes:
+      label: Task / 任务内容
+      description: Clearly describe what should be changed and where.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Acceptance criteria / 验收标准
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Suggested files / 涉及文件
+      description: List likely files or directories to help contributors get started.
+  - type: textarea
+    attributes:
+      label: Notes / 补充说明
+      description: Add implementation hints, tests, or documentation requirements.

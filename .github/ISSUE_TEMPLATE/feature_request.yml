@@ -1,0 +1,32 @@
+name: Feature Request / 功能建议
+description: Suggest a component, API, or improvement. / 建议新组件、API 或改进。
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: checkboxes
+    attributes:
+      label: Prerequisites / 提交前确认
+      options:
+        - label: I searched existing issues and discussions. / 我已搜索现有 Issue 和 Discussion。
+          required: true
+  - type: textarea
+    attributes:
+      label: Problem / 要解决的问题
+      description: Describe the user scenario and limitation, not only the proposed API.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed solution / 建议方案
+      description: Include expected API or usage examples when possible.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Alternatives / 备选方案
+  - type: checkboxes
+    attributes:
+      label: Contribution / 参与贡献
+      options:
+        - label: I am willing to submit a pull request. / 我愿意提交 Pull Request。

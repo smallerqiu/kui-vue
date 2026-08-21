@@ -1,0 +1,29 @@
+name: Question / 使用问题
+description: Ask a focused question about kui-vue. / 咨询明确的使用问题。
+title: "[Question]: "
+labels:
+  - question
+body:
+  - type: markdown
+    attributes:
+      value: For open-ended discussion, please prefer GitHub Discussions.
+  - type: input
+    attributes:
+      label: Version / 版本
+      placeholder: e.g. 5.6.0
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What are you trying to do? / 你想实现什么？
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What have you tried? / 已尝试的方法
+      description: Include a minimal code sample when relevant.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Additional context / 其他信息
