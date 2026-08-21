@@ -107,6 +107,20 @@ pnpm build        # 构建组件库及样式
 
 支持主流现代浏览器的最近两个版本，包括 Chrome、Edge、Firefox 和 Safari；不支持 Internet Explorer。
 
+## AI 辅助开发
+
+Kui Vue 随版本发布组件 metadata、Agent Skill 和 MCP 服务，让 AI 编程工具根据真实公开 API 生成代码，而不是猜测属性。
+
+```bash
+pnpm exec kui-vue-ai init
+pnpm exec kui-vue-mcp
+```
+
+- AI 索引：https://k-ui.cn/llms.txt
+- 完整 AI 文档：https://k-ui.cn/llms-full.txt
+- npm 组件数据：`kui-vue/metadata`
+- Agent Skill：`kui-vue/skill`
+
 ## 参与贡献
 
 欢迎提交 Issue 和 Pull Request。在提交代码前，请确保类型检查和相关构建能够通过。

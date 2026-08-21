@@ -35,7 +35,14 @@
         "default": "./lib/locale/*.cjs"
       }
     },
-    "./style/*": "./style/*"
+    "./style/*": "./style/*",
+    "./metadata": "./ai/kui-components.json",
+    "./skill": "./ai/skills/kui-vue/SKILL.md",
+    "./skill/*": "./ai/skills/kui-vue/*"
+  },
+  "bin": {
+    "kui-vue-ai": "./ai/cli.mjs",
+    "kui-vue-mcp": "./ai/mcp.mjs"
   },
   "files": [
     "dist",
@@ -44,7 +51,8 @@
     "lib",
     "style",
     "es",
-    "types"
+    "types",
+    "ai"
   ],
   "license": "MIT",
   "sideEffects": [
@@ -59,24 +67,26 @@
   "scripts": {
     "start": "pnpm dev",
     "dev": "vite --config vite.config.docs.ts",
-    "build": "pnpm build:css && pnpm build:lib && pnpm build:umd && pnpm build:es && pnpm build:types:compat",
+    "build": "pnpm generate:ai && pnpm build:css && pnpm build:lib && pnpm build:umd && pnpm build:es && pnpm build:types:compat",
     "build:es": "vite build",
     "build:lib": "vite build --config vite.config.lib.ts",
     "build:umd": "vite build --config vite.config.umd.ts",
     "build:css": "vite build --config vite.config.css.ts",
     "build:types:compat": "node scripts/create-cjs-types.mjs",
-    "build:docs": "pnpm check:api-docs && vite build --config vite.config.docs.ts",
+    "build:docs": "pnpm generate:ai && pnpm check:api-docs && vite build --config vite.config.docs.ts",
     "preview": "vite preview --outDir docs",
     "typecheck": "vue-tsc -p tsconfig.app.json --noEmit --pretty false",
     "typecheck:exports": "tsc -p tsconfig.type-exports.json --noEmit",
     "test": "vitest run",
     "format": "prettier --write .",
     "format:md": "prettier --write ./components/*/index*.md",
+    "generate:ai": "node --experimental-strip-types scripts/generate-ai-assets.ts",
     "lint": "eslint . --cache --cache-location node_modules/.cache/eslint/.eslintcache",
     "lint:fix": "eslint . --fix --cache --cache-location node_modules/.cache/eslint/.eslintcache",
     "package:check": "publint --strict && node scripts/check-package-exports.mjs",
     "check:api-docs": "node --experimental-strip-types scripts/check-api-docs.ts",
-    "verify": "pnpm lint && pnpm typecheck && pnpm typecheck:exports && pnpm check:api-docs && pnpm test && pnpm build && pnpm build:docs && pnpm package:check"
+    "check:ai-assets": "node --experimental-strip-types scripts/generate-ai-assets.ts --check",
+    "verify": "pnpm lint && pnpm typecheck && pnpm typecheck:exports && pnpm check:api-docs && pnpm check:ai-assets && pnpm test && pnpm build && pnpm build:docs && pnpm package:check"
   },
   "author": {
     "name": "Qiu",

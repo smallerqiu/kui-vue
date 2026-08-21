@@ -43,35 +43,39 @@
 
 ## Select API
 
-| 属性         | 说明                                                       | 类型                                       | 默认值     |
-| ------------ | ---------------------------------------------------------- | ------------------------------------------ | ---------- |
-| modelValue   | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | string,number                              | -          |
-| width        | 组件宽度                                                   | string,number                              | -          |
-| placeholder  | 选择框默认文字                                             | string                                     | 请选择     |
-| disabled     | 是否禁用当前项                                             | boolean                                    | false      |
-| size         | 组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常       | string                                     | -          |
-| emptyText    | 没有数据时展示的提示                                       | string                                     | '赞无数据' |
-| maxTagCount  | 多选时最多展示的标签数，超出部分通过 Tooltip 展示          | number                                     | -          |
-| multiple     | 是否呈现多选模式                                           | boolean                                    | false      |
-| allowCreate  | 多选时是否允许输入并创建不存在的选项                       | boolean                                    | false      |
-| loading      | 是否显示异步加载                                           | boolean                                    | false      |
-| clearable    | 是否可以清空选项                                           | boolean                                    | false      |
-| bordered     | 是否显示边框                                               | boolean                                    | true       |
-| extendWidth  | 下拉框的宽度是否与input一致                                | boolean                                    | true       |
-| showArrow    | 是否显示下拉按钮                                           | boolean                                    | true       |
-| options      | options 数据，如果设置则不需要手动构造 Option 节点         | SelectOption[]                             | []         |
-| theme        | 主题                                                       | string                                     | fill       |
-| icon         | 自定义图标                                                 | string                                     | -          |
-| shape        | shape='circle' 时呈现圆角                                  | string                                     | -          |
-| onSelect     | 选中一项时触发                                             | (option: SelectOption) => void             | -          |
-| onChange     | 在选项状态发生改变时触发,,返回选择的值value                | (value: string \| number \| any[]) => void | -          |
-| onSearch     | 搜索时触发                                                 | (e: InputEvent) => void                    | -          |
-| onOpenChange | 下拉框展开或收起时触发                                     | (opened: boolean) => void                  | -          |
-| onClear      | 点击清除按钮时触发                                         | () => void                                 | -          |
-| arrowIcon    | 自定义箭头图标                                             | string                                     | -          |
-| virtual      | 是否启用虚拟滚动                                           | boolean                                    | false      |
-| itemHeight   | 虚拟滚动选项的固定高度                                     | number                                     | 33         |
-| overscan     | 虚拟滚动额外渲染的选项数量                                 | number                                     | 5          |
+| 属性         | 说明                                                       | 类型                                       | 默认值      |
+| ------------ | ---------------------------------------------------------- | ------------------------------------------ | ----------- |
+| modelValue   | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | string,number                              | -           |
+| width        | 组件宽度                                                   | string,number                              | -           |
+| placeholder  | 选择框默认文字                                             | string                                     | 请选择      |
+| disabled     | 是否禁用当前项                                             | boolean                                    | false       |
+| size         | 组件尺寸大小,提供`small`,`large`两种尺寸，默认为正常       | string                                     | -           |
+| placement    | 下拉菜单弹出位置                                           | DropPlacementsType                         | bottom-left |
+| emptyText    | 没有数据时展示的提示                                       | string                                     | '赞无数据'  |
+| maxTagCount  | 多选时最多展示的标签数，超出部分通过 Tooltip 展示          | number                                     | -           |
+| multiple     | 是否呈现多选模式                                           | boolean                                    | false       |
+| allowCreate  | 多选时是否允许输入并创建不存在的选项                       | boolean                                    | false       |
+| loading      | 是否显示异步加载                                           | boolean                                    | false       |
+| loadingText  | 加载状态提示文字                                           | string                                     | -           |
+| block        | 是否占满父容器宽度                                         | boolean                                    | false       |
+| filterable   | 是否支持输入过滤                                           | boolean                                    | false       |
+| clearable    | 是否可以清空选项                                           | boolean                                    | false       |
+| bordered     | 是否显示边框                                               | boolean                                    | true        |
+| extendWidth  | 下拉框的宽度是否与input一致                                | boolean                                    | true        |
+| showArrow    | 是否显示下拉按钮                                           | boolean                                    | true        |
+| options      | options 数据，如果设置则不需要手动构造 Option 节点         | SelectOption[]                             | []          |
+| theme        | 主题                                                       | string                                     | fill        |
+| icon         | 自定义图标                                                 | string                                     | -           |
+| shape        | shape='circle' 时呈现圆角                                  | string                                     | -           |
+| onSelect     | 选中一项时触发                                             | (option: SelectOption) => void             | -           |
+| onChange     | 在选项状态发生改变时触发,,返回选择的值value                | (value: string \| number \| any[]) => void | -           |
+| onSearch     | 搜索时触发                                                 | (e: InputEvent) => void                    | -           |
+| onOpenChange | 下拉框展开或收起时触发                                     | (opened: boolean) => void                  | -           |
+| onClear      | 点击清除按钮时触发                                         | () => void                                 | -           |
+| arrowIcon    | 自定义箭头图标                                             | string                                     | -           |
+| virtual      | 是否启用虚拟滚动                                           | boolean                                    | false       |
+| itemHeight   | 虚拟滚动选项的固定高度                                     | number                                     | 33          |
+| overscan     | 虚拟滚动额外渲染的选项数量                                 | number                                     | 5           |
 
 ## Option API
 
@@ -81,3 +85,5 @@
 | value    | 选项值，默认根据此属性值进行筛选，必填                                                       | string,number | -      |
 | label    | 选项显示的内容                                                                               | string,number | -      |
 | disabled | 是否禁用当前项                                                                               | boolean       | false  |
+| active   | 是否为当前键盘聚焦项                                                                         | boolean       | false  |
+| checked  | 是否处于选中状态                                                                             | boolean       | false  |

@@ -50,11 +50,15 @@ Dropdown selector.
 | placeholder  | Default text of selector                                                          | string                                     | Please select |
 | disabled     | Whether current item is disabled                                                  | boolean                                    | false         |
 | size         | Component size, provides two sizes: `small`, `large`, default is normal           | string                                     | -             |
+| placement    | Dropdown placement                                                                | DropPlacementsType                         | bottom-left   |
 | emptyText    | Prompt displayed when no data                                                     | string                                     | 'No data yet' |
 | maxTagCount  | Maximum visible tags in multiple mode; excess tags are shown in a Tooltip         | number                                     | -             |
 | multiple     | Whether to display in multiple selection mode                                     | boolean                                    | false         |
 | allowCreate  | Whether multiple mode can create missing options from entered text                | boolean                                    | false         |
 | loading      | Whether to show asynchronous loading                                              | boolean                                    | false         |
+| loadingText  | Loading state text                                                                | string                                     | -             |
+| block        | Whether to fill the parent width                                                  | boolean                                    | false         |
+| filterable   | Whether input filtering is enabled                                                | boolean                                    | false         |
 | clearable    | Whether options can be cleared                                                    | boolean                                    | false         |
 | bordered     | Whether to show border                                                            | boolean                                    | true          |
 | extendWidth  | Whether dropdown width matches input width                                        | boolean                                    | true          |
@@ -81,3 +85,5 @@ Dropdown selector.
 | value    | Option value, used for filtering by default, required                                                                          | string, number | -       |
 | label    | Option display content                                                                                                         | string, number | -       |
 | disabled | Whether current item is disabled                                                                                               | boolean        | false   |
+| active   | Whether this is the current keyboard-focused option                                                                            | boolean        | false   |
+| checked  | Whether the option is selected                                                                                                 | boolean        | false   |

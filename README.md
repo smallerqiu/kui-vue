@@ -109,6 +109,20 @@ pnpm build        # Build the component library and styles
 
 KUI Vue supports the latest two versions of major modern browsers, including Chrome, Edge, Firefox, and Safari. Internet Explorer is not supported.
 
+## AI-assisted development
+
+Kui Vue publishes version-matched component metadata, an Agent Skill, and an MCP server so coding assistants can use the public API without guessing.
+
+```bash
+pnpm exec kui-vue-ai init
+pnpm exec kui-vue-mcp
+```
+
+- AI index: https://k-ui.cn/llms.txt
+- Complete AI documentation: https://k-ui.cn/llms-full.txt
+- Package metadata: `kui-vue/metadata`
+- Agent Skill: `kui-vue/skill`
+
 ## Contributing
 
 Issues and pull requests are welcome. Before submitting code, please ensure that the type checks and relevant builds pass.
