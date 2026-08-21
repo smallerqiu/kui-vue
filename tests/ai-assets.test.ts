@@ -44,14 +44,22 @@ describe("AI distribution assets", () => {
   it("publishes compact and complete LLM documentation", () => {
     const compact = fs.readFileSync(path.join(root, "public/llms.txt"), "utf8");
     const full = fs.readFileSync(path.join(root, "public/llms-full.txt"), "utf8");
+    const schema = JSON.parse(
+      fs.readFileSync(path.join(root, "public/schema/kui-components.schema.json"), "utf8")
+    ) as { $id: string };
     expect(compact).toContain("https://k-ui.cn/components/select");
     expect(full.length).toBeGreaterThan(compact.length);
     expect(full).toContain("# Select");
+    expect(schema.$id).toBe("https://k-ui.cn/schema/kui-components.schema.json");
+    expect(fs.existsSync(path.join(root, "public/kui-components.json"))).toBe(true);
   });
 
   it("exposes metadata and the Agent Skill through package exports", () => {
     const require = createRequire(import.meta.url);
     expect(require.resolve("kui-vue/metadata")).toBe(path.join(root, "ai/kui-components.json"));
+    expect(require.resolve("kui-vue/metadata/schema")).toBe(
+      path.join(root, "ai/kui-components.schema.json")
+    );
     expect(require.resolve("kui-vue/skill")).toBe(path.join(root, "ai/skills/kui-vue/SKILL.md"));
     const skill = fs.readFileSync(require.resolve("kui-vue/skill"), "utf8");
     expect(skill).toMatch(/^---\nname: kui-vue\ndescription:/);
@@ -71,7 +79,7 @@ describe("AI distribution assets", () => {
     expect(second.stdout).toContain("already exists");
   });
 
-  it("serves component search through the MCP stdio protocol", async () => {
+  it("serves tools, resources, and prompts through MCP stdio", async () => {
     const child = spawn(process.execPath, [path.join(root, "ai/mcp.mjs")], {
       stdio: ["pipe", "pipe", "pipe"],
     });
@@ -90,10 +98,22 @@ describe("AI distribution assets", () => {
     child.stdin.write(
       `${JSON.stringify({ jsonrpc: "2.0", id: 2, method: "tools/call", params: { name: "search_components", arguments: { query: "VirtualList" } } })}\n`
     );
+    child.stdin.write(
+      `${JSON.stringify({ jsonrpc: "2.0", id: 3, method: "resources/read", params: { uri: "kui-vue://components/Select" } })}\n`
+    );
+    child.stdin.write(
+      `${JSON.stringify({ jsonrpc: "2.0", id: 4, method: "prompts/get", params: { name: "build_table", arguments: { columns: "name and status" } } })}\n`
+    );
+    child.stdin.write(
+      `${JSON.stringify({ jsonrpc: "2.0", id: 5, method: "tools/call", params: { name: "recommend_components", arguments: { requirement: "后台数据表格" } } })}\n`
+    );
+    child.stdin.write(
+      `${JSON.stringify({ jsonrpc: "2.0", id: 6, method: "tools/call", params: { name: "validate_kui_usage", arguments: { source: "<Select made-up />" } } })}\n`
+    );
     await new Promise<void>((resolve, reject) => {
       const timeout = setTimeout(() => reject(new Error("MCP response timed out")), 2000);
       const poll = setInterval(() => {
-        if (responses.length < 2) return;
+        if (responses.length < 6) return;
         clearTimeout(timeout);
         clearInterval(poll);
         resolve();
@@ -103,5 +123,9 @@ describe("AI distribution assets", () => {
 
     expect(responses[0].id).toBe(1);
     expect(JSON.stringify(responses[1].result)).toContain("VirtualList");
+    expect(JSON.stringify(responses[2].result)).toContain("Select");
+    expect(JSON.stringify(responses[3].result)).toContain("name and status");
+    expect(JSON.stringify(responses[4].result)).toContain("Table");
+    expect(JSON.stringify(responses[5].result)).toContain('"valid":false');
   });
 });

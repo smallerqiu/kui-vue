@@ -121,7 +121,9 @@ pnpm exec kui-vue-mcp
 - AI index: https://k-ui.cn/llms.txt
 - Complete AI documentation: https://k-ui.cn/llms-full.txt
 - Package metadata: `kui-vue/metadata`
+- Metadata schema: `kui-vue/metadata/schema`
 - Agent Skill: `kui-vue/skill`
+- [Complete setup guide](./AI.en-US.md)
 
 ## Contributing
 

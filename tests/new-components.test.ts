@@ -133,9 +133,9 @@ describe("new components", () => {
     );
 
     const inputTag = mount(InputTag, { props: { size: "large", theme: "plain", shape: "square" } });
-    expect(inputTag.classes()).toContain("k-input-lg");
-    expect(inputTag.classes()).toContain("k-input-plain");
-    expect(inputTag.classes()).toContain("k-input-square");
+    expect(inputTag.classes()).toContain("k-input-tag-lg");
+    expect(inputTag.classes()).toContain("k-input-tag-plain");
+    expect(inputTag.classes()).toContain("k-input-tag-square");
 
     const mentions = mount(Mentions, { props: { size: "small", theme: "plain", shape: "circle" } });
     expect(mentions.find("textarea").classes()).toContain("k-textarea-sm");

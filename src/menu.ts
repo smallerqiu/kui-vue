@@ -71,6 +71,7 @@ const navData = [
     key: "guide",
     children: [
       { title: "快速开始", sub: "Quick Started", name: "quick-started", icon: CirclePlay },
+      { title: "AI 辅助开发", sub: "AI Development", name: "ai", icon: AppWindow },
       {
         title: "在Nuxt中使用",
         sub: "Usage With Nuxt",

@@ -37,6 +37,7 @@
     },
     "./style/*": "./style/*",
     "./metadata": "./ai/kui-components.json",
+    "./metadata/schema": "./ai/kui-components.schema.json",
     "./skill": "./ai/skills/kui-vue/SKILL.md",
     "./skill/*": "./ai/skills/kui-vue/*"
   },
@@ -45,6 +46,8 @@
     "kui-vue-mcp": "./ai/mcp.mjs"
   },
   "files": [
+    "AI.md",
+    "AI.en-US.md",
     "dist",
     "test",
     "vetur",
@@ -86,7 +89,8 @@
     "package:check": "publint --strict && node scripts/check-package-exports.mjs",
     "check:api-docs": "node --experimental-strip-types scripts/check-api-docs.ts",
     "check:ai-assets": "node --experimental-strip-types scripts/generate-ai-assets.ts --check",
-    "verify": "pnpm lint && pnpm typecheck && pnpm typecheck:exports && pnpm check:api-docs && pnpm check:ai-assets && pnpm test && pnpm build && pnpm build:docs && pnpm package:check"
+    "check:ai-evals": "node --experimental-strip-types scripts/check-ai-evals.ts",
+    "verify": "pnpm lint && pnpm typecheck && pnpm typecheck:exports && pnpm check:api-docs && pnpm check:ai-assets && pnpm check:ai-evals && pnpm test && pnpm build && pnpm build:docs && pnpm package:check"
   },
   "author": {
     "name": "Qiu",

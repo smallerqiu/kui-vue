@@ -1,0 +1,122 @@
+[
+  {
+    "name": "primary-action",
+    "prompt": "Create a primary submit button",
+    "components": ["Button"],
+    "source": "<template><Button type=\"primary\">Submit</Button></template>"
+  },
+  {
+    "name": "login-form",
+    "prompt": "Create a login form",
+    "components": ["Form", "FormItem", "Input", "Button"],
+    "source": "<template><Form><FormItem label=\"Email\"><Input /></FormItem><Button>Login</Button></Form></template>"
+  },
+  {
+    "name": "modal-editor",
+    "prompt": "Create a modal editor",
+    "components": ["Modal", "Form", "Input"],
+    "source": "<template><Modal title=\"Edit\"><Form><Input /></Form></Modal></template>"
+  },
+  {
+    "name": "data-table",
+    "prompt": "Create a striped data table",
+    "components": ["Table"],
+    "source": "<template><Table striped :data=\"[]\" :columns=\"[]\" /></template>"
+  },
+  {
+    "name": "multiple-select",
+    "prompt": "Create a multiple select",
+    "components": ["Select"],
+    "source": "<template><Select multiple :options=\"[]\" /></template>"
+  },
+  {
+    "name": "tree-browser",
+    "prompt": "Create a checkable tree",
+    "components": ["Tree"],
+    "source": "<template><Tree checkable :data=\"[]\" /></template>"
+  },
+  {
+    "name": "file-upload",
+    "prompt": "Create a file uploader",
+    "components": ["Upload", "Button"],
+    "source": "<template><Upload><Button>Upload</Button></Upload></template>"
+  },
+  {
+    "name": "pagination",
+    "prompt": "Create simple pagination",
+    "components": ["Page"],
+    "source": "<template><Page simple :total=\"100\" /></template>"
+  },
+  {
+    "name": "drawer",
+    "prompt": "Create a settings drawer",
+    "components": ["Drawer"],
+    "source": "<template><Drawer title=\"Settings\">Settings</Drawer></template>"
+  },
+  {
+    "name": "tabs",
+    "prompt": "Create two tabs",
+    "components": ["Tabs", "TabPanel"],
+    "source": "<template><Tabs><TabPanel key=\"a\" title=\"A\">A</TabPanel><TabPanel key=\"b\" title=\"B\">B</TabPanel></Tabs></template>"
+  },
+  {
+    "name": "steps",
+    "prompt": "Create a three-step flow",
+    "components": ["Steps"],
+    "source": "<template><Steps :items=\"[{ title: 'One' }, { title: 'Two' }, { title: 'Three' }]\" /></template>"
+  },
+  {
+    "name": "autocomplete",
+    "prompt": "Create autocomplete",
+    "components": ["AutoComplete"],
+    "source": "<template><AutoComplete :options=\"[]\" /></template>"
+  },
+  {
+    "name": "tags",
+    "prompt": "Create tag input",
+    "components": ["InputTag"],
+    "source": "<template><InputTag :model-value=\"[]\" /></template>"
+  },
+  {
+    "name": "mentions",
+    "prompt": "Create mentions input",
+    "components": ["Mentions"],
+    "source": "<template><Mentions :options=\"[]\" /></template>"
+  },
+  {
+    "name": "tour",
+    "prompt": "Create a guided tour",
+    "components": ["Tour"],
+    "source": "<template><Tour :steps=\"[]\" /></template>"
+  },
+  {
+    "name": "date-picker",
+    "prompt": "Create a date picker",
+    "components": ["DatePicker"],
+    "source": "<template><DatePicker /></template>"
+  },
+  {
+    "name": "transfer",
+    "prompt": "Create a transfer list",
+    "components": ["Transfer"],
+    "source": "<template><Transfer :data-source=\"[]\" /></template>"
+  },
+  {
+    "name": "responsive-grid",
+    "prompt": "Create a responsive grid",
+    "components": ["Grid", "GridItem"],
+    "source": "<template><Grid :cols=\"3\"><GridItem>One</GridItem></Grid></template>"
+  },
+  {
+    "name": "card",
+    "prompt": "Create a bordered card",
+    "components": ["Card"],
+    "source": "<template><Card bordered title=\"Profile\">Content</Card></template>"
+  },
+  {
+    "name": "virtual-select",
+    "prompt": "Create a large virtual select",
+    "components": ["Select"],
+    "source": "<template><Select virtual :options=\"[]\" :item-height=\"33\" /></template>"
+  }
+]

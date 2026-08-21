@@ -119,7 +119,9 @@ pnpm exec kui-vue-mcp
 - AI 索引：https://k-ui.cn/llms.txt
 - 完整 AI 文档：https://k-ui.cn/llms-full.txt
 - npm 组件数据：`kui-vue/metadata`
+- 组件数据 Schema：`kui-vue/metadata/schema`
 - Agent Skill：`kui-vue/skill`
+- [完整接入指南](./AI.md)
 
 ## 参与贡献
 

@@ -132,11 +132,70 @@ const metadata = {
   homepage: site,
   components,
 };
+const metadataSchema = {
+  $schema: "https://json-schema.org/draft/2020-12/schema",
+  $id: "https://k-ui.cn/schema/kui-components.schema.json",
+  title: "Kui Vue component metadata",
+  type: "object",
+  required: ["library", "version", "homepage", "components"],
+  properties: {
+    $schema: { type: "string", format: "uri" },
+    library: { const: "kui-vue" },
+    version: { type: "string" },
+    homepage: { type: "string", format: "uri" },
+    components: {
+      type: "array",
+      items: {
+        type: "object",
+        required: ["name", "tags", "children", "documentation", "props", "events", "examples"],
+        properties: {
+          name: { type: "string" },
+          tags: { type: "array", items: { type: "string" } },
+          parent: { type: "string" },
+          children: { type: "array", items: { type: "string" } },
+          documentation: { type: "string", format: "uri" },
+          props: { type: "array", items: { $ref: "#/$defs/api" } },
+          events: { type: "array", items: { $ref: "#/$defs/api" } },
+          examples: {
+            type: "array",
+            items: {
+              type: "object",
+              required: ["title", "file", "source"],
+              properties: {
+                title: { type: "string" },
+                file: { type: "string" },
+                source: { type: "string" },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  $defs: {
+    api: {
+      type: "object",
+      required: ["name", "description", "descriptionZh", "descriptionEn", "type"],
+      properties: {
+        name: { type: "string" },
+        description: { type: "string" },
+        descriptionZh: { type: "string" },
+        descriptionEn: { type: "string" },
+        type: { type: "string" },
+        eventName: { type: "string" },
+        boolean: { type: "boolean" },
+        documented: { type: "boolean" },
+      },
+    },
+  },
+};
 
 const aiDir = path.join(root, "ai");
 const publicDir = path.join(root, "public");
 const metadataContent = `${JSON.stringify(metadata, null, 2)}\n`;
+const schemaContent = `${JSON.stringify(metadataSchema, null, 2)}\n`;
 writeGeneratedFile(path.join(aiDir, "kui-components.json"), metadataContent);
+writeGeneratedFile(path.join(aiDir, "kui-components.schema.json"), schemaContent);
 
 const componentIndex = components
   .map(
@@ -184,6 +243,7 @@ const fullDocs = components
 writeGeneratedFile(path.join(publicDir, "llms.txt"), llms);
 writeGeneratedFile(path.join(publicDir, "llms-full.txt"), `${llms}\n${fullDocs}\n`);
 writeGeneratedFile(path.join(publicDir, "kui-components.json"), metadataContent);
+writeGeneratedFile(path.join(publicDir, "schema/kui-components.schema.json"), schemaContent);
 console.log(
   `${checkOnly ? "Verified" : "Generated"} AI assets for ${components.length} component exports.`
 );
