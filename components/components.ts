@@ -43,6 +43,16 @@ export type { CarouselProps } from "./carousel";
 export { Checkbox, CheckboxGroup } from "./checkbox";
 export type { ChangeEvent, CheckboxGroupProps, CheckboxOption, CheckboxProps } from "./checkbox";
 
+export { CheckCard, CheckCardGroup } from "./check-card";
+export type {
+  CheckCardChangeEvent,
+  CheckCardGroupProps,
+  CheckCardOption,
+  CheckCardProps,
+  CheckCardTheme,
+  CheckCardValue,
+} from "./check-card";
+
 export { Collapse, CollapsePanel } from "./collapse";
 export type { CollapsePanelProps, CollapseProps } from "./collapse";
 

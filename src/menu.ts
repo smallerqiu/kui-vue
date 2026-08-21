@@ -142,6 +142,7 @@ const navData = [
       { title: "数字输入框", sub: "InputNumber", name: "input-number", icon: DecimalsArrowRight },
       { title: "多选框", sub: "Checkbox", name: "checkbox", icon: SquareCheck },
       { title: "单选框", sub: "Radio", name: "radio", icon: CircleDot },
+      { title: "卡片选择器", sub: "CheckCard", name: "check-card", icon: CreditCard },
       { title: "开关", sub: "Switch", name: "switch", icon: ToggleLeft },
       { title: "选择器", sub: "Select", name: "select", icon: ListChevronsUpDown },
       { title: "树选择器", sub: "TreeSelect", name: "tree-select", icon: FolderTree },

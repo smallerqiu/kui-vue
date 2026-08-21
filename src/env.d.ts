@@ -24,6 +24,8 @@ declare module "vue" {
     CarouselItem: (typeof Comps)["CarouselItem"];
     Checkbox: (typeof Comps)["Checkbox"];
     CheckboxGroup: (typeof Comps)["CheckboxGroup"];
+    CheckCard: (typeof Comps)["CheckCard"];
+    CheckCardGroup: (typeof Comps)["CheckCardGroup"];
     Collapse: (typeof Comps)["Collapse"];
     CollapsePanel: (typeof Comps)["CollapsePanel"];
     ColorPicker: (typeof Comps)["ColorPicker"];
