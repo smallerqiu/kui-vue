@@ -34,7 +34,7 @@ English | [简体中文](README.zh-CN.md)
 
 # Features
 
-- Up to 50 high-quality Components.
+- Up to 70 high-quality Components.
 - Internationalization Support for Dozens of Languages.
 - Develop with TypeScript
 - Supports Vue.js 3.x

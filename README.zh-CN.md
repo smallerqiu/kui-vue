@@ -25,7 +25,7 @@
 
 # 特性
 
-- 50+高质量组件
+- 70+高质量组件
 - 国际化支持 14 种语言
 - 使用TypeScript开发
 - 支持Vue3.x
@@ -129,7 +129,7 @@ pnpm exec kui-vue-mcp
 
 - [GitHub 仓库](https://github.com/smallerqiu/kui-vue)
 - [Gitee 仓库](https://gitee.com/chuchur/kui-vue)
-- [问题反馈](https://gitee.com/chuchur/kui-vue/issues)
+- [问题反馈](https://github.com/smallerqiu/kui-vue/issues)
 
 ## 开源协议
 

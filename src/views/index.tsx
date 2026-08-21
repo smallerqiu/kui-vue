@@ -59,7 +59,7 @@ export default defineComponent({
                     <i />
                     <span>TypeScript</span>
                     <i />
-                    <span>60+ Components</span>
+                    <span>70+ Components</span>
                   </div>
                 </div>
 

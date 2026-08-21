@@ -1,0 +1,145 @@
+
+<svg width="1280px" height="640px" viewBox="0 0 1280 640" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-ge4h3tnkb0-1">
+            <stop stop-color="#0B1220" offset="0%"></stop>
+            <stop stop-color="#101827" offset="55%"></stop>
+            <stop stop-color="#18243A" offset="100%"></stop>
+        </linearGradient>
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="50%" id="radialGradient-ge4h3tnkb0-2">
+            <stop stop-color="#5B9CFF" stop-opacity="0.28" offset="0%"></stop>
+            <stop stop-color="#5B9CFF" stop-opacity="0" offset="100%"></stop>
+        </radialGradient>
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-ge4h3tnkb0-3">
+            <stop stop-color="#4CC491" offset="0%"></stop>
+            <stop stop-color="#169C14" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="-1.06053672e-14%" x2="100%" y2="100%" id="linearGradient-ge4h3tnkb0-4">
+            <stop stop-color="#72B1FF" offset="0%"></stop>
+            <stop stop-color="#4E87F5" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="0%" y1="-9.15981429e-16%" x2="100%" y2="100%" id="linearGradient-ge4h3tnkb0-5">
+            <stop stop-color="#72B1FF" offset="0%"></stop>
+            <stop stop-color="#4E87F5" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编组">
+            <rect id="矩形" fill="url(#linearGradient-ge4h3tnkb0-1)" x="0" y="0" width="1280" height="640"></rect>
+            <circle id="椭圆形" fill="url(#radialGradient-ge4h3tnkb0-2)" cx="1030" cy="250" r="430"></circle>
+            <path d="M0,520 C260,440 410,660 690,545 C970,430 1080,520 1280,449 L1280,640 L0,640 L0,520 Z" id="路径" fill="#5B9CFF" opacity="0.035"></path>
+            <path d="M0,555 C250,478 420,653 675,574 C932,494 1073,551 1280,486" id="路径" stroke-opacity="0.09" stroke="#73ADFF" stroke-width="2"></path>
+            <g transform="translate(78, 143)">
+                <rect id="矩形" fill="url(#linearGradient-ge4h3tnkb0-3)" x="3" y="3" width="63" height="63" rx="31.5"></rect>
+                <path d="M25,22 L25,46.8888889 M25.7777778,36.7777778 L44.4444444,22 M31.2222222,32.8888889 L46,46.8888889" id="形状" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+            <g transform="translate(78, 198)">
+                <text id="KUI-Vue" fill="#F8FBFF" fill-rule="nonzero" font-family="Kefa-Regular, Kefa" font-size="72" font-weight="normal">
+                    <tspan x="80" y="0">KUI Vue</tspan>
+                </text>
+                <text id="A-modern-UI-component-library-for-Vue-3" fill="#AEBDD3" fill-rule="nonzero" font-family="Helvetica" font-size="26" font-weight="normal">
+                    <tspan x="0" y="61">A modern UI component library for Vue 3</tspan>
+                </text>
+                <text id="Flexible-·-TypeScript-first-·-Themeable" fill="#7F91AA" fill-rule="nonzero" font-family="Helvetica" font-size="19" font-weight="normal">
+                    <tspan x="0" y="101">Flexible · TypeScript-first · Themeable</tspan>
+                </text>
+                <g transform="translate(0, 150)">
+                    <g>
+                        <rect id="矩形" stroke-opacity="0.34" stroke="#70AAFF" fill-opacity="0.13" fill="#5B9CFF" x="0" y="0" width="170" height="44" rx="22"></rect>
+                        <text id="70+-Components" fill="#CFE2FF" fill-rule="nonzero" font-family="Helvetica" font-size="16" font-weight="normal">
+                            <tspan x="23" y="28">70+ Components</tspan>
+                        </text>
+                    </g>
+                    <g transform="translate(185, 0)">
+                        <rect id="矩形" stroke-opacity="0.3" stroke="#59D59A" fill-opacity="0.11" fill="#45C98B" x="0" y="0" width="92" height="44" rx="22"></rect>
+                        <text id="Vue-3" fill="#A8EACB" fill-rule="nonzero" font-family="Helvetica" font-size="16" font-weight="normal">
+                            <tspan x="24" y="28">Vue 3</tspan>
+                        </text>
+                    </g>
+                    <g transform="translate(291, 0)">
+                        <rect id="矩形" stroke-opacity="0.3" stroke="#70AAFF" fill-opacity="0.11" fill="#5B9CFF" x="0" y="0" width="126" height="44" rx="22"></rect>
+                        <text id="TypeScript" fill="#CFE2FF" fill-rule="nonzero" font-family="Helvetica" font-size="16" font-weight="normal">
+                            <tspan x="21" y="28">TypeScript</tspan>
+                        </text>
+                    </g>
+                </g>
+                <g transform="translate(0, 238)">
+                    <circle id="椭圆形" fill="#5B9CFF" cx="5" cy="8" r="5"></circle>
+                    <text id="https://k-ui.cn" fill="#8FA2BC" fill-rule="nonzero" font-family="Helvetica" font-size="17" font-weight="normal">
+                        <tspan x="24" y="13">https://k-ui.cn</tspan>
+                    </text>
+                </g>
+            </g>
+            <g transform="translate(685, 70)">
+                <g transform="translate(643.1222, 299.2314) rotate(-3) translate(-643.1222, -299.2314)translate(3.1222, -20.7686)">
+                    <rect id="矩形" stroke="#35445A" fill="#151F30" x="0" y="0" width="500" height="500" rx="32"></rect>
+                    <rect id="矩形" fill="#1C283A" x="1" y="1" width="498" height="67" rx="31"></rect>
+                    <circle id="椭圆形" fill="#FF7E6B" cx="35" cy="34" r="6"></circle>
+                    <circle id="椭圆形" fill="#F6BF62" cx="57" cy="34" r="6"></circle>
+                    <circle id="椭圆形" fill="#56CC8D" cx="79" cy="34" r="6"></circle>
+                    <rect id="矩形" fill="#26354A" x="113" y="22" width="244" height="24" rx="12"></rect>
+                    <g transform="translate(34, 101)">
+                        <text id="COMPONENT-PREVIEW" fill="#7F91AA" fill-rule="nonzero" font-family="Helvetica" font-size="14" font-weight="normal">
+                            <tspan x="0" y="16">COMPONENT PREVIEW</tspan>
+                        </text>
+                        <g transform="translate(0, 39)">
+                            <rect id="矩形" stroke="#33445B" fill="#1D2A3D" x="0" y="0" width="205" height="104" rx="18"></rect>
+                            <text id="Active-users" fill="#8FA2BC" fill-rule="nonzero" font-family="Helvetica" font-size="13" font-weight="normal">
+                                <tspan x="20" y="31">Active users</tspan>
+                            </text>
+                            <text id="12,860" fill="#F6F9FF" fill-rule="nonzero" font-family="Helvetica" font-size="31" font-weight="normal">
+                                <tspan x="20" y="70">12,860</tspan>
+                            </text>
+                            <polyline id="路径" stroke="#5B9CFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" points="142 73 156 58 168 65 186 38"></polyline>
+                        </g>
+                        <g transform="translate(223, 39)">
+                            <rect id="矩形" stroke="#33445B" fill="#1D2A3D" x="0" y="0" width="209" height="104" rx="18"></rect>
+                            <text id="Completion" fill="#8FA2BC" fill-rule="nonzero" font-family="Helvetica" font-size="13" font-weight="normal">
+                                <tspan x="20" y="31">Completion</tspan>
+                            </text>
+                            <text id="84%" fill="#F6F9FF" fill-rule="nonzero" font-family="Helvetica" font-size="31" font-weight="normal">
+                                <tspan x="20" y="70">84%</tspan>
+                            </text>
+                            <circle id="椭圆形" stroke="#2D3B4F" stroke-width="8" cx="165" cy="55" r="26"></circle>
+                            <path d="M165,29 C178.04071,29 189.064024,38.6603891 190.775194,51.5883439 C192.486363,64.5162988 184.355954,76.7119129 171.764315,80.1046618 C159.172676,83.4974107 146.015658,77.0375785 141,65" id="路径" stroke="#55D293" stroke-width="8" stroke-linecap="round"></path>
+                        </g>
+                        <g transform="translate(0, 164)">
+                            <rect id="矩形" stroke="#33445B" fill="#1D2A3D" x="0" y="0" width="432" height="76" rx="18"></rect>
+                            <rect id="矩形" fill-opacity="0.18" fill="#5B9CFF" x="18" y="18" width="40" height="40" rx="12"></rect>
+                            <polyline id="路径" stroke="#72ADFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="30 38 37 45 49 30"></polyline>
+                            <text id="Design-system-ready" fill="#EEF4FF" fill-rule="nonzero" font-family="Helvetica" font-size="15" font-weight="normal">
+                                <tspan x="73" y="33">Design system ready</tspan>
+                            </text>
+                            <text id="Consistent-tokens-across-light-and-dark-themes" fill="#8496AF" fill-rule="nonzero" font-family="Helvetica" font-size="12" font-weight="normal">
+                                <tspan x="73" y="55">Consistent tokens across light and dark themes</tspan>
+                            </text>
+                            <rect id="矩形" fill="#5B9CFF" x="354" y="21" width="60" height="34" rx="17"></rect>
+                            <circle id="椭圆形" fill="#FFFFFF" cx="397" cy="38" r="13"></circle>
+                        </g>
+                        <g transform="translate(0, 263)">
+                            <text id="Choose-framework" fill="#8FA2BC" fill-rule="nonzero" font-family="Helvetica" font-size="13" font-weight="normal">
+                                <tspan x="0" y="14">Choose framework</tspan>
+                            </text>
+                            <rect id="矩形" stroke="#3A4B63" fill="#1D2A3D" x="0" y="30" width="272" height="50" rx="13"></rect>
+                            <circle id="椭圆形" fill="#55D293" cx="25" cy="55" r="8"></circle>
+                            <text id="Vue-3-+-TypeScript" fill="#DCE7F8" fill-rule="nonzero" font-family="Helvetica" font-size="15" font-weight="normal">
+                                <tspan x="45" y="61">Vue 3 + TypeScript</tspan>
+                            </text>
+                            <polyline id="路径" stroke="#8FA2BC" stroke-width="2" stroke-linecap="round" points="246 51 252 58 258 51"></polyline>
+                            <rect id="矩形" fill="url(#linearGradient-ge4h3tnkb0-4)" x="290" y="30" width="142" height="50" rx="13"></rect>
+                            <text id="Get-started" fill="#FFFFFF" fill-rule="nonzero" font-family="Helvetica" font-size="15" font-weight="normal">
+                                <tspan x="321" y="61">Get started</tspan>
+                            </text>
+                        </g>
+                        <g transform="translate(0, 375)">
+                            <rect id="矩形" fill="#29374A" x="0" y="0" width="432" height="8" rx="4"></rect>
+                            <rect id="矩形" fill="url(#linearGradient-ge4h3tnkb0-5)" x="0" y="0" width="301" height="8" rx="4"></rect>
+                            <circle id="椭圆形" stroke="#5B9CFF" stroke-width="4" fill="#EEF5FF" cx="301" cy="4" r="10"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+            <rect id="矩形" stroke-opacity="0.09" stroke="#7CB4FF" stroke-width="1.5" x="0.75" y="0.75" width="1278.5" height="638.5" rx="2"></rect>
+        </g>
+    </g>
+</svg>
