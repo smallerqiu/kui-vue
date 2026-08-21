@@ -10,7 +10,7 @@
         <img :src="cover" style="height: 300px" />
       </template>
     </Card>
-    <Card class="cover-card" title="设置 cover 后不会显示此标题" bordered>
+    <Card class="cover-card" title="设置 cover 后不会显示此标题" theme="outline">
       <CardMeta
         :avatar="avatar"
         title="山间旅居"

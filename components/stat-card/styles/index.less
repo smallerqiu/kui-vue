@@ -96,6 +96,30 @@
   line-height: 1;
 }
 .k-stat-card-bordered {
-  border: 1px solid var(--kui-color-border);
-  background-color: transparent;
+  border: 1px solid var(--kui-theme-outline-border);
+  background: var(--kui-theme-outline-bg);
+}
+
+.k-stat-card-round,
+.k-stat-card-default {
+  border-radius: var(--kui-card-radius);
+}
+.k-stat-card-circle {
+  border-radius: var(--kui-shape-circle);
+}
+.k-stat-card-square {
+  border-radius: var(--kui-shape-square);
+}
+.k-stat-card-fill {
+  border-color: var(--kui-theme-fill-border);
+  background: var(--kui-theme-fill-bg);
+}
+.k-stat-card-outline {
+  border: 1px solid var(--kui-theme-outline-border);
+  background: var(--kui-theme-outline-bg);
+}
+.k-stat-card-plain {
+  border-color: var(--kui-theme-plain-border);
+  background: var(--kui-theme-plain-bg);
+  box-shadow: none;
 }

@@ -12,7 +12,7 @@
   }
 
   .k-input-otp-item {
-    width: 40px;
+    width: var(--kui-control-height-lg);
     height: var(--kui-control-height-lg);
     padding: 0;
     box-sizing: border-box;
@@ -81,7 +81,7 @@
 .k-input-otp-sm {
   gap: 6px;
   .k-input-otp-item {
-    width: 32px;
+    width: var(--kui-control-height);
     height: var(--kui-control-height);
     font-size: var(--kui-font-size);
     line-height: var(--kui-control-height);
@@ -91,10 +91,16 @@
 .k-input-otp-lg {
   gap: 10px;
   .k-input-otp-item {
-    width: 48px;
-    height: 48px;
+    width: calc(var(--kui-control-height-lg) + 8px);
+    height: calc(var(--kui-control-height-lg) + 8px);
     border-radius: var(--kui-border-radius-lg);
     font-size: 22px;
-    line-height: 48px;
+    line-height: calc(var(--kui-control-height-lg) + 8px);
   }
+}
+
+.k-input-otp-plain .k-input-otp-item {
+  border-color: var(--kui-theme-plain-border);
+  background: var(--kui-theme-plain-bg);
+  box-shadow: none;
 }

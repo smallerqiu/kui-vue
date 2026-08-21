@@ -1,7 +1,9 @@
+@import "../../styles/less-css-var.less";
+
 .k-transfer {
   display: flex;
   align-items: center;
-  gap: var(--kui-spacing-md);
+  gap: var(--kui-spacing-4);
   color: var(--kui-color-text);
 }
 .k-transfer-list {
@@ -10,16 +12,23 @@
   width: 240px;
   height: 300px;
   overflow: hidden;
-  border: 1px solid var(--kui-color-border);
+  border: 1px solid var(--kui-theme-outline-border);
   border-radius: var(--kui-card-radius);
-  background: var(--kui-color-bg-component);
+  background: var(--kui-theme-outline-bg);
+}
+.k-transfer-fill .k-transfer-list {
+  border-color: var(--kui-theme-fill-border);
+  background: var(--kui-theme-fill-bg);
+}
+.k-transfer-item-checkbox {
+  display: inline-flex;
 }
 .k-transfer-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   min-height: 42px;
-  padding: 0 var(--kui-spacing-md);
+  padding: 0 var(--kui-spacing-3);
   border-bottom: 1px solid var(--kui-color-border);
   font-size: var(--kui-font-size-sm);
 }
@@ -27,45 +36,43 @@
 .k-transfer-item {
   display: flex;
   align-items: center;
-  gap: var(--kui-spacing-sm);
+  gap: var(--kui-spacing-2);
 }
 .k-transfer-search {
-  display: flex;
-  align-items: center;
-  gap: var(--kui-spacing-xs);
-  margin: var(--kui-spacing-sm);
-  padding: 0 var(--kui-spacing-sm);
-  min-height: 32px;
-  border: 1px solid var(--kui-color-border);
-  border-radius: var(--kui-control-radius);
-  color: var(--kui-color-text-placeholder);
-}
-.k-transfer-search input {
-  min-width: 0;
-  width: 100%;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: inherit;
+  margin: var(--kui-spacing-3) var(--kui-spacing-3);
+
+  .k-input {
+    width: 100%;
+  }
 }
 .k-transfer-body {
   flex: 1;
   overflow: auto;
-  padding: var(--kui-spacing-xs) 0;
+  padding: var(--kui-spacing-1) 0;
 }
 .k-transfer-item {
   min-height: 36px;
-  padding: 0 var(--kui-spacing-md);
+  padding: 0 var(--kui-spacing-3);
   cursor: pointer;
   transition: background var(--kui-motion-duration-fast);
 }
 .k-transfer-item:hover {
   background: var(--kui-color-item-hover);
 }
+.k-transfer-item:focus-visible {
+  outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+  outline-offset: -2px;
+}
+.k-transfer-item.is-selected {
+  background: var(--kui-color-item-selected);
+}
 .k-transfer-item.is-disabled,
 .k-transfer.is-disabled {
   color: var(--kui-color-text-disabled);
   cursor: not-allowed;
+}
+.k-transfer-item.is-disabled:hover {
+  background: transparent;
 }
 .k-transfer-item-content {
   display: flex;
@@ -76,10 +83,17 @@
 .k-transfer-item-content small {
   color: var(--kui-color-text-description);
 }
+.k-transfer-footer {
+  min-height: var(--kui-control-height);
+  padding: var(--kui-spacing-2) var(--kui-spacing-4);
+  border-top: 1px solid var(--kui-color-border);
+  color: var(--kui-color-text-description);
+  font-size: var(--kui-font-size-sm);
+}
 .k-transfer-operations {
   display: flex;
   flex-direction: column;
-  gap: var(--kui-spacing-sm);
+  gap: var(--kui-spacing-2);
 }
 @media (max-width: 640px) {
   .k-transfer {

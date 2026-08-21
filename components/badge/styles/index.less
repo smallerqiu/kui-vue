@@ -1,4 +1,5 @@
 @import "../../styles/less-css-var.less";
+@import "../../styles/motion.less";
 
 .k-badge {
   position: relative;
@@ -153,7 +154,7 @@
       border-radius: 50%;
       width: 6px;
       height: 6px;
-      animation: 1.2s ease-out infinite badge-active;
+      animation: 1.2s ease-out infinite k-badge-active;
       position: absolute;
       top: 0;
       left: 0;
@@ -193,7 +194,7 @@
     font-size: 13px;
   }
 }
-@keyframes badge-active {
+@keyframes k-badge-active {
   0% {
     opacity: 1;
     transform: scale(1);

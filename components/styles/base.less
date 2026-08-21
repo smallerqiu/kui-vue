@@ -1,3 +1,75 @@
+html {
+  scrollbar-gutter: stable;
+}
+body {
+  color: var(--kui-color-text);
+  font-family: var(--kui-font-family);
+  font-size: var(--kui-font-size);
+  font-synthesis: none;
+  line-height: var(--kui-line-height);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+*,
+::after,
+::before,
+::backdrop,
+::file-selector-button {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0 solid;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+body.k-scroll-locked {
+  overscroll-behavior: none;
+}
+
+// Fallback helpers for browsers without a stable scrollbar gutter.
+// Floating fixed elements use the first class; full-width fixed bars use the second.
+body.k-scroll-locked .k-scroll-lock-fixed {
+  inset-inline-end: var(--kui-scrollbar-width, 0px);
+}
+
+body.k-scroll-locked .k-scroll-lock-fixed-full {
+  padding-inline-end: var(--kui-scrollbar-width, 0px);
+}
+
+.k-scroll {
+  scrollbar-color: var(--kui-color-scrollbar-thumb) transparent;
+  scrollbar-width: thin;
+
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    min-width: 55px;
+    min-height: 55px;
+    border-radius: 4px;
+    background-color: var(--kui-color-scrollbar-thumb);
+    cursor: default;
+
+    &:hover {
+      background-color: var(--kui-color-scrollbar-thumb-hover);
+    }
+  }
+
+  &::-webkit-scrollbar-corner,
+  &::-webkit-resizer {
+    background-color: transparent;
+  }
+}
+
 ::selection {
   background-color: var(--kui-color-primary);
   color: #fff;

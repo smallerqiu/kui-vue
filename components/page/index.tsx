@@ -21,6 +21,7 @@ const pageProps = {
   showSizer: Boolean as BooleanType,
   showTotal: { type: Boolean as BooleanType, default: true },
   showElevator: Boolean as BooleanType,
+  simple: Boolean as BooleanType,
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
   sizeData: { type: Array as PropType<number[]>, default: () => [10, 15, 20, 30, 40] },
@@ -240,31 +241,28 @@ const Page = defineComponent({
       return props.showSizer ? <div class="k-page-sizer">{<Select {...prop} />}</div> : null;
     };
 
+    const changePageByElevator = (page?: number) => {
+      if (page == undefined) return;
+
+      const pCount = pageCount.value;
+      if (page > pCount) page = pCount;
+      if (page < 1) page = 1;
+
+      if (defaultPage.value != page) {
+        defaultPage.value = page;
+        emit("update:page", page);
+        emit("change", page, defaultPageSize.value);
+      }
+    };
     const renderElevator = () => {
-      const { size } = props;
       const _props = {
         class: "k-page-options-elevator",
-        size,
+        size: props.size,
         theme: props.theme,
         disabled: props.disabled,
         clearable: false,
         min: 1,
-        // value: defaultPage.value,
-        onChange: (page?: number) => {
-          if (page == undefined) {
-            return;
-          }
-
-          const pCount = pageCount.value;
-          if (page > pCount) page = pCount;
-          if (page < 1) page = 1;
-
-          if ((page >= 1 || page <= pCount) && defaultPage.value != page) {
-            defaultPage.value = page;
-            emit("update:page", page);
-            emit("change", page, defaultPageSize.value);
-          }
-        },
+        onChange: changePageByElevator,
       };
       return props.showElevator ? (
         <div class="k-page-options">
@@ -283,6 +281,7 @@ const Page = defineComponent({
             "k-page-fill": props.theme == "fill",
             "k-page-outline": props.theme == "outline",
             "k-page-disabled": props.disabled,
+            "k-page-simple": props.simple,
           },
         ],
         preNode = (
@@ -307,23 +306,50 @@ const Page = defineComponent({
             <Icon type={ChevronUp} />
           </li>
         ),
-        totalNode = props.showTotal ? (
-          <div class="k-page-number">
-            <span>
-              {locale.value?.k.page.total} {props.total} {locale.value?.k.page.items}
-            </span>
-          </div>
-        ) : null,
+        totalNode =
+          props.showTotal && !props.simple ? (
+            <div class="k-page-number">
+              <span>
+                {locale.value?.k.page.total} {props.total} {locale.value?.k.page.items}
+              </span>
+            </div>
+          ) : null,
         pagerNode = renderPage(),
         sizeNode = renderSize(),
         elevatorNode = renderElevator(),
         firstNode = renderFirst(),
         lastNode = renderLast();
+      const simpleNode = (
+        <li class="k-page-simple-number" aria-current="page">
+          {props.showElevator ? (
+            <span class="k-page-simple-input">
+              <InputNumber
+                modelValue={defaultPage.value}
+                min={1}
+                max={pageCount.value}
+                controls={false}
+                disabled={props.disabled}
+                size={props.size}
+                theme={props.theme}
+                onChange={changePageByElevator}
+              />
+            </span>
+          ) : (
+            <span>{defaultPage.value}</span>
+          )}
+          <span aria-hidden="true">/</span>
+          <span>{pageCount.value}</span>
+        </li>
+      );
       return (
         <div class={classes}>
           {totalNode}
-          <ul class="k-pager">{[preNode, firstNode, pagerNode, lastNode, nextNode]}</ul>
-          {[sizeNode, elevatorNode]}
+          <ul class="k-pager">
+            {props.simple
+              ? [preNode, simpleNode, nextNode]
+              : [preNode, firstNode, pagerNode, lastNode, nextNode]}
+          </ul>
+          {!props.simple && [sizeNode, elevatorNode]}
         </div>
       );
     };

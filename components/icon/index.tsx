@@ -62,10 +62,6 @@ const Icon = defineComponent({
       if (props.size) {
         styles.fontSize = `${props.size}px`;
       }
-      /**
-       * Using property spread to avoid "no-inline-styles" warnings
-       * and maintain consistent component library architecture.
-       */
       const iProps = {
         ...attrs,
         style: styles,

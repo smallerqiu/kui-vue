@@ -1,4 +1,5 @@
 @import "../../styles/less-css-var.less";
+@import "../../styles/motion.less";
 
 .k-image {
   position: relative;
@@ -281,22 +282,12 @@
   flex-wrap: wrap;
 }
 
-@keyframes k-image-fade {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
 .k-image-fade-enter-active {
-  animation: k-image-fade 0.4s linear;
+  animation: k-motion-fade-in 0.4s linear;
 }
 
 .k-image-fade-leave-active {
-  animation: k-image-fade 0.4s linear reverse;
+  animation: k-motion-fade-in 0.4s linear reverse;
 }
 
 .k-image-preview-loading {
@@ -314,4 +305,28 @@
   align-items: center;
   justify-content: center;
   transform: translate(-50%, -50%);
+}
+
+.k-image-round,
+.k-image-default {
+  border-radius: var(--kui-shape-round);
+}
+.k-image-circle {
+  border-radius: var(--kui-shape-circle);
+}
+.k-image-square {
+  border-radius: var(--kui-shape-square);
+}
+.k-image-fill {
+  border-color: var(--kui-theme-fill-border);
+  background: var(--kui-theme-fill-bg);
+}
+.k-image-outline {
+  border-color: var(--kui-theme-outline-border);
+  background: var(--kui-theme-outline-bg);
+}
+.k-image-plain {
+  border-color: var(--kui-theme-plain-border);
+  background: var(--kui-theme-plain-bg);
+  box-shadow: none;
 }

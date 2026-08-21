@@ -1,4 +1,5 @@
 @import "../../styles/less-css-var.less";
+@import "../../styles/motion.less";
 
 .k-notice {
   font-size: 14px;
@@ -86,17 +87,6 @@
   color: var(--kui-color-warning);
 }
 
-@keyframes k-notice-slide-in {
-  from {
-    opacity: 0;
-    transform: translate3d(100%, 0, 0);
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
 @keyframes k-notice-slide-out {
   from {
     opacity: 1;
@@ -109,7 +99,7 @@
 }
 
 .k-notice-slide-enter-active {
-  animation: k-notice-slide-in 0.3s ease;
+  animation: k-motion-slide-in-from-right 0.3s ease;
 }
 
 .k-notice-slide-leave-active {

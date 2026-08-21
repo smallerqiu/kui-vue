@@ -1,0 +1,169 @@
+// Shared motion primitives. Duration, easing and transform-origin stay with consumers.
+@keyframes k-motion-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes k-motion-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes k-motion-scale-y-in {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes k-motion-rotate {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes k-motion-slide-in-from-right {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes k-motion-slide-out-to-right {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+@keyframes k-motion-slide-in-from-left {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes k-motion-slide-out-to-left {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+@keyframes k-motion-slide-in-from-top {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes k-motion-slide-out-to-top {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+}
+
+@keyframes k-motion-slide-in-from-bottom {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes k-motion-slide-out-to-bottom {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+
+.k-motion-fade-in {
+  animation: k-motion-fade-in var(--kui-motion-duration) var(--kui-motion-easing) both;
+}
+
+.k-motion-scale-in {
+  animation: k-motion-scale-in var(--kui-motion-duration) var(--kui-motion-easing) both;
+}
+
+.k-motion-scale-y-in {
+  transform-origin: top;
+  animation: k-motion-scale-y-in var(--kui-motion-duration) var(--kui-motion-easing) both;
+}
+
+.k-motion-rotate {
+  animation: k-motion-rotate 1s linear infinite;
+}
+
+.k-motion-slide-in-from-right {
+  animation: k-motion-slide-in-from-right var(--kui-motion-duration) var(--kui-motion-easing) both;
+}
+
+.k-motion-slide-in-from-left {
+  animation: k-motion-slide-in-from-left var(--kui-motion-duration) var(--kui-motion-easing) both;
+}
+
+.k-motion-slide-in-from-top {
+  animation: k-motion-slide-in-from-top var(--kui-motion-duration) var(--kui-motion-easing) both;
+}
+
+.k-motion-slide-in-from-bottom {
+  animation: k-motion-slide-in-from-bottom var(--kui-motion-duration) var(--kui-motion-easing) both;
+}
+
+.k-motion-slide-out-to-right {
+  animation: k-motion-slide-out-to-right var(--kui-motion-duration) var(--kui-motion-easing) both;
+}
+
+.k-motion-slide-out-to-left {
+  animation: k-motion-slide-out-to-left var(--kui-motion-duration) var(--kui-motion-easing) both;
+}
+
+.k-motion-slide-out-to-top {
+  animation: k-motion-slide-out-to-top var(--kui-motion-duration) var(--kui-motion-easing) both;
+}
+
+.k-motion-slide-out-to-bottom {
+  animation: k-motion-slide-out-to-bottom var(--kui-motion-duration) var(--kui-motion-easing) both;
+}

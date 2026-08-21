@@ -34,7 +34,7 @@
     box-sizing: border-box;
     flex: 1 0 80px;
     min-width: 80px;
-    height: 22px;
+    height: calc(var(--kui-control-height) - 10px);
     padding: 0;
     color: var(--kui-control-text);
     border: 0;
@@ -84,7 +84,7 @@
   padding: 2px var(--kui-padding-tag-box-inline-sm);
 
   .k-input-tag-input {
-    height: 18px;
+    height: calc(var(--kui-control-height-sm) - 6px);
     font-size: var(--kui-font-size-sm);
   }
 
@@ -102,7 +102,7 @@
   padding: 5px var(--kui-padding-tag-box-inline-lg);
 
   .k-input-tag-input {
-    height: 28px;
+    height: calc(var(--kui-control-height-lg) - 12px);
     font-size: var(--kui-font-size-lg);
   }
 

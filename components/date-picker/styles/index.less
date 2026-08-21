@@ -1,4 +1,5 @@
 @import "../../styles/less-css-var.less";
+@import "../../styles/motion.less";
 
 .k-datepicker {
   display: inline-flex;
@@ -269,7 +270,7 @@
     text-align: center;
     overflow: hidden;
     border: 1px solid transparent;
-    width: 32px;
+    width: var(--kui-control-height);
     height: var(--kui-control-height);
     line-height: var(--kui-control-height);
     font-size: var(--kui-font-size);
@@ -369,7 +370,7 @@
     justify-content: center;
   }
   .k-picker-footer-time-split {
-    width: 40px;
+    width: var(--kui-control-height-lg);
     position: relative;
     height: var(--kui-control-height-lg);
     display: flex;
@@ -466,24 +467,12 @@
   }
 }
 
-@keyframes drop-down {
-  0% {
-    opacity: 0;
-    transform: scaleY(0);
-  }
-
-  to {
-    opacity: 1;
-    transform: scaleY(1);
-  }
-}
-
 .k-date-picker-enter-active {
   transform-origin: 0 0;
-  animation: drop-down 0.3s;
+  animation: k-motion-scale-y-in 0.3s;
 }
 
 .k-date-picker-leave-active {
   transform-origin: 0 0;
-  animation: drop-down 0.3s reverse;
+  animation: k-motion-scale-y-in 0.3s reverse;
 }

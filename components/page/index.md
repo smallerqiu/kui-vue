@@ -21,19 +21,24 @@
 
 - 展示小尺寸。
 
+[简洁分页](./demo/simple.vue?show=vertical)
+
+- 只显示上一页、当前页数和下一页；配合 `showElevator` 时可直接编辑当前页码。
+
 ## API
 
 | 属性         | 说明                                     | 类型                                 | 默认值           |
 | ------------ | ---------------------------------------- | ------------------------------------ | ---------------- |
 | page         | 当前页码 (v-model:page)                  | number                               | 1                |
-| disabled     | 禁用状态                                 | boolean                                | false            |
+| disabled     | 禁用状态                                 | boolean                              | false            |
 | total        | 数据总数                                 | number                               | 0                |
 | pageSize     | 每页条数                                 | number                               | 10               |
-| showSizer    | 是否显示页码组                           | boolean                                | false            |
-| showTotal    | 是否显示总数                             | boolean                                | false            |
-| showElevator | 是否显示页码阶梯                         | boolean                                | false            |
+| showSizer    | 是否显示页码组                           | boolean                              | false            |
+| showTotal    | 是否显示总数                             | boolean                              | false            |
+| showElevator | 是否显示页码阶梯                         | boolean                              | false            |
+| simple       | 是否使用简洁分页                         | boolean                              | false            |
 | sizeData     | 自定义页码组数据                         | number[]                             | [10,15,20,30,40] |
 | size         | 值为'small' 时，呈现小尺寸               | string                               | -                |
 | theme        | 主题                                     | string                               | fill             |
 | onChange     | 页码,页码组 改变的回调，返回改变后的页码 | (page:number, pageSize:number)=>void | -                |
-| shape        | 分页项形状                               | ShapeType                           | round            |
+| shape        | 分页项形状                               | ShapeType                            | round            |

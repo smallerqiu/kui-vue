@@ -1,12 +1,12 @@
 <template>
-  <TypographyTitle tag="h2">Build clear interfaces</TypographyTitle>
-  <TypographyParagraph type="secondary"
-    >Typography creates hierarchy and keeps longer content comfortable to read.</TypographyParagraph
-  >
-  <Space>
-    <TypographyText strong>Strong</TypographyText>
-    <TypographyText italic>Italic</TypographyText>
-    <TypographyText underline>Underline</TypographyText>
-    <TypographyText code>const kui = true</TypographyText>
-  </Space>
+  <TypographyTitle tag="h2">Typography makes content easier to scan</TypographyTitle>
+  <TypographyParagraph>
+    A clear visual hierarchy helps readers find the title, understand the summary, and then move
+    through the details at their own pace.
+  </TypographyParagraph>
+  <TypographyParagraph type="secondary">
+    Use semantic components instead of styling every piece of text independently. This keeps
+    spacing, color, and rhythm consistent across the interface.
+  </TypographyParagraph>
+  <TypographyText>Kui Vue Design · Typography</TypographyText>
 </template>

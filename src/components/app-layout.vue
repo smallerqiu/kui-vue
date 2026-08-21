@@ -4,7 +4,7 @@
     <Layout class="main">
       <Sider
         :class="['docs-k-layout-sider', { 'docs-k-layout-sider-show': showMiniNav }]"
-        :width="272"
+        width="auto"
       >
         <Button
           size="large"

@@ -33,6 +33,8 @@ export const toJavaScriptSfc = (source: string) =>
   );
 
 export default function vitePluginKuiMd(): Plugin {
+  const demoImporters = new Map<string, Set<string>>();
+  const markdownDependencies = new Map<string, Set<string>>();
   const markdown: MarkdownItType = new MarkdownIt({
     html: true,
     breaks: true,
@@ -58,6 +60,14 @@ export default function vitePluginKuiMd(): Plugin {
     transform(code, id) {
       if (!id.endsWith(".md")) return null;
 
+      markdownDependencies.get(id)?.forEach((demoPath) => {
+        const importers = demoImporters.get(demoPath);
+        importers?.delete(id);
+        if (!importers?.size) demoImporters.delete(demoPath);
+      });
+      const dependencies = new Set<string>();
+      markdownDependencies.set(id, dependencies);
+
       const demoImports: string[] = [];
       let demoCount = 0;
 
@@ -77,6 +87,12 @@ export default function vitePluginKuiMd(): Plugin {
 
           const _id = "k-" + hashId(id);
           const absolutePath = path.resolve(path.dirname(id), src);
+          const normalizedPath = path.normalize(absolutePath);
+          dependencies.add(normalizedPath);
+          const importers = demoImporters.get(normalizedPath) ?? new Set<string>();
+          importers.add(id);
+          demoImporters.set(normalizedPath, importers);
+          this.addWatchFile(absolutePath);
           const demoCode = fs.readFileSync(absolutePath, "utf-8").trim();
           const highlightedTypeScript = highlightSfc(demoCode);
           const highlightedJavaScript = highlightSfc(toJavaScriptSfc(demoCode));
@@ -115,6 +131,20 @@ const copy = (text) => {
 </script>`;
       // fs.writeFileSync(path.join(import.meta.dirname, "demo.html"), result);
       return { code: result, map: null };
+    },
+
+    handleHotUpdate(context) {
+      const markdownIds = demoImporters.get(path.normalize(context.file));
+      if (!markdownIds?.size) return;
+
+      const affectedModules = [...context.modules];
+      markdownIds.forEach((markdownId) => {
+        const module = context.server.moduleGraph.getModuleById(markdownId);
+        if (!module) return;
+        context.server.moduleGraph.invalidateModule(module);
+        if (!affectedModules.includes(module)) affectedModules.push(module);
+      });
+      return affectedModules;
     },
   };
 }

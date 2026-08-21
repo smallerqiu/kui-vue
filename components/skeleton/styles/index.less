@@ -66,18 +66,18 @@
     vertical-align: top;
     background: var(--kui-color-skeleton);
     width: 100%;
-    height: 32px;
-    line-height: 32px;
+    height: var(--kui-control-height);
+    line-height: var(--kui-control-height);
   }
   .k-skeleton-text-lg {
     width: 100%;
-    height: 40px;
-    line-height: 40px;
+    height: var(--kui-control-height-lg);
+    line-height: var(--kui-control-height-lg);
   }
   .k-skeleton-text-sm {
     width: 100%;
-    height: 24px;
-    line-height: 24px;
+    height: var(--kui-control-height-sm);
+    line-height: var(--kui-control-height-sm);
   }
   .k-skeleton-btn {
     display: inline-block;
@@ -86,62 +86,62 @@
     border-radius: var(--kui-border-radius);
     width: 64px;
     min-width: 64px;
-    height: 32px;
-    line-height: 32px;
+    height: var(--kui-control-height);
+    line-height: var(--kui-control-height);
     &.k-skeleton-btn-round {
-      border-radius: 32px;
+      border-radius: var(--kui-control-height);
     }
     &.k-skeleton-btn-circle {
       border-radius: 50%;
-      width: 32px;
-      min-width: 32px;
+      width: var(--kui-control-height);
+      min-width: var(--kui-control-height);
     }
   }
   .k-skeleton-btn-sm {
     width: 48px;
     min-width: 48px;
-    height: 24px;
-    line-height: 24px;
+    height: var(--kui-control-height-sm);
+    line-height: var(--kui-control-height-sm);
     &.k-skeleton-btn-round {
-      border-radius: 24px;
+      border-radius: var(--kui-control-height-sm);
     }
     &.k-skeleton-btn-circle {
       border-radius: 50%;
-      width: 24px;
-      min-width: 24px;
+      width: var(--kui-control-height-sm);
+      min-width: var(--kui-control-height-sm);
     }
   }
   .k-skeleton-btn-lg {
     width: 80px;
     min-width: 80px;
-    height: 40px;
-    line-height: 40px;
+    height: var(--kui-control-height-lg);
+    line-height: var(--kui-control-height-lg);
     &.k-skeleton-btn-round {
-      border-radius: 40px;
+      border-radius: var(--kui-control-height-lg);
     }
     &.k-skeleton-btn-circle {
       border-radius: 50%;
-      width: 40px;
-      min-width: 40px;
+      width: var(--kui-control-height-lg);
+      min-width: var(--kui-control-height-lg);
     }
   }
   .k-skeleton-avatar {
     display: inline-block;
     vertical-align: top;
     background: var(--kui-color-skeleton);
-    width: 32px;
-    height: 32px;
-    line-height: 32px;
+    width: var(--kui-control-height);
+    height: var(--kui-control-height);
+    line-height: var(--kui-control-height);
   }
   .k-skeleton-avatar-lg {
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
+    width: var(--kui-control-height-lg);
+    height: var(--kui-control-height-lg);
+    line-height: var(--kui-control-height-lg);
   }
   .k-skeleton-avatar-sm {
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
+    width: var(--kui-control-height-sm);
+    height: var(--kui-control-height-sm);
+    line-height: var(--kui-control-height-sm);
   }
   .k-skeleton-avatar-circle {
     border-radius: 50%;
@@ -166,15 +166,6 @@
   width: auto;
 }
 @keyframes k-skeleton-loading {
-  0% {
-    background-position: 100% 50%;
-  }
-  to {
-    background-position: 0 50%;
-  }
-}
-
-@-webkit-keyframes k-skeleton-loading {
   0% {
     background-position: 100% 50%;
   }

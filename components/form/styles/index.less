@@ -1,4 +1,5 @@
 @import "../../styles/less-css-var.less";
+@import "../../styles/motion.less";
 
 .k-form {
   padding: 3px;
@@ -29,7 +30,7 @@
     box-sizing: border-box;
     font-size: 14px;
     display: flex;
-    height: 32px;
+    height: var(--kui-control-height);
     align-items: center;
     white-space: nowrap;
     overflow: hidden;
@@ -44,7 +45,7 @@
 
   .k-form-item-content {
     position: relative;
-    min-height: 32px;
+    min-height: var(--kui-control-height);
     display: flex;
     align-items: center;
     transition: all 0.3s ease-in-out;
@@ -143,12 +144,12 @@
 
 .k-form-lg {
   .k-form-item-label {
-    height: 40px;
+    height: var(--kui-control-height-lg);
     font-size: 16px;
   }
 
   .k-form-item-content {
-    min-height: 40px;
+    min-height: var(--kui-control-height-lg);
   }
 
   .k-form-item-error-tip {
@@ -188,36 +189,21 @@
   }
 }
 
-.k-form-lg {
-}
-
 .k-form-sm {
   .k-form-item-label {
-    height: 24px;
+    height: var(--kui-control-height-sm);
     font-size: 12px;
   }
 
   .k-form-item-content {
-    min-height: 24px;
-  }
-}
-
-@keyframes k-form-item-fade {
-  0% {
-    transform: scaleY(0);
-    opacity: 0;
-  }
-
-  100% {
-    transform: scaleY(1);
-    opacity: 1;
+    min-height: var(--kui-control-height-sm);
   }
 }
 
 .k-form-item-fade-enter-active {
-  animation: k-form-item-fade 0.3s;
+  animation: k-motion-scale-y-in 0.3s;
 }
 
 .k-form-item-fade-leave-active {
-  animation: k-form-item-fade 0.3s reverse;
+  animation: k-motion-scale-y-in 0.3s reverse;
 }

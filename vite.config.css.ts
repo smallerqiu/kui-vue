@@ -22,6 +22,7 @@ export default defineConfig({
         index: path.resolve(import.meta.dirname, "components/styles/index.less"),
         components: path.resolve(import.meta.dirname, "components/styles/components.less"),
         base: path.resolve(import.meta.dirname, "components/styles/base.less"),
+        motion: path.resolve(import.meta.dirname, "components/styles/motion.less"),
         theme: path.resolve(import.meta.dirname, "components/styles/less-css-var.less"),
       },
       output: {

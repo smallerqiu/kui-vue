@@ -11,7 +11,7 @@ import {
 import { Button } from "../button";
 import { Checkbox } from "../checkbox";
 import Empty from "../empty";
-import Icon from "../icon";
+import Input from "../input";
 
 export type TransferKey = string | number;
 export interface TransferItem {
@@ -31,6 +31,10 @@ const transferProps = {
   operations: { type: Array as unknown as PropType<[string, string]>, default: () => ["", ""] },
   searchable: Boolean,
   disabled: Boolean,
+  theme: {
+    type: String as PropType<"outline" | "fill">,
+    default: "outline",
+  },
   filterOption: Function as PropType<(keyword: string, item: TransferItem) => boolean>,
   render: Function as PropType<(item: TransferItem) => VNodeChild>,
   onChange: Function as PropType<
@@ -60,6 +64,7 @@ export default defineComponent({
     const targetItems = computed(() =>
       props.dataSource.filter((item) => targetKeys.value.has(item.key))
     );
+    const itemMap = computed(() => new Map(props.dataSource.map((item) => [item.key, item])));
     const filter = (items: TransferItem[], keyword: string) =>
       keyword
         ? items.filter((item) =>
@@ -73,17 +78,19 @@ export default defineComponent({
     const visibleSource = computed(() => filter(sourceItems.value, sourceKeyword.value));
     const visibleTarget = computed(() => filter(targetItems.value, targetKeyword.value));
 
-    watch(
-      () => props.modelValue,
-      () => {
-        sourceSelected.value = sourceSelected.value.filter((key) => !targetKeys.value.has(key));
-        targetSelected.value = targetSelected.value.filter((key) => targetKeys.value.has(key));
-      }
-    );
+    watch([() => props.modelValue, () => props.dataSource], () => {
+      sourceSelected.value = sourceSelected.value.filter(
+        (key) => itemMap.value.has(key) && !targetKeys.value.has(key)
+      );
+      targetSelected.value = targetSelected.value.filter(
+        (key) => itemMap.value.has(key) && targetKeys.value.has(key)
+      );
+    });
 
     const notifySelection = () =>
       emit("selectChange", [...sourceSelected.value], [...targetSelected.value]);
     const toggle = (direction: "left" | "right", key: TransferKey) => {
+      if (props.disabled || itemMap.value.get(key)?.disabled) return;
       const selected = direction === "left" ? sourceSelected : targetSelected;
       selected.value = selected.value.includes(key)
         ? selected.value.filter((item) => item !== key)
@@ -95,22 +102,28 @@ export default defineComponent({
     const toggleAll = (direction: "left" | "right", items: TransferItem[]) => {
       const selected = direction === "left" ? sourceSelected : targetSelected;
       const keys = selectable(items);
+      const unfilteredKeys = selected.value.filter((key) => !keys.includes(key));
       selected.value =
-        keys.length > 0 && keys.every((key) => selected.value.includes(key)) ? [] : keys;
+        keys.length > 0 && keys.every((key) => selected.value.includes(key))
+          ? unfilteredKeys
+          : [...unfilteredKeys, ...keys];
       notifySelection();
     };
     const move = (direction: "left" | "right") => {
       if (props.disabled) return;
-      const movedKeys = direction === "right" ? sourceSelected.value : targetSelected.value;
+      const selected = direction === "right" ? sourceSelected : targetSelected;
+      const movedKeys = selected.value.filter((key) => {
+        const item = itemMap.value.get(key);
+        return item && !item.disabled;
+      });
       if (!movedKeys.length) return;
       const next =
         direction === "right"
-          ? [...props.modelValue, ...movedKeys]
+          ? [...new Set([...props.modelValue, ...movedKeys])]
           : props.modelValue.filter((key) => !movedKeys.includes(key));
       emit("update:modelValue", next);
       emit("change", next, direction, [...movedKeys]);
-      if (direction === "right") sourceSelected.value = [];
-      else targetSelected.value = [];
+      selected.value = selected.value.filter((key) => !movedKeys.includes(key));
       notifySelection();
     };
     const updateSearch = (direction: "left" | "right", value: string) => {
@@ -118,9 +131,15 @@ export default defineComponent({
       else targetKeyword.value = value;
       emit("search", direction, value);
     };
-    const renderList = (direction: "left" | "right", items: TransferItem[], title: string) => {
+    const renderList = (
+      direction: "left" | "right",
+      items: TransferItem[],
+      allItems: TransferItem[],
+      title: string
+    ) => {
       const selected = direction === "left" ? sourceSelected.value : targetSelected.value;
       const enabledKeys = selectable(items);
+      const selectedCount = allItems.filter((item) => selected.includes(item.key)).length;
       const allChecked =
         enabledKeys.length > 0 && enabledKeys.every((key) => selected.includes(key));
       return (
@@ -134,31 +153,59 @@ export default defineComponent({
               {title}
             </Checkbox>
             <span>
-              {selected.length}/{items.length}
+              {selectedCount}/{allItems.length}
             </span>
           </header>
           {props.searchable && (
-            <label class="k-transfer-search">
-              <Icon type={Search} />
-              <input
-                value={direction === "left" ? sourceKeyword.value : targetKeyword.value}
+            <div class="k-transfer-search">
+              <Input
+                modelValue={direction === "left" ? sourceKeyword.value : targetKeyword.value}
                 disabled={props.disabled}
+                theme={props.theme}
+                clearable
+                icon={Search}
                 placeholder="Search"
-                onInput={(event) =>
-                  updateSearch(direction, (event.target as HTMLInputElement).value)
-                }
+                onChange={(value) => updateSearch(direction, value)}
               />
-            </label>
+            </div>
           )}
-          <div class="k-transfer-body">
+          <div
+            class="k-transfer-body"
+            role="listbox"
+            aria-label={title}
+            aria-multiselectable="true"
+          >
             {items.length ? (
               items.map((item) => (
-                <div class={["k-transfer-item", item.disabled && "is-disabled"]} key={item.key}>
-                  <Checkbox
-                    checked={selected.includes(item.key)}
-                    disabled={props.disabled || item.disabled}
-                    onChange={() => toggle(direction, item.key)}
-                  />
+                <div
+                  class={[
+                    "k-transfer-item",
+                    selected.includes(item.key) && "is-selected",
+                    item.disabled && "is-disabled",
+                  ]}
+                  key={item.key}
+                  role="option"
+                  aria-selected={selected.includes(item.key)}
+                  aria-disabled={props.disabled || item.disabled}
+                  tabindex={props.disabled || item.disabled ? -1 : 0}
+                  onClick={() => toggle(direction, item.key)}
+                  onKeydown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      toggle(direction, item.key);
+                    }
+                  }}
+                >
+                  <span
+                    class="k-transfer-item-checkbox"
+                    onClick={(event) => event.stopPropagation()}
+                  >
+                    <Checkbox
+                      checked={selected.includes(item.key)}
+                      disabled={props.disabled || item.disabled}
+                      onChange={() => toggle(direction, item.key)}
+                    />
+                  </span>
                   <span class="k-transfer-item-content">
                     {slots.item?.({ item }) ?? props.render?.(item) ?? item.title}
                     {item.description && <small>{item.description}</small>}
@@ -169,13 +216,13 @@ export default defineComponent({
               <Empty />
             )}
           </div>
-          {slots.footer?.({ direction })}
+          {slots.footer && <footer class="k-transfer-footer">{slots.footer({ direction })}</footer>}
         </section>
       );
     };
     return () => (
-      <div class={["k-transfer", props.disabled && "is-disabled"]}>
-        {renderList("left", visibleSource.value, props.titles[0])}
+      <div class={["k-transfer", `k-transfer-${props.theme}`, props.disabled && "is-disabled"]}>
+        {renderList("left", visibleSource.value, sourceItems.value, props.titles[0])}
         <div class="k-transfer-operations">
           <Button
             type="primary"
@@ -196,7 +243,7 @@ export default defineComponent({
             {props.operations[1]}
           </Button>
         </div>
-        {renderList("right", visibleTarget.value, props.titles[1])}
+        {renderList("right", visibleTarget.value, targetItems.value, props.titles[1])}
       </div>
     );
   },

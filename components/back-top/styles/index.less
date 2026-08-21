@@ -1,4 +1,5 @@
 @import "../../styles/less-css-var.less";
+@import "../../styles/motion.less";
 
 .k-back-top {
   box-sizing: border-box;
@@ -33,20 +34,10 @@
   }
 }
 
-@keyframes k-back-top-fade {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
 .k-back-top-fade-enter-active {
-  animation: k-back-top-fade 0.4s;
+  animation: k-motion-fade-in 0.4s;
 }
 
 .k-back-top-fade-leave-active {
-  animation: k-back-top-fade 0.4s reverse;
+  animation: k-motion-fade-in 0.4s reverse;
 }

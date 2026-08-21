@@ -167,13 +167,13 @@
   padding-left: var(--kui-padding-inline-sm);
   font-size: var(--kui-font-size-sm);
   .k-input-number-controls {
-    height: 22px;
+    height: calc(var(--kui-control-height-sm) - 2px);
   }
 
   .k-input-number-text {
     line-height: 1;
     font-size: var(--kui-font-size-sm);
-    height: 22px;
+    height: calc(var(--kui-control-height-sm) - 2px);
   }
 
   .k-input-number-clearable {
@@ -196,13 +196,13 @@
   padding-left: var(--kui-padding-inline-lg);
   font-size: var(--kui-font-size-lg);
   .k-input-number-controls {
-    height: 38px;
+    height: calc(var(--kui-control-height-lg) - 2px);
   }
 
   .k-input-number-text {
     padding: 2px 0;
-    height: 38px;
-    line-height: 38px;
+    height: calc(var(--kui-control-height-lg) - 2px);
+    line-height: calc(var(--kui-control-height-lg) - 2px);
     font-size: var(--kui-font-size-lg);
   }
 
@@ -243,5 +243,19 @@
   .k-input-number-control:hover {
     background: 0 0;
     color: var(--kui-color-icon);
+  }
+}
+
+.k-input-number-plain {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+
+  &:hover,
+  &:focus,
+  &.k-input-focus {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
   }
 }

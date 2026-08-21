@@ -106,9 +106,36 @@
 }
 
 .k-card-bordered {
-  border: 1px solid var(--kui-card-border);
-  background-color: transparent;
+  border: 1px solid var(--kui-theme-outline-border);
+  background: var(--kui-theme-outline-bg);
   .k-card-head {
     border-bottom: 1px solid var(--kui-card-border);
   }
+}
+
+.k-card-round,
+.k-card-default {
+  border-radius: var(--kui-card-radius);
+}
+.k-card-circle {
+  border-radius: var(--kui-shape-circle);
+}
+.k-card-square {
+  border-radius: var(--kui-shape-square);
+}
+.k-card-fill {
+  border-color: var(--kui-theme-fill-border);
+  background: var(--kui-theme-fill-bg);
+}
+.k-card-outline {
+  border: 1px solid var(--kui-theme-outline-border);
+  background: var(--kui-theme-outline-bg);
+  .k-card-head {
+    border-bottom: 1px solid var(--kui-card-border);
+  }
+}
+.k-card-plain {
+  border-color: var(--kui-theme-plain-border);
+  background: var(--kui-theme-plain-bg);
+  box-shadow: none;
 }

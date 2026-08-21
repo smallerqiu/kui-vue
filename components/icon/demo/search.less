@@ -31,9 +31,9 @@
     }
     &:hover {
       color: #3a95ff;
-      animation: flashing 2s ease-in-out infinite; /* 添加漂浮动画 */
+      animation: k-icon-demo-flashing 2s ease-in-out infinite; /* 添加漂浮动画 */
       .k-icon {
-        animation: float 2s ease-in-out infinite; /* 添加漂浮动画 */
+        animation: k-icon-demo-float 2s ease-in-out infinite; /* 添加漂浮动画 */
       }
       .item-tip {
         display: block;
@@ -48,7 +48,7 @@
   }
 }
 
-@keyframes flashing {
+@keyframes k-icon-demo-flashing {
   0% {
     box-shadow: inset 0 0 15px 0px rgba(58, 149, 255, 0.1);
   }
@@ -59,7 +59,7 @@
     box-shadow: inset 0 0 15px 0px rgba(58, 149, 255, 0.1);
   }
 }
-@keyframes float {
+@keyframes k-icon-demo-float {
   0% {
     transform: translateY(0px);
   }

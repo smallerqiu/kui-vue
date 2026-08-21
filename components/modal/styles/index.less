@@ -1,4 +1,5 @@
 @import "../../styles/less-css-var.less";
+@import "../../styles/motion.less";
 
 .k-modal {
   color: var(--kui-color-text);
@@ -229,22 +230,12 @@
   color: var(--kui-color-warning);
 }
 
-@keyframes k-modal-fade {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
 .k-modal-fade-enter-active {
-  animation: k-modal-fade 0.4s linear;
+  animation: k-motion-fade-in 0.4s linear;
 }
 
 .k-modal-fade-leave-active {
-  animation: k-modal-fade 0.4s linear reverse;
+  animation: k-motion-fade-in 0.4s linear reverse;
 }
 
 @keyframes k-modal-zoom {

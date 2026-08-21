@@ -31,7 +31,11 @@ export function getChildren(VNodes?: unknown[]) {
 interface ScrollLockState {
   count: number;
   overflow: string;
+  overflowY: string;
+  width: string;
   paddingRight: string;
+  scrollbarWidth: string;
+  hadLockClass: boolean;
 }
 
 const scrollLocks = new Map<HTMLElement, ScrollLockState>();
@@ -49,7 +53,11 @@ export const toggleContainerScroll = (target: HTMLElement | null, lock: boolean)
     const state: ScrollLockState = {
       count: 1,
       overflow: target.style.overflow,
+      overflowY: target.style.overflowY,
+      width: target.style.width,
       paddingRight: target.style.paddingRight,
+      scrollbarWidth: target.style.getPropertyValue("--kui-scrollbar-width"),
+      hadLockClass: target.classList.contains("k-scroll-locked"),
     };
     const computedPadding = Number.parseFloat(window.getComputedStyle(target).paddingRight) || 0;
     const scrollbarWidth =
@@ -57,8 +65,17 @@ export const toggleContainerScroll = (target: HTMLElement | null, lock: boolean)
         ? Math.max(0, window.innerWidth - document.documentElement.clientWidth)
         : Math.max(0, target.offsetWidth - target.clientWidth);
 
-    target.style.overflow = "hidden";
-    if (scrollbarWidth > 0) target.style.paddingRight = `${computedPadding + scrollbarWidth}px`;
+    target.classList.add("k-scroll-locked");
+    target.style.setProperty("--kui-scrollbar-width", `${scrollbarWidth}px`);
+    if (target === document.body) {
+      target.style.overflowY = "hidden";
+      target.style.width = `calc(100% - ${scrollbarWidth}px)`;
+    } else {
+      target.style.overflow = "hidden";
+      if (scrollbarWidth > 0) {
+        target.style.paddingRight = `${computedPadding + scrollbarWidth}px`;
+      }
+    }
     scrollLocks.set(target, state);
     return;
   }
@@ -69,6 +86,14 @@ export const toggleContainerScroll = (target: HTMLElement | null, lock: boolean)
   if (state.count > 0) return;
 
   target.style.overflow = state.overflow;
+  target.style.overflowY = state.overflowY;
+  target.style.width = state.width;
   target.style.paddingRight = state.paddingRight;
+  if (state.scrollbarWidth) {
+    target.style.setProperty("--kui-scrollbar-width", state.scrollbarWidth);
+  } else {
+    target.style.removeProperty("--kui-scrollbar-width");
+  }
+  if (!state.hadLockClass) target.classList.remove("k-scroll-locked");
   scrollLocks.delete(target);
 };

@@ -1,19 +1,21 @@
 @import "../../styles/less-css-var.less";
 
 .k-tag {
+  gap: 3px;
   line-height: 1;
-  height: 32px;
+  height: var(--kui-control-height);
   flex-shrink: 0;
   padding: 0 15px;
-  border: 1px solid var(--kui-color-border);
+  border: 1px solid var(--kui-control-border);
   font-size: 14px;
-  border-radius: var(--kui-border-radius);
+  border-radius: var(--kui-control-radius);
+  background: var(--kui-color-bg-component);
   box-sizing: border-box;
   white-space: nowrap;
   vertical-align: middle;
   display: inline-flex;
   align-items: center;
-  color: var(--kui-color-text);
+  color: var(--kui-control-text);
 
   &.k-tag-circle {
     border-radius: 16px;
@@ -125,7 +127,7 @@
 }
 
 .k-tag-sm {
-  height: 24px;
+  height: var(--kui-control-height-sm);
   padding: 0 7px;
   font-size: 12px;
 
@@ -143,7 +145,7 @@
 }
 
 .k-tag-lg {
-  height: 40px;
+  height: var(--kui-control-height-lg);
   padding: 0 18px;
 
   .k-tag-text {
@@ -160,7 +162,7 @@
 }
 
 .k-tag-compact {
-  height: 22px;
+  height: calc(var(--kui-control-height) - 10px);
   padding: 0 6px;
   font-size: var(--kui-font-size-sm);
 
@@ -173,7 +175,7 @@
   }
 
   &.k-tag-sm {
-    height: 18px;
+    height: calc(var(--kui-control-height-sm) - 6px);
     padding: 0 5px;
 
     &.k-tag-closeable {
@@ -182,7 +184,7 @@
   }
 
   &.k-tag-lg {
-    height: 28px;
+    height: calc(var(--kui-control-height-lg) - 12px);
     padding: 0 8px;
 
     &.k-tag-closeable {
@@ -215,4 +217,9 @@
 
 .k-tag-leave-active {
   animation: k-tag-zoom 0.2s ease-out reverse;
+}
+
+.k-tag-plain {
+  border-color: transparent;
+  background: transparent;
 }

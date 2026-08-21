@@ -1,4 +1,5 @@
 @import "../../styles/less-css-var.less";
+@import "../../styles/motion.less";
 
 .k-dropdown {
   font-size: 12px;
@@ -283,31 +284,19 @@
   }
 }
 .k-dropdown-enter-active {
-  animation: drop-down 0.3s;
+  animation: k-motion-scale-y-in 0.3s;
 }
 
 .k-dropdown-leave-active {
-  animation: drop-down 0.3s reverse;
-}
-
-@keyframes dropdown-zoom {
-  0% {
-    transform: scaleY(0);
-    opacity: 0;
-  }
-
-  100% {
-    transform: scaleY(1);
-    opacity: 1;
-  }
+  animation: k-motion-scale-y-in 0.3s reverse;
 }
 
 .k-dropdown-fade-enter-active {
-  animation: dropdown-zoom 0.3s;
+  animation: k-motion-scale-y-in 0.3s;
 }
 
 .k-dropdown-fade-leave-active {
-  animation: dropdown-zoom 0.3s reverse;
+  animation: k-motion-scale-y-in 0.3s reverse;
 }
 
 .k-dropdown-menu-submenu-popup-leave-active {
@@ -316,14 +305,14 @@
   &[k-placement="left-top"],
   &[k-placement="right-bottom"] {
     animation-fill-mode: both;
-    animation: k-menu-zoom 0.2s cubic-bezier(0.215, 0.61, 0.355, 1) reverse;
+    animation: k-motion-scale-in 0.2s cubic-bezier(0.215, 0.61, 0.355, 1) reverse;
   }
 
   &[k-placement="top-left"],
   &[k-placement="top-right"],
   &[k-placement="bottom-left"],
   &[k-placement="bottom-right"] {
-    animation: drop-down 0.3s reverse;
+    animation: k-motion-scale-y-in 0.3s reverse;
   }
 }
 .k-dropdown-menu-submenu-popup-enter-active {
@@ -331,7 +320,7 @@
   &[k-placement="bottom-right"],
   &[k-placement="top-left"],
   &[k-placement="top-right"] {
-    animation: drop-down 0.3s;
+    animation: k-motion-scale-y-in 0.3s;
   }
 
   &[k-placement="left-bottom"],
@@ -339,6 +328,6 @@
   &[k-placement="left-top"],
   &[k-placement="right-bottom"] {
     animation-fill-mode: both;
-    animation: k-menu-zoom 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation: k-motion-scale-in 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 }

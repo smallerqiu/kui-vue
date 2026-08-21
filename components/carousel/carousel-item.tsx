@@ -12,9 +12,6 @@ const CarouselItem = defineComponent({
         height: height ? `${height}px` : undefined,
       };
 
-      /**
-       * Using property spread to avoid "no-inline-styles" warnings.
-       */
       const itemProps = {
         class: "k-carousel-item",
         style: styles,

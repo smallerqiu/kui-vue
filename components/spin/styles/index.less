@@ -18,8 +18,8 @@
   &-flip {
     &::after {
       content: "";
-      width: 40px;
-      height: 40px;
+      width: var(--kui-control-height-lg);
+      height: var(--kui-control-height-lg);
       position: absolute;
       top: 50%;
       left: 50%;
@@ -34,8 +34,8 @@
     &::before,
     &::after {
       content: "";
-      width: 40px;
-      height: 40px;
+      width: var(--kui-control-height-lg);
+      height: var(--kui-control-height-lg);
       border-radius: 50%;
       background-color: var(--kui-color-primary);
       opacity: 0.6;
@@ -56,8 +56,8 @@
     &::before,
     &::after {
       content: "";
-      width: 40px;
-      height: 40px;
+      width: var(--kui-control-height-lg);
+      height: var(--kui-control-height-lg);
       border-radius: 50%;
       background: var(--kui-color-primary);
       opacity: 0.6;
@@ -80,8 +80,8 @@
       border: 4px solid var(--kui-color-primary-9);
       border-radius: 50%;
       content: "";
-      width: 32px;
-      height: 32px;
+      width: var(--kui-control-height);
+      height: var(--kui-control-height);
       position: absolute;
       top: 50%;
       left: 50%;
@@ -103,8 +103,8 @@
     &::before,
     &::after {
       border-width: 5px;
-      width: 40px;
-      height: 40px;
+      width: var(--kui-control-height-lg);
+      height: var(--kui-control-height-lg);
     }
   }
 }
@@ -114,8 +114,8 @@
     &::before,
     &::after {
       border-width: 3px;
-      width: 22px;
-      height: 22px;
+      width: calc(var(--kui-control-height-sm) - 2px);
+      height: calc(var(--kui-control-height-sm) - 2px);
     }
   }
 }
@@ -126,18 +126,18 @@
   }
 
   &.k-spin {
-    width: 32px;
-    height: 32px;
+    width: var(--kui-control-height);
+    height: var(--kui-control-height);
   }
 
   &.k-spin-sm {
-    width: 22px;
-    height: 22px;
+    width: calc(var(--kui-control-height-sm) - 2px);
+    height: calc(var(--kui-control-height-sm) - 2px);
   }
 
   &.k-spin-lg {
-    width: 40px;
-    height: 40px;
+    width: var(--kui-control-height-lg);
+    height: var(--kui-control-height-lg);
   }
 }
 

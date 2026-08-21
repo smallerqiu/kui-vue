@@ -1,4 +1,5 @@
 @import "../../styles/less-css-var.less";
+@import "../../styles/motion.less";
 .k-collapse {
   background-color: var(--kui-color-bg);
   border: 1px solid var(--kui-color-border);
@@ -76,24 +77,37 @@
 }
 
 .k-collapse-slide-enter-active {
-  animation: slide 0.3s ease-in-out;
+  transform-origin: 0 0;
+  animation: k-motion-scale-y-in 0.3s ease-in-out;
   animation-fill-mode: both;
 }
 
 .k-collapse-slide-leave-active {
-  animation: slide 0.3s ease-in-out reverse;
+  transform-origin: 0 0;
+  animation: k-motion-scale-y-in 0.3s ease-in-out reverse;
   animation-fill-mode: both;
 }
 
-@keyframes slide {
-  0% {
-    transform: scaleY(0);
-    transform-origin: 0% 0%;
-    opacity: 0;
-  }
-  100% {
-    transform: scaleY(1);
-    transform-origin: 0% 0%;
-    opacity: 1;
-  }
+.k-collapse-round,
+.k-collapse-default {
+  border-radius: var(--kui-shape-round);
+}
+.k-collapse-circle {
+  border-radius: var(--kui-shape-circle);
+}
+.k-collapse-square {
+  border-radius: var(--kui-shape-square);
+}
+.k-collapse-fill {
+  border-color: var(--kui-theme-fill-border);
+  background: var(--kui-theme-fill-bg);
+}
+.k-collapse-outline {
+  border-color: var(--kui-theme-outline-border);
+  background: var(--kui-theme-outline-bg);
+}
+.k-collapse-plain {
+  border-color: var(--kui-theme-plain-border);
+  background: var(--kui-theme-plain-bg);
+  box-shadow: none;
 }

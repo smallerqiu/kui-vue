@@ -1,3 +1,4 @@
+import { Check, Copy, Pencil } from "kui-icons";
 import {
   computed,
   defineComponent,
@@ -6,10 +7,30 @@ import {
   watch,
   type ExtractPropTypes,
   type PropType,
+  type VNodeChild,
 } from "vue";
+import Icon from "../icon";
+import Tooltip from "../tooltip";
 
 type TypographyType = "secondary" | "success" | "warning" | "danger";
 type TypographyTag = "span" | "p" | "div" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+
+export interface TypographyCopyableOptions {
+  tooltip?: string;
+  copiedTooltip?: string;
+}
+
+export interface TypographyEditableOptions {
+  tooltip?: string;
+}
+
+export interface TypographyEllipsisOptions {
+  rows?: number;
+  expandable?: boolean;
+  expandText?: string;
+  collapseText?: string;
+  tooltip?: boolean | string;
+}
 
 const typographyProps = {
   modelValue: String,
@@ -22,9 +43,18 @@ const typographyProps = {
   mark: Boolean,
   code: Boolean,
   disabled: Boolean,
-  copyable: Boolean,
-  editable: Boolean,
-  ellipsis: { type: [Boolean, Number] as PropType<boolean | number>, default: false },
+  copyable: {
+    type: [Boolean, Object] as PropType<boolean | TypographyCopyableOptions>,
+    default: false,
+  },
+  editable: {
+    type: [Boolean, Object] as PropType<boolean | TypographyEditableOptions>,
+    default: false,
+  },
+  ellipsis: {
+    type: [Boolean, Number, Object] as PropType<boolean | number | TypographyEllipsisOptions>,
+    default: false,
+  },
   onCopy: Function as PropType<(text: string) => void>,
   onChange: Function as PropType<(text: string) => void>,
 };
@@ -40,6 +70,7 @@ const createTypography = (name: string, defaultTag: TypographyTag) =>
     setup(props, { attrs, slots, emit }) {
       const editing = ref(false);
       const copied = ref(false);
+      const expanded = ref(false);
       const input = ref<HTMLInputElement>();
       const draft = ref(props.modelValue || "");
       watch(
@@ -81,7 +112,32 @@ const createTypography = (name: string, defaultTag: TypographyTag) =>
           );
         }
         const Tag = (props.tag || defaultTag) as TypographyTag;
-        const lines = typeof props.ellipsis === "number" ? props.ellipsis : 1;
+        const ellipsisOptions = typeof props.ellipsis === "object" ? props.ellipsis : undefined;
+        const lines = Math.max(
+          1,
+          Math.floor(
+            typeof props.ellipsis === "number" ? props.ellipsis : (ellipsisOptions?.rows ?? 1)
+          )
+        );
+        const expandable = ellipsisOptions?.expandable === true;
+        const ellipsisActive = Boolean(props.ellipsis) && !expanded.value;
+        const tooltipTitle = ellipsisOptions?.tooltip
+          ? typeof ellipsisOptions.tooltip === "string"
+            ? ellipsisOptions.tooltip
+            : text.value
+          : undefined;
+        const copyOptions = typeof props.copyable === "object" ? props.copyable : undefined;
+        const editableOptions = typeof props.editable === "object" ? props.editable : undefined;
+        const contentNode = (
+          <span
+            class={["k-typography-content", ellipsisActive && "is-ellipsis"]}
+            style={ellipsisActive ? { WebkitLineClamp: lines } : undefined}
+          >
+            {props.modelValue ?? slots.default?.()}
+          </span>
+        );
+        const withTooltip = (node: VNodeChild, title?: string) =>
+          title ? <Tooltip title={title}>{node}</Tooltip> : node;
         return (
           <Tag
             {...attrs}
@@ -97,22 +153,49 @@ const createTypography = (name: string, defaultTag: TypographyTag) =>
                 "is-mark": props.mark,
                 "is-code": props.code,
                 "is-disabled": props.disabled,
-                "is-ellipsis": props.ellipsis,
+                "has-ellipsis": props.ellipsis,
               },
             ]}
-            style={props.ellipsis ? { WebkitLineClamp: lines } : undefined}
           >
-            <span class="k-typography-content">{props.modelValue ?? slots.default?.()}</span>
-            {props.editable && (
-              <button class="k-typography-action" onClick={startEdit} aria-label="Edit">
-                ✎
+            {withTooltip(contentNode, ellipsisActive ? tooltipTitle : undefined)}
+            {expandable && (
+              <button
+                class="k-typography-action k-typography-expand"
+                disabled={props.disabled}
+                aria-expanded={expanded.value}
+                onClick={() => !props.disabled && (expanded.value = !expanded.value)}
+              >
+                {expanded.value
+                  ? (ellipsisOptions?.collapseText ?? "Collapse")
+                  : (ellipsisOptions?.expandText ?? "More")}
               </button>
             )}
-            {props.copyable && (
-              <button class="k-typography-action" onClick={copy} aria-label="Copy">
-                {copied.value ? "✓" : "⧉"}
-              </button>
-            )}
+            {props.editable &&
+              withTooltip(
+                <button
+                  class="k-typography-action"
+                  disabled={props.disabled}
+                  onClick={startEdit}
+                  aria-label="Edit"
+                >
+                  <Icon type={Pencil} />
+                </button>,
+                editableOptions?.tooltip
+              )}
+            {props.copyable &&
+              withTooltip(
+                <button
+                  class="k-typography-action"
+                  disabled={props.disabled}
+                  onClick={copy}
+                  aria-label="Copy"
+                >
+                  <Icon type={copied.value ? Check : Copy} />
+                </button>,
+                copied.value
+                  ? (copyOptions?.copiedTooltip ?? copyOptions?.tooltip)
+                  : copyOptions?.tooltip
+              )}
           </Tag>
         );
       };

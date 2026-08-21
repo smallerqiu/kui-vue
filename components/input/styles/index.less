@@ -229,7 +229,7 @@
 
 .k-textarea-sm {
   font-size: var(--kui-font-size-sm);
-  padding: 2px var(--kui-padding-inline-sm);
+  padding: 1px var(--kui-padding-inline-sm);
 }
 
 .k-textarea-lg {
@@ -485,5 +485,19 @@
   .k-input-number-suffix,
   .k-input-number-prefix {
     font-size: var(--kui-font-size-lg);
+  }
+}
+
+:where(.k-input-plain, .k-textarea-plain) {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+
+  &:hover,
+  &:focus,
+  &.k-input-focus {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
   }
 }

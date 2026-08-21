@@ -1,17 +1,7 @@
-@keyframes load-loop {
-  0% {
-    transform: rotate(0);
-  }
-  50% {
-    transform: rotate(180deg);
-  }
-  to {
-    transform: rotate(1turn);
-  }
-}
+@import "../../styles/motion.less";
 
 .k-load-loop {
-  animation: load-loop 1s linear infinite;
+  animation: k-motion-rotate 1s linear infinite;
 }
 
 .k-icon {

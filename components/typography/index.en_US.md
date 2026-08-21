@@ -6,11 +6,27 @@ Consistent semantics and visual hierarchy for titles, paragraphs and inline text
 
 [Basic](./demo/basic.vue?show=vertical)
 
-- Titles, paragraphs and common inline text styles.
+- Build content hierarchy with titles, paragraphs, and inline text.
+
+[Title levels](./demo/title.vue?show=vertical)
+
+- Use `tag` to render heading levels from h1 through h6.
+
+[Semantic text](./demo/type.vue?show=vertical)
+
+- Use `type` for secondary, success, warning, and danger semantics.
+
+[Text styles](./demo/style.vue?show=vertical)
+
+- Bold, italic, underline, deleted, marked, and inline code styles.
+
+[Ellipsis](./demo/ellipsis.vue?show=vertical)
+
+- Supports multi-line truncation, full-text tooltips, and expand/collapse actions.
 
 [Copy and edit](./demo/interactive.vue?show=vertical)
 
-- Copy text or edit it in place.
+- Copy text or edit it in place and listen to the corresponding events.
 
 ## API
 
@@ -28,8 +44,31 @@ Consistent semantics and visual hierarchy for titles, paragraphs and inline text
 | mark       | Marked text                        | boolean                                     | false   |
 | code       | Inline code style                  | boolean                                     | false   |
 | disabled   | Disabled state                     | boolean                                     | false   |
-| copyable   | Enable copy                        | boolean                                     | false   |
-| editable   | Enable editing                     | boolean                                     | false   |
-| ellipsis   | One-line ellipsis or maximum lines | boolean, number                             | false   |
+| copyable   | Enable copy and action tooltips    | boolean, TypographyCopyableOptions          | false   |
+| editable   | Enable editing and action tooltips | boolean, TypographyEditableOptions          | false   |
+| ellipsis   | Truncation, tooltip and expansion  | boolean, number, TypographyEllipsisOptions  | false   |
 | copy       | Emitted after copying              | (text) => void                              | -       |
 | change     | Emitted after editing              | (text) => void                              | -       |
+
+### TypographyCopyableOptions
+
+| Property      | Description                 | Type   | Default |
+| ------------- | --------------------------- | ------ | ------- |
+| tooltip       | Copy action tooltip         | string | -       |
+| copiedTooltip | Tooltip shown after copying | string | -       |
+
+### TypographyEditableOptions
+
+| Property | Description         | Type   | Default |
+| -------- | ------------------- | ------ | ------- |
+| tooltip  | Edit action tooltip | string | -       |
+
+### TypographyEllipsisOptions
+
+| Property     | Description                               | Type            | Default  |
+| ------------ | ----------------------------------------- | --------------- | -------- |
+| rows         | Maximum visible lines                     | number          | 1        |
+| expandable   | Show the expand/collapse action           | boolean         | false    |
+| expandText   | Expand action label                       | string          | More     |
+| collapseText | Collapse action label                     | string          | Collapse |
+| tooltip      | Show full text or a custom collapsed hint | boolean, string | false    |

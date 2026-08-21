@@ -5,7 +5,7 @@
       <div>card content</div>
       <div>card content</div>
     </Card>
-    <Card bordered>
+    <Card theme="outline">
       <div>card content</div>
       <div>card content</div>
       <div>card content</div>

@@ -14,12 +14,13 @@
     display: flex;
     align-items: center;
     padding: 0;
+    list-style: none;
   }
   .k-pager-item {
     background: transparent;
     color: var(--kui-color-text);
-    min-width: 32px;
-    height: 32px;
+    min-width: var(--kui-control-height);
+    height: var(--kui-control-height);
     line-height: 1;
     border-radius: var(--kui-border-radius);
     margin: 0 8px;
@@ -168,9 +169,9 @@
   }
 
   .k-pager .k-pager-item {
-    height: 22px;
+    height: var(--kui-control-height-sm);
     font-size: 12px;
-    min-width: 22px;
+    min-width: var(--kui-control-height-sm);
   }
 
   .k-page-sizer {
@@ -180,4 +181,47 @@
   .k-page-number {
     font-size: 12px;
   }
+}
+
+.k-page-simple {
+  .k-pager-item {
+    margin: 0;
+  }
+
+  .k-page-simple-number {
+    display: inline-flex;
+    min-width: 52px;
+    padding: 0 var(--kui-spacing-2);
+    align-items: center;
+    justify-content: center;
+    gap: var(--kui-spacing-2);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .k-page-simple-input {
+    display: inline-flex;
+    width: 42px;
+
+    .k-input-number {
+      width: 100%;
+      padding-inline: var(--kui-spacing-1);
+      text-align: center;
+    }
+
+    .k-input-number-text {
+      text-align: center;
+    }
+  }
+}
+
+.k-page-round .k-pager-item,
+.k-page-default .k-pager-item {
+  border-radius: var(--kui-shape-round);
+}
+.k-page-circle .k-pager-item {
+  border-radius: var(--kui-shape-circle);
+}
+.k-page-square .k-pager-item {
+  border-radius: var(--kui-shape-square);
 }

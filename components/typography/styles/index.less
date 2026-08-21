@@ -1,3 +1,5 @@
+@import "../../styles/less-css-var.less";
+
 .k-typography {
   margin: 0;
   color: var(--kui-color-text);
@@ -21,6 +23,12 @@ h3.k-typography {
 }
 h4.k-typography {
   font-size: 1.1em;
+}
+h5.k-typography {
+  font-size: 1em;
+}
+h6.k-typography {
+  font-size: 0.9em;
 }
 .k-typography-secondary {
   color: var(--kui-color-text-description);
@@ -61,12 +69,15 @@ h4.k-typography {
   color: var(--kui-color-text-disabled);
   cursor: not-allowed;
 }
-.k-typography.is-ellipsis {
+.k-typography-content.is-ellipsis {
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
 }
 .k-typography-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-inline-start: 0.4em;
   padding: 0;
   border: 0;
@@ -74,11 +85,32 @@ h4.k-typography {
   color: var(--kui-color-primary);
   cursor: pointer;
   font: inherit;
+  line-height: 1;
+  vertical-align: middle;
+
+  &:hover {
+    color: var(--kui-color-primary-hover);
+  }
+
+  &:focus-visible {
+    border-radius: var(--kui-shape-square);
+    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    color: var(--kui-color-text-disabled);
+    cursor: not-allowed;
+  }
+}
+.k-typography-expand {
+  color: var(--kui-color-primary);
+  font-size: inherit;
 }
 .k-typography-editor {
   width: 100%;
   min-height: var(--kui-control-height);
-  padding: 0 var(--kui-spacing-sm);
+  padding: 0 var(--kui-spacing-2);
   border: 1px solid var(--kui-color-primary);
   border-radius: var(--kui-control-radius);
   outline: 0;

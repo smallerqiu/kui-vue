@@ -180,11 +180,13 @@ code {
     display: block;
 
     .docs-k-layout-sider {
+      box-sizing: border-box;
       position: fixed;
       height: calc(100vh - 60px);
       top: 60px;
-      padding: 0 0 96px calc((100% - var(--docs-body-width)) / 2);
-      max-width: calc((100% - var(--docs-body-width)) / 2 + var(--docs-sidebar-width));
+      left: max(0px, calc((100vw - var(--docs-body-width)) / 2));
+      width: var(--docs-sidebar-width);
+      max-width: var(--docs-sidebar-width);
 
       .min-menu-nav-btn {
         position: absolute;
@@ -204,9 +206,24 @@ code {
     }
 
     & > .k-layout-content {
+      box-sizing: border-box;
+      display: grid;
+      grid-template-columns: var(--docs-sidebar-width) minmax(0, 1fr);
+      width: min(100%, var(--docs-body-width));
+      margin: 0 auto;
       padding-top: 20px;
-      padding-left: calc((100vw - var(--docs-body-width)) / 2 + var(--docs-sidebar-width) + 30px);
-      width: 1066px;
+
+      > .content-inner {
+        grid-column: 2;
+        min-width: 0;
+        margin-left: 30px;
+      }
+
+      > .foot-nav {
+        grid-column: 2;
+        min-width: 0;
+        margin-left: 30px;
+      }
 
       .footer {
         background: none;
@@ -343,14 +360,16 @@ html[theme-mode="dark"] {
 }
 @media (max-width: 1399px) {
   .k-layout .main > .k-layout-content {
-    padding-left: var(--docs-sidebar-width);
-    width: auto;
+    width: 100%;
 
     .content-inner {
+      margin-left: 0;
       padding: 20px 40px;
     }
 
     .foot-nav {
+      margin-right: 0;
+      margin-left: 0;
       padding: 0 40px;
     }
   }
@@ -366,13 +385,18 @@ html[theme-mode="dark"] {
   }
 
   .k-layout .main > .k-layout-content {
+    display: block;
+    width: 100%;
     padding: 20px 22px 0px;
 
     .content-inner {
+      margin-left: 0;
       padding: 0;
     }
 
     .foot-nav {
+      margin-right: 0;
+      margin-left: 0;
       padding: 0;
     }
   }

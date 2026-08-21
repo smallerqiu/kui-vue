@@ -201,7 +201,12 @@ export {
   TypographyText,
   TypographyTitle,
 } from "./typography";
-export type { TypographyProps } from "./typography";
+export type {
+  TypographyCopyableOptions,
+  TypographyEditableOptions,
+  TypographyEllipsisOptions,
+  TypographyProps,
+} from "./typography";
 
 export { TabPanel, Tabs } from "./tabs";
 export type { TabPanelProps, TabsProps } from "./tabs";

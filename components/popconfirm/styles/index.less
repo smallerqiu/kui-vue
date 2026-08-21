@@ -1,4 +1,5 @@
 @import "../../styles/less-css-var.less";
+@import "../../styles/motion.less";
 
 .k-popconfirm {
   display: inline-block;
@@ -190,24 +191,12 @@
   }
 }
 
-@keyframes k-pop-zoom {
-  from {
-    opacity: 0;
-    transform: scale(0.8, 0.8);
-  }
-
-  to {
-    opacity: 1;
-    transform: scale(1, 1);
-  }
-}
-
 .k-popconfirm-enter-active {
-  animation: k-pop-zoom 0.3s;
+  animation: k-motion-scale-in 0.3s;
 }
 
 .k-popconfirm-leave-active {
-  animation: k-pop-zoom 0.3s reverse;
+  animation: k-motion-scale-in 0.3s reverse;
 }
 
 .k-popconfirm-panel {

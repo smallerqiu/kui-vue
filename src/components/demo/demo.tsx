@@ -9,7 +9,9 @@ import {
   inject,
   nextTick,
   onBeforeUnmount,
+  onBeforeUpdate,
   onMounted,
+  onUpdated,
   reactive,
   ref,
   Transition,
@@ -63,6 +65,7 @@ const Demo = defineComponent({
     const codeLanguage = ref<"ts" | "js">("ts");
     const codeOrigins: Partial<Record<"ts" | "js", string>> = {};
     const codeJars: Partial<Record<"ts" | "js", CodeJarInstance>> = {};
+    const pendingEditorState: Partial<Record<"ts" | "js", { code: string; dirty: boolean }>> = {};
     const currentCodeJar = () => codeJars[codeLanguage.value];
     const viewRef = ref(null);
     const timer = ref<ReturnType<typeof setTimeout>>();
@@ -80,7 +83,8 @@ const Demo = defineComponent({
     const currentApp = ref();
     const reload = async () => {
       const activeCodeSlot = codeLanguage.value === "ts" ? slots["code-ts"] : slots["code-js"];
-      const source = currentCodeJar()?.toString() || (activeCodeSlot?.()?.[0]?.children as string) || "";
+      const source =
+        currentCodeJar()?.toString() || (activeCodeSlot?.()?.[0]?.children as string) || "";
       const { parseCode } = await import("./transform");
       parseCode({
         source: source,
@@ -132,13 +136,45 @@ const Demo = defineComponent({
         const jar = CodeJar(
           editor,
           (element) => {
-            element.innerHTML = hljs.highlight(element.textContent || "", { language: "xml" }).value;
+            element.innerHTML = hljs.highlight(element.textContent || "", {
+              language: "xml",
+            }).value;
           },
           { tab: "  ", spellcheck: false }
         );
         jar.updateCode(source, false);
         jar.onUpdate(renderCode);
         codeJars[language] = jar;
+      });
+    });
+    onBeforeUpdate(() => {
+      (["ts", "js"] as const).forEach((language) => {
+        const code = codeJars[language]?.toString();
+        if (code === undefined) return;
+        pendingEditorState[language] = {
+          code,
+          dirty: code !== codeOrigins[language],
+        };
+      });
+    });
+    onUpdated(() => {
+      (["ts", "js"] as const).forEach((language) => {
+        const editor = codeRefs[language].value;
+        const jar = codeJars[language];
+        if (!editor || !jar) return;
+
+        const previous = pendingEditorState[language];
+        const source = readHighlightedSource(editor);
+        if (previous?.dirty) {
+          if (source !== previous.code) codeOrigins[language] = source;
+          jar.updateCode(previous.code, false);
+          return;
+        }
+
+        if (source !== codeOrigins[language]) {
+          codeOrigins[language] = source;
+          jar.updateCode(source, false);
+        }
       });
     });
     onBeforeUnmount(() => {
