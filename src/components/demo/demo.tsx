@@ -2,7 +2,7 @@ import { CodeJar, type CodeJar as CodeJarInstance } from "codejar";
 import hljs from "highlight.js/lib/core";
 import typescript from "highlight.js/lib/languages/typescript";
 import xml from "highlight.js/lib/languages/xml";
-import { Copy, ListChevronsDownUp, ListChevronsUpDown, Undo2 } from "kui-icons";
+import { Copy, ListChevronsDownUp, ListChevronsUpDown, Play, Undo2 } from "kui-icons";
 import { Badge, Button, message, RadioGroup, Tooltip, type BadgeStatusType } from "kui-vue";
 import {
   defineComponent,
@@ -15,7 +15,9 @@ import {
   reactive,
   ref,
   Transition,
+  type PropType,
 } from "vue";
+import { useRouter } from "vue-router";
 import { getTransitionProp } from "../../../components/base/transition";
 import { copyToClipboard } from "../../../components/utils/share";
 import { CodePen, CodeSandbox, Stackblitz } from "./icons";
@@ -55,16 +57,20 @@ const Demo = defineComponent({
     title: String,
     description: String,
     filename: { type: String, default: "App.vue" },
+    toolbar: { type: String as PropType<"default" | "status">, default: "default" },
+    defaultLanguage: { type: String as PropType<"ts" | "js">, default: "ts" },
+    autoCompile: Boolean,
   },
   setup(props, { slots }) {
     const $t = inject<(key: string) => string>("$t", (key: string) => key);
+    const router = useRouter();
 
     const expanded = ref(props.direction != "vertical");
     const codeRefs = {
       ts: ref<HTMLElement>(),
       js: ref<HTMLElement>(),
     };
-    const codeLanguage = ref<"ts" | "js">("ts");
+    const codeLanguage = ref<"ts" | "js">(props.defaultLanguage);
     const codeOrigins: Partial<Record<"ts" | "js", string>> = {};
     const codeJars: Partial<Record<"ts" | "js", CodeJarInstance>> = {};
     const pendingEditorState: Partial<Record<"ts" | "js", { code: string; dirty: boolean }>> = {};
@@ -123,6 +129,17 @@ const Demo = defineComponent({
         });
       }
     };
+    const openPlayground = () => {
+      sessionStorage.setItem(
+        "kui-playground-code",
+        JSON.stringify({
+          ts: codeJars.ts?.toString() || codeOrigins.ts || "",
+          js: codeJars.js?.toString() || codeOrigins.js || "",
+          language: codeLanguage.value,
+        })
+      );
+      router.push("/playground");
+    };
     const switchCodeLanguage = async (language: "ts" | "js") => {
       if (codeLanguage.value === language) return;
       codeLanguage.value = language;
@@ -148,6 +165,7 @@ const Demo = defineComponent({
         jar.onUpdate(renderCode);
         codeJars[language] = jar;
       });
+      if (props.autoCompile) void reload();
     });
     onBeforeUpdate(() => {
       (["ts", "js"] as const).forEach((language) => {
@@ -191,7 +209,10 @@ const Demo = defineComponent({
     return () => {
       const transitionProps = getTransitionProp("");
       const horizontal = props.direction === "horizontal";
-      const classes = ["k-demo", { "k-demo-horizontal": horizontal }];
+      const classes = [
+        "k-demo",
+        { [`k-demo-${props.direction}`]: props.direction, "k-demo-expanded": expanded.value },
+      ];
       const descNode = (
         <div class="k-desc">
           <div class="k-desc-content">
@@ -211,67 +232,78 @@ const Demo = defineComponent({
         <div class={["markdown-body", "k-demo-container", { "k-demo-expanded": expanded.value }]}>
           {descNode}
           <div class={classes}>
-            <div class={`k-demo-view k-demo-view-${props.direction}`}>
+            <div class={`k-demo-view`}>
               <div {...refProps}>{slots.component?.()}</div>
             </div>
             <Transition {...transitionProps}>
-              <div v-show={expanded.value} class="k-code-box">
+              <div class="k-code-box" style={`height: ${!expanded.value ? "80px" : undefined}`}>
                 <div class="k-code-tools">
                   <Badge status={buildState.state} text={buildState.text} />
-                  <Tooltip title="Open in StackBlitz">
-                    <Button
-                      type="text"
-                      size="small"
-                      icon={Stackblitz}
-                      onClick={() =>
-                        openStackBlitz(currentCodeJar()?.toString() || "", props.filename)
-                      }
-                    />
-                  </Tooltip>
-                  {props.filename.endsWith(".vue") && (
-                    <Tooltip title="Open in CodeSandbox">
-                      <Button
-                        type="text"
-                        size="small"
-                        icon={CodeSandbox}
-                        onClick={() =>
-                          openCodeSandbox(currentCodeJar()?.toString() || "", props.filename).catch(
-                            (error: unknown) =>
-                              message.error(
-                                error instanceof Error
-                                  ? error.message
-                                  : "Unable to open CodeSandbox"
+                  {props.toolbar !== "status" && (
+                    <>
+                      {props.filename.endsWith(".vue") && (
+                        <Tooltip title="Open in Playground">
+                          <Button type="text" size="small" icon={Play} onClick={openPlayground} />
+                        </Tooltip>
+                      )}
+                      <Tooltip title="Open in StackBlitz">
+                        <Button
+                          type="text"
+                          size="small"
+                          icon={Stackblitz}
+                          onClick={() =>
+                            openStackBlitz(currentCodeJar()?.toString() || "", props.filename)
+                          }
+                        />
+                      </Tooltip>
+                      {props.filename.endsWith(".vue") && (
+                        <Tooltip title="Open in CodeSandbox">
+                          <Button
+                            type="text"
+                            size="small"
+                            icon={CodeSandbox}
+                            onClick={() =>
+                              openCodeSandbox(
+                                currentCodeJar()?.toString() || "",
+                                props.filename
+                              ).catch((error: unknown) =>
+                                message.error(
+                                  error instanceof Error
+                                    ? error.message
+                                    : "Unable to open CodeSandbox"
+                                )
                               )
-                          )
-                        }
-                      />
-                    </Tooltip>
-                  )}
-                  {props.filename.endsWith(".vue") && (
-                    <Tooltip title="Open in CodePen">
-                      <Button
-                        type="text"
+                            }
+                          />
+                        </Tooltip>
+                      )}
+                      {props.filename.endsWith(".vue") && (
+                        <Tooltip title="Open in CodePen">
+                          <Button
+                            type="text"
+                            size="small"
+                            icon={CodePen}
+                            onClick={() => openCodePen(currentCodeJar()?.toString() || "")}
+                          />
+                        </Tooltip>
+                      )}
+                      <RadioGroup
+                        options={codeLangOptions}
+                        onChange={(value) => {
+                          if (value === "ts" || value === "js") switchCodeLanguage(value);
+                        }}
+                        type="button"
                         size="small"
-                        icon={CodePen}
-                        onClick={() => openCodePen(currentCodeJar()?.toString() || "")}
+                        v-model={codeLanguage.value}
                       />
-                    </Tooltip>
+                      <Tooltip title={$t("text.copy_code")}>
+                        <Button type="text" size="small" icon={Copy} onClick={copyCode} />
+                      </Tooltip>
+                      <Tooltip title={$t("text.restore_code")}>
+                        <Button type="text" size="small" icon={Undo2} onClick={restoreCode} />
+                      </Tooltip>
+                    </>
                   )}
-                  <RadioGroup
-                    options={codeLangOptions}
-                    onChange={(value) => {
-                      if (value === "ts" || value === "js") switchCodeLanguage(value);
-                    }}
-                    type="button"
-                    size="small"
-                    v-model={codeLanguage.value}
-                  />
-                  <Tooltip title={$t("text.copy_code")}>
-                    <Button type="text" size="small" icon={Copy} onClick={copyCode} />
-                  </Tooltip>
-                  <Tooltip title={$t("text.restore_code")}>
-                    <Button type="text" size="small" icon={Undo2} onClick={restoreCode} />
-                  </Tooltip>
                 </div>
                 <div
                   v-show={codeLanguage.value === "ts"}
@@ -298,7 +330,7 @@ const Demo = defineComponent({
                     type="text"
                     icon={expanded.value ? ListChevronsDownUp : ListChevronsUpDown}
                     onClick={() => (expanded.value = !expanded.value)}
-                  />
+                  ></Button>
                 </Tooltip>
               </div>
             )}

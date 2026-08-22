@@ -1,0 +1,89 @@
+.playground-layout {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.playground-page {
+  width: 100vw;
+  height: calc(100vh - var(--docs-header-height));
+  margin-top: var(--docs-header-height);
+  overflow: hidden;
+  background: var(--kui-color-bg-layout);
+
+  .k-demo-container,
+  .k-demo,
+  .k-demo-horizontal,
+  .k-demo-view,
+  .k-code-box,
+  .k-content {
+    height: 100%;
+    min-height: 0;
+    box-sizing: border-box;
+  }
+
+  .k-demo-container {
+    margin: 0;
+  }
+
+  .k-demo {
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  .k-desc {
+    display: none;
+  }
+
+  .k-demo-horizontal {
+    .k-demo-view,
+    .k-code-box {
+      width: 50%;
+    }
+
+    .k-demo-view {
+      border-right: 1px solid var(--kui-color-border);
+    }
+
+    .k-content {
+      // display: flex;
+      // align-items: center;
+      // justify-content: center;
+      padding: 32px;
+    }
+
+    .k-code-box,
+    .k-code {
+      border-radius: 0;
+    }
+  }
+
+  .k-code-tools {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    border-radius: 0 0 0 var(--kui-card-radius);
+  }
+}
+
+@media (max-width: 768px) {
+  .playground-page {
+    overflow: auto;
+
+    .k-demo-horizontal {
+      min-height: 100vh;
+      height: auto;
+      flex-direction: column;
+
+      .k-demo-view,
+      .k-code-box {
+        width: 100%;
+        height: 50vh;
+      }
+
+      .k-demo-view {
+        border-right: 0;
+        border-bottom: 1px solid var(--kui-color-border);
+      }
+    }
+  }
+}

@@ -45,6 +45,13 @@ declare module 'vue-router/auto-routes' {
       Record<never, never>,
       | never
     >,
+    '/playground/': RouteRecordInfo<
+      '/playground/',
+      '/playground',
+      Record<never, never>,
+      Record<never, never>,
+      | never
+    >,
   }
 
   /**
@@ -69,6 +76,14 @@ declare module 'vue-router/auto-routes' {
     'src/views/components/demo.tsx': {
       routes:
         | '/components/demo'
+      views:
+        | never
+      pathParamNames:
+        | never
+    }
+    'src/views/playground/index.tsx': {
+      routes:
+        | '/playground/'
       views:
         | never
       pathParamNames:

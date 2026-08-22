@@ -90,8 +90,13 @@ export async function parseCode({
 
     let cssCode = "";
     for (const s of descriptor.styles) {
+      let styleSource = s.content;
+      if (s.lang === "less") {
+        const { default: less } = await import("less");
+        styleSource = (await less.render(styleSource, { filename: "App.vue" })).css;
+      }
       const compiledStyle = compileStyle({
-        source: s.content,
+        source: styleSource,
         id: scopeId,
         scoped: s.scoped,
         filename: "App.vue",

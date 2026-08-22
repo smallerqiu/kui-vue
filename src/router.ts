@@ -31,7 +31,7 @@ const router = createRouter({
 router.beforeEach(function (to) {
   loading.start();
 
-  if (to.path != "/") {
+  if (to.path != "/" && to.path != "/playground") {
     const isEnPath = to.path.endsWith("-en");
     if (lang == "en" && !isEnPath) {
       return `${to.path}-en`;
