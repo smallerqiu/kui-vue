@@ -96,13 +96,14 @@ export default function vitePluginKuiMd(): Plugin {
           demoImporters.set(normalizedPath, importers);
           this.addWatchFile(absolutePath);
           const demoId = "k-" + hashId(`${id}:${normalizedPath}`);
+          const demoFilename = `App${path.extname(absolutePath)}`;
           const highlightedTypeScript = highlightSfc(demoCode);
           const highlightedJavaScript = highlightSfc(toJavaScriptSfc(demoCode));
           const renderedDescription = descBlock
             ? markdown.render(descBlock.replace(/^\s*-\s?/gm, ""))
             : "";
           return `
-<Demo id="${demoId}" direction="${direction}">
+<Demo id="${demoId}" direction="${direction}" filename="${demoFilename}">
     <template #title>${title}</template>
     <template #component><${componentName} key="${demoVersion}" /></template>
     <template #code-ts><pre><code class="hljs language-html">${highlightedTypeScript}</code></pre></template>
