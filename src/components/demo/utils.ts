@@ -22,8 +22,8 @@ export const openStackBlitz = async (source: string, filename = "App.vue") => {
         template: "vue",
         dependencies,
         files: {
-          "public/index.html": '<div id="app"></div>',
-          "src/main.ts": `
+          "public/index.html": '<div id="app" style="padding:24px;"></div>',
+          "src/main.js": `
 import { createApp } from "vue";
 import KUI from "kui-vue";
 import "kui-vue/style/index.css";
@@ -74,7 +74,7 @@ createApp(App).use(KUI).mount("#app");
           null,
           2
         ),
-        "index.html": `<div id="app"></div><script type="module" src="/src/main.ts"></script>`,
+        "index.html": `<div id="app" style="padding:24px;"></div><script type="module" src="/src/main.ts"></script>`,
         "src/main.ts": `
 import { createApp } from "vue";
 import KUI from "kui-vue";
@@ -108,9 +108,6 @@ export const openCodeSandbox = async (source: string, filename = "App.vue") => {
     throw new Error("CodeSandbox 暂只支持 Vue SFC 示例，请使用 StackBlitz 打开 TSX 示例");
   }
 
-  const appSource = /<script\b/i.test(source)
-    ? source
-    : `${source.trim()}\n\n<script>\nexport default {};\n</script>\n`;
   const parameters = LZString.compressToBase64(
     JSON.stringify({
       template: "static",
@@ -124,10 +121,11 @@ export const openCodeSandbox = async (source: string, filename = "App.vue") => {
     <link rel="stylesheet" href="https://unpkg.com/kui-vue@latest/style/index.css" />
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app" style="padding:24px;"></div>
     <script type="importmap">
       { "imports": { "vue": "https://esm.sh/vue@3.5.0" } }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/less@4.2.2/dist/less.min.js"></script>
     <script type="module">
       import * as Vue from "vue";
       import * as KUI from "https://esm.sh/kui-vue@latest?external=vue";
@@ -137,6 +135,7 @@ export const openCodeSandbox = async (source: string, filename = "App.vue") => {
       const App = await loadModule("./src/App.vue", {
         moduleCache: {
           vue: Vue,
+          less: window.less,
           "kui-vue": KUI,
           "kui-icons": KUIIcons,
         },
@@ -157,7 +156,7 @@ export const openCodeSandbox = async (source: string, filename = "App.vue") => {
   </body>
 </html>`,
         },
-        "src/App.vue": { content: appSource },
+        "src/App.vue": { content: source },
       },
     })
   )
@@ -180,10 +179,60 @@ export const openCodeSandbox = async (source: string, filename = "App.vue") => {
   form.remove();
 };
 
-export const openCodespaces = () => {
-  window.open(
-    "https://codespaces.new/smallerqiu/kui-vue?quickstart=1",
-    "_blank",
-    "noopener,noreferrer"
-  );
+export const openCodePen = (source: string) => {
+  if (/<\/xmp/i.test(source)) {
+    throw new Error("CodePen 示例源码不能包含 </xmp>");
+  }
+  const html = `<div id="app" style="padding:24px;"></div>
+<xmp id="app-source" style="display:none">
+${source}
+</xmp>`;
+  const js = `(async () => {
+  const [Vue, KUI, KUIIcons, SfcLoader] = await Promise.all([
+    import("https://esm.sh/vue@3.5.0"),
+    import("https://esm.sh/kui-vue@latest?deps=vue@3.5.0"),
+    import("https://esm.sh/kui-icons@latest?deps=vue@3.5.0"),
+    import("https://cdn.jsdelivr.net/npm/vue3-sfc-loader@0.9.5/dist/vue3-sfc-loader.esm.js"),
+  ]);
+  const source = document.querySelector("#app-source").textContent.trim();
+  const App = await SfcLoader.loadModule("App.vue", {
+    moduleCache: {
+      vue: Vue,
+      less: window.less,
+      "kui-vue": KUI,
+      "kui-icons": KUIIcons,
+    },
+    getFile: () => source,
+    addStyle(textContent) {
+      const style = document.createElement("style");
+      style.textContent = textContent;
+      document.head.appendChild(style);
+    },
+  });
+  Vue.createApp(App).use(KUI.default).mount("#app");
+})();`;
+
+  const form = document.createElement("form");
+  form.method = "POST";
+  form.action = "https://codepen.io/pen/define";
+  form.target = "_blank";
+  form.rel = "noopener noreferrer";
+  const input = document.createElement("input");
+  input.type = "hidden";
+  input.name = "data";
+  input.value = JSON.stringify({
+    title: "KUI Vue Demo",
+    description: "KUI Vue component example",
+    html,
+    js,
+    js_pre_processor: "none",
+    js_external: "https://cdn.jsdelivr.net/npm/less@4.2.2/dist/less.min.js",
+    css_external: "https://unpkg.com/kui-vue@latest/style/index.css",
+    editors: "100",
+    layout: "left",
+  });
+  form.appendChild(input);
+  document.body.appendChild(form);
+  form.submit();
+  form.remove();
 };

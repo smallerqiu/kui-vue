@@ -2,7 +2,7 @@ import { CodeJar, type CodeJar as CodeJarInstance } from "codejar";
 import hljs from "highlight.js/lib/core";
 import typescript from "highlight.js/lib/languages/typescript";
 import xml from "highlight.js/lib/languages/xml";
-import { Code, Copy, ListChevronsDownUp, ListChevronsUpDown, Undo2 } from "kui-icons";
+import { Copy, ListChevronsDownUp, ListChevronsUpDown, Undo2 } from "kui-icons";
 import { Badge, Button, message, RadioGroup, Tooltip, type BadgeStatusType } from "kui-vue";
 import {
   defineComponent,
@@ -18,8 +18,8 @@ import {
 } from "vue";
 import { getTransitionProp } from "../../../components/base/transition";
 import { copyToClipboard } from "../../../components/utils/share";
-import { CodeSandbox, Stackblitz } from "./icons";
-import { openCodespaces, openCodeSandbox, openStackBlitz } from "./utils";
+import { CodePen, CodeSandbox, Stackblitz } from "./icons";
+import { openCodePen, openCodeSandbox, openStackBlitz } from "./utils";
 // XML grammar delegates <script> blocks to "javascript". TypeScript is a
 // superset here, so registering its grammar also covers both TS and JS demos.
 hljs.registerLanguage("javascript", typescript);
@@ -228,28 +228,32 @@ const Demo = defineComponent({
                       }
                     />
                   </Tooltip>
-                  <Tooltip title="Open in CodeSandbox">
-                    <Button
-                      type="text"
-                      size="small"
-                      icon={CodeSandbox}
-                      onClick={() =>
-                        openCodeSandbox(currentCodeJar()?.toString() || "", props.filename).catch(
-                          (error: unknown) =>
-                            message.error(
-                              error instanceof Error ? error.message : "Unable to open CodeSandbox"
-                            )
-                        )
-                      }
-                    />
-                  </Tooltip>
                   {props.filename.endsWith(".vue") && (
-                    <Tooltip title="Open in GitHub Codespaces">
+                    <Tooltip title="Open in CodeSandbox">
                       <Button
                         type="text"
                         size="small"
-                        icon={Code}
-                        onClick={openCodespaces}
+                        icon={CodeSandbox}
+                        onClick={() =>
+                          openCodeSandbox(currentCodeJar()?.toString() || "", props.filename).catch(
+                            (error: unknown) =>
+                              message.error(
+                                error instanceof Error
+                                  ? error.message
+                                  : "Unable to open CodeSandbox"
+                              )
+                          )
+                        }
+                      />
+                    </Tooltip>
+                  )}
+                  {props.filename.endsWith(".vue") && (
+                    <Tooltip title="Open in CodePen">
+                      <Button
+                        type="text"
+                        size="small"
+                        icon={CodePen}
+                        onClick={() => openCodePen(currentCodeJar()?.toString() || "")}
                       />
                     </Tooltip>
                   )}
