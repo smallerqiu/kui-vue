@@ -118,5 +118,23 @@
     "prompt": "Create a large virtual select",
     "components": ["Select"],
     "source": "<template><Select virtual :options=\"[]\" :item-height=\"33\" /></template>"
+  },
+  {
+    "name": "event-calendar",
+    "prompt": "Create a localized monthly event calendar",
+    "components": ["Calendar", "ConfigProvider"],
+    "source": "<template><ConfigProvider :locale=\"locale\"><Calendar v-model=\"date\" :events=\"events\" /></ConfigProvider></template>"
+  },
+  {
+    "name": "task-kanban",
+    "prompt": "Create a draggable task kanban with custom cards",
+    "components": ["Kanban", "Card"],
+    "source": "<template><Kanban :columns=\"columns\" :data=\"tasks\"><template #item=\"{ item }\"><Card>{{ item.title }}</Card></template></Kanban></template>"
+  },
+  {
+    "name": "page-heading",
+    "prompt": "Create a page heading with a primary action",
+    "components": ["PageHeader", "Button"],
+    "source": "<template><PageHeader title=\"Projects\"><template #actions><Button type=\"primary\">Create</Button></template></PageHeader></template>"
   }
 ]

@@ -14,7 +14,7 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 [Trend Information](./demo/trend.vue?show=vertical)
 
-- Use `trend` for trends or supplementary information and `trendStatus` for its status color.
+- Use `trend` for supplementary information and `trendStatus` for its status color; cards remain equal-height in a Grid when some items omit the trend.
 
 [Basic Usage](./demo/basic.vue)
 

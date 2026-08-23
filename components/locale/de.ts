@@ -50,6 +50,8 @@ export default {
     },
     table: {
       emptyText: "noch keine Daten",
+      columnSettings: "Spalteneinstellungen",
+      resetColumns: "Zurücksetzen",
     },
     upload: {
       successful: "Erfolg",

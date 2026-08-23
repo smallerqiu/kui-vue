@@ -1,19 +1,14 @@
 import type { Column, TableKey, TableRecord, TableTreeRow } from "./types";
 
 export const flattenColumns = (columns: Column[]): Column[] =>
-  columns.flatMap((column) =>
-    column.children?.length ? flattenColumns(column.children) : column
-  );
+  columns.flatMap((column) => (column.children?.length ? flattenColumns(column.children) : column));
 
 export const countColumnLeaves = (column: Column): number =>
   column.children?.length
     ? column.children.reduce((sum, child) => sum + countColumnLeaves(child), 0)
     : 1;
 
-export const getTreeChildren = (
-  record: TableRecord,
-  childrenColumnName: string
-): TableRecord[] => {
+export const getTreeChildren = (record: TableRecord, childrenColumnName: string): TableRecord[] => {
   const children = record[childrenColumnName];
   return Array.isArray(children) ? (children as TableRecord[]) : [];
 };

@@ -31,11 +31,17 @@ export type { CascaderOption, CascaderProps } from "./cascader/types";
 export { default as Card, CardMeta } from "./card";
 export type { CardMetaProps, CardProps } from "./card";
 
+export { default as Calendar } from "./calendar";
+export type { CalendarDateCell, CalendarEventData, CalendarProps } from "./calendar";
+
 export { default as FeatureCard } from "./feature-card";
 export type { FeatureCardProps } from "./feature-card";
 
 export { default as FlameWrap } from "./flame-wrap";
 export type { FlameWrapInstance, FlameWrapOptions, FlameWrapProps } from "./flame-wrap";
+
+export { default as ListPanel } from "./list-panel";
+export type { ListPanelProps } from "./list-panel";
 
 export { Carousel, CarouselItem } from "./carousel";
 export type { CarouselProps } from "./carousel";
@@ -136,6 +142,9 @@ export type { NoticeOptions } from "./notice";
 export { default as Page } from "./page";
 export type { PageProps } from "./page";
 
+export { default as PageHeader } from "./page-header";
+export type { PageHeaderProps } from "./page-header";
+
 export { PoptipPanel, default as Poptip } from "./poptip";
 export type { PoptipProps } from "./poptip";
 
@@ -193,8 +202,19 @@ export type { SwitchProps } from "./switch";
 export { Splitter, SplitterPanel } from "./splitter";
 export type { SplitterPanelProps, SplitterProps } from "./splitter";
 
-export { default as Table } from "./table";
-export type { Column, SortState, TableKey, TableProps, TableRecord, TableTreeRow } from "./table";
+export { default as Table, TableColumnSetting } from "./table";
+export type {
+  Column,
+  SortState,
+  TableColumnSettingProps,
+  TableKey,
+  TableProps,
+  TableRecord,
+  TableTreeRow,
+} from "./table";
+
+export { default as Kanban } from "./kanban";
+export type { KanbanColumnData, KanbanItemData, KanbanMoveEvent, KanbanProps } from "./kanban";
 
 export { TooltipPanel, default as Tooltip } from "./tooltip";
 export type { TooltipProps } from "./tooltip";

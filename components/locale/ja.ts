@@ -50,6 +50,8 @@ export default {
     },
     table: {
       emptyText: "データなし",
+      columnSettings: "列の設定",
+      resetColumns: "リセット",
     },
     upload: {
       successful: "成功",

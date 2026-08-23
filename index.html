@@ -2,6 +2,18 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+      (() => {
+        try {
+          const mode = localStorage.getItem("theme-mode");
+          if (mode === "light" || mode === "dark") {
+            document.documentElement.setAttribute("theme-mode", mode);
+          }
+        } catch (_) {
+          // Storage may be unavailable in privacy mode; keep the default theme.
+        }
+      })();
+    </script>
     <link rel="icon" href="/favicon.png" />
     <meta
       http-equiv="origin-trial"

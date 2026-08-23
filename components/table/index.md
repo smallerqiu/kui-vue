@@ -81,7 +81,7 @@ const columns = [
 
 [固定头/列](./demo/fixed-col-header.vue?show=vertical)
 
-- 对于列数很多的数据，可以固定前后的列，横向滚动查看其它数据，需要设置表格的宽度 `scroll.x` 和 `scroll.y `
+- 对于列数很多的数据，可以固定前后的列并横向滚动。`scroll.x` 设置内容的最小宽度，`scroll.y` 设置纵向滚动区域高度。
 
 [表头分组](./demo/header-span.vue?show=vertical)
 
@@ -99,6 +99,10 @@ const columns = [
 
 - 配合 `scroll.y` 虚拟化大量固定行高数据；虚拟模式不应与行列合并同时使用。
 
+[列设置](./demo/column-setting.vue?show=vertical)
+
+- `TableColumnSetting` 根据同一份列配置生成显隐面板，配合 `hiddenColumnKeys` 使用；`disabledKeys` 可保留不允许隐藏的关键列。
+
 ## Table API
 
 | 属性                 | 说明                                              | 类型                                                                         | 默认值   |
@@ -112,6 +116,7 @@ const columns = [
 | loading              | 表格异步加载模式                                  | boolean                                                                      | false    |
 | data                 | 显示的结构化数据                                  | any[]                                                                        | []       |
 | columns              | 表格列的配置描述，                                | Column[]                                                                     | []       |
+| hiddenColumnKeys     | 隐藏的列 key 集合，支持分组列                    | string[]                                                                     | []       |
 | rowKey               | 勾选时的依据                                      | string                                                                       | key      |
 | childrenColumnName   | 子节点字段名                                      | string                                                                       | children |
 | expandedKeys         | 受控展开行 key 集合，支持 `v-model:expanded-keys` | (string \| number)[]                                                         | -        |
@@ -130,6 +135,20 @@ const columns = [
 | itemHeight           | 虚拟滚动行的固定高度                              | number                                                                       | 44       |
 | overscan             | 视口上下额外渲染的行数                            | number                                                                       | 5        |
 
+## TableColumnSetting API
+
+| 属性         | 说明                                           | 类型      | 默认值          |
+| ------------ | ---------------------------------------------- | --------- | --------------- |
+| columns      | 与 Table 共用的列配置                          | Column[]  | []              |
+| hiddenKeys   | 隐藏列 key，支持 `v-model:hidden-keys`         | string[]  | []              |
+| disabledKeys | 不允许在设置面板中切换的关键列                 | string[]  | []              |
+| title        | 面板标题及默认触发按钮文字                     | string    | Column settings |
+| resetText    | 重置按钮文字                                   | string    | Reset           |
+| size         | 触发按钮和选择项尺寸                           | SizeType  | -               |
+| showReset    | 是否显示重置按钮                               | boolean   | true            |
+
+插槽：`default` 可自定义触发元素。事件：`update:hiddenKeys`、`change`，参数均为最新隐藏列 key。
+
 ## Column API
 
 | 属性    | 说明                             | 类型                                               | 默认值 |
@@ -142,7 +161,7 @@ const columns = [
 | rowSpan | 行合并单位,为 0 时将不渲染当前行 | number                                             | -      |
 | colSpan | 列合并单位,为 0 时将不渲染当前列 | number                                             | -      |
 | render  | 自定义渲染                       | (h, record, colIndex, rowIndex, col) => VNodeChild | -      |
-| scroll  | 滚动属性                         | {x:[number ,string],y:[number , string]}           | -      |
+| scroll  | 滚动配置；`x` 为内容最小宽度，`y` 为纵向区域高度 | `{ x?: number \| string; y?: number \| string }` | - |
 
 ### 通用外观
 

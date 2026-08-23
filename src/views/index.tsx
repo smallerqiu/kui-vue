@@ -45,6 +45,16 @@ export default defineComponent({
                     </Button>
                     <Button
                       size="large"
+                      class="btn-pro"
+                      type="link"
+                      href="https://admin.k-ui.cn"
+                      target="_blank"
+                    >
+                      <Icon type={Layers} />
+                      KUI Vue Pro
+                    </Button>
+                    <Button
+                      size="large"
                       class="btn-github"
                       type="link"
                       href="https://github.com/smallerqiu/kui-vue"

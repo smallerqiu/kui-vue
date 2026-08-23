@@ -50,6 +50,8 @@ export default {
     },
     table: {
       emptyText: "暂无数据",
+      columnSettings: "列设置",
+      resetColumns: "重置",
     },
     upload: {
       successful: "上传成功",

@@ -61,7 +61,7 @@ Vue.use(Button);
 | size     | Button size,                                                                                         | 'small' \| 'large'                          | -       |
 | color    | Preset semantic color                                                                                | ColorType                                   | -       |
 | shape    | When shape=circle, presents a circular button                                                        | boolean                                     | false   |
-| theme    | Button theme                                                                                         | 'solid' \| 'fill' \| 'normal'               | -       |
+| theme    | Button theme                                                                                         | 'solid' \| 'fill' \| 'outline' \| 'dashed' \| 'plain' | -       |
 | icon     | Button icon                                                                                          | string                                      | -       |
 | loading  | Whether the button is in loading mode                                                                | boolean                                     | false   |
 | href     | The address to jump to when clicked. Specifying this property makes the button behave like an a link | string                                      | -       |

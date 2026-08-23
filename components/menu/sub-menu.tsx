@@ -13,6 +13,7 @@ import {
   ref,
   Teleport,
   Transition,
+  watch,
   type VNodeChild,
 } from "vue";
 import { getTransitionProp } from "../base/transition";
@@ -45,6 +46,7 @@ const SubMenu = defineComponent({
     const top = ref(0);
     const left = ref(0);
     const minWidth = ref("");
+    const popupPositioned = ref(false);
     const instance = getCurrentInstance();
     const key = instance?.vnode.key as string;
 
@@ -100,6 +102,7 @@ const SubMenu = defineComponent({
       });
     };
     const updatePosition = () => {
+      popupPositioned.value = false;
       // console.log(mode, keyPath);
       // the second level menu show right top
       // or the mode is vertical
@@ -120,6 +123,7 @@ const SubMenu = defineComponent({
           left,
           offset: 8,
         });
+        popupPositioned.value = true;
       });
     };
     const usePopup = () =>
@@ -147,6 +151,7 @@ const SubMenu = defineComponent({
           top: top.value + "px",
           left: leftValue + "px",
           transformOrigin: transOrigin.value,
+          visibility: popup && !popupPositioned.value ? "hidden" : undefined,
         } as CSSProperties,
         onMouseenter: () => {
           clearCurrentPopTimer();
@@ -182,6 +187,13 @@ const SubMenu = defineComponent({
         </Teleport>
       );
     };
+
+    watch(
+      () => menuContext?.popupInlineCollapsed,
+      (popup) => {
+        if (popup) popupPositioned.value = false;
+      }
+    );
 
     return () => {
       const selected = menuContext?.selectedKeys.includes(key) && !menuContext?.dropdown;

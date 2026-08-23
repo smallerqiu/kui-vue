@@ -50,6 +50,8 @@ export default {
     },
     table: {
       emptyText: "Нет данных",
+      columnSettings: "Настройки столбцов",
+      resetColumns: "Сбросить",
     },
     upload: {
       successful: "успешно",

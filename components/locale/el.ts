@@ -50,6 +50,8 @@ export default {
     },
     table: {
       emptyText: "Χωρίς δεδομένα",
+      columnSettings: "Ρυθμίσεις στηλών",
+      resetColumns: "Επαναφορά",
     },
     upload: {
       successful: "επιτυχία",

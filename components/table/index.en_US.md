@@ -81,7 +81,7 @@ const columns = [
 
 [Fixed Header/Columns](./demo/fixed-col-header.vue?show=vertical)
 
-- For data with many columns, you can fix the front and back columns and scroll horizontally to view other data. You need to set the table's width `scroll.x` and `scroll.y`.
+- For data with many columns, fix leading or trailing columns and scroll horizontally. `scroll.x` sets the minimum content width, while `scroll.y` sets the vertical viewport height.
 
 [Header Grouping](./demo/header-span.vue?show=vertical)
 
@@ -99,6 +99,10 @@ const columns = [
 
 - Virtualizes large fixed-height data sets with `scroll.y`; do not combine virtual mode with merged cells.
 
+[Column settings](./demo/column-setting.vue?show=vertical)
+
+- `TableColumnSetting` generates a visibility panel from the same column definitions used by Table. Use it with `hiddenColumnKeys`; `disabledKeys` keeps essential columns fixed.
+
 ## Table API
 
 | Property             | Description                                                    | Type                                                                         | Default  |
@@ -112,6 +116,7 @@ const columns = [
 | loading              | Table asynchronous loading mode                                | boolean                                                                      | false    |
 | data                 | Structured data to be displayed                                | any[]                                                                        | []       |
 | columns              | Configuration description of table columns                     | Column[]                                                                     | []       |
+| hiddenColumnKeys     | Hidden column keys, including grouped columns                  | string[]                                                                     | []       |
 | rowKey               | Basis for selection                                            | string                                                                       | key      |
 | childrenColumnName   | Field containing child records                                 | string                                                                       | children |
 | expandedKeys         | Controlled expanded row keys; supports `v-model:expanded-keys` | (string \| number)[]                                                         | -        |
@@ -130,6 +135,20 @@ const columns = [
 | itemHeight           | Fixed virtual row height                                       | number                                                                       | 44       |
 | overscan             | Extra rows rendered above and below the viewport               | number                                                                       | 5        |
 
+## TableColumnSetting API
+
+| Property     | Description                                      | Type     | Default         |
+| ------------ | ------------------------------------------------ | -------- | --------------- |
+| columns      | Column definitions shared with Table             | Column[] | []              |
+| hiddenKeys   | Hidden keys; supports `v-model:hidden-keys`      | string[] | []              |
+| disabledKeys | Essential columns excluded from the settings UI  | string[] | []              |
+| title        | Panel title and default trigger label             | string   | Column settings |
+| resetText    | Reset button label                                | string   | Reset           |
+| size         | Trigger and checkbox size                         | SizeType | -               |
+| showReset    | Whether to show the reset action                  | boolean  | true            |
+
+Slot: `default` customizes the trigger. Events: `update:hiddenKeys` and `change`, both carrying the latest hidden keys.
+
 ## Column API
 
 | Property | Description                                                        | Type                                               | Default |
@@ -142,7 +161,7 @@ const columns = [
 | rowSpan  | Row merge unit, when 0, the current row will not be rendered       | number                                             | -       |
 | colSpan  | Column merge unit, when 0, the current column will not be rendered | number                                             | -       |
 | render   | Custom rendering                                                   | (h, record, colIndex, rowIndex, col) => VNodeChild | -       |
-| scroll   | Scrolling attributes                                               | {x:[number ,string],y:[number , string]}           | -       |
+| scroll   | Scroll configuration; `x` is the minimum content width and `y` is the vertical viewport height | `{ x?: number \| string; y?: number \| string }` | - |
 
 ### Common appearance
 

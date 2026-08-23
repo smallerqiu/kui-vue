@@ -13,6 +13,35 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 5.8.0
+
+`2026-8-24`
+
+### New components
+
+- Added `Calendar` with month navigation, date selection, event data, customizable date cells and event content, and global locale integration.
+- Added `Kanban` with multi-column task presentation, drag-and-drop movement, customizable columns and items, and `fill` and `outline` appearances.
+- Added `ListPanel` for consistent sizing, themes, and shapes across admin lists, filter entries, and navigation items.
+- Added `PageHeader` to standardize page titles, descriptions, back navigation, and extra actions.
+- Added `TableColumnSetting` with column visibility, locked essential columns, reset support, and custom triggers.
+
+### Enhancements
+
+- Added `hiddenColumnKeys` to `Table`, including grouped-column filtering; redefined `scroll.x` as the minimum content width so wide tables still fill their container without leaving a blank area.
+- Expanded `FeatureCard` with `size`, `direction`, `clickable`, `disabled`, `color`, and `iconBackground`, plus keyboard interaction and additional content slots.
+- Completed the `Button` `plain` theme with semantic colors and consistent hover, active, and disabled states.
+- Added stable flex width constraints to `Layout.Sider` to prevent squeezing and width glitches during collapse transitions.
+- Made `StatCard` fill the available Grid height so cards remain aligned when some trend values are absent.
+- Extended AI component metadata and JSON Schema with slot information, plus APIs, examples, and bilingual descriptions for this release.
+
+### Bug fixes and experience
+
+- Fixed misaligned root items and submenus in horizontal `Menu`, and prevented submenu popups from flashing at the page origin during collapsed-state changes.
+- Fixed multiple parent menus displaying active indicators after refresh or route restoration.
+- Fixed `Space` applying first/last grouping styles when it contains only one child.
+- Improved spacing, empty states, and visual hierarchy across `Kanban` columns and items.
+- Added KUI Vue Pro 1.0 the admin solution.
+
 ## 5.7.0
 
 `2026-8-21`
@@ -81,7 +110,7 @@ rm -rf node_modules/.vite
 - Notice: added `grouping` property; with the same grouping, only one notification message is shown.
 - Some Pop components now support display in Panel form.
 - Theme switching default behavior optimized.
-不- ColorPicker: fixed color dragging selection in the panel.
+- ColorPicker: fixed color dragging selection in the panel.
 
 ## 5.5.1
 

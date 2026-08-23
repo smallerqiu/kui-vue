@@ -50,6 +50,8 @@ export default {
     },
     table: {
       emptyText: "ไม่พบข้อมูล",
+      columnSettings: "การตั้งค่าคอลัมน์",
+      resetColumns: "รีเซ็ต",
     },
     upload: {
       successful: "สำเร็จแล้ว",

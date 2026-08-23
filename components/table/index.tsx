@@ -23,6 +23,7 @@ import { countColumnLeaves, flattenColumns, flattenTreeData } from "./utils";
 const tableProps = {
   data: { type: Array as PropType<TableRecord[]>, default: () => [] },
   columns: { type: Array as PropType<Column[]>, default: () => [] },
+  hiddenColumnKeys: { type: Array as PropType<string[]>, default: () => [] },
   selectedKeys: { type: Array as PropType<TableKey[]>, default: () => [] },
   disabledKeys: { type: Array as PropType<TableKey[]>, default: () => [] },
   rowKey: { type: String, default: "key" },
@@ -96,7 +97,17 @@ const Table = defineComponent({
         innerSelectedKeys.value = new Set(val);
       }
     );
-    const flattedColumns = computed(() => flattenColumns(props.columns));
+    const visibleColumns = computed(() => {
+      const filter = (columns: Column[]): Column[] =>
+        columns.flatMap((column) => {
+          if (props.hiddenColumnKeys.includes(column.key)) return [];
+          if (!column.children?.length) return [column];
+          const children = filter(column.children);
+          return children.length ? [{ ...column, children }] : [];
+        });
+      return filter(props.columns);
+    });
+    const flattedColumns = computed(() => flattenColumns(visibleColumns.value));
 
     const headerRows = computed(() => {
       const rows: Column[][] = [];
@@ -111,7 +122,7 @@ const Table = defineComponent({
           }
         });
       };
-      getDepth(props.columns);
+      getDepth(visibleColumns.value);
 
       const traverse = (cols: Column[], depth: number) => {
         if (!rows[depth]) rows[depth] = [];
@@ -130,7 +141,7 @@ const Table = defineComponent({
           rows[depth].push(cell);
         });
       };
-      traverse(props.columns, 0);
+      traverse(visibleColumns.value, 0);
       return { rows, maxDepth };
     });
 
@@ -693,12 +704,11 @@ const Table = defineComponent({
     );
 
     const renderTable = (isHeader: boolean, isBody: boolean) => {
+      const scrollX =
+        typeof props.scroll.x === "number" ? `${props.scroll.x}px` : props.scroll.x;
       const tableStyle: CSSProperties = {
-        width:
-          props.scroll.x && typeof props.scroll.x === "number"
-            ? `${props.scroll.x}px`
-            : props.scroll.x || undefined,
-        minWidth: !props.scroll.x ? "100%" : undefined,
+        width: "100%",
+        minWidth: scrollX || "100%",
         tableLayout: "fixed",
       };
       return (
@@ -724,7 +734,7 @@ const Table = defineComponent({
           "k-table-virtual": virtualEnabled.value,
         },
       ];
-      const isEmpty = !visibleTreeRows.value.length || !props.columns.length;
+      const isEmpty = !visibleTreeRows.value.length || !visibleColumns.value.length;
 
       // 拆分模式下的 Header
       const splitHeader = isSplit.value && (
@@ -779,3 +789,5 @@ const Table = defineComponent({
 export default Table;
 
 export type { Column, SortState, TableKey, TableRecord, TableTreeRow } from "./types";
+export { default as TableColumnSetting } from "./column-setting";
+export type { TableColumnSettingProps } from "./column-setting";

@@ -22,7 +22,7 @@ const data = Array.from({ length: 10000 }, (_, index) => ({
 const columns: Column[] = [
   { title: "ID", key: "key", width: 100 },
   { title: "Name", key: "name" },
-  { title: "Email", key: "email" },
+  { title: "Email", key: "email", width: 200 },
   { title: "Email1", key: "email1" },
   { title: "Email2", key: "email2" },
   { title: "Email3", key: "email3" },

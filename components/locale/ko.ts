@@ -50,6 +50,8 @@ export default {
     },
     table: {
       emptyText: "데이터 없음",
+      columnSettings: "열 설정",
+      resetColumns: "초기화",
     },
     upload: {
       successful: "성취",

@@ -4,6 +4,37 @@ import Table from "../components/table";
 import type { Column, TableRecord } from "../components/table";
 
 describe("Table tree data", () => {
+  it("hides columns by key", async () => {
+    const wrapper = mount(Table, {
+      props: {
+        data: [{ key: "1", name: "Alice", role: "Admin" }],
+        columns: [
+          { title: "Name", key: "name" },
+          { title: "Role", key: "role" },
+        ],
+        hiddenColumnKeys: ["role"],
+      },
+    });
+
+    expect(wrapper.text()).toContain("Name");
+    expect(wrapper.text()).toContain("Alice");
+    expect(wrapper.text()).not.toContain("Role");
+    expect(wrapper.text()).not.toContain("Admin");
+  });
+
+  it("treats scroll.x as a minimum width and still fills a wider container", () => {
+    const wrapper = mount(Table, {
+      props: {
+        data: [{ key: 1, name: "Row" }],
+        columns: [{ key: "name", title: "Name" }],
+        scroll: { x: 1050 },
+      },
+    });
+    const style = wrapper.get("table").attributes("style");
+    expect(style).toContain("width: 100%");
+    expect(style).toContain("min-width: 1050px");
+  });
+
   it("supports controlled expansion without mutating the prop", async () => {
     const data: TableRecord[] = [
       {

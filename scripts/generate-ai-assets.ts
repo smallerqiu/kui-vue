@@ -82,11 +82,41 @@ const getExamples = (markdownPath: string) => {
     .filter((example) => example.source);
 };
 
+const getSlots = (markdownPath: string) => {
+  if (!markdownPath || !fs.existsSync(markdownPath)) return [];
+  const markdown = fs.readFileSync(markdownPath, "utf8");
+  const section = markdown.match(/(?:^|\n)## Slots\s*\n([\s\S]*?)(?=\n## |$)/i)?.[1] || "";
+  return section
+    .split("\n")
+    .filter((line) => /^\s*\|/.test(line))
+    .map((line) =>
+      line
+        .trim()
+        .replace(/^\||\|$/g, "")
+        .split("|")
+        .map((cell) => cell.trim().replace(/^`|`$/g, ""))
+    )
+    .filter(
+      (cells) =>
+        cells.length >= 2 &&
+        !/^(name|名称)$/i.test(cells[0]) &&
+        !/^[-:]+$/.test(cells[0])
+    )
+    .map(([name, description, scope]) => ({ name, description, scope: scope || undefined }));
+};
+
 const components = getComponentNames().map((name) => {
   const props = getPropsData(componentEntry, getPropsNameCandidates(name));
   const englishProps = getPropsData(componentEntry, getPropsNameCandidates(name), "index.en_US.md");
   const englishByName = new Map(englishProps.map((prop) => [prop.name, prop]));
   const documentationPath = findDocumentation(name, props);
+  const englishDocumentationPath = documentationPath
+    ? path.join(path.dirname(documentationPath), "index.en_US.md")
+    : "";
+  const slots = getSlots(documentationPath);
+  const englishSlots = new Map(
+    getSlots(englishDocumentationPath).map((slot) => [slot.name, slot])
+  );
   const slug = documentationPath
     ? path.basename(path.dirname(documentationPath))
     : toKebabCase(name);
@@ -121,6 +151,16 @@ const components = getComponentNames().map((name) => {
           descriptionEn: english?.description || prop.description,
         };
       }),
+    slots: slots.map((slot) => {
+      const english = englishSlots.get(slot.name);
+      return {
+        name: slot.name,
+        description: english?.description || slot.description,
+        descriptionZh: slot.description,
+        descriptionEn: english?.description || slot.description,
+        scope: english?.scope || slot.scope,
+      };
+    }),
     examples: getExamples(documentationPath),
   };
 });
@@ -147,7 +187,7 @@ const metadataSchema = {
       type: "array",
       items: {
         type: "object",
-        required: ["name", "tags", "children", "documentation", "props", "events", "examples"],
+        required: ["name", "tags", "children", "documentation", "props", "events", "slots", "examples"],
         properties: {
           name: { type: "string" },
           tags: { type: "array", items: { type: "string" } },
@@ -156,6 +196,7 @@ const metadataSchema = {
           documentation: { type: "string", format: "uri" },
           props: { type: "array", items: { $ref: "#/$defs/api" } },
           events: { type: "array", items: { $ref: "#/$defs/api" } },
+          slots: { type: "array", items: { $ref: "#/$defs/slot" } },
           examples: {
             type: "array",
             items: {
@@ -185,6 +226,17 @@ const metadataSchema = {
         eventName: { type: "string" },
         boolean: { type: "boolean" },
         documented: { type: "boolean" },
+      },
+    },
+    slot: {
+      type: "object",
+      required: ["name", "description", "descriptionZh", "descriptionEn"],
+      properties: {
+        name: { type: "string" },
+        description: { type: "string" },
+        descriptionZh: { type: "string" },
+        descriptionEn: { type: "string" },
+        scope: { type: "string" },
       },
     },
   },

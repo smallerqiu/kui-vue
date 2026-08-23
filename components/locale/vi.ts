@@ -50,6 +50,8 @@ export default {
     },
     table: {
       emptyText: "Không có dữ liệu",
+      columnSettings: "Cài đặt cột",
+      resetColumns: "Đặt lại",
     },
     upload: {
       successful: "thành công",

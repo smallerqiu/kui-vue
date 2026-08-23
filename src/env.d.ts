@@ -19,6 +19,7 @@ declare module "vue" {
     ButtonGroup: (typeof Comps)["ButtonGroup"];
     Card: (typeof Comps)["Card"];
     CardMeta: (typeof Comps)["CardMeta"];
+    Calendar: (typeof Comps)["Calendar"];
     Cascader: (typeof Comps)["Cascader"];
     Carousel: (typeof Comps)["Carousel"];
     CarouselItem: (typeof Comps)["CarouselItem"];
@@ -71,6 +72,7 @@ declare module "vue" {
     MessagePanel: (typeof Comps)["MessagePanel"];
     NoticePanel: (typeof Comps)["NoticePanel"];
     Page: (typeof Comps)["Page"];
+    PageHeader: (typeof Comps)["PageHeader"];
     Poptip: (typeof Comps)["Poptip"];
     PoptipPanel: (typeof Comps)["PoptipPanel"];
     Popconfirm: (typeof Comps)["Popconfirm"];
@@ -93,6 +95,7 @@ declare module "vue" {
     SkeletonText: (typeof Comps)["SkeletonText"];
     StatCard: (typeof Comps)["StatCard"];
     FeatureCard: (typeof Comps)["FeatureCard"];
+    ListPanel: (typeof Comps)["ListPanel"];
     FeedbackPanel: (typeof Comps)["FeedbackPanel"];
     StatNumber: (typeof Comps)["StatNumber"];
     Slider: (typeof Comps)["Slider"];
@@ -104,6 +107,8 @@ declare module "vue" {
     Switch: (typeof Comps)["Switch"];
     KSwitch: (typeof Comps)["Switch"];
     Table: (typeof Comps)["Table"];
+    TableColumnSetting: (typeof Comps)["TableColumnSetting"];
+    Kanban: (typeof Comps)["Kanban"];
     Tooltip: (typeof Comps)["Tooltip"];
     TooltipPanel: (typeof Comps)["TooltipPanel"];
     TabPanel: (typeof Comps)["TabPanel"];

@@ -61,7 +61,7 @@ Vue.use(Button);
 | size     | 按钮尺寸,                                             | 'small' \| 'large'                          | -      |
 | color    | 预设语义颜色                                          | ColorType                                   | -      |
 | shape    | 按钮的外观                                            | 'circle' \| 'square'                        | -      |
-| theme    | 按钮主题                                              | 'solid' \| 'fill' \| 'normal'               | -      |
+| theme    | 按钮主题                                              | 'solid' \| 'fill' \| 'outline' \| 'dashed' \| 'plain' | -      |
 | icon     | 按钮的图标                                            | string                                      | -      |
 | loading  | 按钮是否进入加载模式                                  | boolean                                     | false  |
 | href     | 点击跳转的地址，指定此属性 button 的行为和 a 链接一致 | string                                      | -      |

@@ -21,6 +21,13 @@
       <Button type="warning" theme="fill">warning</Button>
       <Button theme="fill">default</Button>
     </Space>
+    <code>plain</code>
+    <Space size="small">
+      <Button type="primary" theme="plain">primary</Button>
+      <Button type="danger" theme="plain">danger</Button>
+      <Button color="red" theme="plain">red</Button>
+      <Button theme="plain">default</Button>
+    </Space>
     <code>shape</code>
     <Space size="small">
       <Button type="primary" shape="round">Round</Button>

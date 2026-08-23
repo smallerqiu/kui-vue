@@ -116,7 +116,9 @@ const Menu = defineComponent({
       const children = Array.from(menu.children) as HTMLElement[];
       const total = totalItemCount.value;
       if (itemWidths.length !== total && children.length >= total) {
-        itemWidths = children.slice(0, total).map((element) => element.getBoundingClientRect().width);
+        itemWidths = children
+          .slice(0, total)
+          .map((element) => element.getBoundingClientRect().width);
       }
       const overflowElement = children.at(-1);
       if (children.length > total && overflowElement) {

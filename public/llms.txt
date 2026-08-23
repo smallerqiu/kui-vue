@@ -35,8 +35,10 @@ Import `kui-vue/style/index.css`, then import components from `kui-vue` or insta
 - [Cascader](https://k-ui.cn/components/cascader): tags `cascader`, `k-cascader`
 - [Card](https://k-ui.cn/components/card): tags `card`, `k-card`
 - [CardMeta](https://k-ui.cn/components/card): tags `card-meta`, `k-card-meta`
+- [Calendar](https://k-ui.cn/components/calendar): tags `calendar`, `k-calendar`
 - [FeatureCard](https://k-ui.cn/components/feature-card): tags `feature-card`, `k-feature-card`
 - [FlameWrap](https://k-ui.cn/components/flame-wrap): tags `flame-wrap`, `k-flame-wrap`
+- [ListPanel](https://k-ui.cn/components/list-panel): tags `list-panel`, `k-list-panel`
 - [Carousel](https://k-ui.cn/components/carousel): tags `carousel`, `k-carousel`
 - [CarouselItem](https://k-ui.cn/components/carousel-item): tags `carousel-item`, `k-carousel-item`
 - [Checkbox](https://k-ui.cn/components/checkbox): tags `checkbox`, `k-checkbox`
@@ -86,6 +88,7 @@ Import `kui-vue/style/index.css`, then import components from `kui-vue` or insta
 - [ModalPanel](https://k-ui.cn/components/modal-panel): tags `modal-panel`, `k-modal-panel`
 - [Modal](https://k-ui.cn/components/modal): tags `modal`, `k-modal`
 - [Page](https://k-ui.cn/components/page): tags `page`, `k-page`
+- [PageHeader](https://k-ui.cn/components/page-header): tags `page-header`, `k-page-header`
 - [PoptipPanel](https://k-ui.cn/components/poptip-panel): tags `poptip-panel`, `k-poptip-panel`
 - [Poptip](https://k-ui.cn/components/poptip): tags `poptip`, `k-poptip`
 - [PopconfirmPanel](https://k-ui.cn/components/popconfirm-panel): tags `popconfirm-panel`, `k-popconfirm-panel`
@@ -118,6 +121,8 @@ Import `kui-vue/style/index.css`, then import components from `kui-vue` or insta
 - [Splitter](https://k-ui.cn/components/splitter): tags `splitter`, `k-splitter`
 - [SplitterPanel](https://k-ui.cn/components/splitter): tags `splitter-panel`, `k-splitter-panel`
 - [Table](https://k-ui.cn/components/table): tags `table`, `k-table`
+- [TableColumnSetting](https://k-ui.cn/components/table): tags `table-column-setting`, `k-table-column-setting`
+- [Kanban](https://k-ui.cn/components/kanban): tags `kanban`
 - [TooltipPanel](https://k-ui.cn/components/tooltip-panel): tags `tooltip-panel`, `k-tooltip-panel`
 - [Tooltip](https://k-ui.cn/components/tooltip): tags `tooltip`, `k-tooltip`
 - [Tour](https://k-ui.cn/components/tour): tags `tour`, `k-tour`

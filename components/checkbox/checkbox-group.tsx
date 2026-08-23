@@ -1,4 +1,12 @@
-import { computed, defineComponent, ref, watch, type ExtractPropTypes, type PropType, type VNode } from "vue";
+import {
+  computed,
+  defineComponent,
+  ref,
+  watch,
+  type ExtractPropTypes,
+  type PropType,
+  type VNode,
+} from "vue";
 import type { BooleanType, DirectionType, SizeType, ThemeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 import Checkbox from "./checkbox";
@@ -68,7 +76,8 @@ const CheckboxGroup = defineComponent({
           if (value === undefined) return;
           // Try to resolve label from slots if not a prop
           const childSlots = child.children as { default?: () => VNode[] } | null;
-          const resolvedLabel = label || childSlots?.default?.()?.[0]?.children?.toString() || value;
+          const resolvedLabel =
+            label || childSlots?.default?.()?.[0]?.children?.toString() || value;
           data.push({
             value,
             disabled,
@@ -88,16 +97,18 @@ const CheckboxGroup = defineComponent({
 
       const nodes = optionsData.value.map((option) => {
         if (option.value === undefined) return null;
-        return <Checkbox
-          key={option.value}
-          label={option.label === undefined ? undefined : String(option.label)}
-          value={option.value}
-          checked={currentValue.value.indexOf(option.value) > -1}
-          disabled={disabled || option.disabled}
-          theme={theme}
-          size={size}
-          onChange={onChange}
-        />;
+        return (
+          <Checkbox
+            key={option.value}
+            label={option.label === undefined ? undefined : String(option.label)}
+            value={option.value}
+            checked={currentValue.value.indexOf(option.value) > -1}
+            disabled={disabled || option.disabled}
+            theme={theme}
+            size={size}
+            onChange={onChange}
+          />
+        );
       });
 
       return <div {...rootProps}>{nodes}</div>;

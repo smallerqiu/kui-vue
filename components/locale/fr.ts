@@ -51,6 +51,8 @@ export default {
     },
     table: {
       emptyText: "Aucune donnée",
+      columnSettings: "Paramètres des colonnes",
+      resetColumns: "Réinitialiser",
     },
     upload: {
       successful: "Succès",

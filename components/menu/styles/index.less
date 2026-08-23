@@ -304,27 +304,41 @@
   line-height: 1;
   flex-direction: row;
   flex-wrap: nowrap;
+  align-items: stretch;
   gap: 16px 32px;
   padding: 0 16px;
   .k-menu-icon-temp {
     display: none;
   }
 
-  .k-menu-item,
-  .k-menu-submenu {
+  > .k-menu-item,
+  > .k-menu-submenu {
     flex: 0 0 auto;
+    height: 100%;
     line-height: 1;
     position: relative;
     cursor: pointer;
     font-size: 14px;
     z-index: 3;
     list-style: none;
-    top: 1px;
-    vertical-align: bottom;
+    top: 0;
     border-bottom: 2px solid transparent;
     display: inline-flex;
     align-items: center;
     min-height: 20px;
+  }
+
+  // A submenu is a column container in inline/vertical mode. Reset it for
+  // the horizontal root level so its title shares the MenuItem baseline.
+  > .k-menu-submenu {
+    flex-direction: row;
+    gap: 0;
+
+    > .k-menu-submenu-title {
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
   }
 
   .k-menu-item,

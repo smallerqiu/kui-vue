@@ -14,7 +14,7 @@
 
 [趋势信息](./demo/trend.vue?show=vertical)
 
-- 通过 `trend` 展示趋势或补充信息，使用 `trendStatus` 设置状态颜色。
+- 通过 `trend` 展示趋势或补充信息，使用 `trendStatus` 设置状态颜色；部分数据没有趋势时，卡片在 Grid 中仍保持等高。
 
 [基本用法](./demo/basic.vue)
 

@@ -50,6 +50,8 @@ export default {
     },
     table: {
       emptyText: "Nessun dato",
+      columnSettings: "Impostazioni colonne",
+      resetColumns: "Reimposta",
     },
     upload: {
       successful: "successo",

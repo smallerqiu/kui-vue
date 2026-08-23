@@ -63,11 +63,12 @@ const Space = defineComponent({
       const vNodes = [];
       for (let i = 0; i < children.length; i++) {
         const pre = props.vertical ? "vertical-" : "";
+        const grouped = children.length > 1;
         const p: Record<string, unknown> = {
           class: {
-            [`k-space-${pre}first-item`]: i === 0,
+            [`k-space-${pre}first-item`]: grouped && i === 0,
             [`k-space-${pre}item`]: i > 0 && i < children.length - 1,
-            [`k-space-${pre}last-item`]: i === children.length - 1,
+            [`k-space-${pre}last-item`]: grouped && i === children.length - 1,
           },
         };
         if (typeof size === "string") {

@@ -1,7 +1,7 @@
 {
   "$schema": "https://k-ui.cn/schema/kui-components.schema.json",
   "library": "kui-vue",
-  "version": "5.7.0",
+  "version": "5.8.0",
   "homepage": "https://k-ui.cn",
   "components": [
     {
@@ -60,6 +60,7 @@
           "descriptionEn": "Triggered when the fixed state changes"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -188,6 +189,7 @@
           "descriptionEn": "Callback function triggered when closing"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -443,6 +445,7 @@
           "descriptionEn": "Open state change"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基础用法",
@@ -560,21 +563,22 @@
           "descriptionEn": "Click event for Anchor"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基础用法（侧边栏目录）",
           "file": "components/anchor/demo/basic.vue",
-          "source": "<template>\n  <Layout class=\"anchor-d1\">\n    <Row :gutter=\"24\">\n      <Col :span=\"18\">\n        <section id=\"part-1\" style=\"margin-bottom: 20px; \">\n          <h2>Part 1：Basic</h2>\n          <p>Here is the basic content...</p>\n        </section>\n        <section id=\"part-2\" style=\" margin-bottom: 20px; \">\n          <h2>Part 2：Guide</h2>\n          <p>Here is the advanced content...</p>\n        </section>\n        <section id=\"part-3\">\n          <h2>Part 3：FQA</h2>\n          <p>Here is the FAQ content...</p>\n        </section>\n      </Col>\n      <Col :span=\"6\">\n        <Anchor :offsetTop=\"20\" container=\".anchor-d1\">\n          <AnchorLink href=\"#part-1\" title=\"Basic\" />\n          <AnchorLink href=\"#part-2\" title=\"Guide\" />\n          <AnchorLink href=\"#part-3\" title=\"FAQ\" />\n        </Anchor>\n      </Col>\n    </Row>\n  </Layout>\n</template>\n<style scoped>\n.anchor-d1 {\n  background: var(--kui-color-bg);\n  padding: 24px;\n  max-height: 500px;\n  overflow: auto;\n}\nsection {\n  height: 500px;\n  background: var(--kui-color-bg-container);\n  padding: 20px;\n}\n</style>"
+          "source": "<template>\n  <Layout class=\"anchor-d1\">\n    <Row :gutter=\"24\">\n      <Col :span=\"18\">\n        <section id=\"part-1\" style=\"margin-bottom: 20px\">\n          <h2>Part 1：Basic</h2>\n          <p>Here is the basic content...</p>\n        </section>\n        <section id=\"part-2\" style=\"margin-bottom: 20px\">\n          <h2>Part 2：Guide</h2>\n          <p>Here is the advanced content...</p>\n        </section>\n        <section id=\"part-3\">\n          <h2>Part 3：FQA</h2>\n          <p>Here is the FAQ content...</p>\n        </section>\n      </Col>\n      <Col :span=\"6\">\n        <Anchor :offsetTop=\"20\" container=\".anchor-d1\">\n          <AnchorLink href=\"#part-1\" title=\"Basic\" />\n          <AnchorLink href=\"#part-2\" title=\"Guide\" />\n          <AnchorLink href=\"#part-3\" title=\"FAQ\" />\n        </Anchor>\n      </Col>\n    </Row>\n  </Layout>\n</template>\n<style scoped>\n.anchor-d1 {\n  background: var(--kui-color-bg);\n  padding: 24px;\n  max-height: 500px;\n  overflow: auto;\n}\nsection {\n  height: 500px;\n  background: var(--kui-color-bg-container);\n  padding: 20px;\n}\n</style>"
         },
         {
           "title": "嵌套锚点（复杂文档结构）",
           "file": "components/anchor/demo/nested-anchors.vue",
-          "source": "<template>\n  <Row style=\"display: flex;max-height:500px;overflow:auto;\" class=\"anchor-d2\">\n    <Col style=\"flex: 1; padding: 40px;\">\n      <h1 id=\"api\">API</h1>\n      <div style=\"height: 400px\"></div>\n      \n      <h2 id=\"props\">Props</h2>\n      <div style=\"height: 300px\"></div>\n      \n      <h3 id=\"anchor-props\">Anchor Props</h3>\n      <div style=\"height: 300px\"></div>\n      \n      <h2 id=\"events\">Events</h2>\n      <div style=\"height: 600px\"></div>\n    </Col>\n    \n    <Col style=\"width: 200px; padding-top: 40px;\">\n      <Anchor container=\".anchor-d2\">\n        <AnchorLink href=\"#api\" title=\"API\">\n          <AnchorLink href=\"#props\" title=\"Props\">\n            <AnchorLink href=\"#anchor-props\" title=\"Anchor Props\" />\n          </AnchorLink>\n          <AnchorLink href=\"#events\" title=\"Events\" />\n        </AnchorLink>\n      </Anchor>\n    </Col>\n  </Row>\n</template>"
+          "source": "<template>\n  <Row style=\"display: flex; max-height: 500px; overflow: auto\" class=\"anchor-d2\">\n    <Col style=\"flex: 1; padding: 40px\">\n      <h1 id=\"api\">API</h1>\n      <div style=\"height: 400px\"></div>\n\n      <h2 id=\"props\">Props</h2>\n      <div style=\"height: 300px\"></div>\n\n      <h3 id=\"anchor-props\">Anchor Props</h3>\n      <div style=\"height: 300px\"></div>\n\n      <h2 id=\"events\">Events</h2>\n      <div style=\"height: 600px\"></div>\n    </Col>\n\n    <Col style=\"width: 200px; padding-top: 40px\">\n      <Anchor container=\".anchor-d2\">\n        <AnchorLink href=\"#api\" title=\"API\">\n          <AnchorLink href=\"#props\" title=\"Props\">\n            <AnchorLink href=\"#anchor-props\" title=\"Anchor Props\" />\n          </AnchorLink>\n          <AnchorLink href=\"#events\" title=\"Events\" />\n        </AnchorLink>\n      </Anchor>\n    </Col>\n  </Row>\n</template>"
         },
         {
           "title": "指定容器（滚动容器内定位）",
           "file": "components/anchor/demo/within-container.vue",
-          "source": "<template>\n  <div class=\"demo-container\">\n    <Row :gutter=\"10\">\n      <Col :span=\"18\">\n        <div\n          class=\"scroll-content\"\n          style=\"height: 300px; overflow-y: scroll; border: 1px solid var(--kui-color-border);\"\n        >\n          <div id=\"item-1\" style=\"height: 400px; background: #e6f7ff3c;\">content 1</div>\n          <div id=\"item-2\" style=\"height: 400px; background: #fff7e640;\">content 2</div>\n        </div>\n      </Col>\n      <Col :span=\"6\">\n        <Anchor container=\".scroll-content\">\n          <AnchorLink href=\"#item-1\" title=\"part 1\" />\n          <AnchorLink href=\"#item-2\" title=\"part 2\" />\n        </Anchor>\n      </Col>\n    </Row>\n  </div>\n</template>"
+          "source": "<template>\n  <div class=\"demo-container\">\n    <Row :gutter=\"10\">\n      <Col :span=\"18\">\n        <div\n          class=\"scroll-content\"\n          style=\"height: 300px; overflow-y: scroll; border: 1px solid var(--kui-color-border)\"\n        >\n          <div id=\"item-1\" style=\"height: 400px; background: #e6f7ff3c\">content 1</div>\n          <div id=\"item-2\" style=\"height: 400px; background: #fff7e640\">content 2</div>\n        </div>\n      </Col>\n      <Col :span=\"6\">\n        <Anchor container=\".scroll-content\">\n          <AnchorLink href=\"#item-1\" title=\"part 1\" />\n          <AnchorLink href=\"#item-2\" title=\"part 2\" />\n        </Anchor>\n      </Col>\n    </Row>\n  </div>\n</template>"
         }
       ]
     },
@@ -608,21 +612,22 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基础用法（侧边栏目录）",
           "file": "components/anchor/demo/basic.vue",
-          "source": "<template>\n  <Layout class=\"anchor-d1\">\n    <Row :gutter=\"24\">\n      <Col :span=\"18\">\n        <section id=\"part-1\" style=\"margin-bottom: 20px; \">\n          <h2>Part 1：Basic</h2>\n          <p>Here is the basic content...</p>\n        </section>\n        <section id=\"part-2\" style=\" margin-bottom: 20px; \">\n          <h2>Part 2：Guide</h2>\n          <p>Here is the advanced content...</p>\n        </section>\n        <section id=\"part-3\">\n          <h2>Part 3：FQA</h2>\n          <p>Here is the FAQ content...</p>\n        </section>\n      </Col>\n      <Col :span=\"6\">\n        <Anchor :offsetTop=\"20\" container=\".anchor-d1\">\n          <AnchorLink href=\"#part-1\" title=\"Basic\" />\n          <AnchorLink href=\"#part-2\" title=\"Guide\" />\n          <AnchorLink href=\"#part-3\" title=\"FAQ\" />\n        </Anchor>\n      </Col>\n    </Row>\n  </Layout>\n</template>\n<style scoped>\n.anchor-d1 {\n  background: var(--kui-color-bg);\n  padding: 24px;\n  max-height: 500px;\n  overflow: auto;\n}\nsection {\n  height: 500px;\n  background: var(--kui-color-bg-container);\n  padding: 20px;\n}\n</style>"
+          "source": "<template>\n  <Layout class=\"anchor-d1\">\n    <Row :gutter=\"24\">\n      <Col :span=\"18\">\n        <section id=\"part-1\" style=\"margin-bottom: 20px\">\n          <h2>Part 1：Basic</h2>\n          <p>Here is the basic content...</p>\n        </section>\n        <section id=\"part-2\" style=\"margin-bottom: 20px\">\n          <h2>Part 2：Guide</h2>\n          <p>Here is the advanced content...</p>\n        </section>\n        <section id=\"part-3\">\n          <h2>Part 3：FQA</h2>\n          <p>Here is the FAQ content...</p>\n        </section>\n      </Col>\n      <Col :span=\"6\">\n        <Anchor :offsetTop=\"20\" container=\".anchor-d1\">\n          <AnchorLink href=\"#part-1\" title=\"Basic\" />\n          <AnchorLink href=\"#part-2\" title=\"Guide\" />\n          <AnchorLink href=\"#part-3\" title=\"FAQ\" />\n        </Anchor>\n      </Col>\n    </Row>\n  </Layout>\n</template>\n<style scoped>\n.anchor-d1 {\n  background: var(--kui-color-bg);\n  padding: 24px;\n  max-height: 500px;\n  overflow: auto;\n}\nsection {\n  height: 500px;\n  background: var(--kui-color-bg-container);\n  padding: 20px;\n}\n</style>"
         },
         {
           "title": "嵌套锚点（复杂文档结构）",
           "file": "components/anchor/demo/nested-anchors.vue",
-          "source": "<template>\n  <Row style=\"display: flex;max-height:500px;overflow:auto;\" class=\"anchor-d2\">\n    <Col style=\"flex: 1; padding: 40px;\">\n      <h1 id=\"api\">API</h1>\n      <div style=\"height: 400px\"></div>\n      \n      <h2 id=\"props\">Props</h2>\n      <div style=\"height: 300px\"></div>\n      \n      <h3 id=\"anchor-props\">Anchor Props</h3>\n      <div style=\"height: 300px\"></div>\n      \n      <h2 id=\"events\">Events</h2>\n      <div style=\"height: 600px\"></div>\n    </Col>\n    \n    <Col style=\"width: 200px; padding-top: 40px;\">\n      <Anchor container=\".anchor-d2\">\n        <AnchorLink href=\"#api\" title=\"API\">\n          <AnchorLink href=\"#props\" title=\"Props\">\n            <AnchorLink href=\"#anchor-props\" title=\"Anchor Props\" />\n          </AnchorLink>\n          <AnchorLink href=\"#events\" title=\"Events\" />\n        </AnchorLink>\n      </Anchor>\n    </Col>\n  </Row>\n</template>"
+          "source": "<template>\n  <Row style=\"display: flex; max-height: 500px; overflow: auto\" class=\"anchor-d2\">\n    <Col style=\"flex: 1; padding: 40px\">\n      <h1 id=\"api\">API</h1>\n      <div style=\"height: 400px\"></div>\n\n      <h2 id=\"props\">Props</h2>\n      <div style=\"height: 300px\"></div>\n\n      <h3 id=\"anchor-props\">Anchor Props</h3>\n      <div style=\"height: 300px\"></div>\n\n      <h2 id=\"events\">Events</h2>\n      <div style=\"height: 600px\"></div>\n    </Col>\n\n    <Col style=\"width: 200px; padding-top: 40px\">\n      <Anchor container=\".anchor-d2\">\n        <AnchorLink href=\"#api\" title=\"API\">\n          <AnchorLink href=\"#props\" title=\"Props\">\n            <AnchorLink href=\"#anchor-props\" title=\"Anchor Props\" />\n          </AnchorLink>\n          <AnchorLink href=\"#events\" title=\"Events\" />\n        </AnchorLink>\n      </Anchor>\n    </Col>\n  </Row>\n</template>"
         },
         {
           "title": "指定容器（滚动容器内定位）",
           "file": "components/anchor/demo/within-container.vue",
-          "source": "<template>\n  <div class=\"demo-container\">\n    <Row :gutter=\"10\">\n      <Col :span=\"18\">\n        <div\n          class=\"scroll-content\"\n          style=\"height: 300px; overflow-y: scroll; border: 1px solid var(--kui-color-border);\"\n        >\n          <div id=\"item-1\" style=\"height: 400px; background: #e6f7ff3c;\">content 1</div>\n          <div id=\"item-2\" style=\"height: 400px; background: #fff7e640;\">content 2</div>\n        </div>\n      </Col>\n      <Col :span=\"6\">\n        <Anchor container=\".scroll-content\">\n          <AnchorLink href=\"#item-1\" title=\"part 1\" />\n          <AnchorLink href=\"#item-2\" title=\"part 2\" />\n        </Anchor>\n      </Col>\n    </Row>\n  </div>\n</template>"
+          "source": "<template>\n  <div class=\"demo-container\">\n    <Row :gutter=\"10\">\n      <Col :span=\"18\">\n        <div\n          class=\"scroll-content\"\n          style=\"height: 300px; overflow-y: scroll; border: 1px solid var(--kui-color-border)\"\n        >\n          <div id=\"item-1\" style=\"height: 400px; background: #e6f7ff3c\">content 1</div>\n          <div id=\"item-2\" style=\"height: 400px; background: #fff7e640\">content 2</div>\n        </div>\n      </Col>\n      <Col :span=\"6\">\n        <Anchor container=\".scroll-content\">\n          <AnchorLink href=\"#item-1\" title=\"part 1\" />\n          <AnchorLink href=\"#item-2\" title=\"part 2\" />\n        </Anchor>\n      </Col>\n    </Row>\n  </div>\n</template>"
         }
       ]
     },
@@ -701,6 +706,7 @@
           "descriptionEn": "Image error callback; return `false` to prevent rendering fallback"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本",
@@ -773,6 +779,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本",
@@ -818,6 +825,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -866,6 +874,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -949,6 +958,7 @@
           "descriptionEn": "Triggered when the button is clicked"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -1045,6 +1055,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -1203,6 +1214,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -1212,7 +1224,7 @@
         {
           "title": "主题",
           "file": "components/button/demo/theme.vue",
-          "source": "<template>\n  <Space vertical>\n    <code>outline</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" theme=\"outline\">outline</Button>\n      <Button type=\"danger\" theme=\"outline\">outline</Button>\n      <Button type=\"warning\" theme=\"outline\">outline</Button>\n      <Button theme=\"outline\">outline</Button>\n    </Space>\n    <code>dashed</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" theme=\"dashed\">dashed</Button>\n      <Button type=\"danger\" theme=\"dashed\">dashed</Button>\n      <Button type=\"warning\" theme=\"dashed\">dashed</Button>\n      <Button theme=\"dashed\">dashed</Button>\n    </Space>\n    <code>fill</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" theme=\"fill\">primary</Button>\n      <Button type=\"danger\" theme=\"fill\">danger</Button>\n      <Button type=\"warning\" theme=\"fill\">warning</Button>\n      <Button theme=\"fill\">default</Button>\n    </Space>\n    <code>shape</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" shape=\"round\">Round</Button>\n      <Button type=\"danger\" shape=\"circle\">Circle</Button>\n      <Button type=\"warning\" shape=\"square\">Square</Button>\n      <Button theme=\"fill\">default</Button>\n    </Space>\n  </Space>\n</template>"
+          "source": "<template>\n  <Space vertical>\n    <code>outline</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" theme=\"outline\">outline</Button>\n      <Button type=\"danger\" theme=\"outline\">outline</Button>\n      <Button type=\"warning\" theme=\"outline\">outline</Button>\n      <Button theme=\"outline\">outline</Button>\n    </Space>\n    <code>dashed</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" theme=\"dashed\">dashed</Button>\n      <Button type=\"danger\" theme=\"dashed\">dashed</Button>\n      <Button type=\"warning\" theme=\"dashed\">dashed</Button>\n      <Button theme=\"dashed\">dashed</Button>\n    </Space>\n    <code>fill</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" theme=\"fill\">primary</Button>\n      <Button type=\"danger\" theme=\"fill\">danger</Button>\n      <Button type=\"warning\" theme=\"fill\">warning</Button>\n      <Button theme=\"fill\">default</Button>\n    </Space>\n    <code>plain</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" theme=\"plain\">primary</Button>\n      <Button type=\"danger\" theme=\"plain\">danger</Button>\n      <Button color=\"red\" theme=\"plain\">red</Button>\n      <Button theme=\"plain\">default</Button>\n    </Space>\n    <code>shape</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" shape=\"round\">Round</Button>\n      <Button type=\"danger\" shape=\"circle\">Circle</Button>\n      <Button type=\"warning\" shape=\"square\">Square</Button>\n      <Button theme=\"fill\">default</Button>\n    </Space>\n  </Space>\n</template>"
         },
         {
           "title": "多彩",
@@ -1242,7 +1254,7 @@
         {
           "title": "Block 按钮",
           "file": "components/button/demo/block.vue",
-          "source": "<template>\n  <Space vertical style=\"width:100%\">\n    <Button type=\"primary\" block>Primary</Button>\n    <Button type=\"danger\" block>Danger</Button>\n    <Button block>Default</Button>\n    <Button type=\"text\" block>Text</Button>\n    <Button type=\"link\" block>Link</Button>\n  </Space>\n</template>"
+          "source": "<template>\n  <Space vertical style=\"width: 100%\">\n    <Button type=\"primary\" block>Primary</Button>\n    <Button type=\"danger\" block>Danger</Button>\n    <Button block>Default</Button>\n    <Button type=\"text\" block>Text</Button>\n    <Button type=\"link\" block>Link</Button>\n  </Space>\n</template>"
         },
         {
           "title": "按钮组合",
@@ -1282,6 +1294,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -1291,7 +1304,7 @@
         {
           "title": "主题",
           "file": "components/button/demo/theme.vue",
-          "source": "<template>\n  <Space vertical>\n    <code>outline</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" theme=\"outline\">outline</Button>\n      <Button type=\"danger\" theme=\"outline\">outline</Button>\n      <Button type=\"warning\" theme=\"outline\">outline</Button>\n      <Button theme=\"outline\">outline</Button>\n    </Space>\n    <code>dashed</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" theme=\"dashed\">dashed</Button>\n      <Button type=\"danger\" theme=\"dashed\">dashed</Button>\n      <Button type=\"warning\" theme=\"dashed\">dashed</Button>\n      <Button theme=\"dashed\">dashed</Button>\n    </Space>\n    <code>fill</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" theme=\"fill\">primary</Button>\n      <Button type=\"danger\" theme=\"fill\">danger</Button>\n      <Button type=\"warning\" theme=\"fill\">warning</Button>\n      <Button theme=\"fill\">default</Button>\n    </Space>\n    <code>shape</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" shape=\"round\">Round</Button>\n      <Button type=\"danger\" shape=\"circle\">Circle</Button>\n      <Button type=\"warning\" shape=\"square\">Square</Button>\n      <Button theme=\"fill\">default</Button>\n    </Space>\n  </Space>\n</template>"
+          "source": "<template>\n  <Space vertical>\n    <code>outline</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" theme=\"outline\">outline</Button>\n      <Button type=\"danger\" theme=\"outline\">outline</Button>\n      <Button type=\"warning\" theme=\"outline\">outline</Button>\n      <Button theme=\"outline\">outline</Button>\n    </Space>\n    <code>dashed</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" theme=\"dashed\">dashed</Button>\n      <Button type=\"danger\" theme=\"dashed\">dashed</Button>\n      <Button type=\"warning\" theme=\"dashed\">dashed</Button>\n      <Button theme=\"dashed\">dashed</Button>\n    </Space>\n    <code>fill</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" theme=\"fill\">primary</Button>\n      <Button type=\"danger\" theme=\"fill\">danger</Button>\n      <Button type=\"warning\" theme=\"fill\">warning</Button>\n      <Button theme=\"fill\">default</Button>\n    </Space>\n    <code>plain</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" theme=\"plain\">primary</Button>\n      <Button type=\"danger\" theme=\"plain\">danger</Button>\n      <Button color=\"red\" theme=\"plain\">red</Button>\n      <Button theme=\"plain\">default</Button>\n    </Space>\n    <code>shape</code>\n    <Space size=\"small\">\n      <Button type=\"primary\" shape=\"round\">Round</Button>\n      <Button type=\"danger\" shape=\"circle\">Circle</Button>\n      <Button type=\"warning\" shape=\"square\">Square</Button>\n      <Button theme=\"fill\">default</Button>\n    </Space>\n  </Space>\n</template>"
         },
         {
           "title": "多彩",
@@ -1321,7 +1334,7 @@
         {
           "title": "Block 按钮",
           "file": "components/button/demo/block.vue",
-          "source": "<template>\n  <Space vertical style=\"width:100%\">\n    <Button type=\"primary\" block>Primary</Button>\n    <Button type=\"danger\" block>Danger</Button>\n    <Button block>Default</Button>\n    <Button type=\"text\" block>Text</Button>\n    <Button type=\"link\" block>Link</Button>\n  </Space>\n</template>"
+          "source": "<template>\n  <Space vertical style=\"width: 100%\">\n    <Button type=\"primary\" block>Primary</Button>\n    <Button type=\"danger\" block>Danger</Button>\n    <Button block>Default</Button>\n    <Button type=\"text\" block>Text</Button>\n    <Button type=\"link\" block>Link</Button>\n  </Space>\n</template>"
         },
         {
           "title": "按钮组合",
@@ -1494,6 +1507,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基础省市区三级联动",
@@ -1593,6 +1607,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -1665,6 +1680,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -1695,6 +1711,187 @@
           "title": "外观与形状",
           "file": "components/card/demo/appearance.vue",
           "source": "<template>\n  <Space vertical block>\n    <Space>\n      <Card v-for=\"shape in shapes\" :key=\"shape\" :shape=\"shape\" style=\"width: 180px\">\n        shape: {{ shape }}\n      </Card>\n    </Space>\n    <Space>\n      <Card v-for=\"theme in themes\" :key=\"theme\" :theme=\"theme\" shape=\"square\" style=\"width: 180px\">\n        theme: {{ theme }}\n      </Card>\n    </Space>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { ShapeType, ThemeType } from \"kui-vue\";\n\nconst shapes: ShapeType[] = [\"round\", \"square\", \"circle\"];\nconst themes: ThemeType[] = [\"default\", \"fill\", \"outline\", \"plain\"];\n</script>"
+        }
+      ]
+    },
+    {
+      "name": "Calendar",
+      "tags": [
+        "calendar",
+        "k-calendar"
+      ],
+      "children": [],
+      "documentation": "https://k-ui.cn/components/calendar",
+      "props": [
+        {
+          "name": "events",
+          "description": "Calendar events",
+          "descriptionZh": "日程数据",
+          "descriptionEn": "Calendar events",
+          "type": "CalendarEventData[]",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "maxEvents",
+          "description": "Maximum visible events per day",
+          "descriptionZh": "单日最多展示的事件数",
+          "descriptionEn": "Maximum visible events per day",
+          "type": "number",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "showToolbar",
+          "description": "Show the calendar toolbar",
+          "descriptionZh": "是否展示工具栏",
+          "descriptionEn": "Show the calendar toolbar",
+          "type": "boolean",
+          "boolean": true,
+          "documented": true
+        },
+        {
+          "name": "onChange",
+          "description": "Emitted when a date or the Today button is selected",
+          "descriptionZh": "选择日期或点击“今天”时触发",
+          "descriptionEn": "Emitted when a date or the Today button is selected",
+          "type": "((date: string, cell: CalendarDateCell) => void) | undefined",
+          "eventName": "change",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Selected date in `YYYY-MM-DD` format",
+          "descriptionZh": "选中日期，格式 `YYYY-MM-DD`",
+          "descriptionEn": "Selected date in `YYYY-MM-DD` format",
+          "type": "string | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "firstDayOfWeek",
+          "description": "First weekday, where 0 is Sunday",
+          "descriptionZh": "每周起始日，0 为周日",
+          "descriptionEn": "First weekday, where 0 is Sunday",
+          "type": "number | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "todayText",
+          "description": "Today button text",
+          "descriptionZh": "今日按钮文字",
+          "descriptionEn": "Today button text",
+          "type": "string | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "weekdays",
+          "description": "Labels ordered from Sunday to Saturday",
+          "descriptionZh": "星期名称，按周日至周六排列",
+          "descriptionEn": "Labels ordered from Sunday to Saturday",
+          "type": "string[] | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "onMonthChange",
+          "description": "Emitted when the displayed month changes",
+          "descriptionZh": "切换展示月份时触发",
+          "descriptionEn": "Emitted when the displayed month changes",
+          "type": "((value: { year: number; month: number; }) => void) | undefined",
+          "eventName": "monthChange",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "onEventClick",
+          "description": "Emitted when an event is clicked",
+          "descriptionZh": "点击日程时触发",
+          "descriptionEn": "Emitted when an event is clicked",
+          "type": "((event: CalendarEventData, cell: CalendarDateCell) => void) | undefined",
+          "eventName": "eventClick",
+          "boolean": false,
+          "documented": true
+        }
+      ],
+      "events": [
+        {
+          "name": "change",
+          "type": "((date: string, cell: CalendarDateCell) => void) | undefined",
+          "description": "Emitted when a date or the Today button is selected",
+          "descriptionZh": "选择日期或点击“今天”时触发",
+          "descriptionEn": "Emitted when a date or the Today button is selected"
+        },
+        {
+          "name": "monthChange",
+          "type": "((value: { year: number; month: number; }) => void) | undefined",
+          "description": "Emitted when the displayed month changes",
+          "descriptionZh": "切换展示月份时触发",
+          "descriptionEn": "Emitted when the displayed month changes"
+        },
+        {
+          "name": "eventClick",
+          "type": "((event: CalendarEventData, cell: CalendarDateCell) => void) | undefined",
+          "description": "Emitted when an event is clicked",
+          "descriptionZh": "点击日程时触发",
+          "descriptionEn": "Emitted when an event is clicked"
+        }
+      ],
+      "slots": [
+        {
+          "name": "title",
+          "description": "Custom month title",
+          "descriptionZh": "自定义月份标题",
+          "descriptionEn": "Custom month title",
+          "scope": "{ year: number, month: number }"
+        },
+        {
+          "name": "extra",
+          "description": "Extra toolbar content",
+          "descriptionZh": "工具栏右侧扩展内容",
+          "descriptionEn": "Extra toolbar content",
+          "scope": "-"
+        },
+        {
+          "name": "dateCell",
+          "description": "Custom date-cell heading",
+          "descriptionZh": "自定义日期单元格标题",
+          "descriptionEn": "Custom date-cell heading",
+          "scope": "CalendarDateCell"
+        },
+        {
+          "name": "event",
+          "description": "Custom event content",
+          "descriptionZh": "自定义日程内容",
+          "descriptionEn": "Custom event content",
+          "scope": "{ event: CalendarEventData, cell: CalendarDateCell }"
+        },
+        {
+          "name": "more",
+          "description": "Custom overflow indicator",
+          "descriptionZh": "自定义超出数量提示",
+          "descriptionEn": "Custom overflow indicator",
+          "scope": "{ count: number, cell: CalendarDateCell }"
+        }
+      ],
+      "examples": [
+        {
+          "title": "基本用法",
+          "file": "components/calendar/demo/basic.vue",
+          "source": "<template>\n  <Calendar v-model=\"date\" :events=\"events\" @event-click=\"onEventClick\" />\n</template>\n<script setup lang=\"ts\">\nimport { message, type CalendarEventData } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst date = ref(\"2026-08-23\");\nconst events: CalendarEventData[] = [\n  { key: 1, date: \"2026-08-23\", time: \"10:00\", title: \"Product review\", color: \"#3a95ff\" },\n  { key: 2, date: \"2026-08-25\", title: \"Release\", color: \"#22a06b\" },\n];\nconst onEventClick = (event: CalendarEventData) => message.info(event.title);\n</script>"
+        },
+        {
+          "title": "自定义内容",
+          "file": "components/calendar/demo/custom.vue",
+          "source": "<template>\n  <Calendar v-model=\"date\" :events=\"events\" :max-events=\"2\">\n    <template #extra><Tag color=\"blue\">Team calendar</Tag></template>\n    <template #event=\"{ event }\">\n      <button class=\"custom-event\" type=\"button\">\n        <i :style=\"{ background: event.color }\"></i>{{ event.title }}\n      </button>\n    </template>\n    <template #more=\"{ count }\"><span class=\"more\">还有 {{ count }} 项</span></template>\n  </Calendar>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport type { CalendarEventData } from \"kui-vue\";\n\nconst date = ref(\"2026-08-23\");\nconst events: CalendarEventData[] = [\n  { key: 1, date: \"2026-08-23\", title: \"需求评审\", color: \"#3a95ff\" },\n  { key: 2, date: \"2026-08-23\", title: \"设计同步\", color: \"#7b61ff\" },\n  { key: 3, date: \"2026-08-23\", title: \"版本发布\", color: \"#22a06b\" },\n];\n</script>\n<style scoped>\n.custom-event { display: flex; width: 100%; gap: 6px; align-items: center; border: 0; background: transparent; color: inherit; }\n.custom-event i { width: 6px; height: 6px; border-radius: 50%; }\n.more { color: var(--kui-color-primary); }\n</style>"
+        },
+        {
+          "title": "国际化",
+          "file": "components/calendar/demo/locale.vue",
+          "source": "<template>\n  <Space vertical style=\"width: 100%\">\n    <RadioGroup v-model=\"language\" type=\"button\" :options=\"options\" />\n    <ConfigProvider :locale=\"language === 'en' ? en : zhCN\">\n      <Calendar v-model=\"date\" />\n    </ConfigProvider>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport en from \"kui-vue/locale/en\";\nimport zhCN from \"kui-vue/locale/zh-CN\";\n\nconst language = ref(\"zh\");\nconst date = ref(\"2026-08-23\");\nconst options = [\n  { label: \"中文\", value: \"zh\" },\n  { label: \"English\", value: \"en\" },\n];\n</script>"
         }
       ]
     },
@@ -1735,34 +1932,138 @@
           "documented": true
         },
         {
+          "name": "size",
+          "description": "Card size",
+          "descriptionZh": "卡片尺寸",
+          "descriptionEn": "Card size",
+          "type": "SizeType",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "direction",
+          "description": "Content direction",
+          "descriptionZh": "内容排列方向",
+          "descriptionEn": "Content direction",
+          "type": "\"horizontal\" | \"vertical\"",
+          "boolean": false,
+          "documented": true
+        },
+        {
           "name": "icon",
-          "description": "Icon",
-          "descriptionZh": "图标",
-          "descriptionEn": "Icon",
+          "description": "Custom icon",
+          "descriptionZh": "自定义图标",
+          "descriptionEn": "Custom icon",
           "type": "IconType[] | undefined",
           "boolean": false,
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Disable interaction",
+          "descriptionZh": "是否禁用交互",
+          "descriptionEn": "Disable interaction",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "documented": true
+        },
+        {
+          "name": "onClick",
+          "description": "Emitted when clicked",
+          "descriptionZh": "点击时触发",
+          "descriptionEn": "Emitted when clicked",
+          "type": "((event: MouseEvent) => void) | undefined",
+          "eventName": "click",
+          "boolean": false,
+          "documented": true
+        },
+        {
           "name": "title",
-          "description": "Title",
-          "descriptionZh": "标题",
-          "descriptionEn": "Title",
+          "description": "Custom title",
+          "descriptionZh": "自定义标题",
+          "descriptionEn": "Custom title",
+          "type": "string | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "color",
+          "description": "Icon accent color",
+          "descriptionZh": "图标强调色",
+          "descriptionEn": "Icon accent color",
           "type": "string | undefined",
           "boolean": false,
           "documented": true
         },
         {
           "name": "desc",
-          "description": "Description",
-          "descriptionZh": "描述内容",
-          "descriptionEn": "Description",
+          "description": "Custom description",
+          "descriptionZh": "自定义描述",
+          "descriptionEn": "Custom description",
+          "type": "string | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "clickable",
+          "description": "Enable interaction and keyboard semantics",
+          "descriptionZh": "是否可交互；启用键盘及按钮语义",
+          "descriptionEn": "Enable interaction and keyboard semantics",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "documented": true
+        },
+        {
+          "name": "iconBackground",
+          "description": "Icon container background; derived from `color` when omitted",
+          "descriptionZh": "图标容器背景；未设置时根据 `color` 自动生成",
+          "descriptionEn": "Icon container background; derived from `color` when omitted",
           "type": "string | undefined",
           "boolean": false,
           "documented": true
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "name": "click",
+          "type": "((event: MouseEvent) => void) | undefined",
+          "description": "Emitted when clicked",
+          "descriptionZh": "点击时触发",
+          "descriptionEn": "Emitted when clicked"
+        }
+      ],
+      "slots": [
+        {
+          "name": "icon",
+          "description": "Custom icon",
+          "descriptionZh": "自定义图标",
+          "descriptionEn": "Custom icon"
+        },
+        {
+          "name": "title",
+          "description": "Custom title",
+          "descriptionZh": "自定义标题",
+          "descriptionEn": "Custom title"
+        },
+        {
+          "name": "desc",
+          "description": "Custom description",
+          "descriptionZh": "自定义描述",
+          "descriptionEn": "Custom description"
+        },
+        {
+          "name": "extra",
+          "description": "Trailing content",
+          "descriptionZh": "右侧扩展区域",
+          "descriptionEn": "Trailing content"
+        },
+        {
+          "name": "default",
+          "description": "Additional content",
+          "descriptionZh": "补充内容",
+          "descriptionEn": "Additional content"
+        }
+      ],
       "examples": [
         {
           "title": "基本用法",
@@ -1773,6 +2074,16 @@
           "title": "边框",
           "file": "components/feature-card/demo/bordered.vue",
           "source": "<template>\n  <div class=\"feature-demo\">\n    <FeatureCard\n      :icon=\"Code\"\n      title=\"显示边框\"\n      desc=\"设置 bordered 后显示边框，适合放置在普通页面背景中。\"\n      bordered\n    />\n    <FeatureCard\n      :icon=\"Code\"\n      title=\"隐藏边框\"\n      desc=\"默认不显示边框，可将卡片放在具有层次的容器背景中。\"\n    />\n  </div>\n</template>\n\n<script setup lang=\"ts\">\nimport { Code } from \"kui-icons\";\n</script>\n\n<style scoped>\n.feature-demo {\n  display: grid;\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n  gap: 16px;\n  padding: 16px;\n  background: var(--kui-color-bg);\n}\n</style>"
+        },
+        {
+          "title": "尺寸",
+          "file": "components/feature-card/demo/size.vue",
+          "source": "<template>\n  <Space vertical block :size=\"12\">\n    <FeatureCard v-for=\"size in sizes\" :key=\"size\" :icon=\"Zap\" :size=\"size\" :title=\"`${size} card`\" desc=\"Icon, spacing and typography scale together.\" theme=\"outline\" />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Zap } from \"kui-icons\";\nimport type { SizeType } from \"kui-vue\";\nconst sizes: SizeType[] = [\"small\", \"medium\", \"large\"];\n</script>"
+        },
+        {
+          "title": "功能入口",
+          "file": "components/feature-card/demo/interactive.vue",
+          "source": "<template>\n  <Grid :cols=\"{ xs: 2, md: 4 }\" :x-gap=\"12\" :y-gap=\"12\">\n    <GridItem v-for=\"item in entries\" :key=\"item.title\">\n      <FeatureCard\n        :icon=\"item.icon\"\n        :title=\"item.title\"\n        :color=\"item.color\"\n        size=\"small\"\n        direction=\"vertical\"\n        theme=\"outline\"\n        clickable\n        @click=\"message.info(item.title)\"\n      />\n    </GridItem>\n  </Grid>\n</template>\n<script setup lang=\"ts\">\nimport { FolderKanban, ShoppingCart, Users, Wallet } from \"kui-icons\";\nimport { message } from \"kui-vue\";\nconst entries = [\n  { title: \"项目管理\", icon: FolderKanban, color: \"#3a95ff\" },\n  { title: \"订单管理\", icon: ShoppingCart, color: \"#7b61ff\" },\n  { title: \"客户管理\", icon: Users, color: \"#22a06b\" },\n  { title: \"财务报表\", icon: Wallet, color: \"#f59e0b\" },\n];\n</script>"
         }
       ]
     },
@@ -1967,6 +2278,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基础用法",
@@ -1977,6 +2289,132 @@
           "title": "自定义火焰",
           "file": "components/flame-wrap/demo/custom.vue",
           "source": "<template>\n  <div style=\"padding: 130px 60px 48px\">\n    <FlameWrap\n      :color=\"[1, 0.28, 0.08]\"\n      :intensity=\"0.85\"\n      :height=\"120\"\n      :speed=\"0.55\"\n      :sparks=\"2\"\n      :smoke=\"0.6\"\n      :radius=\"18\"\n    >\n      <Card :style=\"{ padding: '20px', height: '120px' }\">\n        <h3 style=\"margin: 0 0 8px\">Warm flame</h3>\n        <p style=\"margin: 0; color: var(--kui-color-text-secondary)\">\n          可以调整颜色、火焰高度、火星、烟雾和燃烧速度。\n        </p>\n      </Card>\n    </FlameWrap>\n  </div>\n</template>"
+        }
+      ]
+    },
+    {
+      "name": "ListPanel",
+      "tags": [
+        "list-panel",
+        "k-list-panel"
+      ],
+      "children": [],
+      "documentation": "https://k-ui.cn/components/list-panel",
+      "props": [
+        {
+          "name": "bordered",
+          "description": "Show border",
+          "descriptionZh": "是否显示边框",
+          "descriptionEn": "Show border",
+          "type": "boolean",
+          "boolean": true,
+          "documented": true
+        },
+        {
+          "name": "theme",
+          "description": "Panel theme",
+          "descriptionZh": "面板外观",
+          "descriptionEn": "Panel theme",
+          "type": "ThemeType",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "shape",
+          "description": "Panel shape",
+          "descriptionZh": "面板形状",
+          "descriptionEn": "Panel shape",
+          "type": "ShapeType",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "size",
+          "description": "Panel size",
+          "descriptionZh": "面板尺寸",
+          "descriptionEn": "Panel size",
+          "type": "SizeType",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "selectedCount",
+          "description": "Current selection count used to show bulk actions",
+          "descriptionZh": "当前选中数量，用于切换批量操作栏",
+          "descriptionEn": "Current selection count used to show bulk actions",
+          "type": "number",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "summary",
+          "description": "Custom result summary",
+          "descriptionZh": "自定义结果摘要",
+          "descriptionEn": "Custom result summary",
+          "type": "string | number | undefined",
+          "boolean": false,
+          "documented": true
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "name": "filters",
+          "description": "Query controls",
+          "descriptionZh": "查询条件区域",
+          "descriptionEn": "Query controls"
+        },
+        {
+          "name": "summary",
+          "description": "Custom result summary",
+          "descriptionZh": "自定义结果摘要",
+          "descriptionEn": "Custom result summary"
+        },
+        {
+          "name": "actions",
+          "description": "Toolbar actions",
+          "descriptionZh": "查询栏右侧操作",
+          "descriptionEn": "Toolbar actions"
+        },
+        {
+          "name": "selection",
+          "description": "Bulk action toolbar, scoped with `{ count }",
+          "descriptionZh": "批量操作栏，作用域参数为 `{ count }",
+          "descriptionEn": "Bulk action toolbar, scoped with `{ count }"
+        },
+        {
+          "name": "default",
+          "description": "Table, list or other primary content",
+          "descriptionZh": "列表、表格或其他主要内容",
+          "descriptionEn": "Table, list or other primary content"
+        },
+        {
+          "name": "footer",
+          "description": "Pagination or footer actions",
+          "descriptionZh": "分页或列表底部操作",
+          "descriptionEn": "Pagination or footer actions"
+        }
+      ],
+      "examples": [
+        {
+          "title": "查询列表",
+          "file": "components/list-panel/demo/basic.vue",
+          "source": "<template>\n  <ListPanel :summary=\"`${data.length} records`\">\n    <template #filters>\n      <Input v-model=\"keyword\" clearable placeholder=\"Search users\" :icon=\"Search\" />\n      <Select v-model=\"status\" clearable placeholder=\"All statuses\" :options=\"options\" />\n    </template>\n    <Table :data=\"filtered\" :columns=\"columns\" />\n  </ListPanel>\n</template>\n<script setup lang=\"ts\">\nimport { Search } from \"kui-icons\";\nimport type { Column } from \"kui-vue\";\nimport { computed, ref } from \"vue\";\nconst keyword = ref(\"\");\nconst status = ref<string>();\nconst options = [{ label: \"Active\", value: \"Active\" }, { label: \"Disabled\", value: \"Disabled\" }];\nconst columns: Column[] = [{ title: \"Name\", key: \"name\" }, { title: \"Status\", key: \"status\" }];\nconst data = [{ key: 1, name: \"Alex\", status: \"Active\" }, { key: 2, name: \"Mia\", status: \"Disabled\" }];\nconst filtered = computed(() => data.filter((item) => (!keyword.value || item.name.includes(keyword.value)) && (!status.value || item.status === status.value)));\n</script>"
+        },
+        {
+          "title": "工具操作",
+          "file": "components/list-panel/demo/actions.vue",
+          "source": "<template>\n  <ListPanel summary=\"Updated just now\">\n    <template #filters><Input placeholder=\"Search projects\" :icon=\"Search\" /></template>\n    <template #actions><Button :icon=\"RotateCcw\">Reset</Button><Button type=\"primary\" :icon=\"Plus\">Create</Button></template>\n    <Empty description=\"No matching projects\" />\n  </ListPanel>\n</template>\n<script setup lang=\"ts\">\nimport { Plus, RotateCcw, Search } from \"kui-icons\";\n</script>"
+        },
+        {
+          "title": "分页与外观",
+          "file": "components/list-panel/demo/footer.vue",
+          "source": "<template>\n  <ListPanel summary=\"Total 128 users\" size=\"small\" shape=\"square\">\n    <Table :data=\"data\" :columns=\"columns\" size=\"small\" />\n    <template #footer><Page :total=\"128\" :page-size=\"10\" show-total /></template>\n  </ListPanel>\n</template>\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\nconst columns: Column[] = [{ title: \"Name\", key: \"name\" }, { title: \"Email\", key: \"email\" }];\nconst data = [{ key: 1, name: \"Alex\", email: \"alex@example.com\" }];\n</script>"
+        },
+        {
+          "title": "批量操作",
+          "file": "components/list-panel/demo/selection.vue",
+          "source": "<template>\n  <ListPanel :selected-count=\"selectedKeys.length\" summary=\"3 users\">\n    <template #filters><Input placeholder=\"Search users\" :icon=\"Search\" /></template>\n    <template #selection=\"{ count }\">\n      <strong>{{ count }} selected</strong>\n      <Button size=\"small\" type=\"danger\" theme=\"plain\">Disable</Button>\n      <Button size=\"small\" theme=\"plain\" @click=\"selectedKeys = []\">Clear</Button>\n    </template>\n    <Table v-model:selected-keys=\"selectedKeys\" checkable :data=\"data\" :columns=\"columns\" />\n  </ListPanel>\n</template>\n<script setup lang=\"ts\">\nimport { Search } from \"kui-icons\";\nimport type { Column, TableKey } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst selectedKeys = ref<TableKey[]>([]);\nconst columns: Column[] = [{ title: \"Name\", key: \"name\" }, { title: \"Role\", key: \"role\" }];\nconst data = [{ key: 1, name: \"Alex\", role: \"Admin\" }, { key: 2, name: \"Mia\", role: \"Editor\" }, { key: 3, name: \"Leo\", role: \"Viewer\" }];\n</script>"
         }
       ]
     },
@@ -2010,6 +2448,15 @@
           "documented": true
         },
         {
+          "name": "vertical",
+          "description": "Whether to display in vertical mode",
+          "descriptionZh": "是否垂直模式显示",
+          "descriptionEn": "Whether to display in vertical mode",
+          "type": "boolean",
+          "boolean": true,
+          "documented": true
+        },
+        {
           "name": "loop",
           "description": "Whether to enable loop",
           "descriptionZh": "是否开启循环",
@@ -2025,15 +2472,6 @@
           "descriptionEn": "The time interval for auto-switching, in milliseconds",
           "type": "number",
           "boolean": false,
-          "documented": true
-        },
-        {
-          "name": "vertical",
-          "description": "Whether to display in vertical mode",
-          "descriptionZh": "是否垂直模式显示",
-          "descriptionEn": "Whether to display in vertical mode",
-          "type": "boolean",
-          "boolean": true,
           "documented": true
         },
         {
@@ -2056,6 +2494,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -2085,6 +2524,7 @@
       "documentation": "https://k-ui.cn/components/carousel-item",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -2198,6 +2638,7 @@
           "descriptionEn": "Triggered when the option state changes, returns the currently selected item and state"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "单选",
@@ -2311,6 +2752,7 @@
           "descriptionEn": "Triggered when the option state changes, returns the currently selected item and state"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "单选",
@@ -2468,6 +2910,7 @@
           "descriptionEn": "Emitted when the selected value changes"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "独立选择",
@@ -2585,6 +3028,7 @@
           "descriptionEn": "Emitted when the selected value changes"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "独立选择",
@@ -2684,6 +3128,7 @@
           "descriptionEn": "Callback triggered when switching panels, returns the `name` of the current tab"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -2733,6 +3178,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -2772,6 +3218,7 @@
       "documentation": "https://k-ui.cn/components/color-picker-panel",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -2938,6 +3385,7 @@
           "descriptionEn": "Triggered when the color mode is updated"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -2972,6 +3420,7 @@
       "documentation": "https://k-ui.cn/components/date-picker-panel",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -3228,6 +3677,7 @@
           "descriptionEn": "Triggered when the dropdown box expands or collapses"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -3352,11 +3802,12 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
           "file": "components/descriptions/demo/basic.vue",
-          "source": "<template>\n  <Descriptions title=\"Order Information\">\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Tel\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Shipping Address\"> No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province, China </DescriptionsItem>\n  </Descriptions>\n</template>"
+          "source": "<template>\n  <Descriptions title=\"Order Information\">\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Tel\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Shipping Address\">\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province, China\n    </DescriptionsItem>\n  </Descriptions>\n</template>"
         },
         {
           "title": "带边框的",
@@ -3371,7 +3822,7 @@
         {
           "title": "垂直",
           "file": "components/descriptions/demo/vertical.vue",
-          "source": "<template>\n  <Descriptions title=\"Order Information\" layout=\"vertical\">\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Shipping Address\"> No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province </DescriptionsItem>\n  </Descriptions>\n</template>"
+          "source": "<template>\n  <Descriptions title=\"Order Information\" layout=\"vertical\">\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Shipping Address\">\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province\n    </DescriptionsItem>\n  </Descriptions>\n</template>"
         },
         {
           "title": "垂直带边框",
@@ -3437,11 +3888,12 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
           "file": "components/descriptions/demo/basic.vue",
-          "source": "<template>\n  <Descriptions title=\"Order Information\">\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Tel\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Shipping Address\"> No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province, China </DescriptionsItem>\n  </Descriptions>\n</template>"
+          "source": "<template>\n  <Descriptions title=\"Order Information\">\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Tel\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Shipping Address\">\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province, China\n    </DescriptionsItem>\n  </Descriptions>\n</template>"
         },
         {
           "title": "带边框的",
@@ -3456,7 +3908,7 @@
         {
           "title": "垂直",
           "file": "components/descriptions/demo/vertical.vue",
-          "source": "<template>\n  <Descriptions title=\"Order Information\" layout=\"vertical\">\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Shipping Address\"> No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province </DescriptionsItem>\n  </Descriptions>\n</template>"
+          "source": "<template>\n  <Descriptions title=\"Order Information\" layout=\"vertical\">\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Shipping Address\">\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province\n    </DescriptionsItem>\n  </Descriptions>\n</template>"
         },
         {
           "title": "垂直带边框",
@@ -3671,6 +4123,7 @@
           "descriptionEn": "Callback when Cancel is clicked"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -3777,6 +4230,7 @@
           "descriptionEn": "Triggered when opening or closing a Dropdown"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -3902,6 +4356,7 @@
           "descriptionEn": "Triggered when the main button is clicked"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -3982,6 +4437,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "垂直分割线",
@@ -4038,6 +4494,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -4199,6 +4656,7 @@
           "descriptionEn": "Trigger event when submitting the form"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "典型表单",
@@ -4294,6 +4752,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "典型表单",
@@ -4388,6 +4847,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本布局",
@@ -4514,6 +4974,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -4615,6 +5076,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -4822,6 +5284,7 @@
           "descriptionEn": "Multi-image switch trigger event"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -4867,6 +5330,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -4973,6 +5437,7 @@
           "descriptionEn": "Click event"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "IconList",
@@ -5183,6 +5648,7 @@
           "descriptionEn": "Callback for icon click event"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -5273,6 +5739,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -5417,6 +5884,7 @@
           "descriptionEn": "Triggered when the content changes"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -5657,6 +6125,7 @@
           "descriptionEn": "Tag removed"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基础用法",
@@ -5895,6 +6364,7 @@
           "descriptionEn": "Emitted when an input loses focus"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -6120,6 +6590,7 @@
           "descriptionEn": "Change callback"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -6154,6 +6625,7 @@
       "documentation": "https://k-ui.cn/components/content",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -6167,6 +6639,7 @@
       "documentation": "https://k-ui.cn/components/footer",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -6180,6 +6653,7 @@
       "documentation": "https://k-ui.cn/components/header",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -6197,6 +6671,7 @@
       "documentation": "https://k-ui.cn/components/layout",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基础布局",
@@ -6246,6 +6721,7 @@
       "documentation": "https://k-ui.cn/components/sider",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -6362,6 +6838,7 @@
           "descriptionEn": "Callback when SubMenu expands/collapses"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "顶部导航",
@@ -6411,6 +6888,7 @@
       "documentation": "https://k-ui.cn/components/menu-divider",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -6434,6 +6912,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "顶部导航",
@@ -6511,6 +6990,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "顶部导航",
@@ -6588,6 +7068,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "顶部导航",
@@ -6850,6 +7331,7 @@
           "descriptionEn": "Mention selection"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基础用法",
@@ -6908,6 +7390,7 @@
       "documentation": "https://k-ui.cn/components/message-panel",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -6920,6 +7403,7 @@
       "documentation": "https://k-ui.cn/components/notice-panel",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -6933,6 +7417,7 @@
       "documentation": "https://k-ui.cn/components/modal-panel",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -7161,6 +7646,7 @@
           "descriptionEn": "Callback when Cancel is clicked"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -7326,11 +7812,12 @@
           "descriptionEn": "Callback when page number or page size changes, returns the changed page number"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
           "file": "components/page/demo/basic.vue",
-          "source": "<template>\n  <Space vertical>\n    <Page v-model:page=\"page\" v-model:pageSize=\"size\" :total=\"50\" @change=\"onChange\" />\n    <Page v-model:page=\"page\" v-model:pageSize=\"size\" :total=\"50\" @change=\"onChange\" disabled />\n    <code>theme & shape</code>\n    <Page\n      v-model:page=\"page\"\n      v-model:pageSize=\"size\"\n      theme=\"outline\"\n      shape=\"round\"\n      :total=\"50\"\n      @change=\"onChange\"\n    />\n    <Page v-model:page=\"page\" v-model:pageSize=\"size\" shape=\"circle\" :total=\"50\" @change=\"onChange\" />\n    <Page v-model:page=\"page\" v-model:pageSize=\"size\" shape=\"square\" :total=\"50\" @change=\"onChange\" />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { message } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst page = ref(1);\nconst size = ref(15);\nconst onChange = (page: number, pageSize: number) => {\n  console.log(page, pageSize);\n  message.info(`当前页: ${page}, 每页: ${pageSize}`);\n};\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <Page v-model:page=\"page\" v-model:pageSize=\"size\" :total=\"50\" @change=\"onChange\" />\n    <Page v-model:page=\"page\" v-model:pageSize=\"size\" :total=\"50\" @change=\"onChange\" disabled />\n    <code>theme & shape</code>\n    <Page\n      v-model:page=\"page\"\n      v-model:pageSize=\"size\"\n      theme=\"outline\"\n      shape=\"round\"\n      :total=\"50\"\n      @change=\"onChange\"\n    />\n    <Page\n      v-model:page=\"page\"\n      v-model:pageSize=\"size\"\n      shape=\"circle\"\n      :total=\"50\"\n      @change=\"onChange\"\n    />\n    <Page\n      v-model:page=\"page\"\n      v-model:pageSize=\"size\"\n      shape=\"square\"\n      :total=\"50\"\n      @change=\"onChange\"\n    />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { message } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst page = ref(1);\nconst size = ref(15);\nconst onChange = (page: number, pageSize: number) => {\n  console.log(page, pageSize);\n  message.info(`当前页: ${page}, 每页: ${pageSize}`);\n};\n</script>"
         },
         {
           "title": "条目 / 跳转",
@@ -7350,6 +7837,91 @@
       ]
     },
     {
+      "name": "PageHeader",
+      "tags": [
+        "page-header",
+        "k-page-header"
+      ],
+      "children": [],
+      "documentation": "https://k-ui.cn/components/page-header",
+      "props": [
+        {
+          "name": "description",
+          "description": "Custom description",
+          "descriptionZh": "自定义说明",
+          "descriptionEn": "Custom description",
+          "type": "string | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "title",
+          "description": "Custom title",
+          "descriptionZh": "自定义标题",
+          "descriptionEn": "Custom title",
+          "type": "string | undefined",
+          "boolean": false,
+          "documented": true
+        }
+      ],
+      "events": [],
+      "slots": [
+        {
+          "name": "title",
+          "description": "Custom title",
+          "descriptionZh": "自定义标题",
+          "descriptionEn": "Custom title"
+        },
+        {
+          "name": "description",
+          "description": "Custom description",
+          "descriptionZh": "自定义说明",
+          "descriptionEn": "Custom description"
+        },
+        {
+          "name": "breadcrumb",
+          "description": "Breadcrumb area",
+          "descriptionZh": "面包屑区域",
+          "descriptionEn": "Breadcrumb area"
+        },
+        {
+          "name": "back",
+          "description": "Back action area",
+          "descriptionZh": "返回区域",
+          "descriptionEn": "Back action area"
+        },
+        {
+          "name": "actions",
+          "description": "Page actions",
+          "descriptionZh": "页面操作区域",
+          "descriptionEn": "Page actions"
+        },
+        {
+          "name": "default",
+          "description": "Additional content below the heading",
+          "descriptionZh": "标题下方附加内容",
+          "descriptionEn": "Additional content below the heading"
+        }
+      ],
+      "examples": [
+        {
+          "title": "基本用法",
+          "file": "components/page-header/demo/basic.vue",
+          "source": "<template>\n  <PageHeader title=\"Project overview\" description=\"Track progress and recent activity.\">\n    <template #actions> <Button>Export</Button><Button type=\"primary\">Create</Button> </template>\n  </PageHeader>\n</template>"
+        },
+        {
+          "title": "完整结构",
+          "file": "components/page-header/demo/slots.vue",
+          "source": "<template>\n  <PageHeader>\n    <template #breadcrumb>\n      <Breadcrumb><BreadcrumbItem>Projects</BreadcrumbItem><BreadcrumbItem>Detail</BreadcrumbItem></Breadcrumb>\n    </template>\n    <template #back><Button :icon=\"ArrowLeft\" shape=\"circle\" /></template>\n    <template #title>Design system <Tag color=\"blue\">Active</Tag></template>\n    <template #description>Shared foundations and reusable components.</template>\n    <template #actions><Button type=\"primary\">Edit project</Button></template>\n    <Alert description=\"The next release is scheduled for Friday.\" show-icon />\n  </PageHeader>\n</template>\n<script setup lang=\"ts\">\nimport { ArrowLeft } from \"kui-icons\";\n</script>"
+        },
+        {
+          "title": "简洁页头",
+          "file": "components/page-header/demo/simple.vue",
+          "source": "<template>\n  <PageHeader title=\"Team members\" description=\"Manage access and project roles.\" />\n</template>"
+        }
+      ]
+    },
+    {
       "name": "PoptipPanel",
       "tags": [
         "poptip-panel",
@@ -7360,6 +7932,7 @@
       "documentation": "https://k-ui.cn/components/poptip-panel",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -7465,6 +8038,7 @@
           "descriptionEn": "Callback when closed"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -7484,7 +8058,7 @@
         {
           "title": "位置",
           "file": "components/poptip/demo/placement.vue",
-          "source": "<template>\n  <Flex style=\"width:300px\" vertical align=\"center\">\n    <Space compact>\n      <Poptip placement=\"top-left\" :title=\"title\">\n        <Button>TL</Button>\n        <template #content>\n          <p>{{ tip }}</p>\n          <p>{{ tip }}</p>\n        </template>\n      </Poptip>\n      <Poptip placement=\"top\" :title=\"title\">\n        <Button>Top</Button>\n        <template #content>\n          <p>{{ tip }}</p>\n          <p>{{ tip }}</p>\n        </template>\n      </Poptip>\n      <Poptip placement=\"top-right\" :title=\"title\">\n        <Button>TR</Button>\n        <template #content>\n          <p>{{ tip }}</p>\n          <p>{{ tip }}</p>\n        </template>\n      </Poptip>\n    </Space>\n    <Flex justify=\"space-between\" style=\"width:100%;padding:10px 0\">\n      <Space vertical compact>\n        <Poptip placement=\"left-top\" :title=\"title\">\n          <Button>LT</Button>\n          <template #content>\n            <p>{{ tip }}</p>\n            <p>{{ tip }}</p>\n          </template>\n        </Poptip>\n        <Poptip placement=\"left\" :title=\"title\">\n          <Button>Left</Button>\n          <template #content>\n            <p>{{ tip }}</p>\n            <p>{{ tip }}</p>\n          </template>\n        </Poptip>\n        <Poptip placement=\"left-bottom\" :title=\"title\">\n          <Button>LB</Button>\n          <template #content>\n            <p>{{ tip }}</p>\n            <p>{{ tip }}</p>\n          </template>\n        </Poptip>\n      </Space>\n\n      <Space vertical compact>\n        <Poptip placement=\"right-top\" :title=\"title\">\n          <Button>RT</Button>\n          <template #content>\n            <p>{{ tip }}</p>\n            <p>{{ tip }}</p>\n          </template>\n        </Poptip>\n        <Poptip placement=\"right\" :title=\"title\">\n          <Button>Right</Button>\n          <template #content>\n            <p>{{ tip }}</p>\n            <p>{{ tip }}</p>\n          </template>\n        </Poptip>\n        <Poptip placement=\"right-bottom\" :title=\"title\">\n          <Button>RB</Button>\n          <template #content>\n            <p>{{ tip }}</p>\n            <p>{{ tip }}</p>\n          </template>\n        </Poptip>\n      </Space>\n    </Flex>\n    <Space compact>\n      <Poptip placement=\"bottom-left\" :title=\"title\">\n        <Button>BL</Button>\n        <template #content>\n          <p>{{ tip }}</p>\n          <p>{{ tip }}</p>\n        </template>\n      </Poptip>\n      <Poptip placement=\"bottom\" :title=\"title\">\n        <Button>Bottom</Button>\n        <template #content>\n          <p>{{ tip }}</p>\n          <p>{{ tip }}</p>\n        </template>\n      </Poptip>\n      <Poptip placement=\"bottom-right\" :title=\"title\">\n        <Button>BR</Button>\n        <template #content>\n          <p>{{ tip }}</p>\n          <p>{{ tip }}</p>\n        </template>\n      </Poptip>\n    </Space>\n  </Flex>\n</template>\n<script setup lang=\"ts\">\nconst tip = \"See the light through the mist!\";\nconst title = \"Title\";\n</script>"
+          "source": "<template>\n  <Flex style=\"width: 300px\" vertical align=\"center\">\n    <Space compact>\n      <Poptip placement=\"top-left\" :title=\"title\">\n        <Button>TL</Button>\n        <template #content>\n          <p>{{ tip }}</p>\n          <p>{{ tip }}</p>\n        </template>\n      </Poptip>\n      <Poptip placement=\"top\" :title=\"title\">\n        <Button>Top</Button>\n        <template #content>\n          <p>{{ tip }}</p>\n          <p>{{ tip }}</p>\n        </template>\n      </Poptip>\n      <Poptip placement=\"top-right\" :title=\"title\">\n        <Button>TR</Button>\n        <template #content>\n          <p>{{ tip }}</p>\n          <p>{{ tip }}</p>\n        </template>\n      </Poptip>\n    </Space>\n    <Flex justify=\"space-between\" style=\"width: 100%; padding: 10px 0\">\n      <Space vertical compact>\n        <Poptip placement=\"left-top\" :title=\"title\">\n          <Button>LT</Button>\n          <template #content>\n            <p>{{ tip }}</p>\n            <p>{{ tip }}</p>\n          </template>\n        </Poptip>\n        <Poptip placement=\"left\" :title=\"title\">\n          <Button>Left</Button>\n          <template #content>\n            <p>{{ tip }}</p>\n            <p>{{ tip }}</p>\n          </template>\n        </Poptip>\n        <Poptip placement=\"left-bottom\" :title=\"title\">\n          <Button>LB</Button>\n          <template #content>\n            <p>{{ tip }}</p>\n            <p>{{ tip }}</p>\n          </template>\n        </Poptip>\n      </Space>\n\n      <Space vertical compact>\n        <Poptip placement=\"right-top\" :title=\"title\">\n          <Button>RT</Button>\n          <template #content>\n            <p>{{ tip }}</p>\n            <p>{{ tip }}</p>\n          </template>\n        </Poptip>\n        <Poptip placement=\"right\" :title=\"title\">\n          <Button>Right</Button>\n          <template #content>\n            <p>{{ tip }}</p>\n            <p>{{ tip }}</p>\n          </template>\n        </Poptip>\n        <Poptip placement=\"right-bottom\" :title=\"title\">\n          <Button>RB</Button>\n          <template #content>\n            <p>{{ tip }}</p>\n            <p>{{ tip }}</p>\n          </template>\n        </Poptip>\n      </Space>\n    </Flex>\n    <Space compact>\n      <Poptip placement=\"bottom-left\" :title=\"title\">\n        <Button>BL</Button>\n        <template #content>\n          <p>{{ tip }}</p>\n          <p>{{ tip }}</p>\n        </template>\n      </Poptip>\n      <Poptip placement=\"bottom\" :title=\"title\">\n        <Button>Bottom</Button>\n        <template #content>\n          <p>{{ tip }}</p>\n          <p>{{ tip }}</p>\n        </template>\n      </Poptip>\n      <Poptip placement=\"bottom-right\" :title=\"title\">\n        <Button>BR</Button>\n        <template #content>\n          <p>{{ tip }}</p>\n          <p>{{ tip }}</p>\n        </template>\n      </Poptip>\n    </Space>\n  </Flex>\n</template>\n<script setup lang=\"ts\">\nconst tip = \"See the light through the mist!\";\nconst title = \"Title\";\n</script>"
         }
       ]
     },
@@ -7499,6 +8073,7 @@
       "documentation": "https://k-ui.cn/components/popconfirm-panel",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -7621,6 +8196,7 @@
           "descriptionEn": "Callback when cancel is clicked"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -7635,7 +8211,7 @@
         {
           "title": "位置",
           "file": "components/popconfirm/demo/placement.vue",
-          "source": "<template>\n  <Flex style=\"width:300px\" vertical align=\"center\">\n    <Space compact>\n      <Popconfirm :title=\"title\" placement=\"top-left\">\n        <Button>TL</Button>\n      </Popconfirm>\n      <Popconfirm :title=\"title\" placement=\"top\">\n        <Button>Top</Button>\n      </Popconfirm>\n      <Popconfirm :title=\"title\" placement=\"top-right\">\n        <Button>TR</Button>\n      </Popconfirm>\n    </Space>\n    <Flex justify=\"space-between\" style=\"width:100%;padding:10px 0\">\n      <Space vertical compact>\n        <Popconfirm :title=\"title\" placement=\"left-top\">\n          <Button>LT</Button>\n        </Popconfirm>\n        <Popconfirm :title=\"title\" placement=\"left\">\n          <Button>Left</Button>\n        </Popconfirm>\n        <Popconfirm :title=\"title\" placement=\"left-bottom\">\n          <Button>LB</Button>\n        </Popconfirm>\n      </Space>\n      <Space vertical compact>\n        <Popconfirm :title=\"title\" placement=\"right-top\">\n          <Button>RT</Button>\n        </Popconfirm>\n        <Popconfirm :title=\"title\" placement=\"right\">\n          <Button>Right</Button>\n        </Popconfirm>\n        <Popconfirm :title=\"title\" placement=\"right-bottom\">\n          <Button>RB</Button>\n        </Popconfirm>\n      </Space>\n    </Flex>\n    <Space compact>\n      <Popconfirm :title=\"title\" placement=\"bottom-left\">\n        <Button>BL</Button>\n      </Popconfirm>\n      <Popconfirm :title=\"title\" placement=\"bottom\">\n        <Button>Bottom</Button>\n      </Popconfirm>\n      <Popconfirm :title=\"title\" placement=\"bottom-right\">\n        <Button>BR</Button>\n      </Popconfirm>\n    </Space>\n  </Flex>\n</template>\n<script setup lang=\"ts\">\nconst title = \"Are you sure to delete this task?\";\n</script>"
+          "source": "<template>\n  <Flex style=\"width: 300px\" vertical align=\"center\">\n    <Space compact>\n      <Popconfirm :title=\"title\" placement=\"top-left\">\n        <Button>TL</Button>\n      </Popconfirm>\n      <Popconfirm :title=\"title\" placement=\"top\">\n        <Button>Top</Button>\n      </Popconfirm>\n      <Popconfirm :title=\"title\" placement=\"top-right\">\n        <Button>TR</Button>\n      </Popconfirm>\n    </Space>\n    <Flex justify=\"space-between\" style=\"width: 100%; padding: 10px 0\">\n      <Space vertical compact>\n        <Popconfirm :title=\"title\" placement=\"left-top\">\n          <Button>LT</Button>\n        </Popconfirm>\n        <Popconfirm :title=\"title\" placement=\"left\">\n          <Button>Left</Button>\n        </Popconfirm>\n        <Popconfirm :title=\"title\" placement=\"left-bottom\">\n          <Button>LB</Button>\n        </Popconfirm>\n      </Space>\n      <Space vertical compact>\n        <Popconfirm :title=\"title\" placement=\"right-top\">\n          <Button>RT</Button>\n        </Popconfirm>\n        <Popconfirm :title=\"title\" placement=\"right\">\n          <Button>Right</Button>\n        </Popconfirm>\n        <Popconfirm :title=\"title\" placement=\"right-bottom\">\n          <Button>RB</Button>\n        </Popconfirm>\n      </Space>\n    </Flex>\n    <Space compact>\n      <Popconfirm :title=\"title\" placement=\"bottom-left\">\n        <Button>BL</Button>\n      </Popconfirm>\n      <Popconfirm :title=\"title\" placement=\"bottom\">\n        <Button>Bottom</Button>\n      </Popconfirm>\n      <Popconfirm :title=\"title\" placement=\"bottom-right\">\n        <Button>BR</Button>\n      </Popconfirm>\n    </Space>\n  </Flex>\n</template>\n<script setup lang=\"ts\">\nconst title = \"Are you sure to delete this task?\";\n</script>"
         }
       ]
     },
@@ -7758,6 +8334,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "进度条",
@@ -7767,7 +8344,7 @@
         {
           "title": "进度圈",
           "file": "components/progress/demo/circle.vue",
-          "source": "<template>\n  <Progress type=\"circle\" :percent=\"50\" />\n  <Progress type=\"circle\" :percent=\"70\" status=\"exception\" />\n  <Progress type=\"circle\" :percent=\"100\" />\n  <Progress type=\"circle\" :percent=\"50\">\n    <template #format>\n      <div class=\"demo-progress\">\n        <h2 style=\"margin:0\">13389</h2>\n        <span>Steps</span>\n      </div>\n    </template>\n  </Progress>\n</template>\n<style>\n.demo-progress > h2 {\n  font-size: 23px;\n}\n.demo-progress > span {\n  font-size: 14px;\n  color: #999;\n}\n</style>"
+          "source": "<template>\n  <Progress type=\"circle\" :percent=\"50\" />\n  <Progress type=\"circle\" :percent=\"70\" status=\"exception\" />\n  <Progress type=\"circle\" :percent=\"100\" />\n  <Progress type=\"circle\" :percent=\"50\">\n    <template #format>\n      <div class=\"demo-progress\">\n        <h2 style=\"margin: 0\">13389</h2>\n        <span>Steps</span>\n      </div>\n    </template>\n  </Progress>\n</template>\n<style>\n.demo-progress > h2 {\n  font-size: 23px;\n}\n.demo-progress > span {\n  font-size: 14px;\n  color: #999;\n}\n</style>"
         },
         {
           "title": "盘仪表进度条",
@@ -7892,6 +8469,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基础用法",
@@ -8042,6 +8620,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -8163,6 +8742,7 @@
           "descriptionEn": "Triggered when option state changes, returns currently selected item"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "单选",
@@ -8302,6 +8882,7 @@
           "descriptionEn": "Triggered when option state changes, returns currently selected item"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "单选",
@@ -8434,6 +9015,7 @@
           "descriptionEn": "Triggered when option state changes, returns currently selected item"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "单选",
@@ -8608,6 +9190,7 @@
           "descriptionEn": "Callback when selecting"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -8673,6 +9256,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "Success",
@@ -8790,6 +9374,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -8887,6 +9472,7 @@
           "descriptionEn": "Triggered when an item is selected"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "单选",
@@ -9237,6 +9823,7 @@
           "descriptionEn": "Triggered when dropdown expands or collapses"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "单选",
@@ -9309,6 +9896,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -9426,6 +10014,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -9445,7 +10034,7 @@
         {
           "title": "子组件",
           "file": "components/skeleton/demo/child.vue",
-          "source": "<template>\n  <Skeleton :loading=\"loading\" :rows=\"2\" animated>\n    <div class=\"skeleton-demo\">\n      <h4>KUI is a desktop UI component library based on Vue.js</h4>\n      <p>\n        Dozens of useful and aesthetically pleasing components, a very user-friendly API suitable for developers of any skill level, comprehensive documentation, and support for Electron, SSR, Nuxt.js...\n      </p>\n    </div>\n  </Skeleton>\n  <br />\n  <br />\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style lang=\"less\">\n.skeleton-demo h4 {\n  font-weight: bold;\n  margin-bottom: 15px;\n}\n</style>"
+          "source": "<template>\n  <Skeleton :loading=\"loading\" :rows=\"2\" animated>\n    <div class=\"skeleton-demo\">\n      <h4>KUI is a desktop UI component library based on Vue.js</h4>\n      <p>\n        Dozens of useful and aesthetically pleasing components, a very user-friendly API suitable\n        for developers of any skill level, comprehensive documentation, and support for Electron,\n        SSR, Nuxt.js...\n      </p>\n    </div>\n  </Skeleton>\n  <br />\n  <br />\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style lang=\"less\">\n.skeleton-demo h4 {\n  font-weight: bold;\n  margin-bottom: 15px;\n}\n</style>"
         },
         {
           "title": "列表",
@@ -9460,7 +10049,7 @@
         {
           "title": "自定义",
           "file": "components/skeleton/demo/custom.vue",
-          "source": "<template>\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n  <br />\n  <br />\n  <Card v-for=\"x in 3\" class=\"demo-skeleton-card\" title=\"A Poem\" :key=\"x\">\n    <SkeletonImage animated :loading=\"loading\" :radius=\"8\" style=\"width:166px;height:100px;\">\n      <div class=\"cover\" />\n    </SkeletonImage>\n    <SkeletonText animated :loading=\"loading\" size=\"small\" style=\"min-width:80px;margin:8px 0;\">\n      <p>Tony Stack</p>\n    </SkeletonText>\n    <SkeletonText animated :loading=\"loading\" size=\"small\" style=\"min-width:130px;\">\n      <span>I am Iron Man.</span>\n    </SkeletonText>\n  </Card>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style>\n.demo-skeleton-card {\n  width: 200px;\n  margin-bottom: 10px;\n  display: inline-block;\n  margin-right: 20px;\n}\n.demo-skeleton-card .cover {\n  height: 100px;\n  width: 166px;\n  border-radius: 8px;\n  background: url(\"https://cdn.chuchur.com/upload/demo/test_300.jpg\") no-repeat center;\n  background-size: cover;\n}\n.demo-skeleton-card h2 {\n  font-size: 15px;\n}\n.demo-skeleton-card span {\n  font-size: 13px;\n  color: #999;\n}\n</style>"
+          "source": "<template>\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n  <br />\n  <br />\n  <Card v-for=\"x in 3\" class=\"demo-skeleton-card\" title=\"A Poem\" :key=\"x\">\n    <SkeletonImage animated :loading=\"loading\" :radius=\"8\" style=\"width: 166px; height: 100px\">\n      <div class=\"cover\" />\n    </SkeletonImage>\n    <SkeletonText animated :loading=\"loading\" size=\"small\" style=\"min-width: 80px; margin: 8px 0\">\n      <p>Tony Stack</p>\n    </SkeletonText>\n    <SkeletonText animated :loading=\"loading\" size=\"small\" style=\"min-width: 130px\">\n      <span>I am Iron Man.</span>\n    </SkeletonText>\n  </Card>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style>\n.demo-skeleton-card {\n  width: 200px;\n  margin-bottom: 10px;\n  display: inline-block;\n  margin-right: 20px;\n}\n.demo-skeleton-card .cover {\n  height: 100px;\n  width: 166px;\n  border-radius: 8px;\n  background: url(\"https://cdn.chuchur.com/upload/demo/test_300.jpg\") no-repeat center;\n  background-size: cover;\n}\n.demo-skeleton-card h2 {\n  font-size: 15px;\n}\n.demo-skeleton-card span {\n  font-size: 13px;\n  color: #999;\n}\n</style>"
         }
       ]
     },
@@ -9475,6 +10064,7 @@
       "documentation": "https://k-ui.cn/components/skeleton-avatar",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -9488,6 +10078,7 @@
       "documentation": "https://k-ui.cn/components/skeleton-button",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -9501,6 +10092,7 @@
       "documentation": "https://k-ui.cn/components/skeleton-image",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -9514,6 +10106,7 @@
       "documentation": "https://k-ui.cn/components/skeleton-text",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -9608,6 +10201,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "卡片展示",
@@ -9617,7 +10211,7 @@
         {
           "title": "趋势信息",
           "file": "components/stat-card/demo/trend.vue",
-          "source": "<template>\n  <Grid :cols=\"{ xs: 1, sm: 2, md: 4 }\" :xGap=\"16\" :yGap=\"16\">\n    <GridItem v-for=\"item in cards\" :key=\"item.title\">\n      <StatCard :title=\"item.title\" :items=\"[item.data]\" reverse bordered />\n    </GridItem>\n  </Grid>\n</template>\n\n<script setup lang=\"ts\">\nimport type { StatNumberItem } from \"kui-vue\";\n\nconst cards: Array<{ title: string; data: StatNumberItem }> = [\n  {\n    title: \"请求数\",\n    data: {\n      value: 12840,\n      separator: \",\",\n      desc: \"本月累计\",\n      trend: \"+18.2% 较上月\",\n      trendStatus: \"success\",\n    },\n  },\n  {\n    title: \"转化率\",\n    data: {\n      value: 8.6,\n      precision: 1,\n      suffix: \"%\",\n      desc: \"本周平均\",\n      trend: \"接近目标值\",\n      trendStatus: \"warning\",\n    },\n  },\n  {\n    title: \"退款率\",\n    data: {\n      value: 2.4,\n      precision: 1,\n      suffix: \"%\",\n      desc: \"近 30 天\",\n      trend: \"+0.6% 需要关注\",\n      trendStatus: \"danger\",\n    },\n  },\n  {\n    title: \"在线用户\",\n    data: {\n      value: 3268,\n      separator: \",\",\n      desc: \"当前数据\",\n      trend: \"更新于刚刚\",\n    },\n  },\n];\n</script>"
+          "source": "<template>\n  <Grid :cols=\"{ xs: 1, sm: 2, md: 4 }\" :xGap=\"16\" :yGap=\"16\">\n    <GridItem v-for=\"item in cards\" :key=\"item.title\">\n      <StatCard :title=\"item.title\" :items=\"[item.data]\" reverse bordered />\n    </GridItem>\n  </Grid>\n</template>\n\n<script setup lang=\"ts\">\nimport type { StatNumberItem } from \"kui-vue\";\n\nconst cards: Array<{ title: string; data: StatNumberItem }> = [\n  {\n    title: \"请求数\",\n    data: {\n      value: 12840,\n      separator: \",\",\n      desc: \"本月累计\",\n      trend: \"+18.2% 较上月\",\n      trendStatus: \"success\",\n    },\n  },\n  {\n    title: \"转化率\",\n    data: {\n      value: 8.6,\n      precision: 1,\n      suffix: \"%\",\n      desc: \"本周平均\",\n      trend: \"接近目标值\",\n      trendStatus: \"warning\",\n    },\n  },\n  {\n    title: \"退款率\",\n    data: {\n      value: 2.4,\n      precision: 1,\n      suffix: \"%\",\n      desc: \"近 30 天\",\n      trend: \"+0.6% 需要关注\",\n      trendStatus: \"danger\",\n    },\n  },\n  {\n    title: \"在线用户\",\n    data: {\n      value: 3268,\n      separator: \",\",\n      desc: \"当前数据\",\n    },\n  },\n];\n</script>"
         },
         {
           "title": "基本用法",
@@ -9627,7 +10221,7 @@
         {
           "title": "组合展示",
           "file": "components/stat-card/demo/with-card.vue",
-          "source": "<template>\n  <Space vertical class=\"demo-view-fill\">\n    <Card theme=\"plain\">\n      <StatNumber v-model=\"value\" prefix=\"$\" suffix=\"%\" style=\"font-size: 2em;\" />\n    </Card>\n    <Card theme=\"plain\" title=\"Today's Trends\">\n      <StatNumber v-model=\"value\" suffix=\"%\" style=\"font-size: 2em;color:green\">\n        <template #prefix><Icon :type=\"ArrowUp\" /></template>\n      </StatNumber>\n    </Card>\n    <Card theme=\"plain\" title=\"Yesterday's Trend\">\n      <StatNumber v-model=\"value\" suffix=\"%\" style=\"font-size: 2em;color: red;\" type=\"rollup\">\n        <template #prefix><Icon :type=\"ArrowDown\" /></template>\n      </StatNumber>\n    </Card>\n\n    <Button @click=\"change\">change</Button>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { ArrowUp, ArrowDown } from \"kui-icons\";\nconst value = ref(Math.random() * 100000);\nconst change = () => {\n  value.value = Math.random() * 100000;\n};\n</script>"
+          "source": "<template>\n  <Space vertical class=\"demo-view-fill\">\n    <Card theme=\"plain\">\n      <StatNumber v-model=\"value\" prefix=\"$\" suffix=\"%\" style=\"font-size: 2em\" />\n    </Card>\n    <Card theme=\"plain\" title=\"Today's Trends\">\n      <StatNumber v-model=\"value\" suffix=\"%\" style=\"font-size: 2em; color: green\">\n        <template #prefix><Icon :type=\"ArrowUp\" /></template>\n      </StatNumber>\n    </Card>\n    <Card theme=\"plain\" title=\"Yesterday's Trend\">\n      <StatNumber v-model=\"value\" suffix=\"%\" style=\"font-size: 2em; color: red\" type=\"rollup\">\n        <template #prefix><Icon :type=\"ArrowDown\" /></template>\n      </StatNumber>\n    </Card>\n\n    <Button @click=\"change\">change</Button>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { ArrowUp, ArrowDown } from \"kui-icons\";\nconst value = ref(Math.random() * 100000);\nconst change = () => {\n  value.value = Math.random() * 100000;\n};\n</script>"
         }
       ]
     },
@@ -9723,6 +10317,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "卡片展示",
@@ -9732,7 +10327,7 @@
         {
           "title": "趋势信息",
           "file": "components/stat-card/demo/trend.vue",
-          "source": "<template>\n  <Grid :cols=\"{ xs: 1, sm: 2, md: 4 }\" :xGap=\"16\" :yGap=\"16\">\n    <GridItem v-for=\"item in cards\" :key=\"item.title\">\n      <StatCard :title=\"item.title\" :items=\"[item.data]\" reverse bordered />\n    </GridItem>\n  </Grid>\n</template>\n\n<script setup lang=\"ts\">\nimport type { StatNumberItem } from \"kui-vue\";\n\nconst cards: Array<{ title: string; data: StatNumberItem }> = [\n  {\n    title: \"请求数\",\n    data: {\n      value: 12840,\n      separator: \",\",\n      desc: \"本月累计\",\n      trend: \"+18.2% 较上月\",\n      trendStatus: \"success\",\n    },\n  },\n  {\n    title: \"转化率\",\n    data: {\n      value: 8.6,\n      precision: 1,\n      suffix: \"%\",\n      desc: \"本周平均\",\n      trend: \"接近目标值\",\n      trendStatus: \"warning\",\n    },\n  },\n  {\n    title: \"退款率\",\n    data: {\n      value: 2.4,\n      precision: 1,\n      suffix: \"%\",\n      desc: \"近 30 天\",\n      trend: \"+0.6% 需要关注\",\n      trendStatus: \"danger\",\n    },\n  },\n  {\n    title: \"在线用户\",\n    data: {\n      value: 3268,\n      separator: \",\",\n      desc: \"当前数据\",\n      trend: \"更新于刚刚\",\n    },\n  },\n];\n</script>"
+          "source": "<template>\n  <Grid :cols=\"{ xs: 1, sm: 2, md: 4 }\" :xGap=\"16\" :yGap=\"16\">\n    <GridItem v-for=\"item in cards\" :key=\"item.title\">\n      <StatCard :title=\"item.title\" :items=\"[item.data]\" reverse bordered />\n    </GridItem>\n  </Grid>\n</template>\n\n<script setup lang=\"ts\">\nimport type { StatNumberItem } from \"kui-vue\";\n\nconst cards: Array<{ title: string; data: StatNumberItem }> = [\n  {\n    title: \"请求数\",\n    data: {\n      value: 12840,\n      separator: \",\",\n      desc: \"本月累计\",\n      trend: \"+18.2% 较上月\",\n      trendStatus: \"success\",\n    },\n  },\n  {\n    title: \"转化率\",\n    data: {\n      value: 8.6,\n      precision: 1,\n      suffix: \"%\",\n      desc: \"本周平均\",\n      trend: \"接近目标值\",\n      trendStatus: \"warning\",\n    },\n  },\n  {\n    title: \"退款率\",\n    data: {\n      value: 2.4,\n      precision: 1,\n      suffix: \"%\",\n      desc: \"近 30 天\",\n      trend: \"+0.6% 需要关注\",\n      trendStatus: \"danger\",\n    },\n  },\n  {\n    title: \"在线用户\",\n    data: {\n      value: 3268,\n      separator: \",\",\n      desc: \"当前数据\",\n    },\n  },\n];\n</script>"
         },
         {
           "title": "基本用法",
@@ -9742,7 +10337,7 @@
         {
           "title": "组合展示",
           "file": "components/stat-card/demo/with-card.vue",
-          "source": "<template>\n  <Space vertical class=\"demo-view-fill\">\n    <Card theme=\"plain\">\n      <StatNumber v-model=\"value\" prefix=\"$\" suffix=\"%\" style=\"font-size: 2em;\" />\n    </Card>\n    <Card theme=\"plain\" title=\"Today's Trends\">\n      <StatNumber v-model=\"value\" suffix=\"%\" style=\"font-size: 2em;color:green\">\n        <template #prefix><Icon :type=\"ArrowUp\" /></template>\n      </StatNumber>\n    </Card>\n    <Card theme=\"plain\" title=\"Yesterday's Trend\">\n      <StatNumber v-model=\"value\" suffix=\"%\" style=\"font-size: 2em;color: red;\" type=\"rollup\">\n        <template #prefix><Icon :type=\"ArrowDown\" /></template>\n      </StatNumber>\n    </Card>\n\n    <Button @click=\"change\">change</Button>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { ArrowUp, ArrowDown } from \"kui-icons\";\nconst value = ref(Math.random() * 100000);\nconst change = () => {\n  value.value = Math.random() * 100000;\n};\n</script>"
+          "source": "<template>\n  <Space vertical class=\"demo-view-fill\">\n    <Card theme=\"plain\">\n      <StatNumber v-model=\"value\" prefix=\"$\" suffix=\"%\" style=\"font-size: 2em\" />\n    </Card>\n    <Card theme=\"plain\" title=\"Today's Trends\">\n      <StatNumber v-model=\"value\" suffix=\"%\" style=\"font-size: 2em; color: green\">\n        <template #prefix><Icon :type=\"ArrowUp\" /></template>\n      </StatNumber>\n    </Card>\n    <Card theme=\"plain\" title=\"Yesterday's Trend\">\n      <StatNumber v-model=\"value\" suffix=\"%\" style=\"font-size: 2em; color: red\" type=\"rollup\">\n        <template #prefix><Icon :type=\"ArrowDown\" /></template>\n      </StatNumber>\n    </Card>\n\n    <Button @click=\"change\">change</Button>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { ArrowUp, ArrowDown } from \"kui-icons\";\nconst value = ref(Math.random() * 100000);\nconst change = () => {\n  value.value = Math.random() * 100000;\n};\n</script>"
         }
       ]
     },
@@ -9892,6 +10487,7 @@
           "descriptionEn": "Triggered when Slider value changes, passes the changed value as parameter"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -9916,12 +10512,12 @@
         {
           "title": "带标签的",
           "file": "components/slider/demo/marks.vue",
-          "source": "<template>\n  <Space style=\"max-width:520px;\" vertical block>\n    <code>step=10</code>\n    <Slider\n      :step=\"10\"\n      :marks=\"{ 10: '10', 20: '20', 30: '30', 40: '40', 50: '50', 80: '80' }\"\n      :modelValue=\"[10, 80]\"\n      :max=\"80\"\n      :min=\"10\"\n      :range=\"true\"\n    ></Slider>\n    <br />\n    <code>step=0.1</code>\n    <Slider\n      :step=\"0.1\"\n      :marks=\"{ 0.1: '0.1', 0.2: '0.2', 0.3: '0.3', 0.4: '0.4', 0.5: '0.5' }\"\n      :min=\"0\"\n      :max=\"1\"\n      :modelValue=\"[0.1, 0.5]\"\n      :range=\"true\"\n    ></Slider>\n    <br />\n    <code>Marks & step=10</code>\n    <Slider\n      :marks=\"{ 25: '25°C', 36: '36°C' }\"\n      :step=\"10\"\n      :modelValue=\"[0, 100]\"\n      :range=\"true\"\n    ></Slider>\n    <br />\n    <code>step=null</code>\n    <Slider\n      :marks=\"{ 0: '0°C', 25: '25°C', 36: '36°C', 100: '100°C' }\"\n      :step=\"null\"\n      :modelValue=\"[0, 100]\"\n      :range=\"true\"\n    ></Slider>\n    <Slider\n      :marks=\"{ 0: '0°C', 25: '25°C', 36: '36°C', 100: '100°C' }\"\n      :step=\"null\"\n      :modelValue=\"25\"\n    ></Slider>\n    <br />\n    <code>Included</code>\n    <Slider\n      :marks=\"{ 20: '20°C', 40: '40°C' }\"\n      :included=\"false\"\n      :modelValue=\"[0, 100]\"\n      :range=\"true\"\n    ></Slider>\n  </Space>\n</template>"
+          "source": "<template>\n  <Space style=\"max-width: 520px\" vertical block>\n    <code>step=10</code>\n    <Slider\n      :step=\"10\"\n      :marks=\"{ 10: '10', 20: '20', 30: '30', 40: '40', 50: '50', 80: '80' }\"\n      :modelValue=\"[10, 80]\"\n      :max=\"80\"\n      :min=\"10\"\n      :range=\"true\"\n    ></Slider>\n    <br />\n    <code>step=0.1</code>\n    <Slider\n      :step=\"0.1\"\n      :marks=\"{ 0.1: '0.1', 0.2: '0.2', 0.3: '0.3', 0.4: '0.4', 0.5: '0.5' }\"\n      :min=\"0\"\n      :max=\"1\"\n      :modelValue=\"[0.1, 0.5]\"\n      :range=\"true\"\n    ></Slider>\n    <br />\n    <code>Marks & step=10</code>\n    <Slider\n      :marks=\"{ 25: '25°C', 36: '36°C' }\"\n      :step=\"10\"\n      :modelValue=\"[0, 100]\"\n      :range=\"true\"\n    ></Slider>\n    <br />\n    <code>step=null</code>\n    <Slider\n      :marks=\"{ 0: '0°C', 25: '25°C', 36: '36°C', 100: '100°C' }\"\n      :step=\"null\"\n      :modelValue=\"[0, 100]\"\n      :range=\"true\"\n    ></Slider>\n    <Slider\n      :marks=\"{ 0: '0°C', 25: '25°C', 36: '36°C', 100: '100°C' }\"\n      :step=\"null\"\n      :modelValue=\"25\"\n    ></Slider>\n    <br />\n    <code>Included</code>\n    <Slider\n      :marks=\"{ 20: '20°C', 40: '40°C' }\"\n      :included=\"false\"\n      :modelValue=\"[0, 100]\"\n      :range=\"true\"\n    ></Slider>\n  </Space>\n</template>"
         },
         {
           "title": "垂直",
           "file": "components/slider/demo/vertical.vue",
-          "source": "<template>\n  <Space style=\"height: 300px;\" block class=\"demo-slider-vertical\" :size=\"35\">\n    <Slider vertical :modelValue=\"35\" size=\"small\" />\n    <Slider vertical reverse :modelValue=\"35\" />\n    <Slider vertical range :modelValue=\"[20, 60]\" />\n    <Slider vertical range :marks=\"{ 20: '20°C', 40: '40°C' }\" :step=\"10\" :modelValue=\"[20, 60]\" />\n    <Slider\n      vertical\n      reverse\n      size=\"small\"\n      range\n      :marks=\"{ 0: '0°C', 25: '25°C', 36: '36°C', 100: '100°C' }\"\n      :step=\"10\"\n      :modelValue=\"[20, 60]\"\n    />\n  </Space>\n</template>\n<style lang=\"less\">\n.demo-slider-vertical > div {\n  height: 100%;\n}\n</style>"
+          "source": "<template>\n  <Space style=\"height: 300px\" block class=\"demo-slider-vertical\" :size=\"35\">\n    <Slider vertical :modelValue=\"35\" size=\"small\" />\n    <Slider vertical reverse :modelValue=\"35\" />\n    <Slider vertical range :modelValue=\"[20, 60]\" />\n    <Slider vertical range :marks=\"{ 20: '20°C', 40: '40°C' }\" :step=\"10\" :modelValue=\"[20, 60]\" />\n    <Slider\n      vertical\n      reverse\n      size=\"small\"\n      range\n      :marks=\"{ 0: '0°C', 25: '25°C', 36: '36°C', 100: '100°C' }\"\n      :step=\"10\"\n      :modelValue=\"[20, 60]\"\n    />\n  </Space>\n</template>\n<style lang=\"less\">\n.demo-slider-vertical > div {\n  height: 100%;\n}\n</style>"
         },
         {
           "title": "反向",
@@ -9995,6 +10591,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -10004,7 +10601,7 @@
         {
           "title": "垂直间距",
           "file": "components/space/demo/vertical.vue",
-          "source": "<template>\n  <Space vertical>\n    <Card title=\"Card\" :icon=\"Heart\" style=\"width:256px\">\n      <p>card content</p>\n      <p>card content</p>\n    </Card>\n    <Card title=\"Card\" :icon=\"Heart\" style=\"width:256px\">\n      <p>card content</p>\n      <p>card content</p>\n    </Card>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Heart } from \"kui-icons\";\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <Card title=\"Card\" :icon=\"Heart\" style=\"width: 256px\">\n      <p>card content</p>\n      <p>card content</p>\n    </Card>\n    <Card title=\"Card\" :icon=\"Heart\" style=\"width: 256px\">\n      <p>card content</p>\n      <p>card content</p>\n    </Card>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Heart } from \"kui-icons\";\n</script>"
         },
         {
           "title": "间距大小",
@@ -10095,6 +10692,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -10170,6 +10768,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基础用法",
@@ -10228,7 +10827,7 @@
           "description": "Direction",
           "descriptionZh": "排列方向",
           "descriptionEn": "Direction",
-          "type": "\"vertical\" | \"horizontal\"",
+          "type": "\"horizontal\" | \"vertical\"",
           "boolean": false,
           "documented": true
         },
@@ -10270,6 +10869,7 @@
           "descriptionEn": "Step click"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基础用法",
@@ -10421,6 +11021,7 @@
           "descriptionEn": "Triggered when `checked` changes, callback"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -10523,6 +11124,7 @@
           "descriptionEn": "Callback before dragging starts"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -10575,6 +11177,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -10644,10 +11247,19 @@
         },
         {
           "name": "columns",
-          "description": "Configuration description of table columns",
-          "descriptionZh": "表格列的配置描述，",
-          "descriptionEn": "Configuration description of table columns",
+          "description": "Column definitions shared with Table",
+          "descriptionZh": "与 Table 共用的列配置",
+          "descriptionEn": "Column definitions shared with Table",
           "type": "Column[]",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "hiddenColumnKeys",
+          "description": "Hidden column keys, including grouped columns",
+          "descriptionZh": "隐藏的列 key 集合，支持分组列",
+          "descriptionEn": "Hidden column keys, including grouped columns",
+          "type": "string[]",
           "boolean": false,
           "documented": true
         },
@@ -10662,9 +11274,9 @@
         },
         {
           "name": "disabledKeys",
-          "description": "Disabled key set",
-          "descriptionZh": "禁用的key集合",
-          "descriptionEn": "Disabled key set",
+          "description": "Essential columns excluded from the settings UI",
+          "descriptionZh": "不允许在设置面板中切换的关键列",
+          "descriptionEn": "Essential columns excluded from the settings UI",
           "type": "TableKey[]",
           "boolean": false,
           "documented": true
@@ -10707,9 +11319,9 @@
         },
         {
           "name": "scroll",
-          "description": "Scrolling attributes",
-          "descriptionZh": "滚动属性",
-          "descriptionEn": "Scrolling attributes",
+          "description": "Scroll configuration; `x` is the minimum content width and `y` is the vertical viewport height",
+          "descriptionZh": "滚动配置；`x` 为内容最小宽度，`y` 为纵向区域高度",
+          "descriptionEn": "Scroll configuration; `x` is the minimum content width and `y` is the vertical viewport height",
           "type": "{ x?: string | number | undefined; y?: string | number | undefined; }",
           "boolean": false,
           "documented": true
@@ -10725,9 +11337,9 @@
         },
         {
           "name": "size",
-          "description": "Display compact mode when the value is `small`",
-          "descriptionZh": "值为`small`时展示紧凑模式",
-          "descriptionEn": "Display compact mode when the value is `small`",
+          "description": "Trigger and checkbox size",
+          "descriptionZh": "触发按钮和选择项尺寸",
+          "descriptionEn": "Trigger and checkbox size",
           "type": "SizeType | undefined",
           "boolean": false,
           "documented": true
@@ -10900,6 +11512,7 @@
           "descriptionEn": "Called when expanded keys change"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -10964,7 +11577,330 @@
         {
           "title": "虚拟滚动",
           "file": "components/table/demo/virtual.vue",
-          "source": "<template>\n  <Table\n    virtual\n    striped\n    :data=\"data\"\n    :columns=\"columns\"\n    :scroll=\"{ x: 900, y: 360 }\"\n    :item-height=\"44\"\n    :overscan=\"6\"\n  />\n</template>\n\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\n\nconst data = Array.from({ length: 10000 }, (_, index) => ({\n  key: index + 1,\n  name: `User ${index + 1}`,\n  email: `user${index + 1}@example.com`,\n  status: index % 3 === 0 ? \"Active\" : \"Pending\",\n}));\nconst columns: Column[] = [\n  { title: \"ID\", key: \"key\", width: 100 },\n  { title: \"Name\", key: \"name\" },\n  { title: \"Email\", key: \"email\" },\n  { title: \"Email1\", key: \"email1\" },\n  { title: \"Email2\", key: \"email2\" },\n  { title: \"Email3\", key: \"email3\" },\n  { title: \"Email4\", key: \"email4\" },\n  { title: \"Email5\", key: \"email5\" },\n  { title: \"Status\", key: \"status\", width: 140, fixed: \"right\" },\n];\n</script>"
+          "source": "<template>\n  <Table\n    virtual\n    striped\n    :data=\"data\"\n    :columns=\"columns\"\n    :scroll=\"{ x: 900, y: 360 }\"\n    :item-height=\"44\"\n    :overscan=\"6\"\n  />\n</template>\n\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\n\nconst data = Array.from({ length: 10000 }, (_, index) => ({\n  key: index + 1,\n  name: `User ${index + 1}`,\n  email: `user${index + 1}@example.com`,\n  status: index % 3 === 0 ? \"Active\" : \"Pending\",\n}));\nconst columns: Column[] = [\n  { title: \"ID\", key: \"key\", width: 100 },\n  { title: \"Name\", key: \"name\" },\n  { title: \"Email\", key: \"email\", width: 200 },\n  { title: \"Email1\", key: \"email1\" },\n  { title: \"Email2\", key: \"email2\" },\n  { title: \"Email3\", key: \"email3\" },\n  { title: \"Email4\", key: \"email4\" },\n  { title: \"Email5\", key: \"email5\" },\n  { title: \"Status\", key: \"status\", width: 140, fixed: \"right\" },\n];\n</script>"
+        },
+        {
+          "title": "列设置",
+          "file": "components/table/demo/column-setting.vue",
+          "source": "<template>\n  <Space vertical block>\n    <TableColumnSetting\n      v-model:hidden-keys=\"hiddenKeys\"\n      :columns=\"columns\"\n      :disabled-keys=\"['name']\"\n      title=\"显示列\"\n      reset-text=\"重置\"\n    />\n    <Table :data=\"data\" :columns=\"columns\" :hidden-column-keys=\"hiddenKeys\" />\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\nimport { ref } from \"vue\";\n\nconst hiddenKeys = ref<string[]>([]);\nconst columns: Column[] = [\n  { title: \"姓名\", key: \"name\" },\n  { title: \"部门\", key: \"department\" },\n  { title: \"状态\", key: \"status\" },\n];\nconst data = [{ key: 1, name: \"林晓\", department: \"产品中心\", status: \"正常\" }];\n</script>"
+        }
+      ]
+    },
+    {
+      "name": "TableColumnSetting",
+      "tags": [
+        "table-column-setting",
+        "k-table-column-setting"
+      ],
+      "children": [],
+      "documentation": "https://k-ui.cn/components/table",
+      "props": [
+        {
+          "name": "columns",
+          "description": "Column definitions shared with Table",
+          "descriptionZh": "与 Table 共用的列配置",
+          "descriptionEn": "Column definitions shared with Table",
+          "type": "Column[]",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "disabledKeys",
+          "description": "Essential columns excluded from the settings UI",
+          "descriptionZh": "不允许在设置面板中切换的关键列",
+          "descriptionEn": "Essential columns excluded from the settings UI",
+          "type": "string[]",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "hiddenKeys",
+          "description": "Hidden keys; supports `v-model:hidden-keys`",
+          "descriptionZh": "隐藏列 key，支持 `v-model:hidden-keys`",
+          "descriptionEn": "Hidden keys; supports `v-model:hidden-keys`",
+          "type": "string[]",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "showReset",
+          "description": "Whether to show the reset action",
+          "descriptionZh": "是否显示重置按钮",
+          "descriptionEn": "Whether to show the reset action",
+          "type": "boolean",
+          "boolean": true,
+          "documented": true
+        },
+        {
+          "name": "size",
+          "description": "Trigger and checkbox size",
+          "descriptionZh": "触发按钮和选择项尺寸",
+          "descriptionEn": "Trigger and checkbox size",
+          "type": "SizeType | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "title",
+          "description": "Header display text",
+          "descriptionZh": "列头显示文字",
+          "descriptionEn": "Header display text",
+          "type": "string | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "resetText",
+          "description": "Reset button label",
+          "descriptionZh": "重置按钮文字",
+          "descriptionEn": "Reset button label",
+          "type": "string | undefined",
+          "boolean": false,
+          "documented": true
+        }
+      ],
+      "events": [],
+      "slots": [],
+      "examples": [
+        {
+          "title": "基本用法",
+          "file": "components/table/demo/basic.vue",
+          "source": "<template>\n  <Table :data=\"data\" :columns=\"columns\" @rowClick=\"rowClick\">\n    <template #tags=\"{ value }\">\n      <Space>\n        <Tag v-for=\"tag in value\" :key=\"tag\" :color=\"tag == 'Python' ? 'green' : 'blue'\">{{\n          tag\n        }}</Tag>\n      </Space>\n    </template>\n    <template #gender=\"{ value }\">\n      <Icon :type=\"value == 1 ? Sun : Moon\" :color=\"value == 1 ? 'blue' : '#f50cff'\" size=\"15\" />\n    </template>\n    <template #action=\"{ record, rowIndex }\">\n      <Space>\n        <Button size=\"small\" @click.stop=\"() => moveUp(rowIndex)\" :icon=\"ArrowUp\"> </Button>\n        <Button size=\"small\" @click.stop=\"() => moveDown(rowIndex)\" :icon=\"ArrowDown\"> </Button>\n        <Button size=\"small\" @click.stop=\"() => deleteRow(rowIndex)\" :icon=\"Trash2\"> </Button>\n        <Button size=\"small\" @click.stop=\"() => show(record)\">more</Button>\n      </Space>\n    </template>\n  </Table>\n</template>\n<script setup lang=\"ts\">\nimport { ArrowDown, ArrowUp, Moon, Sun, Trash2 } from \"kui-icons\";\nimport { message, modal, type Column, type TableRecord } from \"kui-vue\";\nimport { reactive } from \"vue\";\nconst data = reactive([\n  {\n    key: \"0\",\n    name: \"Li Lei\",\n    gender: 0,\n    age: 32,\n    address: \"Wu Han Guanggu No. 328\",\n    tags: [\"Python\", \"Java\"],\n  },\n  {\n    key: \"1\",\n    name: \"Liu Hao\",\n    gender: 1,\n    age: 28,\n    address: \"Wu Han Hongshan No. 128\",\n    tags: [\"Python\", \"Java\"],\n  },\n  {\n    key: \"2\",\n    name: \"Hu Cong\",\n    gender: 0,\n    age: 28,\n    address: \"Wu Han Nanhu No. 198\",\n    tags: [\"JS\", \"CSS\"],\n  },\n  {\n    key: \"3\",\n    name: \"Qiu\",\n    gender: 1,\n    age: 28,\n    address: \"Wu Han Nanhu No. 188\",\n    tags: [\"Go\", \"Python\"],\n  },\n]);\ntype TableRow = (typeof data)[number];\nconst columns: Column[] = [\n  { title: \"Name\", key: \"name\" },\n  { title: \"Age\", key: \"age\" },\n  { title: \"Gender\", key: \"gender\" },\n  { title: \"Address\", key: \"address\" },\n  { title: \"Tags\", key: \"tags\" },\n  { title: \"Operate\", key: \"action\" },\n];\nconst moveUp = (rowIndex: number) => {\n  if (rowIndex > 0) [data[rowIndex], data[rowIndex - 1]] = [data[rowIndex - 1], data[rowIndex]];\n};\nconst moveDown = (rowIndex: number) => {\n  if (rowIndex < data.length - 1)\n    [data[rowIndex], data[rowIndex + 1]] = [data[rowIndex + 1], data[rowIndex]];\n};\nconst deleteRow = (rowIndex: number) => {\n  data.splice(rowIndex, 1);\n};\nconst show = (record: TableRow) => {\n  modal.info({\n    title: \"Hi\",\n    content: `My name is ${record.name}`,\n  });\n};\nconst rowClick = (record: TableRecord) => {\n  message.info(\"Test row click: \" + String(record.name));\n};\n</script>"
+        },
+        {
+          "title": "树形数据",
+          "file": "components/table/demo/tree.vue",
+          "source": "<template>\n  <Table\n    v-model:expanded-keys=\"expandedKeys\"\n    bordered\n    checkable\n    expand-row-by-click\n    :data=\"data\"\n    :columns=\"columns\"\n  >\n    <template #status=\"{ value }\">\n      <Tag :color=\"value === 'active' ? 'green' : 'gold'\">{{ value }}</Tag>\n    </template>\n  </Table>\n</template>\n\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\nimport { ref } from \"vue\";\n\ninterface Department {\n  [key: string]: unknown;\n  key: string;\n  name: string;\n  owner: string;\n  members: number;\n  status: \"active\" | \"planning\";\n  children?: Department[];\n}\n\nconst expandedKeys = ref([\"product\"]);\nconst data: Department[] = [\n  {\n    key: \"product\",\n    name: \"Product Center\",\n    owner: \"Alice\",\n    members: 24,\n    status: \"active\",\n    children: [\n      { key: \"design\", name: \"Design Team\", owner: \"Mia\", members: 8, status: \"active\" },\n      {\n        key: \"research\",\n        name: \"Research Team\",\n        owner: \"Leo\",\n        members: 6,\n        status: \"planning\",\n        children: [\n          { key: \"ai-lab\", name: \"AI Lab\", owner: \"Noah\", members: 3, status: \"planning\" },\n        ],\n      },\n    ],\n  },\n  {\n    key: \"engineering\",\n    name: \"Engineering Center\",\n    owner: \"Jack\",\n    members: 36,\n    status: \"active\",\n    children: [\n      { key: \"frontend\", name: \"Frontend Team\", owner: \"Emma\", members: 12, status: \"active\" },\n      { key: \"backend\", name: \"Backend Team\", owner: \"Ethan\", members: 16, status: \"active\" },\n    ],\n  },\n];\nconst columns: Column[] = [\n  { key: \"name\", title: \"Department\", width: 240 },\n  { key: \"owner\", title: \"Owner\" },\n  { key: \"members\", title: \"Members\", sorter: true },\n  { key: \"status\", title: \"Status\" },\n];\n</script>"
+        },
+        {
+          "title": "基本用法(使用render)",
+          "file": "components/table/demo/base-render.vue",
+          "source": "<template>\n  <Table :data=\"data\" :columns=\"columns\" />\n</template>\n<script setup lang=\"ts\">\nimport { Moon, Sun } from \"kui-icons\";\nimport { Button, Icon, modal, Space, Tag, type Column } from \"kui-vue\";\nconst data = [\n  {\n    key: \"0\",\n    name: \"Li Lei\",\n    gender: 0,\n    age: 32,\n    address: \"Wu Han Guanggu No. 328\",\n    tags: [\"Python\", \"Java\"],\n  },\n  {\n    key: \"1\",\n    name: \"Liu Hao\",\n    gender: 1,\n    age: 28,\n    address: \"Wu Han Hongshan No. 128\",\n    tags: [\"Python\", \"Java\"],\n  },\n  {\n    key: \"2\",\n    name: \"Hu Cong\",\n    gender: 0,\n    age: 28,\n    address: \"Wu Han Nanhu No. 198\",\n    tags: [\"JS\", \"CSS\"],\n  },\n  {\n    key: \"3\",\n    name: \"Qiu\",\n    gender: 1,\n    age: 28,\n    address: \"Wu Han Nanhu No. 188\",\n    tags: [\"Go\", \"Python\"],\n  },\n];\nconst columns: Column[] = [\n  { title: \"Name\", key: \"name\" },\n  { title: \"Age\", key: \"age\" },\n  {\n    title: \"Gender\",\n    key: \"gender\",\n    render: (h, { gender }) => {\n      return h(Icon, {\n        type: gender == 1 ? Sun : Moon,\n        color: gender == 1 ? \"blue\" : \"#f50cff\",\n        size: 15,\n      });\n    },\n  },\n  { title: \"Address\", key: \"address\" },\n  {\n    title: \"Tags\",\n    key: \"tags\",\n    render: (h, record) => {\n      const tags = Array.isArray(record.tags)\n        ? record.tags.filter((tag): tag is string => typeof tag === \"string\")\n        : [];\n      return h(\n        Space,\n        {},\n        {\n          default: () =>\n            tags.map(function (tag) {\n              return h(\n                Tag,\n                {\n                  color: tag == \"Python\" ? \"green\" : \"blue\",\n                },\n                { default: () => tag }\n              );\n            }),\n        }\n      );\n    },\n  },\n  {\n    title: \"Operate\",\n    key: \"action\",\n    render: (h, record) => {\n      return h(\n        Button,\n        {\n          size: \"small\",\n          onClick: () => {\n            modal.info({\n              title: \"More\",\n              content: `My name is ${record.name}`,\n            });\n          },\n        },\n        { default: () => \"more\" }\n      );\n    },\n  },\n];\n</script>"
+        },
+        {
+          "title": "自定义表头",
+          "file": "components/table/demo/custom-header.vue",
+          "source": "<template>\n  <Table :data=\"data\" :columns=\"columns\">\n    <!-- 通过template 定义表头 ，slot 以 `header-` 开头-->\n    <template #header-age=\"{ value }\">\n      <Flex size=\"small\">\n        {{ value }}\n        <Tooltip title=\"How old are you?\">\n          <Icon :type=\"CircleAlert\" size=\"18\" color=\"#777\" />\n        </Tooltip>\n      </Flex>\n    </template>\n    <template #action=\"{ record }\">\n      <Button size=\"small\" @click=\"() => show(record)\">more</Button>\n    </template>\n\n    <template #header-address=\"{ value }\">\n      <Flex size=\"small\">\n        {{ value }}\n        <Tooltip title=\"Where are you from?\">\n          <Icon :type=\"CircleAlert\" size=\"18\" color=\"#777\" />\n        </Tooltip>\n      </Flex>\n    </template>\n  </Table>\n</template>\n<script setup lang=\"ts\">\nimport { CircleAlert } from \"kui-icons\";\nimport { modal, type Column } from \"kui-vue\";\nconst data = [\n  {\n    key: \"0\",\n    name: \"Li Lei\",\n    age: 32,\n    address: \"Wu Han Guanggu No. 328\",\n  },\n  {\n    key: \"1\",\n    name: \"Liu Hao\",\n    age: 28,\n    address: \"Wu Han Hongshan No. 128\",\n  },\n  { key: \"2\", name: \"Hu Cong\", age: 28, address: \"Wu Han Nanhu No. 198\" },\n  { key: \"3\", name: \"Qiu\", age: 28, address: \"Wu Han Nanhu No. 188\" },\n];\nconst columns: Column[] = [\n  { title: \"Name\", key: \"name\" },\n  { title: \"Age\", key: \"age\" },\n  {\n    title: \"Address\",\n    key: \"address\",\n  },\n  {\n    title: \"Operate\",\n    key: \"action\",\n    width: 90,\n  },\n];\nconst show = (record: Record<string, unknown>) => {\n  modal.info({\n    title: \"More\",\n    content: `My name is ${record.name}`,\n  });\n};\n</script>"
+        },
+        {
+          "title": "自定义页头和页脚",
+          "file": "components/table/demo/bordered.vue",
+          "source": "<template>\n  <Table :data=\"data\" :columns=\"columns\" bordered>\n    <template #fullname=\"{ value }\">\n      <a>{{ value }}</a>\n    </template>\n    <template #price=\"{ value }\">\n      <span :class=\"{ 'test-table-price': value > 20000 }\"> ￥{{ value }}/㎡ </span>\n    </template>\n    <template #header> Header </template>\n    <template #footer> Footer </template>\n  </Table>\n</template>\n<script>\nexport default {\n  data() {\n    return {\n      data: [\n        {\n          key: \"0\",\n          fullname: \"Li Lei\",\n          price: 18990,\n          address: \"Wu Han Guanggu No. 328\",\n        },\n        {\n          key: \"1\",\n          fullname: \"Liu Hao\",\n          price: 23900,\n          address: \"Wu Han Hongshan No. 128\",\n        },\n        {\n          key: \"2\",\n          fullname: \"Hu Cong\",\n          price: 12000,\n          address: \"Wu Han Nanhu No. 198\",\n        },\n        {\n          key: \"3\",\n          fullname: \"Qiu\",\n          price: 28000,\n          address: \"Wu Han Nanhu No. 188\",\n        },\n      ],\n      columns: [\n        { title: \"Name\", key: \"fullname\" },\n        { title: \"Housing price\", key: \"price\" },\n        { title: \"Address\", key: \"address\" },\n      ],\n    };\n  },\n};\n</script>"
+        },
+        {
+          "title": "排序",
+          "file": "components/table/demo/table-sorter.vue",
+          "source": "<template>\n  <Table :data=\"data\" :columns=\"columns\" :loading=\"loading\" @sort=\"sort\"> </Table>\n</template>\n<script setup lang=\"ts\">\nimport type { Column, SortState } from \"kui-vue\";\nimport { onMounted, ref } from \"vue\";\ninterface TableRow {\n  key: string;\n  name: string;\n  age: number;\n  mail: string;\n}\nconst data = ref<TableRow[]>([]);\nconst loading = ref(false);\nconst columns: Column[] = [\n  { title: \"Name\", key: \"name\", sorter: true },\n  {\n    title: \"Age\",\n    key: \"age\",\n    sorter: true,\n  },\n  { title: \"Email\", key: \"mail\", sorter: (state) => fetch(\"mail\", state.order) },\n];\n\nonMounted(() => {\n  fetch();\n});\n\nconst sort = ({ key, order }: SortState) => {\n  console.log(key, order);\n};\n\nconst fetch = (key?: string, order?: SortState[\"order\"]) => {\n  console.log(key, order);\n  loading.value = true;\n  // 模拟异步加载数据排序\n  setTimeout(() => {\n    loading.value = false;\n    let fetchData = [\n      { key: \"0\", name: \"Qiu\", age: 32, mail: \"chuchur@qq.com\" },\n      { key: \"3\", name: \"Wang Kang\", age: 26, mail: \"wangkang@gmail.com\" },\n      { key: \"2\", name: \"Liu Hao\", age: 27, mail: \"liuhao@162.com\" },\n      { key: \"1\", name: \"Li Lei\", age: 33, mail: \"hanlin@hotmail.com\" },\n      { key: \"4\", name: \"Hu Cong\", age: 25, mail: \"hucong@163.com\" },\n    ];\n\n    data.value = fetchData;\n  }, 2000);\n};\n</script>"
+        },
+        {
+          "title": "表格行/列合并",
+          "file": "components/table/demo/col-row-span.vue",
+          "source": "<template>\n  <Table :data=\"data\" :columns=\"columns\" bordered> </Table>\n</template>\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\n\nconst data = [\n  { key: \"1\", name: \"Jim\", age: 25, city: \"Beijing\" },\n  { key: \"2\", name: \"Allen\", age: 30, city: \"Wuhan\" },\n  { key: \"3\", name: \"Qiu\", age: 35, city: \"Wuhan\" },\n  { key: \"4\", name: \"Jake\", age: 40, city: \"Shanghai\" },\n  { key: \"5\", name: \"Mask\", age: 38, city: \"Wuhan\" },\n];\nconst columns: Column[] = [\n  {\n    title: \"Name\",\n    key: \"name\",\n    width: 100,\n    // 第三行第一列向下合并一行\n    rowSpan: (_, index) => (index == 2 ? 2 : 1),\n  },\n  {\n    title: \"Age\",\n    key: \"age\",\n    width: 100,\n    colSpan: (_, index) => (index == 1 ? 2 : 1),\n  },\n  {\n    title: \"City\",\n    key: \"city\",\n    width: 100,\n  },\n];\n</script>"
+        },
+        {
+          "title": "可编辑单元格",
+          "file": "components/table/demo/table-edit.vue",
+          "source": "<template>\n  <Button @click=\"add\">Add</Button>\n  <Table :data=\"data\" :columns=\"columns\" bordered>\n    <template #name=\"{ value, record }\">\n      <Input v-model=\"record.name\" size=\"small\" v-if=\"record.isEdit\" />\n      <template v-else>{{ value }}</template>\n    </template>\n    <template #address=\"{ value, record }\">\n      <Input v-model=\"record.address\" size=\"small\" v-if=\"record.isEdit\" />\n      <template v-else>{{ value }}</template>\n    </template>\n    <template #age=\"{ value, record }\">\n      <InputNumber v-model=\"record.age\" size=\"small\" v-if=\"record.isEdit\" />\n      <template v-else>{{ value }}</template>\n    </template>\n    <template #action=\"{ record }\">\n      <Space>\n        <Button size=\"small\" type=\"primary\" v-if=\"!record.isEdit\" @click=\"record.isEdit = true\">\n          Edit\n        </Button>\n        <Button size=\"small\" type=\"primary\" v-if=\"record.isEdit\" @click=\"save(record)\">\n          Save\n        </Button>\n        <Button size=\"small\" v-if=\"record.isEdit\" @click=\"record.isEdit = false\"> Cancel </Button>\n        <Popconfirm\n          v-if=\"!record.isEdit\"\n          title=\"Are you sure delete this content?\"\n          @ok=\"() => removeRow(record.key)\"\n        >\n          <Button size=\"small\" type=\"danger\">Delete</Button>\n        </Popconfirm>\n      </Space>\n    </template>\n  </Table>\n</template>\n<script setup lang=\"ts\">\nimport { message, type Column } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst data = ref([\n  {\n    key: \"0\",\n    name: \"Li Lei\",\n    age: 28,\n    address: \"Wu Han Guanggu No. 328\",\n    isEdit: false,\n  },\n  {\n    key: \"1\",\n    name: \"Liu Hao\",\n    age: 30,\n    address: \"Wu Han Hongshan No. 128\",\n    isEdit: false,\n  },\n  {\n    key: \"2\",\n    name: \"Hu Cong\",\n    age: 28,\n    address: \"Wu Han Nanhu No. 198\",\n    isEdit: false,\n  },\n  {\n    key: \"3\",\n    name: \"Qiu\",\n    age: 32,\n    address: \"Wu Han Nanhu No. 188\",\n    isEdit: false,\n  },\n]);\ntype TableRow = (typeof data.value)[number];\nconst columns: Column[] = [\n  { title: \"Name\", key: \"name\" },\n  { title: \"House price\", key: \"age\" },\n  { title: \"Address\", key: \"address\" },\n  { title: \"Operate\", key: \"action\" },\n];\nconst count = ref(4);\nconst save = (record: TableRow) => {\n  console.log(record);\n  record.isEdit = false;\n  message.success(\"Save successfully!\");\n};\nconst removeRow = (key: string) => {\n  data.value = data.value.filter((item) => item.key != key);\n};\nconst add = () => {\n  const key = count.value;\n  const record: TableRow = {\n    key: String(key),\n    name: `Name ${key}`,\n    age: 30,\n    address: `China Wuhan no.${key}`,\n    isEdit: false,\n  };\n  count.value = key + 1;\n  data.value.push(record);\n};\n</script>"
+        },
+        {
+          "title": "固定头/列",
+          "file": "components/table/demo/fixed-col-header.vue",
+          "source": "<template>\n  <Table :data=\"data\" :columns=\"columns\" :scroll=\"{ y: 300 }\">\n    <template #action>\n      <Button size=\"small\">test</Button>\n    </template>\n    <template #action1>\n      <Button size=\"small\">test2</Button>\n    </template>\n  </Table>\n</template>\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\n\nconst _columns: Column[] = [],\n  dataItem: Record<string, string> = {};\nfor (let i = 0; i < 20; i++) {\n  _columns.push({ title: \"Col\" + i, key: \"address\" + i, width: 150 });\n  dataItem[\"address\" + i] = \"Hubei Wuhan SoftBase No.128\";\n}\n\nconst data = new Array(10).fill(\"\").map((_, i) => {\n  return {\n    key: i,\n    name: \"Han Mei\",\n    age: 28,\n    address: \"Hubei Wuhan SoftBase No.128\",\n    ...dataItem,\n  };\n});\nconst columns: Column[] = [\n  { title: \"Name\", key: \"name\", fixed: \"left\" },\n  { title: \"Age\", key: \"age\", fixed: \"left\" },\n  ..._columns,\n  { title: \"Operate\", key: \"action\", fixed: \"right\" },\n  { title: \"Operate\", key: \"action1\", fixed: \"right\" },\n];\n</script>"
+        },
+        {
+          "title": "表头分组",
+          "file": "components/table/demo/header-span.vue",
+          "source": "<template>\n  <Table :data=\"data\" :columns=\"columns\" bordered :scroll=\"{ y: 300 }\"> </Table>\n</template>\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\n\nconst data = [];\nfor (let i = 0; i < 10; i++) {\n  data.push({\n    key: i,\n    name: \"John Brown\",\n    age: i + 1,\n    street: \"Lake Park\",\n    building: \"C\",\n    number: 2035,\n    companyAddress: \"Lake Street 42\",\n    companyName: \"SoftLake Co\",\n    gender: \"M\",\n  });\n}\nconst columns: Column[] = [\n  {\n    title: \"Name\",\n    key: \"name\",\n    width: 120,\n    fixed: \"left\",\n  },\n  {\n    title: \"Other\",\n    key: \"other\",\n    children: [\n      {\n        title: \"Age\",\n        key: \"age\",\n        sorter: true,\n      },\n      {\n        title: \"Address\",\n        key: \"address\",\n        children: [\n          {\n            title: \"Street\",\n            key: \"street\",\n          },\n          {\n            title: \"Block\",\n            key: \"block\",\n            children: [\n              {\n                title: \"Building\",\n                key: \"building\",\n              },\n              {\n                title: \"Door No.\",\n                key: \"number\",\n              },\n            ],\n          },\n        ],\n      },\n    ],\n  },\n  {\n    title: \"Company\",\n    key: \"Company\",\n    children: [\n      {\n        title: \"Company Address\",\n        key: \"companyAddress\",\n        width: 200,\n      },\n      {\n        title: \"Company Name\",\n        key: \"companyName\",\n        width: 200,\n      },\n    ],\n  },\n  {\n    title: \"Gender\",\n    key: \"gender\",\n    width: 100,\n    fixed: \"right\",\n  },\n];\n</script>"
+        },
+        {
+          "title": "勾选",
+          "file": "components/table/demo/table-check.vue",
+          "source": "<template>\n  <code>selectedKeys: {{ selectedKeys }}</code>\n  <Table\n    :data=\"data\"\n    :columns=\"columns\"\n    ref=\"selection\"\n    checkable\n    v-model:selectedKeys=\"selectedKeys\"\n  >\n    <template #tags=\"{ value }\">\n      <Space>\n        <Tag v-for=\"tag in value\" :key=\"tag\" :color=\"tag == 'Python' ? 'green' : 'blue'\">\n          {{ tag }}\n        </Tag>\n      </Space>\n    </template>\n    <template #action>\n      <a href=\"javascript:;\">Edit</a>\n      <a href=\"javascript:;\">Delete</a>\n    </template>\n  </Table>\n</template>\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst selectedKeys = ref([]);\nconst data = [\n  {\n    key: \"0\",\n    name: \"Li Lei\",\n    gender: 0,\n    age: 32,\n    address: \"Wu Han Guanggu No. 328\",\n    tags: [\"Python\", \"Java\"],\n  },\n  {\n    key: \"1\",\n    name: \"Liu Hao\",\n    gender: 1,\n    age: 28,\n    address: \"Wu Han Hongshan No. 128\",\n    tags: [\"Python\", \"Java\"],\n  },\n  {\n    key: \"2\",\n    name: \"Hu Cong\",\n    gender: 0,\n    age: 28,\n    address: \"Wu Han Nanhu No. 198\",\n    tags: [\"JS\", \"CSS\"],\n  },\n  {\n    key: \"3\",\n    name: \"Qiu\",\n    gender: 1,\n    age: 28,\n    address: \"Wu Han Nanhu No. 188\",\n    tags: [\"Go\", \"Python\"],\n  },\n];\nconst columns: Column[] = [\n  { title: \"Name\", key: \"name\" },\n  { title: \"Age\", key: \"age\" },\n  { title: \"Gender\", key: \"gender\" },\n  { title: \"Address\", key: \"address\" },\n  { title: \"Tags\", key: \"tags\" },\n];\n</script>"
+        },
+        {
+          "title": "动态控制表格属性",
+          "file": "components/table/demo/control.vue",
+          "source": "<template>\n  <div>\n    <Space wrap>\n      Size:<RadioGroup v-model=\"size\" size=\"small\" type=\"button\">\n        <RadioButton value=\"large\" label=\"Large\" />\n        <RadioButton value=\"medium\" label=\"Medium\" />\n        <RadioButton value=\"small\" label=\"Small\" />\n      </RadioGroup>\n      Border: <Switch v-model=\"bordered\" />\n      Loading:\n      <Switch v-model=\"loading\" />\n      Checkbox: <Switch v-model=\"checkable\" />\n      Empty:\n      <Switch v-model=\"empty\" @change=\"setEmpty\" />\n      Striped:\n      <Switch v-model=\"striped\" />\n    </Space>\n    <Table\n      :data=\"dataSource\"\n      :columns=\"columns\"\n      :loading=\"loading\"\n      :size=\"size\"\n      :striped=\"striped\"\n      :bordered=\"bordered\"\n      :checkable=\"checkable\"\n    >\n      <template #header> <div>header</div> </template>\n      <template #footer> <div>footer</div> </template>\n      <template #tags=\"{ value }\">\n        <Space>\n          <Tag v-for=\"tag in value\" :key=\"tag\" :color=\"tag == 'Python' ? 'green' : 'blue'\">\n            {{ tag }}\n          </Tag>\n        </Space>\n      </template>\n      <template #gender=\"{ value }\">\n        <Icon :type=\"value == 1 ? Moon : Sun\" :color=\"value == 1 ? 'blue' : '#f50cff'\" size=\"15\" />\n      </template>\n      <template #action>\n        <Button size=\"small\">test</Button>\n      </template>\n    </Table>\n  </div>\n</template>\n<script setup lang=\"ts\">\nimport { Moon, Sun } from \"kui-icons\";\nimport type { Column, SizeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst data = [\n  {\n    key: \"0\",\n    name: \"Li Lei\",\n    gender: 0,\n    age: 32,\n    address: \"Wu Han Guanggu No. 328\",\n    tags: [\"Python\", \"Java\"],\n  },\n  {\n    key: \"1\",\n    name: \"Liu Hao\",\n    gender: 1,\n    age: 28,\n    address: \"Wu Han Hongshan No. 128\",\n    tags: [\"Python\", \"Java\"],\n  },\n  {\n    key: \"2\",\n    name: \"Hu Cong\",\n    gender: 0,\n    age: 28,\n    address: \"Wu Han Nanhu No. 198\",\n    tags: [\"JS\", \"CSS\"],\n  },\n  {\n    key: \"3\",\n    name: \"Qiu\",\n    gender: 1,\n    age: 28,\n    address: \"Wu Han Nanhu No. 188\",\n    tags: [\"Go\", \"Python\"],\n  },\n];\nconst columns: Column[] = [\n  { title: \"Name\", key: \"name\" },\n  { title: \"Age\", key: \"age\", sorter: true },\n  { title: \"Gender\", key: \"gender\" },\n  { title: \"Address\", key: \"address\" },\n  { title: \"Tags\", key: \"tags\" },\n  { title: \"Operate\", key: \"action\" },\n];\nconst size = ref<SizeType>(\"medium\");\nconst bordered = ref(true);\nconst checkable = ref(false);\nconst loading = ref(false);\nconst empty = ref(false);\nconst dataSource = ref(data);\nconst striped = ref(false);\n\nconst setEmpty = (empty: boolean) => {\n  dataSource.value = empty ? [] : data;\n};\n</script>"
+        },
+        {
+          "title": "虚拟滚动",
+          "file": "components/table/demo/virtual.vue",
+          "source": "<template>\n  <Table\n    virtual\n    striped\n    :data=\"data\"\n    :columns=\"columns\"\n    :scroll=\"{ x: 900, y: 360 }\"\n    :item-height=\"44\"\n    :overscan=\"6\"\n  />\n</template>\n\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\n\nconst data = Array.from({ length: 10000 }, (_, index) => ({\n  key: index + 1,\n  name: `User ${index + 1}`,\n  email: `user${index + 1}@example.com`,\n  status: index % 3 === 0 ? \"Active\" : \"Pending\",\n}));\nconst columns: Column[] = [\n  { title: \"ID\", key: \"key\", width: 100 },\n  { title: \"Name\", key: \"name\" },\n  { title: \"Email\", key: \"email\", width: 200 },\n  { title: \"Email1\", key: \"email1\" },\n  { title: \"Email2\", key: \"email2\" },\n  { title: \"Email3\", key: \"email3\" },\n  { title: \"Email4\", key: \"email4\" },\n  { title: \"Email5\", key: \"email5\" },\n  { title: \"Status\", key: \"status\", width: 140, fixed: \"right\" },\n];\n</script>"
+        },
+        {
+          "title": "列设置",
+          "file": "components/table/demo/column-setting.vue",
+          "source": "<template>\n  <Space vertical block>\n    <TableColumnSetting\n      v-model:hidden-keys=\"hiddenKeys\"\n      :columns=\"columns\"\n      :disabled-keys=\"['name']\"\n      title=\"显示列\"\n      reset-text=\"重置\"\n    />\n    <Table :data=\"data\" :columns=\"columns\" :hidden-column-keys=\"hiddenKeys\" />\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\nimport { ref } from \"vue\";\n\nconst hiddenKeys = ref<string[]>([]);\nconst columns: Column[] = [\n  { title: \"姓名\", key: \"name\" },\n  { title: \"部门\", key: \"department\" },\n  { title: \"状态\", key: \"status\" },\n];\nconst data = [{ key: 1, name: \"林晓\", department: \"产品中心\", status: \"正常\" }];\n</script>"
+        }
+      ]
+    },
+    {
+      "name": "Kanban",
+      "tags": [
+        "kanban"
+      ],
+      "children": [],
+      "documentation": "https://k-ui.cn/components/kanban",
+      "props": [
+        {
+          "name": "theme",
+          "description": "Column appearance",
+          "descriptionZh": "看板列外观",
+          "descriptionEn": "Column appearance",
+          "type": "ThemeType",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "draggable",
+          "description": "Enable drag and drop",
+          "descriptionZh": "是否允许拖拽",
+          "descriptionEn": "Enable drag and drop",
+          "type": "boolean",
+          "boolean": true,
+          "documented": true
+        },
+        {
+          "name": "emptyText",
+          "description": "Empty column description",
+          "descriptionZh": "空列提示",
+          "descriptionEn": "Empty column description",
+          "type": "string",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "data",
+          "description": "Kanban items",
+          "descriptionZh": "看板数据",
+          "descriptionEn": "Kanban items",
+          "type": "KanbanItemData[]",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "columns",
+          "description": "Column definitions",
+          "descriptionZh": "看板列配置",
+          "descriptionEn": "Column definitions",
+          "type": "KanbanColumnData[]",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "rowKey",
+          "description": "Unique item key field",
+          "descriptionZh": "数据唯一键字段",
+          "descriptionEn": "Unique item key field",
+          "type": "string",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "statusKey",
+          "description": "Item status field",
+          "descriptionZh": "状态字段",
+          "descriptionEn": "Item status field",
+          "type": "string",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "minColumnWidth",
+          "description": "Minimum column width",
+          "descriptionZh": "列最小宽度",
+          "descriptionEn": "Minimum column width",
+          "type": "string | number",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "onMove",
+          "description": "Emitted after a card is dropped into another column; source data is not mutated",
+          "descriptionZh": "卡片拖入其他列时触发；组件不会直接修改原数据",
+          "descriptionEn": "Emitted after a card is dropped into another column; source data is not mutated",
+          "type": "((event: KanbanMoveEvent) => void) | undefined",
+          "eventName": "move",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "onItemClick",
+          "description": "Emitted when a card is clicked",
+          "descriptionZh": "点击卡片时触发",
+          "descriptionEn": "Emitted when a card is clicked",
+          "type": "((item: KanbanItemData, column: KanbanColumnData) => void) | undefined",
+          "eventName": "itemClick",
+          "boolean": false,
+          "documented": true
+        }
+      ],
+      "events": [
+        {
+          "name": "move",
+          "type": "((event: KanbanMoveEvent) => void) | undefined",
+          "description": "Emitted after a card is dropped into another column; source data is not mutated",
+          "descriptionZh": "卡片拖入其他列时触发；组件不会直接修改原数据",
+          "descriptionEn": "Emitted after a card is dropped into another column; source data is not mutated"
+        },
+        {
+          "name": "itemClick",
+          "type": "((item: KanbanItemData, column: KanbanColumnData) => void) | undefined",
+          "description": "Emitted when a card is clicked",
+          "descriptionZh": "点击卡片时触发",
+          "descriptionEn": "Emitted when a card is clicked"
+        }
+      ],
+      "slots": [
+        {
+          "name": "columnTitle",
+          "description": "Custom column heading",
+          "descriptionZh": "自定义列头",
+          "descriptionEn": "Custom column heading",
+          "scope": "{ column, items }"
+        },
+        {
+          "name": "item",
+          "description": "Custom card content",
+          "descriptionZh": "自定义卡片内容",
+          "descriptionEn": "Custom card content",
+          "scope": "{ item, column, index }"
+        },
+        {
+          "name": "empty",
+          "description": "Custom empty-column content",
+          "descriptionZh": "自定义空列内容",
+          "descriptionEn": "Custom empty-column content",
+          "scope": "{ column }"
+        },
+        {
+          "name": "footer",
+          "description": "Custom column footer",
+          "descriptionZh": "自定义列底部内容",
+          "descriptionEn": "Custom column footer",
+          "scope": "{ column, items }"
+        }
+      ],
+      "examples": [
+        {
+          "title": "基本用法",
+          "file": "components/kanban/demo/basic.vue",
+          "source": "<template>\n  <Kanban :columns=\"columns\" :data=\"tasks\" @move=\"move\">\n    <template #item=\"{ item }\"\n      ><Card size=\"small\" bordered>{{ item.title }}</Card></template\n    >\n  </Kanban>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport type { KanbanItemData, KanbanMoveEvent } from \"kui-vue\";\nconst columns = [\n  { key: \"todo\", title: \"Todo\", color: \"#87909c\" },\n  { key: \"doing\", title: \"Doing\", color: \"#3a95ff\" },\n  { key: \"done\", title: \"Done\", color: \"#22a06b\" },\n];\nconst tasks = ref<KanbanItemData[]>([\n  { id: 1, status: \"todo\", title: \"Define requirements\" },\n  { id: 2, status: \"doing\", title: \"Build component\" },\n]);\nconst move = ({ item, to }: KanbanMoveEvent) => {\n  item.status = to;\n};\n</script>"
+        },
+        {
+          "title": "自定义区域",
+          "file": "components/kanban/demo/custom.vue",
+          "source": "<template>\n  <Kanban :columns=\"columns\" :data=\"tasks\" :draggable=\"false\">\n    <template #columnTitle=\"{ column, items }\">\n      <Space><Badge :color=\"column.color\" />{{ column.title }} ({{ items.length }})</Space>\n    </template>\n    <template #item=\"{ item }\">\n      <Card size=\"small\">\n        <strong>{{ item.title }}</strong>\n        <p>{{ item.owner }}</p>\n      </Card>\n    </template>\n    <template #empty><Empty description=\"当前没有任务\" /></template>\n    <template #footer=\"{ column }\"><Button block>添加到 {{ column.title }}</Button></template>\n  </Kanban>\n</template>\n<script setup lang=\"ts\">\nconst columns = [\n  { key: \"todo\", title: \"待处理\", color: \"#87909c\" },\n  { key: \"doing\", title: \"进行中\", color: \"#3a95ff\" },\n  { key: \"done\", title: \"已完成\", color: \"#22a06b\" },\n];\nconst tasks = [\n  { id: 1, status: \"todo\", title: \"整理需求\", owner: \"Mia\" },\n  { id: 2, status: \"todo\", title: \"确认排期\", owner: \"Leo\" },\n  { id: 3, status: \"doing\", title: \"开发看板\", owner: \"Alex\" },\n];\n</script>\n<style scoped>p { margin: 8px 0 0; color: var(--kui-color-text-description); }</style>"
+        },
+        {
+          "title": "自定义字段",
+          "file": "components/kanban/demo/fields.vue",
+          "source": "<template>\n  <Kanban\n    :columns=\"columns\"\n    :data=\"tickets\"\n    row-key=\"key\"\n    status-key=\"stage\"\n    min-column-width=\"220px\"\n    @item-click=\"onClick\"\n  >\n    <template #item=\"{ item }\"><Card size=\"small\">{{ item.summary }}</Card></template>\n  </Kanban>\n</template>\n<script setup lang=\"ts\">\nimport { message, type KanbanItemData } from \"kui-vue\";\ninterface Ticket extends KanbanItemData { key: string; stage: number; summary: string }\nconst columns = [\n  { key: 0, title: \"New\" },\n  { key: 1, title: \"Resolved\" },\n];\nconst tickets: Ticket[] = [\n  { key: \"K-101\", stage: 0, summary: \"Login page feedback\" },\n  { key: \"K-102\", stage: 1, summary: \"Update dependencies\" },\n];\nconst onClick = (item: KanbanItemData) => message.info(String(item.key));\n</script>"
+        },
+        {
+          "title": "外观主题",
+          "file": "components/kanban/demo/theme.vue",
+          "source": "<template>\n  <Space vertical block>\n    <RadioGroup v-model=\"theme\" type=\"button\" :options=\"themes\" />\n    <Kanban :columns=\"columns\" :data=\"tasks\" :theme=\"theme\">\n      <template #item=\"{ item }\">\n        <Card size=\"small\" :theme=\"theme\">{{ item.title }}</Card>\n      </template>\n    </Kanban>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport type { ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\nconst theme = ref<ThemeType>(\"fill\");\nconst themes = [\n  { label: \"Fill\", value: \"fill\" },\n  { label: \"Outline\", value: \"outline\" },\n];\nconst columns = [\n  { key: \"todo\", title: \"Todo\", color: \"#87909c\" },\n  { key: \"doing\", title: \"Doing\", color: \"#3a95ff\" },\n  { key: \"done\", title: \"Done\", color: \"#22a06b\" },\n];\nconst tasks = [\n  { id: 1, status: \"todo\", title: \"Define requirements\" },\n  { id: 2, status: \"todo\", title: \"Build component\" },\n];\n</script>"
         }
       ]
     },
@@ -10979,6 +11915,7 @@
       "documentation": "https://k-ui.cn/components/tooltip-panel",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -11057,6 +11994,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -11066,7 +12004,7 @@
         {
           "title": "位置",
           "file": "components/tooltip/demo/placement.vue",
-          "source": "<template>\n  <Flex style=\"width:300px\" vertical align=\"center\">\n    <Space compact>\n      <Tooltip placement=\"top-left\" :title=\"title\">\n        <Button>TL</Button>\n      </Tooltip>\n      <Tooltip placement=\"top\" :title=\"title\">\n        <Button>Top</Button>\n      </Tooltip>\n      <Tooltip placement=\"top-right\" :title=\"title\">\n        <Button>TR</Button>\n      </Tooltip>\n    </Space>\n    <Flex justify=\"space-between\" style=\"width:100%;padding:10px 0\">\n      <Space vertical compact>\n        <Tooltip placement=\"left-top\" :title=\"title\">\n          <Button>LT</Button>\n        </Tooltip>\n        <Tooltip placement=\"left\" :title=\"title\">\n          <Button>Left</Button>\n        </Tooltip>\n        <Tooltip placement=\"left-bottom\" :title=\"title\">\n          <Button>LB</Button>\n        </Tooltip>\n      </Space>\n      <Space vertical compact>\n        <Tooltip placement=\"right-top\" :title=\"title\">\n          <Button>RT</Button>\n        </Tooltip>\n        <Tooltip placement=\"right\" :title=\"title\">\n          <Button>Right</Button>\n        </Tooltip>\n        <Tooltip placement=\"right-bottom\" :title=\"title\">\n          <Button>RB</Button>\n        </Tooltip>\n      </Space>\n    </Flex>\n    <Space compact>\n      <Tooltip placement=\"bottom-left\" :title=\"title\">\n        <Button>BL</Button>\n      </Tooltip>\n      <Tooltip placement=\"bottom\" :title=\"title\">\n        <Button>Bottom</Button>\n      </Tooltip>\n      <Tooltip placement=\"bottom-right\" :title=\"title\">\n        <Button>BR</Button>\n      </Tooltip>\n    </Space>\n  </Flex>\n</template>\n<script setup lang=\"ts\">\nconst title = \"Title\";\n</script>"
+          "source": "<template>\n  <Flex style=\"width: 300px\" vertical align=\"center\">\n    <Space compact>\n      <Tooltip placement=\"top-left\" :title=\"title\">\n        <Button>TL</Button>\n      </Tooltip>\n      <Tooltip placement=\"top\" :title=\"title\">\n        <Button>Top</Button>\n      </Tooltip>\n      <Tooltip placement=\"top-right\" :title=\"title\">\n        <Button>TR</Button>\n      </Tooltip>\n    </Space>\n    <Flex justify=\"space-between\" style=\"width: 100%; padding: 10px 0\">\n      <Space vertical compact>\n        <Tooltip placement=\"left-top\" :title=\"title\">\n          <Button>LT</Button>\n        </Tooltip>\n        <Tooltip placement=\"left\" :title=\"title\">\n          <Button>Left</Button>\n        </Tooltip>\n        <Tooltip placement=\"left-bottom\" :title=\"title\">\n          <Button>LB</Button>\n        </Tooltip>\n      </Space>\n      <Space vertical compact>\n        <Tooltip placement=\"right-top\" :title=\"title\">\n          <Button>RT</Button>\n        </Tooltip>\n        <Tooltip placement=\"right\" :title=\"title\">\n          <Button>Right</Button>\n        </Tooltip>\n        <Tooltip placement=\"right-bottom\" :title=\"title\">\n          <Button>RB</Button>\n        </Tooltip>\n      </Space>\n    </Flex>\n    <Space compact>\n      <Tooltip placement=\"bottom-left\" :title=\"title\">\n        <Button>BL</Button>\n      </Tooltip>\n      <Tooltip placement=\"bottom\" :title=\"title\">\n        <Button>Bottom</Button>\n      </Tooltip>\n      <Tooltip placement=\"bottom-right\" :title=\"title\">\n        <Button>BR</Button>\n      </Tooltip>\n    </Space>\n  </Flex>\n</template>\n<script setup lang=\"ts\">\nconst title = \"Title\";\n</script>"
         },
         {
           "title": "多彩文字提示",
@@ -11201,6 +12139,7 @@
           "descriptionEn": "Tour completed"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基础用法",
@@ -11368,6 +12307,7 @@
           "descriptionEn": "Emitted when selection changes"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -11573,6 +12513,7 @@
           "descriptionEn": "Emitted after copying"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本排版",
@@ -11617,6 +12558,7 @@
       "documentation": "https://k-ui.cn/components/typography-paragraph",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -11630,6 +12572,7 @@
       "documentation": "https://k-ui.cn/components/typography-text",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -11643,6 +12586,7 @@
       "documentation": "https://k-ui.cn/components/typography-title",
       "props": [],
       "events": [],
+      "slots": [],
       "examples": []
     },
     {
@@ -11693,6 +12637,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -11846,6 +12791,7 @@
           "descriptionEn": "Callback when tab is clicked"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -11911,6 +12857,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -11977,6 +12924,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -12296,6 +13244,7 @@
           "descriptionEn": "Triggered when dragging ends"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -12706,6 +13655,7 @@
           "descriptionEn": "Triggered when a tree node is expanded"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -12715,7 +13665,7 @@
         {
           "title": "多选",
           "file": "components/tree-select/demo/multiple.vue",
-          "source": "<template>\n  <Space vertical>\n    <TreeSelect\n      v-model=\"value1\"\n      :tree-data=\"data\"\n      :treeExpandedKeys=\"expandedKeys\"\n      multiple\n      filterable\n      clearable\n      block\n    />\n    <br />\n    maxTagCount\n    <TreeSelect\n      v-model=\"value2\"\n      :tree-data=\"data\"\n      :treeExpandedKeys=\"expandedKeys\"\n      multiple\n      :maxTagCount=\"2\"\n      style=\"width:100%\"\n      filterable\n      clearable\n    />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst expandedKeys = [\"0-1\", \"1-1\", \"1-1-2\", \"1-2\"];\nconst value1 = ref([\"0-1\", \"1-1\"]);\nconst value2 = ref([\"0-1\", \"1-1-2\", \"1-1-2-1\", \"1-2-1\"]);\nconst data = [\n  {\n    title: \"tree 1\",\n    key: \"0-1\",\n    children: [\n      {\n        title: \"tree 1-1\",\n        key: \"1-1\",\n        children: [\n          { title: \"leaf 1-1-1\", key: \"1-1-1\" },\n          {\n            title: \"leaf 1-1-2\",\n            key: \"1-1-2\",\n            children: [\n              { title: \"leaf 1-1-2-1\", key: \"1-1-2-1\" },\n              { title: \"leaf 1-1-2-2\", key: \"1-1-2-2\" },\n            ],\n          },\n        ],\n      },\n      {\n        title: \"tree 1-2\",\n        key: \"1-2\",\n        children: [\n          { title: \"leaf 1-2-1\", key: \"1-2-1\" },\n          { title: \"leaf 1-2-2\", key: \"1-2-2\" },\n        ],\n      },\n      {\n        title: \"tree 1-3\",\n        key: \"1-3\",\n        children: [\n          { title: \"leaf 1-3-1\", key: \"1-3-1\" },\n          { title: \"leaf 1-3-2\", key: \"1-3-2\" },\n        ],\n      },\n    ],\n  },\n];\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <TreeSelect\n      v-model=\"value1\"\n      :tree-data=\"data\"\n      :treeExpandedKeys=\"expandedKeys\"\n      multiple\n      filterable\n      clearable\n      block\n    />\n    <br />\n    maxTagCount\n    <TreeSelect\n      v-model=\"value2\"\n      :tree-data=\"data\"\n      :treeExpandedKeys=\"expandedKeys\"\n      multiple\n      :maxTagCount=\"2\"\n      style=\"width: 100%\"\n      filterable\n      clearable\n    />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst expandedKeys = [\"0-1\", \"1-1\", \"1-1-2\", \"1-2\"];\nconst value1 = ref([\"0-1\", \"1-1\"]);\nconst value2 = ref([\"0-1\", \"1-1-2\", \"1-1-2-1\", \"1-2-1\"]);\nconst data = [\n  {\n    title: \"tree 1\",\n    key: \"0-1\",\n    children: [\n      {\n        title: \"tree 1-1\",\n        key: \"1-1\",\n        children: [\n          { title: \"leaf 1-1-1\", key: \"1-1-1\" },\n          {\n            title: \"leaf 1-1-2\",\n            key: \"1-1-2\",\n            children: [\n              { title: \"leaf 1-1-2-1\", key: \"1-1-2-1\" },\n              { title: \"leaf 1-1-2-2\", key: \"1-1-2-2\" },\n            ],\n          },\n        ],\n      },\n      {\n        title: \"tree 1-2\",\n        key: \"1-2\",\n        children: [\n          { title: \"leaf 1-2-1\", key: \"1-2-1\" },\n          { title: \"leaf 1-2-2\", key: \"1-2-2\" },\n        ],\n      },\n      {\n        title: \"tree 1-3\",\n        key: \"1-3\",\n        children: [\n          { title: \"leaf 1-3-1\", key: \"1-3-1\" },\n          { title: \"leaf 1-3-2\", key: \"1-3-2\" },\n        ],\n      },\n    ],\n  },\n];\n</script>"
         },
         {
           "title": "可勾选",
@@ -12841,6 +13791,7 @@
           "descriptionEn": "Callback event when tag is closed"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -12860,7 +13811,7 @@
         {
           "title": "多彩标签",
           "file": "components/tag/demo/color.vue",
-          "source": "<template>\n  <div>\n    <h4 style=\"margin-bottom: 16px\">Presets:</h4>\n    <Space wrap>\n      <Tag :color=\"color\" v-for=\"(color, i) in colors\" :key=\"i\">\n        {{ color }}\n      </Tag>\n    </Space>\n    <h4 style=\"margin:16px 0\">Custom:</h4>\n    <Space>\n      <Tag color=\"#c20\">#c20</Tag>\n      <Tag color=\"#39f\">#39f</Tag>\n      <Tag color=\"#e3f\">#e3f</Tag>\n      <Tag color=\"#6c0\">#6c0</Tag>\n    </Space>\n  </div>\n</template>\n<script setup lang=\"ts\">\nconst colors = [\n  \"pink\",\n  \"red\",\n  \"yellow\",\n  \"orange\",\n  \"cyan\",\n  \"green\",\n  \"blue\",\n  \"purple\",\n  \"magenta\",\n  \"volcano\",\n  \"gold\",\n  \"lime\",\n];\n</script>"
+          "source": "<template>\n  <div>\n    <h4 style=\"margin-bottom: 16px\">Presets:</h4>\n    <Space wrap>\n      <Tag :color=\"color\" v-for=\"(color, i) in colors\" :key=\"i\">\n        {{ color }}\n      </Tag>\n    </Space>\n    <h4 style=\"margin: 16px 0\">Custom:</h4>\n    <Space>\n      <Tag color=\"#c20\">#c20</Tag>\n      <Tag color=\"#39f\">#39f</Tag>\n      <Tag color=\"#e3f\">#e3f</Tag>\n      <Tag color=\"#6c0\">#6c0</Tag>\n    </Space>\n  </div>\n</template>\n<script setup lang=\"ts\">\nconst colors = [\n  \"pink\",\n  \"red\",\n  \"yellow\",\n  \"orange\",\n  \"cyan\",\n  \"green\",\n  \"blue\",\n  \"purple\",\n  \"magenta\",\n  \"volcano\",\n  \"gold\",\n  \"lime\",\n];\n</script>"
         },
         {
           "title": "动态添加和删除",
@@ -12989,6 +13940,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -12998,7 +13950,7 @@
         {
           "title": "分栏间隔",
           "file": "components/row-col/demo/gutter.vue",
-          "source": "<template>\n  <Space vertical block class=\"demo-grid\">\n    <code>gutter = 10</code>\n    <Row :gutter=\"10\" class=\"row-gutter\">\n      <Col :span=\"12\"><div>col-12</div></Col>\n      <Col :span=\"12\"><div>col-12</div></Col>\n    </Row>\n    <code>Horizontal Gutter (px):{{ h }}</code>\n    <div style=\"width:55%;padding:10px;\">\n      <Slider\n        v-model=\"h\"\n        :min=\"8\"\n        :marks=\"{ 8: '8', 16: '16', 24: '24', 32: '32', 40: '40' }\"\n        :max=\"40\"\n        :step=\"null\"\n      />\n    </div>\n    <code>Vertical Gutter (px):{{ v }}</code>\n    <div style=\"width:55%;padding:10px;\">\n      <Slider\n        v-model=\"v\"\n        :min=\"8\"\n        :max=\"40\"\n        :marks=\"{ 8: '8', 16: '16', 24: '24', 32: '32', 40: '40' }\"\n        :step=\"null\"\n      />\n    </div>\n    <code>Column Count:{{ cols }}</code>\n    <div style=\"width:55%;padding:10px;\">\n      <Slider\n        v-model=\"cols\"\n        :min=\"2\"\n        :marks=\"{ 2: '2', 3: '3', 4: '4', 6: '6', 8: '8', 12: '12' }\"\n        :max=\"12\"\n        :step=\"null\"\n      />\n    </div>\n    <Row :gutter=\"[v, h]\" class=\"row-gutter\">\n      <Col :span=\"24 / cols\" v-for=\"c in cols\" :key=\"c\">\n        <div>col-{{ cols }}</div>\n      </Col>\n      <Col :span=\"24 / cols\" v-for=\"x in cols\" :key=\"'_' + x\">\n        <div>col-{{ cols }}</div>\n      </Col>\n    </Row>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst h = ref(8);\nconst v = ref(8);\nconst cols = ref(4);\n</script>"
+          "source": "<template>\n  <Space vertical block class=\"demo-grid\">\n    <code>gutter = 10</code>\n    <Row :gutter=\"10\" class=\"row-gutter\">\n      <Col :span=\"12\"><div>col-12</div></Col>\n      <Col :span=\"12\"><div>col-12</div></Col>\n    </Row>\n    <code>Horizontal Gutter (px):{{ h }}</code>\n    <div style=\"width: 55%; padding: 10px\">\n      <Slider\n        v-model=\"h\"\n        :min=\"8\"\n        :marks=\"{ 8: '8', 16: '16', 24: '24', 32: '32', 40: '40' }\"\n        :max=\"40\"\n        :step=\"null\"\n      />\n    </div>\n    <code>Vertical Gutter (px):{{ v }}</code>\n    <div style=\"width: 55%; padding: 10px\">\n      <Slider\n        v-model=\"v\"\n        :min=\"8\"\n        :max=\"40\"\n        :marks=\"{ 8: '8', 16: '16', 24: '24', 32: '32', 40: '40' }\"\n        :step=\"null\"\n      />\n    </div>\n    <code>Column Count:{{ cols }}</code>\n    <div style=\"width: 55%; padding: 10px\">\n      <Slider\n        v-model=\"cols\"\n        :min=\"2\"\n        :marks=\"{ 2: '2', 3: '3', 4: '4', 6: '6', 8: '8', 12: '12' }\"\n        :max=\"12\"\n        :step=\"null\"\n      />\n    </div>\n    <Row :gutter=\"[v, h]\" class=\"row-gutter\">\n      <Col :span=\"24 / cols\" v-for=\"c in cols\" :key=\"c\">\n        <div>col-{{ cols }}</div>\n      </Col>\n      <Col :span=\"24 / cols\" v-for=\"x in cols\" :key=\"'_' + x\">\n        <div>col-{{ cols }}</div>\n      </Col>\n    </Row>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst h = ref(8);\nconst v = ref(8);\nconst cols = ref(4);\n</script>"
         },
         {
           "title": "栅格偏移",
@@ -13076,6 +14028,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -13085,7 +14038,7 @@
         {
           "title": "分栏间隔",
           "file": "components/row-col/demo/gutter.vue",
-          "source": "<template>\n  <Space vertical block class=\"demo-grid\">\n    <code>gutter = 10</code>\n    <Row :gutter=\"10\" class=\"row-gutter\">\n      <Col :span=\"12\"><div>col-12</div></Col>\n      <Col :span=\"12\"><div>col-12</div></Col>\n    </Row>\n    <code>Horizontal Gutter (px):{{ h }}</code>\n    <div style=\"width:55%;padding:10px;\">\n      <Slider\n        v-model=\"h\"\n        :min=\"8\"\n        :marks=\"{ 8: '8', 16: '16', 24: '24', 32: '32', 40: '40' }\"\n        :max=\"40\"\n        :step=\"null\"\n      />\n    </div>\n    <code>Vertical Gutter (px):{{ v }}</code>\n    <div style=\"width:55%;padding:10px;\">\n      <Slider\n        v-model=\"v\"\n        :min=\"8\"\n        :max=\"40\"\n        :marks=\"{ 8: '8', 16: '16', 24: '24', 32: '32', 40: '40' }\"\n        :step=\"null\"\n      />\n    </div>\n    <code>Column Count:{{ cols }}</code>\n    <div style=\"width:55%;padding:10px;\">\n      <Slider\n        v-model=\"cols\"\n        :min=\"2\"\n        :marks=\"{ 2: '2', 3: '3', 4: '4', 6: '6', 8: '8', 12: '12' }\"\n        :max=\"12\"\n        :step=\"null\"\n      />\n    </div>\n    <Row :gutter=\"[v, h]\" class=\"row-gutter\">\n      <Col :span=\"24 / cols\" v-for=\"c in cols\" :key=\"c\">\n        <div>col-{{ cols }}</div>\n      </Col>\n      <Col :span=\"24 / cols\" v-for=\"x in cols\" :key=\"'_' + x\">\n        <div>col-{{ cols }}</div>\n      </Col>\n    </Row>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst h = ref(8);\nconst v = ref(8);\nconst cols = ref(4);\n</script>"
+          "source": "<template>\n  <Space vertical block class=\"demo-grid\">\n    <code>gutter = 10</code>\n    <Row :gutter=\"10\" class=\"row-gutter\">\n      <Col :span=\"12\"><div>col-12</div></Col>\n      <Col :span=\"12\"><div>col-12</div></Col>\n    </Row>\n    <code>Horizontal Gutter (px):{{ h }}</code>\n    <div style=\"width: 55%; padding: 10px\">\n      <Slider\n        v-model=\"h\"\n        :min=\"8\"\n        :marks=\"{ 8: '8', 16: '16', 24: '24', 32: '32', 40: '40' }\"\n        :max=\"40\"\n        :step=\"null\"\n      />\n    </div>\n    <code>Vertical Gutter (px):{{ v }}</code>\n    <div style=\"width: 55%; padding: 10px\">\n      <Slider\n        v-model=\"v\"\n        :min=\"8\"\n        :max=\"40\"\n        :marks=\"{ 8: '8', 16: '16', 24: '24', 32: '32', 40: '40' }\"\n        :step=\"null\"\n      />\n    </div>\n    <code>Column Count:{{ cols }}</code>\n    <div style=\"width: 55%; padding: 10px\">\n      <Slider\n        v-model=\"cols\"\n        :min=\"2\"\n        :marks=\"{ 2: '2', 3: '3', 4: '4', 6: '6', 8: '8', 12: '12' }\"\n        :max=\"12\"\n        :step=\"null\"\n      />\n    </div>\n    <Row :gutter=\"[v, h]\" class=\"row-gutter\">\n      <Col :span=\"24 / cols\" v-for=\"c in cols\" :key=\"c\">\n        <div>col-{{ cols }}</div>\n      </Col>\n      <Col :span=\"24 / cols\" v-for=\"x in cols\" :key=\"'_' + x\">\n        <div>col-{{ cols }}</div>\n      </Col>\n    </Row>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst h = ref(8);\nconst v = ref(8);\nconst cols = ref(4);\n</script>"
         },
         {
           "title": "栅格偏移",
@@ -13417,6 +14370,7 @@
           "descriptionEn": "Callback before upload"
         }
       ],
+      "slots": [],
       "examples": [
         {
           "title": "点击上传",
@@ -13594,6 +14548,7 @@
         }
       ],
       "events": [],
+      "slots": [],
       "examples": [
         {
           "title": "基本用法",
@@ -13678,6 +14633,15 @@
         }
       ],
       "events": [],
+      "slots": [
+        {
+          "name": "default",
+          "description": "Custom item",
+          "descriptionZh": "自定义项目",
+          "descriptionEn": "Custom item",
+          "scope": "{ item, index }"
+        }
+      ],
       "examples": [
         {
           "title": "基本用法",
