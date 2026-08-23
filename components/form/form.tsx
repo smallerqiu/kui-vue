@@ -78,7 +78,7 @@ const Form = defineComponent({
       const item = formItems.value[key];
       // const item = formItems.value.get(key);
       if (item) {
-      const rules = item.rules || (item.prop ? (props.rules || {})[item.prop] : undefined);
+        const rules = item.rules || (item.prop ? (props.rules || {})[item.prop] : undefined);
         if (rules) {
           return item.validate(rules);
         }
@@ -95,9 +95,8 @@ const Form = defineComponent({
         if (!tempObj) break;
         const key = keyArr[i];
         const next: unknown = tempObj[key];
-        tempObj = typeof next === "object" && next !== null
-          ? next as Record<string, unknown>
-          : undefined;
+        tempObj =
+          typeof next === "object" && next !== null ? (next as Record<string, unknown>) : undefined;
       }
       const lastKey = keyArr[keyArr.length - 1];
       return {

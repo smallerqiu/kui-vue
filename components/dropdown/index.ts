@@ -5,4 +5,3 @@ import DropdownButton from "./dropdown-button";
 
 export { Dropdown, DropdownButton };
 export type { DropdownButtonProps, DropdownProps };
-

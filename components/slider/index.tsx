@@ -358,9 +358,10 @@ const Slider = defineComponent({
             {mKeys.map((val) => {
               const coord = getCoord(val);
               // 判断激活状态：值是否在当前选中范围内
-              const isActive = props.range && Array.isArray(internalValue.value)
-                ? val >= internalValue.value[0] && val <= internalValue.value[1]
-                : val <= (internalValue.value as number);
+              const isActive =
+                props.range && Array.isArray(internalValue.value)
+                  ? val >= internalValue.value[0] && val <= internalValue.value[1]
+                  : val <= (internalValue.value as number);
 
               let style: CSSProperties;
               if (vertical) {

@@ -69,7 +69,7 @@ import "kui-vue/style/base.css";
 如果需要整套界面（包括弹层容器）切换为方形，可在根节点设置 `shape-mode="square"`。它会统一覆盖控件、卡片和弹层的圆角令牌；组件自身的 `shape` 仍用于局部覆盖。滑块手柄、状态点等具有圆形语义的元素不会被改成方形。
 
 ```html
-<html shape-mode="square">
+<html shape-mode="square"></html>
 ```
 
 ```css
@@ -97,15 +97,15 @@ Select、DatePicker、Poptip 等带触发元素的弹层即使 Teleport 到 `bod
 <template>
   <div ref="themeRoot" theme-mode="dark">
     <ConfigProvider :getPopupContainer="() => themeRoot">
-      <Select :options="options" />
+      <select :options="options" />
     </ConfigProvider>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+  import { ref } from "vue";
 
-const themeRoot = ref<HTMLElement>();
+  const themeRoot = ref<HTMLElement>();
 </script>
 ```
 
@@ -113,15 +113,15 @@ const themeRoot = ref<HTMLElement>();
 
 Token 按“基础语义 → 组件语义 → 组件样式”逐层使用。通常先修改颜色、文字、背景等基础语义；只有某一类组件需要特殊外观时，才覆盖 `control`、`card` 或 `popup` Token。
 
-| 分类 | 主要 Token | 实际影响 |
-| --- | --- | --- |
-| 品牌及状态 | `--kui-color-primary`、`--kui-color-success`、`--kui-color-warning`、`--kui-color-danger` | Button、链接、选中项、校验状态、Progress 等强调色 |
-| 文字层级 | `--kui-color-text-title`、`--kui-color-text`、`--kui-color-text-description`、`--kui-color-text-placeholder` | 标题、正文、辅助说明和输入占位文字 |
-| 页面与容器 | `--kui-color-bg-layout`、`--kui-color-bg-container`、`--kui-color-bg-component`、`--kui-color-bg-pop` | 页面底色、内容区域、组件表面和下拉面板 |
-| 交互状态 | `--kui-color-item-hover`、`--kui-color-item-active`、`--kui-color-item-selected`、`--kui-color-item-disabled` | Menu、Select、Tree、Table 等列表项状态 |
-| 控件 | `--kui-control-bg`、`--kui-control-border`、`--kui-control-radius` | Input、Select、Button 等表单控件 |
-| 面板 | `--kui-card-*`、`--kui-popup-*` | Card、Modal 等内容面板，以及 DatePicker、ColorPicker 等选择面板 |
-| 尺寸与动效 | `--kui-control-height-*`、`--kui-font-size-*`、`--kui-spacing-*`、`--kui-motion-*` | 整体密度、字号、间距和动画速度 |
+| 分类       | 主要 Token                                                                                                    | 实际影响                                                        |
+| ---------- | ------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
+| 品牌及状态 | `--kui-color-primary`、`--kui-color-success`、`--kui-color-warning`、`--kui-color-danger`                     | Button、链接、选中项、校验状态、Progress 等强调色               |
+| 文字层级   | `--kui-color-text-title`、`--kui-color-text`、`--kui-color-text-description`、`--kui-color-text-placeholder`  | 标题、正文、辅助说明和输入占位文字                              |
+| 页面与容器 | `--kui-color-bg-layout`、`--kui-color-bg-container`、`--kui-color-bg-component`、`--kui-color-bg-pop`         | 页面底色、内容区域、组件表面和下拉面板                          |
+| 交互状态   | `--kui-color-item-hover`、`--kui-color-item-active`、`--kui-color-item-selected`、`--kui-color-item-disabled` | Menu、Select、Tree、Table 等列表项状态                          |
+| 控件       | `--kui-control-bg`、`--kui-control-border`、`--kui-control-radius`                                            | Input、Select、Button 等表单控件                                |
+| 面板       | `--kui-card-*`、`--kui-popup-*`                                                                               | Card、Modal 等内容面板，以及 DatePicker、ColorPicker 等选择面板 |
+| 尺寸与动效 | `--kui-control-height-*`、`--kui-font-size-*`、`--kui-spacing-*`、`--kui-motion-*`                            | 整体密度、字号、间距和动画速度                                  |
 
 ### 示例：定制一套品牌主题
 
@@ -209,7 +209,7 @@ CSS Variables 会向下继承，因此无需创建另一份组件样式。下面
 
 ```html
 <section class="admin-panel">
-  <Input placeholder="Search" />
+  <input placeholder="Search" />
   <Card title="Orders">...</Card>
 </section>
 ```

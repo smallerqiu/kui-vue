@@ -60,7 +60,9 @@ const Ripple = defineComponent({
     const measure = () => {
       const content = contentRef.value;
       if (!content) return;
-      const height = Math.ceil(Math.max(content.scrollHeight, content.getBoundingClientRect().height));
+      const height = Math.ceil(
+        Math.max(content.scrollHeight, content.getBoundingClientRect().height)
+      );
       if (height <= 0) return;
       contentHeight.value = height;
     };

@@ -24,14 +24,15 @@ export function getChildren(children: LegacyVNode[] = [], name: string) {
   });
 }
 
-
-
 //此处不能判断数组，要判断数组自行判断
 export function isNotEmpty(value: unknown) {
   return value !== "" && value !== undefined && value !== null;
 }
 export function isEmpty(value: unknown) {
-  return value === "" || value === undefined || value === null ||
-    ((typeof value === "string" || Array.isArray(value)) && value.length === 0);
+  return (
+    value === "" ||
+    value === undefined ||
+    value === null ||
+    ((typeof value === "string" || Array.isArray(value)) && value.length === 0)
+  );
 }
- 

@@ -18,13 +18,13 @@ $ npm create nuxt@latest kui-demo
 
 ```js
 // plugins/kui.ts
-import { defineNuxtPlugin } from '#app'
-import Kui from 'kui-vue'
-import 'kui-vue/style/index.css'
+import { defineNuxtPlugin } from "#app";
+import Kui from "kui-vue";
+import "kui-vue/style/index.css";
 
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.use(Kui)
-})
+  nuxtApp.vueApp.use(Kui);
+});
 ```
 
 然后修改根目录`nuxt.config.ts`，修改配置文件，如下

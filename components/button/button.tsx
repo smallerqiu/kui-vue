@@ -82,8 +82,10 @@ const Button = defineComponent({
         }
         if (excluded.length === 1) {
           const type = excluded[0].type;
-          return type &&
-            ((typeof type === "object" && "name" in type && type.name === "Icon") || type === Icon);
+          return (
+            type &&
+            ((typeof type === "object" && "name" in type && type.name === "Icon") || type === Icon)
+          );
         }
         return false;
       };
@@ -111,12 +113,7 @@ const Button = defineComponent({
       if (iconType) {
         childNodes.push(
           props.loading ? (
-            <span
-              class={[
-                "k-btn-loading-icon",
-                { "k-btn-loading-icon-replace": !!props.icon },
-              ]}
-            >
+            <span class={["k-btn-loading-icon", { "k-btn-loading-icon-replace": !!props.icon }]}>
               <Icon type={iconType} spin />
             </span>
           ) : (

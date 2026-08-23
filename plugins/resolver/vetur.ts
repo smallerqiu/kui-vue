@@ -20,11 +20,7 @@ export const toKebabCase = (name: string): string =>
     .toLowerCase();
 
 const normalizeDocumentationKey = (name: string): string =>
-  name
-    .replace(/`/g, "")
-    .trim()
-    .toLowerCase()
-    .replace(/[-_]/g, "");
+  name.replace(/`/g, "").trim().toLowerCase().replace(/[-_]/g, "");
 
 export const getComponentTagNames = (name: string): string[] => {
   // These names collide with native/SVG tags when lower-cased. Keep their

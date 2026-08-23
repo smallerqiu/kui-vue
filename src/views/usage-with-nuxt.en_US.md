@@ -18,13 +18,13 @@ Create a new `plugins` directory in the root `app`, then create a `kui.ts` file 
 
 ```js
 // /app/plugins/kui.ts
-import { defineNuxtPlugin } from '#app'
-import Kui from 'kui-vue'
-import 'kui-vue/style/index.css'
+import { defineNuxtPlugin } from "#app";
+import Kui from "kui-vue";
+import "kui-vue/style/index.css";
 
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.use(Kui)
-})
+  nuxtApp.vueApp.use(Kui);
+});
 ```
 
 Then modify the `nuxt.config.ts` file in the root directory and update the configuration as follows:

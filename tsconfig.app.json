@@ -17,10 +17,7 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "types": [
-      "node",
-      "vite/client"
-    ],
+    "types": ["node", "vite/client"],
     "target": "esnext",
     /* Linting */
     "strict": true,
@@ -30,18 +27,12 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     /* alias */
-    // "baseUrl": ".", 
+    // "baseUrl": ".",
     "paths": {
-      "kui-vue": [
-        "./components/index.ts"
-      ],
-      "kui-vue/*": [
-        "./components/*"
-      ],
-      "@/*": [
-        "/*"
-      ]
-    },
+      "kui-vue": ["./components/index.ts"],
+      "kui-vue/*": ["./components/*"],
+      "@/*": ["/*"]
+    }
   },
   "vueCompilerOptions": {
     "target": 3.5,
@@ -58,11 +49,5 @@
     "plugins/**/*.ts",
     "vite.config*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "lib",
-    "es",
-    "types"
-  ]
+  "exclude": ["node_modules", "dist", "lib", "es", "types"]
 }

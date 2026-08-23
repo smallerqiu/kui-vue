@@ -3,7 +3,7 @@ export function getTransitionProp(name: string): TransitionProps {
   return {
     name,
     onBeforeEnter(el: RendererElement) {
-      el.style.overflow = 'hidden';
+      el.style.overflow = "hidden";
       el.style.height = "0";
       el.style.opacity = "0.1";
     },

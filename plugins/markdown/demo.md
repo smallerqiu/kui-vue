@@ -8,7 +8,6 @@ Similar to the Select selection control, when the selectable data structure is a
 
 ## Examples
 
-
 <Demo id="k-1e3ec072" direction="horizontal">
     <template #title>Basic Usage</template>
     <template #component><KuiDemo0 /></template>
@@ -17,7 +16,6 @@ Similar to the Select selection control, when the selectable data structure is a
       <p>The simplest usage.</p>
     </template>
 </Demo>
-
 
 <Demo id="k-1e3ec072" direction="horizontal">
     <template #title>Multiple Selection</template>
@@ -28,7 +26,6 @@ Similar to the Select selection control, when the selectable data structure is a
     </template>
 </Demo>
 
-
 <Demo id="k-1e3ec072" direction="horizontal">
     <template #title>Checkable</template>
     <template #component><KuiDemo2 /></template>
@@ -37,7 +34,6 @@ Similar to the Select selection control, when the selectable data structure is a
       <p>Use checkboxes to enable multiselection.</p>
     </template>
 </Demo>
-
 
 <Demo id="k-1e3ec072" direction="horizontal">
     <template #title>Disabled</template>
@@ -48,7 +44,6 @@ Similar to the Select selection control, when the selectable data structure is a
     </template>
 </Demo>
 
-
 <Demo id="k-1e3ec072" direction="horizontal">
     <template #title>Asynchronous Loading</template>
     <template #component><KuiDemo4 /></template>
@@ -58,7 +53,6 @@ Similar to the Select selection control, when the selectable data structure is a
     </template>
 </Demo>
 
-
 <Demo id="k-1e3ec072" direction="horizontal">
     <template #title>Size</template>
     <template #component><KuiDemo5 /></template>
@@ -67,7 +61,6 @@ Similar to the Select selection control, when the selectable data structure is a
       <p>The select box sizes are: <code>small</code>, <code>default</code>, <code>large</code>.</p>
     </template>
 </Demo>
-
 
 <Demo id="k-1e3ec072" direction="horizontal">
     <template #title>Weird Definition</template>
@@ -80,28 +73,28 @@ Similar to the Select selection control, when the selectable data structure is a
 
 ## TreeSelect API
 
-| Property         | Description                                                                     | Type                             | Default       |
-| ---------------- | ------------------------------------------------------------------------------- | -------------------------------- | ------------- |
-| modelValue       | Specify the `value` of the selected item, can use `v-model` for two-way binding | string, number, any[]            | -             |
-| width            | Component width                                                                 | string, number                   | -             |
-| placeholder      | Default text of selector                                                        | string                           | Please select |
-| disabled         | Whether current item is disabled                                                | boolean                            | false         |
-| size             | Component size, provides two sizes: `small`, `large`, default is normal         | string                           | -             |
-| emptyText        | Prompt displayed when no data                                                   | string                           | 'No data yet' |
-| multiple         | Whether to display in multiple selection mode                                   | boolean                            | false         |
-| loading          | Asynchronous loading state                                                      | boolean                            | false         |
-| clearable        | Whether options can be cleared                                                  | boolean                            | false         |
-| bordered         | Whether to show border                                                          | boolean                            | true          |
-| showArrow        | Whether to show dropdown button                                                 | boolean                            | true          |
-| theme            | The theme of TreeSelect                                                         | string                           | fill          |
-| icon             | Custom icon                                                                     | string                           | -             |
-| shape            | When shape='circle', displays rounded corners                                   | string                           | -             |
+| Property         | Description                                                                     | Type                              | Default       |
+| ---------------- | ------------------------------------------------------------------------------- | --------------------------------- | ------------- |
+| modelValue       | Specify the `value` of the selected item, can use `v-model` for two-way binding | string, number, any[]             | -             |
+| width            | Component width                                                                 | string, number                    | -             |
+| placeholder      | Default text of selector                                                        | string                            | Please select |
+| disabled         | Whether current item is disabled                                                | boolean                           | false         |
+| size             | Component size, provides two sizes: `small`, `large`, default is normal         | string                            | -             |
+| emptyText        | Prompt displayed when no data                                                   | string                            | 'No data yet' |
+| multiple         | Whether to display in multiple selection mode                                   | boolean                           | false         |
+| loading          | Asynchronous loading state                                                      | boolean                           | false         |
+| clearable        | Whether options can be cleared                                                  | boolean                           | false         |
+| bordered         | Whether to show border                                                          | boolean                           | true          |
+| showArrow        | Whether to show dropdown button                                                 | boolean                           | true          |
+| theme            | The theme of TreeSelect                                                         | string                            | fill          |
+| icon             | Custom icon                                                                     | string                            | -             |
+| shape            | When shape='circle', displays rounded corners                                   | string                            | -             |
 | treeLoadData     | Method to asynchronously load data                                              | (node: TreeNode) => Promise<any\> | -             |
-| treeData         | Array of nestable node properties, data to generate `tree`                      | TreeNode[]                       | []            |
-| treeCheckable    | Whether to show checkbox                                                        | boolean                            | false         |
-| showLine         | Whether to show connecting lines                                                | boolean                            | false         |
-| showIcon         | Whether to show icons                                                           | boolean                            | true          |
-| treeExpandedKeys | Specify expanded nodes                                                          | string[]                         | []            |
+| treeData         | Array of nestable node properties, data to generate `tree`                      | TreeNode[]                        | []            |
+| treeCheckable    | Whether to show checkbox                                                        | boolean                           | false         |
+| showLine         | Whether to show connecting lines                                                | boolean                           | false         |
+| showIcon         | Whether to show icons                                                           | boolean                           | true          |
+| treeExpandedKeys | Specify expanded nodes                                                          | string[]                          | []            |
 
 ## TreeSelect Events
 

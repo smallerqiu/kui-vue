@@ -69,7 +69,7 @@ Common controls use three shapes: `round`, `circle`, and `square`. When `shape` 
 If you need to switch the entire interface (including popup containers) to square, you can set `shape-mode="square"` on the root node. This uniformly overrides the border-radius tokens for controls, cards, and popups; the component's own `shape` is still used for local overrides. Elements with circular semantics, such as slider handles and status dots, will not be changed to square.
 
 ```html
-<html shape-mode="square">
+<html shape-mode="square"></html>
 ```
 
 ```css
@@ -97,15 +97,15 @@ Popups with trigger elements, such as Select, DatePicker, and Poptip, will autom
 <template>
   <div ref="themeRoot" theme-mode="dark">
     <ConfigProvider :getPopupContainer="() => themeRoot">
-      <Select :options="options" />
+      <select :options="options" />
     </ConfigProvider>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+  import { ref } from "vue";
 
-const themeRoot = ref<HTMLElement>();
+  const themeRoot = ref<HTMLElement>();
 </script>
 ```
 

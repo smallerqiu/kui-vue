@@ -9,7 +9,7 @@ export interface BannerPluginOptions {
    *
    * @since ^0.6.0 support for `ContentCallback` types
    */
-  content: string | ContentCallback
+  content: string | ContentCallback;
 
   /**
    * The output directory from the configuration of Vite.js
@@ -17,7 +17,7 @@ export interface BannerPluginOptions {
    * @default viteConfig.build.outDir
    * @see https://vitejs.dev/config/build-options.html#build-outdir
    */
-  outDir?: string
+  outDir?: string;
 
   /**
    * Whether to print error messages to the console
@@ -25,7 +25,7 @@ export interface BannerPluginOptions {
    * @since 0.4.0
    * @default false
    */
-  debug?: boolean
+  debug?: boolean;
 
   /**
    * By default, the validity of the content will be verified.
@@ -36,7 +36,7 @@ export interface BannerPluginOptions {
    * @default true
    * @see https://github.com/chengpeiquan/vite-plugin-banner/issues/13
    */
-  verify?: boolean
+  verify?: boolean;
 }
 
 /**
@@ -59,16 +59,16 @@ export interface BannerPluginOptions {
  *   1. When a valid string is returned, it will become the banner content
  *   2. Returning a Falsy value will skip processing(e.g. `''`, `null`, `undefined`)
  */
-export type ContentCallback = (fileName: string) => string | null | undefined
+export type ContentCallback = (fileName: string) => string | null | undefined;
 
-export type UnionPluginOptions = string | BannerPluginOptions | ContentCallback
+export type UnionPluginOptions = string | BannerPluginOptions | ContentCallback;
 
 /**
  * Configuration of the plugin's internal runtime
  */
 export interface PluginConfig {
-  content: string | ContentCallback
-  outDir: string
-  debug: boolean
-  verify: boolean
+  content: string | ContentCallback;
+  outDir: string;
+  debug: boolean;
+  verify: boolean;
 }

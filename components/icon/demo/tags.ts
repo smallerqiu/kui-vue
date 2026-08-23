@@ -1,46 +1,23 @@
 export const tags = [
   {
-    "name": "a-arrow-down",
-    "tags": [
-      "letter",
-      "font size",
-      "text",
-      "formatting",
-      "smaller"
-    ]
+    name: "a-arrow-down",
+    tags: ["letter", "font size", "text", "formatting", "smaller"],
   },
   {
-    "name": "a-arrow-up",
-    "tags": [
-      "letter",
-      "font size",
-      "text",
-      "formatting",
-      "larger",
-      "bigger"
-    ]
+    name: "a-arrow-up",
+    tags: ["letter", "font size", "text", "formatting", "larger", "bigger"],
   },
   {
-    "name": "a-large-small",
-    "tags": [
-      "letter",
-      "font size",
-      "text",
-      "formatting"
-    ]
+    name: "a-large-small",
+    tags: ["letter", "font size", "text", "formatting"],
   },
   {
-    "name": "accessibility",
-    "tags": [
-      "disability",
-      "disabled",
-      "dda",
-      "wheelchair"
-    ]
+    name: "accessibility",
+    tags: ["disability", "disabled", "dda", "wheelchair"],
   },
   {
-    "name": "activity",
-    "tags": [
+    name: "activity",
+    tags: [
       "pulse",
       "action",
       "motion",
@@ -67,69 +44,40 @@ export const tags = [
       "waveform",
       "synthesizer",
       "synthesiser",
-      "music"
-    ]
+      "music",
+    ],
   },
   {
-    "name": "air-vent",
-    "tags": [
-      "air conditioner",
-      "ac",
-      "central air",
-      "cooling",
-      "climate-control"
-    ]
+    name: "air-vent",
+    tags: ["air conditioner", "ac", "central air", "cooling", "climate-control"],
   },
   {
-    "name": "airplay",
-    "tags": [
-      "stream",
-      "cast",
-      "mirroring",
-      "screen",
-      "monitor",
-      "macos",
-      "osx"
-    ]
+    name: "airplay",
+    tags: ["stream", "cast", "mirroring", "screen", "monitor", "macos", "osx"],
   },
   {
-    "name": "alarm-clock-check",
-    "tags": [
-      "done",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
+    name: "alarm-clock-check",
+    tags: ["done", "todo", "tick", "complete", "task"],
   },
   {
-    "name": "alarm-clock-minus",
-    "tags": [
-      "remove"
-    ]
+    name: "alarm-clock-minus",
+    tags: ["remove"],
   },
   {
-    "name": "alarm-clock-off",
-    "tags": [
-      "morning",
-      "turn-off"
-    ]
+    name: "alarm-clock-off",
+    tags: ["morning", "turn-off"],
   },
   {
-    "name": "alarm-clock-plus",
-    "tags": [
-      "add"
-    ]
+    name: "alarm-clock-plus",
+    tags: ["add"],
   },
   {
-    "name": "alarm-clock",
-    "tags": [
-      "morning"
-    ]
+    name: "alarm-clock",
+    tags: ["morning"],
   },
   {
-    "name": "alarm-smoke",
-    "tags": [
+    name: "alarm-smoke",
+    tags: [
       "fire",
       "alert",
       "warning",
@@ -137,232 +85,104 @@ export const tags = [
       "carbon monoxide",
       "safety",
       "equipment",
-      "amenities"
-    ]
+      "amenities",
+    ],
   },
   {
-    "name": "album",
-    "tags": [
-      "photo",
-      "book"
-    ]
+    name: "album",
+    tags: ["photo", "book"],
   },
   {
-    "name": "align-center-horizontal",
-    "tags": [
-      "items",
-      "flex",
-      "justify"
-    ]
+    name: "align-center-horizontal",
+    tags: ["items", "flex", "justify"],
   },
   {
-    "name": "align-center-vertical",
-    "tags": [
-      "items",
-      "flex",
-      "justify"
-    ]
+    name: "align-center-vertical",
+    tags: ["items", "flex", "justify"],
   },
   {
-    "name": "align-end-horizontal",
-    "tags": [
-      "items",
-      "bottom",
-      "flex",
-      "justify"
-    ]
+    name: "align-end-horizontal",
+    tags: ["items", "bottom", "flex", "justify"],
   },
   {
-    "name": "align-end-vertical",
-    "tags": [
-      "items",
-      "right",
-      "flex",
-      "justify"
-    ]
+    name: "align-end-vertical",
+    tags: ["items", "right", "flex", "justify"],
   },
   {
-    "name": "align-horizontal-distribute-center",
-    "tags": [
-      "items",
-      "flex",
-      "justify",
-      "space",
-      "evenly",
-      "around"
-    ]
+    name: "align-horizontal-distribute-center",
+    tags: ["items", "flex", "justify", "space", "evenly", "around"],
   },
   {
-    "name": "align-horizontal-distribute-end",
-    "tags": [
-      "right",
-      "items",
-      "flex",
-      "justify"
-    ]
+    name: "align-horizontal-distribute-end",
+    tags: ["right", "items", "flex", "justify"],
   },
   {
-    "name": "align-horizontal-distribute-start",
-    "tags": [
-      "left",
-      "items",
-      "flex",
-      "justify"
-    ]
+    name: "align-horizontal-distribute-start",
+    tags: ["left", "items", "flex", "justify"],
   },
   {
-    "name": "align-horizontal-justify-center",
-    "tags": [
-      "center",
-      "items",
-      "flex",
-      "justify"
-    ]
+    name: "align-horizontal-justify-center",
+    tags: ["center", "items", "flex", "justify"],
   },
   {
-    "name": "align-horizontal-justify-end",
-    "tags": [
-      "right",
-      "items",
-      "flex",
-      "justify"
-    ]
+    name: "align-horizontal-justify-end",
+    tags: ["right", "items", "flex", "justify"],
   },
   {
-    "name": "align-horizontal-justify-start",
-    "tags": [
-      "left",
-      "items",
-      "flex",
-      "justify"
-    ]
+    name: "align-horizontal-justify-start",
+    tags: ["left", "items", "flex", "justify"],
   },
   {
-    "name": "align-horizontal-space-around",
-    "tags": [
-      "center",
-      "items",
-      "flex",
-      "justify",
-      "distribute",
-      "between"
-    ]
+    name: "align-horizontal-space-around",
+    tags: ["center", "items", "flex", "justify", "distribute", "between"],
   },
   {
-    "name": "align-horizontal-space-between",
-    "tags": [
-      "around",
-      "items",
-      "bottom",
-      "flex",
-      "justify"
-    ]
+    name: "align-horizontal-space-between",
+    tags: ["around", "items", "bottom", "flex", "justify"],
   },
   {
-    "name": "align-start-horizontal",
-    "tags": [
-      "top",
-      "items",
-      "flex",
-      "justify"
-    ]
+    name: "align-start-horizontal",
+    tags: ["top", "items", "flex", "justify"],
   },
   {
-    "name": "align-start-vertical",
-    "tags": [
-      "left",
-      "items",
-      "flex",
-      "justify"
-    ]
+    name: "align-start-vertical",
+    tags: ["left", "items", "flex", "justify"],
   },
   {
-    "name": "align-vertical-distribute-center",
-    "tags": [
-      "items",
-      "flex",
-      "justify",
-      "space",
-      "evenly",
-      "around"
-    ]
+    name: "align-vertical-distribute-center",
+    tags: ["items", "flex", "justify", "space", "evenly", "around"],
   },
   {
-    "name": "align-vertical-distribute-end",
-    "tags": [
-      "bottom",
-      "items",
-      "flex",
-      "justify"
-    ]
+    name: "align-vertical-distribute-end",
+    tags: ["bottom", "items", "flex", "justify"],
   },
   {
-    "name": "align-vertical-distribute-start",
-    "tags": [
-      "top",
-      "items",
-      "flex",
-      "justify"
-    ]
+    name: "align-vertical-distribute-start",
+    tags: ["top", "items", "flex", "justify"],
   },
   {
-    "name": "align-vertical-justify-center",
-    "tags": [
-      "center",
-      "items",
-      "flex",
-      "justify",
-      "distribute",
-      "between"
-    ]
+    name: "align-vertical-justify-center",
+    tags: ["center", "items", "flex", "justify", "distribute", "between"],
   },
   {
-    "name": "align-vertical-justify-end",
-    "tags": [
-      "bottom",
-      "items",
-      "flex",
-      "justify",
-      "distribute",
-      "between"
-    ]
+    name: "align-vertical-justify-end",
+    tags: ["bottom", "items", "flex", "justify", "distribute", "between"],
   },
   {
-    "name": "align-vertical-justify-start",
-    "tags": [
-      "top",
-      "items",
-      "flex",
-      "justify",
-      "distribute",
-      "between"
-    ]
+    name: "align-vertical-justify-start",
+    tags: ["top", "items", "flex", "justify", "distribute", "between"],
   },
   {
-    "name": "align-vertical-space-around",
-    "tags": [
-      "center",
-      "items",
-      "flex",
-      "justify",
-      "distribute",
-      "between"
-    ]
+    name: "align-vertical-space-around",
+    tags: ["center", "items", "flex", "justify", "distribute", "between"],
   },
   {
-    "name": "align-vertical-space-between",
-    "tags": [
-      "center",
-      "items",
-      "flex",
-      "justify",
-      "distribute",
-      "between"
-    ]
+    name: "align-vertical-space-between",
+    tags: ["center", "items", "flex", "justify", "distribute", "between"],
   },
   {
-    "name": "ambulance",
-    "tags": [
+    name: "ambulance",
+    tags: [
       "ambulance",
       "emergency",
       "medical",
@@ -372,34 +192,20 @@ export const tags = [
       "transportation",
       "rescue",
       "urgent",
-      "first aid"
-    ]
+      "first aid",
+    ],
   },
   {
-    "name": "ampersand",
-    "tags": [
-      "and",
-      "typography",
-      "operator",
-      "join",
-      "concatenate",
-      "code",
-      "&"
-    ]
+    name: "ampersand",
+    tags: ["and", "typography", "operator", "join", "concatenate", "code", "&"],
   },
   {
-    "name": "ampersands",
-    "tags": [
-      "and",
-      "operator",
-      "then",
-      "code",
-      "&&"
-    ]
+    name: "ampersands",
+    tags: ["and", "operator", "then", "code", "&&"],
   },
   {
-    "name": "amphora",
-    "tags": [
+    name: "amphora",
+    tags: [
       "pottery",
       "artifact",
       "artefact",
@@ -409,36 +215,24 @@ export const tags = [
       "archaeology",
       "museum",
       "wine",
-      "oil"
-    ]
+      "oil",
+    ],
   },
   {
-    "name": "anchor",
-    "tags": [
-      "ship"
-    ]
+    name: "anchor",
+    tags: ["ship"],
   },
   {
-    "name": "angry",
-    "tags": [
-      "emoji",
-      "anger",
-      "face",
-      "emotion"
-    ]
+    name: "angry",
+    tags: ["emoji", "anger", "face", "emotion"],
   },
   {
-    "name": "annoyed",
-    "tags": [
-      "emoji",
-      "nuisance",
-      "face",
-      "emotion"
-    ]
+    name: "annoyed",
+    tags: ["emoji", "nuisance", "face", "emotion"],
   },
   {
-    "name": "antenna",
-    "tags": [
+    name: "antenna",
+    tags: [
       "signal",
       "connection",
       "connectivity",
@@ -456,57 +250,28 @@ export const tags = [
       "transducer",
       "terrestrial",
       "satellite",
-      "cable"
-    ]
+      "cable",
+    ],
   },
   {
-    "name": "anvil",
-    "tags": [
-      "metal",
-      "iron",
-      "alloy",
-      "materials",
-      "heavy",
-      "weight",
-      "blacksmith",
-      "forge",
-      "acme"
-    ]
+    name: "anvil",
+    tags: ["metal", "iron", "alloy", "materials", "heavy", "weight", "blacksmith", "forge", "acme"],
   },
   {
-    "name": "aperture",
-    "tags": [
-      "camera",
-      "photo",
-      "pictures",
-      "shutter",
-      "exposure"
-    ]
+    name: "aperture",
+    tags: ["camera", "photo", "pictures", "shutter", "exposure"],
   },
   {
-    "name": "app-window-mac",
-    "tags": [
-      "application",
-      "menu bar",
-      "pane",
-      "preferences",
-      "macos",
-      "osx",
-      "executable"
-    ]
+    name: "app-window-mac",
+    tags: ["application", "menu bar", "pane", "preferences", "macos", "osx", "executable"],
   },
   {
-    "name": "app-window",
-    "tags": [
-      "application",
-      "menu bar",
-      "pane",
-      "executable"
-    ]
+    name: "app-window",
+    tags: ["application", "menu bar", "pane", "executable"],
   },
   {
-    "name": "apple",
-    "tags": [
+    name: "apple",
+    tags: [
       "fruit",
       "food",
       "healthy",
@@ -528,117 +293,52 @@ export const tags = [
       "plant",
       "core",
       "raw",
-      "diet"
-    ]
+      "diet",
+    ],
   },
   {
-    "name": "archive-restore",
-    "tags": [
-      "unarchive",
-      "index",
-      "backup",
-      "box",
-      "storage",
-      "records"
-    ]
+    name: "archive-restore",
+    tags: ["unarchive", "index", "backup", "box", "storage", "records"],
   },
   {
-    "name": "archive-x",
-    "tags": [
-      "index",
-      "backup",
-      "box",
-      "storage",
-      "records",
-      "junk"
-    ]
+    name: "archive-x",
+    tags: ["index", "backup", "box", "storage", "records", "junk"],
   },
   {
-    "name": "archive",
-    "tags": [
-      "index",
-      "backup",
-      "box",
-      "storage",
-      "records"
-    ]
+    name: "archive",
+    tags: ["index", "backup", "box", "storage", "records"],
   },
   {
-    "name": "armchair",
-    "tags": [
-      "sofa",
-      "furniture",
-      "leisure",
-      "lounge",
-      "loveseat",
-      "couch"
-    ]
+    name: "armchair",
+    tags: ["sofa", "furniture", "leisure", "lounge", "loveseat", "couch"],
   },
   {
-    "name": "arrow-big-down-dash",
-    "tags": [
-      "backwards",
-      "reverse",
-      "slow",
-      "direction",
-      "south",
-      "download"
-    ]
+    name: "arrow-big-down-dash",
+    tags: ["backwards", "reverse", "slow", "direction", "south", "download"],
   },
   {
-    "name": "arrow-big-down",
-    "tags": [
-      "backwards",
-      "reverse",
-      "direction",
-      "south"
-    ]
+    name: "arrow-big-down",
+    tags: ["backwards", "reverse", "direction", "south"],
   },
   {
-    "name": "arrow-big-left-dash",
-    "tags": [
-      "previous",
-      "back",
-      "direction",
-      "west",
-      "turn",
-      "corner"
-    ]
+    name: "arrow-big-left-dash",
+    tags: ["previous", "back", "direction", "west", "turn", "corner"],
   },
   {
-    "name": "arrow-big-left",
-    "tags": [
-      "previous",
-      "back",
-      "direction",
-      "west",
-      "indicate turn"
-    ]
+    name: "arrow-big-left",
+    tags: ["previous", "back", "direction", "west", "indicate turn"],
   },
   {
-    "name": "arrow-big-right-dash",
-    "tags": [
-      "next",
-      "forward",
-      "direction",
-      "east",
-      "turn",
-      "corner"
-    ]
+    name: "arrow-big-right-dash",
+    tags: ["next", "forward", "direction", "east", "turn", "corner"],
   },
   {
-    "name": "arrow-big-right",
-    "tags": [
-      "next",
-      "forward",
-      "direction",
-      "east",
-      "indicate turn"
-    ]
+    name: "arrow-big-right",
+    tags: ["next", "forward", "direction", "east", "indicate turn"],
   },
   {
-    "name": "arrow-big-up-dash",
-    "tags": [
+    name: "arrow-big-up-dash",
+    tags: [
       "caps lock",
       "capitals",
       "keyboard",
@@ -649,12 +349,12 @@ export const tags = [
       "north",
       "faster",
       "speed",
-      "boost"
-    ]
+      "boost",
+    ],
   },
   {
-    "name": "arrow-big-up",
-    "tags": [
+    name: "arrow-big-up",
+    tags: [
       "shift",
       "keyboard",
       "button",
@@ -663,12 +363,12 @@ export const tags = [
       "capitalise",
       "forward",
       "direction",
-      "north"
-    ]
+      "north",
+    ],
   },
   {
-    "name": "arrow-down-0-1",
-    "tags": [
+    name: "arrow-down-0-1",
+    tags: [
       "filter",
       "sort",
       "ascending",
@@ -677,12 +377,12 @@ export const tags = [
       "decreasing",
       "rising",
       "falling",
-      "numerical"
-    ]
+      "numerical",
+    ],
   },
   {
-    "name": "arrow-down-1-0",
-    "tags": [
+    name: "arrow-down-1-0",
+    tags: [
       "filter",
       "sort",
       "ascending",
@@ -691,12 +391,12 @@ export const tags = [
       "decreasing",
       "rising",
       "falling",
-      "numerical"
-    ]
+      "numerical",
+    ],
   },
   {
-    "name": "arrow-down-a-z",
-    "tags": [
+    name: "arrow-down-a-z",
+    tags: [
       "filter",
       "sort",
       "ascending",
@@ -705,33 +405,20 @@ export const tags = [
       "decreasing",
       "rising",
       "falling",
-      "alphabetical"
-    ]
+      "alphabetical",
+    ],
   },
   {
-    "name": "arrow-down-from-line",
-    "tags": [
-      "backwards",
-      "reverse",
-      "direction",
-      "south",
-      "download",
-      "expand",
-      "fold",
-      "vertical"
-    ]
+    name: "arrow-down-from-line",
+    tags: ["backwards", "reverse", "direction", "south", "download", "expand", "fold", "vertical"],
   },
   {
-    "name": "arrow-down-left",
-    "tags": [
-      "direction",
-      "south-west",
-      "diagonal"
-    ]
+    name: "arrow-down-left",
+    tags: ["direction", "south-west", "diagonal"],
   },
   {
-    "name": "arrow-down-narrow-wide",
-    "tags": [
+    name: "arrow-down-narrow-wide",
+    tags: [
       "filter",
       "sort",
       "ascending",
@@ -739,31 +426,20 @@ export const tags = [
       "increasing",
       "decreasing",
       "rising",
-      "falling"
-    ]
+      "falling",
+    ],
   },
   {
-    "name": "arrow-down-right",
-    "tags": [
-      "direction",
-      "south-east",
-      "diagonal"
-    ]
+    name: "arrow-down-right",
+    tags: ["direction", "south-east", "diagonal"],
   },
   {
-    "name": "arrow-down-to-dot",
-    "tags": [
-      "direction",
-      "south",
-      "waypoint",
-      "location",
-      "step",
-      "into"
-    ]
+    name: "arrow-down-to-dot",
+    tags: ["direction", "south", "waypoint", "location", "step", "into"],
   },
   {
-    "name": "arrow-down-to-line",
-    "tags": [
+    name: "arrow-down-to-line",
+    tags: [
       "behind",
       "direction",
       "south",
@@ -774,12 +450,12 @@ export const tags = [
       "pull",
       "collapse",
       "fold",
-      "vertical"
-    ]
+      "vertical",
+    ],
   },
   {
-    "name": "arrow-down-up",
-    "tags": [
+    name: "arrow-down-up",
+    tags: [
       "bidirectional",
       "two-way",
       "2-way",
@@ -792,12 +468,12 @@ export const tags = [
       "internet",
       "sort",
       "reorder",
-      "move"
-    ]
+      "move",
+    ],
   },
   {
-    "name": "arrow-down-wide-narrow",
-    "tags": [
+    name: "arrow-down-wide-narrow",
+    tags: [
       "filter",
       "sort",
       "ascending",
@@ -805,12 +481,12 @@ export const tags = [
       "increasing",
       "decreasing",
       "rising",
-      "falling"
-    ]
+      "falling",
+    ],
   },
   {
-    "name": "arrow-down-z-a",
-    "tags": [
+    name: "arrow-down-z-a",
+    tags: [
       "filter",
       "sort",
       "ascending",
@@ -820,34 +496,20 @@ export const tags = [
       "rising",
       "falling",
       "alphabetical",
-      "reverse"
-    ]
-  },
-  {
-    "name": "arrow-down",
-    "tags": [
-      "backwards",
       "reverse",
-      "direction",
-      "south"
-    ]
+    ],
   },
   {
-    "name": "arrow-left-from-line",
-    "tags": [
-      "previous",
-      "back",
-      "direction",
-      "west",
-      "expand",
-      "fold",
-      "horizontal",
-      "<-|"
-    ]
+    name: "arrow-down",
+    tags: ["backwards", "reverse", "direction", "south"],
   },
   {
-    "name": "arrow-left-right",
-    "tags": [
+    name: "arrow-left-from-line",
+    tags: ["previous", "back", "direction", "west", "expand", "fold", "horizontal", "<-|"],
+  },
+  {
+    name: "arrow-left-right",
+    tags: [
       "bidirectional",
       "two-way",
       "2-way",
@@ -857,49 +519,24 @@ export const tags = [
       "reorder",
       "move",
       "<-",
-      "->"
-    ]
+      "->",
+    ],
   },
   {
-    "name": "arrow-left-to-line",
-    "tags": [
-      "previous",
-      "back",
-      "direction",
-      "west",
-      "collapse",
-      "fold",
-      "horizontal",
-      "|<-"
-    ]
+    name: "arrow-left-to-line",
+    tags: ["previous", "back", "direction", "west", "collapse", "fold", "horizontal", "|<-"],
   },
   {
-    "name": "arrow-left",
-    "tags": [
-      "previous",
-      "back",
-      "direction",
-      "west",
-      "<-"
-    ]
+    name: "arrow-left",
+    tags: ["previous", "back", "direction", "west", "<-"],
   },
   {
-    "name": "arrow-right-from-line",
-    "tags": [
-      "next",
-      "forward",
-      "direction",
-      "east",
-      "export",
-      "expand",
-      "fold",
-      "horizontal",
-      "|->"
-    ]
+    name: "arrow-right-from-line",
+    tags: ["next", "forward", "direction", "east", "export", "expand", "fold", "horizontal", "|->"],
   },
   {
-    "name": "arrow-right-left",
-    "tags": [
+    name: "arrow-right-left",
+    tags: [
       "bidirectional",
       "two-way",
       "2-way",
@@ -909,12 +546,12 @@ export const tags = [
       "reorder",
       "move",
       "<-",
-      "->"
-    ]
+      "->",
+    ],
   },
   {
-    "name": "arrow-right-to-line",
-    "tags": [
+    name: "arrow-right-to-line",
+    tags: [
       "next",
       "forward",
       "direction",
@@ -926,22 +563,16 @@ export const tags = [
       "collapse",
       "fold",
       "horizontal",
-      "->|"
-    ]
+      "->|",
+    ],
   },
   {
-    "name": "arrow-right",
-    "tags": [
-      "forward",
-      "next",
-      "direction",
-      "east",
-      "->"
-    ]
+    name: "arrow-right",
+    tags: ["forward", "next", "direction", "east", "->"],
   },
   {
-    "name": "arrow-up-0-1",
-    "tags": [
+    name: "arrow-up-0-1",
+    tags: [
       "filter",
       "sort",
       "ascending",
@@ -950,12 +581,12 @@ export const tags = [
       "decreasing",
       "rising",
       "falling",
-      "numerical"
-    ]
+      "numerical",
+    ],
   },
   {
-    "name": "arrow-up-1-0",
-    "tags": [
+    name: "arrow-up-1-0",
+    tags: [
       "filter",
       "sort",
       "ascending",
@@ -964,12 +595,12 @@ export const tags = [
       "decreasing",
       "rising",
       "falling",
-      "numerical"
-    ]
+      "numerical",
+    ],
   },
   {
-    "name": "arrow-up-a-z",
-    "tags": [
+    name: "arrow-up-a-z",
+    tags: [
       "filter",
       "sort",
       "ascending",
@@ -978,12 +609,12 @@ export const tags = [
       "decreasing",
       "rising",
       "falling",
-      "alphabetical"
-    ]
+      "alphabetical",
+    ],
   },
   {
-    "name": "arrow-up-down",
-    "tags": [
+    name: "arrow-up-down",
+    tags: [
       "bidirectional",
       "two-way",
       "2-way",
@@ -994,21 +625,16 @@ export const tags = [
       "internet",
       "sort",
       "reorder",
-      "move"
-    ]
+      "move",
+    ],
   },
   {
-    "name": "arrow-up-from-dot",
-    "tags": [
-      "direction",
-      "north",
-      "step",
-      "out"
-    ]
+    name: "arrow-up-from-dot",
+    tags: ["direction", "north", "step", "out"],
   },
   {
-    "name": "arrow-up-from-line",
-    "tags": [
+    name: "arrow-up-from-line",
+    tags: [
       "forward",
       "direction",
       "north",
@@ -1018,20 +644,16 @@ export const tags = [
       "push",
       "expand",
       "fold",
-      "vertical"
-    ]
+      "vertical",
+    ],
   },
   {
-    "name": "arrow-up-left",
-    "tags": [
-      "direction",
-      "north-west",
-      "diagonal"
-    ]
+    name: "arrow-up-left",
+    tags: ["direction", "north-west", "diagonal"],
   },
   {
-    "name": "arrow-up-narrow-wide",
-    "tags": [
+    name: "arrow-up-narrow-wide",
+    tags: [
       "filter",
       "sort",
       "ascending",
@@ -1039,32 +661,20 @@ export const tags = [
       "increasing",
       "decreasing",
       "rising",
-      "falling"
-    ]
+      "falling",
+    ],
   },
   {
-    "name": "arrow-up-right",
-    "tags": [
-      "direction",
-      "north-east",
-      "diagonal"
-    ]
+    name: "arrow-up-right",
+    tags: ["direction", "north-east", "diagonal"],
   },
   {
-    "name": "arrow-up-to-line",
-    "tags": [
-      "forward",
-      "direction",
-      "north",
-      "upload",
-      "collapse",
-      "fold",
-      "vertical"
-    ]
+    name: "arrow-up-to-line",
+    tags: ["forward", "direction", "north", "upload", "collapse", "fold", "vertical"],
   },
   {
-    "name": "arrow-up-wide-narrow",
-    "tags": [
+    name: "arrow-up-wide-narrow",
+    tags: [
       "filter",
       "sort",
       "ascending",
@@ -1072,12 +682,12 @@ export const tags = [
       "increasing",
       "decreasing",
       "rising",
-      "falling"
-    ]
+      "falling",
+    ],
   },
   {
-    "name": "arrow-up-z-a",
-    "tags": [
+    name: "arrow-up-z-a",
+    tags: [
       "filter",
       "sort",
       "ascending",
@@ -1087,20 +697,16 @@ export const tags = [
       "rising",
       "falling",
       "alphabetical",
-      "reverse"
-    ]
+      "reverse",
+    ],
   },
   {
-    "name": "arrow-up",
-    "tags": [
-      "forward",
-      "direction",
-      "north"
-    ]
+    name: "arrow-up",
+    tags: ["forward", "direction", "north"],
   },
   {
-    "name": "arrows-up-from-line",
-    "tags": [
+    name: "arrows-up-from-line",
+    tags: [
       "direction",
       "orientation",
       "this way up",
@@ -1109,12 +715,12 @@ export const tags = [
       "box",
       "fragile",
       "postage",
-      "shipping"
-    ]
+      "shipping",
+    ],
   },
   {
-    "name": "asterisk",
-    "tags": [
+    name: "asterisk",
+    tags: [
       "reference",
       "times",
       "multiply",
@@ -1123,22 +729,16 @@ export const tags = [
       "code",
       "glob pattern",
       "wildcard",
-      "*"
-    ]
+      "*",
+    ],
   },
   {
-    "name": "at-sign",
-    "tags": [
-      "mention",
-      "at",
-      "email",
-      "message",
-      "@"
-    ]
+    name: "at-sign",
+    tags: ["mention", "at", "email", "message", "@"],
   },
   {
-    "name": "atom",
-    "tags": [
+    name: "atom",
+    tags: [
       "atomic",
       "nuclear",
       "physics",
@@ -1147,12 +747,12 @@ export const tags = [
       "molecule",
       "electricity",
       "energy",
-      "chemistry"
-    ]
+      "chemistry",
+    ],
   },
   {
-    "name": "audio-lines",
-    "tags": [
+    name: "audio-lines",
+    tags: [
       "graphic equaliser",
       "sound",
       "noise",
@@ -1175,12 +775,12 @@ export const tags = [
       "voice",
       "vocals",
       "singer",
-      "song"
-    ]
+      "song",
+    ],
   },
   {
-    "name": "audio-waveform",
-    "tags": [
+    name: "audio-waveform",
+    tags: [
       "sound",
       "noise",
       "listen",
@@ -1202,22 +802,16 @@ export const tags = [
       "voice",
       "vocals",
       "singer",
-      "song"
-    ]
+      "song",
+    ],
   },
   {
-    "name": "award",
-    "tags": [
-      "achievement",
-      "badge",
-      "rosette",
-      "prize",
-      "winner"
-    ]
+    name: "award",
+    tags: ["achievement", "badge", "rosette", "prize", "winner"],
   },
   {
-    "name": "axe",
-    "tags": [
+    name: "axe",
+    tags: [
       "hatchet",
       "weapon",
       "chop",
@@ -1229,49 +823,28 @@ export const tags = [
       "lumberjack",
       "woodcutter",
       "logger",
-      "forestry"
-    ]
+      "forestry",
+    ],
   },
   {
-    "name": "axis-3d",
-    "tags": [
-      "gizmo",
-      "coordinates"
-    ]
+    name: "axis-3d",
+    tags: ["gizmo", "coordinates"],
   },
   {
-    "name": "baby",
-    "tags": [
-      "child",
-      "childproof",
-      "children"
-    ]
+    name: "baby",
+    tags: ["child", "childproof", "children"],
   },
   {
-    "name": "backpack",
-    "tags": [
-      "bag",
-      "hiking",
-      "travel",
-      "camping",
-      "school",
-      "childhood"
-    ]
+    name: "backpack",
+    tags: ["bag", "hiking", "travel", "camping", "school", "childhood"],
   },
   {
-    "name": "badge-alert",
-    "tags": [
-      "check",
-      "verified",
-      "unverified",
-      "security",
-      "safety",
-      "issue"
-    ]
+    name: "badge-alert",
+    tags: ["check", "verified", "unverified", "security", "safety", "issue"],
   },
   {
-    "name": "badge-cent",
-    "tags": [
+    name: "badge-cent",
+    tags: [
       "discount",
       "offer",
       "sale",
@@ -1288,19 +861,16 @@ export const tags = [
       "dollar",
       "usd",
       "$",
-      "¢"
-    ]
+      "¢",
+    ],
   },
   {
-    "name": "badge-check",
-    "tags": [
-      "verified",
-      "check"
-    ]
+    name: "badge-check",
+    tags: ["verified", "check"],
   },
   {
-    "name": "badge-dollar-sign",
-    "tags": [
+    name: "badge-dollar-sign",
+    tags: [
       "discount",
       "offer",
       "sale",
@@ -1314,12 +884,12 @@ export const tags = [
       "transaction",
       "payment",
       "usd",
-      "$"
-    ]
+      "$",
+    ],
   },
   {
-    "name": "badge-euro",
-    "tags": [
+    name: "badge-euro",
+    tags: [
       "discount",
       "offer",
       "sale",
@@ -1332,12 +902,12 @@ export const tags = [
       "exchange",
       "transaction",
       "payment",
-      "€"
-    ]
+      "€",
+    ],
   },
   {
-    "name": "badge-indian-rupee",
-    "tags": [
+    name: "badge-indian-rupee",
+    tags: [
       "discount",
       "offer",
       "sale",
@@ -1351,20 +921,16 @@ export const tags = [
       "transaction",
       "payment",
       "inr",
-      "₹"
-    ]
+      "₹",
+    ],
   },
   {
-    "name": "badge-info",
-    "tags": [
-      "verified",
-      "unverified",
-      "help"
-    ]
+    name: "badge-info",
+    tags: ["verified", "unverified", "help"],
   },
   {
-    "name": "badge-japanese-yen",
-    "tags": [
+    name: "badge-japanese-yen",
+    tags: [
       "discount",
       "offer",
       "sale",
@@ -1378,22 +944,16 @@ export const tags = [
       "transaction",
       "payment",
       "jpy",
-      "¥"
-    ]
+      "¥",
+    ],
   },
   {
-    "name": "badge-minus",
-    "tags": [
-      "verified",
-      "unverified",
-      "delete",
-      "remove",
-      "erase"
-    ]
+    name: "badge-minus",
+    tags: ["verified", "unverified", "delete", "remove", "erase"],
   },
   {
-    "name": "badge-percent",
-    "tags": [
+    name: "badge-percent",
+    tags: [
       "verified",
       "unverified",
       "sale",
@@ -1401,22 +961,16 @@ export const tags = [
       "offer",
       "marketing",
       "sticker",
-      "price tag"
-    ]
+      "price tag",
+    ],
   },
   {
-    "name": "badge-plus",
-    "tags": [
-      "verified",
-      "unverified",
-      "add",
-      "create",
-      "new"
-    ]
+    name: "badge-plus",
+    tags: ["verified", "unverified", "add", "create", "new"],
   },
   {
-    "name": "badge-pound-sterling",
-    "tags": [
+    name: "badge-pound-sterling",
+    tags: [
       "discount",
       "offer",
       "sale",
@@ -1431,20 +985,16 @@ export const tags = [
       "payment",
       "british",
       "gbp",
-      "£"
-    ]
+      "£",
+    ],
   },
   {
-    "name": "badge-question-mark",
-    "tags": [
-      "verified",
-      "unverified",
-      "help"
-    ]
+    name: "badge-question-mark",
+    tags: ["verified", "unverified", "help"],
   },
   {
-    "name": "badge-russian-ruble",
-    "tags": [
+    name: "badge-russian-ruble",
+    tags: [
       "discount",
       "offer",
       "sale",
@@ -1458,12 +1008,12 @@ export const tags = [
       "transaction",
       "payment",
       "rub",
-      "₽"
-    ]
+      "₽",
+    ],
   },
   {
-    "name": "badge-swiss-franc",
-    "tags": [
+    name: "badge-swiss-franc",
+    tags: [
       "discount",
       "offer",
       "sale",
@@ -1477,12 +1027,12 @@ export const tags = [
       "transaction",
       "payment",
       "chf",
-      "₣"
-    ]
+      "₣",
+    ],
   },
   {
-    "name": "badge-turkish-lira",
-    "tags": [
+    name: "badge-turkish-lira",
+    tags: [
       "discount",
       "offer",
       "sale",
@@ -1496,41 +1046,24 @@ export const tags = [
       "transaction",
       "payment",
       "try",
-      "₺"
-    ]
+      "₺",
+    ],
   },
   {
-    "name": "badge-x",
-    "tags": [
-      "verified",
-      "unverified",
-      "lost",
-      "delete",
-      "remove"
-    ]
+    name: "badge-x",
+    tags: ["verified", "unverified", "lost", "delete", "remove"],
   },
   {
-    "name": "badge",
-    "tags": [
-      "check",
-      "verified",
-      "unverified"
-    ]
+    name: "badge",
+    tags: ["check", "verified", "unverified"],
   },
   {
-    "name": "baggage-claim",
-    "tags": [
-      "baggage",
-      "luggage",
-      "travel",
-      "cart",
-      "trolley",
-      "suitcase"
-    ]
+    name: "baggage-claim",
+    tags: ["baggage", "luggage", "travel", "cart", "trolley", "suitcase"],
   },
   {
-    "name": "balloon",
-    "tags": [
+    name: "balloon",
+    tags: [
       "party",
       "festival",
       "congratulations",
@@ -1541,12 +1074,12 @@ export const tags = [
       "fun",
       "birthday",
       "event",
-      "entertainment"
-    ]
+      "entertainment",
+    ],
   },
   {
-    "name": "ban",
-    "tags": [
+    name: "ban",
+    tags: [
       "cancel",
       "no",
       "stop",
@@ -1560,19 +1093,16 @@ export const tags = [
       "circle",
       "slash",
       "null",
-      "void"
-    ]
+      "void",
+    ],
   },
   {
-    "name": "banana",
-    "tags": [
-      "fruit",
-      "food"
-    ]
+    name: "banana",
+    tags: ["fruit", "food"],
   },
   {
-    "name": "bandage",
-    "tags": [
+    name: "bandage",
+    tags: [
       "plaster",
       "band-aid",
       "first aid",
@@ -1587,12 +1117,12 @@ export const tags = [
       "emergency",
       "aid",
       "safety",
-      "patch"
-    ]
+      "patch",
+    ],
   },
   {
-    "name": "banknote-arrow-down",
-    "tags": [
+    name: "banknote-arrow-down",
+    tags: [
       "bill",
       "currency",
       "money",
@@ -1608,12 +1138,12 @@ export const tags = [
       "refund",
       "debit",
       "spending",
-      "decrease"
-    ]
+      "decrease",
+    ],
   },
   {
-    "name": "banknote-arrow-up",
-    "tags": [
+    name: "banknote-arrow-up",
+    tags: [
       "bill",
       "currency",
       "money",
@@ -1629,12 +1159,12 @@ export const tags = [
       "credit",
       "prepaid",
       "growth",
-      "increase"
-    ]
+      "increase",
+    ],
   },
   {
-    "name": "banknote-x",
-    "tags": [
+    name: "banknote-x",
+    tags: [
       "bill",
       "currency",
       "money",
@@ -1650,20 +1180,16 @@ export const tags = [
       "declined",
       "lost",
       "delete",
-      "remove"
-    ]
+      "remove",
+    ],
   },
   {
-    "name": "banknote",
-    "tags": [
-      "currency",
-      "money",
-      "payment"
-    ]
+    name: "banknote",
+    tags: ["currency", "money", "payment"],
   },
   {
-    "name": "barcode",
-    "tags": [
+    name: "barcode",
+    tags: [
       "scan",
       "checkout",
       "till",
@@ -1674,12 +1200,12 @@ export const tags = [
       "product",
       "packaging",
       "retail",
-      "consumer"
-    ]
+      "consumer",
+    ],
   },
   {
-    "name": "barrel",
-    "tags": [
+    name: "barrel",
+    tags: [
       "keg",
       "drum",
       "tank",
@@ -1697,69 +1223,36 @@ export const tags = [
       "brewery",
       "distillery",
       "winery",
-      "vineyard"
-    ]
+      "vineyard",
+    ],
   },
   {
-    "name": "baseline",
-    "tags": [
-      "text",
-      "format",
-      "color"
-    ]
+    name: "baseline",
+    tags: ["text", "format", "color"],
   },
   {
-    "name": "bath",
-    "tags": [
-      "amenities",
-      "services",
-      "bathroom",
-      "shower"
-    ]
+    name: "bath",
+    tags: ["amenities", "services", "bathroom", "shower"],
   },
   {
-    "name": "battery-charging",
-    "tags": [
-      "power",
-      "electricity",
-      "energy",
-      "accumulator",
-      "charge"
-    ]
+    name: "battery-charging",
+    tags: ["power", "electricity", "energy", "accumulator", "charge"],
   },
   {
-    "name": "battery-full",
-    "tags": [
-      "power",
-      "electricity",
-      "energy",
-      "accumulator",
-      "charge"
-    ]
+    name: "battery-full",
+    tags: ["power", "electricity", "energy", "accumulator", "charge"],
   },
   {
-    "name": "battery-low",
-    "tags": [
-      "power",
-      "electricity",
-      "energy",
-      "accumulator",
-      "charge"
-    ]
+    name: "battery-low",
+    tags: ["power", "electricity", "energy", "accumulator", "charge"],
   },
   {
-    "name": "battery-medium",
-    "tags": [
-      "power",
-      "electricity",
-      "energy",
-      "accumulator",
-      "charge"
-    ]
+    name: "battery-medium",
+    tags: ["power", "electricity", "energy", "accumulator", "charge"],
   },
   {
-    "name": "battery-plus",
-    "tags": [
+    name: "battery-plus",
+    tags: [
       "power",
       "electricity",
       "energy",
@@ -1773,146 +1266,64 @@ export const tags = [
       "maximum",
       "upgrade",
       "extra",
-      "+"
-    ]
+      "+",
+    ],
   },
   {
-    "name": "battery-warning",
-    "tags": [
-      "power",
-      "electricity",
-      "energy",
-      "accumulator",
-      "charge",
-      "exclamation mark"
-    ]
+    name: "battery-warning",
+    tags: ["power", "electricity", "energy", "accumulator", "charge", "exclamation mark"],
   },
   {
-    "name": "battery",
-    "tags": [
-      "power",
-      "electricity",
-      "energy",
-      "accumulator",
-      "charge"
-    ]
+    name: "battery",
+    tags: ["power", "electricity", "energy", "accumulator", "charge"],
   },
   {
-    "name": "beaker",
-    "tags": [
-      "cup",
-      "lab",
-      "chemistry",
-      "experiment",
-      "test"
-    ]
+    name: "beaker",
+    tags: ["cup", "lab", "chemistry", "experiment", "test"],
   },
   {
-    "name": "bean-off",
-    "tags": [
-      "soy free",
-      "legume",
-      "soy",
-      "food",
-      "seed",
-      "allergy",
-      "intolerance",
-      "diet"
-    ]
+    name: "bean-off",
+    tags: ["soy free", "legume", "soy", "food", "seed", "allergy", "intolerance", "diet"],
   },
   {
-    "name": "bean",
-    "tags": [
-      "legume",
-      "soy",
-      "food",
-      "seed"
-    ]
+    name: "bean",
+    tags: ["legume", "soy", "food", "seed"],
   },
   {
-    "name": "bed-double",
-    "tags": [
-      "sleep",
-      "hotel",
-      "furniture"
-    ]
+    name: "bed-double",
+    tags: ["sleep", "hotel", "furniture"],
   },
   {
-    "name": "bed-single",
-    "tags": [
-      "sleep",
-      "hotel",
-      "furniture"
-    ]
+    name: "bed-single",
+    tags: ["sleep", "hotel", "furniture"],
   },
   {
-    "name": "bed",
-    "tags": [
-      "sleep",
-      "hotel",
-      "furniture"
-    ]
+    name: "bed",
+    tags: ["sleep", "hotel", "furniture"],
   },
   {
-    "name": "beef-off",
-    "tags": [
-      "food",
-      "dish",
-      "restaurant",
-      "course",
-      "meal",
-      "meat",
-      "bbq",
-      "steak",
-      "vegetarian"
-    ]
+    name: "beef-off",
+    tags: ["food", "dish", "restaurant", "course", "meal", "meat", "bbq", "steak", "vegetarian"],
   },
   {
-    "name": "beef",
-    "tags": [
-      "food",
-      "dish",
-      "restaurant",
-      "course",
-      "meal",
-      "meat",
-      "bbq",
-      "steak"
-    ]
+    name: "beef",
+    tags: ["food", "dish", "restaurant", "course", "meal", "meat", "bbq", "steak"],
   },
   {
-    "name": "beer-off",
-    "tags": [
-      "alcohol",
-      "bar",
-      "beverage",
-      "brewery",
-      "drink"
-    ]
+    name: "beer-off",
+    tags: ["alcohol", "bar", "beverage", "brewery", "drink"],
   },
   {
-    "name": "beer",
-    "tags": [
-      "alcohol",
-      "bar",
-      "beverage",
-      "brewery",
-      "drink"
-    ]
+    name: "beer",
+    tags: ["alcohol", "bar", "beverage", "brewery", "drink"],
   },
   {
-    "name": "bell-dot",
-    "tags": [
-      "alarm",
-      "notification",
-      "sound",
-      "reminder",
-      "unread"
-    ]
+    name: "bell-dot",
+    tags: ["alarm", "notification", "sound", "reminder", "unread"],
   },
   {
-    "name": "bell-electric",
-    "tags": [
+    name: "bell-electric",
+    tags: [
       "fire alarm",
       "flames",
       "smoke",
@@ -1931,62 +1342,32 @@ export const tags = [
       "entrance",
       "entry",
       "ring",
-      "reception"
-    ]
+      "reception",
+    ],
   },
   {
-    "name": "bell-minus",
-    "tags": [
-      "alarm",
-      "notification",
-      "silent",
-      "reminder",
-      "delete",
-      "remove",
-      "erase"
-    ]
+    name: "bell-minus",
+    tags: ["alarm", "notification", "silent", "reminder", "delete", "remove", "erase"],
   },
   {
-    "name": "bell-off",
-    "tags": [
-      "alarm",
-      "notification",
-      "silent",
-      "reminder"
-    ]
+    name: "bell-off",
+    tags: ["alarm", "notification", "silent", "reminder"],
   },
   {
-    "name": "bell-plus",
-    "tags": [
-      "notification",
-      "silent",
-      "reminder",
-      "add",
-      "create",
-      "new"
-    ]
+    name: "bell-plus",
+    tags: ["notification", "silent", "reminder", "add", "create", "new"],
   },
   {
-    "name": "bell-ring",
-    "tags": [
-      "alarm",
-      "notification",
-      "sound",
-      "reminder"
-    ]
+    name: "bell-ring",
+    tags: ["alarm", "notification", "sound", "reminder"],
   },
   {
-    "name": "bell",
-    "tags": [
-      "alarm",
-      "notification",
-      "sound",
-      "reminder"
-    ]
+    name: "bell",
+    tags: ["alarm", "notification", "sound", "reminder"],
   },
   {
-    "name": "between-horizontal-end",
-    "tags": [
+    name: "between-horizontal-end",
+    tags: [
       "insert",
       "add",
       "left",
@@ -2007,12 +1388,12 @@ export const tags = [
       "entries",
       "blocks",
       "rectangles",
-      "chevron"
-    ]
+      "chevron",
+    ],
   },
   {
-    "name": "between-horizontal-start",
-    "tags": [
+    name: "between-horizontal-start",
+    tags: [
       "insert",
       "add",
       "right",
@@ -2033,12 +1414,12 @@ export const tags = [
       "entries",
       "blocks",
       "rectangles",
-      "chevron"
-    ]
+      "chevron",
+    ],
   },
   {
-    "name": "between-vertical-end",
-    "tags": [
+    name: "between-vertical-end",
+    tags: [
       "insert",
       "add",
       "top",
@@ -2056,12 +1437,12 @@ export const tags = [
       "entries",
       "blocks",
       "rectangles",
-      "chevron"
-    ]
+      "chevron",
+    ],
   },
   {
-    "name": "between-vertical-start",
-    "tags": [
+    name: "between-vertical-start",
+    tags: [
       "insert",
       "add",
       "bottom",
@@ -2079,12 +1460,12 @@ export const tags = [
       "entries",
       "blocks",
       "rectangles",
-      "chevron"
-    ]
+      "chevron",
+    ],
   },
   {
-    "name": "biceps-flexed",
-    "tags": [
+    name: "biceps-flexed",
+    tags: [
       "arm",
       "muscle",
       "strong",
@@ -2093,31 +1474,20 @@ export const tags = [
       "toned",
       "muscular",
       "forelimb",
-      "curled"
-    ]
+      "curled",
+    ],
   },
   {
-    "name": "bike",
-    "tags": [
-      "bicycle",
-      "transport",
-      "trip"
-    ]
+    name: "bike",
+    tags: ["bicycle", "transport", "trip"],
   },
   {
-    "name": "binary",
-    "tags": [
-      "code",
-      "digits",
-      "computer",
-      "zero",
-      "one",
-      "boolean"
-    ]
+    name: "binary",
+    tags: ["code", "digits", "computer", "zero", "one", "boolean"],
   },
   {
-    "name": "binoculars",
-    "tags": [
+    name: "binoculars",
+    tags: [
       "field glasses",
       "lorgnette",
       "pince-nez",
@@ -2135,44 +1505,24 @@ export const tags = [
       "viewpoint",
       "travel",
       "tourism",
-      "research"
-    ]
+      "research",
+    ],
   },
   {
-    "name": "biohazard",
-    "tags": [
-      "fallout",
-      "waste",
-      "biology",
-      "chemistry",
-      "chemical",
-      "element"
-    ]
+    name: "biohazard",
+    tags: ["fallout", "waste", "biology", "chemistry", "chemical", "element"],
   },
   {
-    "name": "bird",
-    "tags": [
-      "peace",
-      "freedom",
-      "wing",
-      "avian",
-      "tweet"
-    ]
+    name: "bird",
+    tags: ["peace", "freedom", "wing", "avian", "tweet"],
   },
   {
-    "name": "birdhouse",
-    "tags": [
-      "birdhouse",
-      "bird",
-      "garden",
-      "home",
-      "house",
-      "woodwork"
-    ]
+    name: "birdhouse",
+    tags: ["birdhouse", "bird", "garden", "home", "house", "woodwork"],
   },
   {
-    "name": "bitcoin",
-    "tags": [
+    name: "bitcoin",
+    tags: [
       "cryptocurrency",
       "digital",
       "blockchain",
@@ -2184,12 +1534,12 @@ export const tags = [
       "crypto",
       "currency",
       "money",
-      "payment"
-    ]
+      "payment",
+    ],
   },
   {
-    "name": "blend",
-    "tags": [
+    name: "blend",
+    tags: [
       "mode",
       "overlay",
       "multiply",
@@ -2207,12 +1557,12 @@ export const tags = [
       "brightness",
       "overlap",
       "colors",
-      "colours"
-    ]
+      "colours",
+    ],
   },
   {
-    "name": "blinds",
-    "tags": [
+    name: "blinds",
+    tags: [
       "shades",
       "screen",
       "curtain",
@@ -2221,12 +1571,12 @@ export const tags = [
       "window",
       "lighting",
       "household",
-      "home"
-    ]
+      "home",
+    ],
   },
   {
-    "name": "blocks",
-    "tags": [
+    name: "blocks",
+    tags: [
       "addon",
       "plugin",
       "integration",
@@ -2239,44 +1589,32 @@ export const tags = [
       "children",
       "learning",
       "squares",
-      "corner"
-    ]
+      "corner",
+    ],
   },
   {
-    "name": "bluetooth-connected",
-    "tags": [
-      "paired"
-    ]
+    name: "bluetooth-connected",
+    tags: ["paired"],
   },
   {
-    "name": "bluetooth-off",
-    "tags": [
-      "lost"
-    ]
+    name: "bluetooth-off",
+    tags: ["lost"],
   },
   {
-    "name": "bluetooth-searching",
-    "tags": [
-      "pairing"
-    ]
+    name: "bluetooth-searching",
+    tags: ["pairing"],
   },
   {
-    "name": "bluetooth",
-    "tags": [
-      "wireless"
-    ]
+    name: "bluetooth",
+    tags: ["wireless"],
   },
   {
-    "name": "bold",
-    "tags": [
-      "text",
-      "strong",
-      "format"
-    ]
+    name: "bold",
+    tags: ["text", "strong", "format"],
   },
   {
-    "name": "bolt",
-    "tags": [
+    name: "bolt",
+    tags: [
       "nut",
       "screw",
       "settings",
@@ -2288,36 +1626,20 @@ export const tags = [
       "fixed",
       "build",
       "construction",
-      "parts"
-    ]
+      "parts",
+    ],
   },
   {
-    "name": "bomb",
-    "tags": [
-      "fatal",
-      "error",
-      "crash",
-      "blockbuster",
-      "mine",
-      "explosion",
-      "explode",
-      "explosive"
-    ]
+    name: "bomb",
+    tags: ["fatal", "error", "crash", "blockbuster", "mine", "explosion", "explode", "explosive"],
   },
   {
-    "name": "bone",
-    "tags": [
-      "health",
-      "skeleton",
-      "skull",
-      "death",
-      "pets",
-      "dog"
-    ]
+    name: "bone",
+    tags: ["health", "skeleton", "skull", "death", "pets", "dog"],
   },
   {
-    "name": "book-a",
-    "tags": [
+    name: "book-a",
+    tags: [
       "dictionary",
       "define",
       "definition",
@@ -2355,12 +1677,12 @@ export const tags = [
       "translate",
       "alphabetical",
       "a-z",
-      "ordered"
-    ]
+      "ordered",
+    ],
   },
   {
-    "name": "book-alert",
-    "tags": [
+    name: "book-alert",
+    tags: [
       "reading",
       "paperback",
       "booklet",
@@ -2393,12 +1715,12 @@ export const tags = [
       "warning",
       "alert",
       "danger",
-      "exclamation mark"
-    ]
+      "exclamation mark",
+    ],
   },
   {
-    "name": "book-audio",
-    "tags": [
+    name: "book-audio",
+    tags: [
       "audiobook",
       "reading",
       "listening",
@@ -2412,12 +1734,12 @@ export const tags = [
       "student",
       "study",
       "learning",
-      "research"
-    ]
+      "research",
+    ],
   },
   {
-    "name": "book-check",
-    "tags": [
+    name: "book-check",
+    tags: [
       "read",
       "booklet",
       "magazine",
@@ -2454,12 +1776,12 @@ export const tags = [
       "done",
       "completed",
       "finished",
-      "ticked"
-    ]
+      "ticked",
+    ],
   },
   {
-    "name": "book-copy",
-    "tags": [
+    name: "book-copy",
+    tags: [
       "code",
       "coding",
       "version control",
@@ -2493,12 +1815,12 @@ export const tags = [
       "research",
       "smart",
       "intelligent",
-      "intellectual"
-    ]
+      "intellectual",
+    ],
   },
   {
-    "name": "book-dashed",
-    "tags": [
+    name: "book-dashed",
+    tags: [
       "code",
       "coding",
       "version control",
@@ -2513,23 +1835,16 @@ export const tags = [
       "author",
       "unwritten",
       "unpublished",
-      "untold"
-    ]
+      "untold",
+    ],
   },
   {
-    "name": "book-down",
-    "tags": [
-      "code",
-      "coding",
-      "version control",
-      "git",
-      "repository",
-      "pull"
-    ]
+    name: "book-down",
+    tags: ["code", "coding", "version control", "git", "repository", "pull"],
   },
   {
-    "name": "book-headphones",
-    "tags": [
+    name: "book-headphones",
+    tags: [
       "audiobook",
       "reading",
       "listening",
@@ -2543,12 +1858,12 @@ export const tags = [
       "student",
       "study",
       "learning",
-      "research"
-    ]
+      "research",
+    ],
   },
   {
-    "name": "book-heart",
-    "tags": [
+    name: "book-heart",
+    tags: [
       "diary",
       "romance",
       "novel",
@@ -2581,12 +1896,12 @@ export const tags = [
       "reading",
       "favorite",
       "favourite",
-      "high school"
-    ]
+      "high school",
+    ],
   },
   {
-    "name": "book-image",
-    "tags": [
+    name: "book-image",
+    tags: [
       "images",
       "pictures",
       "photos",
@@ -2598,12 +1913,12 @@ export const tags = [
       "catalogue",
       "brochure",
       "browse",
-      "gallery"
-    ]
+      "gallery",
+    ],
   },
   {
-    "name": "book-key",
-    "tags": [
+    name: "book-key",
+    tags: [
       "code",
       "coding",
       "version control",
@@ -2616,12 +1931,12 @@ export const tags = [
       "hidden",
       "revealed",
       "knowledge",
-      "learning"
-    ]
+      "learning",
+    ],
   },
   {
-    "name": "book-lock",
-    "tags": [
+    name: "book-lock",
+    tags: [
       "code",
       "coding",
       "version control",
@@ -2630,12 +1945,12 @@ export const tags = [
       "private",
       "secret",
       "hidden",
-      "knowledge"
-    ]
+      "knowledge",
+    ],
   },
   {
-    "name": "book-marked",
-    "tags": [
+    name: "book-marked",
+    tags: [
       "dictionary",
       "reading",
       "booklet",
@@ -2674,12 +1989,12 @@ export const tags = [
       "coding",
       "version control",
       "git",
-      "repository"
-    ]
+      "repository",
+    ],
   },
   {
-    "name": "book-minus",
-    "tags": [
+    name: "book-minus",
+    tags: [
       "code",
       "coding",
       "version control",
@@ -2695,12 +2010,12 @@ export const tags = [
       "uneducated",
       "re-educate",
       "unlearn",
-      "downgrade"
-    ]
+      "downgrade",
+    ],
   },
   {
-    "name": "book-open-check",
-    "tags": [
+    name: "book-open-check",
+    tags: [
       "read",
       "pages",
       "booklet",
@@ -2738,12 +2053,12 @@ export const tags = [
       "done",
       "completed",
       "finished",
-      "ticked"
-    ]
+      "ticked",
+    ],
   },
   {
-    "name": "book-open-text",
-    "tags": [
+    name: "book-open-text",
+    tags: [
       "reading",
       "pages",
       "booklet",
@@ -2772,12 +2087,12 @@ export const tags = [
       "homework",
       "research",
       "documentation",
-      "revealed"
-    ]
+      "revealed",
+    ],
   },
   {
-    "name": "book-open",
-    "tags": [
+    name: "book-open",
+    tags: [
       "reading",
       "pages",
       "booklet",
@@ -2809,12 +2124,12 @@ export const tags = [
       "documentation",
       "revealed",
       "blank",
-      "plain"
-    ]
+      "plain",
+    ],
   },
   {
-    "name": "book-plus",
-    "tags": [
+    name: "book-plus",
+    tags: [
       "code",
       "coding",
       "version control",
@@ -2835,12 +2150,12 @@ export const tags = [
       "knowledge",
       "improve",
       "upgrade",
-      "level up"
-    ]
+      "level up",
+    ],
   },
   {
-    "name": "book-search",
-    "tags": [
+    name: "book-search",
+    tags: [
       "reading",
       "library",
       "study",
@@ -2851,12 +2166,12 @@ export const tags = [
       "browsing",
       "lookup",
       "finding",
-      "scanning"
-    ]
+      "scanning",
+    ],
   },
   {
-    "name": "book-text",
-    "tags": [
+    name: "book-text",
+    tags: [
       "reading",
       "booklet",
       "magazine",
@@ -2884,12 +2199,12 @@ export const tags = [
       "learning",
       "homework",
       "research",
-      "documentation"
-    ]
+      "documentation",
+    ],
   },
   {
-    "name": "book-type",
-    "tags": [
+    name: "book-type",
+    tags: [
       "thesaurus",
       "synonym",
       "reading",
@@ -2923,35 +2238,20 @@ export const tags = [
       "translate",
       "typography",
       "fonts",
-      "collection"
-    ]
+      "collection",
+    ],
   },
   {
-    "name": "book-up-2",
-    "tags": [
-      "code",
-      "coding",
-      "version control",
-      "git",
-      "repository",
-      "push",
-      "force"
-    ]
+    name: "book-up-2",
+    tags: ["code", "coding", "version control", "git", "repository", "push", "force"],
   },
   {
-    "name": "book-up",
-    "tags": [
-      "code",
-      "coding",
-      "version control",
-      "git",
-      "repository",
-      "push"
-    ]
+    name: "book-up",
+    tags: ["code", "coding", "version control", "git", "repository", "push"],
   },
   {
-    "name": "book-user",
-    "tags": [
+    name: "book-user",
+    tags: [
       "person",
       "people",
       "family",
@@ -2963,12 +2263,12 @@ export const tags = [
       "phone numbers",
       "directory",
       "listing",
-      "networking"
-    ]
+      "networking",
+    ],
   },
   {
-    "name": "book-x",
-    "tags": [
+    name: "book-x",
+    tags: [
       "code",
       "coding",
       "version control",
@@ -2993,12 +2293,12 @@ export const tags = [
       "banned",
       "uneducated",
       "re-education",
-      "unlearn"
-    ]
+      "unlearn",
+    ],
   },
   {
-    "name": "book",
-    "tags": [
+    name: "book",
+    tags: [
       "reading",
       "paperback",
       "booklet",
@@ -3027,32 +2327,20 @@ export const tags = [
       "learning",
       "homework",
       "research",
-      "documentation"
-    ]
+      "documentation",
+    ],
   },
   {
-    "name": "bookmark-check",
-    "tags": [
-      "read",
-      "finished",
-      "complete",
-      "clip",
-      "marker",
-      "tag",
-      "task",
-      "todo"
-    ]
+    name: "bookmark-check",
+    tags: ["read", "finished", "complete", "clip", "marker", "tag", "task", "todo"],
   },
   {
-    "name": "bookmark-minus",
-    "tags": [
-      "delete",
-      "remove"
-    ]
+    name: "bookmark-minus",
+    tags: ["delete", "remove"],
   },
   {
-    "name": "bookmark-off",
-    "tags": [
+    name: "bookmark-off",
+    tags: [
       "unsaved",
       "unfavorite",
       "unmarked",
@@ -3063,32 +2351,20 @@ export const tags = [
       "unread",
       "unclip",
       "marker",
-      "untag"
-    ]
+      "untag",
+    ],
   },
   {
-    "name": "bookmark-plus",
-    "tags": [
-      "add"
-    ]
+    name: "bookmark-plus",
+    tags: ["add"],
   },
   {
-    "name": "bookmark-x",
-    "tags": [
-      "read",
-      "clip",
-      "marker",
-      "tag",
-      "cancel",
-      "close",
-      "delete",
-      "remove",
-      "clear"
-    ]
+    name: "bookmark-x",
+    tags: ["read", "clip", "marker", "tag", "cancel", "close", "delete", "remove", "clear"],
   },
   {
-    "name": "bookmark",
-    "tags": [
+    name: "bookmark",
+    tags: [
       "save",
       "favorite",
       "mark",
@@ -3100,52 +2376,28 @@ export const tags = [
       "read",
       "clip",
       "marker",
-      "tag"
-    ]
+      "tag",
+    ],
   },
   {
-    "name": "boom-box",
-    "tags": [
-      "radio",
-      "speakers",
-      "audio",
-      "music",
-      "sound",
-      "broadcast",
-      "live",
-      "frequency"
-    ]
+    name: "boom-box",
+    tags: ["radio", "speakers", "audio", "music", "sound", "broadcast", "live", "frequency"],
   },
   {
-    "name": "bot-message-square",
-    "tags": [
-      "robot",
-      "ai",
-      "chat",
-      "assistant"
-    ]
+    name: "bot-message-square",
+    tags: ["robot", "ai", "chat", "assistant"],
   },
   {
-    "name": "bot-off",
-    "tags": [
-      "robot",
-      "ai",
-      "chat",
-      "assistant"
-    ]
+    name: "bot-off",
+    tags: ["robot", "ai", "chat", "assistant"],
   },
   {
-    "name": "bot",
-    "tags": [
-      "robot",
-      "ai",
-      "chat",
-      "assistant"
-    ]
+    name: "bot",
+    tags: ["robot", "ai", "chat", "assistant"],
   },
   {
-    "name": "bottle-wine",
-    "tags": [
+    name: "bottle-wine",
+    tags: [
       "alcohol",
       "drink",
       "glass",
@@ -3165,95 +2417,56 @@ export const tags = [
       "sommelier",
       "restaurant",
       "dinner",
-      "meal"
-    ]
+      "meal",
+    ],
   },
   {
-    "name": "bow-arrow",
-    "tags": [
-      "archer",
-      "archery",
-      "game",
-      "war",
-      "weapon"
-    ]
+    name: "bow-arrow",
+    tags: ["archer", "archery", "game", "war", "weapon"],
   },
   {
-    "name": "box",
-    "tags": [
-      "cube",
-      "package",
-      "container",
-      "storage",
-      "geometry",
-      "3d",
-      "isometric"
-    ]
+    name: "box",
+    tags: ["cube", "package", "container", "storage", "geometry", "3d", "isometric"],
   },
   {
-    "name": "boxes",
-    "tags": [
-      "cubes",
-      "packages",
-      "parts",
-      "group",
-      "units",
-      "collection",
-      "cluster",
-      "geometry"
-    ]
+    name: "boxes",
+    tags: ["cubes", "packages", "parts", "group", "units", "collection", "cluster", "geometry"],
   },
   {
-    "name": "braces",
-    "tags": [
-      "json",
-      "code",
-      "token",
-      "curly brackets",
-      "data",
-      "{",
-      "}"
-    ]
+    name: "braces",
+    tags: ["json", "code", "token", "curly brackets", "data", "{", "}"],
   },
   {
-    "name": "brackets",
-    "tags": [
-      "code",
-      "token",
-      "array",
-      "list",
-      "square",
-      "[",
-      "]"
-    ]
+    name: "brackets",
+    tags: ["code", "token", "array", "list", "square", "[", "]"],
   },
   {
-    "name": "brain-circuit",
-    "tags": [
+    name: "brain-circuit",
+    tags: [
       "mind",
       "intellect",
       "artificial intelligence",
       "ai",
       "deep learning",
       "machine learning",
-      "computing"
-    ]
+      "computing",
+    ],
   },
   {
-    "name": "brain-cog",
-    "tags": [
+    name: "brain-cog",
+    tags: [
       "mind",
       "intellect",
       "artificial intelligence",
       "ai",
       "deep learning",
       "machine learning",
-      "computing"
-    ]
+      "computing",
+    ],
   },
   {
-    "name": "brain",
-    "tags": [
+    name: "brain",
+    tags: [
       "medical",
       "mind",
       "mental",
@@ -3267,12 +2480,12 @@ export const tags = [
       "thought",
       "insight",
       "intelligent",
-      "smart"
-    ]
+      "smart",
+    ],
   },
   {
-    "name": "brick-wall-fire",
-    "tags": [
+    name: "brick-wall-fire",
+    tags: [
       "firewall",
       "security",
       "bricks",
@@ -3293,12 +2506,12 @@ export const tags = [
       "warmth",
       "wood",
       "twigs",
-      "sticks"
-    ]
+      "sticks",
+    ],
   },
   {
-    "name": "brick-wall-shield",
-    "tags": [
+    name: "brick-wall-shield",
+    tags: [
       "firewall",
       "security",
       "bricks",
@@ -3352,12 +2565,12 @@ export const tags = [
       "military",
       "army",
       "cadet",
-      "scout"
-    ]
+      "scout",
+    ],
   },
   {
-    "name": "brick-wall",
-    "tags": [
+    name: "brick-wall",
+    tags: [
       "bricks",
       "mortar",
       "cement",
@@ -3367,64 +2580,32 @@ export const tags = [
       "labourer",
       "quantity surveyor",
       "blocks",
-      "stone"
-    ]
+      "stone",
+    ],
   },
   {
-    "name": "briefcase-business",
-    "tags": [
-      "work",
-      "bag",
-      "baggage",
-      "folder",
-      "portfolio"
-    ]
+    name: "briefcase-business",
+    tags: ["work", "bag", "baggage", "folder", "portfolio"],
   },
   {
-    "name": "briefcase-conveyor-belt",
-    "tags": [
-      "baggage",
-      "luggage",
-      "travel",
-      "suitcase",
-      "conveyor",
-      "carousel"
-    ]
+    name: "briefcase-conveyor-belt",
+    tags: ["baggage", "luggage", "travel", "suitcase", "conveyor", "carousel"],
   },
   {
-    "name": "briefcase-medical",
-    "tags": [
-      "doctor",
-      "medicine",
-      "first aid"
-    ]
+    name: "briefcase-medical",
+    tags: ["doctor", "medicine", "first aid"],
   },
   {
-    "name": "briefcase",
-    "tags": [
-      "work",
-      "bag",
-      "baggage",
-      "folder"
-    ]
+    name: "briefcase",
+    tags: ["work", "bag", "baggage", "folder"],
   },
   {
-    "name": "bring-to-front",
-    "tags": [
-      "bring",
-      "send",
-      "move",
-      "over",
-      "forward",
-      "front",
-      "overlap",
-      "layer",
-      "order"
-    ]
+    name: "bring-to-front",
+    tags: ["bring", "send", "move", "over", "forward", "front", "overlap", "layer", "order"],
   },
   {
-    "name": "brush-cleaning",
-    "tags": [
+    name: "brush-cleaning",
+    tags: [
       "cleaning",
       "utensil",
       "housekeeping",
@@ -3455,25 +2636,16 @@ export const tags = [
       "empty",
       "erase",
       "purge",
-      "eliminate"
-    ]
+      "eliminate",
+    ],
   },
   {
-    "name": "brush",
-    "tags": [
-      "clean",
-      "sweep",
-      "refactor",
-      "remove",
-      "draw",
-      "paint",
-      "color",
-      "artist"
-    ]
+    name: "brush",
+    tags: ["clean", "sweep", "refactor", "remove", "draw", "paint", "color", "artist"],
   },
   {
-    "name": "bubbles",
-    "tags": [
+    name: "bubbles",
+    tags: [
       "water",
       "cleaning",
       "soap",
@@ -3493,12 +2665,12 @@ export const tags = [
       "bubbly",
       "fluid",
       "floating",
-      "drop"
-    ]
+      "drop",
+    ],
   },
   {
-    "name": "bug-off",
-    "tags": [
+    name: "bug-off",
+    tags: [
       "issue",
       "fixed",
       "resolved",
@@ -3508,23 +2680,16 @@ export const tags = [
       "insect",
       "kill",
       "exterminate",
-      "pest control"
-    ]
+      "pest control",
+    ],
   },
   {
-    "name": "bug-play",
-    "tags": [
-      "issue",
-      "testing",
-      "debug",
-      "reproduce",
-      "code",
-      "insect"
-    ]
+    name: "bug-play",
+    tags: ["issue", "testing", "debug", "reproduce", "code", "insect"],
   },
   {
-    "name": "bug",
-    "tags": [
+    name: "bug",
+    tags: [
       "issue",
       "error",
       "defect",
@@ -3535,59 +2700,40 @@ export const tags = [
       "debug",
       "code",
       "insect",
-      "beetle"
-    ]
+      "beetle",
+    ],
   },
   {
-    "name": "building-2",
-    "tags": [
+    name: "building-2",
+    tags: [
       "business",
       "company",
       "enterprise",
       "skyscraper",
       "organisation",
       "organization",
-      "city"
-    ]
+      "city",
+    ],
   },
   {
-    "name": "building",
-    "tags": [
-      "organisation",
-      "organization"
-    ]
+    name: "building",
+    tags: ["organisation", "organization"],
   },
   {
-    "name": "bus-front",
-    "tags": [
-      "coach",
-      "vehicle",
-      "trip",
-      "road"
-    ]
+    name: "bus-front",
+    tags: ["coach", "vehicle", "trip", "road"],
   },
   {
-    "name": "bus",
-    "tags": [
-      "bus",
-      "vehicle",
-      "transport",
-      "trip"
-    ]
+    name: "bus",
+    tags: ["bus", "vehicle", "transport", "trip"],
   },
   {
-    "name": "cable-car",
-    "tags": [
-      "ski lift",
-      "winter holiday",
-      "alpine",
-      "resort",
-      "mountains"
-    ]
+    name: "cable-car",
+    tags: ["ski lift", "winter holiday", "alpine", "resort", "mountains"],
   },
   {
-    "name": "cable",
-    "tags": [
+    name: "cable",
+    tags: [
       "cord",
       "wire",
       "connector",
@@ -3616,12 +2762,12 @@ export const tags = [
       "scart",
       "tv",
       "television",
-      "optical"
-    ]
+      "optical",
+    ],
   },
   {
-    "name": "cake-slice",
-    "tags": [
+    name: "cake-slice",
+    tags: [
       "birthday",
       "birthdate",
       "celebration",
@@ -3634,12 +2780,12 @@ export const tags = [
       "fondant",
       "icing sugar",
       "sweet",
-      "baking"
-    ]
+      "baking",
+    ],
   },
   {
-    "name": "cake",
-    "tags": [
+    name: "cake",
+    tags: [
       "birthday",
       "birthdate",
       "celebration",
@@ -3650,33 +2796,20 @@ export const tags = [
       "fondant",
       "icing sugar",
       "sweet",
-      "baking"
-    ]
+      "baking",
+    ],
   },
   {
-    "name": "calculator",
-    "tags": [
-      "count",
-      "calculating machine"
-    ]
+    name: "calculator",
+    tags: ["count", "calculating machine"],
   },
   {
-    "name": "calendar-1",
-    "tags": [
-      "date",
-      "month",
-      "year",
-      "event",
-      "single",
-      "singular",
-      "once",
-      "1",
-      "first"
-    ]
+    name: "calendar-1",
+    tags: ["date", "month", "year", "event", "single", "singular", "once", "1", "first"],
   },
   {
-    "name": "calendar-arrow-down",
-    "tags": [
+    name: "calendar-arrow-down",
+    tags: [
       "date",
       "month",
       "year",
@@ -3688,12 +2821,12 @@ export const tags = [
       "increasing",
       "decreasing",
       "rising",
-      "falling"
-    ]
+      "falling",
+    ],
   },
   {
-    "name": "calendar-arrow-up",
-    "tags": [
+    name: "calendar-arrow-up",
+    tags: [
       "date",
       "month",
       "year",
@@ -3705,12 +2838,12 @@ export const tags = [
       "increasing",
       "decreasing",
       "rising",
-      "falling"
-    ]
+      "falling",
+    ],
   },
   {
-    "name": "calendar-check-2",
-    "tags": [
+    name: "calendar-check-2",
+    tags: [
       "date",
       "day",
       "month",
@@ -3723,12 +2856,12 @@ export const tags = [
       "todo",
       "tick",
       "complete",
-      "task"
-    ]
+      "task",
+    ],
   },
   {
-    "name": "calendar-check",
-    "tags": [
+    name: "calendar-check",
+    tags: [
       "date",
       "day",
       "month",
@@ -3741,159 +2874,60 @@ export const tags = [
       "todo",
       "tick",
       "complete",
-      "task"
-    ]
+      "task",
+    ],
   },
   {
-    "name": "calendar-clock",
-    "tags": [
-      "date",
-      "day",
-      "month",
-      "year",
-      "event",
-      "clock",
-      "hour"
-    ]
+    name: "calendar-clock",
+    tags: ["date", "day", "month", "year", "event", "clock", "hour"],
   },
   {
-    "name": "calendar-cog",
-    "tags": [
-      "date",
-      "day",
-      "month",
-      "year",
-      "events",
-      "settings",
-      "gear",
-      "cog"
-    ]
+    name: "calendar-cog",
+    tags: ["date", "day", "month", "year", "events", "settings", "gear", "cog"],
   },
   {
-    "name": "calendar-days",
-    "tags": [
-      "date",
-      "month",
-      "year",
-      "event"
-    ]
+    name: "calendar-days",
+    tags: ["date", "month", "year", "event"],
   },
   {
-    "name": "calendar-fold",
-    "tags": [
-      "date",
-      "month",
-      "year",
-      "event",
-      "birthday",
-      "birthdate",
-      "ics"
-    ]
+    name: "calendar-fold",
+    tags: ["date", "month", "year", "event", "birthday", "birthdate", "ics"],
   },
   {
-    "name": "calendar-heart",
-    "tags": [
-      "date",
-      "month",
-      "year",
-      "event",
-      "heart",
-      "favourite",
-      "subscribe",
-      "valentines day"
-    ]
+    name: "calendar-heart",
+    tags: ["date", "month", "year", "event", "heart", "favourite", "subscribe", "valentines day"],
   },
   {
-    "name": "calendar-minus-2",
-    "tags": [
-      "date",
-      "day",
-      "month",
-      "year",
-      "event",
-      "delete",
-      "remove"
-    ]
+    name: "calendar-minus-2",
+    tags: ["date", "day", "month", "year", "event", "delete", "remove"],
   },
   {
-    "name": "calendar-minus",
-    "tags": [
-      "date",
-      "day",
-      "month",
-      "year",
-      "event",
-      "delete",
-      "remove"
-    ]
+    name: "calendar-minus",
+    tags: ["date", "day", "month", "year", "event", "delete", "remove"],
   },
   {
-    "name": "calendar-off",
-    "tags": [
-      "date",
-      "day",
-      "month",
-      "year",
-      "event",
-      "delete",
-      "remove"
-    ]
+    name: "calendar-off",
+    tags: ["date", "day", "month", "year", "event", "delete", "remove"],
   },
   {
-    "name": "calendar-plus-2",
-    "tags": [
-      "date",
-      "day",
-      "month",
-      "year",
-      "event",
-      "add",
-      "subscribe",
-      "create",
-      "new"
-    ]
+    name: "calendar-plus-2",
+    tags: ["date", "day", "month", "year", "event", "add", "subscribe", "create", "new"],
   },
   {
-    "name": "calendar-plus",
-    "tags": [
-      "date",
-      "day",
-      "month",
-      "year",
-      "event",
-      "add",
-      "subscribe",
-      "create",
-      "new"
-    ]
+    name: "calendar-plus",
+    tags: ["date", "day", "month", "year", "event", "add", "subscribe", "create", "new"],
   },
   {
-    "name": "calendar-range",
-    "tags": [
-      "date",
-      "day",
-      "month",
-      "year",
-      "event",
-      "range",
-      "period"
-    ]
+    name: "calendar-range",
+    tags: ["date", "day", "month", "year", "event", "range", "period"],
   },
   {
-    "name": "calendar-search",
-    "tags": [
-      "date",
-      "day",
-      "month",
-      "year",
-      "events",
-      "search",
-      "lens"
-    ]
+    name: "calendar-search",
+    tags: ["date", "day", "month", "year", "events", "search", "lens"],
   },
   {
-    "name": "calendar-sync",
-    "tags": [
+    name: "calendar-sync",
+    tags: [
       "repeat",
       "refresh",
       "reconnect",
@@ -3908,67 +2942,32 @@ export const tags = [
       "schedule",
       "reminder",
       "automatic",
-      "auto"
-    ]
+      "auto",
+    ],
   },
   {
-    "name": "calendar-x-2",
-    "tags": [
-      "date",
-      "day",
-      "month",
-      "year",
-      "event",
-      "remove"
-    ]
+    name: "calendar-x-2",
+    tags: ["date", "day", "month", "year", "event", "remove"],
   },
   {
-    "name": "calendar-x",
-    "tags": [
-      "date",
-      "day",
-      "month",
-      "year",
-      "event",
-      "remove",
-      "busy"
-    ]
+    name: "calendar-x",
+    tags: ["date", "day", "month", "year", "event", "remove", "busy"],
   },
   {
-    "name": "calendar",
-    "tags": [
-      "date",
-      "month",
-      "year",
-      "event",
-      "birthday",
-      "birthdate"
-    ]
+    name: "calendar",
+    tags: ["date", "month", "year", "event", "birthday", "birthdate"],
   },
   {
-    "name": "calendars",
-    "tags": [
-      "date",
-      "month",
-      "year",
-      "event",
-      "dates",
-      "months",
-      "years",
-      "events"
-    ]
+    name: "calendars",
+    tags: ["date", "month", "year", "event", "dates", "months", "years", "events"],
   },
   {
-    "name": "camera-off",
-    "tags": [
-      "photo",
-      "webcam",
-      "video"
-    ]
+    name: "camera-off",
+    tags: ["photo", "webcam", "video"],
   },
   {
-    "name": "camera",
-    "tags": [
+    name: "camera",
+    tags: [
       "photography",
       "lens",
       "focus",
@@ -3980,109 +2979,68 @@ export const tags = [
       "equipment",
       "photo",
       "webcam",
-      "video"
-    ]
+      "video",
+    ],
   },
   {
-    "name": "candy-cane",
-    "tags": [
-      "sugar",
-      "food",
-      "sweet",
-      "christmas",
-      "xmas"
-    ]
+    name: "candy-cane",
+    tags: ["sugar", "food", "sweet", "christmas", "xmas"],
   },
   {
-    "name": "candy-off",
-    "tags": [
-      "sugar free",
-      "food",
-      "sweet",
-      "allergy",
-      "intolerance",
-      "diet"
-    ]
+    name: "candy-off",
+    tags: ["sugar free", "food", "sweet", "allergy", "intolerance", "diet"],
   },
   {
-    "name": "candy",
-    "tags": [
-      "sugar",
-      "food",
-      "sweet"
-    ]
+    name: "candy",
+    tags: ["sugar", "food", "sweet"],
   },
   {
-    "name": "cannabis-off",
-    "tags": [
-      "cannabis",
-      "weed",
-      "leaf"
-    ]
+    name: "cannabis-off",
+    tags: ["cannabis", "weed", "leaf"],
   },
   {
-    "name": "cannabis",
-    "tags": [
-      "cannabis",
-      "weed",
-      "leaf"
-    ]
+    name: "cannabis",
+    tags: ["cannabis", "weed", "leaf"],
   },
   {
-    "name": "captions-off",
-    "tags": [
+    name: "captions-off",
+    tags: [
       "closed captions",
       "subtitles",
       "subhead",
       "transcription",
       "transcribe",
       "dialogue",
-      "accessibility"
-    ]
+      "accessibility",
+    ],
   },
   {
-    "name": "captions",
-    "tags": [
+    name: "captions",
+    tags: [
       "closed captions",
       "subtitles",
       "subhead",
       "transcription",
       "transcribe",
       "dialogue",
-      "accessibility"
-    ]
+      "accessibility",
+    ],
   },
   {
-    "name": "car-front",
-    "tags": [
-      "vehicle",
-      "drive",
-      "trip",
-      "journey"
-    ]
+    name: "car-front",
+    tags: ["vehicle", "drive", "trip", "journey"],
   },
   {
-    "name": "car-taxi-front",
-    "tags": [
-      "cab",
-      "vehicle",
-      "drive",
-      "trip",
-      "journey"
-    ]
+    name: "car-taxi-front",
+    tags: ["cab", "vehicle", "drive", "trip", "journey"],
   },
   {
-    "name": "car",
-    "tags": [
-      "vehicle",
-      "drive",
-      "trip",
-      "journey"
-    ]
+    name: "car",
+    tags: ["vehicle", "drive", "trip", "journey"],
   },
   {
-    "name": "caravan",
-    "tags": [
+    name: "caravan",
+    tags: [
       "trailer",
       "tow",
       "camping",
@@ -4091,12 +3049,12 @@ export const tags = [
       "holiday",
       "nomadic",
       "wilderness",
-      "outdoors"
-    ]
+      "outdoors",
+    ],
   },
   {
-    "name": "card-sim",
-    "tags": [
+    name: "card-sim",
+    tags: [
       "cellphone",
       "smartphone",
       "mobile",
@@ -4116,170 +3074,84 @@ export const tags = [
       "phone book",
       "contractual",
       "circuit board",
-      "chip"
-    ]
+      "chip",
+    ],
   },
   {
-    "name": "carrot",
-    "tags": [
-      "vegetable",
-      "food",
-      "eat"
-    ]
+    name: "carrot",
+    tags: ["vegetable", "food", "eat"],
   },
   {
-    "name": "case-lower",
-    "tags": [
-      "text",
-      "letters",
-      "characters",
-      "font",
-      "typography"
-    ]
+    name: "case-lower",
+    tags: ["text", "letters", "characters", "font", "typography"],
   },
   {
-    "name": "case-sensitive",
-    "tags": [
-      "text",
-      "letters",
-      "characters",
-      "font",
-      "typography"
-    ]
+    name: "case-sensitive",
+    tags: ["text", "letters", "characters", "font", "typography"],
   },
   {
-    "name": "case-upper",
-    "tags": [
-      "text",
-      "letters",
-      "characters",
-      "font",
-      "typography"
-    ]
+    name: "case-upper",
+    tags: ["text", "letters", "characters", "font", "typography"],
   },
   {
-    "name": "cassette-tape",
-    "tags": [
-      "audio",
-      "music",
-      "recording",
-      "play"
-    ]
+    name: "cassette-tape",
+    tags: ["audio", "music", "recording", "play"],
   },
   {
-    "name": "cast",
-    "tags": [
-      "chromecast",
-      "airplay",
-      "screen"
-    ]
+    name: "cast",
+    tags: ["chromecast", "airplay", "screen"],
   },
   {
-    "name": "castle",
-    "tags": [
-      "fortress",
-      "stronghold",
-      "palace",
-      "chateau",
-      "building"
-    ]
+    name: "castle",
+    tags: ["fortress", "stronghold", "palace", "chateau", "building"],
   },
   {
-    "name": "cat",
-    "tags": [
-      "animal",
-      "pet",
-      "kitten",
-      "feline"
-    ]
+    name: "cat",
+    tags: ["animal", "pet", "kitten", "feline"],
   },
   {
-    "name": "cctv-off",
-    "tags": [
-      "camera",
-      "surveillance",
-      "recording",
-      "film",
-      "videotape",
-      "crime",
-      "watching"
-    ]
+    name: "cctv-off",
+    tags: ["camera", "surveillance", "recording", "film", "videotape", "crime", "watching"],
   },
   {
-    "name": "cctv",
-    "tags": [
-      "camera",
-      "surveillance",
-      "recording",
-      "film",
-      "videotape",
-      "crime",
-      "watching"
-    ]
+    name: "cctv",
+    tags: ["camera", "surveillance", "recording", "film", "videotape", "crime", "watching"],
   },
   {
-    "name": "chart-area",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph",
-      "area"
-    ]
+    name: "chart-area",
+    tags: ["statistics", "analytics", "diagram", "graph", "area"],
   },
   {
-    "name": "chart-bar-big",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph"
-    ]
+    name: "chart-bar-big",
+    tags: ["statistics", "analytics", "diagram", "graph"],
   },
   {
-    "name": "chart-bar-decreasing",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph",
-      "trending down"
-    ]
+    name: "chart-bar-decreasing",
+    tags: ["statistics", "analytics", "diagram", "graph", "trending down"],
   },
   {
-    "name": "chart-bar-increasing",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph",
-      "trending up"
-    ]
+    name: "chart-bar-increasing",
+    tags: ["statistics", "analytics", "diagram", "graph", "trending up"],
   },
   {
-    "name": "chart-bar-stacked",
-    "tags": [
+    name: "chart-bar-stacked",
+    tags: [
       "statistics",
       "analytics",
       "diagram",
       "graph",
       "multivariate",
       "categorical",
-      "comparison"
-    ]
+      "comparison",
+    ],
   },
   {
-    "name": "chart-bar",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph"
-    ]
+    name: "chart-bar",
+    tags: ["statistics", "analytics", "diagram", "graph"],
   },
   {
-    "name": "chart-candlestick",
-    "tags": [
+    name: "chart-candlestick",
+    tags: [
       "trading",
       "trader",
       "financial",
@@ -4298,80 +3170,48 @@ export const tags = [
       "statistics",
       "analytics",
       "diagram",
-      "graph"
-    ]
-  },
-  {
-    "name": "chart-column-big",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph"
-    ]
-  },
-  {
-    "name": "chart-column-decreasing",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
       "graph",
-      "trending down"
-    ]
+    ],
   },
   {
-    "name": "chart-column-increasing",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph",
-      "trending up"
-    ]
+    name: "chart-column-big",
+    tags: ["statistics", "analytics", "diagram", "graph"],
   },
   {
-    "name": "chart-column-stacked",
-    "tags": [
+    name: "chart-column-decreasing",
+    tags: ["statistics", "analytics", "diagram", "graph", "trending down"],
+  },
+  {
+    name: "chart-column-increasing",
+    tags: ["statistics", "analytics", "diagram", "graph", "trending up"],
+  },
+  {
+    name: "chart-column-stacked",
+    tags: [
       "statistics",
       "analytics",
       "diagram",
       "graph",
       "multivariate",
       "categorical",
-      "comparison"
-    ]
+      "comparison",
+    ],
   },
   {
-    "name": "chart-column",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph"
-    ]
+    name: "chart-column",
+    tags: ["statistics", "analytics", "diagram", "graph"],
   },
   {
-    "name": "chart-gantt",
-    "tags": [
-      "diagram",
-      "graph",
-      "timeline",
-      "planning"
-    ]
+    name: "chart-gantt",
+    tags: ["diagram", "graph", "timeline", "planning"],
   },
   {
-    "name": "chart-line",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph"
-    ]
+    name: "chart-line",
+    tags: ["statistics", "analytics", "diagram", "graph"],
   },
   {
-    "name": "chart-network",
-    "tags": [
+    name: "chart-network",
+    tags: [
       "statistics",
       "analytics",
       "diagram",
@@ -4381,51 +3221,28 @@ export const tags = [
       "web",
       "nodes",
       "connections",
-      "edges"
-    ]
+      "edges",
+    ],
   },
   {
-    "name": "chart-no-axes-column-decreasing",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph",
-      "trending down"
-    ]
+    name: "chart-no-axes-column-decreasing",
+    tags: ["statistics", "analytics", "diagram", "graph", "trending down"],
   },
   {
-    "name": "chart-no-axes-column-increasing",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph",
-      "trending up"
-    ]
+    name: "chart-no-axes-column-increasing",
+    tags: ["statistics", "analytics", "diagram", "graph", "trending up"],
   },
   {
-    "name": "chart-no-axes-column",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph"
-    ]
+    name: "chart-no-axes-column",
+    tags: ["statistics", "analytics", "diagram", "graph"],
   },
   {
-    "name": "chart-no-axes-combined",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph",
-      "trending up"
-    ]
+    name: "chart-no-axes-combined",
+    tags: ["statistics", "analytics", "diagram", "graph", "trending up"],
   },
   {
-    "name": "chart-no-axes-gantt",
-    "tags": [
+    name: "chart-no-axes-gantt",
+    tags: [
       "projects",
       "manage",
       "overview",
@@ -4442,30 +3259,20 @@ export const tags = [
       "work",
       "agile",
       "code",
-      "coding"
-    ]
+      "coding",
+    ],
   },
   {
-    "name": "chart-pie",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "presentation"
-    ]
+    name: "chart-pie",
+    tags: ["statistics", "analytics", "diagram", "presentation"],
   },
   {
-    "name": "chart-scatter",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph"
-    ]
+    name: "chart-scatter",
+    tags: ["statistics", "analytics", "diagram", "graph"],
   },
   {
-    "name": "chart-spline",
-    "tags": [
+    name: "chart-spline",
+    tags: [
       "statistics",
       "analytics",
       "diagram",
@@ -4476,148 +3283,72 @@ export const tags = [
       "polynomial",
       "quadratic",
       "function",
-      "interpolation"
-    ]
+      "interpolation",
+    ],
   },
   {
-    "name": "check-check",
-    "tags": [
-      "done",
-      "received",
-      "double",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
+    name: "check-check",
+    tags: ["done", "received", "double", "todo", "tick", "complete", "task"],
   },
   {
-    "name": "check-line",
-    "tags": [
-      "done",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
+    name: "check-line",
+    tags: ["done", "todo", "tick", "complete", "task"],
   },
   {
-    "name": "check",
-    "tags": [
-      "done",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
+    name: "check",
+    tags: ["done", "todo", "tick", "complete", "task"],
   },
   {
-    "name": "chef-hat",
-    "tags": [
-      "cooking",
-      "food",
-      "kitchen",
-      "restaurant"
-    ]
+    name: "chef-hat",
+    tags: ["cooking", "food", "kitchen", "restaurant"],
   },
   {
-    "name": "cherry",
-    "tags": [
-      "fruit",
-      "food"
-    ]
+    name: "cherry",
+    tags: ["fruit", "food"],
   },
   {
-    "name": "chess-bishop",
-    "tags": [
-      "mitre",
-      "miter",
-      "piece",
-      "board game",
-      "religion"
-    ]
+    name: "chess-bishop",
+    tags: ["mitre", "miter", "piece", "board game", "religion"],
   },
   {
-    "name": "chess-king",
-    "tags": [
-      "ruler",
-      "crown",
-      "piece",
-      "board game",
-      "stalemate"
-    ]
+    name: "chess-king",
+    tags: ["ruler", "crown", "piece", "board game", "stalemate"],
   },
   {
-    "name": "chess-knight",
-    "tags": [
-      "piece",
-      "horse",
-      "board game"
-    ]
+    name: "chess-knight",
+    tags: ["piece", "horse", "board game"],
   },
   {
-    "name": "chess-pawn",
-    "tags": [
-      "piece",
-      "board game"
-    ]
+    name: "chess-pawn",
+    tags: ["piece", "board game"],
   },
   {
-    "name": "chess-queen",
-    "tags": [
-      "ruler",
-      "crown",
-      "piece",
-      "board game",
-      "stalemate"
-    ]
+    name: "chess-queen",
+    tags: ["ruler", "crown", "piece", "board game", "stalemate"],
   },
   {
-    "name": "chess-rook",
-    "tags": [
-      "castle",
-      "piece",
-      "board game"
-    ]
+    name: "chess-rook",
+    tags: ["castle", "piece", "board game"],
   },
   {
-    "name": "chevron-down",
-    "tags": [
-      "backwards",
-      "reverse",
-      "slow",
-      "dropdown"
-    ]
+    name: "chevron-down",
+    tags: ["backwards", "reverse", "slow", "dropdown"],
   },
   {
-    "name": "chevron-first",
-    "tags": [
-      "previous",
-      "music"
-    ]
+    name: "chevron-first",
+    tags: ["previous", "music"],
   },
   {
-    "name": "chevron-last",
-    "tags": [
-      "skip",
-      "next",
-      "music"
-    ]
+    name: "chevron-last",
+    tags: ["skip", "next", "music"],
   },
   {
-    "name": "chevron-left",
-    "tags": [
-      "back",
-      "previous",
-      "less than",
-      "fewer",
-      "menu",
-      "<"
-    ]
+    name: "chevron-left",
+    tags: ["back", "previous", "less than", "fewer", "menu", "<"],
   },
   {
-    "name": "chevron-right",
-    "tags": [
+    name: "chevron-right",
+    tags: [
       "forward",
       "next",
       "more than",
@@ -4629,12 +3360,12 @@ export const tags = [
       "terminal",
       "prompt",
       "shell",
-      ">"
-    ]
+      ">",
+    ],
   },
   {
-    "name": "chevron-up",
-    "tags": [
+    name: "chevron-up",
+    tags: [
       "caret",
       "keyboard",
       "mac",
@@ -4646,28 +3377,20 @@ export const tags = [
       "ahead",
       "fast",
       "^",
-      "dropdown"
-    ]
+      "dropdown",
+    ],
   },
   {
-    "name": "chevrons-down-up",
-    "tags": [
-      "collapse",
-      "fold",
-      "vertical"
-    ]
+    name: "chevrons-down-up",
+    tags: ["collapse", "fold", "vertical"],
   },
   {
-    "name": "chevrons-down",
-    "tags": [
-      "backwards",
-      "reverse",
-      "slower"
-    ]
+    name: "chevrons-down",
+    tags: ["backwards", "reverse", "slower"],
   },
   {
-    "name": "chevrons-left-right-ellipsis",
-    "tags": [
+    name: "chevrons-left-right-ellipsis",
+    tags: [
       "internet",
       "network",
       "connection",
@@ -4692,277 +3415,124 @@ export const tags = [
       "signal",
       "data",
       "input",
-      "output"
-    ]
+      "output",
+    ],
   },
   {
-    "name": "chevrons-left-right",
-    "tags": [
-      "expand",
-      "horizontal",
-      "unfold"
-    ]
+    name: "chevrons-left-right",
+    tags: ["expand", "horizontal", "unfold"],
   },
   {
-    "name": "chevrons-left",
-    "tags": [
-      "turn",
-      "corner"
-    ]
+    name: "chevrons-left",
+    tags: ["turn", "corner"],
   },
   {
-    "name": "chevrons-right-left",
-    "tags": [
-      "collapse",
-      "fold",
-      "horizontal"
-    ]
+    name: "chevrons-right-left",
+    tags: ["collapse", "fold", "horizontal"],
   },
   {
-    "name": "chevrons-right",
-    "tags": [
-      "turn",
-      "corner"
-    ]
+    name: "chevrons-right",
+    tags: ["turn", "corner"],
   },
   {
-    "name": "chevrons-up-down",
-    "tags": [
-      "expand",
-      "unfold",
-      "vertical"
-    ]
+    name: "chevrons-up-down",
+    tags: ["expand", "unfold", "vertical"],
   },
   {
-    "name": "chevrons-up",
-    "tags": [
-      "forward",
-      "ahead",
-      "faster",
-      "speed",
-      "boost"
-    ]
+    name: "chevrons-up",
+    tags: ["forward", "ahead", "faster", "speed", "boost"],
   },
   {
-    "name": "church",
-    "tags": [
-      "temple",
-      "building"
-    ]
+    name: "church",
+    tags: ["temple", "building"],
   },
   {
-    "name": "cigarette-off",
-    "tags": [
-      "smoking",
-      "no-smoking"
-    ]
+    name: "cigarette-off",
+    tags: ["smoking", "no-smoking"],
   },
   {
-    "name": "cigarette",
-    "tags": [
-      "smoking"
-    ]
+    name: "cigarette",
+    tags: ["smoking"],
   },
   {
-    "name": "circle-alert",
-    "tags": [
-      "warning",
-      "alert",
-      "danger",
-      "exclamation mark"
-    ]
+    name: "circle-alert",
+    tags: ["warning", "alert", "danger", "exclamation mark"],
   },
   {
-    "name": "circle-arrow-down",
-    "tags": [
-      "backwards",
-      "reverse",
-      "direction",
-      "south",
-      "sign",
-      "button"
-    ]
+    name: "circle-arrow-down",
+    tags: ["backwards", "reverse", "direction", "south", "sign", "button"],
   },
   {
-    "name": "circle-arrow-left",
-    "tags": [
-      "previous",
-      "back",
-      "direction",
-      "west",
-      "sign",
-      "turn",
-      "button",
-      "<-"
-    ]
+    name: "circle-arrow-left",
+    tags: ["previous", "back", "direction", "west", "sign", "turn", "button", "<-"],
   },
   {
-    "name": "circle-arrow-out-down-left",
-    "tags": [
-      "outwards",
-      "direction",
-      "south-west",
-      "diagonal"
-    ]
+    name: "circle-arrow-out-down-left",
+    tags: ["outwards", "direction", "south-west", "diagonal"],
   },
   {
-    "name": "circle-arrow-out-down-right",
-    "tags": [
-      "outwards",
-      "direction",
-      "south-east",
-      "diagonal"
-    ]
+    name: "circle-arrow-out-down-right",
+    tags: ["outwards", "direction", "south-east", "diagonal"],
   },
   {
-    "name": "circle-arrow-out-up-left",
-    "tags": [
-      "outwards",
-      "direction",
-      "north-west",
-      "diagonal",
-      "keyboard",
-      "button",
-      "escape"
-    ]
+    name: "circle-arrow-out-up-left",
+    tags: ["outwards", "direction", "north-west", "diagonal", "keyboard", "button", "escape"],
   },
   {
-    "name": "circle-arrow-out-up-right",
-    "tags": [
-      "outwards",
-      "direction",
-      "north-east",
-      "diagonal"
-    ]
+    name: "circle-arrow-out-up-right",
+    tags: ["outwards", "direction", "north-east", "diagonal"],
   },
   {
-    "name": "circle-arrow-right",
-    "tags": [
-      "next",
-      "forward",
-      "direction",
-      "east",
-      "sign",
-      "turn",
-      "button",
-      "->"
-    ]
+    name: "circle-arrow-right",
+    tags: ["next", "forward", "direction", "east", "sign", "turn", "button", "->"],
   },
   {
-    "name": "circle-arrow-up",
-    "tags": [
-      "forward",
-      "direction",
-      "north",
-      "sign",
-      "button"
-    ]
+    name: "circle-arrow-up",
+    tags: ["forward", "direction", "north", "sign", "button"],
   },
   {
-    "name": "circle-check-big",
-    "tags": [
-      "done",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
+    name: "circle-check-big",
+    tags: ["done", "todo", "tick", "complete", "task"],
   },
   {
-    "name": "circle-check",
-    "tags": [
-      "done",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
+    name: "circle-check",
+    tags: ["done", "todo", "tick", "complete", "task"],
   },
   {
-    "name": "circle-chevron-down",
-    "tags": [
-      "back",
-      "menu"
-    ]
+    name: "circle-chevron-down",
+    tags: ["back", "menu"],
   },
   {
-    "name": "circle-chevron-left",
-    "tags": [
-      "back",
-      "previous",
-      "less than",
-      "fewer",
-      "menu",
-      "<"
-    ]
+    name: "circle-chevron-left",
+    tags: ["back", "previous", "less than", "fewer", "menu", "<"],
   },
   {
-    "name": "circle-chevron-right",
-    "tags": [
-      "back",
-      "more than",
-      "greater",
-      "menu",
-      ">"
-    ]
+    name: "circle-chevron-right",
+    tags: ["back", "more than", "greater", "menu", ">"],
   },
   {
-    "name": "circle-chevron-up",
-    "tags": [
-      "caret",
-      "ahead",
-      "menu",
-      "^"
-    ]
+    name: "circle-chevron-up",
+    tags: ["caret", "ahead", "menu", "^"],
   },
   {
-    "name": "circle-dashed",
-    "tags": [
-      "pending",
-      "dot",
-      "progress",
-      "issue",
-      "draft",
-      "code",
-      "coding",
-      "version control"
-    ]
+    name: "circle-dashed",
+    tags: ["pending", "dot", "progress", "issue", "draft", "code", "coding", "version control"],
   },
   {
-    "name": "circle-divide",
-    "tags": [
-      "calculate",
-      "math",
-      "÷",
-      "/"
-    ]
+    name: "circle-divide",
+    tags: ["calculate", "math", "÷", "/"],
   },
   {
-    "name": "circle-dollar-sign",
-    "tags": [
-      "monetization",
-      "marketing",
-      "currency",
-      "money",
-      "payment"
-    ]
+    name: "circle-dollar-sign",
+    tags: ["monetization", "marketing", "currency", "money", "payment"],
   },
   {
-    "name": "circle-dot-dashed",
-    "tags": [
-      "pending",
-      "dot",
-      "progress",
-      "issue",
-      "draft",
-      "code",
-      "coding",
-      "version control"
-    ]
+    name: "circle-dot-dashed",
+    tags: ["pending", "dot", "progress", "issue", "draft", "code", "coding", "version control"],
   },
   {
-    "name": "circle-dot",
-    "tags": [
+    name: "circle-dot",
+    tags: [
       "pending",
       "dot",
       "progress",
@@ -4972,12 +3542,12 @@ export const tags = [
       "version control",
       "choices",
       "multiple choice",
-      "choose"
-    ]
+      "choose",
+    ],
   },
   {
-    "name": "circle-ellipsis",
-    "tags": [
+    name: "circle-ellipsis",
+    tags: [
       "ellipsis",
       "et cetera",
       "etc",
@@ -4998,31 +3568,20 @@ export const tags = [
       "overflow",
       "dots",
       "…",
-      "..."
-    ]
+      "...",
+    ],
   },
   {
-    "name": "circle-equal",
-    "tags": [
-      "calculate",
-      "shape",
-      "="
-    ]
+    name: "circle-equal",
+    tags: ["calculate", "shape", "="],
   },
   {
-    "name": "circle-fading-arrow-up",
-    "tags": [
-      "north",
-      "up",
-      "upgrade",
-      "improve",
-      "circle",
-      "button"
-    ]
+    name: "circle-fading-arrow-up",
+    tags: ["north", "up", "upgrade", "improve", "circle", "button"],
   },
   {
-    "name": "circle-fading-plus",
-    "tags": [
+    name: "circle-fading-plus",
+    tags: [
       "stories",
       "social media",
       "instagram",
@@ -5030,24 +3589,16 @@ export const tags = [
       "meta",
       "snapchat",
       "sharing",
-      "content"
-    ]
+      "content",
+    ],
   },
   {
-    "name": "circle-gauge",
-    "tags": [
-      "dashboard",
-      "dial",
-      "meter",
-      "speed",
-      "pressure",
-      "measure",
-      "level"
-    ]
+    name: "circle-gauge",
+    tags: ["dashboard", "dial", "meter", "speed", "pressure", "measure", "level"],
   },
   {
-    "name": "circle-minus",
-    "tags": [
+    name: "circle-minus",
+    tags: [
       "subtract",
       "remove",
       "decrease",
@@ -5059,12 +3610,12 @@ export const tags = [
       "coding",
       "minimum",
       "downgrade",
-      "-"
-    ]
+      "-",
+    ],
   },
   {
-    "name": "circle-off",
-    "tags": [
+    name: "circle-off",
+    tags: [
       "diameter",
       "zero",
       "Ø",
@@ -5081,35 +3632,24 @@ export const tags = [
       "incorrect",
       "mistake",
       "wrong",
-      "failure"
-    ]
+      "failure",
+    ],
   },
   {
-    "name": "circle-parking-off",
-    "tags": [
-      "parking lot",
-      "car park",
-      "no parking"
-    ]
+    name: "circle-parking-off",
+    tags: ["parking lot", "car park", "no parking"],
   },
   {
-    "name": "circle-parking",
-    "tags": [
-      "parking lot",
-      "car park"
-    ]
+    name: "circle-parking",
+    tags: ["parking lot", "car park"],
   },
   {
-    "name": "circle-pause",
-    "tags": [
-      "music",
-      "audio",
-      "stop"
-    ]
+    name: "circle-pause",
+    tags: ["music", "audio", "stop"],
   },
   {
-    "name": "circle-percent",
-    "tags": [
+    name: "circle-percent",
+    tags: [
       "verified",
       "unverified",
       "sale",
@@ -5117,12 +3657,12 @@ export const tags = [
       "offer",
       "marketing",
       "sticker",
-      "price tag"
-    ]
+      "price tag",
+    ],
   },
   {
-    "name": "circle-pile",
-    "tags": [
+    name: "circle-pile",
+    tags: [
       "off",
       "zero",
       "record",
@@ -5139,20 +3679,16 @@ export const tags = [
       "stock",
       "inventory",
       "materials",
-      "warehouse"
-    ]
+      "warehouse",
+    ],
   },
   {
-    "name": "circle-play",
-    "tags": [
-      "music",
-      "start",
-      "run"
-    ]
+    name: "circle-play",
+    tags: ["music", "start", "run"],
   },
   {
-    "name": "circle-plus",
-    "tags": [
+    name: "circle-plus",
+    tags: [
       "add",
       "new",
       "increase",
@@ -5173,12 +3709,12 @@ export const tags = [
       "concatenate",
       "code",
       "coding",
-      "+"
-    ]
+      "+",
+    ],
   },
   {
-    "name": "circle-pound-sterling",
-    "tags": [
+    name: "circle-pound-sterling",
+    tags: [
       "monetization",
       "coin",
       "penny",
@@ -5188,12 +3724,12 @@ export const tags = [
       "payment",
       "british",
       "gbp",
-      "£"
-    ]
+      "£",
+    ],
   },
   {
-    "name": "circle-power",
-    "tags": [
+    name: "circle-power",
+    tags: [
       "on",
       "off",
       "device",
@@ -5205,18 +3741,16 @@ export const tags = [
       "restart",
       "button",
       "keyboard",
-      "troubleshoot"
-    ]
+      "troubleshoot",
+    ],
   },
   {
-    "name": "circle-question-mark",
-    "tags": [
-      "question mark"
-    ]
+    name: "circle-question-mark",
+    tags: ["question mark"],
   },
   {
-    "name": "circle-slash-2",
-    "tags": [
+    name: "circle-slash-2",
+    tags: [
       "diameter",
       "zero",
       "ø",
@@ -5234,12 +3768,12 @@ export const tags = [
       "avg",
       "mean",
       "median",
-      "normal"
-    ]
+      "normal",
+    ],
   },
   {
-    "name": "circle-slash",
-    "tags": [
+    name: "circle-slash",
+    tags: [
       "diameter",
       "zero",
       "Ø",
@@ -5260,21 +3794,16 @@ export const tags = [
       "divide",
       "division",
       "or",
-      "/"
-    ]
+      "/",
+    ],
   },
   {
-    "name": "circle-small",
-    "tags": [
-      "shape",
-      "bullet",
-      "gender",
-      "genderless"
-    ]
+    name: "circle-small",
+    tags: ["shape", "bullet", "gender", "genderless"],
   },
   {
-    "name": "circle-star",
-    "tags": [
+    name: "circle-star",
+    tags: [
       "badge",
       "medal",
       "honour",
@@ -5287,35 +3816,24 @@ export const tags = [
       "insignia",
       "bronze",
       "silver",
-      "gold"
-    ]
+      "gold",
+    ],
   },
   {
-    "name": "circle-stop",
-    "tags": [
-      "media",
-      "music"
-    ]
+    name: "circle-stop",
+    tags: ["media", "music"],
   },
   {
-    "name": "circle-user-round",
-    "tags": [
-      "person",
-      "account",
-      "contact"
-    ]
+    name: "circle-user-round",
+    tags: ["person", "account", "contact"],
   },
   {
-    "name": "circle-user",
-    "tags": [
-      "person",
-      "account",
-      "contact"
-    ]
+    name: "circle-user",
+    tags: ["person", "account", "contact"],
   },
   {
-    "name": "circle-x",
-    "tags": [
+    name: "circle-x",
+    tags: [
       "cancel",
       "close",
       "delete",
@@ -5329,38 +3847,24 @@ export const tags = [
       "failure",
       "linter",
       "multiply",
-      "multiplication"
-    ]
+      "multiplication",
+    ],
   },
   {
-    "name": "circle",
-    "tags": [
-      "off",
-      "zero",
-      "record",
-      "shape"
-    ]
+    name: "circle",
+    tags: ["off", "zero", "record", "shape"],
   },
   {
-    "name": "circuit-board",
-    "tags": [
-      "computing",
-      "electricity",
-      "electronics"
-    ]
+    name: "circuit-board",
+    tags: ["computing", "electricity", "electronics"],
   },
   {
-    "name": "citrus",
-    "tags": [
-      "lemon",
-      "orange",
-      "grapefruit",
-      "fruit"
-    ]
+    name: "citrus",
+    tags: ["lemon", "orange", "grapefruit", "fruit"],
   },
   {
-    "name": "clapperboard",
-    "tags": [
+    name: "clapperboard",
+    tags: [
       "movie",
       "film",
       "video",
@@ -5371,24 +3875,16 @@ export const tags = [
       "television",
       "tv",
       "show",
-      "entertainment"
-    ]
+      "entertainment",
+    ],
   },
   {
-    "name": "clipboard-check",
-    "tags": [
-      "copied",
-      "pasted",
-      "done",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
+    name: "clipboard-check",
+    tags: ["copied", "pasted", "done", "todo", "tick", "complete", "task"],
   },
   {
-    "name": "clipboard-clock",
-    "tags": [
+    name: "clipboard-clock",
+    tags: [
       "copy",
       "paste",
       "history",
@@ -5406,206 +3902,104 @@ export const tags = [
       "time tracking",
       "timesheets",
       "appointment",
-      "logbook"
-    ]
+      "logbook",
+    ],
   },
   {
-    "name": "clipboard-copy",
-    "tags": [
-      "copy",
-      "paste"
-    ]
+    name: "clipboard-copy",
+    tags: ["copy", "paste"],
   },
   {
-    "name": "clipboard-list",
-    "tags": [
-      "copy",
-      "paste",
-      "tasks"
-    ]
+    name: "clipboard-list",
+    tags: ["copy", "paste", "tasks"],
   },
   {
-    "name": "clipboard-minus",
-    "tags": [
-      "copy",
-      "delete",
-      "remove",
-      "erase",
-      "document",
-      "medical",
-      "report",
-      "doctor"
-    ]
+    name: "clipboard-minus",
+    tags: ["copy", "delete", "remove", "erase", "document", "medical", "report", "doctor"],
   },
   {
-    "name": "clipboard-paste",
-    "tags": [
-      "copy",
-      "paste"
-    ]
+    name: "clipboard-paste",
+    tags: ["copy", "paste"],
   },
   {
-    "name": "clipboard-pen-line",
-    "tags": [
-      "paste"
-    ]
+    name: "clipboard-pen-line",
+    tags: ["paste"],
   },
   {
-    "name": "clipboard-pen",
-    "tags": [
-      "paste",
-      "signature"
-    ]
+    name: "clipboard-pen",
+    tags: ["paste", "signature"],
   },
   {
-    "name": "clipboard-plus",
-    "tags": [
-      "copy",
-      "paste",
-      "add",
-      "create",
-      "new",
-      "document",
-      "medical",
-      "report",
-      "doctor"
-    ]
+    name: "clipboard-plus",
+    tags: ["copy", "paste", "add", "create", "new", "document", "medical", "report", "doctor"],
   },
   {
-    "name": "clipboard-type",
-    "tags": [
-      "paste",
-      "format",
-      "text"
-    ]
+    name: "clipboard-type",
+    tags: ["paste", "format", "text"],
   },
   {
-    "name": "clipboard-x",
-    "tags": [
-      "copy",
-      "paste",
-      "discard",
-      "remove"
-    ]
+    name: "clipboard-x",
+    tags: ["copy", "paste", "discard", "remove"],
   },
   {
-    "name": "clipboard",
-    "tags": [
-      "copy",
-      "paste"
-    ]
+    name: "clipboard",
+    tags: ["copy", "paste"],
   },
   {
-    "name": "clock-1",
-    "tags": [
-      "time",
-      "watch",
-      "alarm"
-    ]
+    name: "clock-1",
+    tags: ["time", "watch", "alarm"],
   },
   {
-    "name": "clock-10",
-    "tags": [
-      "time",
-      "watch",
-      "alarm"
-    ]
+    name: "clock-10",
+    tags: ["time", "watch", "alarm"],
   },
   {
-    "name": "clock-11",
-    "tags": [
-      "time",
-      "watch",
-      "alarm"
-    ]
+    name: "clock-11",
+    tags: ["time", "watch", "alarm"],
   },
   {
-    "name": "clock-12",
-    "tags": [
-      "time",
-      "watch",
-      "alarm",
-      "noon",
-      "midnight"
-    ]
+    name: "clock-12",
+    tags: ["time", "watch", "alarm", "noon", "midnight"],
   },
   {
-    "name": "clock-2",
-    "tags": [
-      "time",
-      "watch",
-      "alarm"
-    ]
+    name: "clock-2",
+    tags: ["time", "watch", "alarm"],
   },
   {
-    "name": "clock-3",
-    "tags": [
-      "time",
-      "watch",
-      "alarm"
-    ]
+    name: "clock-3",
+    tags: ["time", "watch", "alarm"],
   },
   {
-    "name": "clock-4",
-    "tags": [
-      "time",
-      "watch",
-      "alarm"
-    ]
+    name: "clock-4",
+    tags: ["time", "watch", "alarm"],
   },
   {
-    "name": "clock-5",
-    "tags": [
-      "time",
-      "watch",
-      "alarm"
-    ]
+    name: "clock-5",
+    tags: ["time", "watch", "alarm"],
   },
   {
-    "name": "clock-6",
-    "tags": [
-      "time",
-      "watch",
-      "alarm"
-    ]
+    name: "clock-6",
+    tags: ["time", "watch", "alarm"],
   },
   {
-    "name": "clock-7",
-    "tags": [
-      "time",
-      "watch",
-      "alarm"
-    ]
+    name: "clock-7",
+    tags: ["time", "watch", "alarm"],
   },
   {
-    "name": "clock-8",
-    "tags": [
-      "time",
-      "watch",
-      "alarm"
-    ]
+    name: "clock-8",
+    tags: ["time", "watch", "alarm"],
   },
   {
-    "name": "clock-9",
-    "tags": [
-      "time",
-      "watch",
-      "alarm"
-    ]
+    name: "clock-9",
+    tags: ["time", "watch", "alarm"],
   },
   {
-    "name": "clock-alert",
-    "tags": [
-      "time",
-      "watch",
-      "alarm",
-      "warning",
-      "wrong"
-    ]
+    name: "clock-alert",
+    tags: ["time", "watch", "alarm", "warning", "wrong"],
   },
   {
-    "name": "clock-arrow-down",
-    "tags": [
+    name: "clock-arrow-down",
+    tags: [
       "time",
       "watch",
       "alarm",
@@ -5616,12 +4010,12 @@ export const tags = [
       "increasing",
       "decreasing",
       "rising",
-      "falling"
-    ]
+      "falling",
+    ],
   },
   {
-    "name": "clock-arrow-up",
-    "tags": [
+    name: "clock-arrow-up",
+    tags: [
       "time",
       "watch",
       "alarm",
@@ -5632,47 +4026,28 @@ export const tags = [
       "increasing",
       "decreasing",
       "rising",
-      "falling"
-    ]
+      "falling",
+    ],
   },
   {
-    "name": "clock-check",
-    "tags": [
-      "time",
-      "watch",
-      "alarm"
-    ]
+    name: "clock-check",
+    tags: ["time", "watch", "alarm"],
   },
   {
-    "name": "clock-fading",
-    "tags": [
-      "time",
-      "watch",
-      "alarm"
-    ]
+    name: "clock-fading",
+    tags: ["time", "watch", "alarm"],
   },
   {
-    "name": "clock-plus",
-    "tags": [
-      "time",
-      "watch",
-      "alarm",
-      "add",
-      "create",
-      "new"
-    ]
+    name: "clock-plus",
+    tags: ["time", "watch", "alarm", "add", "create", "new"],
   },
   {
-    "name": "clock",
-    "tags": [
-      "time",
-      "watch",
-      "alarm"
-    ]
+    name: "clock",
+    tags: ["time", "watch", "alarm"],
   },
   {
-    "name": "closed-caption",
-    "tags": [
+    name: "closed-caption",
+    tags: [
       "tv",
       "movie",
       "video",
@@ -5682,25 +4057,16 @@ export const tags = [
       "transcription",
       "transcribe",
       "dialogue",
-      "accessibility"
-    ]
+      "accessibility",
+    ],
   },
   {
-    "name": "cloud-alert",
-    "tags": [
-      "weather",
-      "danger",
-      "warning",
-      "alert",
-      "error",
-      "sync",
-      "network",
-      "exclamation"
-    ]
+    name: "cloud-alert",
+    tags: ["weather", "danger", "warning", "alert", "error", "sync", "network", "exclamation"],
   },
   {
-    "name": "cloud-backup",
-    "tags": [
+    name: "cloud-backup",
+    tags: [
       "storage",
       "memory",
       "bytes",
@@ -5718,125 +4084,72 @@ export const tags = [
       "upload",
       "save",
       "remote",
-      "safety"
-    ]
+      "safety",
+    ],
   },
   {
-    "name": "cloud-check",
-    "tags": [
-      "sync",
-      "network",
-      "success",
-      "done",
-      "completed",
-      "saved",
-      "persisted"
-    ]
+    name: "cloud-check",
+    tags: ["sync", "network", "success", "done", "completed", "saved", "persisted"],
   },
   {
-    "name": "cloud-cog",
-    "tags": [
-      "computing",
-      "ai",
-      "cluster",
-      "network"
-    ]
+    name: "cloud-cog",
+    tags: ["computing", "ai", "cluster", "network"],
   },
   {
-    "name": "cloud-download",
-    "tags": [
-      "import"
-    ]
+    name: "cloud-download",
+    tags: ["import"],
   },
   {
-    "name": "cloud-drizzle",
-    "tags": [
-      "weather",
-      "shower"
-    ]
+    name: "cloud-drizzle",
+    tags: ["weather", "shower"],
   },
   {
-    "name": "cloud-fog",
-    "tags": [
-      "weather",
-      "mist"
-    ]
+    name: "cloud-fog",
+    tags: ["weather", "mist"],
   },
   {
-    "name": "cloud-hail",
-    "tags": [
-      "weather",
-      "rainfall"
-    ]
+    name: "cloud-hail",
+    tags: ["weather", "rainfall"],
   },
   {
-    "name": "cloud-lightning",
-    "tags": [
-      "weather",
-      "bolt"
-    ]
+    name: "cloud-lightning",
+    tags: ["weather", "bolt"],
   },
   {
-    "name": "cloud-moon-rain",
-    "tags": [
-      "weather",
-      "partly",
-      "night",
-      "rainfall"
-    ]
+    name: "cloud-moon-rain",
+    tags: ["weather", "partly", "night", "rainfall"],
   },
   {
-    "name": "cloud-moon",
-    "tags": [
-      "weather",
-      "night"
-    ]
+    name: "cloud-moon",
+    tags: ["weather", "night"],
   },
   {
-    "name": "cloud-off",
-    "tags": [
-      "disconnect"
-    ]
+    name: "cloud-off",
+    tags: ["disconnect"],
   },
   {
-    "name": "cloud-rain-wind",
-    "tags": [
-      "weather",
-      "rainfall"
-    ]
+    name: "cloud-rain-wind",
+    tags: ["weather", "rainfall"],
   },
   {
-    "name": "cloud-rain",
-    "tags": [
-      "weather",
-      "rainfall"
-    ]
+    name: "cloud-rain",
+    tags: ["weather", "rainfall"],
   },
   {
-    "name": "cloud-snow",
-    "tags": [
-      "weather",
-      "blizzard"
-    ]
+    name: "cloud-snow",
+    tags: ["weather", "blizzard"],
   },
   {
-    "name": "cloud-sun-rain",
-    "tags": [
-      "weather",
-      "partly",
-      "rainfall"
-    ]
+    name: "cloud-sun-rain",
+    tags: ["weather", "partly", "rainfall"],
   },
   {
-    "name": "cloud-sun",
-    "tags": [
-      "weather",
-      "partly"
-    ]
+    name: "cloud-sun",
+    tags: ["weather", "partly"],
   },
   {
-    "name": "cloud-sync",
-    "tags": [
+    name: "cloud-sync",
+    tags: [
       "synchronize",
       "synchronise",
       "refresh",
@@ -5848,78 +4161,44 @@ export const tags = [
       "download",
       "connection",
       "network",
-      "data"
-    ]
+      "data",
+    ],
   },
   {
-    "name": "cloud-upload",
-    "tags": [
-      "file"
-    ]
+    name: "cloud-upload",
+    tags: ["file"],
   },
   {
-    "name": "cloud",
-    "tags": [
-      "weather"
-    ]
+    name: "cloud",
+    tags: ["weather"],
   },
   {
-    "name": "cloudy",
-    "tags": [
-      "weather",
-      "clouds"
-    ]
+    name: "cloudy",
+    tags: ["weather", "clouds"],
   },
   {
-    "name": "clover",
-    "tags": [
-      "leaf",
-      "luck",
-      "plant"
-    ]
+    name: "clover",
+    tags: ["leaf", "luck", "plant"],
   },
   {
-    "name": "club",
-    "tags": [
-      "shape",
-      "suit",
-      "playing",
-      "cards"
-    ]
+    name: "club",
+    tags: ["shape", "suit", "playing", "cards"],
   },
   {
-    "name": "code-xml",
-    "tags": [
-      "source",
-      "programming",
-      "html",
-      "xml"
-    ]
+    name: "code-xml",
+    tags: ["source", "programming", "html", "xml"],
   },
   {
-    "name": "code",
-    "tags": [
-      "source",
-      "programming",
-      "html",
-      "xml"
-    ]
+    name: "code",
+    tags: ["source", "programming", "html", "xml"],
   },
   {
-    "name": "coffee",
-    "tags": [
-      "drink",
-      "cup",
-      "mug",
-      "tea",
-      "cafe",
-      "hot",
-      "beverage"
-    ]
+    name: "coffee",
+    tags: ["drink", "cup", "mug", "tea", "cafe", "hot", "beverage"],
   },
   {
-    "name": "cog",
-    "tags": [
+    name: "cog",
+    tags: [
       "computing",
       "settings",
       "cog",
@@ -5931,21 +4210,16 @@ export const tags = [
       "fixed",
       "build",
       "construction",
-      "parts"
-    ]
+      "parts",
+    ],
   },
   {
-    "name": "coins",
-    "tags": [
-      "money",
-      "cash",
-      "finance",
-      "gamble"
-    ]
+    name: "coins",
+    tags: ["money", "cash", "finance", "gamble"],
   },
   {
-    "name": "columns-2",
-    "tags": [
+    name: "columns-2",
+    tags: [
       "lines",
       "list",
       "queue",
@@ -5967,12 +4241,12 @@ export const tags = [
       "reflow",
       "typography",
       "pagination",
-      "pages"
-    ]
+      "pages",
+    ],
   },
   {
-    "name": "columns-3-cog",
-    "tags": [
+    name: "columns-3-cog",
+    tags: [
       "columns",
       "settings",
       "customize",
@@ -5981,12 +4255,12 @@ export const tags = [
       "adjust",
       "configuration",
       "panel",
-      "layout"
-    ]
+      "layout",
+    ],
   },
   {
-    "name": "columns-3",
-    "tags": [
+    name: "columns-3",
+    tags: [
       "lines",
       "list",
       "queue",
@@ -6009,12 +4283,12 @@ export const tags = [
       "reflow",
       "typography",
       "pagination",
-      "pages"
-    ]
+      "pages",
+    ],
   },
   {
-    "name": "columns-4",
-    "tags": [
+    name: "columns-4",
+    tags: [
       "lines",
       "list",
       "queue",
@@ -6050,12 +4324,12 @@ export const tags = [
       "justice",
       "law",
       "enforcement",
-      "grill"
-    ]
+      "grill",
+    ],
   },
   {
-    "name": "combine",
-    "tags": [
+    name: "combine",
+    tags: [
       "cubes",
       "packages",
       "parts",
@@ -6064,62 +4338,32 @@ export const tags = [
       "cluster",
       "combine",
       "gather",
-      "merge"
-    ]
+      "merge",
+    ],
   },
   {
-    "name": "command",
-    "tags": [
-      "keyboard",
-      "key",
-      "mac",
-      "cmd",
-      "button"
-    ]
+    name: "command",
+    tags: ["keyboard", "key", "mac", "cmd", "button"],
   },
   {
-    "name": "compass",
-    "tags": [
-      "direction",
-      "north",
-      "east",
-      "south",
-      "west",
-      "safari",
-      "browser"
-    ]
+    name: "compass",
+    tags: ["direction", "north", "east", "south", "west", "safari", "browser"],
   },
   {
-    "name": "component",
-    "tags": [
-      "design",
-      "element",
-      "group",
-      "module",
-      "part",
-      "symbol"
-    ]
+    name: "component",
+    tags: ["design", "element", "group", "module", "part", "symbol"],
   },
   {
-    "name": "computer",
-    "tags": [
-      "pc",
-      "chassis",
-      "codespaces",
-      "github"
-    ]
+    name: "computer",
+    tags: ["pc", "chassis", "codespaces", "github"],
   },
   {
-    "name": "concierge-bell",
-    "tags": [
-      "reception",
-      "bell",
-      "porter"
-    ]
+    name: "concierge-bell",
+    tags: ["reception", "bell", "porter"],
   },
   {
-    "name": "cone",
-    "tags": [
+    name: "cone",
+    tags: [
       "conical",
       "triangle",
       "triangular",
@@ -6128,45 +4372,24 @@ export const tags = [
       "funnel",
       "hopper",
       "spotlight",
-      "searchlight"
-    ]
+      "searchlight",
+    ],
   },
   {
-    "name": "construction",
-    "tags": [
-      "roadwork",
-      "maintenance",
-      "blockade",
-      "barricade"
-    ]
+    name: "construction",
+    tags: ["roadwork", "maintenance", "blockade", "barricade"],
   },
   {
-    "name": "contact-round",
-    "tags": [
-      "user",
-      "person",
-      "family",
-      "friend",
-      "acquaintance",
-      "listing",
-      "networking"
-    ]
+    name: "contact-round",
+    tags: ["user", "person", "family", "friend", "acquaintance", "listing", "networking"],
   },
   {
-    "name": "contact",
-    "tags": [
-      "user",
-      "person",
-      "family",
-      "friend",
-      "acquaintance",
-      "listing",
-      "networking"
-    ]
+    name: "contact",
+    tags: ["user", "person", "family", "friend", "acquaintance", "listing", "networking"],
   },
   {
-    "name": "container",
-    "tags": [
+    name: "container",
+    tags: [
       "storage",
       "shipping",
       "freight",
@@ -6175,28 +4398,20 @@ export const tags = [
       "environment",
       "devops",
       "code",
-      "coding"
-    ]
+      "coding",
+    ],
   },
   {
-    "name": "contrast",
-    "tags": [
-      "display",
-      "accessibility"
-    ]
+    name: "contrast",
+    tags: ["display", "accessibility"],
   },
   {
-    "name": "cookie",
-    "tags": [
-      "biscuit",
-      "privacy",
-      "legal",
-      "food"
-    ]
+    name: "cookie",
+    tags: ["biscuit", "privacy", "legal", "food"],
   },
   {
-    "name": "cooking-pot",
-    "tags": [
+    name: "cooking-pot",
+    tags: [
       "pod",
       "cooking",
       "recipe",
@@ -6208,45 +4423,24 @@ export const tags = [
       "lunch",
       "breakfast",
       "meal",
-      "eat"
-    ]
+      "eat",
+    ],
   },
   {
-    "name": "copy-check",
-    "tags": [
-      "clone",
-      "duplicate",
-      "done",
-      "multiple"
-    ]
+    name: "copy-check",
+    tags: ["clone", "duplicate", "done", "multiple"],
   },
   {
-    "name": "copy-minus",
-    "tags": [
-      "clone",
-      "duplicate",
-      "remove",
-      "delete",
-      "collapse",
-      "subtract",
-      "multiple",
-      "-"
-    ]
+    name: "copy-minus",
+    tags: ["clone", "duplicate", "remove", "delete", "collapse", "subtract", "multiple", "-"],
   },
   {
-    "name": "copy-plus",
-    "tags": [
-      "clone",
-      "duplicate",
-      "add",
-      "multiple",
-      "expand",
-      "+"
-    ]
+    name: "copy-plus",
+    tags: ["clone", "duplicate", "add", "multiple", "expand", "+"],
   },
   {
-    "name": "copy-slash",
-    "tags": [
+    name: "copy-slash",
+    tags: [
       "clone",
       "duplicate",
       "cancel",
@@ -6261,12 +4455,12 @@ export const tags = [
       "division",
       "split",
       "or",
-      "/"
-    ]
+      "/",
+    ],
   },
   {
-    "name": "copy-x",
-    "tags": [
+    name: "copy-x",
+    tags: [
       "cancel",
       "close",
       "delete",
@@ -6275,84 +4469,56 @@ export const tags = [
       "multiple",
       "multiply",
       "multiplication",
-      "times"
-    ]
+      "times",
+    ],
   },
   {
-    "name": "copy",
-    "tags": [
-      "clone",
-      "duplicate",
-      "multiple"
-    ]
+    name: "copy",
+    tags: ["clone", "duplicate", "multiple"],
   },
   {
-    "name": "copyleft",
-    "tags": [
-      "licence"
-    ]
+    name: "copyleft",
+    tags: ["licence"],
   },
   {
-    "name": "copyright",
-    "tags": [
-      "licence",
-      "license"
-    ]
+    name: "copyright",
+    tags: ["licence", "license"],
   },
   {
-    "name": "corner-down-left",
-    "tags": [
-      "arrow",
-      "return"
-    ]
+    name: "corner-down-left",
+    tags: ["arrow", "return"],
   },
   {
-    "name": "corner-down-right",
-    "tags": [
-      "arrow",
-      "indent",
-      "tab"
-    ]
+    name: "corner-down-right",
+    tags: ["arrow", "indent", "tab"],
   },
   {
-    "name": "corner-left-down",
-    "tags": [
-      "arrow"
-    ]
+    name: "corner-left-down",
+    tags: ["arrow"],
   },
   {
-    "name": "corner-left-up",
-    "tags": [
-      "arrow"
-    ]
+    name: "corner-left-up",
+    tags: ["arrow"],
   },
   {
-    "name": "corner-right-down",
-    "tags": [
-      "arrow"
-    ]
+    name: "corner-right-down",
+    tags: ["arrow"],
   },
   {
-    "name": "corner-right-up",
-    "tags": [
-      "arrow"
-    ]
+    name: "corner-right-up",
+    tags: ["arrow"],
   },
   {
-    "name": "corner-up-left",
-    "tags": [
-      "arrow"
-    ]
+    name: "corner-up-left",
+    tags: ["arrow"],
   },
   {
-    "name": "corner-up-right",
-    "tags": [
-      "arrow"
-    ]
+    name: "corner-up-right",
+    tags: ["arrow"],
   },
   {
-    "name": "cpu",
-    "tags": [
+    name: "cpu",
+    tags: [
       "processor",
       "cores",
       "technology",
@@ -6363,71 +4529,40 @@ export const tags = [
       "ram",
       "specs",
       "gigahertz",
-      "ghz"
-    ]
+      "ghz",
+    ],
   },
   {
-    "name": "creative-commons",
-    "tags": [
-      "licence",
-      "license"
-    ]
+    name: "creative-commons",
+    tags: ["licence", "license"],
   },
   {
-    "name": "credit-card",
-    "tags": [
-      "bank",
-      "purchase",
-      "payment",
-      "cc"
-    ]
+    name: "credit-card",
+    tags: ["bank", "purchase", "payment", "cc"],
   },
   {
-    "name": "croissant",
-    "tags": [
-      "bakery",
-      "cooking",
-      "food",
-      "pastry"
-    ]
+    name: "croissant",
+    tags: ["bakery", "cooking", "food", "pastry"],
   },
   {
-    "name": "crop",
-    "tags": [
-      "photo",
-      "image"
-    ]
+    name: "crop",
+    tags: ["photo", "image"],
   },
   {
-    "name": "cross",
-    "tags": [
-      "healthcare",
-      "first aid"
-    ]
+    name: "cross",
+    tags: ["healthcare", "first aid"],
   },
   {
-    "name": "crosshair",
-    "tags": [
-      "aim",
-      "target"
-    ]
+    name: "crosshair",
+    tags: ["aim", "target"],
   },
   {
-    "name": "crown",
-    "tags": [
-      "diadem",
-      "tiara",
-      "circlet",
-      "corona",
-      "king",
-      "ruler",
-      "winner",
-      "favourite"
-    ]
+    name: "crown",
+    tags: ["diadem", "tiara", "circlet", "corona", "king", "ruler", "winner", "favourite"],
   },
   {
-    "name": "cuboid",
-    "tags": [
+    name: "cuboid",
+    tags: [
       "brick",
       "block",
       "box",
@@ -6447,50 +4582,28 @@ export const tags = [
       "cheese",
       "package",
       "parcel",
-      "crate"
-    ]
+      "crate",
+    ],
   },
   {
-    "name": "cup-soda",
-    "tags": [
-      "beverage",
-      "cup",
-      "drink",
-      "soda",
-      "straw",
-      "water"
-    ]
+    name: "cup-soda",
+    tags: ["beverage", "cup", "drink", "soda", "straw", "water"],
   },
   {
-    "name": "currency",
-    "tags": [
-      "finance",
-      "money"
-    ]
+    name: "currency",
+    tags: ["finance", "money"],
   },
   {
-    "name": "cylinder",
-    "tags": [
-      "shape",
-      "elliptical",
-      "geometry",
-      "container",
-      "storage",
-      "tin",
-      "pot"
-    ]
+    name: "cylinder",
+    tags: ["shape", "elliptical", "geometry", "container", "storage", "tin", "pot"],
   },
   {
-    "name": "dam",
-    "tags": [
-      "electricity",
-      "energy",
-      "water"
-    ]
+    name: "dam",
+    tags: ["electricity", "energy", "water"],
   },
   {
-    "name": "database-backup",
-    "tags": [
+    name: "database-backup",
+    tags: [
       "storage",
       "memory",
       "bytes",
@@ -6499,48 +4612,24 @@ export const tags = [
       "timemachine",
       "rotate",
       "arrow",
-      "left"
-    ]
+      "left",
+    ],
   },
   {
-    "name": "database-search",
-    "tags": [
-      "storage",
-      "memory",
-      "container",
-      "tin",
-      "pot",
-      "bytes",
-      "servers"
-    ]
+    name: "database-search",
+    tags: ["storage", "memory", "container", "tin", "pot", "bytes", "servers"],
   },
   {
-    "name": "database-zap",
-    "tags": [
-      "cache busting",
-      "storage",
-      "memory",
-      "bytes",
-      "servers",
-      "power",
-      "crash"
-    ]
+    name: "database-zap",
+    tags: ["cache busting", "storage", "memory", "bytes", "servers", "power", "crash"],
   },
   {
-    "name": "database",
-    "tags": [
-      "storage",
-      "memory",
-      "container",
-      "tin",
-      "pot",
-      "bytes",
-      "servers"
-    ]
+    name: "database",
+    tags: ["storage", "memory", "container", "tin", "pot", "bytes", "servers"],
   },
   {
-    "name": "decimals-arrow-left",
-    "tags": [
+    name: "decimals-arrow-left",
+    tags: [
       "numerical",
       "decimal",
       "decrease",
@@ -6551,12 +4640,12 @@ export const tags = [
       "digits",
       "fraction",
       "float",
-      "number"
-    ]
+      "number",
+    ],
   },
   {
-    "name": "decimals-arrow-right",
-    "tags": [
+    name: "decimals-arrow-right",
+    tags: [
       "numerical",
       "decimal",
       "increase",
@@ -6566,19 +4655,16 @@ export const tags = [
       "digits",
       "fraction",
       "float",
-      "number"
-    ]
+      "number",
+    ],
   },
   {
-    "name": "delete",
-    "tags": [
-      "backspace",
-      "remove"
-    ]
+    name: "delete",
+    tags: ["backspace", "remove"],
   },
   {
-    "name": "dessert",
-    "tags": [
+    name: "dessert",
+    tags: [
       "pudding",
       "christmas",
       "xmas",
@@ -6594,12 +4680,12 @@ export const tags = [
       "dollop",
       "sugar",
       "food",
-      "sweet"
-    ]
+      "sweet",
+    ],
   },
   {
-    "name": "diameter",
-    "tags": [
+    name: "diameter",
+    tags: [
       "shape",
       "circle",
       "geometry",
@@ -6608,12 +4694,12 @@ export const tags = [
       "height",
       "size",
       "calculate",
-      "measure"
-    ]
+      "measure",
+    ],
   },
   {
-    "name": "diamond-minus",
-    "tags": [
+    name: "diamond-minus",
+    tags: [
       "keyframe",
       "subtract",
       "remove",
@@ -6636,12 +4722,12 @@ export const tags = [
       "code",
       "coding",
       "minimum",
-      "downgrade"
-    ]
+      "downgrade",
+    ],
   },
   {
-    "name": "diamond-percent",
-    "tags": [
+    name: "diamond-percent",
+    tags: [
       "verified",
       "unverified",
       "sale",
@@ -6649,12 +4735,12 @@ export const tags = [
       "offer",
       "marketing",
       "sticker",
-      "price tag"
-    ]
+      "price tag",
+    ],
   },
   {
-    "name": "diamond-plus",
-    "tags": [
+    name: "diamond-plus",
+    tags: [
       "keyframe",
       "add",
       "new",
@@ -6672,113 +4758,48 @@ export const tags = [
       "maximum",
       "upgrade",
       "extra",
-      "+"
-    ]
+      "+",
+    ],
   },
   {
-    "name": "diamond",
-    "tags": [
-      "square",
-      "rectangle",
-      "oblique",
-      "rhombus",
-      "shape",
-      "suit",
-      "playing",
-      "cards"
-    ]
+    name: "diamond",
+    tags: ["square", "rectangle", "oblique", "rhombus", "shape", "suit", "playing", "cards"],
   },
   {
-    "name": "dice-1",
-    "tags": [
-      "dice",
-      "random",
-      "tabletop",
-      "1",
-      "board",
-      "game"
-    ]
+    name: "dice-1",
+    tags: ["dice", "random", "tabletop", "1", "board", "game"],
   },
   {
-    "name": "dice-2",
-    "tags": [
-      "dice",
-      "random",
-      "tabletop",
-      "2",
-      "board",
-      "game"
-    ]
+    name: "dice-2",
+    tags: ["dice", "random", "tabletop", "2", "board", "game"],
   },
   {
-    "name": "dice-3",
-    "tags": [
-      "dice",
-      "random",
-      "tabletop",
-      "3",
-      "board",
-      "game"
-    ]
+    name: "dice-3",
+    tags: ["dice", "random", "tabletop", "3", "board", "game"],
   },
   {
-    "name": "dice-4",
-    "tags": [
-      "dice",
-      "random",
-      "tabletop",
-      "4",
-      "board",
-      "game"
-    ]
+    name: "dice-4",
+    tags: ["dice", "random", "tabletop", "4", "board", "game"],
   },
   {
-    "name": "dice-5",
-    "tags": [
-      "dice",
-      "random",
-      "tabletop",
-      "5",
-      "board",
-      "game"
-    ]
+    name: "dice-5",
+    tags: ["dice", "random", "tabletop", "5", "board", "game"],
   },
   {
-    "name": "dice-6",
-    "tags": [
-      "dice",
-      "random",
-      "tabletop",
-      "6",
-      "board",
-      "game"
-    ]
+    name: "dice-6",
+    tags: ["dice", "random", "tabletop", "6", "board", "game"],
   },
   {
-    "name": "dices",
-    "tags": [
-      "dice",
-      "random",
-      "tabletop",
-      "board",
-      "game"
-    ]
+    name: "dices",
+    tags: ["dice", "random", "tabletop", "board", "game"],
   },
   {
-    "name": "diff",
-    "tags": [
-      "patch",
-      "difference",
-      "compare",
-      "plus",
-      "minus",
-      "plus-minus",
-      "math"
-    ]
+    name: "diff",
+    tags: ["patch", "difference", "compare", "plus", "minus", "plus-minus", "math"],
   },
   {
-    "name": "disc-2",
-    "tags": [
+    name: "disc-2",
+    tags: [
       "album",
       "music",
       "vinyl",
@@ -6789,12 +4810,12 @@ export const tags = [
       "dj",
       "spin",
       "rotate",
-      "rpm"
-    ]
+      "rpm",
+    ],
   },
   {
-    "name": "disc-3",
-    "tags": [
+    name: "disc-3",
+    tags: [
       "album",
       "music",
       "vinyl",
@@ -6805,12 +4826,12 @@ export const tags = [
       "dj",
       "spin",
       "rotate",
-      "rpm"
-    ]
+      "rpm",
+    ],
   },
   {
-    "name": "disc-album",
-    "tags": [
+    name: "disc-album",
+    tags: [
       "album",
       "music",
       "songs",
@@ -6828,12 +4849,12 @@ export const tags = [
       "spin",
       "rotate",
       "rpm",
-      "dj"
-    ]
+      "dj",
+    ],
   },
   {
-    "name": "disc",
-    "tags": [
+    name: "disc",
+    tags: [
       "album",
       "music",
       "songs",
@@ -6851,46 +4872,24 @@ export const tags = [
       "spin",
       "rotate",
       "rpm",
-      "dj"
-    ]
+      "dj",
+    ],
   },
   {
-    "name": "divide",
-    "tags": [
-      "calculate",
-      "math",
-      "division",
-      "operator",
-      "code",
-      "÷",
-      "/"
-    ]
+    name: "divide",
+    tags: ["calculate", "math", "division", "operator", "code", "÷", "/"],
   },
   {
-    "name": "dna-off",
-    "tags": [
-      "gene",
-      "gmo free",
-      "helix",
-      "heredity",
-      "chromosome",
-      "nucleic acid"
-    ]
+    name: "dna-off",
+    tags: ["gene", "gmo free", "helix", "heredity", "chromosome", "nucleic acid"],
   },
   {
-    "name": "dna",
-    "tags": [
-      "gene",
-      "gmo",
-      "helix",
-      "heredity",
-      "chromosome",
-      "nucleic acid"
-    ]
+    name: "dna",
+    tags: ["gene", "gmo", "helix", "heredity", "chromosome", "nucleic acid"],
   },
   {
-    "name": "dock",
-    "tags": [
+    name: "dock",
+    tags: [
       "desktop",
       "applications",
       "launch",
@@ -6899,30 +4898,20 @@ export const tags = [
       "bottom",
       "line",
       "macos",
-      "osx"
-    ]
+      "osx",
+    ],
   },
   {
-    "name": "dog",
-    "tags": [
-      "animal",
-      "pet",
-      "puppy",
-      "hound",
-      "canine"
-    ]
+    name: "dog",
+    tags: ["animal", "pet", "puppy", "hound", "canine"],
   },
   {
-    "name": "dollar-sign",
-    "tags": [
-      "currency",
-      "money",
-      "payment"
-    ]
+    name: "dollar-sign",
+    tags: ["currency", "money", "payment"],
   },
   {
-    "name": "donut",
-    "tags": [
+    name: "donut",
+    tags: [
       "doughnut",
       "sprinkles",
       "topping",
@@ -6934,12 +4923,12 @@ export const tags = [
       "sugar",
       "dessert",
       "hollow",
-      "ring"
-    ]
+      "ring",
+    ],
   },
   {
-    "name": "door-closed-locked",
-    "tags": [
+    name: "door-closed-locked",
+    tags: [
       "entrance",
       "entry",
       "exit",
@@ -6948,38 +4937,20 @@ export const tags = [
       "gate",
       "gateway",
       "emergency exit",
-      "lock"
-    ]
+      "lock",
+    ],
   },
   {
-    "name": "door-closed",
-    "tags": [
-      "entrance",
-      "entry",
-      "exit",
-      "ingress",
-      "egress",
-      "gate",
-      "gateway",
-      "emergency exit"
-    ]
+    name: "door-closed",
+    tags: ["entrance", "entry", "exit", "ingress", "egress", "gate", "gateway", "emergency exit"],
   },
   {
-    "name": "door-open",
-    "tags": [
-      "entrance",
-      "entry",
-      "exit",
-      "ingress",
-      "egress",
-      "gate",
-      "gateway",
-      "emergency exit"
-    ]
+    name: "door-open",
+    tags: ["entrance", "entry", "exit", "ingress", "egress", "gate", "gateway", "emergency exit"],
   },
   {
-    "name": "dot",
-    "tags": [
+    name: "dot",
+    tags: [
       "interpunct",
       "interpoint",
       "middot",
@@ -6995,20 +4966,16 @@ export const tags = [
       "typography",
       "type",
       "center",
-      "."
-    ]
+      ".",
+    ],
   },
   {
-    "name": "download",
-    "tags": [
-      "import",
-      "export",
-      "save"
-    ]
+    name: "download",
+    tags: ["import", "export", "save"],
   },
   {
-    "name": "drafting-compass",
-    "tags": [
+    name: "drafting-compass",
+    tags: [
       "geometry",
       "trigonometry",
       "radius",
@@ -7019,91 +4986,36 @@ export const tags = [
       "arc",
       "curve",
       "draw",
-      "sketch"
-    ]
+      "sketch",
+    ],
   },
   {
-    "name": "drama",
-    "tags": [
-      "drama",
-      "masks",
-      "theater",
-      "theatre",
-      "entertainment",
-      "show"
-    ]
+    name: "drama",
+    tags: ["drama", "masks", "theater", "theatre", "entertainment", "show"],
   },
   {
-    "name": "drill",
-    "tags": [
-      "power",
-      "bit",
-      "head",
-      "hole",
-      "diy",
-      "toolbox",
-      "build",
-      "construction"
-    ]
+    name: "drill",
+    tags: ["power", "bit", "head", "hole", "diy", "toolbox", "build", "construction"],
   },
   {
-    "name": "drone",
-    "tags": [
-      "quadcopter",
-      "uav",
-      "aerial",
-      "flight",
-      "flying",
-      "technology",
-      "airborne",
-      "robotics"
-    ]
+    name: "drone",
+    tags: ["quadcopter", "uav", "aerial", "flight", "flying", "technology", "airborne", "robotics"],
   },
   {
-    "name": "droplet-off",
-    "tags": [
-      "water",
-      "weather",
-      "liquid",
-      "fluid",
-      "wet",
-      "moisture",
-      "damp",
-      "bead",
-      "globule"
-    ]
+    name: "droplet-off",
+    tags: ["water", "weather", "liquid", "fluid", "wet", "moisture", "damp", "bead", "globule"],
   },
   {
-    "name": "droplet",
-    "tags": [
-      "water",
-      "weather",
-      "liquid",
-      "fluid",
-      "wet",
-      "moisture",
-      "damp",
-      "bead",
-      "globule"
-    ]
+    name: "droplet",
+    tags: ["water", "weather", "liquid", "fluid", "wet", "moisture", "damp", "bead", "globule"],
   },
   {
-    "name": "droplets",
-    "tags": [
-      "water",
-      "weather",
-      "liquid",
-      "fluid",
-      "wet",
-      "moisture",
-      "damp",
-      "bead",
-      "globule"
-    ]
+    name: "droplets",
+    tags: ["water", "weather", "liquid", "fluid", "wet", "moisture", "damp", "bead", "globule"],
   },
   {
-    "name": "drum",
-    "tags": [
+    name: "drum",
+    tags: [
       "drummer",
       "kit",
       "sticks",
@@ -7121,29 +5033,20 @@ export const tags = [
       "audio",
       "sound",
       "noise",
-      "loud"
-    ]
+      "loud",
+    ],
   },
   {
-    "name": "drumstick",
-    "tags": [
-      "food",
-      "chicken",
-      "meat"
-    ]
+    name: "drumstick",
+    tags: ["food", "chicken", "meat"],
   },
   {
-    "name": "dumbbell",
-    "tags": [
-      "barbell",
-      "weight",
-      "workout",
-      "gym"
-    ]
+    name: "dumbbell",
+    tags: ["barbell", "weight", "workout", "gym"],
   },
   {
-    "name": "ear-off",
-    "tags": [
+    name: "ear-off",
+    tags: [
       "hearing",
       "hard of hearing",
       "hearing loss",
@@ -7151,21 +5054,16 @@ export const tags = [
       "noise",
       "silence",
       "audio",
-      "accessibility"
-    ]
+      "accessibility",
+    ],
   },
   {
-    "name": "ear",
-    "tags": [
-      "hearing",
-      "noise",
-      "audio",
-      "accessibility"
-    ]
+    name: "ear",
+    tags: ["hearing", "noise", "audio", "accessibility"],
   },
   {
-    "name": "earth-lock",
-    "tags": [
+    name: "earth-lock",
+    tags: [
       "vpn",
       "private",
       "privacy",
@@ -7175,22 +5073,16 @@ export const tags = [
       "security",
       "encryption",
       "protection",
-      "connection"
-    ]
+      "connection",
+    ],
   },
   {
-    "name": "earth",
-    "tags": [
-      "world",
-      "browser",
-      "language",
-      "translate",
-      "globe"
-    ]
+    name: "earth",
+    tags: ["world", "browser", "language", "translate", "globe"],
   },
   {
-    "name": "eclipse",
-    "tags": [
+    name: "eclipse",
+    tags: [
       "lunar",
       "solar",
       "crescent moon",
@@ -7213,28 +5105,20 @@ export const tags = [
       "contrast",
       "brightness",
       "blend",
-      "shade"
-    ]
+      "shade",
+    ],
   },
   {
-    "name": "egg-fried",
-    "tags": [
-      "food",
-      "breakfast"
-    ]
+    name: "egg-fried",
+    tags: ["food", "breakfast"],
   },
   {
-    "name": "egg-off",
-    "tags": [
-      "egg free",
-      "vegan",
-      "hatched",
-      "bad egg"
-    ]
+    name: "egg-off",
+    tags: ["egg free", "vegan", "hatched", "bad egg"],
   },
   {
-    "name": "egg",
-    "tags": [
+    name: "egg",
+    tags: [
       "bird",
       "chicken",
       "nest",
@@ -7246,12 +5130,12 @@ export const tags = [
       "breakfast",
       "brunch",
       "morning",
-      "easter"
-    ]
+      "easter",
+    ],
   },
   {
-    "name": "ellipse",
-    "tags": [
+    name: "ellipse",
+    tags: [
       "shape",
       "geometry",
       "rounded",
@@ -7262,27 +5146,16 @@ export const tags = [
       "curve",
       "shapes",
       "ellipse",
-      "oval"
-    ]
+      "oval",
+    ],
   },
   {
-    "name": "ellipsis-vertical",
-    "tags": [
-      "menu",
-      "options",
-      "spread",
-      "more",
-      "further",
-      "extra",
-      "overflow",
-      "dots",
-      "…",
-      "..."
-    ]
+    name: "ellipsis-vertical",
+    tags: ["menu", "options", "spread", "more", "further", "extra", "overflow", "dots", "…", "..."],
   },
   {
-    "name": "ellipsis",
-    "tags": [
+    name: "ellipsis",
+    tags: [
       "et cetera",
       "etc",
       "loader",
@@ -7303,55 +5176,28 @@ export const tags = [
       "overflow",
       "dots",
       "…",
-      "..."
-    ]
+      "...",
+    ],
   },
   {
-    "name": "equal-approximately",
-    "tags": [
-      "about",
-      "calculate",
-      "math",
-      "operater"
-    ]
+    name: "equal-approximately",
+    tags: ["about", "calculate", "math", "operater"],
   },
   {
-    "name": "equal-not",
-    "tags": [
-      "calculate",
-      "off",
-      "math",
-      "operator",
-      "code",
-      "≠"
-    ]
+    name: "equal-not",
+    tags: ["calculate", "off", "math", "operator", "code", "≠"],
   },
   {
-    "name": "equal",
-    "tags": [
-      "calculate",
-      "math",
-      "operator",
-      "assignment",
-      "code",
-      "="
-    ]
+    name: "equal",
+    tags: ["calculate", "math", "operator", "assignment", "code", "="],
   },
   {
-    "name": "eraser",
-    "tags": [
-      "pencil",
-      "drawing",
-      "undo",
-      "delete",
-      "clear",
-      "trash",
-      "remove"
-    ]
+    name: "eraser",
+    tags: ["pencil", "drawing", "undo", "delete", "clear", "trash", "remove"],
   },
   {
-    "name": "ethernet-port",
-    "tags": [
+    name: "ethernet-port",
+    tags: [
       "internet",
       "network",
       "connection",
@@ -7376,20 +5222,16 @@ export const tags = [
       "signal",
       "data",
       "input",
-      "output"
-    ]
+      "output",
+    ],
   },
   {
-    "name": "euro",
-    "tags": [
-      "currency",
-      "money",
-      "payment"
-    ]
+    name: "euro",
+    tags: ["currency", "money", "payment"],
   },
   {
-    "name": "ev-charger",
-    "tags": [
+    name: "ev-charger",
+    tags: [
       "electric",
       "charger",
       "station",
@@ -7401,58 +5243,28 @@ export const tags = [
       "electricity",
       "energy",
       "accumulator",
-      "charge"
-    ]
+      "charge",
+    ],
   },
   {
-    "name": "expand",
-    "tags": [
-      "scale",
-      "fullscreen",
-      "maximize",
-      "minimize",
-      "contract"
-    ]
+    name: "expand",
+    tags: ["scale", "fullscreen", "maximize", "minimize", "contract"],
   },
   {
-    "name": "external-link",
-    "tags": [
-      "outbound",
-      "open",
-      "share"
-    ]
+    name: "external-link",
+    tags: ["outbound", "open", "share"],
   },
   {
-    "name": "eye-closed",
-    "tags": [
-      "view",
-      "watch",
-      "see",
-      "hide",
-      "conceal",
-      "mask",
-      "hidden",
-      "visibility",
-      "vision"
-    ]
+    name: "eye-closed",
+    tags: ["view", "watch", "see", "hide", "conceal", "mask", "hidden", "visibility", "vision"],
   },
   {
-    "name": "eye-off",
-    "tags": [
-      "view",
-      "watch",
-      "see",
-      "hide",
-      "conceal",
-      "mask",
-      "hidden",
-      "visibility",
-      "vision"
-    ]
+    name: "eye-off",
+    tags: ["view", "watch", "see", "hide", "conceal", "mask", "hidden", "visibility", "vision"],
   },
   {
-    "name": "eye",
-    "tags": [
+    name: "eye",
+    tags: [
       "view",
       "watch",
       "see",
@@ -7464,45 +5276,28 @@ export const tags = [
       "visibility",
       "vision",
       "preview",
-      "read"
-    ]
+      "read",
+    ],
   },
   {
-    "name": "factory",
-    "tags": [
-      "building",
-      "business",
-      "energy",
-      "industry",
-      "manufacture",
-      "sector"
-    ]
+    name: "factory",
+    tags: ["building", "business", "energy", "industry", "manufacture", "sector"],
   },
   {
-    "name": "fan",
-    "tags": [
-      "air",
-      "cooler",
-      "ventilation",
-      "ventilator",
-      "blower"
-    ]
+    name: "fan",
+    tags: ["air", "cooler", "ventilation", "ventilator", "blower"],
   },
   {
-    "name": "fast-forward",
-    "tags": [
-      "music"
-    ]
+    name: "fast-forward",
+    tags: ["music"],
   },
   {
-    "name": "feather",
-    "tags": [
-      "logo"
-    ]
+    name: "feather",
+    tags: ["logo"],
   },
   {
-    "name": "fence",
-    "tags": [
+    name: "fence",
+    tags: [
       "picket",
       "panels",
       "woodwork",
@@ -7511,12 +5306,12 @@ export const tags = [
       "suburban",
       "garden",
       "property",
-      "territory"
-    ]
+      "territory",
+    ],
   },
   {
-    "name": "ferris-wheel",
-    "tags": [
+    name: "ferris-wheel",
+    tags: [
       "big wheel",
       "daisy wheel",
       "observation",
@@ -7524,268 +5319,124 @@ export const tags = [
       "entertainment",
       "amusement park",
       "theme park",
-      "funfair"
-    ]
+      "funfair",
+    ],
   },
   {
-    "name": "file-archive",
-    "tags": [
-      "zip",
-      "package",
-      "archive"
-    ]
+    name: "file-archive",
+    tags: ["zip", "package", "archive"],
   },
   {
-    "name": "file-axis-3d",
-    "tags": [
-      "model",
-      "3d",
-      "axis",
-      "coordinates"
-    ]
+    name: "file-axis-3d",
+    tags: ["model", "3d", "axis", "coordinates"],
   },
   {
-    "name": "file-badge",
-    "tags": [
-      "award",
-      "achievement",
-      "badge",
-      "rosette",
-      "prize",
-      "winner"
-    ]
+    name: "file-badge",
+    tags: ["award", "achievement", "badge", "rosette", "prize", "winner"],
   },
   {
-    "name": "file-box",
-    "tags": [
-      "box",
-      "package",
-      "model"
-    ]
+    name: "file-box",
+    tags: ["box", "package", "model"],
   },
   {
-    "name": "file-braces-corner",
-    "tags": [
-      "code",
-      "json",
-      "curly braces",
-      "curly brackets"
-    ]
+    name: "file-braces-corner",
+    tags: ["code", "json", "curly braces", "curly brackets"],
   },
   {
-    "name": "file-braces",
-    "tags": [
-      "code",
-      "json",
-      "curly braces",
-      "curly brackets"
-    ]
+    name: "file-braces",
+    tags: ["code", "json", "curly braces", "curly brackets"],
   },
   {
-    "name": "file-chart-column-increasing",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph",
-      "presentation",
-      "trending up"
-    ]
+    name: "file-chart-column-increasing",
+    tags: ["statistics", "analytics", "diagram", "graph", "presentation", "trending up"],
   },
   {
-    "name": "file-chart-column",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph",
-      "presentation"
-    ]
+    name: "file-chart-column",
+    tags: ["statistics", "analytics", "diagram", "graph", "presentation"],
   },
   {
-    "name": "file-chart-line",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph",
-      "presentation"
-    ]
+    name: "file-chart-line",
+    tags: ["statistics", "analytics", "diagram", "graph", "presentation"],
   },
   {
-    "name": "file-chart-pie",
-    "tags": [
-      "statistics",
-      "analytics",
-      "diagram",
-      "graph",
-      "presentation"
-    ]
+    name: "file-chart-pie",
+    tags: ["statistics", "analytics", "diagram", "graph", "presentation"],
   },
   {
-    "name": "file-check-corner",
-    "tags": [
-      "done",
-      "document",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
+    name: "file-check-corner",
+    tags: ["done", "document", "todo", "tick", "complete", "task"],
   },
   {
-    "name": "file-check",
-    "tags": [
-      "done",
-      "document",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
+    name: "file-check",
+    tags: ["done", "document", "todo", "tick", "complete", "task"],
   },
   {
-    "name": "file-clock",
-    "tags": [
-      "history",
-      "log",
-      "clock"
-    ]
+    name: "file-clock",
+    tags: ["history", "log", "clock"],
   },
   {
-    "name": "file-code-corner",
-    "tags": [
-      "script",
-      "document",
-      "html",
-      "xml",
-      "property list",
-      "plist"
-    ]
+    name: "file-code-corner",
+    tags: ["script", "document", "html", "xml", "property list", "plist"],
   },
   {
-    "name": "file-code",
-    "tags": [
-      "script",
-      "document",
-      "gist",
-      "html",
-      "xml",
-      "property list",
-      "plist"
-    ]
+    name: "file-code",
+    tags: ["script", "document", "gist", "html", "xml", "property list", "plist"],
   },
   {
-    "name": "file-cog",
-    "tags": [
-      "executable",
-      "settings",
-      "cog",
-      "edit",
-      "gear"
-    ]
+    name: "file-cog",
+    tags: ["executable", "settings", "cog", "edit", "gear"],
   },
   {
-    "name": "file-diff",
-    "tags": [
-      "diff",
-      "patch"
-    ]
+    name: "file-diff",
+    tags: ["diff", "patch"],
   },
   {
-    "name": "file-digit",
-    "tags": [
-      "number",
-      "document"
-    ]
+    name: "file-digit",
+    tags: ["number", "document"],
   },
   {
-    "name": "file-down",
-    "tags": [
-      "download",
-      "import",
-      "export"
-    ]
+    name: "file-down",
+    tags: ["download", "import", "export"],
   },
   {
-    "name": "file-exclamation-point",
-    "tags": [
-      "hidden",
-      "warning",
-      "alert",
-      "danger",
-      "protected",
-      "exclamation mark"
-    ]
+    name: "file-exclamation-point",
+    tags: ["hidden", "warning", "alert", "danger", "protected", "exclamation mark"],
   },
   {
-    "name": "file-headphone",
-    "tags": [
-      "music",
-      "audio",
-      "sound",
-      "headphones"
-    ]
+    name: "file-headphone",
+    tags: ["music", "audio", "sound", "headphones"],
   },
   {
-    "name": "file-heart",
-    "tags": [
-      "heart",
-      "favourite",
-      "bookmark",
-      "quick link"
-    ]
+    name: "file-heart",
+    tags: ["heart", "favourite", "bookmark", "quick link"],
   },
   {
-    "name": "file-image",
-    "tags": [
-      "image",
-      "graphics",
-      "photo",
-      "picture"
-    ]
+    name: "file-image",
+    tags: ["image", "graphics", "photo", "picture"],
   },
   {
-    "name": "file-input",
-    "tags": [
-      "document"
-    ]
+    name: "file-input",
+    tags: ["document"],
   },
   {
-    "name": "file-key",
-    "tags": [
-      "key",
-      "private",
-      "public",
-      "security"
-    ]
+    name: "file-key",
+    tags: ["key", "private", "public", "security"],
   },
   {
-    "name": "file-lock",
-    "tags": [
-      "lock",
-      "password",
-      "security"
-    ]
+    name: "file-lock",
+    tags: ["lock", "password", "security"],
   },
   {
-    "name": "file-minus-corner",
-    "tags": [
-      "document"
-    ]
+    name: "file-minus-corner",
+    tags: ["document"],
   },
   {
-    "name": "file-minus",
-    "tags": [
-      "delete",
-      "remove",
-      "erase",
-      "document"
-    ]
+    name: "file-minus",
+    tags: ["delete", "remove", "erase", "document"],
   },
   {
-    "name": "file-music",
-    "tags": [
+    name: "file-music",
+    tags: [
       "audio",
       "sound",
       "noise",
@@ -7799,100 +5450,56 @@ export const tags = [
       "notes",
       "chord",
       "midi",
-      "octave"
-    ]
+      "octave",
+    ],
   },
   {
-    "name": "file-output",
-    "tags": [
-      "document"
-    ]
+    name: "file-output",
+    tags: ["document"],
   },
   {
-    "name": "file-pen-line",
-    "tags": [
-      "edit"
-    ]
+    name: "file-pen-line",
+    tags: ["edit"],
   },
   {
-    "name": "file-pen",
-    "tags": [
-      "signature"
-    ]
+    name: "file-pen",
+    tags: ["signature"],
   },
   {
-    "name": "file-play",
-    "tags": [
-      "movie",
-      "video",
-      "film"
-    ]
+    name: "file-play",
+    tags: ["movie", "video", "film"],
   },
   {
-    "name": "file-plus-corner",
-    "tags": [
-      "add",
-      "create",
-      "new",
-      "document"
-    ]
+    name: "file-plus-corner",
+    tags: ["add", "create", "new", "document"],
   },
   {
-    "name": "file-plus",
-    "tags": [
-      "add",
-      "create",
-      "new",
-      "document"
-    ]
+    name: "file-plus",
+    tags: ["add", "create", "new", "document"],
   },
   {
-    "name": "file-question-mark",
-    "tags": [
-      "readme",
-      "help",
-      "question"
-    ]
+    name: "file-question-mark",
+    tags: ["readme", "help", "question"],
   },
   {
-    "name": "file-scan",
-    "tags": [
-      "scan",
-      "code",
-      "qr-code"
-    ]
+    name: "file-scan",
+    tags: ["scan", "code", "qr-code"],
   },
   {
-    "name": "file-search-corner",
-    "tags": [
-      "lost",
-      "document",
-      "find",
-      "browser",
-      "lens"
-    ]
+    name: "file-search-corner",
+    tags: ["lost", "document", "find", "browser", "lens"],
   },
   {
-    "name": "file-search",
-    "tags": [
-      "lost",
-      "document",
-      "find",
-      "browser",
-      "lens"
-    ]
+    name: "file-search",
+    tags: ["lost", "document", "find", "browser", "lens"],
   },
   {
-    "name": "file-signal",
-    "tags": [
-      "audio",
-      "music",
-      "volume"
-    ]
+    name: "file-signal",
+    tags: ["audio", "music", "volume"],
   },
   {
-    "name": "file-sliders",
-    "tags": [
+    name: "file-sliders",
+    tags: [
       "cogged",
       "gear",
       "mechanical",
@@ -7904,84 +5511,44 @@ export const tags = [
       "system",
       "admin",
       "edit",
-      "executable"
-    ]
+      "executable",
+    ],
   },
   {
-    "name": "file-spreadsheet",
-    "tags": [
-      "spreadsheet",
-      "sheet",
-      "table"
-    ]
+    name: "file-spreadsheet",
+    tags: ["spreadsheet", "sheet", "table"],
   },
   {
-    "name": "file-stack",
-    "tags": [
-      "versions",
-      "multiple",
-      "copy",
-      "documents",
-      "revisions",
-      "version control",
-      "history"
-    ]
+    name: "file-stack",
+    tags: ["versions", "multiple", "copy", "documents", "revisions", "version control", "history"],
   },
   {
-    "name": "file-symlink",
-    "tags": [
-      "symlink",
-      "symbolic",
-      "link"
-    ]
+    name: "file-symlink",
+    tags: ["symlink", "symbolic", "link"],
   },
   {
-    "name": "file-terminal",
-    "tags": [
-      "terminal",
-      "bash",
-      "script",
-      "executable"
-    ]
+    name: "file-terminal",
+    tags: ["terminal", "bash", "script", "executable"],
   },
   {
-    "name": "file-text",
-    "tags": [
-      "data",
-      "txt",
-      "pdf",
-      "document"
-    ]
+    name: "file-text",
+    tags: ["data", "txt", "pdf", "document"],
   },
   {
-    "name": "file-type-corner",
-    "tags": [
-      "font",
-      "text",
-      "typography",
-      "type"
-    ]
+    name: "file-type-corner",
+    tags: ["font", "text", "typography", "type"],
   },
   {
-    "name": "file-type",
-    "tags": [
-      "font",
-      "text",
-      "typography",
-      "type"
-    ]
+    name: "file-type",
+    tags: ["font", "text", "typography", "type"],
   },
   {
-    "name": "file-up",
-    "tags": [
-      "upload",
-      "import",
-      "export"
-    ]
+    name: "file-up",
+    tags: ["upload", "import", "export"],
   },
   {
-    "name": "file-user",
-    "tags": [
+    name: "file-user",
+    tags: [
       "person",
       "personal information",
       "people",
@@ -7993,81 +5560,44 @@ export const tags = [
       "resume",
       "cv",
       "curriculum vitae",
-      "application form"
-    ]
+      "application form",
+    ],
   },
   {
-    "name": "file-video-camera",
-    "tags": [
-      "movie",
-      "video",
-      "film"
-    ]
+    name: "file-video-camera",
+    tags: ["movie", "video", "film"],
   },
   {
-    "name": "file-volume",
-    "tags": [
-      "audio",
-      "music",
-      "volume"
-    ]
+    name: "file-volume",
+    tags: ["audio", "music", "volume"],
   },
   {
-    "name": "file-x-corner",
-    "tags": [
-      "lost",
-      "delete",
-      "remove",
-      "document"
-    ]
+    name: "file-x-corner",
+    tags: ["lost", "delete", "remove", "document"],
   },
   {
-    "name": "file-x",
-    "tags": [
-      "lost",
-      "delete",
-      "remove",
-      "document"
-    ]
+    name: "file-x",
+    tags: ["lost", "delete", "remove", "document"],
   },
   {
-    "name": "file",
-    "tags": [
-      "document"
-    ]
+    name: "file",
+    tags: ["document"],
   },
   {
-    "name": "files",
-    "tags": [
-      "multiple",
-      "copy",
-      "documents"
-    ]
+    name: "files",
+    tags: ["multiple", "copy", "documents"],
   },
   {
-    "name": "film",
-    "tags": [
-      "movie",
-      "video",
-      "reel",
-      "camera",
-      "cinema",
-      "entertainment"
-    ]
+    name: "film",
+    tags: ["movie", "video", "reel", "camera", "cinema", "entertainment"],
   },
   {
-    "name": "fingerprint-pattern",
-    "tags": [
-      "2fa",
-      "authentication",
-      "biometric",
-      "identity",
-      "security"
-    ]
+    name: "fingerprint-pattern",
+    tags: ["2fa", "authentication", "biometric", "identity", "security"],
   },
   {
-    "name": "fire-extinguisher",
-    "tags": [
+    name: "fire-extinguisher",
+    tags: [
       "flames",
       "smoke",
       "foam",
@@ -8086,12 +5616,12 @@ export const tags = [
       "cylinder",
       "safety",
       "equipment",
-      "amenities"
-    ]
+      "amenities",
+    ],
   },
   {
-    "name": "fish-off",
-    "tags": [
+    name: "fish-off",
+    tags: [
       "food",
       "dish",
       "restaurant",
@@ -8104,38 +5634,20 @@ export const tags = [
       "marine",
       "allergy",
       "intolerance",
-      "diet"
-    ]
+      "diet",
+    ],
   },
   {
-    "name": "fish-symbol",
-    "tags": [
-      "dish",
-      "restaurant",
-      "course",
-      "meal",
-      "seafood",
-      "pet",
-      "sea",
-      "marine"
-    ]
+    name: "fish-symbol",
+    tags: ["dish", "restaurant", "course", "meal", "seafood", "pet", "sea", "marine"],
   },
   {
-    "name": "fish",
-    "tags": [
-      "dish",
-      "restaurant",
-      "course",
-      "meal",
-      "seafood",
-      "pet",
-      "sea",
-      "marine"
-    ]
+    name: "fish",
+    tags: ["dish", "restaurant", "course", "meal", "seafood", "pet", "sea", "marine"],
   },
   {
-    "name": "fishing-hook",
-    "tags": [
+    name: "fishing-hook",
+    tags: [
       "sea",
       "boating",
       "angler",
@@ -8148,22 +5660,16 @@ export const tags = [
       "fishing",
       "hook",
       "sports",
-      "travel"
-    ]
+      "travel",
+    ],
   },
   {
-    "name": "fishing-rod",
-    "tags": [
-      "fishing",
-      "rod",
-      "hobby",
-      "equipment",
-      "reel"
-    ]
+    name: "fishing-rod",
+    tags: ["fishing", "rod", "hobby", "equipment", "reel"],
   },
   {
-    "name": "flag-off",
-    "tags": [
+    name: "flag-off",
+    tags: [
       "unflag",
       "unmark",
       "report",
@@ -8175,30 +5681,20 @@ export const tags = [
       "notice",
       "signal",
       "attention",
-      "banner"
-    ]
+      "banner",
+    ],
   },
   {
-    "name": "flag-triangle-left",
-    "tags": [
-      "report",
-      "timeline",
-      "marker",
-      "pin"
-    ]
+    name: "flag-triangle-left",
+    tags: ["report", "timeline", "marker", "pin"],
   },
   {
-    "name": "flag-triangle-right",
-    "tags": [
-      "report",
-      "timeline",
-      "marker",
-      "pin"
-    ]
+    name: "flag-triangle-right",
+    tags: ["report", "timeline", "marker", "pin"],
   },
   {
-    "name": "flag",
-    "tags": [
+    name: "flag",
+    tags: [
       "report",
       "marker",
       "notification",
@@ -8208,12 +5704,12 @@ export const tags = [
       "notice",
       "signal",
       "attention",
-      "banner"
-    ]
+      "banner",
+    ],
   },
   {
-    "name": "flame-kindling",
-    "tags": [
+    name: "flame-kindling",
+    tags: [
       "campfire",
       "camping",
       "wilderness",
@@ -8222,12 +5718,12 @@ export const tags = [
       "warmth",
       "wood",
       "twigs",
-      "sticks"
-    ]
+      "sticks",
+    ],
   },
   {
-    "name": "flame",
-    "tags": [
+    name: "flame",
+    tags: [
       "heat",
       "burn",
       "light",
@@ -8246,188 +5742,84 @@ export const tags = [
       "department",
       "brigade",
       "station",
-      "emergency"
-    ]
-  },
-  {
-    "name": "flashlight-off",
-    "tags": [
-      "torch",
-      "light",
-      "beam",
       "emergency",
-      "safety",
-      "tool",
-      "bright"
-    ]
+    ],
   },
   {
-    "name": "flashlight",
-    "tags": [
-      "torch",
-      "light",
-      "beam",
-      "emergency",
-      "safety",
-      "tool",
-      "bright"
-    ]
+    name: "flashlight-off",
+    tags: ["torch", "light", "beam", "emergency", "safety", "tool", "bright"],
   },
   {
-    "name": "flask-conical-off",
-    "tags": [
-      "beaker",
-      "erlenmeyer",
-      "non toxic",
-      "lab",
-      "chemistry",
-      "experiment",
-      "test"
-    ]
+    name: "flashlight",
+    tags: ["torch", "light", "beam", "emergency", "safety", "tool", "bright"],
   },
   {
-    "name": "flask-conical",
-    "tags": [
-      "beaker",
-      "erlenmeyer",
-      "lab",
-      "chemistry",
-      "experiment",
-      "test"
-    ]
+    name: "flask-conical-off",
+    tags: ["beaker", "erlenmeyer", "non toxic", "lab", "chemistry", "experiment", "test"],
   },
   {
-    "name": "flask-round",
-    "tags": [
-      "beaker",
-      "lab",
-      "chemistry",
-      "experiment",
-      "test"
-    ]
+    name: "flask-conical",
+    tags: ["beaker", "erlenmeyer", "lab", "chemistry", "experiment", "test"],
   },
   {
-    "name": "flip-horizontal-2",
-    "tags": [
-      "reflect",
-      "mirror",
-      "alignment",
-      "dashed"
-    ]
+    name: "flask-round",
+    tags: ["beaker", "lab", "chemistry", "experiment", "test"],
   },
   {
-    "name": "flip-vertical-2",
-    "tags": [
-      "reflect",
-      "mirror",
-      "alignment",
-      "dashed"
-    ]
+    name: "flip-horizontal-2",
+    tags: ["reflect", "mirror", "alignment", "dashed"],
   },
   {
-    "name": "flower-2",
-    "tags": [
-      "sustainability",
-      "nature",
-      "plant"
-    ]
+    name: "flip-vertical-2",
+    tags: ["reflect", "mirror", "alignment", "dashed"],
   },
   {
-    "name": "flower",
-    "tags": [
-      "sustainability",
-      "nature",
-      "plant",
-      "spring"
-    ]
+    name: "flower-2",
+    tags: ["sustainability", "nature", "plant"],
   },
   {
-    "name": "focus",
-    "tags": [
-      "camera",
-      "lens",
-      "photo",
-      "dashed"
-    ]
+    name: "flower",
+    tags: ["sustainability", "nature", "plant", "spring"],
   },
   {
-    "name": "fold-horizontal",
-    "tags": [
-      "arrow",
-      "collapse",
-      "fold",
-      "vertical",
-      "dashed"
-    ]
+    name: "focus",
+    tags: ["camera", "lens", "photo", "dashed"],
   },
   {
-    "name": "fold-vertical",
-    "tags": [
-      "arrow",
-      "collapse",
-      "fold",
-      "vertical",
-      "dashed"
-    ]
+    name: "fold-horizontal",
+    tags: ["arrow", "collapse", "fold", "vertical", "dashed"],
   },
   {
-    "name": "folder-archive",
-    "tags": [
-      "archive",
-      "zip",
-      "package"
-    ]
+    name: "fold-vertical",
+    tags: ["arrow", "collapse", "fold", "vertical", "dashed"],
   },
   {
-    "name": "folder-check",
-    "tags": [
-      "done",
-      "directory",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
+    name: "folder-archive",
+    tags: ["archive", "zip", "package"],
   },
   {
-    "name": "folder-clock",
-    "tags": [
-      "history",
-      "directory",
-      "clock"
-    ]
+    name: "folder-check",
+    tags: ["done", "directory", "todo", "tick", "complete", "task"],
   },
   {
-    "name": "folder-closed",
-    "tags": [
-      "directory",
-      "closed"
-    ]
+    name: "folder-clock",
+    tags: ["history", "directory", "clock"],
   },
   {
-    "name": "folder-code",
-    "tags": [
-      "directory",
-      "coding",
-      "develop",
-      "software"
-    ]
+    name: "folder-closed",
+    tags: ["directory", "closed"],
   },
   {
-    "name": "folder-cog",
-    "tags": [
-      "directory",
-      "settings",
-      "control",
-      "preferences",
-      "cog",
-      "edit",
-      "gear"
-    ]
+    name: "folder-code",
+    tags: ["directory", "coding", "develop", "software"],
   },
   {
-    "name": "folder-dot",
-    "tags": [
+    name: "folder-cog",
+    tags: ["directory", "settings", "control", "preferences", "cog", "edit", "gear"],
+  },
+  {
+    name: "folder-dot",
+    tags: [
       "directory",
       "root",
       "project",
@@ -8444,59 +5836,32 @@ export const tags = [
       "settings",
       "system",
       "admin",
-      "edit"
-    ]
+      "edit",
+    ],
   },
   {
-    "name": "folder-down",
-    "tags": [
-      "directory",
-      "download",
-      "import",
-      "export"
-    ]
+    name: "folder-down",
+    tags: ["directory", "download", "import", "export"],
   },
   {
-    "name": "folder-git-2",
-    "tags": [
-      "directory",
-      "root",
-      "project",
-      "git",
-      "repo"
-    ]
+    name: "folder-git-2",
+    tags: ["directory", "root", "project", "git", "repo"],
   },
   {
-    "name": "folder-git",
-    "tags": [
-      "directory",
-      "root",
-      "project",
-      "git",
-      "repo"
-    ]
+    name: "folder-git",
+    tags: ["directory", "root", "project", "git", "repo"],
   },
   {
-    "name": "folder-heart",
-    "tags": [
-      "directory",
-      "heart",
-      "favourite",
-      "bookmark",
-      "quick link"
-    ]
+    name: "folder-heart",
+    tags: ["directory", "heart", "favourite", "bookmark", "quick link"],
   },
   {
-    "name": "folder-input",
-    "tags": [
-      "directory",
-      "import",
-      "export"
-    ]
+    name: "folder-input",
+    tags: ["directory", "import", "export"],
   },
   {
-    "name": "folder-kanban",
-    "tags": [
+    name: "folder-kanban",
+    tags: [
       "projects",
       "manage",
       "overview",
@@ -8513,184 +5878,88 @@ export const tags = [
       "coding",
       "directory",
       "project",
-      "root"
-    ]
-  },
-  {
-    "name": "folder-key",
-    "tags": [
-      "directory",
-      "key",
-      "private",
-      "security",
-      "protected"
-    ]
-  },
-  {
-    "name": "folder-lock",
-    "tags": [
-      "directory",
-      "lock",
-      "private",
-      "security",
-      "protected"
-    ]
-  },
-  {
-    "name": "folder-minus",
-    "tags": [
-      "directory",
-      "remove",
-      "delete"
-    ]
-  },
-  {
-    "name": "folder-open-dot",
-    "tags": [
-      "directory",
       "root",
-      "project",
-      "active",
-      "current",
-      "pinned"
-    ]
+    ],
   },
   {
-    "name": "folder-open",
-    "tags": [
-      "directory"
-    ]
+    name: "folder-key",
+    tags: ["directory", "key", "private", "security", "protected"],
   },
   {
-    "name": "folder-output",
-    "tags": [
-      "directory",
-      "import",
-      "export"
-    ]
+    name: "folder-lock",
+    tags: ["directory", "lock", "private", "security", "protected"],
   },
   {
-    "name": "folder-pen",
-    "tags": [
-      "directory",
-      "rename"
-    ]
+    name: "folder-minus",
+    tags: ["directory", "remove", "delete"],
   },
   {
-    "name": "folder-plus",
-    "tags": [
-      "directory",
-      "add",
-      "create",
-      "new"
-    ]
+    name: "folder-open-dot",
+    tags: ["directory", "root", "project", "active", "current", "pinned"],
   },
   {
-    "name": "folder-root",
-    "tags": [
-      "directory",
-      "root",
-      "project",
-      "git",
-      "repo"
-    ]
+    name: "folder-open",
+    tags: ["directory"],
   },
   {
-    "name": "folder-search-2",
-    "tags": [
-      "directory",
-      "search",
-      "find",
-      "lost",
-      "browser",
-      "lens"
-    ]
+    name: "folder-output",
+    tags: ["directory", "import", "export"],
   },
   {
-    "name": "folder-search",
-    "tags": [
-      "directory",
-      "search",
-      "find",
-      "lost",
-      "browser",
-      "lens"
-    ]
+    name: "folder-pen",
+    tags: ["directory", "rename"],
   },
   {
-    "name": "folder-symlink",
-    "tags": [
-      "directory",
-      "symlink",
-      "symbolic",
-      "link"
-    ]
+    name: "folder-plus",
+    tags: ["directory", "add", "create", "new"],
   },
   {
-    "name": "folder-sync",
-    "tags": [
-      "directory",
-      "synchronize",
-      "synchronise",
-      "refresh",
-      "reconnect",
-      "transfer",
-      "backup"
-    ]
+    name: "folder-root",
+    tags: ["directory", "root", "project", "git", "repo"],
   },
   {
-    "name": "folder-tree",
-    "tags": [
-      "directory",
-      "tree",
-      "browser"
-    ]
+    name: "folder-search-2",
+    tags: ["directory", "search", "find", "lost", "browser", "lens"],
   },
   {
-    "name": "folder-up",
-    "tags": [
-      "directory",
-      "upload",
-      "import",
-      "export"
-    ]
+    name: "folder-search",
+    tags: ["directory", "search", "find", "lost", "browser", "lens"],
   },
   {
-    "name": "folder-x",
-    "tags": [
-      "directory",
-      "remove",
-      "delete"
-    ]
+    name: "folder-symlink",
+    tags: ["directory", "symlink", "symbolic", "link"],
   },
   {
-    "name": "folder",
-    "tags": [
-      "directory"
-    ]
+    name: "folder-sync",
+    tags: ["directory", "synchronize", "synchronise", "refresh", "reconnect", "transfer", "backup"],
   },
   {
-    "name": "folders",
-    "tags": [
-      "multiple",
-      "copy",
-      "directories"
-    ]
+    name: "folder-tree",
+    tags: ["directory", "tree", "browser"],
   },
   {
-    "name": "footprints",
-    "tags": [
-      "steps",
-      "walking",
-      "foot",
-      "feet",
-      "trail",
-      "shoe"
-    ]
+    name: "folder-up",
+    tags: ["directory", "upload", "import", "export"],
   },
   {
-    "name": "forklift",
-    "tags": [
+    name: "folder-x",
+    tags: ["directory", "remove", "delete"],
+  },
+  {
+    name: "folder",
+    tags: ["directory"],
+  },
+  {
+    name: "folders",
+    tags: ["multiple", "copy", "directories"],
+  },
+  {
+    name: "footprints",
+    tags: ["steps", "walking", "foot", "feet", "trail", "shoe"],
+  },
+  {
+    name: "forklift",
+    tags: [
       "machinery",
       "industrial",
       "warehouse",
@@ -8701,12 +5970,12 @@ export const tags = [
       "moving",
       "vehicle",
       "transport",
-      "logistics"
-    ]
+      "logistics",
+    ],
   },
   {
-    "name": "form",
-    "tags": [
+    name: "form",
+    tags: [
       "document",
       "page",
       "file",
@@ -8718,85 +5987,44 @@ export const tags = [
       "template",
       "inputs",
       "design",
-      "components"
-    ]
+      "components",
+    ],
   },
   {
-    "name": "forward",
-    "tags": [
-      "send",
-      "share",
-      "email"
-    ]
+    name: "forward",
+    tags: ["send", "share", "email"],
   },
   {
-    "name": "frame",
-    "tags": [
-      "logo",
-      "design",
-      "tool"
-    ]
+    name: "frame",
+    tags: ["logo", "design", "tool"],
   },
   {
-    "name": "frown",
-    "tags": [
-      "emoji",
-      "face",
-      "bad",
-      "sad",
-      "emotion"
-    ]
+    name: "frown",
+    tags: ["emoji", "face", "bad", "sad", "emotion"],
   },
   {
-    "name": "fuel",
-    "tags": [
-      "filling-station",
-      "gas",
-      "petrol",
-      "tank"
-    ]
+    name: "fuel",
+    tags: ["filling-station", "gas", "petrol", "tank"],
   },
   {
-    "name": "fullscreen",
-    "tags": [
-      "expand",
-      "zoom",
-      "preview",
-      "focus",
-      "camera",
-      "lens",
-      "image"
-    ]
+    name: "fullscreen",
+    tags: ["expand", "zoom", "preview", "focus", "camera", "lens", "image"],
   },
   {
-    "name": "funnel-plus",
-    "tags": [
-      "filter",
-      "hopper",
-      "add",
-      "create",
-      "new"
-    ]
+    name: "funnel-plus",
+    tags: ["filter", "hopper", "add", "create", "new"],
   },
   {
-    "name": "funnel-x",
-    "tags": [
-      "filter",
-      "hopper",
-      "remove",
-      "delete"
-    ]
+    name: "funnel-x",
+    tags: ["filter", "hopper", "remove", "delete"],
   },
   {
-    "name": "funnel",
-    "tags": [
-      "filter",
-      "hopper"
-    ]
+    name: "funnel",
+    tags: ["filter", "hopper"],
   },
   {
-    "name": "gallery-horizontal-end",
-    "tags": [
+    name: "gallery-horizontal-end",
+    tags: [
       "carousel",
       "pictures",
       "images",
@@ -8807,35 +6035,20 @@ export const tags = [
       "history",
       "versions",
       "backup",
-      "time machine"
-    ]
+      "time machine",
+    ],
   },
   {
-    "name": "gallery-horizontal",
-    "tags": [
-      "carousel",
-      "pictures",
-      "images",
-      "scroll",
-      "swipe",
-      "album",
-      "portfolio"
-    ]
+    name: "gallery-horizontal",
+    tags: ["carousel", "pictures", "images", "scroll", "swipe", "album", "portfolio"],
   },
   {
-    "name": "gallery-thumbnails",
-    "tags": [
-      "carousel",
-      "pictures",
-      "images",
-      "album",
-      "portfolio",
-      "preview"
-    ]
+    name: "gallery-thumbnails",
+    tags: ["carousel", "pictures", "images", "album", "portfolio", "preview"],
   },
   {
-    "name": "gallery-vertical-end",
-    "tags": [
+    name: "gallery-vertical-end",
+    tags: [
       "carousel",
       "pictures",
       "images",
@@ -8846,30 +6059,20 @@ export const tags = [
       "history",
       "versions",
       "backup",
-      "time machine"
-    ]
+      "time machine",
+    ],
   },
   {
-    "name": "gallery-vertical",
-    "tags": [
-      "carousel",
-      "pictures",
-      "images",
-      "scroll",
-      "swipe",
-      "album",
-      "portfolio"
-    ]
+    name: "gallery-vertical",
+    tags: ["carousel", "pictures", "images", "scroll", "swipe", "album", "portfolio"],
   },
   {
-    "name": "gamepad-2",
-    "tags": [
-      "console"
-    ]
+    name: "gamepad-2",
+    tags: ["console"],
   },
   {
-    "name": "gamepad-directional",
-    "tags": [
+    name: "gamepad-directional",
+    tags: [
       "direction",
       "arrow",
       "controller",
@@ -8880,30 +6083,20 @@ export const tags = [
       "arrowhead",
       "console",
       "game",
-      "gaming"
-    ]
+      "gaming",
+    ],
   },
   {
-    "name": "gamepad",
-    "tags": [
-      "console"
-    ]
+    name: "gamepad",
+    tags: ["console"],
   },
   {
-    "name": "gauge",
-    "tags": [
-      "dashboard",
-      "dial",
-      "meter",
-      "speed",
-      "pressure",
-      "measure",
-      "level"
-    ]
+    name: "gauge",
+    tags: ["dashboard", "dial", "meter", "speed", "pressure", "measure", "level"],
   },
   {
-    "name": "gavel",
-    "tags": [
+    name: "gavel",
+    tags: [
       "justice",
       "law",
       "court",
@@ -8914,12 +6107,12 @@ export const tags = [
       "decision",
       "authority",
       "hammer",
-      "mallet"
-    ]
+      "mallet",
+    ],
   },
   {
-    "name": "gem",
-    "tags": [
+    name: "gem",
+    tags: [
       "diamond",
       "crystal",
       "ruby",
@@ -8932,215 +6125,100 @@ export const tags = [
       "wedding",
       "proposal",
       "marriage",
-      "rubygems"
-    ]
+      "rubygems",
+    ],
   },
   {
-    "name": "georgian-lari",
-    "tags": [
-      "currency",
-      "money",
-      "payment"
-    ]
+    name: "georgian-lari",
+    tags: ["currency", "money", "payment"],
   },
   {
-    "name": "ghost",
-    "tags": [
-      "pac-man",
-      "spooky"
-    ]
+    name: "ghost",
+    tags: ["pac-man", "spooky"],
   },
   {
-    "name": "gift",
-    "tags": [
-      "present",
-      "box",
-      "birthday",
-      "party"
-    ]
+    name: "gift",
+    tags: ["present", "box", "birthday", "party"],
   },
   {
-    "name": "git-branch-minus",
-    "tags": [
-      "code",
-      "version control",
-      "vcs",
-      "repository",
-      "delete",
-      "remove",
-      "-"
-    ]
+    name: "git-branch-minus",
+    tags: ["code", "version control", "vcs", "repository", "delete", "remove", "-"],
   },
   {
-    "name": "git-branch-plus",
-    "tags": [
-      "code",
-      "version control",
-      "vcs",
-      "repository",
-      "add",
-      "create",
-      "+"
-    ]
+    name: "git-branch-plus",
+    tags: ["code", "version control", "vcs", "repository", "add", "create", "+"],
   },
   {
-    "name": "git-branch",
-    "tags": [
-      "code",
-      "version control",
-      "vcs",
-      "repository"
-    ]
+    name: "git-branch",
+    tags: ["code", "version control", "vcs", "repository"],
   },
   {
-    "name": "git-commit-horizontal",
-    "tags": [
-      "code",
-      "version control",
-      "waypoint",
-      "stop",
-      "station"
-    ]
+    name: "git-commit-horizontal",
+    tags: ["code", "version control", "waypoint", "stop", "station"],
   },
   {
-    "name": "git-commit-vertical",
-    "tags": [
-      "code",
-      "version control",
-      "waypoint",
-      "stop",
-      "station"
-    ]
+    name: "git-commit-vertical",
+    tags: ["code", "version control", "waypoint", "stop", "station"],
   },
   {
-    "name": "git-compare-arrows",
-    "tags": [
-      "code",
-      "version control",
-      "diff"
-    ]
+    name: "git-compare-arrows",
+    tags: ["code", "version control", "diff"],
   },
   {
-    "name": "git-compare",
-    "tags": [
-      "code",
-      "version control",
-      "diff"
-    ]
+    name: "git-compare",
+    tags: ["code", "version control", "diff"],
   },
   {
-    "name": "git-fork",
-    "tags": [
-      "code",
-      "version control"
-    ]
+    name: "git-fork",
+    tags: ["code", "version control"],
   },
   {
-    "name": "git-graph",
-    "tags": [
-      "code",
-      "version control",
-      "commit graph",
-      "commits",
-      "gitlens"
-    ]
+    name: "git-graph",
+    tags: ["code", "version control", "commit graph", "commits", "gitlens"],
   },
   {
-    "name": "git-merge-conflict",
-    "tags": [
-      "code",
-      "version control",
-      "commits",
-      "diff",
-      "error",
-      "conflict"
-    ]
+    name: "git-merge-conflict",
+    tags: ["code", "version control", "commits", "diff", "error", "conflict"],
   },
   {
-    "name": "git-merge",
-    "tags": [
-      "code",
-      "version control"
-    ]
+    name: "git-merge",
+    tags: ["code", "version control"],
   },
   {
-    "name": "git-pull-request-arrow",
-    "tags": [
-      "code",
-      "version control",
-      "open"
-    ]
+    name: "git-pull-request-arrow",
+    tags: ["code", "version control", "open"],
   },
   {
-    "name": "git-pull-request-closed",
-    "tags": [
-      "code",
-      "version control",
-      "rejected",
-      "closed",
-      "cancelled",
-      "x"
-    ]
+    name: "git-pull-request-closed",
+    tags: ["code", "version control", "rejected", "closed", "cancelled", "x"],
   },
   {
-    "name": "git-pull-request-create-arrow",
-    "tags": [
-      "code",
-      "version control",
-      "open",
-      "plus",
-      "add",
-      "+"
-    ]
+    name: "git-pull-request-create-arrow",
+    tags: ["code", "version control", "open", "plus", "add", "+"],
   },
   {
-    "name": "git-pull-request-create",
-    "tags": [
-      "code",
-      "version control",
-      "open",
-      "plus",
-      "add",
-      "+"
-    ]
+    name: "git-pull-request-create",
+    tags: ["code", "version control", "open", "plus", "add", "+"],
   },
   {
-    "name": "git-pull-request-draft",
-    "tags": [
-      "code",
-      "version control",
-      "open",
-      "draft",
-      "dashed"
-    ]
+    name: "git-pull-request-draft",
+    tags: ["code", "version control", "open", "draft", "dashed"],
   },
   {
-    "name": "git-pull-request",
-    "tags": [
-      "code",
-      "version control",
-      "open"
-    ]
+    name: "git-pull-request",
+    tags: ["code", "version control", "open"],
   },
   {
-    "name": "glass-water",
-    "tags": [
-      "beverage",
-      "drink",
-      "glass",
-      "water"
-    ]
+    name: "glass-water",
+    tags: ["beverage", "drink", "glass", "water"],
   },
   {
-    "name": "glasses",
-    "tags": [
-      "glasses",
-      "spectacles"
-    ]
+    name: "glasses",
+    tags: ["glasses", "spectacles"],
   },
   {
-    "name": "globe-lock",
-    "tags": [
+    name: "globe-lock",
+    tags: [
       "vpn",
       "private",
       "privacy",
@@ -9150,12 +6228,12 @@ export const tags = [
       "security",
       "encryption",
       "protection",
-      "connection"
-    ]
+      "connection",
+    ],
   },
   {
-    "name": "globe-off",
-    "tags": [
+    name: "globe-off",
+    tags: [
       "globe",
       "earth",
       "planet",
@@ -9175,12 +6253,12 @@ export const tags = [
       "connection",
       "no connection",
       "network failure",
-      "signal off"
-    ]
+      "signal off",
+    ],
   },
   {
-    "name": "globe-x",
-    "tags": [
+    name: "globe-x",
+    tags: [
       "globe",
       "internet",
       "offline",
@@ -9190,28 +6268,20 @@ export const tags = [
       "world",
       "no connection",
       "network failure",
-      "signal off"
-    ]
+      "signal off",
+    ],
   },
   {
-    "name": "globe",
-    "tags": [
-      "world",
-      "browser",
-      "language",
-      "translate"
-    ]
+    name: "globe",
+    tags: ["world", "browser", "language", "translate"],
   },
   {
-    "name": "goal",
-    "tags": [
-      "flag",
-      "bullseye"
-    ]
+    name: "goal",
+    tags: ["flag", "bullseye"],
   },
   {
-    "name": "gpu",
-    "tags": [
+    name: "gpu",
+    tags: [
       "processor",
       "cores",
       "technology",
@@ -9225,12 +6295,12 @@ export const tags = [
       "gddr",
       "rendering",
       "digital image processing",
-      "crypto mining"
-    ]
+      "crypto mining",
+    ],
   },
   {
-    "name": "graduation-cap",
-    "tags": [
+    name: "graduation-cap",
+    tags: [
       "school",
       "university",
       "learn",
@@ -9243,20 +6313,16 @@ export const tags = [
       "diploma",
       "bachlor's",
       "master's",
-      "doctorate"
-    ]
+      "doctorate",
+    ],
   },
   {
-    "name": "grape",
-    "tags": [
-      "fruit",
-      "wine",
-      "food"
-    ]
+    name: "grape",
+    tags: ["fruit", "wine", "food"],
   },
   {
-    "name": "grid-2x2-check",
-    "tags": [
+    name: "grid-2x2-check",
+    tags: [
       "table",
       "rows",
       "columns",
@@ -9272,12 +6338,12 @@ export const tags = [
       "distance",
       "surface area",
       "square meter",
-      "acre"
-    ]
+      "acre",
+    ],
   },
   {
-    "name": "grid-2x2-plus",
-    "tags": [
+    name: "grid-2x2-plus",
+    tags: [
       "table",
       "rows",
       "columns",
@@ -9293,12 +6359,12 @@ export const tags = [
       "distance",
       "surface area",
       "square meter",
-      "acre"
-    ]
+      "acre",
+    ],
   },
   {
-    "name": "grid-2x2-x",
-    "tags": [
+    name: "grid-2x2-x",
+    tags: [
       "table",
       "rows",
       "columns",
@@ -9314,12 +6380,12 @@ export const tags = [
       "distance",
       "surface area",
       "square meter",
-      "acre"
-    ]
+      "acre",
+    ],
   },
   {
-    "name": "grid-2x2",
-    "tags": [
+    name: "grid-2x2",
+    tags: [
       "table",
       "rows",
       "columns",
@@ -9336,12 +6402,12 @@ export const tags = [
       "square meter",
       "acre",
       "window",
-      "skylight"
-    ]
+      "skylight",
+    ],
   },
   {
-    "name": "grid-3x2",
-    "tags": [
+    name: "grid-3x2",
+    tags: [
       "table",
       "rows",
       "columns",
@@ -9357,63 +6423,32 @@ export const tags = [
       "surface area",
       "square meter",
       "acre",
-      "window"
-    ]
+      "window",
+    ],
   },
   {
-    "name": "grid-3x3",
-    "tags": [
-      "table",
-      "rows",
-      "columns"
-    ]
+    name: "grid-3x3",
+    tags: ["table", "rows", "columns"],
   },
   {
-    "name": "grip-horizontal",
-    "tags": [
-      "grab",
-      "dots",
-      "handle",
-      "move",
-      "drag"
-    ]
+    name: "grip-horizontal",
+    tags: ["grab", "dots", "handle", "move", "drag"],
   },
   {
-    "name": "grip-vertical",
-    "tags": [
-      "grab",
-      "dots",
-      "handle",
-      "move",
-      "drag"
-    ]
+    name: "grip-vertical",
+    tags: ["grab", "dots", "handle", "move", "drag"],
   },
   {
-    "name": "grip",
-    "tags": [
-      "grab",
-      "dots",
-      "handle",
-      "move",
-      "drag"
-    ]
+    name: "grip",
+    tags: ["grab", "dots", "handle", "move", "drag"],
   },
   {
-    "name": "group",
-    "tags": [
-      "cubes",
-      "packages",
-      "parts",
-      "units",
-      "collection",
-      "cluster",
-      "gather",
-      "dashed"
-    ]
+    name: "group",
+    tags: ["cubes", "packages", "parts", "units", "collection", "cluster", "gather", "dashed"],
   },
   {
-    "name": "guitar",
-    "tags": [
+    name: "guitar",
+    tags: [
       "acoustic",
       "instrument",
       "strings",
@@ -9429,26 +6464,16 @@ export const tags = [
       "music",
       "audio",
       "sound",
-      "noise"
-    ]
+      "noise",
+    ],
   },
   {
-    "name": "ham",
-    "tags": [
-      "food",
-      "pork",
-      "pig",
-      "meat",
-      "bone",
-      "hock",
-      "knuckle",
-      "gammon",
-      "cured"
-    ]
+    name: "ham",
+    tags: ["food", "pork", "pig", "meat", "bone", "hock", "knuckle", "gammon", "cured"],
   },
   {
-    "name": "hamburger",
-    "tags": [
+    name: "hamburger",
+    tags: [
       "burger",
       "cheeseburger",
       "meat",
@@ -9479,23 +6504,16 @@ export const tags = [
       "onions",
       "ketchup",
       "mustard",
-      "mayonnaise"
-    ]
+      "mayonnaise",
+    ],
   },
   {
-    "name": "hammer",
-    "tags": [
-      "mallet",
-      "nails",
-      "diy",
-      "toolbox",
-      "build",
-      "construction"
-    ]
+    name: "hammer",
+    tags: ["mallet", "nails", "diy", "toolbox", "build", "construction"],
   },
   {
-    "name": "hand-coins",
-    "tags": [
+    name: "hand-coins",
+    tags: [
       "savings",
       "banking",
       "money",
@@ -9509,12 +6527,12 @@ export const tags = [
       "allowance",
       "pocket money",
       "handout",
-      "pennies"
-    ]
+      "pennies",
+    ],
   },
   {
-    "name": "hand-fist",
-    "tags": [
+    name: "hand-fist",
+    tags: [
       "clench",
       "strength",
       "power",
@@ -9526,43 +6544,28 @@ export const tags = [
       "support",
       "fight",
       "combat",
-      "brawl"
-    ]
+      "brawl",
+    ],
   },
   {
-    "name": "hand-grab",
-    "tags": [
-      "hand"
-    ]
+    name: "hand-grab",
+    tags: ["hand"],
   },
   {
-    "name": "hand-heart",
-    "tags": [
-      "love",
-      "like",
-      "emotion"
-    ]
+    name: "hand-heart",
+    tags: ["love", "like", "emotion"],
   },
   {
-    "name": "hand-helping",
-    "tags": [
-      "agreement",
-      "help",
-      "proposal",
-      "charity",
-      "begging",
-      "terms"
-    ]
+    name: "hand-helping",
+    tags: ["agreement", "help", "proposal", "charity", "begging", "terms"],
   },
   {
-    "name": "hand-metal",
-    "tags": [
-      "rock"
-    ]
+    name: "hand-metal",
+    tags: ["rock"],
   },
   {
-    "name": "hand-platter",
-    "tags": [
+    name: "hand-platter",
+    tags: [
       "waiter",
       "waitress",
       "restaurant",
@@ -9572,35 +6575,20 @@ export const tags = [
       "dining",
       "meal",
       "course",
-      "luxury"
-    ]
+      "luxury",
+    ],
   },
   {
-    "name": "hand",
-    "tags": [
-      "wave",
-      "move",
-      "mouse",
-      "grab"
-    ]
+    name: "hand",
+    tags: ["wave", "move", "mouse", "grab"],
   },
   {
-    "name": "handbag",
-    "tags": [
-      "bag",
-      "baggage",
-      "carry",
-      "clutch",
-      "fashion",
-      "luggage",
-      "purse",
-      "tote",
-      "travel"
-    ]
+    name: "handbag",
+    tags: ["bag", "baggage", "carry", "clutch", "fashion", "luggage", "purse", "tote", "travel"],
   },
   {
-    "name": "handshake",
-    "tags": [
+    name: "handshake",
+    tags: [
       "agreement",
       "partnership",
       "deal",
@@ -9609,38 +6597,20 @@ export const tags = [
       "cooperation",
       "friendship",
       "union",
-      "terms"
-    ]
+      "terms",
+    ],
   },
   {
-    "name": "hard-drive-download",
-    "tags": [
-      "computer",
-      "server",
-      "memory",
-      "data",
-      "ssd",
-      "disk",
-      "hard disk",
-      "save"
-    ]
+    name: "hard-drive-download",
+    tags: ["computer", "server", "memory", "data", "ssd", "disk", "hard disk", "save"],
   },
   {
-    "name": "hard-drive-upload",
-    "tags": [
-      "computer",
-      "server",
-      "memory",
-      "data",
-      "ssd",
-      "disk",
-      "hard disk",
-      "save"
-    ]
+    name: "hard-drive-upload",
+    tags: ["computer", "server", "memory", "data", "ssd", "disk", "hard disk", "save"],
   },
   {
-    "name": "hard-drive",
-    "tags": [
+    name: "hard-drive",
+    tags: [
       "computer",
       "server",
       "memory",
@@ -9651,29 +6621,20 @@ export const tags = [
       "storage",
       "hardware",
       "backup",
-      "media"
-    ]
+      "media",
+    ],
   },
   {
-    "name": "hard-hat",
-    "tags": [
-      "helmet",
-      "construction",
-      "safety",
-      "savety"
-    ]
+    name: "hard-hat",
+    tags: ["helmet", "construction", "safety", "savety"],
   },
   {
-    "name": "hash",
-    "tags": [
-      "hashtag",
-      "number",
-      "pound"
-    ]
+    name: "hash",
+    tags: ["hashtag", "number", "pound"],
   },
   {
-    "name": "hat-glasses",
-    "tags": [
+    name: "hat-glasses",
+    tags: [
       "incognito",
       "disguise",
       "costume",
@@ -9697,30 +6658,20 @@ export const tags = [
       "spectacles",
       "shades",
       "sunglasses",
-      "eyewear"
-    ]
+      "eyewear",
+    ],
   },
   {
-    "name": "haze",
-    "tags": [
-      "mist",
-      "fog"
-    ]
+    name: "haze",
+    tags: ["mist", "fog"],
   },
   {
-    "name": "hd",
-    "tags": [
-      "tv",
-      "resolution",
-      "video",
-      "high definition",
-      "720p",
-      "1080p"
-    ]
+    name: "hd",
+    tags: ["tv", "resolution", "video", "high definition", "720p", "1080p"],
   },
   {
-    "name": "hdmi-port",
-    "tags": [
+    name: "hdmi-port",
+    tags: [
       "socket",
       "plug",
       "slot",
@@ -9735,93 +6686,48 @@ export const tags = [
       "av",
       "data",
       "input",
-      "output"
-    ]
+      "output",
+    ],
   },
   {
-    "name": "heading-1",
-    "tags": [
-      "h1",
-      "html",
-      "markup",
-      "markdown"
-    ]
+    name: "heading-1",
+    tags: ["h1", "html", "markup", "markdown"],
   },
   {
-    "name": "heading-2",
-    "tags": [
-      "h2",
-      "html",
-      "markup",
-      "markdown"
-    ]
+    name: "heading-2",
+    tags: ["h2", "html", "markup", "markdown"],
   },
   {
-    "name": "heading-3",
-    "tags": [
-      "h3",
-      "html",
-      "markup",
-      "markdown"
-    ]
+    name: "heading-3",
+    tags: ["h3", "html", "markup", "markdown"],
   },
   {
-    "name": "heading-4",
-    "tags": [
-      "h4",
-      "html",
-      "markup",
-      "markdown"
-    ]
+    name: "heading-4",
+    tags: ["h4", "html", "markup", "markdown"],
   },
   {
-    "name": "heading-5",
-    "tags": [
-      "h5",
-      "html",
-      "markup",
-      "markdown"
-    ]
+    name: "heading-5",
+    tags: ["h5", "html", "markup", "markdown"],
   },
   {
-    "name": "heading-6",
-    "tags": [
-      "h6",
-      "html",
-      "markup",
-      "markdown"
-    ]
+    name: "heading-6",
+    tags: ["h6", "html", "markup", "markdown"],
   },
   {
-    "name": "heading",
-    "tags": [
-      "h1",
-      "html",
-      "markup",
-      "markdown"
-    ]
+    name: "heading",
+    tags: ["h1", "html", "markup", "markdown"],
   },
   {
-    "name": "headphone-off",
-    "tags": [
-      "music",
-      "audio",
-      "sound",
-      "mute",
-      "off"
-    ]
+    name: "headphone-off",
+    tags: ["music", "audio", "sound", "mute", "off"],
   },
   {
-    "name": "headphones",
-    "tags": [
-      "music",
-      "audio",
-      "sound"
-    ]
+    name: "headphones",
+    tags: ["music", "audio", "sound"],
   },
   {
-    "name": "headset",
-    "tags": [
+    name: "headset",
+    tags: [
       "music",
       "audio",
       "sound",
@@ -9833,63 +6739,32 @@ export const tags = [
       "phone",
       "telephone",
       "voip",
-      "video"
-    ]
+      "video",
+    ],
   },
   {
-    "name": "heart-crack",
-    "tags": [
-      "heartbreak",
-      "sadness",
-      "emotion"
-    ]
+    name: "heart-crack",
+    tags: ["heartbreak", "sadness", "emotion"],
   },
   {
-    "name": "heart-handshake",
-    "tags": [
-      "agreement",
-      "charity",
-      "help",
-      "deal",
-      "terms",
-      "emotion",
-      "together",
-      "handshake"
-    ]
+    name: "heart-handshake",
+    tags: ["agreement", "charity", "help", "deal", "terms", "emotion", "together", "handshake"],
   },
   {
-    "name": "heart-minus",
-    "tags": [
-      "unlike",
-      "unfavorite",
-      "remove",
-      "delete",
-      "damage"
-    ]
+    name: "heart-minus",
+    tags: ["unlike", "unfavorite", "remove", "delete", "damage"],
   },
   {
-    "name": "heart-off",
-    "tags": [
-      "unlike",
-      "dislike",
-      "hate",
-      "emotion"
-    ]
+    name: "heart-off",
+    tags: ["unlike", "dislike", "hate", "emotion"],
   },
   {
-    "name": "heart-plus",
-    "tags": [
-      "plus",
-      "like",
-      "favorite",
-      "add",
-      "health",
-      "support"
-    ]
+    name: "heart-plus",
+    tags: ["plus", "like", "favorite", "add", "health", "support"],
   },
   {
-    "name": "heart-pulse",
-    "tags": [
+    name: "heart-pulse",
+    tags: [
       "heartbeat",
       "pulse",
       "health",
@@ -9897,36 +6772,20 @@ export const tags = [
       "blood pressure",
       "cardiac",
       "systole",
-      "diastole"
-    ]
+      "diastole",
+    ],
   },
   {
-    "name": "heart",
-    "tags": [
-      "like",
-      "love",
-      "emotion",
-      "suit",
-      "playing",
-      "cards"
-    ]
+    name: "heart",
+    tags: ["like", "love", "emotion", "suit", "playing", "cards"],
   },
   {
-    "name": "heater",
-    "tags": [
-      "heating",
-      "warmth",
-      "comfort",
-      "fire",
-      "stove",
-      "electric",
-      "electronics",
-      "amenities"
-    ]
+    name: "heater",
+    tags: ["heating", "warmth", "comfort", "fire", "stove", "electric", "electronics", "amenities"],
   },
   {
-    "name": "helicopter",
-    "tags": [
+    name: "helicopter",
+    tags: [
       "transport",
       "flying",
       "rotor",
@@ -9937,27 +6796,20 @@ export const tags = [
       "technology",
       "helicopter",
       "aircraft",
-      "vehicle"
-    ]
+      "vehicle",
+    ],
   },
   {
-    "name": "hexagon",
-    "tags": [
-      "shape",
-      "node.js",
-      "logo"
-    ]
+    name: "hexagon",
+    tags: ["shape", "node.js", "logo"],
   },
   {
-    "name": "highlighter",
-    "tags": [
-      "mark",
-      "text"
-    ]
+    name: "highlighter",
+    tags: ["mark", "text"],
   },
   {
-    "name": "history",
-    "tags": [
+    name: "history",
+    tags: [
       "time",
       "redo",
       "undo",
@@ -9967,32 +6819,20 @@ export const tags = [
       "time machine",
       "backup",
       "rotate",
-      "ccw"
-    ]
+      "ccw",
+    ],
   },
   {
-    "name": "hop-off",
-    "tags": [
-      "beer",
-      "brewery",
-      "drink",
-      "hop free",
-      "allergy",
-      "intolerance",
-      "diet"
-    ]
+    name: "hop-off",
+    tags: ["beer", "brewery", "drink", "hop free", "allergy", "intolerance", "diet"],
   },
   {
-    "name": "hop",
-    "tags": [
-      "beer",
-      "brewery",
-      "drink"
-    ]
+    name: "hop",
+    tags: ["beer", "brewery", "drink"],
   },
   {
-    "name": "hospital",
-    "tags": [
+    name: "hospital",
+    tags: [
       "infirmary",
       "sanatorium",
       "healthcare",
@@ -10003,190 +6843,88 @@ export const tags = [
       "ward",
       "building",
       "medical",
-      "vet"
-    ]
+      "vet",
+    ],
   },
   {
-    "name": "hotel",
-    "tags": [
-      "building",
-      "hostel",
-      "motel",
-      "inn"
-    ]
+    name: "hotel",
+    tags: ["building", "hostel", "motel", "inn"],
   },
   {
-    "name": "hourglass",
-    "tags": [
-      "timer",
-      "time",
-      "sandglass"
-    ]
+    name: "hourglass",
+    tags: ["timer", "time", "sandglass"],
   },
   {
-    "name": "house-heart",
-    "tags": [
-      "home sweet home",
-      "abode",
-      "building",
-      "residence",
-      "healthy living",
-      "lifestyle"
-    ]
+    name: "house-heart",
+    tags: ["home sweet home", "abode", "building", "residence", "healthy living", "lifestyle"],
   },
   {
-    "name": "house-plug",
-    "tags": [
-      "home",
-      "living",
-      "building",
-      "residence",
-      "architecture",
-      "autarky",
-      "energy"
-    ]
+    name: "house-plug",
+    tags: ["home", "living", "building", "residence", "architecture", "autarky", "energy"],
   },
   {
-    "name": "house-plus",
-    "tags": [
-      "home",
-      "living",
-      "medical",
-      "new",
-      "addition",
-      "building",
-      "residence",
-      "architecture"
-    ]
+    name: "house-plus",
+    tags: ["home", "living", "medical", "new", "addition", "building", "residence", "architecture"],
   },
   {
-    "name": "house-wifi",
-    "tags": [
-      "home",
-      "living",
-      "building",
-      "wifi",
-      "connectivity"
-    ]
+    name: "house-wifi",
+    tags: ["home", "living", "building", "wifi", "connectivity"],
   },
   {
-    "name": "house",
-    "tags": [
-      "home",
-      "living",
-      "building",
-      "residence",
-      "architecture"
-    ]
+    name: "house",
+    tags: ["home", "living", "building", "residence", "architecture"],
   },
   {
-    "name": "ice-cream-bowl",
-    "tags": [
-      "gelato",
-      "food",
-      "dessert",
-      "dish",
-      "restaurant",
-      "course",
-      "meal"
-    ]
+    name: "ice-cream-bowl",
+    tags: ["gelato", "food", "dessert", "dish", "restaurant", "course", "meal"],
   },
   {
-    "name": "ice-cream-cone",
-    "tags": [
-      "gelato",
-      "food"
-    ]
+    name: "ice-cream-cone",
+    tags: ["gelato", "food"],
   },
   {
-    "name": "id-card-lanyard",
-    "tags": [
-      "id-card",
-      "id-card-lanyard",
-      "identity",
-      "employee",
-      "gate-pass",
-      "badge"
-    ]
+    name: "id-card-lanyard",
+    tags: ["id-card", "id-card-lanyard", "identity", "employee", "gate-pass", "badge"],
   },
   {
-    "name": "id-card",
-    "tags": [
-      "card",
-      "badge",
-      "identity",
-      "authentication",
-      "secure"
-    ]
+    name: "id-card",
+    tags: ["card", "badge", "identity", "authentication", "secure"],
   },
   {
-    "name": "image-down",
-    "tags": [
-      "picture",
-      "photo",
-      "download",
-      "save",
-      "export"
-    ]
+    name: "image-down",
+    tags: ["picture", "photo", "download", "save", "export"],
   },
   {
-    "name": "image-minus",
-    "tags": [
-      "remove",
-      "delete"
-    ]
+    name: "image-minus",
+    tags: ["remove", "delete"],
   },
   {
-    "name": "image-off",
-    "tags": [
-      "picture",
-      "photo"
-    ]
+    name: "image-off",
+    tags: ["picture", "photo"],
   },
   {
-    "name": "image-play",
-    "tags": [
-      "picture",
-      "gif",
-      "photo"
-    ]
+    name: "image-play",
+    tags: ["picture", "gif", "photo"],
   },
   {
-    "name": "image-plus",
-    "tags": [
-      "add",
-      "create",
-      "picture"
-    ]
+    name: "image-plus",
+    tags: ["add", "create", "picture"],
   },
   {
-    "name": "image-up",
-    "tags": [
-      "picture",
-      "photo",
-      "upload",
-      "import"
-    ]
+    name: "image-up",
+    tags: ["picture", "photo", "upload", "import"],
   },
   {
-    "name": "image-upscale",
-    "tags": [
-      "resize",
-      "picture",
-      "sharpen",
-      "increase"
-    ]
+    name: "image-upscale",
+    tags: ["resize", "picture", "sharpen", "increase"],
   },
   {
-    "name": "image",
-    "tags": [
-      "picture",
-      "photo"
-    ]
+    name: "image",
+    tags: ["picture", "photo"],
   },
   {
-    "name": "images",
-    "tags": [
+    name: "images",
+    tags: [
       "picture",
       "photo",
       "multiple",
@@ -10195,41 +6933,28 @@ export const tags = [
       "album",
       "collection",
       "slideshow",
-      "showcase"
-    ]
+      "showcase",
+    ],
   },
   {
-    "name": "import",
-    "tags": [
-      "save"
-    ]
+    name: "import",
+    tags: ["save"],
   },
   {
-    "name": "inbox",
-    "tags": [
-      "email"
-    ]
+    name: "inbox",
+    tags: ["email"],
   },
   {
-    "name": "indian-rupee",
-    "tags": [
-      "currency",
-      "money",
-      "payment"
-    ]
+    name: "indian-rupee",
+    tags: ["currency", "money", "payment"],
   },
   {
-    "name": "infinity",
-    "tags": [
-      "unlimited",
-      "forever",
-      "loop",
-      "math"
-    ]
+    name: "infinity",
+    tags: ["unlimited", "forever", "loop", "math"],
   },
   {
-    "name": "info",
-    "tags": [
+    name: "info",
+    tags: [
       "about",
       "advice",
       "clue",
@@ -10242,61 +6967,36 @@ export const tags = [
       "notice",
       "status",
       "support",
-      "tooltip"
-    ]
+      "tooltip",
+    ],
   },
   {
-    "name": "inspection-panel",
-    "tags": [
-      "access",
-      "cover",
-      "tile",
-      "metal",
-      "materials",
-      "screws"
-    ]
+    name: "inspection-panel",
+    tags: ["access", "cover", "tile", "metal", "materials", "screws"],
   },
   {
-    "name": "italic",
-    "tags": [
-      "oblique",
-      "text",
-      "format"
-    ]
+    name: "italic",
+    tags: ["oblique", "text", "format"],
   },
   {
-    "name": "iteration-ccw",
-    "tags": [
-      "arrow",
-      "right"
-    ]
+    name: "iteration-ccw",
+    tags: ["arrow", "right"],
   },
   {
-    "name": "iteration-cw",
-    "tags": [
-      "arrow",
-      "left"
-    ]
+    name: "iteration-cw",
+    tags: ["arrow", "left"],
   },
   {
-    "name": "japanese-yen",
-    "tags": [
-      "currency",
-      "money",
-      "payment"
-    ]
+    name: "japanese-yen",
+    tags: ["currency", "money", "payment"],
   },
   {
-    "name": "joystick",
-    "tags": [
-      "game",
-      "console",
-      "control stick"
-    ]
+    name: "joystick",
+    tags: ["game", "console", "control stick"],
   },
   {
-    "name": "kanban",
-    "tags": [
+    name: "kanban",
+    tags: [
       "projects",
       "manage",
       "overview",
@@ -10310,12 +7010,12 @@ export const tags = [
       "work",
       "agile",
       "code",
-      "coding"
-    ]
+      "coding",
+    ],
   },
   {
-    "name": "kayak",
-    "tags": [
+    name: "kayak",
+    tags: [
       "kayak",
       "boat",
       "paddle",
@@ -10326,33 +7026,20 @@ export const tags = [
       "outdoors",
       "equipment",
       "lake",
-      "ocean"
-    ]
+      "ocean",
+    ],
   },
   {
-    "name": "key-round",
-    "tags": [
-      "password",
-      "login",
-      "authentication",
-      "secure",
-      "unlock"
-    ]
+    name: "key-round",
+    tags: ["password", "login", "authentication", "secure", "unlock"],
   },
   {
-    "name": "key-square",
-    "tags": [
-      "password",
-      "login",
-      "authentication",
-      "secure",
-      "unlock",
-      "car key"
-    ]
+    name: "key-square",
+    tags: ["password", "login", "authentication", "secure", "unlock", "car key"],
   },
   {
-    "name": "key",
-    "tags": [
+    name: "key",
+    tags: [
       "password",
       "login",
       "authentication",
@@ -10360,12 +7047,12 @@ export const tags = [
       "unlock",
       "keychain",
       "key ring",
-      "fob"
-    ]
+      "fob",
+    ],
   },
   {
-    "name": "keyboard-music",
-    "tags": [
+    name: "keyboard-music",
+    tags: [
       "music",
       "audio",
       "sound",
@@ -10387,90 +7074,44 @@ export const tags = [
       "piano",
       "play",
       "performance",
-      "concert"
-    ]
+      "concert",
+    ],
   },
   {
-    "name": "keyboard-off",
-    "tags": [
-      "unkeys",
-      "layout",
-      "spell",
-      "settings",
-      "mouse"
-    ]
+    name: "keyboard-off",
+    tags: ["unkeys", "layout", "spell", "settings", "mouse"],
   },
   {
-    "name": "keyboard",
-    "tags": [
-      "layout",
-      "spell",
-      "settings",
-      "mouse"
-    ]
+    name: "keyboard",
+    tags: ["layout", "spell", "settings", "mouse"],
   },
   {
-    "name": "lamp-ceiling",
-    "tags": [
-      "lighting",
-      "household",
-      "home",
-      "furniture"
-    ]
+    name: "lamp-ceiling",
+    tags: ["lighting", "household", "home", "furniture"],
   },
   {
-    "name": "lamp-desk",
-    "tags": [
-      "lighting",
-      "household",
-      "office",
-      "desk",
-      "home",
-      "furniture"
-    ]
+    name: "lamp-desk",
+    tags: ["lighting", "household", "office", "desk", "home", "furniture"],
   },
   {
-    "name": "lamp-floor",
-    "tags": [
-      "lighting",
-      "household",
-      "floor",
-      "home",
-      "furniture"
-    ]
+    name: "lamp-floor",
+    tags: ["lighting", "household", "floor", "home", "furniture"],
   },
   {
-    "name": "lamp-wall-down",
-    "tags": [
-      "lighting",
-      "household",
-      "wall",
-      "home",
-      "furniture"
-    ]
+    name: "lamp-wall-down",
+    tags: ["lighting", "household", "wall", "home", "furniture"],
   },
   {
-    "name": "lamp-wall-up",
-    "tags": [
-      "lighting",
-      "household",
-      "wall",
-      "home",
-      "furniture"
-    ]
+    name: "lamp-wall-up",
+    tags: ["lighting", "household", "wall", "home", "furniture"],
   },
   {
-    "name": "lamp",
-    "tags": [
-      "lighting",
-      "household",
-      "home",
-      "furniture"
-    ]
+    name: "lamp",
+    tags: ["lighting", "household", "home", "furniture"],
   },
   {
-    "name": "land-plot",
-    "tags": [
+    name: "land-plot",
+    tags: [
       "area",
       "surface",
       "square metres",
@@ -10484,12 +7125,12 @@ export const tags = [
       "isometric",
       "flag",
       "golf course",
-      "hole"
-    ]
+      "hole",
+    ],
   },
   {
-    "name": "landmark",
-    "tags": [
+    name: "landmark",
+    tags: [
       "bank",
       "building",
       "capitol",
@@ -10506,72 +7147,40 @@ export const tags = [
       "classical",
       "architecture",
       "government",
-      "institution"
-    ]
+      "institution",
+    ],
   },
   {
-    "name": "languages",
-    "tags": [
-      "translate"
-    ]
+    name: "languages",
+    tags: ["translate"],
   },
   {
-    "name": "laptop-minimal-check",
-    "tags": [
-      "computer",
-      "screen",
-      "remote",
-      "success",
-      "done",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
+    name: "laptop-minimal-check",
+    tags: ["computer", "screen", "remote", "success", "done", "todo", "tick", "complete", "task"],
   },
   {
-    "name": "laptop-minimal",
-    "tags": [
-      "computer",
-      "screen",
-      "remote"
-    ]
+    name: "laptop-minimal",
+    tags: ["computer", "screen", "remote"],
   },
   {
-    "name": "laptop",
-    "tags": [
-      "computer",
-      "screen",
-      "remote"
-    ]
+    name: "laptop",
+    tags: ["computer", "screen", "remote"],
   },
   {
-    "name": "lasso-select",
-    "tags": [
-      "select",
-      "cursor"
-    ]
+    name: "lasso-select",
+    tags: ["select", "cursor"],
   },
   {
-    "name": "lasso",
-    "tags": [
-      "select",
-      "cursor"
-    ]
+    name: "lasso",
+    tags: ["select", "cursor"],
   },
   {
-    "name": "laugh",
-    "tags": [
-      "emoji",
-      "face",
-      "happy",
-      "good",
-      "emotion"
-    ]
+    name: "laugh",
+    tags: ["emoji", "face", "happy", "good", "emotion"],
   },
   {
-    "name": "layers-2",
-    "tags": [
+    name: "layers-2",
+    tags: [
       "stack",
       "pile",
       "pages",
@@ -10581,123 +7190,56 @@ export const tags = [
       "copy",
       "duplicate",
       "double",
-      "shortcuts"
-    ]
+      "shortcuts",
+    ],
   },
   {
-    "name": "layers-plus",
-    "tags": [
-      "stack",
-      "layers",
-      "add",
-      "new",
-      "increase",
-      "create",
-      "positive",
-      "copy",
-      "upgrade"
-    ]
+    name: "layers-plus",
+    tags: ["stack", "layers", "add", "new", "increase", "create", "positive", "copy", "upgrade"],
   },
   {
-    "name": "layers",
-    "tags": [
-      "stack",
-      "pile",
-      "pages",
-      "sheets",
-      "paperwork",
-      "copies",
-      "copy"
-    ]
+    name: "layers",
+    tags: ["stack", "pile", "pages", "sheets", "paperwork", "copies", "copy"],
   },
   {
-    "name": "layout-dashboard",
-    "tags": [
-      "masonry",
-      "brick"
-    ]
+    name: "layout-dashboard",
+    tags: ["masonry", "brick"],
   },
   {
-    "name": "layout-grid",
-    "tags": [
-      "app",
-      "home",
-      "start"
-    ]
+    name: "layout-grid",
+    tags: ["app", "home", "start"],
   },
   {
-    "name": "layout-list",
-    "tags": [
-      "todo",
-      "tasks",
-      "items",
-      "pending",
-      "image",
-      "photo"
-    ]
+    name: "layout-list",
+    tags: ["todo", "tasks", "items", "pending", "image", "photo"],
   },
   {
-    "name": "layout-panel-left",
-    "tags": [
-      "app",
-      "home",
-      "start",
-      "grid"
-    ]
+    name: "layout-panel-left",
+    tags: ["app", "home", "start", "grid"],
   },
   {
-    "name": "layout-panel-top",
-    "tags": [
-      "window",
-      "webpage",
-      "block",
-      "section",
-      "grid",
-      "template",
-      "structure"
-    ]
+    name: "layout-panel-top",
+    tags: ["window", "webpage", "block", "section", "grid", "template", "structure"],
   },
   {
-    "name": "layout-template",
-    "tags": [
-      "window",
-      "webpage",
-      "block",
-      "section"
-    ]
+    name: "layout-template",
+    tags: ["window", "webpage", "block", "section"],
   },
   {
-    "name": "leaf",
-    "tags": [
-      "sustainability",
-      "nature",
-      "energy",
-      "plant",
-      "autumn"
-    ]
+    name: "leaf",
+    tags: ["sustainability", "nature", "energy", "plant", "autumn"],
   },
   {
-    "name": "leafy-green",
-    "tags": [
-      "salad",
-      "lettuce",
-      "vegetable",
-      "chard",
-      "cabbage",
-      "bok choy"
-    ]
+    name: "leafy-green",
+    tags: ["salad", "lettuce", "vegetable", "chard", "cabbage", "bok choy"],
   },
   {
-    "name": "lectern",
-    "tags": [
-      "pulpit",
-      "podium",
-      "stand"
-    ]
+    name: "lectern",
+    tags: ["pulpit", "podium", "stand"],
   },
   {
-    "name": "lens-concave",
-    "tags": [
+    name: "lens-concave",
+    tags: [
       "concave",
       "lens",
       "optics",
@@ -10710,12 +7252,12 @@ export const tags = [
       "physics",
       "eyeglass",
       "telescope",
-      "microscope"
-    ]
+      "microscope",
+    ],
   },
   {
-    "name": "lens-convex",
-    "tags": [
+    name: "lens-convex",
+    tags: [
       "convex",
       "lens",
       "optics",
@@ -10728,12 +7270,12 @@ export const tags = [
       "telescope",
       "microscope",
       "curved",
-      "science"
-    ]
+      "science",
+    ],
   },
   {
-    "name": "library-big",
-    "tags": [
+    name: "library-big",
+    tags: [
       "books",
       "reading",
       "written",
@@ -10756,12 +7298,12 @@ export const tags = [
       "records",
       "albums",
       "music",
-      "package"
-    ]
+      "package",
+    ],
   },
   {
-    "name": "library",
-    "tags": [
+    name: "library",
+    tags: [
       "books",
       "reading",
       "written",
@@ -10784,12 +7326,12 @@ export const tags = [
       "records",
       "albums",
       "music",
-      "package"
-    ]
+      "package",
+    ],
   },
   {
-    "name": "life-buoy",
-    "tags": [
+    name: "life-buoy",
+    tags: [
       "preserver",
       "life belt",
       "lifesaver",
@@ -10800,48 +7342,28 @@ export const tags = [
       "raft",
       "inflatable",
       "wheel",
-      "donut"
-    ]
+      "donut",
+    ],
   },
   {
-    "name": "ligature",
-    "tags": [
-      "text",
-      "font",
-      "typography",
-      "alternates",
-      "alternatives"
-    ]
+    name: "ligature",
+    tags: ["text", "font", "typography", "alternates", "alternatives"],
   },
   {
-    "name": "lightbulb-off",
-    "tags": [
-      "lights"
-    ]
+    name: "lightbulb-off",
+    tags: ["lights"],
   },
   {
-    "name": "lightbulb",
-    "tags": [
-      "idea",
-      "bright",
-      "lights"
-    ]
+    name: "lightbulb",
+    tags: ["idea", "bright", "lights"],
   },
   {
-    "name": "line-dot-right-horizontal",
-    "tags": [
-      "code",
-      "version control",
-      "waypoint",
-      "stop",
-      "station",
-      "last",
-      "end"
-    ]
+    name: "line-dot-right-horizontal",
+    tags: ["code", "version control", "waypoint", "stop", "station", "last", "end"],
   },
   {
-    "name": "line-squiggle",
-    "tags": [
+    name: "line-squiggle",
+    tags: [
       "line",
       "snakes",
       "annotate",
@@ -10854,68 +7376,36 @@ export const tags = [
       "draw",
       "wave",
       "art",
-      "road"
-    ]
+      "road",
+    ],
   },
   {
-    "name": "line-style",
-    "tags": [
-      "line",
-      "stroke",
-      "style",
-      "dashed",
-      "border"
-    ]
+    name: "line-style",
+    tags: ["line", "stroke", "style", "dashed", "border"],
   },
   {
-    "name": "link-2-off",
-    "tags": [
-      "unchain",
-      "chain"
-    ]
+    name: "link-2-off",
+    tags: ["unchain", "chain"],
   },
   {
-    "name": "link-2",
-    "tags": [
-      "chain",
-      "url"
-    ]
+    name: "link-2",
+    tags: ["chain", "url"],
   },
   {
-    "name": "link",
-    "tags": [
-      "chain",
-      "url"
-    ]
+    name: "link",
+    tags: ["chain", "url"],
   },
   {
-    "name": "list-check",
-    "tags": [
-      "done",
-      "check",
-      "tick",
-      "complete",
-      "list",
-      "to-do",
-      "bom"
-    ]
+    name: "list-check",
+    tags: ["done", "check", "tick", "complete", "list", "to-do", "bom"],
   },
   {
-    "name": "list-checks",
-    "tags": [
-      "todo",
-      "done",
-      "check",
-      "tick",
-      "complete",
-      "tasks",
-      "items",
-      "pending"
-    ]
+    name: "list-checks",
+    tags: ["todo", "done", "check", "tick", "complete", "tasks", "items", "pending"],
   },
   {
-    "name": "list-chevrons-down-up",
-    "tags": [
+    name: "list-chevrons-down-up",
+    tags: [
       "options",
       "items",
       "collapse",
@@ -10930,12 +7420,12 @@ export const tags = [
       "less",
       "fold",
       "unfold",
-      "vertical"
-    ]
+      "vertical",
+    ],
   },
   {
-    "name": "list-chevrons-up-down",
-    "tags": [
+    name: "list-chevrons-up-down",
+    tags: [
       "options",
       "items",
       "collapse",
@@ -10950,12 +7440,12 @@ export const tags = [
       "less",
       "fold",
       "unfold",
-      "vertical"
-    ]
+      "vertical",
+    ],
   },
   {
-    "name": "list-collapse",
-    "tags": [
+    name: "list-collapse",
+    tags: [
       "items",
       "collapse",
       "expand",
@@ -10968,166 +7458,80 @@ export const tags = [
       "more",
       "less",
       "fold",
-      "unfold"
-    ]
+      "unfold",
+    ],
   },
   {
-    "name": "list-end",
-    "tags": [
-      "queue",
-      "bottom",
-      "end",
-      "playlist"
-    ]
+    name: "list-end",
+    tags: ["queue", "bottom", "end", "playlist"],
   },
   {
-    "name": "list-filter-plus",
-    "tags": [
-      "filter",
-      "plus",
-      "options",
-      "add"
-    ]
+    name: "list-filter-plus",
+    tags: ["filter", "plus", "options", "add"],
   },
   {
-    "name": "list-filter",
-    "tags": [
-      "options"
-    ]
+    name: "list-filter",
+    tags: ["options"],
   },
   {
-    "name": "list-indent-decrease",
-    "tags": [
-      "text",
-      "tab"
-    ]
+    name: "list-indent-decrease",
+    tags: ["text", "tab"],
   },
   {
-    "name": "list-indent-increase",
-    "tags": [
-      "text",
-      "tab"
-    ]
+    name: "list-indent-increase",
+    tags: ["text", "tab"],
   },
   {
-    "name": "list-minus",
-    "tags": [
-      "playlist",
-      "remove",
-      "song",
-      "subtract",
-      "delete",
-      "unqueue"
-    ]
+    name: "list-minus",
+    tags: ["playlist", "remove", "song", "subtract", "delete", "unqueue"],
   },
   {
-    "name": "list-music",
-    "tags": [
-      "playlist",
-      "queue",
-      "music",
-      "audio",
-      "playback"
-    ]
+    name: "list-music",
+    tags: ["playlist", "queue", "music", "audio", "playback"],
   },
   {
-    "name": "list-ordered",
-    "tags": [
-      "number",
-      "order",
-      "queue"
-    ]
+    name: "list-ordered",
+    tags: ["number", "order", "queue"],
   },
   {
-    "name": "list-plus",
-    "tags": [
-      "playlist",
-      "add",
-      "song",
-      "track",
-      "new"
-    ]
+    name: "list-plus",
+    tags: ["playlist", "add", "song", "track", "new"],
   },
   {
-    "name": "list-restart",
-    "tags": [
-      "reset",
-      "refresh",
-      "reload",
-      "playlist",
-      "replay"
-    ]
+    name: "list-restart",
+    tags: ["reset", "refresh", "reload", "playlist", "replay"],
   },
   {
-    "name": "list-start",
-    "tags": [
-      "queue",
-      "top",
-      "start",
-      "next",
-      "playlist"
-    ]
+    name: "list-start",
+    tags: ["queue", "top", "start", "next", "playlist"],
   },
   {
-    "name": "list-todo",
-    "tags": [
-      "todo",
-      "done",
-      "check",
-      "tick",
-      "complete",
-      "tasks",
-      "items",
-      "pending"
-    ]
+    name: "list-todo",
+    tags: ["todo", "done", "check", "tick", "complete", "tasks", "items", "pending"],
   },
   {
-    "name": "list-tree",
-    "tags": [
-      "tree",
-      "browser"
-    ]
+    name: "list-tree",
+    tags: ["tree", "browser"],
   },
   {
-    "name": "list-video",
-    "tags": [
-      "playlist",
-      "video",
-      "playback"
-    ]
+    name: "list-video",
+    tags: ["playlist", "video", "playback"],
   },
   {
-    "name": "list-x",
-    "tags": [
-      "playlist",
-      "subtract",
-      "remove",
-      "delete",
-      "unqueue"
-    ]
+    name: "list-x",
+    tags: ["playlist", "subtract", "remove", "delete", "unqueue"],
   },
   {
-    "name": "list",
-    "tags": [
-      "options"
-    ]
+    name: "list",
+    tags: ["options"],
   },
   {
-    "name": "loader-circle",
-    "tags": [
-      "loading",
-      "wait",
-      "busy",
-      "progress",
-      "spinner",
-      "spinning",
-      "throbber",
-      "circle"
-    ]
+    name: "loader-circle",
+    tags: ["loading", "wait", "busy", "progress", "spinner", "spinning", "throbber", "circle"],
   },
   {
-    "name": "loader-pinwheel",
-    "tags": [
+    name: "loader-pinwheel",
+    tags: [
       "loading",
       "wait",
       "busy",
@@ -11137,141 +7541,68 @@ export const tags = [
       "spinning",
       "beach ball",
       "frozen",
-      "freeze"
-    ]
+      "freeze",
+    ],
   },
   {
-    "name": "loader",
-    "tags": [
-      "loading",
-      "wait",
-      "busy",
-      "progress",
-      "spinner",
-      "spinning",
-      "throbber"
-    ]
+    name: "loader",
+    tags: ["loading", "wait", "busy", "progress", "spinner", "spinning", "throbber"],
   },
   {
-    "name": "locate-fixed",
-    "tags": [
-      "map",
-      "gps",
-      "location",
-      "cross"
-    ]
+    name: "locate-fixed",
+    tags: ["map", "gps", "location", "cross"],
   },
   {
-    "name": "locate-off",
-    "tags": [
-      "map",
-      "gps",
-      "location",
-      "cross"
-    ]
+    name: "locate-off",
+    tags: ["map", "gps", "location", "cross"],
   },
   {
-    "name": "locate",
-    "tags": [
-      "map",
-      "gps",
-      "location",
-      "cross"
-    ]
+    name: "locate",
+    tags: ["map", "gps", "location", "cross"],
   },
   {
-    "name": "lock-keyhole-open",
-    "tags": [
-      "security"
-    ]
+    name: "lock-keyhole-open",
+    tags: ["security"],
   },
   {
-    "name": "lock-keyhole",
-    "tags": [
-      "security",
-      "password",
-      "secure",
-      "admin"
-    ]
+    name: "lock-keyhole",
+    tags: ["security", "password", "secure", "admin"],
   },
   {
-    "name": "lock-open",
-    "tags": [
-      "security"
-    ]
+    name: "lock-open",
+    tags: ["security"],
   },
   {
-    "name": "lock",
-    "tags": [
-      "security",
-      "password",
-      "secure",
-      "admin"
-    ]
+    name: "lock",
+    tags: ["security", "password", "secure", "admin"],
   },
   {
-    "name": "log-in",
-    "tags": [
-      "sign in",
-      "arrow",
-      "enter",
-      "auth"
-    ]
+    name: "log-in",
+    tags: ["sign in", "arrow", "enter", "auth"],
   },
   {
-    "name": "log-out",
-    "tags": [
-      "sign out",
-      "arrow",
-      "exit",
-      "auth"
-    ]
+    name: "log-out",
+    tags: ["sign out", "arrow", "exit", "auth"],
   },
   {
-    "name": "logs",
-    "tags": [
-      "options",
-      "list",
-      "menu",
-      "order",
-      "queue",
-      "tasks",
-      "logs"
-    ]
+    name: "logs",
+    tags: ["options", "list", "menu", "order", "queue", "tasks", "logs"],
   },
   {
-    "name": "lollipop",
-    "tags": [
-      "lolly",
-      "candy",
-      "sugar",
-      "food",
-      "sweet",
-      "dessert",
-      "spiral"
-    ]
+    name: "lollipop",
+    tags: ["lolly", "candy", "sugar", "food", "sweet", "dessert", "spiral"],
   },
   {
-    "name": "luggage",
-    "tags": [
-      "baggage",
-      "luggage",
-      "travel",
-      "suitcase"
-    ]
+    name: "luggage",
+    tags: ["baggage", "luggage", "travel", "suitcase"],
   },
   {
-    "name": "magnet",
-    "tags": [
-      "horseshoe",
-      "lock",
-      "science",
-      "snap"
-    ]
+    name: "magnet",
+    tags: ["horseshoe", "lock", "science", "snap"],
   },
   {
-    "name": "mail-check",
-    "tags": [
+    name: "mail-check",
+    tags: [
       "email",
       "message",
       "letter",
@@ -11283,154 +7614,64 @@ export const tags = [
       "todo",
       "tick",
       "complete",
-      "task"
-    ]
-  },
-  {
-    "name": "mail-minus",
-    "tags": [
-      "email",
-      "message",
-      "letter",
-      "remove",
-      "delete"
-    ]
-  },
-  {
-    "name": "mail-open",
-    "tags": [
-      "email",
-      "message",
-      "letter",
-      "read"
-    ]
-  },
-  {
-    "name": "mail-plus",
-    "tags": [
-      "email",
-      "message",
-      "letter",
-      "add",
-      "create",
-      "new",
-      "compose"
-    ]
-  },
-  {
-    "name": "mail-question-mark",
-    "tags": [
-      "email",
-      "message",
-      "letter",
-      "delivery",
-      "undelivered"
-    ]
-  },
-  {
-    "name": "mail-search",
-    "tags": [
-      "email",
-      "message",
-      "letter",
-      "search",
-      "lens"
-    ]
-  },
-  {
-    "name": "mail-warning",
-    "tags": [
-      "email",
-      "message",
-      "letter",
-      "delivery error",
-      "exclamation mark"
-    ]
-  },
-  {
-    "name": "mail-x",
-    "tags": [
-      "email",
-      "message",
-      "letter",
-      "remove",
-      "delete"
-    ]
-  },
-  {
-    "name": "mail",
-    "tags": [
-      "email",
-      "message",
-      "letter",
-      "unread"
-    ]
-  },
-  {
-    "name": "mailbox",
-    "tags": [
-      "emails",
-      "messages",
-      "letters",
-      "mailing list",
-      "newsletter"
-    ]
-  },
-  {
-    "name": "mails",
-    "tags": [
-      "emails",
-      "messages",
-      "letters",
-      "multiple",
-      "mailing list",
-      "newsletter",
-      "copy"
-    ]
-  },
-  {
-    "name": "map-minus",
-    "tags": [
-      "location",
-      "navigation",
-      "travel",
-      "drop",
-      "delete",
-      "remove",
-      "erase"
-    ]
-  },
-  {
-    "name": "map-pin-check-inside",
-    "tags": [
-      "location",
-      "waypoint",
-      "marker",
-      "drop",
-      "done",
-      "tick",
-      "complete",
       "task",
-      "added"
-    ]
+    ],
   },
   {
-    "name": "map-pin-check",
-    "tags": [
-      "location",
-      "waypoint",
-      "marker",
-      "drop",
-      "done",
-      "tick",
-      "complete",
-      "task",
-      "added"
-    ]
+    name: "mail-minus",
+    tags: ["email", "message", "letter", "remove", "delete"],
   },
   {
-    "name": "map-pin-house",
-    "tags": [
+    name: "mail-open",
+    tags: ["email", "message", "letter", "read"],
+  },
+  {
+    name: "mail-plus",
+    tags: ["email", "message", "letter", "add", "create", "new", "compose"],
+  },
+  {
+    name: "mail-question-mark",
+    tags: ["email", "message", "letter", "delivery", "undelivered"],
+  },
+  {
+    name: "mail-search",
+    tags: ["email", "message", "letter", "search", "lens"],
+  },
+  {
+    name: "mail-warning",
+    tags: ["email", "message", "letter", "delivery error", "exclamation mark"],
+  },
+  {
+    name: "mail-x",
+    tags: ["email", "message", "letter", "remove", "delete"],
+  },
+  {
+    name: "mail",
+    tags: ["email", "message", "letter", "unread"],
+  },
+  {
+    name: "mailbox",
+    tags: ["emails", "messages", "letters", "mailing list", "newsletter"],
+  },
+  {
+    name: "mails",
+    tags: ["emails", "messages", "letters", "multiple", "mailing list", "newsletter", "copy"],
+  },
+  {
+    name: "map-minus",
+    tags: ["location", "navigation", "travel", "drop", "delete", "remove", "erase"],
+  },
+  {
+    name: "map-pin-check-inside",
+    tags: ["location", "waypoint", "marker", "drop", "done", "tick", "complete", "task", "added"],
+  },
+  {
+    name: "map-pin-check",
+    tags: ["location", "waypoint", "marker", "drop", "done", "tick", "complete", "task", "added"],
+  },
+  {
+    name: "map-pin-house",
+    tags: [
       "location",
       "waypoint",
       "marker",
@@ -11448,208 +7689,88 @@ export const tags = [
       "destination",
       "geolocation",
       "place",
-      "landmark"
-    ]
+      "landmark",
+    ],
   },
   {
-    "name": "map-pin-minus-inside",
-    "tags": [
-      "location",
-      "waypoint",
-      "marker",
-      "drop",
-      "delete",
-      "remove",
-      "erase"
-    ]
+    name: "map-pin-minus-inside",
+    tags: ["location", "waypoint", "marker", "drop", "delete", "remove", "erase"],
   },
   {
-    "name": "map-pin-minus",
-    "tags": [
-      "location",
-      "waypoint",
-      "marker",
-      "drop",
-      "delete",
-      "remove",
-      "erase"
-    ]
+    name: "map-pin-minus",
+    tags: ["location", "waypoint", "marker", "drop", "delete", "remove", "erase"],
   },
   {
-    "name": "map-pin-off",
-    "tags": [
-      "location",
-      "waypoint",
-      "marker",
-      "remove"
-    ]
+    name: "map-pin-off",
+    tags: ["location", "waypoint", "marker", "remove"],
   },
   {
-    "name": "map-pin-pen",
-    "tags": [
-      "location",
-      "waypoint",
-      "marker",
-      "drop",
-      "edit"
-    ]
+    name: "map-pin-pen",
+    tags: ["location", "waypoint", "marker", "drop", "edit"],
   },
   {
-    "name": "map-pin-plus-inside",
-    "tags": [
-      "location",
-      "waypoint",
-      "marker",
-      "drop",
-      "add",
-      "create",
-      "new"
-    ]
+    name: "map-pin-plus-inside",
+    tags: ["location", "waypoint", "marker", "drop", "add", "create", "new"],
   },
   {
-    "name": "map-pin-plus",
-    "tags": [
-      "location",
-      "waypoint",
-      "marker",
-      "drop",
-      "add",
-      "create",
-      "new"
-    ]
+    name: "map-pin-plus",
+    tags: ["location", "waypoint", "marker", "drop", "add", "create", "new"],
   },
   {
-    "name": "map-pin-search",
-    "tags": [
-      "location",
-      "navigation",
-      "travel",
-      "waypoint",
-      "marker",
-      "drop"
-    ]
+    name: "map-pin-search",
+    tags: ["location", "navigation", "travel", "waypoint", "marker", "drop"],
   },
   {
-    "name": "map-pin-x-inside",
-    "tags": [
-      "location",
-      "waypoint",
-      "marker",
-      "drop",
-      "delete",
-      "remove",
-      "erase"
-    ]
+    name: "map-pin-x-inside",
+    tags: ["location", "waypoint", "marker", "drop", "delete", "remove", "erase"],
   },
   {
-    "name": "map-pin-x",
-    "tags": [
-      "location",
-      "waypoint",
-      "marker",
-      "drop",
-      "delete",
-      "remove",
-      "erase"
-    ]
+    name: "map-pin-x",
+    tags: ["location", "waypoint", "marker", "drop", "delete", "remove", "erase"],
   },
   {
-    "name": "map-pin",
-    "tags": [
-      "location",
-      "waypoint",
-      "marker",
-      "drop"
-    ]
+    name: "map-pin",
+    tags: ["location", "waypoint", "marker", "drop"],
   },
   {
-    "name": "map-pinned",
-    "tags": [
-      "location",
-      "waypoint",
-      "marker",
-      "drop"
-    ]
+    name: "map-pinned",
+    tags: ["location", "waypoint", "marker", "drop"],
   },
   {
-    "name": "map-plus",
-    "tags": [
-      "location",
-      "navigation",
-      "travel",
-      "new",
-      "add",
-      "create"
-    ]
+    name: "map-plus",
+    tags: ["location", "navigation", "travel", "new", "add", "create"],
   },
   {
-    "name": "map",
-    "tags": [
-      "location",
-      "navigation",
-      "travel"
-    ]
+    name: "map",
+    tags: ["location", "navigation", "travel"],
   },
   {
-    "name": "mars-stroke",
-    "tags": [
-      "gender",
-      "androgyne",
-      "transgender"
-    ]
+    name: "mars-stroke",
+    tags: ["gender", "androgyne", "transgender"],
   },
   {
-    "name": "mars",
-    "tags": [
-      "gender",
-      "sex",
-      "male",
-      "masculine",
-      "man",
-      "boy"
-    ]
+    name: "mars",
+    tags: ["gender", "sex", "male", "masculine", "man", "boy"],
   },
   {
-    "name": "martini",
-    "tags": [
-      "cocktail",
-      "alcohol",
-      "beverage",
-      "bar",
-      "drink",
-      "glass"
-    ]
+    name: "martini",
+    tags: ["cocktail", "alcohol", "beverage", "bar", "drink", "glass"],
   },
   {
-    "name": "maximize-2",
-    "tags": [
-      "fullscreen",
-      "arrows",
-      "expand"
-    ]
+    name: "maximize-2",
+    tags: ["fullscreen", "arrows", "expand"],
   },
   {
-    "name": "maximize",
-    "tags": [
-      "fullscreen",
-      "expand",
-      "dashed"
-    ]
+    name: "maximize",
+    tags: ["fullscreen", "expand", "dashed"],
   },
   {
-    "name": "medal",
-    "tags": [
-      "prize",
-      "sports",
-      "winner",
-      "trophy",
-      "award",
-      "achievement"
-    ]
+    name: "medal",
+    tags: ["prize", "sports", "winner", "trophy", "award", "achievement"],
   },
   {
-    "name": "megaphone-off",
-    "tags": [
+    name: "megaphone-off",
+    tags: [
       "advertisement",
       "announcement",
       "attention",
@@ -11658,33 +7779,28 @@ export const tags = [
       "megaphone",
       "notification",
       "disable",
-      "silent"
-    ]
+      "silent",
+    ],
   },
   {
-    "name": "megaphone",
-    "tags": [
+    name: "megaphone",
+    tags: [
       "advertisement",
       "announcement",
       "attention",
       "alert",
       "loudspeaker",
       "megaphone",
-      "notification"
-    ]
+      "notification",
+    ],
   },
   {
-    "name": "meh",
-    "tags": [
-      "emoji",
-      "face",
-      "neutral",
-      "emotion"
-    ]
+    name: "meh",
+    tags: ["emoji", "face", "neutral", "emotion"],
   },
   {
-    "name": "memory-stick",
-    "tags": [
+    name: "memory-stick",
+    tags: [
       "ram",
       "random access",
       "technology",
@@ -11694,29 +7810,20 @@ export const tags = [
       "specs",
       "capacity",
       "gigabytes",
-      "gb"
-    ]
+      "gb",
+    ],
   },
   {
-    "name": "menu",
-    "tags": [
-      "bars",
-      "navigation",
-      "hamburger",
-      "options"
-    ]
+    name: "menu",
+    tags: ["bars", "navigation", "hamburger", "options"],
   },
   {
-    "name": "merge",
-    "tags": [
-      "combine",
-      "join",
-      "unite"
-    ]
+    name: "merge",
+    tags: ["combine", "join", "unite"],
   },
   {
-    "name": "message-circle-check",
-    "tags": [
+    name: "message-circle-check",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -11727,12 +7834,12 @@ export const tags = [
       "check",
       "done",
       "todo",
-      "complete"
-    ]
+      "complete",
+    ],
   },
   {
-    "name": "message-circle-code",
-    "tags": [
+    name: "message-circle-code",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -11740,24 +7847,16 @@ export const tags = [
       "feedback",
       "speech bubble",
       "code review",
-      "coding"
-    ]
+      "coding",
+    ],
   },
   {
-    "name": "message-circle-dashed",
-    "tags": [
-      "comment",
-      "chat",
-      "conversation",
-      "dialog",
-      "feedback",
-      "speech bubble",
-      "draft"
-    ]
+    name: "message-circle-dashed",
+    tags: ["comment", "chat", "conversation", "dialog", "feedback", "speech bubble", "draft"],
   },
   {
-    "name": "message-circle-heart",
-    "tags": [
+    name: "message-circle-heart",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -11770,12 +7869,12 @@ export const tags = [
       "valentine",
       "dating",
       "date",
-      "speech bubble"
-    ]
+      "speech bubble",
+    ],
   },
   {
-    "name": "message-circle-more",
-    "tags": [
+    name: "message-circle-more",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -11789,12 +7888,12 @@ export const tags = [
       "etc",
       "et cetera",
       "...",
-      "…"
-    ]
+      "…",
+    ],
   },
   {
-    "name": "message-circle-off",
-    "tags": [
+    name: "message-circle-off",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -11808,36 +7907,20 @@ export const tags = [
       "cancel",
       "silence",
       "mute",
-      "moderate"
-    ]
+      "moderate",
+    ],
   },
   {
-    "name": "message-circle-plus",
-    "tags": [
-      "comment",
-      "chat",
-      "conversation",
-      "dialog",
-      "feedback",
-      "speech bubble",
-      "add"
-    ]
+    name: "message-circle-plus",
+    tags: ["comment", "chat", "conversation", "dialog", "feedback", "speech bubble", "add"],
   },
   {
-    "name": "message-circle-question-mark",
-    "tags": [
-      "comment",
-      "chat",
-      "conversation",
-      "dialog",
-      "feedback",
-      "speech bubble",
-      "help"
-    ]
+    name: "message-circle-question-mark",
+    tags: ["comment", "chat", "conversation", "dialog", "feedback", "speech bubble", "help"],
   },
   {
-    "name": "message-circle-reply",
-    "tags": [
+    name: "message-circle-reply",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -11845,12 +7928,12 @@ export const tags = [
       "feedback",
       "speech bubble",
       "reply",
-      "response"
-    ]
+      "response",
+    ],
   },
   {
-    "name": "message-circle-warning",
-    "tags": [
+    name: "message-circle-warning",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -11864,12 +7947,12 @@ export const tags = [
       "danger",
       "caution",
       "protected",
-      "exclamation mark"
-    ]
+      "exclamation mark",
+    ],
   },
   {
-    "name": "message-circle-x",
-    "tags": [
+    name: "message-circle-x",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -11883,23 +7966,16 @@ export const tags = [
       "cancel",
       "silence",
       "mute",
-      "moderate"
-    ]
+      "moderate",
+    ],
   },
   {
-    "name": "message-circle",
-    "tags": [
-      "comment",
-      "chat",
-      "conversation",
-      "dialog",
-      "feedback",
-      "speech bubble"
-    ]
+    name: "message-circle",
+    tags: ["comment", "chat", "conversation", "dialog", "feedback", "speech bubble"],
   },
   {
-    "name": "message-square-check",
-    "tags": [
+    name: "message-square-check",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -11910,12 +7986,12 @@ export const tags = [
       "check",
       "done",
       "todo",
-      "complete"
-    ]
+      "complete",
+    ],
   },
   {
-    "name": "message-square-code",
-    "tags": [
+    name: "message-square-code",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -11923,24 +7999,16 @@ export const tags = [
       "feedback",
       "speech bubble",
       "code review",
-      "coding"
-    ]
+      "coding",
+    ],
   },
   {
-    "name": "message-square-dashed",
-    "tags": [
-      "comment",
-      "chat",
-      "conversation",
-      "dialog",
-      "feedback",
-      "speech bubble",
-      "draft"
-    ]
+    name: "message-square-dashed",
+    tags: ["comment", "chat", "conversation", "dialog", "feedback", "speech bubble", "draft"],
   },
   {
-    "name": "message-square-diff",
-    "tags": [
+    name: "message-square-diff",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -11957,12 +8025,12 @@ export const tags = [
       "code review",
       "coding",
       "version control",
-      "git"
-    ]
+      "git",
+    ],
   },
   {
-    "name": "message-square-dot",
-    "tags": [
+    name: "message-square-dot",
+    tags: [
       "unread",
       "unresolved",
       "comment",
@@ -11970,12 +8038,12 @@ export const tags = [
       "conversation",
       "dialog",
       "feedback",
-      "speech bubble"
-    ]
+      "speech bubble",
+    ],
   },
   {
-    "name": "message-square-heart",
-    "tags": [
+    name: "message-square-heart",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -11988,12 +8056,12 @@ export const tags = [
       "valentine",
       "dating",
       "date",
-      "speech bubble"
-    ]
+      "speech bubble",
+    ],
   },
   {
-    "name": "message-square-lock",
-    "tags": [
+    name: "message-square-lock",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -12001,12 +8069,12 @@ export const tags = [
       "feedback",
       "speech bubble",
       "secure",
-      "encrypted"
-    ]
+      "encrypted",
+    ],
   },
   {
-    "name": "message-square-more",
-    "tags": [
+    name: "message-square-more",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -12020,12 +8088,12 @@ export const tags = [
       "etc",
       "et cetera",
       "...",
-      "…"
-    ]
+      "…",
+    ],
   },
   {
-    "name": "message-square-off",
-    "tags": [
+    name: "message-square-off",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -12039,24 +8107,16 @@ export const tags = [
       "cancel",
       "silence",
       "mute",
-      "moderate"
-    ]
+      "moderate",
+    ],
   },
   {
-    "name": "message-square-plus",
-    "tags": [
-      "comment",
-      "chat",
-      "conversation",
-      "dialog",
-      "feedback",
-      "speech bubble",
-      "add"
-    ]
+    name: "message-square-plus",
+    tags: ["comment", "chat", "conversation", "dialog", "feedback", "speech bubble", "add"],
   },
   {
-    "name": "message-square-quote",
-    "tags": [
+    name: "message-square-quote",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -12067,12 +8127,12 @@ export const tags = [
       "quotation",
       "indent",
       "reply",
-      "response"
-    ]
+      "response",
+    ],
   },
   {
-    "name": "message-square-reply",
-    "tags": [
+    name: "message-square-reply",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -12080,12 +8140,12 @@ export const tags = [
       "feedback",
       "speech bubble",
       "reply",
-      "response"
-    ]
+      "response",
+    ],
   },
   {
-    "name": "message-square-share",
-    "tags": [
+    name: "message-square-share",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -12093,23 +8153,16 @@ export const tags = [
       "feedback",
       "speech bubble",
       "network",
-      "forward"
-    ]
+      "forward",
+    ],
   },
   {
-    "name": "message-square-text",
-    "tags": [
-      "comment",
-      "chat",
-      "conversation",
-      "dialog",
-      "feedback",
-      "speech bubble"
-    ]
+    name: "message-square-text",
+    tags: ["comment", "chat", "conversation", "dialog", "feedback", "speech bubble"],
   },
   {
-    "name": "message-square-warning",
-    "tags": [
+    name: "message-square-warning",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -12123,12 +8176,12 @@ export const tags = [
       "danger",
       "caution",
       "protected",
-      "exclamation mark"
-    ]
+      "exclamation mark",
+    ],
   },
   {
-    "name": "message-square-x",
-    "tags": [
+    name: "message-square-x",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -12142,23 +8195,16 @@ export const tags = [
       "cancel",
       "silence",
       "mute",
-      "moderate"
-    ]
+      "moderate",
+    ],
   },
   {
-    "name": "message-square",
-    "tags": [
-      "comment",
-      "chat",
-      "conversation",
-      "dialog",
-      "feedback",
-      "speech bubble"
-    ]
+    name: "message-square",
+    tags: ["comment", "chat", "conversation", "dialog", "feedback", "speech bubble"],
   },
   {
-    "name": "messages-square",
-    "tags": [
+    name: "messages-square",
+    tags: [
       "comment",
       "chat",
       "conversation",
@@ -12169,12 +8215,12 @@ export const tags = [
       "multiple",
       "discussion",
       "interview",
-      "debate"
-    ]
+      "debate",
+    ],
   },
   {
-    "name": "metronome",
-    "tags": [
+    name: "metronome",
+    tags: [
       "metronome",
       "tempo",
       "rhythm",
@@ -12193,21 +8239,16 @@ export const tags = [
       "control",
       "playback",
       "studio",
-      "tool"
-    ]
+      "tool",
+    ],
   },
   {
-    "name": "mic-off",
-    "tags": [
-      "record",
-      "sound",
-      "mute",
-      "microphone"
-    ]
+    name: "mic-off",
+    tags: ["record", "sound", "mute", "microphone"],
   },
   {
-    "name": "mic-vocal",
-    "tags": [
+    name: "mic-vocal",
+    tags: [
       "lyrics",
       "voice",
       "listen",
@@ -12217,23 +8258,16 @@ export const tags = [
       "podcast",
       "karaoke",
       "singing",
-      "microphone"
-    ]
+      "microphone",
+    ],
   },
   {
-    "name": "mic",
-    "tags": [
-      "record",
-      "sound",
-      "listen",
-      "radio",
-      "podcast",
-      "microphone"
-    ]
+    name: "mic",
+    tags: ["record", "sound", "listen", "radio", "podcast", "microphone"],
   },
   {
-    "name": "microchip",
-    "tags": [
+    name: "microchip",
+    tags: [
       "processor",
       "cores",
       "technology",
@@ -12245,43 +8279,24 @@ export const tags = [
       "specs",
       "gpu",
       "gigahertz",
-      "ghz"
-    ]
+      "ghz",
+    ],
   },
   {
-    "name": "microscope",
-    "tags": [
-      "medical",
-      "education",
-      "science",
-      "imaging",
-      "research"
-    ]
+    name: "microscope",
+    tags: ["medical", "education", "science", "imaging", "research"],
   },
   {
-    "name": "microwave",
-    "tags": [
-      "oven",
-      "cooker",
-      "toaster oven",
-      "bake"
-    ]
+    name: "microwave",
+    tags: ["oven", "cooker", "toaster oven", "bake"],
   },
   {
-    "name": "milestone",
-    "tags": [
-      "signpost",
-      "direction",
-      "right",
-      "east",
-      "forward",
-      "version control",
-      "waypoint"
-    ]
+    name: "milestone",
+    tags: ["signpost", "direction", "right", "east", "forward", "version control", "waypoint"],
   },
   {
-    "name": "milk-off",
-    "tags": [
+    name: "milk-off",
+    tags: [
       "lactose free",
       "bottle",
       "beverage",
@@ -12289,40 +8304,24 @@ export const tags = [
       "water",
       "allergy",
       "intolerance",
-      "diet"
-    ]
+      "diet",
+    ],
   },
   {
-    "name": "milk",
-    "tags": [
-      "lactose",
-      "bottle",
-      "beverage",
-      "drink",
-      "water",
-      "diet"
-    ]
+    name: "milk",
+    tags: ["lactose", "bottle", "beverage", "drink", "water", "diet"],
   },
   {
-    "name": "minimize-2",
-    "tags": [
-      "exit fullscreen",
-      "arrows",
-      "close",
-      "shrink"
-    ]
+    name: "minimize-2",
+    tags: ["exit fullscreen", "arrows", "close", "shrink"],
   },
   {
-    "name": "minimize",
-    "tags": [
-      "exit fullscreen",
-      "close",
-      "shrink"
-    ]
+    name: "minimize",
+    tags: ["exit fullscreen", "close", "shrink"],
   },
   {
-    "name": "minus",
-    "tags": [
+    name: "minus",
+    tags: [
       "subtract",
       "remove",
       "decrease",
@@ -12344,12 +8343,12 @@ export const tags = [
       "code",
       "coding",
       "minimum",
-      "downgrade"
-    ]
+      "downgrade",
+    ],
   },
   {
-    "name": "mirror-rectangular",
-    "tags": [
+    name: "mirror-rectangular",
+    tags: [
       "reflection",
       "optics",
       "glass",
@@ -12362,12 +8361,12 @@ export const tags = [
       "cosmetic",
       "shiny",
       "periscope",
-      "vanity"
-    ]
+      "vanity",
+    ],
   },
   {
-    "name": "mirror-round",
-    "tags": [
+    name: "mirror-round",
+    tags: [
       "reflection",
       "optics",
       "glass",
@@ -12381,25 +8380,16 @@ export const tags = [
       "decor",
       "cosmetic",
       "shiny",
-      "periscope"
-    ]
+      "periscope",
+    ],
   },
   {
-    "name": "monitor-check",
-    "tags": [
-      "tv",
-      "screen",
-      "display",
-      "desktop",
-      "running",
-      "active",
-      "virtual machine",
-      "vm"
-    ]
+    name: "monitor-check",
+    tags: ["tv", "screen", "display", "desktop", "running", "active", "virtual machine", "vm"],
   },
   {
-    "name": "monitor-cloud",
-    "tags": [
+    name: "monitor-cloud",
+    tags: [
       "virtual machine",
       "virtual desktop",
       "vm",
@@ -12414,12 +8404,12 @@ export const tags = [
       "environment",
       "tv",
       "screen",
-      "display"
-    ]
+      "display",
+    ],
   },
   {
-    "name": "monitor-cog",
-    "tags": [
+    name: "monitor-cog",
+    tags: [
       "tv",
       "screen",
       "display",
@@ -12435,41 +8425,24 @@ export const tags = [
       "system",
       "control panel",
       "network",
-      "computing"
-    ]
+      "computing",
+    ],
   },
   {
-    "name": "monitor-dot",
-    "tags": [
-      "tv",
-      "screen",
-      "display",
-      "desktop",
-      "running",
-      "active",
-      "virtual machine",
-      "vm"
-    ]
+    name: "monitor-dot",
+    tags: ["tv", "screen", "display", "desktop", "running", "active", "virtual machine", "vm"],
   },
   {
-    "name": "monitor-down",
-    "tags": [
-      "tv",
-      "screen",
-      "display",
-      "desktop",
-      "download"
-    ]
+    name: "monitor-down",
+    tags: ["tv", "screen", "display", "desktop", "download"],
   },
   {
-    "name": "monitor-off",
-    "tags": [
-      "share"
-    ]
+    name: "monitor-off",
+    tags: ["share"],
   },
   {
-    "name": "monitor-pause",
-    "tags": [
+    name: "monitor-pause",
+    tags: [
       "tv",
       "screen",
       "display",
@@ -12481,12 +8454,12 @@ export const tags = [
       "hibernate",
       "boot",
       "virtual machine",
-      "vm"
-    ]
+      "vm",
+    ],
   },
   {
-    "name": "monitor-play",
-    "tags": [
+    name: "monitor-play",
+    tags: [
       "tv",
       "screen",
       "display",
@@ -12498,12 +8471,12 @@ export const tags = [
       "start",
       "boot",
       "virtual machine",
-      "vm"
-    ]
+      "vm",
+    ],
   },
   {
-    "name": "monitor-smartphone",
-    "tags": [
+    name: "monitor-smartphone",
+    tags: [
       "smartphone",
       "phone",
       "cellphone",
@@ -12512,20 +8485,16 @@ export const tags = [
       "desktop",
       "monitor",
       "responsive",
-      "screens"
-    ]
+      "screens",
+    ],
   },
   {
-    "name": "monitor-speaker",
-    "tags": [
-      "devices",
-      "connect",
-      "cast"
-    ]
+    name: "monitor-speaker",
+    tags: ["devices", "connect", "cast"],
   },
   {
-    "name": "monitor-stop",
-    "tags": [
+    name: "monitor-stop",
+    tags: [
       "tv",
       "screen",
       "display",
@@ -12536,24 +8505,16 @@ export const tags = [
       "stop",
       "shutdown",
       "virtual machine",
-      "vm"
-    ]
+      "vm",
+    ],
   },
   {
-    "name": "monitor-up",
-    "tags": [
-      "tv",
-      "screen",
-      "display",
-      "upload",
-      "connect",
-      "remote",
-      "screen share"
-    ]
+    name: "monitor-up",
+    tags: ["tv", "screen", "display", "upload", "connect", "remote", "screen share"],
   },
   {
-    "name": "monitor-x",
-    "tags": [
+    name: "monitor-x",
+    tags: [
       "tv",
       "screen",
       "display",
@@ -12564,37 +8525,24 @@ export const tags = [
       "stop",
       "suspend",
       "remove",
-      "delete"
-    ]
+      "delete",
+    ],
   },
   {
-    "name": "monitor",
-    "tags": [
-      "tv",
-      "screen",
-      "display",
-      "virtual machine",
-      "vm"
-    ]
+    name: "monitor",
+    tags: ["tv", "screen", "display", "virtual machine", "vm"],
   },
   {
-    "name": "moon-star",
-    "tags": [
-      "dark",
-      "night",
-      "star"
-    ]
+    name: "moon-star",
+    tags: ["dark", "night", "star"],
   },
   {
-    "name": "moon",
-    "tags": [
-      "dark",
-      "night"
-    ]
+    name: "moon",
+    tags: ["dark", "night"],
   },
   {
-    "name": "motorbike",
-    "tags": [
+    name: "motorbike",
+    tags: [
       "moto",
       "motorcycle",
       "transport",
@@ -12605,45 +8553,28 @@ export const tags = [
       "race",
       "racing",
       "journey",
-      "delivery"
-    ]
+      "delivery",
+    ],
   },
   {
-    "name": "mountain-snow",
-    "tags": [
-      "alpine",
-      "climb",
-      "snow"
-    ]
+    name: "mountain-snow",
+    tags: ["alpine", "climb", "snow"],
   },
   {
-    "name": "mountain",
-    "tags": [
-      "climb",
-      "hike",
-      "rock"
-    ]
+    name: "mountain",
+    tags: ["climb", "hike", "rock"],
   },
   {
-    "name": "mouse-left",
-    "tags": [
-      "device",
-      "scroll",
-      "click"
-    ]
+    name: "mouse-left",
+    tags: ["device", "scroll", "click"],
   },
   {
-    "name": "mouse-off",
-    "tags": [
-      "device",
-      "scroll",
-      "click",
-      "disabled"
-    ]
+    name: "mouse-off",
+    tags: ["device", "scroll", "click", "disabled"],
   },
   {
-    "name": "mouse-pointer-2-off",
-    "tags": [
+    name: "mouse-pointer-2-off",
+    tags: [
       "pointer",
       "mouse",
       "cursor",
@@ -12655,264 +8586,140 @@ export const tags = [
       "select",
       "click",
       "no-click",
-      "interaction"
-    ]
+      "interaction",
+    ],
   },
   {
-    "name": "mouse-pointer-2",
-    "tags": [
-      "click",
-      "select"
-    ]
+    name: "mouse-pointer-2",
+    tags: ["click", "select"],
   },
   {
-    "name": "mouse-pointer-ban",
-    "tags": [
-      "wait",
-      "busy",
-      "loading",
-      "blocked",
-      "frozen",
-      "freeze"
-    ]
+    name: "mouse-pointer-ban",
+    tags: ["wait", "busy", "loading", "blocked", "frozen", "freeze"],
   },
   {
-    "name": "mouse-pointer-click",
-    "tags": [
-      "click",
-      "select"
-    ]
+    name: "mouse-pointer-click",
+    tags: ["click", "select"],
   },
   {
-    "name": "mouse-pointer",
-    "tags": [
-      "click",
-      "select"
-    ]
+    name: "mouse-pointer",
+    tags: ["click", "select"],
   },
   {
-    "name": "mouse-right",
-    "tags": [
-      "device",
-      "scroll",
-      "click"
-    ]
+    name: "mouse-right",
+    tags: ["device", "scroll", "click"],
   },
   {
-    "name": "mouse",
-    "tags": [
-      "device",
-      "scroll",
-      "click"
-    ]
+    name: "mouse",
+    tags: ["device", "scroll", "click"],
   },
   {
-    "name": "move-3d",
-    "tags": [
-      "arrows",
-      "axis",
-      "gizmo",
-      "coordinates",
-      "transform",
-      "translate"
-    ]
+    name: "move-3d",
+    tags: ["arrows", "axis", "gizmo", "coordinates", "transform", "translate"],
   },
   {
-    "name": "move-diagonal-2",
-    "tags": [
-      "double",
-      "arrow"
-    ]
+    name: "move-diagonal-2",
+    tags: ["double", "arrow"],
   },
   {
-    "name": "move-diagonal",
-    "tags": [
-      "double",
-      "arrow"
-    ]
+    name: "move-diagonal",
+    tags: ["double", "arrow"],
   },
   {
-    "name": "move-down-left",
-    "tags": [
-      "arrow",
-      "direction"
-    ]
+    name: "move-down-left",
+    tags: ["arrow", "direction"],
   },
   {
-    "name": "move-down-right",
-    "tags": [
-      "arrow",
-      "direction"
-    ]
+    name: "move-down-right",
+    tags: ["arrow", "direction"],
   },
   {
-    "name": "move-down",
-    "tags": [
-      "arrow",
-      "direction",
-      "downwards",
-      "south"
-    ]
+    name: "move-down",
+    tags: ["arrow", "direction", "downwards", "south"],
   },
   {
-    "name": "move-horizontal",
-    "tags": [
-      "double",
-      "arrow"
-    ]
+    name: "move-horizontal",
+    tags: ["double", "arrow"],
   },
   {
-    "name": "move-left",
-    "tags": [
-      "arrow",
-      "direction",
-      "back",
-      "west"
-    ]
+    name: "move-left",
+    tags: ["arrow", "direction", "back", "west"],
   },
   {
-    "name": "move-right",
-    "tags": [
-      "arrow",
-      "direction",
-      "trend flat",
-      "east"
-    ]
+    name: "move-right",
+    tags: ["arrow", "direction", "trend flat", "east"],
   },
   {
-    "name": "move-up-left",
-    "tags": [
-      "arrow",
-      "direction"
-    ]
+    name: "move-up-left",
+    tags: ["arrow", "direction"],
   },
   {
-    "name": "move-up-right",
-    "tags": [
-      "arrow",
-      "direction"
-    ]
+    name: "move-up-right",
+    tags: ["arrow", "direction"],
   },
   {
-    "name": "move-up",
-    "tags": [
-      "arrow",
-      "direction",
-      "upwards",
-      "north"
-    ]
+    name: "move-up",
+    tags: ["arrow", "direction", "upwards", "north"],
   },
   {
-    "name": "move-vertical",
-    "tags": [
-      "double",
-      "arrow"
-    ]
+    name: "move-vertical",
+    tags: ["double", "arrow"],
   },
   {
-    "name": "move",
-    "tags": [
-      "arrows"
-    ]
+    name: "move",
+    tags: ["arrows"],
   },
   {
-    "name": "music-2",
-    "tags": [
-      "quaver",
-      "eighth note",
-      "note"
-    ]
+    name: "music-2",
+    tags: ["quaver", "eighth note", "note"],
   },
   {
-    "name": "music-3",
-    "tags": [
-      "crotchet",
-      "minim",
-      "quarter note",
-      "half note",
-      "note"
-    ]
+    name: "music-3",
+    tags: ["crotchet", "minim", "quarter note", "half note", "note"],
   },
   {
-    "name": "music-4",
-    "tags": [
-      "semiquaver",
-      "sixteenth note",
-      "note"
-    ]
+    name: "music-4",
+    tags: ["semiquaver", "sixteenth note", "note"],
   },
   {
-    "name": "music",
-    "tags": [
-      "note",
-      "quaver",
-      "eighth note"
-    ]
+    name: "music",
+    tags: ["note", "quaver", "eighth note"],
   },
   {
-    "name": "navigation-2-off",
-    "tags": [
-      "location",
-      "travel"
-    ]
+    name: "navigation-2-off",
+    tags: ["location", "travel"],
   },
   {
-    "name": "navigation-2",
-    "tags": [
-      "location",
-      "travel"
-    ]
+    name: "navigation-2",
+    tags: ["location", "travel"],
   },
   {
-    "name": "navigation-off",
-    "tags": [
-      "location",
-      "travel"
-    ]
+    name: "navigation-off",
+    tags: ["location", "travel"],
   },
   {
-    "name": "navigation",
-    "tags": [
-      "location",
-      "travel"
-    ]
+    name: "navigation",
+    tags: ["location", "travel"],
   },
   {
-    "name": "network",
-    "tags": [
-      "tree"
-    ]
+    name: "network",
+    tags: ["tree"],
   },
   {
-    "name": "newspaper",
-    "tags": [
-      "news",
-      "feed",
-      "home",
-      "magazine",
-      "article",
-      "headline"
-    ]
+    name: "newspaper",
+    tags: ["news", "feed", "home", "magazine", "article", "headline"],
   },
   {
-    "name": "nfc",
-    "tags": [
-      "contactless",
-      "payment",
-      "near-field communication"
-    ]
+    name: "nfc",
+    tags: ["contactless", "payment", "near-field communication"],
   },
   {
-    "name": "non-binary",
-    "tags": [
-      "gender",
-      "nonbinary",
-      "enby"
-    ]
+    name: "non-binary",
+    tags: ["gender", "nonbinary", "enby"],
   },
   {
-    "name": "notebook-pen",
-    "tags": [
+    name: "notebook-pen",
+    tags: [
       "pencil",
       "notepad",
       "notes",
@@ -12937,12 +8744,12 @@ export const tags = [
       "research",
       "homework",
       "eraser",
-      "rubber"
-    ]
+      "rubber",
+    ],
   },
   {
-    "name": "notebook-tabs",
-    "tags": [
+    name: "notebook-tabs",
+    tags: [
       "notepad",
       "notes",
       "people",
@@ -12962,12 +8769,12 @@ export const tags = [
       "organiser",
       "planner",
       "diary",
-      "stationery"
-    ]
+      "stationery",
+    ],
   },
   {
-    "name": "notebook-text",
-    "tags": [
+    name: "notebook-text",
+    tags: [
       "notepad",
       "notes",
       "pages",
@@ -12992,12 +8799,12 @@ export const tags = [
       "research",
       "homework",
       "lines",
-      "opened"
-    ]
+      "opened",
+    ],
   },
   {
-    "name": "notebook",
-    "tags": [
+    name: "notebook",
+    tags: [
       "notepad",
       "notes",
       "stationery",
@@ -13023,12 +8830,12 @@ export const tags = [
       "student",
       "study",
       "homework",
-      "research"
-    ]
+      "research",
+    ],
   },
   {
-    "name": "notepad-text-dashed",
-    "tags": [
+    name: "notepad-text-dashed",
+    tags: [
       "notebook",
       "notes",
       "pages",
@@ -13041,12 +8848,12 @@ export const tags = [
       "written",
       "draft",
       "template",
-      "lines"
-    ]
+      "lines",
+    ],
   },
   {
-    "name": "notepad-text",
-    "tags": [
+    name: "notepad-text",
+    tags: [
       "notebook",
       "notes",
       "pages",
@@ -13071,41 +8878,24 @@ export const tags = [
       "homework",
       "research",
       "lines",
-      "opened"
-    ]
+      "opened",
+    ],
   },
   {
-    "name": "nut-off",
-    "tags": [
-      "hazelnut",
-      "acorn",
-      "food",
-      "allergy",
-      "intolerance",
-      "diet"
-    ]
+    name: "nut-off",
+    tags: ["hazelnut", "acorn", "food", "allergy", "intolerance", "diet"],
   },
   {
-    "name": "nut",
-    "tags": [
-      "hazelnut",
-      "acorn",
-      "food",
-      "diet"
-    ]
+    name: "nut",
+    tags: ["hazelnut", "acorn", "food", "diet"],
   },
   {
-    "name": "octagon-alert",
-    "tags": [
-      "warning",
-      "alert",
-      "danger",
-      "exclamation mark"
-    ]
+    name: "octagon-alert",
+    tags: ["warning", "alert", "danger", "exclamation mark"],
   },
   {
-    "name": "octagon-minus",
-    "tags": [
+    name: "octagon-minus",
+    tags: [
       "stop",
       "forbidden",
       "subtract",
@@ -13115,39 +8905,24 @@ export const tags = [
       "-",
       "traffic",
       "halt",
-      "restricted"
-    ]
+      "restricted",
+    ],
   },
   {
-    "name": "octagon-pause",
-    "tags": [
-      "music",
-      "audio",
-      "stop"
-    ]
+    name: "octagon-pause",
+    tags: ["music", "audio", "stop"],
   },
   {
-    "name": "octagon-x",
-    "tags": [
-      "delete",
-      "stop",
-      "alert",
-      "warning",
-      "times",
-      "clear",
-      "math"
-    ]
+    name: "octagon-x",
+    tags: ["delete", "stop", "alert", "warning", "times", "clear", "math"],
   },
   {
-    "name": "octagon",
-    "tags": [
-      "stop",
-      "shape"
-    ]
+    name: "octagon",
+    tags: ["stop", "shape"],
   },
   {
-    "name": "omega",
-    "tags": [
+    name: "omega",
+    tags: [
       "greek",
       "symbol",
       "mathematics",
@@ -13160,39 +8935,24 @@ export const tags = [
       "dynamical systems",
       "astronomy",
       "constellations",
-      "philosophy"
-    ]
+      "philosophy",
+    ],
   },
   {
-    "name": "option",
-    "tags": [
-      "keyboard",
-      "key",
-      "mac",
-      "alt",
-      "button"
-    ]
+    name: "option",
+    tags: ["keyboard", "key", "mac", "alt", "button"],
   },
   {
-    "name": "orbit",
-    "tags": [
-      "planet",
-      "space",
-      "physics",
-      "satellites",
-      "moons"
-    ]
+    name: "orbit",
+    tags: ["planet", "space", "physics", "satellites", "moons"],
   },
   {
-    "name": "origami",
-    "tags": [
-      "paper",
-      "bird"
-    ]
+    name: "origami",
+    tags: ["paper", "bird"],
   },
   {
-    "name": "package-2",
-    "tags": [
+    name: "package-2",
+    tags: [
       "box",
       "container",
       "storage",
@@ -13201,68 +8961,36 @@ export const tags = [
       "unopened",
       "undelivered",
       "archive",
-      "zip"
-    ]
+      "zip",
+    ],
   },
   {
-    "name": "package-check",
-    "tags": [
-      "confirm",
-      "verified",
-      "done",
-      "todo",
-      "tick",
-      "complete",
-      "task",
-      "delivered"
-    ]
+    name: "package-check",
+    tags: ["confirm", "verified", "done", "todo", "tick", "complete", "task", "delivered"],
   },
   {
-    "name": "package-minus",
-    "tags": [
-      "delete",
-      "remove"
-    ]
+    name: "package-minus",
+    tags: ["delete", "remove"],
   },
   {
-    "name": "package-open",
-    "tags": [
-      "box",
-      "container",
-      "storage",
-      "unpack",
-      "unarchive",
-      "unzip",
-      "opened",
-      "delivered"
-    ]
+    name: "package-open",
+    tags: ["box", "container", "storage", "unpack", "unarchive", "unzip", "opened", "delivered"],
   },
   {
-    "name": "package-plus",
-    "tags": [
-      "new",
-      "add",
-      "create"
-    ]
+    name: "package-plus",
+    tags: ["new", "add", "create"],
   },
   {
-    "name": "package-search",
-    "tags": [
-      "find",
-      "product process",
-      "lens"
-    ]
+    name: "package-search",
+    tags: ["find", "product process", "lens"],
   },
   {
-    "name": "package-x",
-    "tags": [
-      "delete",
-      "remove"
-    ]
+    name: "package-x",
+    tags: ["delete", "remove"],
   },
   {
-    "name": "package",
-    "tags": [
+    name: "package",
+    tags: [
       "box",
       "container",
       "storage",
@@ -13273,131 +9001,56 @@ export const tags = [
       "packed",
       "archive",
       "zip",
-      "module"
-    ]
+      "module",
+    ],
   },
   {
-    "name": "paint-bucket",
-    "tags": [
-      "fill",
-      "paint",
-      "bucket",
-      "color",
-      "colour"
-    ]
+    name: "paint-bucket",
+    tags: ["fill", "paint", "bucket", "color", "colour"],
   },
   {
-    "name": "paint-roller",
-    "tags": [
-      "brush",
-      "color",
-      "colour",
-      "decoration",
-      "diy"
-    ]
+    name: "paint-roller",
+    tags: ["brush", "color", "colour", "decoration", "diy"],
   },
   {
-    "name": "paintbrush-vertical",
-    "tags": [
-      "brush",
-      "paintbrush",
-      "design",
-      "color",
-      "colour",
-      "decoration",
-      "diy"
-    ]
+    name: "paintbrush-vertical",
+    tags: ["brush", "paintbrush", "design", "color", "colour", "decoration", "diy"],
   },
   {
-    "name": "paintbrush",
-    "tags": [
-      "brush",
-      "paintbrush",
-      "design",
-      "color",
-      "colour",
-      "decoration",
-      "diy"
-    ]
+    name: "paintbrush",
+    tags: ["brush", "paintbrush", "design", "color", "colour", "decoration", "diy"],
   },
   {
-    "name": "palette",
-    "tags": [
-      "colors",
-      "colours",
-      "theme",
-      "scheme",
-      "paint",
-      "watercolor",
-      "watercolour",
-      "artist"
-    ]
+    name: "palette",
+    tags: ["colors", "colours", "theme", "scheme", "paint", "watercolor", "watercolour", "artist"],
   },
   {
-    "name": "panda",
-    "tags": [
-      "animal",
-      "wildlife",
-      "bear",
-      "zoo",
-      "bamboo"
-    ]
+    name: "panda",
+    tags: ["animal", "wildlife", "bear", "zoo", "bamboo"],
   },
   {
-    "name": "panel-bottom-close",
-    "tags": [
-      "drawer",
-      "dock",
-      "hide",
-      "chevron",
-      "down"
-    ]
+    name: "panel-bottom-close",
+    tags: ["drawer", "dock", "hide", "chevron", "down"],
   },
   {
-    "name": "panel-bottom-dashed",
-    "tags": [
-      "drawer",
-      "dock",
-      "show",
-      "reveal",
-      "padding",
-      "margin",
-      "guide",
-      "layout",
-      "bleed"
-    ]
+    name: "panel-bottom-dashed",
+    tags: ["drawer", "dock", "show", "reveal", "padding", "margin", "guide", "layout", "bleed"],
   },
   {
-    "name": "panel-bottom-open",
-    "tags": [
-      "drawer",
-      "dock",
-      "show",
-      "reveal",
-      "chevron",
-      "up"
-    ]
+    name: "panel-bottom-open",
+    tags: ["drawer", "dock", "show", "reveal", "chevron", "up"],
   },
   {
-    "name": "panel-bottom",
-    "tags": [
-      "drawer",
-      "dock"
-    ]
+    name: "panel-bottom",
+    tags: ["drawer", "dock"],
   },
   {
-    "name": "panel-left-close",
-    "tags": [
-      "primary",
-      "drawer",
-      "hide",
-      "chevron",
-      "<"
-    ]
+    name: "panel-left-close",
+    tags: ["primary", "drawer", "hide", "chevron", "<"],
   },
   {
-    "name": "panel-left-dashed",
-    "tags": [
+    name: "panel-left-dashed",
+    tags: [
       "sidebar",
       "primary",
       "drawer",
@@ -13407,24 +9060,16 @@ export const tags = [
       "margin",
       "guide",
       "layout",
-      "bleed"
-    ]
+      "bleed",
+    ],
   },
   {
-    "name": "panel-left-open",
-    "tags": [
-      "primary",
-      "drawer",
-      "show",
-      "reveal",
-      "chevron",
-      "right",
-      ">"
-    ]
+    name: "panel-left-open",
+    tags: ["primary", "drawer", "show", "reveal", "chevron", "right", ">"],
   },
   {
-    "name": "panel-left-right-dashed",
-    "tags": [
+    name: "panel-left-right-dashed",
+    tags: [
       "sidebar",
       "primary",
       "drawer",
@@ -13435,30 +9080,20 @@ export const tags = [
       "guide",
       "layout",
       "vertical",
-      "bleed"
-    ]
+      "bleed",
+    ],
   },
   {
-    "name": "panel-left",
-    "tags": [
-      "primary",
-      "drawer"
-    ]
+    name: "panel-left",
+    tags: ["primary", "drawer"],
   },
   {
-    "name": "panel-right-close",
-    "tags": [
-      "sidebar",
-      "secondary",
-      "drawer",
-      "hide",
-      "chevron",
-      ">"
-    ]
+    name: "panel-right-close",
+    tags: ["sidebar", "secondary", "drawer", "hide", "chevron", ">"],
   },
   {
-    "name": "panel-right-dashed",
-    "tags": [
+    name: "panel-right-dashed",
+    tags: [
       "sidebar",
       "secondary",
       "drawer",
@@ -13468,33 +9103,20 @@ export const tags = [
       "margin",
       "guide",
       "layout",
-      "bleed"
-    ]
+      "bleed",
+    ],
   },
   {
-    "name": "panel-right-open",
-    "tags": [
-      "sidebar",
-      "secondary",
-      "drawer",
-      "show",
-      "reveal",
-      "chevron",
-      "left",
-      "<"
-    ]
+    name: "panel-right-open",
+    tags: ["sidebar", "secondary", "drawer", "show", "reveal", "chevron", "left", "<"],
   },
   {
-    "name": "panel-right",
-    "tags": [
-      "sidebar",
-      "secondary",
-      "drawer"
-    ]
+    name: "panel-right",
+    tags: ["sidebar", "secondary", "drawer"],
   },
   {
-    "name": "panel-top-bottom-dashed",
-    "tags": [
+    name: "panel-top-bottom-dashed",
+    tags: [
       "sidebar",
       "primary",
       "drawer",
@@ -13505,71 +9127,36 @@ export const tags = [
       "guide",
       "layout",
       "horizontal",
-      "bleed"
-    ]
+      "bleed",
+    ],
   },
   {
-    "name": "panel-top-close",
-    "tags": [
-      "menu bar",
-      "drawer",
-      "hide",
-      "chevron",
-      "up"
-    ]
+    name: "panel-top-close",
+    tags: ["menu bar", "drawer", "hide", "chevron", "up"],
   },
   {
-    "name": "panel-top-dashed",
-    "tags": [
-      "menu bar",
-      "drawer",
-      "show",
-      "reveal",
-      "padding",
-      "margin",
-      "guide",
-      "layout",
-      "bleed"
-    ]
+    name: "panel-top-dashed",
+    tags: ["menu bar", "drawer", "show", "reveal", "padding", "margin", "guide", "layout", "bleed"],
   },
   {
-    "name": "panel-top-open",
-    "tags": [
-      "menu bar",
-      "drawer",
-      "show",
-      "reveal",
-      "chevron",
-      "down"
-    ]
+    name: "panel-top-open",
+    tags: ["menu bar", "drawer", "show", "reveal", "chevron", "down"],
   },
   {
-    "name": "panel-top",
-    "tags": [
-      "drawer",
-      "browser",
-      "webpage"
-    ]
+    name: "panel-top",
+    tags: ["drawer", "browser", "webpage"],
   },
   {
-    "name": "panels-left-bottom",
-    "tags": [
-      "drawers",
-      "sidebar",
-      "primary"
-    ]
+    name: "panels-left-bottom",
+    tags: ["drawers", "sidebar", "primary"],
   },
   {
-    "name": "panels-right-bottom",
-    "tags": [
-      "drawers",
-      "sidebar",
-      "secondary"
-    ]
+    name: "panels-right-bottom",
+    tags: ["drawers", "sidebar", "secondary"],
   },
   {
-    "name": "panels-top-left",
-    "tags": [
+    name: "panels-top-left",
+    tags: [
       "menu bar",
       "sidebar",
       "primary",
@@ -13577,19 +9164,16 @@ export const tags = [
       "window",
       "webpage",
       "projects",
-      "overview"
-    ]
+      "overview",
+    ],
   },
   {
-    "name": "paperclip",
-    "tags": [
-      "attachment",
-      "file"
-    ]
+    name: "paperclip",
+    tags: ["attachment", "file"],
   },
   {
-    "name": "parentheses",
-    "tags": [
+    name: "parentheses",
+    tags: [
       "code",
       "token",
       "parenthesis",
@@ -13604,22 +9188,16 @@ export const tags = [
       "formula",
       "function",
       "(",
-      ")"
-    ]
+      ")",
+    ],
   },
   {
-    "name": "parking-meter",
-    "tags": [
-      "driving",
-      "car park",
-      "pay",
-      "sidewalk",
-      "pavement"
-    ]
+    name: "parking-meter",
+    tags: ["driving", "car park", "pay", "sidewalk", "pavement"],
   },
   {
-    "name": "party-popper",
-    "tags": [
+    name: "party-popper",
+    tags: [
       "emoji",
       "congratulations",
       "celebration",
@@ -13630,38 +9208,24 @@ export const tags = [
       "excitement",
       "exciting",
       "excites",
-      "confetti"
-    ]
+      "confetti",
+    ],
   },
   {
-    "name": "pause",
-    "tags": [
-      "music",
-      "stop"
-    ]
+    name: "pause",
+    tags: ["music", "stop"],
   },
   {
-    "name": "paw-print",
-    "tags": [
-      "pets",
-      "vets",
-      "veterinarian",
-      "domesticated",
-      "cat",
-      "dog",
-      "bear"
-    ]
+    name: "paw-print",
+    tags: ["pets", "vets", "veterinarian", "domesticated", "cat", "dog", "bear"],
   },
   {
-    "name": "pc-case",
-    "tags": [
-      "computer",
-      "chassis"
-    ]
+    name: "pc-case",
+    tags: ["computer", "chassis"],
   },
   {
-    "name": "pen-line",
-    "tags": [
+    name: "pen-line",
+    tags: [
       "pencil",
       "change",
       "create",
@@ -13673,12 +9237,12 @@ export const tags = [
       "marker",
       "felt tip",
       "stationery",
-      "artist"
-    ]
+      "artist",
+    ],
   },
   {
-    "name": "pen-off",
-    "tags": [
+    name: "pen-off",
+    tags: [
       "disabled",
       "inactive",
       "non-editable",
@@ -13698,20 +9262,16 @@ export const tags = [
       "marker",
       "felt tip",
       "stationery",
-      "artist"
-    ]
+      "artist",
+    ],
   },
   {
-    "name": "pen-tool",
-    "tags": [
-      "vector",
-      "drawing",
-      "path"
-    ]
+    name: "pen-tool",
+    tags: ["vector", "drawing", "path"],
   },
   {
-    "name": "pen",
-    "tags": [
+    name: "pen",
+    tags: [
       "pencil",
       "change",
       "create",
@@ -13723,12 +9283,12 @@ export const tags = [
       "marker",
       "felt tip",
       "stationery",
-      "artist"
-    ]
+      "artist",
+    ],
   },
   {
-    "name": "pencil-line",
-    "tags": [
+    name: "pencil-line",
+    tags: [
       "pencil",
       "change",
       "create",
@@ -13742,12 +9302,12 @@ export const tags = [
       "marker",
       "felt tip",
       "stationery",
-      "artist"
-    ]
+      "artist",
+    ],
   },
   {
-    "name": "pencil-off",
-    "tags": [
+    name: "pencil-off",
+    tags: [
       "disabled",
       "inactive",
       "non-editable",
@@ -13765,12 +9325,12 @@ export const tags = [
       "writer",
       "writing",
       "stationery",
-      "artist"
-    ]
+      "artist",
+    ],
   },
   {
-    "name": "pencil-ruler",
-    "tags": [
+    name: "pencil-ruler",
+    tags: [
       "edit",
       "create",
       "draw",
@@ -13797,12 +9357,12 @@ export const tags = [
       "dimensions",
       "depth",
       "breadth",
-      "extent"
-    ]
+      "extent",
+    ],
   },
   {
-    "name": "pencil",
-    "tags": [
+    name: "pencil",
+    tags: [
       "rubber",
       "edit",
       "create",
@@ -13812,18 +9372,16 @@ export const tags = [
       "writer",
       "writing",
       "stationery",
-      "artist"
-    ]
+      "artist",
+    ],
   },
   {
-    "name": "pentagon",
-    "tags": [
-      "shape"
-    ]
+    name: "pentagon",
+    tags: ["shape"],
   },
   {
-    "name": "percent",
-    "tags": [
+    name: "percent",
+    tags: [
       "percentage",
       "modulo",
       "modulus",
@@ -13832,73 +9390,48 @@ export const tags = [
       "sale",
       "discount",
       "offer",
-      "marketing"
-    ]
+      "marketing",
+    ],
   },
   {
-    "name": "person-standing",
-    "tags": [
-      "people",
-      "human",
-      "accessibility",
-      "stick figure"
-    ]
+    name: "person-standing",
+    tags: ["people", "human", "accessibility", "stick figure"],
   },
   {
-    "name": "philippine-peso",
-    "tags": [
-      "currency",
-      "peso",
-      "money",
-      "php"
-    ]
+    name: "philippine-peso",
+    tags: ["currency", "peso", "money", "php"],
   },
   {
-    "name": "phone-call",
-    "tags": [
-      "ring"
-    ]
+    name: "phone-call",
+    tags: ["ring"],
   },
   {
-    "name": "phone-forwarded",
-    "tags": [
-      "call"
-    ]
+    name: "phone-forwarded",
+    tags: ["call"],
   },
   {
-    "name": "phone-incoming",
-    "tags": [
-      "call"
-    ]
+    name: "phone-incoming",
+    tags: ["call"],
   },
   {
-    "name": "phone-missed",
-    "tags": [
-      "call"
-    ]
+    name: "phone-missed",
+    tags: ["call"],
   },
   {
-    "name": "phone-off",
-    "tags": [
-      "call",
-      "mute"
-    ]
+    name: "phone-off",
+    tags: ["call", "mute"],
   },
   {
-    "name": "phone-outgoing",
-    "tags": [
-      "call"
-    ]
+    name: "phone-outgoing",
+    tags: ["call"],
   },
   {
-    "name": "phone",
-    "tags": [
-      "call"
-    ]
+    name: "phone",
+    tags: ["call"],
   },
   {
-    "name": "pi",
-    "tags": [
+    name: "pi",
+    tags: [
       "constant",
       "code",
       "coding",
@@ -13906,12 +9439,12 @@ export const tags = [
       "symbol",
       "trigonometry",
       "geometry",
-      "formula"
-    ]
+      "formula",
+    ],
   },
   {
-    "name": "piano",
-    "tags": [
+    name: "piano",
+    tags: [
       "music",
       "audio",
       "sound",
@@ -13925,12 +9458,12 @@ export const tags = [
       "play",
       "pianist",
       "performance",
-      "concert"
-    ]
+      "concert",
+    ],
   },
   {
-    "name": "pickaxe",
-    "tags": [
+    name: "pickaxe",
+    tags: [
       "mining",
       "mine",
       "land worker",
@@ -13941,45 +9474,24 @@ export const tags = [
       "advancement",
       "crafting",
       "building",
-      "creation"
-    ]
+      "creation",
+    ],
   },
   {
-    "name": "picture-in-picture-2",
-    "tags": [
-      "display",
-      "play",
-      "video",
-      "pop out",
-      "always on top",
-      "window",
-      "inset",
-      "multitask"
-    ]
+    name: "picture-in-picture-2",
+    tags: ["display", "play", "video", "pop out", "always on top", "window", "inset", "multitask"],
   },
   {
-    "name": "picture-in-picture",
-    "tags": [
-      "display",
-      "play",
-      "video",
-      "pop out",
-      "always on top",
-      "window",
-      "inset",
-      "multitask"
-    ]
+    name: "picture-in-picture",
+    tags: ["display", "play", "video", "pop out", "always on top", "window", "inset", "multitask"],
   },
   {
-    "name": "piggy-bank",
-    "tags": [
-      "money",
-      "savings"
-    ]
+    name: "piggy-bank",
+    tags: ["money", "savings"],
   },
   {
-    "name": "pilcrow-left",
-    "tags": [
+    name: "pilcrow-left",
+    tags: [
       "direction",
       "paragraph",
       "mark",
@@ -13989,12 +9501,12 @@ export const tags = [
       "type",
       "text",
       "prose",
-      "symbol"
-    ]
+      "symbol",
+    ],
   },
   {
-    "name": "pilcrow-right",
-    "tags": [
+    name: "pilcrow-right",
+    tags: [
       "direction",
       "paragraph",
       "mark",
@@ -14004,26 +9516,16 @@ export const tags = [
       "type",
       "text",
       "prose",
-      "symbol"
-    ]
+      "symbol",
+    ],
   },
   {
-    "name": "pilcrow",
-    "tags": [
-      "paragraph",
-      "mark",
-      "paraph",
-      "blind",
-      "typography",
-      "type",
-      "text",
-      "prose",
-      "symbol"
-    ]
+    name: "pilcrow",
+    tags: ["paragraph", "mark", "paraph", "blind", "typography", "type", "text", "prose", "symbol"],
   },
   {
-    "name": "pill-bottle",
-    "tags": [
+    name: "pill-bottle",
+    tags: [
       "medicine",
       "medication",
       "prescription",
@@ -14035,119 +9537,56 @@ export const tags = [
       "container",
       "healthcare",
       "pharmaceutical",
-      "tablet"
-    ]
-  },
-  {
-    "name": "pill",
-    "tags": [
-      "medicine",
-      "medication",
-      "drug",
-      "prescription",
       "tablet",
-      "pharmacy"
-    ]
+    ],
   },
   {
-    "name": "pin-off",
-    "tags": [
-      "unpin",
-      "map",
-      "unlock",
-      "unfix",
-      "unsave",
-      "remove"
-    ]
+    name: "pill",
+    tags: ["medicine", "medication", "drug", "prescription", "tablet", "pharmacy"],
   },
   {
-    "name": "pin",
-    "tags": [
-      "save",
-      "map",
-      "lock",
-      "fix"
-    ]
+    name: "pin-off",
+    tags: ["unpin", "map", "unlock", "unfix", "unsave", "remove"],
   },
   {
-    "name": "pipette",
-    "tags": [
-      "eye dropper",
-      "color picker",
-      "lab",
-      "chemistry"
-    ]
+    name: "pin",
+    tags: ["save", "map", "lock", "fix"],
   },
   {
-    "name": "pizza",
-    "tags": [
-      "pie",
-      "quiche",
-      "food"
-    ]
+    name: "pipette",
+    tags: ["eye dropper", "color picker", "lab", "chemistry"],
   },
   {
-    "name": "plane-landing",
-    "tags": [
-      "arrival",
-      "plane",
-      "trip",
-      "airplane",
-      "landing"
-    ]
+    name: "pizza",
+    tags: ["pie", "quiche", "food"],
   },
   {
-    "name": "plane-takeoff",
-    "tags": [
-      "departure",
-      "plane",
-      "trip",
-      "airplane",
-      "takeoff"
-    ]
+    name: "plane-landing",
+    tags: ["arrival", "plane", "trip", "airplane", "landing"],
   },
   {
-    "name": "plane",
-    "tags": [
-      "plane",
-      "trip",
-      "airplane"
-    ]
+    name: "plane-takeoff",
+    tags: ["departure", "plane", "trip", "airplane", "takeoff"],
   },
   {
-    "name": "play",
-    "tags": [
-      "music",
-      "audio",
-      "video",
-      "start",
-      "run"
-    ]
+    name: "plane",
+    tags: ["plane", "trip", "airplane"],
   },
   {
-    "name": "plug-2",
-    "tags": [
-      "electricity",
-      "energy",
-      "socket",
-      "outlet"
-    ]
+    name: "play",
+    tags: ["music", "audio", "video", "start", "run"],
   },
   {
-    "name": "plug-zap",
-    "tags": [
-      "electricity",
-      "energy",
-      "electronics",
-      "charge",
-      "charging",
-      "battery",
-      "connect"
-    ]
+    name: "plug-2",
+    tags: ["electricity", "energy", "socket", "outlet"],
   },
   {
-    "name": "plug",
-    "tags": [
+    name: "plug-zap",
+    tags: ["electricity", "energy", "electronics", "charge", "charging", "battery", "connect"],
+  },
+  {
+    name: "plug",
+    tags: [
       "electricity",
       "energy",
       "electronics",
@@ -14156,12 +9595,12 @@ export const tags = [
       "power",
       "voltage",
       "current",
-      "charger"
-    ]
+      "charger",
+    ],
   },
   {
-    "name": "plus",
-    "tags": [
+    name: "plus",
+    tags: [
       "add",
       "new",
       "increase",
@@ -14178,12 +9617,12 @@ export const tags = [
       "maximum",
       "upgrade",
       "extra",
-      "+"
-    ]
+      "+",
+    ],
   },
   {
-    "name": "pocket-knife",
-    "tags": [
+    name: "pocket-knife",
+    tags: [
       "swiss army knife",
       "penknife",
       "multi-tool",
@@ -14191,76 +9630,40 @@ export const tags = [
       "blade",
       "cutter",
       "gadget",
-      "corkscrew"
-    ]
+      "corkscrew",
+    ],
   },
   {
-    "name": "podcast",
-    "tags": [
-      "audio",
-      "music",
-      "mic",
-      "talk",
-      "voice",
-      "subscribe",
-      "subscription",
-      "stream"
-    ]
+    name: "podcast",
+    tags: ["audio", "music", "mic", "talk", "voice", "subscribe", "subscription", "stream"],
   },
   {
-    "name": "pointer-off",
-    "tags": [
-      "mouse"
-    ]
+    name: "pointer-off",
+    tags: ["mouse"],
   },
   {
-    "name": "pointer",
-    "tags": [
-      "mouse"
-    ]
+    name: "pointer",
+    tags: ["mouse"],
   },
   {
-    "name": "popcorn",
-    "tags": [
-      "cinema",
-      "movies",
-      "films",
-      "salted",
-      "sweet",
-      "sugar",
-      "candy",
-      "snack"
-    ]
+    name: "popcorn",
+    tags: ["cinema", "movies", "films", "salted", "sweet", "sugar", "candy", "snack"],
   },
   {
-    "name": "popsicle",
-    "tags": [
-      "ice lolly",
-      "ice cream",
-      "sweet",
-      "food"
-    ]
+    name: "popsicle",
+    tags: ["ice lolly", "ice cream", "sweet", "food"],
   },
   {
-    "name": "pound-sterling",
-    "tags": [
-      "currency",
-      "money",
-      "payment"
-    ]
+    name: "pound-sterling",
+    tags: ["currency", "money", "payment"],
   },
   {
-    "name": "power-off",
-    "tags": [
-      "on",
-      "off",
-      "device",
-      "switch"
-    ]
+    name: "power-off",
+    tags: ["on", "off", "device", "switch"],
   },
   {
-    "name": "power",
-    "tags": [
+    name: "power",
+    tags: [
       "on",
       "off",
       "device",
@@ -14272,12 +9675,12 @@ export const tags = [
       "restart",
       "button",
       "keyboard",
-      "troubleshoot"
-    ]
+      "troubleshoot",
+    ],
   },
   {
-    "name": "presentation",
-    "tags": [
+    name: "presentation",
+    tags: [
       "screen",
       "whiteboard",
       "marker pens",
@@ -14291,42 +9694,24 @@ export const tags = [
       "office",
       "meeting",
       "project",
-      "planning"
-    ]
+      "planning",
+    ],
   },
   {
-    "name": "printer-check",
-    "tags": [
-      "fax",
-      "office",
-      "device",
-      "success",
-      "printed"
-    ]
+    name: "printer-check",
+    tags: ["fax", "office", "device", "success", "printed"],
   },
   {
-    "name": "printer-x",
-    "tags": [
-      "fax",
-      "office",
-      "device",
-      "cross",
-      "cancel",
-      "remove",
-      "error"
-    ]
+    name: "printer-x",
+    tags: ["fax", "office", "device", "cross", "cancel", "remove", "error"],
   },
   {
-    "name": "printer",
-    "tags": [
-      "fax",
-      "office",
-      "device"
-    ]
+    name: "printer",
+    tags: ["fax", "office", "device"],
   },
   {
-    "name": "projector",
-    "tags": [
+    name: "projector",
+    tags: [
       "cinema",
       "film",
       "movie",
@@ -14336,12 +9721,12 @@ export const tags = [
       "office",
       "meeting",
       "project",
-      "planning"
-    ]
+      "planning",
+    ],
   },
   {
-    "name": "proportions",
-    "tags": [
+    name: "proportions",
+    tags: [
       "screens",
       "sizes",
       "rotate",
@@ -14359,21 +9744,16 @@ export const tags = [
       "monitor",
       "orientation",
       "portrait",
-      "landscape"
-    ]
+      "landscape",
+    ],
   },
   {
-    "name": "puzzle",
-    "tags": [
-      "component",
-      "module",
-      "part",
-      "piece"
-    ]
+    name: "puzzle",
+    tags: ["component", "module", "part", "piece"],
   },
   {
-    "name": "pyramid",
-    "tags": [
+    name: "pyramid",
+    tags: [
       "prism",
       "triangle",
       "triangular",
@@ -14383,53 +9763,28 @@ export const tags = [
       "ancient",
       "egyptian",
       "landmark",
-      "tourism"
-    ]
+      "tourism",
+    ],
   },
   {
-    "name": "qr-code",
-    "tags": [
-      "barcode",
-      "scan",
-      "link",
-      "url",
-      "information",
-      "digital"
-    ]
+    name: "qr-code",
+    tags: ["barcode", "scan", "link", "url", "information", "digital"],
   },
   {
-    "name": "quote",
-    "tags": [
-      "quotation"
-    ]
+    name: "quote",
+    tags: ["quotation"],
   },
   {
-    "name": "rabbit",
-    "tags": [
-      "animal",
-      "rodent",
-      "pet",
-      "pest",
-      "bunny",
-      "hare",
-      "fast",
-      "speed",
-      "hop"
-    ]
+    name: "rabbit",
+    tags: ["animal", "rodent", "pet", "pest", "bunny", "hare", "fast", "speed", "hop"],
   },
   {
-    "name": "radar",
-    "tags": [
-      "scan",
-      "sonar",
-      "detect",
-      "find",
-      "locate"
-    ]
+    name: "radar",
+    tags: ["scan", "sonar", "detect", "find", "locate"],
   },
   {
-    "name": "radiation",
-    "tags": [
+    name: "radiation",
+    tags: [
       "radioactive",
       "nuclear",
       "fallout",
@@ -14438,101 +9793,44 @@ export const tags = [
       "physics",
       "particle",
       "element",
-      "molecule"
-    ]
+      "molecule",
+    ],
   },
   {
-    "name": "radical",
-    "tags": [
-      "calculate",
-      "formula",
-      "math",
-      "operator",
-      "root",
-      "square",
-      "symbol"
-    ]
+    name: "radical",
+    tags: ["calculate", "formula", "math", "operator", "root", "square", "symbol"],
   },
   {
-    "name": "radio-off",
-    "tags": [
-      "signal",
-      "broadcast",
-      "connectivity",
-      "live",
-      "frequency"
-    ]
+    name: "radio-off",
+    tags: ["signal", "broadcast", "connectivity", "live", "frequency"],
   },
   {
-    "name": "radio-receiver",
-    "tags": [
-      "device",
-      "music",
-      "connect"
-    ]
+    name: "radio-receiver",
+    tags: ["device", "music", "connect"],
   },
   {
-    "name": "radio-tower",
-    "tags": [
-      "signal",
-      "broadcast",
-      "connectivity",
-      "live",
-      "frequency"
-    ]
+    name: "radio-tower",
+    tags: ["signal", "broadcast", "connectivity", "live", "frequency"],
   },
   {
-    "name": "radio",
-    "tags": [
-      "signal",
-      "broadcast",
-      "connectivity",
-      "live",
-      "frequency"
-    ]
+    name: "radio",
+    tags: ["signal", "broadcast", "connectivity", "live", "frequency"],
   },
   {
-    "name": "radius",
-    "tags": [
-      "shape",
-      "circle",
-      "geometry",
-      "trigonometry",
-      "radii",
-      "calculate",
-      "measure",
-      "size"
-    ]
+    name: "radius",
+    tags: ["shape", "circle", "geometry", "trigonometry", "radii", "calculate", "measure", "size"],
   },
   {
-    "name": "rainbow",
-    "tags": [
-      "colors",
-      "colours",
-      "spectrum",
-      "light",
-      "prism",
-      "arc",
-      "clear",
-      "sunshine"
-    ]
+    name: "rainbow",
+    tags: ["colors", "colours", "spectrum", "light", "prism", "arc", "clear", "sunshine"],
   },
   {
-    "name": "rat",
-    "tags": [
-      "mouse",
-      "mice",
-      "gerbil",
-      "rodent",
-      "pet",
-      "pest",
-      "plague",
-      "disease"
-    ]
+    name: "rat",
+    tags: ["mouse", "mice", "gerbil", "rodent", "pet", "pest", "plague", "disease"],
   },
   {
-    "name": "ratio",
-    "tags": [
+    name: "ratio",
+    tags: [
       "screens",
       "sizes",
       "rotate",
@@ -14551,12 +9849,12 @@ export const tags = [
       "monitor",
       "orientation",
       "portrait",
-      "landscape"
-    ]
+      "landscape",
+    ],
   },
   {
-    "name": "receipt-cent",
-    "tags": [
+    name: "receipt-cent",
+    tags: [
       "bill",
       "voucher",
       "slip",
@@ -14567,90 +9865,36 @@ export const tags = [
       "dollar",
       "usd",
       "$",
-      "¢"
-    ]
+      "¢",
+    ],
   },
   {
-    "name": "receipt-euro",
-    "tags": [
-      "bill",
-      "voucher",
-      "slip",
-      "check",
-      "counterfoil",
-      "currency",
-      "€"
-    ]
+    name: "receipt-euro",
+    tags: ["bill", "voucher", "slip", "check", "counterfoil", "currency", "€"],
   },
   {
-    "name": "receipt-indian-rupee",
-    "tags": [
-      "bill",
-      "voucher",
-      "slip",
-      "check",
-      "counterfoil",
-      "currency",
-      "inr",
-      "₹"
-    ]
+    name: "receipt-indian-rupee",
+    tags: ["bill", "voucher", "slip", "check", "counterfoil", "currency", "inr", "₹"],
   },
   {
-    "name": "receipt-japanese-yen",
-    "tags": [
-      "bill",
-      "voucher",
-      "slip",
-      "check",
-      "counterfoil",
-      "currency",
-      "jpy",
-      "¥"
-    ]
+    name: "receipt-japanese-yen",
+    tags: ["bill", "voucher", "slip", "check", "counterfoil", "currency", "jpy", "¥"],
   },
   {
-    "name": "receipt-pound-sterling",
-    "tags": [
-      "bill",
-      "voucher",
-      "slip",
-      "check",
-      "counterfoil",
-      "british",
-      "currency",
-      "gbp",
-      "£"
-    ]
+    name: "receipt-pound-sterling",
+    tags: ["bill", "voucher", "slip", "check", "counterfoil", "british", "currency", "gbp", "£"],
   },
   {
-    "name": "receipt-russian-ruble",
-    "tags": [
-      "bill",
-      "voucher",
-      "slip",
-      "check",
-      "counterfoil",
-      "currency",
-      "rub",
-      "₽"
-    ]
+    name: "receipt-russian-ruble",
+    tags: ["bill", "voucher", "slip", "check", "counterfoil", "currency", "rub", "₽"],
   },
   {
-    "name": "receipt-swiss-franc",
-    "tags": [
-      "bill",
-      "voucher",
-      "slip",
-      "check",
-      "counterfoil",
-      "currency",
-      "chf",
-      "₣"
-    ]
+    name: "receipt-swiss-franc",
+    tags: ["bill", "voucher", "slip", "check", "counterfoil", "currency", "chf", "₣"],
   },
   {
-    "name": "receipt-text",
-    "tags": [
+    name: "receipt-text",
+    tags: [
       "bill",
       "voucher",
       "slip",
@@ -14660,48 +9904,24 @@ export const tags = [
       "small print",
       "terms",
       "conditions",
-      "contract"
-    ]
+      "contract",
+    ],
   },
   {
-    "name": "receipt-turkish-lira",
-    "tags": [
-      "bill",
-      "voucher",
-      "slip",
-      "check",
-      "counterfoil",
-      "currency",
-      "try",
-      "₺"
-    ]
+    name: "receipt-turkish-lira",
+    tags: ["bill", "voucher", "slip", "check", "counterfoil", "currency", "try", "₺"],
   },
   {
-    "name": "receipt",
-    "tags": [
-      "bill",
-      "voucher",
-      "slip",
-      "check",
-      "counterfoil",
-      "currency",
-      "dollar",
-      "usd",
-      "$"
-    ]
+    name: "receipt",
+    tags: ["bill", "voucher", "slip", "check", "counterfoil", "currency", "dollar", "usd", "$"],
   },
   {
-    "name": "rectangle-circle",
-    "tags": [
-      "compose",
-      "keyboard",
-      "key",
-      "button"
-    ]
+    name: "rectangle-circle",
+    tags: ["compose", "keyboard", "key", "button"],
   },
   {
-    "name": "rectangle-ellipsis",
-    "tags": [
+    name: "rectangle-ellipsis",
+    tags: [
       "login",
       "password",
       "authenticate",
@@ -14728,77 +9948,40 @@ export const tags = [
       "overflow",
       "dots",
       "…",
-      "..."
-    ]
+      "...",
+    ],
   },
   {
-    "name": "rectangle-goggles",
-    "tags": [
-      "vr",
-      "virtual",
-      "augmented",
-      "reality",
-      "headset",
-      "goggles"
-    ]
+    name: "rectangle-goggles",
+    tags: ["vr", "virtual", "augmented", "reality", "headset", "goggles"],
   },
   {
-    "name": "rectangle-horizontal",
-    "tags": [
-      "rectangle",
-      "aspect ratio",
-      "16:9",
-      "horizontal",
-      "shape"
-    ]
+    name: "rectangle-horizontal",
+    tags: ["rectangle", "aspect ratio", "16:9", "horizontal", "shape"],
   },
   {
-    "name": "rectangle-vertical",
-    "tags": [
-      "rectangle",
-      "aspect ratio",
-      "9:16",
-      "vertical",
-      "shape"
-    ]
+    name: "rectangle-vertical",
+    tags: ["rectangle", "aspect ratio", "9:16", "vertical", "shape"],
   },
   {
-    "name": "recycle",
-    "tags": [
-      "sustainability",
-      "salvage",
-      "arrows"
-    ]
+    name: "recycle",
+    tags: ["sustainability", "salvage", "arrows"],
   },
   {
-    "name": "redo-2",
-    "tags": [
-      "undo",
-      "rerun",
-      "history"
-    ]
+    name: "redo-2",
+    tags: ["undo", "rerun", "history"],
   },
   {
-    "name": "redo-dot",
-    "tags": [
-      "redo",
-      "history",
-      "step",
-      "over",
-      "forward"
-    ]
+    name: "redo-dot",
+    tags: ["redo", "history", "step", "over", "forward"],
   },
   {
-    "name": "redo",
-    "tags": [
-      "undo",
-      "rerun",
-      "history"
-    ]
+    name: "redo",
+    tags: ["undo", "rerun", "history"],
   },
   {
-    "name": "refresh-ccw-dot",
-    "tags": [
+    name: "refresh-ccw-dot",
+    tags: [
       "arrows",
       "rotate",
       "reload",
@@ -14809,12 +9992,12 @@ export const tags = [
       "issue",
       "code",
       "coding",
-      "version control"
-    ]
+      "version control",
+    ],
   },
   {
-    "name": "refresh-ccw",
-    "tags": [
+    name: "refresh-ccw",
+    tags: [
       "arrows",
       "rotate",
       "reload",
@@ -14822,12 +10005,12 @@ export const tags = [
       "synchronise",
       "synchronize",
       "circular",
-      "cycle"
-    ]
+      "cycle",
+    ],
   },
   {
-    "name": "refresh-cw-off",
-    "tags": [
+    name: "refresh-cw-off",
+    tags: [
       "rotate",
       "reload",
       "rerun",
@@ -14841,12 +10024,12 @@ export const tags = [
       "stop",
       "error",
       "disconnect",
-      "ignore"
-    ]
+      "ignore",
+    ],
   },
   {
-    "name": "refresh-cw",
-    "tags": [
+    name: "refresh-cw",
+    tags: [
       "rotate",
       "reload",
       "rerun",
@@ -14854,161 +10037,76 @@ export const tags = [
       "synchronize",
       "arrows",
       "circular",
-      "cycle"
-    ]
+      "cycle",
+    ],
   },
   {
-    "name": "refrigerator",
-    "tags": [
-      "frigerator",
-      "fridge",
-      "freezer",
-      "cooler",
-      "icebox",
-      "chiller",
-      "cold storage"
-    ]
+    name: "refrigerator",
+    tags: ["frigerator", "fridge", "freezer", "cooler", "icebox", "chiller", "cold storage"],
   },
   {
-    "name": "regex",
-    "tags": [
-      "search",
-      "text",
-      "code"
-    ]
+    name: "regex",
+    tags: ["search", "text", "code"],
   },
   {
-    "name": "remove-formatting",
-    "tags": [
-      "text",
-      "font",
-      "typography",
-      "format",
-      "x",
-      "remove",
-      "delete",
-      "times",
-      "clear"
-    ]
+    name: "remove-formatting",
+    tags: ["text", "font", "typography", "format", "x", "remove", "delete", "times", "clear"],
   },
   {
-    "name": "repeat-1",
-    "tags": [
-      "replay"
-    ]
+    name: "repeat-1",
+    tags: ["replay"],
   },
   {
-    "name": "repeat-2",
-    "tags": [
-      "arrows",
-      "retweet",
-      "repost",
-      "share",
-      "repeat",
-      "loop"
-    ]
+    name: "repeat-2",
+    tags: ["arrows", "retweet", "repost", "share", "repeat", "loop"],
   },
   {
-    "name": "repeat",
-    "tags": [
-      "loop",
-      "arrows"
-    ]
+    name: "repeat",
+    tags: ["loop", "arrows"],
   },
   {
-    "name": "replace-all",
-    "tags": [
-      "search",
-      "substitute",
-      "swap",
-      "change"
-    ]
+    name: "replace-all",
+    tags: ["search", "substitute", "swap", "change"],
   },
   {
-    "name": "replace",
-    "tags": [
-      "search",
-      "substitute",
-      "swap",
-      "change"
-    ]
+    name: "replace",
+    tags: ["search", "substitute", "swap", "change"],
   },
   {
-    "name": "reply-all",
-    "tags": [
-      "email"
-    ]
+    name: "reply-all",
+    tags: ["email"],
   },
   {
-    "name": "reply",
-    "tags": [
-      "email"
-    ]
+    name: "reply",
+    tags: ["email"],
   },
   {
-    "name": "rewind",
-    "tags": [
-      "music"
-    ]
+    name: "rewind",
+    tags: ["music"],
   },
   {
-    "name": "ribbon",
-    "tags": [
-      "awareness",
-      "strip",
-      "band",
-      "tape",
-      "strap",
-      "cordon"
-    ]
+    name: "ribbon",
+    tags: ["awareness", "strip", "band", "tape", "strap", "cordon"],
   },
   {
-    "name": "road",
-    "tags": [
-      "road",
-      "street",
-      "highway",
-      "route",
-      "path",
-      "transport",
-      "traffic",
-      "drive",
-      "map"
-    ]
+    name: "road",
+    tags: ["road", "street", "highway", "route", "path", "transport", "traffic", "drive", "map"],
   },
   {
-    "name": "rocket",
-    "tags": [
-      "release",
-      "boost",
-      "launch",
-      "space",
-      "version"
-    ]
+    name: "rocket",
+    tags: ["release", "boost", "launch", "space", "version"],
   },
   {
-    "name": "rocking-chair",
-    "tags": [
-      "chair",
-      "furniture",
-      "seat",
-      "comfort",
-      "relax"
-    ]
+    name: "rocking-chair",
+    tags: ["chair", "furniture", "seat", "comfort", "relax"],
   },
   {
-    "name": "roller-coaster",
-    "tags": [
-      "attraction",
-      "entertainment",
-      "amusement park",
-      "theme park",
-      "funfair"
-    ]
+    name: "roller-coaster",
+    tags: ["attraction", "entertainment", "amusement park", "theme park", "funfair"],
   },
   {
-    "name": "rose",
-    "tags": [
+    name: "rose",
+    tags: [
       "roses",
       "thorns",
       "petals",
@@ -15029,44 +10127,24 @@ export const tags = [
       "romance",
       "romantic",
       "valentines day",
-      "special occasion"
-    ]
+      "special occasion",
+    ],
   },
   {
-    "name": "rotate-3d",
-    "tags": [
-      "gizmo",
-      "transform",
-      "orientation",
-      "orbit",
-      "axis"
-    ]
+    name: "rotate-3d",
+    tags: ["gizmo", "transform", "orientation", "orbit", "axis"],
   },
   {
-    "name": "rotate-ccw-key",
-    "tags": [
-      "password",
-      "key",
-      "refresh",
-      "change"
-    ]
+    name: "rotate-ccw-key",
+    tags: ["password", "key", "refresh", "change"],
   },
   {
-    "name": "rotate-ccw-square",
-    "tags": [
-      "left",
-      "counter-clockwise",
-      "rotate",
-      "image",
-      "90",
-      "45",
-      "degrees",
-      "°"
-    ]
+    name: "rotate-ccw-square",
+    tags: ["left", "counter-clockwise", "rotate", "image", "90", "45", "degrees", "°"],
   },
   {
-    "name": "rotate-ccw",
-    "tags": [
+    name: "rotate-ccw",
+    tags: [
       "arrow",
       "left",
       "counter-clockwise",
@@ -15080,37 +10158,20 @@ export const tags = [
       "redo",
       "retry",
       "rewind",
-      "reverse"
-    ]
+      "reverse",
+    ],
   },
   {
-    "name": "rotate-cw-square",
-    "tags": [
-      "right",
-      "clockwise",
-      "rotate",
-      "image",
-      "90",
-      "45",
-      "degrees",
-      "°"
-    ]
+    name: "rotate-cw-square",
+    tags: ["right", "clockwise", "rotate", "image", "90", "45", "degrees", "°"],
   },
   {
-    "name": "rotate-cw",
-    "tags": [
-      "arrow",
-      "right",
-      "clockwise",
-      "refresh",
-      "reload",
-      "rerun",
-      "redo"
-    ]
+    name: "rotate-cw",
+    tags: ["arrow", "right", "clockwise", "refresh", "reload", "rerun", "redo"],
   },
   {
-    "name": "route-off",
-    "tags": [
+    name: "route-off",
+    tags: [
       "path",
       "journey",
       "planner",
@@ -15121,31 +10182,20 @@ export const tags = [
       "clear",
       "cancelled",
       "closed",
-      "blocked"
-    ]
+      "blocked",
+    ],
   },
   {
-    "name": "route",
-    "tags": [
-      "path",
-      "journey",
-      "planner",
-      "points",
-      "stops",
-      "stations"
-    ]
+    name: "route",
+    tags: ["path", "journey", "planner", "points", "stops", "stations"],
   },
   {
-    "name": "router",
-    "tags": [
-      "computer",
-      "server",
-      "cloud"
-    ]
+    name: "router",
+    tags: ["computer", "server", "cloud"],
   },
   {
-    "name": "rows-2",
-    "tags": [
+    name: "rows-2",
+    tags: [
       "lines",
       "list",
       "queue",
@@ -15161,32 +10211,12 @@ export const tags = [
       "center",
       "middle",
       "even",
-      "drawer"
-    ]
+      "drawer",
+    ],
   },
   {
-    "name": "rows-3",
-    "tags": [
-      "lines",
-      "list",
-      "queue",
-      "preview",
-      "paragraphs",
-      "parallel",
-      "series",
-      "split",
-      "vertical",
-      "horizontal",
-      "half",
-      "center",
-      "middle",
-      "even",
-      "drawers"
-    ]
-  },
-  {
-    "name": "rows-4",
-    "tags": [
+    name: "rows-3",
+    tags: [
       "lines",
       "list",
       "queue",
@@ -15202,12 +10232,32 @@ export const tags = [
       "middle",
       "even",
       "drawers",
-      "grill"
-    ]
+    ],
   },
   {
-    "name": "rss",
-    "tags": [
+    name: "rows-4",
+    tags: [
+      "lines",
+      "list",
+      "queue",
+      "preview",
+      "paragraphs",
+      "parallel",
+      "series",
+      "split",
+      "vertical",
+      "horizontal",
+      "half",
+      "center",
+      "middle",
+      "even",
+      "drawers",
+      "grill",
+    ],
+  },
+  {
+    name: "rss",
+    tags: [
       "feed",
       "subscribe",
       "news",
@@ -15228,12 +10278,12 @@ export const tags = [
       "inbox",
       "newsletter",
       "weblog",
-      "podcast"
-    ]
+      "podcast",
+    ],
   },
   {
-    "name": "ruler-dimension-line",
-    "tags": [
+    name: "ruler-dimension-line",
+    tags: [
       "measurements",
       "centimeters",
       "cm",
@@ -15252,12 +10302,12 @@ export const tags = [
       "depth",
       "breadth",
       "extent",
-      "stationery"
-    ]
+      "stationery",
+    ],
   },
   {
-    "name": "ruler",
-    "tags": [
+    name: "ruler",
+    tags: [
       "measurements",
       "centimeters",
       "cm",
@@ -15276,30 +10326,20 @@ export const tags = [
       "depth",
       "breadth",
       "extent",
-      "stationery"
-    ]
+      "stationery",
+    ],
   },
   {
-    "name": "russian-ruble",
-    "tags": [
-      "currency",
-      "money",
-      "payment"
-    ]
+    name: "russian-ruble",
+    tags: ["currency", "money", "payment"],
   },
   {
-    "name": "sailboat",
-    "tags": [
-      "ship",
-      "boat",
-      "harbor",
-      "harbour",
-      "dock"
-    ]
+    name: "sailboat",
+    tags: ["ship", "boat", "harbor", "harbour", "dock"],
   },
   {
-    "name": "salad",
-    "tags": [
+    name: "salad",
+    tags: [
       "food",
       "vegetarian",
       "dish",
@@ -15308,77 +10348,44 @@ export const tags = [
       "meal",
       "side",
       "vegetables",
-      "health"
-    ]
+      "health",
+    ],
   },
   {
-    "name": "sandwich",
-    "tags": [
-      "food",
-      "snack",
-      "dish",
-      "restaurant",
-      "lunch",
-      "meal"
-    ]
+    name: "sandwich",
+    tags: ["food", "snack", "dish", "restaurant", "lunch", "meal"],
   },
   {
-    "name": "satellite-dish",
-    "tags": [
-      "antenna",
-      "receiver",
-      "dish aerial",
-      "saucer"
-    ]
+    name: "satellite-dish",
+    tags: ["antenna", "receiver", "dish aerial", "saucer"],
   },
   {
-    "name": "satellite",
-    "tags": [
-      "space station",
-      "orbit",
-      "transmitter"
-    ]
+    name: "satellite",
+    tags: ["space station", "orbit", "transmitter"],
   },
   {
-    "name": "saudi-riyal",
-    "tags": [
-      "currency",
-      "money",
-      "payment"
-    ]
+    name: "saudi-riyal",
+    tags: ["currency", "money", "payment"],
   },
   {
-    "name": "save-all",
-    "tags": [
-      "floppy disks",
-      "copy"
-    ]
+    name: "save-all",
+    tags: ["floppy disks", "copy"],
   },
   {
-    "name": "save-off",
-    "tags": [
-      "floppy disk",
-      "unsalvageable"
-    ]
+    name: "save-off",
+    tags: ["floppy disk", "unsalvageable"],
   },
   {
-    "name": "save",
-    "tags": [
-      "floppy disk"
-    ]
+    name: "save",
+    tags: ["floppy disk"],
   },
   {
-    "name": "scale-3d",
-    "tags": [
-      "gizmo",
-      "transform",
-      "size",
-      "axis"
-    ]
+    name: "scale-3d",
+    tags: ["gizmo", "transform", "size", "axis"],
   },
   {
-    "name": "scale",
-    "tags": [
+    name: "scale",
+    tags: [
       "balance",
       "legal",
       "license",
@@ -15392,20 +10399,16 @@ export const tags = [
       "judge",
       "fair",
       "ethics",
-      "decision"
-    ]
+      "decision",
+    ],
   },
   {
-    "name": "scaling",
-    "tags": [
-      "scale",
-      "resize",
-      "design"
-    ]
+    name: "scaling",
+    tags: ["scale", "resize", "design"],
   },
   {
-    "name": "scan-barcode",
-    "tags": [
+    name: "scan-barcode",
+    tags: [
       "checkout",
       "till",
       "cart",
@@ -15415,12 +10418,12 @@ export const tags = [
       "product",
       "packaging",
       "retail",
-      "consumer"
-    ]
+      "consumer",
+    ],
   },
   {
-    "name": "scan-eye",
-    "tags": [
+    name: "scan-eye",
+    tags: [
       "preview",
       "zoom",
       "expand",
@@ -15437,12 +10440,12 @@ export const tags = [
       "identification",
       "authentication",
       "access",
-      "login"
-    ]
+      "login",
+    ],
   },
   {
-    "name": "scan-face",
-    "tags": [
+    name: "scan-face",
+    tags: [
       "face",
       "biometric",
       "identification",
@@ -15450,24 +10453,16 @@ export const tags = [
       "2fa",
       "access",
       "login",
-      "dashed"
-    ]
+      "dashed",
+    ],
   },
   {
-    "name": "scan-heart",
-    "tags": [
-      "health",
-      "heart rate",
-      "pulse",
-      "monitoring",
-      "healthiness",
-      "screening",
-      "dashed"
-    ]
+    name: "scan-heart",
+    tags: ["health", "heart rate", "pulse", "monitoring", "healthiness", "screening", "dashed"],
   },
   {
-    "name": "scan-line",
-    "tags": [
+    name: "scan-line",
+    tags: [
       "checkout",
       "till",
       "cart",
@@ -15479,47 +10474,24 @@ export const tags = [
       "retail",
       "consumer",
       "qr-code",
-      "dashed"
-    ]
+      "dashed",
+    ],
   },
   {
-    "name": "scan-qr-code",
-    "tags": [
-      "barcode",
-      "scan",
-      "qrcode",
-      "url",
-      "information",
-      "digital",
-      "scanner"
-    ]
+    name: "scan-qr-code",
+    tags: ["barcode", "scan", "qrcode", "url", "information", "digital", "scanner"],
   },
   {
-    "name": "scan-search",
-    "tags": [
-      "preview",
-      "zoom",
-      "expand",
-      "fullscreen",
-      "gallery",
-      "image",
-      "focus",
-      "lens"
-    ]
+    name: "scan-search",
+    tags: ["preview", "zoom", "expand", "fullscreen", "gallery", "image", "focus", "lens"],
   },
   {
-    "name": "scan-text",
-    "tags": [
-      "recognition",
-      "read",
-      "translate",
-      "copy",
-      "lines"
-    ]
+    name: "scan-text",
+    tags: ["recognition", "read", "translate", "copy", "lines"],
   },
   {
-    "name": "scan",
-    "tags": [
+    name: "scan",
+    tags: [
       "qr-code",
       "barcode",
       "checkout",
@@ -15537,12 +10509,12 @@ export const tags = [
       "bounds",
       "area",
       "square",
-      "dashed"
-    ]
+      "dashed",
+    ],
   },
   {
-    "name": "school",
-    "tags": [
+    name: "school",
+    tags: [
       "building",
       "education",
       "childhood",
@@ -15565,35 +10537,20 @@ export const tags = [
       "tutorial",
       "homework",
       "assignment",
-      "exam"
-    ]
+      "exam",
+    ],
   },
   {
-    "name": "scissors-line-dashed",
-    "tags": [
-      "cut here",
-      "along",
-      "snip",
-      "chop",
-      "stationery",
-      "crafts",
-      "instructions",
-      "diagram"
-    ]
+    name: "scissors-line-dashed",
+    tags: ["cut here", "along", "snip", "chop", "stationery", "crafts", "instructions", "diagram"],
   },
   {
-    "name": "scissors",
-    "tags": [
-      "cut",
-      "snip",
-      "chop",
-      "stationery",
-      "crafts"
-    ]
+    name: "scissors",
+    tags: ["cut", "snip", "chop", "stationery", "crafts"],
   },
   {
-    "name": "scooter",
-    "tags": [
+    name: "scooter",
+    tags: [
       "vehicle",
       "drive",
       "trip",
@@ -15603,28 +10560,20 @@ export const tags = [
       "ride",
       "urban",
       "commute",
-      "speed"
-    ]
+      "speed",
+    ],
   },
   {
-    "name": "screen-share-off",
-    "tags": [
-      "desktop",
-      "disconnect",
-      "monitor"
-    ]
+    name: "screen-share-off",
+    tags: ["desktop", "disconnect", "monitor"],
   },
   {
-    "name": "screen-share",
-    "tags": [
-      "host",
-      "desktop",
-      "monitor"
-    ]
+    name: "screen-share",
+    tags: ["host", "desktop", "monitor"],
   },
   {
-    "name": "scroll-text",
-    "tags": [
+    name: "scroll-text",
+    tags: [
       "paper",
       "log",
       "scripture",
@@ -15636,12 +10585,12 @@ export const tags = [
       "script",
       "story",
       "code",
-      "coding"
-    ]
+      "coding",
+    ],
   },
   {
-    "name": "scroll",
-    "tags": [
+    name: "scroll",
+    tags: [
       "paper",
       "log",
       "scripture",
@@ -15653,12 +10602,12 @@ export const tags = [
       "script",
       "story",
       "code",
-      "coding"
-    ]
+      "coding",
+    ],
   },
   {
-    "name": "search-alert",
-    "tags": [
+    name: "search-alert",
+    tags: [
       "find",
       "scan",
       "magnifier",
@@ -15668,12 +10617,12 @@ export const tags = [
       "alert",
       "error",
       "anomaly",
-      "lens"
-    ]
+      "lens",
+    ],
   },
   {
-    "name": "search-check",
-    "tags": [
+    name: "search-check",
+    tags: [
       "find",
       "scan",
       "magnifier",
@@ -15682,25 +10631,16 @@ export const tags = [
       "correct",
       "complete",
       "tick",
-      "lens"
-    ]
+      "lens",
+    ],
   },
   {
-    "name": "search-code",
-    "tags": [
-      "find",
-      "scan",
-      "magnifier",
-      "magnifying glass",
-      "grep",
-      "chevrons",
-      "<>",
-      "lens"
-    ]
+    name: "search-code",
+    tags: ["find", "scan", "magnifier", "magnifying glass", "grep", "chevrons", "<>", "lens"],
   },
   {
-    "name": "search-slash",
-    "tags": [
+    name: "search-slash",
+    tags: [
       "find",
       "scan",
       "magnifier",
@@ -15710,12 +10650,12 @@ export const tags = [
       "cancel",
       "abort",
       "/",
-      "lens"
-    ]
+      "lens",
+    ],
   },
   {
-    "name": "search-x",
-    "tags": [
+    name: "search-x",
+    tags: [
       "find",
       "scan",
       "magnifier",
@@ -15724,137 +10664,64 @@ export const tags = [
       "clear",
       "cancel",
       "abort",
-      "lens"
-    ]
+      "lens",
+    ],
   },
   {
-    "name": "search",
-    "tags": [
-      "find",
-      "scan",
-      "magnifier",
-      "magnifying glass",
-      "lens"
-    ]
+    name: "search",
+    tags: ["find", "scan", "magnifier", "magnifying glass", "lens"],
   },
   {
-    "name": "section",
-    "tags": [
-      "mark",
-      "typography",
-      "punctuation",
-      "legal",
-      "type",
-      "text",
-      "prose",
-      "symbol"
-    ]
+    name: "section",
+    tags: ["mark", "typography", "punctuation", "legal", "type", "text", "prose", "symbol"],
   },
   {
-    "name": "send-horizontal",
-    "tags": [
-      "email",
-      "message",
-      "mail",
-      "paper airplane",
-      "paper aeroplane",
-      "submit"
-    ]
+    name: "send-horizontal",
+    tags: ["email", "message", "mail", "paper airplane", "paper aeroplane", "submit"],
   },
   {
-    "name": "send-to-back",
-    "tags": [
-      "bring",
-      "send",
-      "move",
-      "under",
-      "back",
-      "backwards",
-      "overlap",
-      "layer",
-      "order"
-    ]
+    name: "send-to-back",
+    tags: ["bring", "send", "move", "under", "back", "backwards", "overlap", "layer", "order"],
   },
   {
-    "name": "send",
-    "tags": [
-      "email",
-      "message",
-      "mail",
-      "paper airplane",
-      "paper aeroplane",
-      "submit"
-    ]
+    name: "send",
+    tags: ["email", "message", "mail", "paper airplane", "paper aeroplane", "submit"],
   },
   {
-    "name": "separator-horizontal",
-    "tags": [
-      "move",
-      "split"
-    ]
+    name: "separator-horizontal",
+    tags: ["move", "split"],
   },
   {
-    "name": "separator-vertical",
-    "tags": [
-      "move",
-      "split"
-    ]
+    name: "separator-vertical",
+    tags: ["move", "split"],
   },
   {
-    "name": "server-cog",
-    "tags": [
-      "cloud",
-      "storage",
-      "computing",
-      "cog",
-      "gear"
-    ]
+    name: "server-cog",
+    tags: ["cloud", "storage", "computing", "cog", "gear"],
   },
   {
-    "name": "server-crash",
-    "tags": [
-      "cloud",
-      "storage",
-      "problem",
-      "error"
-    ]
+    name: "server-crash",
+    tags: ["cloud", "storage", "problem", "error"],
   },
   {
-    "name": "server-off",
-    "tags": [
-      "cloud",
-      "storage"
-    ]
+    name: "server-off",
+    tags: ["cloud", "storage"],
   },
   {
-    "name": "server",
-    "tags": [
-      "cloud",
-      "storage"
-    ]
+    name: "server",
+    tags: ["cloud", "storage"],
   },
   {
-    "name": "settings-2",
-    "tags": [
-      "cog",
-      "edit",
-      "gear",
-      "preferences",
-      "slider"
-    ]
+    name: "settings-2",
+    tags: ["cog", "edit", "gear", "preferences", "slider"],
   },
   {
-    "name": "settings",
-    "tags": [
-      "cog",
-      "edit",
-      "gear",
-      "preferences"
-    ]
+    name: "settings",
+    tags: ["cog", "edit", "gear", "preferences"],
   },
   {
-    "name": "shapes",
-    "tags": [
+    name: "shapes",
+    tags: [
       "triangle",
       "equilateral",
       "square",
@@ -15864,34 +10731,24 @@ export const tags = [
       "collection",
       "toy",
       "blocks",
-      "learning"
-    ]
+      "learning",
+    ],
   },
   {
-    "name": "share-2",
-    "tags": [
-      "network",
-      "connections"
-    ]
+    name: "share-2",
+    tags: ["network", "connections"],
   },
   {
-    "name": "share",
-    "tags": [
-      "network",
-      "connections"
-    ]
+    name: "share",
+    tags: ["network", "connections"],
   },
   {
-    "name": "sheet",
-    "tags": [
-      "spreadsheets",
-      "table",
-      "excel"
-    ]
+    name: "sheet",
+    tags: ["spreadsheets", "table", "excel"],
   },
   {
-    "name": "shell",
-    "tags": [
+    name: "shell",
+    tags: [
       "beach",
       "sand",
       "holiday",
@@ -15917,12 +10774,12 @@ export const tags = [
       "spiral",
       "spinner",
       "hypnotise",
-      "hypnosis"
-    ]
+      "hypnosis",
+    ],
   },
   {
-    "name": "shelving-unit",
-    "tags": [
+    name: "shelving-unit",
+    tags: [
       "ledge",
       "rack",
       "storage",
@@ -15939,12 +10796,12 @@ export const tags = [
       "cabinet",
       "fixture",
       "retail",
-      "warehouse"
-    ]
+      "warehouse",
+    ],
   },
   {
-    "name": "shield-alert",
-    "tags": [
+    name: "shield-alert",
+    tags: [
       "unshielded",
       "cybersecurity",
       "insecure",
@@ -16008,12 +10865,12 @@ export const tags = [
       "inactive",
       "error",
       "exclamation mark",
-      "!"
-    ]
+      "!",
+    ],
   },
   {
-    "name": "shield-ban",
-    "tags": [
+    name: "shield-ban",
+    tags: [
       "unshielded",
       "cybersecurity",
       "insecure",
@@ -16071,12 +10928,12 @@ export const tags = [
       "eliminated",
       "disabled",
       "inactive",
-      "/"
-    ]
+      "/",
+    ],
   },
   {
-    "name": "shield-check",
-    "tags": [
+    name: "shield-check",
+    tags: [
       "cybersecurity",
       "secured",
       "safety",
@@ -16129,12 +10986,12 @@ export const tags = [
       "ticked",
       "checked",
       "crest",
-      "bravery"
-    ]
+      "bravery",
+    ],
   },
   {
-    "name": "shield-cog-corner",
-    "tags": [
+    name: "shield-cog-corner",
+    tags: [
       "cybersecurity",
       "secure",
       "safety",
@@ -16177,12 +11034,12 @@ export const tags = [
       "military",
       "army",
       "cadet",
-      "scout"
-    ]
+      "scout",
+    ],
   },
   {
-    "name": "shield-cog",
-    "tags": [
+    name: "shield-cog",
+    tags: [
       "cybersecurity",
       "secure",
       "safety",
@@ -16224,12 +11081,12 @@ export const tags = [
       "military",
       "army",
       "cadet",
-      "scout"
-    ]
+      "scout",
+    ],
   },
   {
-    "name": "shield-ellipsis",
-    "tags": [
+    name: "shield-ellipsis",
+    tags: [
       "cybersecurity",
       "securing",
       "protecting",
@@ -16256,12 +11113,12 @@ export const tags = [
       "more",
       "etc",
       "...",
-      "…"
-    ]
+      "…",
+    ],
   },
   {
-    "name": "shield-half",
-    "tags": [
+    name: "shield-half",
+    tags: [
       "cybersecurity",
       "secure",
       "safety",
@@ -16315,12 +11172,12 @@ export const tags = [
       "ranking",
       "army",
       "cadet",
-      "scout"
-    ]
+      "scout",
+    ],
   },
   {
-    "name": "shield-minus",
-    "tags": [
+    name: "shield-minus",
+    tags: [
       "unshield",
       "cybersecurity",
       "unsecure",
@@ -16348,12 +11205,12 @@ export const tags = [
       "decommission",
       "downgraded",
       "minimum",
-      "-"
-    ]
+      "-",
+    ],
   },
   {
-    "name": "shield-off",
-    "tags": [
+    name: "shield-off",
+    tags: [
       "unshielded",
       "cybersecurity",
       "insecure",
@@ -16398,12 +11255,12 @@ export const tags = [
       "injured",
       "hit",
       "expired",
-      "eliminated"
-    ]
+      "eliminated",
+    ],
   },
   {
-    "name": "shield-plus",
-    "tags": [
+    name: "shield-plus",
+    tags: [
       "cybersecurity",
       "secure",
       "safety",
@@ -16444,12 +11301,12 @@ export const tags = [
       "verification",
       "crest",
       "medic",
-      "+"
-    ]
+      "+",
+    ],
   },
   {
-    "name": "shield-question-mark",
-    "tags": [
+    name: "shield-question-mark",
+    tags: [
       "unshielded",
       "cybersecurity",
       "insecure",
@@ -16493,24 +11350,16 @@ export const tags = [
       "inactive",
       "crest",
       "question mark",
-      "?"
-    ]
+      "?",
+    ],
   },
   {
-    "name": "shield-user",
-    "tags": [
-      "shield",
-      "user",
-      "admin",
-      "protection",
-      "protected",
-      "safety",
-      "guard"
-    ]
+    name: "shield-user",
+    tags: ["shield", "user", "admin", "protection", "protected", "safety", "guard"],
   },
   {
-    "name": "shield-x",
-    "tags": [
+    name: "shield-x",
+    tags: [
       "unshielded",
       "cybersecurity",
       "insecure",
@@ -16570,12 +11419,12 @@ export const tags = [
       "deceased",
       "expired",
       "eliminated",
-      "exterminated"
-    ]
+      "exterminated",
+    ],
   },
   {
-    "name": "shield",
-    "tags": [
+    name: "shield",
+    tags: [
       "cybersecurity",
       "secure",
       "safety",
@@ -16617,12 +11466,12 @@ export const tags = [
       "military",
       "army",
       "cadet",
-      "scout"
-    ]
+      "scout",
+    ],
   },
   {
-    "name": "ship-wheel",
-    "tags": [
+    name: "ship-wheel",
+    tags: [
       "steering",
       "rudder",
       "boat",
@@ -16636,12 +11485,12 @@ export const tags = [
       "tanker",
       "vessel",
       "navy",
-      "trip"
-    ]
+      "trip",
+    ],
   },
   {
-    "name": "ship",
-    "tags": [
+    name: "ship",
+    tags: [
       "boat",
       "knots",
       "nautical mile",
@@ -16654,43 +11503,24 @@ export const tags = [
       "vessel",
       "navy",
       "trip",
-      "releases"
-    ]
+      "releases",
+    ],
   },
   {
-    "name": "shirt",
-    "tags": [
-      "t-shirt",
-      "shopping",
-      "store",
-      "clothing",
-      "clothes"
-    ]
+    name: "shirt",
+    tags: ["t-shirt", "shopping", "store", "clothing", "clothes"],
   },
   {
-    "name": "shopping-bag",
-    "tags": [
-      "ecommerce",
-      "cart",
-      "purchase",
-      "store"
-    ]
+    name: "shopping-bag",
+    tags: ["ecommerce", "cart", "purchase", "store"],
   },
   {
-    "name": "shopping-basket",
-    "tags": [
-      "cart",
-      "e-commerce",
-      "store",
-      "purchase",
-      "products",
-      "items",
-      "ingredients"
-    ]
+    name: "shopping-basket",
+    tags: ["cart", "e-commerce", "store", "purchase", "products", "items", "ingredients"],
   },
   {
-    "name": "shopping-cart",
-    "tags": [
+    name: "shopping-cart",
+    tags: [
       "trolley",
       "cart",
       "basket",
@@ -16699,30 +11529,20 @@ export const tags = [
       "purchase",
       "products",
       "items",
-      "ingredients"
-    ]
+      "ingredients",
+    ],
   },
   {
-    "name": "shovel",
-    "tags": [
-      "dig",
-      "spade",
-      "treasure"
-    ]
+    name: "shovel",
+    tags: ["dig", "spade", "treasure"],
   },
   {
-    "name": "shower-head",
-    "tags": [
-      "shower",
-      "bath",
-      "bathroom",
-      "amenities",
-      "services"
-    ]
+    name: "shower-head",
+    tags: ["shower", "bath", "bathroom", "amenities", "services"],
   },
   {
-    "name": "shredder",
-    "tags": [
+    name: "shredder",
+    tags: [
       "file",
       "paper",
       "tear",
@@ -16742,12 +11562,12 @@ export const tags = [
       "disposal",
       "information",
       "waste",
-      "permanent"
-    ]
+      "permanent",
+    ],
   },
   {
-    "name": "shrimp",
-    "tags": [
+    name: "shrimp",
+    tags: [
       "seafood",
       "shellfish",
       "crustacean",
@@ -16757,113 +11577,48 @@ export const tags = [
       "arthropod",
       "littleneck",
       "quahog",
-      "cherrystone"
-    ]
+      "cherrystone",
+    ],
   },
   {
-    "name": "shrink",
-    "tags": [
-      "scale",
-      "fullscreen"
-    ]
+    name: "shrink",
+    tags: ["scale", "fullscreen"],
   },
   {
-    "name": "shrub",
-    "tags": [
-      "forest",
-      "undergrowth",
-      "park",
-      "nature"
-    ]
+    name: "shrub",
+    tags: ["forest", "undergrowth", "park", "nature"],
   },
   {
-    "name": "shuffle",
-    "tags": [
-      "music",
-      "random",
-      "reorder"
-    ]
+    name: "shuffle",
+    tags: ["music", "random", "reorder"],
   },
   {
-    "name": "sigma",
-    "tags": [
-      "sum",
-      "calculate",
-      "formula",
-      "math",
-      "enumeration",
-      "enumerate"
-    ]
+    name: "sigma",
+    tags: ["sum", "calculate", "formula", "math", "enumeration", "enumerate"],
   },
   {
-    "name": "signal-high",
-    "tags": [
-      "connection",
-      "wireless",
-      "gsm",
-      "phone",
-      "2g",
-      "3g",
-      "4g",
-      "5g"
-    ]
+    name: "signal-high",
+    tags: ["connection", "wireless", "gsm", "phone", "2g", "3g", "4g", "5g"],
   },
   {
-    "name": "signal-low",
-    "tags": [
-      "connection",
-      "wireless",
-      "gsm",
-      "phone",
-      "2g",
-      "3g",
-      "4g",
-      "5g"
-    ]
+    name: "signal-low",
+    tags: ["connection", "wireless", "gsm", "phone", "2g", "3g", "4g", "5g"],
   },
   {
-    "name": "signal-medium",
-    "tags": [
-      "connection",
-      "wireless",
-      "gsm",
-      "phone",
-      "2g",
-      "3g",
-      "4g",
-      "5g"
-    ]
+    name: "signal-medium",
+    tags: ["connection", "wireless", "gsm", "phone", "2g", "3g", "4g", "5g"],
   },
   {
-    "name": "signal-zero",
-    "tags": [
-      "connection",
-      "wireless",
-      "gsm",
-      "phone",
-      "2g",
-      "3g",
-      "4g",
-      "5g",
-      "lost"
-    ]
+    name: "signal-zero",
+    tags: ["connection", "wireless", "gsm", "phone", "2g", "3g", "4g", "5g", "lost"],
   },
   {
-    "name": "signal",
-    "tags": [
-      "connection",
-      "wireless",
-      "gsm",
-      "phone",
-      "2g",
-      "3g",
-      "4g",
-      "5g"
-    ]
+    name: "signal",
+    tags: ["connection", "wireless", "gsm", "phone", "2g", "3g", "4g", "5g"],
   },
   {
-    "name": "signature",
-    "tags": [
+    name: "signature",
+    tags: [
       "text",
       "format",
       "input",
@@ -16883,22 +11638,16 @@ export const tags = [
       "authentic",
       "approval",
       "verification",
-      "unique"
-    ]
+      "unique",
+    ],
   },
   {
-    "name": "signpost-big",
-    "tags": [
-      "bidirectional",
-      "left",
-      "right",
-      "east",
-      "west"
-    ]
+    name: "signpost-big",
+    tags: ["bidirectional", "left", "right", "east", "west"],
   },
   {
-    "name": "signpost",
-    "tags": [
+    name: "signpost",
+    tags: [
       "navigation",
       "direction",
       "arrow",
@@ -16913,153 +11662,72 @@ export const tags = [
       "left",
       "right",
       "east",
-      "west"
-    ]
+      "west",
+    ],
   },
   {
-    "name": "siren",
-    "tags": [
-      "police",
-      "ambulance",
-      "emergency",
-      "security",
-      "alert",
-      "alarm",
-      "light"
-    ]
+    name: "siren",
+    tags: ["police", "ambulance", "emergency", "security", "alert", "alarm", "light"],
   },
   {
-    "name": "skip-back",
-    "tags": [
-      "arrow",
-      "previous",
-      "music"
-    ]
+    name: "skip-back",
+    tags: ["arrow", "previous", "music"],
   },
   {
-    "name": "skip-forward",
-    "tags": [
-      "arrow",
-      "skip",
-      "next",
-      "music"
-    ]
+    name: "skip-forward",
+    tags: ["arrow", "skip", "next", "music"],
   },
   {
-    "name": "skull",
-    "tags": [
-      "death",
-      "danger",
-      "bone"
-    ]
+    name: "skull",
+    tags: ["death", "danger", "bone"],
   },
   {
-    "name": "slash",
-    "tags": [
-      "divide",
-      "division",
-      "or",
-      "/"
-    ]
+    name: "slash",
+    tags: ["divide", "division", "or", "/"],
   },
   {
-    "name": "slice",
-    "tags": [
-      "cutter",
-      "scalpel",
-      "knife"
-    ]
+    name: "slice",
+    tags: ["cutter", "scalpel", "knife"],
   },
   {
-    "name": "sliders-horizontal",
-    "tags": [
-      "settings",
-      "filters",
-      "controls"
-    ]
+    name: "sliders-horizontal",
+    tags: ["settings", "filters", "controls"],
   },
   {
-    "name": "sliders-vertical",
-    "tags": [
-      "settings",
-      "controls"
-    ]
+    name: "sliders-vertical",
+    tags: ["settings", "controls"],
   },
   {
-    "name": "smartphone-charging",
-    "tags": [
-      "phone",
-      "cellphone",
-      "device",
-      "power",
-      "screen"
-    ]
+    name: "smartphone-charging",
+    tags: ["phone", "cellphone", "device", "power", "screen"],
   },
   {
-    "name": "smartphone-nfc",
-    "tags": [
-      "contactless",
-      "payment",
-      "near-field communication",
-      "screen"
-    ]
+    name: "smartphone-nfc",
+    tags: ["contactless", "payment", "near-field communication", "screen"],
   },
   {
-    "name": "smartphone",
-    "tags": [
-      "phone",
-      "cellphone",
-      "device",
-      "screen"
-    ]
+    name: "smartphone",
+    tags: ["phone", "cellphone", "device", "screen"],
   },
   {
-    "name": "smile-plus",
-    "tags": [
-      "emoji",
-      "face",
-      "happy",
-      "good",
-      "emotion",
-      "react",
-      "reaction",
-      "add"
-    ]
+    name: "smile-plus",
+    tags: ["emoji", "face", "happy", "good", "emotion", "react", "reaction", "add"],
   },
   {
-    "name": "smile",
-    "tags": [
-      "emoji",
-      "face",
-      "happy",
-      "good",
-      "emotion"
-    ]
+    name: "smile",
+    tags: ["emoji", "face", "happy", "good", "emotion"],
   },
   {
-    "name": "snail",
-    "tags": [
-      "animal",
-      "insect",
-      "slow",
-      "speed",
-      "delicacy",
-      "spiral"
-    ]
+    name: "snail",
+    tags: ["animal", "insect", "slow", "speed", "delicacy", "spiral"],
   },
   {
-    "name": "snowflake",
-    "tags": [
-      "cold",
-      "weather",
-      "freeze",
-      "snow",
-      "winter"
-    ]
+    name: "snowflake",
+    tags: ["cold", "weather", "freeze", "snow", "winter"],
   },
   {
-    "name": "soap-dispenser-droplet",
-    "tags": [
+    name: "soap-dispenser-droplet",
+    tags: [
       "wash",
       "bath",
       "water",
@@ -17069,67 +11737,32 @@ export const tags = [
       "moisture",
       "damp",
       "bead",
-      "globule"
-    ]
+      "globule",
+    ],
   },
   {
-    "name": "sofa",
-    "tags": [
-      "armchair",
-      "furniture",
-      "leisure",
-      "lounge",
-      "loveseat",
-      "couch"
-    ]
+    name: "sofa",
+    tags: ["armchair", "furniture", "leisure", "lounge", "loveseat", "couch"],
   },
   {
-    "name": "solar-panel",
-    "tags": [
-      "solar panel",
-      "solar",
-      "panel",
-      "sun",
-      "energy",
-      "electricity",
-      "light"
-    ]
+    name: "solar-panel",
+    tags: ["solar panel", "solar", "panel", "sun", "energy", "electricity", "light"],
   },
   {
-    "name": "soup",
-    "tags": [
-      "food",
-      "dish",
-      "restaurant",
-      "course",
-      "meal",
-      "bowl",
-      "starter"
-    ]
+    name: "soup",
+    tags: ["food", "dish", "restaurant", "course", "meal", "bowl", "starter"],
   },
   {
-    "name": "space",
-    "tags": [
-      "text",
-      "selection",
-      "letters",
-      "characters",
-      "font",
-      "typography"
-    ]
+    name: "space",
+    tags: ["text", "selection", "letters", "characters", "font", "typography"],
   },
   {
-    "name": "spade",
-    "tags": [
-      "shape",
-      "suit",
-      "playing",
-      "cards"
-    ]
+    name: "spade",
+    tags: ["shape", "suit", "playing", "cards"],
   },
   {
-    "name": "sparkle",
-    "tags": [
+    name: "sparkle",
+    tags: [
       "star",
       "effect",
       "filter",
@@ -17138,22 +11771,16 @@ export const tags = [
       "shiny",
       "glitter",
       "twinkle",
-      "celebration"
-    ]
+      "celebration",
+    ],
   },
   {
-    "name": "sparkles",
-    "tags": [
-      "stars",
-      "effect",
-      "filter",
-      "night",
-      "magic"
-    ]
+    name: "sparkles",
+    tags: ["stars", "effect", "filter", "night", "magic"],
   },
   {
-    "name": "speaker",
-    "tags": [
+    name: "speaker",
+    tags: [
       "sound",
       "audio",
       "music",
@@ -17162,24 +11789,16 @@ export const tags = [
       "bass",
       "production",
       "producer",
-      "dj"
-    ]
+      "dj",
+    ],
   },
   {
-    "name": "speech",
-    "tags": [
-      "disability",
-      "disabled",
-      "dda",
-      "human",
-      "accessibility",
-      "people",
-      "sound"
-    ]
+    name: "speech",
+    tags: ["disability", "disabled", "dda", "human", "accessibility", "people", "sound"],
   },
   {
-    "name": "spell-check-2",
-    "tags": [
+    name: "spell-check-2",
+    tags: [
       "spelling",
       "error",
       "mistake",
@@ -17188,12 +11807,12 @@ export const tags = [
       "correction",
       "code",
       "linter",
-      "a"
-    ]
+      "a",
+    ],
   },
   {
-    "name": "spell-check",
-    "tags": [
+    name: "spell-check",
+    tags: [
       "spelling",
       "error",
       "mistake",
@@ -17202,59 +11821,28 @@ export const tags = [
       "correction",
       "code",
       "linter",
-      "a"
-    ]
+      "a",
+    ],
   },
   {
-    "name": "spline-pointer",
-    "tags": [
-      "path",
-      "tool",
-      "curve",
-      "node",
-      "click",
-      "pointer",
-      "target",
-      "vector"
-    ]
+    name: "spline-pointer",
+    tags: ["path", "tool", "curve", "node", "click", "pointer", "target", "vector"],
   },
   {
-    "name": "spline",
-    "tags": [
-      "path",
-      "pen",
-      "tool",
-      "shape",
-      "curve",
-      "draw"
-    ]
+    name: "spline",
+    tags: ["path", "pen", "tool", "shape", "curve", "draw"],
   },
   {
-    "name": "split",
-    "tags": [
-      "break",
-      "disband",
-      "divide",
-      "separate",
-      "branch",
-      "disunite"
-    ]
+    name: "split",
+    tags: ["break", "disband", "divide", "separate", "branch", "disunite"],
   },
   {
-    "name": "spool",
-    "tags": [
-      "bobbin",
-      "spindle",
-      "yarn",
-      "thread",
-      "string",
-      "sewing",
-      "needlework"
-    ]
+    name: "spool",
+    tags: ["bobbin", "spindle", "yarn", "thread", "string", "sewing", "needlework"],
   },
   {
-    "name": "sport-shoe",
-    "tags": [
+    name: "sport-shoe",
+    tags: [
       "footwear",
       "sports",
       "running",
@@ -17263,12 +11851,12 @@ export const tags = [
       "sneaker",
       "training",
       "exercise",
-      "fitness"
-    ]
+      "fitness",
+    ],
   },
   {
-    "name": "spotlight",
-    "tags": [
+    name: "spotlight",
+    tags: [
       "winner",
       "soapbox",
       "stage",
@@ -17290,12 +11878,12 @@ export const tags = [
       "leaderboard",
       "followspot",
       "best",
-      "highlight"
-    ]
+      "highlight",
+    ],
   },
   {
-    "name": "spray-can",
-    "tags": [
+    name: "spray-can",
+    tags: [
       "paint",
       "color",
       "graffiti",
@@ -17303,26 +11891,16 @@ export const tags = [
       "aerosol",
       "deodorant",
       "shaving foam",
-      "air freshener"
-    ]
+      "air freshener",
+    ],
   },
   {
-    "name": "sprout",
-    "tags": [
-      "eco",
-      "green",
-      "growth",
-      "leaf",
-      "nature",
-      "plant",
-      "seed",
-      "spring",
-      "sustainability"
-    ]
+    name: "sprout",
+    tags: ["eco", "green", "growth", "leaf", "nature", "plant", "seed", "spring", "sustainability"],
   },
   {
-    "name": "square-activity",
-    "tags": [
+    name: "square-activity",
+    tags: [
       "pulse",
       "action",
       "motion",
@@ -17349,172 +11927,68 @@ export const tags = [
       "waveform",
       "synthesizer",
       "synthesiser",
-      "music"
-    ]
+      "music",
+    ],
   },
   {
-    "name": "square-arrow-down-left",
-    "tags": [
-      "direction",
-      "south-west",
-      "diagonal",
-      "sign",
-      "turn",
-      "keyboard",
-      "button"
-    ]
+    name: "square-arrow-down-left",
+    tags: ["direction", "south-west", "diagonal", "sign", "turn", "keyboard", "button"],
   },
   {
-    "name": "square-arrow-down-right",
-    "tags": [
-      "direction",
-      "south-east",
-      "diagonal",
-      "sign",
-      "turn",
-      "keyboard",
-      "button"
-    ]
+    name: "square-arrow-down-right",
+    tags: ["direction", "south-east", "diagonal", "sign", "turn", "keyboard", "button"],
   },
   {
-    "name": "square-arrow-down",
-    "tags": [
-      "backwards",
-      "reverse",
-      "direction",
-      "south",
-      "sign",
-      "keyboard",
-      "button"
-    ]
+    name: "square-arrow-down",
+    tags: ["backwards", "reverse", "direction", "south", "sign", "keyboard", "button"],
   },
   {
-    "name": "square-arrow-left",
-    "tags": [
-      "previous",
-      "back",
-      "direction",
-      "west",
-      "sign",
-      "keyboard",
-      "button",
-      "<-"
-    ]
+    name: "square-arrow-left",
+    tags: ["previous", "back", "direction", "west", "sign", "keyboard", "button", "<-"],
   },
   {
-    "name": "square-arrow-out-down-left",
-    "tags": [
-      "outwards",
-      "direction",
-      "south-west",
-      "diagonal"
-    ]
+    name: "square-arrow-out-down-left",
+    tags: ["outwards", "direction", "south-west", "diagonal"],
   },
   {
-    "name": "square-arrow-out-down-right",
-    "tags": [
-      "outwards",
-      "direction",
-      "south-east",
-      "diagonal"
-    ]
+    name: "square-arrow-out-down-right",
+    tags: ["outwards", "direction", "south-east", "diagonal"],
   },
   {
-    "name": "square-arrow-out-up-left",
-    "tags": [
-      "outwards",
-      "direction",
-      "north-west",
-      "diagonal"
-    ]
+    name: "square-arrow-out-up-left",
+    tags: ["outwards", "direction", "north-west", "diagonal"],
   },
   {
-    "name": "square-arrow-out-up-right",
-    "tags": [
-      "outwards",
-      "direction",
-      "north-east",
-      "diagonal",
-      "share",
-      "open",
-      "external",
-      "link"
-    ]
+    name: "square-arrow-out-up-right",
+    tags: ["outwards", "direction", "north-east", "diagonal", "share", "open", "external", "link"],
   },
   {
-    "name": "square-arrow-right-enter",
-    "tags": [
-      "left",
-      "in",
-      "inside",
-      "input",
-      "insert",
-      "source",
-      "import",
-      "place",
-      "->"
-    ]
+    name: "square-arrow-right-enter",
+    tags: ["left", "in", "inside", "input", "insert", "source", "import", "place", "->"],
   },
   {
-    "name": "square-arrow-right-exit",
-    "tags": [
-      "out",
-      "outside",
-      "output",
-      "export",
-      "->"
-    ]
+    name: "square-arrow-right-exit",
+    tags: ["out", "outside", "output", "export", "->"],
   },
   {
-    "name": "square-arrow-right",
-    "tags": [
-      "next",
-      "forward",
-      "direction",
-      "west",
-      "sign",
-      "keyboard",
-      "button",
-      "->"
-    ]
+    name: "square-arrow-right",
+    tags: ["next", "forward", "direction", "west", "sign", "keyboard", "button", "->"],
   },
   {
-    "name": "square-arrow-up-left",
-    "tags": [
-      "direction",
-      "north-west",
-      "diagonal",
-      "sign",
-      "keyboard",
-      "button"
-    ]
+    name: "square-arrow-up-left",
+    tags: ["direction", "north-west", "diagonal", "sign", "keyboard", "button"],
   },
   {
-    "name": "square-arrow-up-right",
-    "tags": [
-      "direction",
-      "north-east",
-      "diagonal",
-      "sign",
-      "keyboard",
-      "button",
-      "share"
-    ]
+    name: "square-arrow-up-right",
+    tags: ["direction", "north-east", "diagonal", "sign", "keyboard", "button", "share"],
   },
   {
-    "name": "square-arrow-up",
-    "tags": [
-      "forward",
-      "direction",
-      "north",
-      "sign",
-      "keyboard",
-      "button"
-    ]
+    name: "square-arrow-up",
+    tags: ["forward", "direction", "north", "sign", "keyboard", "button"],
   },
   {
-    "name": "square-asterisk",
-    "tags": [
+    name: "square-asterisk",
+    tags: [
       "password",
       "secret",
       "access",
@@ -17523,40 +11997,24 @@ export const tags = [
       "multiplication",
       "glob pattern",
       "wildcard",
-      "*"
-    ]
+      "*",
+    ],
   },
   {
-    "name": "square-bottom-dashed-scissors",
-    "tags": [
-      "cut",
-      "snippet",
-      "chop",
-      "stationery",
-      "crafts"
-    ]
+    name: "square-bottom-dashed-scissors",
+    tags: ["cut", "snippet", "chop", "stationery", "crafts"],
   },
   {
-    "name": "square-centerline-dashed-horizontal",
-    "tags": [
-      "reflect",
-      "mirror",
-      "alignment",
-      "dashed"
-    ]
+    name: "square-centerline-dashed-horizontal",
+    tags: ["reflect", "mirror", "alignment", "dashed"],
   },
   {
-    "name": "square-centerline-dashed-vertical",
-    "tags": [
-      "reflect",
-      "mirror",
-      "alignment",
-      "dashed"
-    ]
+    name: "square-centerline-dashed-vertical",
+    tags: ["reflect", "mirror", "alignment", "dashed"],
   },
   {
-    "name": "square-chart-gantt",
-    "tags": [
+    name: "square-chart-gantt",
+    tags: [
       "projects",
       "manage",
       "overview",
@@ -17575,54 +12033,28 @@ export const tags = [
       "code",
       "coding",
       "toolbar",
-      "button"
-    ]
-  },
-  {
-    "name": "square-check-big",
-    "tags": [
-      "done",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
-  },
-  {
-    "name": "square-check",
-    "tags": [
-      "done",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
-  },
-  {
-    "name": "square-chevron-down",
-    "tags": [
-      "back",
-      "menu",
-      "panel"
-    ]
-  },
-  {
-    "name": "square-chevron-left",
-    "tags": [
-      "back",
-      "previous",
-      "less than",
-      "fewer",
-      "menu",
-      "panel",
       "button",
-      "keyboard",
-      "<"
-    ]
+    ],
   },
   {
-    "name": "square-chevron-right",
-    "tags": [
+    name: "square-check-big",
+    tags: ["done", "todo", "tick", "complete", "task"],
+  },
+  {
+    name: "square-check",
+    tags: ["done", "todo", "tick", "complete", "task"],
+  },
+  {
+    name: "square-chevron-down",
+    tags: ["back", "menu", "panel"],
+  },
+  {
+    name: "square-chevron-left",
+    tags: ["back", "previous", "less than", "fewer", "menu", "panel", "button", "keyboard", "<"],
+  },
+  {
+    name: "square-chevron-right",
+    tags: [
       "forward",
       "next",
       "more than",
@@ -17636,12 +12068,12 @@ export const tags = [
       "prompt",
       "shell",
       "console",
-      ">"
-    ]
+      ">",
+    ],
   },
   {
-    "name": "square-chevron-up",
-    "tags": [
+    name: "square-chevron-up",
+    tags: [
       "caret",
       "keyboard",
       "button",
@@ -17654,47 +12086,24 @@ export const tags = [
       "ahead",
       "menu",
       "panel",
-      "^"
-    ]
+      "^",
+    ],
   },
   {
-    "name": "square-code",
-    "tags": [
-      "gist",
-      "source",
-      "programming",
-      "html",
-      "xml",
-      "coding"
-    ]
+    name: "square-code",
+    tags: ["gist", "source", "programming", "html", "xml", "coding"],
   },
   {
-    "name": "square-dashed-bottom-code",
-    "tags": [
-      "rectangle",
-      "aspect ratio",
-      "1:1",
-      "shape",
-      "snippet",
-      "code",
-      "coding"
-    ]
+    name: "square-dashed-bottom-code",
+    tags: ["rectangle", "aspect ratio", "1:1", "shape", "snippet", "code", "coding"],
   },
   {
-    "name": "square-dashed-bottom",
-    "tags": [
-      "rectangle",
-      "aspect ratio",
-      "1:1",
-      "shape",
-      "snippet",
-      "code",
-      "coding"
-    ]
+    name: "square-dashed-bottom",
+    tags: ["rectangle", "aspect ratio", "1:1", "shape", "snippet", "code", "coding"],
   },
   {
-    "name": "square-dashed-kanban",
-    "tags": [
+    name: "square-dashed-kanban",
+    tags: [
       "projects",
       "manage",
       "overview",
@@ -17711,12 +12120,12 @@ export const tags = [
       "template",
       "boilerplate",
       "code",
-      "coding"
-    ]
+      "coding",
+    ],
   },
   {
-    "name": "square-dashed-mouse-pointer",
-    "tags": [
+    name: "square-dashed-mouse-pointer",
+    tags: [
       "inspector",
       "element",
       "mouse",
@@ -17727,21 +12136,16 @@ export const tags = [
       "selector",
       "target",
       "dom",
-      "node"
-    ]
+      "node",
+    ],
   },
   {
-    "name": "square-dashed-text",
-    "tags": [
-      "find",
-      "search",
-      "selection",
-      "dashed"
-    ]
+    name: "square-dashed-text",
+    tags: ["find", "search", "selection", "dashed"],
   },
   {
-    "name": "square-dashed-top-solid",
-    "tags": [
+    name: "square-dashed-top-solid",
+    tags: [
       "square",
       "border",
       "width",
@@ -17754,58 +12158,32 @@ export const tags = [
       "box",
       "rectangle",
       "aspect ratio",
-      "1:1"
-    ]
+      "1:1",
+    ],
   },
   {
-    "name": "square-dashed",
-    "tags": [
-      "selection",
-      "square",
-      "rectangular",
-      "marquee",
-      "tool",
-      "dashed",
-      "box"
-    ]
+    name: "square-dashed",
+    tags: ["selection", "square", "rectangular", "marquee", "tool", "dashed", "box"],
   },
   {
-    "name": "square-divide",
-    "tags": [
-      "calculate",
-      "math",
-      "÷",
-      "/"
-    ]
+    name: "square-divide",
+    tags: ["calculate", "math", "÷", "/"],
   },
   {
-    "name": "square-dot",
-    "tags": [
-      "git",
-      "diff",
-      "modified",
-      "."
-    ]
+    name: "square-dot",
+    tags: ["git", "diff", "modified", "."],
   },
   {
-    "name": "square-equal",
-    "tags": [
-      "calculate",
-      "="
-    ]
+    name: "square-equal",
+    tags: ["calculate", "="],
   },
   {
-    "name": "square-function",
-    "tags": [
-      "programming",
-      "code",
-      "automation",
-      "math"
-    ]
+    name: "square-function",
+    tags: ["programming", "code", "automation", "math"],
   },
   {
-    "name": "square-kanban",
-    "tags": [
+    name: "square-kanban",
+    tags: [
       "projects",
       "manage",
       "overview",
@@ -17821,12 +12199,12 @@ export const tags = [
       "code",
       "coding",
       "toolbar",
-      "button"
-    ]
+      "button",
+    ],
   },
   {
-    "name": "square-library",
-    "tags": [
+    name: "square-library",
+    tags: [
       "books",
       "reading",
       "written",
@@ -17849,33 +12227,20 @@ export const tags = [
       "records",
       "albums",
       "music",
-      "package"
-    ]
+      "package",
+    ],
   },
   {
-    "name": "square-m",
-    "tags": [
-      "metro",
-      "subway",
-      "underground",
-      "track",
-      "line"
-    ]
+    name: "square-m",
+    tags: ["metro", "subway", "underground", "track", "line"],
   },
   {
-    "name": "square-menu",
-    "tags": [
-      "bars",
-      "navigation",
-      "hamburger",
-      "options",
-      "menu bar",
-      "panel"
-    ]
+    name: "square-menu",
+    tags: ["bars", "navigation", "hamburger", "options", "menu bar", "panel"],
   },
   {
-    "name": "square-minus",
-    "tags": [
+    name: "square-minus",
+    tags: [
       "subtract",
       "remove",
       "decrease",
@@ -17897,12 +12262,12 @@ export const tags = [
       "code",
       "coding",
       "minimum",
-      "downgrade"
-    ]
+      "downgrade",
+    ],
   },
   {
-    "name": "square-mouse-pointer",
-    "tags": [
+    name: "square-mouse-pointer",
+    tags: [
       "inspector",
       "element",
       "mouse",
@@ -17913,35 +12278,24 @@ export const tags = [
       "selector",
       "target",
       "dom",
-      "node"
-    ]
+      "node",
+    ],
   },
   {
-    "name": "square-parking-off",
-    "tags": [
-      "parking lot",
-      "car park",
-      "no parking"
-    ]
+    name: "square-parking-off",
+    tags: ["parking lot", "car park", "no parking"],
   },
   {
-    "name": "square-parking",
-    "tags": [
-      "parking lot",
-      "car park"
-    ]
+    name: "square-parking",
+    tags: ["parking lot", "car park"],
   },
   {
-    "name": "square-pause",
-    "tags": [
-      "music",
-      "audio",
-      "stop"
-    ]
+    name: "square-pause",
+    tags: ["music", "audio", "stop"],
   },
   {
-    "name": "square-pen",
-    "tags": [
+    name: "square-pen",
+    tags: [
       "pencil",
       "edit",
       "change",
@@ -17956,12 +12310,12 @@ export const tags = [
       "marker",
       "felt tip",
       "stationery",
-      "artist"
-    ]
+      "artist",
+    ],
   },
   {
-    "name": "square-percent",
-    "tags": [
+    name: "square-percent",
+    tags: [
       "verified",
       "unverified",
       "sale",
@@ -17969,12 +12323,12 @@ export const tags = [
       "offer",
       "marketing",
       "sticker",
-      "price tag"
-    ]
+      "price tag",
+    ],
   },
   {
-    "name": "square-pi",
-    "tags": [
+    name: "square-pi",
+    tags: [
       "constant",
       "code",
       "coding",
@@ -17982,36 +12336,20 @@ export const tags = [
       "symbol",
       "trigonometry",
       "geometry",
-      "formula"
-    ]
+      "formula",
+    ],
   },
   {
-    "name": "square-pilcrow",
-    "tags": [
-      "paragraph",
-      "mark",
-      "paraph",
-      "blind",
-      "typography",
-      "type",
-      "text",
-      "prose",
-      "symbol"
-    ]
+    name: "square-pilcrow",
+    tags: ["paragraph", "mark", "paraph", "blind", "typography", "type", "text", "prose", "symbol"],
   },
   {
-    "name": "square-play",
-    "tags": [
-      "music",
-      "audio",
-      "video",
-      "start",
-      "run"
-    ]
+    name: "square-play",
+    tags: ["music", "audio", "video", "start", "run"],
   },
   {
-    "name": "square-plus",
-    "tags": [
+    name: "square-plus",
+    tags: [
       "add",
       "new",
       "increase",
@@ -18030,12 +12368,12 @@ export const tags = [
       "concatenate",
       "code",
       "coding",
-      "+"
-    ]
+      "+",
+    ],
   },
   {
-    "name": "square-power",
-    "tags": [
+    name: "square-power",
+    tags: [
       "on",
       "off",
       "device",
@@ -18047,95 +12385,44 @@ export const tags = [
       "restart",
       "button",
       "keyboard",
-      "troubleshoot"
-    ]
+      "troubleshoot",
+    ],
   },
   {
-    "name": "square-radical",
-    "tags": [
-      "calculate",
-      "formula",
-      "math",
-      "operator",
-      "root",
-      "square",
-      "symbol"
-    ]
+    name: "square-radical",
+    tags: ["calculate", "formula", "math", "operator", "root", "square", "symbol"],
   },
   {
-    "name": "square-round-corner",
-    "tags": [
-      "border",
-      "radius",
-      "style",
-      "design",
-      "corner",
-      "layout",
-      "round",
-      "rounded"
-    ]
+    name: "square-round-corner",
+    tags: ["border", "radius", "style", "design", "corner", "layout", "round", "rounded"],
   },
   {
-    "name": "square-scissors",
-    "tags": [
-      "cut",
-      "snippet",
-      "chop",
-      "stationery",
-      "crafts",
-      "toolbar",
-      "button"
-    ]
+    name: "square-scissors",
+    tags: ["cut", "snippet", "chop", "stationery", "crafts", "toolbar", "button"],
   },
   {
-    "name": "square-sigma",
-    "tags": [
-      "sum",
-      "calculate",
-      "formula",
-      "math",
-      "enumeration",
-      "enumerate"
-    ]
+    name: "square-sigma",
+    tags: ["sum", "calculate", "formula", "math", "enumeration", "enumerate"],
   },
   {
-    "name": "square-slash",
-    "tags": [
-      "git",
-      "diff",
-      "ignored",
-      "divide",
-      "division",
-      "shortcut",
-      "or",
-      "/"
-    ]
+    name: "square-slash",
+    tags: ["git", "diff", "ignored", "divide", "division", "shortcut", "or", "/"],
   },
   {
-    "name": "square-split-horizontal",
-    "tags": [
-      "split",
-      "divide"
-    ]
+    name: "square-split-horizontal",
+    tags: ["split", "divide"],
   },
   {
-    "name": "square-split-vertical",
-    "tags": [
-      "split",
-      "divide"
-    ]
+    name: "square-split-vertical",
+    tags: ["split", "divide"],
   },
   {
-    "name": "square-square",
-    "tags": [
-      "float",
-      "center",
-      "rectangle"
-    ]
+    name: "square-square",
+    tags: ["float", "center", "rectangle"],
   },
   {
-    "name": "square-stack",
-    "tags": [
+    name: "square-stack",
+    tags: [
       "versions",
       "clone",
       "copy",
@@ -18144,12 +12431,12 @@ export const tags = [
       "revisions",
       "version control",
       "backup",
-      "history"
-    ]
+      "history",
+    ],
   },
   {
-    "name": "square-star",
-    "tags": [
+    name: "square-star",
+    tags: [
       "badge",
       "medal",
       "honour",
@@ -18162,44 +12449,28 @@ export const tags = [
       "insignia",
       "bronze",
       "silver",
-      "gold"
-    ]
+      "gold",
+    ],
   },
   {
-    "name": "square-stop",
-    "tags": [
-      "media",
-      "music"
-    ]
+    name: "square-stop",
+    tags: ["media", "music"],
   },
   {
-    "name": "square-terminal",
-    "tags": [
-      "code",
-      "command line",
-      "prompt",
-      "shell"
-    ]
+    name: "square-terminal",
+    tags: ["code", "command line", "prompt", "shell"],
   },
   {
-    "name": "square-user-round",
-    "tags": [
-      "person",
-      "account",
-      "contact"
-    ]
+    name: "square-user-round",
+    tags: ["person", "account", "contact"],
   },
   {
-    "name": "square-user",
-    "tags": [
-      "person",
-      "account",
-      "contact"
-    ]
+    name: "square-user",
+    tags: ["person", "account", "contact"],
   },
   {
-    "name": "square-x",
-    "tags": [
+    name: "square-x",
+    tags: [
       "cancel",
       "close",
       "delete",
@@ -18208,12 +12479,12 @@ export const tags = [
       "clear",
       "math",
       "multiply",
-      "multiplication"
-    ]
+      "multiplication",
+    ],
   },
   {
-    "name": "square",
-    "tags": [
+    name: "square",
+    tags: [
       "stop",
       "playback",
       "music",
@@ -18222,37 +12493,20 @@ export const tags = [
       "rectangle",
       "aspect ratio",
       "1:1",
-      "shape"
-    ]
-  },
-  {
-    "name": "squares-exclude",
-    "tags": [
-      "square",
-      "pathfinder",
-      "path",
-      "exclude",
-      "invert",
-      "xor",
       "shape",
-      "vector"
-    ]
+    ],
   },
   {
-    "name": "squares-intersect",
-    "tags": [
-      "square",
-      "pathfinder",
-      "path",
-      "intersect",
-      "shape",
-      "include",
-      "vector"
-    ]
+    name: "squares-exclude",
+    tags: ["square", "pathfinder", "path", "exclude", "invert", "xor", "shape", "vector"],
   },
   {
-    "name": "squares-subtract",
-    "tags": [
+    name: "squares-intersect",
+    tags: ["square", "pathfinder", "path", "intersect", "shape", "include", "vector"],
+  },
+  {
+    name: "squares-subtract",
+    tags: [
       "square",
       "pathfinder",
       "path",
@@ -18261,137 +12515,60 @@ export const tags = [
       "subtraction",
       "shape",
       "front",
-      "vector"
-    ]
+      "vector",
+    ],
   },
   {
-    "name": "squares-unite",
-    "tags": [
-      "square",
-      "pathfinder",
-      "path",
-      "unite",
-      "union",
-      "shape",
-      "merge",
-      "vector"
-    ]
+    name: "squares-unite",
+    tags: ["square", "pathfinder", "path", "unite", "union", "shape", "merge", "vector"],
   },
   {
-    "name": "squircle-dashed",
-    "tags": [
-      "shape",
-      "pending",
-      "progress",
-      "issue",
-      "draft",
-      "code",
-      "coding",
-      "version control"
-    ]
+    name: "squircle-dashed",
+    tags: ["shape", "pending", "progress", "issue", "draft", "code", "coding", "version control"],
   },
   {
-    "name": "squircle",
-    "tags": [
-      "shape"
-    ]
+    name: "squircle",
+    tags: ["shape"],
   },
   {
-    "name": "squirrel",
-    "tags": [
-      "animal",
-      "rodent",
-      "pet",
-      "pest",
-      "nuts",
-      "retrieve",
-      "updates",
-      "storage",
-      "stash"
-    ]
+    name: "squirrel",
+    tags: ["animal", "rodent", "pet", "pest", "nuts", "retrieve", "updates", "storage", "stash"],
   },
   {
-    "name": "stamp",
-    "tags": [
-      "mark",
-      "print",
-      "clone",
-      "loyalty",
-      "library"
-    ]
+    name: "stamp",
+    tags: ["mark", "print", "clone", "loyalty", "library"],
   },
   {
-    "name": "star-half",
-    "tags": [
-      "bookmark",
-      "favorite",
-      "like",
-      "review",
-      "rating"
-    ]
+    name: "star-half",
+    tags: ["bookmark", "favorite", "like", "review", "rating"],
   },
   {
-    "name": "star-off",
-    "tags": [
-      "dislike",
-      "unlike",
-      "remove",
-      "unrate"
-    ]
+    name: "star-off",
+    tags: ["dislike", "unlike", "remove", "unrate"],
   },
   {
-    "name": "star",
-    "tags": [
-      "bookmark",
-      "favorite",
-      "like",
-      "review",
-      "rating"
-    ]
+    name: "star",
+    tags: ["bookmark", "favorite", "like", "review", "rating"],
   },
   {
-    "name": "step-back",
-    "tags": [
-      "arrow",
-      "previous",
-      "music",
-      "left",
-      "reverse"
-    ]
+    name: "step-back",
+    tags: ["arrow", "previous", "music", "left", "reverse"],
   },
   {
-    "name": "step-forward",
-    "tags": [
-      "arrow",
-      "next",
-      "music",
-      "right",
-      "continue"
-    ]
+    name: "step-forward",
+    tags: ["arrow", "next", "music", "right", "continue"],
   },
   {
-    "name": "stethoscope",
-    "tags": [
-      "phonendoscope",
-      "medical",
-      "heart",
-      "lungs",
-      "sound"
-    ]
+    name: "stethoscope",
+    tags: ["phonendoscope", "medical", "heart", "lungs", "sound"],
   },
   {
-    "name": "sticker",
-    "tags": [
-      "reaction",
-      "emotion",
-      "smile",
-      "happy",
-      "feedback"
-    ]
+    name: "sticker",
+    tags: ["reaction", "emotion", "smile", "happy", "feedback"],
   },
   {
-    "name": "sticky-note",
-    "tags": [
+    name: "sticky-note",
+    tags: [
       "post-it",
       "comment",
       "annotation",
@@ -18407,12 +12584,12 @@ export const tags = [
       "paper",
       "sheet",
       "stationary",
-      "office"
-    ]
+      "office",
+    ],
   },
   {
-    "name": "stone",
-    "tags": [
+    name: "stone",
+    tags: [
       "mineral",
       "geology",
       "nature",
@@ -18424,71 +12601,40 @@ export const tags = [
       "coal",
       "stone",
       "rock",
-      "boulder"
-    ]
+      "boulder",
+    ],
   },
   {
-    "name": "store",
-    "tags": [
-      "shop",
-      "supermarket",
-      "stand",
-      "boutique",
-      "building"
-    ]
+    name: "store",
+    tags: ["shop", "supermarket", "stand", "boutique", "building"],
   },
   {
-    "name": "stretch-horizontal",
-    "tags": [
-      "items",
-      "flex",
-      "justify",
-      "distribute"
-    ]
+    name: "stretch-horizontal",
+    tags: ["items", "flex", "justify", "distribute"],
   },
   {
-    "name": "stretch-vertical",
-    "tags": [
-      "items",
-      "flex",
-      "justify",
-      "distribute"
-    ]
+    name: "stretch-vertical",
+    tags: ["items", "flex", "justify", "distribute"],
   },
   {
-    "name": "strikethrough",
-    "tags": [
-      "cross out",
-      "delete",
-      "remove",
-      "format"
-    ]
+    name: "strikethrough",
+    tags: ["cross out", "delete", "remove", "format"],
   },
   {
-    "name": "subscript",
-    "tags": [
-      "text"
-    ]
+    name: "subscript",
+    tags: ["text"],
   },
   {
-    "name": "sun-dim",
-    "tags": [
-      "brightness",
-      "dim",
-      "low",
-      "brightness low"
-    ]
+    name: "sun-dim",
+    tags: ["brightness", "dim", "low", "brightness low"],
   },
   {
-    "name": "sun-medium",
-    "tags": [
-      "brightness",
-      "medium"
-    ]
+    name: "sun-medium",
+    tags: ["brightness", "medium"],
   },
   {
-    "name": "sun-moon",
-    "tags": [
+    name: "sun-moon",
+    tags: [
       "dark",
       "light",
       "moon",
@@ -18497,57 +12643,32 @@ export const tags = [
       "theme",
       "auto theme",
       "system theme",
-      "appearance"
-    ]
+      "appearance",
+    ],
   },
   {
-    "name": "sun-snow",
-    "tags": [
-      "weather",
-      "air conditioning",
-      "temperature",
-      "hot",
-      "cold",
-      "seasons"
-    ]
+    name: "sun-snow",
+    tags: ["weather", "air conditioning", "temperature", "hot", "cold", "seasons"],
   },
   {
-    "name": "sun",
-    "tags": [
-      "brightness",
-      "weather",
-      "light",
-      "summer"
-    ]
+    name: "sun",
+    tags: ["brightness", "weather", "light", "summer"],
   },
   {
-    "name": "sunrise",
-    "tags": [
-      "weather",
-      "time",
-      "morning",
-      "day"
-    ]
+    name: "sunrise",
+    tags: ["weather", "time", "morning", "day"],
   },
   {
-    "name": "sunset",
-    "tags": [
-      "weather",
-      "time",
-      "evening",
-      "night"
-    ]
+    name: "sunset",
+    tags: ["weather", "time", "evening", "night"],
   },
   {
-    "name": "superscript",
-    "tags": [
-      "text",
-      "exponent"
-    ]
+    name: "superscript",
+    tags: ["text", "exponent"],
   },
   {
-    "name": "swatch-book",
-    "tags": [
+    name: "swatch-book",
+    tags: [
       "colors",
       "colours",
       "swatches",
@@ -18562,96 +12683,48 @@ export const tags = [
       "palette",
       "samples",
       "textile",
-      "carpet"
-    ]
+      "carpet",
+    ],
   },
   {
-    "name": "swiss-franc",
-    "tags": [
-      "currency",
-      "money",
-      "payment"
-    ]
+    name: "swiss-franc",
+    tags: ["currency", "money", "payment"],
   },
   {
-    "name": "switch-camera",
-    "tags": [
-      "photo",
-      "selfie",
-      "front",
-      "back"
-    ]
+    name: "switch-camera",
+    tags: ["photo", "selfie", "front", "back"],
   },
   {
-    "name": "sword",
-    "tags": [
-      "battle",
-      "challenge",
-      "game",
-      "war",
-      "weapon"
-    ]
+    name: "sword",
+    tags: ["battle", "challenge", "game", "war", "weapon"],
   },
   {
-    "name": "swords",
-    "tags": [
-      "battle",
-      "challenge",
-      "game",
-      "war",
-      "weapon"
-    ]
+    name: "swords",
+    tags: ["battle", "challenge", "game", "war", "weapon"],
   },
   {
-    "name": "syringe",
-    "tags": [
-      "medicine",
-      "medical",
-      "needle",
-      "pump",
-      "plunger",
-      "nozzle",
-      "blood"
-    ]
+    name: "syringe",
+    tags: ["medicine", "medical", "needle", "pump", "plunger", "nozzle", "blood"],
   },
   {
-    "name": "table-2",
-    "tags": [
-      "spreadsheet",
-      "grid"
-    ]
+    name: "table-2",
+    tags: ["spreadsheet", "grid"],
   },
   {
-    "name": "table-cells-merge",
-    "tags": [
-      "spreadsheet",
-      "grid",
-      "row"
-    ]
+    name: "table-cells-merge",
+    tags: ["spreadsheet", "grid", "row"],
   },
   {
-    "name": "table-cells-split",
-    "tags": [
-      "spreadsheet",
-      "grid",
-      "row"
-    ]
+    name: "table-cells-split",
+    tags: ["spreadsheet", "grid", "row"],
   },
   {
-    "name": "table-columns-split",
-    "tags": [
-      "spreadsheet",
-      "grid",
-      "cut",
-      "break",
-      "divide",
-      "separate",
-      "segment"
-    ]
+    name: "table-columns-split",
+    tags: ["spreadsheet", "grid", "cut", "break", "divide", "separate", "segment"],
   },
   {
-    "name": "table-of-contents",
-    "tags": [
+    name: "table-of-contents",
+    tags: [
       "toc",
       "outline",
       "navigation",
@@ -18664,90 +12737,44 @@ export const tags = [
       "documentation",
       "manual",
       "knowledge base",
-      "faq"
-    ]
+      "faq",
+    ],
   },
   {
-    "name": "table-properties",
-    "tags": [
-      "property list",
-      "plist",
-      "spreadsheet",
-      "grid",
-      "dictionary",
-      "object",
-      "hash"
-    ]
+    name: "table-properties",
+    tags: ["property list", "plist", "spreadsheet", "grid", "dictionary", "object", "hash"],
   },
   {
-    "name": "table-rows-split",
-    "tags": [
-      "spreadsheet",
-      "grid",
-      "cut",
-      "break",
-      "divide",
-      "separate",
-      "segment"
-    ]
+    name: "table-rows-split",
+    tags: ["spreadsheet", "grid", "cut", "break", "divide", "separate", "segment"],
   },
   {
-    "name": "table",
-    "tags": [
-      "spreadsheet",
-      "grid"
-    ]
+    name: "table",
+    tags: ["spreadsheet", "grid"],
   },
   {
-    "name": "tablet-smartphone",
-    "tags": [
-      "responsive",
-      "screens",
-      "browser",
-      "testing",
-      "mobile"
-    ]
+    name: "tablet-smartphone",
+    tags: ["responsive", "screens", "browser", "testing", "mobile"],
   },
   {
-    "name": "tablet",
-    "tags": [
-      "device"
-    ]
+    name: "tablet",
+    tags: ["device"],
   },
   {
-    "name": "tablets",
-    "tags": [
-      "medicine",
-      "medication",
-      "drug",
-      "prescription",
-      "pills",
-      "pharmacy"
-    ]
+    name: "tablets",
+    tags: ["medicine", "medication", "drug", "prescription", "pills", "pharmacy"],
   },
   {
-    "name": "tag",
-    "tags": [
-      "label",
-      "badge",
-      "ticket",
-      "mark"
-    ]
+    name: "tag",
+    tags: ["label", "badge", "ticket", "mark"],
   },
   {
-    "name": "tags",
-    "tags": [
-      "labels",
-      "badges",
-      "tickets",
-      "marks",
-      "copy",
-      "multiple"
-    ]
+    name: "tags",
+    tags: ["labels", "badges", "tickets", "marks", "copy", "multiple"],
   },
   {
-    "name": "tally-1",
-    "tags": [
+    name: "tally-1",
+    tags: [
       "count",
       "score",
       "enumerate",
@@ -18758,12 +12785,12 @@ export const tags = [
       "bar",
       "prison",
       "cell",
-      "sentence"
-    ]
+      "sentence",
+    ],
   },
   {
-    "name": "tally-2",
-    "tags": [
+    name: "tally-2",
+    tags: [
       "count",
       "score",
       "enumerate",
@@ -18775,12 +12802,12 @@ export const tags = [
       "bars",
       "prison",
       "cell",
-      "sentence"
-    ]
+      "sentence",
+    ],
   },
   {
-    "name": "tally-3",
-    "tags": [
+    name: "tally-3",
+    tags: [
       "count",
       "score",
       "enumerate",
@@ -18792,12 +12819,12 @@ export const tags = [
       "bars",
       "prison",
       "cell",
-      "sentence"
-    ]
+      "sentence",
+    ],
   },
   {
-    "name": "tally-4",
-    "tags": [
+    name: "tally-4",
+    tags: [
       "count",
       "score",
       "enumerate",
@@ -18808,12 +12835,12 @@ export const tags = [
       "bars",
       "prison",
       "cell",
-      "sentence"
-    ]
+      "sentence",
+    ],
   },
   {
-    "name": "tally-5",
-    "tags": [
+    name: "tally-5",
+    tags: [
       "count",
       "score",
       "enumerate",
@@ -18826,35 +12853,20 @@ export const tags = [
       "cell",
       "sentence",
       "slash",
-      "/"
-    ]
+      "/",
+    ],
   },
   {
-    "name": "tangent",
-    "tags": [
-      "tangential",
-      "shape",
-      "circle",
-      "geometry",
-      "trigonometry",
-      "bezier curve"
-    ]
+    name: "tangent",
+    tags: ["tangential", "shape", "circle", "geometry", "trigonometry", "bezier curve"],
   },
   {
-    "name": "target",
-    "tags": [
-      "logo",
-      "bullseye",
-      "deadline",
-      "projects",
-      "overview",
-      "work",
-      "productivity"
-    ]
+    name: "target",
+    tags: ["logo", "bullseye", "deadline", "projects", "overview", "work", "productivity"],
   },
   {
-    "name": "telescope",
-    "tags": [
+    name: "telescope",
+    tags: [
       "astronomy",
       "space",
       "discovery",
@@ -18865,24 +12877,16 @@ export const tags = [
       "focus",
       "stargazing",
       "observe",
-      "view"
-    ]
+      "view",
+    ],
   },
   {
-    "name": "tent-tree",
-    "tags": [
-      "camping",
-      "campsite",
-      "holiday",
-      "retreat",
-      "nomadic",
-      "wilderness",
-      "outdoors"
-    ]
+    name: "tent-tree",
+    tags: ["camping", "campsite", "holiday", "retreat", "nomadic", "wilderness", "outdoors"],
   },
   {
-    "name": "tent",
-    "tags": [
+    name: "tent",
+    tags: [
       "tipi",
       "teepee",
       "wigwam",
@@ -18895,21 +12899,16 @@ export const tags = [
       "native american",
       "indian",
       "wilderness",
-      "outdoors"
-    ]
+      "outdoors",
+    ],
   },
   {
-    "name": "terminal",
-    "tags": [
-      "code",
-      "command line",
-      "prompt",
-      "shell"
-    ]
+    name: "terminal",
+    tags: ["code", "command line", "prompt", "shell"],
   },
   {
-    "name": "test-tube-diagonal",
-    "tags": [
+    name: "test-tube-diagonal",
+    tags: [
       "tube",
       "vial",
       "phial",
@@ -18919,12 +12918,12 @@ export const tags = [
       "lab",
       "chemistry",
       "experiment",
-      "test"
-    ]
+      "test",
+    ],
   },
   {
-    "name": "test-tube",
-    "tags": [
+    name: "test-tube",
+    tags: [
       "tube",
       "vial",
       "phial",
@@ -18934,12 +12933,12 @@ export const tags = [
       "lab",
       "chemistry",
       "experiment",
-      "test"
-    ]
+      "test",
+    ],
   },
   {
-    "name": "test-tubes",
-    "tags": [
+    name: "test-tubes",
+    tags: [
       "tubes",
       "vials",
       "phials",
@@ -18949,80 +12948,44 @@ export const tags = [
       "lab",
       "chemistry",
       "experiment",
-      "test"
-    ]
+      "test",
+    ],
   },
   {
-    "name": "text-align-center",
-    "tags": [
-      "text",
-      "alignment",
-      "center"
-    ]
+    name: "text-align-center",
+    tags: ["text", "alignment", "center"],
   },
   {
-    "name": "text-align-end",
-    "tags": [
-      "text",
-      "alignment",
-      "right"
-    ]
+    name: "text-align-end",
+    tags: ["text", "alignment", "right"],
   },
   {
-    "name": "text-align-justify",
-    "tags": [
-      "text",
-      "alignment",
-      "justified",
-      "menu",
-      "list"
-    ]
+    name: "text-align-justify",
+    tags: ["text", "alignment", "justified", "menu", "list"],
   },
   {
-    "name": "text-align-start",
-    "tags": [
-      "text",
-      "alignment",
-      "left",
-      "list"
-    ]
+    name: "text-align-start",
+    tags: ["text", "alignment", "left", "list"],
   },
   {
-    "name": "text-cursor-input",
-    "tags": [
-      "select"
-    ]
+    name: "text-cursor-input",
+    tags: ["select"],
   },
   {
-    "name": "text-cursor",
-    "tags": [
-      "select"
-    ]
+    name: "text-cursor",
+    tags: ["select"],
   },
   {
-    "name": "text-initial",
-    "tags": [
-      "drop cap",
-      "text",
-      "format",
-      "typography",
-      "letter",
-      "font size"
-    ]
+    name: "text-initial",
+    tags: ["drop cap", "text", "format", "typography", "letter", "font size"],
   },
   {
-    "name": "text-quote",
-    "tags": [
-      "blockquote",
-      "quotation",
-      "indent",
-      "reply",
-      "response"
-    ]
+    name: "text-quote",
+    tags: ["blockquote", "quotation", "indent", "reply", "response"],
   },
   {
-    "name": "text-search",
-    "tags": [
+    name: "text-search",
+    tags: [
       "find",
       "data",
       "copy",
@@ -19032,80 +12995,40 @@ export const tags = [
       "scan",
       "magnifier",
       "magnifying glass",
-      "lens"
-    ]
+      "lens",
+    ],
   },
   {
-    "name": "text-wrap",
-    "tags": [
-      "words",
-      "lines",
-      "break",
-      "paragraph"
-    ]
+    name: "text-wrap",
+    tags: ["words", "lines", "break", "paragraph"],
   },
   {
-    "name": "theater",
-    "tags": [
-      "theater",
-      "theatre",
-      "entertainment",
-      "podium",
-      "stage",
-      "musical"
-    ]
+    name: "theater",
+    tags: ["theater", "theatre", "entertainment", "podium", "stage", "musical"],
   },
   {
-    "name": "thermometer-snowflake",
-    "tags": [
-      "temperature",
-      "celsius",
-      "fahrenheit",
-      "weather",
-      "cold",
-      "freeze",
-      "freezing"
-    ]
+    name: "thermometer-snowflake",
+    tags: ["temperature", "celsius", "fahrenheit", "weather", "cold", "freeze", "freezing"],
   },
   {
-    "name": "thermometer-sun",
-    "tags": [
-      "temperature",
-      "celsius",
-      "fahrenheit",
-      "weather",
-      "warm",
-      "hot"
-    ]
+    name: "thermometer-sun",
+    tags: ["temperature", "celsius", "fahrenheit", "weather", "warm", "hot"],
   },
   {
-    "name": "thermometer",
-    "tags": [
-      "temperature",
-      "celsius",
-      "fahrenheit",
-      "weather"
-    ]
+    name: "thermometer",
+    tags: ["temperature", "celsius", "fahrenheit", "weather"],
   },
   {
-    "name": "thumbs-down",
-    "tags": [
-      "dislike",
-      "bad",
-      "emotion"
-    ]
+    name: "thumbs-down",
+    tags: ["dislike", "bad", "emotion"],
   },
   {
-    "name": "thumbs-up",
-    "tags": [
-      "like",
-      "good",
-      "emotion"
-    ]
+    name: "thumbs-up",
+    tags: ["like", "good", "emotion"],
   },
   {
-    "name": "ticket-check",
-    "tags": [
+    name: "ticket-check",
+    tags: [
       "entry",
       "pass",
       "voucher",
@@ -19120,12 +13043,12 @@ export const tags = [
       "verified",
       "certified",
       "checked",
-      "used"
-    ]
+      "used",
+    ],
   },
   {
-    "name": "ticket-minus",
-    "tags": [
+    name: "ticket-minus",
+    tags: [
       "entry",
       "pass",
       "voucher",
@@ -19137,12 +13060,12 @@ export const tags = [
       "unbook",
       "subtract",
       "decrease",
-      "-"
-    ]
+      "-",
+    ],
   },
   {
-    "name": "ticket-percent",
-    "tags": [
+    name: "ticket-percent",
+    tags: [
       "discount",
       "reduced",
       "offer",
@@ -19154,27 +13077,16 @@ export const tags = [
       "show",
       "book",
       "purchase",
-      "%"
-    ]
+      "%",
+    ],
   },
   {
-    "name": "ticket-plus",
-    "tags": [
-      "entry",
-      "pass",
-      "voucher",
-      "event",
-      "concert",
-      "show",
-      "book",
-      "purchase",
-      "add",
-      "+"
-    ]
+    name: "ticket-plus",
+    tags: ["entry", "pass", "voucher", "event", "concert", "show", "book", "purchase", "add", "+"],
   },
   {
-    "name": "ticket-slash",
-    "tags": [
+    name: "ticket-slash",
+    tags: [
       "entry",
       "pass",
       "voucher",
@@ -19201,12 +13113,12 @@ export const tags = [
       "delete",
       "remove",
       "clear",
-      "error"
-    ]
+      "error",
+    ],
   },
   {
-    "name": "ticket-x",
-    "tags": [
+    name: "ticket-x",
+    tags: [
       "entry",
       "pass",
       "voucher",
@@ -19230,25 +13142,16 @@ export const tags = [
       "remove",
       "clear",
       "error",
-      "x"
-    ]
+      "x",
+    ],
   },
   {
-    "name": "ticket",
-    "tags": [
-      "entry",
-      "pass",
-      "voucher",
-      "event",
-      "concert",
-      "show",
-      "perforated",
-      "dashed"
-    ]
+    name: "ticket",
+    tags: ["entry", "pass", "voucher", "event", "concert", "show", "perforated", "dashed"],
   },
   {
-    "name": "tickets-plane",
-    "tags": [
+    name: "tickets-plane",
+    tags: [
       "plane",
       "trip",
       "airplane",
@@ -19260,12 +13163,12 @@ export const tags = [
       "passenger",
       "pass",
       "check-in",
-      "airport"
-    ]
+      "airport",
+    ],
   },
   {
-    "name": "tickets",
-    "tags": [
+    name: "tickets",
+    tags: [
       "trip",
       "travel",
       "pass",
@@ -19275,78 +13178,44 @@ export const tags = [
       "concert",
       "show",
       "perforated",
-      "dashed"
-    ]
+      "dashed",
+    ],
   },
   {
-    "name": "timeline",
-    "tags": [
-      "tags",
-      "history"
-    ]
+    name: "timeline",
+    tags: ["tags", "history"],
   },
   {
-    "name": "timer-off",
-    "tags": [
-      "time",
-      "timer",
-      "stopwatch"
-    ]
+    name: "timer-off",
+    tags: ["time", "timer", "stopwatch"],
   },
   {
-    "name": "timer-reset",
-    "tags": [
-      "time",
-      "timer",
-      "stopwatch"
-    ]
+    name: "timer-reset",
+    tags: ["time", "timer", "stopwatch"],
   },
   {
-    "name": "timer",
-    "tags": [
-      "time",
-      "timer",
-      "stopwatch"
-    ]
+    name: "timer",
+    tags: ["time", "timer", "stopwatch"],
   },
   {
-    "name": "toggle-left",
-    "tags": [
-      "on",
-      "off",
-      "switch",
-      "boolean"
-    ]
+    name: "toggle-left",
+    tags: ["on", "off", "switch", "boolean"],
   },
   {
-    "name": "toggle-right",
-    "tags": [
-      "on",
-      "off",
-      "switch",
-      "boolean"
-    ]
+    name: "toggle-right",
+    tags: ["on", "off", "switch", "boolean"],
   },
   {
-    "name": "toilet",
-    "tags": [
-      "toilet",
-      "potty",
-      "bathroom",
-      "washroom"
-    ]
+    name: "toilet",
+    tags: ["toilet", "potty", "bathroom", "washroom"],
   },
   {
-    "name": "tool-case",
-    "tags": [
-      "tools",
-      "maintenance",
-      "repair"
-    ]
+    name: "tool-case",
+    tags: ["tools", "maintenance", "repair"],
   },
   {
-    "name": "toolbox",
-    "tags": [
+    name: "toolbox",
+    tags: [
       "toolkit",
       "tools",
       "trunk",
@@ -19371,21 +13240,16 @@ export const tags = [
       "handyman",
       "engineering",
       "craft",
-      "diy"
-    ]
+      "diy",
+    ],
   },
   {
-    "name": "tornado",
-    "tags": [
-      "weather",
-      "wind",
-      "storm",
-      "hurricane"
-    ]
+    name: "tornado",
+    tags: ["weather", "wind", "storm", "hurricane"],
   },
   {
-    "name": "torus",
-    "tags": [
+    name: "torus",
+    tags: [
       "donut",
       "doughnut",
       "ring",
@@ -19397,26 +13261,20 @@ export const tags = [
       "treat",
       "sweet",
       "sugar",
-      "dessert"
-    ]
+      "dessert",
+    ],
   },
   {
-    "name": "touchpad-off",
-    "tags": [
-      "trackpad",
-      "cursor"
-    ]
+    name: "touchpad-off",
+    tags: ["trackpad", "cursor"],
   },
   {
-    "name": "touchpad",
-    "tags": [
-      "trackpad",
-      "cursor"
-    ]
+    name: "touchpad",
+    tags: ["trackpad", "cursor"],
   },
   {
-    "name": "towel-rack",
-    "tags": [
+    name: "towel-rack",
+    tags: [
       "flannel",
       "bathroom",
       "toiletries",
@@ -19432,66 +13290,32 @@ export const tags = [
       "spa break",
       "health club",
       "amenities",
-      "hanging"
-    ]
+      "hanging",
+    ],
   },
   {
-    "name": "tower-control",
-    "tags": [
-      "airport",
-      "travel",
-      "tower",
-      "transportation",
-      "lighthouse"
-    ]
+    name: "tower-control",
+    tags: ["airport", "travel", "tower", "transportation", "lighthouse"],
   },
   {
-    "name": "toy-brick",
-    "tags": [
-      "lego",
-      "block",
-      "addon",
-      "plugin",
-      "integration"
-    ]
+    name: "toy-brick",
+    tags: ["lego", "block", "addon", "plugin", "integration"],
   },
   {
-    "name": "tractor",
-    "tags": [
-      "farming",
-      "farmer",
-      "ranch",
-      "harvest",
-      "equipment",
-      "vehicle"
-    ]
+    name: "tractor",
+    tags: ["farming", "farmer", "ranch", "harvest", "equipment", "vehicle"],
   },
   {
-    "name": "traffic-cone",
-    "tags": [
-      "roadworks",
-      "tarmac",
-      "safety",
-      "block"
-    ]
+    name: "traffic-cone",
+    tags: ["roadworks", "tarmac", "safety", "block"],
   },
   {
-    "name": "train-front-tunnel",
-    "tags": [
-      "railway",
-      "metro",
-      "subway",
-      "underground",
-      "speed",
-      "bullet",
-      "fast",
-      "track",
-      "line"
-    ]
+    name: "train-front-tunnel",
+    tags: ["railway", "metro", "subway", "underground", "speed", "bullet", "fast", "track", "line"],
   },
   {
-    "name": "train-front",
-    "tags": [
+    name: "train-front",
+    tags: [
       "railway",
       "metro",
       "subway",
@@ -19500,47 +13324,28 @@ export const tags = [
       "bullet",
       "fast",
       "track",
-      "line"
-    ]
-  },
-  {
-    "name": "train-track",
-    "tags": [
-      "railway",
-      "line"
-    ]
-  },
-  {
-    "name": "tram-front",
-    "tags": [
-      "railway",
-      "metro",
-      "subway",
-      "underground",
-      "track",
       "line",
-      "tourism"
-    ]
+    ],
   },
   {
-    "name": "transgender",
-    "tags": [
-      "gender",
-      "inclusive"
-    ]
+    name: "train-track",
+    tags: ["railway", "line"],
   },
   {
-    "name": "trash-2",
-    "tags": [
-      "garbage",
-      "delete",
-      "remove",
-      "bin"
-    ]
+    name: "tram-front",
+    tags: ["railway", "metro", "subway", "underground", "track", "line", "tourism"],
   },
   {
-    "name": "trash",
-    "tags": [
+    name: "transgender",
+    tags: ["gender", "inclusive"],
+  },
+  {
+    name: "trash-2",
+    tags: ["garbage", "delete", "remove", "bin"],
+  },
+  {
+    name: "trash",
+    tags: [
       "empty",
       "deletion",
       "cleanup",
@@ -19554,54 +13359,32 @@ export const tags = [
       "recycle",
       "discard",
       "binoculars",
-      "rubbish"
-    ]
+      "rubbish",
+    ],
   },
   {
-    "name": "tree-deciduous",
-    "tags": [
-      "tree",
-      "forest",
-      "park",
-      "nature"
-    ]
+    name: "tree-deciduous",
+    tags: ["tree", "forest", "park", "nature"],
   },
   {
-    "name": "tree-palm",
-    "tags": [
-      "vacation",
-      "leisure",
-      "island"
-    ]
+    name: "tree-palm",
+    tags: ["vacation", "leisure", "island"],
   },
   {
-    "name": "tree-pine",
-    "tags": [
-      "tree",
-      "pine",
-      "forest",
-      "park",
-      "nature"
-    ]
+    name: "tree-pine",
+    tags: ["tree", "pine", "forest", "park", "nature"],
   },
   {
-    "name": "trees",
-    "tags": [
-      "tree",
-      "forest",
-      "park",
-      "nature"
-    ]
+    name: "trees",
+    tags: ["tree", "forest", "park", "nature"],
   },
   {
-    "name": "trending-down",
-    "tags": [
-      "statistics"
-    ]
+    name: "trending-down",
+    tags: ["statistics"],
   },
   {
-    "name": "trending-up-down",
-    "tags": [
+    name: "trending-up-down",
+    tags: [
       "arrows",
       "estimated",
       "indeterminate",
@@ -19611,39 +13394,24 @@ export const tags = [
       "variable",
       "prediction",
       "dynamic",
-      "volatile"
-    ]
+      "volatile",
+    ],
   },
   {
-    "name": "trending-up",
-    "tags": [
-      "statistics"
-    ]
+    name: "trending-up",
+    tags: ["statistics"],
   },
   {
-    "name": "triangle-alert",
-    "tags": [
-      "warning",
-      "alert",
-      "danger",
-      "exclamation mark",
-      "linter"
-    ]
+    name: "triangle-alert",
+    tags: ["warning", "alert", "danger", "exclamation mark", "linter"],
   },
   {
-    "name": "triangle-dashed",
-    "tags": [
-      "equilateral",
-      "delta",
-      "shape",
-      "pyramid",
-      "hierarchy",
-      "dashed"
-    ]
+    name: "triangle-dashed",
+    tags: ["equilateral", "delta", "shape", "pyramid", "hierarchy", "dashed"],
   },
   {
-    "name": "triangle-right",
-    "tags": [
+    name: "triangle-right",
+    tags: [
       "volume",
       "controls",
       "controller",
@@ -19653,22 +13421,16 @@ export const tags = [
       "ramp",
       "slope",
       "incline",
-      "increase"
-    ]
+      "increase",
+    ],
   },
   {
-    "name": "triangle",
-    "tags": [
-      "equilateral",
-      "delta",
-      "shape",
-      "pyramid",
-      "hierarchy"
-    ]
+    name: "triangle",
+    tags: ["equilateral", "delta", "shape", "pyramid", "hierarchy"],
   },
   {
-    "name": "trophy",
-    "tags": [
+    name: "trophy",
+    tags: [
       "prize",
       "sports",
       "winner",
@@ -19676,41 +13438,24 @@ export const tags = [
       "award",
       "champion",
       "celebration",
-      "victory"
-    ]
+      "victory",
+    ],
   },
   {
-    "name": "truck-electric",
-    "tags": [
-      "delivery",
-      "van",
-      "shipping",
-      "haulage",
-      "lorry",
-      "electric"
-    ]
+    name: "truck-electric",
+    tags: ["delivery", "van", "shipping", "haulage", "lorry", "electric"],
   },
   {
-    "name": "truck",
-    "tags": [
-      "delivery",
-      "van",
-      "shipping",
-      "haulage",
-      "lorry"
-    ]
+    name: "truck",
+    tags: ["delivery", "van", "shipping", "haulage", "lorry"],
   },
   {
-    "name": "turkish-lira",
-    "tags": [
-      "currency",
-      "money",
-      "payment"
-    ]
+    name: "turkish-lira",
+    tags: ["currency", "money", "payment"],
   },
   {
-    "name": "turntable",
-    "tags": [
+    name: "turntable",
+    tags: [
       "record player",
       "gramophone",
       "stereo",
@@ -19726,22 +13471,16 @@ export const tags = [
       "dj deck",
       "disc jockey",
       "scratch",
-      "spinning"
-    ]
+      "spinning",
+    ],
   },
   {
-    "name": "turtle",
-    "tags": [
-      "animal",
-      "pet",
-      "tortoise",
-      "slow",
-      "speed"
-    ]
+    name: "turtle",
+    tags: ["animal", "pet", "tortoise", "slow", "speed"],
   },
   {
-    "name": "tv-minimal-play",
-    "tags": [
+    name: "tv-minimal-play",
+    tags: [
       "flatscreen",
       "television",
       "stream",
@@ -19765,12 +13504,12 @@ export const tags = [
       "entertainment",
       "showtime",
       "channels",
-      "catchup"
-    ]
+      "catchup",
+    ],
   },
   {
-    "name": "tv-minimal",
-    "tags": [
+    name: "tv-minimal",
+    tags: [
       "flatscreen",
       "television",
       "stream",
@@ -19788,12 +13527,12 @@ export const tags = [
       "entertainment",
       "showtime",
       "channels",
-      "catchup"
-    ]
+      "catchup",
+    ],
   },
   {
-    "name": "tv",
-    "tags": [
+    name: "tv",
+    tags: [
       "television",
       "stream",
       "display",
@@ -19822,59 +13561,32 @@ export const tags = [
       "transmission",
       "signal",
       "connection",
-      "connectivity"
-    ]
+      "connectivity",
+    ],
   },
   {
-    "name": "type-outline",
-    "tags": [
-      "text",
-      "font",
-      "typography",
-      "silhouette",
-      "profile",
-      "contour",
-      "stroke",
-      "line"
-    ]
+    name: "type-outline",
+    tags: ["text", "font", "typography", "silhouette", "profile", "contour", "stroke", "line"],
   },
   {
-    "name": "type",
-    "tags": [
-      "text",
-      "font",
-      "typography"
-    ]
+    name: "type",
+    tags: ["text", "font", "typography"],
   },
   {
-    "name": "umbrella-off",
-    "tags": [
-      "rain",
-      "weather",
-      "uncovered",
-      "uninsured",
-      "antivirus",
-      "unprotected",
-      "risky"
-    ]
+    name: "umbrella-off",
+    tags: ["rain", "weather", "uncovered", "uninsured", "antivirus", "unprotected", "risky"],
   },
   {
-    "name": "umbrella",
-    "tags": [
-      "rain",
-      "weather"
-    ]
+    name: "umbrella",
+    tags: ["rain", "weather"],
   },
   {
-    "name": "underline",
-    "tags": [
-      "text",
-      "format"
-    ]
+    name: "underline",
+    tags: ["text", "format"],
   },
   {
-    "name": "undo-2",
-    "tags": [
+    name: "undo-2",
+    tags: [
       "redo",
       "rerun",
       "history",
@@ -19883,135 +13595,64 @@ export const tags = [
       "reverse",
       "revert",
       "direction",
-      "u-turn"
-    ]
+      "u-turn",
+    ],
   },
   {
-    "name": "undo-dot",
-    "tags": [
-      "redo",
-      "history",
-      "step",
-      "back"
-    ]
+    name: "undo-dot",
+    tags: ["redo", "history", "step", "back"],
   },
   {
-    "name": "undo",
-    "tags": [
-      "redo",
-      "rerun",
-      "history"
-    ]
+    name: "undo",
+    tags: ["redo", "rerun", "history"],
   },
   {
-    "name": "unfold-horizontal",
-    "tags": [
-      "arrow",
-      "collapse",
-      "fold",
-      "vertical",
-      "dashed"
-    ]
+    name: "unfold-horizontal",
+    tags: ["arrow", "collapse", "fold", "vertical", "dashed"],
   },
   {
-    "name": "unfold-vertical",
-    "tags": [
-      "arrow",
-      "expand",
-      "vertical",
-      "dashed"
-    ]
+    name: "unfold-vertical",
+    tags: ["arrow", "expand", "vertical", "dashed"],
   },
   {
-    "name": "ungroup",
-    "tags": [
-      "cubes",
-      "packages",
-      "parts",
-      "units",
-      "collection",
-      "cluster",
-      "separate"
-    ]
+    name: "ungroup",
+    tags: ["cubes", "packages", "parts", "units", "collection", "cluster", "separate"],
   },
   {
-    "name": "university",
-    "tags": [
-      "building",
-      "education",
-      "childhood",
-      "school",
-      "college",
-      "academy",
-      "institute"
-    ]
+    name: "university",
+    tags: ["building", "education", "childhood", "school", "college", "academy", "institute"],
   },
   {
-    "name": "unlink-2",
-    "tags": [
-      "url",
-      "unchain"
-    ]
+    name: "unlink-2",
+    tags: ["url", "unchain"],
   },
   {
-    "name": "unlink",
-    "tags": [
-      "url",
-      "unchain"
-    ]
+    name: "unlink",
+    tags: ["url", "unchain"],
   },
   {
-    "name": "unplug",
-    "tags": [
-      "electricity",
-      "energy",
-      "electronics",
-      "socket",
-      "outlet",
-      "disconnect"
-    ]
+    name: "unplug",
+    tags: ["electricity", "energy", "electronics", "socket", "outlet", "disconnect"],
   },
   {
-    "name": "upload",
-    "tags": [
-      "file"
-    ]
+    name: "upload",
+    tags: ["file"],
   },
   {
-    "name": "usb",
-    "tags": [
-      "universal",
-      "serial",
-      "bus",
-      "controller",
-      "connector",
-      "interface"
-    ]
+    name: "usb",
+    tags: ["universal", "serial", "bus", "controller", "connector", "interface"],
   },
   {
-    "name": "user-check",
-    "tags": [
-      "followed",
-      "subscribed",
-      "done",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
+    name: "user-check",
+    tags: ["followed", "subscribed", "done", "todo", "tick", "complete", "task"],
   },
   {
-    "name": "user-cog",
-    "tags": [
-      "settings",
-      "edit",
-      "cog",
-      "gear"
-    ]
+    name: "user-cog",
+    tags: ["settings", "edit", "cog", "gear"],
   },
   {
-    "name": "user-key",
-    "tags": [
+    name: "user-key",
+    tags: [
       "passkey",
       "password",
       "login",
@@ -20024,73 +13665,36 @@ export const tags = [
       "security",
       "person",
       "account",
-      "contact"
-    ]
-  },
-  {
-    "name": "user-lock",
-    "tags": [
-      "person",
-      "lock",
-      "locked",
-      "account",
-      "secure"
-    ]
-  },
-  {
-    "name": "user-minus",
-    "tags": [
-      "delete",
-      "remove",
-      "unfollow",
-      "unsubscribe"
-    ]
-  },
-  {
-    "name": "user-pen",
-    "tags": [
-      "person",
-      "account",
       "contact",
-      "profile",
-      "edit",
-      "change"
-    ]
+    ],
   },
   {
-    "name": "user-plus",
-    "tags": [
-      "new",
-      "add",
-      "create",
-      "follow",
-      "subscribe"
-    ]
+    name: "user-lock",
+    tags: ["person", "lock", "locked", "account", "secure"],
   },
   {
-    "name": "user-round-check",
-    "tags": [
-      "followed",
-      "subscribed",
-      "done",
-      "todo",
-      "tick",
-      "complete",
-      "task"
-    ]
+    name: "user-minus",
+    tags: ["delete", "remove", "unfollow", "unsubscribe"],
   },
   {
-    "name": "user-round-cog",
-    "tags": [
-      "settings",
-      "edit",
-      "cog",
-      "gear"
-    ]
+    name: "user-pen",
+    tags: ["person", "account", "contact", "profile", "edit", "change"],
   },
   {
-    "name": "user-round-key",
-    "tags": [
+    name: "user-plus",
+    tags: ["new", "add", "create", "follow", "subscribe"],
+  },
+  {
+    name: "user-round-check",
+    tags: ["followed", "subscribed", "done", "todo", "tick", "complete", "task"],
+  },
+  {
+    name: "user-round-cog",
+    tags: ["settings", "edit", "cog", "gear"],
+  },
+  {
+    name: "user-round-key",
+    tags: [
       "passkey",
       "password",
       "login",
@@ -20103,131 +13707,60 @@ export const tags = [
       "security",
       "person",
       "account",
-      "contact"
-    ]
-  },
-  {
-    "name": "user-round-minus",
-    "tags": [
-      "delete",
-      "remove",
-      "unfollow",
-      "unsubscribe"
-    ]
-  },
-  {
-    "name": "user-round-pen",
-    "tags": [
-      "person",
-      "account",
       "contact",
-      "profile",
-      "edit",
-      "change"
-    ]
+    ],
   },
   {
-    "name": "user-round-plus",
-    "tags": [
-      "new",
-      "add",
-      "create",
-      "follow",
-      "subscribe"
-    ]
+    name: "user-round-minus",
+    tags: ["delete", "remove", "unfollow", "unsubscribe"],
   },
   {
-    "name": "user-round-search",
-    "tags": [
-      "person",
-      "account",
-      "contact",
-      "find",
-      "scan",
-      "magnifier",
-      "magnifying glass",
-      "lens"
-    ]
+    name: "user-round-pen",
+    tags: ["person", "account", "contact", "profile", "edit", "change"],
   },
   {
-    "name": "user-round-x",
-    "tags": [
-      "delete",
-      "remove",
-      "unfollow",
-      "unsubscribe",
-      "unavailable"
-    ]
+    name: "user-round-plus",
+    tags: ["new", "add", "create", "follow", "subscribe"],
   },
   {
-    "name": "user-round",
-    "tags": [
-      "person",
-      "account",
-      "contact"
-    ]
+    name: "user-round-search",
+    tags: ["person", "account", "contact", "find", "scan", "magnifier", "magnifying glass", "lens"],
   },
   {
-    "name": "user-search",
-    "tags": [
-      "person",
-      "account",
-      "contact",
-      "find",
-      "scan",
-      "magnifier",
-      "magnifying glass",
-      "lens"
-    ]
+    name: "user-round-x",
+    tags: ["delete", "remove", "unfollow", "unsubscribe", "unavailable"],
   },
   {
-    "name": "user-star",
-    "tags": [
-      "person",
-      "account",
-      "favorite",
-      "contact",
-      "like",
-      "review",
-      "rating",
-      "admin"
-    ]
+    name: "user-round",
+    tags: ["person", "account", "contact"],
   },
   {
-    "name": "user-x",
-    "tags": [
-      "delete",
-      "remove",
-      "unfollow",
-      "unsubscribe",
-      "unavailable"
-    ]
+    name: "user-search",
+    tags: ["person", "account", "contact", "find", "scan", "magnifier", "magnifying glass", "lens"],
   },
   {
-    "name": "user",
-    "tags": [
-      "person",
-      "account",
-      "contact"
-    ]
+    name: "user-star",
+    tags: ["person", "account", "favorite", "contact", "like", "review", "rating", "admin"],
   },
   {
-    "name": "users-round",
-    "tags": [
-      "group",
-      "people"
-    ]
+    name: "user-x",
+    tags: ["delete", "remove", "unfollow", "unsubscribe", "unavailable"],
   },
   {
-    "name": "users",
-    "tags": [
-      "group",
-      "people"
-    ]
+    name: "user",
+    tags: ["person", "account", "contact"],
   },
   {
-    "name": "utensils-crossed",
-    "tags": [
+    name: "users-round",
+    tags: ["group", "people"],
+  },
+  {
+    name: "users",
+    tags: ["group", "people"],
+  },
+  {
+    name: "utensils-crossed",
+    tags: [
       "fork",
       "knife",
       "cutlery",
@@ -20239,12 +13772,12 @@ export const tags = [
       "meal",
       "breakfast",
       "dinner",
-      "supper"
-    ]
+      "supper",
+    ],
   },
   {
-    "name": "utensils",
-    "tags": [
+    name: "utensils",
+    tags: [
       "fork",
       "knife",
       "cutlery",
@@ -20256,23 +13789,16 @@ export const tags = [
       "meal",
       "breakfast",
       "dinner",
-      "supper"
-    ]
+      "supper",
+    ],
   },
   {
-    "name": "utility-pole",
-    "tags": [
-      "electricity",
-      "energy",
-      "transmission line",
-      "telegraph pole",
-      "power lines",
-      "phone"
-    ]
+    name: "utility-pole",
+    tags: ["electricity", "energy", "transmission line", "telegraph pole", "power lines", "phone"],
   },
   {
-    "name": "van",
-    "tags": [
+    name: "van",
+    tags: [
       "minivan",
       "cart",
       "wagon",
@@ -20288,12 +13814,12 @@ export const tags = [
       "transport",
       "carriage",
       "delivery",
-      "travel"
-    ]
+      "travel",
+    ],
   },
   {
-    "name": "variable",
-    "tags": [
+    name: "variable",
+    tags: [
       "code",
       "coding",
       "programming",
@@ -20306,12 +13832,12 @@ export const tags = [
       "brackets",
       "parameter",
       "(",
-      ")"
-    ]
+      ")",
+    ],
   },
   {
-    "name": "vault",
-    "tags": [
+    name: "vault",
+    tags: [
       "safe",
       "lockbox",
       "deposit",
@@ -20322,12 +13848,12 @@ export const tags = [
       "secure",
       "storage",
       "valuables",
-      "bank"
-    ]
+      "bank",
+    ],
   },
   {
-    "name": "vector-square",
-    "tags": [
+    name: "vector-square",
+    tags: [
       "shape",
       "geometry",
       "art",
@@ -20338,124 +13864,56 @@ export const tags = [
       "measure",
       "select",
       "graphics",
-      "box"
-    ]
+      "box",
+    ],
   },
   {
-    "name": "vegan",
-    "tags": [
-      "vegetarian",
-      "fruitarian",
-      "herbivorous",
-      "animal rights",
-      "diet"
-    ]
+    name: "vegan",
+    tags: ["vegetarian", "fruitarian", "herbivorous", "animal rights", "diet"],
   },
   {
-    "name": "venetian-mask",
-    "tags": [
-      "mask",
-      "masquerade",
-      "impersonate",
-      "secret",
-      "incognito"
-    ]
+    name: "venetian-mask",
+    tags: ["mask", "masquerade", "impersonate", "secret", "incognito"],
   },
   {
-    "name": "venus-and-mars",
-    "tags": [
-      "gender",
-      "sex",
-      "intersex",
-      "androgynous",
-      "hermaphrodite"
-    ]
+    name: "venus-and-mars",
+    tags: ["gender", "sex", "intersex", "androgynous", "hermaphrodite"],
   },
   {
-    "name": "venus",
-    "tags": [
-      "gender",
-      "sex",
-      "female",
-      "feminine",
-      "woman",
-      "girl"
-    ]
+    name: "venus",
+    tags: ["gender", "sex", "female", "feminine", "woman", "girl"],
   },
   {
-    "name": "vibrate-off",
-    "tags": [
-      "smartphone",
-      "notification",
-      "rumble",
-      "haptic feedback",
-      "notifications",
-      "screen"
-    ]
+    name: "vibrate-off",
+    tags: ["smartphone", "notification", "rumble", "haptic feedback", "notifications", "screen"],
   },
   {
-    "name": "vibrate",
-    "tags": [
-      "smartphone",
-      "notification",
-      "rumble",
-      "haptic feedback",
-      "screen"
-    ]
+    name: "vibrate",
+    tags: ["smartphone", "notification", "rumble", "haptic feedback", "screen"],
   },
   {
-    "name": "video-off",
-    "tags": [
-      "camera",
-      "movie",
-      "film"
-    ]
+    name: "video-off",
+    tags: ["camera", "movie", "film"],
   },
   {
-    "name": "video",
-    "tags": [
-      "camera",
-      "movie",
-      "film",
-      "recording",
-      "motion picture",
-      "camcorder",
-      "reel"
-    ]
+    name: "video",
+    tags: ["camera", "movie", "film", "recording", "motion picture", "camcorder", "reel"],
   },
   {
-    "name": "videotape",
-    "tags": [
-      "vhs",
-      "movie",
-      "film",
-      "recording",
-      "motion picture",
-      "showreel",
-      "cassette"
-    ]
+    name: "videotape",
+    tags: ["vhs", "movie", "film", "recording", "motion picture", "showreel", "cassette"],
   },
   {
-    "name": "view",
-    "tags": [
-      "eye",
-      "look"
-    ]
+    name: "view",
+    tags: ["eye", "look"],
   },
   {
-    "name": "voicemail",
-    "tags": [
-      "phone",
-      "cassette",
-      "tape",
-      "reel",
-      "recording",
-      "audio"
-    ]
+    name: "voicemail",
+    tags: ["phone", "cassette", "tape", "reel", "recording", "audio"],
   },
   {
-    "name": "volleyball",
-    "tags": [
+    name: "volleyball",
+    tags: [
       "beach",
       "sand",
       "net",
@@ -20477,67 +13935,36 @@ export const tags = [
       "sewing",
       "thread",
       "embroidery",
-      "textile"
-    ]
+      "textile",
+    ],
   },
   {
-    "name": "volume-1",
-    "tags": [
-      "music",
-      "sound",
-      "speaker"
-    ]
+    name: "volume-1",
+    tags: ["music", "sound", "speaker"],
   },
   {
-    "name": "volume-2",
-    "tags": [
-      "music",
-      "sound",
-      "speaker"
-    ]
+    name: "volume-2",
+    tags: ["music", "sound", "speaker"],
   },
   {
-    "name": "volume-off",
-    "tags": [
-      "music",
-      "sound",
-      "mute",
-      "speaker"
-    ]
+    name: "volume-off",
+    tags: ["music", "sound", "mute", "speaker"],
   },
   {
-    "name": "volume-x",
-    "tags": [
-      "music",
-      "sound",
-      "mute",
-      "speaker"
-    ]
+    name: "volume-x",
+    tags: ["music", "sound", "mute", "speaker"],
   },
   {
-    "name": "volume",
-    "tags": [
-      "music",
-      "sound",
-      "mute",
-      "speaker"
-    ]
+    name: "volume",
+    tags: ["music", "sound", "mute", "speaker"],
   },
   {
-    "name": "vote",
-    "tags": [
-      "vote",
-      "poll",
-      "ballot",
-      "political",
-      "social",
-      "check",
-      "tick"
-    ]
+    name: "vote",
+    tags: ["vote", "poll", "ballot", "political", "social", "check", "tick"],
   },
   {
-    "name": "wallet-cards",
-    "tags": [
+    name: "wallet-cards",
+    tags: [
       "money",
       "finance",
       "pocket",
@@ -20547,27 +13974,20 @@ export const tags = [
       "shopping",
       "retail",
       "consumer",
-      "cc"
-    ]
+      "cc",
+    ],
   },
   {
-    "name": "wallet-minimal",
-    "tags": [
-      "finance",
-      "pocket"
-    ]
+    name: "wallet-minimal",
+    tags: ["finance", "pocket"],
   },
   {
-    "name": "wallet",
-    "tags": [
-      "money",
-      "finance",
-      "pocket"
-    ]
+    name: "wallet",
+    tags: ["money", "finance", "pocket"],
   },
   {
-    "name": "wallpaper",
-    "tags": [
+    name: "wallpaper",
+    tags: [
       "background",
       "texture",
       "image",
@@ -20578,27 +13998,20 @@ export const tags = [
       "pattern",
       "screen",
       "cover",
-      "lock screen"
-    ]
+      "lock screen",
+    ],
   },
   {
-    "name": "wand-sparkles",
-    "tags": [
-      "magic",
-      "wizard",
-      "magician"
-    ]
+    name: "wand-sparkles",
+    tags: ["magic", "wizard", "magician"],
   },
   {
-    "name": "wand",
-    "tags": [
-      "magic",
-      "selection"
-    ]
+    name: "wand",
+    tags: ["magic", "selection"],
   },
   {
-    "name": "warehouse",
-    "tags": [
+    name: "warehouse",
+    tags: [
       "storage",
       "storehouse",
       "depot",
@@ -20606,32 +14019,20 @@ export const tags = [
       "repository",
       "stockroom",
       "logistics",
-      "building"
-    ]
+      "building",
+    ],
   },
   {
-    "name": "washing-machine",
-    "tags": [
-      "tumble dryer",
-      "amenities",
-      "electronics",
-      "cycle",
-      "clothes",
-      "rinse",
-      "spin",
-      "drum"
-    ]
+    name: "washing-machine",
+    tags: ["tumble dryer", "amenities", "electronics", "cycle", "clothes", "rinse", "spin", "drum"],
   },
   {
-    "name": "watch",
-    "tags": [
-      "clock",
-      "time"
-    ]
+    name: "watch",
+    tags: ["clock", "time"],
   },
   {
-    "name": "waves-arrow-down",
-    "tags": [
+    name: "waves-arrow-down",
+    tags: [
       "water",
       "sea",
       "level",
@@ -20644,12 +14045,12 @@ export const tags = [
       "ocean",
       "rising",
       "down",
-      "falling"
-    ]
+      "falling",
+    ],
   },
   {
-    "name": "waves-arrow-up",
-    "tags": [
+    name: "waves-arrow-up",
+    tags: [
       "water",
       "sea",
       "level",
@@ -20660,38 +14061,20 @@ export const tags = [
       "high",
       "tide",
       "ocean",
-      "rising"
-    ]
+      "rising",
+    ],
   },
   {
-    "name": "waves-ladder",
-    "tags": [
-      "swimming",
-      "water",
-      "pool",
-      "lifeguard",
-      "ocean",
-      "🌊",
-      "🏊‍♂️",
-      "🏊‍♀️",
-      "🏊",
-      "🥽"
-    ]
+    name: "waves-ladder",
+    tags: ["swimming", "water", "pool", "lifeguard", "ocean", "🌊", "🏊‍♂️", "🏊‍♀️", "🏊", "🥽"],
   },
   {
-    "name": "waves",
-    "tags": [
-      "water",
-      "sea",
-      "sound",
-      "hertz",
-      "wavelength",
-      "vibrate"
-    ]
+    name: "waves",
+    tags: ["water", "sea", "sound", "hertz", "wavelength", "vibrate"],
   },
   {
-    "name": "waypoints",
-    "tags": [
+    name: "waypoints",
+    tags: [
       "indirection",
       "vpn",
       "virtual private network",
@@ -20706,35 +14089,24 @@ export const tags = [
       "stations",
       "shared",
       "spread",
-      "viral"
-    ]
+      "viral",
+    ],
   },
   {
-    "name": "webcam",
-    "tags": [
-      "camera",
-      "security"
-    ]
+    name: "webcam",
+    tags: ["camera", "security"],
   },
   {
-    "name": "webhook-off",
-    "tags": [
-      "push api",
-      "interface",
-      "callback"
-    ]
+    name: "webhook-off",
+    tags: ["push api", "interface", "callback"],
   },
   {
-    "name": "webhook",
-    "tags": [
-      "push api",
-      "interface",
-      "callback"
-    ]
+    name: "webhook",
+    tags: ["push api", "interface", "callback"],
   },
   {
-    "name": "weight-tilde",
-    "tags": [
+    name: "weight-tilde",
+    tags: [
       "measure",
       "scale",
       "estimate",
@@ -20743,57 +14115,28 @@ export const tags = [
       "size",
       "measurement",
       "quantity",
-      "mass"
-    ]
-  },
-  {
-    "name": "weight",
-    "tags": [
       "mass",
-      "heavy",
-      "lead",
-      "metal",
-      "measure",
-      "geometry",
-      "scales",
-      "balance"
-    ]
+    ],
   },
   {
-    "name": "wheat-off",
-    "tags": [
-      "corn",
-      "cereal",
-      "grain",
-      "gluten free",
-      "allergy",
-      "intolerance",
-      "diet"
-    ]
+    name: "weight",
+    tags: ["mass", "heavy", "lead", "metal", "measure", "geometry", "scales", "balance"],
   },
   {
-    "name": "wheat",
-    "tags": [
-      "corn",
-      "cereal",
-      "grain",
-      "gluten"
-    ]
+    name: "wheat-off",
+    tags: ["corn", "cereal", "grain", "gluten free", "allergy", "intolerance", "diet"],
   },
   {
-    "name": "whole-word",
-    "tags": [
-      "text",
-      "selection",
-      "letters",
-      "characters",
-      "font",
-      "typography"
-    ]
+    name: "wheat",
+    tags: ["corn", "cereal", "grain", "gluten"],
   },
   {
-    "name": "wifi-cog",
-    "tags": [
+    name: "whole-word",
+    tags: ["text", "selection", "letters", "characters", "font", "typography"],
+  },
+  {
+    name: "wifi-cog",
+    tags: [
       "connection",
       "signal",
       "wireless",
@@ -20803,89 +14146,48 @@ export const tags = [
       "preferences",
       "cog",
       "edit",
-      "gear"
-    ]
+      "gear",
+    ],
   },
   {
-    "name": "wifi-high",
-    "tags": [
-      "connection",
-      "signal",
-      "wireless"
-    ]
+    name: "wifi-high",
+    tags: ["connection", "signal", "wireless"],
   },
   {
-    "name": "wifi-low",
-    "tags": [
-      "connection",
-      "signal",
-      "wireless"
-    ]
+    name: "wifi-low",
+    tags: ["connection", "signal", "wireless"],
   },
   {
-    "name": "wifi-off",
-    "tags": [
-      "disabled"
-    ]
+    name: "wifi-off",
+    tags: ["disabled"],
   },
   {
-    "name": "wifi-pen",
-    "tags": [
-      "edit",
-      "wifi",
-      "pen",
-      "change",
-      "network"
-    ]
+    name: "wifi-pen",
+    tags: ["edit", "wifi", "pen", "change", "network"],
   },
   {
-    "name": "wifi-sync",
-    "tags": [
-      "connection",
-      "signal",
-      "wireless",
-      "synchronize",
-      "reconnect",
-      "reset",
-      "restart"
-    ]
+    name: "wifi-sync",
+    tags: ["connection", "signal", "wireless", "synchronize", "reconnect", "reset", "restart"],
   },
   {
-    "name": "wifi-zero",
-    "tags": [
-      "connection",
-      "signal",
-      "wireless"
-    ]
+    name: "wifi-zero",
+    tags: ["connection", "signal", "wireless"],
   },
   {
-    "name": "wifi",
-    "tags": [
-      "connection",
-      "signal",
-      "wireless"
-    ]
+    name: "wifi",
+    tags: ["connection", "signal", "wireless"],
   },
   {
-    "name": "wind-arrow-down",
-    "tags": [
-      "weather",
-      "air",
-      "pressure",
-      "blow"
-    ]
+    name: "wind-arrow-down",
+    tags: ["weather", "air", "pressure", "blow"],
   },
   {
-    "name": "wind",
-    "tags": [
-      "weather",
-      "air",
-      "blow"
-    ]
+    name: "wind",
+    tags: ["weather", "air", "blow"],
   },
   {
-    "name": "wine-off",
-    "tags": [
+    name: "wine-off",
+    tags: [
       "alcohol",
       "beverage",
       "drink",
@@ -20895,25 +14197,16 @@ export const tags = [
       "abstaining",
       "teetotalism",
       "allergy",
-      "intolerance"
-    ]
+      "intolerance",
+    ],
   },
   {
-    "name": "wine",
-    "tags": [
-      "alcohol",
-      "beverage",
-      "bar",
-      "drink",
-      "glass",
-      "sommelier",
-      "vineyard",
-      "winery"
-    ]
+    name: "wine",
+    tags: ["alcohol", "beverage", "bar", "drink", "glass", "sommelier", "vineyard", "winery"],
   },
   {
-    "name": "workflow",
-    "tags": [
+    name: "workflow",
+    tags: [
       "action",
       "continuous integration",
       "ci",
@@ -20921,12 +14214,12 @@ export const tags = [
       "devops",
       "network",
       "node",
-      "connection"
-    ]
+      "connection",
+    ],
   },
   {
-    "name": "worm",
-    "tags": [
+    name: "worm",
+    tags: [
       "invertebrate",
       "grub",
       "larva",
@@ -20936,24 +14229,16 @@ export const tags = [
       "slither",
       "pest control",
       "computer virus",
-      "malware"
-    ]
+      "malware",
+    ],
   },
   {
-    "name": "wrench",
-    "tags": [
-      "account",
-      "settings",
-      "spanner",
-      "diy",
-      "toolbox",
-      "build",
-      "construction"
-    ]
+    name: "wrench",
+    tags: ["account", "settings", "spanner", "diy", "toolbox", "build", "construction"],
   },
   {
-    "name": "x-line-top",
-    "tags": [
+    name: "x-line-top",
+    tags: [
       "line",
       "top",
       "arrow",
@@ -20975,12 +14260,12 @@ export const tags = [
       "mean",
       "median",
       "average",
-      "x̄"
-    ]
+      "x̄",
+    ],
   },
   {
-    "name": "x",
-    "tags": [
+    name: "x",
+    tags: [
       "cancel",
       "close",
       "cross",
@@ -20991,32 +14276,20 @@ export const tags = [
       "clear",
       "math",
       "multiply",
-      "multiplication"
-    ]
+      "multiplication",
+    ],
   },
   {
-    "name": "zap-off",
-    "tags": [
-      "flash",
-      "camera",
-      "lightning",
-      "electricity",
-      "energy"
-    ]
+    name: "zap-off",
+    tags: ["flash", "camera", "lightning", "electricity", "energy"],
   },
   {
-    "name": "zap",
-    "tags": [
-      "flash",
-      "camera",
-      "lightning",
-      "electricity",
-      "energy"
-    ]
+    name: "zap",
+    tags: ["flash", "camera", "lightning", "electricity", "energy"],
   },
   {
-    "name": "zodiac-aquarius",
-    "tags": [
+    name: "zodiac-aquarius",
+    tags: [
       "water bearer",
       "waves",
       "innovation",
@@ -21026,12 +14299,12 @@ export const tags = [
       "star sign",
       "horoscope",
       "constellation",
-      "celestial"
-    ]
+      "celestial",
+    ],
   },
   {
-    "name": "zodiac-aries",
-    "tags": [
+    name: "zodiac-aries",
+    tags: [
       "ram",
       "horns",
       "fire",
@@ -21041,12 +14314,12 @@ export const tags = [
       "star sign",
       "horoscope",
       "constellation",
-      "celestial"
-    ]
+      "celestial",
+    ],
   },
   {
-    "name": "zodiac-cancer",
-    "tags": [
+    name: "zodiac-cancer",
+    tags: [
       "crab",
       "shell",
       "protection",
@@ -21056,12 +14329,12 @@ export const tags = [
       "star sign",
       "horoscope",
       "constellation",
-      "celestial"
-    ]
+      "celestial",
+    ],
   },
   {
-    "name": "zodiac-capricorn",
-    "tags": [
+    name: "zodiac-capricorn",
+    tags: [
       "goat",
       "mountain",
       "ambition",
@@ -21071,12 +14344,12 @@ export const tags = [
       "star sign",
       "horoscope",
       "constellation",
-      "celestial"
-    ]
+      "celestial",
+    ],
   },
   {
-    "name": "zodiac-gemini",
-    "tags": [
+    name: "zodiac-gemini",
+    tags: [
       "twins",
       "duality",
       "communication",
@@ -21086,12 +14359,12 @@ export const tags = [
       "star sign",
       "horoscope",
       "constellation",
-      "celestial"
-    ]
+      "celestial",
+    ],
   },
   {
-    "name": "zodiac-leo",
-    "tags": [
+    name: "zodiac-leo",
+    tags: [
       "lion",
       "crown",
       "leadership",
@@ -21101,12 +14374,12 @@ export const tags = [
       "star sign",
       "horoscope",
       "constellation",
-      "celestial"
-    ]
+      "celestial",
+    ],
   },
   {
-    "name": "zodiac-libra",
-    "tags": [
+    name: "zodiac-libra",
+    tags: [
       "scales",
       "balance",
       "justice",
@@ -21116,12 +14389,12 @@ export const tags = [
       "star sign",
       "horoscope",
       "constellation",
-      "celestial"
-    ]
+      "celestial",
+    ],
   },
   {
-    "name": "zodiac-ophiuchus",
-    "tags": [
+    name: "zodiac-ophiuchus",
+    tags: [
       "serpent",
       "snake holder",
       "healing",
@@ -21131,12 +14404,12 @@ export const tags = [
       "star sign",
       "horoscope",
       "constellation",
-      "celestial"
-    ]
+      "celestial",
+    ],
   },
   {
-    "name": "zodiac-pisces",
-    "tags": [
+    name: "zodiac-pisces",
+    tags: [
       "fish",
       "duality",
       "water",
@@ -21146,12 +14419,12 @@ export const tags = [
       "star sign",
       "horoscope",
       "constellation",
-      "celestial"
-    ]
+      "celestial",
+    ],
   },
   {
-    "name": "zodiac-sagittarius",
-    "tags": [
+    name: "zodiac-sagittarius",
+    tags: [
       "archer",
       "arrow",
       "exploration",
@@ -21161,12 +14434,12 @@ export const tags = [
       "star sign",
       "horoscope",
       "constellation",
-      "celestial"
-    ]
+      "celestial",
+    ],
   },
   {
-    "name": "zodiac-scorpio",
-    "tags": [
+    name: "zodiac-scorpio",
+    tags: [
       "scorpion",
       "stinger",
       "intensity",
@@ -21176,12 +14449,12 @@ export const tags = [
       "star sign",
       "horoscope",
       "constellation",
-      "celestial"
-    ]
+      "celestial",
+    ],
   },
   {
-    "name": "zodiac-taurus",
-    "tags": [
+    name: "zodiac-taurus",
+    tags: [
       "bull",
       "strength",
       "stability",
@@ -21191,12 +14464,12 @@ export const tags = [
       "star sign",
       "horoscope",
       "constellation",
-      "celestial"
-    ]
+      "celestial",
+    ],
   },
   {
-    "name": "zodiac-virgo",
-    "tags": [
+    name: "zodiac-virgo",
+    tags: [
       "virgin",
       "maiden",
       "harvest",
@@ -21207,21 +14480,15 @@ export const tags = [
       "star sign",
       "horoscope",
       "constellation",
-      "celestial"
-    ]
+      "celestial",
+    ],
   },
   {
-    "name": "zoom-in",
-    "tags": [
-      "magnifying glass",
-      "plus"
-    ]
+    name: "zoom-in",
+    tags: ["magnifying glass", "plus"],
   },
   {
-    "name": "zoom-out",
-    "tags": [
-      "magnifying glass",
-      "plus"
-    ]
-  }
+    name: "zoom-out",
+    tags: ["magnifying glass", "plus"],
+  },
 ];

@@ -161,7 +161,11 @@ void main () {
 
 function getBackgroundStack(element: HTMLElement): string[] {
   const colors: string[] = [];
-  for (let current: HTMLElement | null = element.parentElement; current; current = current.parentElement) {
+  for (
+    let current: HTMLElement | null = element.parentElement;
+    current;
+    current = current.parentElement
+  ) {
     const color = getComputedStyle(current).backgroundColor;
     if (color === "transparent" || /rgba\([^)]*,\s*0(?:\.0+)?\s*\)$/.test(color)) continue;
     colors.push(color);

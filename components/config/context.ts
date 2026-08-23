@@ -5,7 +5,7 @@ interface Point {
   x: number;
   y: number;
 }
-export function setAppContext(app: ComponentInternalInstance|null) {
+export function setAppContext(app: ComponentInternalInstance | null) {
   __appContext = app;
 }
 

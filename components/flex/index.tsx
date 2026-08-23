@@ -49,7 +49,11 @@ const Flex = defineComponent({
         style.gap = `${size}px`;
       }
 
-      return <div class={className} style={style}>{slots.default?.()}</div>;
+      return (
+        <div class={className} style={style}>
+          {slots.default?.()}
+        </div>
+      );
     };
   },
 });

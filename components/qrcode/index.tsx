@@ -15,7 +15,13 @@ import {
   type Ref,
 } from "vue";
 import { Button } from "../button";
-import type { BooleanType, QRCodeErrorLevel, QRCodeStatus, ShapeType, ThemeType } from "../const/types";
+import type {
+  BooleanType,
+  QRCodeErrorLevel,
+  QRCodeStatus,
+  ShapeType,
+  ThemeType,
+} from "../const/types";
 import zhCN from "../locale/zh-CN";
 import Spin from "../spin";
 const qrCodeProps = {
