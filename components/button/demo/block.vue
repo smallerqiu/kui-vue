@@ -1,5 +1,5 @@
 <template>
-  <Space vertical style="width:100%">
+  <Space vertical style="width: 100%">
     <Button type="primary" block>Primary</Button>
     <Button type="danger" block>Danger</Button>
     <Button block>Default</Button>

@@ -1,5 +1,5 @@
 <template>
-  <Space style="max-width:520px;" vertical block>
+  <Space style="max-width: 520px" vertical block>
     <code>step=10</code>
     <Slider
       :step="10"

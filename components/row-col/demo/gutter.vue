@@ -6,7 +6,7 @@
       <Col :span="12"><div>col-12</div></Col>
     </Row>
     <code>Horizontal Gutter (px):{{ h }}</code>
-    <div style="width:55%;padding:10px;">
+    <div style="width: 55%; padding: 10px">
       <Slider
         v-model="h"
         :min="8"
@@ -16,7 +16,7 @@
       />
     </div>
     <code>Vertical Gutter (px):{{ v }}</code>
-    <div style="width:55%;padding:10px;">
+    <div style="width: 55%; padding: 10px">
       <Slider
         v-model="v"
         :min="8"
@@ -26,7 +26,7 @@
       />
     </div>
     <code>Column Count:{{ cols }}</code>
-    <div style="width:55%;padding:10px;">
+    <div style="width: 55%; padding: 10px">
       <Slider
         v-model="cols"
         :min="2"

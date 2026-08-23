@@ -17,7 +17,7 @@
       :treeExpandedKeys="expandedKeys"
       multiple
       :maxTagCount="2"
-      style="width:100%"
+      style="width: 100%"
       filterable
       clearable
     />

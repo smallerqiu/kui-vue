@@ -1,10 +1,10 @@
 <template>
   <Space vertical>
-    <Card title="Card" :icon="Heart" style="width:256px">
+    <Card title="Card" :icon="Heart" style="width: 256px">
       <p>card content</p>
       <p>card content</p>
     </Card>
-    <Card title="Card" :icon="Heart" style="width:256px">
+    <Card title="Card" :icon="Heart" style="width: 256px">
       <p>card content</p>
       <p>card content</p>
     </Card>

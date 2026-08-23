@@ -11,8 +11,20 @@
       :total="50"
       @change="onChange"
     />
-    <Page v-model:page="page" v-model:pageSize="size" shape="circle" :total="50" @change="onChange" />
-    <Page v-model:page="page" v-model:pageSize="size" shape="square" :total="50" @change="onChange" />
+    <Page
+      v-model:page="page"
+      v-model:pageSize="size"
+      shape="circle"
+      :total="50"
+      @change="onChange"
+    />
+    <Page
+      v-model:page="page"
+      v-model:pageSize="size"
+      shape="square"
+      :total="50"
+      @change="onChange"
+    />
   </Space>
 </template>
 <script setup lang="ts">

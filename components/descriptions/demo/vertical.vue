@@ -4,6 +4,8 @@
     <DescriptionsItem label="Price">￥ 199.99</DescriptionsItem>
     <DescriptionsItem label="Name">Qiu</DescriptionsItem>
     <DescriptionsItem label="Phone">13888888888</DescriptionsItem>
-    <DescriptionsItem label="Shipping Address"> No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province </DescriptionsItem>
+    <DescriptionsItem label="Shipping Address">
+      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province
+    </DescriptionsItem>
   </Descriptions>
 </template>

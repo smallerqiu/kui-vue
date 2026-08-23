@@ -3,7 +3,9 @@
     <div class="skeleton-demo">
       <h4>KUI is a desktop UI component library based on Vue.js</h4>
       <p>
-        Dozens of useful and aesthetically pleasing components, a very user-friendly API suitable for developers of any skill level, comprehensive documentation, and support for Electron, SSR, Nuxt.js...
+        Dozens of useful and aesthetically pleasing components, a very user-friendly API suitable
+        for developers of any skill level, comprehensive documentation, and support for Electron,
+        SSR, Nuxt.js...
       </p>
     </div>
   </Skeleton>

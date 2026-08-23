@@ -2,11 +2,11 @@
   <Layout class="anchor-d1">
     <Row :gutter="24">
       <Col :span="18">
-        <section id="part-1" style="margin-bottom: 20px; ">
+        <section id="part-1" style="margin-bottom: 20px">
           <h2>Part 1：Basic</h2>
           <p>Here is the basic content...</p>
         </section>
-        <section id="part-2" style=" margin-bottom: 20px; ">
+        <section id="part-2" style="margin-bottom: 20px">
           <h2>Part 2：Guide</h2>
           <p>Here is the advanced content...</p>
         </section>

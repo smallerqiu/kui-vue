@@ -1,5 +1,5 @@
 <template>
-  <Flex style="width:300px" vertical align="center">
+  <Flex style="width: 300px" vertical align="center">
     <Space compact>
       <Popconfirm :title="title" placement="top-left">
         <Button>TL</Button>
@@ -11,7 +11,7 @@
         <Button>TR</Button>
       </Popconfirm>
     </Space>
-    <Flex justify="space-between" style="width:100%;padding:10px 0">
+    <Flex justify="space-between" style="width: 100%; padding: 10px 0">
       <Space vertical compact>
         <Popconfirm :title="title" placement="left-top">
           <Button>LT</Button>

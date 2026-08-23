@@ -6,7 +6,7 @@
         {{ color }}
       </Tag>
     </Space>
-    <h4 style="margin:16px 0">Custom:</h4>
+    <h4 style="margin: 16px 0">Custom:</h4>
     <Space>
       <Tag color="#c20">#c20</Tag>
       <Tag color="#39f">#39f</Tag>

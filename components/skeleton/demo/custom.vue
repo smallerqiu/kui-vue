@@ -3,13 +3,13 @@
   <br />
   <br />
   <Card v-for="x in 3" class="demo-skeleton-card" title="A Poem" :key="x">
-    <SkeletonImage animated :loading="loading" :radius="8" style="width:166px;height:100px;">
+    <SkeletonImage animated :loading="loading" :radius="8" style="width: 166px; height: 100px">
       <div class="cover" />
     </SkeletonImage>
-    <SkeletonText animated :loading="loading" size="small" style="min-width:80px;margin:8px 0;">
+    <SkeletonText animated :loading="loading" size="small" style="min-width: 80px; margin: 8px 0">
       <p>Tony Stack</p>
     </SkeletonText>
-    <SkeletonText animated :loading="loading" size="small" style="min-width:130px;">
+    <SkeletonText animated :loading="loading" size="small" style="min-width: 130px">
       <span>I am Iron Man.</span>
     </SkeletonText>
   </Card>

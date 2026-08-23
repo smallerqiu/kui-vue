@@ -48,7 +48,6 @@ const cards: Array<{ title: string; data: StatNumberItem }> = [
       value: 3268,
       separator: ",",
       desc: "当前数据",
-      trend: "更新于刚刚",
     },
   },
 ];

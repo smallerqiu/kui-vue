@@ -5,7 +5,7 @@
   <Progress type="circle" :percent="50">
     <template #format>
       <div class="demo-progress">
-        <h2 style="margin:0">13389</h2>
+        <h2 style="margin: 0">13389</h2>
         <span>Steps</span>
       </div>
     </template>

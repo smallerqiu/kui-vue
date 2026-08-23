@@ -1,5 +1,5 @@
 <template>
-  <Space style="height: 300px;" block class="demo-slider-vertical" :size="35">
+  <Space style="height: 300px" block class="demo-slider-vertical" :size="35">
     <Slider vertical :modelValue="35" size="small" />
     <Slider vertical reverse :modelValue="35" />
     <Slider vertical range :modelValue="[20, 60]" />
