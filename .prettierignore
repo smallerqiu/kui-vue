@@ -1,5 +1,67 @@
-dist
+# Dependencies
 node_modules
+.pnpm-store
+
+# Build output
+dist
+build
+lib
+es
+esm
+cjs
+output
+out
 coverage
+
+# Framework output
+.next
+.nuxt
+.output
+.vite
+.svelte-kit
+storybook-static
+
+# Test output
+playwright-report
+test-results
+
+# Cache
+.cache
+.temp
+.tmp
+.turbo
+.eslintcache
+*.tsbuildinfo
+
+# Generated files
+generated
+docs
+*.generated.*
 *.min.js
-*.lock
+*.min.css
+*.map
+
+# Package manager lockfiles
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+bun.lock
+bun.lockb
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE and OS
+.idea
+.vscode
+.DS_Store
+Thumbs.db
