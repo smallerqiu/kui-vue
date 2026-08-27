@@ -137,31 +137,31 @@ const columns = [
 
 ## TableColumnSetting API
 
-| Property     | Description                                      | Type     | Default         |
-| ------------ | ------------------------------------------------ | -------- | --------------- |
-| columns      | Column definitions shared with Table             | Column[] | []              |
-| hiddenKeys   | Hidden keys; supports `v-model:hidden-keys`      | string[] | []              |
-| disabledKeys | Essential columns excluded from the settings UI  | string[] | []              |
-| title        | Panel title and default trigger label             | string   | Column settings |
-| resetText    | Reset button label                                | string   | Reset           |
-| size         | Trigger and checkbox size                         | SizeType | -               |
-| showReset    | Whether to show the reset action                  | boolean  | true            |
+| Property     | Description                                     | Type     | Default         |
+| ------------ | ----------------------------------------------- | -------- | --------------- |
+| columns      | Column definitions shared with Table            | Column[] | []              |
+| hiddenKeys   | Hidden keys; supports `v-model:hidden-keys`     | string[] | []              |
+| disabledKeys | Essential columns excluded from the settings UI | string[] | []              |
+| title        | Panel title and default trigger label           | string   | Column settings |
+| resetText    | Reset button label                              | string   | Reset           |
+| size         | Trigger and checkbox size                       | SizeType | -               |
+| showReset    | Whether to show the reset action                | boolean  | true            |
 
 Slot: `default` customizes the trigger. Events: `update:hiddenKeys` and `change`, both carrying the latest hidden keys.
 
 ## Column API
 
-| Property | Description                                                        | Type                                               | Default |
-| -------- | ------------------------------------------------------------------ | -------------------------------------------------- | ------- |
-| title    | Header display text                                                | string                                             | -       |
-| key      | Corresponding column field name                                    | string                                             | -       |
-| fixed    | Column fixed direction                                             | 'left' \| 'right'                                  | -       |
-| sorter   | Sorting, when `true`, local sorting is enabled                     | boolean \| (state: SortState) => void              | -       |
-| width    | Column width                                                       | number                                             | -       |
-| rowSpan  | Row merge unit, when 0, the current row will not be rendered       | number                                             | -       |
-| colSpan  | Column merge unit, when 0, the current column will not be rendered | number                                             | -       |
-| render   | Custom rendering                                                   | (h, record, colIndex, rowIndex, col) => VNodeChild | -       |
-| scroll   | Scroll configuration; `x` is the minimum content width and `y` is the vertical viewport height | `{ x?: number \| string; y?: number \| string }` | - |
+| Property | Description                                                                                    | Type                                               | Default |
+| -------- | ---------------------------------------------------------------------------------------------- | -------------------------------------------------- | ------- |
+| title    | Header display text                                                                            | string                                             | -       |
+| key      | Corresponding column field name                                                                | string                                             | -       |
+| fixed    | Column fixed direction                                                                         | 'left' \| 'right'                                  | -       |
+| sorter   | Sorting, when `true`, local sorting is enabled                                                 | boolean \| (state: SortState) => void              | -       |
+| width    | Column width                                                                                   | number                                             | -       |
+| rowSpan  | Row merge unit, when 0, the current row will not be rendered                                   | number                                             | -       |
+| colSpan  | Column merge unit, when 0, the current column will not be rendered                             | number                                             | -       |
+| render   | Custom rendering                                                                               | (h, record, colIndex, rowIndex, col) => VNodeChild | -       |
+| scroll   | Scroll configuration; `x` is the minimum content width and `y` is the vertical viewport height | `{ x?: number \| string; y?: number \| string }`   | -       |
 
 ### Common appearance
 

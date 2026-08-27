@@ -48,12 +48,12 @@ import { ChevronDown, Search, Power } from "kui-icons";
     await transform.call(
       { addWatchFile } as unknown as TransformPluginContext,
       markdown,
-      markdownPath
+      markdownPath,
     );
 
     expect(addWatchFile).toHaveBeenCalledWith(path.resolve("components/transfer/demo/basic.vue"));
     expect(addWatchFile).toHaveBeenCalledWith(
-      path.resolve("components/transfer/demo/pagination.vue")
+      path.resolve("components/transfer/demo/pagination.vue"),
     );
   });
 
@@ -65,7 +65,7 @@ import { ChevronDown, Search, Power } from "kui-icons";
     const result = await transform.call(
       { addWatchFile: vi.fn() } as unknown as TransformPluginContext,
       fs.readFileSync(markdownPath, "utf-8"),
-      markdownPath
+      markdownPath,
     );
     const code = typeof result === "object" && result && "code" in result ? result.code : "";
     const ids = [...code.matchAll(/<Demo id="([^"]+)"/g)].map((match) => match[1]);
@@ -75,7 +75,7 @@ import { ChevronDown, Search, Power } from "kui-icons";
     expect(new Set(ids).size).toBe(ids.length);
     expect(versionKeys).toHaveLength(ids.length);
     expect(versionKeys.every(Boolean)).toBe(true);
-    expect(code).toMatch(/import KuiDemo0 from '.+\.vue\?kui-demo=[^']+';/);
+    expect(code).toMatch(/import KuiDemo0 from '.+\.vue';/);
   });
 
   it("invalidates the importing markdown module when a demo changes", async () => {
@@ -87,7 +87,7 @@ import { ChevronDown, Search, Power } from "kui-icons";
     await transform.call(
       { addWatchFile: vi.fn() } as unknown as TransformPluginContext,
       fs.readFileSync(markdownPath, "utf-8"),
-      markdownPath
+      markdownPath,
     );
 
     const markdownModule = { id: markdownPath } as ModuleNode;

@@ -50,7 +50,7 @@ axiosInstance.interceptors.request.use(
   (error) => {
     loading.finish();
     return Promise.reject(error);
-  }
+  },
 );
 
 // 响应拦截器
@@ -62,7 +62,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     loading.finish();
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosInstance;

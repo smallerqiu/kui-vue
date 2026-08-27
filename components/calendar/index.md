@@ -18,13 +18,13 @@
 
 ## API
 
-| 属性           | 说明                        | 类型                  | 默认值 |
-| -------------- | --------------------------- | --------------------- | ------ |
-| modelValue     | 选中日期，格式 `YYYY-MM-DD` | string                | -      |
-| events         | 日程数据                    | `CalendarEventData[]` | `[]`   |
+| 属性           | 说明                        | 类型                  | 默认值   |
+| -------------- | --------------------------- | --------------------- | -------- |
+| modelValue     | 选中日期，格式 `YYYY-MM-DD` | string                | -        |
+| events         | 日程数据                    | `CalendarEventData[]` | `[]`     |
 | firstDayOfWeek | 每周起始日，0 为周日        | number                | 根据语言 |
-| maxEvents      | 单日最多展示的事件数        | number                | 3      |
-| showToolbar    | 是否展示工具栏              | boolean               | true   |
+| maxEvents      | 单日最多展示的事件数        | number                | 3        |
+| showToolbar    | 是否展示工具栏              | boolean               | true     |
 | todayText      | 今日按钮文字                | string                | 根据语言 |
 | weekdays       | 星期名称，按周日至周六排列  | `string[]`            | 根据语言 |
 

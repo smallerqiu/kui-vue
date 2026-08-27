@@ -22,22 +22,22 @@ Provides a consistent layout for filters, result summaries, list content and pag
 
 ## API
 
-| Property | Description     | Type             | Default |
-| -------- | --------------- | ---------------- | ------- |
-| summary  | Result summary  | string \| number | -       |
-| bordered | Show border     | boolean          | false   |
-| theme    | Panel theme     | ThemeType        | outline |
-| shape    | Panel shape     | ShapeType        | round   |
-| size     | Panel size      | SizeType         | medium  |
-| selectedCount | Current selection count used to show bulk actions | number | 0 |
+| Property      | Description                                       | Type             | Default |
+| ------------- | ------------------------------------------------- | ---------------- | ------- |
+| summary       | Result summary                                    | string \| number | -       |
+| bordered      | Show border                                       | boolean          | false   |
+| theme         | Panel theme                                       | ThemeType        | outline |
+| shape         | Panel shape                                       | ShapeType        | round   |
+| size          | Panel size                                        | SizeType         | medium  |
+| selectedCount | Current selection count used to show bulk actions | number           | 0       |
 
 ## Slots
 
-| Name    | Description                         |
-| ------- | ----------------------------------- |
-| filters | Query controls                      |
-| summary | Custom result summary               |
-| actions | Toolbar actions                     |
+| Name      | Description                                  |
+| --------- | -------------------------------------------- |
+| filters   | Query controls                               |
+| summary   | Custom result summary                        |
+| actions   | Toolbar actions                              |
 | selection | Bulk action toolbar, scoped with `{ count }` |
-| default | Table, list or other primary content |
-| footer  | Pagination or footer actions        |
+| default   | Table, list or other primary content         |
+| footer    | Pagination or footer actions                 |

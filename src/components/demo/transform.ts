@@ -1,4 +1,4 @@
-import { compileScript, compileStyle, compileTemplate, parse } from "@vue/compiler-sfc";
+import { compileScript, compileStyleAsync, compileTemplate, parse } from "@vue/compiler-sfc";
 import dayjs from "dayjs";
 import "dayjs/locale/de";
 import "dayjs/locale/zh-cn";
@@ -8,8 +8,8 @@ import kuiLocaleDe from "kui-vue/locale/de";
 import kuiLocaleEn from "kui-vue/locale/en";
 import kuiLocaleZhCN from "kui-vue/locale/zh-CN";
 import { transform } from "sucrase";
-import * as Vue from "vue";
 import type { App, Component, Ref } from "vue";
+import * as Vue from "vue";
 
 const runtimeModules: Record<string, unknown> = {
   vue: Vue,
@@ -95,7 +95,7 @@ export async function parseCode({
         const { default: less } = await import("less");
         styleSource = (await less.render(styleSource, { filename: "App.vue" })).css;
       }
-      const compiledStyle = compileStyle({
+      const compiledStyle = await compileStyleAsync({
         source: styleSource,
         id: scopeId,
         scoped: s.scoped,
@@ -108,7 +108,7 @@ export async function parseCode({
     const moduleCode = `
       ${templateCode}
       ${scriptCode}
-      __sfc__.render = render;
+      __sfc__.render = require("vue").withScopeId("${scopeId}")(render);
       __sfc__.__scopeId = "${scopeId}";
       export default __sfc__;
     `;

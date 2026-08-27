@@ -116,7 +116,7 @@ const columns = [
 | loading              | 表格异步加载模式                                  | boolean                                                                      | false    |
 | data                 | 显示的结构化数据                                  | any[]                                                                        | []       |
 | columns              | 表格列的配置描述，                                | Column[]                                                                     | []       |
-| hiddenColumnKeys     | 隐藏的列 key 集合，支持分组列                    | string[]                                                                     | []       |
+| hiddenColumnKeys     | 隐藏的列 key 集合，支持分组列                     | string[]                                                                     | []       |
 | rowKey               | 勾选时的依据                                      | string                                                                       | key      |
 | childrenColumnName   | 子节点字段名                                      | string                                                                       | children |
 | expandedKeys         | 受控展开行 key 集合，支持 `v-model:expanded-keys` | (string \| number)[]                                                         | -        |
@@ -137,31 +137,31 @@ const columns = [
 
 ## TableColumnSetting API
 
-| 属性         | 说明                                           | 类型      | 默认值          |
-| ------------ | ---------------------------------------------- | --------- | --------------- |
-| columns      | 与 Table 共用的列配置                          | Column[]  | []              |
-| hiddenKeys   | 隐藏列 key，支持 `v-model:hidden-keys`         | string[]  | []              |
-| disabledKeys | 不允许在设置面板中切换的关键列                 | string[]  | []              |
-| title        | 面板标题及默认触发按钮文字                     | string    | Column settings |
-| resetText    | 重置按钮文字                                   | string    | Reset           |
-| size         | 触发按钮和选择项尺寸                           | SizeType  | -               |
-| showReset    | 是否显示重置按钮                               | boolean   | true            |
+| 属性         | 说明                                   | 类型     | 默认值          |
+| ------------ | -------------------------------------- | -------- | --------------- |
+| columns      | 与 Table 共用的列配置                  | Column[] | []              |
+| hiddenKeys   | 隐藏列 key，支持 `v-model:hidden-keys` | string[] | []              |
+| disabledKeys | 不允许在设置面板中切换的关键列         | string[] | []              |
+| title        | 面板标题及默认触发按钮文字             | string   | Column settings |
+| resetText    | 重置按钮文字                           | string   | Reset           |
+| size         | 触发按钮和选择项尺寸                   | SizeType | -               |
+| showReset    | 是否显示重置按钮                       | boolean  | true            |
 
 插槽：`default` 可自定义触发元素。事件：`update:hiddenKeys`、`change`，参数均为最新隐藏列 key。
 
 ## Column API
 
-| 属性    | 说明                             | 类型                                               | 默认值 |
-| ------- | -------------------------------- | -------------------------------------------------- | ------ |
-| title   | 列头显示文字                     | string                                             | -      |
-| key     | 对应列内容的字段名               | string                                             | -      |
-| fixed   | 列固定的方向                     | 'left' \| 'right'                                  | -      |
-| sorter  | 排序,为`true`时,本地排序         | boolean \| (state: SortState) => void              | -      |
-| width   | 列宽                             | number                                             | -      |
-| rowSpan | 行合并单位,为 0 时将不渲染当前行 | number                                             | -      |
-| colSpan | 列合并单位,为 0 时将不渲染当前列 | number                                             | -      |
-| render  | 自定义渲染                       | (h, record, colIndex, rowIndex, col) => VNodeChild | -      |
-| scroll  | 滚动配置；`x` 为内容最小宽度，`y` 为纵向区域高度 | `{ x?: number \| string; y?: number \| string }` | - |
+| 属性    | 说明                                             | 类型                                               | 默认值 |
+| ------- | ------------------------------------------------ | -------------------------------------------------- | ------ |
+| title   | 列头显示文字                                     | string                                             | -      |
+| key     | 对应列内容的字段名                               | string                                             | -      |
+| fixed   | 列固定的方向                                     | 'left' \| 'right'                                  | -      |
+| sorter  | 排序,为`true`时,本地排序                         | boolean \| (state: SortState) => void              | -      |
+| width   | 列宽                                             | number                                             | -      |
+| rowSpan | 行合并单位,为 0 时将不渲染当前行                 | number                                             | -      |
+| colSpan | 列合并单位,为 0 时将不渲染当前列                 | number                                             | -      |
+| render  | 自定义渲染                                       | (h, record, colIndex, rowIndex, col) => VNodeChild | -      |
+| scroll  | 滚动配置；`x` 为内容最小宽度，`y` 为纵向区域高度 | `{ x?: number \| string; y?: number \| string }`   | -      |
 
 ### 通用外观
 

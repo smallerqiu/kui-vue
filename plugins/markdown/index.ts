@@ -13,7 +13,7 @@ const escapeTemplateInterpolation = (code: string) =>
 const highlightSfc = (code: string) =>
   escapeTemplateInterpolation(hljs.highlight(code, { language: "html" }).value).replace(
     /\n/g,
-    "<br>"
+    "<br>",
   );
 
 export const toJavaScriptSfc = (source: string) =>
@@ -29,7 +29,7 @@ export const toJavaScriptSfc = (source: string) =>
         keepUnusedImports: true,
       }).code.trim();
       return `<script${attributes ? ` ${attributes}` : ""}>\n${output}\n</script>`;
-    }
+    },
   );
 
 export default function vitePluginKuiMd(): Plugin {
@@ -86,7 +86,7 @@ export default function vitePluginKuiMd(): Plugin {
           const normalizedPath = path.normalize(absolutePath);
           const demoCode = fs.readFileSync(absolutePath, "utf-8").trim();
           const demoVersion = hashId(demoCode);
-          const importSource = useDemo ? `${src}?kui-demo=${demoVersion}` : src;
+          const importSource = src;
           demoImports.push(`import ${componentName} from '${importSource}';`);
           if (!useDemo) return `<${componentName} />`;
 
@@ -112,7 +112,7 @@ export default function vitePluginKuiMd(): Plugin {
       ${renderedDescription.trim().replace(/\n/g, "<br>")}
     </template>
 </Demo>\n`;
-        }
+        },
       );
 
       // fs.writeFileSync(path.join(import.meta.dirname, "demo.md"), processedMarkdown);

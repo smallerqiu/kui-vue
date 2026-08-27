@@ -1,4 +1,3 @@
-Code snippet
 <template>
   <div class="demo-container">
     <h1 class="demo-title">Technical Specifications Matrix</h1>

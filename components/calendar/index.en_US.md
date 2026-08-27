@@ -18,15 +18,15 @@ A monthly calendar for dates and events.
 
 ## API
 
-| Property       | Description                          | Type                  | Default |
-| -------------- | ------------------------------------ | --------------------- | ------- |
-| modelValue     | Selected date in `YYYY-MM-DD` format | string                | -       |
-| events         | Calendar events                      | `CalendarEventData[]` | `[]`    |
-| firstDayOfWeek | First weekday, where 0 is Sunday     | number                | locale  |
-| maxEvents      | Maximum visible events per day       | number                | 3       |
-| showToolbar    | Show the calendar toolbar            | boolean               | true    |
-| todayText      | Today button text                    | string                | locale  |
-| weekdays       | Labels ordered from Sunday to Saturday | `string[]`          | locale  |
+| Property       | Description                            | Type                  | Default |
+| -------------- | -------------------------------------- | --------------------- | ------- |
+| modelValue     | Selected date in `YYYY-MM-DD` format   | string                | -       |
+| events         | Calendar events                        | `CalendarEventData[]` | `[]`    |
+| firstDayOfWeek | First weekday, where 0 is Sunday       | number                | locale  |
+| maxEvents      | Maximum visible events per day         | number                | 3       |
+| showToolbar    | Show the calendar toolbar              | boolean               | true    |
+| todayText      | Today button text                      | string                | locale  |
+| weekdays       | Labels ordered from Sunday to Saturday | `string[]`            | locale  |
 
 Calendar and DatePicker do not share internal state, but both read the same `ConfigProvider locale`. DatePicker selects dates or times; Calendar presents a month and its events, so they can be used together.
 

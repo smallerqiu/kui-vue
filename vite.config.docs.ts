@@ -26,7 +26,7 @@ export default defineConfig(({ command, mode }) => {
       vueMarkdown(),
       vueJsx(),
       vue({
-        include: [/\.vue$/, /\.md$/],
+        include: [/\.vue/, /\.md$/],
       }),
       banner(),
     ],

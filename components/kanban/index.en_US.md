@@ -31,7 +31,7 @@ Displays items grouped by status and supports drag-and-drop transitions.
 | draggable      | Enable drag and drop     | boolean            | true    |
 | emptyText      | Empty column description | string             | No data |
 | minColumnWidth | Minimum column width     | number \| string   | 250     |
-| theme          | Column appearance        | `fill \| outline` | fill    |
+| theme          | Column appearance        | `fill \| outline`  | fill    |
 
 ### KanbanColumnData
 
