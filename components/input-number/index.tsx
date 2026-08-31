@@ -25,6 +25,8 @@ const inputNumberProps = {
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
   controls: { type: Boolean as BooleanType, default: true },
+  /** 是否允许通过上下方向键调整数值，文档已声明但此前未实现 */
+  keyboard: { type: Boolean as BooleanType, default: true },
   suffix: String,
   prefix: String,
   theme: { type: String as PropType<ThemeType>, default: "fill" },
@@ -157,6 +159,7 @@ const InputNumber = defineComponent({
         "onUpdate:modelValue": handleInput,
         onBlur: handleBlur,
         onKeydown: (e: KeyboardEvent) => {
+          if (props.keyboard === false) return;
           if (e.key === "ArrowUp") {
             e.preventDefault();
             stepAction("up");

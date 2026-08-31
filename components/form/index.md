@@ -110,5 +110,6 @@ export default {
 | validator | 自定义校验方法，可参见示例                                                                                            | (rule: FormRule, value: any, callback: (error?: Error) => void) => void \| Promise\<void> | -      |
 | type      | 数据类型校验，提供三种校验方式 `mobile`手机， `mail`邮箱， `number`数字类型判断                                       | string                                                                                    | -      |
 | pattern   | 自定义正则校验，比喻密码强度包含数字，字母，特殊符号可以这么写 `/(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,20}/` | string                                                                                    | -      |
+| trigger   | 该规则的触发时机，未设置时默认在 `change` 时校验；手动调用 `validate` 或提交时不区分时机                              | change,blur 或其数组                                                                      | -      |
 | min       | 字段长度最小值校验                                                                                                    | number                                                                                    | -      |
 | max       | 字段长度最大值校验                                                                                                    | number                                                                                    | -      |

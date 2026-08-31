@@ -262,7 +262,7 @@ const Upload = defineComponent({
             item.xhr = undefined;
             triggerUpdate(item);
           } else {
-            handleError();
+            handleError(String(xhr.status));
           }
         }
       };
@@ -278,16 +278,20 @@ const Upload = defineComponent({
         }
       };
 
-      const handleError = () => {
+      const handleError = (detail?: string) => {
         if (settled) return;
         settled = true;
         item.status = "error";
+        // 失败时给出提示文案，否则界面上只有 error 状态而无任何原因
+        item.errorText = detail
+          ? `${locale.value?.k.upload.failed}: ${detail}`
+          : locale.value?.k.upload.failed;
         if (item.uid) delete uploadTemp[item.uid];
         item.xhr = undefined;
         triggerUpdate(item);
       };
 
-      xhr.onerror = handleError;
+      xhr.onerror = () => handleError();
       xhr.send(formdata);
     };
 

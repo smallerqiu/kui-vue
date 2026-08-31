@@ -28,7 +28,7 @@
 
 - When spacing is horizontal, use `wrap` to control whether items wrap automatically. The default is `false`.
 
-## Space API
+## Flex API
 
 | Property | Description                                    | Type                                                                      | Default |
 | -------- | ---------------------------------------------- | ------------------------------------------------------------------------- | ------- |
