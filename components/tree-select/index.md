@@ -50,7 +50,7 @@
 | disabled          | 是否禁用当前项                                             | boolean                           | false       |
 | size              | 组件尺寸大小,提供`small`、`large`两种尺寸，默认为正常      | string                            | -           |
 | placement         | 下拉菜单弹出位置                                           | string                            | bottom-left |
-| emptyText         | 没有数据时展示的提示                                       | string                            | '赞无数据'  |
+| emptyText         | 没有数据时展示的提示                                       | string                            | '暂无数据'  |
 | multiple          | 是否呈现多选模式                                           | boolean                           | false       |
 | block             | 是否占满父容器宽度                                         | boolean                           | false       |
 | maxTagCount       | 多选时最多展示的标签数量，超出部分通过 Tooltip 展示        | number                            | -           |

@@ -112,7 +112,7 @@ const columns = [
 | selectedKeys         | 勾选的key集合                                     | (string \| number)[]                                                         | -        |
 | disabledKeys         | 禁用的key集合                                     | (string \| number)[]                                                         | -        |
 | size                 | 值为`small`时展示紧凑模式                         | string                                                                       | -        |
-| emptyText            | 没有数据时展示的提示                              | string                                                                       | 赞无数据 |
+| emptyText            | 没有数据时展示的提示                              | string                                                                       | 暂无数据 |
 | loading              | 表格异步加载模式                                  | boolean                                                                      | false    |
 | data                 | 显示的结构化数据                                  | any[]                                                                        | []       |
 | columns              | 表格列的配置描述，                                | Column[]                                                                     | []       |

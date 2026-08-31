@@ -45,7 +45,7 @@
 | icon          | 自定义图标                                                                             | string               | -           |
 | shape         | shape='circle' 时呈现圆角                                                              | string               | -           |
 | placement     | 下拉展示的方位                                                                         | string               | -           |
-| emptyText     | 没有数据时展示的提示                                                                   | string               | '赞无数据'  |
+| emptyText     | 没有数据时展示的提示                                                                   | string               | '暂无数据'  |
 | arrowIcon     | 自定义箭头图标                                                                         | string               | -           |
 
 ## CascaderOption
