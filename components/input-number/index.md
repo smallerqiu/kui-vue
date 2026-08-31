@@ -46,4 +46,5 @@
 | theme       | 组件呈现主题                                               | string                              | fill      |
 | icon        | 自定义增减按钮图标                                         | IconType[]                          | -         |
 | placeholder | 输入框占位提示                                             | string                              | -         |
+| keyboard    | 是否允许键盘控制                                           | boolean                             | true      |
 | onChange    | 变化回调                                                   | (value: number) => void             | -         |

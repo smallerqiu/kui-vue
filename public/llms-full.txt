@@ -655,20 +655,20 @@ Vue.use(Button);
 
 ## API
 
-| Property | Description                                                                                          | Type                                        | Default |
-| -------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------- | ------- |
-| type     | Set the button type                                                                                  | 'primary' \| 'link' \| 'dashed' \| 'danger' | -       |
-| htmlType | Set the native type value of the button                                                              | string                                      | button  |
-| disabled | Disabled state of the button                                                                         | boolean                                     | false   |
-| size     | Button size,                                                                                         | 'small' \| 'large'                          | -       |
-| color    | Preset semantic color                                                                                | ColorType                                   | -       |
-| shape    | When shape=circle, presents a circular button                                                        | boolean                                     | false   |
+| Property | Description                                                                                          | Type                                                  | Default |
+| -------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ------- |
+| type     | Set the button type                                                                                  | 'primary' \| 'link' \| 'dashed' \| 'danger'           | -       |
+| htmlType | Set the native type value of the button                                                              | string                                                | button  |
+| disabled | Disabled state of the button                                                                         | boolean                                               | false   |
+| size     | Button size,                                                                                         | 'small' \| 'large'                                    | -       |
+| color    | Preset semantic color                                                                                | ColorType                                             | -       |
+| shape    | When shape=circle, presents a circular button                                                        | boolean                                               | false   |
 | theme    | Button theme                                                                                         | 'solid' \| 'fill' \| 'outline' \| 'dashed' \| 'plain' | -       |
-| icon     | Button icon                                                                                          | string                                      | -       |
-| loading  | Whether the button is in loading mode                                                                | boolean                                     | false   |
-| href     | The address to jump to when clicked. Specifying this property makes the button behave like an a link | string                                      | -       |
-| target   | Equivalent to the target attribute of an a link, takes effect when href exists                       | string                                      | -       |
-| block    | Option to fit button width to its parent width                                                       | boolean                                     | false   |
+| icon     | Button icon                                                                                          | string                                                | -       |
+| loading  | Whether the button is in loading mode                                                                | boolean                                               | false   |
+| href     | The address to jump to when clicked. Specifying this property makes the button behave like an a link | string                                                | -       |
+| target   | Equivalent to the target attribute of an a link, takes effect when href exists                       | string                                                | -       |
+| block    | Option to fit button width to its parent width                                                       | boolean                                               | false   |
 
 ---
 
@@ -727,20 +727,20 @@ Vue.use(Button);
 
 ## API
 
-| Property | Description                                                                                          | Type                                        | Default |
-| -------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------- | ------- |
-| type     | Set the button type                                                                                  | 'primary' \| 'link' \| 'dashed' \| 'danger' | -       |
-| htmlType | Set the native type value of the button                                                              | string                                      | button  |
-| disabled | Disabled state of the button                                                                         | boolean                                     | false   |
-| size     | Button size,                                                                                         | 'small' \| 'large'                          | -       |
-| color    | Preset semantic color                                                                                | ColorType                                   | -       |
-| shape    | When shape=circle, presents a circular button                                                        | boolean                                     | false   |
+| Property | Description                                                                                          | Type                                                  | Default |
+| -------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ------- |
+| type     | Set the button type                                                                                  | 'primary' \| 'link' \| 'dashed' \| 'danger'           | -       |
+| htmlType | Set the native type value of the button                                                              | string                                                | button  |
+| disabled | Disabled state of the button                                                                         | boolean                                               | false   |
+| size     | Button size,                                                                                         | 'small' \| 'large'                                    | -       |
+| color    | Preset semantic color                                                                                | ColorType                                             | -       |
+| shape    | When shape=circle, presents a circular button                                                        | boolean                                               | false   |
 | theme    | Button theme                                                                                         | 'solid' \| 'fill' \| 'outline' \| 'dashed' \| 'plain' | -       |
-| icon     | Button icon                                                                                          | string                                      | -       |
-| loading  | Whether the button is in loading mode                                                                | boolean                                     | false   |
-| href     | The address to jump to when clicked. Specifying this property makes the button behave like an a link | string                                      | -       |
-| target   | Equivalent to the target attribute of an a link, takes effect when href exists                       | string                                      | -       |
-| block    | Option to fit button width to its parent width                                                       | boolean                                     | false   |
+| icon     | Button icon                                                                                          | string                                                | -       |
+| loading  | Whether the button is in loading mode                                                                | boolean                                               | false   |
+| href     | The address to jump to when clicked. Specifying this property makes the button behave like an a link | string                                                | -       |
+| target   | Equivalent to the target attribute of an a link, takes effect when href exists                       | string                                                | -       |
+| block    | Option to fit button width to its parent width                                                       | boolean                                               | false   |
 
 ---
 
@@ -941,15 +941,15 @@ A monthly calendar for dates and events.
 
 ## API
 
-| Property       | Description                          | Type                  | Default |
-| -------------- | ------------------------------------ | --------------------- | ------- |
-| modelValue     | Selected date in `YYYY-MM-DD` format | string                | -       |
-| events         | Calendar events                      | `CalendarEventData[]` | `[]`    |
-| firstDayOfWeek | First weekday, where 0 is Sunday     | number                | locale  |
-| maxEvents      | Maximum visible events per day       | number                | 3       |
-| showToolbar    | Show the calendar toolbar            | boolean               | true    |
-| todayText      | Today button text                    | string                | locale  |
-| weekdays       | Labels ordered from Sunday to Saturday | `string[]`          | locale  |
+| Property       | Description                            | Type                  | Default |
+| -------------- | -------------------------------------- | --------------------- | ------- |
+| modelValue     | Selected date in `YYYY-MM-DD` format   | string                | -       |
+| events         | Calendar events                        | `CalendarEventData[]` | `[]`    |
+| firstDayOfWeek | First weekday, where 0 is Sunday       | number                | locale  |
+| maxEvents      | Maximum visible events per day         | number                | 3       |
+| showToolbar    | Show the calendar toolbar              | boolean               | true    |
+| todayText      | Today button text                      | string                | locale  |
+| weekdays       | Labels ordered from Sunday to Saturday | `string[]`            | locale  |
 
 Calendar and DatePicker do not share internal state, but both read the same `ConfigProvider locale`. DatePicker selects dates or times; Calendar presents a month and its events, so they can be used together.
 
@@ -1008,25 +1008,25 @@ Used to present product features, navigation entries, or capability descriptions
 
 ## API
 
-| Property | Description            | Type      | Default |
-| -------- | ---------------------- | --------- | ------- |
-| icon     | Icon                   | IconType  | -       |
-| title    | Title                  | string    | -       |
-| desc     | Description            | string    | -       |
-| bordered | Whether to show border | boolean   | false   |
-| theme    | Appearance theme       | ThemeType | fill    |
-| shape    | Card shape             | ShapeType | round   |
-| size     | Card size              | SizeType  | medium  |
-| direction | Content direction     | `horizontal \| vertical` | horizontal |
-| clickable | Enable interaction and keyboard semantics | boolean | false |
-| disabled | Disable interaction    | boolean | false |
-| color    | Icon accent color      | string | primary |
-| iconBackground | Icon container background; derived from `color` when omitted | string | auto |
+| Property       | Description                                                  | Type                     | Default    |
+| -------------- | ------------------------------------------------------------ | ------------------------ | ---------- |
+| icon           | Icon                                                         | IconType                 | -          |
+| title          | Title                                                        | string                   | -          |
+| desc           | Description                                                  | string                   | -          |
+| bordered       | Whether to show border                                       | boolean                  | false      |
+| theme          | Appearance theme                                             | ThemeType                | fill       |
+| shape          | Card shape                                                   | ShapeType                | round      |
+| size           | Card size                                                    | SizeType                 | medium     |
+| direction      | Content direction                                            | `horizontal \| vertical` | horizontal |
+| clickable      | Enable interaction and keyboard semantics                    | boolean                  | false      |
+| disabled       | Disable interaction                                          | boolean                  | false      |
+| color          | Icon accent color                                            | string                   | primary    |
+| iconBackground | Icon container background; derived from `color` when omitted | string                   | auto       |
 
 ## Events
 
-| Event | Description          | Callback                    |
-| ----- | -------------------- | --------------------------- |
+| Event | Description          | Callback                      |
+| ----- | -------------------- | ----------------------------- |
 | click | Emitted when clicked | `(event: MouseEvent) => void` |
 
 ## Slots
@@ -1110,25 +1110,25 @@ Provides a consistent layout for filters, result summaries, list content and pag
 
 ## API
 
-| Property | Description     | Type             | Default |
-| -------- | --------------- | ---------------- | ------- |
-| summary  | Result summary  | string \| number | -       |
-| bordered | Show border     | boolean          | false   |
-| theme    | Panel theme     | ThemeType        | outline |
-| shape    | Panel shape     | ShapeType        | round   |
-| size     | Panel size      | SizeType         | medium  |
-| selectedCount | Current selection count used to show bulk actions | number | 0 |
+| Property      | Description                                       | Type             | Default |
+| ------------- | ------------------------------------------------- | ---------------- | ------- |
+| summary       | Result summary                                    | string \| number | -       |
+| bordered      | Show border                                       | boolean          | false   |
+| theme         | Panel theme                                       | ThemeType        | outline |
+| shape         | Panel shape                                       | ShapeType        | round   |
+| size          | Panel size                                        | SizeType         | medium  |
+| selectedCount | Current selection count used to show bulk actions | number           | 0       |
 
 ## Slots
 
-| Name    | Description                         |
-| ------- | ----------------------------------- |
-| filters | Query controls                      |
-| summary | Custom result summary               |
-| actions | Toolbar actions                     |
+| Name      | Description                                  |
+| --------- | -------------------------------------------- |
+| filters   | Query controls                               |
+| summary   | Custom result summary                        |
+| actions   | Toolbar actions                              |
 | selection | Bulk action toolbar, scoped with `{ count }` |
-| default | Table, list or other primary content |
-| footer  | Pagination or footer actions        |
+| default   | Table, list or other primary content         |
+| footer    | Pagination or footer actions                 |
 
 ---
 
@@ -2144,6 +2144,7 @@ export default {
 | validator | Custom validation method, see example                                                                                                                                                          | (rule: FormRule, value: any, callback: (error?: Error) => void) => void \| Promise\<void> | -       |
 | type      | Data type validation. Provides three validation methods: `mobile` (phone), `mail` (email), `number` (numeric type judgment)                                                                    | string                                                                                    | -       |
 | pattern   | Custom regular expression validation. For example, password strength containing numbers, letters, and special symbols can be written as `/(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,20}/` | string                                                                                    | -       |
+| trigger   | When this rule runs. Defaults to `change` when unset; `validate` calls and submits ignore the trigger                                                                                           | change, blur or an array of them                                                          | -       |
 | min       | Minimum field length validation                                                                                                                                                                | number                                                                                    | -       |
 | max       | Maximum field length validation                                                                                                                                                                | number                                                                                    | -       |
 
@@ -2261,6 +2262,7 @@ export default {
 | validator | Custom validation method, see example                                                                                                                                                          | (rule: FormRule, value: any, callback: (error?: Error) => void) => void \| Promise\<void> | -       |
 | type      | Data type validation. Provides three validation methods: `mobile` (phone), `mail` (email), `number` (numeric type judgment)                                                                    | string                                                                                    | -       |
 | pattern   | Custom regular expression validation. For example, password strength containing numbers, letters, and special symbols can be written as `/(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]).{6,20}/` | string                                                                                    | -       |
+| trigger   | When this rule runs. Defaults to `change` when unset; `validate` calls and submits ignore the trigger                                                                                           | change, blur or an array of them                                                          | -       |
 | min       | Minimum field length validation                                                                                                                                                                | number                                                                                    | -       |
 | max       | Maximum field length validation                                                                                                                                                                | number                                                                                    | -       |
 
@@ -2296,7 +2298,7 @@ export default {
 
 - When spacing is horizontal, use `wrap` to control whether items wrap automatically. The default is `false`.
 
-## Space API
+## Flex API
 
 | Property | Description                                    | Type                                                                      | Default |
 | -------- | ---------------------------------------------- | ------------------------------------------------------------------------- | ------- |
@@ -3128,6 +3130,7 @@ When standard numerical values need to be obtained.
 | theme       | The component renders the theme                                             | string                              | fill      |
 | icon        | Custom increment/decrement icons                                            | IconType[]                          | -         |
 | placeholder | Input placeholder                                                           | string                              | -         |
+| keyboard    | Allow keyboard control                                                      | boolean                             | true      |
 | onChange    | Change callback                                                             | (value: number) => void             | -         |
 
 ---
@@ -4322,34 +4325,35 @@ Presents the outcome of an operation or task.
 
 [Success](./demo/basic.vue?show=vertical)
 
-- 成功的结果。
+- Display successful result feedback.
 
 [Info](./demo/info.vue?show=vertical)
 
-- 展示处理结果。
-  [Warning](./demo/warning.vue?show=vertical)
+- Display information result page.
 
-- 警告类型的结果。
+[Warning](./demo/warning.vue?show=vertical)
+
+- Display warning result information.
 
 [Error](./demo/error.vue?show=vertical)
 
-- 错误反馈。
+- Display error operation result.
 
-[自定义](./demo/custom.vue?show=vertical)
+[Custom](./demo/custom.vue?show=vertical)
 
-- 自定义展示
+- Customize result page content and actions.
 
 [404](./demo/404.vue?show=vertical)
 
-- 此页面未找到。
+- Page not found error page.
 
 [403](./demo/403.vue?show=vertical)
 
-- 你没有此页面的访问权限。
+- Permission denied error page.
 
 [500](./demo/500.vue?show=vertical)
 
-- 服务器发生了错误。
+- Server error page.
 
 ## API
 
@@ -5381,31 +5385,31 @@ const columns = [
 
 ## TableColumnSetting API
 
-| Property     | Description                                      | Type     | Default         |
-| ------------ | ------------------------------------------------ | -------- | --------------- |
-| columns      | Column definitions shared with Table             | Column[] | []              |
-| hiddenKeys   | Hidden keys; supports `v-model:hidden-keys`      | string[] | []              |
-| disabledKeys | Essential columns excluded from the settings UI  | string[] | []              |
-| title        | Panel title and default trigger label             | string   | Column settings |
-| resetText    | Reset button label                                | string   | Reset           |
-| size         | Trigger and checkbox size                         | SizeType | -               |
-| showReset    | Whether to show the reset action                  | boolean  | true            |
+| Property     | Description                                     | Type     | Default         |
+| ------------ | ----------------------------------------------- | -------- | --------------- |
+| columns      | Column definitions shared with Table            | Column[] | []              |
+| hiddenKeys   | Hidden keys; supports `v-model:hidden-keys`     | string[] | []              |
+| disabledKeys | Essential columns excluded from the settings UI | string[] | []              |
+| title        | Panel title and default trigger label           | string   | Column settings |
+| resetText    | Reset button label                              | string   | Reset           |
+| size         | Trigger and checkbox size                       | SizeType | -               |
+| showReset    | Whether to show the reset action                | boolean  | true            |
 
 Slot: `default` customizes the trigger. Events: `update:hiddenKeys` and `change`, both carrying the latest hidden keys.
 
 ## Column API
 
-| Property | Description                                                        | Type                                               | Default |
-| -------- | ------------------------------------------------------------------ | -------------------------------------------------- | ------- |
-| title    | Header display text                                                | string                                             | -       |
-| key      | Corresponding column field name                                    | string                                             | -       |
-| fixed    | Column fixed direction                                             | 'left' \| 'right'                                  | -       |
-| sorter   | Sorting, when `true`, local sorting is enabled                     | boolean \| (state: SortState) => void              | -       |
-| width    | Column width                                                       | number                                             | -       |
-| rowSpan  | Row merge unit, when 0, the current row will not be rendered       | number                                             | -       |
-| colSpan  | Column merge unit, when 0, the current column will not be rendered | number                                             | -       |
-| render   | Custom rendering                                                   | (h, record, colIndex, rowIndex, col) => VNodeChild | -       |
-| scroll   | Scroll configuration; `x` is the minimum content width and `y` is the vertical viewport height | `{ x?: number \| string; y?: number \| string }` | - |
+| Property | Description                                                                                    | Type                                               | Default |
+| -------- | ---------------------------------------------------------------------------------------------- | -------------------------------------------------- | ------- |
+| title    | Header display text                                                                            | string                                             | -       |
+| key      | Corresponding column field name                                                                | string                                             | -       |
+| fixed    | Column fixed direction                                                                         | 'left' \| 'right'                                  | -       |
+| sorter   | Sorting, when `true`, local sorting is enabled                                                 | boolean \| (state: SortState) => void              | -       |
+| width    | Column width                                                                                   | number                                             | -       |
+| rowSpan  | Row merge unit, when 0, the current row will not be rendered                                   | number                                             | -       |
+| colSpan  | Column merge unit, when 0, the current column will not be rendered                             | number                                             | -       |
+| render   | Custom rendering                                                                               | (h, record, colIndex, rowIndex, col) => VNodeChild | -       |
+| scroll   | Scroll configuration; `x` is the minimum content width and `y` is the vertical viewport height | `{ x?: number \| string; y?: number \| string }`   | -       |
 
 ### Common appearance
 
@@ -5554,31 +5558,31 @@ const columns = [
 
 ## TableColumnSetting API
 
-| Property     | Description                                      | Type     | Default         |
-| ------------ | ------------------------------------------------ | -------- | --------------- |
-| columns      | Column definitions shared with Table             | Column[] | []              |
-| hiddenKeys   | Hidden keys; supports `v-model:hidden-keys`      | string[] | []              |
-| disabledKeys | Essential columns excluded from the settings UI  | string[] | []              |
-| title        | Panel title and default trigger label             | string   | Column settings |
-| resetText    | Reset button label                                | string   | Reset           |
-| size         | Trigger and checkbox size                         | SizeType | -               |
-| showReset    | Whether to show the reset action                  | boolean  | true            |
+| Property     | Description                                     | Type     | Default         |
+| ------------ | ----------------------------------------------- | -------- | --------------- |
+| columns      | Column definitions shared with Table            | Column[] | []              |
+| hiddenKeys   | Hidden keys; supports `v-model:hidden-keys`     | string[] | []              |
+| disabledKeys | Essential columns excluded from the settings UI | string[] | []              |
+| title        | Panel title and default trigger label           | string   | Column settings |
+| resetText    | Reset button label                              | string   | Reset           |
+| size         | Trigger and checkbox size                       | SizeType | -               |
+| showReset    | Whether to show the reset action                | boolean  | true            |
 
 Slot: `default` customizes the trigger. Events: `update:hiddenKeys` and `change`, both carrying the latest hidden keys.
 
 ## Column API
 
-| Property | Description                                                        | Type                                               | Default |
-| -------- | ------------------------------------------------------------------ | -------------------------------------------------- | ------- |
-| title    | Header display text                                                | string                                             | -       |
-| key      | Corresponding column field name                                    | string                                             | -       |
-| fixed    | Column fixed direction                                             | 'left' \| 'right'                                  | -       |
-| sorter   | Sorting, when `true`, local sorting is enabled                     | boolean \| (state: SortState) => void              | -       |
-| width    | Column width                                                       | number                                             | -       |
-| rowSpan  | Row merge unit, when 0, the current row will not be rendered       | number                                             | -       |
-| colSpan  | Column merge unit, when 0, the current column will not be rendered | number                                             | -       |
-| render   | Custom rendering                                                   | (h, record, colIndex, rowIndex, col) => VNodeChild | -       |
-| scroll   | Scroll configuration; `x` is the minimum content width and `y` is the vertical viewport height | `{ x?: number \| string; y?: number \| string }` | - |
+| Property | Description                                                                                    | Type                                               | Default |
+| -------- | ---------------------------------------------------------------------------------------------- | -------------------------------------------------- | ------- |
+| title    | Header display text                                                                            | string                                             | -       |
+| key      | Corresponding column field name                                                                | string                                             | -       |
+| fixed    | Column fixed direction                                                                         | 'left' \| 'right'                                  | -       |
+| sorter   | Sorting, when `true`, local sorting is enabled                                                 | boolean \| (state: SortState) => void              | -       |
+| width    | Column width                                                                                   | number                                             | -       |
+| rowSpan  | Row merge unit, when 0, the current row will not be rendered                                   | number                                             | -       |
+| colSpan  | Column merge unit, when 0, the current column will not be rendered                             | number                                             | -       |
+| render   | Custom rendering                                                                               | (h, record, colIndex, rowIndex, col) => VNodeChild | -       |
+| scroll   | Scroll configuration; `x` is the minimum content width and `y` is the vertical viewport height | `{ x?: number \| string; y?: number \| string }`   | -       |
 
 ### Common appearance
 
@@ -5621,7 +5625,7 @@ Displays items grouped by status and supports drag-and-drop transitions.
 | draggable      | Enable drag and drop     | boolean            | true    |
 | emptyText      | Empty column description | string             | No data |
 | minColumnWidth | Minimum column width     | number \| string   | 250     |
-| theme          | Column appearance        | `fill \| outline` | fill    |
+| theme          | Column appearance        | `fill \| outline`  | fill    |
 
 ### KanbanColumnData
 

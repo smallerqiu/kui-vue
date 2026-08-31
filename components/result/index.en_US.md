@@ -6,34 +6,35 @@ Presents the outcome of an operation or task.
 
 [Success](./demo/basic.vue?show=vertical)
 
-- 成功的结果。
+- Display successful result feedback.
 
 [Info](./demo/info.vue?show=vertical)
 
-- 展示处理结果。
-  [Warning](./demo/warning.vue?show=vertical)
+- Display information result page.
 
-- 警告类型的结果。
+[Warning](./demo/warning.vue?show=vertical)
+
+- Display warning result information.
 
 [Error](./demo/error.vue?show=vertical)
 
-- 错误反馈。
+- Display error operation result.
 
-[自定义](./demo/custom.vue?show=vertical)
+[Custom](./demo/custom.vue?show=vertical)
 
-- 自定义展示
+- Customize result page content and actions.
 
 [404](./demo/404.vue?show=vertical)
 
-- 此页面未找到。
+- Page not found error page.
 
 [403](./demo/403.vue?show=vertical)
 
-- 你没有此页面的访问权限。
+- Permission denied error page.
 
 [500](./demo/500.vue?show=vertical)
 
-- 服务器发生了错误。
+- Server error page.
 
 ## API
 

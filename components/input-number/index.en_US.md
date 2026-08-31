@@ -46,4 +46,5 @@ When standard numerical values need to be obtained.
 | theme       | The component renders the theme                                             | string                              | fill      |
 | icon        | Custom increment/decrement icons                                            | IconType[]                          | -         |
 | placeholder | Input placeholder                                                           | string                              | -         |
+| keyboard    | Allow keyboard control                                                      | boolean                             | true      |
 | onChange    | Change callback                                                             | (value: number) => void             | -         |

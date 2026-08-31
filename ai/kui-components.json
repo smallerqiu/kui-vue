@@ -6463,6 +6463,15 @@
           "documented": true
         },
         {
+          "name": "keyboard",
+          "description": "Allow keyboard control",
+          "descriptionZh": "是否允许键盘控制",
+          "descriptionEn": "Allow keyboard control",
+          "type": "boolean",
+          "boolean": true,
+          "documented": true
+        },
+        {
           "name": "onChange",
           "description": "Change callback",
           "descriptionZh": "变化回调",
