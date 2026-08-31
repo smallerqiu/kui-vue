@@ -20,7 +20,7 @@ import { Col, Row } from "../row-col";
 import { getChildren } from "../utils/vnode";
 
 import type { DirectionType, ShapeType, ThemeType } from "../const/types";
-import type { ColProps, FormRule } from "./types";
+import type { ColProps, FormRule, FormValidateTrigger } from "./types";
 
 interface FormContext {
   getValueFromProp?: (prop: string | undefined) => unknown;
@@ -43,8 +43,18 @@ interface FormItemRegistration {
   prop?: string;
   rules?: FormRule | FormRule[];
   valid: boolean;
-  validate: (rules: FormRule | FormRule[]) => Promise<boolean>;
+  validate: (rules: FormRule | FormRule[], trigger?: FormValidateTrigger) => Promise<boolean>;
 }
+
+/**
+ * 判断某条规则是否应该在指定时机触发。
+ * 未设置 `trigger` 时默认在 `change` 时校验，以兼容历史行为。
+ */
+const matchesTrigger = (rule: FormRule, trigger: FormValidateTrigger) => {
+  if (!rule.trigger) return trigger === "change";
+  const triggers = Array.isArray(rule.trigger) ? rule.trigger : [rule.trigger];
+  return triggers.includes(trigger);
+};
 
 const formItemProps = {
   label: String,
@@ -95,11 +105,11 @@ const FormItem = defineComponent({
             isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/.test(
               String(itemValue ?? "")
             );
-            msg = msg || locale.value?.k.form.email;
+            if (!isValid) msg = msg || locale.value?.k.form.email;
             break;
           case "mobile":
             isValid = /^[1][3-9][0-9]{9}$/.test(String(itemValue ?? ""));
-            msg = msg || locale.value.k.form.phone;
+            if (!isValid) msg = msg || locale.value.k.form.phone;
             break;
           case "number":
             isValid = /^(-?\d+)(\.\d+)?$/.test(String(itemValue ?? ""));
@@ -113,34 +123,11 @@ const FormItem = defineComponent({
                 msg = msg || locale.value.k.form.num_max.replace("{max}", String(rule.max));
               }
             }
-            msg = msg || locale.value?.k.form.number;
+            if (!isValid) msg = msg || locale.value?.k.form.number;
             break;
           default:
             break;
         }
-      } else if (typeof rule.validator === "function") {
-        const error = await new Promise<Error | undefined>((resolve) => {
-          let settled = false;
-          const done = (error?: Error) => {
-            if (settled) return;
-            settled = true;
-            resolve(error);
-          };
-          try {
-            const result = rule.validator?.(rule, itemValue, done);
-            if (result && typeof result.then === "function") {
-              result
-                .then(() => done())
-                .catch((error) => {
-                  done(error instanceof Error ? error : new Error(String(error)));
-                });
-            }
-          } catch (error) {
-            done(error instanceof Error ? error : new Error(String(error)));
-          }
-        });
-        isValid = error === undefined;
-        if (error) msg = error.message;
       } else if (rule.min !== undefined || rule.max !== undefined) {
         const empty =
           itemValue === null ||
@@ -169,22 +156,50 @@ const FormItem = defineComponent({
             isValid = itemValue <= rule.max;
           }
         }
-        msg = msg || "Incorrect length";
+        if (!isValid) msg = msg || "Incorrect length";
       }
-      return { valid: isValid, message: msg };
+
+      // validator 独立于其他校验执行，仅在前面的校验通过后运行，
+      // 使 `{ required: true, validator }` 这类组合规则也能生效
+      if (isValid && typeof rule.validator === "function") {
+        const error = await new Promise<Error | undefined>((resolve) => {
+          let settled = false;
+          const done = (error?: Error) => {
+            if (settled) return;
+            settled = true;
+            resolve(error);
+          };
+          try {
+            const result = rule.validator?.(rule, itemValue, done);
+            if (result && typeof result.then === "function") {
+              result
+                .then(() => done())
+                .catch((error) => {
+                  done(error instanceof Error ? error : new Error(String(error)));
+                });
+            }
+          } catch (error) {
+            done(error instanceof Error ? error : new Error(String(error)));
+          }
+        });
+        if (error !== undefined) {
+          isValid = false;
+          msg = error.message || msg;
+        }
+      }
+
+      return { valid: isValid, message: isValid ? undefined : msg };
     };
 
-    const validate = async (rules: FormRule | FormRule[]) => {
+    const validate = async (rules: FormRule | FormRule[], trigger?: FormValidateTrigger) => {
       if (!rules) return true;
 
-      if (!Array.isArray(rules)) {
-        const result = await test(rules);
-        valid.value = result.valid;
-        message.value = result.message;
-        return result.valid;
-      }
+      const list = Array.isArray(rules) ? [...rules] : [rules];
+      // 指定触发时机时只校验匹配的规则；手动调用与提交校验不区分时机，全部校验
+      const target = trigger ? list.filter((rule) => matchesTrigger(rule, trigger)) : list;
+      if (target.length === 0) return true;
 
-      const sortedRules = [...(rules as FormRule[])].sort((a) => (a.required ? -1 : 0));
+      const sortedRules = target.sort((a) => (a.required ? -1 : 0));
       let result = { valid: true, message: undefined as string | undefined };
       for (let i = 0; i < sortedRules.length; i++) {
         result = await test(sortedRules[i]);
@@ -195,10 +210,10 @@ const FormItem = defineComponent({
       return result.valid;
     };
 
-    const testValue = () => {
+    const testValue = (trigger: FormValidateTrigger = "change") => {
       if (props.prop) {
         const rules = props.rules || (Form.rules || {})[props.prop];
-        if (rules) void validate(rules);
+        if (rules) void validate(rules, trigger);
       }
     };
     const { prop, rules } = toRefs(props);
@@ -283,6 +298,8 @@ const FormItem = defineComponent({
                     childProps["onUpdate:modelValue"] = (value: unknown) => {
                       Form.updateModel?.(prop, value);
                     };
+                    // cloneVNode 会合并事件处理器，子控件原有的 onBlur 仍会执行
+                    childProps.onBlur = () => testValue("blur");
                   }
 
                   return cloneVNode(child, {

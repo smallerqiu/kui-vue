@@ -1,7 +1,7 @@
 import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent, nextTick, provide, reactive, ref, toRefs } from "vue";
 import type { BooleanType, DirectionType, ShapeType, SizeType, ThemeType } from "../const/types";
-import type { ColProps, FormRule, FormSubmitEvent } from "./types";
+import type { ColProps, FormRule, FormSubmitEvent, FormValidateTrigger } from "./types";
 
 const formProps = {
   layout: {
@@ -41,7 +41,7 @@ const Form = defineComponent({
       prop: string;
       rules?: FormRule | FormRule[];
       valid: boolean;
-      validate: (rules: FormRule | FormRule[]) => Promise<boolean>;
+      validate: (rules: FormRule | FormRule[], trigger?: FormValidateTrigger) => Promise<boolean>;
     }
     const formItems = ref<Record<string, RegisteredFormItem>>({});
 
@@ -74,13 +74,13 @@ const Form = defineComponent({
       emit("reset");
     };
 
-    const test = (key: string) => {
+    const test = (key: string, trigger?: FormValidateTrigger) => {
       const item = formItems.value[key];
       // const item = formItems.value.get(key);
       if (item) {
         const rules = item.rules || (item.prop ? (props.rules || {})[item.prop] : undefined);
         if (rules) {
-          return item.validate(rules);
+          return item.validate(rules, trigger);
         }
       }
     };
@@ -116,12 +116,15 @@ const Form = defineComponent({
     };
 
     const validate = async (callback?: (result: FormSubmitEvent) => void) => {
-      let valid = true;
-      for (const key of Object.keys(formItems.value)) {
-        const item = formItems.value[key];
-        const rules = item.rules || (props.rules || {})[item.prop];
-        if (rules && !(await item.validate(rules))) valid = false;
-      }
+      // 并行校验，避免异步规则串行等待拖慢提交
+      const results = await Promise.all(
+        Object.keys(formItems.value).map((key) => {
+          const item = formItems.value[key];
+          const rules = item.rules || (props.rules || {})[item.prop];
+          return rules ? item.validate(rules) : Promise.resolve(true);
+        })
+      );
+      const valid = results.every(Boolean);
       const result = { valid };
 
       if (typeof callback === "function") {
