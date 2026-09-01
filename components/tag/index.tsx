@@ -1,6 +1,7 @@
 import { X } from "kui-icons";
 import {
   defineComponent,
+  onBeforeUnmount,
   ref,
   Transition,
   type CSSProperties,
@@ -40,15 +41,19 @@ const Tag = defineComponent({
   setup(props, { slots, emit, attrs }) {
     const visible = ref(true);
     const hidden = ref(false);
+    let hideTimer: ReturnType<typeof setTimeout> | undefined;
 
     const closeHandler = (e: MouseEvent) => {
       e.stopPropagation();
       emit("close");
       visible.value = false;
-      setTimeout(() => {
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(() => {
         hidden.value = true;
+        hideTimer = undefined;
       }, 300);
     };
+    onBeforeUnmount(() => clearTimeout(hideTimer));
 
     return () => {
       const { shape, icon, size, color, closeable, compact } = props;

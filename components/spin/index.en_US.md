@@ -22,9 +22,9 @@ When part of the page is waiting for asynchronous data or being rendered, approp
 
 ## Spin API
 
-| Property   | Description                                                  | Type                            | Default |
-| ---------- | ------------------------------------------------------------ | ------------------------------- | ------- |
-| modelValue | Whether loading state, can use `v-model` for two-way binding | boolean                         | false   |
-| mode       | Display spin type, provides 4 display methods                | string                          | -       |
-| delay      | Delay time to display loading effect (prevent flickering)    | number (milliseconds)           | 500     |
-| size       | Set loading effect size                                      | 'large' \| 'default' \| 'small' | -       |
+| Property   | Description                                                  | Type                       | Default |
+| ---------- | ------------------------------------------------------------ | -------------------------- | ------- |
+| modelValue | Whether loading state, can use `v-model` for two-way binding | boolean                    | true    |
+| mode       | Loading animation type                                       | bounce\|flip\|rotate\|zoom | rotate  |
+| delay      | Delay before hiding to prevent flickering                    | number                     | 500     |
+| size       | Loading indicator size                                       | small\|medium\|large       | medium  |

@@ -3,6 +3,7 @@ import {
   computed,
   defineComponent,
   nextTick,
+  onBeforeUnmount,
   ref,
   watch,
   type ExtractPropTypes,
@@ -73,9 +74,10 @@ const createTypography = (name: string, defaultTag: TypographyTag) =>
       const expanded = ref(false);
       const input = ref<HTMLInputElement>();
       const draft = ref(props.modelValue || "");
+      let copiedTimer: number | undefined;
       watch(
         () => props.modelValue,
-        (value) => (draft.value = value || "")
+        (value) => (draft.value = value || ""),
       );
       const text = computed(() => props.modelValue ?? String(slots.default?.()[0]?.children ?? ""));
       const startEdit = () => {
@@ -95,8 +97,13 @@ const createTypography = (name: string, defaultTag: TypographyTag) =>
         await navigator.clipboard?.writeText(text.value);
         copied.value = true;
         emit("copy", text.value);
-        window.setTimeout(() => (copied.value = false), 1500);
+        clearTimeout(copiedTimer);
+        copiedTimer = window.setTimeout(() => {
+          copied.value = false;
+          copiedTimer = undefined;
+        }, 1500);
       };
+      onBeforeUnmount(() => clearTimeout(copiedTimer));
       return () => {
         if (editing.value) {
           return (
@@ -116,8 +123,8 @@ const createTypography = (name: string, defaultTag: TypographyTag) =>
         const lines = Math.max(
           1,
           Math.floor(
-            typeof props.ellipsis === "number" ? props.ellipsis : (ellipsisOptions?.rows ?? 1)
-          )
+            typeof props.ellipsis === "number" ? props.ellipsis : (ellipsisOptions?.rows ?? 1),
+          ),
         );
         const expandable = ellipsisOptions?.expandable === true;
         const ellipsisActive = Boolean(props.ellipsis) && !expanded.value;
@@ -180,7 +187,7 @@ const createTypography = (name: string, defaultTag: TypographyTag) =>
                 >
                   <Icon type={Pencil} />
                 </button>,
-                editableOptions?.tooltip
+                editableOptions?.tooltip,
               )}
             {props.copyable &&
               withTooltip(
@@ -194,7 +201,7 @@ const createTypography = (name: string, defaultTag: TypographyTag) =>
                 </button>,
                 copied.value
                   ? (copyOptions?.copiedTooltip ?? copyOptions?.tooltip)
-                  : copyOptions?.tooltip
+                  : copyOptions?.tooltip,
               )}
           </Tag>
         );

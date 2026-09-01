@@ -14,7 +14,7 @@ import { usePopupContainer } from "../config/popup";
 import Empty from "../empty";
 import Icon from "../icon";
 import { setPlacement } from "../utils/placement";
-import { cascaderProps, type CascaderOption } from "./types.ts";
+import { cascaderProps, type CascaderOption } from "./types";
 
 const Cascader = defineComponent({
   name: "Cascader",
@@ -59,7 +59,7 @@ const Cascader = defineComponent({
           activePath.value = [];
         }
       },
-      { immediate: true, deep: true }
+      { immediate: true, deep: true },
     );
 
     // 计算属性：根据当前的选项树和 activePath，生成多列菜单供层级渲染
@@ -166,7 +166,7 @@ const Cascader = defineComponent({
     const handleOptionClick = (
       option: CascaderOption,
       columnIndex: number,
-      isHoverTrigger = false
+      isHoverTrigger = false,
     ) => {
       if (option.disabled) return;
 

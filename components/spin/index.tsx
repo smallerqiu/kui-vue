@@ -1,6 +1,6 @@
 import type { ExtractPropTypes, PropType } from "vue";
-import { defineComponent, ref, watch } from "vue";
-import type { SizeType, SpinModeType } from "../const/types.ts";
+import { defineComponent, onBeforeUnmount, ref, watch } from "vue";
+import type { SizeType, SpinModeType } from "../const/types";
 
 const spinProps = {
   modelValue: { type: Boolean, default: true },
@@ -21,20 +21,22 @@ const Spin = defineComponent({
   props: spinProps,
   setup(props, { slots }) {
     const spinning = ref(props.modelValue);
-    let timer: ReturnType<typeof setTimeout>;
+    let timer: ReturnType<typeof setTimeout> | undefined;
     watch(
-      () => props.modelValue,
-      (nv) => {
+      () => [props.modelValue, props.delay] as const,
+      ([nv]) => {
+        clearTimeout(timer);
         if (nv) {
           spinning.value = nv;
         } else {
-          clearTimeout(timer);
           timer = setTimeout(() => {
             spinning.value = nv;
+            timer = undefined;
           }, props.delay);
         }
-      }
+      },
     );
+    onBeforeUnmount(() => clearTimeout(timer));
     return () => {
       const { mode, size } = props;
       const classes = [
