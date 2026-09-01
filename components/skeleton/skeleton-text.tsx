@@ -1,14 +1,17 @@
-import { type CSSProperties, defineComponent } from "vue";
+import { type CSSProperties, defineComponent, type ExtractPropTypes } from "vue";
 
-import { skeletonProps } from "./types";
+import { skeletonTextProps } from "./types";
 import { useSkeletonLoading } from "./use-skeleton-loading";
+
+export type SkeletonTextProps = ExtractPropTypes<typeof skeletonTextProps>;
+
 const SkeletonText = defineComponent({
   name: "SkeletonText",
-  props: skeletonProps,
+  props: skeletonTextProps,
   setup(ps, { slots }) {
     const show = useSkeletonLoading(
       () => ps.loading,
-      () => ps.delay
+      () => ps.delay,
     );
     return () => {
       const { size, animated, width } = ps;
@@ -35,7 +38,11 @@ const SkeletonText = defineComponent({
       if (width !== undefined) {
         innerProps.style.width = `${width}px`;
       }
-      return <div {...props}>{child && !show.value ? child : <span {...innerProps}></span>}</div>;
+      return (
+        <div {...props} aria-busy={ps.loading || undefined}>
+          {child?.length && !show.value ? child : <span {...innerProps} aria-hidden="true"></span>}
+        </div>
+      );
     };
   },
 });

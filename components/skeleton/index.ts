@@ -4,4 +4,8 @@ import SkeletonButton from "./skeleton-button";
 import SkeletonImage from "./skeleton-image";
 import SkeletonText from "./skeleton-text";
 export type { SkeletonProps } from "./skeleton";
+export type { SkeletonAvatarProps } from "./skeleton-avatar";
+export type { SkeletonButtonProps } from "./skeleton-button";
+export type { SkeletonImageProps } from "./skeleton-image";
+export type { SkeletonTextProps } from "./skeleton-text";
 export { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText };

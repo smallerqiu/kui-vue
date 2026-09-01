@@ -41,45 +41,48 @@
 
 ## API
 
-| 属性     | 说明                                         | 类型         | 默认值 |
-| -------- | -------------------------------------------- | ------------ | ------ |
-| animated | 是否展示动画效果                             | boolean      | false  |
-| avatar   | 是否显示头像占位图                           | boolean      | false  |
-| loading  | 为 true 时，显示占位图。反之则直接展示子组件 | boolean      | false  |
-| rows     | 设置段落占位图的行数                         | number       | 3      |
-| width    | 设置标题占位图的宽度                         | number(%)    | 35     |
-| delay    | 防抖(动画延迟关闭)                           | number(毫秒) | 500    |
-| title    | 标题点位单位                                 | number       | 35(px) |
+| 属性       | 说明                                         | 类型                                              | 默认值 |
+| ---------- | -------------------------------------------- | ------------------------------------------------- | ------ |
+| animated   | 是否展示动画效果                             | boolean                                           | false  |
+| avatar     | 是否显示头像占位图                           | boolean \| { size?: SizeType; shape?: ShapeType } | false  |
+| loading    | 为 true 时，显示占位图。反之则直接展示子组件 | boolean                                           | false  |
+| rows       | 设置段落占位图的行数                         | number                                            | 3      |
+| delay      | 延迟显示骨架，避免快速加载时闪烁，单位毫秒   | number                                            | 500    |
+| titleWidth | 标题占位图宽度，取值范围 0-100               | number                                            | 35     |
+| title      | 已废弃，请使用 `titleWidth`                  | number                                            | -      |
 
 ## Avatar Props
 
-| 属性     | 说明                                         | 类型                                      | 默认值 |
-| -------- | -------------------------------------------- | ----------------------------------------- | ------ |
-| animated | 是否展示动画效果                             | boolean                                   | false  |
-| radius   | 指定图片的圆角大小                           | number                                    | -      |
-| shape    | 指定头像的形状                               | 'circle' \| 'square'                      | false  |
-| loading  | 为 true 时，显示占位图。反之则直接展示子组件 | boolean                                   | false  |
-| size     | 设置头像占位图的大小                         | number \| 'large' \| 'small' \| 'default' | -      |
+| 属性     | 说明                                         | 类型                                     | 默认值 |
+| -------- | -------------------------------------------- | ---------------------------------------- | ------ |
+| animated | 是否展示动画效果                             | boolean                                  | false  |
+| radius   | 指定图片的圆角大小                           | number                                   | -      |
+| shape    | 指定头像的形状                               | 'circle' \| 'square'                     | circle |
+| loading  | 为 true 时，显示占位图。反之则直接展示子组件 | boolean                                  | false  |
+| delay    | 延迟显示骨架，单位毫秒                       | number                                   | 500    |
+| size     | 设置头像占位图的大小                         | number \| 'small' \| 'medium' \| 'large' \| 'default' | -      |
 
 ## Button Props
 
-| 属性     | 说明                                         | 类型                             | 默认值 |
-| -------- | -------------------------------------------- | -------------------------------- | ------ |
-| animated | 是否展示动画效果                             | boolean                          | false  |
-| loading  | 为 true 时，显示占位图。反之则直接展示子组件 | boolean                          | false  |
-| shape    | 指定头像的形状                               | 'circle' \| 'round' \| 'default' | -      |
-| size     | 设置按钮的大小                               | 'large' \| 'small' \| 'default'  | -      |
-| block    | 将按钮宽度调整为其父宽度的选项               | boolean                          | false  |
-| width    | 按钮宽度                                     | number                           | -      |
+| 属性     | 说明                                         | 类型                                         | 默认值 |
+| -------- | -------------------------------------------- | -------------------------------------------- | ------ |
+| animated | 是否展示动画效果                             | boolean                                      | false  |
+| loading  | 为 true 时，显示占位图。反之则直接展示子组件 | boolean                                      | false  |
+| shape    | 指定按钮的形状                               | 'circle' \| 'square' \| 'round' \| 'default' | -      |
+| size     | 设置按钮的大小                               | 'small' \| 'medium' \| 'large' \| 'default' | -      |
+| delay    | 延迟显示骨架，单位毫秒                       | number                                       | 500    |
+| block    | 将按钮宽度调整为其父宽度的选项               | boolean                                      | false  |
+| width    | 按钮宽度                                     | number                                       | -      |
 
 ## Text Props
 
-| 属性     | 说明                                         | 类型                            | 默认值 |
-| -------- | -------------------------------------------- | ------------------------------- | ------ |
-| animated | 是否展示动画效果                             | boolean                         | false  |
-| loading  | 为 true 时，显示占位图。反之则直接展示子组件 | boolean                         | false  |
-| size     | 设置文本的大小                               | 'large' \| 'small' \| 'default' | -      |
-| width    | 文本宽度                                     | number                          | -      |
+| 属性     | 说明                                         | 类型                           | 默认值 |
+| -------- | -------------------------------------------- | ------------------------------ | ------ |
+| animated | 是否展示动画效果                             | boolean                        | false  |
+| loading  | 为 true 时，显示占位图。反之则直接展示子组件 | boolean                        | false  |
+| size     | 设置文本的大小                               | 'small' \| 'medium' \| 'large' \| 'default' | -      |
+| delay    | 延迟显示骨架，单位毫秒                       | number                         | 500    |
+| width    | 文本宽度                                     | number                         | -      |
 
 ## Image Props
 
@@ -87,5 +90,6 @@
 | -------- | -------------------------------------------- | ------------------ | ------ |
 | animated | 是否展示动画效果                             | boolean            | false  |
 | loading  | 为 true 时，显示占位图。反之则直接展示子组件 | boolean            | false  |
+| delay    | 延迟显示骨架，单位毫秒                       | number             | 500    |
 | radius   | 指定图片的圆角大小                           | number             | -      |
 | size     | 图片的宽(高)度                               | number \| number[] | -      |

@@ -1,15 +1,18 @@
 import { Images } from "kui-icons";
-import { type CSSProperties, defineComponent } from "vue";
+import { type CSSProperties, defineComponent, type ExtractPropTypes } from "vue";
 import Icon from "../icon";
-import { skeletonProps } from "./types";
+import { skeletonImageProps } from "./types";
 import { useSkeletonLoading } from "./use-skeleton-loading";
+
+export type SkeletonImageProps = ExtractPropTypes<typeof skeletonImageProps>;
+
 const SkeletonImage = defineComponent({
   name: "SkeletonImage",
-  props: skeletonProps,
+  props: skeletonImageProps,
   setup(ps, { slots }) {
     const show = useSkeletonLoading(
       () => ps.loading,
-      () => ps.delay
+      () => ps.delay,
     );
     return () => {
       const { animated, radius, size } = ps;
@@ -42,17 +45,18 @@ const SkeletonImage = defineComponent({
         innerProps.style.minWidth = `${width}px`;
         innerProps.style.minHeight = `${height}px`;
       } else if (typeof size === "number") {
-        innerProps.style.width = `${size}px`;
-        innerProps.style.height = `${size}px`;
-        innerProps.style.minWidth = `${size}px`;
-        innerProps.style.minHeight = `${size}px`;
+        const value = Number.isFinite(size) ? Math.max(0, size) : 96;
+        innerProps.style.width = `${value}px`;
+        innerProps.style.height = `${value}px`;
+        innerProps.style.minWidth = `${value}px`;
+        innerProps.style.minHeight = `${value}px`;
       }
       return (
-        <div {...props}>
-          {child && !show.value ? (
+        <div {...props} aria-busy={ps.loading || undefined}>
+          {child?.length && !show.value ? (
             child
           ) : (
-            <span {...innerProps}>
+            <span {...innerProps} aria-hidden="true">
               <Icon type={Images} class="k-skeleton-image-icon" />
             </span>
           )}

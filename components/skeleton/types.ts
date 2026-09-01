@@ -1,18 +1,48 @@
 import type { PropType } from "vue";
 import type { BooleanType, ShapeType, SizeType } from "../const/types";
 
-export const skeletonProps = {
+type SkeletonSize = SizeType | "default";
+
+const skeletonLoadingProps = {
   animated: Boolean as BooleanType,
-  radius: Number,
   loading: Boolean as BooleanType,
-  block: Boolean as BooleanType,
-  width: Number,
   delay: { type: Number, default: 500 },
-  shape: String as PropType<ShapeType | "default">,
-  size: [Number, String, Array] as PropType<number | SizeType | "default" | number[]>,
-  title: { type: Number, default: 35 },
+};
+
+export const skeletonProps = {
+  ...skeletonLoadingProps,
+  /** @deprecated Use titleWidth instead. */
+  title: Number,
+  titleWidth: { type: Number, default: 35 },
   rows: { type: Number, default: 3 },
   avatar: {
     type: [Boolean, Object] as PropType<boolean | { size?: SizeType; shape?: ShapeType }>,
   },
+};
+
+export const skeletonAvatarProps = {
+  ...skeletonLoadingProps,
+  radius: Number,
+  shape: String as PropType<ShapeType>,
+  size: [Number, String] as PropType<number | SkeletonSize>,
+};
+
+export const skeletonButtonProps = {
+  ...skeletonLoadingProps,
+  block: Boolean as BooleanType,
+  width: Number,
+  shape: String as PropType<ShapeType>,
+  size: String as PropType<SkeletonSize>,
+};
+
+export const skeletonImageProps = {
+  ...skeletonLoadingProps,
+  radius: Number,
+  size: [Number, Array] as PropType<number | number[]>,
+};
+
+export const skeletonTextProps = {
+  ...skeletonLoadingProps,
+  width: Number,
+  size: String as PropType<SkeletonSize>,
 };

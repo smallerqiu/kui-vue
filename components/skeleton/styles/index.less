@@ -1,15 +1,16 @@
 @import "../../styles/less-css-var.less";
+@import "../../styles/motion.less";
 .k-skeleton {
-  display: table;
+  display: flex;
+  align-items: flex-start;
   width: 100%;
   .k-skeleton-header {
-    display: table-cell;
+    flex: 0 0 auto;
     padding-right: 16px;
-    vertical-align: top;
   }
   .k-skeleton-content {
-    display: table-cell;
-    vertical-align: top;
+    flex: 1 1 auto;
+    min-width: 0;
     width: 100%;
     .k-skeleton-title {
       width: 100%;
@@ -53,6 +54,19 @@
       background-size: 400% 100%;
       -webkit-animation: k-skeleton-loading 1.4s ease infinite;
       animation: k-skeleton-loading 1.4s ease infinite;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &.k-skeleton-animated {
+      .k-skeleton-paragraph > li,
+      .k-skeleton-avatar,
+      .k-skeleton-title,
+      .k-skeleton-btn,
+      .k-skeleton-image,
+      .k-skeleton-text {
+        animation: none;
+        background: var(--kui-color-skeleton);
+      }
     }
   }
   &.k-skeleton-block {
@@ -164,12 +178,4 @@
 .k-skeleton-ele {
   display: inline-block;
   width: auto;
-}
-@keyframes k-skeleton-loading {
-  0% {
-    background-position: 100% 50%;
-  }
-  to {
-    background-position: 0 50%;
-  }
 }

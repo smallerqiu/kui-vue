@@ -11,7 +11,7 @@ const Skeleton = defineComponent({
   setup(ps, { slots }) {
     const show = useSkeletonLoading(
       () => ps.loading,
-      () => ps.delay
+      () => ps.delay,
     );
 
     const renderAvatar = () => {
@@ -35,20 +35,23 @@ const Skeleton = defineComponent({
         ],
       };
       return (
-        <div class="k-skeleton-header">
+        <div class="k-skeleton-header" aria-hidden="true">
           <span {...props}></span>
         </div>
       );
     };
     const renderContent = () => {
-      const { title, rows } = ps;
-      const rowCount = Math.max(0, Math.floor(rows));
-      const titleWidth = Math.min(100, Math.max(0, title));
+      const { title, titleWidth, rows } = ps;
+      const rowCount = Number.isFinite(rows) ? Math.max(0, Math.floor(rows)) : 3;
+      const rawTitleWidth = title ?? titleWidth;
+      const normalizedTitleWidth = Number.isFinite(rawTitleWidth)
+        ? Math.min(100, Math.max(0, rawTitleWidth))
+        : 35;
       const lines = new Array(rowCount).fill("");
       return (
-        <div class="k-skeleton-content">
-          {titleWidth > 0 ? (
-            <div class="k-skeleton-title" style={{ width: `${titleWidth}%` }}></div>
+        <div class="k-skeleton-content" aria-hidden="true">
+          {normalizedTitleWidth > 0 ? (
+            <div class="k-skeleton-title" style={{ width: `${normalizedTitleWidth}%` }}></div>
           ) : null}
           <ul class="k-skeleton-paragraph">
             {lines.map((_, index) => (
@@ -73,7 +76,11 @@ const Skeleton = defineComponent({
       const nodeAvatar = renderAvatar();
       const nodeContent = renderContent();
       const child = slots.default?.();
-      return <div {...props}>{child && !show.value ? child : [nodeAvatar, nodeContent]}</div>;
+      return (
+        <div {...props} aria-busy={ps.loading || undefined}>
+          {child?.length && !show.value ? child : [nodeAvatar, nodeContent]}
+        </div>
+      );
     };
   },
 });

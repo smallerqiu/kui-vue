@@ -1,17 +1,19 @@
-import { defineComponent } from "vue";
+import { defineComponent, type ExtractPropTypes } from "vue";
 
 import type { CSSProperties } from "vue";
 
-import { skeletonProps } from "./types";
+import { skeletonAvatarProps } from "./types";
 import { useSkeletonLoading } from "./use-skeleton-loading";
+
+export type SkeletonAvatarProps = ExtractPropTypes<typeof skeletonAvatarProps>;
 
 const SkeletonAvatar = defineComponent({
   name: "SkeletonAvatar",
-  props: skeletonProps,
+  props: skeletonAvatarProps,
   setup(props, { slots }) {
     const show = useSkeletonLoading(
       () => props.loading,
-      () => props.delay
+      () => props.delay,
     );
 
     return () => {
@@ -45,7 +47,11 @@ const SkeletonAvatar = defineComponent({
       if (radius !== undefined) {
         innerProps.style["border-radius"] = `${radius}px`;
       }
-      return <div {..._props}>{child && !show.value ? child : <span {...innerProps}></span>}</div>;
+      return (
+        <div {..._props} aria-busy={props.loading || undefined}>
+          {child?.length && !show.value ? child : <span {...innerProps} aria-hidden="true"></span>}
+        </div>
+      );
     };
   },
 });

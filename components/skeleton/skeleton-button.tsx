@@ -1,16 +1,18 @@
 import type { CSSProperties } from "vue";
-import { defineComponent } from "vue";
+import { defineComponent, type ExtractPropTypes } from "vue";
 
-import { skeletonProps } from "./types";
+import { skeletonButtonProps } from "./types";
 import { useSkeletonLoading } from "./use-skeleton-loading";
+
+export type SkeletonButtonProps = ExtractPropTypes<typeof skeletonButtonProps>;
 
 const SkeletonButton = defineComponent({
   name: "SkeletonButton",
-  props: skeletonProps,
+  props: skeletonButtonProps,
   setup(props, { slots }) {
     const show = useSkeletonLoading(
       () => props.loading,
-      () => props.delay
+      () => props.delay,
     );
     return () => {
       const { size, animated, block, shape, width } = props;
@@ -39,7 +41,11 @@ const SkeletonButton = defineComponent({
       if (width !== undefined) {
         innerProps.style.width = `${width}px`;
       }
-      return <div {..._props}>{child && !show.value ? child : <span {...innerProps}></span>}</div>;
+      return (
+        <div {..._props} aria-busy={props.loading || undefined}>
+          {child?.length && !show.value ? child : <span {...innerProps} aria-hidden="true"></span>}
+        </div>
+      );
     };
   },
 });
