@@ -50,6 +50,7 @@ export default defineComponent({
             [`k-${inputType}-lg`]: size === "large" && !multiple,
             [`k-${inputType}-${theme}`]: theme !== "solid" && !multiple && theme,
             [`k-${inputType}-circle`]: shape === "circle" && !multiple,
+            [`k-${inputType}-square`]: shape === "square" && !multiple,
           },
           // props.htmlAttrs.class,
         ],
