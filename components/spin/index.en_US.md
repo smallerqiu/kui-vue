@@ -26,5 +26,5 @@ When part of the page is waiting for asynchronous data or being rendered, approp
 | ---------- | ------------------------------------------------------------ | -------------------------- | ------- |
 | modelValue | Whether loading state, can use `v-model` for two-way binding | boolean                    | true    |
 | mode       | Loading animation type                                       | bounce\|flip\|rotate\|zoom | rotate  |
-| delay      | Delay before hiding to prevent flickering                    | number                     | 500     |
+| delay      | Delay before showing to prevent flickering                   | number                     | 0       |
 | size       | Loading indicator size                                       | small\|medium\|large       | medium  |

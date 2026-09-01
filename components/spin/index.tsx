@@ -4,7 +4,7 @@ import type { SizeType, SpinModeType } from "../const/types";
 
 const spinProps = {
   modelValue: { type: Boolean, default: true },
-  delay: { type: Number, default: 500 },
+  delay: { type: Number, default: 0 },
   size: {
     type: String as PropType<SizeType>,
   },
@@ -26,13 +26,15 @@ const Spin = defineComponent({
       () => [props.modelValue, props.delay] as const,
       ([nv]) => {
         clearTimeout(timer);
-        if (nv) {
-          spinning.value = nv;
-        } else {
+        if (!nv) {
+          spinning.value = false;
+        } else if (props.delay > 0) {
           timer = setTimeout(() => {
-            spinning.value = nv;
+            spinning.value = true;
             timer = undefined;
           }, props.delay);
+        } else {
+          spinning.value = true;
         }
       },
     );
