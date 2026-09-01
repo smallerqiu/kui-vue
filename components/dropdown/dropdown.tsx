@@ -58,6 +58,7 @@ const Dropdown = defineComponent({
     const left = ref(0);
     const top = ref(0);
     const rendered = ref(false);
+    const positioned = ref(false);
     const showTimer = ref<ReturnType<typeof setTimeout>>();
     onMounted(() => {
       if (props.show) {
@@ -74,13 +75,13 @@ const Dropdown = defineComponent({
       (v) => {
         currentPlacement.value = v;
         updatePosition();
-      }
+      },
     );
     watch(
       () => props.show,
       (v) => {
         toggle(v);
-      }
+      },
     );
 
     const outsideClick = (e: PointerEvent) => {
@@ -98,6 +99,7 @@ const Dropdown = defineComponent({
     const updatePosition = (e?: MouseEvent) => {
       const position = e ? { x: e.clientX, y: e.clientY } : null;
       nextTick(() => {
+        if (!refPopper.value || !refSelection.value) return;
         setPlacement({
           refSelection,
           position,
@@ -107,6 +109,7 @@ const Dropdown = defineComponent({
           top,
           left,
         });
+        positioned.value = true;
       });
     };
 
@@ -194,6 +197,7 @@ const Dropdown = defineComponent({
           left: `${left.value}px`,
           top: `${top.value}px`,
           transformOrigin: transOrigin.value,
+          visibility: positioned.value ? undefined : ("hidden" as const),
         },
         "k-placement": currentPlacement.value,
         class: ["k-dropdown", { "k-dropdown-has-arrow": props.arrow }],
@@ -256,7 +260,7 @@ const Dropdown = defineComponent({
           ...attrs,
           ...pp,
         },
-        true
+        true,
       );
       return overlay ? [ctxNode, overlay] : [ctxNode];
     };
