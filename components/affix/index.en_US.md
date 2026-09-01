@@ -21,6 +21,10 @@ Use this feature cautiously when the visible area of the page is small to avoid 
 
 - Use `target` to set the element whose scroll event `Affix` listens to. Defaults to `window`.
 
+[Affix to Bottom](./demo/bottom.vue)
+
+- Use `offsetBottom` to pin an element to the bottom of the viewport.
+
 ## API
 
 | Property     | Description                                                                                                                         | Type                    | Default |

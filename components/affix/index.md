@@ -21,6 +21,10 @@
 
 - 用 `target` 设置 `Affix` 需要监听其滚动事件的元素，默认为 `window`。
 
+[固定在底部](./demo/bottom.vue)
+
+- 使用 `offsetBottom` 将元素固定在可视区域底部。
+
 ## API
 
 | 属性         | 说明                                                                 | 类型                    | 默认值 |

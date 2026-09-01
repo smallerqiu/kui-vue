@@ -1,4 +1,4 @@
-import { loading } from "kui-vue";
+import { loading, modal } from "kui-vue";
 import { createRouter, createWebHistory, type RouteRecordRaw } from "vue-router";
 import { routes } from "vue-router/auto-routes";
 import Layout from "./components/app-layout.vue";
@@ -79,6 +79,7 @@ router.addRoute({
 });
 
 router.afterEach((to) => {
+  modal.destroyAll();
   const analyticsWindow = window as Window & {
     _hmt?: { push: (args: unknown[]) => void };
     gtag?: (...args: unknown[]) => void;

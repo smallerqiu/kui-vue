@@ -28,6 +28,7 @@ export default defineComponent({
     });
     const loading = ref(false);
     const visible = ref(false);
+    let destroyRequested = false;
     const isPromise = (obj: unknown): obj is PromiseLike<unknown> => {
       return (
         typeof obj === "object" &&
@@ -39,9 +40,14 @@ export default defineComponent({
     const show = () => {
       visible.value = true;
     };
+    const requestDestroy = () => {
+      if (destroyRequested) return;
+      destroyRequested = true;
+      emit("destroy");
+    };
     const hide = () => {
       visible.value = false;
-      emit("destroy");
+      requestDestroy();
     };
 
     expose({
@@ -99,7 +105,7 @@ export default defineComponent({
 
       if (type == "confirm") {
         footerNode.unshift(
-          <Button onClick={cancel}> {cancelText || locale.value?.k.common.cancel}</Button>
+          <Button onClick={cancel}> {cancelText || locale.value?.k.common.cancel}</Button>,
         );
       }
       const footer = <div class="k-toast-footer">{footerNode}</div>;
@@ -115,6 +121,9 @@ export default defineComponent({
           class={classes}
           v-model={visible.value}
           maskClosable={false}
+          onOpenChange={(opened) => {
+            if (!opened) requestDestroy();
+          }}
           v-slots={{
             content: () => [header, body, footer],
           }}

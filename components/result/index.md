@@ -11,7 +11,8 @@
 [Info](./demo/info.vue?show=vertical)
 
 - 展示处理结果。
-  [Warning](./demo/warning.vue?show=vertical)
+
+[Warning](./demo/warning.vue?show=vertical)
 
 - 警告类型的结果。
 

@@ -3,8 +3,8 @@ import { getAppContext, recordMousePoint } from "../config/context";
 import type { IconType } from "../icon";
 import Modal, { ModalPanel } from "./modal";
 import Toast from "./toast";
-export { ModalPanel };
 export type { ModalProps } from "./modal";
+export { ModalPanel };
 
 interface ModalInstance {
   show: () => void;
@@ -18,23 +18,28 @@ const showModal = (props = {}) => {
   const context = getCurrentInstance();
   const container = document.createElement("div");
   document.body.appendChild(container);
+  let instance: ModalInstance | null = null;
+  let destroyTimer: ReturnType<typeof setTimeout> | undefined;
+  const destroy = () => {
+    if (destroyTimer) return;
+    if (instance) modalList = modalList.filter((item) => item !== instance);
+    destroyTimer = setTimeout(() => {
+      render(null, container);
+      container.remove();
+    }, 300);
+  };
   const vm = createVNode(Toast, {
     ...props,
+    onDestroy: destroy,
   });
   vm.appContext = context?.appContext || getAppContext()?.appContext || null;
   render(vm, container);
 
-  const instance = vm.component?.exposed as ModalInstance | null;
+  instance = vm.component?.exposed as ModalInstance | null;
   if (instance) {
     instance.destroy = () => {
       instance.hide();
-      modalList = modalList.filter((item) => item !== instance);
-      setTimeout(() => {
-        render(null, container);
-        if (container.parentNode) {
-          container.parentNode.removeChild(container);
-        }
-      }, 100);
+      destroy();
     };
     instance.show();
     modalList.push(instance);

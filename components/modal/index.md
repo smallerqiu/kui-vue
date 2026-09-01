@@ -68,6 +68,14 @@
 - modal.show(options)
 - modal.destroyAll()
 
+命令式 Modal 挂载在全局 `body` 下，不属于当前页面组件的生命周期。如果希望切换路由时自动关闭，可以在路由钩子中统一销毁：
+
+```ts
+router.afterEach(() => {
+  modal.destroyAll();
+});
+```
+
 参数 options 为对象，具体说明如下：
 
 | 属性       | 说明                                                                                                                       | 类型       | 默认值 |

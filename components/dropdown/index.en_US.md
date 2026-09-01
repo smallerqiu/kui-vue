@@ -28,6 +28,10 @@ When there are too many operation commands on the page, this component can be us
 
 - Supports 6 popup positions.
 
+[Arrow](./demo/arrow.vue)
+
+- Set `arrow` to display an arrow pointing to the trigger.
+
 [Multi-level Menu](./demo/cascading.vue)
 
 - The passed menu has multiple levels.

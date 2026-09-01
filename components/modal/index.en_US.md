@@ -68,6 +68,14 @@ Also provides global configuration and global destruction methods:
 - modal.show(options)
 - modal.destroyAll()
 
+Imperative modals are mounted globally under `body` and are not owned by the current page component. Destroy them from a router hook when they should close after navigation:
+
+```ts
+router.afterEach(() => {
+  modal.destroyAll();
+});
+```
+
 Parameter options is an object, specific description as follows:
 
 | Property   | Description                                                                                                                                                   | Type       | Default |
