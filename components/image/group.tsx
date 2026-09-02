@@ -40,7 +40,7 @@ const ImageGroup = defineComponent({
     };
 
     const register = (item?: string) => {
-      if (item) registered.value.push(item);
+      if (item && !registered.value.includes(item)) registered.value.push(item);
     };
 
     const unregister = (item?: string) => {

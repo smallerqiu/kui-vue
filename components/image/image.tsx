@@ -14,18 +14,18 @@ import type { BooleanType, ShapeType, ThemeType } from "../const/types";
 import Icon from "../icon";
 import createInstance from "./instance";
 import { imageGroupKey } from "./context";
-import type { ImagePreviewProps } from "./preview";
+import type { ImagePreviewProps, ImageType } from "./preview";
 import { loadImage } from "./utils";
 
 const imageProps = {
   alt: String,
   src: String,
-  type: String,
+  type: String as PropType<ImageType>,
   origin: String,
   height: [String, Number],
   width: [String, Number],
   placeholder: String,
-  data: Array,
+  data: Array as PropType<string[]>,
   imgStyle: Object as PropType<CSSProperties>,
   showPanel: Boolean as BooleanType,
   theme: { type: String as PropType<ThemeType>, default: "plain" },
@@ -87,6 +87,7 @@ const Image = defineComponent({
           emit("switch", index);
         },
         src: origin || src,
+        data: props.data,
         showPanel: props.showPanel,
         type: props.type,
       };
@@ -110,9 +111,10 @@ const Image = defineComponent({
             loading.value = false;
             showPlaceholder.value = true;
             imageUrl.value = placeholder;
-          }
+          },
         );
       } else {
+        loading.value = false;
         showPlaceholder.value = true;
         imageUrl.value = placeholder;
       }
@@ -126,7 +128,7 @@ const Image = defineComponent({
         ImageGroup?.unregister(oldSrc);
         ImageGroup?.register(src);
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     onBeforeUnmount(() => {
@@ -159,7 +161,7 @@ const Image = defineComponent({
         nodes.push(
           <div class="k-image-loading">
             <Icon type={Loading} spin class="k-image-loading-icon" />
-          </div>
+          </div>,
         );
       } else {
         if (showPlaceholder.value) {

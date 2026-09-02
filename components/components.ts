@@ -94,7 +94,7 @@ export { Grid, GridItem } from "./grid";
 export type { GridItemProps, GridProps } from "./grid";
 
 export { Image, ImageGroup } from "./image";
-export type { ImageGroupProps, ImageProps } from "./image";
+export type { ImageGroupProps, ImagePreviewProps, ImageProps, ImageType } from "./image";
 
 export { default as Icon } from "./icon";
 export type { IconProps, IconType } from "./icon";

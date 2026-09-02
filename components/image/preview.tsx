@@ -35,8 +35,10 @@ import type { BooleanType } from "../const/types";
 import { getPosition } from "../utils/mouse";
 import { loadImage } from "./utils";
 
+export type ImageType = "img" | "media";
+
 export interface ImagePreviewProps {
-  type?: string;
+  type?: ImageType;
   src?: string;
   showPanel?: boolean;
   onClose?: () => void;
@@ -47,7 +49,7 @@ export interface ImagePreviewProps {
 const ImagePreview = defineComponent({
   name: "ImagePreview",
   props: {
-    type: String,
+    type: String as PropType<ImageType>,
     src: String,
     origin: String,
     hasControl: Boolean as BooleanType,
@@ -288,7 +290,7 @@ const ImagePreview = defineComponent({
       () => props.src,
       (src) => {
         state.src = src || "";
-      }
+      },
     );
 
     watch(
@@ -300,7 +302,7 @@ const ImagePreview = defineComponent({
             updatePanelRight();
           });
         }
-      }
+      },
     );
 
     watch(
@@ -323,10 +325,10 @@ const ImagePreview = defineComponent({
           () => {
             state.loading = false;
             state.error = true;
-          }
+          },
         );
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     watch(
@@ -334,7 +336,7 @@ const ImagePreview = defineComponent({
       (value) => {
         state.isShowPanel = value;
         updatePanelRight();
-      }
+      },
     );
 
     onMounted(() => {
@@ -405,12 +407,10 @@ const ImagePreview = defineComponent({
 
       return (
         <div class="k-image-preview-root">
-          <div class="k-image-preview" v-show={visible}>
-            <Transition name="k-image-fade">
+          <Transition name="k-image-fade" appear>
+            <div class="k-image-preview" v-show={visible}>
               <div class="k-image-preview-mask" onClick={close} v-show={visible}></div>
-            </Transition>
-            <div class="k-image-preview-wrap" style={{ right: panelRight + "px" }}>
-              <Transition name="k-image-fade">
+              <div class="k-image-preview-wrap" style={{ right: panelRight + "px" }}>
                 <ul class="k-image-preview-control" v-show={visible}>
                   <li class="k-image-preview-action-nav">
                     <Button
@@ -480,53 +480,53 @@ const ImagePreview = defineComponent({
                     <Icon type={X} />
                   </li>
                 </ul>
-              </Transition>
 
-              <div class="k-image-preview-img-wrap" style={moveStyle}>
-                {type == "media" ? (
-                  <video controls {...imgProps} v-show={visible} />
-                ) : !state.error && !state.loading ? (
-                  <img {...imgProps} v-show={visible} />
-                ) : !loading ? (
-                  <div class="k-image-preview-img-error">
-                    <Icon type={Image} />
+                <div class="k-image-preview-img-wrap" style={moveStyle}>
+                  {type == "media" ? (
+                    <video controls {...imgProps} v-show={visible} />
+                  ) : !state.error && !state.loading ? (
+                    <img {...imgProps} v-show={visible} />
+                  ) : !loading ? (
+                    <div class="k-image-preview-img-error">
+                      <Icon type={Image} />
+                    </div>
+                  ) : null}
+                </div>
+                {data.length > 1
+                  ? [
+                      <div
+                        class={[
+                          "k-image-preview-switch-left",
+                          {
+                            "k-image-preview-switch-disabled": data.indexOf(src) == 0,
+                          },
+                        ]}
+                        onClick={() => switchImage(true)}
+                      >
+                        <Icon type={ArrowLeft} />
+                      </div>,
+                      <div
+                        class={[
+                          "k-image-preview-switch-right",
+                          {
+                            "k-image-preview-switch-disabled": data.indexOf(src) == data.length - 1,
+                          },
+                        ]}
+                        onClick={() => switchImage()}
+                      >
+                        <Icon type={ArrowRight} />
+                      </div>,
+                    ]
+                  : null}
+                {loading ? (
+                  <div class="k-image-preview-loading">
+                    <Icon type={Loading} spin />
                   </div>
                 ) : null}
               </div>
-              {data.length > 1
-                ? [
-                    <div
-                      class={[
-                        "k-image-preview-switch-left",
-                        {
-                          "k-image-preview-switch-disabled": data.indexOf(src) == 0,
-                        },
-                      ]}
-                      onClick={() => switchImage(true)}
-                    >
-                      <Icon type={ArrowLeft} />
-                    </div>,
-                    <div
-                      class={[
-                        "k-image-preview-switch-right",
-                        {
-                          "k-image-preview-switch-disabled": data.indexOf(src) == data.length - 1,
-                        },
-                      ]}
-                      onClick={() => switchImage()}
-                    >
-                      <Icon type={ArrowRight} />
-                    </div>,
-                  ]
-                : null}
-              {loading ? (
-                <div class="k-image-preview-loading">
-                  <Icon type={Loading} spin />
-                </div>
-              ) : null}
+              {getPanel()}
             </div>
-            {getPanel()}
-          </div>
+          </Transition>
         </div>
       );
     };
