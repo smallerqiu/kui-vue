@@ -40,12 +40,18 @@ export type PageProps = ExtractPropTypes<typeof pageProps>;
 const Page = defineComponent({
   name: "Page",
   props: pageProps,
+  emits: ["update:page", "update:pageSize", "change"],
   setup(props, { emit }) {
     const nextPageGroup = ref(false);
     const prevPageGroup = ref(false);
-    const pageCount = ref(Math.ceil(props.total / props.pageSize) || 1);
-    const defaultPage = ref(props.page);
-    const defaultPageSize = ref(props.pageSize);
+    const normalizePageSize = (value: number) => (Number.isFinite(value) && value > 0 ? value : 10);
+    const calculatePageCount = (total: number, pageSize: number) =>
+      Math.max(1, Math.ceil((Number.isFinite(total) && total > 0 ? total : 0) / pageSize));
+    const normalizePage = (value: number, count: number) =>
+      Math.min(count, Math.max(1, Number.isFinite(value) ? Math.floor(value) : 1));
+    const defaultPageSize = ref(normalizePageSize(props.pageSize));
+    const pageCount = ref(calculatePageCount(props.total, defaultPageSize.value));
+    const defaultPage = ref(normalizePage(props.page, pageCount.value));
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
 
@@ -57,13 +63,13 @@ const Page = defineComponent({
       (v) => {
         defaultPageSize.value = v;
         resetPage();
-      }
+      },
     );
     watch(
       () => props.total,
       () => {
         resetPage();
-      }
+      },
     );
 
     watch(
@@ -71,13 +77,20 @@ const Page = defineComponent({
       (v) => {
         defaultPage.value = v;
         resetPage();
-      }
+      },
     );
 
     const resetPage = () => {
-      pageCount.value = Math.ceil(props.total / defaultPageSize.value) || 1;
-      if (defaultPage.value > pageCount.value) {
-        defaultPage.value = pageCount.value;
+      const normalizedPageSize = normalizePageSize(defaultPageSize.value);
+      if (normalizedPageSize !== defaultPageSize.value) {
+        defaultPageSize.value = normalizedPageSize;
+        emit("update:pageSize", normalizedPageSize);
+      }
+      pageCount.value = calculatePageCount(props.total, defaultPageSize.value);
+      const normalizedPage = normalizePage(defaultPage.value, pageCount.value);
+      if (normalizedPage !== defaultPage.value) {
+        defaultPage.value = normalizedPage;
+        emit("update:page", normalizedPage);
       }
     };
     const renderPage = () => {
@@ -191,12 +204,13 @@ const Page = defineComponent({
     };
     const changeSize = (value: string | number | (string | number)[]) => {
       if (Array.isArray(value)) return;
-      defaultPageSize.value = Number(value);
-      pageCount.value = Math.ceil(props.total / defaultPageSize.value) || 1;
+      defaultPageSize.value = normalizePageSize(Number(value));
+      pageCount.value = calculatePageCount(props.total, defaultPageSize.value);
       if (defaultPage.value > pageCount.value) {
         defaultPage.value = pageCount.value;
         emit("update:page", defaultPage.value);
       }
+      emit("update:pageSize", defaultPageSize.value);
       emit("change", defaultPage.value, defaultPageSize.value);
     };
     const renderFirst = () => {
@@ -245,8 +259,7 @@ const Page = defineComponent({
       if (page == undefined) return;
 
       const pCount = pageCount.value;
-      if (page > pCount) page = pCount;
-      if (page < 1) page = 1;
+      page = normalizePage(page, pCount);
 
       if (defaultPage.value != page) {
         defaultPage.value = page;

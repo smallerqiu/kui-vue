@@ -1,11 +1,11 @@
-import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
 import Icon, { type IconType } from "../icon";
 
 const timelineItemProps = {
   color: String,
   icon: Array as PropType<IconType[]>,
-  time: String,
-  extra: String,
+  time: [String, Number, Object, Array, Function] as PropType<VNodeChild>,
+  extra: [String, Number, Object, Array, Function] as PropType<VNodeChild>,
 };
 
 export type TimelineItemProps = ExtractPropTypes<typeof timelineItemProps>;
@@ -23,15 +23,15 @@ const TimeLineItem = defineComponent({
         class: ["k-time-line-dot", { "k-time-line-dot-custom": !!slots.dot || !!icon }],
         style: styles,
       };
-      const extraNode = props.extra || slots.extra?.();
+      const extraNode = props.extra ?? slots.extra?.();
 
       return (
         <li class="k-time-line-item">
           <div {...itemProps}>{iconNode}</div>
           <div class="k-time-line-item-content">
             {slots.default?.()}
-            {extraNode && <div class="k-time-line-item-extra">{extraNode}</div>}
-            {time && <div class="k-time-line-item-time">{time}</div>}
+            {extraNode != null && <div class="k-time-line-item-extra">{extraNode}</div>}
+            {time != null && <div class="k-time-line-item-time">{time}</div>}
           </div>
         </li>
       );

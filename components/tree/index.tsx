@@ -91,8 +91,6 @@ const Tree = defineComponent({
       data: null,
     });
 
-    const hasLoad = !!props.loadData;
-
     const rebuildTree = () => {
       if (!props.data) {
         defaultData.value = [];
@@ -104,7 +102,7 @@ const Tree = defineComponent({
         expandedKeys: defaultExpandedKeys.value,
         selectedKeys: defaultSelectedKeys.value,
         checkedKeys: defaultCheckedKeys.value,
-        hasLoad,
+        hasLoad: !!props.loadData,
         checkable: props.checkable,
         checkStrictly: props.checkStrictly,
       }); //as TreeNode[];
@@ -118,12 +116,12 @@ const Tree = defineComponent({
       if (node.isLeaf || node.loading) return;
 
       const key = node.key;
-      const isAsyncNode = hasLoad && (!node.children || node.children.length === 0) && !node.isLeaf;
+      const isAsyncNode =
+        !!props.loadData && (!node.children || node.children.length === 0) && !node.isLeaf;
 
       if (isAsyncNode && !node.expanded) {
         node.loading = true;
-        props
-          .loadData(node)
+        props.loadData!(node)
           .then(() => {
             nextTick(() => {
               const newNode = findNode(key);
@@ -238,7 +236,7 @@ const Tree = defineComponent({
 
           const checkedCount = enabledChildren.filter((item: TreeNode) => item.checked).length;
           const indeterminateCount = enabledChildren.filter(
-            (item: TreeNode) => item.indeterminate
+            (item: TreeNode) => item.indeterminate,
           ).length;
 
           if (checkedCount === enabledChildren.length) {
@@ -287,8 +285,8 @@ const Tree = defineComponent({
         });
       },
 
-      moveNode: (dragKey: string, dropKey: string) => {
-        if (dragKey === dropKey || !props.data) return;
+      moveNode: (dragKey: string, dropKey: string): boolean => {
+        if (dragKey === dropKey || !props.data) return false;
 
         const findRawNode = (nodes: TreeNode[] | undefined, key: string): TreeNode | null => {
           if (!nodes) return null;
@@ -308,7 +306,11 @@ const Tree = defineComponent({
         const rawDragNode = findRawNode(props.data, dragKey);
         const rawDropNode = findRawNode(props.data, dropKey);
 
-        if (!rawDragNode || !rawDropNode) return;
+        if (!rawDragNode || !rawDropNode) return false;
+
+        // Moving a parent into one of its descendants would create a cycle and
+        // detach that whole branch from the tree.
+        if (findRawNode(rawDragNode.children, dropKey)) return false;
 
         const flatDragNode = findNode(dragKey);
         let nodeToMove: TreeNode | null = null;
@@ -342,7 +344,7 @@ const Tree = defineComponent({
           }
         }
 
-        if (!nodeToMove) return;
+        if (!nodeToMove) return false;
 
         [
           "level",
@@ -376,6 +378,7 @@ const Tree = defineComponent({
           newDropNode.expanded = true;
           emit("update:expandedKeys", defaultExpandedKeys.value);
         }
+        return true;
       },
     };
 
@@ -490,19 +493,21 @@ const Tree = defineComponent({
       dropNode.dropping = false;
 
       const currentDragNode = dragNode.data;
-      updateCheckState.moveNode(dragNode.key, dropNode.key);
+      const moved = updateCheckState.moveNode(dragNode.key, dropNode.key);
 
       dragNode.key = null;
       dragNode.data = null;
 
-      emit(
-        "drop",
-        {
-          dragNode: currentDragNode,
-          dropNode,
-        },
-        e
-      );
+      if (moved) {
+        emit(
+          "drop",
+          {
+            dragNode: currentDragNode,
+            dropNode,
+          },
+          e,
+        );
+      }
     };
 
     const handleDragEnd = (e: DragEvent, node: TreeNode) => {
@@ -525,7 +530,7 @@ const Tree = defineComponent({
       if (item.visiblePrefixes && item.visiblePrefixes.length > 0) {
         item.visiblePrefixes.forEach((showLine: boolean) => {
           arrowCommentNode.push(
-            <span class={showLine ? "k-tree-indent-line" : "k-tree-indent-empty"}></span>
+            <span class={showLine ? "k-tree-indent-line" : "k-tree-indent-empty"}></span>,
           );
         });
       }
@@ -641,15 +646,17 @@ const Tree = defineComponent({
       },
       {
         deep: true,
-      }
+      },
     );
+
+    watch(() => props.loadData, rebuildTree);
 
     watch(
       () => props.checkedKeys,
       (nv: string[] | undefined) => {
         defaultCheckedKeys.value = [...(nv || [])];
         rebuildTree();
-      }
+      },
     );
 
     watch(
@@ -657,7 +664,7 @@ const Tree = defineComponent({
       (nv: string[] | undefined) => {
         defaultSelectedKeys.value = [...(nv || [])];
         rebuildTree();
-      }
+      },
     );
 
     watch(
@@ -665,7 +672,7 @@ const Tree = defineComponent({
       (nv: string[] | undefined) => {
         defaultExpandedKeys.value = [...(nv || [])];
         rebuildTree();
-      }
+      },
     );
 
     return () => {

@@ -33,8 +33,8 @@
 | disabled     | 禁用状态                                 | boolean                              | false            |
 | total        | 数据总数                                 | number                               | 0                |
 | pageSize     | 每页条数                                 | number                               | 10               |
-| showSizer    | 是否显示页码组                           | boolean                              | false            |
-| showTotal    | 是否显示总数                             | boolean                              | false            |
+| showSizer    | 是否显示每页条数选择器                   | boolean                              | false            |
+| showTotal    | 是否显示总数                             | boolean                              | true             |
 | showElevator | 是否显示页码阶梯                         | boolean                              | false            |
 | simple       | 是否使用简洁分页                         | boolean                              | false            |
 | sizeData     | 自定义页码组数据                         | number[]                             | [10,15,20,30,40] |

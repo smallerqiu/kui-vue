@@ -34,7 +34,7 @@ Separate long lists using pagination, loading only one page at a time.
 | total        | Total data count                                                                | number                               | 0                |
 | pageSize     | number of items per page                                                        | number                               | 10               |
 | showSizer    | Whether to show page size selector                                              | boolean                              | false            |
-| showTotal    | Whether to show total count                                                     | boolean                              | false            |
+| showTotal    | Whether to show total count                                                     | boolean                              | true             |
 | showElevator | Whether to show page elevator                                                   | boolean                              | false            |
 | simple       | Use compact pagination                                                          | boolean                              | false            |
 | sizeData     | Custom page size data                                                           | number[]                             | [10,15,20,30,40] |

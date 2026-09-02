@@ -23,12 +23,25 @@ When an operation takes a long time to complete, display the current progress an
 
 - Specify the `mode` to change the display direction.
 
-## API
+## TimeLine API
 
-| Property | Description                                                                                                    | Type         | Default |
-| -------- | -------------------------------------------------------------------------------------------------------------- | ------------ | ------- |
-| icon     | Timeline `item` icon                                                                                           | string       | -       |
-| color    | Timeline `item` icon color                                                                                     | string       | -       |
-| time     | Time text                                                                                                      | string       | -       |
-| extra    | Custom auxiliary content                                                                                       | string, slot | -       |
-| mode     | Can change relative position of timeline and content by setting `mode`: `left`, `center`, `alternate`, `right` | string       | left    |
+| Property | Description                                       | Type                                           | Default  |
+| -------- | ------------------------------------------------- | ---------------------------------------------- | -------- |
+| mode     | Relative position of the timeline and its content | `'left' \| 'right' \| 'center' \| 'alternate'` | `'left'` |
+
+## TimeLineItem API
+
+| Property | Description         | Type         | Default |
+| -------- | ------------------- | ------------ | ------- |
+| icon     | Timeline node icon  | `IconType[]` | -       |
+| color    | Timeline node color | `string`     | -       |
+| time     | Time content        | `VNodeChild` | -       |
+| extra    | Auxiliary content   | `VNodeChild` | -       |
+
+## TimeLineItem Slots
+
+| Name    | Description              |
+| ------- | ------------------------ |
+| default | Timeline item content    |
+| dot     | Custom timeline node     |
+| extra   | Custom auxiliary content |

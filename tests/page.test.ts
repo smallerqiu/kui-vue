@@ -37,4 +37,33 @@ describe("Page", () => {
     await elevator.trigger("change");
     expect(wrapper.emitted("update:page")?.at(-1)).toEqual([100]);
   });
+
+  it("supports v-model:pageSize", async () => {
+    const wrapper = mount(Page, {
+      props: { showSizer: true, page: 2, total: 100, pageSize: 10 },
+    });
+
+    wrapper.findComponent({ name: "Select" }).vm.$emit("change", 20);
+    expect(wrapper.emitted("update:pageSize")?.at(-1)).toEqual([20]);
+    expect(wrapper.emitted("change")?.at(-1)).toEqual([2, 20]);
+  });
+
+  it("syncs a clamped page when total shrinks", async () => {
+    const wrapper = mount(Page, {
+      props: { page: 8, total: 100, pageSize: 10 },
+    });
+
+    await wrapper.setProps({ total: 20 });
+    expect(wrapper.find(".k-pager-item-active").text()).toBe("2");
+    expect(wrapper.emitted("update:page")?.at(-1)).toEqual([2]);
+  });
+
+  it("normalizes invalid page and pageSize values", () => {
+    const wrapper = mount(Page, {
+      props: { page: -3, total: 50, pageSize: 0 },
+    });
+
+    expect(wrapper.find(".k-pager-item-active").text()).toBe("1");
+    expect(wrapper.findAll(".k-pager-item")).toHaveLength(7);
+  });
 });
