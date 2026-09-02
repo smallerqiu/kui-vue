@@ -76,6 +76,11 @@
           "title": "滚动容器",
           "file": "components/affix/demo/container.vue",
           "source": "<template>\n  <div class=\"demo-affix-scroll\" ref=\"containerRef\">\n    <div class=\"demo-affix-inner\">\n      <div style=\"padding: 50px 0\" />\n      <Affix :target=\"() => containerRef\" :offsetTop=\"50\">\n        <Button type=\"primary\">Affix at the top of container</Button>\n      </Affix>\n      <div style=\"padding: 200px 0\" />\n      <Affix :target=\"() => containerRef\" :offsetBottom=\"50\">\n        <Button type=\"primary\">Affix at the bottom of container</Button>\n      </Affix>\n    </div>\n  </div>\n</template>\n\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst containerRef = ref();\n</script>\n\n<style scoped>\n.demo-affix-scroll {\n  height: 300px;\n  overflow-y: auto;\n  background-image:\n    linear-gradient(-45deg, #cdcdcd 25%, #eeeeee50 0),\n    linear-gradient(45deg, #cdcdcd 25%, #eeeeee50 0),\n    linear-gradient(-45deg, #eeeeee50 75%, #cdcdcd 0),\n    linear-gradient(45deg, #eeeeee50 75%, #cdcdcd 0);\n  background-size: 40px 40px;\n  background-position:\n    0 0,\n    0 -20px,\n    -20px 20px,\n    20px 0;\n}\n.demo-affix-inner {\n  height: 800px;\n}\n</style>"
+        },
+        {
+          "title": "固定在底部",
+          "file": "components/affix/demo/bottom.vue",
+          "source": "<template>\n  <Affix :offsetBottom=\"bottom\">\n    <Button type=\"primary\" @click=\"bottom += 10\">120px to affix bottom</Button>\n  </Affix>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst bottom = ref(120);\n</script>"
         }
       ]
     },
@@ -4143,7 +4148,7 @@
         {
           "title": "植入目标元素",
           "file": "components/drawer/demo/target.vue",
-          "source": "<template>\n  <Space wrap>\n    <RadioGroup v-model=\"placement\" type=\"button\" theme=\"card\">\n      <RadioButton label=\"left\" value=\"left\" />\n      <RadioButton label=\"top\" value=\"top\" />\n      <RadioButton label=\"right\" value=\"right\" />\n      <RadioButton label=\"bottom\" value=\"bottom\" />\n    </RadioGroup>\n    <Button @click=\"show = !show\">Open</Button>\n  </Space>\n  <br />\n  <br />\n  <Flex ref=\"refTarget\" :style=\"boxStyle\" align=\"center\" justify=\"center\">\n    <p style=\"color: #999\">Drawer inside with target.</p>\n  </Flex>\n  <Drawer\n    v-model=\"show\"\n    width=\"50%\"\n    height=\"50%\"\n    :footer=\"false\"\n    :placement=\"placement\"\n    :target=\"() => refTarget\"\n  >\n    <p>something ...</p>\n    <p>something ...</p>\n    <p>something ...</p>\n  </Drawer>\n</template>\n<script setup lang=\"ts\">\nimport type { DrawerPlacementsType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst show = ref(false);\nconst placement = ref<DrawerPlacementsType>(\"left\");\nconst refTarget = ref();\nconst boxStyle = {\n  height: \"300px\",\n  position: \"relative\",\n  overflow: \"hidden\",\n  borderRadius: \"8px\",\n  background: \"rgba(130, 130, 130, 0.18)\",\n};\n</script>"
+          "source": "<template>\n  <Space wrap>\n    <RadioGroup v-model=\"placement\" type=\"button\" theme=\"card\">\n      <RadioButton label=\"left\" value=\"left\" />\n      <RadioButton label=\"top\" value=\"top\" />\n      <RadioButton label=\"right\" value=\"right\" />\n      <RadioButton label=\"bottom\" value=\"bottom\" />\n    </RadioGroup>\n    <Button @click=\"show = !show\">Open</Button>\n  </Space>\n  <br />\n  <br />\n  <Flex ref=\"refTarget\" :style=\"boxStyle\" align=\"center\" justify=\"center\">\n    <p style=\"color: #999\">Drawer inside with target.</p>\n  </Flex>\n  <Drawer\n    v-model=\"show\"\n    width=\"50%\"\n    height=\"50%\"\n    :footer=\"false\"\n    :placement=\"placement\"\n    :target=\"() => refTarget\"\n  >\n    <p>something ...</p>\n    <p>something ...</p>\n    <p>something ...</p>\n  </Drawer>\n</template>\n<script setup lang=\"ts\">\nimport type { DrawerPlacementsType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst show = ref(false);\nconst placement = ref<DrawerPlacementsType>(\"left\");\nconst refTarget = ref();\nconst boxStyle = {\n  height: \"300px\",\n  overflow: \"hidden\",\n  borderRadius: \"8px\",\n  background: \"rgba(130, 130, 130, 0.18)\",\n};\n</script>"
         }
       ]
     },
@@ -4256,6 +4261,11 @@
           "title": "弹出位置",
           "file": "components/dropdown/demo/placement.vue",
           "source": "<template>\n  <Space wrap>\n    <template v-for=\"placement in placements\" :key=\"placement\">\n      <Dropdown :placement=\"placement\">\n        <Button>{{ placement }}</Button>\n        <template #overlay>\n          <Menu>\n            <MenuItem>\n              <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"http://www.chuchur.com/\">\n                1st menu item\n              </a>\n            </MenuItem>\n            <MenuItem>\n              <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"http://www.k-ui.cn/\">\n                2nd menu item\n              </a>\n            </MenuItem>\n            <MenuItem>\n              <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"http://react.k-ui.cn/\">\n                3rd menu item\n              </a>\n            </MenuItem>\n          </Menu>\n        </template>\n      </Dropdown>\n    </template>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { DropPlacementsType } from \"kui-vue\";\n\nconst placements: DropPlacementsType[] = [\n  \"bottom-left\",\n  \"bottom\",\n  \"bottom-right\",\n  \"top-left\",\n  \"top\",\n  \"top-right\",\n];\n</script>"
+        },
+        {
+          "title": "显示箭头",
+          "file": "components/dropdown/demo/arrow.vue",
+          "source": "<template>\n  <div id=\"dropdown-demo-placement\">\n    <template v-for=\"placement in placements\" :key=\"placement\">\n      <Dropdown :placement=\"placement\" arrow>\n        <Button>{{ placement }}</Button>\n        <template #overlay>\n          <Menu>\n            <MenuItem>\n              <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"http://www.chuchur.com/\">\n                1st menu item\n              </a>\n            </MenuItem>\n            <MenuItem>\n              <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"http://www.k-ui.cn/\">\n                2nd menu item\n              </a>\n            </MenuItem>\n            <MenuItem>\n              <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"http://react.k-ui.cn/\">\n                3rd menu item\n              </a>\n            </MenuItem>\n          </Menu>\n        </template>\n      </Dropdown>\n    </template>\n  </div>\n</template>\n\n<script setup lang=\"ts\">\nimport type { DropPlacementsType } from \"kui-vue\";\n\nconst placements: DropPlacementsType[] = [\n  \"bottom-left\",\n  \"bottom\",\n  \"bottom-right\",\n  \"top-left\",\n  \"top\",\n  \"top-right\",\n];\n</script>"
         },
         {
           "title": "多级菜单",
@@ -4382,6 +4392,11 @@
           "title": "弹出位置",
           "file": "components/dropdown/demo/placement.vue",
           "source": "<template>\n  <Space wrap>\n    <template v-for=\"placement in placements\" :key=\"placement\">\n      <Dropdown :placement=\"placement\">\n        <Button>{{ placement }}</Button>\n        <template #overlay>\n          <Menu>\n            <MenuItem>\n              <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"http://www.chuchur.com/\">\n                1st menu item\n              </a>\n            </MenuItem>\n            <MenuItem>\n              <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"http://www.k-ui.cn/\">\n                2nd menu item\n              </a>\n            </MenuItem>\n            <MenuItem>\n              <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"http://react.k-ui.cn/\">\n                3rd menu item\n              </a>\n            </MenuItem>\n          </Menu>\n        </template>\n      </Dropdown>\n    </template>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { DropPlacementsType } from \"kui-vue\";\n\nconst placements: DropPlacementsType[] = [\n  \"bottom-left\",\n  \"bottom\",\n  \"bottom-right\",\n  \"top-left\",\n  \"top\",\n  \"top-right\",\n];\n</script>"
+        },
+        {
+          "title": "显示箭头",
+          "file": "components/dropdown/demo/arrow.vue",
+          "source": "<template>\n  <div id=\"dropdown-demo-placement\">\n    <template v-for=\"placement in placements\" :key=\"placement\">\n      <Dropdown :placement=\"placement\" arrow>\n        <Button>{{ placement }}</Button>\n        <template #overlay>\n          <Menu>\n            <MenuItem>\n              <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"http://www.chuchur.com/\">\n                1st menu item\n              </a>\n            </MenuItem>\n            <MenuItem>\n              <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"http://www.k-ui.cn/\">\n                2nd menu item\n              </a>\n            </MenuItem>\n            <MenuItem>\n              <a target=\"_blank\" rel=\"noopener noreferrer\" href=\"http://react.k-ui.cn/\">\n                3rd menu item\n              </a>\n            </MenuItem>\n          </Menu>\n        </template>\n      </Dropdown>\n    </template>\n  </div>\n</template>\n\n<script setup lang=\"ts\">\nimport type { DropPlacementsType } from \"kui-vue\";\n\nconst placements: DropPlacementsType[] = [\n  \"bottom-left\",\n  \"bottom\",\n  \"bottom-right\",\n  \"top-left\",\n  \"top\",\n  \"top-right\",\n];\n</script>"
         },
         {
           "title": "多级菜单",
@@ -7787,7 +7802,7 @@
         {
           "name": "showSizer",
           "description": "Whether to show page size selector",
-          "descriptionZh": "是否显示页码组",
+          "descriptionZh": "是否显示每页条数选择器",
           "descriptionEn": "Whether to show page size selector",
           "type": "boolean | undefined",
           "boolean": true,
@@ -9063,10 +9078,10 @@
       "documentation": "https://k-ui.cn/components/rate",
       "props": [
         {
-          "name": "modelValue",
-          "description": "Current value, controlled value(v-model)",
-          "descriptionZh": "当前数，受控值 (v-model)",
-          "descriptionEn": "Current value, controlled value(v-model)",
+          "name": "value",
+          "description": "Initial value in uncontrolled mode",
+          "descriptionZh": "非受控模式的初始值",
+          "descriptionEn": "Initial value in uncontrolled mode",
           "type": "number",
           "boolean": false,
           "documented": true
@@ -9114,6 +9129,15 @@
           "descriptionZh": "自定义展示的图标",
           "descriptionEn": "Custom display icon",
           "type": "IconType[] | ((index: number) => IconType[]) | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Current controlled value, used with `v-model`",
+          "descriptionZh": "当前受控值，配合 `v-model` 使用",
+          "descriptionEn": "Current controlled value, used with `v-model`",
+          "type": "number | undefined",
           "boolean": false,
           "documented": true
         },
@@ -9204,17 +9228,17 @@
         {
           "title": "基本用法",
           "file": "components/rate/demo/basic.vue",
-          "source": "<template>\n  <Space vertical>\n    <code>v-model: {{ value }}</code>\n    <Rate v-model=\"value\" />\n    <code>show score</code>\n    <Rate :modelValue=\"2.5\" showScore />\n    <code>size = 30</code>\n    <Rate :size=\"30\" :modelValue=\"2\" />\n    <code>custom icon</code>\n    <Rate :icon=\"Heart\" color=\"red\" :modelValue=\"2.5\" :size=\"30\" symbolReverseFill />\n    <code>allowHalf = true</code>\n    <Rate :icon=\"Heart\" allowHalf color=\"red\" :modelValue=\"2.5\" :size=\"30\" />\n    <code>disabled (readonly)</code>\n    <Rate :modelValue=\"3.7\" disabled showScore />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Heart } from \"kui-icons\";\nimport { ref } from \"vue\";\nconst value = ref(3);\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <code>v-model: {{ value }}</code>\n    <Rate v-model=\"value\" />\n    <code>show score</code>\n    <Rate :value=\"2.5\" showScore />\n    <code>size = 30</code>\n    <Rate :size=\"30\" :value=\"2\" />\n    <code>custom icon</code>\n    <Rate :icon=\"Heart\" color=\"red\" :value=\"2.5\" :size=\"30\" symbolReverseFill />\n    <code>allowHalf = true</code>\n    <Rate :icon=\"Heart\" allowHalf color=\"red\" :value=\"2.5\" :size=\"30\" />\n    <code>disabled (readonly)</code>\n    <Rate :value=\"3.7\" disabled showScore />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Heart } from \"kui-icons\";\nimport { ref } from \"vue\";\nconst value = ref(3);\n</script>"
         },
         {
           "title": "文案展现 / 允许清除",
           "file": "components/rate/demo/tips.vue",
-          "source": "<template>\n  <Space vertical>\n    <Space>\n      <Rate :tooltips=\"desc\" v-model=\"value\" />\n      {{ tipText }}\n    </Space>\n    <br />\n    <code>allowClear = true</code>\n    <Rate :allowClear=\"true\" :modelValue=\"3\" />\n    <code>allowClear = false</code>\n    <Rate :allowClear=\"false\" :modelValue=\"3\" />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref, computed } from \"vue\";\nconst value = ref(3);\nconst desc = [\"terrible\", \"bad\", \"normal\", \"good\", \"wonderful\"];\nconst tipText = computed(() => {\n  return desc[value.value - 1];\n});\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <Slider :min=\"0\" :max=\"5\" v-model=\"value\" style=\"width: 300px\" />\n    <Space>\n      <Rate :tooltips=\"desc\" v-model=\"value\" />\n      {{ tipText }}\n    </Space>\n    <br />\n    <code>allowClear = true</code>\n    <Rate :allowClear=\"true\" :value=\"3\" />\n    <code>allowClear = false</code>\n    <Rate :allowClear=\"false\" :value=\"3\" />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { computed, ref } from \"vue\";\nconst value = ref(3);\nconst desc = [\"terrible\", \"bad\", \"normal\", \"good\", \"wonderful\"];\nconst tipText = computed(() => {\n  return desc[value.value - 1];\n});\n</script>"
         },
         {
           "title": "其他字符",
           "file": "components/rate/demo/character.vue",
-          "source": "<template>\n  <Space vertical>\n    <Rate :icon=\"Heart\" allowHalf :modelValue=\"1.5\" />\n    <code>character = A</code>\n    <Rate character=\"A\" allowHalf :modelValue=\"2.5\" />\n    <code>character = 龍</code>\n    <Rate character=\"龍\" allowHalf :modelValue=\"3.5\" :size=\"24\" />\n    <br />\n    <code>count = 9</code>\n    <Rate :character=\"(i) => i\" :modelValue=\"2\" :count=\"9\" />\n    <Rate :icon=\"(i) => icons[i - 1]\" :modelValue=\"3\" />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Heart, Wifi, WifiHigh, WifiLow, WifiOff, WifiZero } from \"kui-icons\";\nconst icons = [WifiOff, WifiZero, WifiLow, WifiHigh, Wifi];\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <Rate :icon=\"Heart\" allowHalf :value=\"1.5\" />\n    <code>character = A</code>\n    <Rate character=\"A\" allowHalf :value=\"2.5\" />\n    <code>character = 龍</code>\n    <Rate character=\"龍\" allowHalf :value=\"3.5\" :size=\"24\" />\n    <br />\n    <code>count = 9</code>\n    <Rate :character=\"(i) => i\" :value=\"2\" :count=\"9\" />\n    <Rate :icon=\"(i) => icons[i - 1]\" :value=\"3\" />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Heart, Wifi, WifiHigh, WifiLow, WifiOff, WifiZero } from \"kui-icons\";\nconst icons = [WifiOff, WifiZero, WifiLow, WifiHigh, Wifi];\n</script>"
         }
       ]
     },
@@ -9923,19 +9947,10 @@
       "documentation": "https://k-ui.cn/components/skeleton",
       "props": [
         {
-          "name": "title",
-          "description": "Title point unit",
-          "descriptionZh": "标题点位单位",
-          "descriptionEn": "Title point unit",
-          "type": "number",
-          "boolean": false,
-          "documented": true
-        },
-        {
           "name": "delay",
-          "description": "Debounce (animation delay closing)",
-          "descriptionZh": "防抖(动画延迟关闭)",
-          "descriptionEn": "Debounce (animation delay closing)",
+          "description": "Delay showing the skeleton, in milliseconds",
+          "descriptionZh": "延迟显示骨架，单位毫秒",
+          "descriptionEn": "Delay showing the skeleton, in milliseconds",
           "type": "number",
           "boolean": false,
           "documented": true
@@ -9950,11 +9965,11 @@
           "documented": true
         },
         {
-          "name": "shape",
-          "description": "Specify the shape of the button",
-          "descriptionZh": "指定头像的形状",
-          "descriptionEn": "Specify the shape of the button",
-          "type": "ShapeType | undefined",
+          "name": "titleWidth",
+          "description": "Title placeholder width, from 0 to 100",
+          "descriptionZh": "标题占位图宽度，取值范围 0-100",
+          "descriptionEn": "Title placeholder width, from 0 to 100",
+          "type": "number",
           "boolean": false,
           "documented": true
         },
@@ -9968,21 +9983,12 @@
           "documented": true
         },
         {
-          "name": "size",
-          "description": "Image width (height)",
-          "descriptionZh": "图片的宽(高)度",
-          "descriptionEn": "Image width (height)",
-          "type": "number | \"default\" | SizeType | number[] | undefined",
+          "name": "title",
+          "description": "Deprecated. Use `titleWidth` instead",
+          "descriptionZh": "已废弃，请使用 `titleWidth`",
+          "descriptionEn": "Deprecated. Use `titleWidth` instead",
+          "type": "number | undefined",
           "boolean": false,
-          "documented": true
-        },
-        {
-          "name": "block",
-          "description": "Option to adjust button width to its parent width",
-          "descriptionZh": "将按钮宽度调整为其父宽度的选项",
-          "descriptionEn": "Option to adjust button width to its parent width",
-          "type": "boolean | undefined",
-          "boolean": true,
           "documented": true
         },
         {
@@ -9991,24 +9997,6 @@
           "descriptionZh": "是否显示头像占位图",
           "descriptionEn": "Whether to show avatar placeholder",
           "type": "boolean | { size?: SizeType | undefined; shape?: ShapeType | undefined; } | undefined",
-          "boolean": false,
-          "documented": true
-        },
-        {
-          "name": "radius",
-          "description": "Specify the border radius of the image",
-          "descriptionZh": "指定图片的圆角大小",
-          "descriptionEn": "Specify the border radius of the image",
-          "type": "number | undefined",
-          "boolean": false,
-          "documented": true
-        },
-        {
-          "name": "width",
-          "description": "Text width",
-          "descriptionZh": "文本宽度",
-          "descriptionEn": "Text width",
-          "type": "number | undefined",
           "boolean": false,
           "documented": true
         },
@@ -10674,27 +10662,27 @@
         },
         {
           "name": "delay",
-          "description": "Delay time to display loading effect (prevent flickering)",
+          "description": "Delay before showing to prevent flickering",
           "descriptionZh": "延迟显示加载效果的时间（防止闪烁）",
-          "descriptionEn": "Delay time to display loading effect (prevent flickering)",
+          "descriptionEn": "Delay before showing to prevent flickering",
           "type": "number",
           "boolean": false,
           "documented": true
         },
         {
           "name": "mode",
-          "description": "Display spin type, provides 4 display methods",
-          "descriptionZh": "展示spin类型,提供4中展示方式",
-          "descriptionEn": "Display spin type, provides 4 display methods",
+          "description": "Loading animation type",
+          "descriptionZh": "加载动画类型",
+          "descriptionEn": "Loading animation type",
           "type": "SpinModeType",
           "boolean": false,
           "documented": true
         },
         {
           "name": "size",
-          "description": "Set loading effect size",
-          "descriptionZh": "设置加载效果的大小",
-          "descriptionEn": "Set loading effect size",
+          "description": "Loading indicator size",
+          "descriptionZh": "加载效果的尺寸",
+          "descriptionEn": "Loading indicator size",
           "type": "SizeType | undefined",
           "boolean": false,
           "documented": true
@@ -12857,9 +12845,9 @@
       "props": [
         {
           "name": "mode",
-          "description": "Can change relative position of timeline and content by setting `mode`: `left`, `center`, `alternate`, `right`",
-          "descriptionZh": "通过设置 `mode` 可以改变时间轴和内容的相对位置 `left`、`center`、`alternate`、`right`",
-          "descriptionEn": "Can change relative position of timeline and content by setting `mode`: `left`, `center`, `alternate`, `right`",
+          "description": "Relative position of the timeline and its content",
+          "descriptionZh": "时间轴和内容的相对位置",
+          "descriptionEn": "Relative position of the timeline and its content",
           "type": "TimelineMode",
           "boolean": false,
           "documented": true
@@ -12897,28 +12885,28 @@
       "props": [
         {
           "name": "icon",
-          "description": "Timeline `item` icon",
-          "descriptionZh": "时间轴 `item` 图标",
-          "descriptionEn": "Timeline `item` icon",
+          "description": "Timeline node icon",
+          "descriptionZh": "时间轴节点图标",
+          "descriptionEn": "Timeline node icon",
           "type": "IconType[] | undefined",
           "boolean": false,
           "documented": true
         },
         {
           "name": "color",
-          "description": "Timeline `item` icon color",
-          "descriptionZh": "时间轴 `item` 图标颜色",
-          "descriptionEn": "Timeline `item` icon color",
+          "description": "Timeline node color",
+          "descriptionZh": "时间轴节点颜色",
+          "descriptionEn": "Timeline node color",
           "type": "string | undefined",
           "boolean": false,
           "documented": true
         },
         {
           "name": "time",
-          "description": "Time text",
-          "descriptionZh": "时间文本",
-          "descriptionEn": "Time text",
-          "type": "string | undefined",
+          "description": "Time content",
+          "descriptionZh": "时间内容",
+          "descriptionEn": "Time content",
+          "type": "VNodeChild",
           "boolean": false,
           "documented": true
         },
@@ -12927,7 +12915,7 @@
           "description": "Custom auxiliary content",
           "descriptionZh": "自定义辅助内容",
           "descriptionEn": "Custom auxiliary content",
-          "type": "string | undefined",
+          "type": "VNodeChild",
           "boolean": false,
           "documented": true
         }

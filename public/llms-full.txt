@@ -170,6 +170,10 @@ Use this feature cautiously when the visible area of the page is small to avoid 
 
 - Use `target` to set the element whose scroll event `Affix` listens to. Defaults to `window`.
 
+[Affix to Bottom](./demo/bottom.vue)
+
+- Use `offsetBottom` to pin an element to the bottom of the viewport.
+
 ## API
 
 | Property     | Description                                                                                                                         | Type                    | Default |
@@ -1875,6 +1879,10 @@ When there are too many operation commands on the page, this component can be us
 
 - Supports 6 popup positions.
 
+[Arrow](./demo/arrow.vue)
+
+- Set `arrow` to display an arrow pointing to the trigger.
+
 [Multi-level Menu](./demo/cascading.vue)
 
 - The passed menu has multiple levels.
@@ -1932,6 +1940,10 @@ When there are too many operation commands on the page, this component can be us
 [Popup Position](./demo/placement.vue)
 
 - Supports 6 popup positions.
+
+[Arrow](./demo/arrow.vue)
+
+- Set `arrow` to display an arrow pointing to the trigger.
 
 [Multi-level Menu](./demo/cascading.vue)
 
@@ -2677,6 +2689,8 @@ Use
 ```
 
 [IconList](./demo/search.tsx?demo=false)
+
+- Search and browse all icons provided by `kui-icons`.
 
 [Basic Usage](./demo/basic.vue)
 
@@ -3737,6 +3751,14 @@ Also provides global configuration and global destruction methods:
 - modal.show(options)
 - modal.destroyAll()
 
+Imperative modals are mounted globally under `body` and are not owned by the current page component. Destroy them from a router hook when they should close after navigation:
+
+```ts
+router.afterEach(() => {
+  modal.destroyAll();
+});
+```
+
 Parameter options is an object, specific description as follows:
 
 | Property   | Description                                                                                                                                                   | Type       | Default |
@@ -3794,7 +3816,7 @@ Separate long lists using pagination, loading only one page at a time.
 | total        | Total data count                                                                | number                               | 0                |
 | pageSize     | number of items per page                                                        | number                               | 10               |
 | showSizer    | Whether to show page size selector                                              | boolean                              | false            |
-| showTotal    | Whether to show total count                                                     | boolean                              | false            |
+| showTotal    | Whether to show total count                                                     | boolean                              | true             |
 | showElevator | Whether to show page elevator                                                   | boolean                              | false            |
 | simple       | Use compact pagination                                                          | boolean                              | false            |
 | sizeData     | Custom page size data                                                           | number[]                             | [10,15,20,30,40] |
@@ -4298,22 +4320,23 @@ Rating component.
 
 ## Rate API
 
-| Property          | Description                                 | Type                    | Default |
-| ----------------- | ------------------------------------------- | ----------------------- | ------- |
-| modelValue        | Current value, controlled value(v-model)    | number                  | -       |
-| allowClear        | Whether to allow clearing by clicking again | boolean                 | false   |
-| allowHalf         | Whether to allow half selection             | boolean                 | false   |
-| showScore         | Whether to show score                       | boolean                 | false   |
-| character         | Custom character                            | string                  | -       |
-| count             | Total number of stars                       | number                  | -       |
-| icon              | Custom display icon                         | Icon                    | -       |
-| size              | Icon size                                   | number                  | -       |
-| color             | Icon color                                  | string                  | -       |
-| disabled          | Read-only, cannot interact                  | string                  | -       |
-| tooltips          | Custom prompt information for each item     | string[]                | -       |
-| onChange          | Callback when selecting                     | (value: number) => void | -       |
-| symbolReverseFill | Symbol Inverted Fill Color                  | boolean                 | false   |
-| strokeWidth       | Symbol Border Unit                          | number                  | 1       |
+| Property          | Description                                   | Type                    | Default |
+| ----------------- | --------------------------------------------- | ----------------------- | ------- |
+| modelValue        | Current controlled value, used with `v-model` | number                  | -       |
+| value             | Initial value in uncontrolled mode            | number                  | 0       |
+| allowClear        | Whether to allow clearing by clicking again   | boolean                 | true    |
+| allowHalf         | Whether to allow half selection               | boolean                 | false   |
+| showScore         | Whether to show score                         | boolean                 | false   |
+| character         | Custom character                              | string                  | -       |
+| count             | Total number of stars                         | number                  | 5       |
+| icon              | Custom display icon                           | Icon                    | -       |
+| size              | Icon size                                     | number                  | -       |
+| color             | Icon color                                    | string                  | -       |
+| disabled          | Read-only, cannot interact                    | boolean                 | false   |
+| tooltips          | Custom prompt information for each item       | string[]                | -       |
+| onChange          | Callback when selecting                       | (value: number) => void | -       |
+| symbolReverseFill | Symbol Inverted Fill Color                    | boolean                 | false   |
+| strokeWidth       | Symbol Border Unit                            | number                  | 1       |
 
 ---
 
@@ -4634,45 +4657,48 @@ Provide a placeholder graphic combination at positions where content needs to be
 
 ## API
 
-| Property | Description                                                              | Type                   | Default |
-| -------- | ------------------------------------------------------------------------ | ---------------------- | ------- |
-| animated | Whether to show animation effect                                         | boolean                | false   |
-| avatar   | Whether to show avatar placeholder                                       | boolean \| AvatarProps | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | boolean                | false   |
-| rows     | Set the number of paragraph placeholder lines                            | number                 | 3       |
-| width    | Set the width of title placeholder                                       | number(%)              | 35      |
-| delay    | Debounce (animation delay closing)                                       | number(milliseconds)   | 500     |
-| title    | Title point unit                                                         | number                 | 35(px)  |
+| Property   | Description                                                              | Type                                              | Default |
+| ---------- | ------------------------------------------------------------------------ | ------------------------------------------------- | ------- |
+| animated   | Whether to show animation effect                                         | boolean                                           | false   |
+| avatar     | Whether to show avatar placeholder                                       | boolean \| { size?: SizeType; shape?: ShapeType } | false   |
+| loading    | When true, show placeholder. Otherwise directly display child components | boolean                                           | false   |
+| rows       | Set the number of paragraph placeholder lines                            | number                                            | 3       |
+| delay      | Delay showing the skeleton to avoid flickering, in milliseconds          | number                                            | 500     |
+| titleWidth | Title placeholder width, from 0 to 100                                   | number                                            | 35      |
+| title      | Deprecated. Use `titleWidth` instead                                     | number                                            | -       |
 
 ## Avatar Props
 
-| Property | Description                                                              | Type                                      | Default |
-| -------- | ------------------------------------------------------------------------ | ----------------------------------------- | ------- |
-| animated | Whether to show animation effect                                         | boolean                                   | false   |
-| radius   | Specify the border radius of the image                                   | number                                    | -       |
-| shape    | Specify the shape of the avatar                                          | 'circle' \| 'square'                      | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | boolean                                   | false   |
-| size     | Set the size of avatar placeholder                                       | number \| 'large' \| 'small' \| 'default' | -       |
+| Property | Description                                                              | Type                                     | Default |
+| -------- | ------------------------------------------------------------------------ | ---------------------------------------- | ------- |
+| animated | Whether to show animation effect                                         | boolean                                  | false   |
+| radius   | Specify the border radius of the image                                   | number                                   | -       |
+| shape    | Specify the shape of the avatar                                          | 'circle' \| 'square'                     | circle  |
+| loading  | When true, show placeholder. Otherwise directly display child components | boolean                                  | false   |
+| delay    | Delay showing the skeleton, in milliseconds                              | number                                   | 500     |
+| size     | Set the size of avatar placeholder                                       | number \| 'small' \| 'medium' \| 'large' \| 'default' | -       |
 
 ## Button Props
 
-| Property | Description                                                              | Type                             | Default |
-| -------- | ------------------------------------------------------------------------ | -------------------------------- | ------- |
-| animated | Whether to show animation effect                                         | boolean                          | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | boolean                          | false   |
-| shape    | Specify the shape of the button                                          | 'circle' \| 'round' \| 'default' | -       |
-| size     | Set the button size                                                      | 'large' \| 'small' \| 'default'  | -       |
-| block    | Option to adjust button width to its parent width                        | boolean                          | false   |
-| width    | Button width                                                             | number                           | -       |
+| Property | Description                                                              | Type                                         | Default |
+| -------- | ------------------------------------------------------------------------ | -------------------------------------------- | ------- |
+| animated | Whether to show animation effect                                         | boolean                                      | false   |
+| loading  | When true, show placeholder. Otherwise directly display child components | boolean                                      | false   |
+| shape    | Specify the shape of the button                                          | 'circle' \| 'square' \| 'round' \| 'default' | -       |
+| size     | Set the button size                                                      | 'small' \| 'medium' \| 'large' \| 'default' | -       |
+| delay    | Delay showing the skeleton, in milliseconds                              | number                                       | 500     |
+| block    | Option to adjust button width to its parent width                        | boolean                                      | false   |
+| width    | Button width                                                             | number                                       | -       |
 
 ## Text Props
 
-| Property | Description                                                              | Type                            | Default |
-| -------- | ------------------------------------------------------------------------ | ------------------------------- | ------- |
-| animated | Whether to show animation effect                                         | boolean                         | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | boolean                         | false   |
-| size     | Set the text size                                                        | 'large' \| 'small' \| 'default' | -       |
-| width    | Text width                                                               | number                          | -       |
+| Property | Description                                                              | Type                           | Default |
+| -------- | ------------------------------------------------------------------------ | ------------------------------ | ------- |
+| animated | Whether to show animation effect                                         | boolean                        | false   |
+| loading  | When true, show placeholder. Otherwise directly display child components | boolean                        | false   |
+| size     | Set the text size                                                        | 'small' \| 'medium' \| 'large' \| 'default' | -       |
+| delay    | Delay showing the skeleton, in milliseconds                              | number                         | 500     |
+| width    | Text width                                                               | number                         | -       |
 
 ## Image Props
 
@@ -4680,6 +4706,7 @@ Provide a placeholder graphic combination at positions where content needs to be
 | -------- | ------------------------------------------------------------------------ | ------------------ | ------- |
 | animated | Whether to show animation effect                                         | boolean            | false   |
 | loading  | When true, show placeholder. Otherwise directly display child components | boolean            | false   |
+| delay    | Delay showing the skeleton, in milliseconds                              | number             | 500     |
 | radius   | Specify the border radius of the image                                   | number             | -       |
 | size     | Image width (height)                                                     | number \| number[] | -       |
 
@@ -5013,12 +5040,12 @@ When part of the page is waiting for asynchronous data or being rendered, approp
 
 ## Spin API
 
-| Property   | Description                                                  | Type                            | Default |
-| ---------- | ------------------------------------------------------------ | ------------------------------- | ------- |
-| modelValue | Whether loading state, can use `v-model` for two-way binding | boolean                         | false   |
-| mode       | Display spin type, provides 4 display methods                | string                          | -       |
-| delay      | Delay time to display loading effect (prevent flickering)    | number (milliseconds)           | 500     |
-| size       | Set loading effect size                                      | 'large' \| 'default' \| 'small' | -       |
+| Property   | Description                                                  | Type                       | Default |
+| ---------- | ------------------------------------------------------------ | -------------------------- | ------- |
+| modelValue | Whether loading state, can use `v-model` for two-way binding | boolean                    | true    |
+| mode       | Loading animation type                                       | bounce\|flip\|rotate\|zoom | rotate  |
+| delay      | Delay before showing to prevent flickering                   | number                     | 0       |
+| size       | Loading indicator size                                       | small\|medium\|large       | medium  |
 
 ---
 
@@ -6067,15 +6094,28 @@ When an operation takes a long time to complete, display the current progress an
 
 - Specify the `mode` to change the display direction.
 
-## API
+## TimeLine API
 
-| Property | Description                                                                                                    | Type         | Default |
-| -------- | -------------------------------------------------------------------------------------------------------------- | ------------ | ------- |
-| icon     | Timeline `item` icon                                                                                           | string       | -       |
-| color    | Timeline `item` icon color                                                                                     | string       | -       |
-| time     | Time text                                                                                                      | string       | -       |
-| extra    | Custom auxiliary content                                                                                       | string, slot | -       |
-| mode     | Can change relative position of timeline and content by setting `mode`: `left`, `center`, `alternate`, `right` | string       | left    |
+| Property | Description                                       | Type                                           | Default  |
+| -------- | ------------------------------------------------- | ---------------------------------------------- | -------- |
+| mode     | Relative position of the timeline and its content | `'left' \| 'right' \| 'center' \| 'alternate'` | `'left'` |
+
+## TimeLineItem API
+
+| Property | Description         | Type         | Default |
+| -------- | ------------------- | ------------ | ------- |
+| icon     | Timeline node icon  | `IconType[]` | -       |
+| color    | Timeline node color | `string`     | -       |
+| time     | Time content        | `VNodeChild` | -       |
+| extra    | Auxiliary content   | `VNodeChild` | -       |
+
+## TimeLineItem Slots
+
+| Name    | Description              |
+| ------- | ------------------------ |
+| default | Timeline item content    |
+| dot     | Custom timeline node     |
+| extra   | Custom auxiliary content |
 
 ---
 
@@ -6104,15 +6144,28 @@ When an operation takes a long time to complete, display the current progress an
 
 - Specify the `mode` to change the display direction.
 
-## API
+## TimeLine API
 
-| Property | Description                                                                                                    | Type         | Default |
-| -------- | -------------------------------------------------------------------------------------------------------------- | ------------ | ------- |
-| icon     | Timeline `item` icon                                                                                           | string       | -       |
-| color    | Timeline `item` icon color                                                                                     | string       | -       |
-| time     | Time text                                                                                                      | string       | -       |
-| extra    | Custom auxiliary content                                                                                       | string, slot | -       |
-| mode     | Can change relative position of timeline and content by setting `mode`: `left`, `center`, `alternate`, `right` | string       | left    |
+| Property | Description                                       | Type                                           | Default  |
+| -------- | ------------------------------------------------- | ---------------------------------------------- | -------- |
+| mode     | Relative position of the timeline and its content | `'left' \| 'right' \| 'center' \| 'alternate'` | `'left'` |
+
+## TimeLineItem API
+
+| Property | Description         | Type         | Default |
+| -------- | ------------------- | ------------ | ------- |
+| icon     | Timeline node icon  | `IconType[]` | -       |
+| color    | Timeline node color | `string`     | -       |
+| time     | Time content        | `VNodeChild` | -       |
+| extra    | Auxiliary content   | `VNodeChild` | -       |
+
+## TimeLineItem Slots
+
+| Name    | Description              |
+| ------- | ------------------------ |
+| default | Timeline item content    |
+| dot     | Custom timeline node     |
+| extra   | Custom auxiliary content |
 
 ---
 
