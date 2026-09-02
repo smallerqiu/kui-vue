@@ -1,15 +1,18 @@
-import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, type PropType, type VNodeChild } from "vue";
 import type { BooleanType, DirectionType } from "../const/types";
 
 const descriptionsItemProps = {
-  label: String,
+  label: [String, Number, Object, Array] as PropType<VNodeChild>,
   span: { type: Number, default: 1 },
   type: String as PropType<"label" | "content">,
   bordered: Boolean as BooleanType,
   layout: String as PropType<DirectionType>,
 };
 
-export type DescriptionsItemProps = ExtractPropTypes<typeof descriptionsItemProps>;
+export interface DescriptionsItemProps {
+  label?: string;
+  span?: number;
+}
 
 const DescriptionsItem = defineComponent({
   name: "DescriptionsItem",

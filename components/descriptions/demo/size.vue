@@ -12,10 +12,13 @@
     <DescriptionsItem label="Price">￥ 199.99</DescriptionsItem>
     <DescriptionsItem label="Discount Amount">￥ 0.99</DescriptionsItem>
     <DescriptionsItem label="Paid Amount">￥ 199.00</DescriptionsItem>
-    <DescriptionsItem label="Remark" :span="5">
-      Please deliver the goods to: <br />
-      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province <br />
-      Kindly ask the courier to handle with care.<br />
+    <DescriptionsItem label="Remark" :span="3">
+      Please deliver the goods to:
+      <br />
+      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province
+      <br />
+      Kindly ask the courier to handle with care.
+      <br />
       Thank you!
     </DescriptionsItem>
   </Descriptions>

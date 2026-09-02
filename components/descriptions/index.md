@@ -20,6 +20,10 @@
 
 - 自定义尺寸，适应在各种容器中展示。
 
+[响应式列数](./demo/responsive.vue?show=vertical)
+
+- 根据组件容器宽度自动调整每行展示的项目数量。
+
 [垂直](./demo/vertical.vue?show=vertical)
 
 - 垂直的列表。
@@ -30,22 +34,21 @@
 
 ## API
 
-| 属性     | 说明                                      | 类型                             | 默认值     |
-| -------- | ----------------------------------------- | -------------------------------- | ---------- |
-| bordered | 是否展示边框                              | boolean                          | false      |
-| column   | 一行的 DescriptionItems 数量              | number                           | 3          |
-| extra    | 描述列表的操作区域，显示在右上方          | string, slot                     | -          |
-| layout   | 描述布局                                  | 'horizontal' \| 'vertical'       | horizontal |
-| size     | 设置列表的大小。可以设置为 medium 、small | 'default' \| 'medium' \| 'small' | default    |
-| title    | 描述列表的标题，显示在最顶部              | string, slot                     | -          |
+| 属性     | 说明                             | 类型                                              | 默认值     |
+| -------- | -------------------------------- | ------------------------------------------------- | ---------- |
+| bordered | 是否展示边框                     | boolean                                           | false      |
+| column   | 每行项目数，支持响应式配置       | number \| Partial\<Record\<Breakpoint, number\>\> | 3          |
+| extra    | 描述列表的操作区域，显示在右上方 | string \| Slot                                    | -          |
+| layout   | 描述布局                         | `'horizontal'` \| `'vertical'`                    | horizontal |
+| size     | 设置列表大小                     | `'large'` \| `'medium'` \| `'small'`              | large      |
+| title    | 描述列表的标题，显示在最顶部     | string \| Slot                                    | -          |
 
 ## Item props
 
-| 属性  | 说明             | 类型   | 默认值 |
-| ----- | ---------------- | ------ | ------ |
-| label | 内容的描述       | string | -      |
-| span  | 列占的数量       | number | 1      |
-| type  | 展示标题还是内容 | string | -      |
+| 属性  | 说明       | 类型   | 默认值 |
+| ----- | ---------- | ------ | ------ |
+| label | 内容的描述 | string | -      |
+| span  | 列占的数量 | number | 1      |
 
 ### 通用外观
 

@@ -19,7 +19,7 @@ const breakpointMap: Record<number, string> = {
 export const GRID_KEY = Symbol("GRID_KEY");
 
 export function useBreakpoint(elRef: Ref<HTMLElement | null>): Ref<string> | null {
-  if (typeof window === "undefined") return null;
+  if (typeof window === "undefined" || typeof ResizeObserver === "undefined") return null;
   const active = ref("md");
   let rafId: number | null = null;
 

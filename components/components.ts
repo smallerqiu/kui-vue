@@ -69,7 +69,7 @@ export { DatePickerPanel, default as DatePicker } from "./date-picker";
 export type { DatePickerProps } from "./date-picker";
 
 export { Descriptions, DescriptionsItem } from "./descriptions";
-export type { DescriptionsItemProps, DescriptionsProps } from "./descriptions";
+export type { DescriptionsColumn, DescriptionsItemProps, DescriptionsProps } from "./descriptions";
 
 export { default as Drawer } from "./drawer";
 export type { DrawerProps } from "./drawer";

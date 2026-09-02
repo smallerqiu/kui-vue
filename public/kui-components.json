@@ -3753,10 +3753,10 @@
         },
         {
           "name": "column",
-          "description": "The number of DescriptionItems in one row",
-          "descriptionZh": "一行的 DescriptionItems 数量",
-          "descriptionEn": "The number of DescriptionItems in one row",
-          "type": "number",
+          "description": "Items per row; supports responsive configuration",
+          "descriptionZh": "每行项目数，支持响应式配置",
+          "descriptionEn": "Items per row; supports responsive configuration",
+          "type": "DescriptionsColumn",
           "boolean": false,
           "documented": true
         },
@@ -3780,9 +3780,9 @@
         },
         {
           "name": "size",
-          "description": "Set the size of the list. Can be set to medium, small",
-          "descriptionZh": "设置列表的大小。可以设置为 medium 、small",
-          "descriptionEn": "Set the size of the list. Can be set to medium, small",
+          "description": "List size",
+          "descriptionZh": "设置列表大小",
+          "descriptionEn": "List size",
           "type": "SizeType | undefined",
           "boolean": false,
           "documented": true
@@ -3817,12 +3817,17 @@
         {
           "title": "带边框的",
           "file": "components/descriptions/demo/bordered.vue",
-          "source": "<template>\n  <Descriptions title=\"Order Information\" bordered>\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Ordered Time\">2022-05-03 12:12:33</DescriptionsItem>\n    <DescriptionsItem label=\"Paid time\" :span=\"3\">2022-05-03 12:15:33</DescriptionsItem>\n    <DescriptionsItem label=\"Status\" :span=\"5\"\n      ><Badge status=\"success\" text=\"Shipped\"\n    /></DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Discount Amount\">￥ 0.99</DescriptionsItem>\n    <DescriptionsItem label=\"Paid Amount\">￥ 199.00</DescriptionsItem>\n    <DescriptionsItem label=\"Remark\">\n      Please deliver the goods to: <br />\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province <br />\n      Kindly ask the courier to handle with care.<br />\n      Thank you!\n    </DescriptionsItem>\n  </Descriptions>\n</template>"
+          "source": "<template>\n  <Descriptions title=\"Order Information\" bordered>\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Ordered Time\">2022-05-03 12:12:33</DescriptionsItem>\n    <DescriptionsItem label=\"Paid time\" :span=\"3\">2022-05-03 12:15:33</DescriptionsItem>\n    <DescriptionsItem label=\"Status\" :span=\"3\">\n      <Badge status=\"success\" text=\"Shipped\" />\n    </DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Discount Amount\">￥ 0.99</DescriptionsItem>\n    <DescriptionsItem label=\"Paid Amount\">￥ 199.00</DescriptionsItem>\n    <DescriptionsItem label=\"Remark\" :span=\"3\">\n      Please deliver the goods to:\n      <br />\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province\n      <br />\n      Kindly ask the courier to handle with care.\n      <br />\n      Thank you!\n    </DescriptionsItem>\n  </Descriptions>\n</template>"
         },
         {
           "title": "自定义尺寸",
           "file": "components/descriptions/demo/size.vue",
-          "source": "<template>\n  <RadioGroup :options=\"types\" v-model=\"size\" type=\"button\" theme=\"card\" />\n  <br />\n  <br />\n  <Descriptions title=\"Order Information\" bordered :size=\"size\">\n    <template #extra>\n      <Button size=\"small\" type=\"primary\">Update Information</Button>\n    </template>\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Discount Amount\">￥ 0.99</DescriptionsItem>\n    <DescriptionsItem label=\"Paid Amount\">￥ 199.00</DescriptionsItem>\n    <DescriptionsItem label=\"Remark\" :span=\"5\">\n      Please deliver the goods to: <br />\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province <br />\n      Kindly ask the courier to handle with care.<br />\n      Thank you!\n    </DescriptionsItem>\n  </Descriptions>\n  <br />\n  <br />\n  <Descriptions title=\"Order Information\" :size=\"size\">\n    <template #extra>\n      <Button size=\"small\" type=\"primary\">Update Information</Button>\n    </template>\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Shipping Address\">\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province\n    </DescriptionsItem>\n  </Descriptions>\n</template>\n<script setup lang=\"ts\">\nimport type { SizeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst types = ref([\n  { label: \"large\", value: \"large\" },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n]);\n</script>"
+          "source": "<template>\n  <RadioGroup :options=\"types\" v-model=\"size\" type=\"button\" theme=\"card\" />\n  <br />\n  <br />\n  <Descriptions title=\"Order Information\" bordered :size=\"size\">\n    <template #extra>\n      <Button size=\"small\" type=\"primary\">Update Information</Button>\n    </template>\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Discount Amount\">￥ 0.99</DescriptionsItem>\n    <DescriptionsItem label=\"Paid Amount\">￥ 199.00</DescriptionsItem>\n    <DescriptionsItem label=\"Remark\" :span=\"3\">\n      Please deliver the goods to:\n      <br />\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province\n      <br />\n      Kindly ask the courier to handle with care.\n      <br />\n      Thank you!\n    </DescriptionsItem>\n  </Descriptions>\n  <br />\n  <br />\n  <Descriptions title=\"Order Information\" :size=\"size\">\n    <template #extra>\n      <Button size=\"small\" type=\"primary\">Update Information</Button>\n    </template>\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Shipping Address\">\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province\n    </DescriptionsItem>\n  </Descriptions>\n</template>\n<script setup lang=\"ts\">\nimport type { SizeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst types = ref([\n  { label: \"large\", value: \"large\" },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n]);\n</script>"
+        },
+        {
+          "title": "响应式列数",
+          "file": "components/descriptions/demo/responsive.vue",
+          "source": "<template>\n  <Descriptions title=\"Responsive Information\" bordered :column=\"{ xs: 1, sm: 2, lg: 3 }\">\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Status\">\n      <Badge status=\"success\" text=\"Shipped\" />\n    </DescriptionsItem>\n    <DescriptionsItem label=\"Shipping Address\" :span=\"2\">\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province\n    </DescriptionsItem>\n  </Descriptions>\n</template>"
         },
         {
           "title": "垂直",
@@ -3832,7 +3837,7 @@
         {
           "title": "垂直带边框",
           "file": "components/descriptions/demo/vertical-bordered.vue",
-          "source": "<template>\n  <Descriptions title=\"Order Information\" bordered layout=\"vertical\">\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Ordered Time\">2022-05-03 12:12:33</DescriptionsItem>\n    <DescriptionsItem label=\"Paid time\" :span=\"3\"> 2022-05-03 12:15:33 </DescriptionsItem>\n    <DescriptionsItem label=\"Status\" :span=\"5\">\n      <Badge status=\"success\" text=\"Shipped\" />\n    </DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Discount Amount\">￥ 0.99</DescriptionsItem>\n    <DescriptionsItem label=\"Paid Amount\">￥ 199.00</DescriptionsItem>\n    <DescriptionsItem label=\"Remark\" :span=\"5\">\n      Please deliver the goods to: <br />\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province <br />\n      Kindly ask the courier to handle with care.<br />\n      Thank you!\n    </DescriptionsItem>\n  </Descriptions>\n</template>"
+          "source": "<template>\n  <Descriptions title=\"Order Information\" bordered layout=\"vertical\">\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Ordered Time\">2022-05-03 12:12:33</DescriptionsItem>\n    <DescriptionsItem label=\"Paid time\" :span=\"3\">2022-05-03 12:15:33</DescriptionsItem>\n    <DescriptionsItem label=\"Status\" :span=\"3\">\n      <Badge status=\"success\" text=\"Shipped\" />\n    </DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Discount Amount\">￥ 0.99</DescriptionsItem>\n    <DescriptionsItem label=\"Paid Amount\">￥ 199.00</DescriptionsItem>\n    <DescriptionsItem label=\"Remark\" :span=\"3\">\n      Please deliver the goods to:\n      <br />\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province\n      <br />\n      Kindly ask the courier to handle with care.\n      <br />\n      Thank you!\n    </DescriptionsItem>\n  </Descriptions>\n</template>"
         }
       ]
     },
@@ -3847,33 +3852,6 @@
       "documentation": "https://k-ui.cn/components/descriptions",
       "props": [
         {
-          "name": "span",
-          "description": "number of columns displayed",
-          "descriptionZh": "列占的数量",
-          "descriptionEn": "number of columns displayed",
-          "type": "number",
-          "boolean": false,
-          "documented": true
-        },
-        {
-          "name": "type",
-          "description": "Show title or content",
-          "descriptionZh": "展示标题还是内容",
-          "descriptionEn": "Show title or content",
-          "type": "\"label\" | \"content\" | undefined",
-          "boolean": false,
-          "documented": true
-        },
-        {
-          "name": "bordered",
-          "description": "Whether to show the border",
-          "descriptionZh": "是否展示边框",
-          "descriptionEn": "Whether to show the border",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "documented": true
-        },
-        {
           "name": "label",
           "description": "Description of the content",
           "descriptionZh": "内容的描述",
@@ -3883,11 +3861,11 @@
           "documented": true
         },
         {
-          "name": "layout",
-          "description": "Description layout",
-          "descriptionZh": "描述布局",
-          "descriptionEn": "Description layout",
-          "type": "DirectionType | undefined",
+          "name": "span",
+          "description": "number of columns displayed",
+          "descriptionZh": "列占的数量",
+          "descriptionEn": "number of columns displayed",
+          "type": "number | undefined",
           "boolean": false,
           "documented": true
         }
@@ -3903,12 +3881,17 @@
         {
           "title": "带边框的",
           "file": "components/descriptions/demo/bordered.vue",
-          "source": "<template>\n  <Descriptions title=\"Order Information\" bordered>\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Ordered Time\">2022-05-03 12:12:33</DescriptionsItem>\n    <DescriptionsItem label=\"Paid time\" :span=\"3\">2022-05-03 12:15:33</DescriptionsItem>\n    <DescriptionsItem label=\"Status\" :span=\"5\"\n      ><Badge status=\"success\" text=\"Shipped\"\n    /></DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Discount Amount\">￥ 0.99</DescriptionsItem>\n    <DescriptionsItem label=\"Paid Amount\">￥ 199.00</DescriptionsItem>\n    <DescriptionsItem label=\"Remark\">\n      Please deliver the goods to: <br />\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province <br />\n      Kindly ask the courier to handle with care.<br />\n      Thank you!\n    </DescriptionsItem>\n  </Descriptions>\n</template>"
+          "source": "<template>\n  <Descriptions title=\"Order Information\" bordered>\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Ordered Time\">2022-05-03 12:12:33</DescriptionsItem>\n    <DescriptionsItem label=\"Paid time\" :span=\"3\">2022-05-03 12:15:33</DescriptionsItem>\n    <DescriptionsItem label=\"Status\" :span=\"3\">\n      <Badge status=\"success\" text=\"Shipped\" />\n    </DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Discount Amount\">￥ 0.99</DescriptionsItem>\n    <DescriptionsItem label=\"Paid Amount\">￥ 199.00</DescriptionsItem>\n    <DescriptionsItem label=\"Remark\" :span=\"3\">\n      Please deliver the goods to:\n      <br />\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province\n      <br />\n      Kindly ask the courier to handle with care.\n      <br />\n      Thank you!\n    </DescriptionsItem>\n  </Descriptions>\n</template>"
         },
         {
           "title": "自定义尺寸",
           "file": "components/descriptions/demo/size.vue",
-          "source": "<template>\n  <RadioGroup :options=\"types\" v-model=\"size\" type=\"button\" theme=\"card\" />\n  <br />\n  <br />\n  <Descriptions title=\"Order Information\" bordered :size=\"size\">\n    <template #extra>\n      <Button size=\"small\" type=\"primary\">Update Information</Button>\n    </template>\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Discount Amount\">￥ 0.99</DescriptionsItem>\n    <DescriptionsItem label=\"Paid Amount\">￥ 199.00</DescriptionsItem>\n    <DescriptionsItem label=\"Remark\" :span=\"5\">\n      Please deliver the goods to: <br />\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province <br />\n      Kindly ask the courier to handle with care.<br />\n      Thank you!\n    </DescriptionsItem>\n  </Descriptions>\n  <br />\n  <br />\n  <Descriptions title=\"Order Information\" :size=\"size\">\n    <template #extra>\n      <Button size=\"small\" type=\"primary\">Update Information</Button>\n    </template>\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Shipping Address\">\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province\n    </DescriptionsItem>\n  </Descriptions>\n</template>\n<script setup lang=\"ts\">\nimport type { SizeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst types = ref([\n  { label: \"large\", value: \"large\" },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n]);\n</script>"
+          "source": "<template>\n  <RadioGroup :options=\"types\" v-model=\"size\" type=\"button\" theme=\"card\" />\n  <br />\n  <br />\n  <Descriptions title=\"Order Information\" bordered :size=\"size\">\n    <template #extra>\n      <Button size=\"small\" type=\"primary\">Update Information</Button>\n    </template>\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Discount Amount\">￥ 0.99</DescriptionsItem>\n    <DescriptionsItem label=\"Paid Amount\">￥ 199.00</DescriptionsItem>\n    <DescriptionsItem label=\"Remark\" :span=\"3\">\n      Please deliver the goods to:\n      <br />\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province\n      <br />\n      Kindly ask the courier to handle with care.\n      <br />\n      Thank you!\n    </DescriptionsItem>\n  </Descriptions>\n  <br />\n  <br />\n  <Descriptions title=\"Order Information\" :size=\"size\">\n    <template #extra>\n      <Button size=\"small\" type=\"primary\">Update Information</Button>\n    </template>\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Shipping Address\">\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province\n    </DescriptionsItem>\n  </Descriptions>\n</template>\n<script setup lang=\"ts\">\nimport type { SizeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst types = ref([\n  { label: \"large\", value: \"large\" },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n]);\n</script>"
+        },
+        {
+          "title": "响应式列数",
+          "file": "components/descriptions/demo/responsive.vue",
+          "source": "<template>\n  <Descriptions title=\"Responsive Information\" bordered :column=\"{ xs: 1, sm: 2, lg: 3 }\">\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Status\">\n      <Badge status=\"success\" text=\"Shipped\" />\n    </DescriptionsItem>\n    <DescriptionsItem label=\"Shipping Address\" :span=\"2\">\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province\n    </DescriptionsItem>\n  </Descriptions>\n</template>"
         },
         {
           "title": "垂直",
@@ -3918,7 +3901,7 @@
         {
           "title": "垂直带边框",
           "file": "components/descriptions/demo/vertical-bordered.vue",
-          "source": "<template>\n  <Descriptions title=\"Order Information\" bordered layout=\"vertical\">\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Ordered Time\">2022-05-03 12:12:33</DescriptionsItem>\n    <DescriptionsItem label=\"Paid time\" :span=\"3\"> 2022-05-03 12:15:33 </DescriptionsItem>\n    <DescriptionsItem label=\"Status\" :span=\"5\">\n      <Badge status=\"success\" text=\"Shipped\" />\n    </DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Discount Amount\">￥ 0.99</DescriptionsItem>\n    <DescriptionsItem label=\"Paid Amount\">￥ 199.00</DescriptionsItem>\n    <DescriptionsItem label=\"Remark\" :span=\"5\">\n      Please deliver the goods to: <br />\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province <br />\n      Kindly ask the courier to handle with care.<br />\n      Thank you!\n    </DescriptionsItem>\n  </Descriptions>\n</template>"
+          "source": "<template>\n  <Descriptions title=\"Order Information\" bordered layout=\"vertical\">\n    <DescriptionsItem label=\"Order Numbers\">20202203302200</DescriptionsItem>\n    <DescriptionsItem label=\"Name\">Qiu</DescriptionsItem>\n    <DescriptionsItem label=\"Phone\">13888888888</DescriptionsItem>\n    <DescriptionsItem label=\"Ordered Time\">2022-05-03 12:12:33</DescriptionsItem>\n    <DescriptionsItem label=\"Paid time\" :span=\"3\">2022-05-03 12:15:33</DescriptionsItem>\n    <DescriptionsItem label=\"Status\" :span=\"3\">\n      <Badge status=\"success\" text=\"Shipped\" />\n    </DescriptionsItem>\n    <DescriptionsItem label=\"Price\">￥ 199.99</DescriptionsItem>\n    <DescriptionsItem label=\"Discount Amount\">￥ 0.99</DescriptionsItem>\n    <DescriptionsItem label=\"Paid Amount\">￥ 199.00</DescriptionsItem>\n    <DescriptionsItem label=\"Remark\" :span=\"3\">\n      Please deliver the goods to:\n      <br />\n      No. 188, Guanggu, Hongshan District, Wuhan City, Hubei Province\n      <br />\n      Kindly ask the courier to handle with care.\n      <br />\n      Thank you!\n    </DescriptionsItem>\n  </Descriptions>\n</template>"
         }
       ]
     },
@@ -5174,10 +5157,10 @@
         },
         {
           "name": "type",
-          "description": "Make Preview display video tag, values ['img','media']",
-          "descriptionZh": "使 Preview 展示 video 标签，取值['img','media']",
-          "descriptionEn": "Make Preview display video tag, values ['img','media']",
-          "type": "string | undefined",
+          "description": "Preview content type",
+          "descriptionZh": "Preview 内容类型",
+          "descriptionEn": "Preview content type",
+          "type": "ImageType | undefined",
           "boolean": false,
           "documented": true
         },
@@ -5250,7 +5233,7 @@
           "description": "Image data",
           "descriptionZh": "图片数据",
           "descriptionEn": "Image data",
-          "type": "unknown[] | undefined",
+          "type": "string[] | undefined",
           "boolean": false,
           "documented": true
         },
@@ -8035,20 +8018,20 @@
           "documented": true
         },
         {
-          "name": "content",
-          "description": "Displayed main content",
-          "descriptionZh": "显示的正文内容",
-          "descriptionEn": "Displayed main content",
-          "type": "string | undefined",
-          "boolean": false,
-          "documented": true
-        },
-        {
           "name": "width",
           "description": "Display width, defaults to content area size",
           "descriptionZh": "展示的宽度,默认为内容区域的大小",
           "descriptionEn": "Display width, defaults to content area size",
           "type": "string | number | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "content",
+          "description": "Displayed main content",
+          "descriptionZh": "显示的正文内容",
+          "descriptionEn": "Displayed main content",
+          "type": "string | undefined",
           "boolean": false,
           "documented": true
         }
@@ -8518,9 +8501,9 @@
       "props": [
         {
           "name": "bordered",
-          "description": "Whether to display an outer container with a subtle shadow and rounded corners for enhanced visual appeal.",
-          "descriptionZh": "是否显示外边框容器，开启后会自带微弱的投影与圆角包裹，提升视觉高级感。",
-          "descriptionEn": "Whether to display an outer container with a subtle shadow and rounded corners for enhanced visual appeal.",
+          "description": "Whether to keep the outer border and padding container.",
+          "descriptionZh": "是否保留外边框和内边距容器。",
+          "descriptionEn": "Whether to keep the outer border and padding container.",
           "type": "boolean",
           "boolean": true,
           "documented": true
@@ -13837,51 +13820,6 @@
           "documented": true
         },
         {
-          "name": "span",
-          "description": "Occupied columns from 0~24; `0` hides the column",
-          "descriptionZh": "栅格占位格数，可选值为 0~24，`0` 表示隐藏",
-          "descriptionEn": "Occupied columns from 0~24; `0` hides the column",
-          "type": "number | undefined",
-          "boolean": false,
-          "documented": true
-        },
-        {
-          "name": "offset",
-          "description": "Left offset from 0~24",
-          "descriptionZh": "栅格左侧间隔格数，可选值为 0~24",
-          "descriptionEn": "Left offset from 0~24",
-          "type": "number | undefined",
-          "boolean": false,
-          "documented": true
-        },
-        {
-          "name": "order",
-          "description": "Column order from 0~24",
-          "descriptionZh": "栅格顺序，可选值为 0~24",
-          "descriptionEn": "Column order from 0~24",
-          "type": "number | undefined",
-          "boolean": false,
-          "documented": true
-        },
-        {
-          "name": "pull",
-          "description": "Move the column left by 0~24 columns",
-          "descriptionZh": "栅格向左移动的格数，可选值为 0~24",
-          "descriptionEn": "Move the column left by 0~24 columns",
-          "type": "number | undefined",
-          "boolean": false,
-          "documented": true
-        },
-        {
-          "name": "flex",
-          "description": "Flex fill, such as `1`, `auto`, `100px`, or `1 1 200px`",
-          "descriptionZh": "Flex 布局填充，例如 `1`、`auto`、`100px`、`1 1 200px`",
-          "descriptionEn": "Flex fill, such as `1`, `auto`, `100px`, or `1 1 200px`",
-          "type": "string | number | undefined",
-          "boolean": false,
-          "documented": true
-        },
-        {
           "name": "xs",
           "description": "`<576px`; accepts a span number or a responsive object",
           "descriptionZh": "`<576px`，数字表示 span，也支持响应式对象",
@@ -13932,6 +13870,51 @@
           "descriptionZh": "`≥1600px`",
           "descriptionEn": "`≥1600px`",
           "type": "ColResponsiveSize | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "span",
+          "description": "Occupied columns from 0~24; `0` hides the column",
+          "descriptionZh": "栅格占位格数，可选值为 0~24，`0` 表示隐藏",
+          "descriptionEn": "Occupied columns from 0~24; `0` hides the column",
+          "type": "number | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "offset",
+          "description": "Left offset from 0~24",
+          "descriptionZh": "栅格左侧间隔格数，可选值为 0~24",
+          "descriptionEn": "Left offset from 0~24",
+          "type": "number | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "order",
+          "description": "Column order from 0~24",
+          "descriptionZh": "栅格顺序，可选值为 0~24",
+          "descriptionEn": "Column order from 0~24",
+          "type": "number | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "pull",
+          "description": "Move the column left by 0~24 columns",
+          "descriptionZh": "栅格向左移动的格数，可选值为 0~24",
+          "descriptionEn": "Move the column left by 0~24 columns",
+          "type": "number | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "flex",
+          "description": "Flex fill, such as `1`, `auto`, `100px`, or `1 1 200px`",
+          "descriptionZh": "Flex 布局填充，例如 `1`、`auto`、`100px`、`1 1 200px`",
+          "descriptionEn": "Flex fill, such as `1`, `auto`, `100px`, or `1 1 200px`",
+          "type": "string | number | undefined",
           "boolean": false,
           "documented": true
         }
@@ -14454,15 +14437,6 @@
           "documented": true
         },
         {
-          "name": "content",
-          "description": "The text content of the watermark. Accepts a string or an array for multi-line support. Passing an array of objects allows independent styling for each line.",
-          "descriptionZh": "水印的文本内容。支持传入字符串，或者数组以支持多行。传入对象数组时，可独立控制每行样式。",
-          "descriptionEn": "The text content of the watermark. Accepts a string or an array for multi-line support. Passing an array of objects allows independent styling for each line.",
-          "type": "string | string[] | WatermarkTextItem[]",
-          "boolean": false,
-          "documented": true
-        },
-        {
           "name": "width",
           "description": "Width of a single watermark cell, in `px`.",
           "descriptionZh": "单个水印区域的宽度，单位 `px`。",
@@ -14486,6 +14460,15 @@
           "descriptionZh": "水印网格平铺时的起始原点偏移量，格式为 `[x, y]`，用于微调边缘留白。",
           "descriptionEn": "The starting offset origin for the watermark grid tiling, formatted as `[x, y]`. Useful for fine-tuning edge whitespace.",
           "type": "number[]",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "content",
+          "description": "The text content of the watermark. Accepts a string or an array for multi-line support. Passing an array of objects allows independent styling for each line.",
+          "descriptionZh": "水印的文本内容。支持传入字符串，或者数组以支持多行。传入对象数组时，可独立控制每行样式。",
+          "descriptionEn": "The text content of the watermark. Accepts a string or an array for multi-line support. Passing an array of objects allows independent styling for each line.",
+          "type": "string | string[] | WatermarkTextItem[]",
           "boolean": false,
           "documented": true
         },
