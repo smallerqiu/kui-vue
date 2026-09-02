@@ -20,7 +20,7 @@ describe("FeatureCard", () => {
         "k-feature-card-small",
         "k-feature-card-vertical",
         "k-feature-card-clickable",
-      ])
+      ]),
     );
     expect(wrapper.attributes("role")).toBe("button");
     expect(wrapper.attributes("style")).toContain("--k-feature-card-color: #f59e0b");
@@ -37,5 +37,15 @@ describe("FeatureCard", () => {
     await wrapper.trigger("click");
     expect(wrapper.emitted("click")).toBeUndefined();
     expect(wrapper.attributes("aria-disabled")).toBe("true");
+  });
+
+  it("does not activate the card from a nested control keyboard event", async () => {
+    const wrapper = mount(FeatureCard, {
+      props: { clickable: true },
+      slots: { default: '<button class="nested-action">Action</button>' },
+    });
+
+    await wrapper.find(".nested-action").trigger("keydown", { key: "Enter" });
+    expect(wrapper.emitted("click")).toBeUndefined();
   });
 });

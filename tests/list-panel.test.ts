@@ -26,6 +26,11 @@ describe("ListPanel", () => {
     expect(wrapper.find(".k-list-panel-toolbar").exists()).toBe(false);
   });
 
+  it("does not treat a null summary as toolbar content", () => {
+    const wrapper = mount(ListPanel, { props: { summary: null as never } });
+    expect(wrapper.find(".k-list-panel-toolbar").exists()).toBe(false);
+  });
+
   it("replaces the regular toolbar with bulk actions when rows are selected", () => {
     const wrapper = mount(ListPanel, {
       props: { summary: "12 records", selectedCount: 2 },

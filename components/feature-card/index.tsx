@@ -1,9 +1,4 @@
-import {
-  defineComponent,
-  type ExtractPropTypes,
-  type PropType,
-  type StyleValue,
-} from "vue";
+import { defineComponent, type ExtractPropTypes, type PropType, type StyleValue } from "vue";
 import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 
@@ -41,6 +36,7 @@ const FeatureCard = defineComponent({
       emit("click", event);
     };
     const handleKeydown = (event: KeyboardEvent) => {
+      if (event.target !== event.currentTarget) return;
       if (!props.clickable || props.disabled || !["Enter", " "].includes(event.key)) return;
       event.preventDefault();
       (event.currentTarget as HTMLElement).click();
@@ -77,9 +73,7 @@ const FeatureCard = defineComponent({
           onKeydown={handleKeydown}
         >
           {(props.icon || slots.icon) && (
-            <div class="k-feature-card-icon">
-              {slots.icon?.() || <Icon type={props.icon} />}
-            </div>
+            <div class="k-feature-card-icon">{slots.icon?.() || <Icon type={props.icon} />}</div>
           )}
           <div class="k-feature-card-content">
             {(props.title || slots.title) && (

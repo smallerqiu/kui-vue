@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, it } from "vitest";
-import { nextTick } from "vue";
+import { h, nextTick } from "vue";
 import { TypographyParagraph } from "../components/typography";
 
 describe("Typography", () => {
@@ -47,7 +47,7 @@ describe("Typography", () => {
     expect(wrapper.find(".k-typography-content").classes()).toContain("is-ellipsis");
     expect(wrapper.find(".k-typography-expand").text()).toBe("More");
     expect(wrapper.findComponent({ name: "Tooltip" }).props("title")).toBe(
-      "A long paragraph that can be expanded."
+      "A long paragraph that can be expanded.",
     );
 
     await wrapper.find(".k-typography-expand").trigger("click");
@@ -56,5 +56,15 @@ describe("Typography", () => {
 
     await wrapper.find(".k-typography-expand").trigger("click");
     expect(wrapper.find(".k-typography-content").classes()).toContain("is-ellipsis");
+  });
+
+  it("extracts readable text from nested slot content", async () => {
+    const wrapper = mount(TypographyParagraph, {
+      props: { copyable: true },
+      slots: { default: () => ["Install ", h("strong", "kui-vue")] },
+    });
+
+    await wrapper.find('[aria-label="Copy"]').trigger("click");
+    expect(wrapper.emitted("copy")?.[0]).toEqual(["Install kui-vue"]);
   });
 });

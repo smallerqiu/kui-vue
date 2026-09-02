@@ -19,7 +19,7 @@ const ListPanel = defineComponent({
   setup(props, { attrs, slots }) {
     return () => {
       const { class: customClass, ...restAttrs } = attrs;
-      const hasSummary = props.summary !== undefined || Boolean(slots.summary);
+      const hasSummary = props.summary != null || Boolean(slots.summary);
       const hasSelection = props.selectedCount > 0 && Boolean(slots.selection);
       const hasToolbar = Boolean(slots.filters || slots.actions || hasSummary || hasSelection);
       return (
@@ -33,10 +33,7 @@ const ListPanel = defineComponent({
         >
           {hasToolbar && (
             <div
-              class={[
-                "k-list-panel-toolbar",
-                { "k-list-panel-toolbar-selection": hasSelection },
-              ]}
+              class={["k-list-panel-toolbar", { "k-list-panel-toolbar-selection": hasSelection }]}
             >
               {hasSelection ? (
                 <div class="k-list-panel-selection">
@@ -44,9 +41,7 @@ const ListPanel = defineComponent({
                 </div>
               ) : (
                 <>
-                  {slots.filters && (
-                    <div class="k-list-panel-filters">{slots.filters()}</div>
-                  )}
+                  {slots.filters && <div class="k-list-panel-filters">{slots.filters()}</div>}
                   {(hasSummary || slots.actions) && (
                     <div class="k-list-panel-toolbar-extra">
                       {hasSummary && (

@@ -13,8 +13,17 @@ import {
 import Icon from "../icon";
 import Tooltip from "../tooltip";
 
-type TypographyType = "secondary" | "success" | "warning" | "danger";
-type TypographyTag = "span" | "p" | "div" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+export type TypographyType = "secondary" | "success" | "warning" | "danger";
+export type TypographyTag = "span" | "p" | "div" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+
+const getVNodeText = (node: VNodeChild): string => {
+  if (node == null || typeof node === "boolean") return "";
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(getVNodeText).join("");
+  if (typeof node === "object" && "children" in node)
+    return getVNodeText(node.children as VNodeChild);
+  return "";
+};
 
 export interface TypographyCopyableOptions {
   tooltip?: string;
@@ -79,7 +88,7 @@ const createTypography = (name: string, defaultTag: TypographyTag) =>
         () => props.modelValue,
         (value) => (draft.value = value || ""),
       );
-      const text = computed(() => props.modelValue ?? String(slots.default?.()[0]?.children ?? ""));
+      const text = computed(() => props.modelValue ?? getVNodeText(slots.default?.() ?? []));
       const startEdit = () => {
         if (props.disabled) return;
         draft.value = text.value;
