@@ -11,8 +11,18 @@ describe("VirtualList", () => {
         viewportHeight: 200,
         itemHeight: 20,
         overscan: 2,
-      })
+      }),
     ).toEqual({ start: 23, end: 37, offset: 460, total: 20000 });
+
+    expect(
+      getVirtualRange({
+        count: Number.POSITIVE_INFINITY,
+        scrollTop: Number.NaN,
+        viewportHeight: Number.NaN,
+        itemHeight: 0,
+        overscan: Number.NaN,
+      }),
+    ).toEqual({ start: 0, end: 0, offset: 0, total: 0 });
   });
 
   it("renders only the visible range and scrolls to an index", async () => {
@@ -31,5 +41,19 @@ describe("VirtualList", () => {
     expect(wrapper.findAll(".k-virtual-list-item").length).toBeLessThan(20);
     (wrapper.vm as unknown as { scrollToIndex: (index: number) => void }).scrollToIndex(100);
     expect((wrapper.element as HTMLElement).scrollTop).toBeGreaterThan(0);
+
+    const instance = wrapper.vm as unknown as {
+      scrollToIndex: (index: number, align?: "auto" | "start" | "center" | "end") => void;
+    };
+    instance.scrollToIndex(0, "center");
+    expect((wrapper.element as HTMLElement).scrollTop).toBe(0);
+    instance.scrollToIndex(Number.NaN, "start");
+    expect((wrapper.element as HTMLElement).scrollTop).toBe(0);
+    instance.scrollToIndex(999, "end");
+    expect((wrapper.element as HTMLElement).scrollTop).toBe(19900);
+
+    await wrapper.setProps({ data: data.slice(0, 2) });
+    await wrapper.vm.$nextTick();
+    expect((wrapper.element as HTMLElement).scrollTop).toBe(0);
   });
 });

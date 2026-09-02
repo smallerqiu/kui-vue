@@ -10,7 +10,7 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import { getVirtualRange } from "./range";
+import { getVirtualRange, normalizeItemHeight } from "./range";
 
 export type VirtualListKey = string | number;
 
@@ -38,20 +38,21 @@ const VirtualList = defineComponent({
     const scrollTop = ref(0);
     const viewportHeight = ref(0);
     let resizeObserver: ResizeObserver | null = null;
+    const safeItemHeight = computed(() => normalizeItemHeight(props.itemHeight));
     const range = computed(() =>
       getVirtualRange({
         count: props.data.length,
         scrollTop: scrollTop.value,
         viewportHeight: viewportHeight.value,
-        itemHeight: props.itemHeight,
+        itemHeight: safeItemHeight.value,
         overscan: props.overscan,
-      })
+      }),
     );
     const visibleItems = computed(() =>
       props.data.slice(range.value.start, range.value.end).map((item, localIndex) => ({
         item,
         index: range.value.start + localIndex,
-      }))
+      })),
     );
     const updateViewport = () => {
       viewportHeight.value = containerRef.value?.clientHeight ?? 0;
@@ -66,37 +67,42 @@ const VirtualList = defineComponent({
     onBeforeUnmount(() => resizeObserver?.disconnect());
 
     watch(
-      () => props.data,
+      () => [props.data.length, safeItemHeight.value],
       () => {
         nextTick(() => {
           const container = containerRef.value;
           if (!container) return;
           const maxScrollTop = Math.max(
             0,
-            props.data.length * props.itemHeight - container.clientHeight
+            props.data.length * safeItemHeight.value - container.clientHeight,
           );
           if (container.scrollTop > maxScrollTop) {
             container.scrollTop = maxScrollTop;
             scrollTop.value = maxScrollTop;
           }
         });
-      }
+      },
     );
 
     const scrollToIndex = (index: number, align: "auto" | "start" | "center" | "end" = "auto") => {
       const container = containerRef.value;
       if (!container || !props.data.length) return;
-      const target = Math.max(0, Math.min(Math.floor(index), props.data.length - 1));
-      const top = target * props.itemHeight;
-      const bottom = top + props.itemHeight;
-      if (align === "start") container.scrollTop = top;
+      const normalizedIndex = Number.isFinite(index) ? Math.floor(index) : 0;
+      const target = Math.max(0, Math.min(normalizedIndex, props.data.length - 1));
+      const itemHeight = safeItemHeight.value;
+      const top = target * itemHeight;
+      const bottom = top + itemHeight;
+      const maxScrollTop = Math.max(0, props.data.length * itemHeight - container.clientHeight);
+      let nextScrollTop = container.scrollTop;
+      if (align === "start") nextScrollTop = top;
       else if (align === "center")
-        container.scrollTop = top - container.clientHeight / 2 + props.itemHeight / 2;
-      else if (align === "end") container.scrollTop = bottom - container.clientHeight;
-      else if (top < container.scrollTop) container.scrollTop = top;
+        nextScrollTop = top - container.clientHeight / 2 + itemHeight / 2;
+      else if (align === "end") nextScrollTop = bottom - container.clientHeight;
+      else if (top < container.scrollTop) nextScrollTop = top;
       else if (bottom > container.scrollTop + container.clientHeight) {
-        container.scrollTop = bottom - container.clientHeight;
+        nextScrollTop = bottom - container.clientHeight;
       }
+      container.scrollTop = Math.max(0, Math.min(nextScrollTop, maxScrollTop));
       scrollTop.value = container.scrollTop;
     };
     expose({ scrollToIndex, container: containerRef });
@@ -131,7 +137,7 @@ const VirtualList = defineComponent({
                 <div
                   key={getKey(item, index)}
                   class="k-virtual-list-item"
-                  style={{ height: `${props.itemHeight}px` }}
+                  style={{ height: `${safeItemHeight.value}px` }}
                   data-index={index}
                 >
                   {slots.default?.({ item, index })}

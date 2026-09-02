@@ -158,7 +158,7 @@ export { default as Ripple } from "./ripple";
 export type { RippleInstance, RippleOptions, RippleProps, RippleTrigger } from "./ripple";
 
 export { default as QRCode } from "./qrcode";
-export type { QRCodeErrorLevel, QRCodeProps, QRCodeStatus } from "./qrcode";
+export type { QRCodeErrorLevel, QRCodeProps, QRCodeRef, QRCodeStatus } from "./qrcode";
 
 export { Radio, RadioButton, RadioGroup } from "./radio";
 export type { RadioButtonProps, RadioGroupProps, RadioOption, RadioProps } from "./radio";

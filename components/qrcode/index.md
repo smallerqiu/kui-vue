@@ -36,7 +36,7 @@
 | size       | 二维码的正方形边长，单位 `px`。组件内部已做高清屏适配，大屏拉伸不模糊。                                                                                                                                           | number                                          | `160`                        |
 | colorDark  | 前景色（二维码实点颜色）。支持十六进制、RGB 以及 CSS 变量，组件会自动监听根节点 `theme-mode` 属性进行动态重绘适配。                                                                                               | string                                          | `"var(--kui-color-reverse)"` |
 | colorLight | 背景色。支持十六进制、RGB 以及 CSS 变量。暗黑模式下建议设置为深色系，切勿设为完全透明以免影响扫码识别率。                                                                                                         | string                                          | `"var(--kui-color-bg)"`      |
-| bordered   | 是否显示外边框容器，开启后会自带微弱的投影与圆角包裹，提升视觉高级感。                                                                                                                                            | boolean                                         | `true`                       |
+| bordered   | 是否保留外边框和内边距容器。                                                                                                                                                                                      | boolean                                         | `true`                       |
 | status     | 二维码的当前业务状态。可选值：<br>• `'active'`: 正常可扫描状态<br>• `'loading'`: 安全链路加载中状态<br>• `'expired'`: 长期未扫码已失效状态（展示刷新按钮）<br>• `'scanned'`: 已成功扫描状态（可配合插槽定制遮罩） | 'active' \| 'loading' \| 'expired' \| 'scanned' | `'active'`                   |
 | logo       | 二维码正中心的 Logo 图片地址（支持网络 URL 或 Base64）。                                                                                                                                                          | string                                          | -                            |
 | logoSize   | 正中心 Logo 的尺寸大小，单位 `px`。如果不传，组件内部会自动计算为整个二维码尺寸的 `22%`。                                                                                                                         | number                                          | -                            |
@@ -59,9 +59,15 @@
 | expired | 自定义 `status="expired"` 时的失效状态遮罩与重试文案。 |
 | scanned | 自定义 `status="scanned"` 时的已扫描状态遮罩。         |
 
+### Expose
+
+| 方法     | 说明                                   | 类型                                   |
+| -------- | -------------------------------------- | -------------------------------------- |
+| download | 等待二维码及 Logo 绘制完成后下载 PNG。 | `(fileName?: string) => Promise<void>` |
+
 ### 通用外观
 
 | 属性  | 说明       | 类型      | 默认值  |
 | ----- | ---------- | --------- | ------- |
-| theme | 二维码外观 | ThemeType | default |
+| theme | 二维码外观 | ThemeType | outline |
 | shape | 二维码形状 | ShapeType | round   |

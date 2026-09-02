@@ -36,7 +36,7 @@ A component that converts text into QR codes, supporting custom colors and logo 
 | size       | Side length of the square QR code in `px`. Optimized for high-DPI displays to prevent blurring on large screens.                                                                                                                          | number                                          | `160`                        |
 | colorDark  | Foreground color (the color of QR code modules). Supports hex, RGB, and CSS variables. Automatically re-renders when the root attribute `theme-mode` changes.                                                                             | string                                          | `"var(--kui-color-reverse)"` |
 | colorLight | Background color. Supports hex, RGB, and CSS variables. For dark mode, use dark tones and avoid full transparency to ensure scan reliability.                                                                                             | string                                          | `"var(--kui-color-bg)"`      |
-| bordered   | Whether to display an outer container with a subtle shadow and rounded corners for enhanced visual appeal.                                                                                                                                | boolean                                         | `true`                       |
+| bordered   | Whether to keep the outer border and padding container.                                                                                                                                                                                   | boolean                                         | `true`                       |
 | status     | Current business state of the QR code. Options:<br>• `'active'`: Scannable<br>• `'loading'`: Loading secure link<br>• `'expired'`: Expired (shows refresh button)<br>• `'scanned'`: Successfully scanned (customizable overlay via slots) | 'active' \| 'loading' \| 'expired' \| 'scanned' | `'active'`                   |
 | logo       | URL (network or Base64) of the logo displayed at the center of the QR code.                                                                                                                                                               | string                                          | -                            |
 | logoSize   | Size of the centered logo in `px`. If omitted, defaults to 22% of the QR code size.                                                                                                                                                       | number                                          | -                            |
@@ -59,9 +59,15 @@ A component that converts text into QR codes, supporting custom colors and logo 
 | expired   | Custom overlay and retry message for `status="expired"`. |
 | scanned   | Custom overlay for `status="scanned"`.                   |
 
+### Expose
+
+| Method   | Description                                                   | Type                                   |
+| -------- | ------------------------------------------------------------- | -------------------------------------- |
+| download | Wait for the QR code and logo to finish, then download a PNG. | `(fileName?: string) => Promise<void>` |
+
 ### Common appearance
 
 | Property | Description        | Type      | Default |
 | -------- | ------------------ | --------- | ------- |
-| theme    | QR appearance      | ThemeType | default |
+| theme    | QR appearance      | ThemeType | outline |
 | shape    | QR container shape | ShapeType | round   |

@@ -29,9 +29,9 @@ import {
   Languages,
   LayoutDashboard,
   List,
-  ListFilter,
   ListChevronsUpDown,
   ListCollapse,
+  ListFilter,
   Loader,
   Loading,
   Menu,
@@ -152,7 +152,6 @@ const navData = [
       { title: "树选择器", sub: "TreeSelect", name: "tree-select", icon: FolderTree },
       { title: "日期选择框", sub: "DatePicker", name: "date-picker", icon: Calendar },
       { title: "上传", sub: "Upload", name: "upload", icon: Upload },
-      { title: "穿梭框", sub: "Transfer", name: "transfer", icon: SeparatorVertical },
       { title: "滑动输入条", sub: "Slider", name: "slider", icon: Settings2 },
       { title: "表单", sub: "Form", name: "form", icon: Form },
     ],
@@ -175,6 +174,7 @@ const navData = [
       { title: "图片", sub: "Image", name: "image", icon: Image },
       { title: "二维码", sub: "QRCode", name: "qrcode", icon: QrCode },
       { title: "表格", sub: "Table", name: "table", icon: Table },
+      { title: "穿梭框", sub: "Transfer", name: "transfer", icon: SeparatorVertical },
       { title: "时间轴", sub: "TimeLine", name: "time-line", icon: List },
       { title: "树形控件", sub: "Tree", name: "tree", icon: FolderTree },
       { title: "虚拟列表", sub: "VirtualList", name: "virtual-list", icon: List },
@@ -216,6 +216,6 @@ const navData = [
 type NavGroup = (typeof navData)[number];
 export type NavItem = NavGroup["children"][number] & { key: string };
 const routeData: NavItem[] = navData.flatMap(({ key, children }) =>
-  children.map((item) => ({ ...item, key }))
+  children.map((item) => ({ ...item, key })),
 );
 export { navData, routeData };
