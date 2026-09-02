@@ -1,18 +1,19 @@
 <template>
   <Space vertical>
+    <Slider :min="0" :max="5" v-model="value" style="width: 300px" />
     <Space>
       <Rate :tooltips="desc" v-model="value" />
       {{ tipText }}
     </Space>
     <br />
     <code>allowClear = true</code>
-    <Rate :allowClear="true" :modelValue="3" />
+    <Rate :allowClear="true" :value="3" />
     <code>allowClear = false</code>
-    <Rate :allowClear="false" :modelValue="3" />
+    <Rate :allowClear="false" :value="3" />
   </Space>
 </template>
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { computed, ref } from "vue";
 const value = ref(3);
 const desc = ["terrible", "bad", "normal", "good", "wonderful"];
 const tipText = computed(() => {

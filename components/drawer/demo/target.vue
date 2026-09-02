@@ -34,7 +34,6 @@ const placement = ref<DrawerPlacementsType>("left");
 const refTarget = ref();
 const boxStyle = {
   height: "300px",
-  position: "relative",
   overflow: "hidden",
   borderRadius: "8px",
   background: "rgba(130, 130, 130, 0.18)",

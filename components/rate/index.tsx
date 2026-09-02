@@ -1,7 +1,6 @@
 import {
   defineComponent,
   ref,
-  watch,
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
@@ -11,7 +10,8 @@ import { type BooleanType, type SizeType } from "../const/types";
 import type { IconType } from "../icon";
 import Star from "./star";
 const rateProps = {
-  modelValue: { type: Number, default: 0 },
+  modelValue: Number,
+  value: { type: Number, default: 0 },
   allowClear: { type: Boolean as BooleanType, default: true },
   allowHalf: Boolean as BooleanType,
   color: String,
@@ -35,16 +35,9 @@ const Rate = defineComponent({
   name: "Rate",
   props: rateProps,
   setup(props, { emit }) {
-    const initValue = ref(props.modelValue);
+    const innerValue = ref(props.value);
     const tempValue = ref<number | null>(null);
     const cleared = ref(false);
-
-    watch(
-      () => props.modelValue,
-      (v) => {
-        initValue.value = v;
-      }
-    );
 
     const update = (t: "C" | "M", index: number, percent: number) => {
       if (t === "M") {
@@ -61,15 +54,18 @@ const Rate = defineComponent({
         let value = index - (props.allowHalf ? (percent < 0.5 ? 0.5 : 0) : 0);
         value = parseFloat(value.toFixed(2));
 
-        const nextValue = value === initValue.value && props.allowClear ? 0 : value;
-        initValue.value = nextValue;
+        const currentValue = props.modelValue ?? innerValue.value;
+        const nextValue = value === currentValue && props.allowClear ? 0 : value;
+        if (props.modelValue === undefined) {
+          innerValue.value = nextValue;
+        }
 
         if (nextValue === 0) {
           cleared.value = true;
           tempValue.value = null;
         }
-        emit("update:modelValue", initValue.value);
-        emit("change", initValue.value);
+        emit("update:modelValue", nextValue);
+        emit("change", nextValue);
       }
     };
 
@@ -79,7 +75,8 @@ const Rate = defineComponent({
     };
 
     return () => {
-      const tpValue = tempValue.value !== null ? tempValue.value : initValue.value;
+      const currentValue = props.modelValue ?? innerValue.value;
+      const tpValue = tempValue.value !== null ? tempValue.value : currentValue;
       const {
         count,
         allowHalf,
@@ -120,6 +117,7 @@ const Rate = defineComponent({
           tooltips: tooltips[i - 1],
           index: i,
           symbolReverseFill: props.symbolReverseFill,
+          strokeWidth: props.strokeWidth,
           onUpdate: update,
         };
         stars.push(<Star {...sp} />);
@@ -139,7 +137,7 @@ const Rate = defineComponent({
       return (
         <div {...containerProps}>
           {stars}
-          {showScore ? <span class="k-rate-score">{initValue.value}</span> : null}
+          {showScore ? <span class="k-rate-score">{currentValue}</span> : null}
         </div>
       );
     };

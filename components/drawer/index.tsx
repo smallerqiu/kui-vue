@@ -65,10 +65,30 @@ const Drawer = defineComponent({
     const resolveTarget = () => {
       const target = props.target?.();
       const element = target && "$el" in target ? target.$el : target;
-      return element instanceof HTMLElement ? element : getPopupContainer();
+      return element instanceof HTMLElement ? element : (getPopupContainer() ?? document.body);
     };
     let scrollTarget: HTMLElement | null = null;
     let scrollLocked = false;
+    let positionedTarget: HTMLElement | null = null;
+    let targetPosition = "";
+
+    const restorePositioningContext = () => {
+      if (positionedTarget?.style.position === "relative") {
+        positionedTarget.style.position = targetPosition;
+      }
+      positionedTarget = null;
+      targetPosition = "";
+    };
+
+    const ensurePositioningContext = (target: HTMLElement) => {
+      if (target === positionedTarget) return;
+      restorePositioningContext();
+      if (target === document.body || getComputedStyle(target).position !== "static") return;
+      positionedTarget = target;
+      targetPosition = target.style.position;
+      target.style.position = "relative";
+    };
+
     const updateScrollLock = (lock: boolean) => {
       if (scrollLocked === lock) return;
       if (lock) scrollTarget = resolveTarget();
@@ -81,18 +101,28 @@ const Drawer = defineComponent({
       () => props.modelValue,
       (nv) => {
         toggle(nv);
-      }
+      },
     );
 
     onMounted(() => {
       if (props.escKey) document.addEventListener("keydown", escToClose);
+      if (rendered.value) ensurePositioningContext(resolveTarget());
       updateScrollLock(props.modelValue);
     });
 
     onBeforeUnmount(() => {
       if (props.escKey) document.removeEventListener("keydown", escToClose);
       updateScrollLock(false);
+      restorePositioningContext();
     });
+
+    watch(
+      resolveTarget,
+      (target) => {
+        if (rendered.value) ensurePositioningContext(target);
+      },
+      { flush: "post" },
+    );
 
     const toggle = (value: boolean) => {
       if (!rendered.value && value) {
@@ -100,6 +130,7 @@ const Drawer = defineComponent({
         toggle(true);
       } else {
         if (value) {
+          ensurePositioningContext(resolveTarget());
           updateScrollLock(true);
           nextTick(() => {
             visible.value = value;
