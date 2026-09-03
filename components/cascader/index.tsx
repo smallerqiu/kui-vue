@@ -1,4 +1,4 @@
-import { ChevronDown, ChevronRight, CircleX } from "kui-icons";
+import { ChevronDown, ChevronRight, CircleAlert, CircleX, Loading } from "kui-icons";
 import {
   computed,
   defineComponent,
@@ -11,6 +11,7 @@ import {
   type CSSProperties,
 } from "vue";
 import { usePopupContainer } from "../config/popup";
+import { usePopupHost } from "../config/popup-host";
 import Empty from "../empty";
 import Icon from "../icon";
 import { setPlacement } from "../utils/placement";
@@ -19,8 +20,9 @@ import { cascaderProps, type CascaderOption } from "./types";
 const Cascader = defineComponent({
   name: "Cascader",
   props: cascaderProps,
-  emits: ["update:modelValue", "change", "openChange"],
+  emits: ["update:modelValue", "change", "openChange", "expandChange"],
   setup(props, { emit }) {
+    usePopupHost(() => visible.value && toggleMenu(false));
     const getPopupContainer = usePopupContainer();
     const visible = ref(false);
     const rendered = ref(false);
@@ -36,6 +38,44 @@ const Cascader = defineComponent({
 
     // 记录当前展开的每一层的 Option 对象路径
     const activePath = ref<CascaderOption[]>([]);
+    const activeColumn = ref(0);
+    const loadedChildren = ref(new Map<CascaderOption, CascaderOption[]>());
+    const loadingOptions = ref(new Set<CascaderOption>());
+    const failedOptions = ref(new Set<CascaderOption>());
+    let unmounted = false;
+    let positionRaf = 0;
+    const getOptionChildren = (option: CascaderOption) =>
+      loadedChildren.value.get(option) || option.children || [];
+    const isExpandable = (option: CascaderOption) =>
+      getOptionChildren(option).length > 0 ||
+      Boolean(props.loadData && option.isLeaf !== true && !loadedChildren.value.has(option));
+
+    const loadOption = async (option: CascaderOption, path: CascaderOption[]) => {
+      if (!props.loadData || loadingOptions.value.has(option)) return getOptionChildren(option);
+      loadingOptions.value = new Set(loadingOptions.value).add(option);
+      const nextFailed = new Set(failedOptions.value);
+      nextFailed.delete(option);
+      failedOptions.value = nextFailed;
+      try {
+        const result = await props.loadData(option, path);
+        const children = Array.isArray(result) ? result : option.children || [];
+        if (!unmounted) {
+          loadedChildren.value = new Map(loadedChildren.value).set(option, children);
+          activePath.value = [...activePath.value];
+          updatePosition();
+        }
+        return children;
+      } catch {
+        if (!unmounted) failedOptions.value = new Set(failedOptions.value).add(option);
+        return [];
+      } finally {
+        if (!unmounted) {
+          const nextLoading = new Set(loadingOptions.value);
+          nextLoading.delete(option);
+          loadingOptions.value = nextLoading;
+        }
+      }
+    };
 
     // 监听已选择的真正结果路径值，反向初始化或校准当前展开高亮状态
     watch(
@@ -49,7 +89,7 @@ const Cascader = defineComponent({
             const target = currentOptions.find((o) => o.value === val);
             if (target) {
               path.push(target);
-              currentOptions = target.children || [];
+              currentOptions = getOptionChildren(target);
             } else {
               break;
             }
@@ -61,6 +101,25 @@ const Cascader = defineComponent({
       },
       { immediate: true, deep: true },
     );
+    watch(
+      () => props.options,
+      () => {
+        const path: CascaderOption[] = [];
+        let options = props.options;
+        for (const value of props.modelValue) {
+          const option = options.find((item) => item.value === value);
+          if (!option) break;
+          path.push(option);
+          options = getOptionChildren(option);
+        }
+        activePath.value = path;
+      },
+      { deep: true },
+    );
+    watch(
+      () => props.placement,
+      (placement) => (currentPlacement.value = placement),
+    );
 
     // 计算属性：根据当前的选项树和 activePath，生成多列菜单供层级渲染
     const menus = computed(() => {
@@ -69,8 +128,9 @@ const Cascader = defineComponent({
       // 遍历当前展开路径，把它们的 children 作为后续列灌进去
       for (let i = 0; i < activePath.value.length; i++) {
         const option = activePath.value[i];
-        if (option.children && option.children.length > 0) {
-          result.push(option.children);
+        const children = getOptionChildren(option);
+        if (children.length > 0) {
+          result.push(children);
         } else {
           break;
         }
@@ -89,7 +149,7 @@ const Cascader = defineComponent({
         const match = currentOptions.find((o) => o.value === val);
         if (match) {
           labels.push(match.label);
-          currentOptions = match.children || [];
+          currentOptions = getOptionChildren(match);
         } else {
           // 兜底处理
           labels.push(String(val));
@@ -100,7 +160,9 @@ const Cascader = defineComponent({
     });
 
     const updatePosition = () => {
-      nextTick(() => {
+      cancelAnimationFrame(positionRaf);
+      positionRaf = requestAnimationFrame(() => {
+        if (!visible.value) return;
         minWidth.value = refSelection.value?.offsetWidth || 0;
         setPlacement({
           refSelection,
@@ -120,23 +182,26 @@ const Cascader = defineComponent({
       if (isFirstRender) {
         rendered.value = true;
         document.addEventListener("click", outsideClick);
+        window.addEventListener("resize", updatePosition);
+        window.addEventListener("scroll", updatePosition, true);
       }
 
       // 计算下一步的显示状态
       const nextVisible = show !== null ? show : !visible.value;
 
       if (nextVisible) {
+        activeColumn.value = 0;
         // 首次渲染时，稍微延后变更 visible，让 Teleport 容器和 Transition 体察到 "appear" 状态的临界点
         if (isFirstRender) {
           nextTick(() => {
             visible.value = true;
             emit("openChange", true);
-            nextTick(() => updatePosition());
+            updatePosition();
           });
         } else {
           visible.value = true;
           emit("openChange", true);
-          nextTick(() => updatePosition());
+          updatePosition();
         }
       } else {
         visible.value = false;
@@ -159,7 +224,11 @@ const Cascader = defineComponent({
     };
 
     onBeforeUnmount(() => {
+      unmounted = true;
+      cancelAnimationFrame(positionRaf);
       document.removeEventListener("click", outsideClick);
+      window.removeEventListener("resize", updatePosition);
+      window.removeEventListener("scroll", updatePosition, true);
     });
 
     // 处理选项项的点击/悬浮触发
@@ -175,10 +244,17 @@ const Cascader = defineComponent({
       nextPath[columnIndex] = option;
       activePath.value = nextPath;
 
-      const hasChildren = option.children && option.children.length > 0;
+      const children = getOptionChildren(option);
+      const expandable = isExpandable(option);
+      activeColumn.value = expandable ? columnIndex + 1 : columnIndex;
+      if (expandable)
+        emit(
+          "expandChange",
+          nextPath.map((item) => item.value),
+        );
 
       // 如果是叶子节点（没有子级了），或者用户就是强制点了这个不论有没有子级
-      if (!hasChildren && !isHoverTrigger) {
+      if (!expandable && !isHoverTrigger) {
         // 完成最终选择，抽取路径里所有节点的值
         const finalValue = activePath.value.map((item) => item.value);
         emit("update:modelValue", finalValue);
@@ -187,6 +263,7 @@ const Cascader = defineComponent({
         visible.value = false;
         emit("openChange", false);
       } else {
+        if (!children.length) void loadOption(option, nextPath);
         // 还有子集，继续展开，实时刷新浮层相对位置
         updatePosition();
       }
@@ -197,6 +274,105 @@ const Cascader = defineComponent({
       emit("update:modelValue", []);
       emit("change", []);
       activePath.value = [];
+      activeColumn.value = 0;
+      updatePosition();
+    };
+
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (props.disabled) return;
+      if (event.key === "Escape") {
+        if (visible.value) {
+          event.preventDefault();
+          toggleMenu(false);
+        }
+        return;
+      }
+      if (!visible.value && ["Enter", " ", "ArrowDown", "ArrowUp"].includes(event.key)) {
+        event.preventDefault();
+        toggleMenu(true);
+        nextTick(() => {
+          if (!activePath.value.length) {
+            const first = props.options.find((item) => !item.disabled);
+            if (first) activePath.value = [first];
+          }
+        });
+        return;
+      }
+      if (!visible.value) return;
+
+      const columnIndex = Math.max(0, Math.min(activeColumn.value, menus.value.length - 1));
+      const menu = menus.value[columnIndex] || [];
+      const enabled = menu.filter((item) => !item.disabled);
+      if (!enabled.length) return;
+      const current = activePath.value[columnIndex];
+      const currentIndex = enabled.findIndex((item) => item.value === current?.value);
+
+      if (["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) {
+        event.preventDefault();
+        let nextIndex: number;
+        if (event.key === "Home") nextIndex = 0;
+        else if (event.key === "End") nextIndex = enabled.length - 1;
+        else if (event.key === "ArrowDown") nextIndex = (currentIndex + 1) % enabled.length;
+        else nextIndex = currentIndex <= 0 ? enabled.length - 1 : currentIndex - 1;
+        activePath.value = [...activePath.value.slice(0, columnIndex), enabled[nextIndex]];
+        if (enabled[nextIndex].children?.length) {
+          emit(
+            "expandChange",
+            activePath.value.map((item) => item.value),
+          );
+        }
+      } else if (event.key === "ArrowLeft" && activePath.value.length > 1) {
+        event.preventDefault();
+        activeColumn.value = Math.max(0, columnIndex - 1);
+        activePath.value = activePath.value.slice(0, columnIndex);
+        emit(
+          "expandChange",
+          activePath.value.map((item) => item.value),
+        );
+      } else if (event.key === "ArrowRight") {
+        const option = activePath.value[columnIndex];
+        const children = option ? getOptionChildren(option) : [];
+        if (option && !children.length && isExpandable(option)) {
+          event.preventDefault();
+          void loadOption(option, activePath.value.slice(0, columnIndex + 1)).then((items) => {
+            const first = items.find((item) => !item.disabled);
+            if (first) {
+              activePath.value = [...activePath.value.slice(0, columnIndex + 1), first];
+              activeColumn.value = columnIndex + 1;
+            }
+          });
+          return;
+        }
+        const first = children.find((item) => !item.disabled);
+        if (first) {
+          event.preventDefault();
+          activePath.value = [...activePath.value.slice(0, columnIndex + 1), first];
+          activeColumn.value = columnIndex + 1;
+        }
+      } else if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        const option = activePath.value[columnIndex] || enabled[0];
+        if (isExpandable(option)) {
+          const children = getOptionChildren(option);
+          if (!children.length) {
+            void loadOption(option, activePath.value.slice(0, columnIndex + 1)).then((items) => {
+              const first = items.find((item) => !item.disabled);
+              if (first) {
+                activePath.value = [...activePath.value.slice(0, columnIndex + 1), first];
+                activeColumn.value = columnIndex + 1;
+              }
+            });
+            return;
+          }
+          const first = children.find((item) => !item.disabled);
+          if (first) {
+            activePath.value = [...activePath.value.slice(0, columnIndex + 1), first];
+            activeColumn.value = columnIndex + 1;
+          }
+        } else {
+          handleOptionClick(option, columnIndex);
+        }
+      }
       updatePosition();
     };
 
@@ -210,6 +386,7 @@ const Cascader = defineComponent({
         style: {
           left: `${left.value}px`,
           top: `${top.value}px`,
+          minWidth: `${minWidth.value}px`,
           transformOrigin: transOrigin.value,
         } as CSSProperties,
         class: [
@@ -229,15 +406,21 @@ const Cascader = defineComponent({
             {visible.value && (
               <div {...popperProps}>
                 {isEmpty ? (
-                  <Empty />
+                  <Empty description={props.emptyText} />
                 ) : (
                   <div class="k-cascader-dropdown-menus">
                     {menus.value.map((menuItems, columnIndex) => (
-                      <ul class="k-cascader-dropdown-menu k-scroll" key={columnIndex}>
+                      <ul
+                        class="k-cascader-dropdown-menu k-scroll"
+                        role="listbox"
+                        key={columnIndex}
+                      >
                         {menuItems.map((item) => {
                           const isActive = activePath.value[columnIndex]?.value === item.value;
                           const isSelected = props.modelValue[columnIndex] === item.value;
-                          const hasChildren = item.children && item.children.length > 0;
+                          const hasChildren = isExpandable(item);
+                          const isLoading = loadingOptions.value.has(item);
+                          const isFailed = failedOptions.value.has(item);
 
                           return (
                             <li
@@ -250,6 +433,9 @@ const Cascader = defineComponent({
                                 },
                               ]}
                               key={item.value}
+                              role="option"
+                              aria-disabled={item.disabled}
+                              aria-selected={isSelected}
                               onClick={() => handleOptionClick(item, columnIndex, false)}
                               onMouseenter={() => {
                                 if (props.expandTrigger === "hover" && hasChildren) {
@@ -258,9 +444,13 @@ const Cascader = defineComponent({
                               }}
                             >
                               <span>{item.label}</span>
-                              {hasChildren && (
+                              {isLoading ? (
+                                <Icon class="k-cascader-item-arrow" type={Loading} spin />
+                              ) : isFailed ? (
+                                <Icon class="k-cascader-item-arrow" type={CircleAlert} />
+                              ) : hasChildren ? (
                                 <Icon class="k-cascader-item-arrow" type={ChevronRight} />
-                              )}
+                              ) : null}
                             </li>
                           );
                         })}
@@ -322,6 +512,10 @@ const Cascader = defineComponent({
           ref={refSelection}
           class={rootClasses}
           tabindex={disabled ? undefined : 0}
+          role="combobox"
+          aria-expanded={visible.value}
+          aria-disabled={disabled}
+          onKeydown={handleKeydown}
           onClick={() => toggleMenu()}
         >
           {icon ? <Icon type={icon} class="k-cascader-icon" /> : null}

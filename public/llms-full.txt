@@ -772,6 +772,10 @@ A cascading selection box.
 
 - When assigning system permissions or dispatching work orders, certain departments or inactive sub-branches (e.g., subsidiaries under rectification) need to be grayed out entirely. Utilizing the `disabled` property allows locking all paths underneath with one setting.
 
+[Async Loading](./demo/async.vue)
+
+- Load child options on demand. Loading state is shown and failed loads can be retried.
+
 [Size](./demo/size.vue)
 
 - Demonstrates the component's strong visual adaptability across different `size` constraints, suitable for various layouts such as compact modal forms or spacious configuration panels.
@@ -796,7 +800,16 @@ A cascading selection box.
 | shape         | shape='circle' 时呈现圆角                                                                                           | string               | -                 |
 | placement     | Dropdown orientation                                                                                                | string               | -                 |
 | emptyText     | No data available.                                                                                                  | string               | 'No Data'         |
+| loadData      | Loads children asynchronously; return them or update `option.children`                                              | `CascaderLoadData`   | -                 |
 | arrowIcon     | Custom arrow icon                                                                                                   | string               | -                 |
+
+## Events
+
+| Event        | Description                               | Signature                        |
+| ------------ | ----------------------------------------- | -------------------------------- |
+| change       | Called when a path is selected or cleared | `(value: CascaderValue) => void` |
+| expandChange | Called when the expanded path changes     | `(value: CascaderValue) => void` |
+| openChange   | Called when dropdown visibility changes   | `(open: boolean) => void`        |
 
 ## CascaderOption
 
@@ -808,6 +821,7 @@ When configuring the `options` data source for `Cascader`, each node must confor
 | label    | **Required.** Plain text content displayed to users in the dropdown menu and input box (e.g., `"Zhejiang"`, `"Hangzhou"`).                                                                | string           | -           |
 | disabled | Whether to disable the current option. When enabled, the row appears grayed out and unclickable, and all its child levels will be locked synchronously.                                   | boolean          | `false`     |
 | children | Data source for the next-level child nodes. When this property exists and the array is not empty, a right-facing expansion arrow is automatically rendered on the component.              | CascaderOption[] | `undefined` |
+| isLeaf   | Whether this is a leaf node. Set to `false` when children can be loaded.                                                                                                                  | boolean          | `undefined` |
 
 ---
 

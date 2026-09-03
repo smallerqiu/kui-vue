@@ -16,6 +16,7 @@ import {
   type VNodeChild,
 } from "vue";
 import { usePopupContainer } from "../config/popup";
+import { usePopupHost } from "../config/popup-host";
 import type { DropPlacementsType, ShapeType, SizeType, ThemeType } from "../const/types";
 import Empty from "../empty";
 import Icon from "../icon";
@@ -56,6 +57,7 @@ export default defineComponent({
   inheritAttrs: false,
   props: propsDef,
   setup(props, { emit, attrs, slots }) {
+    usePopupHost(() => query.value && (query.value = undefined));
     const getPopupContainer = usePopupContainer();
     const inner = ref(props.value);
     const query = ref<{ start: number; trigger: string; text: string }>();

@@ -18,6 +18,7 @@ import {
 } from "vue";
 import { getTransitionProp } from "../base/transition";
 import { usePopupContainer } from "../config/popup";
+import { usePopupHost } from "../config/popup-host";
 import type { BooleanType } from "../const/types";
 import Icon, { type IconType } from "../icon";
 import { setPlacement } from "../utils/placement";
@@ -53,6 +54,11 @@ const SubMenu = defineComponent({
     const dropdownContext = inject<DropdownContext | null>(DropdownContextKey, null);
     const menuContext = inject<MenuContext | null>(MenuContextKey, null);
     const subMenuContext = inject<SubMenuContext | null>(SubMenuContextKey, null);
+    usePopupHost(() => {
+      if (menuContext?.openKeys.includes(key)) {
+        menuContext.openKeysChange?.(key, false, subMenuContext?.keyPath || []);
+      }
+    });
 
     const currentPlacement = ref("bottom-left");
     const transOrigin = ref("bottom left");

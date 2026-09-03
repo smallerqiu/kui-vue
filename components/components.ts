@@ -26,7 +26,12 @@ export { Button, ButtonGroup } from "./button";
 export type { ButtonGroupProps, ButtonProps } from "./button";
 
 export { default as Cascader } from "./cascader";
-export type { CascaderOption, CascaderProps } from "./cascader/types";
+export type {
+  CascaderLoadData,
+  CascaderOption,
+  CascaderProps,
+  CascaderValue,
+} from "./cascader/types";
 
 export { default as Card, CardMeta } from "./card";
 export type { CardMetaProps, CardProps } from "./card";

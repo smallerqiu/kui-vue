@@ -19,6 +19,7 @@ import {
   type VNodeChild,
 } from "vue";
 import { usePopupContainer } from "../config/popup";
+import { usePopupHost } from "../config/popup-host";
 import type {
   BooleanType,
   DropPlacementsType,
@@ -113,6 +114,7 @@ const TreeSelect = defineComponent({
   },
   props: treeSelectProps,
   setup(props, { emit }) {
+    usePopupHost(() => visible.value && openChange(false));
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
     const getPopupContainer = usePopupContainer();
@@ -128,7 +130,7 @@ const TreeSelect = defineComponent({
         ? [...(Array.isArray(props.modelValue) ? props.modelValue : [])]
         : isEmpty(props.modelValue)
           ? []
-          : [props.modelValue as string]
+          : [props.modelValue as string],
     );
     const queryInputVisible = ref(false);
     const queryKey = ref("");
@@ -154,7 +156,7 @@ const TreeSelect = defineComponent({
       (v) => {
         currentPlacement.value = v;
         updatePosition();
-      }
+      },
     );
 
     watch(
@@ -166,7 +168,7 @@ const TreeSelect = defineComponent({
             ? []
             : [v as string];
         updatePosition();
-      }
+      },
     );
 
     provide(treeSelectContextKey, {
@@ -185,17 +187,15 @@ const TreeSelect = defineComponent({
     const updatePosition = () => {
       cancelAnimationFrame(positionRaf);
       positionRaf = requestAnimationFrame(() => {
-        nextTick(() => {
-          if (!visible.value) return;
-          minWidth.value = refSelection.value ? refSelection.value.offsetWidth : "";
-          setPlacement({
-            refSelection,
-            refPopper,
-            currentPlacement,
-            transOrigin,
-            top,
-            left,
-          });
+        if (!visible.value) return;
+        minWidth.value = refSelection.value ? refSelection.value.offsetWidth : "";
+        setPlacement({
+          refSelection,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
         });
       });
     };
@@ -382,7 +382,7 @@ const TreeSelect = defineComponent({
       () => props.treeExpandedKeys,
       (nv) => {
         defaultExpandedKeys.value = nv || [];
-      }
+      },
     );
 
     const onExpand = ({ key, expanded, node }: TreeExpandEvent) => {
@@ -607,7 +607,7 @@ const TreeSelect = defineComponent({
               <Tag size={tagSize} shape={props.shape} theme={props.theme} compact>
                 +{hiddenLabels.length}...
               </Tag>
-            </Tooltip>
+            </Tooltip>,
           );
         }
         return tags;

@@ -8,7 +8,7 @@
       placeholder="请选择商品归属类目"
       style="width: 200px"
     />
-    <code> 后端绑定最终叶子节点：{{ selectedCategory[selectedCategory.length - 1] }} </code>
+    <code>后端绑定最终叶子节点：{{ selectedCategory[selectedCategory.length - 1] }}</code>
   </Space>
 </template>
 

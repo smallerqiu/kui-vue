@@ -19,6 +19,7 @@ import {
   type VNodeChild,
 } from "vue";
 import { usePopupContainer } from "../config/popup";
+import { usePopupHost } from "../config/popup-host";
 import resize from "../directives/resize";
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
@@ -86,6 +87,7 @@ const Select = defineComponent({
   },
   props: selectProps,
   setup(props, { slots, emit }) {
+    usePopupHost(() => closeDropdown());
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
     const getPopupContainer = usePopupContainer();
@@ -108,7 +110,7 @@ const Select = defineComponent({
     const queryInputRef = ref<HTMLInputElement | null>(null);
     const hasSearchEvent = !!props.onSearch;
     const searchable = computed(
-      () => props.filterable || hasSearchEvent || (props.multiple && props.allowCreate)
+      () => props.filterable || hasSearchEvent || (props.multiple && props.allowCreate),
     );
     const refPopper = ref<HTMLElement | null>(null);
     const transOrigin = ref("bottom");
@@ -129,7 +131,7 @@ const Select = defineComponent({
         if (visible.value) {
           updatePosition();
         }
-      }
+      },
     );
     watch(
       () => props.options,
@@ -138,7 +140,7 @@ const Select = defineComponent({
           updatePosition();
         }
       },
-      { deep: true }
+      { deep: true },
     );
 
     watch(
@@ -150,7 +152,7 @@ const Select = defineComponent({
         if (visible.value) {
           updatePosition();
         }
-      }
+      },
     );
 
     const scrollOptionIntoView = () => {
@@ -193,17 +195,15 @@ const Select = defineComponent({
     const updatePosition = () => {
       cancelAnimationFrame(positionRaf);
       positionRaf = requestAnimationFrame(() => {
-        nextTick(() => {
-          if (!visible.value) return;
-          minWidth.value = refSelection.value?.offsetWidth || 0;
-          setPlacement({
-            refSelection,
-            refPopper,
-            currentPlacement,
-            transOrigin,
-            top,
-            left,
-          });
+        if (!visible.value) return;
+        minWidth.value = refSelection.value?.offsetWidth || 0;
+        setPlacement({
+          refSelection,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
         });
       });
     };
@@ -400,7 +400,7 @@ const Select = defineComponent({
         return [
           ...options,
           ...createdOptions.value.filter(
-            (created) => !options.some((option) => option.value === created.value)
+            (created) => !options.some((option) => option.value === created.value),
           ),
         ];
       }
@@ -427,7 +427,7 @@ const Select = defineComponent({
       return [
         ...data,
         ...createdOptions.value.filter(
-          (created) => !data.some((option) => option.value === created.value)
+          (created) => !data.some((option) => option.value === created.value),
         ),
       ];
     });
@@ -437,7 +437,7 @@ const Select = defineComponent({
       const filter = props.filterable && key.trim() !== "";
       return filter
         ? optionsData.value.filter((item) =>
-            String(item.label).toLowerCase().includes(key.toLowerCase())
+            String(item.label).toLowerCase().includes(key.toLowerCase()),
           )
         : optionsData.value;
     };
@@ -495,7 +495,7 @@ const Select = defineComponent({
       const existing = optionsData.value.find(
         (option) =>
           String(option.value).trim().toLocaleLowerCase() === normalizedValue ||
-          String(option.label).trim().toLocaleLowerCase() === normalizedValue
+          String(option.label).trim().toLocaleLowerCase() === normalizedValue,
       );
       if (existing) {
         if (!existing.disabled && !isChecked(existing.value)) {
@@ -503,7 +503,7 @@ const Select = defineComponent({
         } else {
           resetQueryInput();
           activeIndex.value = optionsData.value.findIndex(
-            (option) => option.value === existing.value
+            (option) => option.value === existing.value,
           );
           showQuery();
         }
@@ -725,7 +725,7 @@ const Select = defineComponent({
               <Tag size={tagSize} shape={shape} theme={theme} compact>
                 +{hiddenLabels.length}...
               </Tag>
-            </Tooltip>
+            </Tooltip>,
           );
         }
         return tags;

@@ -31,6 +31,7 @@ import {
 } from "vue";
 import { Button } from "../button";
 import { usePopupContainer } from "../config/popup";
+import { usePopupHost } from "../config/popup-host";
 import type {
   BooleanType,
   DropPlacementsType,
@@ -123,6 +124,7 @@ const DatePicker = defineComponent({
   props: datePickerProps,
 
   setup(props, { emit, slots }) {
+    usePopupHost(() => isVisible.value && openChange(false));
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
     const getPopupContainer = usePopupContainer();
@@ -306,7 +308,7 @@ const DatePicker = defineComponent({
           if (d?.isValid()) panelDate.value = d;
         }
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     const emitValue = (closePanel = true) => {
@@ -330,7 +332,7 @@ const DatePicker = defineComponent({
           emit(
             "change",
             dates,
-            dates.map((d) => getStr(d))
+            dates.map((d) => getStr(d)),
           );
 
           innerValue.value = dates;
@@ -835,7 +837,7 @@ const DatePicker = defineComponent({
       if (!props.mode.includes("Time")) return null;
       if (props.mode === "dateTimeRange") {
         const [s, e] = ((innerValue.value as (Dayjs | null)[]) || [null, null]).map((d) =>
-          d ? d.format("HH:mm:ss") : "--:--:--"
+          d ? d.format("HH:mm:ss") : "--:--:--",
         );
         return (
           <div class="k-picker-footer">
@@ -879,16 +881,14 @@ const DatePicker = defineComponent({
     const updatePosition = () => {
       cancelAnimationFrame(positionRaf);
       positionRaf = requestAnimationFrame(() => {
-        nextTick(() => {
-          if (!isVisible.value) return;
-          setPlacement({
-            refSelection,
-            refPopper,
-            currentPlacement,
-            transOrigin,
-            top,
-            left,
-          });
+        if (!isVisible.value) return;
+        setPlacement({
+          refSelection,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
         });
       });
     };
@@ -909,7 +909,7 @@ const DatePicker = defineComponent({
       (placement) => {
         currentPlacement.value = placement;
         if (isVisible.value) updatePosition();
-      }
+      },
     );
 
     watch(
@@ -918,7 +918,7 @@ const DatePicker = defineComponent({
         if (opened) rendered.value = true;
         isVisible.value = opened;
         if (opened) nextTick(updatePosition);
-      }
+      },
     );
 
     const onClear = (e: PointerEvent) => {

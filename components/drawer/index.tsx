@@ -19,6 +19,7 @@ import {
 } from "vue";
 import { Button } from "../button";
 import { usePopupContainer } from "../config/popup";
+import { providePopupHost } from "../config/popup-host";
 import type { DrawerPlacementsType } from "../const/types";
 import zhCN from "../locale/zh-CN";
 import { toggleContainerScroll } from "../utils/vnode";
@@ -62,6 +63,7 @@ const Drawer = defineComponent({
     const rendered = ref(props.modelValue);
     const visible = ref(props.modelValue);
     const opened = ref(props.modelValue);
+    const closeHostedPopups = providePopupHost();
     const resolveTarget = () => {
       const target = props.target?.();
       const element = target && "$el" in target ? target.$el : target;
@@ -139,6 +141,7 @@ const Drawer = defineComponent({
             emit("openChange", true);
           });
         } else {
+          closeHostedPopups();
           updateScrollLock(false);
           visible.value = false;
           setTimeout(() => {

@@ -19,6 +19,7 @@ import {
 } from "vue";
 import { Button } from "../button";
 import { usePopupContainer } from "../config/popup";
+import { usePopupHost } from "../config/popup-host";
 import type { BooleanType, PlacementsType } from "../const/types";
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
@@ -47,6 +48,7 @@ const Popconfirm = defineComponent({
   name: "Popconfirm",
   props: popconfirmProps,
   setup(props, { slots, attrs, emit }) {
+    usePopupHost(() => visible.value && updateShow(false));
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
     const getPopupContainer = usePopupContainer();
@@ -68,16 +70,14 @@ const Popconfirm = defineComponent({
     const updatePosition = () => {
       cancelAnimationFrame(positionRaf);
       positionRaf = requestAnimationFrame(() => {
-        nextTick(() => {
-          if (!visible.value) return;
-          setPlacement({
-            refSelection,
-            refPopper,
-            currentPlacement,
-            transOrigin,
-            top,
-            left,
-          });
+        if (!visible.value) return;
+        setPlacement({
+          refSelection,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
         });
       });
     };
@@ -100,14 +100,14 @@ const Popconfirm = defineComponent({
       (nv) => {
         visible.value = nv || false;
         if (nv) updatePosition();
-      }
+      },
     );
     watch(
       () => props.placement,
       (placement) => {
         currentPlacement.value = placement;
         if (visible.value) updatePosition();
-      }
+      },
     );
     watch(
       () => props.title,
@@ -115,7 +115,7 @@ const Popconfirm = defineComponent({
         if (visible.value) {
           updatePosition();
         }
-      }
+      },
     );
     const updateShow = (value: boolean) => {
       visible.value = value;
@@ -253,7 +253,7 @@ const Popconfirm = defineComponent({
                 {contentNode}
               </div>
             </Transition>
-          </Teleport>
+          </Teleport>,
           // ) : null;
         );
       }

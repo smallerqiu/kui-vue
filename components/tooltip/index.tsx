@@ -15,6 +15,7 @@ import {
   type VNodeChild,
 } from "vue";
 import { usePopupContainer } from "../config/popup";
+import { usePopupHost } from "../config/popup-host";
 import { type BooleanType, type PlacementsType } from "../const/types";
 import { colors } from "../const/var";
 import { isColor } from "../utils/color";
@@ -40,6 +41,7 @@ const Tooltip = defineComponent({
   name: "Tooltip",
   props: tooltipProps,
   setup(props, { slots, attrs, emit }) {
+    usePopupHost(() => visible.value && updateShow(false));
     const getPopupContainer = usePopupContainer();
     const rendered = ref(props.show || props.panelOnly);
     const visible = ref(props.show || props.panelOnly);
@@ -64,16 +66,14 @@ const Tooltip = defineComponent({
     const updatePosition = () => {
       cancelAnimationFrame(positionRaf);
       positionRaf = requestAnimationFrame(() => {
-        nextTick(() => {
-          if (!visible.value || !anchorVisible.value) return;
-          setPlacement({
-            refSelection,
-            refPopper,
-            currentPlacement,
-            transOrigin,
-            top,
-            left,
-          });
+        if (!visible.value || !anchorVisible.value) return;
+        setPlacement({
+          refSelection,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
         });
       });
     };
@@ -117,7 +117,7 @@ const Tooltip = defineComponent({
       (nv) => {
         visible.value = nv;
         if (nv) updatePosition();
-      }
+      },
     );
 
     watch(
@@ -125,14 +125,14 @@ const Tooltip = defineComponent({
       (placement) => {
         currentPlacement.value = placement;
         if (visible.value) updatePosition();
-      }
+      },
     );
 
     watch(
       () => props.title,
       () => {
         if (visible.value) updatePosition();
-      }
+      },
     );
 
     const mouseEnter = () => {

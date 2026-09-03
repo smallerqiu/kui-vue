@@ -3,6 +3,7 @@ import resize from "../directives/resize";
 import { setPlacement } from "../utils/placement";
 import { cloneNodes } from "../utils/vnode";
 import { usePopupContainer } from "../config/popup";
+import { usePopupHost } from "../config/popup-host";
 import Alpha from "./alpha";
 import Hue from "./hue";
 import Mode from "./mode";
@@ -64,6 +65,7 @@ const ColorPicker = defineComponent({
   props: colorPickerProps,
 
   setup(props, { emit, slots }) {
+    usePopupHost(() => visible.value && openChange(false));
     const getPopupContainer = usePopupContainer();
     const initialColor = props.modelValue || "#000000ff";
     const initialColorValue = Color(initialColor);
@@ -99,20 +101,20 @@ const ColorPicker = defineComponent({
         currentColor.value = value;
         currentAlpha.value = color.alpha();
         currentHue.value = color.hue();
-      }
+      },
     );
     watch(
       () => props.mode,
       (mode) => {
         currentMode.value = mode;
-      }
+      },
     );
     watch(
       () => props.placement,
       (placement) => {
         currentPlacement.value = placement;
         if (visible.value) updatePopPosition();
-      }
+      },
     );
     watch(
       () => props.opened,
@@ -122,7 +124,7 @@ const ColorPicker = defineComponent({
         visible.value = nextVisible;
         syncOutsideClickListener(nextVisible);
         if (nextVisible && !props.panelOnly) nextTick(updatePopPosition);
-      }
+      },
     );
     onMounted(() => {
       if (!props.panelOnly) {
@@ -140,16 +142,14 @@ const ColorPicker = defineComponent({
     const updatePopPosition = () => {
       cancelAnimationFrame(positionRaf);
       positionRaf = requestAnimationFrame(() => {
-        nextTick(() => {
-          if (!visible.value) return;
-          setPlacement({
-            refSelection,
-            refPopper,
-            currentPlacement,
-            transOrigin,
-            top,
-            left,
-          });
+        if (!visible.value) return;
+        setPlacement({
+          refSelection,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
         });
       });
     };
@@ -372,7 +372,7 @@ const ColorPicker = defineComponent({
               onMouseenter: () => !triggerClick && toggle(true),
               onMouseleave: onMouseleave,
             },
-            true
+            true,
           )}
           {drop}
         </span>

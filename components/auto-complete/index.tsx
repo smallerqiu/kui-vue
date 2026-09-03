@@ -19,6 +19,7 @@ import {
   type VNodeChild,
 } from "vue";
 import { usePopupContainer } from "../config/popup";
+import { usePopupHost } from "../config/popup-host";
 import type { ShapeType, SizeType, ThemeType } from "../const/types";
 import Icon from "../icon";
 import { Input } from "../input";
@@ -64,10 +65,11 @@ export default defineComponent({
   inheritAttrs: false,
   props: propsDef,
   setup(props, { emit, attrs }) {
+    usePopupHost(() => visible.value && setOpen(false));
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
     const locale = computed<Locale>(() =>
-      isRef(injectedLocale) ? injectedLocale.value : injectedLocale
+      isRef(injectedLocale) ? injectedLocale.value : injectedLocale,
     );
     const getPopupContainer = usePopupContainer();
     const inner = ref(props.value);
@@ -78,18 +80,18 @@ export default defineComponent({
     const dropdown = ref<HTMLElement | null>(null);
     const current = computed(() => props.modelValue ?? inner.value);
     const normalized = computed(() =>
-      props.options.map((item) => (typeof item === "string" ? { value: item, label: item } : item))
+      props.options.map((item) => (typeof item === "string" ? { value: item, label: item } : item)),
     );
     const filter = (value: string) =>
       normalized.value.filter((option) =>
         typeof props.filterOption === "function"
           ? props.filterOption(value, option)
           : !props.filterOption ||
-            option.value.toLocaleLowerCase().includes(value.toLocaleLowerCase())
+            option.value.toLocaleLowerCase().includes(value.toLocaleLowerCase()),
       );
     const initiallyOpen = props.open ?? props.defaultOpen;
     const shownOptions = shallowRef<AutoCompleteOption[]>(
-      initiallyOpen && (current.value || props.showOnEmpty) ? filter(current.value) : []
+      initiallyOpen && (current.value || props.showOnEmpty) ? filter(current.value) : [],
     );
     const suppressRemoteOptions = ref(false);
     const top = ref(0);
@@ -101,33 +103,31 @@ export default defineComponent({
       () => props.modelValue,
       (value) => {
         if (value !== undefined) inner.value = value;
-      }
+      },
     );
     const hasOptions = computed(() => normalized.value.length > 0);
     const visible = computed(
-      () => (props.loading || shownOptions.value.length > 0) && (props.open ?? innerOpen.value)
+      () => (props.loading || shownOptions.value.length > 0) && (props.open ?? innerOpen.value),
     );
     watch(
       visible,
       (value) => {
         if (value) rendered.value = true;
       },
-      { immediate: true, flush: "sync" }
+      { immediate: true, flush: "sync" },
     );
     const updatePosition = () => {
       cancelAnimationFrame(positionRaf);
       positionRaf = requestAnimationFrame(() => {
-        nextTick(() => {
-          if (!visible.value) return;
-          setPlacement({
-            refSelection: root,
-            refPopper: dropdown,
-            currentPlacement,
-            transOrigin,
-            top,
-            left,
-            offset: 6,
-          });
+        if (!visible.value) return;
+        setPlacement({
+          refSelection: root,
+          refPopper: dropdown,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
+          offset: 6,
         });
       });
     };
@@ -160,7 +160,7 @@ export default defineComponent({
         const hasMatches = refreshOptions();
         if (!hasMatches && !props.loading && innerOpen.value) setOpen(false);
       },
-      { deep: true }
+      { deep: true },
     );
     watch(
       () => props.loading,
@@ -177,7 +177,7 @@ export default defineComponent({
           setOpen(false);
         }
         nextTick(updatePosition);
-      }
+      },
     );
     onMounted(() => {
       if (

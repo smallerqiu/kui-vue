@@ -13,6 +13,7 @@ import {
   type VNodeChild,
 } from "vue";
 import { usePopupContainer } from "../config/popup";
+import { usePopupHost } from "../config/popup-host";
 import { setPlacement } from "../utils/placement";
 import { cloneNodes, getChildren } from "../utils/vnode";
 
@@ -43,6 +44,7 @@ const Poptip = defineComponent({
   name: "Poptip",
   props: poptipProps,
   setup(props, { slots, attrs, emit }) {
+    usePopupHost(() => visible.value && updateShow(false));
     const getPopupContainer = usePopupContainer();
     const rendered = ref(props.show || props.panelOnly);
     const visible = ref(props.show || props.panelOnly);
@@ -58,16 +60,14 @@ const Poptip = defineComponent({
     const updatePosition = () => {
       cancelAnimationFrame(positionRaf);
       positionRaf = requestAnimationFrame(() => {
-        nextTick(() => {
-          if (!visible.value) return;
-          setPlacement({
-            refSelection,
-            refPopper,
-            currentPlacement,
-            transOrigin,
-            top,
-            left,
-          });
+        if (!visible.value) return;
+        setPlacement({
+          refSelection,
+          refPopper,
+          currentPlacement,
+          transOrigin,
+          top,
+          left,
         });
       });
     };
@@ -90,7 +90,7 @@ const Poptip = defineComponent({
       (nv) => {
         visible.value = nv;
         if (nv) updatePosition();
-      }
+      },
       // { immediate: true }
     );
     watch(
@@ -98,7 +98,7 @@ const Poptip = defineComponent({
       (placement) => {
         currentPlacement.value = placement;
         if (visible.value) updatePosition();
-      }
+      },
     );
     watch(
       () => props.title,
@@ -106,7 +106,7 @@ const Poptip = defineComponent({
         if (visible.value) {
           updatePosition();
         }
-      }
+      },
     );
     const updateShow = (value: boolean) => {
       visible.value = value;
@@ -241,7 +241,7 @@ const Poptip = defineComponent({
                 {contentNode}
               </div>
             </Transition>
-          </Teleport>
+          </Teleport>,
           // ) : null;
         );
       }

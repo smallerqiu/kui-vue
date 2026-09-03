@@ -2,6 +2,7 @@ import { mount } from "@vue/test-utils";
 import { describe, expect, it } from "vitest";
 import { defineComponent, h, nextTick, ref } from "vue";
 import Drawer from "../components/drawer";
+import Select from "../components/select/select";
 
 describe("Drawer target", () => {
   it("renders inside a static target and restores its positioning style", async () => {
@@ -37,5 +38,32 @@ describe("Drawer target", () => {
 
     wrapper.unmount();
     expect(target.style.position).toBe("");
+  });
+
+  it("closes popups hosted by the drawer when the drawer closes", async () => {
+    const options = [{ label: "Alpha", value: "alpha" }];
+    const wrapper = mount(
+      defineComponent(() => () =>
+        h("div", [
+          h(
+            Drawer,
+            { modelValue: true, footer: false },
+            { default: () => h(Select, { options, class: "inside-select" }) },
+          ),
+        ]),
+      ),
+      { attachTo: document.body },
+    );
+
+    const select = wrapper.findComponent(Select);
+    await select.trigger("click");
+    await nextTick();
+    expect(document.body.querySelector(".k-select-dropdown")).not.toBeNull();
+
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+    await nextTick();
+
+    expect(select.emitted("openChange")?.at(-1)).toEqual([false]);
+    wrapper.unmount();
   });
 });

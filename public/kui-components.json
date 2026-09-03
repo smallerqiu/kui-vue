@@ -1380,7 +1380,7 @@
           "description": "Array of path values bound through `v-model` (e.g., `['zhejiang', 'hangzhou', 'xihu']`).",
           "descriptionZh": "选中项的路径值数组（如 `['zhejiang', 'hangzhou', 'xihu']`）。",
           "descriptionEn": "Array of path values bound through `v-model` (e.g., `['zhejiang', 'hangzhou', 'xihu']`).",
-          "type": "(string | number)[]",
+          "type": "CascaderValue",
           "boolean": false,
           "documented": true
         },
@@ -1509,6 +1509,15 @@
           "type": "string | undefined",
           "boolean": false,
           "documented": true
+        },
+        {
+          "name": "loadData",
+          "description": "Loads children asynchronously; return them or update `option.children`",
+          "descriptionZh": "异步加载子节点；返回子节点数组，或自行更新 `option.children`",
+          "descriptionEn": "Loads children asynchronously; return them or update `option.children`",
+          "type": "CascaderLoadData | undefined",
+          "boolean": false,
+          "documented": true
         }
       ],
       "events": [],
@@ -1522,12 +1531,17 @@
         {
           "title": "电商多级类目选择",
           "file": "components/cascader/demo/hover.vue",
-          "source": "<template>\n  <Space vertical>\n    <Cascader\n      v-model=\"selectedCategory\"\n      :options=\"categoryOptions\"\n      expandTrigger=\"hover\"\n      :showAllLevels=\"false\"\n      placeholder=\"请选择商品归属类目\"\n      style=\"width: 200px\"\n    />\n    <code> 后端绑定最终叶子节点：{{ selectedCategory[selectedCategory.length - 1] }} </code>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { CascaderOption } from \"kui-vue\";\nimport { ref } from \"vue\";\n\nconst selectedCategory = ref<(string | number)[]>([\"electronics\", \"computer\", \"laptop\"]);\n\nconst categoryOptions: CascaderOption[] = [\n  {\n    value: \"electronics\",\n    label: \"数码电子\",\n    children: [\n      {\n        value: \"phone\",\n        label: \"智能手机\",\n        children: [\n          { value: \"ios\", label: \"iPhone\" },\n          { value: \"android\", label: \"安卓手机\" },\n        ],\n      },\n      {\n        value: \"computer\",\n        label: \"电脑办公\",\n        children: [\n          { value: \"laptop\", label: \"笔记本\" },\n          { value: \"desktop\", label: \"台式机\" },\n        ],\n      },\n    ],\n  },\n  {\n    value: \"clothing\",\n    label: \"服装服饰\",\n    children: [\n      {\n        value: \"mens\",\n        label: \"男装\",\n        children: [\n          { value: \"jacket\", label: \"夹克/外套\" },\n          { value: \"tshirt\", label: \"潮流T恤\" },\n        ],\n      },\n    ],\n  },\n];\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <Cascader\n      v-model=\"selectedCategory\"\n      :options=\"categoryOptions\"\n      expandTrigger=\"hover\"\n      :showAllLevels=\"false\"\n      placeholder=\"请选择商品归属类目\"\n      style=\"width: 200px\"\n    />\n    <code>后端绑定最终叶子节点：{{ selectedCategory[selectedCategory.length - 1] }}</code>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { CascaderOption } from \"kui-vue\";\nimport { ref } from \"vue\";\n\nconst selectedCategory = ref<(string | number)[]>([\"electronics\", \"computer\", \"laptop\"]);\n\nconst categoryOptions: CascaderOption[] = [\n  {\n    value: \"electronics\",\n    label: \"数码电子\",\n    children: [\n      {\n        value: \"phone\",\n        label: \"智能手机\",\n        children: [\n          { value: \"ios\", label: \"iPhone\" },\n          { value: \"android\", label: \"安卓手机\" },\n        ],\n      },\n      {\n        value: \"computer\",\n        label: \"电脑办公\",\n        children: [\n          { value: \"laptop\", label: \"笔记本\" },\n          { value: \"desktop\", label: \"台式机\" },\n        ],\n      },\n    ],\n  },\n  {\n    value: \"clothing\",\n    label: \"服装服饰\",\n    children: [\n      {\n        value: \"mens\",\n        label: \"男装\",\n        children: [\n          { value: \"jacket\", label: \"夹克/外套\" },\n          { value: \"tshirt\", label: \"潮流T恤\" },\n        ],\n      },\n    ],\n  },\n];\n</script>"
         },
         {
           "title": "禁用特定分支",
           "file": "components/cascader/demo/disabled.vue",
           "source": "<template>\n  <Space vertical>\n    <code>Disabled item:</code>\n    <Cascader\n      v-model=\"departmentPath\"\n      :options=\"orgOptions\"\n      placeholder=\"请指派归属部门\"\n      style=\"width: 280px\"\n    />\n    <code>Disabled:</code>\n    <Cascader\n      disabled\n      v-model=\"departmentPath\"\n      :options=\"orgOptions\"\n      placeholder=\"请指派归属部门\"\n      style=\"width: 280px\"\n    />\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { CascaderOption } from \"kui-vue\";\nimport { ref } from \"vue\";\n\nconst departmentPath = ref<(string | number)[]>([]);\n\nconst orgOptions: CascaderOption[] = [\n  {\n    value: \"headquarters\",\n    label: \"集团总部\",\n    children: [\n      { value: \"hr\", label: \"人力资源部\" },\n      { value: \"tech\", label: \"研发中心\" },\n      { value: \"finance\", label: \"财务风控部\" },\n    ],\n  },\n  {\n    value: \"east_branch\",\n    label: \"华东分公司\",\n    disabled: true, // 👈 华东分公司整体架构调整中，整体禁用\n    children: [\n      { value: \"sh_sales\", label: \"上海销售部\" },\n      { value: \"hz_sales\", label: \"杭州运营中心\" },\n    ],\n  },\n  {\n    value: \"south_branch\",\n    label: \"华南分公司\",\n    children: [\n      { value: \"gz_sales\", label: \"广州市场部\" },\n      {\n        value: \"sz_sales\",\n        label: \"深圳前海分部\",\n        disabled: true, // 👈 仅禁用末梢特殊叶子节点\n      },\n    ],\n  },\n];\n</script>"
+        },
+        {
+          "title": "异步加载",
+          "file": "components/cascader/demo/async.vue",
+          "source": "<template>\n  <Cascader\n    v-model=\"value\"\n    :options=\"options\"\n    :loadData=\"loadData\"\n    placeholder=\"请选择地区\"\n    style=\"width: 260px\"\n  />\n</template>\n\n<script setup lang=\"ts\">\nimport type { CascaderLoadData, CascaderOption, CascaderValue } from \"kui-vue\";\nimport { ref } from \"vue\";\n\nconst value = ref<CascaderValue>([]);\nconst options: CascaderOption[] = [\n  { label: \"浙江省\", value: \"zhejiang\", isLeaf: false },\n  { label: \"江苏省\", value: \"jiangsu\", isLeaf: false },\n];\n\nconst children: Record<string, CascaderOption[]> = {\n  zhejiang: [\n    { label: \"杭州市\", value: \"hangzhou\", isLeaf: true },\n    { label: \"宁波市\", value: \"ningbo\", isLeaf: true },\n  ],\n  jiangsu: [\n    { label: \"南京市\", value: \"nanjing\", isLeaf: true },\n    { label: \"苏州市\", value: \"suzhou\", isLeaf: true },\n  ],\n};\n\nconst loadData: CascaderLoadData = async (option) => {\n  await new Promise((resolve) => setTimeout(resolve, 800));\n  return children[String(option.value)] || [];\n};\n</script>"
         },
         {
           "title": "尺寸/形态",
@@ -13016,6 +13030,15 @@
           "documented": true
         },
         {
+          "name": "loadData",
+          "description": "Method to asynchronously load data",
+          "descriptionZh": "异步加载数据的方法",
+          "descriptionEn": "Method to asynchronously load data",
+          "type": "((node: TreeNode) => Promise<unknown>) | undefined",
+          "boolean": false,
+          "documented": true
+        },
+        {
           "name": "data",
           "description": "Array of nestable node properties, data to generate `tree`",
           "descriptionZh": "可嵌套的节点属性的数组，生成 `tree` 的数据",
@@ -13153,15 +13176,6 @@
           "descriptionEn": "Triggered when dragging ends",
           "type": "((node: TreeNode, event: DragEvent) => void) | undefined",
           "eventName": "dragEnd",
-          "boolean": false,
-          "documented": true
-        },
-        {
-          "name": "loadData",
-          "description": "Method to asynchronously load data",
-          "descriptionZh": "异步加载数据的方法",
-          "descriptionEn": "Method to asynchronously load data",
-          "type": "((node: TreeNode) => Promise<unknown>) | undefined",
           "boolean": false,
           "documented": true
         }

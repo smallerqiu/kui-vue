@@ -139,6 +139,7 @@
   &-menus {
     display: flex;
     align-items: flex-start;
+    // min-width: 100%;
   }
 
   &-menu {
@@ -151,6 +152,10 @@
     box-sizing: border-box;
     height: 100%;
     border-right: 1px solid var(--kui-popup-border);
+
+    &:only-child {
+      // flex: 1;
+    }
 
     &:last-child {
       border-right: none;

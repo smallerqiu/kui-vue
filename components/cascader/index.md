@@ -22,6 +22,10 @@
 
 - 在分配系统权限或派发工单时，部分部门或处于停用状态的子分支（如整改中的分公司）需要整体置灰。利用 disabled 属性可以一键封锁其下所有链路。
 
+[异步加载](./demo/async.vue)
+
+- 展开节点时按需加载下一级数据；加载中显示状态，失败后可点击重试。
+
 [尺寸/形态](./demo/size.vue)
 
 - 配合不同的页面排版（如紧凑的弹窗表单或开阔的配置面板），展示组件在不同 size 约束下的高视觉表现力
@@ -46,7 +50,16 @@
 | shape         | shape='circle' 时呈现圆角                                                              | string               | -           |
 | placement     | 下拉展示的方位                                                                         | string               | -           |
 | emptyText     | 没有数据时展示的提示                                                                   | string               | '暂无数据'  |
+| loadData      | 异步加载子节点；返回子节点数组，或自行更新 `option.children`                           | `CascaderLoadData`   | -           |
 | arrowIcon     | 自定义箭头图标                                                                         | string               | -           |
+
+## 事件
+
+| 事件         | 说明                     | 参数                             |
+| ------------ | ------------------------ | -------------------------------- |
+| change       | 选中路径或清空时触发     | `(value: CascaderValue) => void` |
+| expandChange | 展开的级联路径变化时触发 | `(value: CascaderValue) => void` |
+| openChange   | 下拉框显示状态变化时触发 | `(open: boolean) => void`        |
 
 ## CascaderOption
 
@@ -58,3 +71,4 @@
 | label    | **必填。** 当前节点在下拉菜单以及输入框中展示给用户看的纯文本内容（如 `"浙江省"`、`"杭州市"`）。                           | string           | -           |
 | disabled | 是否禁用当前选项。开启后该行文本变灰且不可点击，同时其下方的所有子层级都将被同步锁定。                                     | boolean          | `false`     |
 | children | 下一级的子节点数据源。当节点包含此属性且数组不为空时，组件右侧会自动渲染出向右生长的展开箭头。                             | CascaderOption[] | `undefined` |
+| isLeaf   | 是否为叶子节点。异步加载时设为 `false` 表示仍可展开。                                                                      | boolean          | `undefined` |

@@ -20,6 +20,7 @@ import {
 import { Button } from "../button";
 import { getMousePoint } from "../config/context";
 import { usePopupContainer } from "../config/popup";
+import { providePopupHost } from "../config/popup-host";
 import type { BooleanType } from "../const/types";
 import zhCN from "../locale/zh-CN";
 import { toggleContainerScroll } from "../utils/vnode";
@@ -64,6 +65,7 @@ const Modal = defineComponent({
     const startPos = ref({ x: 0, y: 0 });
     const refModal = ref();
     const refHeader = ref();
+    const closeHostedPopups = providePopupHost();
     let scrollLocked = false;
     const updateScrollLock = (lock: boolean) => {
       if (props.panelOnly || scrollLocked === lock) return;
@@ -130,6 +132,7 @@ const Modal = defineComponent({
             });
           });
         } else {
+          closeHostedPopups();
           updateScrollLock(false);
           visible.value = false;
           setTimeout(() => {

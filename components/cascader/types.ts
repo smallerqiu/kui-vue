@@ -15,10 +15,15 @@ export interface CascaderOption {
   children?: CascaderOption[];
   isLeaf?: boolean; // 用于异步加载的叶子节点判定
 }
+export type CascaderValue = Array<string | number>;
+export type CascaderLoadData = (
+  option: CascaderOption,
+  path: CascaderOption[],
+) => Promise<CascaderOption[] | void>;
 
 export const cascaderProps = {
   modelValue: {
-    type: Array as PropType<(string | number)[]>, // [100, 102, 105] 形式的路径数组
+    type: Array as PropType<CascaderValue>, // [100, 102, 105] 形式的路径数组
     default: () => [],
   },
   options: {
@@ -33,6 +38,7 @@ export const cascaderProps = {
   icon: [Array] as PropType<IconType[]>,
   arrowIcon: [Array] as PropType<IconType[]>,
   emptyText: String,
+  loadData: Function as PropType<CascaderLoadData>,
   disabled: Boolean,
   clearable: { type: Boolean, default: true },
   size: String as PropType<SizeType>,

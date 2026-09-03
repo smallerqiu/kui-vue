@@ -17,6 +17,7 @@ import {
 
 import type { BooleanType, DropPlacementsType, TriggerType } from "../const/types";
 import { usePopupContainer } from "../config/popup";
+import { usePopupHost } from "../config/popup-host";
 import resize from "../directives/resize";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
@@ -49,6 +50,7 @@ const Dropdown = defineComponent({
   },
   props: dropdownProps,
   setup(props, { slots, emit, attrs }) {
+    usePopupHost(() => visible.value && toggle(false));
     const getPopupContainer = usePopupContainer();
     const visible = ref(props.show);
     const refSelection = ref<HTMLElement | null>(null);
