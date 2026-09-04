@@ -51,15 +51,16 @@ dayjs.extend(customParseFormat);
 dayjs.extend(localeData);
 // dayjs.locale("zh-cn");
 
-type DatePickerValueType = "date" | "timestamp" | "unix" | "string";
-type DatePickerModeType =
+export type DatePickerValueType = "date" | "timestamp" | "unix" | "string";
+export type DatePickerModeType =
   "year" | "month" | "date" | "time" | "dateTime" | "dateRange" | "dateTimeRange";
 
-interface DatePickerPresetsType {
+export interface DatePickerPreset {
   label: string;
   value: () => DatePickerInput | DatePickerInput[];
 }
-type DatePickerInput = string | number | Date | Dayjs;
+export type DatePickerInput = string | number | Date | Dayjs;
+export type DatePickerOutput = string | number | Date | null;
 
 const datePickerProps = {
   modelValue: {
@@ -84,7 +85,7 @@ const datePickerProps = {
     type: String as PropType<DatePickerModeType>,
     default: "date",
   },
-  presets: Array as PropType<DatePickerPresetsType[]>,
+  presets: Array as PropType<DatePickerPreset[]>,
   disabled: { type: Boolean as BooleanType },
   readonly: { type: Boolean as BooleanType },
   opened: { type: Boolean as BooleanType },
@@ -105,7 +106,9 @@ const datePickerProps = {
     default: "bottom-left",
   },
   onChange: {
-    type: Function as PropType<(date: Date | Date[], dateStr: string | string[]) => void>,
+    type: Function as PropType<
+      (date: DatePickerOutput | DatePickerOutput[], dateStr: string | string[]) => void
+    >,
   },
   onOpenChange: {
     type: Function as PropType<(open: boolean) => void>,
@@ -261,10 +264,8 @@ const DatePicker = defineComponent({
       //  Range 模式
       if (Array.isArray(innerValue.value)) {
         const [start, end] = innerValue.value;
-        if (end) {
-          textValueStart.value = start ? start.format(fmt) : "";
-          textValueEnd.value = end ? end.format(fmt) : "";
-        }
+        textValueStart.value = start ? start.locale(localeName.value).format(fmt) : "";
+        textValueEnd.value = end ? end.locale(localeName.value).format(fmt) : "";
       } else {
         textValue.value = fmtDate(innerValue.value);
       }
@@ -287,9 +288,12 @@ const DatePicker = defineComponent({
     };
 
     watch(
-      () => props.modelValue,
-      (val) => {
-        if (!val) {
+      [() => props.modelValue, () => props.startDate, () => props.endDate, isRange],
+      ([modelValue, startDate, endDate]) => {
+        const val =
+          modelValue ??
+          (isRange.value && (startDate !== null || endDate !== null) ? [startDate, endDate] : null);
+        if (val === null || val === undefined || val === "") {
           innerValue.value = null;
           syncTextFromValue();
           return;
@@ -332,7 +336,7 @@ const DatePicker = defineComponent({
           emit("update:endDate", out[1]);
           emit(
             "change",
-            dates,
+            out,
             dates.map((d) => getStr(d)),
           );
 
@@ -343,7 +347,7 @@ const DatePicker = defineComponent({
         }
       } else {
         emit("update:modelValue", formatOutputValue(innerValue.value));
-        emit("change", innerValue.value, getStr(innerValue.value));
+        emit("change", formatOutputValue(innerValue.value), getStr(innerValue.value));
         syncTextFromValue();
         if (closePanel && !props.panelOnly) openChange(false);
       }
@@ -420,7 +424,6 @@ const DatePicker = defineComponent({
       if (props.disabled || props.readonly || isVisible.value) return;
       if (!rendered.value) {
         rendered.value = true;
-        document.addEventListener("click", handleClickOutside);
         nextTick(() => {
           updatePanelState();
           nextTick(() => {
@@ -723,7 +726,7 @@ const DatePicker = defineComponent({
               </span>
             ))}
           </div>
-          <div class="k-picker-date-grid" onMouseleave={() => (hoverDate.value = null)}>
+          <div class="k-picker-date-grid" role="grid" onMouseleave={() => (hoverDate.value = null)}>
             {days.map((item, idx) => {
               const date = item.d;
               const isDisabled = props.disabledDate(date.toDate());
@@ -758,6 +761,9 @@ const DatePicker = defineComponent({
               return (
                 <div
                   key={idx}
+                  role="gridcell"
+                  aria-selected={isSelected || undefined}
+                  aria-disabled={isDisabled || undefined}
                   class={[
                     "k-picker-day",
                     {
@@ -901,6 +907,7 @@ const DatePicker = defineComponent({
     onMounted(() => {
       if (!props.panelOnly) {
         if (props.opened) updatePosition();
+        document.addEventListener("click", handleClickOutside);
         document.addEventListener("scroll", updatePosition, true);
       }
     });
@@ -951,7 +958,7 @@ const DatePicker = defineComponent({
       };
       const classes = [
         "k-datepicker",
-        { "k-datepicker-opened": isFocus.value },
+        { "k-datepicker-opened": isVisible.value || isFocus.value },
         //   { 'k-datepicker-range': isRange },
         { "k-datepicker-borderless": props.bordered === false || props.theme === "plain" },
         { "k-datepicker-sm": props.size == "small" },
@@ -986,6 +993,7 @@ const DatePicker = defineComponent({
               transformOrigin: transOrigin.value,
             },
         mode: props.mode,
+        role: "dialog",
       };
 
       const renderInput = () => {
@@ -1045,7 +1053,7 @@ const DatePicker = defineComponent({
           );
         }
       };
-      const presetEmit = ({ value }: DatePickerPresetsType) => {
+      const presetEmit = ({ value }: DatePickerPreset) => {
         if (props.readonly) return;
         if (typeof value === "function") {
           const date = value();
@@ -1125,6 +1133,17 @@ const DatePicker = defineComponent({
           ref={refSelection}
           tabindex={props.disabled ? undefined : 0}
           aria-readonly={props.readonly || undefined}
+          aria-expanded={isVisible.value}
+          onKeydown={(event: KeyboardEvent) => {
+            if (event.key === "Escape" && isVisible.value) {
+              event.stopPropagation();
+              openChange(false);
+              isFocus.value = false;
+            } else if ((event.key === "Enter" || event.key === " ") && !isVisible.value) {
+              event.preventDefault();
+              togglePanel();
+            }
+          }}
         >
           <div class={selectCls} onClick={togglePanel}>
             {renderInput()}
