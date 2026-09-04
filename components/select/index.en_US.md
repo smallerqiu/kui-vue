@@ -60,7 +60,7 @@ Dropdown selector.
 | loadingText  | Loading state text                                                                | string                                     | -             |
 | block        | Whether to fill the parent width                                                  | boolean                                    | false         |
 | filterable   | Whether input filtering is enabled                                                | boolean                                    | false         |
-| clearable    | Whether options can be cleared                                                    | boolean                                    | false         |
+| clearable    | Whether options can be cleared                                                    | boolean                                    | true          |
 | bordered     | Whether to show border                                                            | boolean                                    | true          |
 | extendWidth  | Whether dropdown width matches input width                                        | boolean                                    | true          |
 | showArrow    | Whether to show dropdown button                                                   | boolean                                    | true          |

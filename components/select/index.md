@@ -60,7 +60,7 @@
 | loadingText  | 加载状态提示文字                                           | string                                     | -           |
 | block        | 是否占满父容器宽度                                         | boolean                                    | false       |
 | filterable   | 是否支持输入过滤                                           | boolean                                    | false       |
-| clearable    | 是否可以清空选项                                           | boolean                                    | false       |
+| clearable    | 是否可以清空选项                                           | boolean                                    | true        |
 | bordered     | 是否显示边框                                               | boolean                                    | true        |
 | extendWidth  | 下拉框的宽度是否与input一致                                | boolean                                    | true        |
 | showArrow    | 是否显示下拉按钮                                           | boolean                                    | true        |

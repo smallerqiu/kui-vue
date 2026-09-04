@@ -298,7 +298,9 @@ const Select = defineComponent({
       activeIndex.value = -1;
       nextTick(() => {
         if (queryInputMirrorRef.value) {
-          target.style.width = queryInputMirrorRef.value.offsetWidth + "px";
+          const availableWidth = Math.max((refSelection.value?.clientWidth || 0) - 40, 7);
+          const contentWidth = Math.max(queryInputMirrorRef.value.offsetWidth + 2, 7);
+          target.style.width = `${Math.min(contentWidth, availableWidth)}px`;
         }
         updatePosition();
       });

@@ -95,7 +95,7 @@ const Table = defineComponent({
       () => props.selectedKeys,
       (val) => {
         innerSelectedKeys.value = new Set(val);
-      }
+      },
     );
     const visibleColumns = computed(() => {
       const filter = (columns: Column[]): Column[] =>
@@ -158,11 +158,11 @@ const Table = defineComponent({
           getKey: getRowKey,
         })
           .filter((row) => row.hasChildren)
-          .map((row) => getRowKey(row.record))
+          .map((row) => getRowKey(row.record)),
       );
     }
     const currentExpandedKeys = computed(() =>
-      props.expandedKeys ? new Set(props.expandedKeys) : innerExpandedKeys.value
+      props.expandedKeys ? new Set(props.expandedKeys) : innerExpandedKeys.value,
     );
     const sortRecords = (records: TableRecord[]) => {
       const list = [...records];
@@ -176,7 +176,7 @@ const Table = defineComponent({
             const comparison = String(firstValue ?? "").localeCompare(
               String(secondValue ?? ""),
               undefined,
-              { numeric: true }
+              { numeric: true },
             );
             return sortState.order === "asc" ? comparison : -comparison;
           });
@@ -189,7 +189,7 @@ const Table = defineComponent({
         data: props.data,
         childrenColumnName: props.childrenColumnName,
         getKey: getRowKey,
-      })
+      }),
     );
     const visibleTreeRows = computed(() =>
       flattenTreeData({
@@ -198,7 +198,7 @@ const Table = defineComponent({
         expandedKeys: currentExpandedKeys.value,
         getKey: getRowKey,
         sortRecords,
-      })
+      }),
     );
     const treeEnabled = computed(() => allTreeRows.value.some((row) => row.hasChildren));
     const virtualEnabled = computed(() => props.virtual && Boolean(props.scroll.y));
@@ -209,7 +209,7 @@ const Table = defineComponent({
         viewportHeight: bodyViewportHeight.value,
         itemHeight: props.itemHeight,
         overscan: props.overscan,
-      })
+      }),
     );
     const renderedTreeRows = computed(() => {
       const start = virtualEnabled.value ? virtualRange.value.start : 0;
@@ -227,7 +227,7 @@ const Table = defineComponent({
       if (enableData.length === 0) return { all: false, indeterminate: false, disabled: true };
 
       const checkedCount = enableData.filter((item) =>
-        innerSelectedKeys.value.has(getRowKey(item))
+        innerSelectedKeys.value.has(getRowKey(item)),
       ).length;
 
       return {
@@ -326,7 +326,7 @@ const Table = defineComponent({
           0,
           bodyWrapperRef.value.offsetWidth -
             bodyWrapperRef.value.clientWidth -
-            (props.bordered ? 1 : 0)
+            (props.bordered ? 1 : 0),
         );
         if (scrollbarWidth.value !== width) scrollbarWidth.value = width;
       }
@@ -534,6 +534,10 @@ const Table = defineComponent({
       const matrix: Matrix[][] = [];
 
       if (!data.length) return matrix;
+      const hasMergedCells = cols.some(
+        (col) => col.rowSpan !== undefined || col.colSpan !== undefined,
+      );
+      if (!hasMergedCells) return matrix;
 
       for (let i = 0; i < data.length; i++) {
         matrix[i] = [];
@@ -633,7 +637,11 @@ const Table = defineComponent({
                 </td>
               )}
               {flattedColumns.value.map((col, colIndex) => {
-                const cellState = mergeMatrix.value[rowIndex]?.[colIndex];
+                const cellState = mergeMatrix.value[rowIndex]?.[colIndex] ?? {
+                  rowSpan: 1,
+                  colSpan: 1,
+                  show: true,
+                };
 
                 if (!cellState || !cellState.show) return null;
 
@@ -698,14 +706,13 @@ const Table = defineComponent({
             virtualRange.value.total -
               virtualRange.value.offset -
               renderedTreeRows.value.length * props.itemHeight,
-            "bottom"
+            "bottom",
           )}
       </tbody>
     );
 
     const renderTable = (isHeader: boolean, isBody: boolean) => {
-      const scrollX =
-        typeof props.scroll.x === "number" ? `${props.scroll.x}px` : props.scroll.x;
+      const scrollX = typeof props.scroll.x === "number" ? `${props.scroll.x}px` : props.scroll.x;
       const tableStyle: CSSProperties = {
         width: "100%",
         minWidth: scrollX || "100%",
