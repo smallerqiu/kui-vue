@@ -1,6 +1,6 @@
 <template>
   <div class="demo-collapse">
-    <Collapse :openKeys="openKeys" sample>
+    <Collapse v-model:openKeys="openKeys" sample>
       <CollapsePanel title="Panel title" key="1">
         <div>{{ text }}</div>
       </CollapsePanel>

@@ -39,6 +39,7 @@ Convert continuous input into an addable and removable tag collection.
 | theme           | Theme                                              | 'fill' \| 'outline' \| 'plain'               | fill    |
 | shape           | Shape                                              | 'circle' \| 'square' \| 'round' \| 'default' | default |
 | disabled        | Disabled                                           | boolean                                      | false   |
+| readonly        | Read-only; prevents adding, removing or clearing tags | boolean                                   | false   |
 | clearable       | Whether to show the clear button                   | boolean                                      | false   |
 | block           | Fill the parent width                              | boolean                                      | false   |
 | allowDuplicates | Allow duplicates                                   | boolean                                      | false   |

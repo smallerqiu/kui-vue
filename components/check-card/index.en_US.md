@@ -37,6 +37,7 @@ Present richer choices with a title, description, and optional symbol.
 | checkedSymbol | Symbol icon used when checked          | IconType[]                     | -       |
 | showIndicator | Show the top-right selection indicator | boolean                        | true    |
 | disabled      | Disable the card                       | boolean                        | false   |
+| readonly      | Read-only; remains focusable but cannot be selected | boolean              | false   |
 | theme         | Appearance theme                       | 'outline' \| 'fill'            | outline |
 | size          | Size                                   | 'small' \| 'medium' \| 'large' | medium  |
 | shape         | Shape                                  | ShapeType                      | round   |
@@ -49,6 +50,7 @@ Present richer choices with a title, description, and optional symbol.
 | modelValue | Selected value, supports `v-model`      | string \| number               | -          |
 | options    | Card options                            | CheckCardOption[]              | -          |
 | disabled   | Disable the group                       | boolean                        | false      |
+| readonly   | Make the group read-only                | boolean                        | false      |
 | direction  | Layout direction                        | 'horizontal' \| 'vertical'     | horizontal |
 | theme      | Card theme                              | 'outline' \| 'fill'            | outline    |
 | size       | Card size                               | 'small' \| 'medium' \| 'large' | medium     |

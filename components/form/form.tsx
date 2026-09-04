@@ -21,6 +21,7 @@ const formProps = {
   theme: String as PropType<ThemeType>,
   shape: String as PropType<ShapeType>,
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   onSubmit: {
     type: Function as PropType<(e: FormSubmitEvent) => void>,
   },
@@ -45,7 +46,7 @@ const Form = defineComponent({
     }
     const formItems = ref<Record<string, RegisteredFormItem>>({});
 
-    const { rules, size, shape, theme, disabled, layout, name, labelCol, wrapperCol } =
+    const { rules, size, shape, theme, disabled, readonly, layout, name, labelCol, wrapperCol } =
       toRefs(props);
 
     const updateModel = (prop: string, value = null) => {
@@ -150,6 +151,7 @@ const Form = defineComponent({
       name,
       rules,
       disabled,
+      readonly,
       size,
       shape,
       theme,

@@ -40,6 +40,7 @@ Provide candidates based on the input while retaining the ability for free text 
 | showOnEmpty  | Show suggestions when an empty input is focused    | boolean                                      | false   |
 | clearable    | Show the clear button on hover when a value exists | boolean                                      | false   |
 | disabled     | Disabled                                           | boolean                                      | false   |
+| readonly     | Read-only; prevents editing, clearing and opening  | boolean                                      | false   |
 | loading      | Loading state                                      | boolean                                      | false   |
 | loadingText  | Loading text                                       | string                                       | Loading |
 | placeholder  | Placeholder                                        | string                                       | -       |

@@ -24,6 +24,7 @@ const checkCardProps = {
   checkedSymbol: Array as PropType<IconType[]>,
   showIndicator: { type: Boolean as BooleanType, default: true },
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   theme: { type: String as PropType<CheckCardTheme>, default: "outline" },
   size: { type: String as PropType<SizeType>, default: "medium" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
@@ -45,6 +46,7 @@ const CheckCard = defineComponent({
       grouped.value ? group?.modelValue.value === props.value : props.modelValue
     );
     const disabled = computed(() => Boolean(props.disabled || group?.disabled.value));
+    const readonly = computed(() => Boolean(props.readonly || group?.readonly.value));
     const theme = computed(() => group?.theme.value ?? props.theme);
     const size = computed(() => group?.size.value ?? props.size);
     const shape = computed(() => group?.shape.value ?? props.shape);
@@ -60,7 +62,7 @@ const CheckCard = defineComponent({
     });
 
     const select = () => {
-      if (disabled.value) return;
+      if (disabled.value || readonly.value) return;
       if (grouped.value && props.value !== undefined) {
         if (checked.value) return;
         group?.select(props.value);
@@ -72,7 +74,7 @@ const CheckCard = defineComponent({
       emit("change", { checked: next, value: props.value } satisfies CheckCardChangeEvent);
     };
     const onKeydown = (event: KeyboardEvent) => {
-      if (disabled.value) return;
+      if (disabled.value || readonly.value) return;
       if (event.key === " " || event.key === "Enter") {
         event.preventDefault();
         select();
@@ -107,6 +109,7 @@ const CheckCard = defineComponent({
             {
               "is-checked": checked.value,
               "is-disabled": disabled.value,
+              "is-readonly": readonly.value,
               "has-symbol": Boolean(symbolNode),
             },
             attrs.class,
@@ -114,6 +117,7 @@ const CheckCard = defineComponent({
           role={grouped.value ? "radio" : "checkbox"}
           aria-checked={checked.value}
           aria-disabled={disabled.value}
+          aria-readonly={readonly.value || undefined}
           tabindex={disabled.value ? -1 : checked.value || !grouped.value ? 0 : -1}
           onClick={select}
           onKeydown={onKeydown}

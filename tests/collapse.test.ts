@@ -8,15 +8,16 @@ describe("Collapse", () => {
   it("supports keyboard interaction and emits the complete open key list", async () => {
     const openKeys = ref<(string | number)[]>([]);
     const wrapper = mount(
-      defineComponent(() => () =>
-        h(
-          Collapse,
-          {
-            openKeys: openKeys.value,
-            "onUpdate:openKeys": (value: (string | number)[]) => (openKeys.value = value),
-          },
-          { default: () => h(CollapsePanel, { key: "first", title: "First" }, () => "Content") },
-        ),
+      defineComponent(
+        () => () =>
+          h(
+            Collapse,
+            {
+              openKeys: openKeys.value,
+              "onUpdate:openKeys": (value: (string | number)[]) => (openKeys.value = value),
+            },
+            { default: () => h(CollapsePanel, { key: "first", title: "First" }, () => "Content") },
+          ),
       ),
     );
     const header = wrapper.find(".k-collapse-header");

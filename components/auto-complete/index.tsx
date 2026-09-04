@@ -40,6 +40,7 @@ const propsDef = {
   showOnEmpty: Boolean,
   clearable: Boolean,
   disabled: Boolean,
+  readonly: Boolean,
   loading: Boolean,
   loadingText: String,
   placeholder: String,
@@ -140,6 +141,7 @@ export default defineComponent({
       return nextOptions.length > 0;
     };
     const setOpen = (next: boolean) => {
+      if (next && props.readonly) return;
       if (next && !props.loading && (!hasOptions.value || !shownOptions.value.length)) return;
       innerOpen.value = next;
       emit("openChange", next);
@@ -197,18 +199,20 @@ export default defineComponent({
       window.removeEventListener("resize", updatePosition);
     });
     const update = (next: string) => {
+      if (props.readonly) return;
       inner.value = next;
       emit("update:modelValue", next);
       emit("change", next);
     };
     const choose = (option: AutoCompleteOption) => {
-      if (option.disabled) return;
+      if (props.readonly || option.disabled) return;
       update(option.value);
       emit("select", option.value, option);
       setOpen(false);
       active.value = -1;
     };
     const keydown = (event: KeyboardEvent) => {
+      if (props.readonly) return;
       if (event.key === "ArrowDown" || event.key === "ArrowUp") {
         if (!hasOptions.value) return;
         if (!shownOptions.value.length) return;
@@ -236,6 +240,7 @@ export default defineComponent({
           class={undefined}
           modelValue={current.value}
           disabled={props.disabled}
+          readonly={props.readonly}
           placeholder={props.placeholder}
           size={props.size}
           shape={props.shape}
@@ -245,7 +250,7 @@ export default defineComponent({
           aria-autocomplete="list"
           aria-expanded={visible.value}
           onFocus={() => {
-            if (props.disabled) return;
+            if (props.disabled || props.readonly) return;
             const hasMatches = refreshOptions();
             if ((current.value || props.showOnEmpty) && (hasMatches || props.loading))
               setOpen(true);

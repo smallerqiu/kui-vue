@@ -38,6 +38,7 @@
 | label      | 文字提示                 | string \| number         | -      |
 | value      | 组合使用时的值           | string \| number         | -      |
 | disabled   | 是否禁用当前项           | boolean                  | false  |
+| readonly   | 是否只读，不可切换       | boolean                  | false  |
 | icon       | RadioButton 自定义图标   | IconType[]               | -      |
 | onChange   | 在选项状态发生改变时回调 | (e: ChangeEvent) => void | -      |
 
@@ -46,6 +47,7 @@
 | 属性       | 说明                                                                       | 类型                              | 默认值     |
 | ---------- | -------------------------------------------------------------------------- | --------------------------------- | ---------- |
 | modelValue | 用于设置当前选中的值。可以使用 `v-model` 双向绑定数据                      | any                               | -          |
+| readonly   | 是否只读，不可切换                                                       | boolean                           | false      |
 | size       | 按钮尺寸,可选值 `small`、`large`，默认不选                                 | string                            | -          |
 | direction  | 布局方向,可选值 `horizontal`、`vertical`                                   | string                            | horizontal |
 | shape      | `button` 的 shape 属性 ，显示圆角                                          | string                            | -          |

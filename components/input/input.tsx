@@ -27,13 +27,13 @@ const inputProps = {
   value: { type: [String, Number, Array, Object] as PropType<unknown> },
   modelValue: { type: [String, Number, Array, Object] as PropType<unknown> },
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   type: {
     type: String as PropType<"text" | "password" | "hidden">,
     default: "text",
   },
   icon: [Array] as PropType<IconType[]>,
   suffix: { type: [String, Object] as PropType<VNodeChild> },
-  // readonly: Boolean as BooleanType,
   prefix: { type: [String, Object] as PropType<VNodeChild> },
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: String as PropType<ShapeType>,
@@ -77,6 +77,7 @@ const Input = defineComponent({
     expose({ focus, blur });
 
     const clear = () => {
+      if (props.disabled || props.readonly) return;
       currentValue.value = "";
       emit("update:modelValue", "");
       emit("clear");
@@ -85,7 +86,7 @@ const Input = defineComponent({
     };
 
     const togglePassword = () => {
-      if (props.disabled) return;
+      if (props.disabled || props.readonly) return;
       showPassword.value = !showPassword.value;
     };
 
@@ -104,7 +105,7 @@ const Input = defineComponent({
           <Icon
             type={Search}
             class="k-input-search-icon"
-            onClick={() => emit("search", currentValue.value)}
+            onClick={() => !props.readonly && emit("search", currentValue.value)}
           />
         );
       }
@@ -120,6 +121,7 @@ const Input = defineComponent({
         icon,
         size = parentSize || undefined,
         disabled,
+        readonly,
         type,
         clearable,
         suffix,
@@ -149,6 +151,7 @@ const Input = defineComponent({
         // htmlAttrs: { ...attrs },
         ...attrs,
         disabled,
+        readonly,
         multiple,
         // size,
         type,
@@ -185,7 +188,7 @@ const Input = defineComponent({
         clearable &&
         !isEmpty(currentValue.value) &&
         type !== "password" &&
-        attrs.readonly === undefined;
+        !readonly;
 
       const rootProps = {
         class: [
@@ -193,6 +196,7 @@ const Input = defineComponent({
             [`k-${inputType}`]: true,
             [`k-${inputType}-focus`]: focused.value,
             [`k-${inputType}-disabled`]: disabled,
+            [`k-${inputType}-readonly`]: readonly,
             [`k-${inputType}-has-clear`]: clearableShow,
             [`k-${inputType}-sm`]: size === "small",
             [`k-${inputType}-lg`]: size === "large",
@@ -216,7 +220,7 @@ const Input = defineComponent({
             <Icon
               type={icon}
               class={`k-${inputType}-icon`}
-              onClick={(e) => !disabled && emit("iconClick", e)}
+              onClick={(e) => !disabled && !readonly && emit("iconClick", e)}
             />
           );
         if (prefix) innerChildren.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);

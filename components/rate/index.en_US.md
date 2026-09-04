@@ -36,6 +36,7 @@ Rating component.
 | size              | Icon size                                     | number                  | -       |
 | color             | Icon color                                    | string                  | -       |
 | disabled          | Read-only, cannot interact                    | boolean                 | false   |
+| readonly          | Read-only with normal appearance              | boolean                 | false   |
 | tooltips          | Custom prompt information for each item       | string[]                | -       |
 | onChange          | Callback when selecting                       | (value: number) => void | -       |
 | symbolReverseFill | Symbol Inverted Fill Color                    | boolean                 | false   |

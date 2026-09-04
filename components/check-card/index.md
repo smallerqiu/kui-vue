@@ -37,6 +37,7 @@
 | checkedSymbol | 选中时的 Symbol 图标                 | IconType[]                     | -       |
 | showIndicator | 是否显示右上角选中标记               | boolean                        | true    |
 | disabled      | 是否禁用                             | boolean                        | false   |
+| readonly      | 是否只读，保持可聚焦但不可选择       | boolean                        | false   |
 | theme         | 外观主题                             | 'outline' \| 'fill'            | outline |
 | size          | 尺寸                                 | 'small' \| 'medium' \| 'large' | medium  |
 | shape         | 形状                                 | ShapeType                      | round   |
@@ -49,6 +50,7 @@
 | modelValue | 当前选项值，可用 `v-model` | string \| number               | -          |
 | options    | 卡片选项                   | CheckCardOption[]              | -          |
 | disabled   | 是否禁用整个卡片组         | boolean                        | false      |
+| readonly   | 是否只读整个卡片组         | boolean                        | false      |
 | direction  | 排列方向                   | 'horizontal' \| 'vertical'     | horizontal |
 | theme      | 卡片主题                   | 'outline' \| 'fill'            | outline    |
 | size       | 卡片尺寸                   | 'small' \| 'medium' \| 'large' | medium     |

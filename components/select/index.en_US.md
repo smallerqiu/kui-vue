@@ -49,6 +49,7 @@ Dropdown selector.
 | width        | Component width                                                                   | string \| number                           | -             |
 | placeholder  | Default text of selector                                                          | string                                     | Please select |
 | disabled     | Whether current item is disabled                                                  | boolean                                    | false         |
+| readonly     | Read-only; prevents opening, clearing and changing                                | boolean                                    | false         |
 | size         | Component size, provides two sizes: `small`, `large`, default is normal           | string                                     | -             |
 | placement    | Dropdown placement                                                                | DropPlacementsType                         | bottom-left   |
 | emptyText    | Prompt displayed when no data                                                     | string                                     | 'No data yet' |

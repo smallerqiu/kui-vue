@@ -10,6 +10,7 @@ const radioButtonProps = {
   value: { type: [String, Number] },
   theme: String as PropType<ThemeType>,
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   checked: Boolean as BooleanType,
   icon: Array as PropType<IconType[]>,
   size: {
@@ -43,7 +44,7 @@ const RadioButton = defineComponent({
 
     const labelText = props.label || slots.default?.();
     const handleClick = (e: Event) => {
-      if (props.disabled || isChecked.value) return;
+      if (props.disabled || props.readonly || isChecked.value) return;
 
       const checked = !isChecked.value;
 
@@ -65,6 +66,7 @@ const RadioButton = defineComponent({
         icon: props.icon,
         theme: props.theme,
         shape: props.shape,
+        "aria-readonly": props.readonly || undefined,
         type: (isChecked.value ? "primary" : "default") as ButtonType,
         ...attrs,
         onClick: handleClick,

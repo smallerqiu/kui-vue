@@ -33,17 +33,18 @@ Content area that can be collapsed/expanded.
 
 | Property  | Description                                                                                 | Type                            | Default |
 | --------- | ------------------------------------------------------------------------------------------- | ------------------------------- | ------- |
-| openKeys  | The `name` of the currently expanded panel. Can use `v-model:openKeys` for two-way binding  | string[]                        | -       |
+| openKeys  | Keys of expanded panels. Supports two-way binding with `v-model:openKeys`                   | (string \| number)[]            | []      |
 | accordion | Whether to enable accordion mode. When enabled, at most one panel can be expanded at a time | boolean                         | false   |
 | sample    | Whether to enable simple mode                                                               | boolean                         | false   |
 | onChange  | Callback triggered when switching panels, returns the `name` of the current tab             | (key: string \| number) => void | -       |
-| theme     | Appearance theme                                                                            | ThemeType                       | default |
+| theme     | Appearance theme                                                                            | ThemeType                       | outline |
 | shape     | Panel shape                                                                                 | ShapeType                       | round   |
 
 ## Panel
 
-| Property | Description                             | Type   | Default |
-| -------- | --------------------------------------- | ------ | ------- |
-| title    | The title of the currently active panel | string | -       |
-| key      | The key required by Vue                 | string | -       |
-| extra    | Card title extension                    | slot   | -       |
+| Property | Description                   | Type             | Default |
+| -------- | ----------------------------- | ---------------- | ------- |
+| title    | Panel title                   | VNodeChild       | -       |
+| key      | Unique panel identifier       | string \| number | -       |
+| disabled | Whether the panel is disabled | boolean          | false   |
+| extra    | Extra title content           | Slots            | -       |

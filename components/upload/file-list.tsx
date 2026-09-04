@@ -18,6 +18,7 @@ const uploadFileListProps = {
   },
   fileList: { type: Array as PropType<UploadFile[]>, default: () => [] },
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
 };
 
 export type UploadFileListProps = ExtractPropTypes<typeof uploadFileListProps>;
@@ -33,7 +34,7 @@ export default defineComponent({
     };
 
     const handleRemove = (index: number, item: UploadFile) => {
-      if (props.disabled) return;
+      if (props.disabled || props.readonly) return;
       emit("remove", { index, file: item });
     };
 
@@ -92,14 +93,16 @@ export default defineComponent({
                     </div>
                   )}
                 </div>
-                <Button
-                  type="text"
-                  size="small"
-                  icon={X}
-                  class={`k-upload-file-${isPicture ? "picture" : "item"}-remove`}
-                  disabled={props.disabled}
-                  onClick={() => handleRemove(i, item)}
-                />
+                {!props.readonly && (
+                  <Button
+                    type="text"
+                    size="small"
+                    icon={X}
+                    class={`k-upload-file-${isPicture ? "picture" : "item"}-remove`}
+                    disabled={props.disabled}
+                    onClick={() => handleRemove(i, item)}
+                  />
+                )}
               </div>
             );
           })}

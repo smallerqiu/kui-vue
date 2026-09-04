@@ -66,6 +66,7 @@ const treeSelectProps = {
   filterable: Boolean as BooleanType,
   block: Boolean as BooleanType,
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   multiple: Boolean as BooleanType,
   loading: Boolean as BooleanType,
   bordered: { type: Boolean as BooleanType, default: true },
@@ -287,13 +288,14 @@ const TreeSelect = defineComponent({
     };
 
     const removeTag = (index: number) => {
-      if (props.disabled) return;
+      if (props.disabled || props.readonly) return;
       currentValue.value.splice(index, 1);
       emitValue();
       updatePosition();
     };
 
     const onClear = (e: MouseEvent) => {
+      if (props.readonly) return;
       currentValue.value = [];
       emitValue();
       clearQuery();
@@ -312,7 +314,7 @@ const TreeSelect = defineComponent({
     };
 
     const toggle = (show = false) => {
-      if (props.disabled) {
+      if (props.disabled || props.readonly) {
         return;
       }
       if (hasSearchEvent) {
@@ -399,11 +401,13 @@ const TreeSelect = defineComponent({
     };
 
     const onCheck = (_checkedNode: TreeNode, _checked: boolean, checkedKeys: string[]) => {
+      if (props.readonly) return;
       currentValue.value = checkedKeys.slice();
       emitValue();
     };
 
     const onSelect = (item: TreeNode) => {
+      if (props.readonly) return;
       const value = item.key;
       const label = item.title;
       let selected = true;
@@ -469,7 +473,7 @@ const TreeSelect = defineComponent({
     };
 
     const showClear = computed(() => {
-      return props.clearable && !props.disabled && !isEmpty(currentValue.value);
+      return props.clearable && !props.disabled && !props.readonly && !isEmpty(currentValue.value);
     });
 
     const renderOverlay = () => {
@@ -534,6 +538,7 @@ const TreeSelect = defineComponent({
         ref: queryInputRef,
         class: "k-tree-select-search",
         autoComplete: "off",
+        readonly: props.readonly,
         onChange: (e: Event) => e.stopPropagation(),
         onKeydown: queryKeydown,
         onInput: searchInput,
@@ -576,7 +581,7 @@ const TreeSelect = defineComponent({
             shape={props.shape}
             theme={props.theme}
             compact
-            closeable={!props.disabled}
+            closeable={!props.disabled && !props.readonly}
             onClose={() => removeTag(index)}
           >
             {label}
@@ -595,7 +600,7 @@ const TreeSelect = defineComponent({
                       shape={props.shape}
                       theme={props.theme}
                       compact
-                      closeable={!props.disabled}
+                      closeable={!props.disabled && !props.readonly}
                       onClose={() => removeTag(displayCount + index)}
                     >
                       {label}
@@ -646,6 +651,7 @@ const TreeSelect = defineComponent({
         "k-tree-select",
         {
           "k-tree-select-disabled": props.disabled,
+          "k-tree-select-readonly": props.readonly,
           "k-tree-select-block": props.block,
           "k-tree-select-opened": visible.value,
           "k-tree-select-borderless": props.bordered === false || props.theme === "plain",
@@ -667,6 +673,10 @@ const TreeSelect = defineComponent({
       ) : null;
       const treeProps = {
         tabindex: "0",
+        role: "combobox",
+        "aria-expanded": visible.value,
+        "aria-disabled": props.disabled || undefined,
+        "aria-readonly": props.readonly || undefined,
         class: classes,
         style: styles,
         onClick: () => toggle(),

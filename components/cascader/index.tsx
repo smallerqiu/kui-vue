@@ -176,7 +176,7 @@ const Cascader = defineComponent({
     };
 
     const toggleMenu = (show: boolean | null = null) => {
-      if (props.disabled) return;
+      if (props.disabled || props.readonly) return;
 
       const isFirstRender = !rendered.value;
       if (isFirstRender) {
@@ -237,7 +237,7 @@ const Cascader = defineComponent({
       columnIndex: number,
       isHoverTrigger = false,
     ) => {
-      if (option.disabled) return;
+      if (props.readonly || option.disabled) return;
 
       // 斩断当前列后面的所有老旧高亮分支，重构高亮路径
       const nextPath = activePath.value.slice(0, columnIndex);
@@ -270,6 +270,7 @@ const Cascader = defineComponent({
     };
 
     const handleClear = (e: MouseEvent) => {
+      if (props.readonly) return;
       e.stopPropagation();
       emit("update:modelValue", []);
       emit("change", []);
@@ -279,7 +280,7 @@ const Cascader = defineComponent({
     };
 
     const handleKeydown = (event: KeyboardEvent) => {
-      if (props.disabled) return;
+      if (props.disabled || props.readonly) return;
       if (event.key === "Escape") {
         if (visible.value) {
           event.preventDefault();
@@ -479,12 +480,13 @@ const Cascader = defineComponent({
         icon,
       } = props;
       const hasValue = props.modelValue && props.modelValue.length > 0;
-      const showClear = clearable && !disabled && hasValue;
+      const showClear = clearable && !disabled && !props.readonly && hasValue;
 
       const rootClasses = [
         "k-cascader",
         {
           "k-cascader-disabled": disabled,
+          "k-cascader-readonly": props.readonly,
           "k-cascader-opened": visible.value,
           "k-cascader-borderless": bordered === false || theme === "plain",
           "k-cascader-circle": shape === "circle",
@@ -515,6 +517,7 @@ const Cascader = defineComponent({
           role="combobox"
           aria-expanded={visible.value}
           aria-disabled={disabled}
+          aria-readonly={props.readonly || undefined}
           onKeydown={handleKeydown}
           onClick={() => toggleMenu()}
         >

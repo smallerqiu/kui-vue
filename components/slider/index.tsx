@@ -23,6 +23,7 @@ const sliderProps = {
   max: { type: Number, default: 100 },
   step: { type: Number as PropType<number | null>, default: 1 },
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   vertical: Boolean as BooleanType,
   reverse: Boolean as BooleanType,
   range: Boolean as BooleanType,
@@ -139,7 +140,7 @@ const Slider = defineComponent({
 
     // 处理滑块拖动
     const handleThumbMove = (e: MouseEvent | TouchEvent) => {
-      if (props.disabled || draggingIndex.value === -1) return;
+      if (props.disabled || props.readonly || draggingIndex.value === -1) return;
       if (e.cancelable) e.preventDefault();
 
       const newValue = getValueFromEvent(e);
@@ -174,7 +175,7 @@ const Slider = defineComponent({
 
     // 处理轨道点击
     const handleRailClick = (e: MouseEvent) => {
-      if (props.disabled) return;
+      if (props.disabled || props.readonly) return;
       const newValue = getValueFromEvent(e);
 
       if (props.range) {
@@ -212,7 +213,7 @@ const Slider = defineComponent({
     };
 
     const handleThumbDown = (index: number) => {
-      if (props.disabled) return;
+      if (props.disabled || props.readonly) return;
       stopDragging();
       draggingIndex.value = index;
 
@@ -226,7 +227,7 @@ const Slider = defineComponent({
     };
 
     const handleKeydown = (e: KeyboardEvent, index: number) => {
-      if (props.disabled) return;
+      if (props.disabled || props.readonly) return;
       const isPlus = ["ArrowRight", "ArrowUp"].includes(e.key);
       const isMinus = ["ArrowLeft", "ArrowDown"].includes(e.key);
       if (!isPlus && !isMinus) return;
@@ -432,13 +433,14 @@ const Slider = defineComponent({
           "k-slider",
           {
             "k-slider-disabled": disabled,
+            "k-slider-readonly": props.readonly,
             "k-slider-vertical": vertical,
             "k-slider-reverse": reverse,
           },
         ],
       };
       return (
-        <div {...sliderProps}>
+        <div {...sliderProps} aria-readonly={props.readonly || undefined}>
           <div class="k-slider-bar">
             <div class="k-slider-rail" ref={railRef} onClick={handleRailClick}></div>
             {renderTrack()}

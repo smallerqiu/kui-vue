@@ -19,6 +19,7 @@ const rateProps = {
   showScore: Boolean as BooleanType,
   tooltips: Array as PropType<string[]>,
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   count: { type: Number, default: 5 },
   character: [String, Function] as PropType<string | ((index: number) => VNodeChild)>,
   icon: [Array, Function] as PropType<IconType[] | ((index: number) => IconType[])>,
@@ -40,6 +41,7 @@ const Rate = defineComponent({
     const cleared = ref(false);
 
     const update = (t: "C" | "M", index: number, percent: number) => {
+      if (props.readonly) return;
       if (t === "M") {
         if (cleared.value) return;
         // mouse move
@@ -112,7 +114,7 @@ const Rate = defineComponent({
           icon,
           character,
           size: size as number | string,
-          disabled,
+          disabled: disabled || props.readonly,
           percent: percent < 100 ? percent : undefined,
           tooltips: tooltips[i - 1],
           index: i,
@@ -129,7 +131,11 @@ const Rate = defineComponent({
       };
 
       const containerProps = {
-        class: ["k-rate", { "k-rate-disabled": disabled }],
+        class: [
+          "k-rate",
+          { "k-rate-disabled": disabled, "k-rate-readonly": props.readonly },
+        ],
+        "aria-readonly": props.readonly || undefined,
         onMouseleave: mouseLeave,
         style: containerStyle,
       };

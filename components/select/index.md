@@ -49,6 +49,7 @@
 | width        | 组件宽度                                                   | string \| number                           | -           |
 | placeholder  | 选择框默认文字                                             | string                                     | 请选择      |
 | disabled     | 是否禁用当前项                                             | boolean                                    | false       |
+| readonly     | 是否只读，不可展开、清空或修改                             | boolean                                    | false       |
 | size         | 组件尺寸大小,提供`small`、`large`两种尺寸，默认为正常      | string                                     | -           |
 | placement    | 下拉菜单弹出位置                                           | DropPlacementsType                         | bottom-left |
 | emptyText    | 没有数据时展示的提示                                       | string                                     | '暂无数据'  |

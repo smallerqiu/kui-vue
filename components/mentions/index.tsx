@@ -35,6 +35,7 @@ const propsDef = {
   triggers: { type: Array as PropType<string[]>, default: () => ["@"] },
   placeholder: String,
   disabled: Boolean,
+  readonly: Boolean,
   clearable: { type: Boolean, default: true },
   loading: Boolean,
   loadingText: String,
@@ -172,11 +173,16 @@ export default defineComponent({
       );
     };
     const update = (next: string) => {
+      if (props.readonly) return;
       inner.value = next;
       emit("update:modelValue", next);
       emit("change", next);
     };
     const updateQuery = (text: string, caret: number, search = false) => {
+      if (props.readonly) {
+        query.value = undefined;
+        return;
+      }
       const prefix = text.slice(0, caret);
       let found: typeof query.value;
       props.triggers.forEach((trigger) => {
@@ -218,7 +224,7 @@ export default defineComponent({
     });
     const choose = (option: MentionOption) => {
       const element = getTextarea();
-      if (!query.value || option.disabled || !element) return;
+      if (props.readonly || !query.value || option.disabled || !element) return;
       const state = query.value;
       const caret = element.selectionStart;
       update(
@@ -237,6 +243,7 @@ export default defineComponent({
       if (element) updateQuery(current.value, element.selectionStart);
     };
     const clear = (event: MouseEvent) => {
+      if (props.readonly) return;
       event.stopPropagation();
       update("");
       query.value = undefined;
@@ -253,7 +260,9 @@ export default defineComponent({
             "k-mentions-sm": props.size == "small",
             "k-mentions-lg": props.size == "large",
             "k-mentions-disabled": props.disabled,
-            "k-mentions-has-clear": props.clearable && !!current.value && !props.disabled,
+            "k-mentions-readonly": props.readonly,
+            "k-mentions-has-clear":
+              props.clearable && !!current.value && !props.disabled && !props.readonly,
           },
           attrs.class,
         ]}
@@ -265,6 +274,7 @@ export default defineComponent({
           modelValue={current.value}
           placeholder={props.placeholder}
           disabled={props.disabled}
+          readonly={props.readonly}
           rows={props.rows}
           size={props.size}
           shape={props.shape}
@@ -299,7 +309,7 @@ export default defineComponent({
             } else if (event.key === "Escape") query.value = undefined;
           }}
         />
-        {props.clearable && current.value && !props.disabled && (
+        {props.clearable && current.value && !props.disabled && !props.readonly && (
           <Icon class="k-mentions-clearable" type={CircleX} onClick={clear} />
         )}
         {rendered.value

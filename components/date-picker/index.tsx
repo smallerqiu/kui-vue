@@ -86,6 +86,7 @@ const datePickerProps = {
   },
   presets: Array as PropType<DatePickerPresetsType[]>,
   disabled: { type: Boolean as BooleanType },
+  readonly: { type: Boolean as BooleanType },
   opened: { type: Boolean as BooleanType },
   panelOnly: { type: Boolean as BooleanType },
   clearable: { type: Boolean as BooleanType, default: true },
@@ -349,6 +350,7 @@ const DatePicker = defineComponent({
     };
 
     const handleInput = (e: InputEvent, index = 0) => {
+      if (props.readonly) return;
       const val = (e.target as HTMLInputElement).value;
       const fmt = getFormat();
 
@@ -415,7 +417,7 @@ const DatePicker = defineComponent({
 
     // 切换面板
     const togglePanel = () => {
-      if (props.disabled || isVisible.value) return;
+      if (props.disabled || props.readonly || isVisible.value) return;
       if (!rendered.value) {
         rendered.value = true;
         document.addEventListener("click", handleClickOutside);
@@ -466,6 +468,7 @@ const DatePicker = defineComponent({
     };
 
     const pickDate = (date: Dayjs) => {
+      if (props.readonly) return;
       if (isRange.value) {
         let newVal = Array.isArray(innerValue.value) ? [...innerValue.value] : [];
         // 清理一下可能的 null
@@ -509,6 +512,7 @@ const DatePicker = defineComponent({
     };
 
     const pickYear = (y: number) => {
+      if (props.readonly) return;
       panelDate.value = panelDate.value.year(y);
       if (props.mode === "year") {
         innerValue.value = panelDate.value;
@@ -521,6 +525,7 @@ const DatePicker = defineComponent({
     };
 
     const pickMonth = (m: number) => {
+      if (props.readonly) return;
       panelDate.value = panelDate.value.month(m);
       if (props.mode === "month") {
         innerValue.value = panelDate.value;
@@ -537,6 +542,7 @@ const DatePicker = defineComponent({
       return props.disabledTime(d.toDate());
     };
     const handleTimeScrollPick = (type: UnitType, val: number) => {
+      if (props.readonly) return;
       let activeDate = dayjs();
       let idx = 0;
 
@@ -922,6 +928,7 @@ const DatePicker = defineComponent({
     );
 
     const onClear = (e: PointerEvent) => {
+      if (props.readonly) return;
       e.stopPropagation();
       innerValue.value = null;
       syncTextFromValue();
@@ -951,6 +958,7 @@ const DatePicker = defineComponent({
         { "k-datepicker-lg": props.size == "large" },
         //   { 'k-datepicker-with-time': withTime },
         { "k-datepicker-disabled": props.disabled },
+        { "k-datepicker-readonly": props.readonly },
         { "k-datepicker-fill": props.theme == "fill" },
         { "k-datepicker-circle": props.shape == "circle" },
         { "k-datepicker-square": props.shape == "square" },
@@ -958,7 +966,8 @@ const DatePicker = defineComponent({
       const showClear =
         props.clearable &&
         (textValue.value || (textValueStart.value && textValueStart.value)) &&
-        !props.disabled;
+        !props.disabled &&
+        !props.readonly;
       const selectCls = [
         "k-datepicker-selection",
         {
@@ -997,7 +1006,7 @@ const DatePicker = defineComponent({
               onInput={(e) => handleInput(e, 0)}
               placeholder={placeholders[0] || localPlaceholders.startDate}
               disabled={props.disabled}
-              readonly={props.editable ? false : true}
+              readonly={props.readonly || !props.editable}
               onClick={() => {
                 timeEditSide.value = "start";
               }} // 聚焦开始
@@ -1008,7 +1017,7 @@ const DatePicker = defineComponent({
             <input
               size={size}
               tabindex={-1}
-              readonly={props.editable ? false : true}
+              readonly={props.readonly || !props.editable}
               autocomplete="off"
               class="k-datepicker-input"
               value={textValueEnd.value}
@@ -1025,7 +1034,7 @@ const DatePicker = defineComponent({
             <input
               tabindex={-1}
               autocomplete="off"
-              readonly={props.editable ? false : true}
+              readonly={props.readonly || !props.editable}
               size={size}
               class="k-datepicker-input"
               value={textValue.value}
@@ -1037,6 +1046,7 @@ const DatePicker = defineComponent({
         }
       };
       const presetEmit = ({ value }: DatePickerPresetsType) => {
+        if (props.readonly) return;
         if (typeof value === "function") {
           const date = value();
           if (isRange.value && Array.isArray(date)) {
@@ -1110,7 +1120,12 @@ const DatePicker = defineComponent({
         : [];
 
       return (
-        <div class={classes} ref={refSelection} tabindex={props.disabled ? undefined : 0}>
+        <div
+          class={classes}
+          ref={refSelection}
+          tabindex={props.disabled ? undefined : 0}
+          aria-readonly={props.readonly || undefined}
+        >
           <div class={selectCls} onClick={togglePanel}>
             {renderInput()}
             <Icon type={dateIcon} class="k-icon-calendar" strokeWidth={1.5} />

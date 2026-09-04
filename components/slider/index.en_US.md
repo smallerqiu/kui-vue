@@ -45,6 +45,7 @@ When users need to select within a numerical range/custom range, it can be conti
 | max            | Maximum value                                                                                     | number                              | 100     |
 | range          | Whether to support sliding on both sides simultaneously                                           | boolean                             | false   |
 | disabled       | Whether the slider is disabled                                                                    | boolean                             | false   |
+| readonly       | Read-only; remains focusable but cannot be dragged or changed with keys                           | boolean                             | false   |
 | step           | Step size, must be greater than 0 and divisible by (max - min)                                    | number                              | 1       |
 | tipFormatter   | Set Tooltip display format, defaults to current value                                             | (value: number) => string           | number  |
 | vertical       | Whether to set direction to vertical                                                              | boolean                             | false   |

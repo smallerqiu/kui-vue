@@ -46,6 +46,7 @@
 | triggers     | Trigger strings                        | string[]                                                                          | ['@']       |
 | placeholder  | Placeholder                            | string                                                                            | -           |
 | disabled     | Disabled                               | boolean                                                                           | false       |
+| readonly     | Read-only; prevents editing, selecting and clearing | boolean                                                              | false       |
 | clearable    | Whether to show clear button           | boolean                                                                           | false       |
 | loading      | Whether remote suggestions are loading | boolean                                                                           | false       |
 | loadingText  | Loading text                           | string                                                                            | -           |

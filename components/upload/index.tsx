@@ -29,6 +29,7 @@ const uploadProps = {
   },
   data: { type: Object as PropType<Record<string, string | Blob>>, default: () => ({}) },
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   directory: Boolean as BooleanType,
   multiple: Boolean as BooleanType,
   accept: String,
@@ -110,6 +111,7 @@ const Upload = defineComponent({
     };
 
     const onSelectFiles = (files: FileList | File[]) => {
+      if (props.readonly) return;
       const { limit, minSize, maxSize } = props;
       const fileArray = Array.from(files).filter((f) => f.name !== ".DS_Store");
       let exceeded = false;
@@ -169,6 +171,7 @@ const Upload = defineComponent({
     };
 
     const handleRemove = ({ index, file }: { index: number; file: UploadFile }) => {
+      if (props.readonly) return;
       const currentIndex = innerFileList.value.findIndex(
         (item) => item === file || (!!file.uid && item.uid === file.uid)
       );
@@ -198,7 +201,7 @@ const Upload = defineComponent({
     };
 
     const upload = () => {
-      if (!props.autoTrigger && !props.disabled) {
+      if (!props.autoTrigger && !props.disabled && !props.readonly) {
         Object.keys(uploadTemp).forEach((uid) => {
           const item = innerFileList.value.find((x) => x.uid === uid);
           const file = uploadTemp[uid];
@@ -325,6 +328,7 @@ const Upload = defineComponent({
         uploadSubText,
         draggable,
         disabled,
+        readonly,
       } = props;
       const isPicture = type === "picture";
 
@@ -344,7 +348,7 @@ const Upload = defineComponent({
         locale: locale.value,
         onSelect: onSelectFiles,
       };
-      const SelectorNode = (
+      const SelectorNode = readonly ? null : (
         <Selector
           key="selector"
           {...selectorProps}
@@ -356,6 +360,7 @@ const Upload = defineComponent({
         fileList: innerFileList.value,
         showUploadList,
         disabled,
+        readonly,
         locale: locale.value,
         onRemove: handleRemove,
       };
@@ -368,6 +373,7 @@ const Upload = defineComponent({
             "k-upload",
             {
               "k-upload-disabled": disabled,
+              "k-upload-readonly": readonly,
               "k-upload-picture": isPicture,
               "k-upload-drag": draggable,
             },

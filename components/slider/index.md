@@ -45,6 +45,7 @@
 | max            | 最大值                                                                     | number                              | 100    |
 | range          | 是否支持两边同时可滑动                                                     | boolean                             | false  |
 | disabled       | 滑块是否禁用                                                               | boolean                             | false  |
+| readonly       | 是否只读，保持可聚焦但不可拖动或键盘修改                                   | boolean                             | false  |
 | step           | 间距大小 , 步长，取值必须大于 0，并且可被 (max - min) 整除                 | number                              | 1      |
 | tipFormatter   | 设置Tooltip的展示格式，默认显示当前选值                                    | (value: number) => string           | -      |
 | vertical       | 是否设置方向为垂直                                                         | boolean                             | false  |

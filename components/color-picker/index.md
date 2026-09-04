@@ -34,6 +34,7 @@
 | presets       | 自定义颜色盘                                       | string[]                       | -           |
 | disabledAlpha | 是否禁用透明                                       | boolean                        | false       |
 | disabled      | 是否失效状态                                       | boolean                        | false       |
+| readonly      | 是否只读，不可展开或修改                           | boolean                        | false       |
 | trigger       | 下拉触发形式                                       | 'hover' \| 'click'             | hover       |
 | showText      | 是否展示颜色文字                                   | boolean                        | false       |
 | size          | 颜色选择器的尺寸                                   | 'small' \| 'medium' \| 'large' | -           |

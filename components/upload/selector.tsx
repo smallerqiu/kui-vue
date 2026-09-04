@@ -8,6 +8,7 @@ import type { UploadFile } from "./types";
 
 const selectorProps = {
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   name: { type: String, default: "file" },
   accept: String,
   multiple: Boolean as BooleanType,
@@ -44,7 +45,7 @@ export default defineComponent({
     };
 
     const selectFiles = (e: Event | DragEvent) => {
-      if (props.disabled) {
+      if (props.disabled || props.readonly) {
         e.preventDefault();
         dragOver.value = false;
         return;
@@ -69,7 +70,7 @@ export default defineComponent({
     };
 
     const triggerSelect = () => {
-      if (props.disabled) return;
+      if (props.disabled || props.readonly) return;
       uploadFileRef.value?.click();
     };
 

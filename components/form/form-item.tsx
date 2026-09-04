@@ -290,6 +290,7 @@ const FormItem = defineComponent({
                     id,
                     size: propsData.size || Form.size,
                     disabled: propsData.disabled || Form.disabled,
+                    readonly: propsData.readonly || Form.readonly,
                     theme: propsData.theme || Form.theme,
                     shape: propsData.shape || Form.shape,
                   };

@@ -50,6 +50,7 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | type                | Native input type                                                   | 'text' \| 'password' \| 'hidden' | text    |
 | inputType           | Internal input element type, normally left as input                 | string                           | input   |
 | disabled            | Whether the input is disabled                                       | boolean                          | false   |
+| readonly            | Read-only; focusable and copyable but not editable                  | boolean                          | false   |
 | shape               | Input shape                                                         | ShapeType                        | -       |
 | size                | Button size, optional values `small`, `large`, default not selected | string                           | -       |
 | icon                | Input box icon                                                      | string                           | -       |
@@ -73,6 +74,7 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | rows        | Number of visible text rows        | number                       | 2       |
 | placeholder | Input placeholder                  | string                       | -       |
 | disabled    | Whether the textarea is disabled   | boolean                      | false   |
+| readonly    | Whether the textarea is read-only  | boolean                      | false   |
 | theme       | Textarea theme                     | ThemeType                    | fill    |
 | size        | Textarea size                      | SizeType                     | -       |
 | shape       | Textarea shape                     | ShapeType                    | -       |

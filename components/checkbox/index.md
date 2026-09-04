@@ -37,6 +37,7 @@
 | label         | 显示的文字                                    | string \| number                  | -       |
 | value         | 结合使用时表示的值                            | string \| number                  | -       |
 | disabled      | 是否禁用当前项                                | boolean                           | false   |
+| readonly      | 是否只读，保持可聚焦但不可切换                | boolean                           | false   |
 | indeterminate | 组合辅助选项控制半选状态                      | boolean                           | false   |
 | modelValue    | 组合使用时表示的值                            | string \| number                  | -       |
 | theme         | 组件呈现主题,默认'fill'                       | string                            | fill    |
@@ -49,6 +50,7 @@
 | ---------- | ---------------------------------------------------- | ---------------- | ---------- |
 | modelValue | 用于设置当前选中的值,可以使用 `v-model` 双向绑定数据 | any[]            | -          |
 | disabled   | 是否禁用组件                                         | boolean          | false      |
+| readonly   | 是否只读                                             | boolean          | false      |
 | onChange   | 在选项状态发生改变时触发，返回当前选中的项和状态     | (any[])=>void    | -          |
 | direction  | 布局方向,可选值 `horizontal`、`vertical`             | string           | horizontal |
 | options    | 可以指定子项 `checkbox`                              | CheckboxOption[] | -          |

@@ -40,6 +40,7 @@ export const cascaderProps = {
   emptyText: String,
   loadData: Function as PropType<CascaderLoadData>,
   disabled: Boolean,
+  readonly: Boolean,
   clearable: { type: Boolean, default: true },
   size: String as PropType<SizeType>,
   expandTrigger: {

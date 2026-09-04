@@ -29,6 +29,7 @@ const colorPickerProps = {
   modelValue: String,
   opened: Boolean as BooleanType,
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   disabledAlpha: Boolean as BooleanType,
   showText: Boolean as BooleanType,
   placement: {
@@ -171,7 +172,7 @@ const ColorPicker = defineComponent({
       emit("openChange", opened);
     };
     const toggle = (open: boolean) => {
-      if (props.disabled) {
+      if (props.disabled || props.readonly) {
         return false;
       }
       if (open) {
@@ -211,6 +212,7 @@ const ColorPicker = defineComponent({
       return props.showText ? <div class="k-color-picker-trigger-text">{text}</div> : null;
     };
     const onUpdate = (color: string | ColorInstance) => {
+      if (props.readonly) return;
       currentColor.value = color;
       const value = getColor();
       emit("update:modelValue", value);
@@ -218,21 +220,25 @@ const ColorPicker = defineComponent({
     };
 
     const onUpdateRGB = ({ r, g, b }: ColorObject) => {
+      if (props.readonly) return;
       const color = Color({ r, g, b, alpha: currentAlpha.value });
       onUpdate(color.rgb());
     };
     const onUpdateHue = (hue: number) => {
+      if (props.readonly) return;
       currentHue.value = hue;
       const value = Color(currentColor.value).hue(hue).rgb();
       onUpdate(value);
     };
 
     const onUpdateAlpha = (a: number) => {
+      if (props.readonly) return;
       currentAlpha.value = a;
       const value = Color(currentColor.value).alpha(a).rgb();
       onUpdate(value);
     };
     const onUpdateMode = (mode: ColorMode) => {
+      if (props.readonly) return;
       currentMode.value = mode;
       onUpdate(currentColor.value);
       emit("update:mode", mode);
@@ -241,6 +247,7 @@ const ColorPicker = defineComponent({
       }, 0);
     };
     const updateColorValue = (color: ColorInstance) => {
+      if (props.readonly) return;
       // console.log(color.string(), currentAlpha.value);
       currentAlpha.value = color.alpha();
       currentColor.value = color;
@@ -248,6 +255,7 @@ const ColorPicker = defineComponent({
       onUpdate(color);
     };
     const updateColor = (color: ColorInstance) => {
+      if (props.readonly) return;
       currentAlpha.value = color.alpha();
       currentHue.value = color.hue();
       updateColorValue(color.rgb());
@@ -357,6 +365,7 @@ const ColorPicker = defineComponent({
         {
           "k-color-picker-opened": visible.value,
           "k-color-picker-disabled": props.disabled,
+          "k-color-picker-readonly": props.readonly,
           "k-color-picker-sm": props.size == "small",
           "k-color-picker-lg": props.size == "large",
         },
@@ -377,7 +386,12 @@ const ColorPicker = defineComponent({
           {drop}
         </span>
       ) : (
-        <div class={style} ref={refSelection} v-resize={updatePopPosition}>
+        <div
+          class={style}
+          ref={refSelection}
+          aria-readonly={props.readonly || undefined}
+          v-resize={updatePopPosition}
+        >
           <div
             class="k-color-picker-selection"
             onMouseenter={() => !triggerClick && toggle(true)}

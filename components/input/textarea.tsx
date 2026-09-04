@@ -18,7 +18,7 @@ const textAreaProps = {
   placeholder: String,
   rows: { type: Number, default: 2 },
   disabled: Boolean as BooleanType,
-  // readonly: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   onChange: { type: Function as PropType<(value: string) => void> },
 };
 
@@ -45,7 +45,7 @@ const TextArea = defineComponent({
     };
 
     return () => {
-      const { theme, disabled, size, shape, placeholder, rows } = props;
+      const { theme, disabled, readonly, size, shape, placeholder, rows } = props;
       const rootProps = {
         ...attrs,
         placeholder,
@@ -61,6 +61,8 @@ const TextArea = defineComponent({
           },
         ],
         disabled,
+        readonly,
+        "aria-readonly": readonly || undefined,
         value: currentValue.value,
         onInput: handleChange,
       };

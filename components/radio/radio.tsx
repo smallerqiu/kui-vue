@@ -7,6 +7,7 @@ const radioProps = {
   label: { type: String },
   checked: Boolean as BooleanType,
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   size: {
     type: String as PropType<SizeType>,
@@ -47,7 +48,7 @@ const Radio = defineComponent({
       emit("update:checked", checked);
     };
     const onChange = (e: Event) => {
-      if (props.disabled || isChecked.value) return;
+      if (props.disabled || props.readonly || isChecked.value) return;
       e.stopPropagation();
       e.preventDefault();
       const checked = (e.target as HTMLInputElement).checked;
@@ -57,7 +58,7 @@ const Radio = defineComponent({
       if (e.code == "Space") {
         e.preventDefault();
         e.stopPropagation();
-        if (props.disabled || isChecked.value) return;
+        if (props.disabled || props.readonly || isChecked.value) return;
         emitValue(!isChecked.value);
       }
     };
@@ -67,6 +68,7 @@ const Radio = defineComponent({
         {
           ["k-radio-fill"]: props.theme == "fill",
           ["k-radio-disabled"]: props.disabled,
+          ["k-radio-readonly"]: props.readonly,
           ["k-radio-checked"]: isChecked.value,
           ["k-radio-lg"]: props.size === "large",
           ["k-radio-sm"]: props.size === "small",
@@ -76,13 +78,19 @@ const Radio = defineComponent({
       const labelNode = props.label || slots.default?.();
 
       return (
-        <label class={classes} tabindex={props.disabled ? undefined : 0} onKeydown={triggerCheck}>
+        <label
+          class={classes}
+          tabindex={props.disabled ? undefined : 0}
+          aria-readonly={props.readonly || undefined}
+          onKeydown={triggerCheck}
+        >
           <span class="k-radio-symbol">
             <input
               type="radio"
               tabindex="-1"
               class="k-radio-input"
               disabled={props.disabled}
+              readonly={props.readonly}
               onChange={onChange}
               checked={isChecked.value}
             />

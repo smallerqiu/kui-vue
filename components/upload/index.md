@@ -63,6 +63,7 @@
 | method         | 上传请求的 http method                                                                                                         | string                         | post   |
 | data           | 上传可能所需的其它参数                                                                                                         | Object                         | -      |
 | disabled       | 是否禁用                                                                                                                       | boolean                        | false  |
+| readonly       | 是否只读，仅展示文件，不可选择、上传或删除                                                                                     | boolean                        | false  |
 | headers        | 设置上传的请求头部                                                                                                             | Object                         | -      |
 | multiple       | 是否支持多选文件                                                                                                               | boolean                        | false  |
 | directory      | 是否支持上传目录                                                                                                               | boolean                        | false  |

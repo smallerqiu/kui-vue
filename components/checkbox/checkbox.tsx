@@ -16,6 +16,7 @@ const checkboxProps = {
   label: { type: [String, Number] as PropType<string | number> },
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   indeterminate: Boolean as BooleanType,
   size: {
     type: String as PropType<SizeType>,
@@ -60,7 +61,7 @@ const Checkbox = defineComponent({
     };
 
     const onChange = (e: Event) => {
-      if (props.disabled) return;
+      if (props.disabled || props.readonly) return;
       e.stopPropagation();
       const target = e.target as HTMLInputElement;
       emitValue(target.checked);
@@ -70,7 +71,7 @@ const Checkbox = defineComponent({
       if (e.code === "Space") {
         e.preventDefault();
         e.stopPropagation();
-        if (props.disabled) return;
+        if (props.disabled || props.readonly) return;
         emitValue(!isChecked.value);
       }
     };
@@ -84,6 +85,7 @@ const Checkbox = defineComponent({
           {
             "k-checkbox-fill": theme === "fill",
             "k-checkbox-disabled": disabled,
+            "k-checkbox-readonly": props.readonly,
             "k-checkbox-checked": isChecked.value && !indeterminate,
             "k-checkbox-indeterminate": indeterminate && !isChecked.value,
             "k-checkbox-sm": size === "small",
@@ -92,6 +94,7 @@ const Checkbox = defineComponent({
         ],
         tabindex: disabled ? undefined : 0,
         onKeydown: triggerCheck,
+        "aria-readonly": props.readonly || undefined,
       };
 
       const inputProps = {
@@ -99,6 +102,7 @@ const Checkbox = defineComponent({
         tabindex: -1,
         class: "k-checkbox-input",
         disabled: disabled,
+        readonly: props.readonly,
         checked: !!isChecked.value,
         onChange: onChange,
       };

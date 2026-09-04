@@ -58,6 +58,7 @@ const selectProps = {
   allowCreate: Boolean as BooleanType,
   block: Boolean as BooleanType,
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   multiple: Boolean as BooleanType,
   loading: Boolean as BooleanType,
   bordered: { type: Boolean as BooleanType, default: true },
@@ -264,6 +265,7 @@ const Select = defineComponent({
     };
 
     const onSelect = (item: OptionSelectEvent) => {
+      if (props.readonly) return;
       const { value, label } = { ...item };
       let selected = true;
       if (props.multiple) {
@@ -340,13 +342,14 @@ const Select = defineComponent({
     };
 
     const removeTag = (index: number) => {
-      if (props.disabled) return;
+      if (props.disabled || props.readonly) return;
       currentValue.value.splice(index, 1);
       updatePosition();
       emitValue();
     };
 
     const onClear = (e: MouseEvent) => {
+      if (props.readonly) return;
       emit("clear");
       currentValue.value = [];
       emitValue();
@@ -364,7 +367,7 @@ const Select = defineComponent({
     };
 
     const toggle = (show: boolean | null = null) => {
-      if (props.disabled) {
+      if (props.disabled || props.readonly) {
         return;
       }
       if (hasSearchEvent) {
@@ -524,7 +527,7 @@ const Select = defineComponent({
     };
 
     const onKeydown = (e: KeyboardEvent) => {
-      if (props.disabled) return;
+      if (props.disabled || props.readonly) return;
 
       if (!visible.value) {
         if (["Enter", " ", "ArrowDown", "ArrowUp"].includes(e.key)) {
@@ -561,6 +564,7 @@ const Select = defineComponent({
       return (
         props.clearable &&
         !props.disabled &&
+        !props.readonly &&
         !isEmpty(currentValue.value) &&
         !isEmpty(labelText.value)
       );
@@ -634,6 +638,7 @@ const Select = defineComponent({
     return () => {
       const {
         disabled,
+        readonly,
         size,
         multiple,
         placeholder,
@@ -652,6 +657,7 @@ const Select = defineComponent({
         ref: queryInputRef,
         class: "k-select-search",
         autoComplete: "off",
+        readonly,
         onChange: (e: Event) => e.stopPropagation(),
         onKeydown: queryKeydown,
         onInput: searchInput,
@@ -694,7 +700,7 @@ const Select = defineComponent({
             shape={shape}
             theme={theme}
             compact
-            closeable={!disabled}
+            closeable={!disabled && !readonly}
             onClose={() => removeTag(index)}
           >
             {label}
@@ -713,7 +719,7 @@ const Select = defineComponent({
                       shape={shape}
                       theme={theme}
                       compact
-                      closeable={!disabled}
+                      closeable={!disabled && !readonly}
                       onClose={() => removeTag(displayCount + index)}
                     >
                       {label}
@@ -760,6 +766,7 @@ const Select = defineComponent({
         "k-select",
         {
           "k-select-disabled": disabled,
+          "k-select-readonly": readonly,
           "k-select-block": props.block,
           "k-select-opened": visible.value,
           "k-select-borderless": bordered === false || theme === "plain",
@@ -789,6 +796,7 @@ const Select = defineComponent({
         "aria-expanded": visible.value,
         "aria-haspopup": "listbox" as const,
         "aria-disabled": disabled,
+        "aria-readonly": readonly || undefined,
         ref: refSelection,
       };
 

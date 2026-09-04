@@ -27,7 +27,7 @@ const Collapse = defineComponent({
       () => props.openKeys,
       (nv) => {
         defaultOpenKeys.value = [...nv];
-      }
+      },
     );
 
     const change = (key: string | number) => {

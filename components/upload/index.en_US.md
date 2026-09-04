@@ -64,6 +64,7 @@ Uploading is the process of publishing information (web pages, text, images, vid
 | method         | HTTP method for upload request                                                                              | string                         | post    |
 | data           | Other parameters that may be required for upload                                                            | Object                         | -       |
 | disabled       | Whether disabled                                                                                            | boolean                        | false   |
+| readonly       | Read-only; displays files without selecting, uploading or removing                                         | boolean                        | false   |
 | headers        | Set upload request headers                                                                                  | Object                         | -       |
 | multiple       | Whether to support multiple file selection                                                                  | boolean                        | false   |
 | directory      | Whether to support directory upload                                                                         | boolean                        | false   |

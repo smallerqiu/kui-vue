@@ -36,6 +36,7 @@
 | checked            | 指定当前是否选中，可以使用 `v-model` 双向绑定数据         | boolean                           | false   |
 | modelValue         | `v-model` 绑定值                                          | string \| number \| boolean       | -       |
 | disabled           | 禁用开关                                                  | boolean                           | false   |
+| readonly           | 是否只读，保持可聚焦但不可切换                            | boolean                           | false   |
 | loading            | 是否显示加载状态并禁用交互                                | boolean                           | false   |
 | type               | 主题颜色 可传入 `success`、`warning`、`danger`、`primary` | string                            | -       |
 | size               | 组件尺寸，值为`small`展示小尺寸                           | string                            | -       |

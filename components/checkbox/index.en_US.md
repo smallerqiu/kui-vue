@@ -37,6 +37,7 @@ Checkbox for multiple selections.
 | label         | The text to display                                           | string \| number                  | -       |
 | value         | The value represented when used in combination                | String \| number                  | -       |
 | disabled      | Whether the current item is disabled                          | boolean                           | false   |
+| readonly      | Read-only; remains focusable but cannot be toggled            | boolean                           | false   |
 | indeterminate | Combined auxiliary option controls the indeterminate state    | boolean                           | false   |
 | theme         | The component renders the theme, defaulting to 'fill'.        | string                            | fill    |
 | valueType     | The type of output value for the unit option                  | 'string' \| 'number' \| 'boolean' | boolean |
@@ -48,6 +49,7 @@ Checkbox for multiple selections.
 | ---------- | -------------------------------------------------------------------------------------- | ---------------- | ---------- |
 | modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding        | any[]            | -          |
 | disabled   | Whether the component is disabled                                                      | boolean          | false      |
+| readonly   | Whether the group is read-only                                                        | boolean          | false      |
 | onChange   | Triggered when the option state changes, returns the currently selected item and state | (any[])=>void    | -          |
 | direction  | Layout direction, optional values `horizontal`, `vertical`                             | string           | horizontal |
 | options    | Can specify child `checkbox` items                                                     | CheckboxOption[] | -          |

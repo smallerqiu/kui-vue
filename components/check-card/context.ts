@@ -10,6 +10,7 @@ export interface CheckCardRegistryItem {
 export interface CheckCardGroupContext {
   modelValue: ComputedRef<CheckCardValue | undefined>;
   disabled: ComputedRef<boolean>;
+  readonly: ComputedRef<boolean>;
   theme: ComputedRef<CheckCardTheme>;
   size: ComputedRef<SizeType>;
   shape: ComputedRef<ShapeType>;

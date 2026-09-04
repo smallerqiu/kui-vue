@@ -42,6 +42,7 @@ Move and select items between two lists.
 | operations   | Right and left operation labels | [string, string]                           | ['', '']             |
 | searchable   | Enable search                   | boolean                                    | false                |
 | disabled     | Disable the component           | boolean                                    | false                |
+| readonly     | Read-only; searchable but items cannot be selected or moved | boolean                     | false                |
 | theme        | Appearance theme                | 'outline' \| 'fill'                        | outline              |
 | filterOption | Custom filter                   | (keyword, item) => boolean                 | -                    |
 | render       | Custom item renderer            | (item) => VNodeChild                       | -                    |

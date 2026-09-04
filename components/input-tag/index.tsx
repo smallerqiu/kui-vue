@@ -14,6 +14,7 @@ const propsDef = {
   value: { type: Array as PropType<string[]>, default: () => [] },
   placeholder: String,
   disabled: Boolean,
+  readonly: Boolean,
   clearable: { type: Boolean, default: true },
   block: Boolean,
   allowDuplicates: Boolean,
@@ -49,6 +50,7 @@ export default defineComponent({
       emit("change", next);
     };
     const commit = (raw = draft.value) => {
+      if (props.disabled || props.readonly) return;
       const text = raw.trim();
       const tags = values();
       if (!text || (props.max !== undefined && tags.length >= props.max)) {
@@ -67,14 +69,14 @@ export default defineComponent({
       emit("add", text);
     };
     const remove = (index: number) => {
-      if (props.disabled || index < 0) return;
+      if (props.disabled || props.readonly || index < 0) return;
       const tags = values();
       const removed = tags[index];
       update(tags.filter((_, itemIndex) => itemIndex !== index));
       emit("remove", removed, index);
     };
     const clear = (event: MouseEvent) => {
-      if (props.disabled) return;
+      if (props.disabled || props.readonly) return;
       event.stopPropagation();
       draft.value = "";
       update([]);
@@ -109,6 +111,7 @@ export default defineComponent({
             "k-input-tag",
             {
               "k-input-tag-disabled": props.disabled,
+              "k-input-tag-readonly": props.readonly,
               "k-input-tag-has-clear": props.clearable && currentValues.length > 0,
               "k-input-tag-sm": props.size === "small",
               "k-input-tag-block": props.block,
@@ -118,6 +121,7 @@ export default defineComponent({
             },
             attrs.class,
           ]}
+          aria-readonly={props.readonly || undefined}
           onClick={() => !props.disabled && input.value?.focus()}
         >
           {visibleValues.map((tag, index) => (
@@ -128,7 +132,7 @@ export default defineComponent({
               shape={props.shape}
               theme="fill"
               compact
-              closeable={!props.disabled}
+              closeable={!props.disabled && !props.readonly}
               onClose={() => remove(index)}
             >
               {tag}
@@ -145,7 +149,7 @@ export default defineComponent({
                       shape={props.shape}
                       theme={props.theme}
                       compact
-                      closeable={!props.disabled}
+                      closeable={!props.disabled && !props.readonly}
                       onClose={() => remove(displayCount + index)}
                     >
                       {tag}
@@ -169,6 +173,7 @@ export default defineComponent({
             ref={input}
             class="k-input-text k-input-tag-input"
             disabled={props.disabled}
+            readonly={props.readonly}
             value={draft.value}
             placeholder={!values().length ? props.placeholder : undefined}
             onInput={inputHandler}
@@ -186,7 +191,7 @@ export default defineComponent({
               }
             }}
           />
-          {props.clearable && currentValues.length > 0 && !props.disabled && (
+          {props.clearable && currentValues.length > 0 && !props.disabled && !props.readonly && (
             <Icon class="k-input-tag-clearable" type={CircleX} onClick={clear} />
           )}
         </div>

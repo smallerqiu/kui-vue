@@ -38,6 +38,7 @@
 | options       | 可选择的级联数据源树状结构。                                                           | CascaderOption[]     | `[]`        |
 | placeholder   | 当没有任何选择路径时的兜底提示占位文案。                                               | string               | `"请选择"`  |
 | disabled      | 是否完全禁用整个组件交互。                                                             | boolean              | `false`     |
+| readonly      | 是否只读，不可展开、清空或修改。                                                       | boolean              | `false`     |
 | clearable     | 是否支持一键清空所选路径。                                                             | boolean              | `true`      |
 | size          | 组件的大小尺寸规格。可选值：`'large'` \| `'small'` \| `undefined`。                    | string               | `undefined` |
 | expandTrigger | 下一级菜单的展开交互触发方式。可选值：`'click'` (点击) 或 `'hover'` (鼠标悬浮即展开)。 | 'click' \| 'hover'   | `'click'`   |

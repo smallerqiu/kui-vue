@@ -14,6 +14,7 @@ const switchProps = {
   modelValue: { type: [String, Number, Boolean] as PropType<string | number | boolean> },
   type: String,
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   loading: Boolean as BooleanType,
   size: {
     type: String as PropType<SizeType>,
@@ -44,7 +45,7 @@ const Switch = defineComponent({
       }
     );
     const change = () => {
-      if (props.disabled) {
+      if (props.disabled || props.readonly) {
         return false;
       }
       const checked = !isChecked.value;
@@ -63,6 +64,7 @@ const Switch = defineComponent({
         {
           ["k-switch-checked"]: isChecked.value,
           ["k-switch-disabled"]: disabled || loading,
+          ["k-switch-readonly"]: props.readonly,
           [`k-switch-${type}`]: !!type,
           ["k-switch-sm"]: props.size == "small",
           [`k-switch-${props.shape}`]: props.shape,
@@ -79,7 +81,13 @@ const Switch = defineComponent({
         ) : null;
 
       return (
-        <button class={classes} onClick={change} disabled={disabled || loading} type="button">
+        <button
+          class={classes}
+          onClick={change}
+          disabled={disabled || loading}
+          aria-readonly={props.readonly || undefined}
+          type="button"
+        >
           {textNode}
           {loadNode}
         </button>

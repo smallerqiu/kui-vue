@@ -34,6 +34,7 @@ Freely output colors.
 | presets       | Custom color palette                                            | string[]                       | -           |
 | disabledAlpha | Whether to disable transparency                                 | boolean                        | false       |
 | disabled      | Is it in an invalid state?                                      | boolean                        | false       |
+| readonly      | Read-only; prevents opening or changing                         | boolean                        | false       |
 | trigger       | Pull-down trigger mode                                          | 'hover' \| 'click'             | click       |
 | showText      | Whether to display colored text                                 | boolean                        | false       |
 | size          | Size of the color picker                                        | 'small' \| 'medium' \| 'large' | -           |

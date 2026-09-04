@@ -1,6 +1,6 @@
 <template>
   <div class="demo-collapse">
-    <Collapse :openKeys="openKeys">
+    <Collapse v-model:openKeys="openKeys">
       <CollapsePanel title="Panel title" key="1">
         <template #extra>
           <Icon :type="Settings" />

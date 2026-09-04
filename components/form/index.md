@@ -81,6 +81,7 @@ export default {
 | layout     | 表单布局                                                                       | 'horizontal' \| 'vertical' \| 'inline' | horizontal |
 | shape      | 子组件的形状                                                                   | 'circle' \| 'square'                   | horizontal |
 | disabled   | 表单是否可用                                                                   | boolean                                | true       |
+| readonly   | 是否将表单内支持只读的控件统一设为只读                                         | boolean                                | false      |
 | onReset    | 表单重置后的回调                                                               | ()=> void                              | -          |
 | onSubmit   | 提交表单时触发事件                                                             | (e: SubmitEvent)=> void                | -          |
 

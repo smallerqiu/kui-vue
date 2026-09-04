@@ -8,6 +8,7 @@ const checkCardGroupProps = {
   modelValue: [String, Number] as PropType<CheckCardValue>,
   options: Array as PropType<CheckCardOption[]>,
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   direction: { type: String as PropType<DirectionType>, default: "horizontal" },
   theme: { type: String as PropType<CheckCardTheme>, default: "outline" },
   size: { type: String as PropType<SizeType>, default: "medium" },
@@ -24,11 +25,12 @@ const CheckCardGroup = defineComponent({
   setup(props, { emit, slots }) {
     const registry = new Map<CheckCardValue, CheckCardRegistryItem>();
     const select = (value: CheckCardValue) => {
-      if (props.disabled || props.modelValue === value) return;
+      if (props.disabled || props.readonly || props.modelValue === value) return;
       emit("update:modelValue", value);
       emit("change", value);
     };
     const selectRelative = (value: CheckCardValue, offset: number) => {
+      if (props.readonly) return;
       const entries = [...registry.entries()].filter(([, item]) => !item.disabled);
       if (!entries.length) return;
       const currentIndex = entries.findIndex(([key]) => key === value);
@@ -41,6 +43,7 @@ const CheckCardGroup = defineComponent({
     provide(checkCardGroupKey, {
       modelValue: computed(() => props.modelValue),
       disabled: computed(() => Boolean(props.disabled)),
+      readonly: computed(() => Boolean(props.readonly)),
       theme: computed(() => props.theme),
       size: computed(() => props.size),
       shape: computed(() => props.shape),
@@ -56,8 +59,10 @@ const CheckCardGroup = defineComponent({
           "k-check-card-group",
           `k-check-card-group-${props.direction}`,
           props.disabled && "is-disabled",
+          props.readonly && "is-readonly",
         ]}
         role="radiogroup"
+        aria-readonly={props.readonly || undefined}
       >
         {props.options?.map((option) => (
           <CheckCard

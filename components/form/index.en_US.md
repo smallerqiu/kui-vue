@@ -81,6 +81,7 @@ export default {
 | layout     | Form layout                                                                                           | 'horizontal' \| 'vertical' \| 'inline' | horizontal |
 | shape      | Sub component shape                                                                                   | 'circle' \| 'square'                   | horizontal |
 | disabled   | Whether the form is enabled                                                                           | boolean                                | true       |
+| readonly   | Make supported controls in the form read-only                                                         | boolean                                | false      |
 | onReset    | Reset the entire form, reset all field values to empty and remove validation results                  | ()=> void                              | -          |
 | onSubmit   | Trigger event when submitting the form                                                                | (e: FormSubmitEvent) => void           | -          |
 

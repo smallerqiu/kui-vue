@@ -38,6 +38,7 @@ Radio button.
 | label      | Text prompt                        | string \| number         | -       |
 | value      | Value when used in combination     | string \| number         | -       |
 | disabled   | Whether current item is disabled   | boolean                  | false   |
+| readonly   | Read-only; cannot be toggled       | boolean                  | false   |
 | icon       | Custom RadioButton icon            | IconType[]               | -       |
 | onChange   | Callback when option state changes | (e: ChangeEvent) => void | -       |
 
@@ -46,6 +47,7 @@ Radio button.
 | Property   | Description                                                                                    | Type                              | Default    |
 | ---------- | ---------------------------------------------------------------------------------------------- | --------------------------------- | ---------- |
 | modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding data           | any                               | -          |
+| readonly   | Whether the group is read-only                                                                  | boolean                           | false      |
 | size       | Button size, optional values: `small`, `large`, default not selected                           | string                            | -          |
 | direction  | Layout direction, optional values: `horizontal`, `vertical`                                    | string                            | horizontal |
 | shape      | `button`'s shape property, displays rounded corners                                            | string                            | -          |

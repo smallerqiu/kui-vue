@@ -19,6 +19,7 @@ const checkboxGroupProps = {
   },
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   options: Array as PropType<CheckboxOption[]>,
   direction: {
     type: String as PropType<DirectionType>,
@@ -48,6 +49,7 @@ const CheckboxGroup = defineComponent({
     );
 
     const onChange = ({ value }: CheckboxChangeEvent) => {
+      if (props.readonly) return;
       if (value === undefined) return;
       const val = [...currentValue.value];
       const index = val.indexOf(value);
@@ -104,6 +106,7 @@ const CheckboxGroup = defineComponent({
             value={option.value}
             checked={currentValue.value.indexOf(option.value) > -1}
             disabled={disabled || option.disabled}
+            readonly={props.readonly}
             theme={theme}
             size={size}
             onChange={onChange}
@@ -111,7 +114,11 @@ const CheckboxGroup = defineComponent({
         );
       });
 
-      return <div {...rootProps}>{nodes}</div>;
+      return (
+        <div {...rootProps} aria-readonly={props.readonly || undefined}>
+          {nodes}
+        </div>
+      );
     };
   },
 });

@@ -27,6 +27,7 @@ import type { ChangeEvent, RadioOption } from "./types";
 const radioGroupProps = {
   modelValue: { type: [String, Number], default: "" },
   disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
   direction: {
     type: String as PropType<DirectionType>,
     default: "horizontal",
@@ -89,6 +90,7 @@ const RadioGroup = defineComponent({
       if (observerRef.value) observerRef.value.disconnect();
     });
     const onChange = ({ value }: ChangeEvent) => {
+      if (props.readonly) return;
       currentValue.value = value;
       emit("update:modelValue", value);
       emit("change", value);
@@ -140,6 +142,7 @@ const RadioGroup = defineComponent({
             onChange={onChange}
             checked={currentValue.value === option.value}
             disabled={props.disabled || option.disabled}
+            readonly={props.readonly}
             icon={option.icon}
             size={props.size}
             theme={props.theme}
@@ -160,7 +163,7 @@ const RadioGroup = defineComponent({
       ];
 
       return (
-        <div class={classes} ref={rootRef}>
+        <div class={classes} ref={rootRef} aria-readonly={props.readonly || undefined}>
           {nodes}
           {changed.value && isCard && isButton && (
             <div

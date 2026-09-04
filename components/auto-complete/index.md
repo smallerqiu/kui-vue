@@ -40,6 +40,7 @@
 | showOnEmpty  | 空输入聚焦时展示建议     | boolean                                      | false   |
 | clearable    | 有值且悬停时显示清除按钮 | boolean                                      | false   |
 | disabled     | 禁用                     | boolean                                      | false   |
+| readonly     | 只读，不可输入、清空或展开 | boolean                                     | false   |
 | loading      | 是否正在加载             | boolean                                      | false   |
 | loadingText  | 加载提示文字             | string                                       | 加载中  |
 | placeholder  | 占位文本                 | string                                       | -       |

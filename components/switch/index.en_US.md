@@ -36,6 +36,7 @@ Switch selector.
 | checked            | Specify whether currently selected, can use `v-model` for two-way binding | boolean                           | false   |
 | modelValue         | Value bound through `v-model`                                             | string \| number \| boolean       | -       |
 | disabled           | Disable switch                                                            | boolean                           | false   |
+| readonly           | Read-only; remains focusable but cannot be toggled                         | boolean                           | false   |
 | loading            | Show a loading state and disable interaction                              | boolean                           | false   |
 | type               | Theme color, can pass `success`, `warning`, `danger`, `primary`           | string                            | -       |
 | size               | Component size, when value is `small` displays small size                 | string                            | -       |

@@ -53,6 +53,7 @@
 | endDate      | 结束时间 (取值)                                                                                                          | any                                                         | -          |
 | mode         | 使用 `mode` 属性，可以自定义日期显示类型，提供 `year`、`month`、`date`、`time`、`dateTime`、`dateRange`、`dateTimeRange` | string                                                      | date       |
 | disabled     | 是否禁用组件                                                                                                             | boolean                                                     | false      |
+| readonly     | 是否只读，不可展开、清空或修改                                                                                           | boolean                                                     | false      |
 | size         | 按钮尺寸,可选值 `small`、`large`                                                                                         | string                                                      | -          |
 | clearable    | 是否显示清除图标                                                                                                         | boolean                                                     | true       |
 | editable     | 是否可编辑                                                                                                               | boolean                                                     | true       |
