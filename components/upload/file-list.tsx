@@ -1,8 +1,9 @@
-import { CircleCheck, CircleX, FileText, Info, X } from "kui-icons";
-import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
+import { CircleCheck, CircleX, FileText, Info, RotateCcw, X } from "kui-icons";
+import { defineComponent, ref, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
 import type { BooleanType } from "../const/types";
 import Icon from "../icon";
+import { Image } from "../image";
 import Progress from "../progress";
 import Tooltip from "../tooltip";
 import type { UploadFile } from "./types";
@@ -19,6 +20,8 @@ const uploadFileListProps = {
   fileList: { type: Array as PropType<UploadFile[]>, default: () => [] },
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
+  sortable: Boolean as BooleanType,
+  preview: { type: Boolean as BooleanType, default: true },
 };
 
 export type UploadFileListProps = ExtractPropTypes<typeof uploadFileListProps>;
@@ -27,9 +30,12 @@ export default defineComponent({
   name: "UploadFileList",
   props: uploadFileListProps,
   setup(props, { emit, slots }) {
+    const draggingIndex = ref<number | null>(null);
     const getPreview = (item: UploadFile) => {
-      if (item.preview) return <img src={item.preview} alt="" />;
-      if (item.url) return <img src={item.url} alt="" />;
+      const src = item.preview || item.url;
+      if (src && props.preview)
+        return <Image src={src} width="100%" height="100%" shape="square" />;
+      if (src) return <img src={src} alt="" />;
       return null;
     };
 
@@ -56,6 +62,19 @@ export default defineComponent({
               <div
                 class={[`k-upload-file-${type}-item`, `k-upload-file-status-${item.status}`]}
                 key={item.uid || i}
+                draggable={isPicture && props.sortable && !props.disabled && !props.readonly}
+                onDragstart={() => (draggingIndex.value = i)}
+                onDragover={(event: DragEvent) => {
+                  if (draggingIndex.value !== null) event.preventDefault();
+                }}
+                onDrop={(event: DragEvent) => {
+                  event.preventDefault();
+                  if (draggingIndex.value !== null) {
+                    emit("sort", { oldIndex: draggingIndex.value, newIndex: i });
+                  }
+                  draggingIndex.value = null;
+                }}
+                onDragend={() => (draggingIndex.value = null)}
               >
                 <div class={`k-upload-${isPicture ? "picture" : "file"}-preview`}>
                   {getPreview(item) || <Icon type={FileText} strokeWidth={1} size={30} />}
@@ -93,6 +112,24 @@ export default defineComponent({
                     </div>
                   )}
                 </div>
+                {!props.readonly &&
+                  (item.status === "uploading" ? (
+                    <Button
+                      type="text"
+                      size="small"
+                      icon={X}
+                      title="Cancel upload"
+                      onClick={() => emit("abort", item)}
+                    />
+                  ) : item.status === "error" ? (
+                    <Button
+                      type="text"
+                      size="small"
+                      icon={RotateCcw}
+                      title="Retry upload"
+                      onClick={() => emit("retry", item)}
+                    />
+                  ) : null)}
                 {!props.readonly && (
                   <Button
                     type="text"

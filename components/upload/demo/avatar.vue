@@ -9,8 +9,7 @@
     accept="image/*"
     :uploadIcon="Camera"
     uploadText="Upload Avatar"
-  >
-  </Upload>
+  ></Upload>
 </template>
 <script setup lang="ts">
 import { Camera } from "kui-icons";

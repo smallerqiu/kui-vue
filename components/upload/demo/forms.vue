@@ -19,8 +19,7 @@
         accept="image/*"
         :uploadIcon="Camera"
         uploadText="Upload Avatar"
-      >
-      </Upload>
+      ></Upload>
       <Input type="hidden" />
     </FormItem>
     <FormItem label="Single file" prop="file">
@@ -48,7 +47,8 @@
         @change="uploadFiles"
         @remove="remove"
         accept="image/*"
-        ><Button>Upload File</Button>
+      >
+        <Button>Upload File</Button>
       </Upload>
       <Input type="hidden" />
     </FormItem>

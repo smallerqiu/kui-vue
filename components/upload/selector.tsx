@@ -91,8 +91,9 @@ export default defineComponent({
         locale,
       } = props;
       const isPicture = type === "picture";
+      const normalizedLimit = limit !== undefined && limit >= 0 ? Math.floor(limit) : undefined;
       const isLimitExceeded =
-        limit !== undefined && limit >= 0 && !!fileList && fileList.length >= limit;
+        normalizedLimit !== undefined && !!fileList && fileList.length >= normalizedLimit;
       const showSelector = !isPicture || !isLimitExceeded;
       const directoryProps: { webkitdirectory?: string } = directory
         ? { webkitdirectory: "true" }
@@ -101,11 +102,20 @@ export default defineComponent({
 
       const addProps = {
         class: ["k-upload-add", { "k-upload-drag-over": dragOver.value }],
+        role: "button",
+        tabindex: disabled ? -1 : 0,
+        "aria-disabled": disabled ? "true" : undefined,
         onDragenter: draggable && !disabled ? onDragEnter : undefined,
         onDrop: draggable && !disabled ? onDrop : undefined,
         onDragover: draggable && !disabled ? onDragOver : undefined,
         onDragleave: draggable && !disabled ? onDragLeave : undefined,
         onClick: triggerSelect,
+        onKeydown: (event: KeyboardEvent) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            triggerSelect();
+          }
+        },
       };
 
       return showSelector ? (

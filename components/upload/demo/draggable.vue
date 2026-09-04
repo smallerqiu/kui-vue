@@ -9,8 +9,7 @@
       uploadText="Click to upload files or drag files here"
       uploadSubText="Supports any type of file"
       @change="handleChange"
-    >
-    </Upload>
+    ></Upload>
   </div>
 </template>
 <script setup lang="ts">

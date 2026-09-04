@@ -10,8 +10,7 @@
     accept="image/*"
     :uploadIcon="Camera"
     uploadText="Upload Image"
-  >
-  </Upload>
+  ></Upload>
 </template>
 <script setup lang="ts">
 import { Camera } from "kui-icons";
@@ -35,7 +34,7 @@ const transformFile = (file: File) => {
         (img.width - canvas.width) / 2,
         (img.height - canvas.height) / 2,
         canvas.width,
-        canvas.height
+        canvas.height,
       );
       // canvas to file obj
       let data = canvas.toDataURL("image/png");

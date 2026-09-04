@@ -17,26 +17,40 @@ import { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
 import FileList from "./file-list";
 import Selector from "./selector";
-import type { UploadChangeEvent, UploadFile } from "./types";
+import type {
+  UploadChangeEvent,
+  UploadCustomRequest,
+  UploadFile,
+  UploadRequestHandle,
+  UploadSortEvent,
+} from "./types";
 
 const uploadProps = {
   method: { type: String, default: "post" },
   name: { type: String, default: "file" },
-  action: { type: String, required: true as const },
+  action: String,
   type: {
     type: String as PropType<"list" | "picture">,
     default: "list",
   },
-  data: { type: Object as PropType<Record<string, string | Blob>>, default: () => ({}) },
+  data: {
+    type: Object as PropType<Record<string, string | number | boolean | Blob>>,
+    default: () => ({}),
+  },
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
   directory: Boolean as BooleanType,
   multiple: Boolean as BooleanType,
   accept: String,
   headers: Object as PropType<Record<string, string>>,
+  withCredentials: Boolean as BooleanType,
+  timeout: { type: Number, default: 0 },
+  customRequest: Function as PropType<UploadCustomRequest>,
+  parseResponse: Function as PropType<(xhr: XMLHttpRequest) => unknown>,
   showUploadList: { type: Boolean as BooleanType, default: true },
-  transformFile: Function as PropType<(file: File) => File | Promise<File>>,
-  fileList: { type: Array as PropType<UploadFile[]>, default: () => [] },
+  transformFile: Function as PropType<(file: File) => File | Blob | Promise<File | Blob>>,
+  fileList: Array as PropType<UploadFile[]>,
+  defaultFileList: { type: Array as PropType<UploadFile[]>, default: () => [] },
   autoTrigger: { type: Boolean as BooleanType, default: true },
   limit: Number,
   minSize: Number, // KB
@@ -45,18 +59,31 @@ const uploadProps = {
   uploadSubText: String,
   uploadIcon: Array as PropType<IconType[]>,
   draggable: Boolean as BooleanType,
+  sortable: Boolean as BooleanType,
+  preview: { type: Boolean as BooleanType, default: true },
+  validateAccept: { type: Boolean as BooleanType, default: true },
+  maxConcurrent: { type: Number, default: Infinity },
   onChange: Function as PropType<(event: UploadChangeEvent) => void>,
   onRemove: Function as PropType<(event: UploadChangeEvent) => void>,
   onSelectFiles: Function as PropType<(files: UploadFile[]) => void>,
   onExceed: Function as PropType<() => void>,
   onSizeError: Function as PropType<(event: UploadChangeEvent) => void>,
-  onBeforeUpload: Function as PropType<(item: UploadFile, file: File) => void>,
+  onTypeError: Function as PropType<(event: UploadChangeEvent) => void>,
+  onSort: Function as PropType<(event: UploadSortEvent) => void>,
+  onBeforeUpload: Function as PropType<
+    (
+      item: UploadFile,
+      file: File,
+    ) => boolean | File | Blob | void | Promise<boolean | File | Blob | void>
+  >,
 };
 
 export type UploadProps = ExtractPropTypes<typeof uploadProps>;
 
 export interface UploadContext extends UploadProps {
   upload: () => void;
+  abort: (file?: UploadFile) => void;
+  retry: (file: UploadFile) => void;
 }
 
 const Upload = defineComponent({
@@ -69,10 +96,24 @@ const Upload = defineComponent({
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
 
-    const innerFileList = ref<UploadFile[]>([...(props.fileList || [])]);
+    const innerFileList = ref<UploadFile[]>([...(props.fileList ?? props.defaultFileList)]);
     const uploadTemp = reactive<Record<string, File>>({});
     const generatedPreviewUrls = new Set<string>();
+    const requestHandles = new Map<string, UploadRequestHandle>();
+    const queuedUids = new Set<string>();
+    let activeUploads = 0;
     let unmounted = false;
+
+    const matchesAccept = (file: File) => {
+      if (!props.accept || !props.validateAccept) return true;
+      return props.accept.split(",").some((rule) => {
+        const value = rule.trim().toLowerCase();
+        if (!value) return false;
+        if (value.startsWith(".")) return file.name.toLowerCase().endsWith(value);
+        if (value.endsWith("/*")) return file.type.toLowerCase().startsWith(value.slice(0, -1));
+        return file.type.toLowerCase() === value;
+      });
+    };
 
     // Watch for fileList changes
     watch(
@@ -88,7 +129,7 @@ const Upload = defineComponent({
         });
         innerFileList.value = nextList;
       },
-      { deep: true }
+      { deep: true },
     );
 
     const formatFileSize = (fileSize: number) => {
@@ -113,12 +154,14 @@ const Upload = defineComponent({
     const onSelectFiles = (files: FileList | File[]) => {
       if (props.readonly) return;
       const { limit, minSize, maxSize } = props;
-      const fileArray = Array.from(files).filter((f) => f.name !== ".DS_Store");
+      const selectedFiles = Array.from(files).filter((file) => file.name !== ".DS_Store");
+      const fileArray = props.multiple ? selectedFiles : selectedFiles.slice(0, 1);
+      const normalizedLimit = limit !== undefined && limit >= 0 ? Math.floor(limit) : undefined;
       let exceeded = false;
 
       fileArray.forEach((file) => {
         const currentCount = innerFileList.value.length;
-        if (limit !== undefined && limit >= 0 && currentCount >= limit) {
+        if (normalizedLimit !== undefined && currentCount >= normalizedLimit) {
           exceeded = true;
           return;
         }
@@ -138,6 +181,15 @@ const Upload = defineComponent({
         if (isImage) {
           item.preview = URL.createObjectURL(file);
           generatedPreviewUrls.add(item.preview);
+        }
+
+        if (!matchesAccept(file)) {
+          item.errorText = `File type is not accepted: ${props.accept}`;
+          item.status = "error";
+          innerFileList.value.push(item);
+          triggerUpdate(item);
+          emit("typeError", { file: item, fileList: innerFileList.value });
+          return;
         }
 
         const fileSizeInKB = file.size / 1024;
@@ -167,13 +219,13 @@ const Upload = defineComponent({
       if (reactiveItem.uid) uploadTemp[reactiveItem.uid] = file;
       triggerUpdate(reactiveItem);
 
-      if (props.autoTrigger) uploadFile(reactiveItem, file);
+      if (props.autoTrigger) scheduleUpload(reactiveItem, file);
     };
 
     const handleRemove = ({ index, file }: { index: number; file: UploadFile }) => {
       if (props.readonly) return;
       const currentIndex = innerFileList.value.findIndex(
-        (item) => item === file || (!!file.uid && item.uid === file.uid)
+        (item) => item === file || (!!file.uid && item.uid === file.uid),
       );
       const removeIndex = currentIndex >= 0 ? currentIndex : index;
       const item = innerFileList.value[removeIndex];
@@ -186,6 +238,14 @@ const Upload = defineComponent({
         item.xhr.upload.onprogress = null;
         item.xhr.abort();
         item.xhr = undefined;
+      }
+      if (item.uid) {
+        const handle = requestHandles.get(item.uid);
+        if (handle) {
+          handle.abort();
+          finishUpload(item);
+        }
+        queuedUids.delete(item.uid);
       }
 
       innerFileList.value.splice(removeIndex, 1);
@@ -205,45 +265,128 @@ const Upload = defineComponent({
         Object.keys(uploadTemp).forEach((uid) => {
           const item = innerFileList.value.find((x) => x.uid === uid);
           const file = uploadTemp[uid];
-          if (item && file && item.status === "waiting") uploadFile(item, file);
+          if (item && file && item.status === "waiting") scheduleUpload(item, file);
         });
       }
     };
 
-    const uploadFile = (item: UploadFile, file: File) => {
-      emit("beforeUpload", item, file);
-      if (props.transformFile) {
-        Promise.resolve(props.transformFile(file))
-          .then((res) => {
-            if (unmounted || !innerFileList.value.includes(item)) return;
-            toUpload(item, res);
-          })
-          .catch((error) => {
-            if (unmounted || !innerFileList.value.includes(item)) return;
-            item.errorText = error instanceof Error ? error.message : String(error || "");
-            item.status = "error";
-            if (item.uid) delete uploadTemp[item.uid];
-            triggerUpdate(item);
-          });
-      } else {
+    const uploadQueue: Array<{ item: UploadFile; file: File }> = [];
+    const runNext = () => {
+      const maximum = Math.max(1, Math.floor(props.maxConcurrent || 1));
+      while (activeUploads < maximum && uploadQueue.length) {
+        const task = uploadQueue.shift()!;
+        if (!task.item.uid || !queuedUids.delete(task.item.uid)) continue;
+        activeUploads += 1;
+        void uploadFile(task.item, task.file);
+      }
+    };
+    const finishUpload = (item: UploadFile) => {
+      if (item.uid) requestHandles.delete(item.uid);
+      activeUploads = Math.max(0, activeUploads - 1);
+      runNext();
+    };
+    const scheduleUpload = (item: UploadFile, file: File) => {
+      if (!item.uid || queuedUids.has(item.uid) || requestHandles.has(item.uid)) return;
+      queuedUids.add(item.uid);
+      uploadQueue.push({ item, file });
+      runNext();
+    };
+    const uploadFile = async (item: UploadFile, original: File) => {
+      try {
+        const beforeResult = await props.onBeforeUpload?.(item, original);
+        if (beforeResult === false) {
+          finishUpload(item);
+          return;
+        }
+        const beforeFile = beforeResult instanceof Blob ? beforeResult : original;
+        const file = props.transformFile ? await props.transformFile(original) : beforeFile;
+        if (unmounted || !innerFileList.value.includes(item)) {
+          finishUpload(item);
+          return;
+        }
         toUpload(item, file);
+      } catch (error) {
+        if (!unmounted && innerFileList.value.includes(item)) {
+          item.errorText = error instanceof Error ? error.message : String(error || "");
+          item.status = "error";
+          triggerUpdate(item);
+        }
+        finishUpload(item);
       }
     };
 
-    const toUpload = (item: UploadFile, file: File) => {
-      const { action, method, name, headers, data } = props;
+    const toUpload = (item: UploadFile, file: File | Blob) => {
+      const { action, method, name, headers = {}, data, customRequest } = props;
+      let settled = false;
+      const finish = (status: "success" | "error", value?: unknown) => {
+        if (settled || unmounted || !innerFileList.value.includes(item)) return;
+        settled = true;
+        item.status = status;
+        item.percent = status === "success" ? 100 : item.percent;
+        if (status === "success") {
+          item.response = value;
+          if (item.uid) delete uploadTemp[item.uid];
+        } else {
+          item.errorText =
+            value instanceof Error ? value.message : String(value || locale.value?.k.upload.failed);
+        }
+        item.xhr = undefined;
+        triggerUpdate(item);
+        finishUpload(item);
+      };
+      if (customRequest) {
+        item.status = "uploading";
+        triggerUpdate(item);
+        Promise.resolve(
+          customRequest({
+            action,
+            method,
+            name,
+            file,
+            filename: item.filename || (file instanceof File ? file.name : name),
+            data,
+            headers,
+            withCredentials: props.withCredentials,
+            timeout: props.timeout,
+            onProgress: (percent) => {
+              if (!settled) {
+                item.percent = Math.max(0, Math.min(100, percent));
+                triggerUpdate(item);
+              }
+            },
+            onSuccess: (response) => finish("success", response),
+            onError: (error) => finish("error", error),
+          }),
+        )
+          .then((handle) => {
+            if (handle && typeof handle.abort === "function" && item.uid) {
+              requestHandles.set(item.uid, handle);
+            }
+          })
+          .catch((error) => finish("error", error));
+        return;
+      }
+      if (!action) {
+        finish("error", "Upload action is required");
+        return;
+      }
       const formdata = new FormData();
       formdata.append(name, file);
 
       if (data) {
-        Object.keys(data).forEach((k) => formdata.append(k, data[k]));
+        Object.keys(data).forEach((key) => {
+          const value = data[key];
+          formdata.append(key, value instanceof Blob ? value : String(value));
+        });
       }
 
       const xhr = new XMLHttpRequest();
       item.xhr = xhr;
-      let settled = false;
+      if (item.uid) requestHandles.set(item.uid, { abort: () => xhr.abort() });
 
       xhr.open(method.toUpperCase(), action);
+      xhr.withCredentials = props.withCredentials;
+      xhr.timeout = Math.max(0, props.timeout);
       if (headers) {
         for (const k in headers) {
           xhr.setRequestHeader(k, headers[k]);
@@ -253,17 +396,16 @@ const Upload = defineComponent({
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && !settled) {
           if (xhr.status >= 200 && xhr.status < 300) {
-            settled = true;
-            item.status = "success";
-            item.percent = 100;
-            try {
-              item.response = JSON.parse(xhr.responseText);
-            } catch {
-              item.response = xhr.responseText;
+            let response: unknown;
+            if (props.parseResponse) response = props.parseResponse(xhr);
+            else {
+              try {
+                response = JSON.parse(xhr.responseText);
+              } catch {
+                response = xhr.responseText;
+              }
             }
-            if (item.uid) delete uploadTemp[item.uid];
-            item.xhr = undefined;
-            triggerUpdate(item);
+            finish("success", response);
           } else {
             handleError(String(xhr.status));
           }
@@ -278,24 +420,55 @@ const Upload = defineComponent({
       xhr.upload.onprogress = (event) => {
         if (event.lengthComputable) {
           item.percent = (event.loaded / event.total) * 100;
+          triggerUpdate(item);
         }
       };
 
       const handleError = (detail?: string) => {
-        if (settled) return;
-        settled = true;
-        item.status = "error";
-        // 失败时给出提示文案，否则界面上只有 error 状态而无任何原因
-        item.errorText = detail
+        const message = detail
           ? `${locale.value?.k.upload.failed}: ${detail}`
           : locale.value?.k.upload.failed;
-        if (item.uid) delete uploadTemp[item.uid];
-        item.xhr = undefined;
-        triggerUpdate(item);
+        finish("error", message);
       };
 
       xhr.onerror = () => handleError();
+      xhr.ontimeout = () => handleError("timeout");
       xhr.send(formdata);
+    };
+
+    const abort = (file?: UploadFile) => {
+      const targets = file ? [file] : innerFileList.value;
+      targets.forEach((item) => {
+        if (!item.uid) return;
+        if (queuedUids.delete(item.uid)) return;
+        const handle = requestHandles.get(item.uid);
+        if (!handle) return;
+        requestHandles.delete(item.uid);
+        handle.abort();
+        item.status = "waiting";
+        item.percent = 0;
+        triggerUpdate(item);
+        finishUpload(item);
+      });
+    };
+    const retry = (item: UploadFile) => {
+      if (props.disabled || props.readonly || !item.uid) return;
+      const file = uploadTemp[item.uid];
+      if (!file) return;
+      item.status = "waiting";
+      item.errorText = undefined;
+      item.percent = 0;
+      triggerUpdate(item);
+      scheduleUpload(item, file);
+    };
+
+    const handleSort = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
+      if (oldIndex === newIndex || props.readonly || props.disabled) return;
+      const [item] = innerFileList.value.splice(oldIndex, 1);
+      if (!item) return;
+      innerFileList.value.splice(newIndex, 0, item);
+      emit("update:fileList", innerFileList.value);
+      emit("sort", { file: item, fileList: innerFileList.value, oldIndex, newIndex });
     };
 
     onBeforeUnmount(() => {
@@ -308,11 +481,14 @@ const Upload = defineComponent({
         item.xhr.upload.onprogress = null;
         item.xhr.abort();
       });
+      requestHandles.forEach((handle) => handle.abort());
+      requestHandles.clear();
+      queuedUids.clear();
       generatedPreviewUrls.forEach((url) => URL.revokeObjectURL(url));
       generatedPreviewUrls.clear();
     });
 
-    expose({ upload });
+    expose({ upload, abort, retry });
 
     return () => {
       const {
@@ -327,6 +503,8 @@ const Upload = defineComponent({
         uploadText,
         uploadSubText,
         draggable,
+        sortable,
+        preview,
         disabled,
         readonly,
       } = props;
@@ -363,6 +541,11 @@ const Upload = defineComponent({
         readonly,
         locale: locale.value,
         onRemove: handleRemove,
+        sortable: sortable && isPicture,
+        preview,
+        onSort: handleSort,
+        onAbort: abort,
+        onRetry: retry,
       };
       const FileListNode = (
         <FileList key="filelist" {...fileListProps} v-slots={{ selector: () => SelectorNode }} />
@@ -387,4 +570,11 @@ const Upload = defineComponent({
 });
 export default Upload;
 
-export type { UploadChangeEvent, UploadFile } from "./types";
+export type {
+  UploadChangeEvent,
+  UploadCustomRequest,
+  UploadFile,
+  UploadRequestHandle,
+  UploadRequestOptions,
+  UploadSortEvent,
+} from "./types";

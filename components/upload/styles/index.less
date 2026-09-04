@@ -193,6 +193,15 @@
     position: relative;
     overflow: hidden;
 
+    &[draggable="true"] {
+      cursor: grab;
+      touch-action: none;
+
+      &:active {
+        cursor: grabbing;
+      }
+    }
+
     &:hover {
       .k-upload-file-picture-remove {
         display: flex;

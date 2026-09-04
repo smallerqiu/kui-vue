@@ -5,13 +5,13 @@
       action="https://www.chuchur.com/api/upload/image"
       name="file"
       type="picture"
+      sortable
       :headers="headers"
       @change="handleChange"
-      :fileList="fileList"
+      v-model:fileList="fileList"
       accept="image/*"
       uploadText="Upload Avatar"
-    >
-    </Upload>
+    ></Upload>
   </Space>
 </template>
 <script setup lang="ts">
@@ -27,6 +27,12 @@ const fileList = ref<UploadFile[]>([
     filename: "test.jpg",
     size: "222kb",
     percent: 50,
+  },
+  {
+    url: "https://cdn.chuchur.com/upload/cat/cat1.jpg",
+    status: "success",
+    filename: "cat.jpg",
+    size: "180kb",
   },
   {
     url: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
