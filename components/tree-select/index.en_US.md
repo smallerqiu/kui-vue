@@ -57,7 +57,7 @@ Similar to the Select selection control, when the selectable data structure is a
 | maxTagCount       | Maximum visible tags in multiple mode; excess tags are shown in a Tooltip       | number                            | -             |
 | filterable        | Whether search filtering is enabled                                             | boolean                           | false         |
 | loading           | Asynchronous loading state                                                      | boolean                           | false         |
-| clearable         | Whether options can be cleared                                                  | boolean                           | false         |
+| clearable         | Whether options can be cleared                                                  | boolean                           | true          |
 | bordered          | Whether to show border                                                          | boolean                           | true          |
 | showArrow         | Whether to show dropdown button                                                 | boolean                           | true          |
 | arrowIcon         | Custom dropdown arrow icon                                                      | IconType[]                        | -             |

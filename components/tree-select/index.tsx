@@ -246,7 +246,9 @@ const TreeSelect = defineComponent({
       queryKey.value = target.value || "";
       nextTick(() => {
         if (target.style && queryInputMirrorRef.value) {
-          target.style.width = queryInputMirrorRef.value.offsetWidth + "px";
+          const availableWidth = Math.max((refSelection.value?.clientWidth || 0) - 40, 7);
+          const contentWidth = Math.max(queryInputMirrorRef.value.offsetWidth + 2, 7);
+          target.style.width = `${Math.min(contentWidth, availableWidth)}px`;
         }
         updatePosition();
       });
@@ -472,6 +474,22 @@ const TreeSelect = defineComponent({
       }
     };
 
+    const triggerKeydown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.stopPropagation();
+        if (visible.value) {
+          openChange(false);
+          clearQuery();
+        }
+      } else if (
+        (event.key === "Enter" || event.key === " " || event.key === "ArrowDown") &&
+        !visible.value
+      ) {
+        event.preventDefault();
+        toggle();
+      }
+    };
+
     const showClear = computed(() => {
       return props.clearable && !props.disabled && !props.readonly && !isEmpty(currentValue.value);
     });
@@ -677,9 +695,11 @@ const TreeSelect = defineComponent({
         "aria-expanded": visible.value,
         "aria-disabled": props.disabled || undefined,
         "aria-readonly": props.readonly || undefined,
+        "aria-haspopup": "tree",
         class: classes,
         style: styles,
         onClick: () => toggle(),
+        onKeydown: triggerKeydown,
         ref: refSelection,
       };
       return (

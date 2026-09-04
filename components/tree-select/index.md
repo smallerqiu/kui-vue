@@ -57,7 +57,7 @@
 | maxTagCount       | 多选时最多展示的标签数量，超出部分通过 Tooltip 展示        | number                            | -           |
 | filterable        | 是否支持搜索过滤                                           | boolean                           | false       |
 | loading           | 异步加载状态                                               | boolean                           | false       |
-| clearable         | 是否可以清空选项                                           | boolean                           | false       |
+| clearable         | 是否可以清空选项                                           | boolean                           | true        |
 | bordered          | 是否显示边框                                               | boolean                           | true        |
 | showArrow         | 是否显示下拉按钮                                           | boolean                           | true        |
 | arrowIcon         | 自定义下拉箭头图标                                         | IconType[]                        | -           |
