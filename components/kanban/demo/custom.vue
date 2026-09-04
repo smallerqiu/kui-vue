@@ -1,7 +1,10 @@
 <template>
   <Kanban :columns="columns" :data="tasks" :draggable="false">
     <template #columnTitle="{ column, items }">
-      <Space><Badge :color="column.color" />{{ column.title }} ({{ items.length }})</Space>
+      <Space>
+        <Badge :color="column.color" />
+        {{ column.title }} ({{ items.length }})
+      </Space>
     </template>
     <template #item="{ item }">
       <Card size="small">
@@ -10,7 +13,9 @@
       </Card>
     </template>
     <template #empty><Empty description="当前没有任务" /></template>
-    <template #footer="{ column }"><Button block>添加到 {{ column.title }}</Button></template>
+    <template #footer="{ column }">
+      <Button block>添加到 {{ column.title }}</Button>
+    </template>
   </Kanban>
 </template>
 <script setup lang="ts">
@@ -25,4 +30,9 @@ const tasks = [
   { id: 3, status: "doing", title: "开发看板", owner: "Alex" },
 ];
 </script>
-<style scoped>p { margin: 8px 0 0; color: var(--kui-color-text-description); }</style>
+<style scoped>
+p {
+  margin: 8px 0 0;
+  color: var(--kui-color-text-description);
+}
+</style>

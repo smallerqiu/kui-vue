@@ -7,7 +7,6 @@ import {
   type StyleValue,
 } from "vue";
 import Empty from "../empty";
-import type { ThemeType } from "../const/types";
 
 export interface KanbanColumnData {
   key: string | number;
@@ -23,6 +22,7 @@ export interface KanbanMoveEvent {
   from: string | number;
   to: string | number;
 }
+const toRenderKey = (value: unknown) => `${typeof value}:${String(value)}`;
 
 const kanbanProps = {
   columns: { type: Array as PropType<KanbanColumnData[]>, default: () => [] },
@@ -30,13 +30,11 @@ const kanbanProps = {
   rowKey: { type: String, default: "id" },
   statusKey: { type: String, default: "status" },
   draggable: { type: Boolean, default: true },
-  emptyText: { type: String, default: "暂无数据" },
+  emptyText: String,
   minColumnWidth: { type: [Number, String], default: 250 },
-  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  theme: { type: String as PropType<"fill" | "outline">, default: "fill" },
   onMove: Function as PropType<(event: KanbanMoveEvent) => void>,
-  onItemClick: Function as PropType<
-    (item: KanbanItemData, column: KanbanColumnData) => void
-  >,
+  onItemClick: Function as PropType<(item: KanbanItemData, column: KanbanColumnData) => void>,
 };
 export type KanbanProps = ExtractPropTypes<typeof kanbanProps>;
 
@@ -47,23 +45,41 @@ const Kanban = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const draggingKey = ref<unknown>();
     const dragOverKey = ref<string | number>();
-    const grouped = computed(() =>
-      Object.fromEntries(
-        props.columns.map((column) => [
-          column.key,
-          props.data.filter((item) => item[props.statusKey] === column.key),
-        ])
-      )
-    );
+    const grouped = computed(() => {
+      const groups = new Map<string | number, KanbanItemData[]>();
+      props.columns.forEach((column) => groups.set(column.key, []));
+      props.data.forEach((item) => {
+        const status = item[props.statusKey];
+        if (typeof status !== "string" && typeof status !== "number") return;
+        groups.get(status)?.push(item);
+      });
+      return groups;
+    });
     const clear = () => {
       draggingKey.value = undefined;
       dragOverKey.value = undefined;
     };
+    const move = (item: KanbanItemData | undefined, column: KanbanColumnData) => {
+      if (!item || item[props.statusKey] === column.key) return;
+      const from = item[props.statusKey];
+      if (typeof from !== "string" && typeof from !== "number") return;
+      emit("move", { item, from, to: column.key } satisfies KanbanMoveEvent);
+    };
     const drop = (column: KanbanColumnData) => {
-      const item = props.data.find((entry) => entry[props.rowKey] === draggingKey.value);
-      if (item && item[props.statusKey] !== column.key)
-        emit("move", { item, from: item[props.statusKey], to: column.key } as KanbanMoveEvent);
+      move(
+        props.data.find((entry) => entry[props.rowKey] === draggingKey.value),
+        column,
+      );
       clear();
+    };
+    const moveByKeyboard = (event: KeyboardEvent, item: KanbanItemData, columnIndex: number) => {
+      if (!props.draggable || !event.altKey) return;
+      const step = event.key === "ArrowLeft" ? -1 : event.key === "ArrowRight" ? 1 : 0;
+      if (!step) return;
+      const target = props.columns[columnIndex + step];
+      if (!target) return;
+      event.preventDefault();
+      move(item, target);
     };
     return () => {
       const width =
@@ -84,9 +100,10 @@ const Kanban = defineComponent({
           ]}
         >
           {props.columns.map((column) => {
-            const items = grouped.value[column.key] || [];
+            const items = grouped.value.get(column.key) || [];
             return (
               <section
+                key={toRenderKey(column.key)}
                 class={[
                   "k-kanban-column",
                   { "k-kanban-column-drag-over": dragOverKey.value === column.key },
@@ -94,10 +111,18 @@ const Kanban = defineComponent({
                 onDragover={(event) => {
                   if (!props.draggable) return;
                   event.preventDefault();
+                  if (event.dataTransfer) event.dataTransfer.dropEffect = "move";
                   dragOverKey.value = column.key;
                 }}
-                onDragleave={() => (dragOverKey.value = undefined)}
-                onDrop={() => drop(column)}
+                onDragleave={(event) => {
+                  if (!event.currentTarget.contains(event.relatedTarget as Node | null))
+                    dragOverKey.value = undefined;
+                }}
+                onDrop={(event) => {
+                  event.preventDefault();
+                  drop(column);
+                }}
+                aria-label={column.title}
               >
                 <header class="k-kanban-column-header">
                   {slots.columnTitle?.({ column, items }) || (
@@ -108,16 +133,37 @@ const Kanban = defineComponent({
                     </>
                   )}
                 </header>
-                <div class="k-kanban-column-content">
+                <div class="k-kanban-column-content" role="list">
                   {items.map((item, index) => (
                     <div
-                      class="k-kanban-item"
+                      key={toRenderKey(item[props.rowKey])}
+                      class={[
+                        "k-kanban-item",
+                        { "k-kanban-item-dragging": draggingKey.value === item[props.rowKey] },
+                      ]}
                       draggable={props.draggable}
-                      onDragstart={() => (draggingKey.value = item[props.rowKey])}
+                      tabindex={props.draggable || props.onItemClick ? 0 : undefined}
+                      role="listitem"
+                      aria-keyshortcuts={
+                        props.draggable ? "Alt+ArrowLeft Alt+ArrowRight" : undefined
+                      }
+                      onDragstart={(event) => {
+                        draggingKey.value = item[props.rowKey];
+                        event.dataTransfer?.setData("text/plain", String(item[props.rowKey]));
+                        if (event.dataTransfer) event.dataTransfer.effectAllowed = "move";
+                      }}
                       onDragend={clear}
                       onClick={() => emit("itemClick", item, column)}
+                      onKeydown={(event) => {
+                        moveByKeyboard(event, item, props.columns.indexOf(column));
+                        if (props.onItemClick && (event.key === "Enter" || event.key === " ")) {
+                          event.preventDefault();
+                          emit("itemClick", item, column);
+                        }
+                      }}
                     >
-                      {slots.item?.({ item, column, index })}
+                      {slots.item?.({ item, column, index }) ||
+                        String(item.title ?? item[props.rowKey] ?? "")}
                     </div>
                   ))}
                   {!items.length &&

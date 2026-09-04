@@ -33,3 +33,17 @@ A set of rotating/carousel areas.
 | delay      | The time interval for auto-switching, in milliseconds                          | number  | 3000    |
 | height     | The height of the slide                                                        | number  | 256(px) |
 | dots       | Whether to show the dots at the bottom of the gallery                          | boolean | true    |
+
+## Events
+
+| Event  | Description                           | Parameters      |
+| ------ | ------------------------------------- | --------------- |
+| change | Emitted when the active slide changes | (index: number) |
+
+## Expose
+
+| Method | Description               | Parameters      |
+| ------ | ------------------------- | --------------- |
+| next   | Go to the next slide      | -               |
+| prev   | Go to the previous slide  | -               |
+| goTo   | Go to the specified slide | (index: number) |

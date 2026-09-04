@@ -36,7 +36,7 @@
     left: 0;
     padding: 0;
 
-    li {
+    > button {
       display: inline-block;
       background: var(--kui-color-control-thumb);
       width: 16px;
@@ -59,7 +59,7 @@
   }
 
   .k-carousel-dots-radius {
-    li {
+    > button {
       width: 8px;
       height: 8px;
       border-radius: 50%;
@@ -94,6 +94,11 @@
     &:hover {
       opacity: 0.5;
     }
+
+    &:disabled {
+      cursor: default;
+      opacity: 0.1;
+    }
   }
 
   .k-carousel-arrow-right {
@@ -104,7 +109,7 @@
 
 .k-carousel-vertical {
   .k-carousel-item {
-    float: auto;
+    float: none;
     width: 100%;
     height: auto;
   }
@@ -118,7 +123,7 @@
     width: 17px;
     left: auto;
 
-    li {
+    > button {
       width: 3px;
       height: 16px;
       margin: 5px 0;
@@ -133,7 +138,7 @@
   }
 
   .k-carousel-dots-radius {
-    li {
+    > button {
       width: 8px;
       height: 8px;
       border-radius: 50%;

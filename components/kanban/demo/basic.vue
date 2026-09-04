@@ -1,8 +1,8 @@
 <template>
   <Kanban :columns="columns" :data="tasks" @move="move">
-    <template #item="{ item }"
-      ><Card size="small" bordered>{{ item.title }}</Card></template
-    >
+    <template #item="{ item }">
+      <Card size="small" bordered>{{ item.title }}</Card>
+    </template>
   </Kanban>
 </template>
 <script setup lang="ts">

@@ -49,6 +49,16 @@ describe("Kanban", () => {
       from: "todo",
       to: "done",
     });
+
+    await wrapper.find(".k-kanban-item").trigger("keydown", {
+      key: "ArrowRight",
+      altKey: true,
+    });
+    expect(wrapper.emitted("move")?.at(-1)?.[0]).toMatchObject({
+      item: data[0],
+      from: "todo",
+      to: "done",
+    });
   });
 
   it("applies fill and outline themes", async () => {
@@ -56,6 +66,34 @@ describe("Kanban", () => {
     expect(wrapper.classes()).toContain("k-kanban-fill");
     await wrapper.setProps({ theme: "outline" });
     expect(wrapper.classes()).toContain("k-kanban-outline");
+  });
+
+  it("uses the global locale for empty columns", () => {
+    const wrapper = mount({
+      components: { ConfigProvider, Kanban },
+      setup: () => ({ en, columns: [{ key: "todo", title: "Todo" }] }),
+      template: `<ConfigProvider :locale="en"><Kanban :columns="columns" /></ConfigProvider>`,
+    });
+    expect(wrapper.find(".k-empty-description").text()).toBe("No Data");
+  });
+
+  it("keeps numeric and string column keys distinct", () => {
+    const wrapper = mount(Kanban, {
+      props: {
+        columns: [
+          { key: 1, title: "Number" },
+          { key: "1", title: "String" },
+        ],
+        data: [
+          { id: 1, status: 1, title: "Numeric task" },
+          { id: 2, status: "1", title: "String task" },
+        ],
+      },
+    });
+    const columns = wrapper.findAll(".k-kanban-column");
+    expect(columns[0].text()).toContain("Numeric task");
+    expect(columns[0].text()).not.toContain("String task");
+    expect(columns[1].text()).toContain("String task");
   });
 });
 

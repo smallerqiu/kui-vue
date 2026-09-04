@@ -69,6 +69,13 @@
 .k-kanban-item:active {
   cursor: grabbing;
 }
+.k-kanban-item:focus-visible {
+  outline: 2px solid var(--kui-color-primary);
+  outline-offset: 2px;
+}
+.k-kanban-item-dragging {
+  opacity: 0.5;
+}
 .k-kanban-column-footer {
   padding-top: 10px;
 }

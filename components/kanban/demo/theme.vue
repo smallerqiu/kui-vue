@@ -9,10 +9,9 @@
   </Space>
 </template>
 <script setup lang="ts">
-import type { ThemeType } from "kui-vue";
 import { ref } from "vue";
 
-const theme = ref<ThemeType>("fill");
+const theme = ref<"fill" | "outline">("fill");
 const themes = [
   { label: "Fill", value: "fill" },
   { label: "Outline", value: "outline" },
