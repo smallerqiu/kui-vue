@@ -30,6 +30,8 @@ A monthly calendar for dates and events.
 
 Calendar and DatePicker do not share internal state, but both read the same `ConfigProvider locale`. DatePicker selects dates or times; Calendar presents a month and its events, so they can be used together.
 
+When a date cell is focused, use the arrow keys to move, `Home` or `End` to move within the current week, and `Enter` or Space to select. Selecting a date from an adjacent month also changes the displayed month.
+
 ### CalendarEventData
 
 | Field | Description                       | Type             | Required |

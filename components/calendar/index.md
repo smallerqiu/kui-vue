@@ -30,6 +30,8 @@
 
 Calendar 与 DatePicker 不共享内部状态，但会读取同一个 `ConfigProvider locale`。DatePicker 负责选择日期或时间，Calendar 负责按月展示日期与日程，二者可以组合使用。
 
+日期单元格获得焦点后，可使用方向键移动焦点，使用 `Home`、`End` 移至当前周首尾，并用 `Enter` 或空格选择日期。选择相邻月份的日期时会同时切换展示月份。
+
 ### CalendarEventData
 
 | 字段  | 说明                        | 类型             | 必填 |

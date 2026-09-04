@@ -3,10 +3,13 @@
     <template #extra><Tag color="blue">Team calendar</Tag></template>
     <template #event="{ event }">
       <button class="custom-event" type="button">
-        <i :style="{ background: event.color }"></i>{{ event.title }}
+        <i :style="{ background: event.color }"></i>
+        {{ event.title }}
       </button>
     </template>
-    <template #more="{ count }"><span class="more">还有 {{ count }} 项</span></template>
+    <template #more="{ count }">
+      <span class="more">还有 {{ count }} 项</span>
+    </template>
   </Calendar>
 </template>
 <script setup lang="ts">
@@ -21,7 +24,21 @@ const events: CalendarEventData[] = [
 ];
 </script>
 <style scoped>
-.custom-event { display: flex; width: 100%; gap: 6px; align-items: center; border: 0; background: transparent; color: inherit; }
-.custom-event i { width: 6px; height: 6px; border-radius: 50%; }
-.more { color: var(--kui-color-primary); }
+.custom-event {
+  display: flex;
+  width: 100%;
+  gap: 6px;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+.custom-event i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.more {
+  color: var(--kui-color-primary);
+}
 </style>
