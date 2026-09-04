@@ -1,11 +1,11 @@
-import { defineComponent, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
 import Card from "../card";
-import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
+import type { BooleanType, ShapeType, SizeType } from "../const/types";
 
 const listPanelProps = {
-  summary: [String, Number] as PropType<string | number>,
-  bordered: { type: Boolean as BooleanType, default: false },
-  theme: { type: String as PropType<ThemeType>, default: "outline" },
+  summary: [String, Number, Object, Array] as PropType<VNodeChild>,
+  bordered: { type: Boolean as BooleanType, default: true },
+  theme: { type: String as PropType<"fill" | "outline" | "plain">, default: "outline" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
   size: { type: String as PropType<SizeType>, default: "medium" },
   selectedCount: { type: Number, default: 0 },
@@ -20,12 +20,13 @@ const ListPanel = defineComponent({
     return () => {
       const { class: customClass, ...restAttrs } = attrs;
       const hasSummary = props.summary != null || Boolean(slots.summary);
-      const hasSelection = props.selectedCount > 0 && Boolean(slots.selection);
+      const hasSelection =
+        Number.isFinite(props.selectedCount) && props.selectedCount > 0 && Boolean(slots.selection);
       const hasToolbar = Boolean(slots.filters || slots.actions || hasSummary || hasSelection);
       return (
         <Card
           {...restAttrs}
-          class={["k-list-panel", customClass]}
+          class={["k-list-panel", { "k-list-panel-borderless": !props.bordered }, customClass]}
           bordered={props.bordered}
           theme={props.theme}
           shape={props.shape}
@@ -34,6 +35,7 @@ const ListPanel = defineComponent({
           {hasToolbar && (
             <div
               class={["k-list-panel-toolbar", { "k-list-panel-toolbar-selection": hasSelection }]}
+              role="toolbar"
             >
               {hasSelection ? (
                 <div class="k-list-panel-selection">
@@ -45,8 +47,8 @@ const ListPanel = defineComponent({
                   {(hasSummary || slots.actions) && (
                     <div class="k-list-panel-toolbar-extra">
                       {hasSummary && (
-                        <div class="k-list-panel-summary">
-                          {slots.summary?.() || String(props.summary ?? "")}
+                        <div class="k-list-panel-summary" aria-live="polite">
+                          {slots.summary?.() || props.summary}
                         </div>
                       )}
                       {slots.actions?.()}

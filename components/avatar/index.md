@@ -6,7 +6,7 @@
 
 [基本](./demo/basic.vue)
 
-- 头像有三种尺寸，两种形状可选。
+- 头像支持预设及自定义尺寸，并提供三种形状。
 
 [类型](./demo/types.vue)
 
@@ -22,14 +22,14 @@
 
 ## API
 
-| 属性    | 说明                                                 | 类型                                      | 默认值  |
-| ------- | ---------------------------------------------------- | ----------------------------------------- | ------- |
-| icon    | 设置头像图标，也可覆盖图片加载失败时默认的 User 图标 | IconType                                  | -       |
-| shape   | 指定头像形状                                         | 'circle' \| 'square'                      | circle  |
-| size    | 设置头像大小                                         | 'large' \| 'small' \| 'default' \| number | default |
-| src     | 图片资源地址                                         | string                                    | -       |
-| alt     | 图片无法显示时的替代文本                             | string                                    | -       |
-| onError | 图片加载失败回调；返回 `false` 可阻止切换回退内容    | (event: Event) => boolean                 | -       |
+| 属性    | 说明                                                 | 类型                                  | 默认值  |
+| ------- | ---------------------------------------------------- | ------------------------------------- | ------- |
+| icon    | 设置头像图标，也可覆盖图片加载失败时默认的 User 图标 | IconType                              | -       |
+| shape   | 指定头像形状                                         | `circle \| square \| round`           | circle  |
+| size    | 设置头像大小                                         | `large \| small \| default` \| number | default |
+| src     | 图片资源地址                                         | string                                | -       |
+| alt     | 图片无法显示时的替代文本                             | string                                | -       |
+| onError | 图片加载失败回调；返回 `false` 可阻止切换回退内容    | (event: Event) => boolean             | -       |
 
 ## AvatarGroup API
 
@@ -38,4 +38,4 @@
 | maxCount | 最多展示多少个头像                           | number                                    | -       |
 | size     | 统一子头像尺寸，并按尺寸自动调整头像重叠距离 | 'large' \| 'small' \| 'default' \| number | default |
 | spacing  | 子头像的重叠距离，`0` 表示不重叠             | number                                    | 自动    |
-| shape    | 统一子头像形状                               | 'circle' \| 'square' \| 'round'           | circle  |
+| shape    | 统一子头像形状                               | `circle \| square \| round`               | circle  |

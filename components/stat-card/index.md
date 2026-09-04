@@ -28,35 +28,37 @@
 
 | 属性           | 说明                      | 类型                  | 默认值    |
 | -------------- | ------------------------- | --------------------- | --------- |
-| title          | 卡片标题                  | string                | -         |
+| title          | 卡片标题                  | VNodeChild            | -         |
 | items          | 展示的数据                | StatNumberItem[]      | []        |
 | precision      | 数值精度                  | number                | 0         |
 | statNumberType | 数值变化类型              | 'rollup' \| 'countup' | 'countup' |
 | separator      | 分隔符                    | string                | -         |
 | reverse        | 数值/数值描述是否反相排列 | boolean               | false     |
 | bordered       | 是否显示边框              | boolean               | false     |
+| size           | 卡片尺寸                  | SizeType              | medium    |
 
 ### items Options
 
-| 属性            | 说明                         | 类型                                            | 默认值  |
-| --------------- | ---------------------------- | ----------------------------------------------- | ------- |
-| value           | 数值                         | number                                          | -       |
-| desc            | 数值描述                     | string                                          | []      |
-| trend           | 趋势或补充信息               | VNodeChild                                      | -       |
-| trendStatus     | 趋势状态                     | 'default' \| 'success' \| 'danger' \| 'warning' | default |
-| prefix          | 数值的前置内容               | string                                          | -       |
-| suffix          | 数值的后置内容               | string                                          | -       |
-| precision       | 数值精度                     | number                                          | 0       |
-| separator       | 分隔符                       | string                                          | -       |
-| duration        | 数值动态展示时间(秒)         | number                                          | 1.2     |
-| autoAnimate     | 当目标可见时触发动画         | boolean                                         | true    |
-| autoAnimateOnce | 自动动画触发器仅运行一次动画 | boolean                                         | true    |
+| 属性            | 说明                           | 类型                                            | 默认值  |
+| --------------- | ------------------------------ | ----------------------------------------------- | ------- |
+| key             | 数据唯一标识，用于保持动画状态 | string \| number                                | -       |
+| value           | 数值                           | number                                          | -       |
+| desc            | 数值描述                       | VNodeChild                                      | -       |
+| trend           | 趋势或补充信息                 | VNodeChild                                      | -       |
+| trendStatus     | 趋势状态                       | 'default' \| 'success' \| 'danger' \| 'warning' | default |
+| prefix          | 数值的前置内容                 | string \| VNode                                 | -       |
+| suffix          | 数值的后置内容                 | string \| VNode                                 | -       |
+| precision       | 数值精度                       | number                                          | 0       |
+| separator       | 分隔符                         | string                                          | -       |
+| duration        | 数值动态展示时间(秒)           | number                                          | 1.2     |
+| autoAnimate     | 当目标可见时触发动画           | boolean                                         | true    |
+| autoAnimateOnce | 自动动画触发器仅运行一次动画   | boolean                                         | true    |
 
 ## StatNumber API
 
 | 属性            | 说明                         | 类型                  | 默认值    |
 | --------------- | ---------------------------- | --------------------- | --------- |
-| modelValue      | 数值(v-model)                | number                | -         |
+| modelValue      | 数值                         | number                | 0         |
 | duration        | 数值动态展示时间(秒)         | number                | 1.2       |
 | prefix          | 数值的前置内容               | string                | -         |
 | suffix          | 数值的后置内容               | string                | -         |
@@ -68,7 +70,15 @@
 
 ### 通用外观
 
-| 属性  | 说明     | 类型      | 默认值  |
-| ----- | -------- | --------- | ------- |
-| theme | 外观主题 | ThemeType | default |
-| shape | 卡片形状 | ShapeType | round   |
+| 属性  | 说明     | 类型                       | 默认值 |
+| ----- | -------- | -------------------------- | ------ |
+| theme | 外观主题 | `fill \| outline \| plain` | fill   |
+| shape | 卡片形状 | ShapeType                  | round  |
+
+## Slots
+
+| 名称   | 说明                   | 作用域参数        |
+| ------ | ---------------------- | ----------------- |
+| title  | 自定义卡片标题         | -                 |
+| prefix | 所有数值的默认前置内容 | `{ item, index }` |
+| suffix | 所有数值的默认后置内容 | `{ item, index }` |

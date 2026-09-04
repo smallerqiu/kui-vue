@@ -1,5 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { describe, expect, it } from "vitest";
+import { h } from "vue";
 import ListPanel from "../components/list-panel";
 
 describe("ListPanel", () => {
@@ -24,6 +25,15 @@ describe("ListPanel", () => {
   it("does not render an empty toolbar", () => {
     const wrapper = mount(ListPanel, { slots: { default: "Results" } });
     expect(wrapper.find(".k-list-panel-toolbar").exists()).toBe(false);
+  });
+
+  it("supports VNode summaries and an explicit borderless panel", () => {
+    const wrapper = mount(ListPanel, {
+      props: { summary: h("strong", "12 records"), bordered: false },
+    });
+    expect(wrapper.find(".k-list-panel-summary strong").text()).toBe("12 records");
+    expect(wrapper.classes()).toContain("k-list-panel-borderless");
+    expect(wrapper.find('[role="toolbar"]').exists()).toBe(true);
   });
 
   it("does not treat a null summary as toolbar content", () => {

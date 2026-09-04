@@ -7,13 +7,12 @@ import CountUp from "./countup";
 const statNumberProps = {
   modelValue: {
     type: [Number],
-    required: true,
     default: 0,
   },
   separator: String,
   duration: {
     type: Number,
-    default: 1,
+    default: 1.2,
   },
   precision: { type: Number, default: 0 },
   type: {
@@ -33,8 +32,12 @@ const StatNumber = defineComponent({
   props: statNumberProps,
   setup(props, { slots }) {
     return () => {
-      const prefixNode = props.prefix || getChildren(slots.prefix?.());
-      const suffixNode = props.suffix || getChildren(slots.suffix?.());
+      const prefixNode = props.prefix ?? getChildren(slots.prefix?.());
+      const suffixNode = props.suffix ?? getChildren(slots.suffix?.());
+      const hasContent = (value: unknown) =>
+        Array.isArray(value)
+          ? value.length > 0
+          : value !== undefined && value !== null && value !== "";
       const items = {
         modelValue: props.modelValue,
         separator: props.separator,
@@ -47,9 +50,9 @@ const StatNumber = defineComponent({
 
       return (
         <div class="k-stat-number">
-          {prefixNode?.length > 0 && <span class="k-stat-number-prefix">{prefixNode}</span>}
+          {hasContent(prefixNode) && <span class="k-stat-number-prefix">{prefixNode}</span>}
           <CountUp {...items} />
-          {suffixNode?.length > 0 && <span class="k-stat-number-suffix">{suffixNode}</span>}
+          {hasContent(suffixNode) && <span class="k-stat-number-suffix">{suffixNode}</span>}
         </div>
       );
     };

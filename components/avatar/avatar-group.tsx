@@ -55,7 +55,7 @@ const AvatarGroup = defineComponent({
         childrenToShow.push(
           <Avatar key="__avatar_group_rest__" shape={props.shape} size={props.size}>
             {`+${restCount}`}
-          </Avatar>
+          </Avatar>,
         );
       }
 

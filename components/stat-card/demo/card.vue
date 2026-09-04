@@ -4,6 +4,7 @@
       <Checkbox v-model="showTitle">Show Title</Checkbox>
       <Checkbox v-model="bordered">Show border</Checkbox>
       <Checkbox v-model="reverse">Reverse</Checkbox>
+      <RadioGroup v-model="size" type="button" theme="card" :options="sizes" />
     </Space>
     <Grid :cols="{ xs: 1, sm: 2, md: 3 }" :xGap="16" :yGap="16">
       <GridItem>
@@ -12,6 +13,7 @@
           :reverse="reverse"
           :items="items"
           :bordered="bordered"
+          :size="size"
         />
       </GridItem>
       <GridItem>
@@ -21,6 +23,7 @@
           :items="items1"
           :bordered="bordered"
           :reverse="reverse"
+          :size="size"
         />
       </GridItem>
       <GridItem :span="{ xs: 1, sm: 2, md: 1 }">
@@ -30,6 +33,7 @@
           :title="showTitle ? 'Media data' : undefined"
           :items="items2"
           :bordered="bordered"
+          :size="size"
         />
       </GridItem>
     </Grid>
@@ -37,11 +41,13 @@
 </template>
 <script setup lang="ts">
 import { Heart, Star } from "kui-icons";
-import { Icon, type StatNumberItem } from "kui-vue";
+import { Icon, type SizeType, type StatNumberItem } from "kui-vue";
 import { h, ref } from "vue";
 const showTitle = ref(true);
 const reverse = ref(false);
 const bordered = ref(false);
+const size = ref<SizeType>("medium");
+const sizes: SizeType[] = ["small", "medium", "large"];
 const items = [
   { value: 5872, desc: "Number of orders" },
   { value: 9873672, desc: "Total Order Amount", prefix: "￥" },

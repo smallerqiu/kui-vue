@@ -22,14 +22,14 @@ Provides a consistent layout for filters, result summaries, list content and pag
 
 ## API
 
-| Property      | Description                                       | Type             | Default |
-| ------------- | ------------------------------------------------- | ---------------- | ------- |
-| summary       | Result summary                                    | string \| number | -       |
-| bordered      | Show border                                       | boolean          | false   |
-| theme         | Panel theme                                       | ThemeType        | outline |
-| shape         | Panel shape                                       | ShapeType        | round   |
-| size          | Panel size                                        | SizeType         | medium  |
-| selectedCount | Current selection count used to show bulk actions | number           | 0       |
+| Property      | Description                                       | Type                           | Default |
+| ------------- | ------------------------------------------------- | ------------------------------ | ------- |
+| summary       | Result summary                                    | string \| number \| VNodeChild | -       |
+| bordered      | Show border                                       | boolean                        | true    |
+| theme         | Panel theme                                       | `fill \| outline \| plain`     | outline |
+| shape         | Panel shape                                       | ShapeType                      | round   |
+| size          | Panel size                                        | SizeType                       | medium  |
+| selectedCount | Current selection count used to show bulk actions | number                         | 0       |
 
 ## Slots
 

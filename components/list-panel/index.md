@@ -22,14 +22,14 @@
 
 ## API
 
-| 属性          | 说明                             | 类型             | 默认值  |
-| ------------- | -------------------------------- | ---------------- | ------- |
-| summary       | 结果摘要                         | string \| number | -       |
-| bordered      | 是否显示边框                     | boolean          | false   |
-| theme         | 面板外观                         | ThemeType        | outline |
-| shape         | 面板形状                         | ShapeType        | round   |
-| size          | 面板尺寸                         | SizeType         | medium  |
-| selectedCount | 当前选中数量，用于切换批量操作栏 | number           | 0       |
+| 属性          | 说明                             | 类型                           | 默认值  |
+| ------------- | -------------------------------- | ------------------------------ | ------- |
+| summary       | 结果摘要                         | string \| number \| VNodeChild | -       |
+| bordered      | 是否显示边框                     | boolean                        | true    |
+| theme         | 面板外观                         | `fill \| outline \| plain`     | outline |
+| shape         | 面板形状                         | ShapeType                      | round   |
+| size          | 面板尺寸                         | SizeType                       | medium  |
+| selectedCount | 当前选中数量，用于切换批量操作栏 | number                         | 0       |
 
 ## Slots
 

@@ -43,6 +43,14 @@ export class Odometer implements CountUpPlugin {
     this.cell_digits = null;
   }
 
+  public destroy(): void {
+    this.cell_digits?.forEach((cell) => {
+      clearTimeout(cell.lastTimer);
+      if (cell.timerClean) clearTimeout(cell.timerClean);
+    });
+    this.cell_digits = null;
+  }
+
   public render(elem: HTMLElement | HTMLInputElement, formatted: string): void {
     // render DOM here
     const options = this.options;
@@ -172,7 +180,7 @@ export class Odometer implements CountUpPlugin {
               });
             });
           },
-          ((options.duration || 0.8) + (options.duration || 0.25)) * 1000 + 2500
+          ((options.duration || 0.8) + (options.duration || 0.25)) * 1000 + 2500,
         ); // 2.5 seconds after last update
       }
     }

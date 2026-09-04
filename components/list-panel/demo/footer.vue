@@ -6,6 +6,9 @@
 </template>
 <script setup lang="ts">
 import type { Column } from "kui-vue";
-const columns: Column[] = [{ title: "Name", key: "name" }, { title: "Email", key: "email" }];
+const columns: Column[] = [
+  { title: "Name", key: "name" },
+  { title: "Email", key: "email" },
+];
 const data = [{ key: 1, name: "Alex", email: "alex@example.com" }];
 </script>

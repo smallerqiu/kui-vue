@@ -50,6 +50,7 @@ export interface CountUpOptions {
 
 export declare interface CountUpPlugin {
   render(elem: HTMLElement, formatted: string): void;
+  destroy?(): void;
 }
 
 /**
@@ -103,7 +104,7 @@ export class CountUp {
   constructor(
     target: string | HTMLElement | HTMLInputElement,
     endVal?: number | null,
-    options?: CountUpOptions
+    options?: CountUpOptions,
   ) {
     this.options = {
       ...this.defaults,
@@ -119,10 +120,10 @@ export class CountUp {
     this.startVal = this.validateValue(this.options.startVal || 0);
     this.frameVal = this.startVal;
     this.endVal = this.validateValue(endVal as number);
-    this.options.decimalPlaces = Math.max(
-      0,
-      typeof this.options.decimalPlaces === "number" ? this.options.decimalPlaces : 0
-    );
+    this.options.decimalPlaces =
+      typeof this.options.decimalPlaces === "number" && Number.isFinite(this.options.decimalPlaces)
+        ? Math.min(100, Math.max(0, Math.floor(this.options.decimalPlaces || 0)))
+        : 0;
     this.resetDuration();
     this.options.separator = String(this.options.separator);
     this.useEasing = this.options.useEasing || false;
@@ -171,7 +172,7 @@ export class CountUp {
           }
         }
       },
-      { threshold: 0 }
+      { threshold: 0 },
     );
     if (this.el) this.observer.observe(this.el);
   }
@@ -189,6 +190,7 @@ export class CountUp {
     cancelAnimationFrame(this.rAF);
     this.paused = true;
     this.unobserve();
+    this.options.plugin?.destroy?.();
     this.options.onCompleteCallback = null;
     this.options.onStartCallback = null;
   }
@@ -282,6 +284,12 @@ export class CountUp {
       this.resetDuration();
     }
     this.finalEndVal = null;
+    if (this.duration <= 0) {
+      this.frameVal = this.endVal;
+      this.paused = true;
+      this.printValue(this.endVal);
+      return;
+    }
     this.determineDirectionAndSmartEasing();
     this.rAF = requestAnimationFrame(this.count);
   }
@@ -305,7 +313,7 @@ export class CountUp {
           progress,
           this.startVal,
           this.endVal - this.startVal,
-          this.duration
+          this.duration,
         );
       }
     } else {
@@ -355,7 +363,7 @@ export class CountUp {
 
   /** Return true if the value is a finite number. */
   ensureNumber(n: unknown): n is number {
-    return typeof n === "number" && !isNaN(n);
+    return typeof n === "number" && Number.isFinite(n);
   }
 
   /** Validate and convert a value to a number, setting an error if invalid. */
@@ -372,7 +380,8 @@ export class CountUp {
   /** Reset startTime, duration, and remaining to their initial values. */
   private resetDuration(): void {
     this.startTime = null;
-    this.duration = Number(this.options.duration) * 1000;
+    const duration = Number(this.options.duration);
+    this.duration = (Number.isFinite(duration) ? Math.max(0, duration) : 0) * 1000;
     this.remaining = this.duration;
   }
 

@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, ref, watch, type PropType } from "vue";
+import { defineComponent, onBeforeUnmount, onMounted, ref, watch, type PropType } from "vue";
 import { CountUp, type CountUpOptions } from "./utils/countup";
 import { Odometer } from "./utils/odometer";
 const CountUpNumber = defineComponent({
@@ -23,39 +23,50 @@ const CountUpNumber = defineComponent({
   },
   setup(props) {
     const el = ref<HTMLElement>();
-    let countUp: CountUp;
-    onMounted(() => {
+    let countUp: CountUp | undefined;
+    const createCountUp = () => {
       if (el.value) {
+        countUp?.onDestroy();
+        const observeVisibility = props.autoAnimate && typeof IntersectionObserver !== "undefined";
+        const duration = Number.isFinite(props.duration) ? Math.max(0, props.duration) : 0;
+        const precision = Number.isFinite(props.precision)
+          ? Math.min(100, Math.max(0, Math.floor(props.precision)))
+          : 0;
         const options: CountUpOptions = {
-          duration: props.duration,
+          duration,
           separator: props.separator,
-          decimalPlaces: props.precision,
-          autoAnimate: props.autoAnimate,
+          decimalPlaces: precision,
+          autoAnimate: observeVisibility,
           autoAnimateOnce: props.autoAnimateOnce,
         };
         if (props.type === "rollup") {
-          options.plugin = new Odometer({ duration: props.duration, lastDigitDelay: 0 });
+          options.plugin = new Odometer({ duration, lastDigitDelay: 0 });
         }
         countUp = new CountUp(el.value, props.modelValue, options);
-        countUp.start();
+        if (!observeVisibility) countUp.start();
       }
-    });
+    };
+    onMounted(createCountUp);
     watch(
       () => props.modelValue,
       (newVal) => {
         if (countUp) {
           countUp.update(newVal);
         }
-      }
+      },
     );
     watch(
-      () => props.precision,
-      (newVal) => {
-        if (countUp) {
-          countUp.options.decimalPlaces = newVal;
-        }
-      }
+      () => [
+        props.duration,
+        props.separator,
+        props.precision,
+        props.type,
+        props.autoAnimate,
+        props.autoAnimateOnce,
+      ],
+      createCountUp,
     );
+    onBeforeUnmount(() => countUp?.onDestroy());
 
     return () => <span class="k-stat-countup-number" ref={el}></span>;
   },

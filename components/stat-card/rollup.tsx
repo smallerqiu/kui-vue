@@ -22,7 +22,7 @@ export default defineComponent({
       return finalChars.map((char) =>
         /\d/.test(char)
           ? String(Number(char) > 5 ? Number(char) - 5 : char === "5" ? 8 : Number(char) + 5)
-          : char
+          : char,
       );
     };
 
@@ -30,9 +30,7 @@ export default defineComponent({
 
     onMounted(async () => {
       await nextTick();
-      console.log("mounted", displayChars.value);
       displayChars.value = format(props.modelValue);
-      console.log("mounted", displayChars.value);
     });
     watch(
       () => props.modelValue,
@@ -41,7 +39,7 @@ export default defineComponent({
         await nextTick();
         displayChars.value = format(newVal);
       },
-      { immediate: false }
+      { immediate: false },
     );
 
     const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];

@@ -1,19 +1,20 @@
-import type { ExtractPropTypes, PropType } from "vue";
+import type { ExtractPropTypes, PropType, VNodeChild } from "vue";
 import { defineComponent } from "vue";
-import type { BooleanType, ShapeType, ThemeType } from "../const/types";
+import type { BooleanType, ShapeType, SizeType } from "../const/types";
 import StatNumber from "./stat-number";
 import type { StatNumberItem } from "./types";
 
 const statCardProps = {
-  title: String,
+  title: [String, Number, Boolean, Object, Array] as PropType<VNodeChild>,
   precision: { type: Number, default: 0 },
   items: { type: Array as PropType<StatNumberItem[]>, default: () => [] },
   separator: String,
   statNumberType: String as PropType<"rollup" | "countup">,
   reverse: Boolean as BooleanType,
   bordered: { type: Boolean as BooleanType, default: false },
-  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  theme: { type: String as PropType<"fill" | "outline" | "plain">, default: "fill" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
+  size: { type: String as PropType<SizeType>, default: "medium" },
 };
 
 export type StatCardProps = ExtractPropTypes<typeof statCardProps>;
@@ -34,22 +35,25 @@ const StatCard = defineComponent({
               "k-stat-card-bordered": props.bordered,
               [`k-stat-card-${props.theme}`]: props.theme,
               [`k-stat-card-${props.shape}`]: props.shape,
+              [`k-stat-card-${props.size}`]: props.size,
             },
           ]}
         >
-          {props.title && <div class="k-stat-card-title">{props.title}</div>}
+          {(props.title != null || slots.title) && (
+            <div class="k-stat-card-title">{slots.title?.() || props.title}</div>
+          )}
           <div class="k-stat-card-items">
             {(props.items || []).map((item, index) => {
               return (
                 <div
-                  key={index}
+                  key={`${typeof (item.key ?? index)}:${String(item.key ?? index)}`}
                   class={["k-stat-card-item", { "k-stat-card-item-reverse": props.reverse }]}
                 >
                   <div class="k-stat-card-item-value">
                     <StatNumber
                       v-slots={{
-                        prefix: () => item.prefix || slots.prefix,
-                        suffix: () => item.suffix || slots.suffix,
+                        prefix: () => item.prefix ?? slots.prefix?.({ item, index }),
+                        suffix: () => item.suffix ?? slots.suffix?.({ item, index }),
                       }}
                       modelValue={item.value}
                       autoAnimate={item.autoAnimate}
@@ -60,8 +64,8 @@ const StatCard = defineComponent({
                       type={props.statNumberType}
                     />
                   </div>
-                  <div class="k-stat-card-item-desc">{item.desc}</div>
-                  {item.trend !== undefined && (
+                  {item.desc != null && <div class="k-stat-card-item-desc">{item.desc}</div>}
+                  {item.trend != null && item.trend !== false && (
                     <div
                       class={[
                         "k-stat-card-item-trend",
