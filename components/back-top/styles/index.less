@@ -17,6 +17,11 @@
   overflow: hidden;
   border-radius: var(--kui-border-radius);
 
+  &:focus-visible {
+    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+    outline-offset: 2px;
+  }
+
   &-content {
     background-color: var(--kui-color-bg-component);
     height: 40px;
