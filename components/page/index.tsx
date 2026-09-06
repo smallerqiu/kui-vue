@@ -39,9 +39,10 @@ export type PageProps = ExtractPropTypes<typeof pageProps>;
 
 const Page = defineComponent({
   name: "Page",
+  inheritAttrs: false,
   props: pageProps,
   emits: ["update:page", "update:pageSize", "change"],
-  setup(props, { emit }) {
+  setup(props, { emit, attrs }) {
     const nextPageGroup = ref(false);
     const prevPageGroup = ref(false);
     const normalizePageSize = (value: number) => (Number.isFinite(value) && value > 0 ? value : 10);
@@ -58,6 +59,12 @@ const Page = defineComponent({
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
+    const sizeOptions = computed(() =>
+      props.sizeData.map((size) => ({
+        value: size,
+        label: `${size}${locale.value?.k.page.pageSize}`,
+      })),
+    );
     watch(
       () => props.pageSize,
       (v) => {
@@ -131,7 +138,12 @@ const Page = defineComponent({
         const prop = {
           class: ["k-pager-item", { "k-pager-item-active": page == p }],
           key: i,
-          onClick: (e: MouseEvent) => toPage(e, p),
+          role: "button",
+          tabindex: props.disabled ? -1 : 0,
+          "aria-current": page === p ? "page" : undefined,
+          "aria-label": `Page ${p}`,
+          onClick: () => toPage(p),
+          onKeydown: (event: KeyboardEvent) => activateByKeyboard(event, () => toPage(p)),
         };
         return (
           <li {...prop}>
@@ -145,7 +157,12 @@ const Page = defineComponent({
           class: "k-pager-item k-pager-more",
           onMouseenter: () => (prevPageGroup.value = true),
           onMouseleave: () => (prevPageGroup.value = false),
-          onClick: (e: MouseEvent) => toPage(e, defaultPage.value - 5),
+          role: "button",
+          tabindex: props.disabled ? -1 : 0,
+          "aria-label": "Previous 5 pages",
+          onClick: () => toPage(defaultPage.value - 5),
+          onKeydown: (event: KeyboardEvent) =>
+            activateByKeyboard(event, () => toPage(defaultPage.value - 5)),
         };
         const moreNode = (
           <li {...p}>
@@ -159,7 +176,12 @@ const Page = defineComponent({
           class: "k-pager-item k-pager-more",
           onMouseenter: () => (nextPageGroup.value = true),
           onMouseleave: () => (nextPageGroup.value = false),
-          onClick: (e: MouseEvent) => toPage(e, defaultPage.value + 5),
+          role: "button",
+          tabindex: props.disabled ? -1 : 0,
+          "aria-label": "Next 5 pages",
+          onClick: () => toPage(defaultPage.value + 5),
+          onKeydown: (event: KeyboardEvent) =>
+            activateByKeyboard(event, () => toPage(defaultPage.value + 5)),
         };
         const moreNode = (
           <li {...p}>
@@ -186,8 +208,7 @@ const Page = defineComponent({
         emit("change", defaultPage.value, defaultPageSize.value);
       }
     };
-    const toPage = (e: MouseEvent, page: number) => {
-      e.preventDefault();
+    const toPage = (page: number) => {
       if (props.disabled) return;
       if (page == defaultPage.value) return;
       if (page <= 1) {
@@ -201,6 +222,11 @@ const Page = defineComponent({
       defaultPage.value = page;
       emit("update:page", page);
       emit("change", defaultPage.value, defaultPageSize.value);
+    };
+    const activateByKeyboard = (event: KeyboardEvent, action: () => void) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      action();
     };
     const changeSize = (value: string | number | (string | number)[]) => {
       if (Array.isArray(value)) return;
@@ -218,7 +244,12 @@ const Page = defineComponent({
         return (
           <li
             class={["k-pager-item", { "k-pager-item-active": defaultPage.value == 1 }]}
-            onClick={(e) => toPage(e, 1)}
+            role="button"
+            tabindex={props.disabled ? -1 : 0}
+            aria-current={defaultPage.value === 1 ? "page" : undefined}
+            aria-label="Page 1"
+            onClick={() => toPage(1)}
+            onKeydown={(event) => activateByKeyboard(event, () => toPage(1))}
           >
             <span>1</span>
           </li>
@@ -232,7 +263,12 @@ const Page = defineComponent({
         return (
           <li
             class={["k-pager-item", { "k-pager-item-active": defaultPage.value == pCount }]}
-            onClick={(e) => toPage(e, pCount)}
+            role="button"
+            tabindex={props.disabled ? -1 : 0}
+            aria-current={defaultPage.value === pCount ? "page" : undefined}
+            aria-label={`Page ${pCount}`}
+            onClick={() => toPage(pCount)}
+            onKeydown={(event) => activateByKeyboard(event, () => toPage(pCount))}
           >
             <span>{pCount}</span>
           </li>
@@ -246,13 +282,20 @@ const Page = defineComponent({
         size: props.size,
         clearable: false,
         theme: props.theme,
-        options: props.sizeData.map((s) => {
-          return { value: s, label: `${s}${locale.value?.k.page.pageSize}` };
-        }),
+        options: sizeOptions.value,
         disabled: props.disabled,
         onChange: changeSize,
       };
-      return props.showSizer ? <div class="k-page-sizer">{<Select {...prop} />}</div> : null;
+      return props.showSizer ? (
+        <div class="k-page-sizer">
+          <Select {...prop} />
+          <span class="k-page-sizer-measure" aria-hidden="true">
+            {sizeOptions.value.map((option, index) => (
+              <span key={index}>{option.label}</span>
+            ))}
+          </span>
+        </div>
+      ) : null;
     };
 
     const changePageByElevator = (page?: number) => {
@@ -291,6 +334,7 @@ const Page = defineComponent({
           `k-page-${props.shape}`,
           {
             ["k-page-sm"]: props.size == "small",
+            ["k-page-lg"]: props.size == "large",
             "k-page-fill": props.theme == "fill",
             "k-page-outline": props.theme == "outline",
             "k-page-disabled": props.disabled,
@@ -303,7 +347,12 @@ const Page = defineComponent({
               "k-pager-item k-pager-prev",
               { "k-pager-item-disabled": defaultPage.value == 1 },
             ]}
+            role="button"
+            tabindex={props.disabled || defaultPage.value === 1 ? -1 : 0}
+            aria-disabled={props.disabled || defaultPage.value === 1}
+            aria-label="Previous page"
             onClick={prePage}
+            onKeydown={(event) => activateByKeyboard(event, prePage)}
           >
             <Icon type={ChevronUp} />
           </li>
@@ -314,7 +363,12 @@ const Page = defineComponent({
               "k-pager-item k-pager-next",
               { "k-pager-item-disabled": defaultPage.value == pageCount.value },
             ]}
+            role="button"
+            tabindex={props.disabled || defaultPage.value === pageCount.value ? -1 : 0}
+            aria-disabled={props.disabled || defaultPage.value === pageCount.value}
+            aria-label="Next page"
             onClick={nextPage}
+            onKeydown={(event) => activateByKeyboard(event, nextPage)}
           >
             <Icon type={ChevronUp} />
           </li>
@@ -355,7 +409,7 @@ const Page = defineComponent({
         </li>
       );
       return (
-        <div class={classes}>
+        <nav {...attrs} class={[classes, attrs.class]} aria-label="Pagination">
           {totalNode}
           <ul class="k-pager">
             {props.simple
@@ -363,7 +417,7 @@ const Page = defineComponent({
               : [preNode, firstNode, pagerNode, lastNode, nextNode]}
           </ul>
           {!props.simple && [sizeNode, elevatorNode]}
-        </div>
+        </nav>
       );
     };
   },

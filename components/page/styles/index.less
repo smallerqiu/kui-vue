@@ -34,6 +34,16 @@
     position: relative;
     vertical-align: middle;
 
+    &:not(.k-pager-item-disabled) {
+      cursor: pointer;
+    }
+
+    &:focus-visible {
+      z-index: 1;
+      outline: 2px solid var(--kui-color-outline);
+      outline-offset: 1px;
+    }
+
     span {
       margin: 0 5px;
     }
@@ -76,7 +86,35 @@
   }
 
   .k-page-sizer {
-    display: inline-block;
+    --k-page-sizer-min-width: 72px;
+
+    display: inline-grid;
+    min-width: var(--k-page-sizer-min-width);
+    vertical-align: middle;
+
+    .k-select,
+    .k-page-sizer-measure {
+      grid-area: 1 / 1;
+    }
+
+    .k-select {
+      width: 100%;
+      min-width: 0;
+    }
+
+    .k-page-sizer-measure {
+      display: grid;
+      box-sizing: border-box;
+      padding: 0 32px 0 8px;
+      font-size: var(--kui-font-size);
+      visibility: hidden;
+      white-space: nowrap;
+      pointer-events: none;
+
+      > span {
+        grid-area: 1 / 1;
+      }
+    }
   }
 
   .k-page-number {
@@ -175,11 +213,43 @@
   }
 
   .k-page-sizer {
-    width: 86px;
+    --k-page-sizer-min-width: 64px;
+
+    .k-page-sizer-measure {
+      font-size: var(--kui-font-size-sm);
+    }
   }
 
   .k-page-number {
     font-size: 12px;
+  }
+}
+
+.k-page-lg {
+  .k-page-options {
+    font-size: var(--kui-font-size-lg);
+
+    .k-page-options-elevator {
+      font-size: var(--kui-font-size-lg);
+    }
+  }
+
+  .k-pager .k-pager-item {
+    min-width: var(--kui-control-height-lg);
+    height: var(--kui-control-height-lg);
+    font-size: var(--kui-font-size-lg);
+  }
+
+  .k-page-number {
+    font-size: var(--kui-font-size-lg);
+  }
+
+  .k-page-sizer {
+    --k-page-sizer-min-width: 80px;
+
+    .k-page-sizer-measure {
+      font-size: var(--kui-font-size-lg);
+    }
   }
 }
 

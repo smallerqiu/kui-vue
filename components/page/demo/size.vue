@@ -1,8 +1,8 @@
 <template>
   <Space vertical>
-    <Page :page="page" :total="50" size="small" />
-    <Page :page="page" :total="50" size="small" show-sizer />
-    <Page :page="page" :total="50" size="small" show-elevator show-sizer />
+    <Page v-model:page="page" :total="50" />
+    <Page v-model:page="page" :total="50" size="small" show-sizer />
+    <Page v-model:page="page" :total="50" size="large" show-elevator show-sizer />
   </Space>
 </template>
 <script setup lang="ts">
