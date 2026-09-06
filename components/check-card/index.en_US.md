@@ -27,21 +27,21 @@ Present richer choices with a title, description, and optional symbol.
 
 ## CheckCard API
 
-| Property      | Description                            | Type                           | Default |
-| ------------- | -------------------------------------- | ------------------------------ | ------- |
-| modelValue    | Standalone state, supports `v-model`   | boolean                        | false   |
-| value         | Option value inside a group            | string \| number               | -       |
-| title         | Title                                  | string \| number               | -       |
-| description   | Description                            | string                         | -       |
-| symbol        | Unchecked or shared symbol icon        | IconType[]                     | -       |
-| checkedSymbol | Symbol icon used when checked          | IconType[]                     | -       |
-| showIndicator | Show the top-right selection indicator | boolean                        | true    |
-| disabled      | Disable the card                       | boolean                        | false   |
-| readonly      | Read-only; remains focusable but cannot be selected | boolean              | false   |
-| theme         | Appearance theme                       | 'outline' \| 'fill'            | outline |
-| size          | Size                                   | 'small' \| 'medium' \| 'large' | medium  |
-| shape         | Shape                                  | ShapeType                      | round   |
-| change        | Emitted when selection state changes   | (event) => void                | -       |
+| Property      | Description                                         | Type                           | Default |
+| ------------- | --------------------------------------------------- | ------------------------------ | ------- |
+| modelValue    | Standalone state, supports `v-model`                | boolean                        | false   |
+| value         | Option value inside a group                         | string \| number               | -       |
+| title         | Title                                               | string \| number               | -       |
+| description   | Description                                         | string                         | -       |
+| symbol        | Unchecked or shared symbol icon                     | IconType[]                     | -       |
+| checkedSymbol | Symbol icon used when checked                       | IconType[]                     | -       |
+| showIndicator | Show the top-right selection indicator              | boolean                        | true    |
+| disabled      | Disable the card                                    | boolean                        | false   |
+| readonly      | Read-only; remains focusable but cannot be selected | boolean                        | false   |
+| theme         | Appearance theme                                    | 'outline' \| 'fill'            | outline |
+| size          | Size                                                | 'small' \| 'medium' \| 'large' | medium  |
+| shape         | Shape                                               | ShapeType                      | round   |
+| change        | Emitted when selection state changes                | (event) => void                | -       |
 
 ## CheckCardGroup API
 
@@ -56,6 +56,8 @@ Present richer choices with a title, description, and optional symbol.
 | size       | Card size                               | 'small' \| 'medium' \| 'large' | medium     |
 | shape      | Card shape                              | ShapeType                      | round      |
 | change     | Emitted when the selected value changes | (value) => void                | -          |
+
+Each item in `options` also supports `disabled` and `readonly`.
 
 ## CheckCard Slots
 

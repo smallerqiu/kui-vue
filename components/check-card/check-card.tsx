@@ -7,6 +7,7 @@ import {
   onUnmounted,
   onUpdated,
   ref,
+  watch,
   type ExtractPropTypes,
   type PropType,
 } from "vue";
@@ -41,9 +42,16 @@ const CheckCard = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const group = inject(checkCardGroupKey, null);
     const rootRef = ref<HTMLElement>();
+    const localChecked = ref(props.modelValue);
+    watch(
+      () => props.modelValue,
+      (value) => {
+        localChecked.value = value;
+      },
+    );
     const grouped = computed(() => Boolean(group && props.value !== undefined));
     const checked = computed(() =>
-      grouped.value ? group?.modelValue.value === props.value : props.modelValue
+      grouped.value ? group?.modelValue.value === props.value : localChecked.value,
     );
     const disabled = computed(() => Boolean(props.disabled || group?.disabled.value));
     const readonly = computed(() => Boolean(props.readonly || group?.readonly.value));
@@ -53,7 +61,10 @@ const CheckCard = defineComponent({
 
     const register = () => {
       if (!group || props.value === undefined || !rootRef.value) return;
-      group.register(props.value, { element: rootRef.value, disabled: disabled.value });
+      group.register(props.value, {
+        element: rootRef.value,
+        disabled: disabled.value || readonly.value,
+      });
     };
     onMounted(register);
     onUpdated(register);
@@ -70,6 +81,7 @@ const CheckCard = defineComponent({
         return;
       }
       const next = !checked.value;
+      localChecked.value = next;
       emit("update:modelValue", next);
       emit("change", { checked: next, value: props.value } satisfies CheckCardChangeEvent);
     };
@@ -85,7 +97,7 @@ const CheckCard = defineComponent({
         event.preventDefault();
         group?.selectRelative(
           props.value,
-          event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : -1
+          event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : -1,
         );
       }
     };

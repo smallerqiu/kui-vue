@@ -18,11 +18,11 @@
     background var(--kui-motion-duration) var(--kui-motion-easing),
     box-shadow var(--kui-motion-duration) var(--kui-motion-easing);
 
-  &:not(.is-disabled):hover {
+  &:not(.is-disabled):not(.is-readonly):hover {
     border-color: var(--kui-color-primary);
   }
 
-  &:not(.is-disabled):focus-visible {
+  &:not(.is-disabled):not(.is-readonly):focus-visible {
     border-color: var(--kui-color-primary);
     outline-color: var(--kui-color-outline);
   }
@@ -37,6 +37,10 @@
     background: var(--kui-control-bg-disabled);
     color: var(--kui-color-text-disabled);
     cursor: not-allowed;
+  }
+
+  &.is-readonly {
+    cursor: default;
   }
 }
 

@@ -1,4 +1,12 @@
-import { computed, defineComponent, provide, type ExtractPropTypes, type PropType } from "vue";
+import {
+  computed,
+  defineComponent,
+  provide,
+  ref,
+  watch,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
 import type { BooleanType, DirectionType, ShapeType, SizeType } from "../const/types";
 import CheckCard from "./check-card";
 import { checkCardGroupKey, type CheckCardRegistryItem } from "./context";
@@ -24,8 +32,16 @@ const CheckCardGroup = defineComponent({
   emits: ["update:modelValue", "change"],
   setup(props, { emit, slots }) {
     const registry = new Map<CheckCardValue, CheckCardRegistryItem>();
+    const localValue = ref(props.modelValue);
+    watch(
+      () => props.modelValue,
+      (value) => {
+        localValue.value = value;
+      },
+    );
     const select = (value: CheckCardValue) => {
-      if (props.disabled || props.readonly || props.modelValue === value) return;
+      if (props.disabled || props.readonly || localValue.value === value) return;
+      localValue.value = value;
       emit("update:modelValue", value);
       emit("change", value);
     };
@@ -41,7 +57,7 @@ const CheckCardGroup = defineComponent({
       next[1].element.focus();
     };
     provide(checkCardGroupKey, {
-      modelValue: computed(() => props.modelValue),
+      modelValue: computed(() => localValue.value),
       disabled: computed(() => Boolean(props.disabled)),
       readonly: computed(() => Boolean(props.readonly)),
       theme: computed(() => props.theme),
@@ -62,6 +78,7 @@ const CheckCardGroup = defineComponent({
           props.readonly && "is-readonly",
         ]}
         role="radiogroup"
+        aria-disabled={props.disabled || undefined}
         aria-readonly={props.readonly || undefined}
       >
         {props.options?.map((option) => (
@@ -71,6 +88,7 @@ const CheckCardGroup = defineComponent({
             title={option.title}
             description={option.description}
             disabled={option.disabled}
+            readonly={option.readonly}
             symbol={option.symbol}
             checkedSymbol={option.checkedSymbol}
           />

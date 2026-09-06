@@ -9,6 +9,7 @@ export interface CheckCardOption {
   title: string;
   description?: string;
   disabled?: boolean;
+  readonly?: boolean;
   symbol?: IconType[];
   checkedSymbol?: IconType[];
 }

@@ -57,6 +57,8 @@
 | shape      | 卡片形状                   | ShapeType                      | round      |
 | change     | 当前选择变化时触发         | (value) => void                | -          |
 
+`options` 中每一项还支持 `disabled` 和 `readonly`。
+
 ## CheckCard Slots
 
 | 名称        | 说明             | 参数        |
