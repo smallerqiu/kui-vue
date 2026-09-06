@@ -1,5 +1,9 @@
 # Steps
 
+Displays progress through a task or workflow.
+
+## Examples
+
 [Basic](./demo/basic.vue?show=vertical)
 
 - Supports data items, clickable steps, and vertical layout.
@@ -26,13 +30,13 @@
 
 ## Steps API
 
-| Property  | Description    | Type                       | Default    |
-| --------- | -------------- | -------------------------- | ---------- |
-| current   | Current step   | number                     | 0          |
-| direction | Direction      | 'horizontal' \| 'vertical' | horizontal |
-| status    | Current status | 'process' \| 'error'       | process    |
-| items     | Step data      | StepItem[]                 | -          |
-| onChange  | Step click     | function                   | -          |
+| Property  | Description    | Type                       | Default      |
+| --------- | -------------- | -------------------------- | ------------ |
+| current   | Current step   | number                     | 0            |
+| direction | Direction      | `horizontal` \| `vertical` | `horizontal` |
+| status    | Current status | `process` \| `error`       | `process`    |
+| items     | Step data      | StepItem[]                 | -            |
+| onChange  | Step click     | (current: number) => void  | -            |
 
 ## Step API
 
