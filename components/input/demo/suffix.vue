@@ -6,8 +6,7 @@
       :maxlength="8"
       :prefix="h(Icon, { type: Search })"
       :suffix="h(Tag, { theme: 'outline' }, { default: () => '⌘K' })"
-    >
-    </Input>
+    ></Input>
     <Input placeholder="Please input the captcha" :maxlength="8">
       <template #suffix>
         <Button :disabled="time < 60" @click="sendCode">

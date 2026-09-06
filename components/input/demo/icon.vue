@@ -15,7 +15,7 @@
         :icon="Lock"
         :visiblePasswordIcon="visiblePasswordIcon"
       />
-      <Button @click="visiblePasswordIcon = !visiblePasswordIcon"> Toggle </Button>
+      <Button @click="visiblePasswordIcon = !visiblePasswordIcon">Toggle</Button>
     </Space>
 
     <Input placeholder="Please input" :clearable="false" @search="search" />

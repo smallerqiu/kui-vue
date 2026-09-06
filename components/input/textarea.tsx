@@ -1,7 +1,7 @@
 import {
+  computed,
   defineComponent,
   ref,
-  watch,
   type DefineComponent,
   type ExtractPropTypes,
   type PropType,
@@ -29,19 +29,17 @@ const TextArea = defineComponent({
   name: "TextArea",
   props: textAreaProps,
   setup(props, { attrs, emit }) {
-    const currentValue = ref(props.modelValue ?? props.value);
-
-    watch(
-      () => props.modelValue,
-      (v) => {
-        currentValue.value = v;
-      }
+    const innerValue = ref(props.value);
+    const currentValue = computed(() =>
+      props.modelValue !== undefined ? props.modelValue : innerValue.value,
     );
 
     const handleChange = (e: Event) => {
       const { value } = e.target as HTMLInputElement;
+      if (props.modelValue === undefined) innerValue.value = value;
       emit("update:modelValue", value);
       emit("change", value);
+      emit("input", e);
     };
 
     return () => {
@@ -59,6 +57,7 @@ const TextArea = defineComponent({
             "k-textarea-circle": shape === "circle",
             "k-textarea-lg": size === "large",
           },
+          attrs.class,
         ],
         disabled,
         readonly,

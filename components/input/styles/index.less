@@ -206,7 +206,8 @@
   font-size: 15px;
   color: var(--kui-color-icon);
   z-index: 3;
-  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
   &:hover {
     color: var(--kui-color-icon-hover);
   }
@@ -214,10 +215,23 @@
     color: var(--kui-color-icon-active);
   }
 }
+
+:is(
+  .k-input-icon[role="button"],
+  .k-input-search-icon,
+  .k-input-password-icon,
+  .k-input-clearable
+):focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+  outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+  outline-offset: 1px;
+}
 &.k-input-has-clear {
   &:hover {
     .k-input-clearable {
-      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
     }
   }
 }

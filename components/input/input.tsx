@@ -1,11 +1,11 @@
 import { CircleX, Eye, EyeOff, Search } from "kui-icons";
 import {
+  computed,
   defineComponent,
   inject,
   nextTick,
   provide,
   ref,
-  watch,
   type CSSProperties,
   type DefineComponent,
   type ExtractPropTypes,
@@ -29,7 +29,7 @@ const inputProps = {
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
   type: {
-    type: String as PropType<"text" | "password" | "hidden">,
+    type: String as PropType<InputHTMLAttributes["type"]>,
     default: "text",
   },
   icon: [Array] as PropType<IconType[]>,
@@ -56,20 +56,16 @@ const Input = defineComponent({
   name: "Input",
   props: inputProps,
   setup(props, { slots, emit, attrs, expose }) {
-    const currentValue = ref(props.modelValue ?? props.value);
+    const innerValue = ref(props.value);
+    const currentValue = computed(() =>
+      props.modelValue !== undefined ? props.modelValue : innerValue.value,
+    );
     const focused = ref(false);
     const showPassword = ref(false);
     const inputRef = ref<HTMLInputElement | HTMLTextAreaElement>();
     const parentSize = inject<SizeType | undefined>("size", undefined);
 
     provide("size", props.size || parentSize);
-
-    watch(
-      () => props.modelValue,
-      (v) => {
-        currentValue.value = v;
-      }
-    );
 
     const focus = () => inputRef.value?.focus();
     const blur = () => inputRef.value?.blur();
@@ -78,7 +74,7 @@ const Input = defineComponent({
 
     const clear = () => {
       if (props.disabled || props.readonly) return;
-      currentValue.value = "";
+      if (props.modelValue === undefined) innerValue.value = "";
       emit("update:modelValue", "");
       emit("clear");
       emit("change", "");
@@ -97,7 +93,16 @@ const Input = defineComponent({
           <Icon
             class="k-input-password-icon"
             type={!showPassword.value ? Eye : EyeOff}
+            role="button"
+            tabindex={props.disabled || props.readonly ? undefined : 0}
+            aria-label={showPassword.value ? "Hide password" : "Show password"}
             onClick={togglePassword}
+            onKeydown={(event: KeyboardEvent) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                togglePassword();
+              }
+            }}
           />
         );
       } else if (props?.onSearch) {
@@ -105,7 +110,16 @@ const Input = defineComponent({
           <Icon
             type={Search}
             class="k-input-search-icon"
-            onClick={() => !props.readonly && emit("search", currentValue.value)}
+            role="button"
+            tabindex={props.disabled || props.readonly ? undefined : 0}
+            aria-label="Search"
+            onClick={() => !props.disabled && !props.readonly && emit("search", currentValue.value)}
+            onKeydown={(event: KeyboardEvent) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                if (!props.disabled && !props.readonly) emit("search", currentValue.value);
+              }
+            }}
           />
         );
       }
@@ -134,6 +148,7 @@ const Input = defineComponent({
       const slotSuffix = getChildren(slots.suffix?.());
       const slotPrefix = getChildren(slots.prefix?.());
       const slotControls = getChildren(slots.controls?.());
+      const grouped = slotPrefix.length > 0 || slotSuffix.length > 0;
 
       const multiple =
         (icon ||
@@ -163,7 +178,7 @@ const Input = defineComponent({
         showPassword: showPassword.value,
         onInput: (e: Event) => {
           const v = (e.target as HTMLInputElement).value;
-          currentValue.value = v;
+          if (props.modelValue === undefined) innerValue.value = v;
           emit("update:modelValue", v);
           emit("change", v);
         },
@@ -175,6 +190,8 @@ const Input = defineComponent({
           focused.value = false;
           emit("blur", e);
         },
+        class: multiple ? undefined : attrs.class,
+        style: multiple ? undefined : attrs.style,
       };
 
       if (typeof size === "string") {
@@ -185,10 +202,7 @@ const Input = defineComponent({
       if (!multiple) return textInput;
 
       const clearableShow =
-        clearable &&
-        !isEmpty(currentValue.value) &&
-        type !== "password" &&
-        !readonly;
+        clearable && !isEmpty(currentValue.value) && type !== "password" && !disabled && !readonly;
 
       const rootProps = {
         class: [
@@ -204,13 +218,13 @@ const Input = defineComponent({
             [`k-${inputType}-circle`]: shape === "circle",
             [`k-${inputType}-square`]: shape === "square",
           },
-          attrs.class,
+          !grouped && attrs.class,
         ],
         "data-multiple": "",
-        style: attrs.style as CSSProperties,
+        style: !grouped ? (attrs.style as CSSProperties) : undefined,
       };
 
-      if (slotPrefix.length > 0 || slotSuffix.length > 0) {
+      if (grouped) {
         const preChildren = slotPrefix.length ? (
           <div class="k-input-group-prefix">{slotPrefix}</div>
         ) : null;
@@ -220,8 +234,16 @@ const Input = defineComponent({
             <Icon
               type={icon}
               class={`k-${inputType}-icon`}
+              role={props.onIconClick ? "button" : undefined}
+              tabindex={props.onIconClick && !disabled && !readonly ? 0 : undefined}
               onClick={(e) => !disabled && !readonly && emit("iconClick", e)}
-            />
+              onKeydown={(event: KeyboardEvent) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  (event.currentTarget as HTMLElement).click();
+                }
+              }}
+            />,
           );
         if (prefix) innerChildren.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
         innerChildren.push(textInput);
@@ -233,16 +255,33 @@ const Input = defineComponent({
                 `k-${inputType}-clearable`,
                 { [`k-${inputType}-clearable-hidden`]: !clearableShow },
               ]}
+              role="button"
+              tabindex={clearableShow ? 0 : undefined}
+              aria-label="Clear"
               onClick={clear}
-            />
+              onKeydown={(event: KeyboardEvent) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  clear();
+                }
+              }}
+            />,
           );
         }
+        const suffixNode = getSuffix([]);
+        if (suffixNode) innerChildren.push(suffixNode);
         if (slotControls.length) innerChildren.push(slotControls);
-        const sufChildren =
-          slotSuffix.length > 0 ? <div class="k-input-group-suffix">{slotSuffix}</div> : null;
+        const sufChildren = slotSuffix.length ? (
+          <div class="k-input-group-suffix">{slotSuffix}</div>
+        ) : null;
 
         return (
-          <InputGroup size={size} theme={theme}>
+          <InputGroup
+            size={size}
+            theme={theme}
+            class={attrs.class}
+            style={attrs.style as CSSProperties}
+          >
             {preChildren}
             <div {...rootProps}>{innerChildren}</div>
             {sufChildren}
@@ -256,8 +295,16 @@ const Input = defineComponent({
             <Icon
               type={icon}
               class={`k-${inputType}-icon`}
-              onClick={() => !disabled && emit("icon-click")}
-            />
+              role={props.onIconClick ? "button" : undefined}
+              tabindex={props.onIconClick && !disabled && !readonly ? 0 : undefined}
+              onClick={(event) => !disabled && !readonly && emit("iconClick", event)}
+              onKeydown={(event: KeyboardEvent) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  (event.currentTarget as HTMLElement).click();
+                }
+              }}
+            />,
           );
         if (prefix) children.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
         children.push(textInput);
@@ -269,8 +316,17 @@ const Input = defineComponent({
                 `k-${inputType}-clearable`,
                 { [`k-${inputType}-clearable-hidden`]: !clearableShow },
               ]}
+              role="button"
+              tabindex={clearableShow ? 0 : undefined}
+              aria-label="Clear"
               onClick={clear}
-            />
+              onKeydown={(event: KeyboardEvent) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  clear();
+                }
+              }}
+            />,
           );
         }
         if (suffixNode) children.push(suffixNode);

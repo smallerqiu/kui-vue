@@ -21,7 +21,7 @@ export default defineComponent({
   props: inputBoxProps,
   setup(props, { emit, attrs }) {
     const handleInput = (e: Event) => {
-      emit("update:value", e);
+      emit("input", e);
     };
     const handleFocus = (e: FocusEvent) => {
       emit("focus", e);
@@ -52,7 +52,7 @@ export default defineComponent({
             [`k-${inputType}-circle`]: shape === "circle" && !multiple,
             [`k-${inputType}-square`]: shape === "square" && !multiple,
           },
-          // props.htmlAttrs.class,
+          attrs.class,
         ],
         disabled,
         type,

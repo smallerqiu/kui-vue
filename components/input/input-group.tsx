@@ -23,8 +23,9 @@ export type InputGroupProps = ExtractPropTypes<typeof inputGroupProps>;
 
 const InputGroup = defineComponent({
   name: "InputGroup",
+  inheritAttrs: false,
   props: inputGroupProps,
-  setup(props, { slots }) {
+  setup(props, { slots, attrs }) {
     const parentSize = inject<string | null>("size", null);
     provide("size", props.size || parentSize);
 
@@ -33,7 +34,7 @@ const InputGroup = defineComponent({
       const styles: CSSProperties = {};
 
       const rootProps = {
-        style: styles,
+        style: [attrs.style, styles],
         class: [
           "k-input-group",
           {
@@ -43,6 +44,7 @@ const InputGroup = defineComponent({
             "k-input-group-lg": size === "large",
             "k-input-group-sm": size === "small",
           },
+          attrs.class,
         ],
       };
 
@@ -65,7 +67,7 @@ const InputGroup = defineComponent({
               },
             },
             true,
-            true
+            true,
           );
         });
       }

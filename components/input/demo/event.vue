@@ -10,8 +10,7 @@
       @keydown.enter="events.keydownEnter"
       @blur="events.blur"
       @focus="events.focus"
-    >
-    </Input>
+    ></Input>
     <TextArea
       placeholder="Please input"
       @change="events.change"
