@@ -45,8 +45,10 @@ const InputOTP = defineComponent({
   props: inputOTPProps,
   emits: ["update:modelValue", "change", "complete", "focus", "blur"],
   setup(props, { attrs, emit, expose }) {
-    const inputs = ref<HTMLInputElement[]>([]);
+    const inputs = ref<Array<HTMLInputElement | null>>([]);
     const focusedIndex = ref(-1);
+    const composing = new Set<number>();
+    const otpLength = computed(() => Math.max(0, Math.trunc(props.length)));
 
     const normalize = (value: unknown) => {
       const text = String(value ?? "");
@@ -54,13 +56,14 @@ const InputOTP = defineComponent({
         .filter((char) => (props.type === "number" ? /\d/.test(char) : true))
         .filter((char) => (props.validator ? props.validator(char) : true))
         .join("")
-        .slice(0, Math.max(0, props.length));
+        .slice(0, otpLength.value);
     };
     const currentValue = ref(normalize(props.modelValue));
     const chars = computed(() =>
-      Array.from({ length: Math.max(0, props.length) }, (_, index) =>
-        currentValue.value.charAt(index)
-      )
+      Array.from(
+        { length: otpLength.value },
+        (_, index) => Array.from(currentValue.value)[index] ?? "",
+      ),
     );
 
     const updateValue = (value: string) => {
@@ -69,21 +72,24 @@ const InputOTP = defineComponent({
       currentValue.value = nextValue;
       emit("update:modelValue", nextValue);
       emit("change", nextValue);
-      if (nextValue.length === props.length) emit("complete", nextValue);
+      if (otpLength.value > 0 && Array.from(nextValue).length === otpLength.value)
+        emit("complete", nextValue);
     };
 
     watch(
       () => props.modelValue,
-      (value) => (currentValue.value = normalize(value))
+      (value) => (currentValue.value = normalize(value)),
     );
     watch(
-      () => [props.length, props.type] as const,
-      () => updateValue(currentValue.value)
+      () => [props.length, props.type, props.validator] as const,
+      () => updateValue(currentValue.value),
     );
 
-    const focus = (index = Math.min(currentValue.value.length, props.length - 1)) => {
-      if (props.disabled || props.length <= 0) return;
-      nextTick(() => inputs.value[Math.max(0, Math.min(index, props.length - 1))]?.focus());
+    const focus = (
+      index = Math.min(Array.from(currentValue.value).length, otpLength.value - 1),
+    ) => {
+      if (props.disabled || otpLength.value <= 0) return;
+      nextTick(() => inputs.value[Math.max(0, Math.min(index, otpLength.value - 1))]?.focus());
     };
     const blur = () => inputs.value[focusedIndex.value]?.blur();
     expose({ focus, blur });
@@ -92,17 +98,19 @@ const InputOTP = defineComponent({
       if (props.disabled || props.readonly) return;
       const value = normalize(text);
       if (!value) return;
-      const start = Math.min(index, currentValue.value.length);
-      const source = currentValue.value.split("");
-      value.split("").forEach((char, offset) => {
-        if (start + offset < props.length) source[start + offset] = char;
+      const start = Math.min(index, Array.from(currentValue.value).length);
+      const source = Array.from(currentValue.value);
+      const inserted = Array.from(value);
+      inserted.forEach((char, offset) => {
+        if (start + offset < otpLength.value) source[start + offset] = char;
       });
-      updateValue(source.join("").slice(0, props.length));
-      focus(Math.min(start + value.length, props.length - 1));
+      updateValue(source.slice(0, otpLength.value).join(""));
+      focus(Math.min(start + inserted.length, otpLength.value - 1));
     };
 
     const onInput = (event: Event, index: number) => {
       const target = event.target as HTMLInputElement;
+      if (composing.has(index)) return;
       insert(target.value, index);
       target.value = chars.value[index] || "";
     };
@@ -111,12 +119,15 @@ const InputOTP = defineComponent({
       if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
         event.preventDefault();
         focus(index + (event.key === "ArrowLeft" ? -1 : 1));
+      } else if (event.key === "Home" || event.key === "End") {
+        event.preventDefault();
+        focus(event.key === "Home" ? 0 : otpLength.value - 1);
       } else if (event.key === "Backspace" || event.key === "Delete") {
         if (props.readonly) return;
         event.preventDefault();
         const target =
           event.key === "Backspace" && !chars.value[index] ? Math.max(0, index - 1) : index;
-        const source = currentValue.value.split("");
+        const source = Array.from(currentValue.value);
         source.splice(target, 1);
         updateValue(source.join(""));
         focus(target);
@@ -145,6 +156,7 @@ const InputOTP = defineComponent({
         ]}
         role="group"
         aria-disabled={props.disabled || undefined}
+        aria-readonly={props.readonly || undefined}
       >
         {chars.value.map((char, index) => (
           <Fragment key={index}>
@@ -153,19 +165,25 @@ const InputOTP = defineComponent({
             )}
             <input
               key={index}
-              ref={(el) => el && (inputs.value[index] = el as HTMLInputElement)}
+              ref={(el) => {
+                inputs.value[index] = el as HTMLInputElement | null;
+              }}
               class="k-input-otp-item"
               value={char}
               type={props.mask ? "password" : "text"}
               inputmode={props.type === "number" ? "numeric" : "text"}
               pattern={props.type === "number" ? "[0-9]*" : undefined}
-              maxlength={props.length}
+              maxlength={otpLength.value}
               disabled={props.disabled}
               readonly={props.readonly}
               autocomplete={index === 0 ? "one-time-code" : "off"}
-              aria-label={`${index + 1} / ${props.length}`}
+              aria-label={`${index + 1} / ${otpLength.value}`}
               autofocus={props.autofocus && index === 0}
               onInput={(event) => onInput(event, index)}
+              onCompositionstart={() => composing.add(index)}
+              onCompositionend={() => {
+                composing.delete(index);
+              }}
               onKeydown={(event) => onKeydown(event, index)}
               onPaste={(event) => onPaste(event, index)}
               onFocus={(event) => {

@@ -38,22 +38,22 @@
 
 ## API
 
-| 属性              | 说明                     | 类型                                 | 默认值  |
-| ----------------- | ------------------------ | ------------------------------------ | ------- |
-| modelValue        | 绑定值，可使用 `v-model` | string \| number                     | -       |
-| length            | 验证码位数               | number                               | 6       |
-| type              | 允许输入的字符类型       | 'number' \| 'text'                   | number  |
-| size              | 尺寸                     | 'small' \| 'large'                   | -       |
-| mask              | 是否隐藏输入内容         | boolean                              | false   |
-| disabled          | 是否禁用                 | boolean                              | false   |
-| readonly          | 是否只读                 | boolean                              | false   |
-| autofocus         | 是否自动聚焦第一项       | boolean                              | false   |
-| separator         | OTP 字段之间的分隔符     | VNodeChild                           | -       |
-| validator         | 自定义单个字符验证函数   | (value) => boolean                   | -       |
-| theme             | 主题                     | 'light' \| 'outline' \| 'underlined' | outline |
-| shape             | 外观形状                 | 'square' \| 'circle'                 | -       |
-| complete          | 输入达到指定长度时触发   | (value) => void                      | -       |
-| update:modelValue | 绑定值更新时触发         | (value: string) => void              | -       |
-| change            | 输入值变化时触发         | (value: string) => void              | -       |
-| focus             | 输入框获得焦点时触发     | (event: FocusEvent) => void          | -       |
-| blur              | 输入框失去焦点时触发     | (event: FocusEvent) => void          | -       |
+| 属性              | 说明                       | 类型                                           | 默认值 |
+| ----------------- | -------------------------- | ---------------------------------------------- | ------ |
+| modelValue        | 绑定值，可使用 `v-model`   | string \| number                               | -      |
+| length            | 验证码位数，按非负整数处理 | number                                         | 6      |
+| type              | 允许输入的字符类型         | 'number' \| 'text'                             | number |
+| size              | 尺寸                       | SizeType                                       | -      |
+| mask              | 是否隐藏输入内容           | boolean                                        | false  |
+| disabled          | 是否禁用                   | boolean                                        | false  |
+| readonly          | 是否只读                   | boolean                                        | false  |
+| autofocus         | 是否自动聚焦第一项         | boolean                                        | false  |
+| separator         | OTP 字段之间的分隔符       | VNodeChild                                     | -      |
+| validator         | 自定义单个字符验证函数     | (value: string) => boolean                     | -      |
+| theme             | 主题                       | 'fill' \| 'outline' \| 'underlined' \| 'plain' | fill   |
+| shape             | 外观形状                   | ShapeType                                      | -      |
+| complete          | 输入达到指定长度时触发     | (value) => void                                | -      |
+| update:modelValue | 绑定值更新时触发           | (value: string) => void                        | -      |
+| change            | 输入值变化时触发           | (value: string) => void                        | -      |
+| focus             | 输入框获得焦点时触发       | (event: FocusEvent) => void                    | -      |
+| blur              | 输入框失去焦点时触发       | (event: FocusEvent) => void                    | -      |

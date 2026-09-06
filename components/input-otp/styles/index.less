@@ -11,6 +11,10 @@
     color: var(--kui-color-text-description);
   }
 
+  &:not(.k-input-otp-disabled, .k-input-otp-readonly) .k-input-otp-item:hover {
+    border-color: var(--kui-color-primary);
+  }
+
   .k-input-otp-item {
     width: var(--kui-control-height-lg);
     height: var(--kui-control-height-lg);
@@ -28,9 +32,6 @@
       border-color var(--kui-motion-duration) var(--kui-motion-easing),
       box-shadow var(--kui-motion-duration) var(--kui-motion-easing);
 
-    &:hover {
-      border-color: var(--kui-color-primary);
-    }
     &:focus {
       z-index: 1;
       border-color: var(--kui-color-primary);
@@ -62,7 +63,7 @@
   background-color: transparent;
   box-shadow: none;
   &:focus {
-    outline: none;
+    border-color: var(--kui-color-primary);
   }
 }
 
