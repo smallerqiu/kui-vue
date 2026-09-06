@@ -11,7 +11,10 @@ const checkboxProps = {
     default: false,
   },
   valueType: { type: String as PropType<ValueType>, default: "boolean" },
-  modelValue: { type: [String, Number, Boolean] as PropType<string | number | boolean> },
+  modelValue: {
+    type: [String, Number, Boolean] as PropType<string | number | boolean>,
+    default: undefined,
+  },
   value: { type: [String, Number, Boolean] as PropType<string | number | boolean> },
   label: { type: [String, Number] as PropType<string | number> },
   theme: { type: String as PropType<ThemeType>, default: "fill" },
@@ -32,20 +35,22 @@ const Checkbox = defineComponent({
   name: "Checkbox",
   props: checkboxProps,
   setup(props, { slots, emit }) {
-    const isChecked = ref(props.modelValue || props.checked);
+    const resolveChecked = (value: string | number | boolean | undefined, fallback = false) =>
+      value === undefined ? fallback : value === true || value === 1 || value === "1";
+    const isChecked = ref(resolveChecked(props.modelValue, props.checked));
 
     watch(
       () => props.checked,
       (v) => {
-        isChecked.value = v;
-      }
+        if (props.modelValue === undefined) isChecked.value = Boolean(v);
+      },
     );
 
     watch(
       () => props.modelValue,
       (v) => {
-        isChecked.value = v == 1;
-      }
+        isChecked.value = resolveChecked(v, props.checked);
+      },
     );
 
     const emitValue = (checked: boolean) => {
@@ -54,7 +59,7 @@ const Checkbox = defineComponent({
       emit("change", {
         checked: checked,
         value: props.value,
-        label: props.label || slots.default?.(),
+        label: props.label ?? String(props.value ?? ""),
       } as CheckboxChangeEvent);
       emit("update:modelValue", value);
       emit("update:checked", checked);
@@ -65,15 +70,6 @@ const Checkbox = defineComponent({
       e.stopPropagation();
       const target = e.target as HTMLInputElement;
       emitValue(target.checked);
-    };
-
-    const triggerCheck = (e: KeyboardEvent) => {
-      if (e.code === "Space") {
-        e.preventDefault();
-        e.stopPropagation();
-        if (props.disabled || props.readonly) return;
-        emitValue(!isChecked.value);
-      }
     };
 
     return () => {
@@ -87,28 +83,30 @@ const Checkbox = defineComponent({
             "k-checkbox-disabled": disabled,
             "k-checkbox-readonly": props.readonly,
             "k-checkbox-checked": isChecked.value && !indeterminate,
-            "k-checkbox-indeterminate": indeterminate && !isChecked.value,
+            "k-checkbox-indeterminate": indeterminate,
             "k-checkbox-sm": size === "small",
             "k-checkbox-lg": size === "large",
           },
         ],
-        tabindex: disabled ? undefined : 0,
-        onKeydown: triggerCheck,
         "aria-readonly": props.readonly || undefined,
       };
 
       const inputProps = {
         type: "checkbox",
-        tabindex: -1,
         class: "k-checkbox-input",
         disabled: disabled,
-        readonly: props.readonly,
+        indeterminate,
+        "aria-checked": indeterminate ? "mixed" : isChecked.value,
+        "aria-readonly": props.readonly || undefined,
         checked: !!isChecked.value,
+        onClick: (event: MouseEvent) => {
+          if (props.readonly) event.preventDefault();
+        },
         onChange: onChange,
       };
 
-      const innerNode = isChecked.value ? <Icon type={Check} /> : null;
-      const labelNode = label || slots.default?.();
+      const innerNode = isChecked.value && !indeterminate ? <Icon type={Check} /> : null;
+      const labelNode = label ?? slots.default?.();
 
       return (
         <label {...rootProps}>

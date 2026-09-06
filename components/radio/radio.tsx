@@ -2,8 +2,9 @@ import { defineComponent, type ExtractPropTypes, type PropType, ref, watch } fro
 import type { BooleanType, SizeType, ThemeType } from "../const/types";
 import type { ChangeEvent } from "./types";
 const radioProps = {
-  modelValue: { type: [Boolean, String, Number], default: false },
-  value: { type: [String, Number, Boolean] },
+  modelValue: { type: Boolean, default: undefined },
+  value: { type: [String, Number] },
+  name: String,
   label: { type: String },
   checked: Boolean as BooleanType,
   disabled: Boolean as BooleanType,
@@ -21,20 +22,18 @@ const Radio = defineComponent({
   name: "Radio",
   props: radioProps,
   setup(props, { slots, emit }) {
-    const isChecked = ref(Boolean(props.modelValue || props.checked));
-    // const theme = inject("theme", null);
-    // console.log(props.theme,theme)
+    const isChecked = ref(props.modelValue ?? props.checked ?? false);
     watch(
       () => props.modelValue,
       (v) => {
-        isChecked.value = Boolean(v);
-      }
+        if (v !== undefined) isChecked.value = v;
+      },
     );
     watch(
       () => props.checked,
       (v) => {
-        isChecked.value = Boolean(v);
-      }
+        if (props.modelValue === undefined) isChecked.value = Boolean(v);
+      },
     );
 
     const emitValue = (checked: boolean) => {
@@ -42,7 +41,7 @@ const Radio = defineComponent({
       emit("change", {
         checked: checked,
         value: props.value,
-        label: props.label || slots.default?.(),
+        label: props.label ?? String(props.value ?? ""),
       } as ChangeEvent);
       emit("update:modelValue", checked);
       emit("update:checked", checked);
@@ -54,13 +53,8 @@ const Radio = defineComponent({
       const checked = (e.target as HTMLInputElement).checked;
       emitValue(checked);
     };
-    const triggerCheck = (e: KeyboardEvent) => {
-      if (e.code == "Space") {
-        e.preventDefault();
-        e.stopPropagation();
-        if (props.disabled || props.readonly || isChecked.value) return;
-        emitValue(!isChecked.value);
-      }
+    const onClick = (e: MouseEvent) => {
+      if (props.readonly) e.preventDefault();
     };
     return () => {
       const classes = [
@@ -75,22 +69,18 @@ const Radio = defineComponent({
         },
       ];
 
-      const labelNode = props.label || slots.default?.();
+      const labelNode = props.label ?? slots.default?.();
 
       return (
-        <label
-          class={classes}
-          tabindex={props.disabled ? undefined : 0}
-          aria-readonly={props.readonly || undefined}
-          onKeydown={triggerCheck}
-        >
+        <label class={classes} aria-readonly={props.readonly || undefined}>
           <span class="k-radio-symbol">
             <input
               type="radio"
-              tabindex="-1"
               class="k-radio-input"
+              name={props.name}
               disabled={props.disabled}
-              readonly={props.readonly}
+              aria-readonly={props.readonly || undefined}
+              onClick={onClick}
               onChange={onChange}
               checked={isChecked.value}
             />

@@ -42,10 +42,19 @@
   .k-radio-group-card-seg {
     position: absolute;
     z-index: 0;
-    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    opacity: 0;
     background-color: var(--kui-color-bg);
     border-radius: var(--kui-border-radius);
     pointer-events: none;
+
+    &.is-ready {
+      opacity: 1;
+      transition:
+        width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+        height 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+        left 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+        top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
   }
 }
 .k-radio-group:not(.k-radio-group-vertical) {
@@ -107,7 +116,7 @@
   color: var(--kui-color-text);
   align-items: center;
   outline: none;
-  &:focus {
+  &:focus-within {
     .k-radio-symbol {
       outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
     }
@@ -138,7 +147,7 @@
       transition: all 0.2s ease-in-out;
     }
   }
-  &:hover {
+  &:not(.k-radio-disabled, .k-radio-readonly):hover {
     .k-radio-symbol {
       border-color: var(--kui-color-primary);
     }
@@ -203,6 +212,10 @@
       }
     }
   }
+}
+
+.k-radio-readonly {
+  cursor: default;
 }
 
 .k-radio-lg {
@@ -319,7 +332,7 @@
     &:active {
       outline: 0px solid transparent;
     }
-    &:hover:not(:disabled)::after {
+    &:hover:not(:disabled, [aria-readonly="true"])::after {
       background-color: var(--kui-color-bg);
     }
   }
@@ -328,7 +341,7 @@
   }
 }
 .k-radio-button-changed {
-  .k-btn::after {
+  .k-btn-primary::after {
     opacity: 0;
   }
 }

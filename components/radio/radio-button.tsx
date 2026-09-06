@@ -5,7 +5,7 @@ import type { IconType } from "../icon";
 import type { ChangeEvent } from "./types";
 
 const radioButtonProps = {
-  modelValue: { type: [Boolean], default: false },
+  modelValue: { type: Boolean, default: undefined },
   label: { type: String },
   value: { type: [String, Number] },
   theme: String as PropType<ThemeType>,
@@ -28,22 +28,22 @@ const RadioButton = defineComponent({
   name: "RadioButton",
   props: radioButtonProps,
   setup(props, { slots, emit, attrs }) {
-    const isChecked = ref(props.modelValue || props.checked);
+    const isChecked = ref(props.modelValue ?? props.checked ?? false);
     watch(
       () => props.modelValue,
       (v) => {
-        isChecked.value = v;
-      }
+        if (v !== undefined) isChecked.value = v;
+      },
     );
     watch(
       () => props.checked,
       (v) => {
-        isChecked.value = v;
-      }
+        if (props.modelValue === undefined) isChecked.value = Boolean(v);
+      },
     );
 
-    const labelText = props.label || slots.default?.();
     const handleClick = (e: Event) => {
+      if (e.defaultPrevented) return;
       if (props.disabled || props.readonly || isChecked.value) return;
 
       const checked = !isChecked.value;
@@ -52,24 +52,28 @@ const RadioButton = defineComponent({
       emit("change", {
         checked: checked,
         value: props.value,
-        label: labelText,
+        label: props.label ?? String(props.value ?? ""),
       } as ChangeEvent);
       emit("update:modelValue", checked);
+      emit("update:checked", checked);
       e.preventDefault();
     };
 
     return () => {
+      const labelText = props.label ?? slots.default?.();
       const buttonProps = {
-        // ...props,
+        ...attrs,
         disabled: props.disabled,
         size: props.size,
         icon: props.icon,
         theme: props.theme,
         shape: props.shape,
         "aria-readonly": props.readonly || undefined,
+        "aria-checked": Boolean(isChecked.value),
+        role: "radio",
+        tabindex: isChecked.value ? 0 : -1,
         type: (isChecked.value ? "primary" : "default") as ButtonType,
-        ...attrs,
-        onClick: handleClick,
+        onClick: [attrs.onClick, handleClick].filter(Boolean) as EventListener[],
       };
 
       return <Button {...buttonProps}>{labelText}</Button>;

@@ -1,12 +1,4 @@
-import {
-  computed,
-  defineComponent,
-  ref,
-  watch,
-  type ExtractPropTypes,
-  type PropType,
-  type VNode,
-} from "vue";
+import { cloneVNode, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType, DirectionType, SizeType, ThemeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 import Checkbox from "./checkbox";
@@ -45,50 +37,24 @@ const CheckboxGroup = defineComponent({
       () => props.modelValue,
       (val) => {
         currentValue.value = val;
-      }
+      },
     );
 
-    const onChange = ({ value }: CheckboxChangeEvent) => {
+    const onChange = ({ checked, value }: CheckboxChangeEvent) => {
       if (props.readonly) return;
       if (value === undefined) return;
       const val = [...currentValue.value];
       const index = val.indexOf(value);
 
-      if (index > -1) {
-        val.splice(index, 1);
-      } else {
+      if (checked && index === -1) {
         val.push(value);
+      } else if (!checked && index > -1) {
+        val.splice(index, 1);
       }
+      currentValue.value = val;
       emit("update:modelValue", val);
       emit("change", val);
     };
-
-    const optionsData = computed(() => {
-      const { options } = props;
-      if (options && options.length > 0) {
-        return options;
-      }
-
-      const data: CheckboxOption[] = [];
-      const children = getChildren(slots.default?.());
-
-      children.forEach((child: VNode) => {
-        if (child?.props) {
-          const { label, value, disabled } = child.props as CheckboxOption;
-          if (value === undefined) return;
-          // Try to resolve label from slots if not a prop
-          const childSlots = child.children as { default?: () => VNode[] } | null;
-          const resolvedLabel =
-            label || childSlots?.default?.()?.[0]?.children?.toString() || value;
-          data.push({
-            value,
-            disabled,
-            label: String(resolvedLabel),
-          });
-        }
-      });
-      return data;
-    });
 
     return () => {
       const { direction, disabled, theme, size } = props;
@@ -97,25 +63,43 @@ const CheckboxGroup = defineComponent({
         class: ["k-checkbox-group", { "k-checkbox-group-vertical": direction === "vertical" }],
       };
 
-      const nodes = optionsData.value.map((option) => {
-        if (option.value === undefined) return null;
-        return (
-          <Checkbox
-            key={option.value}
-            label={option.label === undefined ? undefined : String(option.label)}
-            value={option.value}
-            checked={currentValue.value.indexOf(option.value) > -1}
-            disabled={disabled || option.disabled}
-            readonly={props.readonly}
-            theme={theme}
-            size={size}
-            onChange={onChange}
-          />
-        );
-      });
+      const nodes = props.options
+        ? props.options.map((option) => (
+            <Checkbox
+              key={option.value}
+              label={option.label === undefined ? undefined : String(option.label)}
+              value={option.value}
+              checked={currentValue.value.indexOf(option.value) > -1}
+              disabled={disabled || option.disabled}
+              readonly={props.readonly || option.readonly}
+              theme={theme}
+              size={size}
+              onChange={onChange}
+            />
+          ))
+        : getChildren(slots.default?.()).map((child) => {
+            const value = child.props?.value as string | number | boolean | undefined;
+            return cloneVNode(
+              child,
+              {
+                checked: value !== undefined && currentValue.value.includes(value),
+                disabled: disabled || Boolean(child.props?.disabled),
+                readonly: props.readonly || Boolean(child.props?.readonly),
+                theme,
+                size,
+                onChange: [child.props?.onChange, onChange].filter(Boolean),
+              },
+              true,
+            );
+          });
 
       return (
-        <div {...rootProps} aria-readonly={props.readonly || undefined}>
+        <div
+          {...rootProps}
+          role="group"
+          aria-disabled={props.disabled || undefined}
+          aria-readonly={props.readonly || undefined}
+        >
           {nodes}
         </div>
       );

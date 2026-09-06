@@ -6,8 +6,9 @@ export interface CheckboxChangeEvent {
 
 export interface CheckboxOption {
   label?: string;
-  value?: string | number;
+  value: string | number;
   disabled?: boolean;
+  readonly?: boolean;
 }
 
 export type CheckboxValue = string | number | boolean;

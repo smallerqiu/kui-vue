@@ -1,7 +1,7 @@
 <template>
   <Space vertical>
     <Space>
-      <code>Shape : </code>
+      <code>Shape :</code>
       <RadioGroup v-model="shape" size="small" type="button">
         <RadioButton value="round" label="Round" />
         <RadioButton value="circle" label="Circle" />
@@ -19,16 +19,15 @@
     </Space>
     <Space>
       <code>Size :</code>
-      <RadioGroup v-model="size" type="button" size="small" :options="sizes"> </RadioGroup>
+      <RadioGroup v-model="size" type="button" size="small" :options="sizes"></RadioGroup>
     </Space>
     <Space>
       <code>Direction :</code>
-      <RadioGroup v-model="direction" type="button" size="small" :options="directions">
-      </RadioGroup>
+      <RadioGroup v-model="direction" type="button" size="small" :options="directions"></RadioGroup>
     </Space>
     <Space>
       <code>Type :</code>
-      <RadioGroup v-model="type" type="button" size="small" :options="types"> </RadioGroup>
+      <RadioGroup v-model="type" type="button" size="small" :options="types"></RadioGroup>
     </Space>
     <br />
     <RadioGroup
@@ -39,8 +38,7 @@
       :options="dates"
       :direction="direction"
       :type="type"
-    >
-    </RadioGroup>
+    ></RadioGroup>
   </Space>
 </template>
 <script setup lang="ts">

@@ -11,7 +11,7 @@
   color: var(--kui-color-text);
   white-space: nowrap;
   outline: none;
-  &:focus {
+  &:focus-within {
     .k-checkbox-symbol {
       outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
     }
@@ -79,7 +79,7 @@
     }
   }
 
-  &:hover:not(.k-checkbox-disabled) .k-checkbox-symbol {
+  &:hover:not(.k-checkbox-disabled, .k-checkbox-readonly) .k-checkbox-symbol {
     border-color: var(--kui-color-primary);
   }
 
@@ -141,6 +141,10 @@
   &.k-checkbox-indeterminate .k-checkbox-symbol:after {
     background-color: var(--kui-color-border-disabled);
   }
+}
+
+.k-checkbox-readonly {
+  cursor: default;
 }
 
 .k-checkbox-group {
