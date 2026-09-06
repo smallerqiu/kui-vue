@@ -7,7 +7,7 @@ const MenuDivider = defineComponent({
     const dropdownContext = inject<DropdownContext | null>(DropdownContextKey, null);
     return () => {
       const preCls = dropdownContext ? "dropdown-menu" : "menu";
-      return <li class={`k-${preCls}-item-divider`} />;
+      return <li class={`k-${preCls}-item-divider`} role="separator" />;
     };
   },
 });

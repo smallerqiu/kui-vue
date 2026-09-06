@@ -1,4 +1,5 @@
 import {
+  computed,
   defineComponent,
   inject,
   nextTick,
@@ -19,12 +20,13 @@ import RecursiveMenu from "./recursive-menu";
 import SubMenu from "./sub-menu";
 import type { MenuOptionsProps, MenuSelectEvent } from "./types";
 const menuProps = {
-  theme: String,
+  theme: String as PropType<"light" | "dark">,
   mode: { type: String as PropType<DirectionType>, default: "vertical" },
   modelValue: { type: Array as PropType<string[]>, default: () => [] },
   accordion: Boolean as BooleanType,
   items: Array as PropType<MenuOptionsProps[]>,
   inlineCollapsed: Boolean as BooleanType,
+  collapsedTooltip: { type: Boolean as BooleanType, default: true },
   openKeys: { type: Array as PropType<string[]>, default: () => [] },
   onSelect: { type: Function as PropType<(data: MenuSelectEvent) => void> },
   onOpenChange: { type: Function as PropType<(openKeys: string[]) => void> },
@@ -35,8 +37,9 @@ export type MenuProps = ExtractPropTypes<typeof menuProps>;
 
 const Menu = defineComponent({
   name: "Menu",
+  inheritAttrs: false,
   props: menuProps,
-  setup(props, { emit, slots }) {
+  setup(props, { emit, slots, attrs }) {
     const defaultSelectedKeys = ref([...(props.modelValue || [])]);
     const defaultOpenKeys = ref(props.inlineCollapsed ? [] : [...(props.openKeys || [])]);
     const currentMode = ref(props.mode);
@@ -44,6 +47,7 @@ const Menu = defineComponent({
     const popupInlineCollapsed = ref(!!props.inlineCollapsed);
     const tempOpenKeys = ref([...(props.openKeys || [])]);
     const collapseTimer = ref<ReturnType<typeof setTimeout>>();
+    const collapseFrame = ref(0);
     const menuRef = ref<HTMLElement | null>(null);
     const visibleCount = ref(Number.POSITIVE_INFINITY);
     const totalItemCount = ref(0);
@@ -56,7 +60,7 @@ const Menu = defineComponent({
       () => props.modelValue,
       (value) => {
         defaultSelectedKeys.value = [...value];
-      }
+      },
     );
 
     watch(
@@ -68,7 +72,7 @@ const Menu = defineComponent({
         } else if (!props.inlineCollapsed) {
           restoreOpenKeys();
         }
-      }
+      },
     );
 
     watch(
@@ -79,30 +83,33 @@ const Menu = defineComponent({
         } else {
           defaultOpenKeys.value = [...value];
         }
-      }
+      },
     );
 
     watch(
       () => props.inlineCollapsed,
       (collapsed) => {
         clearTimeout(collapseTimer.value);
+        cancelAnimationFrame(collapseFrame.value);
         if (collapsed) {
-          // 宽度和子菜单同时开始收缩；等垂直离场完成后再把子树移入 body。
+          // 先提交折叠外观，下一帧再收起子菜单，避免宽度与高度测量挤在同一帧。
           currentInlineCollapsed.value = true;
-          collapseOpenKeys();
+          collapseFrame.value = requestAnimationFrame(collapseOpenKeys);
           collapseTimer.value = setTimeout(() => {
             popupInlineCollapsed.value = true;
-          }, 200);
+          }, 220);
         } else {
-          // 先把子树移回 inline 位置，再同时恢复宽度和之前打开的子菜单。
+          // 先把关闭状态的子树移回 inline 位置，下一帧再恢复展开项。
+          // 避免 Teleport 搬移与多级高度动画在同一帧发生。
           popupInlineCollapsed.value = false;
           currentInlineCollapsed.value = false;
-          restoreOpenKeys();
+          collapseFrame.value = requestAnimationFrame(restoreOpenKeys);
         }
-      }
+      },
     );
 
     onBeforeUnmount(() => {
+      cancelAnimationFrame(collapseFrame.value);
       clearTimeout(collapseTimer.value);
       resizeObserver?.disconnect();
     });
@@ -205,10 +212,12 @@ const Menu = defineComponent({
     };
 
     const menuState = reactive({
+      theme: computed(() => props.theme),
       openKeys: defaultOpenKeys,
       selectedKeys: defaultSelectedKeys,
       mode: currentMode,
       inlineCollapsed: currentInlineCollapsed,
+      collapsedTooltip: computed(() => props.collapsedTooltip),
       popupInlineCollapsed,
       dropdown: dropdownContext != null,
       openKeysChange,
@@ -244,7 +253,14 @@ const Menu = defineComponent({
         },
       ];
       return (
-        <ul ref={menuRef} class={cls} theme-mode={props.theme}>
+        <ul
+          {...attrs}
+          ref={menuRef}
+          class={[cls, attrs.class]}
+          theme-mode={props.theme}
+          role="menu"
+          aria-orientation={horizontal ? "horizontal" : "vertical"}
+        >
           {visibleChildren}
           {(showOverflowMeasure || overflowChildren.length > 0) && (
             <SubMenu key={overflowMenuKey} title="...">

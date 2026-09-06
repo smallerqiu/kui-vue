@@ -9,6 +9,7 @@ import {
 } from "vue";
 import type { BooleanType } from "../const/types";
 import Icon, { type IconType } from "../icon";
+import Tooltip from "../tooltip";
 import { getChildren } from "../utils/vnode";
 import {
   MenuContextKey,
@@ -16,6 +17,7 @@ import {
   type MenuContext,
   type SubMenuContext,
 } from "./menu-context";
+import { handleMenuItemKeydown } from "./menu-keyboard";
 
 const menuItemProps = {
   icon: Array as PropType<IconType[]>,
@@ -70,22 +72,43 @@ const MenuItem = defineComponent({
           if (!disabled)
             menuContext?.selectedKeysChange?.(key as string, true, subMenuContext?.keyPath || []);
         },
+        onKeydown: (event: KeyboardEvent) =>
+          handleMenuItemKeydown(event, () => {
+            if (!disabled)
+              menuContext?.selectedKeysChange?.(key as string, true, subMenuContext?.keyPath || []);
+          }),
+        role: "menuitem",
+        tabindex: disabled ? -1 : 0,
+        "aria-disabled": disabled || undefined,
+        "aria-current": selected ? "page" : undefined,
       };
 
       // 没有子集的时候才展示
-      const titleNode = (
-        <span class={`k-${preCls}-title-content`}>{title ?? getChildren(slots.default?.())}</span>
-      );
+      const content = title ?? getChildren(slots.default?.());
+      const titleNode = <span class={`k-${preCls}-title-content`}>{content}</span>;
       const iconNode = slots.icon ? (
         <span class={`k-${preCls}-item-icon`}>{slots.icon()}</span>
       ) : icon ? (
         <Icon type={icon} class={`k-${preCls}-item-icon`} />
       ) : null;
-      return (
+      const itemNode = (
         <li {..._props}>
           {iconNode}
           {titleNode}
         </li>
+      );
+      const showCollapsedTooltip =
+        menuContext?.mode === "inline" &&
+        menuContext.inlineCollapsed &&
+        menuContext.collapsedTooltip &&
+        !menuContext.dropdown &&
+        !subMenuContext?.keyPath.length;
+      return showCollapsedTooltip ? (
+        <Tooltip title={content} placement="right">
+          {itemNode}
+        </Tooltip>
+      ) : (
+        itemNode
       );
     };
   },

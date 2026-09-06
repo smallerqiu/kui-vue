@@ -13,9 +13,11 @@ const MenuGroup = defineComponent({
     return () => {
       const titleNode = props.title ?? slots.title?.();
       return (
-        <li class="k-menu-item-group">
+        <li class="k-menu-item-group" role="group">
           <div class="k-menu-item-group-title">{titleNode}</div>
-          <ul class="k-menu-item-group-list">{slots.default?.()}</ul>
+          <ul class="k-menu-item-group-list" role="menu">
+            {slots.default?.()}
+          </ul>
         </li>
       );
     };

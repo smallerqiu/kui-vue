@@ -1,11 +1,13 @@
 import type { InjectionKey } from "vue";
-import type { DirectionType } from "kui-vue/const/types";
+import type { DirectionType } from "../const/types";
 
 export interface MenuContext {
+  theme?: "light" | "dark";
   openKeys: string[];
   selectedKeys: string[];
   mode: DirectionType;
   inlineCollapsed: boolean;
+  collapsedTooltip: boolean;
   popupInlineCollapsed: boolean;
   dropdown: boolean;
   openKeysChange: (key: string, opened: boolean, keyPath: string[]) => void;

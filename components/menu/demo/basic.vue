@@ -18,16 +18,16 @@ const items: MenuOptionsProps[] = [
     children: [
       { title: "Option 1", key: "3-1" },
       { title: "Option 2", key: "3-2" },
-      { title: "Option 1", key: "3-3" },
-      { title: "Option 2", key: "3-4" },
+      { title: "Option 3", key: "3-3" },
+      { title: "Option 4", key: "3-4" },
       {
         title: "Submenu",
         key: "3-5",
         children: [
           { title: "Option 1", key: "3-5-1" },
           { title: "Option 2", key: "3-5-2" },
-          { title: "Option 1", key: "3-5-3" },
-          { title: "Option 2", key: "3-5-4" },
+          { title: "Option 3", key: "3-5-3" },
+          { title: "Option 4", key: "3-5-4" },
         ],
       },
     ],
@@ -36,7 +36,7 @@ const items: MenuOptionsProps[] = [
     title: h(
       "a",
       { href: "https://k-ui.cn", target: "_blank" },
-      { default: () => "Navigation -Link" }
+      { default: () => "Navigation -Link" },
     ),
     key: "4",
   },

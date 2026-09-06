@@ -5,6 +5,10 @@
       :icon="collapsed ? PanelLeftOpen : PanelLeftClose"
       type="primary"
     ></Button>
+    <label style="display: inline-flex; align-items: center; gap: 8px; margin-left: 12px">
+      Tooltip
+      <Switch v-model="collapsedTooltip" />
+    </label>
     <br />
     <br />
     <Menu
@@ -12,6 +16,7 @@
       :openKeys="openKeys"
       theme="dark"
       :inlineCollapsed="collapsed"
+      :collapsedTooltip="collapsedTooltip"
       mode="inline"
       :items="items"
     />
@@ -21,8 +26,9 @@
 import { Heart, Mail, PanelLeftClose, PanelLeftOpen, Settings, Table } from "kui-icons";
 import { ref } from "vue";
 const current = ref(["1-1"]);
-const openKeys = ref(["3-1"]);
+const openKeys = ref(["3-1", "3-1-3"]);
 const collapsed = ref(false);
+const collapsedTooltip = ref(true);
 
 const change = () => {
   collapsed.value = !collapsed.value;

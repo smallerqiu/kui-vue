@@ -1,6 +1,16 @@
 @import "../../styles/less-css-var.less";
 @import "../../styles/motion.less";
 
+.k-menu-item,
+.k-menu-submenu-title,
+.k-dropdown-menu-item,
+.k-dropdown-menu-submenu-title {
+  &:focus-visible {
+    outline: 2px solid var(--kui-color-outline);
+    outline-offset: -2px;
+  }
+}
+
 .k-menu {
   display: flex;
   flex-direction: column;
@@ -564,14 +574,10 @@
   }
 }
 
-.k-collapse-slide-enter-active {
-  transform-origin: 0 0;
-  animation: k-motion-scale-y-in 0.2s ease-in-out;
-  animation-fill-mode: both;
-}
-
+.k-collapse-slide-enter-active,
 .k-collapse-slide-leave-active {
-  transform-origin: 0 0;
-  animation: k-motion-scale-y-in 0.2s ease-in-out reverse;
-  animation-fill-mode: both;
+  overflow: hidden;
+  transition:
+    height 0.2s ease-in-out,
+    opacity 0.2s ease-in-out;
 }

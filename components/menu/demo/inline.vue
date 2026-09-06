@@ -23,7 +23,7 @@ const items = [
     icon: Mail,
     title: "Navigation One",
     children: [
-      { key: "1-1", icon: Heart, title: "Option " },
+      { key: "1-1", icon: Heart, title: "Option 1" },
       { key: "1-2", icon: Heart, title: "Option 2" },
       { key: "1-3", icon: Heart, title: "Option 3" },
       { key: "1-4", icon: Heart, title: "Option 4" },

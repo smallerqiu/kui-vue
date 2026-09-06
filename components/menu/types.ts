@@ -1,4 +1,4 @@
-import type { VNode } from "vue";
+import type { VNodeChild } from "vue";
 import type { IconType } from "../icon";
 
 export interface MenuSelectEvent {
@@ -8,7 +8,7 @@ export interface MenuSelectEvent {
 
 export interface MenuOptionsProps {
   icon?: IconType[];
-  title?: string | VNode;
+  title?: VNodeChild;
   key: string;
   disabled?: boolean;
   children?: MenuOptionsProps[];

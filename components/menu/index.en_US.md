@@ -26,7 +26,7 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 [Theme](./demo/theme.vue?show=vertical)
 
-- Two built-in themes: `light|dark`, defaulting to `light`.
+- Supports local `light|dark` themes and inherits the global theme when omitted.
 
 [Switch Menu Type](./demo/mode.vue?show=vertical)
 
@@ -40,49 +40,49 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 ### MenuAPI
 
-| Property        | Description                                                       | Type                                              | Default  |
-| --------------- | ----------------------------------------------------------------- | ------------------------------------------------- | -------- |
-| modelValue      | Currently selected menu item (v-model)                            | string: []                                        | -        |
-| theme           | Theme color                                                       | 'light' \| 'dark'                                 | light    |
-| items           | Menu data                                                         | MenuOptionsProps[]                                | -        |
-| openKeys        | Currently expanded SubMenu menu item key array                    | string[]                                          | -        |
-| selectedKeys    | Currently selected menu item, can use v-model binding             | string[]                                          | -        |
-| mode            | Menu type, supports three modes: vertical, horizontal, and inline | string: vertical vertical-right horizontal inline | vertical |
-| onSelect        | Called when MenuItem is clicked                                   | (data: MenuSelectEvent) => void                   | -        |
-| onOpenChange    | Callback when SubMenu expands/collapses                           | (openKeys: string[])=>void                        | -        |
-| accordion       | Whether only one menu item can be expanded                        | boolean                                           | false    |
-| inlineCollapsed | Whether the menu is collapsed in inline mode                      | boolean                                           | false    |
+| Property         | Description                                      | Type                                   | Default    |
+| ---------------- | ------------------------------------------------ | -------------------------------------- | ---------- |
+| modelValue       | Currently selected menu items (v-model)          | string[]                               | []         |
+| theme            | Local theme; inherits global theme when omitted  | `light` \| `dark`                      | -          |
+| items            | Menu data                                        | MenuOptionsProps[]                     | -          |
+| openKeys         | Currently expanded SubMenu menu item key array   | string[]                               | []         |
+| mode             | Menu type                                        | `vertical` \| `horizontal` \| `inline` | `vertical` |
+| onSelect         | Called when MenuItem is clicked                  | (data: MenuSelectEvent) => void        | -          |
+| onOpenChange     | Callback when SubMenu expands/collapses          | (openKeys: string[]) => void           | -          |
+| accordion        | Whether only one menu item can be expanded       | boolean                                | false      |
+| inlineCollapsed  | Whether the menu is collapsed in inline mode     | boolean                                | false      |
+| collapsedTooltip | Whether leaf items show a tooltip when collapsed | boolean                                | true       |
 
 ### Menu(items)
 
-| Property | Description                              | Type               | Default |
-| -------- | ---------------------------------------- | ------------------ | ------- |
-| icon     | Item icon                                | string             | -       |
-| disabled | Whether disabled                         | boolean            | false   |
-| key      | Unique identifier for item               | string             | -       |
-| title    | Suspended title displayed when collapsed | string             | -       |
-| children | Menu children                            | MenuOptionsProps[] | -       |
+| Property | Description                | Type               | Default |
+| -------- | -------------------------- | ------------------ | ------- |
+| icon     | Item icon                  | IconType           | -       |
+| disabled | Whether disabled           | boolean            | false   |
+| key      | Unique identifier for item | string             | -       |
+| title    | Menu item content          | VNodeChild         | -       |
+| children | Menu children              | MenuOptionsProps[] | -       |
 
 ### MenuItem
 
-| Property | Description                              | Type    | Default |
-| -------- | ---------------------------------------- | ------- | ------- |
-| icon     | Item icon                                | string  | -       |
-| disabled | Whether disabled                         | boolean | false   |
-| key      | Unique identifier for item               | string  | -       |
-| title    | Suspended title displayed when collapsed | string  | -       |
+| Property | Description                | Type       | Default |
+| -------- | -------------------------- | ---------- | ------- |
+| icon     | Item icon                  | IconType   | -       |
+| disabled | Whether disabled           | boolean    | false   |
+| key      | Unique identifier for item | string     | -       |
+| title    | Menu item content          | VNodeChild | -       |
 
 ### SubMenu
 
-| Property | Description                | Type         | Default |
-| -------- | -------------------------- | ------------ | ------- |
-| icon     | Item icon                  | string       | -       |
-| disabled | Whether disabled           | boolean      | false   |
-| key      | Unique identifier for item | string       | -       |
-| title    | Submenu item value         | string, slot | -       |
+| Property | Description                | Type       | Default |
+| -------- | -------------------------- | ---------- | ------- |
+| icon     | Item icon                  | IconType   | -       |
+| disabled | Whether disabled           | boolean    | false   |
+| key      | Unique identifier for item | string     | -       |
+| title    | Submenu item content       | VNodeChild | -       |
 
 ### MenuGroup
 
-| Property | Description | Type         | Default |
-| -------- | ----------- | ------------ | ------- |
-| title    | Group title | string, slot | -       |
+| Property | Description | Type       | Default |
+| -------- | ----------- | ---------- | ------- |
+| title    | Group title | VNodeChild | -       |

@@ -26,7 +26,7 @@
 
 [主题](./demo/theme.vue?show=vertical)
 
-- 内建了两套主题 `light|dark`，默认 `light`。
+- 支持 `light|dark` 局部主题，未设置时继承全局主题。
 
 [切换菜单类型](./demo/mode.vue?show=vertical)
 
@@ -40,49 +40,49 @@
 
 ### Menu
 
-| 属性            | 说明                                     | 类型                                              | 默认值   |
-| --------------- | ---------------------------------------- | ------------------------------------------------- | -------- |
-| modelValue      | 当前选中的菜单项(v-model)                | string: []                                        | light    |
-| theme           | 主题颜色                                 | string: light dark                                | light    |
-| items           | 菜单数据                                 | MenuOptionsProps[]                                | -        |
-| openKeys        | 当前展开的 SubMenu 菜单项 key 数组       | string[]                                          | -        |
-| selectedKeys    | 当前选中的菜单项，可使用 v-model 绑定    | string[]                                          | -        |
-| mode            | 菜单类型，支持垂直、水平、和内嵌模式三种 | string: vertical vertical-right horizontal inline | vertical |
-| onSelect        | 点击 MenuItem 调用此函数                 | (data: MenuSelectEvent) => void                   | -        |
-| onOpenChange    | SubMenu 展开/关闭的回调                  | (openKeys: string[])=>void                        | -        |
-| accordion       | 是否只允许菜单展开一项                   | boolean                                           | false    |
-| inlineCollapsed | inline 时菜单是否收起状态                | boolean                                           | false    |
+| 属性             | 说明                               | 类型                                   | 默认值     |
+| ---------------- | ---------------------------------- | -------------------------------------- | ---------- |
+| modelValue       | 当前选中的菜单项（v-model）        | string[]                               | []         |
+| theme            | 局部主题，未设置时继承全局主题     | `light` \| `dark`                      | -          |
+| items            | 菜单数据                           | MenuOptionsProps[]                     | -          |
+| openKeys         | 当前展开的 SubMenu 菜单项 key 数组 | string[]                               | []         |
+| mode             | 菜单类型                           | `vertical` \| `horizontal` \| `inline` | `vertical` |
+| onSelect         | 点击 MenuItem 调用此函数           | (data: MenuSelectEvent) => void        | -          |
+| onOpenChange     | SubMenu 展开/关闭的回调            | (openKeys: string[]) => void           | -          |
+| accordion        | 是否只允许菜单展开一项             | boolean                                | false      |
+| inlineCollapsed  | inline 时菜单是否收起状态          | boolean                                | false      |
+| collapsedTooltip | 收起时是否显示无子菜单项的文字提示 | boolean                                | true       |
 
 ### Menu(items)
 
-| 属性     | 说明                     | 类型               | 默认值 |
-| -------- | ------------------------ | ------------------ | ------ |
-| icon     | item 的图标              | string             | -      |
-| disabled | 是否禁用                 | boolean            | false  |
-| key      | item 的唯一标志          | string             | -      |
-| title    | 设置收缩时展示的悬浮标题 | string             | -      |
-| children | 菜单子集                 | MenuOptionsProps[] | -      |
+| 属性     | 说明            | 类型               | 默认值 |
+| -------- | --------------- | ------------------ | ------ |
+| icon     | item 的图标     | IconType           | -      |
+| disabled | 是否禁用        | boolean            | false  |
+| key      | item 的唯一标志 | string             | -      |
+| title    | 菜单项内容      | VNodeChild         | -      |
+| children | 菜单子集        | MenuOptionsProps[] | -      |
 
 ### MenuItem
 
-| 属性     | 说明                     | 类型    | 默认值 |
-| -------- | ------------------------ | ------- | ------ |
-| icon     | item 的图标              | string  | -      |
-| disabled | 是否禁用                 | boolean | false  |
-| key      | item 的唯一标志          | string  | -      |
-| title    | 设置收缩时展示的悬浮标题 | string  | -      |
+| 属性     | 说明            | 类型       | 默认值 |
+| -------- | --------------- | ---------- | ------ |
+| icon     | item 的图标     | IconType   | -      |
+| disabled | 是否禁用        | boolean    | false  |
+| key      | item 的唯一标志 | string     | -      |
+| title    | 菜单项内容      | VNodeChild | -      |
 
 ### SubMenu
 
-| 属性     | 说明            | 类型         | 默认值 |
-| -------- | --------------- | ------------ | ------ |
-| icon     | item 的图标     | string       | -      |
-| disabled | 是否禁用        | boolean      | false  |
-| key      | item 的唯一标志 | string       | -      |
-| title    | 子菜单项值      | string, slot | -      |
+| 属性     | 说明            | 类型       | 默认值 |
+| -------- | --------------- | ---------- | ------ |
+| icon     | item 的图标     | IconType   | -      |
+| disabled | 是否禁用        | boolean    | false  |
+| key      | item 的唯一标志 | string     | -      |
+| title    | 子菜单项内容    | VNodeChild | -      |
 
 ### MenuGroup
 
-| 属性  | 说明     | 类型         | 默认值 |
-| ----- | -------- | ------------ | ------ |
-| title | 分组标题 | string, slot | -      |
+| 属性  | 说明     | 类型       | 默认值 |
+| ----- | -------- | ---------- | ------ |
+| title | 分组标题 | VNodeChild | -      |

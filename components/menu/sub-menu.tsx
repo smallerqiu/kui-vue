@@ -28,6 +28,7 @@ import {
   type SubMenuContext,
   SubMenuContextKey,
 } from "./menu-context";
+import { handleMenuItemKeydown } from "./menu-keyboard";
 
 const submenuProps = {
   disabled: Boolean as BooleanType,
@@ -151,6 +152,7 @@ const SubMenu = defineComponent({
       }
       const popperPros = {
         ref: refPopper,
+        "theme-mode": menuContext?.theme,
         "k-placement": currentPlacement.value,
         style: {
           minWidth: menuContext?.mode == "horizontal" ? minWidth.value : null,
@@ -184,7 +186,13 @@ const SubMenu = defineComponent({
           <Transition {...transitionProps}>
             <div {...containerProps} v-show={opened}>
               <div class={popup ? `k-${preCls}-sub` : undefined}>
-                <ul class={`k-menu k-menu-${popup ? "vertical" : menuContext?.mode}`}>
+                <ul
+                  class={`k-menu k-menu-${popup ? "vertical" : menuContext?.mode}`}
+                  role="menu"
+                  aria-orientation={
+                    popup || menuContext?.mode !== "horizontal" ? "vertical" : "horizontal"
+                  }
+                >
                   {slots.default?.()}
                 </ul>
               </div>
@@ -198,7 +206,7 @@ const SubMenu = defineComponent({
       () => menuContext?.popupInlineCollapsed,
       (popup) => {
         if (popup) popupPositioned.value = false;
-      }
+      },
     );
 
     return () => {
@@ -207,6 +215,31 @@ const SubMenu = defineComponent({
       const titleProps: Record<string, unknown> & { style: CSSProperties } = {
         class: `k-${preCls}-title`,
         style: {} as CSSProperties,
+        role: "menuitem",
+        tabindex: props.disabled ? -1 : 0,
+        "aria-disabled": props.disabled || undefined,
+        "aria-haspopup": true,
+        "aria-expanded": opened,
+      };
+      const activateTitle = () => {
+        if (props.disabled) return;
+        if (menuContext?.mode === "inline" && !menuContext.inlineCollapsed) {
+          menuContext.openKeysChange?.(key, !opened, subMenuContext?.keyPath || []);
+          return;
+        }
+        if (opened) {
+          menuContext?.openKeysChange?.(key, false, subMenuContext?.keyPath || []);
+        } else {
+          showPopper();
+        }
+      };
+      titleProps.onKeydown = (event: KeyboardEvent) => {
+        if (event.key === "Escape" && opened) {
+          event.preventDefault();
+          menuContext?.openKeysChange?.(key, false, subMenuContext?.keyPath || []);
+          return;
+        }
+        handleMenuItemKeydown(event, activateTitle);
       };
       if (menuContext?.mode == "inline" && !menuContext?.inlineCollapsed) {
         titleProps.onClick = () => {
