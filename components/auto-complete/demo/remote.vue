@@ -35,7 +35,7 @@ const search = (keyword: string) => {
     try {
       const response = await fetch(
         `https://dummyjson.com/products/search?q=${encodeURIComponent(keyword)}&limit=8&select=title`,
-        { signal: requestController.signal }
+        { signal: requestController.signal },
       );
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const data = (await response.json()) as ProductResponse;

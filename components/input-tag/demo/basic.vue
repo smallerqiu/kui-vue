@@ -3,5 +3,5 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-const value = ref(["Vue", "TypeScript"]);
+const value = ref(["Design", "TypeScript"]);
 </script>

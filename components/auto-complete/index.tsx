@@ -2,6 +2,7 @@ import { Loading } from "kui-icons";
 import {
   computed,
   defineComponent,
+  getCurrentInstance,
   inject,
   isRef,
   nextTick,
@@ -73,12 +74,15 @@ export default defineComponent({
       isRef(injectedLocale) ? injectedLocale.value : injectedLocale,
     );
     const getPopupContainer = usePopupContainer();
+    const listboxId = `k-auto-complete-listbox-${getCurrentInstance()?.uid ?? "default"}`;
     const inner = ref(props.value);
     const innerOpen = ref(props.defaultOpen);
     const rendered = ref(false);
     const active = ref(-1);
     const root = ref<HTMLElement | null>(null);
     const dropdown = ref<HTMLElement | null>(null);
+    const positioned = ref(false);
+    const composing = ref(false);
     const current = computed(() => props.modelValue ?? inner.value);
     const normalized = computed(() =>
       props.options.map((item) => (typeof item === "string" ? { value: item, label: item } : item)),
@@ -100,6 +104,8 @@ export default defineComponent({
     const transOrigin = ref("left top");
     const currentPlacement = ref("bottom-left");
     let positionRaf = 0;
+    let blurTimer: ReturnType<typeof setTimeout> | undefined;
+    let resizeObserver: ResizeObserver | undefined;
     watch(
       () => props.modelValue,
       (value) => {
@@ -108,7 +114,9 @@ export default defineComponent({
     );
     const hasOptions = computed(() => normalized.value.length > 0);
     const visible = computed(
-      () => (props.loading || shownOptions.value.length > 0) && (props.open ?? innerOpen.value),
+      () =>
+        (props.loading || (!suppressRemoteOptions.value && shownOptions.value.length > 0)) &&
+        (props.open ?? innerOpen.value),
     );
     watch(
       visible,
@@ -130,6 +138,7 @@ export default defineComponent({
           left,
           offset: 6,
         });
+        positioned.value = true;
       });
     };
     const refreshOptions = (value = current.value) => {
@@ -142,7 +151,10 @@ export default defineComponent({
     };
     const setOpen = (next: boolean) => {
       if (next && props.readonly) return;
+      if (next && suppressRemoteOptions.value && !props.loading) return;
       if (next && !props.loading && (!hasOptions.value || !shownOptions.value.length)) return;
+      if (next && !(props.open ?? innerOpen.value)) positioned.value = false;
+      if (!next) active.value = -1;
       innerOpen.value = next;
       emit("openChange", next);
     };
@@ -192,9 +204,14 @@ export default defineComponent({
       }
       document.addEventListener("scroll", updatePosition, true);
       window.addEventListener("resize", updatePosition);
+      resizeObserver = new ResizeObserver(updatePosition);
+      if (root.value) resizeObserver.observe(root.value);
+      if (dropdown.value) resizeObserver.observe(dropdown.value);
     });
     onBeforeUnmount(() => {
       cancelAnimationFrame(positionRaf);
+      clearTimeout(blurTimer);
+      resizeObserver?.disconnect();
       document.removeEventListener("scroll", updatePosition, true);
       window.removeEventListener("resize", updatePosition);
     });
@@ -211,28 +228,64 @@ export default defineComponent({
       setOpen(false);
       active.value = -1;
     };
+    const search = (value: string) => {
+      emit("search", value);
+      if (!value && !props.showOnEmpty) {
+        suppressRemoteOptions.value = !!props.onSearch;
+        setOpen(false);
+      } else if (props.loading) {
+        suppressRemoteOptions.value = false;
+        setOpen(true);
+      } else {
+        const hasMatches = refreshOptions(value);
+        suppressRemoteOptions.value = !!props.onSearch && !hasMatches;
+        setOpen(hasMatches);
+      }
+      active.value = -1;
+    };
+    const invokeAttr = (name: string, event: Event) => {
+      const listener = attrs[name];
+      if (Array.isArray(listener)) listener.forEach((handler) => handler(event));
+      else if (typeof listener === "function") listener(event);
+    };
     const keydown = (event: KeyboardEvent) => {
       if (props.readonly) return;
       if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+        if ((!current.value && !props.showOnEmpty) || suppressRemoteOptions.value) return;
+        if (!filter(current.value).length) return;
         if (!hasOptions.value) return;
         if (!shownOptions.value.length) return;
         if (!visible.value) setOpen(true);
-        const direction = event.key === "ArrowDown" ? 1 : -1;
-        let next = active.value;
-        for (let i = 0; i < shownOptions.value.length; i += 1) {
-          next = (next + direction + shownOptions.value.length) % shownOptions.value.length;
-          if (!shownOptions.value[next]?.disabled) {
-            active.value = next;
-            break;
-          }
-        }
+        const enabled = shownOptions.value
+          .map((option, index) => (!option.disabled ? index : -1))
+          .filter((index) => index >= 0);
+        if (!enabled.length) return;
+        const currentIndex = enabled.indexOf(active.value);
+        active.value =
+          currentIndex < 0
+            ? enabled[event.key === "ArrowDown" ? 0 : enabled.length - 1]
+            : enabled[
+                (currentIndex + (event.key === "ArrowDown" ? 1 : -1) + enabled.length) %
+                  enabled.length
+              ];
         event.preventDefault();
-      } else if (event.key === "Enter" && active.value >= 0) {
+      } else if (event.key === "Enter" && visible.value && active.value >= 0) {
         const option = shownOptions.value[active.value];
         if (option) choose(option);
         event.preventDefault();
-      } else if (event.key === "Escape") setOpen(false);
+      } else if (event.key === "Escape") {
+        event.preventDefault();
+        event.stopPropagation();
+        setOpen(false);
+      }
     };
+    watch(active, () => {
+      nextTick(() => {
+        dropdown.value
+          ?.querySelector<HTMLElement>(`#${listboxId}-option-${active.value}`)
+          ?.scrollIntoView({ block: "nearest" });
+      });
+    });
     return () => (
       <div ref={root} class={["k-auto-complete", attrs.class]}>
         <Input
@@ -249,31 +302,42 @@ export default defineComponent({
           role="combobox"
           aria-autocomplete="list"
           aria-expanded={visible.value}
-          onFocus={() => {
+          aria-controls={visible.value ? listboxId : undefined}
+          aria-activedescendant={
+            visible.value && active.value >= 0 ? `${listboxId}-option-${active.value}` : undefined
+          }
+          onFocus={(event: FocusEvent) => {
+            invokeAttr("onFocus", event);
+            if (event.defaultPrevented) return;
             if (props.disabled || props.readonly) return;
             const hasMatches = refreshOptions();
             if ((current.value || props.showOnEmpty) && (hasMatches || props.loading))
               setOpen(true);
           }}
-          onBlur={() => setTimeout(() => setOpen(false), 120)}
+          onBlur={(event: FocusEvent) => {
+            invokeAttr("onBlur", event);
+            if (event.defaultPrevented) return;
+            clearTimeout(blurTimer);
+            blurTimer = setTimeout(() => setOpen(false), 120);
+          }}
+          onCompositionstart={(event: CompositionEvent) => {
+            composing.value = true;
+            invokeAttr("onCompositionstart", event);
+          }}
+          onCompositionend={(event: CompositionEvent) => {
+            composing.value = false;
+            invokeAttr("onCompositionend", event);
+            if (!event.defaultPrevented) search((event.target as HTMLInputElement).value);
+          }}
           onClear={() => emit("clear")}
           onChange={(value) => {
             update(value);
-            emit("search", value);
-            if (!value && !props.showOnEmpty) {
-              suppressRemoteOptions.value = !!props.onSearch;
-              setOpen(false);
-            } else if (props.loading) {
-              suppressRemoteOptions.value = false;
-              setOpen(true);
-            } else {
-              const hasMatches = refreshOptions(value);
-              suppressRemoteOptions.value = !!props.onSearch && !hasMatches;
-              setOpen(hasMatches);
-            }
-            active.value = -1;
+            if (!composing.value) search(value);
           }}
-          onKeydown={keydown}
+          onKeydown={(event: KeyboardEvent) => {
+            invokeAttr("onKeydown", event);
+            if (!event.defaultPrevented) keydown(event);
+          }}
         />
         {rendered.value
           ? [
@@ -281,6 +345,7 @@ export default defineComponent({
                 <Transition name="k-select">
                   <div
                     ref={dropdown}
+                    id={listboxId}
                     v-show={visible.value}
                     style={
                       {
@@ -288,6 +353,7 @@ export default defineComponent({
                         top: `${top.value}px`,
                         minWidth: `${root.value?.offsetWidth || 0}px`,
                         transformOrigin: transOrigin.value,
+                        visibility: positioned.value ? undefined : "hidden",
                       } as CSSProperties
                     }
                     class={[
@@ -298,7 +364,7 @@ export default defineComponent({
                     ]}
                     role="listbox"
                   >
-                    {props.loading || suppressRemoteOptions.value ? (
+                    {props.loading ? (
                       <div class="k-select-loading">
                         <Icon type={Loading} spin />
                         <span>{props.loadingText || locale.value?.k.select.loading}</span>
@@ -307,6 +373,8 @@ export default defineComponent({
                       <ul>
                         {shownOptions.value.map((option, index) => (
                           <li
+                            key={option.value}
+                            id={`${listboxId}-option-${index}`}
                             role="option"
                             aria-selected={active.value === index}
                             aria-disabled={option.disabled || undefined}
@@ -318,6 +386,7 @@ export default defineComponent({
                               },
                             ]}
                             onMousedown={(event) => event.preventDefault()}
+                            onMouseenter={() => !option.disabled && (active.value = index)}
                             onClick={() => choose(option)}
                           >
                             {option.label ?? option.value}

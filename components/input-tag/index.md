@@ -20,7 +20,7 @@
 
 - 使用逗号或分号快速提交标签。
 
-[尺寸](./demo/size.vue)
+[尺寸](./demo/size.vue?show=vertical)
 
 - 不同的尺寸。
 
@@ -40,7 +40,7 @@
 | shape           | 形状                                | 'circle' \| 'square' \| 'round' \| 'default' | default |
 | disabled        | 禁用                                | boolean                                      | false   |
 | readonly        | 只读，不可新增、删除或清空标签      | boolean                                      | false   |
-| clearable       | 是否显示一键清空按钮                | boolean                                      | false   |
+| clearable       | 是否显示一键清空按钮                | boolean                                      | true    |
 | block           | 宽度撑满父容器                      | boolean                                      | false   |
 | allowDuplicates | 允许重复                            | boolean                                      | false   |
 | max             | 最大标签数                          | number                                       | -       |

@@ -35,7 +35,7 @@ Provide candidates based on the input while retaining the ability for free text 
 | modelValue   | Value (v-model)                                    | string                                       | -       |
 | value        | Initial value                                      | string                                       | ''      |
 | options      | Suggestions                                        | (string \| AutoCompleteOption)[]             | []      |
-| open         | Open state                                         | boolean                                      | false   |
+| open         | Controlled open state                              | boolean                                      | -       |
 | defaultOpen  | Initial open state                                 | boolean                                      | false   |
 | showOnEmpty  | Show suggestions when an empty input is focused    | boolean                                      | false   |
 | clearable    | Show the clear button on hover when a value exists | boolean                                      | false   |
@@ -47,9 +47,9 @@ Provide candidates based on the input while retaining the ability for free text 
 | size         | Size                                               | 'small' \| 'medium' \| 'large'               | medium  |
 | theme        | Theme                                              | 'fill' \| 'outline' \| 'plain'               | fill    |
 | shape        | Shape                                              | 'circle' \| 'square' \| 'round' \| 'default' | default |
-| filterOption | Filter strategy                                    | boolean \| 'function'                        | true    |
-| onChange     | Value change                                       | function                                     | -       |
+| filterOption | Filter strategy                                    | boolean \| ((input, option) => boolean)      | true    |
+| onChange     | Value change                                       | (value: string) => void                      | -       |
 | onClear      | Clear callback                                     | () => void                                   | -       |
 | onSearch     | Search callback                                    | (value: string) => void                      | -       |
-| onSelect     | Option selection                                   | function                                     | -       |
-| onOpenChange | Open state change                                  | function                                     | -       |
+| onSelect     | Option selection                                   | (value, option) => void                      | -       |
+| onOpenChange | Open state change                                  | (open: boolean) => void                      | -       |

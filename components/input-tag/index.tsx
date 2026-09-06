@@ -41,7 +41,7 @@ export default defineComponent({
       (value) => {
         if (value) inner.value = [...value];
       },
-      { deep: true }
+      { deep: true },
     );
     const values = () => props.modelValue ?? inner.value;
     const update = (next: string[]) => {
@@ -49,24 +49,28 @@ export default defineComponent({
       emit("update:modelValue", next);
       emit("change", next);
     };
-    const commit = (raw = draft.value) => {
+    const addValues = (items: string[]) => {
       if (props.disabled || props.readonly) return;
-      const text = raw.trim();
-      const tags = values();
-      if (!text || (props.max !== undefined && tags.length >= props.max)) {
-        draft.value = "";
-        return;
+      const next = [...values()];
+      const added: string[] = [];
+      for (const item of items) {
+        const text = item.trim();
+        if (!text || (props.max !== undefined && next.length >= props.max)) continue;
+        if (
+          !props.allowDuplicates &&
+          next.some((tag) => tag.toLocaleLowerCase() === text.toLocaleLowerCase())
+        )
+          continue;
+        next.push(text);
+        added.push(text);
       }
-      if (
-        !props.allowDuplicates &&
-        tags.some((tag) => tag.toLocaleLowerCase() === text.toLocaleLowerCase())
-      ) {
-        draft.value = "";
-        return;
-      }
-      update([...tags, text]);
+      if (!added.length) return;
+      update(next);
+      added.forEach((text) => emit("add", text));
+    };
+    const commit = (raw = draft.value) => {
+      addValues([raw]);
       draft.value = "";
-      emit("add", text);
     };
     const remove = (index: number) => {
       if (props.disabled || props.readonly || index < 0) return;
@@ -75,7 +79,7 @@ export default defineComponent({
       update(tags.filter((_, itemIndex) => itemIndex !== index));
       emit("remove", removed, index);
     };
-    const clear = (event: MouseEvent) => {
+    const clear = (event: Event) => {
       if (props.disabled || props.readonly) return;
       event.stopPropagation();
       draft.value = "";
@@ -88,10 +92,22 @@ export default defineComponent({
       draft.value = value;
       if (inputEvent.isComposing) return;
 
-      const separator = props.separators.find((item) => item && value.endsWith(item));
-      if (!separator) return;
-      draft.value = value.slice(0, -separator.length);
-      commit();
+      const separators = props.separators.filter(Boolean).sort((a, b) => b.length - a.length);
+      if (!separators.some((separator) => value.includes(separator))) return;
+      const pattern = new RegExp(
+        separators.map((item) => item.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"),
+        "g",
+      );
+      const items = value.split(pattern);
+      const trailing = separators.some((separator) => value.endsWith(separator));
+      draft.value = trailing ? "" : (items.pop() ?? "");
+      addValues(items);
+    };
+    const focusInput = (event: MouseEvent) => {
+      const listener = attrs.onClick;
+      if (Array.isArray(listener)) listener.forEach((handler) => handler(event));
+      else if (typeof listener === "function") listener(event);
+      if (!event.defaultPrevented && !props.disabled) input.value?.focus();
     };
     return () => {
       const currentValues = values();
@@ -121,8 +137,9 @@ export default defineComponent({
             },
             attrs.class,
           ]}
+          aria-disabled={props.disabled || undefined}
           aria-readonly={props.readonly || undefined}
-          onClick={() => !props.disabled && input.value?.focus()}
+          onClick={focusInput}
         >
           {visibleValues.map((tag, index) => (
             <Tag
@@ -130,7 +147,7 @@ export default defineComponent({
               class="k-input-tag-item"
               size={props.size}
               shape={props.shape}
-              theme="fill"
+              theme={props.theme}
               compact
               closeable={!props.disabled && !props.readonly}
               onClose={() => remove(index)}
@@ -141,28 +158,30 @@ export default defineComponent({
           {hiddenCount > 0 && (
             <Tooltip
               title={
-                <Space wrap size={4}>
-                  {hiddenValues.map((tag, index) => (
-                    <Tag
-                      key={`${tag}-${index}`}
-                      size={props.size}
-                      shape={props.shape}
-                      theme={props.theme}
-                      compact
-                      closeable={!props.disabled && !props.readonly}
-                      onClose={() => remove(displayCount + index)}
-                    >
-                      {tag}
-                    </Tag>
-                  ))}
-                </Space>
+                <div class="k-input-tag-tooltip-tags">
+                  <Space wrap size={4}>
+                    {hiddenValues.map((tag, index) => (
+                      <Tag
+                        key={`${tag}-${index}`}
+                        size={props.size}
+                        shape={props.shape}
+                        theme={props.theme}
+                        compact
+                        closeable={!props.disabled && !props.readonly}
+                        onClose={() => remove(displayCount + index)}
+                      >
+                        {tag}
+                      </Tag>
+                    ))}
+                  </Space>
+                </div>
               }
             >
               <Tag
                 class="k-input-tag-item k-input-tag-rest"
                 size={props.size}
                 shape={props.shape}
-                theme="fill"
+                theme={props.theme}
                 compact
               >
                 +{hiddenCount}...
@@ -192,7 +211,17 @@ export default defineComponent({
             }}
           />
           {props.clearable && currentValues.length > 0 && !props.disabled && !props.readonly && (
-            <Icon class="k-input-tag-clearable" type={CircleX} onClick={clear} />
+            <Icon
+              class="k-input-tag-clearable"
+              type={CircleX}
+              role="button"
+              tabindex={0}
+              aria-label="Clear"
+              onClick={clear}
+              onKeydown={(event: KeyboardEvent) => {
+                if (event.key === "Enter" || event.key === " ") clear(event);
+              }}
+            />
           )}
         </div>
       );

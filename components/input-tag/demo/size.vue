@@ -5,7 +5,6 @@
       <RadioButton value="medium" label="Medium" />
       <RadioButton value="small" label="small" />
     </RadioGroup>
-    <br />
     <InputTag v-model="value1" :size="size" block />
     <InputTag v-model="value2" :size="size" block />
     <InputTag v-model="value3" :size="size" block />
@@ -15,9 +14,9 @@
 import type { SizeType } from "kui-vue";
 import { ref } from "vue";
 const size = ref<SizeType>("medium");
-const value1 = ref(["Vue"]);
-const value2 = ref(["Vue", "React"]);
-const value3 = ref(["Vue", "React", "Solid"]);
+const value1 = ref(["Design"]);
+const value2 = ref(["Design", "Develop"]);
+const value3 = ref(["Design", "Develop", "Release"]);
 const setSize = (value: string | number | (string | number)[]) => {
   if (value === "small" || value === "medium" || value === "large") size.value = value;
 };
