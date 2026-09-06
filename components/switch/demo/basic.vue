@@ -13,6 +13,15 @@
       {{ !checked ? "Unchecked" : "Checked" }}
     </Button>
     <Switch v-model="checked" />
+
+    <Space>
+      <Switch checked type="primary" />
+      <Switch checked type="success" />
+      <Switch checked type="warning" />
+      <Switch checked type="danger" />
+      <Switch checked color="#8b5cf6" />
+      <Switch checked shape="square" />
+    </Space>
   </Space>
 </template>
 <script setup lang="ts">

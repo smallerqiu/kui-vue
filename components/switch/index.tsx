@@ -1,5 +1,5 @@
 import { Loading } from "kui-icons";
-import type { ExtractPropTypes, PropType } from "vue";
+import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { defineComponent, ref, watch } from "vue";
 import type { BooleanType, ShapeType, SizeType, ValueType } from "../const/types";
 import Icon from "../icon";
@@ -11,8 +11,12 @@ const switchProps = {
     default: false,
   },
   valueType: { type: String as PropType<ValueType>, default: "boolean" },
-  modelValue: { type: [String, Number, Boolean] as PropType<string | number | boolean> },
+  modelValue: {
+    type: [String, Number, Boolean] as PropType<string | number | boolean>,
+    default: undefined,
+  },
   type: String,
+  color: String,
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
   loading: Boolean as BooleanType,
@@ -22,7 +26,7 @@ const switchProps = {
   shape: { type: String as PropType<ShapeType>, default: "round" },
   trueText: String,
   falseText: String,
-  onChange: Function as PropType<(value: boolean) => void>,
+  onChange: Function as PropType<(value: string | number | boolean) => void>,
 };
 
 export type SwitchProps = ExtractPropTypes<typeof switchProps>;
@@ -31,18 +35,20 @@ const Switch = defineComponent({
   name: "Switch",
   props: switchProps,
   setup(props, { slots, emit }) {
-    const isChecked = ref(props.modelValue || props.checked);
+    const resolveChecked = (value: string | number | boolean | undefined, fallback = false) =>
+      value === undefined ? fallback : value === true || value === 1 || value === "1";
+    const isChecked = ref(resolveChecked(props.modelValue, props.checked));
     watch(
       () => props.modelValue,
       (nv) => {
-        isChecked.value = nv == 1;
-      }
+        isChecked.value = resolveChecked(nv, props.checked);
+      },
     );
     watch(
       () => props.checked,
       (nv) => {
-        isChecked.value = nv;
-      }
+        if (props.modelValue === undefined) isChecked.value = nv;
+      },
     );
     const change = () => {
       if (props.disabled || props.readonly) {
@@ -83,8 +89,11 @@ const Switch = defineComponent({
       return (
         <button
           class={classes}
+          style={props.color ? ({ "--kui-switch-color": props.color } as CSSProperties) : undefined}
           onClick={change}
           disabled={disabled || loading}
+          role="switch"
+          aria-checked={isChecked.value}
           aria-readonly={props.readonly || undefined}
           type="button"
         >

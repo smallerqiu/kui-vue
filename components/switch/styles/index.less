@@ -140,8 +140,8 @@
 }
 
 .k-switch-checked {
-  background: var(--kui-color-primary);
-  border-color: var(--kui-color-primary);
+  background: var(--kui-switch-color, var(--kui-color-primary));
+  border-color: var(--kui-switch-color, var(--kui-color-primary));
 
   &::before {
     left: 100%;
@@ -159,6 +159,21 @@
     left: auto;
     right: 4px;
   }
+}
+
+.k-switch-checked.k-switch-success {
+  background: var(--kui-switch-color, var(--kui-color-success));
+  border-color: var(--kui-switch-color, var(--kui-color-success));
+}
+
+.k-switch-checked.k-switch-warning {
+  background: var(--kui-switch-color, var(--kui-color-warning));
+  border-color: var(--kui-switch-color, var(--kui-color-warning));
+}
+
+.k-switch-checked.k-switch-danger {
+  background: var(--kui-switch-color, var(--kui-color-danger));
+  border-color: var(--kui-switch-color, var(--kui-color-danger));
 }
 
 .k-switch-disabled {
