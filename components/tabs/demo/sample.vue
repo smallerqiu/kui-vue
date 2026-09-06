@@ -1,6 +1,6 @@
 <template>
   <div class="demo-view-fill">
-    <Tabs v-model="current" sample @change="change">
+    <Tabs v-model="current" sample>
       <TabPanel key="1" title="Tab 1">
         <p>Content of Tab Pane 1</p>
         <p>Content of Tab Pane 1</p>
@@ -22,7 +22,4 @@
 <script setup lang="ts">
 import { ref } from "vue";
 const current = ref("1");
-const change = (key: string) => {
-  console.log(key);
-};
 </script>

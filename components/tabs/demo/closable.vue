@@ -9,7 +9,7 @@
       {{ panel.content }}
     </TabPanel>
     <template #extra>
-      <Button :icon="Plus" size="small" @click="add" />
+      <Button :icon="Plus" @click="add" />
     </template>
   </Tabs>
 </template>
@@ -24,22 +24,23 @@ const panesData = ref([
 const activeKey = ref("1");
 const newTabIndex = ref(0);
 const remove = (key: string) => {
-  let panes = panesData.value;
-  console.log(key);
-  const index = panesData.value.map((p) => p.key).indexOf(key);
-  panesData.value = panes.filter((panel) => panel.key !== key);
-  activeKey.value = panesData.value[index - 1].key;
+  const index = panesData.value.findIndex((panel) => panel.key === key);
+  const panes = panesData.value.filter((panel) => panel.key !== key);
+  panesData.value = panes;
+  if (activeKey.value === key) activeKey.value = panes[Math.max(0, index - 1)]?.key ?? "";
 };
 const add = () => {
-  const panes = panesData.value;
-  const key = `A${newTabIndex.value++}`;
-  panes.push({
-    title: `New Tab${newTabIndex.value}`,
-    content: `Content of new Tab ${newTabIndex.value}`,
-    key: key,
-    closable: true,
-  });
-  panesData.value = panes;
+  const index = ++newTabIndex.value;
+  const key = `A${index}`;
+  panesData.value = [
+    ...panesData.value,
+    {
+      title: `New Tab ${index}`,
+      content: `Content of new Tab ${index}`,
+      key,
+      closable: true,
+    },
+  ];
   activeKey.value = key;
 };
 </script>

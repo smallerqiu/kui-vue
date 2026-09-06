@@ -1,7 +1,7 @@
 <template>
   <Tabs v-model="current">
-    <TabPanel key="1" title="Tab 1" :icon="LogoApple"> Content of Tab Pane 1 </TabPanel>
-    <TabPanel key="2" title="Tab 2" :icon="LogoMicrosoft"> Content of Tab Pane 2 </TabPanel>
+    <TabPanel key="1" title="Apple" :icon="LogoApple">Content of Apple tab</TabPanel>
+    <TabPanel key="2" title="Microsoft" :icon="LogoMicrosoft">Content of Microsoft tab</TabPanel>
   </Tabs>
 </template>
 <script setup lang="ts">
