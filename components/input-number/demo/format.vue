@@ -1,12 +1,12 @@
 <template>
   <Space vertical block>
-    <code> 0.1+0.2 = 0.3 (yes) ,output：{{ n }}</code>
+    <code>0.1+0.2 = 0.3 (yes) ,output：{{ n }}</code>
     <InputNumber :step="0.2" v-model="n" />
     <code>step is 0.00000000000001 ,output：{{ n1 }}</code>
     <InputNumber v-model="n1" :min="0" :max="10" :step="0.00000000000001" />
     <code>Keep 2 decimal places, output：{{ n3 }}</code>
     <InputNumber :precision="2" v-model="n3" />
-    <code> Currency, thousandths,output： {{ n4 }}</code>
+    <code>Currency, thousandths,output： {{ n4 }}</code>
     <InputNumber
       v-model="n4"
       :min="0"

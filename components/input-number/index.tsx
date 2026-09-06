@@ -18,7 +18,7 @@ const inputNumberProps = {
   modelValue: [Number, String] as PropType<number | string>,
   min: { type: Number, default: -Infinity },
   max: { type: Number, default: Infinity },
-  step: { type: Number, default: 1 },
+  step: { type: [Number, String] as PropType<number | string>, default: 1 },
   precision: Number,
   formatter: Function as PropType<(value: string | number) => string>,
   parser: Function as PropType<(value: string) => string | number>,
@@ -36,7 +36,7 @@ const inputNumberProps = {
     type: String as PropType<SizeType>,
   },
   placeholder: String,
-  onChange: Function as PropType<(value: number) => void>,
+  onChange: Function as PropType<(value: number | undefined) => void>,
 };
 
 export type InputNumberProps = ExtractPropTypes<typeof inputNumberProps>;
@@ -50,6 +50,9 @@ const InputNumber = defineComponent({
     const parentSize = inject<SizeType | undefined>("size", undefined);
     const innerValue = ref("");
     const userInput = ref<string | null>(null);
+    const safePrecision = computed(() =>
+      props.precision === undefined ? undefined : Math.max(0, Math.trunc(props.precision)),
+    );
 
     const clamp = (val: string | number) => {
       if (!isValidBig(val)) {
@@ -62,7 +65,7 @@ const InputNumber = defineComponent({
         if (props.max !== Infinity && b.gt(props.max)) b = new Big(props.max);
         if (props.min !== -Infinity && b.lt(props.min)) b = new Big(props.min);
 
-        return props.precision !== undefined ? b.toFixed(props.precision) : b.toFixed();
+        return safePrecision.value !== undefined ? b.toFixed(safePrecision.value) : b.toFixed();
       } catch {
         return innerValue.value;
       }
@@ -71,12 +74,12 @@ const InputNumber = defineComponent({
     watch(
       () => props.modelValue,
       (val) => {
-        const next = normalize(val, props.precision);
+        const next = normalize(val, safePrecision.value);
         if (next !== innerValue.value) {
           innerValue.value = next;
         }
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     const emitValue = (value: number | undefined) => {
@@ -116,13 +119,6 @@ const InputNumber = defineComponent({
 
         innerValue.value = normalizedStr;
         emitValue(Number(normalizedStr));
-
-        if (props.formatter) {
-          const formatted = props.formatter(normalizedStr);
-          if (formatted !== userInput.value) {
-            userInput.value = formatted;
-          }
-        }
       }
     };
 
@@ -135,13 +131,27 @@ const InputNumber = defineComponent({
       if (props.disabled || props.readonly) return;
 
       const current = isValidBig(innerValue.value) ? innerValue.value : 0;
-      const next =
-        type === "up" ? new Big(current).plus(props.step) : new Big(current).minus(props.step);
+      let step = new Big(1);
+      try {
+        const candidate = new Big(props.step);
+        if (candidate.gt(0)) step = candidate;
+      } catch {
+        // Invalid steps fall back to 1.
+      }
+      const next = type === "up" ? new Big(current).plus(step) : new Big(current).minus(step);
 
       triggerUpdate(next.toFixed());
     };
 
     return () => {
+      const canStepUp =
+        props.max === Infinity ||
+        !isValidBig(innerValue.value) ||
+        new Big(innerValue.value).lt(props.max);
+      const canStepDown =
+        props.min === -Infinity ||
+        !isValidBig(innerValue.value) ||
+        new Big(innerValue.value).gt(props.min);
       const inputProps = {
         ...attrs,
         modelValue: displayValue.value,
@@ -156,9 +166,17 @@ const InputNumber = defineComponent({
         shape: props.shape,
         theme: props.theme,
         inputType: "input-number",
+        role: "spinbutton",
+        inputmode: "decimal",
+        "aria-valuemin": props.min === -Infinity ? undefined : props.min,
+        "aria-valuemax": props.max === Infinity ? undefined : props.max,
+        "aria-valuenow": isValidBig(innerValue.value) ? Number(innerValue.value) : undefined,
+        "aria-valuetext": props.formatter && innerValue.value ? displayValue.value : undefined,
         "onUpdate:modelValue": handleInput,
         onBlur: handleBlur,
         onKeydown: (e: KeyboardEvent) => {
+          emit("keydown", e);
+          if (e.defaultPrevented) return;
           if (props.keyboard === false) return;
           if (e.key === "ArrowUp") {
             e.preventDefault();
@@ -173,12 +191,24 @@ const InputNumber = defineComponent({
       const controls =
         props.controls && !props.readonly && !props.disabled ? (
           <div class="k-input-number-controls">
-            <span class="k-input-number-control" onClick={() => stepAction("up")}>
+            <button
+              type="button"
+              class="k-input-number-control"
+              disabled={!canStepUp}
+              aria-label="Increase value"
+              onClick={() => stepAction("up")}
+            >
               <Icon type={ChevronUp} />
-            </span>
-            <span class="k-input-number-control" onClick={() => stepAction("down")}>
+            </button>
+            <button
+              type="button"
+              class="k-input-number-control"
+              disabled={!canStepDown}
+              aria-label="Decrease value"
+              onClick={() => stepAction("down")}
+            >
               <Icon type={ChevronDown} />
-            </span>
+            </button>
           </div>
         ) : null;
 

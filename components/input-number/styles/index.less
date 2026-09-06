@@ -25,6 +25,12 @@
       width: 20px;
     }
   }
+  &:focus-within {
+    .k-input-number-controls {
+      opacity: 1;
+      width: 20px;
+    }
+  }
 
   .k-input-number-clearable-hidden {
     visibility: hidden;
@@ -54,6 +60,10 @@
 }
 
 .k-input-number-control {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
   flex: 1;
   display: flex;
   width: 100%;
@@ -69,6 +79,12 @@
   &:active {
     color: var(--kui-color-primary);
     background-color: var(--kui-color-bg-component-active);
+  }
+
+  &:disabled {
+    color: var(--kui-color-text-disabled);
+    background: transparent;
+    cursor: not-allowed;
   }
 
   &:last-child {
