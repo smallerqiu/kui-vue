@@ -24,7 +24,7 @@ const search = (query: string) => {
   loading.value = true;
   timer = setTimeout(() => {
     options.value = members.filter((member) =>
-      member.toLocaleLowerCase().includes(query.toLocaleLowerCase())
+      member.toLocaleLowerCase().includes(query.toLocaleLowerCase()),
     );
     loading.value = false;
   }, 1000);

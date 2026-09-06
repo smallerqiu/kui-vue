@@ -51,7 +51,7 @@
 | placeholder  | 占位文本                           | string                                                                            | -           |
 | disabled     | 是否禁用                           | boolean                                                                           | false       |
 | readonly     | 是否只读，不可输入、选择或清空     | boolean                                                                           | false       |
-| clearable    | 是否显示清空按钮                   | boolean                                                                           | false       |
+| clearable    | 是否显示清空按钮                   | boolean                                                                           | true        |
 | loading      | 是否显示远程搜索加载状态           | boolean                                                                           | false       |
 | loadingText  | 加载提示文字                       | string                                                                            | -           |
 | rows         | 文本域行数                         | number                                                                            | 1           |
