@@ -24,9 +24,9 @@ Used to present product features, navigation entries, or capability descriptions
 
 | Property       | Description                                                  | Type                     | Default    |
 | -------------- | ------------------------------------------------------------ | ------------------------ | ---------- |
-| icon           | Icon                                                         | IconType                 | -          |
-| title          | Title                                                        | string                   | -          |
-| desc           | Description                                                  | string                   | -          |
+| icon           | Icon, customizable via the named slot                        | IconType \| VNodeChild   | -          |
+| title          | Title, customizable via the named slot                       | string \| VNodeChild     | -          |
+| desc           | Description, customizable via the named slot                 | string \| VNodeChild     | -          |
 | bordered       | Whether to show border                                       | boolean                  | false      |
 | theme          | Appearance theme                                             | ThemeType                | fill       |
 | shape          | Card shape                                                   | ShapeType                | round      |
@@ -36,19 +36,10 @@ Used to present product features, navigation entries, or capability descriptions
 | disabled       | Disable interaction                                          | boolean                  | false      |
 | color          | Icon accent color                                            | string                   | primary    |
 | iconBackground | Icon container background; derived from `color` when omitted | string                   | auto       |
+| extra          | Trailing content                                             | VNodeChild               | -          |
 
 ## Events
 
 | Event | Description          | Callback                      |
 | ----- | -------------------- | ----------------------------- |
 | click | Emitted when clicked | `(event: MouseEvent) => void` |
-
-## Slots
-
-| Name    | Description        |
-| ------- | ------------------ |
-| icon    | Custom icon        |
-| title   | Custom title       |
-| desc    | Custom description |
-| extra   | Trailing content   |
-| default | Additional content |

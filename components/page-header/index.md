@@ -18,18 +18,10 @@
 
 ## API
 
-| 属性        | 说明     | 类型   | 默认值 |
-| ----------- | -------- | ------ | ------ |
-| title       | 页面标题 | string | -      |
-| description | 页面说明 | string | -      |
-
-## Slots
-
-| 名称        | 说明             |
-| ----------- | ---------------- |
-| title       | 自定义标题       |
-| description | 自定义说明       |
-| breadcrumb  | 面包屑区域       |
-| back        | 返回区域         |
-| actions     | 页面操作区域     |
-| default     | 标题下方附加内容 |
+| 属性        | 说明                             | 类型                 | 默认值 |
+| ----------- | -------------------------------- | -------------------- | ------ |
+| title       | 页面标题，也可通过同名插槽自定义 | string \| VNodeChild | -      |
+| description | 页面说明，也可通过同名插槽自定义 | string \| VNodeChild | -      |
+| breadcrumb  | 面包屑区域                       | VNodeChild           | -      |
+| back        | 返回区域                         | VNodeChild           | -      |
+| actions     | 页面操作区域                     | VNodeChild           | -      |

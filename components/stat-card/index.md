@@ -26,16 +26,18 @@
 
 ## API
 
-| 属性           | 说明                      | 类型                  | 默认值    |
-| -------------- | ------------------------- | --------------------- | --------- |
-| title          | 卡片标题                  | VNodeChild            | -         |
-| items          | 展示的数据                | StatNumberItem[]      | []        |
-| precision      | 数值精度                  | number                | 0         |
-| statNumberType | 数值变化类型              | 'rollup' \| 'countup' | 'countup' |
-| separator      | 分隔符                    | string                | -         |
-| reverse        | 数值/数值描述是否反相排列 | boolean               | false     |
-| bordered       | 是否显示边框              | boolean               | false     |
-| size           | 卡片尺寸                  | SizeType              | medium    |
+| 属性           | 说明                                                   | 类型                  | 默认值    |
+| -------------- | ------------------------------------------------------ | --------------------- | --------- |
+| title          | 卡片标题，也可通过同名插槽自定义                       | VNodeChild            | -         |
+| items          | 展示的数据                                             | StatNumberItem[]      | []        |
+| precision      | 数值精度                                               | number                | 0         |
+| statNumberType | 数值变化类型                                           | 'rollup' \| 'countup' | 'countup' |
+| separator      | 分隔符                                                 | string                | -         |
+| reverse        | 数值/数值描述是否反相排列                              | boolean               | false     |
+| bordered       | 是否显示边框                                           | boolean               | false     |
+| size           | 卡片尺寸                                               | SizeType              | medium    |
+| prefix         | 所有数值的默认前置内容，作用域参数为 `{ item, index }` | VNodeChild            | -         |
+| suffix         | 所有数值的默认后置内容，作用域参数为 `{ item, index }` | VNodeChild            | -         |
 
 ### items Options
 
@@ -74,11 +76,3 @@
 | ----- | -------- | -------------------------- | ------ |
 | theme | 外观主题 | `fill \| outline \| plain` | fill   |
 | shape | 卡片形状 | ShapeType                  | round  |
-
-## Slots
-
-| 名称   | 说明                   | 作用域参数        |
-| ------ | ---------------------- | ----------------- |
-| title  | 自定义卡片标题         | -                 |
-| prefix | 所有数值的默认前置内容 | `{ item, index }` |
-| suffix | 所有数值的默认后置内容 | `{ item, index }` |

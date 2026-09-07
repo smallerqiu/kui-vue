@@ -38,16 +38,16 @@ When there are too many operation commands on the page, this component can be us
 
 ## Dropdown API
 
-| Property     | Description                                                                         | Type                                        | Default     |
-| ------------ | ----------------------------------------------------------------------------------- | ------------------------------------------- | ----------- |
-| show         | Whether the dropdown is displayed by default(v-model).                              | boolean                                     | false       |
-| trigger      | Trigger method. Supports 3 methods: hover (default), click, custom                  | string                                      | hover       |
-| placement    | Menu popup position: bottomLeft bottomCenter bottomRight topLeft topCenter topRight | string                                      | bottom-left |
-| theme        | The component renders the theme, defaulting to 'fill'.                              | string                                      | fill        |
-| arrow        | Whether to display the arrow                                                        | boolean                                     | false       |
-| target       | Ref of the external element or component that triggers the dropdown                 | Ref<HTMLElement \| ComponentPublicInstance> | -           |
-| disabled     | Whether dropdown triggering is allowed                                              | boolean                                     | false       |
-| onOpenChange | Triggered when opening or closing a Dropdown                                        | (opened:boolean)=>void                      | -           |
+| Property     | Description                                     | Type                                        | Default       |
+| ------------ | ----------------------------------------------- | ------------------------------------------- | ------------- |
+| show         | Whether the dropdown is visible (v-model)       | boolean                                     | false         |
+| trigger      | Trigger method                                  | `hover` \| `click` \| `contextmenu`         | `hover`       |
+| placement    | Dropdown placement                              | DropPlacementsType                          | `bottom-left` |
+| arrow        | Whether to display the arrow                    | boolean                                     | false         |
+| target       | Ref of an external trigger element or component | Ref<HTMLElement \| ComponentPublicInstance> | -             |
+| disabled     | Whether triggering is disabled                  | boolean                                     | false         |
+| onOpenChange | Called when the dropdown opens or closes        | (opened: boolean) => void                   | -             |
+| overlay slot | Dropdown overlay content                        | VNodeChild                                  | -             |
 
 ### DropdownButton API
 

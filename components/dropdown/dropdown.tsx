@@ -8,7 +8,7 @@ import {
   cloneVNode,
   defineComponent,
   nextTick,
-  onBeforeMount,
+  onBeforeUnmount,
   onMounted,
   provide,
   ref,
@@ -50,7 +50,7 @@ const Dropdown = defineComponent({
   },
   props: dropdownProps,
   setup(props, { slots, emit, attrs }) {
-    usePopupHost(() => visible.value && toggle(false));
+    usePopupHost(() => visible.value && hidePopper());
     const getPopupContainer = usePopupContainer();
     const visible = ref(props.show);
     const refSelection = ref<HTMLElement | null>(null);
@@ -67,10 +67,32 @@ const Dropdown = defineComponent({
         toggle(true);
       }
     });
-    onBeforeMount(() => {
+    onBeforeUnmount(() => {
       document.removeEventListener("click", outsideClick);
+      document.removeEventListener("keydown", keydownEvent, true);
+      document.removeEventListener("scroll", updatePosition, true);
+      clearTimeout(showTimer.value);
     });
     const clearPopTimer = () => clearTimeout(showTimer.value);
+    const getTriggerElement = () => {
+      const target = props.target?.value || refSelection.value;
+      return ((target as (HTMLElement & { $el?: HTMLElement }) | null)?.$el ||
+        target) as HTMLElement | null;
+    };
+    const focusMenuItem = (last = false) => {
+      nextTick(() => {
+        nextTick(() => {
+          requestAnimationFrame(() => {
+            const items = Array.from(
+              refPopper.value?.querySelectorAll<HTMLElement>(
+                '[role="menuitem"]:not([aria-disabled="true"])',
+              ) || [],
+            );
+            items[last ? items.length - 1 : 0]?.focus({ preventScroll: true });
+          });
+        });
+      });
+    };
 
     watch(
       () => props.placement,
@@ -92,15 +114,19 @@ const Dropdown = defineComponent({
       if (!refPopper.value) return;
       const target = e.target as HTMLElement;
       if (
-        (!refPopper.value.contains(target) && ctx && !ctx.contains(target)) ||
+        (!refPopper.value.contains(target) && (!ctx || !ctx.contains(target))) ||
         (props.trigger == "contextmenu" && !refPopper.value.contains(target))
       ) {
-        openChange(false);
+        toggle(false);
       }
     };
     const updatePosition = (e?: MouseEvent) => {
       const position = e ? { x: e.clientX, y: e.clientY } : null;
       nextTick(() => {
+        if (props.target?.value) {
+          const target = props.target.value as HTMLElement & { $el?: HTMLElement };
+          refSelection.value = target.$el || target;
+        }
         if (!refPopper.value || !refSelection.value) return;
         setPlacement({
           refSelection,
@@ -115,15 +141,18 @@ const Dropdown = defineComponent({
       });
     };
 
-    const openChange = (opened?: boolean) => {
+    const openChange = (opened: boolean) => {
       visible.value = opened;
       emit("openChange", opened);
     };
     const toggle = (open?: boolean, e?: MouseEvent) => {
       if (open) {
+        positioned.value = false;
+        document.addEventListener("keydown", keydownEvent, true);
         if (!rendered.value) {
           rendered.value = true;
           document.addEventListener("click", outsideClick);
+          document.addEventListener("scroll", updatePosition, true);
           nextTick(() => {
             openChange(true);
             emit("update:show", true);
@@ -141,10 +170,18 @@ const Dropdown = defineComponent({
       } else {
         openChange(false);
         emit("update:show", false);
+        document.removeEventListener("keydown", keydownEvent, true);
       }
     };
     const hidePopper = () => {
-      openChange(false);
+      toggle(false);
+      nextTick(() => getTriggerElement()?.focus({ preventScroll: true }));
+    };
+    const keydownEvent = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || !visible.value) return;
+      event.preventDefault();
+      event.stopPropagation();
+      hidePopper();
     };
 
     const clickEvent = () => {
@@ -152,7 +189,7 @@ const Dropdown = defineComponent({
         return;
       }
       if (props.trigger == "click") {
-        toggle(true);
+        toggle(!visible.value);
       }
     };
     const mouseLeaveEvent = () => {
@@ -204,9 +241,6 @@ const Dropdown = defineComponent({
         "k-placement": currentPlacement.value,
         class: ["k-dropdown", { "k-dropdown-has-arrow": props.arrow }],
 
-        onClick: (e: MouseEvent) => {
-          toggle(false, e);
-        },
         onMouseenter: () => {
           clearTimeout(showTimer.value);
         },
@@ -254,6 +288,24 @@ const Dropdown = defineComponent({
             onMouseenter: mouseEnterEvent,
             onMouseleave: mouseLeaveEvent,
             onContextmenu: contextmenuEvent,
+            onKeydown: (event: KeyboardEvent) => {
+              if (event.key === "Escape" && visible.value) {
+                event.preventDefault();
+                toggle(false);
+              } else if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+                event.preventDefault();
+                toggle(true);
+                focusMenuItem(event.key === "ArrowUp");
+              } else if (
+                props.trigger === "click" &&
+                (event.key === "Enter" || event.key === " ")
+              ) {
+                event.preventDefault();
+                toggle(!visible.value);
+              }
+            },
+            "aria-haspopup": "menu",
+            "aria-expanded": visible.value,
           };
       const ctxNode = cloneVNode(
         nodes.length == 1 ? nodes[0] : <span>{nodes}</span>,

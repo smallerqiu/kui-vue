@@ -1,7 +1,7 @@
 <template>
   <Breadcrumb>
     <BreadcrumbItem href="/" :icon="House">Home</BreadcrumbItem>
-    <BreadcrumbItem href="/navigation/breadcrumb" :icon="Cloud"> App </BreadcrumbItem>
+    <BreadcrumbItem href="/components/breadcrumb" :icon="Cloud">App</BreadcrumbItem>
     <BreadcrumbItem :icon="Heart">Other</BreadcrumbItem>
   </Breadcrumb>
 </template>

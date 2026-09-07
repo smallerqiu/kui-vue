@@ -27,6 +27,12 @@
       &:hover {
         color: var(--kui-color-primary);
       }
+
+      &:focus-visible {
+        border-radius: var(--kui-border-radius);
+        outline: 2px solid var(--kui-color-primary);
+        outline-offset: 2px;
+      }
     }
 
     .k-icon {
@@ -41,6 +47,7 @@
 
   &-separator {
     color: var(--kui-color-text-placeholder);
+    margin: 0 8px;
   }
 
   li {
@@ -51,9 +58,5 @@
         display: none;
       }
     }
-  }
-
-  &-separator {
-    margin: 0 8px;
   }
 }

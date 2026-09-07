@@ -1,4 +1,5 @@
 import {
+  computed,
   defineComponent,
   provide,
   type ExtractPropTypes,
@@ -16,7 +17,10 @@ const Breadcrumb = defineComponent({
   props: breadcrumbProps,
   setup(props, { slots }) {
     // 提供分隔符给子组件 BreadcrumbItem
-    provide("separator", slots.separator?.() || props.separator);
+    provide(
+      "separator",
+      computed(() => slots.separator?.() || props.separator),
+    );
 
     return () => {
       const rootProps = {
@@ -24,7 +28,7 @@ const Breadcrumb = defineComponent({
       };
 
       return (
-        <nav {...rootProps}>
+        <nav {...rootProps} aria-label="Breadcrumb">
           <ol>{slots.default?.()}</ol>
         </nav>
       );

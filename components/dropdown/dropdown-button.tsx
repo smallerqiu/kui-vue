@@ -8,6 +8,7 @@ import {
   type DropPlacementsType,
   type ShapeType,
   type SizeType,
+  type ThemeType,
 } from "../const/types";
 import { type IconType } from "../icon";
 import Dropdown from "./dropdown";
@@ -18,7 +19,7 @@ const dropdownButtonProps = {
   shape: String as PropType<ShapeType>,
   disabled: Boolean as BooleanType,
   icon: Array as PropType<IconType[]>,
-  theme: String,
+  theme: String as PropType<ThemeType>,
   arrow: Boolean as BooleanType,
   placement: { type: String as PropType<DropPlacementsType>, default: "bottom-right" },
   onClick: Function as PropType<(e: MouseEvent) => void>,
@@ -42,6 +43,7 @@ const DropdownButton = defineComponent({
               <ButtonGroup class="k-dropdown-button" size={props.size} shape={props.shape}>
                 <Button
                   disabled={props.disabled}
+                  theme={props.theme}
                   onClick={(e) => {
                     emit("click", e);
                   }}
@@ -50,6 +52,7 @@ const DropdownButton = defineComponent({
                 </Button>
                 <TriggerButton
                   disabled={props.disabled}
+                  theme={props.theme}
                   ref={refTrigger}
                   icon={!slots.icon ? Ellipsis : undefined}
                   class="k-dropdown-trigger"

@@ -36,12 +36,6 @@
 | overscan   | 视口上下额外渲染的项目数量   | number                                      | 5      |
 | itemKey    | 唯一标识字段或获取唯一值方法 | string \| (item, index) => string \| number | -      |
 
-## Slots
-
-| 名称    | 说明       | 参数            |
-| ------- | ---------- | --------------- |
-| default | 自定义项目 | { item, index } |
-
 ## Methods
 
 | 名称          | 说明             | 参数            |

@@ -32,6 +32,6 @@ export const handleMenuItemKeydown = (event: MenuKeyboardEvent, activate: () => 
       : event.key === "End"
         ? items.length - 1
         : (Math.max(current, 0) + (event.key === nextKey ? 1 : -1) + items.length) % items.length;
-  items[nextIndex]?.focus();
   event.preventDefault();
+  items[nextIndex]?.focus({ preventScroll: true });
 };

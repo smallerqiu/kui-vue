@@ -18,15 +18,20 @@ A monthly calendar for dates and events.
 
 ## API
 
-| Property       | Description                            | Type                  | Default |
-| -------------- | -------------------------------------- | --------------------- | ------- |
-| modelValue     | Selected date in `YYYY-MM-DD` format   | string                | -       |
-| events         | Calendar events                        | `CalendarEventData[]` | `[]`    |
-| firstDayOfWeek | First weekday, where 0 is Sunday       | number                | locale  |
-| maxEvents      | Maximum visible events per day         | number                | 3       |
-| showToolbar    | Show the calendar toolbar              | boolean               | true    |
-| todayText      | Today button text                      | string                | locale  |
-| weekdays       | Labels ordered from Sunday to Saturday | `string[]`            | locale  |
+| Property       | Description                                              | Type                  | Default |
+| -------------- | -------------------------------------------------------- | --------------------- | ------- |
+| modelValue     | Selected date in `YYYY-MM-DD` format                     | string                | -       |
+| events         | Calendar events                                          | `CalendarEventData[]` | `[]`    |
+| firstDayOfWeek | First weekday, where 0 is Sunday                         | number                | locale  |
+| maxEvents      | Maximum visible events per day                           | number                | 3       |
+| showToolbar    | Show the calendar toolbar                                | boolean               | true    |
+| todayText      | Today button text                                        | string                | locale  |
+| weekdays       | Labels ordered from Sunday to Saturday                   | `string[]`            | locale  |
+| title          | Custom month title, scoped with `{ year, month }`        | VNodeChild            | -       |
+| extra          | Extra toolbar content                                    | VNodeChild            | -       |
+| dateCell       | Custom date-cell heading, scoped with `CalendarDateCell` | VNodeChild            | -       |
+| event          | Custom event content, scoped with `{ event, cell }`      | VNodeChild            | -       |
+| more           | Custom overflow indicator, scoped with `{ count, cell }` | VNodeChild            | -       |
 
 Calendar and DatePicker do not share internal state, but both read the same `ConfigProvider locale`. DatePicker selects dates or times; Calendar presents a month and its events, so they can be used together.
 
@@ -50,13 +55,3 @@ When a date cell is focused, use the arrow keys to move, `Home` or `End` to move
 | change            | Emitted when a date or the Today button is selected | `(date: string, cell: CalendarDateCell) => void`             |
 | monthChange       | Emitted when the displayed month changes            | `(value: { year: number; month: number }) => void`           |
 | eventClick        | Emitted when an event is clicked                    | `(event: CalendarEventData, cell: CalendarDateCell) => void` |
-
-## Slots
-
-| Name     | Description               | Scope                                                  |
-| -------- | ------------------------- | ------------------------------------------------------ |
-| title    | Custom month title        | `{ year: number, month: number }`                      |
-| extra    | Extra toolbar content     | -                                                      |
-| dateCell | Custom date-cell heading  | `CalendarDateCell`                                     |
-| event    | Custom event content      | `{ event: CalendarEventData, cell: CalendarDateCell }` |
-| more     | Custom overflow indicator | `{ count: number, cell: CalendarDateCell }`            |

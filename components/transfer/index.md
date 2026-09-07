@@ -34,21 +34,23 @@
 
 ## API
 
-| 属性         | 说明                             | 类型                                       | 默认值               |
-| ------------ | -------------------------------- | ------------------------------------------ | -------------------- |
-| modelValue   | 目标列表的 key，可使用 `v-model` | TransferKey[]                              | []                   |
-| dataSource   | 数据源                           | TransferItem[]                             | []                   |
-| titles       | 两侧标题                         | [string, string]                           | ['Source', 'Target'] |
-| operations   | 向右、向左按钮文案               | [string, string]                           | ['', '']             |
-| searchable   | 是否可搜索                       | boolean                                    | false                |
-| disabled     | 是否禁用                         | boolean                                    | false                |
-| readonly     | 是否只读，可搜索但不可选择或移动 | boolean                                    | false                |
-| theme        | 外观主题                         | 'outline' \| 'fill'                        | outline              |
-| filterOption | 自定义搜索方法                   | (keyword, item) => boolean                 | -                    |
-| render       | 自定义项目内容                   | (item) => VNodeChild                       | -                    |
-| change       | 数据移动时触发                   | (targetKeys, direction, movedKeys) => void | -                    |
-| search       | 搜索时触发                       | (direction, value) => void                 | -                    |
-| selectChange | 选择状态变化时触发               | (sourceKeys, targetKeys) => void           | -                    |
+| 属性         | 说明                                                | 类型                                       | 默认值               |
+| ------------ | --------------------------------------------------- | ------------------------------------------ | -------------------- |
+| modelValue   | 目标列表的 key，可使用 `v-model`                    | TransferKey[]                              | []                   |
+| dataSource   | 数据源                                              | TransferItem[]                             | []                   |
+| titles       | 两侧标题                                            | [string, string]                           | ['Source', 'Target'] |
+| operations   | 向右、向左按钮文案                                  | [string, string]                           | ['', '']             |
+| searchable   | 是否可搜索                                          | boolean                                    | false                |
+| disabled     | 是否禁用                                            | boolean                                    | false                |
+| readonly     | 是否只读，可搜索但不可选择或移动                    | boolean                                    | false                |
+| theme        | 外观主题                                            | 'outline' \| 'fill'                        | outline              |
+| filterOption | 自定义搜索方法                                      | (keyword, item) => boolean                 | -                    |
+| render       | 自定义项目内容                                      | (item) => VNodeChild                       | -                    |
+| item         | 自定义数据项，作用域参数为 `{ item: TransferItem }` | VNodeChild                                 | -                    |
+| change       | 数据移动时触发                                      | (targetKeys, direction, movedKeys) => void | -                    |
+| search       | 搜索时触发                                          | (direction, value) => void                 | -                    |
+| selectChange | 选择状态变化时触发                                  | (sourceKeys, targetKeys) => void           | -                    |
+| footer       | 自定义列表底部，作用域参数为 `{ direction }`        | VNodeChild                                 | -                    |
 
 ### TransferItem
 
@@ -58,10 +60,3 @@
 | title       | 标题         | string           | -      |
 | description | 描述         | string           | -      |
 | disabled    | 是否禁用此项 | boolean          | false  |
-
-### Slots
-
-| 名称   | 说明           | 参数                   |
-| ------ | -------------- | ---------------------- |
-| item   | 自定义数据项   | { item: TransferItem } |
-| footer | 自定义列表底部 | { direction }          |

@@ -31,9 +31,9 @@ Present richer choices with a title, description, and optional symbol.
 | ------------- | --------------------------------------------------- | ------------------------------ | ------- |
 | modelValue    | Standalone state, supports `v-model`                | boolean                        | false   |
 | value         | Option value inside a group                         | string \| number               | -       |
-| title         | Title                                               | string \| number               | -       |
-| description   | Description                                         | string                         | -       |
-| symbol        | Unchecked or shared symbol icon                     | IconType[]                     | -       |
+| title         | Title, customizable via the named slot              | string \| number \| VNodeChild | -       |
+| description   | Description, customizable via the named slot        | string \| VNodeChild           | -       |
+| symbol        | Symbol icon, customizable via the named slot        | IconType[] \| VNodeChild       | -       |
 | checkedSymbol | Symbol icon used when checked                       | IconType[]                     | -       |
 | showIndicator | Show the top-right selection indicator              | boolean                        | true    |
 | disabled      | Disable the card                                    | boolean                        | false   |
@@ -58,18 +58,3 @@ Present richer choices with a title, description, and optional symbol.
 | change     | Emitted when the selected value changes | (value) => void                | -          |
 
 Each item in `options` also supports `disabled` and `readonly`.
-
-## CheckCard Slots
-
-| Name        | Description                         | Parameters  |
-| ----------- | ----------------------------------- | ----------- |
-| default     | Content after title and description | { checked } |
-| title       | Custom title                        | { checked } |
-| description | Custom description                  | { checked } |
-| symbol      | Custom symbol                       | { checked } |
-
-## CheckCardGroup Slots
-
-| Name    | Description       |
-| ------- | ----------------- |
-| default | Custom CheckCards |

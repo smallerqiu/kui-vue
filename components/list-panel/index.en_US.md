@@ -24,20 +24,13 @@ Provides a consistent layout for filters, result summaries, list content and pag
 
 | Property      | Description                                       | Type                           | Default |
 | ------------- | ------------------------------------------------- | ------------------------------ | ------- |
-| summary       | Result summary                                    | string \| number \| VNodeChild | -       |
+| summary       | Result summary, customizable via the named slot   | string \| number \| VNodeChild | -       |
 | bordered      | Show border                                       | boolean                        | true    |
 | theme         | Panel theme                                       | `fill \| outline \| plain`     | outline |
 | shape         | Panel shape                                       | ShapeType                      | round   |
 | size          | Panel size                                        | SizeType                       | medium  |
 | selectedCount | Current selection count used to show bulk actions | number                         | 0       |
-
-## Slots
-
-| Name      | Description                                  |
-| --------- | -------------------------------------------- |
-| filters   | Query controls                               |
-| summary   | Custom result summary                        |
-| actions   | Toolbar actions                              |
-| selection | Bulk action toolbar, scoped with `{ count }` |
-| default   | Table, list or other primary content         |
-| footer    | Pagination or footer actions                 |
+| filters       | Query controls                                    | VNodeChild                     | -       |
+| actions       | Toolbar actions                                   | VNodeChild                     | -       |
+| selection     | Bulk action toolbar, scoped with `{ count }`      | VNodeChild                     | -       |
+| footer        | Pagination or footer actions                      | VNodeChild                     | -       |

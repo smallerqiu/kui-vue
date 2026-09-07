@@ -36,12 +36,6 @@ Render only data near the viewport to improve large-list performance.
 | overscan   | Extra items rendered above/below | number                                      | 5       |
 | itemKey    | Key field or key resolver        | string \| (item, index) => string \| number | -       |
 
-## Slots
-
-| Name    | Description | Parameters      |
-| ------- | ----------- | --------------- |
-| default | Custom item | { item, index } |
-
 ## Methods
 
 | Name          | Description       | Parameters      |

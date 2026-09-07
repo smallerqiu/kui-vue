@@ -20,13 +20,19 @@ Displays the current page's position in the system hierarchy and allows navigati
 
 [Separator](./demo/separator.vue)
 
-- Set the separator via `separator`.
+- Set the separator via the `separator` property or slot.
+
+## Breadcrumb API
+
+| Property  | Description      | Type                 | Default |
+| --------- | ---------------- | -------------------- | ------- |
+| separator | Custom separator | string \| VNodeChild | `/`     |
 
 ## BreadcrumbItem API
 
-| Property  | Description                                                                   | Type    | Default |
-| --------- | ----------------------------------------------------------------------------- | ------- | ------- |
-| separator | Custom separator                                                              | string  | /       |
-| href      | Custom link function, used with `vue-router`                                  | string  | -       |
-| replace   | When routing jumps, enabling `replace` will not add a new record to `history` | boolean | false   |
-| icon      | Button icon                                                                   | string  | -       |
+| Property | Description           | Type       | Default |
+| -------- | --------------------- | ---------- | ------- |
+| href     | Link URL              | string     | -       |
+| target   | Link browsing context | string     | -       |
+| rel      | Link relationship     | string     | -       |
+| icon     | Item icon             | IconType[] | -       |

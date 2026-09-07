@@ -31,17 +31,10 @@ When an operation takes a long time to complete, display the current progress an
 
 ## TimeLineItem API
 
-| Property | Description         | Type         | Default |
-| -------- | ------------------- | ------------ | ------- |
-| icon     | Timeline node icon  | `IconType[]` | -       |
-| color    | Timeline node color | `string`     | -       |
-| time     | Time content        | `VNodeChild` | -       |
-| extra    | Auxiliary content   | `VNodeChild` | -       |
-
-## TimeLineItem Slots
-
-| Name    | Description              |
-| ------- | ------------------------ |
-| default | Timeline item content    |
-| dot     | Custom timeline node     |
-| extra   | Custom auxiliary content |
+| Property | Description                                        | Type         | Default |
+| -------- | -------------------------------------------------- | ------------ | ------- |
+| icon     | Timeline node icon                                 | `IconType[]` | -       |
+| color    | Timeline node color                                | `string`     | -       |
+| time     | Time content                                       | `VNodeChild` | -       |
+| extra    | Auxiliary content, customizable via the named slot | `VNodeChild` | -       |
+| dot      | Custom timeline node                               | `VNodeChild` | -       |

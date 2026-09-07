@@ -26,16 +26,18 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 ## API
 
-| Property       | Description                                              | Type                  | Default   |
-| -------------- | -------------------------------------------------------- | --------------------- | --------- |
-| title          | Card title                                               | VNodeChild            | -         |
-| items          | Data to display                                          | StatNumberItem[]      | []        |
-| precision      | Numerical precision                                      | number                | 0         |
-| statNumberType | Numerical change type                                    | 'rollup' \| 'countup' | 'countup' |
-| separator      | Separator                                                | string                | -         |
-| reverse        | Whether to reverse number/number description arrangement | boolean               | false     |
-| bordered       | Show border or not                                       | boolean               | false     |
-| size           | Card size                                                | SizeType              | medium    |
+| Property       | Description                                                  | Type                  | Default   |
+| -------------- | ------------------------------------------------------------ | --------------------- | --------- |
+| title          | Card title, customizable via the named slot                  | VNodeChild            | -         |
+| items          | Data to display                                              | StatNumberItem[]      | []        |
+| precision      | Numerical precision                                          | number                | 0         |
+| statNumberType | Numerical change type                                        | 'rollup' \| 'countup' | 'countup' |
+| separator      | Separator                                                    | string                | -         |
+| reverse        | Whether to reverse number/number description arrangement     | boolean               | false     |
+| bordered       | Show border or not                                           | boolean               | false     |
+| size           | Card size                                                    | SizeType              | medium    |
+| prefix         | Default prefix for all values, scoped with `{ item, index }` | VNodeChild            | -         |
+| suffix         | Default suffix for all values, scoped with `{ item, index }` | VNodeChild            | -         |
 
 ### items Options
 
@@ -74,11 +76,3 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 | -------- | ---------------- | -------------------------- | ------- |
 | theme    | Appearance theme | `fill \| outline \| plain` | fill    |
 | shape    | Card shape       | ShapeType                  | round   |
-
-## Slots
-
-| Name   | Description                   | Scope             |
-| ------ | ----------------------------- | ----------------- |
-| title  | Custom card title             | -                 |
-| prefix | Default prefix for all values | `{ item, index }` |
-| suffix | Default suffix for all values | `{ item, index }` |

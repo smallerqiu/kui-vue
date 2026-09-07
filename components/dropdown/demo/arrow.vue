@@ -1,5 +1,5 @@
 <template>
-  <div id="dropdown-demo-placement">
+  <Space id="dropdown-demo-placement" wrap>
     <template v-for="placement in placements" :key="placement">
       <Dropdown :placement="placement" arrow>
         <Button>{{ placement }}</Button>
@@ -24,7 +24,7 @@
         </template>
       </Dropdown>
     </template>
-  </div>
+  </Space>
 </template>
 
 <script setup lang="ts">

@@ -31,9 +31,9 @@
 | ------------- | ------------------------------------ | ------------------------------ | ------- |
 | modelValue    | 独立使用时的选中状态，可用 `v-model` | boolean                        | false   |
 | value         | 在 Group 中使用的选项值              | string \| number               | -       |
-| title         | 标题                                 | string \| number               | -       |
-| description   | 描述                                 | string                         | -       |
-| symbol        | 未选中或通用 Symbol 图标             | IconType[]                     | -       |
+| title         | 标题，也可通过同名插槽自定义         | string \| number \| VNodeChild | -       |
+| description   | 描述，也可通过同名插槽自定义         | string \| VNodeChild           | -       |
+| symbol        | Symbol 图标，也可通过同名插槽自定义  | IconType[] \| VNodeChild       | -       |
 | checkedSymbol | 选中时的 Symbol 图标                 | IconType[]                     | -       |
 | showIndicator | 是否显示右上角选中标记               | boolean                        | true    |
 | disabled      | 是否禁用                             | boolean                        | false   |
@@ -58,18 +58,3 @@
 | change     | 当前选择变化时触发         | (value) => void                | -          |
 
 `options` 中每一项还支持 `disabled` 和 `readonly`。
-
-## CheckCard Slots
-
-| 名称        | 说明             | 参数        |
-| ----------- | ---------------- | ----------- |
-| default     | 标题描述后的内容 | { checked } |
-| title       | 自定义标题       | { checked } |
-| description | 自定义描述       | { checked } |
-| symbol      | 自定义 Symbol    | { checked } |
-
-## CheckCardGroup Slots
-
-| 名称    | 说明             |
-| ------- | ---------------- |
-| default | 自定义 CheckCard |

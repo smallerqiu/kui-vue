@@ -22,16 +22,20 @@ Displays items grouped by status and supports drag-and-drop transitions.
 
 ## API
 
-| Property       | Description                                             | Type               | Default |
-| -------------- | ------------------------------------------------------- | ------------------ | ------- |
-| columns        | Column definitions                                      | KanbanColumnData[] | []      |
-| data           | Kanban items                                            | KanbanItemData[]   | []      |
-| rowKey         | Unique item key field                                   | string             | id      |
-| statusKey      | Item status field                                       | string             | status  |
-| draggable      | Enable drag and drop                                    | boolean            | true    |
-| emptyText      | Empty column description; defaults to the global locale | string             | -       |
-| minColumnWidth | Minimum column width                                    | number \| string   | 250     |
-| theme          | Column appearance                                       | `fill \| outline`  | fill    |
+| Property       | Description                                                | Type               | Default |
+| -------------- | ---------------------------------------------------------- | ------------------ | ------- |
+| columns        | Column definitions                                         | KanbanColumnData[] | []      |
+| data           | Kanban items                                               | KanbanItemData[]   | []      |
+| rowKey         | Unique item key field                                      | string             | id      |
+| statusKey      | Item status field                                          | string             | status  |
+| draggable      | Enable drag and drop                                       | boolean            | true    |
+| emptyText      | Empty column description; defaults to the global locale    | string             | -       |
+| minColumnWidth | Minimum column width                                       | number \| string   | 250     |
+| theme          | Column appearance                                          | `fill \| outline`  | fill    |
+| columnTitle    | Custom column heading, scoped with `{ column, items }`     | VNodeChild         | -       |
+| item           | Custom card content, scoped with `{ item, column, index }` | VNodeChild         | -       |
+| empty          | Custom empty-column content, scoped with `{ column }`      | VNodeChild         | -       |
+| footer         | Custom column footer, scoped with `{ column, items }`      | VNodeChild         | -       |
 
 ### KanbanColumnData
 
@@ -51,12 +55,3 @@ Displays items grouped by status and supports drag-and-drop transitions.
 `KanbanMoveEvent` contains the moved `item`, source column key `from` and target column key `to`.
 
 When a card is focused, press `Alt + ←` or `Alt + →` to move it to an adjacent column.
-
-## Slots
-
-| Name        | Description                 | Scope                     |
-| ----------- | --------------------------- | ------------------------- |
-| columnTitle | Custom column heading       | `{ column, items }`       |
-| item        | Custom card content         | `{ item, column, index }` |
-| empty       | Custom empty-column content | `{ column }`              |
-| footer      | Custom column footer        | `{ column, items }`       |

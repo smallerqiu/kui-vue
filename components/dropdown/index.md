@@ -38,22 +38,26 @@
 
 ## Dropdown API
 
-| 属性         | 说明                                                                         | 类型                                        | 默认值      |
-| ------------ | ---------------------------------------------------------------------------- | ------------------------------------------- | ----------- |
-| show         | 默认是否显示下拉(v-model)                                                    | boolean                                     | false       |
-| trigger      | 触发方式,支持hover(默认), click, custom 3种方式                              | string                                      | hover       |
-| placement    | 菜单弹出位置：bottomLeft bottomCenter bottomRight topLeft topCenter topRight | string                                      | bottom-left |
-| theme        | 组件呈现主题,默认'fill'                                                      | string                                      | fill        |
-| arrow        | 是否显示箭头                                                                 | boolean                                     | false       |
-| target       | 外部触发元素或组件的引用                                                     | Ref<HTMLElement \| ComponentPublicInstance> | -           |
-| disabled     | 是否允许触发下拉                                                             | boolean                                     | false       |
-| onOpenChange | 打开或关闭Dropdown时触发                                                     | (opened:boolean)=>void                      | -           |
+| 属性         | 说明                      | 类型                                        | 默认值        |
+| ------------ | ------------------------- | ------------------------------------------- | ------------- |
+| show         | 是否显示下拉层（v-model） | boolean                                     | false         |
+| trigger      | 触发方式                  | `hover` \| `click` \| `contextmenu`         | `hover`       |
+| placement    | 下拉层位置                | DropPlacementsType                          | `bottom-left` |
+| arrow        | 是否显示箭头              | boolean                                     | false         |
+| target       | 外部触发元素或组件的引用  | Ref<HTMLElement \| ComponentPublicInstance> | -             |
+| disabled     | 是否禁用触发              | boolean                                     | false         |
+| onOpenChange | 打开或关闭时触发          | (opened: boolean) => void                   | -             |
+| overlay 插槽 | 下拉层内容                | VNodeChild                                  | -             |
 
 ### DropdownButton API
 
-| 属性    | 说明               | 类型                  | 默认值   |
-| ------- | ------------------ | --------------------- | -------- |
-| size    | 按钮尺寸           | 'small' \| 'large'    | -        |
-| shape   | 按钮形状           | 'circle' \| 'square'  | -        |
-| icon    | 自定义下拉按钮图标 | IconType[]            | Ellipsis |
-| onClick | 点击主按钮时触发   | (e: MouseEvent)=>void | -        |
+| 属性      | 说明               | 类型                    | 默认值         |
+| --------- | ------------------ | ----------------------- | -------------- |
+| size      | 按钮尺寸           | SizeType                | -              |
+| shape     | 按钮形状           | ShapeType               | -              |
+| disabled  | 是否禁用           | boolean                 | false          |
+| icon      | 自定义下拉按钮图标 | IconType                | Ellipsis       |
+| theme     | 按钮主题           | ThemeType               | -              |
+| arrow     | 是否显示下拉箭头   | boolean                 | false          |
+| placement | 下拉层位置         | DropPlacementsType      | `bottom-right` |
+| onClick   | 点击主按钮时触发   | (e: MouseEvent) => void | -              |
