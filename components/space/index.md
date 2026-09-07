@@ -53,12 +53,12 @@
 
 ## Space API
 
-| 属性     | 说明                         | 类型                                       | 默认值 |
-| -------- | ---------------------------- | ------------------------------------------ | ------ |
-| align    | 对齐方式                     | 'start' \| 'end' \| 'center' \| 'baseline' | center |
-| vertical | 是否垂直显示                 | boolean                                    | false  |
-| size     | 间距大小                     | 'small' \| 'medium' \| 'large' \| number   | small  |
-| wrap     | 是否换行                     | boolean                                    | false  |
-| split    | 设置拆分                     | slot                                       | -      |
-| compact  | 是否使用经凑模式             | boolean                                    | false  |
-| block    | 将宽度调整为父元素宽度的选项 | boolean                                    | false  |
+| 属性     | 说明                                 | 类型                                       | 默认值 |
+| -------- | ------------------------------------ | ------------------------------------------ | ------ |
+| align    | 对齐方式                             | 'start' \| 'end' \| 'center' \| 'baseline' | center |
+| vertical | 是否垂直显示                         | boolean                                    | false  |
+| size     | 间距大小；数组依次表示水平、垂直间距 | SizeType \| number \| (number \| string)[] | -      |
+| wrap     | 是否换行                             | boolean                                    | false  |
+| split    | 相邻元素间的分隔内容                 | VNodeChild                                 | -      |
+| compact  | 是否使用紧凑模式                     | boolean                                    | false  |
+| block    | 将宽度调整为父元素宽度的选项         | boolean                                    | false  |

@@ -10,7 +10,7 @@ Provides a consistent layout for page titles, descriptions and actions.
 
 [Full structure](./demo/slots.vue?show=vertical)
 
-- Compose breadcrumbs, back action, title, actions and additional content with slots.
+- Compose breadcrumbs, a back action, title and actions, then combine with `ListPanel` to build a list page.
 
 [Simple header](./demo/simple.vue?show=vertical)
 

@@ -10,7 +10,7 @@
 
 [完整结构](./demo/slots.vue?show=vertical)
 
-- 使用面包屑、返回、标题、操作及默认插槽组合完整页头。
+- 使用面包屑、返回、标题和操作组成完整页头，并结合 `ListPanel` 构建列表页面。
 
 [简洁页头](./demo/simple.vue?show=vertical)
 
