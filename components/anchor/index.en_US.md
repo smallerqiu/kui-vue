@@ -18,18 +18,18 @@ It is necessary to display the anchor links available for navigation on the curr
 
 ## Anchor API
 
-| Property  | Description                                                                         | Type                  | Default |
-| --------- | ----------------------------------------------------------------------------------- | --------------------- | ------- |
-| affix     | Fixed mode                                                                          | boolean               | true    |
-| offsetTop | Triggered when the distance from the top of the window reaches the specified offset | number                | -       |
-| bounds    | Boundary of the anchor area                                                         | number                | 5       |
-| container | Specifies the scrolling container                                                   | string \| HTMLElement | -       |
-| onChange  | Listens for changes in anchor links and returns the currently focused Link          | (link:string) => void | -       |
-| onClick   | Click event for Anchor                                                              | (link:string) => void | -       |
+| Property  | Description                                                  | Type                            | Default |
+| --------- | ------------------------------------------------------------ | ------------------------------- | ------- |
+| affix     | Whether to use sticky positioning                            | boolean                         | true    |
+| offsetTop | Offset from the container top for positioning and activation | number                          | 0       |
+| bounds    | Anchor activation boundary                                   | number                          | 5       |
+| container | Scroll container                                             | string \| HTMLElement \| Window | window  |
+| change    | Emitted when the active anchor changes                       | (link: string) => void          | -       |
+| click     | Emitted when an anchor is clicked                            | (link: string) => void          | -       |
 
 ## AnchorLink API
 
-| Property | Description  | Type   | Default |
-| -------- | ------------ | ------ | ------- |
-| href     | Anchor link  | string | -       |
-| title    | Text content | string | -       |
+| Property | Description                                   | Type                 | Default |
+| -------- | --------------------------------------------- | -------------------- | ------- |
+| href     | Anchor link                                   | string               | -       |
+| title    | Text content, customizable via the named slot | string \| VNodeChild | -       |

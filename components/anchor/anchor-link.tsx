@@ -34,10 +34,15 @@ const AnchorLink = defineComponent({
       (href, previousHref) => {
         if (previousHref) anchorContext?.unregisterLink(previousHref);
         if (href) anchorContext?.registerLink(href);
-      }
+      },
     );
 
     const handleClick = (e: MouseEvent) => {
+      const listeners = Array.isArray(attrs.onClick) ? attrs.onClick : [attrs.onClick];
+      listeners.forEach((listener) => {
+        if (typeof listener === "function") listener(e);
+      });
+      if (e.defaultPrevented) return;
       e.preventDefault();
       if (props.href) anchorContext?.handleScrollTo(props.href);
     };

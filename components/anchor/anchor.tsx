@@ -90,6 +90,12 @@ const Anchor = defineComponent({
       });
     };
 
+    const setActiveLink = (link: string) => {
+      if (activeLink.value === link) return;
+      activeLink.value = link;
+      emit("change", link);
+    };
+
     const handleScroll = () => {
       frameId = null;
       if (isClickScrolling) return;
@@ -117,10 +123,7 @@ const Anchor = defineComponent({
         }
       }
 
-      if (activeLink.value !== current) {
-        activeLink.value = current;
-        emit("change", current);
-      }
+      setActiveLink(current);
     };
 
     const scheduleScroll = () => {
@@ -157,7 +160,7 @@ const Anchor = defineComponent({
       if (!target) return;
 
       isClickScrolling = true; // 加锁
-      activeLink.value = link;
+      setActiveLink(link);
       emit("click", link);
 
       const container = currentContainer || getContainer();
@@ -229,10 +232,11 @@ const Anchor = defineComponent({
     });
 
     return () => {
-      const { class: customClass, ...restAttrs } = attrs;
+      const { class: customClass, style: customStyle, ...restAttrs } = attrs;
       const wrapperProps = {
         ...restAttrs,
         class: ["k-anchor-wrapper", customClass, { "k-anchor-affix": props.affix }],
+        style: [customStyle as CSSProperties, props.affix ? { top: `${props.offsetTop}px` } : null],
         ref: anchorRef,
       };
 
