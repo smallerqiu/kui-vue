@@ -11,7 +11,6 @@ const collapseProps = {
   sample: Boolean as BooleanType,
   theme: { type: String as PropType<ThemeType>, default: "outline" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
-  onChange: Function as PropType<(key: string | number) => void>,
 };
 
 export type CollapseProps = ExtractPropTypes<typeof collapseProps>;
@@ -19,7 +18,10 @@ export type CollapseProps = ExtractPropTypes<typeof collapseProps>;
 const Collapse = defineComponent({
   name: "Collapse",
   props: collapseProps,
-  emits: ["change", "update:openKeys"],
+  emits: {
+    change: (key: CollapseKey) => typeof key === "string" || typeof key === "number",
+    "update:openKeys": (keys: CollapseKey[]) => Array.isArray(keys),
+  },
   setup(props, { slots, emit }) {
     const defaultOpenKeys = ref<CollapseKey[]>([...(props.openKeys || [])]);
 

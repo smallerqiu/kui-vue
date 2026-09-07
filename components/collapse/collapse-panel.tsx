@@ -26,7 +26,9 @@ export type CollapsePanelProps = ExtractPropTypes<typeof collapsePanelProps>;
 const CollapsePanel = defineComponent({
   name: "CollapsePanel",
   props: collapsePanelProps,
-  emits: ["expand"],
+  emits: {
+    expand: (key: CollapseKey) => typeof key === "string" || typeof key === "number",
+  },
   setup(props, { slots, emit }) {
     const instance = getCurrentInstance();
     const collapse = inject(collapseContextKey, null);

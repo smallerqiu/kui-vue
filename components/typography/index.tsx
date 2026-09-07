@@ -65,8 +65,6 @@ const typographyProps = {
     type: [Boolean, Number, Object] as PropType<boolean | number | TypographyEllipsisOptions>,
     default: false,
   },
-  onCopy: Function as PropType<(text: string) => void>,
-  onChange: Function as PropType<(text: string) => void>,
 };
 
 export type TypographyProps = ExtractPropTypes<typeof typographyProps>;
@@ -76,7 +74,11 @@ const createTypography = (name: string, defaultTag: TypographyTag) =>
     name,
     inheritAttrs: false,
     props: typographyProps,
-    emits: ["update:modelValue", "change", "copy"],
+    emits: {
+      "update:modelValue": (value: string) => typeof value === "string",
+      change: (value: string) => typeof value === "string",
+      copy: (value: string) => typeof value === "string",
+    },
     setup(props, { attrs, slots, emit }) {
       const editing = ref(false);
       const copied = ref(false);

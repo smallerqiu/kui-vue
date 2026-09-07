@@ -29,38 +29,41 @@ export type TableColumnSettingProps = ExtractPropTypes<typeof tableColumnSetting
 const TableColumnSetting = defineComponent({
   name: "TableColumnSetting",
   props: tableColumnSettingProps,
-  emits: ["update:hiddenKeys", "change"],
+  emits: {
+    "update:hiddenKeys": (keys: string[]) => Array.isArray(keys),
+    change: (keys: string[]) => Array.isArray(keys),
+  },
   setup(props, { emit, slots }) {
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
     const locale = computed(() =>
-      "value" in injectedLocale ? injectedLocale.value : injectedLocale
+      "value" in injectedLocale ? injectedLocale.value : injectedLocale,
     );
     const title = computed(
-      () => props.title || locale.value.k.table.columnSettings || "Column settings"
+      () => props.title || locale.value.k.table.columnSettings || "Column settings",
     );
     const resetText = computed(
-      () => props.resetText || locale.value.k.table.resetColumns || "Reset"
+      () => props.resetText || locale.value.k.table.resetColumns || "Reset",
     );
     const leafColumns = computed(() => {
       const result: Column[] = [];
       const collect = (columns: Column[]) =>
         columns.forEach((column) =>
-          column.children?.length ? collect(column.children) : result.push(column)
+          column.children?.length ? collect(column.children) : result.push(column),
         );
       collect(props.columns);
       return result;
     });
     const configurableColumns = computed(() =>
-      leafColumns.value.filter((column) => !props.disabledKeys.includes(column.key))
+      leafColumns.value.filter((column) => !props.disabledKeys.includes(column.key)),
     );
     const visibleKeys = computed(() =>
       configurableColumns.value
         .map((column) => column.key)
-        .filter((key) => !props.hiddenKeys.includes(key))
+        .filter((key) => !props.hiddenKeys.includes(key)),
     );
     const options = computed(() =>
-      configurableColumns.value.map((column) => ({ label: column.title, value: column.key }))
+      configurableColumns.value.map((column) => ({ label: column.title, value: column.key })),
     );
     const update = (values: CheckboxValue[]) => {
       const selected = new Set(values.map(String));

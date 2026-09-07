@@ -27,9 +27,9 @@ Use this feature cautiously when the visible area of the page is small to avoid 
 
 ## API
 
-| Property     | Description                                                                                                                         | Type                    | Default |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------- |
-| offsetTop    | Triggered when the specified offset from the top of the window is reached                                                           | string \| number        | 0       |
-| offsetBottom | Triggered when the specified offset from the bottom of the window is reached                                                        | string \| number        | -       |
-| onChange     | Triggered when the fixed state changes                                                                                              | (fixed:boolean) => void | -       |
-| target       | Set the element whose scroll event the Affix needs to listen to. The value is a function that returns the corresponding DOM element | HTMLElement             | window  |
+| Property     | Description                                                                                       | Type                                | Default |
+| ------------ | ------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- |
+| offsetTop    | Affix after reaching the specified offset from the target top                                     | number                              | 0       |
+| offsetBottom | Affix after reaching the specified offset from the target bottom; takes priority over `offsetTop` | number                              | -       |
+| target       | Scroll target observed by Affix                                                                   | () => Window \| HTMLElement \| null | window  |
+| change       | Emitted when the affixed state changes                                                            | (affixed: boolean) => void          | -       |

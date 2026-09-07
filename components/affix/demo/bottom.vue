@@ -1,6 +1,6 @@
 <template>
   <Affix :offsetBottom="bottom">
-    <Button type="primary" @click="bottom += 10">120px to affix bottom</Button>
+    <Button type="primary" @click="bottom += 10">{{ bottom }}px to affix bottom</Button>
   </Affix>
 </template>
 <script setup lang="ts">

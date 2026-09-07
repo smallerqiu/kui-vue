@@ -32,7 +32,9 @@ const VirtualList = defineComponent({
   name: "VirtualList",
   inheritAttrs: false,
   props: virtualListProps,
-  emits: ["scroll"],
+  emits: {
+    scroll: (event: Event) => Boolean(event),
+  },
   setup(props, { attrs, emit, expose, slots }) {
     const containerRef = ref<HTMLElement>();
     const scrollTop = ref(0);

@@ -16,6 +16,7 @@
 <script setup lang="ts">
 import { LogoApple, LogoMicrosoft } from "kui-icons";
 import { ref } from "vue";
+import type { CheckCardValue } from "kui-vue";
 
-const platform = ref("apple");
+const platform = ref<CheckCardValue>("apple");
 </script>

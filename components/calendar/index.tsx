@@ -38,9 +38,6 @@ const calendarProps = {
   showToolbar: { type: Boolean, default: true },
   todayText: String,
   weekdays: Array as PropType<string[]>,
-  onChange: Function as PropType<(date: string, cell: CalendarDateCell) => void>,
-  onMonthChange: Function as PropType<(value: { year: number; month: number }) => void>,
-  onEventClick: Function as PropType<(event: CalendarEventData, cell: CalendarDateCell) => void>,
 };
 
 export type CalendarProps = ExtractPropTypes<typeof calendarProps>;
@@ -61,7 +58,13 @@ const toRenderKey = (value: unknown) => `${typeof value}:${String(value)}`;
 const Calendar = defineComponent({
   name: "Calendar",
   props: calendarProps,
-  emits: ["update:modelValue", "change", "monthChange", "eventClick"],
+  emits: {
+    "update:modelValue": (date: string) => typeof date === "string",
+    change: (date: string, cell: CalendarDateCell) => typeof date === "string" && Boolean(cell),
+    monthChange: (value: { year: number; month: number }) =>
+      Number.isFinite(value?.year) && Number.isFinite(value?.month),
+    eventClick: (event: CalendarEventData, cell: CalendarDateCell) => Boolean(event && cell),
+  },
   setup(props, { attrs, emit, slots }) {
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);

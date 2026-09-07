@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { Settings } from "kui-icons";
 import { ref } from "vue";
-const openKeys = ref(["1", "2"]);
+const openKeys = ref<Array<string | number>>(["1", "2"]);
 const text = `A long time ago, In a beautiful kingdom, 
   there lived a young king and queen, 
   the people loved them so much; `;

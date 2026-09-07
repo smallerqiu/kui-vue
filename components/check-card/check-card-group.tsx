@@ -21,7 +21,6 @@ const checkCardGroupProps = {
   theme: { type: String as PropType<CheckCardTheme>, default: "outline" },
   size: { type: String as PropType<SizeType>, default: "medium" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
-  onChange: Function as PropType<(value: CheckCardValue) => void>,
 };
 
 export type CheckCardGroupProps = ExtractPropTypes<typeof checkCardGroupProps>;
@@ -29,7 +28,11 @@ export type CheckCardGroupProps = ExtractPropTypes<typeof checkCardGroupProps>;
 const CheckCardGroup = defineComponent({
   name: "CheckCardGroup",
   props: checkCardGroupProps,
-  emits: ["update:modelValue", "change"],
+  emits: {
+    "update:modelValue": (value: CheckCardValue) =>
+      typeof value === "string" || typeof value === "number",
+    change: (value: CheckCardValue) => typeof value === "string" || typeof value === "number",
+  },
   setup(props, { emit, slots }) {
     const registry = new Map<CheckCardValue, CheckCardRegistryItem>();
     const localValue = ref(props.modelValue);

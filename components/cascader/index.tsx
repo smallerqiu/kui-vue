@@ -15,12 +15,17 @@ import { usePopupHost } from "../config/popup-host";
 import Empty from "../empty";
 import Icon from "../icon";
 import { setPlacement } from "../utils/placement";
-import { cascaderProps, type CascaderOption } from "./types";
+import { cascaderProps, type CascaderOption, type CascaderValue } from "./types";
 
 const Cascader = defineComponent({
   name: "Cascader",
   props: cascaderProps,
-  emits: ["update:modelValue", "change", "openChange", "expandChange"],
+  emits: {
+    "update:modelValue": (value: CascaderValue) => Array.isArray(value),
+    change: (value: CascaderValue) => Array.isArray(value),
+    openChange: (open: boolean) => typeof open === "boolean",
+    expandChange: (value: CascaderValue) => Array.isArray(value),
+  },
   setup(props, { emit }) {
     usePopupHost(() => visible.value && toggleMenu(false));
     const getPopupContainer = usePopupContainer();

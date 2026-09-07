@@ -18,8 +18,6 @@ const anchorProps = {
   offsetTop: { type: Number, default: 0 },
   bounds: { type: Number, default: 5 },
   container: [String, Object] as PropType<string | HTMLElement | Window>, // 明确支持 HTMLElement 和 Window
-  onChange: { type: Function as PropType<(activeLink: string) => void> },
-  onClick: { type: Function as PropType<(link: string) => void> },
 };
 
 export type AnchorProps = ExtractPropTypes<typeof anchorProps>;
@@ -80,7 +78,7 @@ const Anchor = defineComponent({
     const updateInk = () => {
       nextTick(() => {
         const activeNode = anchorRef.value?.querySelector(
-          ".k-anchor-link-active > .k-anchor-link-title"
+          ".k-anchor-link-active > .k-anchor-link-title",
         );
         if (activeNode instanceof HTMLElement) {
           inkTop.value = (activeNode.parentElement?.offsetTop || 0) + 4;
@@ -220,7 +218,7 @@ const Anchor = defineComponent({
       () => {
         removeListeners();
         nextTick(addListeners);
-      }
+      },
     );
 
     watch(() => [props.offsetTop, props.bounds], scheduleScroll);

@@ -29,7 +29,6 @@ const checkCardProps = {
   theme: { type: String as PropType<CheckCardTheme>, default: "outline" },
   size: { type: String as PropType<SizeType>, default: "medium" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
-  onChange: Function as PropType<(event: CheckCardChangeEvent) => void>,
 };
 
 export type CheckCardProps = ExtractPropTypes<typeof checkCardProps>;
@@ -38,7 +37,10 @@ const CheckCard = defineComponent({
   name: "CheckCard",
   inheritAttrs: false,
   props: checkCardProps,
-  emits: ["update:modelValue", "change"],
+  emits: {
+    "update:modelValue": (checked: boolean) => typeof checked === "boolean",
+    change: (event: CheckCardChangeEvent) => Boolean(event && typeof event.checked === "boolean"),
+  },
   setup(props, { attrs, emit, slots }) {
     const group = inject(checkCardGroupKey, null);
     const rootRef = ref<HTMLElement>();

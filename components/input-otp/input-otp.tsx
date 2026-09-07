@@ -5,7 +5,6 @@ import {
   nextTick,
   ref,
   watch,
-  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
   type VNodeChild,
@@ -31,19 +30,19 @@ const inputOTPProps = {
   shape: String as PropType<ShapeType>,
 };
 
-export type InputOTPProps = Partial<ExtractPropTypes<typeof inputOTPProps>> & {
-  "onUpdate:modelValue"?: (value: string) => void;
-  onChange?: (value: string) => void;
-  onComplete?: (value: string) => void;
-  onFocus?: (event: FocusEvent) => void;
-  onBlur?: (event: FocusEvent) => void;
-};
+export type InputOTPProps = ExtractPropTypes<typeof inputOTPProps>;
 
 const InputOTP = defineComponent({
   name: "InputOTP",
   inheritAttrs: false,
   props: inputOTPProps,
-  emits: ["update:modelValue", "change", "complete", "focus", "blur"],
+  emits: {
+    "update:modelValue": (value: string) => typeof value === "string",
+    change: (value: string) => typeof value === "string",
+    complete: (value: string) => typeof value === "string",
+    focus: (event: FocusEvent) => Boolean(event),
+    blur: (event: FocusEvent) => Boolean(event),
+  },
   setup(props, { attrs, emit, expose }) {
     const inputs = ref<Array<HTMLInputElement | null>>([]);
     const focusedIndex = ref(-1);
@@ -203,6 +202,6 @@ const InputOTP = defineComponent({
   },
 });
 
-export default InputOTP as DefineComponent<InputOTPProps>;
+export default InputOTP;
 
 export type { InputOTPValidator } from "./types";

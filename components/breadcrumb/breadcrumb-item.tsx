@@ -20,7 +20,9 @@ export type BreadcrumbItemProps = ExtractPropTypes<typeof breadcrumbItemProps>;
 const BreadcrumbItem = defineComponent({
   name: "BreadcrumbItem",
   props: breadcrumbItemProps,
-  emits: ["click"],
+  emits: {
+    click: (event: MouseEvent) => Boolean(event),
+  },
   setup(props, { slots, emit }) {
     const separator = inject<ComputedRef<VNodeChild> | null>("separator", null);
 

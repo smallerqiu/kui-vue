@@ -33,15 +33,22 @@ const kanbanProps = {
   emptyText: String,
   minColumnWidth: { type: [Number, String], default: 250 },
   theme: { type: String as PropType<"fill" | "outline">, default: "fill" },
-  onMove: Function as PropType<(event: KanbanMoveEvent) => void>,
-  onItemClick: Function as PropType<(item: KanbanItemData, column: KanbanColumnData) => void>,
 };
 export type KanbanProps = ExtractPropTypes<typeof kanbanProps>;
 
 const Kanban = defineComponent({
   name: "Kanban",
   props: kanbanProps,
-  emits: ["move", "itemClick"],
+  emits: {
+    move: (event: KanbanMoveEvent) =>
+      Boolean(
+        event &&
+        (typeof event.from === "string" || typeof event.from === "number") &&
+        (typeof event.to === "string" || typeof event.to === "number"),
+      ),
+    itemClick: (item: KanbanItemData, column: KanbanColumnData) =>
+      Boolean(item && column && (typeof column.key === "string" || typeof column.key === "number")),
+  },
   setup(props, { attrs, emit, slots }) {
     const draggingKey = ref<unknown>();
     const dragOverKey = ref<string | number>();

@@ -1,11 +1,11 @@
 <template>
-  <Affix @change="change" :offsetTop="200">
+  <p>Status: {{ fixed ? "fixed" : "reset" }}</p>
+  <Affix @change="fixed = $event" :offsetTop="200">
     <Button type="primary">200px to affix top</Button>
   </Affix>
 </template>
 <script setup lang="ts">
-import { message } from "kui-vue";
-const change = (value: boolean) => {
-  message.info(value ? "fixed" : "reset");
-};
+import { ref } from "vue";
+
+const fixed = ref(false);
 </script>

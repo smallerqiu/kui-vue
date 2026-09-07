@@ -51,7 +51,9 @@ export interface QRCodeRef {
 const QRCode = defineComponent({
   name: "QRCode",
   props: qrCodeProps,
-  emits: ["refresh"],
+  emits: {
+    refresh: () => true,
+  },
   setup(props, { emit, slots, expose }) {
     const canvasRef = ref<HTMLCanvasElement | null>(null);
     let rootObserver: MutationObserver | null = null;

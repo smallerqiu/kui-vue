@@ -18,7 +18,6 @@ const featureCardProps = {
   disabled: Boolean as BooleanType,
   color: String,
   iconBackground: String,
-  onClick: Function as PropType<(event: MouseEvent) => void>,
 };
 
 export type FeatureCardProps = ExtractPropTypes<typeof featureCardProps>;
@@ -26,7 +25,9 @@ export type FeatureCardProps = ExtractPropTypes<typeof featureCardProps>;
 const FeatureCard = defineComponent({
   name: "FeatureCard",
   props: featureCardProps,
-  emits: ["click"],
+  emits: {
+    click: (event: MouseEvent) => event instanceof MouseEvent,
+  },
   setup(props, { attrs, emit, slots }) {
     const handleClick = (event: MouseEvent) => {
       if (props.disabled) {

@@ -14,10 +14,11 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import type { CheckCardValue } from "kui-vue";
 
-const outline = ref("basic");
-const fill = ref("pro");
-const disabled = ref("basic");
+const outline = ref<CheckCardValue>("basic");
+const fill = ref<CheckCardValue>("pro");
+const disabled = ref<CheckCardValue>("basic");
 const items = [
   { value: "basic", title: "Basic", description: "Essential features" },
   { value: "pro", title: "Pro", description: "Advanced capabilities" },

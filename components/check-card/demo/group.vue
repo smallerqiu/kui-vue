@@ -7,8 +7,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import type { CheckCardValue } from "kui-vue";
 
-const type = ref("personal");
+const type = ref<CheckCardValue>("personal");
 const options = [
   { value: "personal", title: "个人版", description: "适合个人项目和学习使用" },
   { value: "team", title: "团队版", description: "适合小型团队协作" },

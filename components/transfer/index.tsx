@@ -38,13 +38,6 @@ const transferProps = {
   },
   filterOption: Function as PropType<(keyword: string, item: TransferItem) => boolean>,
   render: Function as PropType<(item: TransferItem) => VNodeChild>,
-  onChange: Function as PropType<
-    (targetKeys: TransferKey[], direction: "left" | "right", movedKeys: TransferKey[]) => void
-  >,
-  onSearch: Function as PropType<(direction: "left" | "right", value: string) => void>,
-  onSelectChange: Function as PropType<
-    (sourceSelectedKeys: TransferKey[], targetSelectedKeys: TransferKey[]) => void
-  >,
 };
 
 export type TransferProps = ExtractPropTypes<typeof transferProps>;
@@ -52,7 +45,17 @@ export type TransferProps = ExtractPropTypes<typeof transferProps>;
 export default defineComponent({
   name: "Transfer",
   props: transferProps,
-  emits: ["update:modelValue", "change", "search", "selectChange"],
+  emits: {
+    "update:modelValue": (keys: TransferKey[]) => Array.isArray(keys),
+    change: (targetKeys: TransferKey[], direction: "left" | "right", movedKeys: TransferKey[]) =>
+      Array.isArray(targetKeys) &&
+      ["left", "right"].includes(direction) &&
+      Array.isArray(movedKeys),
+    search: (direction: "left" | "right", value: string) =>
+      ["left", "right"].includes(direction) && typeof value === "string",
+    selectChange: (sourceKeys: TransferKey[], targetKeys: TransferKey[]) =>
+      Array.isArray(sourceKeys) && Array.isArray(targetKeys),
+  },
   setup(props, { emit, slots }) {
     const sourceSelected = ref<TransferKey[]>([]);
     const targetSelected = ref<TransferKey[]>([]);
@@ -60,10 +63,10 @@ export default defineComponent({
     const targetKeyword = ref("");
     const targetKeys = computed(() => new Set(props.modelValue));
     const sourceItems = computed(() =>
-      props.dataSource.filter((item) => !targetKeys.value.has(item.key))
+      props.dataSource.filter((item) => !targetKeys.value.has(item.key)),
     );
     const targetItems = computed(() =>
-      props.dataSource.filter((item) => targetKeys.value.has(item.key))
+      props.dataSource.filter((item) => targetKeys.value.has(item.key)),
     );
     const itemMap = computed(() => new Map(props.dataSource.map((item) => [item.key, item])));
     const filter = (items: TransferItem[], keyword: string) =>
@@ -73,7 +76,7 @@ export default defineComponent({
               ? props.filterOption(keyword, item)
               : `${item.title} ${item.description || ""}`
                   .toLowerCase()
-                  .includes(keyword.toLowerCase())
+                  .includes(keyword.toLowerCase()),
           )
         : items;
     const visibleSource = computed(() => filter(sourceItems.value, sourceKeyword.value));
@@ -81,10 +84,10 @@ export default defineComponent({
 
     watch([() => props.modelValue, () => props.dataSource], () => {
       sourceSelected.value = sourceSelected.value.filter(
-        (key) => itemMap.value.has(key) && !targetKeys.value.has(key)
+        (key) => itemMap.value.has(key) && !targetKeys.value.has(key),
       );
       targetSelected.value = targetSelected.value.filter(
-        (key) => itemMap.value.has(key) && targetKeys.value.has(key)
+        (key) => itemMap.value.has(key) && targetKeys.value.has(key),
       );
     });
 
@@ -137,7 +140,7 @@ export default defineComponent({
       direction: "left" | "right",
       items: TransferItem[],
       allItems: TransferItem[],
-      title: string
+      title: string,
     ) => {
       const selected = direction === "left" ? sourceSelected.value : targetSelected.value;
       const enabledKeys = selectable(items);

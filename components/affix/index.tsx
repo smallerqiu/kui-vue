@@ -10,9 +10,6 @@ const affixProps = {
       return typeof window !== "undefined" ? window : null;
     },
   },
-  onChange: {
-    type: Function as PropType<(affixed: boolean) => void>,
-  },
 };
 
 export type AffixProps = ExtractPropTypes<typeof affixProps>;
@@ -134,7 +131,7 @@ const Affix = defineComponent({
       () => {
         removeEventListeners();
         nextTick(addEventListeners);
-      }
+      },
     );
 
     return () => {

@@ -31,9 +31,6 @@ const pageProps = {
   total: { default: 0, type: Number },
   pageSize: { default: 10, type: Number },
   page: { default: 1, type: Number },
-  onChange: {
-    type: Function as PropType<(page: number, pageSize: number) => void>,
-  },
 };
 export type PageProps = ExtractPropTypes<typeof pageProps>;
 
@@ -41,7 +38,11 @@ const Page = defineComponent({
   name: "Page",
   inheritAttrs: false,
   props: pageProps,
-  emits: ["update:page", "update:pageSize", "change"],
+  emits: {
+    "update:page": (page: number) => Number.isFinite(page),
+    "update:pageSize": (pageSize: number) => Number.isFinite(pageSize),
+    change: (page: number, pageSize: number) => Number.isFinite(page) && Number.isFinite(pageSize),
+  },
   setup(props, { emit, attrs }) {
     const nextPageGroup = ref(false);
     const prevPageGroup = ref(false);
