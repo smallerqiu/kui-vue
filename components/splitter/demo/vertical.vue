@@ -1,6 +1,6 @@
 <template>
   <Splitter direction="horizontal" style="height: 200px">
-    <SplitterPanel size="20%" :min="10" :max="30"><Text text="Folders" /></SplitterPanel>
+    <SplitterPanel size="20%" min="10%" max="30%"><Text text="Folders" /></SplitterPanel>
     <SplitterPanel>
       <Splitter direction="vertical">
         <SplitterPanel><Text text="Editor" /></SplitterPanel>
@@ -17,7 +17,7 @@ const Text = (p: { text: string }) => {
   return h(
     Flex,
     { align: "center", justify: "center", style: { height: "100%", color: "#aaa" } },
-    { default: () => p.text }
+    { default: () => p.text },
   );
 };
 </script>

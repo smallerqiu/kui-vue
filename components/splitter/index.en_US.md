@@ -20,17 +20,17 @@
 
 ## Splitter
 
-| Property      | Description                      | Type                       | Default    |
-| ------------- | -------------------------------- | -------------------------- | ---------- |
-| direction     | Layout direction                 | 'horizontal' \| 'vertical' | horizontal |
-| onResize      | Callback when panel size changes | (sizes: number[]) => void  | -          |
-| onResizeStart | Callback before dragging starts  | (sizes: number[]) => void  | -          |
-| onResizeEnd   | Callback when dragging ends      | (sizes: number[]) => void  | -          |
+| Property    | Description                      | Type                       | Default    |
+| ----------- | -------------------------------- | -------------------------- | ---------- |
+| direction   | Layout direction                 | 'horizontal' \| 'vertical' | horizontal |
+| resize      | Emitted while panel sizes change | (sizes: number[]) => void  | -          |
+| resizeStart | Emitted when resizing starts     | (sizes: number[]) => void  | -          |
+| resizeEnd   | Emitted when resizing ends       | (sizes: number[]) => void  | -          |
 
 ## SplitterPanel
 
-| Attribute | Description                                                       | Type             | Default |
-| --------- | ----------------------------------------------------------------- | ---------------- | ------- |
-| size      | Width                                                             | number \| string | -       |
-| min       | Minimum threshold, supports numeric px or text 'percentage%' type | number \| string | -       |
-| max       | Maximum threshold, supports numeric px or text 'percentage%' type | number \| string | -       |
+| Attribute | Description                                                     | Type             | Default |
+| --------- | --------------------------------------------------------------- | ---------------- | ------- |
+| size      | Initial size; numbers are px, strings support px or percentages | number \| string | -       |
+| min       | Minimum size; numbers are px, strings support px or percentages | number \| string | 0       |
+| max       | Maximum size; numbers are px, strings support px or percentages | number \| string | -       |

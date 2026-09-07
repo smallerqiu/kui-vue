@@ -18,7 +18,7 @@ const Text = (p: { text: string }) => {
   return h(
     Flex,
     { align: "center", justify: "center", style: { height: "100%", color: "#aaa" } },
-    { default: () => p.text }
+    { default: () => p.text },
   );
 };
 </script>

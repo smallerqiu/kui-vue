@@ -80,9 +80,17 @@
 }
 
 .k-splitter-resizer:hover {
-  // background-color: #3b82f6;
   &::after {
     background-color: var(--kui-color-bg-5);
+  }
+}
+
+.k-splitter-resizer:focus-visible {
+  outline: 2px solid var(--kui-color-primary);
+  outline-offset: -2px;
+
+  &::after {
+    background-color: var(--kui-color-primary);
   }
 }
 .k-splitter-dragging {

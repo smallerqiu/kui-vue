@@ -8,8 +8,13 @@ export type SplitterPanelProps = ExtractPropTypes<typeof splitterPanelProps>;
 
 export const SplitterPanel = defineComponent({
   name: "SplitterPanel",
+  inheritAttrs: false,
   props: splitterPanelProps,
-  setup(_, { slots }) {
-    return () => <div class="k-splitter-panel">{slots.default?.()}</div>;
+  setup(_, { attrs, slots }) {
+    return () => (
+      <div {...attrs} class={["k-splitter-panel", attrs.class]}>
+        {slots.default?.()}
+      </div>
+    );
   },
 });

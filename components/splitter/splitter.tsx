@@ -1,5 +1,6 @@
 import {
   defineComponent,
+  Fragment,
   onMounted,
   onUnmounted,
   ref,
@@ -11,16 +12,19 @@ import type { DirectionType } from "../const/types";
 
 const splitterProps = {
   direction: { type: String as PropType<DirectionType>, default: "horizontal" },
-  onResize: Function as PropType<(sizes: number[]) => void>,
-  onResizeEnd: Function as PropType<(sizes: number[]) => void>,
-  onResizeStart: Function as PropType<(sizes: number[]) => void>,
 };
 export type SplitterProps = ExtractPropTypes<typeof splitterProps>;
 
 export const Splitter = defineComponent({
   name: "Splitter",
+  inheritAttrs: false,
   props: splitterProps,
-  setup(props, { slots, emit }) {
+  emits: {
+    resize: (sizes: number[]) => Array.isArray(sizes),
+    resizeStart: (sizes: number[]) => Array.isArray(sizes),
+    resizeEnd: (sizes: number[]) => Array.isArray(sizes),
+  },
+  setup(props, { attrs, slots, emit }) {
     const containerRef = ref<HTMLElement | null>(null);
     const isDragging = ref(false);
     const activeResizerIndex = ref<number | null>(null);
@@ -28,13 +32,15 @@ export const Splitter = defineComponent({
     const panelSizes = ref<number[]>([]);
     const minSizes = ref<number[]>([]);
     const maxSizes = ref<number[]>([]);
+    let previousBodyCursor = "";
 
     const parseToPx = (val: string | number | undefined, total: number): number | null => {
       if (val === undefined || val === null || val === "") return null;
+      if (typeof val === "number") return val;
       const s = String(val).trim();
       if (s.endsWith("%")) return (parseFloat(s) / 100) * total;
       if (s.endsWith("px")) return parseFloat(s);
-      if (!isNaN(Number(s))) return (parseFloat(s) / 100) * total; // 数字默认按百分比
+      if (!isNaN(Number(s))) return parseFloat(s);
       return null;
     };
 
@@ -63,19 +69,36 @@ export const Splitter = defineComponent({
       panelSizes.value = rawSizes.map((s) => s ?? autoSize);
     };
 
-    const onMouseDown = (index: number) => {
+    const onMouseDown = (index: number, event: MouseEvent) => {
+      if (event.button !== 0) return;
+      event.preventDefault();
       isDragging.value = true;
       activeResizerIndex.value = index;
       document.addEventListener("mousemove", onMouseMove);
       document.addEventListener("mouseup", onMouseUp);
+      previousBodyCursor = document.body.style.cursor;
       document.body.style.cursor = props.direction === "horizontal" ? "col-resize" : "row-resize";
       document.body.classList.add("k-splitter-dragging"); // 增加全局拖拽样式
       emitSize("resizeStart");
     };
 
-    const emitSize = (type: string) => {
+    const emitSize = (type: "resize" | "resizeStart" | "resizeEnd") => {
       const sizes = panelSizes.value.map((x) => parseFloat(x.toFixed(3)));
-      emit(type, sizes);
+      if (type === "resize") emit("resize", sizes);
+      else if (type === "resizeStart") emit("resizeStart", sizes);
+      else emit("resizeEnd", sizes);
+    };
+
+    const resizePair = (index: number, requestedSize: number) => {
+      const pairTotal = panelSizes.value[index] + panelSizes.value[index + 1];
+      const lower = Math.max(minSizes.value[index], pairTotal - maxSizes.value[index + 1]);
+      const upper = Math.min(maxSizes.value[index], pairTotal - minSizes.value[index + 1]);
+      const nextSize = Math.max(lower, Math.min(upper, requestedSize));
+      panelSizes.value = panelSizes.value.map((size, panelIndex) => {
+        if (panelIndex === index) return nextSize;
+        if (panelIndex === index + 1) return pairTotal - nextSize;
+        return size;
+      });
     };
 
     const onMouseMove = (e: MouseEvent) => {
@@ -101,29 +124,42 @@ export const Splitter = defineComponent({
       // 物理边界钳制：确保不超出有效空间
       currentPos = Math.max(0, Math.min(totalAvailableSize, currentPos));
 
-      const pairTotal = panelSizes.value[idx] + panelSizes.value[idx + 1];
       const offset = panelSizes.value.slice(0, idx).reduce((a, b) => a + b, 0);
-
-      let newSizeIdx = currentPos - offset;
-
-      // 边界约束 (min/max)
-      newSizeIdx = Math.max(minSizes.value[idx], Math.min(maxSizes.value[idx], newSizeIdx));
-      const maxAllowed = pairTotal - minSizes.value[idx + 1];
-      newSizeIdx = Math.min(newSizeIdx, maxAllowed);
-
-      // 更新状态
-      panelSizes.value[idx] = newSizeIdx;
-      panelSizes.value[idx + 1] = pairTotal - newSizeIdx;
+      resizePair(idx, currentPos - offset);
       emitSize("resize");
     };
 
-    const onMouseUp = () => {
+    const finishDragging = (emitEnd = true) => {
+      if (!isDragging.value) return;
       isDragging.value = false;
       activeResizerIndex.value = null;
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseup", onMouseUp);
-      document.body.style.cursor = "";
+      document.body.style.cursor = previousBodyCursor;
       document.body.classList.remove("k-splitter-dragging");
+      if (emitEnd) emitSize("resizeEnd");
+    };
+    const onMouseUp = () => finishDragging();
+
+    const onResizerKeydown = (index: number, event: KeyboardEvent) => {
+      const previousKey = props.direction === "horizontal" ? "ArrowLeft" : "ArrowUp";
+      const nextKey = props.direction === "horizontal" ? "ArrowRight" : "ArrowDown";
+      if (![previousKey, nextKey, "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const pairTotal = panelSizes.value[index] + panelSizes.value[index + 1];
+      const lower = Math.max(minSizes.value[index], pairTotal - maxSizes.value[index + 1]);
+      const upper = Math.min(maxSizes.value[index], pairTotal - minSizes.value[index + 1]);
+      const step = event.shiftKey ? 1 : 10;
+      const current = panelSizes.value[index];
+      const requested =
+        event.key === "Home"
+          ? lower
+          : event.key === "End"
+            ? upper
+            : current + (event.key === previousKey ? -step : step);
+      emitSize("resizeStart");
+      resizePair(index, requested);
+      emitSize("resize");
       emitSize("resizeEnd");
     };
 
@@ -134,12 +170,19 @@ export const Splitter = defineComponent({
       ob = new ResizeObserver(() => initSizes());
       if (containerRef.value) ob.observe(containerRef.value);
     });
-    onUnmounted(() => ob?.disconnect());
+    onUnmounted(() => {
+      ob?.disconnect();
+      finishDragging(false);
+    });
 
     return () => {
       const children = (slots.default?.() || []) as VNode[];
       return (
-        <div ref={containerRef} class={["k-splitter", `is-${props.direction}`]}>
+        <div
+          {...attrs}
+          ref={containerRef}
+          class={["k-splitter", `is-${props.direction}`, attrs.class]}
+        >
           {children.map((child, index) => {
             const isLast = index === children.length - 1;
             const sizeStyle = {
@@ -148,14 +191,24 @@ export const Splitter = defineComponent({
               flexShrink: 0, // 必须为0，防止由于内容挤压导致的缩在一起
             };
             return (
-              <>
+              <Fragment key={child.key ?? index}>
                 <div class="k-splitter-item" style={sizeStyle}>
                   {child}
                 </div>
                 {!isLast && (
-                  <div class="k-splitter-resizer" onMousedown={() => onMouseDown(index)} />
+                  <div
+                    class="k-splitter-resizer"
+                    role="separator"
+                    tabindex={0}
+                    aria-orientation={props.direction === "horizontal" ? "vertical" : "horizontal"}
+                    aria-valuemin={Math.round(minSizes.value[index] || 0)}
+                    aria-valuemax={Math.round(maxSizes.value[index] || 0)}
+                    aria-valuenow={Math.round(panelSizes.value[index] || 0)}
+                    onMousedown={(event) => onMouseDown(index, event)}
+                    onKeydown={(event) => onResizerKeydown(index, event)}
+                  />
                 )}
-              </>
+              </Fragment>
             );
           })}
         </div>
