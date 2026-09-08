@@ -50,3 +50,18 @@
 
 - 场景： 类似于 VS Code、Figma 或低代码平台。
 - 核心点： 极简的导航、多列固定高度、以及底部状态栏 (Footer)。 此 Demo 重点展示了 Layout 如何通过多层嵌套，将屏幕空间切分为极小但有序的功能区。
+
+## Layout API
+
+| 属性     | 说明                                   | 类型    | 默认值 |
+| -------- | -------------------------------------- | ------- | ------ |
+| hasSider | 是否包含侧边栏；未设置时自动检测 Sider | boolean | -      |
+
+## Layout.Sider API
+
+| 属性           | 说明             | 类型             | 默认值 |
+| -------------- | ---------------- | ---------------- | ------ |
+| width          | 展开宽度         | number \| string | 200    |
+| collapsedWidth | 收起宽度         | number \| string | 80     |
+| collapsible    | 是否启用收起样式 | boolean          | false  |
+| collapsed      | 受控的收起状态   | boolean          | false  |

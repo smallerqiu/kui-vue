@@ -50,3 +50,18 @@ Assists with page-level overall layout.
 
 - Scenario: Similar to VS Code, Figma, or low-code platforms.
 - Key Points: Minimalist navigation, fixed-height multi-column layout, and a bottom status bar (Footer). This demo highlights how the Layout divides screen space into compact yet well-organized functional areas through multi-level nesting.
+
+## Layout API
+
+| Property | Description                                                              | Type    | Default |
+| -------- | ------------------------------------------------------------------------ | ------- | ------- |
+| hasSider | Whether the layout contains a sider; detected automatically when omitted | boolean | -       |
+
+## Layout.Sider API
+
+| Property       | Description                          | Type             | Default |
+| -------------- | ------------------------------------ | ---------------- | ------- |
+| width          | Expanded width                       | number \| string | 200     |
+| collapsedWidth | Collapsed width                      | number \| string | 80      |
+| collapsible    | Whether collapsed styling is enabled | boolean          | false   |
+| collapsed      | Controlled collapsed state           | boolean          | false   |

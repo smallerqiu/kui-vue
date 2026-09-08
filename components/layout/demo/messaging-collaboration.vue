@@ -1,11 +1,14 @@
 <template>
   <Layout class="chat-container">
-    <Sider style="width: 260px" class="chat-sider">
+    <Sider :width="260" class="chat-sider">
       <div class="sider-header">
         <Input placeholder="Search conversation..." />
       </div>
       <Menu mode="inline" v-model="selectedKeys" style="border: none; padding: 10px">
-        <MenuItem key="c1"># Core R&D Team <Badge :count="5" /></MenuItem>
+        <MenuItem key="c1">
+          # Core R&D Team
+          <Badge :count="5" />
+        </MenuItem>
         <MenuItem key="c2"># Visual Design UI</MenuItem>
         <MenuItem key="c3"># Customer Support (1-on-1)</MenuItem>
       </Menu>
@@ -13,14 +16,20 @@
 
     <Layout>
       <Header class="chat-header">
-        <div class="chat-title"># Core R&D Team <small>(128 members)</small></div>
+        <div class="chat-title">
+          # Core R&D Team
+          <small>(128 members)</small>
+        </div>
       </Header>
 
       <Content class="chat-messages">
         <div class="msg-group" v-for="i in 20" :key="i">
           <Avatar size="small" />
           <div class="msg-bubble">
-            <div class="msg-info">User_{{ i }} <span>10:30 AM</span></div>
+            <div class="msg-info">
+              User_{{ i }}
+              <span>10:30 AM</span>
+            </div>
             <div class="msg-text">This is simulated historical message content.</div>
           </div>
         </div>
@@ -28,7 +37,9 @@
 
       <Footer class="chat-input-box">
         <div class="toolbar">
-          <Icon :type="CircleUser" /> <Icon :type="Images" /> <Icon :type="Send" />
+          <Icon :type="CircleUser" />
+          <Icon :type="Images" />
+          <Icon :type="Send" />
         </div>
         <TextArea :rows="3" placeholder="Press Cmd + Enter to send the message..." />
         <div class="input-actions">

@@ -1,6 +1,6 @@
 <template>
   <Layout class="admin-wrapper">
-    <Sider v-model:collapsed="collapsed" collapsible class="admin-sider">
+    <Sider :collapsed="collapsed" collapsible class="admin-sider">
       <div class="admin-logo">
         <!-- <img src="/logo.svg" alt="logo" /> -->
         <Icon :type="LogoKui" />
@@ -13,8 +13,7 @@
         :items="items"
         class="admin-menu"
         :inlineCollapsed="collapsed"
-      >
-      </Menu>
+      ></Menu>
     </Sider>
 
     <Layout>
@@ -25,8 +24,7 @@
             block
             @click="collapsed = !collapsed"
             :icon="collapsed ? PanelLeftOpen : PanelLeftClose"
-          >
-          </Button>
+          ></Button>
           <Breadcrumb>
             <BreadcrumbItem>Home</BreadcrumbItem>
             <BreadcrumbItem>User Management</BreadcrumbItem>
@@ -53,9 +51,7 @@
         </div>
       </Content>
 
-      <Footer class="admin-footer">
-        KUI Design Platform ©2026 Crafted with ❤️ for Developers
-      </Footer>
+      <Footer class="admin-footer">KUI Design Platform ©2026 Crafted with ❤️ for Developers</Footer>
     </Layout>
   </Layout>
 </template>

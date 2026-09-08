@@ -26,11 +26,17 @@
         </Content>
       </Layout>
 
-      <Sider style="width: 240" class="ide-inspector">
+      <Sider width="240" class="ide-inspector">
         <div class="panel-title">Attribute Settings</div>
         <div class="inspector-content">
-          <div class="setting-row"><span>Display mode:</span> <Switch /></div>
-          <div class="setting-row"><span>Main color:</span> <Input size="small" /></div>
+          <div class="setting-row">
+            <span>Display mode:</span>
+            <Switch />
+          </div>
+          <div class="setting-row">
+            <span>Main color:</span>
+            <Input size="small" />
+          </div>
         </div>
       </Sider>
     </Layout>
