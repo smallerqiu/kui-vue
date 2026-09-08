@@ -1,5 +1,5 @@
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
-import { defineComponent, provide, ref, watch } from "vue";
+import { defineComponent, provide, toRef } from "vue";
 const rowProps = {
   gutter: [Number, Array] as PropType<number | [number, number]>,
   type: { type: String, default: "flex" },
@@ -8,6 +8,7 @@ const rowProps = {
   },
   align: {
     type: String as PropType<"top" | "middle" | "bottom">,
+    default: "top",
   },
 };
 export type RowProps = ExtractPropTypes<typeof rowProps>;
@@ -16,15 +17,7 @@ const Row = defineComponent({
   name: "Row",
   props: rowProps,
   setup(props, { slots }) {
-    const gutter = ref(props.gutter);
-    provide("gutter", gutter);
-
-    watch(
-      () => props.gutter,
-      (nv) => {
-        gutter.value = nv;
-      }
-    );
+    provide("gutter", toRef(props, "gutter"));
 
     return () => {
       const { align, justify, gutter } = props;

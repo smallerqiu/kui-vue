@@ -19,7 +19,7 @@
 
 [分栏间隔](./demo/gutter.vue?show=vertical)
 
-- 使用 `gutter` 熟悉来设置分栏的间隔,如果需要垂直间距，可以写成数组形式 [水平间距, 垂直间距]
+- 使用 `gutter` 属性设置分栏间隔；如果需要垂直间距，可以写成数组形式 `[水平间距, 垂直间距]`。
 
 [栅格偏移](./demo/offset.vue?show=vertical)
 
@@ -48,7 +48,7 @@
 | align   | flex 布局下的垂直对齐方式：`top` `middle` `bottom`                               | string             | `top`   |
 | justify | flex 布局下的水平排列方式：`start` `end` `center` `space-around` `space-between` | string             | `start` |
 | gutter  | 栅格间距，单位 px，左右平分,使用数组形式同时设置 [水平间距, 垂直间距]            | number \| number[] | -       |
-| type    | 布局模式，可选 flex，现代浏览器 下有效                                           | string             |         |
+| type    | 布局模式，可选 `flex`                                                            | string             | `flex`  |
 
 ## Col API
 

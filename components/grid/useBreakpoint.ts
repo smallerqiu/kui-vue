@@ -23,24 +23,34 @@ export function useBreakpoint(elRef: Ref<HTMLElement | null>): Ref<string> | nul
   const active = ref("md");
   let rafId: number | null = null;
 
+  const update = (width: number) => {
+    const sortedPoints = Object.keys(breakpointMap)
+      .map(Number)
+      .sort((a, b) => b - a);
+    for (const point of sortedPoints) {
+      if (width >= point) {
+        active.value = breakpointMap[point];
+        break;
+      }
+    }
+  };
+
   const observer = new ResizeObserver((entries) => {
     if (rafId) cancelAnimationFrame(rafId);
     rafId = requestAnimationFrame(() => {
-      const width = entries[0].contentRect.width;
-      const sortedPoints = Object.keys(breakpointMap)
-        .map(Number)
-        .sort((a, b) => b - a);
-      for (const point of sortedPoints) {
-        if (width >= point) {
-          active.value = breakpointMap[point];
-          break;
-        }
-      }
+      update(entries[0].contentRect.width);
     });
   });
 
-  onMounted(() => elRef.value && observer.observe(elRef.value));
-  onUnmounted(() => observer.disconnect());
+  onMounted(() => {
+    if (!elRef.value) return;
+    update(elRef.value.getBoundingClientRect().width);
+    observer.observe(elRef.value);
+  });
+  onUnmounted(() => {
+    if (rafId) cancelAnimationFrame(rafId);
+    observer.disconnect();
+  });
 
   return readonly(active);
 }

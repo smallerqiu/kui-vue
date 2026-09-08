@@ -48,7 +48,7 @@ Two concepts: row `row` and column `col`. Specific usage is as follows:
 | align    | Vertical alignment in flex layout: `top` `middle` `bottom`                                                             | string             | `top`   |
 | justify  | Horizontal arrangement in flex layout: `start` `end` `center` `space-around` `space-between`                           | string             | `start` |
 | gutter   | Grid spacing, in px, evenly distributed left and right. Use array format to set [horizontal spacing, vertical spacing] | number \| number[] | -       |
-| type     | Layout mode, optional flex, effective in modern browsers                                                               | string             |         |
+| type     | Layout mode; supports `flex`                                                                                           | string             | `flex`  |
 
 ## Col API
 
