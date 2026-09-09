@@ -1,5 +1,5 @@
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
-import { defineComponent, provide } from "vue";
+import { defineComponent } from "vue";
 import type { BooleanType } from "../const/types";
 import type { FlexAlignType, FlexJustifyType, FlexSizeType } from "./types";
 const flexProps = {
@@ -22,8 +22,6 @@ const Flex = defineComponent({
   name: "Flex",
   props: flexProps,
   setup(props, { slots }) {
-    provide("size", props.size);
-
     return () => {
       const { justify, vertical, size, wrap } = props;
       let { align } = props;
@@ -40,13 +38,21 @@ const Flex = defineComponent({
         },
       ];
 
+      const toCssLength = (value: number | string | undefined) => {
+        if (typeof value === "number") return `${value}px`;
+        if (typeof value === "string") return /^-?\d+(\.\d+)?$/.test(value) ? `${value}px` : value;
+        return "0px";
+      };
+
       if (Array.isArray(size)) {
-        style.gap = `${size[1]}px ${size[0]}px`;
+        const horizontal = size[0];
+        const vertical = size[1] ?? horizontal;
+        style.gap = `${toCssLength(vertical)} ${toCssLength(horizontal)}`;
       } else if (typeof size === "string" && /small|medium|large/.test(size)) {
         const sizes: Record<string, number> = { small: 8, medium: 16, large: 24, default: 16 };
         style.gap = sizes[size] + "px";
       } else if (size !== undefined && size !== null) {
-        style.gap = `${size}px`;
+        style.gap = toCssLength(size);
       }
 
       return (

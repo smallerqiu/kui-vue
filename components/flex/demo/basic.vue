@@ -10,7 +10,7 @@
         :style="{
           'background-color': `var(--kui-color-bg-${x % 2 ? 4 : 3})`,
           height: '40px',
-          width: direction === 'vertical' ? '25%' : '100%',
+          width: direction === 'vertical' ? '100%' : '25%',
         }"
         :key="x"
       ></div>
