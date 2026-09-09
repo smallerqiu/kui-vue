@@ -264,6 +264,7 @@ const Input = defineComponent({
               role="button"
               tabindex={clearableShow ? 0 : undefined}
               aria-label="Clear"
+              onPointerdown={(event: PointerEvent) => event.preventDefault()}
               onClick={clear}
               onKeydown={(event: KeyboardEvent) => {
                 if (event.key === "Enter" || event.key === " ") {
@@ -325,6 +326,7 @@ const Input = defineComponent({
               role="button"
               tabindex={clearableShow ? 0 : undefined}
               aria-label="Clear"
+              onPointerdown={(event: PointerEvent) => event.preventDefault()}
               onClick={clear}
               onKeydown={(event: KeyboardEvent) => {
                 if (event.key === "Enter" || event.key === " ") {

@@ -382,6 +382,7 @@ export default defineComponent({
             role="button"
             tabindex={0}
             aria-label="Clear"
+            onPointerdown={(event: PointerEvent) => event.preventDefault()}
             onClick={clear}
             onKeydown={(event: KeyboardEvent) => {
               if (event.key === "Enter" || event.key === " ") clear(event);

@@ -48,7 +48,8 @@
     position: absolute;
     z-index: 10;
     right: 8px;
-    display: none;
+    opacity: 0;
+    pointer-events: none;
     &:hover {
       color: var(--kui-color-icon-hover);
     }
@@ -73,10 +74,27 @@
   .k-datepicker-has-clear {
     &:hover {
       .k-icon-clean {
-        display: block;
+        opacity: 1;
+        pointer-events: auto;
         cursor: pointer;
       }
 
+      .k-icon-calendar {
+        opacity: 0;
+      }
+    }
+  }
+  .k-icon-clean:focus-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media (hover: none) {
+    .k-datepicker-has-clear {
+      .k-icon-clean {
+        opacity: 1;
+        pointer-events: auto;
+      }
       .k-icon-calendar {
         opacity: 0;
       }

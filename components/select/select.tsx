@@ -357,7 +357,7 @@ const Select = defineComponent({
       emitValue();
     };
 
-    const onClear = (e: MouseEvent) => {
+    const onClear = (e: Event) => {
       if (props.readonly) return;
       emit("clear");
       currentValue.value = [];
@@ -792,7 +792,18 @@ const Select = defineComponent({
         },
       ];
       const clearNode = showClear.value ? (
-        <Icon class="k-select-clearable" type={CircleX} onClick={onClear} />
+        <Icon
+          class="k-select-clearable"
+          type={CircleX}
+          role="button"
+          tabindex={0}
+          aria-label="Clear"
+          onPointerdown={(event: PointerEvent) => event.preventDefault()}
+          onClick={onClear}
+          onKeydown={(event: KeyboardEvent) => {
+            if (event.key === "Enter" || event.key === " ") onClear(event);
+          }}
+        />
       ) : null;
 
       const rootProps = {

@@ -56,6 +56,7 @@
     color: var(--kui-color-icon);
     cursor: pointer;
     opacity: 0;
+    pointer-events: none;
     transition: opacity var(--kui-motion-duration) var(--kui-motion-easing);
 
     &:hover {
@@ -73,12 +74,17 @@
     }
   }
 
-  &.k-input-tag-has-clear:hover .k-input-tag-clearable {
+  &.k-input-tag-has-clear:hover .k-input-tag-clearable,
+  .k-input-tag-clearable:focus-visible {
     opacity: 1;
+    pointer-events: auto;
   }
 
-  &.k-input-tag-has-clear {
-    padding-right: 30px;
+  @media (hover: none) {
+    &.k-input-tag-has-clear .k-input-tag-clearable {
+      opacity: 1;
+      pointer-events: auto;
+    }
   }
 }
 
@@ -107,10 +113,6 @@
   .k-input-tag-clearable {
     right: var(--kui-padding-tag-box-inline-sm);
   }
-
-  &.k-input-tag-has-clear {
-    padding-right: 26px;
-  }
 }
 
 .k-input-tag-lg {
@@ -124,10 +126,6 @@
 
   .k-input-tag-clearable {
     right: var(--kui-padding-tag-box-inline-lg);
-  }
-
-  &.k-input-tag-has-clear {
-    padding-right: 34px;
   }
 }
 

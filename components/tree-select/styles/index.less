@@ -40,6 +40,7 @@
     display: inline-flex;
     align-items: center;
     width: 100%;
+    min-width: 0;
     max-width: 100%;
     overflow: hidden;
     height: 100%;
@@ -134,6 +135,10 @@
   }
 
   &-arrow {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    line-height: 1;
     font-size: var(--kui-font-size);
     box-sizing: border-box;
     transform: rotate(0deg);
@@ -148,15 +153,24 @@
     }
   }
   .k-tree-select-suffix {
+    position: relative;
     display: flex;
+    flex: 0 0 auto;
     align-items: center;
+    line-height: 1;
   }
   &-clearable {
     position: absolute;
-    right: 8px;
+    top: 50%;
+    right: 0;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    transform: translateY(-50%);
     font-size: var(--kui-font-size);
     color: var(--kui-color-icon);
-    display: none;
+    opacity: 0;
+    pointer-events: none;
     cursor: pointer;
     &:hover {
       color: var(--kui-color-icon-hover);
@@ -280,7 +294,7 @@
   }
 
   .k-tree-select-clearable {
-    right: 4px;
+    right: 0;
     font-size: var(--kui-font-size-sm);
   }
 
@@ -421,9 +435,26 @@
 .k-tree-select-has-clear {
   &:hover {
     .k-tree-select-clearable {
-      display: block;
+      opacity: 1;
+      pointer-events: auto;
     }
 
+    .k-tree-select-arrow {
+      opacity: 0;
+    }
+  }
+}
+.k-tree-select-clearable:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (hover: none) {
+  .k-tree-select-has-clear {
+    .k-tree-select-clearable {
+      opacity: 1;
+      pointer-events: auto;
+    }
     .k-tree-select-arrow {
       opacity: 0;
     }

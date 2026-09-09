@@ -936,7 +936,7 @@ const DatePicker = defineComponent({
       },
     );
 
-    const onClear = (e: PointerEvent) => {
+    const onClear = (e: Event) => {
       if (props.readonly) return;
       e.stopPropagation();
       innerValue.value = null;
@@ -1150,7 +1150,20 @@ const DatePicker = defineComponent({
           <div class={selectCls} onClick={togglePanel}>
             {renderInput()}
             <Icon type={dateIcon} class="k-icon-calendar" strokeWidth={1.5} />
-            {showClear && <Icon type={CircleX} class="k-icon-clean" onClick={onClear} />}
+            {showClear && (
+              <Icon
+                type={CircleX}
+                class="k-icon-clean"
+                role="button"
+                tabindex={0}
+                aria-label="Clear"
+                onPointerdown={(event: PointerEvent) => event.preventDefault()}
+                onClick={onClear}
+                onKeydown={(event: KeyboardEvent) => {
+                  if (event.key === "Enter" || event.key === " ") onClear(event);
+                }}
+              />
+            )}
           </div>
 
           {overlay}

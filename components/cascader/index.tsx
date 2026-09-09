@@ -274,7 +274,7 @@ const Cascader = defineComponent({
       }
     };
 
-    const handleClear = (e: MouseEvent) => {
+    const handleClear = (e: Event) => {
       if (props.readonly) return;
       e.stopPropagation();
       emit("update:modelValue", []);
@@ -540,7 +540,20 @@ const Cascader = defineComponent({
             )}
           </div>
           {arrowNode}
-          {showClear && <Icon class="k-cascader-clearable" onClick={handleClear} type={CircleX} />}
+          {showClear && (
+            <Icon
+              class="k-cascader-clearable"
+              type={CircleX}
+              role="button"
+              tabindex={0}
+              aria-label="Clear"
+              onPointerdown={(event: PointerEvent) => event.preventDefault()}
+              onClick={handleClear}
+              onKeydown={(event: KeyboardEvent) => {
+                if (event.key === "Enter" || event.key === " ") handleClear(event);
+              }}
+            />
+          )}
           {renderDropdown()}
         </div>
       );

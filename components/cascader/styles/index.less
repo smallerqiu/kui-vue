@@ -70,8 +70,8 @@
     right: 8px;
     font-size: var(--kui-font-size);
     color: var(--kui-color-icon);
-    display: none;
     opacity: 0;
+    pointer-events: none;
     cursor: pointer;
     &:hover {
       color: var(--kui-color-icon-hover);
@@ -80,11 +80,27 @@
 
   &.k-cascader-has-clear:hover {
     .k-cascader-clearable {
-      display: block;
       opacity: 1;
+      pointer-events: auto;
     }
     .k-cascader-arrow {
       opacity: 0;
+    }
+  }
+  .k-cascader-clearable:focus-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  @media (hover: none) {
+    &.k-cascader-has-clear {
+      .k-cascader-clearable {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .k-cascader-arrow {
+        opacity: 0;
+      }
     }
   }
 

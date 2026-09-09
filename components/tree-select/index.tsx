@@ -295,7 +295,7 @@ const TreeSelect = defineComponent({
       updatePosition();
     };
 
-    const onClear = (e: MouseEvent) => {
+    const onClear = (e: Event) => {
       if (props.readonly) return;
       currentValue.value = [];
       emitValue();
@@ -686,7 +686,18 @@ const TreeSelect = defineComponent({
       ];
 
       const clearNode = showClear.value ? (
-        <Icon class="k-tree-select-clearable" type={CircleX} onClick={onClear} />
+        <Icon
+          class="k-tree-select-clearable"
+          type={CircleX}
+          role="button"
+          tabindex={0}
+          aria-label="Clear"
+          onPointerdown={(event: PointerEvent) => event.preventDefault()}
+          onClick={onClear}
+          onKeydown={(event: KeyboardEvent) => {
+            if (event.key === "Enter" || event.key === " ") onClear(event);
+          }}
+        />
       ) : null;
       const treeProps = {
         tabindex: "0",

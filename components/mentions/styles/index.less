@@ -8,15 +8,14 @@
   width: 100%;
   resize: none;
 }
-.k-mentions-has-clear > .k-textarea {
-  padding-right: 30px;
-}
 .k-mentions-clearable {
   position: absolute;
   top: 9px;
   right: 8px;
   color: var(--kui-color-icon);
   cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
 
   &:hover {
     color: var(--kui-color-icon-hover);
@@ -24,6 +23,17 @@
 
   &:active {
     color: var(--kui-color-icon-active);
+  }
+}
+.k-mentions-has-clear:hover .k-mentions-clearable,
+.k-mentions-clearable:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+@media (hover: none) {
+  .k-mentions-has-clear .k-mentions-clearable {
+    opacity: 1;
+    pointer-events: auto;
   }
 }
 .k-mentions-dropdown {
