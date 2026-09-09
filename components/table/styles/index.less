@@ -33,10 +33,6 @@
   .k-table-cell-fix-right {
     position: sticky;
     box-sizing: border-box;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    will-change: transform;
-    contain: layout;
     z-index: 2;
   }
 
@@ -344,10 +340,12 @@
     will-change: scroll-position;
   }
   .k-table-thead + .k-table-body {
-    border-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
   .k-table-header + .k-table-body {
-    border-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     table tr th:first-child {
       border-radius: 0;
     }
@@ -364,8 +362,7 @@
       border-top-right-radius: var(--kui-border-radius);
     }
     .k-table-body {
-      border-top-left-radius: var(--kui-border-radius);
-      border-top-right-radius: var(--kui-border-radius);
+      border-radius: inherit;
     }
     .k-table-footer {
       border-bottom-left-radius: var(--kui-border-radius);
@@ -375,6 +372,10 @@
       border-top-left-radius: var(--kui-border-radius-card);
       border-top-right-radius: var(--kui-border-radius-card);
     }
+  }
+  &-has-footer .k-table-body {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
   &-bordered {
     .k-table-thead {
@@ -400,10 +401,9 @@
     }
     .k-scroll {
       &::-webkit-scrollbar {
-        border-bottom: 1px solid var(--kui-color-border);
+        background-color: var(--kui-color-bg);
       }
       &::-webkit-scrollbar-corner {
-        border-bottom: 1px solid var(--kui-color-border);
         border-left: 1px solid var(--kui-color-border);
         background-color: var(--kui-color-bg);
       }

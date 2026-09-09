@@ -17,6 +17,7 @@ export type AnchorLinkProps = ExtractPropTypes<typeof anchorLinkProps>;
 
 const AnchorLink = defineComponent({
   name: "AnchorLink",
+  inheritAttrs: false,
   props: anchorLinkProps,
   setup(props, { slots, attrs }) {
     const anchorContext = inject(anchorContextKey, null);

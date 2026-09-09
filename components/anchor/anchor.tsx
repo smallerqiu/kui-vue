@@ -24,6 +24,7 @@ export type AnchorProps = ExtractPropTypes<typeof anchorProps>;
 
 const Anchor = defineComponent({
   name: "Anchor",
+  inheritAttrs: false,
   props: anchorProps,
   emits: {
     change: (activeLink: string) => typeof activeLink === "string",
@@ -104,6 +105,14 @@ const Anchor = defineComponent({
       const container = currentContainer || getContainer();
       const containerScrollTop =
         container === window ? window.pageYOffset : (container as HTMLElement).scrollTop;
+      const containerClientHeight =
+        container === window
+          ? window.innerHeight || document.documentElement.clientHeight
+          : (container as HTMLElement).clientHeight;
+      const containerScrollHeight =
+        container === window
+          ? Math.max(document.documentElement.scrollHeight, document.body.scrollHeight)
+          : (container as HTMLElement).scrollHeight;
 
       const anchorTargets = linkList
         .map((link) => {
@@ -115,11 +124,20 @@ const Anchor = defineComponent({
 
       let current = "";
 
-      for (let i = anchorTargets.length - 1; i >= 0; i--) {
-        const { link, offsetTop } = anchorTargets[i];
-        if (containerScrollTop >= offsetTop - props.offsetTop - props.bounds) {
-          current = link;
-          break;
+      const reachedBottom =
+        containerScrollHeight > containerClientHeight &&
+        containerScrollTop + containerClientHeight >=
+          containerScrollHeight - Math.max(props.bounds, 1);
+
+      if (reachedBottom && anchorTargets.length) {
+        current = anchorTargets[anchorTargets.length - 1].link;
+      } else {
+        for (let i = anchorTargets.length - 1; i >= 0; i--) {
+          const { link, offsetTop } = anchorTargets[i];
+          if (containerScrollTop >= offsetTop - props.offsetTop - props.bounds) {
+            current = link;
+            break;
+          }
         }
       }
 

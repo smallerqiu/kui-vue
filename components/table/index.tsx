@@ -247,7 +247,6 @@ const Table = defineComponent({
         if (col.fixed === "left") {
           const style: CSSProperties = {
             position: "sticky",
-            transform: "translateZ(0)",
             left: `${leftOffset}px`,
           };
           headerStyles[col.key] = style;
@@ -263,7 +262,6 @@ const Table = defineComponent({
           bodyStyles[col.key] = {
             position: "sticky",
             right: `${rightOffset}px`,
-            transform: "translateZ(0)",
           };
 
           const headerRight = isSplit.value ? rightOffset + scrollbarWidth.value : rightOffset;
@@ -271,7 +269,6 @@ const Table = defineComponent({
           headerStyles[col.key] = {
             position: "sticky",
             right: `${headerRight}px`,
-            transform: "translateZ(0)",
           };
 
           rightOffset += col.width || 150;
@@ -736,6 +733,7 @@ const Table = defineComponent({
           "k-table-lg": props.size == "large",
           [`k-table-${props.shape}`]: props.shape,
           "k-table-bordered": props.bordered,
+          "k-table-has-footer": !!slots.footer,
           "k-table-ping-left": pingLeft.value,
           "k-table-ping-right": pingRight.value,
           "k-table-virtual": virtualEnabled.value,
