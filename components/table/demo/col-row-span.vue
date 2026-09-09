@@ -1,5 +1,5 @@
 <template>
-  <Table :data="data" :columns="columns" bordered> </Table>
+  <Table :data="data" :columns="columns" bordered></Table>
 </template>
 <script setup lang="ts">
 import type { Column } from "kui-vue";

@@ -2,6 +2,7 @@ import { ChevronDown, CircleX, LoaderCircle } from "kui-icons";
 import {
   computed,
   defineComponent,
+  getCurrentInstance,
   inject,
   isRef,
   nextTick,
@@ -89,21 +90,6 @@ const treeSelectProps = {
   treeLoadData: {
     type: Function as PropType<(node: TreeNode) => Promise<unknown>>,
   },
-  onChange: {
-    type: Function as PropType<(value: TreeSelectValue) => void>,
-  },
-  onTreeSelect: {
-    type: Function as PropType<(value: string, label: string, selected: boolean) => void>,
-  },
-  onSearch: {
-    type: Function as PropType<(e: InputEvent) => void>,
-  },
-  onTreeExpand: {
-    type: Function as PropType<(value: TreeExpandEvent) => void>,
-  },
-  onOpenChange: {
-    type: Function as PropType<(open: boolean) => void>,
-  },
 };
 
 export type TreeSelectProps = ExtractPropTypes<typeof treeSelectProps>;
@@ -114,6 +100,19 @@ const TreeSelect = defineComponent({
     resize,
   },
   props: treeSelectProps,
+  emits: {
+    "update:modelValue": (value: TreeSelectValue) =>
+      value == null || typeof value === "string" || Array.isArray(value),
+    "update:treeExpandedKeys": (keys: string[]) => Array.isArray(keys),
+    change: (value: TreeSelectValue) =>
+      value == null || typeof value === "string" || Array.isArray(value),
+    treeSelect: (value: string, label: VNodeChild, selected: boolean) =>
+      typeof value === "string" && label !== undefined && typeof selected === "boolean",
+    search: (event: InputEvent) => typeof event?.type === "string",
+    treeExpand: (event: TreeExpandEvent) => typeof event === "object" && event !== null,
+    openChange: (open: boolean) => typeof open === "boolean",
+    clear: () => true,
+  },
   setup(props, { emit }) {
     usePopupHost(() => visible.value && openChange(false));
     type Locale = typeof zhCN;
@@ -139,7 +138,7 @@ const TreeSelect = defineComponent({
     const minWidth = ref<string | number>("");
     const queryInputFocused = ref(false);
     const queryInputRef = ref<HTMLInputElement | null>(null);
-    const hasSearchEvent = typeof props.onSearch === "function";
+    const hasSearchEvent = Boolean(getCurrentInstance()?.vnode.props?.onSearch);
     const refPopper = ref<HTMLElement | null>(null);
     const transOrigin = ref("bottom");
     const refSelection = ref<HTMLElement | null>(null);

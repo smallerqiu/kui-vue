@@ -24,9 +24,6 @@ const checkboxProps = {
   size: {
     type: String as PropType<SizeType>,
   },
-  onChange: {
-    type: Function as PropType<(e: CheckboxChangeEvent) => void>,
-  },
 };
 
 export type CheckboxProps = ExtractPropTypes<typeof checkboxProps>;
@@ -34,6 +31,12 @@ export type CheckboxProps = ExtractPropTypes<typeof checkboxProps>;
 const Checkbox = defineComponent({
   name: "Checkbox",
   props: checkboxProps,
+  emits: {
+    change: (event: CheckboxChangeEvent) => typeof event.checked === "boolean",
+    "update:modelValue": (value: string | number | boolean) =>
+      ["string", "number", "boolean"].includes(typeof value),
+    "update:checked": (value: boolean) => typeof value === "boolean",
+  },
   setup(props, { slots, emit }) {
     const resolveChecked = (value: string | number | boolean | undefined, fallback = false) =>
       value === undefined ? fallback : value === true || value === 1 || value === "1";

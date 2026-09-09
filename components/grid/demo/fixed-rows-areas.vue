@@ -1,16 +1,16 @@
 <template>
   <Grid :cols="4" rows="auto 1fr auto" class="demo-fixed-rows-areas">
     <!-- Header -->
-    <GridItem :span="4" class="demo-grid-header"> Header (100% Width) </GridItem>
+    <GridItem :span="4" class="demo-grid-header">Header (100% Width)</GridItem>
 
     <!-- Sidebar: 跨 1 行 -->
-    <GridItem :span="1" :row-span="1" class="demo-grid-sidebar"> Menu </GridItem>
+    <GridItem :span="1" :row-span="1" class="demo-grid-sidebar">Menu</GridItem>
 
     <!-- Main: 占 3 列 -->
-    <GridItem :span="3" class="demo-grid-main"> Main Content (Auto Height) </GridItem>
+    <GridItem :span="3" class="demo-grid-main">Main Content (Auto Height)</GridItem>
 
     <!-- Footer: 强制置底 -->
-    <GridItem :span="4" class="demo-grid-footer"> Footer </GridItem>
+    <GridItem :span="4" class="demo-grid-footer">Footer</GridItem>
   </Grid>
 </template>
 <style lang="less" scoped>

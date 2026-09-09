@@ -36,7 +36,6 @@ const inputNumberProps = {
     type: String as PropType<SizeType>,
   },
   placeholder: String,
-  onChange: Function as PropType<(value: number | undefined) => void>,
 };
 
 export type InputNumberProps = ExtractPropTypes<typeof inputNumberProps>;
@@ -45,6 +44,13 @@ const InputNumber = defineComponent({
   inheritAttrs: false,
   name: "InputNumber",
   props: inputNumberProps,
+  emits: {
+    "update:modelValue": (value: number | undefined) =>
+      value === undefined || typeof value === "number",
+    change: (value: number | undefined) => value === undefined || typeof value === "number",
+    blur: (event: FocusEvent) => typeof event?.type === "string",
+    keydown: (event: KeyboardEvent) => typeof event?.key === "string",
+  },
 
   setup(props, { slots, attrs, emit }) {
     const parentSize = inject<SizeType | undefined>("size", undefined);

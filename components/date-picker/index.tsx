@@ -105,17 +105,6 @@ const datePickerProps = {
     type: String as PropType<DropPlacementsType>,
     default: "bottom-left",
   },
-  onChange: {
-    type: Function as PropType<
-      (date: DatePickerOutput | DatePickerOutput[], dateStr: string | string[]) => void
-    >,
-  },
-  onOpenChange: {
-    type: Function as PropType<(open: boolean) => void>,
-  },
-  onClear: {
-    type: Function as PropType<() => void>,
-  },
 };
 
 export type DatePickerProps = ExtractPropTypes<typeof datePickerProps>;
@@ -126,6 +115,19 @@ const DatePicker = defineComponent({
     resize,
   },
   props: datePickerProps,
+  emits: {
+    "update:modelValue": (value: DatePickerOutput | DatePickerOutput[]) =>
+      value === null || Array.isArray(value) || ["string", "number", "object"].includes(typeof value),
+    "update:startDate": (value: DatePickerOutput) =>
+      value === null || ["string", "number", "object"].includes(typeof value),
+    "update:endDate": (value: DatePickerOutput) =>
+      value === null || ["string", "number", "object"].includes(typeof value),
+    change: (value: DatePickerOutput | DatePickerOutput[], text: string | string[]) =>
+      (value === null || Array.isArray(value) || ["string", "number", "object"].includes(typeof value)) &&
+      (typeof text === "string" || Array.isArray(text)),
+    openChange: (open: boolean) => typeof open === "boolean",
+    clear: () => true,
+  },
 
   setup(props, { emit, slots }) {
     usePopupHost(() => isVisible.value && openChange(false));

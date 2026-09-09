@@ -50,9 +50,6 @@ const colorPickerProps = {
   presets: {
     type: Array as PropType<string[]>,
   },
-  onChange: { type: Function as PropType<(color: string) => void> },
-  onUpdateMode: { type: Function as PropType<(mode: ColorMode) => void> },
-  onOpenChange: { type: Function as PropType<(open: boolean) => void> },
   panelOnly: Boolean as BooleanType,
 };
 
@@ -64,6 +61,12 @@ const ColorPicker = defineComponent({
     resize,
   },
   props: colorPickerProps,
+  emits: {
+    "update:modelValue": (value: string) => typeof value === "string",
+    "update:mode": (mode: ColorMode) => ["hex", "rgb", "hsl"].includes(mode),
+    change: (value: string) => typeof value === "string",
+    openChange: (open: boolean) => typeof open === "boolean",
+  },
 
   setup(props, { emit, slots }) {
     usePopupHost(() => visible.value && openChange(false));

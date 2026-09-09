@@ -38,7 +38,7 @@ A cascading selection box.
 | options       | Tree-structured data source for cascading options.                                                                  | CascaderOption[]     | `[]`              |
 | placeholder   | Fallback placeholder text displayed when no path is selected.                                                       | string               | `"Please select"` |
 | disabled      | Whether to completely disable interaction for the entire component.                                                 | boolean              | `false`           |
-| readonly      | Read-only; prevents opening, clearing and changing.                                                                | boolean              | `false`           |
+| readonly      | Read-only; prevents opening, clearing and changing.                                                                 | boolean              | `false`           |
 | clearable     | Whether to support clearing the selected path with one click.                                                       | boolean              | `true`            |
 | size          | Size specification of the component. Options: `'large'` \| `'small'` \| `undefined`.                                | string               | `undefined`       |
 | expandTrigger | Interaction mode for expanding the next-level menu. Options: `'click'` or `'hover'`.                                | 'click' \| 'hover'   | `'click'`         |

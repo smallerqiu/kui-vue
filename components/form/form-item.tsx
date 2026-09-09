@@ -103,7 +103,7 @@ const FormItem = defineComponent({
         switch (rule.type) {
           case "mail":
             isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/.test(
-              String(itemValue ?? "")
+              String(itemValue ?? ""),
             );
             if (!isValid) msg = msg || locale.value?.k.form.email;
             break;

@@ -41,10 +41,6 @@ const modalProps = {
   loading: Boolean as BooleanType,
   footer: { type: Boolean as BooleanType, default: true },
   escKey: { type: Boolean as BooleanType, default: true },
-  onClose: { type: Function as PropType<() => void> },
-  onOk: { type: Function as PropType<() => void> },
-  onCancel: { type: Function as PropType<() => void> },
-  onOpenChange: { type: Function as PropType<(opened: boolean) => void> },
   panelOnly: Boolean as BooleanType,
 };
 export type ModalProps = ExtractPropTypes<typeof modalProps>;
@@ -53,6 +49,13 @@ const Modal = defineComponent({
   name: "Modal",
   inheritAttrs: false,
   props: modalProps,
+  emits: {
+    "update:modelValue": (visible: boolean) => typeof visible === "boolean",
+    openChange: (visible: boolean) => typeof visible === "boolean",
+    ok: () => true,
+    cancel: () => true,
+    close: () => true,
+  },
   setup(props, { attrs, slots, emit }) {
     const getPopupContainer = usePopupContainer();
     const visible = ref<boolean | undefined>(props.panelOnly || props.modelValue);
@@ -101,7 +104,7 @@ const Modal = defineComponent({
       () => props.modelValue,
       (nv) => {
         toggle(nv);
-      }
+      },
     );
     const getOffset = (el: HTMLElement) => {
       return el
@@ -230,14 +233,14 @@ const Modal = defineComponent({
               onClick={close}
               class="k-modal-close"
               type="text"
-            ></Button>
+            ></Button>,
           );
         }
         if (props.title !== null) {
           contents.push(
             <div class="k-modal-header" ref={refHeader}>
               <div class="k-modal-header-inner">{props.title}</div>
-            </div>
+            </div>,
           );
         }
         contents.push(<div class="k-modal-body">{slots.default?.()}</div>);

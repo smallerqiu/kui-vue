@@ -1,7 +1,7 @@
 <template>
   <Space vertical>
-    <Button @click="warning">Warning </Button>
-    <Button @click="success">Success </Button>
+    <Button @click="warning">Warning</Button>
+    <Button @click="success">Success</Button>
     <Button @click="error">Error</Button>
   </Space>
 </template>

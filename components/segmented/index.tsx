@@ -77,11 +77,17 @@ const Segmented = defineComponent({
       if (!available.length || props.disabled || props.readonly) return;
       event.preventDefault();
       const current = available.findIndex((option) => option.value === props.modelValue);
-      const next = event.key === "Home"
-        ? available[0]
-        : event.key === "End"
-          ? available.at(-1)
-          : available[(Math.max(current, 0) + (event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : -1) + available.length) % available.length];
+      const next =
+        event.key === "Home"
+          ? available[0]
+          : event.key === "End"
+            ? available.at(-1)
+            : available[
+                (Math.max(current, 0) +
+                  (event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : -1) +
+                  available.length) %
+                  available.length
+              ];
       if (next) {
         select(next);
         nextTick(() => itemRefs.get(next.value)?.focus());
@@ -114,7 +120,11 @@ const Segmented = defineComponent({
           attrs.class,
           `k-segmented-${props.size}`,
           `k-segmented-${props.shape}`,
-          { "k-segmented-block": props.block, "k-segmented-vertical": isVertical.value, "k-segmented-disabled": props.disabled },
+          {
+            "k-segmented-block": props.block,
+            "k-segmented-vertical": isVertical.value,
+            "k-segmented-disabled": props.disabled,
+          },
         ]}
         role="radiogroup"
         aria-disabled={props.disabled || undefined}
@@ -126,7 +136,9 @@ const Segmented = defineComponent({
           return (
             <button
               key={option.value}
-              ref={(el) => el ? itemRefs.set(option.value, el as HTMLElement) : itemRefs.delete(option.value)}
+              ref={(el) =>
+                el ? itemRefs.set(option.value, el as HTMLElement) : itemRefs.delete(option.value)
+              }
               type="button"
               class={["k-segmented-item", { "k-segmented-item-active": selected }]}
               role="radio"
@@ -140,7 +152,10 @@ const Segmented = defineComponent({
             </button>
           );
         })}
-        <span class={["k-segmented-indicator", ready.value && "is-ready"]} style={indicatorStyle.value} />
+        <span
+          class={["k-segmented-indicator", ready.value && "is-ready"]}
+          style={indicatorStyle.value}
+        />
       </div>
     );
   },

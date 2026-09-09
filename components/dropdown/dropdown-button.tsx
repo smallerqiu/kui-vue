@@ -22,13 +22,15 @@ const dropdownButtonProps = {
   theme: String as PropType<ThemeType>,
   arrow: Boolean as BooleanType,
   placement: { type: String as PropType<DropPlacementsType>, default: "bottom-right" },
-  onClick: Function as PropType<(e: MouseEvent) => void>,
 };
 export type DropdownButtonProps = ExtractPropTypes<typeof dropdownButtonProps>;
 
 const DropdownButton = defineComponent({
   name: "DropdownButton",
   props: dropdownButtonProps,
+  emits: {
+    click: (event: MouseEvent) => event instanceof MouseEvent,
+  },
   setup(props, { slots, emit }) {
     const refTrigger = ref();
     return () => {

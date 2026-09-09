@@ -35,14 +35,15 @@ const poptipProps = {
     type: String as PropType<PlacementsType>,
     default: "top",
   },
-  onClose: {
-    type: Function as PropType<() => void>,
-  },
   panelOnly: Boolean as BooleanType,
 };
 const Poptip = defineComponent({
   name: "Poptip",
   props: poptipProps,
+  emits: {
+    "update:show": (show: boolean) => typeof show === "boolean",
+    close: () => true,
+  },
   setup(props, { slots, attrs, emit }) {
     usePopupHost(() => visible.value && updateShow(false));
     const getPopupContainer = usePopupContainer();

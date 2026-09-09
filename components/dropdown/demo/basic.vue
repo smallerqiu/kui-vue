@@ -1,6 +1,6 @@
 <template>
   <Dropdown arrow placement="bottom">
-    <Button type="text"> Hover me </Button>
+    <Button type="text">Hover me</Button>
     <template #overlay>
       <Menu>
         <MenuItem>
@@ -16,7 +16,7 @@
     </template>
   </Dropdown>
   <Dropdown trigger="click">
-    <Button type="text"> Click me </Button>
+    <Button type="text">Click me</Button>
     <template #overlay>
       <Menu>
         <MenuItem>

@@ -6,6 +6,5 @@
     :width="150"
     :height="50"
     :gap="[100, 100]"
-  >
-  </Watermark>
+  ></Watermark>
 </template>

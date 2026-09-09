@@ -1,5 +1,5 @@
 <template>
-  <Table :data="data" :columns="columns" :loading="loading" @sort="sort"> </Table>
+  <Table :data="data" :columns="columns" :loading="loading" @sort="sort"></Table>
 </template>
 <script setup lang="ts">
 import type { Column, SortState } from "kui-vue";

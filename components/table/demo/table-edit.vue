@@ -18,10 +18,8 @@
         <Button size="small" type="primary" v-if="!record.isEdit" @click="record.isEdit = true">
           Edit
         </Button>
-        <Button size="small" type="primary" v-if="record.isEdit" @click="save(record)">
-          Save
-        </Button>
-        <Button size="small" v-if="record.isEdit" @click="record.isEdit = false"> Cancel </Button>
+        <Button size="small" type="primary" v-if="record.isEdit" @click="save(record)">Save</Button>
+        <Button size="small" v-if="record.isEdit" @click="record.isEdit = false">Cancel</Button>
         <Popconfirm
           v-if="!record.isEdit"
           title="Are you sure delete this content?"

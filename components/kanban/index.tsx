@@ -1,6 +1,7 @@
 import {
   computed,
   defineComponent,
+  getCurrentInstance,
   ref,
   type ExtractPropTypes,
   type PropType,
@@ -50,6 +51,7 @@ const Kanban = defineComponent({
       Boolean(item && column && (typeof column.key === "string" || typeof column.key === "number")),
   },
   setup(props, { attrs, emit, slots }) {
+    const hasItemClickListener = Boolean(getCurrentInstance()?.vnode.props?.onItemClick);
     const draggingKey = ref<unknown>();
     const dragOverKey = ref<string | number>();
     const grouped = computed(() => {
@@ -102,7 +104,7 @@ const Kanban = defineComponent({
             {
               "--k-kanban-column-width": width,
               "--k-kanban-columns": props.columns.length,
-            } as unknown as StyleValue,
+            } as StyleValue,
             customStyle,
           ]}
         >
@@ -149,7 +151,7 @@ const Kanban = defineComponent({
                         { "k-kanban-item-dragging": draggingKey.value === item[props.rowKey] },
                       ]}
                       draggable={props.draggable}
-                      tabindex={props.draggable || props.onItemClick ? 0 : undefined}
+                      tabindex={props.draggable || hasItemClickListener ? 0 : undefined}
                       role="listitem"
                       aria-keyshortcuts={
                         props.draggable ? "Alt+ArrowLeft Alt+ArrowRight" : undefined
@@ -163,7 +165,7 @@ const Kanban = defineComponent({
                       onClick={() => emit("itemClick", item, column)}
                       onKeydown={(event) => {
                         moveByKeyboard(event, item, props.columns.indexOf(column));
-                        if (props.onItemClick && (event.key === "Enter" || event.key === " ")) {
+                        if (hasItemClickListener && (event.key === "Enter" || event.key === " ")) {
                           event.preventDefault();
                           emit("itemClick", item, column);
                         }

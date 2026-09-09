@@ -53,13 +53,13 @@ Avoid components sticking together, create uniform space.
 
 ## Space API
 
-| Property | Description                                            | Type                                       | Default |
-| -------- | ------------------------------------------------------ | ------------------------------------------ | ------- |
-| align    | Alignment method                                       | 'start' \| 'end' \| 'center' \| 'baseline' | center  |
-| vertical | Whether to display vertically                          | boolean                                    | false   |
-| direction | Layout direction; takes priority over `vertical`       | `horizontal \| vertical`                  | -       |
-| size     | Spacing; array values are horizontal and vertical gaps | SizeType \| number \| (number \| string)[] | -       |
-| wrap     | Whether to wrap                                        | boolean                                    | false   |
-| split    | Content rendered between adjacent children             | VNodeChild                                 | -       |
-| compact  | Whether to use compact mode                            | boolean                                    | false   |
-| block    | Option to adjust width to parent element width         | boolean                                    | false   |
+| Property  | Description                                            | Type                                       | Default |
+| --------- | ------------------------------------------------------ | ------------------------------------------ | ------- |
+| align     | Alignment method                                       | 'start' \| 'end' \| 'center' \| 'baseline' | center  |
+| vertical  | Whether to display vertically                          | boolean                                    | false   |
+| direction | Layout direction; takes priority over `vertical`       | `horizontal \| vertical`                   | -       |
+| size      | Spacing; array values are horizontal and vertical gaps | SizeType \| number \| (number \| string)[] | -       |
+| wrap      | Whether to wrap                                        | boolean                                    | false   |
+| split     | Content rendered between adjacent children             | VNodeChild                                 | -       |
+| compact   | Whether to use compact mode                            | boolean                                    | false   |
+| block     | Option to adjust width to parent element width         | boolean                                    | false   |

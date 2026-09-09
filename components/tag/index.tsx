@@ -30,7 +30,6 @@ const tagProps = {
     default: "small",
   },
   theme: { type: String as PropType<ThemeType>, default: "fill" },
-  onClose: { type: Function as PropType<() => void> },
 };
 
 export type TagProps = ExtractPropTypes<typeof tagProps>;
@@ -38,6 +37,9 @@ export type TagProps = ExtractPropTypes<typeof tagProps>;
 const Tag = defineComponent({
   name: "Tag",
   props: tagProps,
+  emits: {
+    close: () => true,
+  },
   setup(props, { slots, emit, attrs }) {
     const visible = ref(true);
     const hidden = ref(false);

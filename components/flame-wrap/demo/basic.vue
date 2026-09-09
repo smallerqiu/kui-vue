@@ -7,7 +7,10 @@
         <p style="margin: 0 0 24px; color: var(--kui-color-text-secondary)">
           火焰沿内容轮廓燃烧，内部仍然是真实且可交互的 DOM。
         </p>
-        <Space><Button type="primary">Explore</Button><Button>Details</Button></Space>
+        <Space>
+          <Button type="primary">Explore</Button>
+          <Button>Details</Button>
+        </Space>
       </Card>
     </FlameWrap>
   </div>

@@ -9,8 +9,7 @@
           :gap="gap"
           :offset="offset"
           :layout="layout"
-        >
-        </Watermark>
+        ></Watermark>
       </div>
     </Col>
     <Col :span="6">

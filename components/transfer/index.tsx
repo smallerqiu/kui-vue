@@ -25,10 +25,10 @@ const transferProps = {
   modelValue: { type: Array as PropType<TransferKey[]>, default: () => [] },
   dataSource: { type: Array as PropType<TransferItem[]>, default: () => [] },
   titles: {
-    type: Array as unknown as PropType<[string, string]>,
+    type: Array as PropType<[string, string]>,
     default: () => ["Source", "Target"],
   },
-  operations: { type: Array as unknown as PropType<[string, string]>, default: () => ["", ""] },
+  operations: { type: Array as PropType<[string, string]>, default: () => ["", ""] },
   searchable: Boolean,
   disabled: Boolean,
   readonly: Boolean,

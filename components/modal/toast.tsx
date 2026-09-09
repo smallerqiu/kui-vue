@@ -20,6 +20,9 @@ export default defineComponent({
       default: "info",
     },
   },
+  emits: {
+    destroy: () => true,
+  },
   setup(ps, { expose, emit }) {
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);

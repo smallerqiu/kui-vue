@@ -2,13 +2,15 @@
   <div>
     <Spin v-model="spinning">
       <div class="deme-spin-container">
-        See the light through the mist.<br />
+        See the light through the mist.
+        <br />
         See the light through the mist.
       </div>
     </Spin>
     <br />
     <br />
-    Loading state：<Switch v-model="spinning" />
+    Loading state：
+    <Switch v-model="spinning" />
   </div>
 </template>
 <script setup lang="ts">

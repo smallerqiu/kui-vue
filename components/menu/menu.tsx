@@ -18,7 +18,7 @@ import type { BooleanType, DirectionType } from "../const/types";
 import { MenuContextKey } from "./menu-context";
 import RecursiveMenu from "./recursive-menu";
 import SubMenu from "./sub-menu";
-import type { MenuOptionsProps, MenuSelectEvent } from "./types";
+import type { MenuOptionsProps } from "./types";
 const menuProps = {
   theme: String as PropType<"light" | "dark">,
   mode: { type: String as PropType<DirectionType>, default: "vertical" },
@@ -28,8 +28,6 @@ const menuProps = {
   inlineCollapsed: Boolean as BooleanType,
   collapsedTooltip: { type: Boolean as BooleanType, default: true },
   openKeys: { type: Array as PropType<string[]>, default: () => [] },
-  onSelect: { type: Function as PropType<(data: MenuSelectEvent) => void> },
-  onOpenChange: { type: Function as PropType<(openKeys: string[]) => void> },
 };
 const overflowMenuKey = "__kui_menu_overflow__";
 
@@ -39,6 +37,13 @@ const Menu = defineComponent({
   name: "Menu",
   inheritAttrs: false,
   props: menuProps,
+  emits: {
+    "update:modelValue": (keys: string[]) => Array.isArray(keys),
+    "update:openKeys": (keys: string[]) => Array.isArray(keys),
+    select: (event: { key: string; keyPath: string[] }) =>
+      typeof event?.key === "string" && Array.isArray(event.keyPath),
+    openChange: (keys: string[]) => Array.isArray(keys),
+  },
   setup(props, { emit, slots, attrs }) {
     const defaultSelectedKeys = ref([...(props.modelValue || [])]);
     const defaultOpenKeys = ref(props.inlineCollapsed ? [] : [...(props.openKeys || [])]);

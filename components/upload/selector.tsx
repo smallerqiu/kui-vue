@@ -32,6 +32,9 @@ export type SelectorProps = ExtractPropTypes<typeof selectorProps>;
 export default defineComponent({
   name: "Selector",
   props: selectorProps,
+  emits: {
+    select: (files: File[]) => Array.isArray(files),
+  },
   setup(props, { emit, slots }) {
     const dragOver = ref(false);
     const uploadFileRef = ref<HTMLInputElement | null>(null);

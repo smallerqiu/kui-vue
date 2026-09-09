@@ -37,8 +37,6 @@ const popconfirmProps = {
     type: String as PropType<PlacementsType>,
     default: "top",
   },
-  onCancel: { type: Function as PropType<() => void> },
-  onOk: { type: Function as PropType<() => void> },
   panelOnly: Boolean as BooleanType,
 };
 
@@ -47,6 +45,11 @@ export type PopconfirmProps = ExtractPropTypes<typeof popconfirmProps>;
 const Popconfirm = defineComponent({
   name: "Popconfirm",
   props: popconfirmProps,
+  emits: {
+    "update:show": (show: boolean) => typeof show === "boolean",
+    ok: () => true,
+    cancel: () => true,
+  },
   setup(props, { slots, attrs, emit }) {
     usePopupHost(() => visible.value && updateShow(false));
     type Locale = typeof zhCN;

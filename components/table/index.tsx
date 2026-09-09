@@ -49,22 +49,6 @@ const tableProps = {
   virtual: Boolean as BooleanType,
   itemHeight: { type: Number, default: 44 },
   overscan: { type: Number, default: 5 },
-  onSort: { type: Function as PropType<(state: SortState) => void> },
-  onRowClick: { type: Function as PropType<(record: TableRecord, index: number) => void> },
-  onSelect: {
-    type: Function as PropType<
-      (record: TableRecord, selected: boolean, selectedKeys: TableKey[]) => void
-    >,
-  },
-  onSelectAll: {
-    type: Function as PropType<(selected: boolean, selectedKeys: TableKey[]) => void>,
-  },
-  onExpand: {
-    type: Function as PropType<(expanded: boolean, record: TableRecord) => void>,
-  },
-  onExpandedKeysChange: {
-    type: Function as PropType<(expandedKeys: TableKey[]) => void>,
-  },
 };
 
 interface Matrix {
@@ -78,6 +62,23 @@ export type TableProps = ExtractPropTypes<typeof tableProps>;
 const Table = defineComponent({
   name: "Table",
   props: tableProps,
+  emits: {
+    "update:selectedKeys": (keys: TableKey[]) => Array.isArray(keys),
+    "update:expandedKeys": (keys: TableKey[]) => Array.isArray(keys),
+    sort: (state: SortState) => typeof state === "object" && state !== null,
+    rowClick: (record: TableRecord, index: number) =>
+      typeof record === "object" && record !== null && Number.isInteger(index),
+    select: (record: TableRecord, selected: boolean, keys: TableKey[]) =>
+      typeof record === "object" &&
+      record !== null &&
+      typeof selected === "boolean" &&
+      Array.isArray(keys),
+    selectAll: (selected: boolean, keys: TableKey[]) =>
+      typeof selected === "boolean" && Array.isArray(keys),
+    expand: (expanded: boolean, record: TableRecord) =>
+      typeof expanded === "boolean" && typeof record === "object" && record !== null,
+    expandedKeysChange: (keys: TableKey[]) => Array.isArray(keys),
+  },
   setup(props, { emit, slots }) {
     const headerWrapperRef = ref<HTMLElement>();
     const bodyWrapperRef = ref<HTMLElement>();

@@ -24,6 +24,10 @@ export type StarProps = ExtractPropTypes<typeof starProps>;
 export default defineComponent({
   name: "Star",
   props: starProps,
+  emits: {
+    update: (type: "C" | "M", index: number, percent: number) =>
+      (type === "C" || type === "M") && Number.isInteger(index) && typeof percent === "number",
+  },
   setup(props, { emit }) {
     const onUpdate = (e: MouseEvent, t: "C" | "M") => {
       if (props.disabled) return;

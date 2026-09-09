@@ -1,6 +1,9 @@
 <template>
   <Space style="max-width: 520px" vertical block>
-    <code>Disabled: <Switch v-model="disabled" /></code>
+    <code>
+      Disabled:
+      <Switch v-model="disabled" />
+    </code>
     <Slider v-model="v1" :step="10" :disabled="disabled" :min="20" size="small" />
     <Slider v-model="v2" range :disabled="disabled" :min="10" :max="80" size="small" />
     <Slider

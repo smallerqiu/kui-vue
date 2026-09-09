@@ -26,7 +26,6 @@ const switchProps = {
   shape: { type: String as PropType<ShapeType>, default: "round" },
   trueText: String,
   falseText: String,
-  onChange: Function as PropType<(value: string | number | boolean) => void>,
 };
 
 export type SwitchProps = ExtractPropTypes<typeof switchProps>;
@@ -34,6 +33,13 @@ export type SwitchProps = ExtractPropTypes<typeof switchProps>;
 const Switch = defineComponent({
   name: "Switch",
   props: switchProps,
+  emits: {
+    "update:modelValue": (value: string | number | boolean) =>
+      ["string", "number", "boolean"].includes(typeof value),
+    "update:checked": (checked: boolean) => typeof checked === "boolean",
+    change: (value: string | number | boolean) =>
+      ["string", "number", "boolean"].includes(typeof value),
+  },
   setup(props, { slots, emit }) {
     const resolveChecked = (value: string | number | boolean | undefined, fallback = false) =>
       value === undefined ? fallback : value === true || value === 1 || value === "1";

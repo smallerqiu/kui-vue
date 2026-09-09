@@ -35,7 +35,10 @@
     </Modal>
 
     <Modal title="Submit forms" v-model="visible4" :loading="loading" @ok="submit" @close="close">
-      <p>Name：<Input placeholder="Please input your name" style="width: 200px" /></p>
+      <p>
+        Name：
+        <Input placeholder="Please input your name" style="width: 200px" />
+      </p>
     </Modal>
   </Space>
 </template>

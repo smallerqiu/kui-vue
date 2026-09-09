@@ -23,7 +23,7 @@ const wechat = () => {
     h(
       "p",
       { style: "margin:10px 0" },
-      "WeChat has added some new features, and we invite you to try them out.！"
+      "WeChat has added some new features, and we invite you to try them out.！",
     ),
     h(Button, { type: "primary", size: "small" }, { default: () => "Go and see" }),
   ]);

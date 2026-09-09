@@ -12,7 +12,9 @@
     <Layout>
       <Header class="workbench-header">
         <div class="header-breadcrumb">
-          <span class="proj-name">Project A</span> / <span>Current iteration</span>
+          <span class="proj-name">Project A</span>
+          /
+          <span>Current iteration</span>
         </div>
         <Flex class="header-ops">
           <AvatarGroup :max-count="3">
@@ -37,8 +39,14 @@
             <Button type="text" @click="showDetail = false">Close</Button>
           </div>
           <div class="detail-body">
-            <p><strong>Status:</strong> In progress</p>
-            <p><strong>Executor:</strong> Qiu</p>
+            <p>
+              <strong>Status:</strong>
+              In progress
+            </p>
+            <p>
+              <strong>Executor:</strong>
+              Qiu
+            </p>
             <Divider />
             <p>
               Description: We need to ensure that the transform still takes effect in reverse

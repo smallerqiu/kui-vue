@@ -1,6 +1,7 @@
 <template>
   <Space>
-    <Button ref="first">创建项目</Button><Button ref="second">发布</Button>
+    <Button ref="first">创建项目</Button>
+    <Button ref="second">发布</Button>
     <Button @click="open = true">开始引导</Button>
   </Space>
   <Tour v-model="open" :steps="steps" />

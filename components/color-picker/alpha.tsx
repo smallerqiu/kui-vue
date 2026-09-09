@@ -6,7 +6,9 @@ export default defineComponent({
   name: "Alpha",
   props: {
     modelValue: { type: [String, Object] as PropType<Parameters<typeof Color>[0]>, required: true },
-    onUpdateAlpha: Function as PropType<(alpha: number) => void>,
+  },
+  emits: {
+    updateAlpha: (alpha: number) => typeof alpha === "number",
   },
   setup(props, { emit }) {
     const dotPos = ref(0);
@@ -65,7 +67,7 @@ export default defineComponent({
       () => {
         renderPaint();
         updatePos();
-      }
+      },
     );
 
     onMounted(() => {

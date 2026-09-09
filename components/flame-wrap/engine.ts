@@ -412,13 +412,13 @@ export function supportsHtmlInCanvas(): boolean {
   const probe = document.createElement("canvas") as PaintableCanvas;
   const ctx = probe.getContext("2d") as ElementImageContext | null;
   return Boolean(
-    ctx && typeof ctx.drawElementImage === "function" && typeof probe.requestPaint === "function"
+    ctx && typeof ctx.drawElementImage === "function" && typeof probe.requestPaint === "function",
   );
 }
 
 export function createFlameWrap(
   elements: FlameWrapElements,
-  options: FlameWrapOptions = {}
+  options: FlameWrapOptions = {},
 ): FlameWrapInstance | null {
   const config = { ...DEFAULTS, ...options };
   const { source, content, output } = elements;
@@ -437,7 +437,7 @@ export function createFlameWrap(
   const htmlInCanvas = Boolean(
     sourceCtx &&
     typeof sourceCtx.drawElementImage === "function" &&
-    typeof paintable.requestPaint === "function"
+    typeof paintable.requestPaint === "function",
   );
 
   let contentDirty = false;
@@ -502,7 +502,7 @@ export function createFlameWrap(
     0,
     gl.RGBA,
     gl.UNSIGNED_BYTE,
-    new Uint8Array([0, 0, 0, 0])
+    new Uint8Array([0, 0, 0, 0]),
   );
 
   const rect = { cx: 0, cy: 0, hx: 1, hy: 1 };

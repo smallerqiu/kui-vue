@@ -53,7 +53,7 @@ const Ripple = defineComponent({
     // provided. Do not let those undefined entries overwrite engine defaults.
     const options = (): RippleOptions =>
       Object.fromEntries(
-        Object.entries(props).filter(([, value]) => value !== undefined)
+        Object.entries(props).filter(([, value]) => value !== undefined),
       ) as RippleOptions;
     const isNative = () => supported.value && nativeReady.value && !failed.value;
 
@@ -61,7 +61,7 @@ const Ripple = defineComponent({
       const content = contentRef.value;
       if (!content) return;
       const height = Math.ceil(
-        Math.max(content.scrollHeight, content.getBoundingClientRect().height)
+        Math.max(content.scrollHeight, content.getBoundingClientRect().height),
       );
       if (height <= 0) return;
       contentHeight.value = height;
@@ -118,7 +118,7 @@ const Ripple = defineComponent({
         h(
           "div",
           { ref: contentRef, style: { position: "relative", width: "100%", overflow: "visible" } },
-          slots.default?.()
+          slots.default?.(),
         );
       return h(
         "div",
@@ -140,7 +140,7 @@ const Ripple = defineComponent({
                 ? { position: "absolute", inset: 0, width: "100%", height: "100%" }
                 : { display: "none" },
             },
-            native ? [content()] : []
+            native ? [content()] : [],
           ),
           native ? null : content(),
           h("canvas", {
@@ -155,7 +155,7 @@ const Ripple = defineComponent({
               pointerEvents: "none",
             },
           }),
-        ]
+        ],
       );
     };
   },

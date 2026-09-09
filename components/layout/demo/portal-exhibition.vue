@@ -2,7 +2,10 @@
   <Layout class="portal-layout">
     <Header class="portal-header">
       <div class="container">
-        <Space class="logo"><Icon :type="LogoKui" :size="20" />KUI PRO</Space>
+        <Space class="logo">
+          <Icon :type="LogoKui" :size="20" />
+          KUI PRO
+        </Space>
         <Menu mode="horizontal" class="portal-menu">
           <MenuItem key="home">Home</MenuItem>
           <MenuItem key="comp">Components</MenuItem>
@@ -44,11 +47,15 @@
         </div>
         <div class="footer-col">
           <h4>Resources</h4>
-          <a>Design draft</a><br /><a>Change logs</a>
+          <a>Design draft</a>
+          <br />
+          <a>Change logs</a>
         </div>
         <div class="footer-col">
           <h4>Help</h4>
-          <a>Report Bug</a><br /><a>Q & A</a>
+          <a>Report Bug</a>
+          <br />
+          <a>Q & A</a>
         </div>
       </div>
       <Divider />

@@ -2,7 +2,7 @@
   <div>
     <Space>
       <Button @click="changeMode">Change Mode</Button>
-      <Button @click="changeTheme"> Change Theme </Button>
+      <Button @click="changeTheme">Change Theme</Button>
     </Space>
     <br />
     <br />

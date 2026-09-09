@@ -55,7 +55,7 @@
         </FormItem>
       </FormItem>
       <FormItem label="TreeSelect" prop="tree">
-        <TreeSelect style="width: 100%" :tree-data="treeData"> </TreeSelect>
+        <TreeSelect style="width: 100%" :tree-data="treeData"></TreeSelect>
       </FormItem>
       <FormItem label="Slider" prop="slider">
         <Slider />
@@ -97,7 +97,10 @@
         <TextArea placeholder="Maximum 10 characters" v-model="form.other" />
       </FormItem>
       <FormItem prop="readme" :wrapperCol="{ offset: 6 }">
-        <Checkbox>我已阅读 <a>服务条款</a> </Checkbox>
+        <Checkbox>
+          我已阅读
+          <a>服务条款</a>
+        </Checkbox>
       </FormItem>
       <FormItem :wrapperCol="{ offset: 6 }">
         <Button type="primary" @click="submit">Submit</Button>

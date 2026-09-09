@@ -84,7 +84,7 @@ const Watermark = defineComponent({
           ctx: CanvasRenderingContext2D,
           centerX: number,
           centerY: number,
-          imgObj?: HTMLImageElement
+          imgObj?: HTMLImageElement,
         ) => {
           ctx.save();
           ctx.translate(centerX, centerY);
@@ -283,7 +283,7 @@ const Watermark = defineComponent({
       () => {
         renderWatermark();
       },
-      { deep: true }
+      { deep: true },
     );
 
     onMounted(() => renderWatermark());

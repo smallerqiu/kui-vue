@@ -65,7 +65,7 @@ const Theme = {
           duration: 500,
           easing: "ease-in-out",
           pseudoElement,
-        }
+        },
       );
       animate.onfinish = () => {
         transition.skipTransition();

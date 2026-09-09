@@ -101,7 +101,7 @@ const isBooleanType = (type: Type): boolean => {
 export const getPropsData = (
   componentPath: string,
   propsNames: string | string[],
-  documentationFileName = "index.md"
+  documentationFileName = "index.md",
 ): PropData[] => {
   const sourceFile =
     project.getSourceFile(componentPath) || project.addSourceFileAtPath(componentPath);
@@ -134,7 +134,7 @@ export const getPropsData = (
 
     const propDecls = prop.getDeclarations();
     const isProjectProp = propDecls.some(
-      (declaration) => !declaration.getSourceFile().getFilePath().includes("/node_modules/")
+      (declaration) => !declaration.getSourceFile().getFilePath().includes("/node_modules/"),
     );
     if (!isProjectProp) return;
 
@@ -167,6 +167,43 @@ export const getPropsData = (
       type: propType,
       eventName,
       boolean: isBooleanType(type),
+      documented: Boolean(documentedDescription),
+      documentationPath: mdPath,
+    });
+  });
+
+  const implementationFile = declarations[0].getSourceFile();
+  const emittedEvents = new Set<string>();
+  implementationFile.getDescendants().forEach((node) => {
+    if (!Node.isPropertyAssignment(node) || node.getName() !== "emits") return;
+    const initializer = node.getInitializer();
+    if (Node.isArrayLiteralExpression(initializer)) {
+      initializer.getElements().forEach((element) => {
+        if (Node.isStringLiteral(element)) emittedEvents.add(element.getLiteralValue());
+      });
+    } else if (Node.isObjectLiteralExpression(initializer)) {
+      initializer.getProperties().forEach((property) => {
+        if (Node.isPropertyAssignment(property) || Node.isMethodDeclaration(property)) {
+          emittedEvents.add(property.getName().replace(/^['"]|['"]$/g, ""));
+        }
+      });
+    }
+  });
+
+  emittedEvents.forEach((eventName) => {
+    if (eventName.startsWith("update:")) return;
+    const name = `on${eventName.charAt(0).toUpperCase()}${eventName.slice(1)}`;
+    if (props.some((prop) => prop.name === name)) return;
+    const documentedDescription = [eventName, name]
+      .map(normalizeDocumentationKey)
+      .map((candidate) => docMap[candidate])
+      .find(Boolean);
+    props.push({
+      name,
+      description: documentedDescription || `Event emitted for ${eventName}`,
+      type: "(...args: unknown[]) => void",
+      eventName,
+      boolean: false,
       documented: Boolean(documentedDescription),
       documentationPath: mdPath,
     });
@@ -210,6 +247,6 @@ export const generateVeturConfig = (componentNames: string[]) => {
   fs.writeFileSync(path.resolve(distDir, "attributes.json"), JSON.stringify(attributes, null, 2));
 
   console.log(
-    "\x1b[32mVetur tags and attributes generated successfully in /vetur directory.\x1b[0m"
+    "\x1b[32mVetur tags and attributes generated successfully in /vetur directory.\x1b[0m",
   );
 };

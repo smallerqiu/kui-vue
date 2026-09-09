@@ -19,6 +19,11 @@ export type InputBoxProps = ExtractPropTypes<typeof inputBoxProps>;
 export default defineComponent({
   name: "InputBox",
   props: inputBoxProps,
+  emits: {
+    input: (event: Event) => typeof event?.type === "string",
+    focus: (event: FocusEvent) => typeof event?.type === "string",
+    blur: (event: FocusEvent) => typeof event?.type === "string",
+  },
   setup(props, { emit, attrs }) {
     const handleInput = (e: Event) => {
       emit("input", e);

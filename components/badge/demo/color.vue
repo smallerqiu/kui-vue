@@ -1,6 +1,9 @@
 <template>
   <Space vertical block>
-    <Space>Active : <Switch v-model="active" /></Space>
+    <Space>
+      Active :
+      <Switch v-model="active" />
+    </Space>
     <code>Presets</code>
     <Space wrap>
       <Badge :color="color" :active="active" :text="color" v-for="color in colors" :key="color" />

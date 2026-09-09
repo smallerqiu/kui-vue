@@ -53,7 +53,7 @@ const Button = defineComponent({
   setup(props, { slots, attrs }) {
     const buttonGroup = inject<{ size?: SizeType; shape?: Ref<ShapeType> } | null>(
       "KButtonGroup",
-      null
+      null,
     );
     const parentSize = inject<string | null>("size", null);
 
@@ -118,7 +118,7 @@ const Button = defineComponent({
             </span>
           ) : (
             <Icon type={iconType} />
-          )
+          ),
         );
       }
 

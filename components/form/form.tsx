@@ -22,12 +22,6 @@ const formProps = {
   shape: String as PropType<ShapeType>,
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
-  onSubmit: {
-    type: Function as PropType<(e: FormSubmitEvent) => void>,
-  },
-  onReset: {
-    type: Function as PropType<() => void>,
-  },
 };
 
 export type FormProps = ExtractPropTypes<typeof formProps>;
@@ -35,6 +29,11 @@ export type FormProps = ExtractPropTypes<typeof formProps>;
 const Form = defineComponent({
   name: "Form",
   props: formProps,
+  emits: {
+    change: (model: Record<string, unknown>) => typeof model === "object" && model !== null,
+    reset: () => true,
+    submit: (result: { valid: boolean }) => typeof result?.valid === "boolean",
+  },
   setup(props, { emit, slots, expose }) {
     const formRef = ref(null);
     const model = props.model ?? {};
@@ -123,7 +122,7 @@ const Form = defineComponent({
           const item = formItems.value[key];
           const rules = item.rules || (props.rules || {})[item.prop];
           return rules ? item.validate(rules) : Promise.resolve(true);
-        })
+        }),
       );
       const valid = results.every(Boolean);
       const result = { valid };

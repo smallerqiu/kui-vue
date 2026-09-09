@@ -57,6 +57,12 @@ const ImagePreview = defineComponent({
     data: { type: Array as PropType<string[]>, default: () => [] },
     showPanel: Boolean as BooleanType,
   },
+  emits: {
+    "update:value": (visible: boolean) => typeof visible === "boolean",
+    close: () => true,
+    switch: (index: number) => Number.isInteger(index),
+    togglePanel: (visible: boolean) => typeof visible === "boolean",
+  },
   setup(props, { emit, slots, expose }) {
     const { value, type, src, origin, showPanel } = toRefs(props);
     const state = reactive({

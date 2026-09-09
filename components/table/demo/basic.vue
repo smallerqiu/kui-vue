@@ -2,9 +2,9 @@
   <Table :data="data" :columns="columns" @rowClick="rowClick">
     <template #tags="{ value }">
       <Space>
-        <Tag v-for="tag in value" :key="tag" :color="tag == 'Python' ? 'green' : 'blue'">{{
-          tag
-        }}</Tag>
+        <Tag v-for="tag in value" :key="tag" :color="tag == 'Python' ? 'green' : 'blue'">
+          {{ tag }}
+        </Tag>
       </Space>
     </template>
     <template #gender="{ value }">
@@ -12,9 +12,9 @@
     </template>
     <template #action="{ record, rowIndex }">
       <Space>
-        <Button size="small" @click.stop="() => moveUp(rowIndex)" :icon="ArrowUp"> </Button>
-        <Button size="small" @click.stop="() => moveDown(rowIndex)" :icon="ArrowDown"> </Button>
-        <Button size="small" @click.stop="() => deleteRow(rowIndex)" :icon="Trash2"> </Button>
+        <Button size="small" @click.stop="() => moveUp(rowIndex)" :icon="ArrowUp"></Button>
+        <Button size="small" @click.stop="() => moveDown(rowIndex)" :icon="ArrowDown"></Button>
+        <Button size="small" @click.stop="() => deleteRow(rowIndex)" :icon="Trash2"></Button>
         <Button size="small" @click.stop="() => show(record)">more</Button>
       </Space>
     </template>

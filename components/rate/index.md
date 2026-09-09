@@ -23,21 +23,21 @@
 
 ## Rate API
 
-| 属性              | 说明                            | 类型                    | 默认值 |
-| ----------------- | ------------------------------- | ----------------------- | ------ |
-| modelValue        | 当前受控值，配合 `v-model` 使用 | number                  | -      |
-| value             | 非受控模式的初始值              | number                  | 0      |
-| allowClear        | 是否允许再次点击后清除          | boolean                 | true   |
-| allowHalf         | 是否允许半选                    | boolean                 | false  |
-| showScore         | 是否显示分数                    | boolean                 | false  |
-| character         | 自定义字符                      | string                  | -      |
-| count             | star 总数                       | number                  | 5      |
-| icon              | 自定义展示的图标                | Icon                    | -      |
-| size              | 图标尺寸                        | number                  | -      |
-| color             | 图标颜色                        | string                  | -      |
-| disabled          | 只读，无法进行交互              | boolean                 | false  |
+| 属性              | 说明                             | 类型                    | 默认值 |
+| ----------------- | -------------------------------- | ----------------------- | ------ |
+| modelValue        | 当前受控值，配合 `v-model` 使用  | number                  | -      |
+| value             | 非受控模式的初始值               | number                  | 0      |
+| allowClear        | 是否允许再次点击后清除           | boolean                 | true   |
+| allowHalf         | 是否允许半选                     | boolean                 | false  |
+| showScore         | 是否显示分数                     | boolean                 | false  |
+| character         | 自定义字符                       | string                  | -      |
+| count             | star 总数                        | number                  | 5      |
+| icon              | 自定义展示的图标                 | Icon                    | -      |
+| size              | 图标尺寸                         | number                  | -      |
+| color             | 图标颜色                         | string                  | -      |
+| disabled          | 只读，无法进行交互               | boolean                 | false  |
 | readonly          | 是否只读，保持正常外观但不可修改 | boolean                 | false  |
-| tooltips          | 自定义每项的提示信息            | string[]                | -      |
-| onChange          | 选择时的回调                    | (value: number) => void | -      |
-| symbolReverseFill | 符号反相填充颜色                | boolean                 | false  |
-| strokeWidth       | 符号边框单位                    | number                  | 1      |
+| tooltips          | 自定义每项的提示信息             | string[]                | -      |
+| onChange          | 选择时的回调                     | (value: number) => void | -      |
+| symbolReverseFill | 符号反相填充颜色                 | boolean                 | false  |
+| strokeWidth       | 符号边框单位                     | number                  | 1      |

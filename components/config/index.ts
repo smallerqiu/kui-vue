@@ -43,7 +43,7 @@ const ConfigProvider = defineComponent({
       ([newVal, parentLocale]) => {
         locale.value = newVal || parentLocale;
       },
-      { immediate: true }
+      { immediate: true },
     );
     return () => {
       return slots.default?.();

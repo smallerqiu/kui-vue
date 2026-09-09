@@ -35,7 +35,7 @@
             </GridItem>
 
             <GridItem v-for="i in 4" :key="i" :span="{ xs: 1, md: 2, xl: 2 }" :row-span="1">
-              <StatCard :title="`📈 指标 ${i}`" :items="[{ value: 1234 + i }]"> </StatCard>
+              <StatCard :title="`📈 指标 ${i}`" :items="[{ value: 1234 + i }]"></StatCard>
             </GridItem>
 
             <GridItem :span="{ xs: 2, md: 2, xl: 2 }" :row-span="2">

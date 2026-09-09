@@ -1,4 +1,4 @@
-import Color, { type ColorInstance } from "color";
+import Color from "color";
 import { defineComponent, type PropType, ref, watch } from "vue";
 import type { BooleanType } from "../const/types";
 import { Input } from "../input";
@@ -12,8 +12,11 @@ export default defineComponent({
     modelValue: [String, Object],
     mode: { type: String as PropType<ColorMode>, default: "hex" },
     disabledAlpha: Boolean as BooleanType,
-    onUpdateMode: Function as PropType<(mode: "hex" | "rgb" | "hsl") => void>,
-    onUpdateColorValue: Function as PropType<(color: ColorInstance) => void>,
+  },
+  emits: {
+    updateMode: (mode: ColorMode) => ["hex", "rgb", "hsl"].includes(mode),
+    updateColorValue: (value: ReturnType<typeof Color>) =>
+      typeof value === "object" && value !== null,
   },
   setup(props, { emit }) {
     const currentMode = ref<string>(props.mode);
@@ -35,7 +38,7 @@ export default defineComponent({
       () => props.mode,
       (val) => {
         currentMode.value = val;
-      }
+      },
     );
     const updateHex = (hex: string) => {
       // const hex = (e.target as HTMLInputElement).value;
@@ -85,7 +88,7 @@ export default defineComponent({
       if (currentMode.value === "hex") {
         const hex = color.hex().slice(1);
         nodes.push(
-          <Input prefix="#" size="small" modelValue={hex} onChange={(e) => updateHex(e)} />
+          <Input prefix="#" size="small" modelValue={hex} onChange={(e) => updateHex(e)} />,
         );
       } else if (currentMode.value === "rgb") {
         const [r, g, b] = color.rgb().array();
@@ -96,7 +99,7 @@ export default defineComponent({
             max={255}
             modelValue={Math.round(r)}
             onChange={(e) => valueChange(e, "r")}
-          />
+          />,
         );
         nodes.push(
           <InputNumber
@@ -105,7 +108,7 @@ export default defineComponent({
             max={255}
             modelValue={Math.round(g)}
             onChange={(e) => valueChange(e, "g")}
-          />
+          />,
         );
         nodes.push(
           <InputNumber
@@ -114,7 +117,7 @@ export default defineComponent({
             max={255}
             modelValue={Math.round(b)}
             onChange={(e) => valueChange(e, "b")}
-          />
+          />,
         );
       } else if (currentMode.value === "hsl") {
         const [_h, s, l] = color.hsl().array();
@@ -125,7 +128,7 @@ export default defineComponent({
             max={359}
             modelValue={Math.round(_h)}
             onChange={(e) => valueChange(e, "h")}
-          />
+          />,
         );
         nodes.push(
           <InputNumber
@@ -137,7 +140,7 @@ export default defineComponent({
             max={100}
             modelValue={Math.round(s)}
             onChange={(e) => valueChange(e, "s")}
-          />
+          />,
         );
         nodes.push(
           <InputNumber
@@ -149,7 +152,7 @@ export default defineComponent({
             max={100}
             modelValue={Math.round(l)}
             onChange={(e) => valueChange(e, "l")}
-          />
+          />,
         );
       }
 
@@ -165,7 +168,7 @@ export default defineComponent({
             max={100}
             class="k-color-picker-alpha-input"
             onChange={(e) => valueChange(e, "a")}
-          />
+          />,
         );
       }
 

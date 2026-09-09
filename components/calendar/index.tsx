@@ -283,9 +283,7 @@ const Calendar = defineComponent({
                             key={toRenderKey(event.key)}
                             type="button"
                             class="k-calendar-event"
-                            style={
-                              { "--k-calendar-event-color": event.color } as unknown as StyleValue
-                            }
+                            style={{ "--k-calendar-event-color": event.color } as StyleValue}
                             onClick={(e) => {
                               e.stopPropagation();
                               emit("eventClick", event, cell);

@@ -8,8 +8,8 @@
       <Button type="link" :size="size">Link</Button>
       <Button type="primary" :size="size" :icon="Download"></Button>
       <Button type="primary" shape="circle" :size="size" :icon="Download"></Button>
-      <Button type="primary" shape="circle" :size="size" :icon="Download"> Download </Button>
-      <Button type="primary" :size="size" :icon="Download"> Download </Button>
+      <Button type="primary" shape="circle" :size="size" :icon="Download">Download</Button>
+      <Button type="primary" :size="size" :icon="Download">Download</Button>
     </Space>
   </Space>
 </template>

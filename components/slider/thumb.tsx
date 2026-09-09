@@ -14,8 +14,10 @@ export default defineComponent({
     tooltipVisible: { type: Boolean as BooleanType, default: null },
     tipFormatter: Function as PropType<(value: number) => string | number>,
     dragging: Boolean as BooleanType, // 接收父组件传入的拖拽状态
-    onDragStart: Function as PropType<(e: MouseEvent | TouchEvent) => void>,
-    onKeydownUpdate: Function as PropType<(e: KeyboardEvent, idx: number) => void>,
+  },
+  emits: {
+    dragStart: (event: MouseEvent | TouchEvent) => typeof event?.type === "string",
+    keydownUpdate: (event: KeyboardEvent) => typeof event?.key === "string",
   },
   setup(props, { emit, expose }) {
     const isHover = ref(false);

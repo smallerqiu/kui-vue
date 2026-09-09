@@ -22,29 +22,29 @@ Switch quickly between mutually exclusive options.
 
 ## API
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| modelValue | Selected value | string \| number | - |
-| options | Option data | SegmentedOption[] | [] |
-| disabled | Disable all options | boolean | false |
-| readonly | Read-only state | boolean | false |
-| block | Fill the parent width | boolean | false |
-| direction | Layout direction | `horizontal \| vertical` | horizontal |
-| size | Size | SizeType | medium |
-| shape | Shape | ShapeType | round |
-| label | Custom option content with `{ option, selected }` | VNodeChild | - |
+| Property   | Description                                       | Type                     | Default    |
+| ---------- | ------------------------------------------------- | ------------------------ | ---------- |
+| modelValue | Selected value                                    | string \| number         | -          |
+| options    | Option data                                       | SegmentedOption[]        | []         |
+| disabled   | Disable all options                               | boolean                  | false      |
+| readonly   | Read-only state                                   | boolean                  | false      |
+| block      | Fill the parent width                             | boolean                  | false      |
+| direction  | Layout direction                                  | `horizontal \| vertical` | horizontal |
+| size       | Size                                              | SizeType                 | medium     |
+| shape      | Shape                                             | ShapeType                | round      |
+| label      | Custom option content with `{ option, selected }` | VNodeChild               | -          |
 
 ## Events
 
-| Event | Description | Parameters |
-| --- | --- | --- |
+| Event  | Description                      | Parameters                          |
+| ------ | -------------------------------- | ----------------------------------- |
 | change | Triggered when selection changes | `(value: string \| number) => void` |
 
 ### SegmentedOption
 
-| Property | Description | Type | Default |
-| --- | --- | --- | --- |
-| label | Option content | VNodeChild | - |
-| value | Option value | string \| number | - |
-| icon | Option icon | IconType[] | - |
-| disabled | Disable this option | boolean | false |
+| Property | Description         | Type             | Default |
+| -------- | ------------------- | ---------------- | ------- |
+| label    | Option content      | VNodeChild       | -       |
+| value    | Option value        | string \| number | -       |
+| icon     | Option icon         | IconType[]       | -       |
+| disabled | Disable this option | boolean          | false   |

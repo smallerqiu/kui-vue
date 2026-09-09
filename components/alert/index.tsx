@@ -17,9 +17,6 @@ const alertProps = {
   bordered: Boolean as BooleanType,
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
-  onClose: {
-    type: Function as PropType<(e: MouseEvent) => void>,
-  },
 };
 
 export type AlertProps = ExtractPropTypes<typeof alertProps>;
@@ -27,6 +24,9 @@ export type AlertProps = ExtractPropTypes<typeof alertProps>;
 const Alert = defineComponent({
   name: "Alert",
   props: alertProps,
+  emits: {
+    close: (event: MouseEvent) => event instanceof MouseEvent,
+  },
   setup(props, { emit, slots }) {
     const closed = ref(false);
 

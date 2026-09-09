@@ -30,8 +30,6 @@ const imageProps = {
   showPanel: Boolean as BooleanType,
   theme: { type: String as PropType<ThemeType>, default: "plain" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
-  onClose: Function as PropType<() => void>,
-  onSwitch: Function as PropType<(index: number) => void>,
 };
 
 export type ImageProps = ExtractPropTypes<typeof imageProps>;
@@ -39,6 +37,10 @@ export type ImageProps = ExtractPropTypes<typeof imageProps>;
 const Image = defineComponent({
   name: "Image",
   props: imageProps,
+  emits: {
+    close: () => true,
+    switch: (index: number) => Number.isInteger(index),
+  },
   setup(props, { emit, slots, expose }) {
     const loading = ref(false);
     const showPlaceholder = ref(false);

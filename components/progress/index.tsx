@@ -54,7 +54,7 @@ const Progress = defineComponent({
       () => props.percent,
       (nv) => {
         currentPercent.value = nv;
-      }
+      },
     );
 
     const renderTip = (status: ProgressProps["status"], type: ProgressProps["type"]) => {

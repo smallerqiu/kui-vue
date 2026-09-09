@@ -30,9 +30,6 @@ const tabsProps = {
   sample: Boolean as BooleanType,
   centered: Boolean as BooleanType,
   animated: { type: Boolean, default: true },
-  onTabClick: Function as PropType<(key: string) => void>,
-  onChange: Function as PropType<(key: string) => void>,
-  onRemove: Function as PropType<(key: string) => void>,
 };
 
 type TabClickEvent = {
@@ -46,6 +43,12 @@ const Tabs = defineComponent({
   name: "Tabs",
   inheritAttrs: false,
   props: tabsProps,
+  emits: {
+    "update:modelValue": (name: string) => typeof name === "string",
+    tabClick: (name: string) => typeof name === "string",
+    change: (name: string) => typeof name === "string",
+    remove: (name: string) => typeof name === "string",
+  },
   setup(props, { slots, emit, attrs }) {
     const currentVariant = computed(
       () => props.variant ?? (props.card ? "card" : props.sample ? "sample" : "line"),

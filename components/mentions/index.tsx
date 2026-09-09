@@ -47,10 +47,6 @@ const propsDef = {
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   emptyText: String,
   filterOption: Function as PropType<(query: string, option: MentionOption) => boolean>,
-  onChange: Function as PropType<(value: string) => void>,
-  onSelect: Function as PropType<(option: MentionOption, trigger: string) => void>,
-  onSearch: Function as PropType<(query: string, trigger: string) => void>,
-  onClear: Function as PropType<() => void>,
 };
 export type MentionsProps = ExtractPropTypes<typeof propsDef>;
 
@@ -58,10 +54,21 @@ export default defineComponent({
   name: "Mentions",
   inheritAttrs: false,
   props: propsDef,
+  emits: {
+    "update:modelValue": (value: string) => typeof value === "string",
+    change: (value: string) => typeof value === "string",
+    select: (option: MentionOption, trigger: string) =>
+      typeof option === "object" && option !== null && typeof trigger === "string",
+    search: (value: string, trigger: string) =>
+      typeof value === "string" && typeof trigger === "string",
+    clear: () => true,
+  },
   setup(props, { emit, attrs, slots }) {
     usePopupHost(() => query.value && (query.value = undefined));
     const getPopupContainer = usePopupContainer();
-    const listboxId = `k-mentions-listbox-${getCurrentInstance()?.uid ?? "default"}`;
+    const instance = getCurrentInstance();
+    const listboxId = `k-mentions-listbox-${instance?.uid ?? "default"}`;
+    const hasSearchEvent = Boolean(instance?.vnode.props?.onSearch);
     const inner = ref(props.value);
     const query = ref<{ start: number; trigger: string; text: string }>();
     const rendered = ref(false);
@@ -202,7 +209,7 @@ export default defineComponent({
     };
     watch(active, ensureActiveVisible);
     const getMatches = (state: NonNullable<typeof query.value>) => {
-      if (props.onSearch && !props.filterOption) return normalized.value;
+      if (hasSearchEvent && !props.filterOption) return normalized.value;
       return normalized.value.filter((option) =>
         props.filterOption
           ? props.filterOption(state.text, option)
@@ -235,7 +242,7 @@ export default defineComponent({
       if (!query.value && found) positioned.value = false;
       query.value = found;
       if (found) {
-        setMatches(props.onSearch && search && found.text ? [] : getMatches(found));
+        setMatches(hasSearchEvent && search && found.text ? [] : getMatches(found));
         if (search && found.text) emit("search", found.text, found.trigger);
         nextTick(updateDropdownPosition);
       } else {

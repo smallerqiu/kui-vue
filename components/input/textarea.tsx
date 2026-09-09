@@ -19,7 +19,6 @@ const textAreaProps = {
   rows: { type: Number, default: 2 },
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
-  onChange: { type: Function as PropType<(value: string) => void> },
 };
 
 export type TextAreaProps = Partial<ExtractPropTypes<typeof textAreaProps>> &
@@ -28,6 +27,11 @@ export type TextAreaProps = Partial<ExtractPropTypes<typeof textAreaProps>> &
 const TextArea = defineComponent({
   name: "TextArea",
   props: textAreaProps,
+  emits: {
+    "update:modelValue": (value: string) => typeof value === "string",
+    change: (value: string) => typeof value === "string",
+    input: (event: Event) => typeof event?.type === "string",
+  },
   setup(props, { attrs, emit }) {
     const innerValue = ref(props.value);
     const currentValue = computed(() =>

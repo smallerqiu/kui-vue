@@ -25,9 +25,6 @@ const rateProps = {
   icon: [Array, Function] as PropType<IconType[] | ((index: number) => IconType[])>,
   symbolReverseFill: Boolean as BooleanType,
   strokeWidth: { type: Number, default: 1 },
-  onChange: {
-    type: Function as PropType<(value: number) => void>,
-  },
 };
 
 export type RateProps = ExtractPropTypes<typeof rateProps>;
@@ -35,6 +32,10 @@ export type RateProps = ExtractPropTypes<typeof rateProps>;
 const Rate = defineComponent({
   name: "Rate",
   props: rateProps,
+  emits: {
+    "update:modelValue": (value: number) => typeof value === "number",
+    change: (value: number) => typeof value === "number",
+  },
   setup(props, { emit }) {
     const innerValue = ref(props.value);
     const tempValue = ref<number | null>(null);
@@ -131,10 +132,7 @@ const Rate = defineComponent({
       };
 
       const containerProps = {
-        class: [
-          "k-rate",
-          { "k-rate-disabled": disabled, "k-rate-readonly": props.readonly },
-        ],
+        class: ["k-rate", { "k-rate-disabled": disabled, "k-rate-readonly": props.readonly }],
         "aria-readonly": props.readonly || undefined,
         onMouseleave: mouseLeave,
         style: containerStyle,

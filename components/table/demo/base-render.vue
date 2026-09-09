@@ -71,10 +71,10 @@ const columns: Column[] = [
                 {
                   color: tag == "Python" ? "green" : "blue",
                 },
-                { default: () => tag }
+                { default: () => tag },
               );
             }),
-        }
+        },
       );
     },
   },
@@ -93,7 +93,7 @@ const columns: Column[] = [
             });
           },
         },
-        { default: () => "more" }
+        { default: () => "more" },
       );
     },
   },

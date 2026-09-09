@@ -12,7 +12,6 @@ export const contentProps = {
   color: String,
   duration: Number,
   closable: Boolean as BooleanType,
-  onClose: Function as PropType<() => void>,
   noticeType: { type: String as PropType<"message" | "notice">, default: "message" },
   grouping: String,
 };
@@ -21,6 +20,9 @@ export type ContentProps = ExtractPropTypes<typeof contentProps>;
 
 const NoticeContent = defineComponent({
   props: contentProps,
+  emits: {
+    close: () => true,
+  },
   setup(props, { emit }) {
     const onClose = () => {
       emit("close");
@@ -51,21 +53,21 @@ const NoticeContent = defineComponent({
             color={color}
             class={`k-${noticeType}-icon`}
             spin={type == "loading"}
-          />
+          />,
         );
       }
       if (noticeType == "message") {
         children.push(<span>{content}</span>);
         if (closable) {
           children.push(
-            <Button class="k-message-close" size="small" type="text" icon={X} onClick={onClose} />
+            <Button class="k-message-close" size="small" type="text" icon={X} onClick={onClose} />,
           );
         }
       } else {
         children.push(<div class="k-notice-title">{title}</div>);
         children.push(<div class="k-notice-desc">{content}</div>);
         children.push(
-          <Button class="k-notice-close" size="small" type="text" icon={X} onClick={onClose} />
+          <Button class="k-notice-close" size="small" type="text" icon={X} onClick={onClose} />,
         );
       }
       return (

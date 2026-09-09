@@ -1,4 +1,4 @@
-import Color, { type ColorInstance } from "color";
+import Color from "color";
 import { Check } from "kui-icons";
 import { defineComponent, type PropType } from "vue";
 import Icon from "../icon";
@@ -31,7 +31,9 @@ export default defineComponent({
         "#000",
       ],
     },
-    onUpdateColor: Function as PropType<(color: ColorInstance) => void>,
+  },
+  emits: {
+    updateColor: (value: ReturnType<typeof Color>) => typeof value === "object" && value !== null,
   },
   setup(props, { emit }) {
     return () => {

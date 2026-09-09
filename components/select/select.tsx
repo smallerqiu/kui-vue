@@ -2,6 +2,7 @@ import { ChevronDown, CircleX, Loading } from "kui-icons";
 import {
   computed,
   defineComponent,
+  getCurrentInstance,
   inject,
   isRef,
   nextTick,
@@ -73,16 +74,22 @@ const selectProps = {
   virtual: Boolean as BooleanType,
   itemHeight: { type: Number, default: 33 },
   overscan: { type: Number, default: 5 },
-  onSearch: Function as PropType<(e: InputEvent) => void>,
-  onChange: Function as PropType<(value: SelectValue | SelectValue[]) => void>,
-  onSelect: Function as PropType<(option: SelectOption) => void>,
-  onOpenChange: Function as PropType<(opened: boolean) => void>,
 };
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>;
 
 const Select = defineComponent({
   name: "Select",
+  emits: {
+    "update:modelValue": (value: SelectValue | SelectValue[]) =>
+      Array.isArray(value) || ["string", "number", "boolean"].includes(typeof value),
+    search: (event: InputEvent) => typeof event?.type === "string",
+    change: (value: SelectValue | SelectValue[]) =>
+      Array.isArray(value) || ["string", "number", "boolean"].includes(typeof value),
+    select: (option: SelectOption) => typeof option === "object" && option !== null,
+    openChange: (open: boolean) => typeof open === "boolean",
+    clear: () => true,
+  },
   directives: {
     resize,
   },
@@ -109,7 +116,7 @@ const Select = defineComponent({
     const queryInputMirrorRef = ref<HTMLElement | null>(null);
     const minWidth = ref(0);
     const queryInputRef = ref<HTMLInputElement | null>(null);
-    const hasSearchEvent = !!props.onSearch;
+    const hasSearchEvent = Boolean(getCurrentInstance()?.vnode.props?.onSearch);
     const searchable = computed(
       () => props.filterable || hasSearchEvent || (props.multiple && props.allowCreate),
     );

@@ -23,7 +23,6 @@ const iconProps = {
   color: String,
   spin: Boolean as BooleanType,
   strokeWidth: { type: [String, Number], default: 2 },
-  onClick: Function as PropType<(e: PointerEvent) => void>,
   reverseFill: Boolean as BooleanType,
 };
 
@@ -32,6 +31,9 @@ export type IconProps = ExtractPropTypes<typeof iconProps>;
 const Icon = defineComponent({
   name: "Icon",
   props: iconProps,
+  emits: {
+    click: (event: PointerEvent) => event instanceof PointerEvent,
+  },
   setup(props, { attrs, emit }) {
     const renderPaths = () => {
       const paths = Array.isArray(props.type) ? props.type : [];

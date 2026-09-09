@@ -53,13 +53,13 @@ Provide a placeholder graphic combination at positions where content needs to be
 
 ## Avatar Props
 
-| Property | Description                                                              | Type                                     | Default |
-| -------- | ------------------------------------------------------------------------ | ---------------------------------------- | ------- |
-| animated | Whether to show animation effect                                         | boolean                                  | false   |
-| radius   | Specify the border radius of the image                                   | number                                   | -       |
-| shape    | Specify the shape of the avatar                                          | 'circle' \| 'square'                     | circle  |
-| loading  | When true, show placeholder. Otherwise directly display child components | boolean                                  | false   |
-| delay    | Delay showing the skeleton, in milliseconds                              | number                                   | 500     |
+| Property | Description                                                              | Type                                                  | Default |
+| -------- | ------------------------------------------------------------------------ | ----------------------------------------------------- | ------- |
+| animated | Whether to show animation effect                                         | boolean                                               | false   |
+| radius   | Specify the border radius of the image                                   | number                                                | -       |
+| shape    | Specify the shape of the avatar                                          | 'circle' \| 'square'                                  | circle  |
+| loading  | When true, show placeholder. Otherwise directly display child components | boolean                                               | false   |
+| delay    | Delay showing the skeleton, in milliseconds                              | number                                                | 500     |
 | size     | Set the size of avatar placeholder                                       | number \| 'small' \| 'medium' \| 'large' \| 'default' | -       |
 
 ## Button Props
@@ -69,20 +69,20 @@ Provide a placeholder graphic combination at positions where content needs to be
 | animated | Whether to show animation effect                                         | boolean                                      | false   |
 | loading  | When true, show placeholder. Otherwise directly display child components | boolean                                      | false   |
 | shape    | Specify the shape of the button                                          | 'circle' \| 'square' \| 'round' \| 'default' | -       |
-| size     | Set the button size                                                      | 'small' \| 'medium' \| 'large' \| 'default' | -       |
+| size     | Set the button size                                                      | 'small' \| 'medium' \| 'large' \| 'default'  | -       |
 | delay    | Delay showing the skeleton, in milliseconds                              | number                                       | 500     |
 | block    | Option to adjust button width to its parent width                        | boolean                                      | false   |
 | width    | Button width                                                             | number                                       | -       |
 
 ## Text Props
 
-| Property | Description                                                              | Type                           | Default |
-| -------- | ------------------------------------------------------------------------ | ------------------------------ | ------- |
-| animated | Whether to show animation effect                                         | boolean                        | false   |
-| loading  | When true, show placeholder. Otherwise directly display child components | boolean                        | false   |
+| Property | Description                                                              | Type                                        | Default |
+| -------- | ------------------------------------------------------------------------ | ------------------------------------------- | ------- |
+| animated | Whether to show animation effect                                         | boolean                                     | false   |
+| loading  | When true, show placeholder. Otherwise directly display child components | boolean                                     | false   |
 | size     | Set the text size                                                        | 'small' \| 'medium' \| 'large' \| 'default' | -       |
-| delay    | Delay showing the skeleton, in milliseconds                              | number                         | 500     |
-| width    | Text width                                                               | number                         | -       |
+| delay    | Delay showing the skeleton, in milliseconds                              | number                                      | 500     |
+| width    | Text width                                                               | number                                      | -       |
 
 ## Image Props
 

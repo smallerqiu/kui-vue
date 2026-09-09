@@ -37,32 +37,6 @@ const treeProps = {
   height: { type: [Number, String] as PropType<number | string>, default: 300 },
   itemHeight: { type: Number, default: 28 },
   overscan: { type: Number, default: 5 },
-  onExpand: {
-    type: Function as PropType<(result: TreeExpandEvent) => void>,
-  },
-  onCheck: {
-    type: Function as PropType<(node: TreeNode, checked: boolean, checkedKeys: string[]) => void>,
-  },
-  onSelect: {
-    type: Function as PropType<(node: TreeNode) => void>,
-  },
-  onDragStart: {
-    type: Function as PropType<(node: TreeNode, event: DragEvent) => void>,
-  },
-  onDragEnter: {
-    type: Function as PropType<(node: TreeNode, event: DragEvent) => void>,
-  },
-  onDragLeave: {
-    type: Function as PropType<(node: TreeNode, event: DragEvent) => void>,
-  },
-  onDrop: {
-    type: Function as PropType<
-      (node: { dragNode: TreeNode; dropNode: TreeNode }, event: DragEvent) => void
-    >,
-  },
-  onDragEnd: {
-    type: Function as PropType<(node: TreeNode, event: DragEvent) => void>,
-  },
   loadData: {
     type: Function as PropType<(node: TreeNode) => Promise<unknown>>,
   },
@@ -80,6 +54,25 @@ export type { BuildTreeOptions, TreeNode } from "./utils";
 const Tree = defineComponent({
   name: "Tree",
   props: treeProps,
+  emits: {
+    "update:expandedKeys": (keys: string[]) => Array.isArray(keys),
+    "update:checkedKeys": (keys: string[]) => Array.isArray(keys),
+    "update:selectedKeys": (keys: string[]) => Array.isArray(keys),
+    expand: (result: TreeExpandEvent) => typeof result === "object" && result !== null,
+    check: (node: TreeNode, checked: boolean, keys: string[]) =>
+      typeof node === "object" && node !== null && typeof checked === "boolean" && Array.isArray(keys),
+    select: (node: TreeNode) => typeof node === "object" && node !== null,
+    dragstart: (node: TreeNode, event: DragEvent) =>
+      typeof node === "object" && node !== null && typeof event?.type === "string",
+    dragenter: (node: TreeNode, event: DragEvent) =>
+      typeof node === "object" && node !== null && typeof event?.type === "string",
+    dragleave: (node: TreeNode, event: DragEvent) =>
+      typeof node === "object" && node !== null && typeof event?.type === "string",
+    drop: (nodes: { dragNode: TreeNode; dropNode: TreeNode }, event: DragEvent) =>
+      typeof nodes === "object" && nodes !== null && typeof event?.type === "string",
+    dragend: (node: TreeNode, event: DragEvent) =>
+      typeof node === "object" && node !== null && typeof event?.type === "string",
+  },
   setup(props, { emit, slots }) {
     const treeSelect = inject(treeSelectContextKey, null);
     const defaultData = ref<TreeNode[]>([]);

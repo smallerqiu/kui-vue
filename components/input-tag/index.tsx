@@ -21,10 +21,6 @@ const propsDef = {
   max: Number,
   maxTagCount: Number,
   separators: { type: Array as PropType<string[]>, default: () => [","] },
-  onChange: Function as PropType<(value: string[]) => void>,
-  onAdd: Function as PropType<(value: string) => void>,
-  onRemove: Function as PropType<(value: string, index: number) => void>,
-  onClear: Function as PropType<() => void>,
 };
 export type InputTagProps = ExtractPropTypes<typeof propsDef>;
 
@@ -32,6 +28,14 @@ export default defineComponent({
   name: "InputTag",
   inheritAttrs: false,
   props: propsDef,
+  emits: {
+    "update:modelValue": (value: string[]) => Array.isArray(value),
+    change: (value: string[]) => Array.isArray(value),
+    add: (value: string) => typeof value === "string",
+    remove: (value: string, index: number) =>
+      typeof value === "string" && Number.isInteger(index),
+    clear: () => true,
+  },
   setup(props, { emit, attrs }) {
     const inner = ref([...props.value]);
     const draft = ref("");

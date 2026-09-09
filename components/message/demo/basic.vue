@@ -1,5 +1,5 @@
 <template>
-  <Button @click="info" type="primary">Show base info </Button>
+  <Button @click="info" type="primary">Show base info</Button>
 </template>
 <script setup lang="ts">
 import { message } from "kui-vue";

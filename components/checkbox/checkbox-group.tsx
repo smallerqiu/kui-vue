@@ -20,9 +20,6 @@ const checkboxGroupProps = {
   size: {
     type: String as PropType<SizeType>,
   },
-  onChange: {
-    type: Function as PropType<(value: CheckboxValue[]) => void>,
-  },
 };
 
 export type CheckboxGroupProps = ExtractPropTypes<typeof checkboxGroupProps>;
@@ -30,6 +27,10 @@ export type CheckboxGroupProps = ExtractPropTypes<typeof checkboxGroupProps>;
 const CheckboxGroup = defineComponent({
   name: "CheckboxGroup",
   props: checkboxGroupProps,
+  emits: {
+    "update:modelValue": (value: CheckboxValue[]) => Array.isArray(value),
+    change: (value: CheckboxValue[]) => Array.isArray(value),
+  },
   setup(props, { slots, emit }) {
     const currentValue = ref(props.modelValue);
 
@@ -87,7 +88,7 @@ const CheckboxGroup = defineComponent({
                 readonly: props.readonly || Boolean(child.props?.readonly),
                 theme,
                 size,
-                onChange: [child.props?.onChange, onChange].filter(Boolean),
+                onChange,
               },
               true,
             );

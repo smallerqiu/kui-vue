@@ -63,13 +63,6 @@ const uploadProps = {
   preview: { type: Boolean as BooleanType, default: true },
   validateAccept: { type: Boolean as BooleanType, default: true },
   maxConcurrent: { type: Number, default: Infinity },
-  onChange: Function as PropType<(event: UploadChangeEvent) => void>,
-  onRemove: Function as PropType<(event: UploadChangeEvent) => void>,
-  onSelectFiles: Function as PropType<(files: UploadFile[]) => void>,
-  onExceed: Function as PropType<() => void>,
-  onSizeError: Function as PropType<(event: UploadChangeEvent) => void>,
-  onTypeError: Function as PropType<(event: UploadChangeEvent) => void>,
-  onSort: Function as PropType<(event: UploadSortEvent) => void>,
   onBeforeUpload: Function as PropType<
     (
       item: UploadFile,
@@ -89,6 +82,17 @@ export interface UploadContext extends UploadProps {
 const Upload = defineComponent({
   name: "Upload",
   props: uploadProps,
+  emits: {
+    "update:fileList": (files: UploadFile[]) => Array.isArray(files),
+    change: (event: UploadChangeEvent) => Array.isArray(event?.fileList),
+    remove: (event: UploadChangeEvent) => Array.isArray(event?.fileList),
+    selectFiles: (files: UploadFile[]) => Array.isArray(files),
+    exceed: () => true,
+    sizeError: (event: UploadChangeEvent) => Array.isArray(event?.fileList),
+    typeError: (event: UploadChangeEvent) => Array.isArray(event?.fileList),
+    sort: (event: UploadSortEvent) =>
+      Array.isArray(event?.fileList) && Number.isInteger(event.oldIndex) && Number.isInteger(event.newIndex),
+  },
   setup(props, { emit, slots, expose }) {
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);

@@ -178,13 +178,13 @@ export function supportsHtmlInCanvas(): boolean {
   const probe = document.createElement("canvas") as PaintableCanvas;
   const ctx = probe.getContext("2d") as ElementImageContext | null;
   return Boolean(
-    ctx && typeof ctx.drawElementImage === "function" && typeof probe.requestPaint === "function"
+    ctx && typeof ctx.drawElementImage === "function" && typeof probe.requestPaint === "function",
   );
 }
 
 export function createRipple(
   elements: RippleElements,
-  options: RippleOptions = {}
+  options: RippleOptions = {},
 ): RippleInstance | null {
   const config = { ...DEFAULTS, ...options };
   const { source, content, output } = elements;
@@ -203,7 +203,7 @@ export function createRipple(
   const htmlInCanvas = Boolean(
     sourceCtx &&
     typeof sourceCtx.drawElementImage === "function" &&
-    typeof paintable.requestPaint === "function"
+    typeof paintable.requestPaint === "function",
   );
 
   let contentDirty = false;
@@ -295,7 +295,7 @@ export function createRipple(
     0,
     gl.RGBA,
     gl.UNSIGNED_BYTE,
-    new Uint8Array([0, 0, 0, 0])
+    new Uint8Array([0, 0, 0, 0]),
   );
 
   let contentMaxX = 1;
@@ -310,7 +310,7 @@ export function createRipple(
     }
     contentMaxX = Math.min(
       1,
-      Math.max(0.05, content.clientWidth / Math.max(output.clientWidth, 1))
+      Math.max(0.05, content.clientWidth / Math.max(output.clientWidth, 1)),
     );
     if (htmlInCanvas) {
       const cssWidth = Math.max(1, Math.round(source.clientWidth));
@@ -378,7 +378,7 @@ export function createRipple(
     gl!.uniform1f(uniforms.uWavelength, Math.max(config.wavelength, 4) * dpr);
     gl!.uniform1f(
       uniforms.uWidth,
-      Math.max(config.wavelength, 4) * Math.max(config.rings, 1) * 0.5 * dpr
+      Math.max(config.wavelength, 4) * Math.max(config.rings, 1) * 0.5 * dpr,
     );
     gl!.uniform1f(uniforms.uDecay, Math.max(config.decay, 0.05));
     gl!.uniform1f(uniforms.uRefraction, Math.max(config.refraction, 0) * dpr);
@@ -419,7 +419,7 @@ export function createRipple(
     splash(
       w * (0.15 + Math.random() * 0.7),
       h * (0.15 + Math.random() * 0.7),
-      0.6 + Math.random() * 0.5
+      0.6 + Math.random() * 0.5,
     );
   }
 

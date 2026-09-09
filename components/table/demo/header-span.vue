@@ -1,5 +1,5 @@
 <template>
-  <Table :data="data" :columns="columns" bordered :scroll="{ y: 300 }"> </Table>
+  <Table :data="data" :columns="columns" bordered :scroll="{ y: 300 }"></Table>
 </template>
 <script setup lang="ts">
 import type { Column } from "kui-vue";

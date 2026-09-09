@@ -64,7 +64,7 @@ const FeatureCard = defineComponent({
             {
               "--k-feature-card-color": props.color,
               "--k-feature-card-icon-bg": props.iconBackground,
-            } as unknown as StyleValue,
+            } as StyleValue,
             customStyle,
           ]}
           role={props.clickable ? "button" : undefined}

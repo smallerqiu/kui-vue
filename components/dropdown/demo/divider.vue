@@ -1,6 +1,9 @@
 <template>
   <Dropdown>
-    <Button> 分隔线 <Icon :type="ChevronDown" /> </Button>
+    <Button>
+      分隔线
+      <Icon :type="ChevronDown" />
+    </Button>
     <template #overlay>
       <Menu>
         <MenuItem key="0">
@@ -10,7 +13,7 @@
           <a target="_blank" href="https://react.k-ui.cn/">2nd menu item</a>
         </MenuItem>
         <MenuDivider />
-        <MenuItem key="3" disabled> 3rd menu item（disabled） </MenuItem>
+        <MenuItem key="3" disabled>3rd menu item（disabled）</MenuItem>
       </Menu>
     </template>
   </Dropdown>

@@ -17,7 +17,7 @@ import {
 } from "./engine";
 
 const flameWrapProps = {
-  color: Array as unknown as PropType<[number, number, number]>,
+  color: Array as PropType<[number, number, number]>,
   intensity: Number,
   height: Number,
   spread: Number,
@@ -61,14 +61,14 @@ const FlameWrap = defineComponent({
     // Keep the vanilla defaults for props that the Vue caller did not pass.
     const options = (): FlameWrapOptions =>
       Object.fromEntries(
-        Object.entries(props).filter(([, value]) => value !== undefined)
+        Object.entries(props).filter(([, value]) => value !== undefined),
       ) as FlameWrapOptions;
     const isNative = () => supported.value && nativeReady.value && !failed.value;
     const measure = () => {
       const content = contentRef.value;
       if (!content) return;
       const height = Math.ceil(
-        Math.max(content.scrollHeight, content.getBoundingClientRect().height)
+        Math.max(content.scrollHeight, content.getBoundingClientRect().height),
       );
       if (height > 0) contentHeight.value = height;
     };
@@ -84,7 +84,7 @@ const FlameWrap = defineComponent({
       if (!sourceRef.value || !contentRef.value || !outputRef.value) return;
       instance = createFlameWrap(
         { source: sourceRef.value, content: contentRef.value, output: outputRef.value },
-        options()
+        options(),
       );
       if (isNative() && !instance) {
         failed.value = true;
@@ -122,7 +122,7 @@ const FlameWrap = defineComponent({
         h(
           "div",
           { ref: contentRef, style: { position: "relative", width: "100%", overflow: "visible" } },
-          slots.default?.()
+          slots.default?.(),
         );
       return h(
         "div",
@@ -144,7 +144,7 @@ const FlameWrap = defineComponent({
                 ? { position: "absolute", inset: 0, width: "100%", height: "100%" }
                 : { display: "none" },
             },
-            native ? [content()] : []
+            native ? [content()] : [],
           ),
           native ? null : content(),
           h("canvas", {
@@ -162,7 +162,7 @@ const FlameWrap = defineComponent({
               pointerEvents: "none",
             },
           }),
-        ]
+        ],
       );
     };
   },

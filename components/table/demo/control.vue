@@ -1,15 +1,18 @@
 <template>
   <div>
     <Space wrap>
-      Size:<RadioGroup v-model="size" size="small" type="button">
+      Size:
+      <RadioGroup v-model="size" size="small" type="button">
         <RadioButton value="large" label="Large" />
         <RadioButton value="medium" label="Medium" />
         <RadioButton value="small" label="Small" />
       </RadioGroup>
-      Border: <Switch v-model="bordered" />
+      Border:
+      <Switch v-model="bordered" />
       Loading:
       <Switch v-model="loading" />
-      Checkbox: <Switch v-model="checkable" />
+      Checkbox:
+      <Switch v-model="checkable" />
       Empty:
       <Switch v-model="empty" @change="setEmpty" />
       Striped:
@@ -24,8 +27,8 @@
       :bordered="bordered"
       :checkable="checkable"
     >
-      <template #header> <div>header</div> </template>
-      <template #footer> <div>footer</div> </template>
+      <template #header><div>header</div></template>
+      <template #footer><div>footer</div></template>
       <template #tags="{ value }">
         <Space>
           <Tag v-for="tag in value" :key="tag" :color="tag == 'Python' ? 'green' : 'blue'">

@@ -1,9 +1,9 @@
 <template>
   <Space vertical>
-    <Button @click="openNotice('info')">Info </Button>
-    <Button @click="openNotice('warning')">Warning </Button>
-    <Button @click="openNotice('success')">Success </Button>
-    <Button @click="openNotice('error')">Error </Button>
+    <Button @click="openNotice('info')">Info</Button>
+    <Button @click="openNotice('warning')">Warning</Button>
+    <Button @click="openNotice('success')">Success</Button>
+    <Button @click="openNotice('error')">Error</Button>
   </Space>
 </template>
 <script setup lang="ts">

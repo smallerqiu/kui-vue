@@ -40,6 +40,9 @@ export type TooltipProps = ExtractPropTypes<typeof tooltipProps>;
 const Tooltip = defineComponent({
   name: "Tooltip",
   props: tooltipProps,
+  emits: {
+    "update:show": (show: boolean) => typeof show === "boolean",
+  },
   setup(props, { slots, attrs, emit }) {
     usePopupHost(() => visible.value && updateShow(false));
     const getPopupContainer = usePopupContainer();

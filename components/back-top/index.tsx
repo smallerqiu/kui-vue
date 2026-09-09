@@ -21,8 +21,6 @@ const backTopProps = {
   bottom: [String, Number] as PropType<string | number>,
   behavior: { type: String as PropType<ScrollBehavior>, default: "smooth" },
   target: { type: Function as PropType<() => HTMLElement | null>, default: defaultTarget },
-  onClick: Function as PropType<(event: MouseEvent) => void>,
-  onVisibleChange: Function as PropType<(visible: boolean) => void>,
 };
 
 export type BackTopProps = ExtractPropTypes<typeof backTopProps>;
@@ -31,6 +29,10 @@ const BackTop = defineComponent({
   name: "BackTop",
   inheritAttrs: false,
   props: backTopProps,
+  emits: {
+    click: (event: MouseEvent) => event instanceof MouseEvent,
+    visibleChange: (visible: boolean) => typeof visible === "boolean",
+  },
   setup(props, { emit, slots, attrs }) {
     const visible = ref(false);
     const rendered = ref(false);

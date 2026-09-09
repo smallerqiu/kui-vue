@@ -1,10 +1,12 @@
-import { defineComponent, onBeforeUnmount, onMounted, ref, watch, type PropType } from "vue";
+import { defineComponent, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import { clamp } from "../utils/share";
 export default defineComponent({
   name: "Hue",
   props: {
     hue: { type: Number, default: 0 },
-    onUpdateHue: Function as PropType<(hue: number) => void>,
+  },
+  emits: {
+    updateHue: (hue: number) => typeof hue === "number",
   },
   setup(props, { emit }) {
     const dotPos = ref(0);

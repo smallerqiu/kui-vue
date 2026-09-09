@@ -54,11 +54,6 @@ const propsDef = {
     >,
     default: true,
   },
-  onChange: Function as PropType<(value: string) => void>,
-  onClear: Function as PropType<() => void>,
-  onSearch: Function as PropType<(value: string) => void>,
-  onSelect: Function as PropType<(value: string, option: AutoCompleteOption) => void>,
-  onOpenChange: Function as PropType<(open: boolean) => void>,
 };
 export type AutoCompleteProps = ExtractPropTypes<typeof propsDef>;
 
@@ -66,6 +61,15 @@ export default defineComponent({
   name: "AutoComplete",
   inheritAttrs: false,
   props: propsDef,
+  emits: {
+    "update:modelValue": (value: string) => typeof value === "string",
+    change: (value: string) => typeof value === "string",
+    clear: () => true,
+    search: (value: string) => typeof value === "string",
+    select: (value: string, option: AutoCompleteOption) =>
+      typeof value === "string" && typeof option === "object" && option !== null,
+    openChange: (open: boolean) => typeof open === "boolean",
+  },
   setup(props, { emit, attrs }) {
     usePopupHost(() => visible.value && setOpen(false));
     type Locale = typeof zhCN;
@@ -74,7 +78,9 @@ export default defineComponent({
       isRef(injectedLocale) ? injectedLocale.value : injectedLocale,
     );
     const getPopupContainer = usePopupContainer();
-    const listboxId = `k-auto-complete-listbox-${getCurrentInstance()?.uid ?? "default"}`;
+    const instance = getCurrentInstance();
+    const listboxId = `k-auto-complete-listbox-${instance?.uid ?? "default"}`;
+    const hasSearchEvent = Boolean(instance?.vnode.props?.onSearch);
     const inner = ref(props.value);
     const innerOpen = ref(props.defaultOpen);
     const rendered = ref(false);
@@ -165,7 +171,7 @@ export default defineComponent({
       () => props.options,
       () => {
         if (props.loading) return;
-        if (props.onSearch && suppressRemoteOptions.value) return;
+        if (hasSearchEvent && suppressRemoteOptions.value) return;
         if (!(props.open ?? innerOpen.value)) return;
         if (!current.value && !props.showOnEmpty) {
           setOpen(false);
@@ -184,10 +190,10 @@ export default defineComponent({
           setOpen(true);
         } else if (!value && (current.value || props.showOnEmpty)) {
           const hasMatches = refreshOptions();
-          suppressRemoteOptions.value = !!props.onSearch && !hasMatches;
+          suppressRemoteOptions.value = hasSearchEvent && !hasMatches;
           setOpen(hasMatches);
         } else if (!value) {
-          suppressRemoteOptions.value = !!props.onSearch;
+          suppressRemoteOptions.value = hasSearchEvent;
           setOpen(false);
         }
         nextTick(updatePosition);
@@ -231,14 +237,14 @@ export default defineComponent({
     const search = (value: string) => {
       emit("search", value);
       if (!value && !props.showOnEmpty) {
-        suppressRemoteOptions.value = !!props.onSearch;
+        suppressRemoteOptions.value = hasSearchEvent;
         setOpen(false);
       } else if (props.loading) {
         suppressRemoteOptions.value = false;
         setOpen(true);
       } else {
         const hasMatches = refreshOptions(value);
-        suppressRemoteOptions.value = !!props.onSearch && !hasMatches;
+        suppressRemoteOptions.value = hasSearchEvent && !hasMatches;
         setOpen(hasMatches);
       }
       active.value = -1;

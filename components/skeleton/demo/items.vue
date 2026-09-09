@@ -2,7 +2,8 @@
   <Space :size="15">
     <Checkbox v-model="animated" label="Animated" />
     <Checkbox v-model="block" label="Button block" />
-    Size: <RadioGroup :options="sizes" v-model="size" type="button" />
+    Size:
+    <RadioGroup :options="sizes" v-model="size" type="button" />
   </Space>
   <br />
   <br />
@@ -14,7 +15,10 @@
   </Space>
   <br />
   <br />
-  <Space :size="15"> Image radius: <Slider v-model="radius" style="width: 300px" /> </Space>
+  <Space :size="15">
+    Image radius:
+    <Slider v-model="radius" style="width: 300px" />
+  </Space>
   <br />
   <Space :size="15">
     Image Size:

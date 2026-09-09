@@ -18,7 +18,7 @@
       <Option :value="v" :label="v" v-for="(v, i) in options" :key="i" />
     </Select>
     <br />
-    <span>Search: </span>
+    <span>Search:</span>
     <Select v-model="value3" @search="fetchData" block :loading="loading" placeholder="Search">
       <Option :value="v" :label="v" v-for="(v, i) in optionsData" :key="i" />
     </Select>
@@ -51,7 +51,7 @@ const fetchData = (e: InputEvent) => {
   loading.value = true;
   setTimeout(() => {
     optionsData.value = options.filter((v) =>
-      v.includes((e.target as HTMLInputElement).value.trim())
+      v.includes((e.target as HTMLInputElement).value.trim()),
     );
     loading.value = false;
   }, 1000);

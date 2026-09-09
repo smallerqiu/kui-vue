@@ -1,7 +1,10 @@
 <template>
   <Layout class="demo-docs-layout">
     <Header class="docs-header">
-      <Space class="logo"><Icon :type="LogoKui" :size="20" />KUI Docs</Space>
+      <Space class="logo">
+        <Icon :type="LogoKui" :size="20" />
+        KUI Docs
+      </Space>
       <Input placeholder="Search..." style="width: 300px" />
     </Header>
 

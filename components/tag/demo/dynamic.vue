@@ -9,7 +9,7 @@
       ref="inputRef"
       :modelValue="tag"
     />
-    <Button @click="show" size="small" :icon="Bookmark" v-show="!showInput"> New Tag </Button>
+    <Button @click="show" size="small" :icon="Bookmark" v-show="!showInput">New Tag</Button>
   </Space>
 </template>
 <script setup lang="ts">

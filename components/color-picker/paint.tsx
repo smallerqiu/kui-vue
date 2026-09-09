@@ -1,4 +1,4 @@
-import Color, { type ColorObject } from "color";
+import Color from "color";
 import {
   defineComponent,
   nextTick,
@@ -16,7 +16,10 @@ export default defineComponent({
     hue: { type: Number, default: 0 },
     modelValue: { type: [String, Object] as PropType<Parameters<typeof Color>[0]>, required: true },
     visible: { type: Boolean, default: true },
-    onUpdateRGB: Function as PropType<(color: ColorObject) => void>,
+  },
+  emits: {
+    updateRGB: (value: Color.RgbObject) =>
+      typeof value?.r === "number" && typeof value?.g === "number" && typeof value?.b === "number",
   },
   setup(props, { emit }) {
     const refPaint = ref<HTMLCanvasElement | null>(null);
@@ -95,7 +98,7 @@ export default defineComponent({
           if (!dragging) updatePos();
         });
       },
-      { flush: "post" }
+      { flush: "post" },
     );
 
     onMounted(() => {

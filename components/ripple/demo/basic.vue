@@ -11,7 +11,10 @@
       <p style="margin: 0 0 24px; color: var(--kui-color-text-secondary)">
         在支持 HTML-in-Canvas 的浏览器中，水波会折射下方的实时 DOM 内容。
       </p>
-      <Space><Button type="primary">Primary</Button><Button>Default</Button></Space>
+      <Space>
+        <Button type="primary">Primary</Button>
+        <Button>Default</Button>
+      </Space>
     </Card>
   </Ripple>
 </template>

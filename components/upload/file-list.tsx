@@ -29,6 +29,14 @@ export type UploadFileListProps = ExtractPropTypes<typeof uploadFileListProps>;
 export default defineComponent({
   name: "UploadFileList",
   props: uploadFileListProps,
+  emits: {
+    remove: (event: { index: number; file: UploadFile }) =>
+      Number.isInteger(event?.index) && typeof event?.file === "object",
+    sort: (event: { oldIndex: number; newIndex: number }) =>
+      Number.isInteger(event?.oldIndex) && Number.isInteger(event?.newIndex),
+    abort: (file: UploadFile) => typeof file === "object" && file !== null,
+    retry: (file: UploadFile) => typeof file === "object" && file !== null,
+  },
   setup(props, { emit, slots }) {
     const draggingIndex = ref<number | null>(null);
     const getPreview = (item: UploadFile) => {

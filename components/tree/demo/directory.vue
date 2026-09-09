@@ -164,7 +164,7 @@ const deleteNode = (e: MouseEvent, node: TreeNode) => {
   const loop = (
     data: TreeNode[],
     key: string | number,
-    callback: (d: TreeNode, i: number, a: TreeNode[]) => void
+    callback: (d: TreeNode, i: number, a: TreeNode[]) => void,
   ) => {
     for (let i = 0; i < data.length; i++) {
       if (data[i].key === key) {

@@ -2,6 +2,7 @@ import { CircleX, Eye, EyeOff, Search } from "kui-icons";
 import {
   computed,
   defineComponent,
+  getCurrentInstance,
   inject,
   nextTick,
   provide,
@@ -38,14 +39,8 @@ const inputProps = {
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: String as PropType<ShapeType>,
   inputType: { type: String, default: "input" },
-  onSearch: {
-    type: Function as PropType<(value: string) => void>,
-  },
   //maxlength: Number,
   // "onUpdate:modelValue": Function as PropType<(value: string) => void>,
-  onIconClick: { type: Function as PropType<(e: PointerEvent) => void> },
-  onClear: { type: Function as PropType<() => void> },
-  onChange: { type: Function as PropType<(value: string) => void> },
 };
 
 export type InputProps = Partial<ExtractPropTypes<typeof inputProps>> &
@@ -55,7 +50,18 @@ const Input = defineComponent({
   inheritAttrs: false,
   name: "Input",
   props: inputProps,
+  emits: {
+    "update:modelValue": (value: string) => typeof value === "string",
+    search: (value: string) => typeof value === "string",
+    iconClick: (event: PointerEvent) => typeof event?.type === "string",
+    clear: () => true,
+    change: (value: string) => typeof value === "string",
+    focus: (event: FocusEvent) => typeof event?.type === "string",
+    blur: (event: FocusEvent) => typeof event?.type === "string",
+  },
   setup(props, { slots, emit, attrs, expose }) {
+    const instance = getCurrentInstance();
+    const hasListener = (name: string) => Boolean(instance?.vnode.props?.[`on${name}`]);
     const innerValue = ref(props.value);
     const currentValue = computed(() =>
       props.modelValue !== undefined ? props.modelValue : innerValue.value,
@@ -105,7 +111,7 @@ const Input = defineComponent({
             }}
           />
         );
-      } else if (props?.onSearch) {
+      } else if (hasListener("Search")) {
         return (
           <Icon
             type={Search}
@@ -152,7 +158,7 @@ const Input = defineComponent({
 
       const multiple =
         (icon ||
-          props.onSearch ||
+          hasListener("Search") ||
           slotSuffix.length > 0 ||
           suffix ||
           slotPrefix.length > 0 ||
@@ -234,8 +240,8 @@ const Input = defineComponent({
             <Icon
               type={icon}
               class={`k-${inputType}-icon`}
-              role={props.onIconClick ? "button" : undefined}
-              tabindex={props.onIconClick && !disabled && !readonly ? 0 : undefined}
+              role={hasListener("IconClick") ? "button" : undefined}
+              tabindex={hasListener("IconClick") && !disabled && !readonly ? 0 : undefined}
               onClick={(e) => !disabled && !readonly && emit("iconClick", e)}
               onKeydown={(event: KeyboardEvent) => {
                 if (event.key === "Enter" || event.key === " ") {
@@ -295,8 +301,8 @@ const Input = defineComponent({
             <Icon
               type={icon}
               class={`k-${inputType}-icon`}
-              role={props.onIconClick ? "button" : undefined}
-              tabindex={props.onIconClick && !disabled && !readonly ? 0 : undefined}
+              role={hasListener("IconClick") ? "button" : undefined}
+              tabindex={hasListener("IconClick") && !disabled && !readonly ? 0 : undefined}
               onClick={(event) => !disabled && !readonly && emit("iconClick", event)}
               onKeydown={(event: KeyboardEvent) => {
                 if (event.key === "Enter" || event.key === " ") {

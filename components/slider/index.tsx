@@ -32,7 +32,6 @@ const sliderProps = {
   included: { type: Boolean as BooleanType, default: true },
   tipFormatter: Function as PropType<(value: number) => string | number>,
   tooltipVisible: { type: Boolean as BooleanType, default: null },
-  onChange: Function as PropType<(value: number | number[]) => void>,
 };
 
 export type SliderProps = ExtractPropTypes<typeof sliderProps>;
@@ -40,6 +39,11 @@ export type SliderProps = ExtractPropTypes<typeof sliderProps>;
 const Slider = defineComponent({
   name: "Slider",
   props: sliderProps,
+  emits: {
+    "update:modelValue": (value: number | number[]) =>
+      typeof value === "number" || Array.isArray(value),
+    change: (value: number | number[]) => typeof value === "number" || Array.isArray(value),
+  },
 
   setup(props, { emit }) {
     const size = inject("size", undefined);
@@ -106,7 +110,7 @@ const Slider = defineComponent({
           internalValue.value = formatValue(nv[0] as number | number[]);
         }
       },
-      { immediate: true }
+      { immediate: true },
     );
 
     const getPercent = (val: number) => {

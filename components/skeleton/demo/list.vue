@@ -5,7 +5,7 @@
   <Space class="demo-skeleton-list" vertical block>
     <Card class="demo-skeleton-item" v-for="i in 3" :key="i">
       <Skeleton avatar :loading="loading" :rows="2" animated>
-        <CardMeta :avatar="item.name" :title="item.name" :description="item.intro"> </CardMeta>
+        <CardMeta :avatar="item.name" :title="item.name" :description="item.intro"></CardMeta>
         <p class="desc">{{ item.desc }}</p>
       </Skeleton>
     </Card>

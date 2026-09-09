@@ -22,29 +22,29 @@
 
 ## API
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| modelValue | 当前选中值 | string \| number | - |
-| options | 选项数据 | SegmentedOption[] | [] |
-| disabled | 是否禁用 | boolean | false |
-| readonly | 是否只读 | boolean | false |
-| block | 是否撑满父容器 | boolean | false |
-| direction | 排列方向 | `horizontal \| vertical` | horizontal |
-| size | 尺寸 | SizeType | medium |
-| shape | 形状 | ShapeType | round |
-| label | 自定义选项内容，参数为 `{ option, selected }` | VNodeChild | - |
+| 属性       | 说明                                          | 类型                     | 默认值     |
+| ---------- | --------------------------------------------- | ------------------------ | ---------- |
+| modelValue | 当前选中值                                    | string \| number         | -          |
+| options    | 选项数据                                      | SegmentedOption[]        | []         |
+| disabled   | 是否禁用                                      | boolean                  | false      |
+| readonly   | 是否只读                                      | boolean                  | false      |
+| block      | 是否撑满父容器                                | boolean                  | false      |
+| direction  | 排列方向                                      | `horizontal \| vertical` | horizontal |
+| size       | 尺寸                                          | SizeType                 | medium     |
+| shape      | 形状                                          | ShapeType                | round      |
+| label      | 自定义选项内容，参数为 `{ option, selected }` | VNodeChild               | -          |
 
 ## Events
 
-| 事件名 | 说明 | 回调参数 |
-| --- | --- | --- |
+| 事件名 | 说明             | 回调参数                            |
+| ------ | ---------------- | ----------------------------------- |
 | change | 选中值改变时触发 | `(value: string \| number) => void` |
 
 ### SegmentedOption
 
-| 属性 | 说明 | 类型 | 默认值 |
-| --- | --- | --- | --- |
-| label | 选项内容 | VNodeChild | - |
-| value | 选项值 | string \| number | - |
-| icon | 选项图标 | IconType[] | - |
-| disabled | 是否禁用 | boolean | false |
+| 属性     | 说明     | 类型             | 默认值 |
+| -------- | -------- | ---------------- | ------ |
+| label    | 选项内容 | VNodeChild       | -      |
+| value    | 选项值   | string \| number | -      |
+| icon     | 选项图标 | IconType[]       | -      |
+| disabled | 是否禁用 | boolean          | false  |

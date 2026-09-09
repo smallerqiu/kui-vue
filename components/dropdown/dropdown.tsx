@@ -1,6 +1,6 @@
 import {
-  type ExtractPropTypes,
   type ComponentPublicInstance,
+  type ExtractPropTypes,
   type PropType,
   type Ref,
   Teleport,
@@ -15,9 +15,9 @@ import {
   watch,
 } from "vue";
 
-import type { BooleanType, DropPlacementsType, TriggerType } from "../const/types";
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
+import type { BooleanType, DropPlacementsType, TriggerType } from "../const/types";
 import resize from "../directives/resize";
 import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
@@ -36,9 +36,6 @@ const dropdownProps = {
     default: "bottom-left",
   },
   target: Object as PropType<Ref<HTMLElement | ComponentPublicInstance | null>>,
-  onOpenChange: {
-    type: Function as PropType<(opened: boolean) => void>,
-  },
 };
 
 export type DropdownProps = ExtractPropTypes<typeof dropdownProps>;
@@ -49,6 +46,10 @@ const Dropdown = defineComponent({
     resize,
   },
   props: dropdownProps,
+  emits: {
+    "update:show": null,
+    openChange: null,
+  },
   setup(props, { slots, emit, attrs }) {
     usePopupHost(() => visible.value && hidePopper());
     const getPopupContainer = usePopupContainer();

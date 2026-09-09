@@ -41,10 +41,6 @@ const drawerProps = {
   mask: { type: Boolean, default: true },
   loading: { type: Boolean, default: false },
   escKey: { type: Boolean, default: true },
-  onOk: Function as PropType<() => void>,
-  onCancel: Function as PropType<() => void>,
-  onClose: Function as PropType<() => void>,
-  onOpenChange: Function as PropType<(opened: boolean) => void>,
 };
 
 export type DrawerProps = ExtractPropTypes<typeof drawerProps>;
@@ -52,6 +48,13 @@ export type DrawerProps = ExtractPropTypes<typeof drawerProps>;
 const Drawer = defineComponent({
   name: "Drawer",
   props: drawerProps,
+  emits: {
+    "update:modelValue": (visible: boolean) => typeof visible === "boolean",
+    openChange: (visible: boolean) => typeof visible === "boolean",
+    ok: () => true,
+    cancel: () => true,
+    close: () => true,
+  },
   setup(props, { slots, emit }) {
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);

@@ -32,7 +32,7 @@ watch(
   () => sourceItems.value.length,
   (total) => {
     page.value = Math.min(page.value, Math.ceil(total / pageSize) || 1);
-  }
+  },
 );
 const visibleItems = computed(() => {
   const start = (page.value - 1) * pageSize;

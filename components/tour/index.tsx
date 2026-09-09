@@ -31,15 +31,18 @@ const propsDef = {
   steps: { type: Array as PropType<TourStep[]>, default: () => [] },
   mask: { type: Boolean, default: true },
   closable: { type: Boolean, default: true },
-  onChange: Function as PropType<(current: number) => void>,
-  onOpenChange: Function as PropType<(open: boolean) => void>,
-  onFinish: Function as PropType<() => void>,
 };
 export type TourProps = ExtractPropTypes<typeof propsDef>;
 
 export default defineComponent({
   name: "Tour",
   props: propsDef,
+  emits: {
+    "update:modelValue": (open: boolean) => typeof open === "boolean",
+    change: (current: number) => Number.isInteger(current),
+    openChange: (open: boolean) => typeof open === "boolean",
+    finish: () => true,
+  },
   setup(props, { emit }) {
     const innerOpen = ref(props.defaultOpen);
     const innerCurrent = ref(props.defaultCurrent);
@@ -58,7 +61,7 @@ export default defineComponent({
       () => props.modelValue,
       (value) => {
         if (value !== undefined) innerOpen.value = value;
-      }
+      },
     );
     onMounted(() => {
       window.addEventListener("resize", refresh);

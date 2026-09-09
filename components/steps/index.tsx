@@ -1,5 +1,11 @@
 import { Check, X } from "kui-icons";
-import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
+import {
+  defineComponent,
+  getCurrentInstance,
+  type ExtractPropTypes,
+  type PropType,
+  type VNodeChild,
+} from "vue";
 import Icon from "../icon";
 export type StepStatus = "wait" | "process" | "finish" | "error";
 export interface StepItem {
@@ -23,14 +29,17 @@ const propsDef = {
   direction: { type: String as PropType<"horizontal" | "vertical">, default: "horizontal" },
   status: { type: String as PropType<"process" | "error">, default: "process" },
   items: Array as PropType<StepItem[]>,
-  onChange: Function as PropType<(current: number) => void>,
 };
 export type StepsProps = ExtractPropTypes<typeof propsDef>;
 export default defineComponent({
   name: "Steps",
   inheritAttrs: false,
   props: propsDef,
+  emits: {
+    change: (current: number) => Number.isInteger(current),
+  },
   setup(props, { slots, emit, attrs }) {
+    const hasChangeListener = Boolean(getCurrentInstance()?.vnode.props?.onChange);
     return () => {
       const data =
         props.items ??
@@ -50,19 +59,19 @@ export default defineComponent({
                   "k-step",
                   `k-step-${state}`,
                   {
-                    "k-step-clickable": !!props.onChange && !item.disabled,
+                    "k-step-clickable": hasChangeListener && !item.disabled,
                     "k-step-disabled": item.disabled,
                   },
                 ]}
                 role="listitem"
+                onClick={() => !item.disabled && emit("change", index)}
               >
                 <div
                   class="k-step-main"
-                  role={props.onChange ? "button" : undefined}
-                  tabindex={props.onChange && !item.disabled ? 0 : undefined}
+                  role={hasChangeListener ? "button" : undefined}
+                  tabindex={hasChangeListener && !item.disabled ? 0 : undefined}
                   aria-current={index === props.current ? "step" : undefined}
                   aria-disabled={item.disabled || undefined}
-                  onClick={() => !item.disabled && emit("change", index)}
                   onKeydown={(event) => {
                     if (!item.disabled && (event.key === "Enter" || event.key === " ")) {
                       event.preventDefault();

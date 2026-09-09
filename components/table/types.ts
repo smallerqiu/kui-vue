@@ -19,7 +19,7 @@ export interface Column {
     record: TableRecord,
     colIndex: number,
     rowIndex: number,
-    col: Column
+    col: Column,
   ) => VNodeChild;
   colSpan?: number | ((record: TableRecord, index: number) => number);
   rowSpan?: number | ((record: TableRecord, index: number) => number);

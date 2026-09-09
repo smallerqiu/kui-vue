@@ -5,7 +5,7 @@
       Loading
     </Button>
     <Button type="primary" loading shape="circle"></Button>
-    <Button type="primary" :loading="loading" @click="handleLoading"> Click me </Button>
+    <Button type="primary" :loading="loading" @click="handleLoading">Click me</Button>
     <br />
     <Button type="primary" :icon="Power" :loading="delayLoading" @click="handleDelay">
       1s delay

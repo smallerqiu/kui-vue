@@ -45,7 +45,7 @@
         </Select>
       </FormItem>
       <FormItem label="TreeSelect">
-        <TreeSelect style="width: 100%" :tree-data="treeData"> </TreeSelect>
+        <TreeSelect style="width: 100%" :tree-data="treeData"></TreeSelect>
       </FormItem>
       <FormItem label="Slider">
         <Slider />

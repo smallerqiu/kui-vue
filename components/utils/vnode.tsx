@@ -4,7 +4,7 @@ export function cloneNodes(
   vnode: VNode[],
   props: Record<string, unknown>,
   merge = false,
-  cloneTransition?: boolean
+  cloneTransition?: boolean,
 ) {
   return vnode.length == 1 && vnode[0].type !== Text
     ? cloneVNode(vnode[0], props, merge)
