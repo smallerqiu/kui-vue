@@ -168,6 +168,9 @@ export type { QRCodeErrorLevel, QRCodeProps, QRCodeRef, QRCodeStatus } from "./q
 export { Radio, RadioButton, RadioGroup } from "./radio";
 export type { RadioButtonProps, RadioGroupProps, RadioOption, RadioProps } from "./radio";
 
+export { default as Segmented } from "./segmented";
+export type { SegmentedOption, SegmentedProps, SegmentedValue } from "./segmented";
+
 export { default as Rate } from "./rate";
 export type { RateProps } from "./rate";
 

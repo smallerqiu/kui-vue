@@ -1,11 +1,7 @@
 import {
   cloneVNode,
-  computed,
   defineComponent,
   getCurrentInstance,
-  nextTick,
-  onMounted,
-  onUnmounted,
   ref,
   watch,
   type ExtractPropTypes,
@@ -40,7 +36,6 @@ const radioGroupProps = {
   shape: String as PropType<ShapeType>,
   options: Array as PropType<RadioOption[]>,
   type: String as PropType<RadioType>,
-  onChange: Function as PropType<(value: string | number) => void>,
 };
 
 export type RadioGroupProps = ExtractPropTypes<typeof radioGroupProps>;
@@ -48,66 +43,17 @@ export type RadioGroupProps = ExtractPropTypes<typeof radioGroupProps>;
 const RadioGroup = defineComponent({
   name: "RadioGroup",
   props: radioGroupProps,
+  emits: {
+    "update:modelValue": (value: string | number) => ["string", "number"].includes(typeof value),
+    change: (value: string | number) => ["string", "number"].includes(typeof value),
+  },
   setup(props, { slots, emit }) {
     const name = `k-radio-group-${getCurrentInstance()?.uid ?? "default"}`;
     const rootRef = ref<HTMLElement | null>(null);
-    const observerRef = ref<ResizeObserver | null>(null);
-    const animationFrame = ref<number | null>(null);
     const currentValue = ref(props.modelValue);
-    const itemRefs = new Map<string | number, HTMLElement>();
-    const isVertical = computed(() => props.direction === "vertical");
-    const segStyle = ref(
-      isVertical.value ? { height: "0px", top: "0px" } : { width: "0px", left: "0px" },
-    );
-    const segmentReady = ref(false);
-    const setItemRef = (el: unknown, value: string | number) => {
-      if (!el) {
-        itemRefs.delete(value);
-        return;
-      }
-      if (typeof el !== "object") return;
-      const element = "$el" in el ? el.$el : el;
-      if (element instanceof HTMLElement) itemRefs.set(value, element);
-    };
-    const updateSeg = () => {
-      if (props.theme !== "card" || props.type !== "button") return;
-      nextTick(() => {
-        updateSize();
-        if (!segmentReady.value) {
-          if (animationFrame.value !== null) cancelAnimationFrame(animationFrame.value);
-          animationFrame.value = requestAnimationFrame(() => {
-            segmentReady.value = true;
-            animationFrame.value = null;
-          });
-        }
-      });
-    };
-    const updateSize = () => {
-      const activeEl = itemRefs.get(currentValue.value);
-      if (activeEl) {
-        segStyle.value = isVertical.value
-          ? { height: `${activeEl.offsetHeight - 4}px`, top: `${activeEl.offsetTop + 2}px` }
-          : {
-              width: `${activeEl.offsetWidth - 4}px`,
-              left: `${activeEl.offsetLeft + 2}px`,
-            };
-      }
-    };
-    onMounted(() => {
-      observerRef.value = new ResizeObserver(() => {
-        updateSize();
-      });
-      if (rootRef.value) observerRef.value.observe(rootRef.value);
-      updateSeg();
-    });
-    onUnmounted(() => {
-      if (observerRef.value) observerRef.value.disconnect();
-      if (animationFrame.value !== null) cancelAnimationFrame(animationFrame.value);
-    });
     const onChange = ({ value }: ChangeEvent) => {
       if (props.readonly || value === undefined) return;
       currentValue.value = value;
-      updateSeg();
       emit("update:modelValue", value);
       emit("change", value);
     };
@@ -115,18 +61,14 @@ const RadioGroup = defineComponent({
       () => props.modelValue,
       (val) => {
         currentValue.value = val;
-        updateSeg();
       },
     );
-    watch(() => [props.direction, props.theme, props.type], updateSeg);
     return () => {
       const isButton = props.type === "button";
-      const isCard = props.theme === "card";
       const Component = isButton ? RadioButton : Radio;
       const nodes: VNodeChild[] = props.options
         ? props.options.map((option) => (
             <Component
-              ref={(el) => setItemRef(el, option.value)}
               key={option.value}
               label={option.label}
               value={option.value}
@@ -146,7 +88,6 @@ const RadioGroup = defineComponent({
             return cloneVNode(
               child,
               {
-                ...(value !== undefined ? { ref: (el: unknown) => setItemRef(el, value) } : {}),
                 name: isButton ? undefined : name,
                 checked: value !== undefined && currentValue.value === value,
                 disabled: props.disabled || Boolean(child.props?.disabled),
@@ -154,7 +95,7 @@ const RadioGroup = defineComponent({
                 size: props.size,
                 theme: props.theme,
                 shape: props.shape,
-                onChange: [child.props?.onChange, onChange].filter(Boolean),
+                onChange,
               },
               true,
             );
@@ -163,10 +104,8 @@ const RadioGroup = defineComponent({
         "k-radio-group",
         {
           "k-radio-button-group": isButton,
-          "k-radio-button-changed": segmentReady.value && isCard && isButton,
           "k-radio-group-circle": props.shape === "circle",
           "k-radio-group-fill": props.theme === "fill" && isButton,
-          "k-radio-group-card": isCard && isButton,
           "k-radio-group-vertical": props.direction === "vertical",
         },
       ];
@@ -198,12 +137,6 @@ const RadioGroup = defineComponent({
           }}
         >
           {nodes}
-          {isCard && isButton && (
-            <div
-              class={["k-radio-group-card-seg", segmentReady.value && "is-ready"]}
-              style={segStyle.value}
-            />
-          )}
         </div>
       );
     };

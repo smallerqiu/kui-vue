@@ -19,7 +19,6 @@ const radioButtonProps = {
   shape: {
     type: String as PropType<ShapeType>,
   },
-  onChange: Function as PropType<(event: ChangeEvent) => void>,
 };
 
 export type RadioButtonProps = ExtractPropTypes<typeof radioButtonProps>;
@@ -27,6 +26,11 @@ export type RadioButtonProps = ExtractPropTypes<typeof radioButtonProps>;
 const RadioButton = defineComponent({
   name: "RadioButton",
   props: radioButtonProps,
+  emits: {
+    change: (event: ChangeEvent) => typeof event.checked === "boolean",
+    "update:modelValue": (value: boolean) => typeof value === "boolean",
+    "update:checked": (value: boolean) => typeof value === "boolean",
+  },
   setup(props, { slots, emit, attrs }) {
     const isChecked = ref(props.modelValue ?? props.checked ?? false);
     watch(

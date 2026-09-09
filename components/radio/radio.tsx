@@ -13,7 +13,6 @@ const radioProps = {
   size: {
     type: String as PropType<SizeType>,
   },
-  onChange: Function as PropType<(e: ChangeEvent) => void>,
 };
 
 export type RadioProps = ExtractPropTypes<typeof radioProps>;
@@ -21,6 +20,11 @@ export type RadioProps = ExtractPropTypes<typeof radioProps>;
 const Radio = defineComponent({
   name: "Radio",
   props: radioProps,
+  emits: {
+    change: (event: ChangeEvent) => typeof event.checked === "boolean",
+    "update:modelValue": (value: boolean) => typeof value === "boolean",
+    "update:checked": (value: boolean) => typeof value === "boolean",
+  },
   setup(props, { slots, emit }) {
     const isChecked = ref(props.modelValue ?? props.checked ?? false);
     watch(

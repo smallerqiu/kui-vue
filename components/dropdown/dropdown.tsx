@@ -62,6 +62,7 @@ const Dropdown = defineComponent({
     const rendered = ref(false);
     const positioned = ref(false);
     const showTimer = ref<ReturnType<typeof setTimeout>>();
+    const contextmenuPosition = ref<{ offsetX: number; offsetY: number } | null>(null);
     onMounted(() => {
       if (props.show) {
         toggle(true);
@@ -121,13 +122,23 @@ const Dropdown = defineComponent({
       }
     };
     const updatePosition = (e?: MouseEvent) => {
-      const position = e ? { x: e.clientX, y: e.clientY } : null;
       nextTick(() => {
         if (props.target?.value) {
           const target = props.target.value as HTMLElement & { $el?: HTMLElement };
           refSelection.value = target.$el || target;
         }
-        if (!refPopper.value || !refSelection.value) return;
+        const triggerElement = getTriggerElement();
+        if (!refPopper.value || !triggerElement) return;
+        const targetRect = triggerElement.getBoundingClientRect();
+        const position = e
+          ? { x: e.clientX, y: e.clientY }
+          : props.trigger === "contextmenu" && contextmenuPosition.value
+            ? {
+                x: targetRect.left + contextmenuPosition.value.offsetX,
+                y: targetRect.top + contextmenuPosition.value.offsetY,
+              }
+            : null;
+        currentPlacement.value = props.placement;
         setPlacement({
           refSelection,
           position,
@@ -170,6 +181,7 @@ const Dropdown = defineComponent({
       } else {
         openChange(false);
         emit("update:show", false);
+        if (props.trigger === "contextmenu") contextmenuPosition.value = null;
         document.removeEventListener("keydown", keydownEvent, true);
       }
     };
@@ -217,7 +229,15 @@ const Dropdown = defineComponent({
       }
       if (props.trigger == "contextmenu") {
         e.preventDefault();
+        const rect = getTriggerElement()?.getBoundingClientRect();
+        if (rect) {
+          contextmenuPosition.value = {
+            offsetX: e.clientX - rect.left,
+            offsetY: e.clientY - rect.top,
+          };
+        }
         toggle(true, e);
+        focusMenuItem();
       }
     };
 

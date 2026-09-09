@@ -1,10 +1,6 @@
 <template>
   <Space vertical align="start">
-    <RadioGroup v-model="size" type="button" theme="card">
-      <RadioButton value="large" label="Large" />
-      <RadioButton value="medium" label="Medium" />
-      <RadioButton value="small" label="Small" />
-    </RadioGroup>
+    <Segmented v-model="size" :options="sizes" />
     <Space wrap>
       <Button type="primary" :size="size">Primary</Button>
       <Button :size="size">Default</Button>
@@ -22,4 +18,5 @@ import { Download } from "kui-icons";
 import type { SizeType } from "kui-vue";
 import { ref } from "vue";
 const size = ref<SizeType>("medium");
+const sizes = ["large", "medium", "small"].map((value) => ({ label: value, value }));
 </script>

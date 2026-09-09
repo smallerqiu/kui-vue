@@ -44,6 +44,8 @@
 
 `RadioButton` 额外支持 `icon`、`theme`、`size` 和 `shape`，在 `RadioGroup type="button"` 中使用。
 
+滑块式分段选择请使用独立的 [Segmented](../segmented/index.md) 组件；`RadioGroup` 不再支持 `theme="card"`。
+
 ## RadioGroup API
 
 | 属性       | 说明                                                  | 类型                              | 默认值     |

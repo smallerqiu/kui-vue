@@ -13,7 +13,6 @@
       <RadioGroup v-model="theme" size="small" type="button">
         <RadioButton value="default">Default</RadioButton>
         <RadioButton value="fill" label="Fill" />
-        <RadioButton value="card" label="Card" />
         <RadioButton value="outline" label="Outline" />
       </RadioGroup>
     </Space>

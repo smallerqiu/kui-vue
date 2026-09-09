@@ -1,5 +1,5 @@
 <template>
-  <Space vertical>
+  <Space direction="vertical">
     <Card title="Card" :icon="Heart" style="width: 256px">
       <p>card content</p>
       <p>card content</p>

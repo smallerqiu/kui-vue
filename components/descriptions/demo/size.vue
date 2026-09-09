@@ -1,5 +1,5 @@
 <template>
-  <RadioGroup :options="types" v-model="size" type="button" theme="card" />
+  <Segmented :options="types" v-model="size" />
   <br />
   <br />
   <Descriptions title="Order Information" bordered :size="size">

@@ -83,6 +83,7 @@ declare module "vue" {
     Ripple: (typeof Comps)["Ripple"];
     RadioButton: (typeof Comps)["RadioButton"];
     RadioGroup: (typeof Comps)["RadioGroup"];
+    Segmented: (typeof Comps)["Segmented"];
     Rate: (typeof Comps)["Rate"];
     Result: (typeof Comps)["Result"];
     Option: (typeof Comps)["Option"];

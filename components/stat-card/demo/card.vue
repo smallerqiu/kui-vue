@@ -4,7 +4,7 @@
       <Checkbox v-model="showTitle">Show Title</Checkbox>
       <Checkbox v-model="bordered">Show border</Checkbox>
       <Checkbox v-model="reverse">Reverse</Checkbox>
-      <RadioGroup v-model="size" type="button" theme="card" :options="sizes" />
+      <Segmented v-model="size" :options="sizes" />
     </Space>
     <Grid :cols="{ xs: 1, sm: 2, md: 3 }" :xGap="16" :yGap="16">
       <GridItem>

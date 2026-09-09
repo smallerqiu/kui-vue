@@ -1,6 +1,6 @@
 <template>
   <Space vertical>
-    <RadioGroup :options="types" v-model="direction" type="button" theme="card" />
+    <Segmented :options="types" v-model="direction" />
     <code>direction: {{ direction }}</code>
     <code>value: {{ cities }}</code>
     <CheckboxGroup :options="options" v-model="cities" @change="change" :direction="direction" />

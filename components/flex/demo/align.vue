@@ -1,17 +1,9 @@
 <template>
   <Flex vertical size="small" align="start">
     <span>Justify</span>
-    <RadioGroup v-model="justify" theme="card" type="button">
-      <RadioButton v-for="(item, index) in justifyOps" :key="index" :value="item">
-        {{ item }}
-      </RadioButton>
-    </RadioGroup>
+    <Segmented v-model="justify" :options="justifyOps.map((value) => ({ label: value, value }))" />
     <span>Align</span>
-    <RadioGroup v-model="align" theme="card" type="button">
-      <RadioButton v-for="(item, index) in alignOps" :key="index" :value="item">
-        {{ item }}
-      </RadioButton>
-    </RadioGroup>
+    <Segmented v-model="align" :options="alignOps.map((value) => ({ label: value, value }))" />
     <Flex
       :align="align"
       :justify="justify"

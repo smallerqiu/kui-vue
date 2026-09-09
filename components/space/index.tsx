@@ -7,6 +7,7 @@ const spaceProps = {
     type: String as PropType<"start" | "end" | "center" | "baseline">,
   },
   vertical: Boolean as BooleanType,
+  direction: String as PropType<"horizontal" | "vertical">,
   wrap: { type: Boolean as BooleanType, default: false },
   block: Boolean as BooleanType,
   compact: Boolean as BooleanType,
@@ -35,14 +36,15 @@ const Space = defineComponent({
     return () => {
       const size = props.size ?? parentSize;
       const children = getChildren(slots.default?.());
+      const vertical = props.direction ? props.direction === "vertical" : props.vertical;
 
-      const align = !props.vertical && !props.align ? "center" : props.align;
+      const align = !vertical && !props.align ? "center" : props.align;
 
       const style: CSSProperties = {};
       const cls = [
         "k-space",
         {
-          [`k-space-vertical`]: props.vertical,
+          [`k-space-vertical`]: vertical,
           [`k-space-compact`]: props.compact,
           [`k-space-wrap`]: props.wrap,
           [`k-space-block`]: props.block,
@@ -71,7 +73,7 @@ const Space = defineComponent({
 
       const vNodes = [];
       for (let i = 0; i < children.length; i++) {
-        const pre = props.vertical ? "vertical-" : "";
+        const pre = vertical ? "vertical-" : "";
         const grouped = children.length > 1;
         const p: Record<string, unknown> = {
           key: children[i].key ?? `item-${i}`,

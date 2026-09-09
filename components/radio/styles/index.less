@@ -39,23 +39,6 @@
     font-size: 14px;
   }
 
-  .k-radio-group-card-seg {
-    position: absolute;
-    z-index: 0;
-    opacity: 0;
-    background-color: var(--kui-color-bg);
-    border-radius: var(--kui-border-radius);
-    pointer-events: none;
-
-    &.is-ready {
-      opacity: 1;
-      transition:
-        width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-        height 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-        left 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
-        top 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-    }
-  }
 }
 .k-radio-group:not(.k-radio-group-vertical) {
   .k-btn {
@@ -69,21 +52,16 @@
       border-bottom-left-radius: 0;
     }
   }
-  .k-radio-group-card-seg {
-    top: 2px;
-    bottom: 2px;
-  }
 }
 
-.k-radio-button-group,
-.k-radio-group-card {
+.k-radio-button-group {
   flex-wrap: nowrap;
 }
-.k-radio-group:not(.k-radio-button-group, .k-radio-group-card) {
+.k-radio-group:not(.k-radio-button-group) {
   gap: 16px;
   flex-wrap: wrap;
 }
-.k-radio-group-circle:not(.k-radio-group-card, .k-radio-group-vertical) {
+.k-radio-group-circle:not(.k-radio-group-vertical) {
   .k-btn:first-child {
     border-top-left-radius: 30px;
     border-bottom-left-radius: 30px;
@@ -95,7 +73,7 @@
   }
 }
 
-.k-radio-square:not(.k-radio-group-card) {
+.k-radio-square {
   .k-btn:first-child {
     border-top-left-radius: 2px;
     border-bottom-left-radius: 2px;
@@ -257,10 +235,6 @@
       border-top-right-radius: 0;
     }
   }
-  .k-radio-group-card-seg {
-    left: 2px;
-    right: 2px;
-  }
 }
 
 .k-radio-group-fill:not(.k-radio-group-vertical) {
@@ -298,50 +272,5 @@
         transform: translateX(-50%);
       }
     }
-  }
-}
-
-.k-radio-group-card {
-  background-color: var(--kui-theme-fill-bg);
-  border-radius: var(--kui-border-radius);
-  position: relative;
-  .k-btn {
-    border: none;
-    border-radius: var(--kui-border-radius);
-    background-color: transparent;
-    position: relative;
-    margin: 0;
-    &:disabled {
-      background: 0 0;
-    }
-
-    &:not(.k-btn-primary) {
-      background-color: transparent;
-    }
-    &::after {
-      position: absolute;
-      content: "";
-      z-index: -1;
-      margin: 2px;
-      // background-color: var(--kui-color-item-active);
-      width: calc(100% - 4px);
-      height: calc(100% - 4px);
-      border-radius: var(--kui-border-radius);
-    }
-    &:focus,
-    &:active {
-      outline: 0px solid transparent;
-    }
-    &:hover:not(:disabled, [aria-readonly="true"])::after {
-      background-color: var(--kui-color-bg);
-    }
-  }
-  .k-btn-primary::after {
-    background-color: var(--kui-color-bg);
-  }
-}
-.k-radio-button-changed {
-  .k-btn-primary::after {
-    opacity: 0;
   }
 }

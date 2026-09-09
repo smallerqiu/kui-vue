@@ -2,11 +2,7 @@
   <div>
     <Form :layout="layout" :labelCol="{ span: 5 }" :wrapperCol="{ span: 6 }">
       <FormItem label="Layout">
-        <RadioGroup v-model="layout" type="button" theme="card">
-          <RadioButton value="horizontal" label="horizontal" />
-          <RadioButton value="vertical" label="vertical" />
-          <RadioButton value="inline" label="inline" />
-        </RadioGroup>
+        <Segmented v-model="layout" :options="layouts" />
       </FormItem>
       <FormItem label="Input">
         <Input />
@@ -32,6 +28,7 @@ export default {
   data() {
     return {
       layout: "horizontal",
+      layouts: ["horizontal", "vertical", "inline"].map((value) => ({ label: value, value })),
     };
   },
 };

@@ -1,10 +1,6 @@
 <template>
   <Space vertical>
-    <RadioGroup v-model="size" type="button" theme="card">
-      <RadioButton value="large" label="Large" />
-      <RadioButton value="medium" label="Medium" />
-      <RadioButton value="small" label="Small" />
-    </RadioGroup>
+    <Segmented v-model="size" :options="sizes" />
     <Space vertical>
       <DatePicker :size="size" />
       <DatePicker mode="month" :size="size" />
@@ -16,4 +12,5 @@
 import type { SizeType } from "kui-vue";
 import { ref } from "vue";
 const size = ref<SizeType>("medium");
+const sizes = ["large", "medium", "small"].map((value) => ({ label: value, value }));
 </script>

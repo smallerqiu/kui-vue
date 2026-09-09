@@ -44,6 +44,8 @@ Radio button.
 
 `RadioButton` additionally supports `icon`, `theme`, `size`, and `shape`, and is used through `RadioGroup type="button"`.
 
+Use the standalone [Segmented](../segmented/index.en_US.md) component for slider-style selection. `RadioGroup` no longer supports `theme="card"`.
+
 ## RadioGroup API
 
 | Property   | Description                                                                          | Type                              | Default    |

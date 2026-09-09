@@ -1,11 +1,6 @@
 <template>
   <Space wrap>
-    <RadioGroup v-model="placement" type="button" theme="card">
-      <RadioButton label="left" value="left" />
-      <RadioButton label="top" value="top" />
-      <RadioButton label="right" value="right" />
-      <RadioButton label="bottom" value="bottom" />
-    </RadioGroup>
+    <Segmented v-model="placement" :options="placements" />
     <Button @click="show = !show">Open</Button>
   </Space>
   <br />
@@ -31,6 +26,7 @@ import type { DrawerPlacementsType } from "kui-vue";
 import { ref } from "vue";
 const show = ref(false);
 const placement = ref<DrawerPlacementsType>("left");
+const placements = ["left", "top", "right", "bottom"].map((value) => ({ label: value, value }));
 const refTarget = ref();
 const boxStyle = {
   height: "300px",

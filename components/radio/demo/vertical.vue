@@ -8,7 +8,6 @@
       v-model="cities"
       @change="change"
       :direction="direction"
-      theme="card"
     />
   </Space>
 </template>
