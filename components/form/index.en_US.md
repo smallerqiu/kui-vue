@@ -82,6 +82,7 @@ export default {
 | shape      | Sub component shape                                                                                   | 'circle' \| 'square'                   | horizontal |
 | disabled   | Whether the form is enabled                                                                           | boolean                                | true       |
 | readonly   | Make supported controls in the form read-only                                                         | boolean                                | false      |
+| colon      | Whether to display a colon after labels                                                               | boolean                                | true       |
 | onReset    | Reset the entire form, reset all field values to empty and remove validation results                  | ()=> void                              | -          |
 | onSubmit   | Trigger event when submitting the form                                                                | (e: FormSubmitEvent) => void           | -          |
 
@@ -96,11 +97,12 @@ export default {
 
 ## FormItem API
 
-| Property | Description                                                                     | Type       | Default |
-| -------- | ------------------------------------------------------------------------------- | ---------- | ------- |
-| prop     | Corresponds to the field in the form domain model. Required for form validation | string     | -       |
-| label    | Label text                                                                      | string     | -       |
-| rules    | Form validation rules                                                           | FormRule[] | -       |
+| Property | Description                                                                      | Type       | Default |
+| -------- | -------------------------------------------------------------------------------- | ---------- | ------- |
+| prop     | Corresponds to the field in the form domain model. Required for form validation  | string     | -       |
+| label    | Label text                                                                       | string     | -       |
+| rules    | Form validation rules                                                            | FormRule[] | -       |
+| colon    | Whether to display a colon after the label; inherits the Form setting when unset | boolean    | -       |
 
 ## rules API
 

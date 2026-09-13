@@ -1,5 +1,5 @@
 <template>
-  <div style="max-width: 600px">
+  <div>
     <Form
       :model="form"
       :size="size"
@@ -15,48 +15,91 @@
           <RadioButton value="small" label="Small" />
         </RadioGroup>
       </FormItem>
-      <FormItem label="E-mail" prop="email">
-        <Input clearable placeholder="Please enter your email" />
-      </FormItem>
-      <FormItem label="Number" prop="number">
-        <InputNumber placeholder="Please enter your number" />
-      </FormItem>
-      <FormItem label="Password" prop="password">
-        <Input type="password" placeholder="Please enter password" />
-      </FormItem>
-      <FormItem label="Confirm Password" prop="confirm_password">
-        <Input type="password" placeholder="Please enter password" />
-      </FormItem>
-      <FormItem label="Phone Number" prop="phone">
-        <Input placeholder="Please enter phone number" />
-      </FormItem>
-      <FormItem label="Captcha" prop="captcha">
-        <Input placeholder="Please enter captcha">
-          <template #suffix>
-            <Button :size="size" :disabled="time != 60" @click="sendCode">
-              {{ time == 60 ? "Get verification code" : time + "(s)" }}
-            </Button>
-          </template>
-        </Input>
-      </FormItem>
-      <FormItem label="Country">
-        <FormItem prop="country" :wrapper-col="{ span: 24 }">
-          <Select clearable style="width: 100%">
-            <Option value="0" label="China" />
-            <Option value="1" label="Russia" />
-          </Select>
-        </FormItem>
-        <FormItem prop="city" label="city" :wrapper-col="{ span: 24 }">
-          <Select clearable style="width: 100%">
-            <Option value="0" label="Shanghai" />
-            <Option value="1" label="Wuhan" />
-            <Option value="2" label="Hangzhou" />
-          </Select>
-        </FormItem>
-      </FormItem>
-      <FormItem label="TreeSelect" prop="tree">
-        <TreeSelect style="width: 100%" :tree-data="treeData"></TreeSelect>
-      </FormItem>
+
+      <Row>
+        <Col :span="12">
+          <FormItem label="E-mail" prop="email" :label-col="hrSpan" :wrapper-col="hrSpan">
+            <Input clearable placeholder="Please enter your email" />
+          </FormItem>
+        </Col>
+        <Col :span="12">
+          <FormItem label="Number" prop="number" :label-col="hrSpan2" :wrapper-col="hrSpan">
+            <InputNumber placeholder="Please enter your number" />
+          </FormItem>
+        </Col>
+      </Row>
+      <Row>
+        <Col :span="12">
+          <FormItem label="Password" prop="password" :label-col="hrSpan" :wrapper-col="hrSpan">
+            <Input type="password" placeholder="Please enter password" />
+          </FormItem>
+        </Col>
+        <Col :span="12">
+          <FormItem
+            label="Confirm Password"
+            prop="confirm_password"
+            :label-col="hrSpan2"
+            :wrapper-col="hrSpan"
+          >
+            <Input type="password" placeholder="Please enter password" />
+          </FormItem>
+        </Col>
+      </Row>
+      <Row>
+        <Col :span="12">
+          <FormItem label="Phone Number" prop="phone" :label-col="hrSpan" :wrapper-col="hrSpan">
+            <Input placeholder="Please enter phone number" />
+          </FormItem>
+        </Col>
+        <Col :span="12">
+          <FormItem label="Captcha" prop="captcha" :label-col="hrSpan2" :wrapper-col="{ span: 12 }">
+            <Input placeholder="Please enter captcha">
+              <template #suffix>
+                <Button :size="size" :disabled="time != 60" @click="sendCode">
+                  {{ time == 60 ? "Get Captcha" : time + "(s)" }}
+                </Button>
+              </template>
+            </Input>
+          </FormItem>
+        </Col>
+      </Row>
+      <Row>
+        <Col :span="12">
+          <FormItem
+            label="Country"
+            prop="country"
+            :label-col="{ span: 12 }"
+            :wrapper-col="{ span: 12 }"
+          >
+            <Select clearable style="width: 100%">
+              <Option value="0" label="China" />
+              <Option value="1" label="Russia" />
+            </Select>
+          </FormItem>
+        </Col>
+        <Col :span="12">
+          <FormItem prop="city" label="City" :label-col="hrSpan2" :wrapper-col="{ span: 12 }">
+            <Select clearable style="width: 100%">
+              <Option value="0" label="Shanghai" />
+              <Option value="1" label="Wuhan" />
+              <Option value="2" label="Hangzhou" />
+            </Select>
+          </FormItem>
+        </Col>
+      </Row>
+      <Row>
+        <Col :span="12">
+          <FormItem label="TreeSelect" prop="tree" :label-col="hrSpan" :wrapper-col="{ span: 12 }">
+            <TreeSelect style="width: 100%" :tree-data="treeData"></TreeSelect>
+          </FormItem>
+        </Col>
+        <Col :span="12">
+          <FormItem label="Birthday" prop="birthday">
+            <DatePicker clearable />
+          </FormItem>
+        </Col>
+      </Row>
+
       <FormItem label="Slider" prop="slider">
         <Slider />
       </FormItem>
@@ -79,9 +122,7 @@
           <RadioButton :value="2" label="Linux" />
         </RadioGroup>
       </FormItem>
-      <FormItem label="Birthday" prop="birthday">
-        <DatePicker clearable />
-      </FormItem>
+
       <FormItem label="Hobby" prop="hobbies">
         <CheckboxGroup>
           <Checkbox value="0" label="Football" />
@@ -127,6 +168,10 @@ const validateReadme = (_: FormRule, value: unknown, callback: (error?: Error) =
 };
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
+
+const hrSpan = { span: 12 };
+const hrSpan2 = { span: 6 };
+
 const time = ref(60);
 const timer = ref<ReturnType<typeof setTimeout>>();
 const size = ref<SizeType>("medium");
@@ -201,6 +246,7 @@ const rules: Record<string, FormRule[]> = {
     { required: true, message: "Please input the captcha" },
   ],
   slider: [
+    { required: true, message: "Please select a value" },
     { min: 5, message: "Minimum value is 5" },
     { max: 50, message: "Maximum value is 50" },
   ],
@@ -212,7 +258,7 @@ const rules: Record<string, FormRule[]> = {
   one: [{ required: true, message: "霸王选项" }],
   system: [{ required: true, message: "Please select your system" }],
   hardcore: [{ required: true, message: "霸王选项" }],
-  readme: [{ validator: validateReadme }],
+  readme: [{ validator: validateReadme, required: true }],
   hobbies: [
     { required: true, message: "Please select your hobbies" },
     { max: 3, message: "Maximum value is 3" },

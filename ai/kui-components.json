@@ -6,10 +6,7 @@
   "components": [
     {
       "name": "Affix",
-      "tags": [
-        "affix",
-        "k-affix"
-      ],
+      "tags": ["affix", "k-affix"],
       "children": [],
       "documentation": "https://k-ui.cn/components/affix",
       "props": [
@@ -86,10 +83,7 @@
     },
     {
       "name": "Alert",
-      "tags": [
-        "alert",
-        "k-alert"
-      ],
+      "tags": ["alert", "k-alert"],
       "children": [],
       "documentation": "https://k-ui.cn/components/alert",
       "props": [
@@ -220,10 +214,7 @@
     },
     {
       "name": "AutoComplete",
-      "tags": [
-        "auto-complete",
-        "k-auto-complete"
-      ],
+      "tags": ["auto-complete", "k-auto-complete"],
       "children": [],
       "documentation": "https://k-ui.cn/components/auto-complete",
       "props": [
@@ -486,13 +477,8 @@
     },
     {
       "name": "Anchor",
-      "tags": [
-        "anchor",
-        "k-anchor"
-      ],
-      "children": [
-        "AnchorLink"
-      ],
+      "tags": ["anchor", "k-anchor"],
+      "children": ["AnchorLink"],
       "documentation": "https://k-ui.cn/components/anchor",
       "props": [
         {
@@ -589,10 +575,7 @@
     },
     {
       "name": "AnchorLink",
-      "tags": [
-        "anchor-link",
-        "k-anchor-link"
-      ],
+      "tags": ["anchor-link", "k-anchor-link"],
       "parent": "Anchor",
       "children": [],
       "documentation": "https://k-ui.cn/components/anchor",
@@ -638,10 +621,7 @@
     },
     {
       "name": "Avatar",
-      "tags": [
-        "avatar",
-        "k-avatar"
-      ],
+      "tags": ["avatar", "k-avatar"],
       "parent": "AvatarGroup",
       "children": [],
       "documentation": "https://k-ui.cn/components/avatar",
@@ -737,13 +717,8 @@
     },
     {
       "name": "AvatarGroup",
-      "tags": [
-        "avatar-group",
-        "k-avatar-group"
-      ],
-      "children": [
-        "Avatar"
-      ],
+      "tags": ["avatar-group", "k-avatar-group"],
+      "children": ["Avatar"],
       "documentation": "https://k-ui.cn/components/avatar",
       "props": [
         {
@@ -810,13 +785,8 @@
     },
     {
       "name": "Breadcrumb",
-      "tags": [
-        "breadcrumb",
-        "k-breadcrumb"
-      ],
-      "children": [
-        "BreadcrumbItem"
-      ],
+      "tags": ["breadcrumb", "k-breadcrumb"],
+      "children": ["BreadcrumbItem"],
       "documentation": "https://k-ui.cn/components/breadcrumb",
       "props": [
         {
@@ -851,10 +821,7 @@
     },
     {
       "name": "BreadcrumbItem",
-      "tags": [
-        "breadcrumb-item",
-        "k-breadcrumb-item"
-      ],
+      "tags": ["breadcrumb-item", "k-breadcrumb-item"],
       "parent": "Breadcrumb",
       "children": [],
       "documentation": "https://k-ui.cn/components/breadcrumb",
@@ -900,10 +867,7 @@
     },
     {
       "name": "BackTop",
-      "tags": [
-        "back-top",
-        "k-back-top"
-      ],
+      "tags": ["back-top", "k-back-top"],
       "children": [],
       "documentation": "https://k-ui.cn/components/back-top",
       "props": [
@@ -979,10 +943,7 @@
     },
     {
       "name": "Badge",
-      "tags": [
-        "badge",
-        "k-badge"
-      ],
+      "tags": ["badge", "k-badge"],
       "children": [],
       "documentation": "https://k-ui.cn/components/badge",
       "props": [
@@ -1101,10 +1062,7 @@
     },
     {
       "name": "Button",
-      "tags": [
-        "button",
-        "k-button"
-      ],
+      "tags": ["button", "k-button"],
       "parent": "ButtonGroup",
       "children": [],
       "documentation": "https://k-ui.cn/components/button",
@@ -1270,13 +1228,8 @@
     },
     {
       "name": "ButtonGroup",
-      "tags": [
-        "button-group",
-        "k-button-group"
-      ],
-      "children": [
-        "Button"
-      ],
+      "tags": ["button-group", "k-button-group"],
+      "children": ["Button"],
       "documentation": "https://k-ui.cn/components/button",
       "props": [
         {
@@ -1350,10 +1303,7 @@
     },
     {
       "name": "Cascader",
-      "tags": [
-        "cascader",
-        "k-cascader"
-      ],
+      "tags": ["cascader", "k-cascader"],
       "children": [],
       "documentation": "https://k-ui.cn/components/cascader",
       "props": [
@@ -1552,13 +1502,8 @@
     },
     {
       "name": "Card",
-      "tags": [
-        "card",
-        "k-card"
-      ],
-      "children": [
-        "CardMeta"
-      ],
+      "tags": ["card", "k-card"],
+      "children": ["CardMeta"],
       "documentation": "https://k-ui.cn/components/card",
       "props": [
         {
@@ -1662,10 +1607,7 @@
     },
     {
       "name": "CardMeta",
-      "tags": [
-        "card-meta",
-        "k-card-meta"
-      ],
+      "tags": ["card-meta", "k-card-meta"],
       "parent": "Card",
       "children": [],
       "documentation": "https://k-ui.cn/components/card",
@@ -1735,10 +1677,7 @@
     },
     {
       "name": "Calendar",
-      "tags": [
-        "calendar",
-        "k-calendar"
-      ],
+      "tags": ["calendar", "k-calendar"],
       "children": [],
       "documentation": "https://k-ui.cn/components/calendar",
       "props": [
@@ -1916,10 +1855,7 @@
     },
     {
       "name": "FeatureCard",
-      "tags": [
-        "feature-card",
-        "k-feature-card"
-      ],
+      "tags": ["feature-card", "k-feature-card"],
       "children": [],
       "documentation": "https://k-ui.cn/components/feature-card",
       "props": [
@@ -2108,10 +2044,7 @@
     },
     {
       "name": "FlameWrap",
-      "tags": [
-        "flame-wrap",
-        "k-flame-wrap"
-      ],
+      "tags": ["flame-wrap", "k-flame-wrap"],
       "children": [],
       "documentation": "https://k-ui.cn/components/flame-wrap",
       "props": [
@@ -2313,10 +2246,7 @@
     },
     {
       "name": "ListPanel",
-      "tags": [
-        "list-panel",
-        "k-list-panel"
-      ],
+      "tags": ["list-panel", "k-list-panel"],
       "children": [],
       "documentation": "https://k-ui.cn/components/list-panel",
       "props": [
@@ -2439,13 +2369,8 @@
     },
     {
       "name": "Carousel",
-      "tags": [
-        "carousel",
-        "k-carousel"
-      ],
-      "children": [
-        "CarouselItem"
-      ],
+      "tags": ["carousel", "k-carousel"],
+      "children": ["CarouselItem"],
       "documentation": "https://k-ui.cn/components/carousel",
       "props": [
         {
@@ -2534,10 +2459,7 @@
     },
     {
       "name": "CarouselItem",
-      "tags": [
-        "carousel-item",
-        "k-carousel-item"
-      ],
+      "tags": ["carousel-item", "k-carousel-item"],
       "parent": "Carousel",
       "children": [],
       "documentation": "https://k-ui.cn/components/carousel-item",
@@ -2548,10 +2470,7 @@
     },
     {
       "name": "Checkbox",
-      "tags": [
-        "checkbox",
-        "k-checkbox"
-      ],
+      "tags": ["checkbox", "k-checkbox"],
       "parent": "CheckboxGroup",
       "children": [],
       "documentation": "https://k-ui.cn/components/checkbox",
@@ -2688,13 +2607,8 @@
     },
     {
       "name": "CheckboxGroup",
-      "tags": [
-        "checkbox-group",
-        "k-checkbox-group"
-      ],
-      "children": [
-        "Checkbox"
-      ],
+      "tags": ["checkbox-group", "k-checkbox-group"],
+      "children": ["Checkbox"],
       "documentation": "https://k-ui.cn/components/checkbox",
       "props": [
         {
@@ -2802,10 +2716,7 @@
     },
     {
       "name": "CheckCard",
-      "tags": [
-        "check-card",
-        "k-check-card"
-      ],
+      "tags": ["check-card", "k-check-card"],
       "parent": "CheckCardGroup",
       "children": [],
       "documentation": "https://k-ui.cn/components/check-card",
@@ -2955,13 +2866,8 @@
     },
     {
       "name": "CheckCardGroup",
-      "tags": [
-        "check-card-group",
-        "k-check-card-group"
-      ],
-      "children": [
-        "CheckCard"
-      ],
+      "tags": ["check-card-group", "k-check-card-group"],
+      "children": ["CheckCard"],
       "documentation": "https://k-ui.cn/components/check-card",
       "props": [
         {
@@ -3073,13 +2979,8 @@
     },
     {
       "name": "Collapse",
-      "tags": [
-        "collapse",
-        "k-collapse"
-      ],
-      "children": [
-        "CollapsePanel"
-      ],
+      "tags": ["collapse", "k-collapse"],
+      "children": ["CollapsePanel"],
       "documentation": "https://k-ui.cn/components/collapse",
       "props": [
         {
@@ -3178,10 +3079,7 @@
     },
     {
       "name": "CollapsePanel",
-      "tags": [
-        "collapse-panel",
-        "k-collapse-panel"
-      ],
+      "tags": ["collapse-panel", "k-collapse-panel"],
       "parent": "Collapse",
       "children": [],
       "documentation": "https://k-ui.cn/components/collapse",
@@ -3228,10 +3126,7 @@
     },
     {
       "name": "ColorPickerPanel",
-      "tags": [
-        "color-picker-panel",
-        "k-color-picker-panel"
-      ],
+      "tags": ["color-picker-panel", "k-color-picker-panel"],
       "parent": "ColorPicker",
       "children": [],
       "documentation": "https://k-ui.cn/components/color-picker-panel",
@@ -3242,13 +3137,8 @@
     },
     {
       "name": "ColorPicker",
-      "tags": [
-        "color-picker",
-        "k-color-picker"
-      ],
-      "children": [
-        "ColorPickerPanel"
-      ],
+      "tags": ["color-picker", "k-color-picker"],
+      "children": ["ColorPickerPanel"],
       "documentation": "https://k-ui.cn/components/color-picker",
       "props": [
         {
@@ -3430,10 +3320,7 @@
     },
     {
       "name": "DatePickerPanel",
-      "tags": [
-        "date-picker-panel",
-        "k-date-picker-panel"
-      ],
+      "tags": ["date-picker-panel", "k-date-picker-panel"],
       "parent": "DatePicker",
       "children": [],
       "documentation": "https://k-ui.cn/components/date-picker-panel",
@@ -3444,13 +3331,8 @@
     },
     {
       "name": "DatePicker",
-      "tags": [
-        "date-picker",
-        "k-date-picker"
-      ],
-      "children": [
-        "DatePickerPanel"
-      ],
+      "tags": ["date-picker", "k-date-picker"],
+      "children": ["DatePickerPanel"],
       "documentation": "https://k-ui.cn/components/date-picker",
       "props": [
         {
@@ -3747,13 +3629,8 @@
     },
     {
       "name": "Descriptions",
-      "tags": [
-        "descriptions",
-        "k-descriptions"
-      ],
-      "children": [
-        "DescriptionsItem"
-      ],
+      "tags": ["descriptions", "k-descriptions"],
+      "children": ["DescriptionsItem"],
       "documentation": "https://k-ui.cn/components/descriptions",
       "props": [
         {
@@ -3857,10 +3734,7 @@
     },
     {
       "name": "DescriptionsItem",
-      "tags": [
-        "descriptions-item",
-        "k-descriptions-item"
-      ],
+      "tags": ["descriptions-item", "k-descriptions-item"],
       "parent": "Descriptions",
       "children": [],
       "documentation": "https://k-ui.cn/components/descriptions",
@@ -3921,10 +3795,7 @@
     },
     {
       "name": "Drawer",
-      "tags": [
-        "drawer",
-        "k-drawer"
-      ],
+      "tags": ["drawer", "k-drawer"],
       "children": [],
       "documentation": "https://k-ui.cn/components/drawer",
       "props": [
@@ -4151,10 +4022,7 @@
     },
     {
       "name": "Dropdown",
-      "tags": [
-        "dropdown",
-        "k-dropdown"
-      ],
+      "tags": ["dropdown", "k-dropdown"],
       "children": [],
       "documentation": "https://k-ui.cn/components/dropdown",
       "props": [
@@ -4273,10 +4141,7 @@
     },
     {
       "name": "DropdownButton",
-      "tags": [
-        "dropdown-button",
-        "k-dropdown-button"
-      ],
+      "tags": ["dropdown-button", "k-dropdown-button"],
       "children": [],
       "documentation": "https://k-ui.cn/components/dropdown",
       "props": [
@@ -4404,10 +4269,7 @@
     },
     {
       "name": "Divider",
-      "tags": [
-        "divider",
-        "k-divider"
-      ],
+      "tags": ["divider", "k-divider"],
       "children": [],
       "documentation": "https://k-ui.cn/components/divider",
       "props": [
@@ -4470,10 +4332,7 @@
     },
     {
       "name": "Empty",
-      "tags": [
-        "empty",
-        "k-empty"
-      ],
+      "tags": ["empty", "k-empty"],
       "children": [],
       "documentation": "https://k-ui.cn/components/empty",
       "props": [
@@ -4532,13 +4391,8 @@
     },
     {
       "name": "Form",
-      "tags": [
-        "form",
-        "k-form"
-      ],
-      "children": [
-        "FormItem"
-      ],
+      "tags": ["form", "k-form"],
+      "children": ["FormItem"],
       "documentation": "https://k-ui.cn/components/form",
       "props": [
         {
@@ -4683,7 +4537,7 @@
         {
           "title": "表单验证",
           "file": "components/form/demo/valid.vue",
-          "source": "<template>\n  <div style=\"max-width: 600px\">\n    <Form\n      :model=\"form\"\n      :size=\"size\"\n      :rules=\"rules\"\n      ref=\"formRef\"\n      :labelCol=\"labelCol\"\n      :wrapperCol=\"wrapperCol\"\n    >\n      <FormItem label=\"Size\">\n        <RadioGroup v-model=\"size\" type=\"button\">\n          <RadioButton value=\"large\" label=\"Large\" />\n          <RadioButton value=\"medium\" label=\"Medium\" />\n          <RadioButton value=\"small\" label=\"Small\" />\n        </RadioGroup>\n      </FormItem>\n      <FormItem label=\"E-mail\" prop=\"email\">\n        <Input clearable placeholder=\"Please enter your email\" />\n      </FormItem>\n      <FormItem label=\"Number\" prop=\"number\">\n        <InputNumber placeholder=\"Please enter your number\" />\n      </FormItem>\n      <FormItem label=\"Password\" prop=\"password\">\n        <Input type=\"password\" placeholder=\"Please enter password\" />\n      </FormItem>\n      <FormItem label=\"Confirm Password\" prop=\"confirm_password\">\n        <Input type=\"password\" placeholder=\"Please enter password\" />\n      </FormItem>\n      <FormItem label=\"Phone Number\" prop=\"phone\">\n        <Input placeholder=\"Please enter phone number\" />\n      </FormItem>\n      <FormItem label=\"Captcha\" prop=\"captcha\">\n        <Input placeholder=\"Please enter captcha\">\n          <template #suffix>\n            <Button :size=\"size\" :disabled=\"time != 60\" @click=\"sendCode\">\n              {{ time == 60 ? \"Get verification code\" : time + \"(s)\" }}\n            </Button>\n          </template>\n        </Input>\n      </FormItem>\n      <FormItem label=\"Country\">\n        <FormItem prop=\"country\" :wrapper-col=\"{ span: 24 }\">\n          <Select clearable style=\"width: 100%\">\n            <Option value=\"0\" label=\"China\" />\n            <Option value=\"1\" label=\"Russia\" />\n          </Select>\n        </FormItem>\n        <FormItem prop=\"city\" label=\"city\" :wrapper-col=\"{ span: 24 }\">\n          <Select clearable style=\"width: 100%\">\n            <Option value=\"0\" label=\"Shanghai\" />\n            <Option value=\"1\" label=\"Wuhan\" />\n            <Option value=\"2\" label=\"Hangzhou\" />\n          </Select>\n        </FormItem>\n      </FormItem>\n      <FormItem label=\"TreeSelect\" prop=\"tree\">\n        <TreeSelect style=\"width: 100%\" :tree-data=\"treeData\"> </TreeSelect>\n      </FormItem>\n      <FormItem label=\"Slider\" prop=\"slider\">\n        <Slider />\n      </FormItem>\n      <FormItem label=\"Rate\" prop=\"rate\">\n        <Rate />\n      </FormItem>\n      <FormItem label=\"Gender\" prop=\"gender\">\n        <RadioGroup>\n          <Radio :value=\"0\" label=\"Girl\" />\n          <Radio :value=\"1\" label=\"Boy\" />\n        </RadioGroup>\n      </FormItem>\n      <FormItem label=\"One\" prop=\"one\">\n        <Radio label=\"Only One?\" />\n      </FormItem>\n      <FormItem label=\"System\" prop=\"system\">\n        <RadioGroup type=\"button\">\n          <RadioButton :value=\"0\" label=\"Mac OS\" />\n          <RadioButton :value=\"1\" label=\"Windows\" />\n          <RadioButton :value=\"2\" label=\"Linux\" />\n        </RadioGroup>\n      </FormItem>\n      <FormItem label=\"Birthday\" prop=\"birthday\">\n        <DatePicker clearable />\n      </FormItem>\n      <FormItem label=\"Hobby\" prop=\"hobbies\">\n        <CheckboxGroup>\n          <Checkbox value=\"0\" label=\"Football\" />\n          <Checkbox value=\"1\" label=\"Music\" />\n          <Checkbox value=\"2\" label=\"Photograph\" />\n          <Checkbox value=\"3\" label=\"Tennis\" />\n        </CheckboxGroup>\n      </FormItem>\n      <FormItem label=\"Hardcore\" prop=\"hardcore\">\n        <Switch true-text=\"Yes\" false-text=\"No\" />\n      </FormItem>\n      <FormItem label=\"Other\" prop=\"other\">\n        <TextArea placeholder=\"Maximum 10 characters\" v-model=\"form.other\" />\n      </FormItem>\n      <FormItem prop=\"readme\" :wrapperCol=\"{ offset: 6 }\">\n        <Checkbox>我已阅读 <a>服务条款</a> </Checkbox>\n      </FormItem>\n      <FormItem :wrapperCol=\"{ offset: 6 }\">\n        <Button type=\"primary\" @click=\"submit\">Submit</Button>\n        <Button style=\"margin: 0 10px\" @click=\"reset\">Reset</Button>\n        <Button theme=\"dashed\" @click=\"setValue\">Set Value</Button>\n      </FormItem>\n    </Form>\n  </div>\n</template>\n<script setup lang=\"ts\">\nimport { message, type FormContext, type FormRule, type SizeType } from \"kui-vue\";\nimport { reactive, ref } from \"vue\";\nconst validatePass = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {\n  if (value !== form.password) {\n    return callback(new Error(\"Please confirm the password\"));\n  }\n  callback();\n};\nconst validateReadme = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {\n  if (value !== true) {\n    return callback(new Error(\"请阅读服务条款\"));\n  }\n  callback();\n};\nconst labelCol = { span: 6 };\nconst wrapperCol = { span: 16 };\nconst time = ref(60);\nconst timer = ref<ReturnType<typeof setTimeout>>();\nconst size = ref<SizeType>(\"medium\");\nconst formRef = ref<FormContext>();\nconst treeData = [\n  {\n    title: \"food\",\n    key: \"0\",\n    children: [\n      { title: \"apple\", key: \"0-1\" },\n      { title: \"orange\", key: \"0-2\" },\n    ],\n  },\n];\nconst form = reactive({\n  email: \"\",\n  number: undefined,\n  password: \"\",\n  confirm_password: \"\",\n  phone: \"\",\n  captcha: \"\",\n  slider: 3,\n  rate: 0,\n  tree: \"\",\n  gender: \"\",\n  one: false,\n  system: \"\",\n  birthday: \"\",\n  country: \"\",\n  city: \"\",\n  hobbies: [],\n  hardcore: \"\",\n  other: \"\",\n  readme: false,\n});\nconst rules: Record<string, FormRule[]> = {\n  email: [\n    { type: \"mail\", message: \"Please input a valid email\" },\n    { required: true, message: \"The email is required\" },\n  ],\n  number: [\n    { type: \"number\", message: \"Please input a valid number\" },\n    { required: true, message: \"The number is required\" },\n  ],\n  password: [\n    {\n      min: 8,\n      max: 20,\n      message: \"Please keep the password length between 8-20 digits.\",\n    },\n    { required: true, message: \"The password is required\" },\n  ],\n  confirm_password: [\n    {\n      min: 8,\n      max: 20,\n      message: \"Please keep the password length between 8-20 digits.\",\n    },\n    { validator: validatePass },\n    { required: true, message: \"Please confirm the password\" },\n  ],\n  phone: [\n    { type: \"mobile\", message: \"Please input the correct phone number\" },\n    { required: true, message: \"Please input your phone number\" },\n  ],\n  birthday: [{ required: true, message: \"Please select your birthday\" }],\n  country: [{ required: true, message: \"Please select your country\" }],\n  tree: [{ required: true, message: \"Please select your food\" }],\n  city: [{ required: true, message: \"Please select your city\" }],\n  captcha: [\n    { type: \"number\", message: \"The captcha must be a number\" },\n    { required: true, message: \"Please input the captcha\" },\n  ],\n  slider: [\n    { min: 5, message: \"Minimum value is 5\" },\n    { max: 50, message: \"Maximum value is 50\" },\n  ],\n  gender: [{ required: true, message: \"Please select your gender\" }],\n  rate: [\n    { required: true, message: \"Please select your rate\" },\n    { min: 1, message: \"The minimum value is 1\" },\n  ],\n  one: [{ required: true, message: \"霸王选项\" }],\n  system: [{ required: true, message: \"Please select your system\" }],\n  hardcore: [{ required: true, message: \"霸王选项\" }],\n  readme: [{ validator: validateReadme }],\n  hobbies: [\n    { required: true, message: \"Please select your hobbies\" },\n    { max: 3, message: \"Maximum value is 3\" },\n    { min: 2, message: \"Minimum value is 2\" },\n  ],\n  other: [\n    { required: true, message: \"Please fill in other information\" },\n    { max: 10, message: \"Maximum characters is 10\" },\n  ],\n};\nconst setValue = () => {\n  Object.assign(form, {\n    email: \"master@k-ui.cn\",\n    password: \"abc@123@123\",\n    confirm_password: \"abc@123@123\",\n    phone: \"13888888888\",\n    captcha: \"8888\",\n    gender: 1,\n    slider: 5,\n    rate: 5,\n    number: 5,\n    tree: \"0\",\n    system: 0,\n    one: true,\n    birthday: \"1995-05-05\",\n    country: \"1\",\n    city: \"1\",\n    hobbies: [\"0\", \"1\"],\n    hardcore: true,\n    other: \"Test data\",\n    readme: true,\n  });\n};\nconst sendCode = () => {\n  time.value = 59;\n  message.success(\"The verification code has been sent.\");\n  clearInterval(timer.value);\n  timer.value = setInterval(() => {\n    if (time.value < 1) {\n      clearInterval(timer.value);\n      time.value = 60;\n    } else {\n      time.value -= 1;\n    }\n  }, 1000);\n};\nconst submit = () => {\n  formRef.value?.validate().then(({ valid }) => {\n    message[valid ? \"success\" : \"error\"](valid ? \"success\" : \"failed\");\n  });\n};\nconst reset = () => {\n  formRef.value?.reset();\n};\n</script>"
+          "source": "<template>\n  <div style=\"max-width: 600px\">\n    <Form\n      :model=\"form\"\n      :size=\"size\"\n      :rules=\"rules\"\n      ref=\"formRef\"\n      :labelCol=\"labelCol\"\n      :wrapperCol=\"wrapperCol\"\n    >\n      <FormItem label=\"Size\">\n        <RadioGroup v-model=\"size\" type=\"button\">\n          <RadioButton value=\"large\" label=\"Large\" />\n          <RadioButton value=\"medium\" label=\"Medium\" />\n          <RadioButton value=\"small\" label=\"Small\" />\n        </RadioGroup>\n      </FormItem>\n      <FormItem label=\"E-mail\" prop=\"email\">\n        <Input clearable placeholder=\"Please enter your email\" />\n      </FormItem>\n      <FormItem label=\"Number\" prop=\"number\">\n        <InputNumber placeholder=\"Please enter your number\" />\n      </FormItem>\n      <FormItem label=\"Password\" prop=\"password\">\n        <Input type=\"password\" placeholder=\"Please enter password\" />\n      </FormItem>\n      <FormItem label=\"Confirm Password\" prop=\"confirm_password\">\n        <Input type=\"password\" placeholder=\"Please enter password\" />\n      </FormItem>\n      <FormItem label=\"Phone Number\" prop=\"phone\">\n        <Input placeholder=\"Please enter phone number\" />\n      </FormItem>\n      <FormItem label=\"Captcha\" prop=\"captcha\">\n        <Input placeholder=\"Please enter captcha\">\n          <template #suffix>\n            <Button :size=\"size\" :disabled=\"time != 60\" @click=\"sendCode\">\n              {{ time == 60 ? \"Get Captcha\" : time + \"(s)\" }}\n            </Button>\n          </template>\n        </Input>\n      </FormItem>\n      <FormItem label=\"Country\">\n        <FormItem prop=\"country\" :wrapper-col=\"{ span: 24 }\">\n          <Select clearable style=\"width: 100%\">\n            <Option value=\"0\" label=\"China\" />\n            <Option value=\"1\" label=\"Russia\" />\n          </Select>\n        </FormItem>\n        <FormItem prop=\"city\" label=\"city\" :wrapper-col=\"{ span: 24 }\">\n          <Select clearable style=\"width: 100%\">\n            <Option value=\"0\" label=\"Shanghai\" />\n            <Option value=\"1\" label=\"Wuhan\" />\n            <Option value=\"2\" label=\"Hangzhou\" />\n          </Select>\n        </FormItem>\n      </FormItem>\n      <FormItem label=\"TreeSelect\" prop=\"tree\">\n        <TreeSelect style=\"width: 100%\" :tree-data=\"treeData\"> </TreeSelect>\n      </FormItem>\n      <FormItem label=\"Slider\" prop=\"slider\">\n        <Slider />\n      </FormItem>\n      <FormItem label=\"Rate\" prop=\"rate\">\n        <Rate />\n      </FormItem>\n      <FormItem label=\"Gender\" prop=\"gender\">\n        <RadioGroup>\n          <Radio :value=\"0\" label=\"Girl\" />\n          <Radio :value=\"1\" label=\"Boy\" />\n        </RadioGroup>\n      </FormItem>\n      <FormItem label=\"One\" prop=\"one\">\n        <Radio label=\"Only One?\" />\n      </FormItem>\n      <FormItem label=\"System\" prop=\"system\">\n        <RadioGroup type=\"button\">\n          <RadioButton :value=\"0\" label=\"Mac OS\" />\n          <RadioButton :value=\"1\" label=\"Windows\" />\n          <RadioButton :value=\"2\" label=\"Linux\" />\n        </RadioGroup>\n      </FormItem>\n      <FormItem label=\"Birthday\" prop=\"birthday\">\n        <DatePicker clearable />\n      </FormItem>\n      <FormItem label=\"Hobby\" prop=\"hobbies\">\n        <CheckboxGroup>\n          <Checkbox value=\"0\" label=\"Football\" />\n          <Checkbox value=\"1\" label=\"Music\" />\n          <Checkbox value=\"2\" label=\"Photograph\" />\n          <Checkbox value=\"3\" label=\"Tennis\" />\n        </CheckboxGroup>\n      </FormItem>\n      <FormItem label=\"Hardcore\" prop=\"hardcore\">\n        <Switch true-text=\"Yes\" false-text=\"No\" />\n      </FormItem>\n      <FormItem label=\"Other\" prop=\"other\">\n        <TextArea placeholder=\"Maximum 10 characters\" v-model=\"form.other\" />\n      </FormItem>\n      <FormItem prop=\"readme\" :wrapperCol=\"{ offset: 6 }\">\n        <Checkbox>我已阅读 <a>服务条款</a> </Checkbox>\n      </FormItem>\n      <FormItem :wrapperCol=\"{ offset: 6 }\">\n        <Button type=\"primary\" @click=\"submit\">Submit</Button>\n        <Button style=\"margin: 0 10px\" @click=\"reset\">Reset</Button>\n        <Button theme=\"dashed\" @click=\"setValue\">Set Value</Button>\n      </FormItem>\n    </Form>\n  </div>\n</template>\n<script setup lang=\"ts\">\nimport { message, type FormContext, type FormRule, type SizeType } from \"kui-vue\";\nimport { reactive, ref } from \"vue\";\nconst validatePass = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {\n  if (value !== form.password) {\n    return callback(new Error(\"Please confirm the password\"));\n  }\n  callback();\n};\nconst validateReadme = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {\n  if (value !== true) {\n    return callback(new Error(\"请阅读服务条款\"));\n  }\n  callback();\n};\nconst labelCol = { span: 6 };\nconst wrapperCol = { span: 16 };\nconst time = ref(60);\nconst timer = ref<ReturnType<typeof setTimeout>>();\nconst size = ref<SizeType>(\"medium\");\nconst formRef = ref<FormContext>();\nconst treeData = [\n  {\n    title: \"food\",\n    key: \"0\",\n    children: [\n      { title: \"apple\", key: \"0-1\" },\n      { title: \"orange\", key: \"0-2\" },\n    ],\n  },\n];\nconst form = reactive({\n  email: \"\",\n  number: undefined,\n  password: \"\",\n  confirm_password: \"\",\n  phone: \"\",\n  captcha: \"\",\n  slider: 3,\n  rate: 0,\n  tree: \"\",\n  gender: \"\",\n  one: false,\n  system: \"\",\n  birthday: \"\",\n  country: \"\",\n  city: \"\",\n  hobbies: [],\n  hardcore: \"\",\n  other: \"\",\n  readme: false,\n});\nconst rules: Record<string, FormRule[]> = {\n  email: [\n    { type: \"mail\", message: \"Please input a valid email\" },\n    { required: true, message: \"The email is required\" },\n  ],\n  number: [\n    { type: \"number\", message: \"Please input a valid number\" },\n    { required: true, message: \"The number is required\" },\n  ],\n  password: [\n    {\n      min: 8,\n      max: 20,\n      message: \"Please keep the password length between 8-20 digits.\",\n    },\n    { required: true, message: \"The password is required\" },\n  ],\n  confirm_password: [\n    {\n      min: 8,\n      max: 20,\n      message: \"Please keep the password length between 8-20 digits.\",\n    },\n    { validator: validatePass },\n    { required: true, message: \"Please confirm the password\" },\n  ],\n  phone: [\n    { type: \"mobile\", message: \"Please input the correct phone number\" },\n    { required: true, message: \"Please input your phone number\" },\n  ],\n  birthday: [{ required: true, message: \"Please select your birthday\" }],\n  country: [{ required: true, message: \"Please select your country\" }],\n  tree: [{ required: true, message: \"Please select your food\" }],\n  city: [{ required: true, message: \"Please select your city\" }],\n  captcha: [\n    { type: \"number\", message: \"The captcha must be a number\" },\n    { required: true, message: \"Please input the captcha\" },\n  ],\n  slider: [\n    { min: 5, message: \"Minimum value is 5\" },\n    { max: 50, message: \"Maximum value is 50\" },\n  ],\n  gender: [{ required: true, message: \"Please select your gender\" }],\n  rate: [\n    { required: true, message: \"Please select your rate\" },\n    { min: 1, message: \"The minimum value is 1\" },\n  ],\n  one: [{ required: true, message: \"霸王选项\" }],\n  system: [{ required: true, message: \"Please select your system\" }],\n  hardcore: [{ required: true, message: \"霸王选项\" }],\n  readme: [{ validator: validateReadme }],\n  hobbies: [\n    { required: true, message: \"Please select your hobbies\" },\n    { max: 3, message: \"Maximum value is 3\" },\n    { min: 2, message: \"Minimum value is 2\" },\n  ],\n  other: [\n    { required: true, message: \"Please fill in other information\" },\n    { max: 10, message: \"Maximum characters is 10\" },\n  ],\n};\nconst setValue = () => {\n  Object.assign(form, {\n    email: \"master@k-ui.cn\",\n    password: \"abc@123@123\",\n    confirm_password: \"abc@123@123\",\n    phone: \"13888888888\",\n    captcha: \"8888\",\n    gender: 1,\n    slider: 5,\n    rate: 5,\n    number: 5,\n    tree: \"0\",\n    system: 0,\n    one: true,\n    birthday: \"1995-05-05\",\n    country: \"1\",\n    city: \"1\",\n    hobbies: [\"0\", \"1\"],\n    hardcore: true,\n    other: \"Test data\",\n    readme: true,\n  });\n};\nconst sendCode = () => {\n  time.value = 59;\n  message.success(\"The verification code has been sent.\");\n  clearInterval(timer.value);\n  timer.value = setInterval(() => {\n    if (time.value < 1) {\n      clearInterval(timer.value);\n      time.value = 60;\n    } else {\n      time.value -= 1;\n    }\n  }, 1000);\n};\nconst submit = () => {\n  formRef.value?.validate().then(({ valid }) => {\n    message[valid ? \"success\" : \"error\"](valid ? \"success\" : \"failed\");\n  });\n};\nconst reset = () => {\n  formRef.value?.reset();\n};\n</script>"
         },
         {
           "title": "辅助校验",
@@ -4709,10 +4563,7 @@
     },
     {
       "name": "FormItem",
-      "tags": [
-        "form-item",
-        "k-form-item"
-      ],
+      "tags": ["form-item", "k-form-item"],
       "parent": "Form",
       "children": [],
       "documentation": "https://k-ui.cn/components/form",
@@ -4779,7 +4630,7 @@
         {
           "title": "表单验证",
           "file": "components/form/demo/valid.vue",
-          "source": "<template>\n  <div style=\"max-width: 600px\">\n    <Form\n      :model=\"form\"\n      :size=\"size\"\n      :rules=\"rules\"\n      ref=\"formRef\"\n      :labelCol=\"labelCol\"\n      :wrapperCol=\"wrapperCol\"\n    >\n      <FormItem label=\"Size\">\n        <RadioGroup v-model=\"size\" type=\"button\">\n          <RadioButton value=\"large\" label=\"Large\" />\n          <RadioButton value=\"medium\" label=\"Medium\" />\n          <RadioButton value=\"small\" label=\"Small\" />\n        </RadioGroup>\n      </FormItem>\n      <FormItem label=\"E-mail\" prop=\"email\">\n        <Input clearable placeholder=\"Please enter your email\" />\n      </FormItem>\n      <FormItem label=\"Number\" prop=\"number\">\n        <InputNumber placeholder=\"Please enter your number\" />\n      </FormItem>\n      <FormItem label=\"Password\" prop=\"password\">\n        <Input type=\"password\" placeholder=\"Please enter password\" />\n      </FormItem>\n      <FormItem label=\"Confirm Password\" prop=\"confirm_password\">\n        <Input type=\"password\" placeholder=\"Please enter password\" />\n      </FormItem>\n      <FormItem label=\"Phone Number\" prop=\"phone\">\n        <Input placeholder=\"Please enter phone number\" />\n      </FormItem>\n      <FormItem label=\"Captcha\" prop=\"captcha\">\n        <Input placeholder=\"Please enter captcha\">\n          <template #suffix>\n            <Button :size=\"size\" :disabled=\"time != 60\" @click=\"sendCode\">\n              {{ time == 60 ? \"Get verification code\" : time + \"(s)\" }}\n            </Button>\n          </template>\n        </Input>\n      </FormItem>\n      <FormItem label=\"Country\">\n        <FormItem prop=\"country\" :wrapper-col=\"{ span: 24 }\">\n          <Select clearable style=\"width: 100%\">\n            <Option value=\"0\" label=\"China\" />\n            <Option value=\"1\" label=\"Russia\" />\n          </Select>\n        </FormItem>\n        <FormItem prop=\"city\" label=\"city\" :wrapper-col=\"{ span: 24 }\">\n          <Select clearable style=\"width: 100%\">\n            <Option value=\"0\" label=\"Shanghai\" />\n            <Option value=\"1\" label=\"Wuhan\" />\n            <Option value=\"2\" label=\"Hangzhou\" />\n          </Select>\n        </FormItem>\n      </FormItem>\n      <FormItem label=\"TreeSelect\" prop=\"tree\">\n        <TreeSelect style=\"width: 100%\" :tree-data=\"treeData\"> </TreeSelect>\n      </FormItem>\n      <FormItem label=\"Slider\" prop=\"slider\">\n        <Slider />\n      </FormItem>\n      <FormItem label=\"Rate\" prop=\"rate\">\n        <Rate />\n      </FormItem>\n      <FormItem label=\"Gender\" prop=\"gender\">\n        <RadioGroup>\n          <Radio :value=\"0\" label=\"Girl\" />\n          <Radio :value=\"1\" label=\"Boy\" />\n        </RadioGroup>\n      </FormItem>\n      <FormItem label=\"One\" prop=\"one\">\n        <Radio label=\"Only One?\" />\n      </FormItem>\n      <FormItem label=\"System\" prop=\"system\">\n        <RadioGroup type=\"button\">\n          <RadioButton :value=\"0\" label=\"Mac OS\" />\n          <RadioButton :value=\"1\" label=\"Windows\" />\n          <RadioButton :value=\"2\" label=\"Linux\" />\n        </RadioGroup>\n      </FormItem>\n      <FormItem label=\"Birthday\" prop=\"birthday\">\n        <DatePicker clearable />\n      </FormItem>\n      <FormItem label=\"Hobby\" prop=\"hobbies\">\n        <CheckboxGroup>\n          <Checkbox value=\"0\" label=\"Football\" />\n          <Checkbox value=\"1\" label=\"Music\" />\n          <Checkbox value=\"2\" label=\"Photograph\" />\n          <Checkbox value=\"3\" label=\"Tennis\" />\n        </CheckboxGroup>\n      </FormItem>\n      <FormItem label=\"Hardcore\" prop=\"hardcore\">\n        <Switch true-text=\"Yes\" false-text=\"No\" />\n      </FormItem>\n      <FormItem label=\"Other\" prop=\"other\">\n        <TextArea placeholder=\"Maximum 10 characters\" v-model=\"form.other\" />\n      </FormItem>\n      <FormItem prop=\"readme\" :wrapperCol=\"{ offset: 6 }\">\n        <Checkbox>我已阅读 <a>服务条款</a> </Checkbox>\n      </FormItem>\n      <FormItem :wrapperCol=\"{ offset: 6 }\">\n        <Button type=\"primary\" @click=\"submit\">Submit</Button>\n        <Button style=\"margin: 0 10px\" @click=\"reset\">Reset</Button>\n        <Button theme=\"dashed\" @click=\"setValue\">Set Value</Button>\n      </FormItem>\n    </Form>\n  </div>\n</template>\n<script setup lang=\"ts\">\nimport { message, type FormContext, type FormRule, type SizeType } from \"kui-vue\";\nimport { reactive, ref } from \"vue\";\nconst validatePass = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {\n  if (value !== form.password) {\n    return callback(new Error(\"Please confirm the password\"));\n  }\n  callback();\n};\nconst validateReadme = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {\n  if (value !== true) {\n    return callback(new Error(\"请阅读服务条款\"));\n  }\n  callback();\n};\nconst labelCol = { span: 6 };\nconst wrapperCol = { span: 16 };\nconst time = ref(60);\nconst timer = ref<ReturnType<typeof setTimeout>>();\nconst size = ref<SizeType>(\"medium\");\nconst formRef = ref<FormContext>();\nconst treeData = [\n  {\n    title: \"food\",\n    key: \"0\",\n    children: [\n      { title: \"apple\", key: \"0-1\" },\n      { title: \"orange\", key: \"0-2\" },\n    ],\n  },\n];\nconst form = reactive({\n  email: \"\",\n  number: undefined,\n  password: \"\",\n  confirm_password: \"\",\n  phone: \"\",\n  captcha: \"\",\n  slider: 3,\n  rate: 0,\n  tree: \"\",\n  gender: \"\",\n  one: false,\n  system: \"\",\n  birthday: \"\",\n  country: \"\",\n  city: \"\",\n  hobbies: [],\n  hardcore: \"\",\n  other: \"\",\n  readme: false,\n});\nconst rules: Record<string, FormRule[]> = {\n  email: [\n    { type: \"mail\", message: \"Please input a valid email\" },\n    { required: true, message: \"The email is required\" },\n  ],\n  number: [\n    { type: \"number\", message: \"Please input a valid number\" },\n    { required: true, message: \"The number is required\" },\n  ],\n  password: [\n    {\n      min: 8,\n      max: 20,\n      message: \"Please keep the password length between 8-20 digits.\",\n    },\n    { required: true, message: \"The password is required\" },\n  ],\n  confirm_password: [\n    {\n      min: 8,\n      max: 20,\n      message: \"Please keep the password length between 8-20 digits.\",\n    },\n    { validator: validatePass },\n    { required: true, message: \"Please confirm the password\" },\n  ],\n  phone: [\n    { type: \"mobile\", message: \"Please input the correct phone number\" },\n    { required: true, message: \"Please input your phone number\" },\n  ],\n  birthday: [{ required: true, message: \"Please select your birthday\" }],\n  country: [{ required: true, message: \"Please select your country\" }],\n  tree: [{ required: true, message: \"Please select your food\" }],\n  city: [{ required: true, message: \"Please select your city\" }],\n  captcha: [\n    { type: \"number\", message: \"The captcha must be a number\" },\n    { required: true, message: \"Please input the captcha\" },\n  ],\n  slider: [\n    { min: 5, message: \"Minimum value is 5\" },\n    { max: 50, message: \"Maximum value is 50\" },\n  ],\n  gender: [{ required: true, message: \"Please select your gender\" }],\n  rate: [\n    { required: true, message: \"Please select your rate\" },\n    { min: 1, message: \"The minimum value is 1\" },\n  ],\n  one: [{ required: true, message: \"霸王选项\" }],\n  system: [{ required: true, message: \"Please select your system\" }],\n  hardcore: [{ required: true, message: \"霸王选项\" }],\n  readme: [{ validator: validateReadme }],\n  hobbies: [\n    { required: true, message: \"Please select your hobbies\" },\n    { max: 3, message: \"Maximum value is 3\" },\n    { min: 2, message: \"Minimum value is 2\" },\n  ],\n  other: [\n    { required: true, message: \"Please fill in other information\" },\n    { max: 10, message: \"Maximum characters is 10\" },\n  ],\n};\nconst setValue = () => {\n  Object.assign(form, {\n    email: \"master@k-ui.cn\",\n    password: \"abc@123@123\",\n    confirm_password: \"abc@123@123\",\n    phone: \"13888888888\",\n    captcha: \"8888\",\n    gender: 1,\n    slider: 5,\n    rate: 5,\n    number: 5,\n    tree: \"0\",\n    system: 0,\n    one: true,\n    birthday: \"1995-05-05\",\n    country: \"1\",\n    city: \"1\",\n    hobbies: [\"0\", \"1\"],\n    hardcore: true,\n    other: \"Test data\",\n    readme: true,\n  });\n};\nconst sendCode = () => {\n  time.value = 59;\n  message.success(\"The verification code has been sent.\");\n  clearInterval(timer.value);\n  timer.value = setInterval(() => {\n    if (time.value < 1) {\n      clearInterval(timer.value);\n      time.value = 60;\n    } else {\n      time.value -= 1;\n    }\n  }, 1000);\n};\nconst submit = () => {\n  formRef.value?.validate().then(({ valid }) => {\n    message[valid ? \"success\" : \"error\"](valid ? \"success\" : \"failed\");\n  });\n};\nconst reset = () => {\n  formRef.value?.reset();\n};\n</script>"
+          "source": "<template>\n  <div style=\"max-width: 600px\">\n    <Form\n      :model=\"form\"\n      :size=\"size\"\n      :rules=\"rules\"\n      ref=\"formRef\"\n      :labelCol=\"labelCol\"\n      :wrapperCol=\"wrapperCol\"\n    >\n      <FormItem label=\"Size\">\n        <RadioGroup v-model=\"size\" type=\"button\">\n          <RadioButton value=\"large\" label=\"Large\" />\n          <RadioButton value=\"medium\" label=\"Medium\" />\n          <RadioButton value=\"small\" label=\"Small\" />\n        </RadioGroup>\n      </FormItem>\n      <FormItem label=\"E-mail\" prop=\"email\">\n        <Input clearable placeholder=\"Please enter your email\" />\n      </FormItem>\n      <FormItem label=\"Number\" prop=\"number\">\n        <InputNumber placeholder=\"Please enter your number\" />\n      </FormItem>\n      <FormItem label=\"Password\" prop=\"password\">\n        <Input type=\"password\" placeholder=\"Please enter password\" />\n      </FormItem>\n      <FormItem label=\"Confirm Password\" prop=\"confirm_password\">\n        <Input type=\"password\" placeholder=\"Please enter password\" />\n      </FormItem>\n      <FormItem label=\"Phone Number\" prop=\"phone\">\n        <Input placeholder=\"Please enter phone number\" />\n      </FormItem>\n      <FormItem label=\"Captcha\" prop=\"captcha\">\n        <Input placeholder=\"Please enter captcha\">\n          <template #suffix>\n            <Button :size=\"size\" :disabled=\"time != 60\" @click=\"sendCode\">\n              {{ time == 60 ? \"Get Captcha\" : time + \"(s)\" }}\n            </Button>\n          </template>\n        </Input>\n      </FormItem>\n      <FormItem label=\"Country\">\n        <FormItem prop=\"country\" :wrapper-col=\"{ span: 24 }\">\n          <Select clearable style=\"width: 100%\">\n            <Option value=\"0\" label=\"China\" />\n            <Option value=\"1\" label=\"Russia\" />\n          </Select>\n        </FormItem>\n        <FormItem prop=\"city\" label=\"city\" :wrapper-col=\"{ span: 24 }\">\n          <Select clearable style=\"width: 100%\">\n            <Option value=\"0\" label=\"Shanghai\" />\n            <Option value=\"1\" label=\"Wuhan\" />\n            <Option value=\"2\" label=\"Hangzhou\" />\n          </Select>\n        </FormItem>\n      </FormItem>\n      <FormItem label=\"TreeSelect\" prop=\"tree\">\n        <TreeSelect style=\"width: 100%\" :tree-data=\"treeData\"> </TreeSelect>\n      </FormItem>\n      <FormItem label=\"Slider\" prop=\"slider\">\n        <Slider />\n      </FormItem>\n      <FormItem label=\"Rate\" prop=\"rate\">\n        <Rate />\n      </FormItem>\n      <FormItem label=\"Gender\" prop=\"gender\">\n        <RadioGroup>\n          <Radio :value=\"0\" label=\"Girl\" />\n          <Radio :value=\"1\" label=\"Boy\" />\n        </RadioGroup>\n      </FormItem>\n      <FormItem label=\"One\" prop=\"one\">\n        <Radio label=\"Only One?\" />\n      </FormItem>\n      <FormItem label=\"System\" prop=\"system\">\n        <RadioGroup type=\"button\">\n          <RadioButton :value=\"0\" label=\"Mac OS\" />\n          <RadioButton :value=\"1\" label=\"Windows\" />\n          <RadioButton :value=\"2\" label=\"Linux\" />\n        </RadioGroup>\n      </FormItem>\n      <FormItem label=\"Birthday\" prop=\"birthday\">\n        <DatePicker clearable />\n      </FormItem>\n      <FormItem label=\"Hobby\" prop=\"hobbies\">\n        <CheckboxGroup>\n          <Checkbox value=\"0\" label=\"Football\" />\n          <Checkbox value=\"1\" label=\"Music\" />\n          <Checkbox value=\"2\" label=\"Photograph\" />\n          <Checkbox value=\"3\" label=\"Tennis\" />\n        </CheckboxGroup>\n      </FormItem>\n      <FormItem label=\"Hardcore\" prop=\"hardcore\">\n        <Switch true-text=\"Yes\" false-text=\"No\" />\n      </FormItem>\n      <FormItem label=\"Other\" prop=\"other\">\n        <TextArea placeholder=\"Maximum 10 characters\" v-model=\"form.other\" />\n      </FormItem>\n      <FormItem prop=\"readme\" :wrapperCol=\"{ offset: 6 }\">\n        <Checkbox>我已阅读 <a>服务条款</a> </Checkbox>\n      </FormItem>\n      <FormItem :wrapperCol=\"{ offset: 6 }\">\n        <Button type=\"primary\" @click=\"submit\">Submit</Button>\n        <Button style=\"margin: 0 10px\" @click=\"reset\">Reset</Button>\n        <Button theme=\"dashed\" @click=\"setValue\">Set Value</Button>\n      </FormItem>\n    </Form>\n  </div>\n</template>\n<script setup lang=\"ts\">\nimport { message, type FormContext, type FormRule, type SizeType } from \"kui-vue\";\nimport { reactive, ref } from \"vue\";\nconst validatePass = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {\n  if (value !== form.password) {\n    return callback(new Error(\"Please confirm the password\"));\n  }\n  callback();\n};\nconst validateReadme = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {\n  if (value !== true) {\n    return callback(new Error(\"请阅读服务条款\"));\n  }\n  callback();\n};\nconst labelCol = { span: 6 };\nconst wrapperCol = { span: 16 };\nconst time = ref(60);\nconst timer = ref<ReturnType<typeof setTimeout>>();\nconst size = ref<SizeType>(\"medium\");\nconst formRef = ref<FormContext>();\nconst treeData = [\n  {\n    title: \"food\",\n    key: \"0\",\n    children: [\n      { title: \"apple\", key: \"0-1\" },\n      { title: \"orange\", key: \"0-2\" },\n    ],\n  },\n];\nconst form = reactive({\n  email: \"\",\n  number: undefined,\n  password: \"\",\n  confirm_password: \"\",\n  phone: \"\",\n  captcha: \"\",\n  slider: 3,\n  rate: 0,\n  tree: \"\",\n  gender: \"\",\n  one: false,\n  system: \"\",\n  birthday: \"\",\n  country: \"\",\n  city: \"\",\n  hobbies: [],\n  hardcore: \"\",\n  other: \"\",\n  readme: false,\n});\nconst rules: Record<string, FormRule[]> = {\n  email: [\n    { type: \"mail\", message: \"Please input a valid email\" },\n    { required: true, message: \"The email is required\" },\n  ],\n  number: [\n    { type: \"number\", message: \"Please input a valid number\" },\n    { required: true, message: \"The number is required\" },\n  ],\n  password: [\n    {\n      min: 8,\n      max: 20,\n      message: \"Please keep the password length between 8-20 digits.\",\n    },\n    { required: true, message: \"The password is required\" },\n  ],\n  confirm_password: [\n    {\n      min: 8,\n      max: 20,\n      message: \"Please keep the password length between 8-20 digits.\",\n    },\n    { validator: validatePass },\n    { required: true, message: \"Please confirm the password\" },\n  ],\n  phone: [\n    { type: \"mobile\", message: \"Please input the correct phone number\" },\n    { required: true, message: \"Please input your phone number\" },\n  ],\n  birthday: [{ required: true, message: \"Please select your birthday\" }],\n  country: [{ required: true, message: \"Please select your country\" }],\n  tree: [{ required: true, message: \"Please select your food\" }],\n  city: [{ required: true, message: \"Please select your city\" }],\n  captcha: [\n    { type: \"number\", message: \"The captcha must be a number\" },\n    { required: true, message: \"Please input the captcha\" },\n  ],\n  slider: [\n    { min: 5, message: \"Minimum value is 5\" },\n    { max: 50, message: \"Maximum value is 50\" },\n  ],\n  gender: [{ required: true, message: \"Please select your gender\" }],\n  rate: [\n    { required: true, message: \"Please select your rate\" },\n    { min: 1, message: \"The minimum value is 1\" },\n  ],\n  one: [{ required: true, message: \"霸王选项\" }],\n  system: [{ required: true, message: \"Please select your system\" }],\n  hardcore: [{ required: true, message: \"霸王选项\" }],\n  readme: [{ validator: validateReadme }],\n  hobbies: [\n    { required: true, message: \"Please select your hobbies\" },\n    { max: 3, message: \"Maximum value is 3\" },\n    { min: 2, message: \"Minimum value is 2\" },\n  ],\n  other: [\n    { required: true, message: \"Please fill in other information\" },\n    { max: 10, message: \"Maximum characters is 10\" },\n  ],\n};\nconst setValue = () => {\n  Object.assign(form, {\n    email: \"master@k-ui.cn\",\n    password: \"abc@123@123\",\n    confirm_password: \"abc@123@123\",\n    phone: \"13888888888\",\n    captcha: \"8888\",\n    gender: 1,\n    slider: 5,\n    rate: 5,\n    number: 5,\n    tree: \"0\",\n    system: 0,\n    one: true,\n    birthday: \"1995-05-05\",\n    country: \"1\",\n    city: \"1\",\n    hobbies: [\"0\", \"1\"],\n    hardcore: true,\n    other: \"Test data\",\n    readme: true,\n  });\n};\nconst sendCode = () => {\n  time.value = 59;\n  message.success(\"The verification code has been sent.\");\n  clearInterval(timer.value);\n  timer.value = setInterval(() => {\n    if (time.value < 1) {\n      clearInterval(timer.value);\n      time.value = 60;\n    } else {\n      time.value -= 1;\n    }\n  }, 1000);\n};\nconst submit = () => {\n  formRef.value?.validate().then(({ valid }) => {\n    message[valid ? \"success\" : \"error\"](valid ? \"success\" : \"failed\");\n  });\n};\nconst reset = () => {\n  formRef.value?.reset();\n};\n</script>"
         },
         {
           "title": "辅助校验",
@@ -4805,10 +4656,7 @@
     },
     {
       "name": "Flex",
-      "tags": [
-        "flex",
-        "k-flex"
-      ],
+      "tags": ["flex", "k-flex"],
       "children": [],
       "documentation": "https://k-ui.cn/components/flex",
       "props": [
@@ -4885,13 +4733,8 @@
     },
     {
       "name": "Grid",
-      "tags": [
-        "grid",
-        "k-grid"
-      ],
-      "children": [
-        "GridItem"
-      ],
+      "tags": ["grid", "k-grid"],
+      "children": ["GridItem"],
       "documentation": "https://k-ui.cn/components/grid",
       "props": [
         {
@@ -5042,10 +4885,7 @@
     },
     {
       "name": "GridItem",
-      "tags": [
-        "grid-item",
-        "k-grid-item"
-      ],
+      "tags": ["grid-item", "k-grid-item"],
       "parent": "Grid",
       "children": [],
       "documentation": "https://k-ui.cn/components/grid",
@@ -5144,9 +4984,7 @@
     },
     {
       "name": "Image",
-      "tags": [
-        "Image"
-      ],
+      "tags": ["Image"],
       "parent": "ImageGroup",
       "children": [],
       "documentation": "https://k-ui.cn/components/image",
@@ -5322,13 +5160,8 @@
     },
     {
       "name": "ImageGroup",
-      "tags": [
-        "image-group",
-        "k-image-group"
-      ],
-      "children": [
-        "Image"
-      ],
+      "tags": ["image-group", "k-image-group"],
+      "children": ["Image"],
       "documentation": "https://k-ui.cn/components/image",
       "props": [
         {
@@ -5368,10 +5201,7 @@
     },
     {
       "name": "Icon",
-      "tags": [
-        "icon",
-        "k-icon"
-      ],
+      "tags": ["icon", "k-icon"],
       "children": [],
       "documentation": "https://k-ui.cn/components/icon",
       "props": [
@@ -5465,10 +5295,7 @@
     },
     {
       "name": "Input",
-      "tags": [
-        "input",
-        "k-input"
-      ],
+      "tags": ["input", "k-input"],
       "children": [],
       "documentation": "https://k-ui.cn/components/input",
       "props": [
@@ -5680,7 +5507,7 @@
         {
           "title": "扩展, 前缀和后缀",
           "file": "components/input/demo/suffix.vue",
-          "source": "<template>\n  <Space vertical block>\n    <Input placeholder=\"Please input username\" :icon=\"User\" />\n    <Input\n      placeholder=\"Please input the captcha\"\n      :maxlength=\"8\"\n      :prefix=\"h(Icon, { type: Search })\"\n      :suffix=\"h(Tag, { theme: 'outline' }, { default: () => '⌘K' })\"\n    >\n    </Input>\n    <Input placeholder=\"Please input the captcha\" :maxlength=\"8\">\n      <template #suffix>\n        <Button :disabled=\"time < 60\" @click=\"sendCode\">\n          {{ time == 60 ? \"Get verification code\" : time + \"(s)\" }}\n        </Button>\n      </template>\n    </Input>\n    <Input placeholder=\"Please input\" :icon=\"Gift\">\n      <template #suffix>\n        <Tooltip title=\"Please contact the administrator\">\n          <Button :icon=\"CircleQuestionMark\" />\n        </Tooltip>\n      </template>\n    </Input>\n    <Input placeholder=\"Please enter the amount\" suffix=\"RMB\" prefix=\"¥\" />\n    <Input placeholder=\"Please enter the domain\" suffix=\".com\" prefix=\"https://\" />\n    <Input placeholder=\"Please input\" prefix=\"www.\">\n      <template #prefix>\n        <Select :options=\"options\" clearable modelValue=\"http\"></Select>\n      </template>\n      <template #suffix>\n        <Select :options=\"list\" clearable modelValue=\".com\"></Select>\n      </template>\n    </Input>\n    <Input placeholder=\"Please input\" suffix=\".00\" />\n    <Input placeholder=\"Please input\" prefix=\"www.\">\n      <template #prefix>\n        <Select :options=\"options\" clearable modelValue=\"http\"></Select>\n      </template>\n      <template #suffix>\n        <TreeSelect :tree-data=\"treeData\" clearable style=\"width: 100px\"></TreeSelect>\n      </template>\n    </Input>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { CircleQuestionMark, Gift, Search, User } from \"kui-icons\";\nimport { Icon, message, Tag } from \"kui-vue\";\nimport { h, onUnmounted, ref } from \"vue\";\nconst time = ref(60);\nconst timer = ref();\n\nconst sendCode = () => {\n  if (timer.value) {\n    clearInterval(timer.value);\n  }\n  time.value = 59;\n  message.success(\"Verification code sent successfully\");\n  timer.value = setInterval(() => {\n    time.value--;\n    if (time.value <= 0) {\n      clearInterval(timer.value);\n      time.value = 60;\n    }\n  }, 1000);\n};\nconst options = [\n  { label: \"http\", value: \"http\" },\n  { label: \"https\", value: \"https\" },\n];\nconst list = [\n  { label: \".com\", value: \".com\" },\n  { label: \".cn\", value: \".cn\" },\n  { label: \".org\", value: \".org\" },\n];\nconst treeData = [\n  {\n    title: \"fruit\",\n    key: \"1\",\n    children: [\n      { title: \"apple\", key: \"11\" },\n      { title: \"orange\", key: \"12\" },\n    ],\n  },\n];\n\nonUnmounted(() => {\n  if (timer.value) {\n    clearInterval(timer.value);\n  }\n});\n</script>"
+          "source": "<template>\n  <Space vertical block>\n    <Input placeholder=\"Please input username\" :icon=\"User\" />\n    <Input\n      placeholder=\"Please input the captcha\"\n      :maxlength=\"8\"\n      :prefix=\"h(Icon, { type: Search })\"\n      :suffix=\"h(Tag, { theme: 'outline' }, { default: () => '⌘K' })\"\n    >\n    </Input>\n    <Input placeholder=\"Please input the captcha\" :maxlength=\"8\">\n      <template #suffix>\n        <Button :disabled=\"time < 60\" @click=\"sendCode\">\n          {{ time == 60 ? \"Get Captcha\" : time + \"(s)\" }}\n        </Button>\n      </template>\n    </Input>\n    <Input placeholder=\"Please input\" :icon=\"Gift\">\n      <template #suffix>\n        <Tooltip title=\"Please contact the administrator\">\n          <Button :icon=\"CircleQuestionMark\" />\n        </Tooltip>\n      </template>\n    </Input>\n    <Input placeholder=\"Please enter the amount\" suffix=\"RMB\" prefix=\"¥\" />\n    <Input placeholder=\"Please enter the domain\" suffix=\".com\" prefix=\"https://\" />\n    <Input placeholder=\"Please input\" prefix=\"www.\">\n      <template #prefix>\n        <Select :options=\"options\" clearable modelValue=\"http\"></Select>\n      </template>\n      <template #suffix>\n        <Select :options=\"list\" clearable modelValue=\".com\"></Select>\n      </template>\n    </Input>\n    <Input placeholder=\"Please input\" suffix=\".00\" />\n    <Input placeholder=\"Please input\" prefix=\"www.\">\n      <template #prefix>\n        <Select :options=\"options\" clearable modelValue=\"http\"></Select>\n      </template>\n      <template #suffix>\n        <TreeSelect :tree-data=\"treeData\" clearable style=\"width: 100px\"></TreeSelect>\n      </template>\n    </Input>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { CircleQuestionMark, Gift, Search, User } from \"kui-icons\";\nimport { Icon, message, Tag } from \"kui-vue\";\nimport { h, onUnmounted, ref } from \"vue\";\nconst time = ref(60);\nconst timer = ref();\n\nconst sendCode = () => {\n  if (timer.value) {\n    clearInterval(timer.value);\n  }\n  time.value = 59;\n  message.success(\"Verification code sent successfully\");\n  timer.value = setInterval(() => {\n    time.value--;\n    if (time.value <= 0) {\n      clearInterval(timer.value);\n      time.value = 60;\n    }\n  }, 1000);\n};\nconst options = [\n  { label: \"http\", value: \"http\" },\n  { label: \"https\", value: \"https\" },\n];\nconst list = [\n  { label: \".com\", value: \".com\" },\n  { label: \".cn\", value: \".cn\" },\n  { label: \".org\", value: \".org\" },\n];\nconst treeData = [\n  {\n    title: \"fruit\",\n    key: \"1\",\n    children: [\n      { title: \"apple\", key: \"11\" },\n      { title: \"orange\", key: \"12\" },\n    ],\n  },\n];\n\nonUnmounted(() => {\n  if (timer.value) {\n    clearInterval(timer.value);\n  }\n});\n</script>"
         },
         {
           "title": "输入框组合",
@@ -5706,10 +5533,7 @@
     },
     {
       "name": "InputGroup",
-      "tags": [
-        "input-group",
-        "k-input-group"
-      ],
+      "tags": ["input-group", "k-input-group"],
       "children": [],
       "documentation": "https://k-ui.cn/components/input",
       "props": [
@@ -5771,7 +5595,7 @@
         {
           "title": "扩展, 前缀和后缀",
           "file": "components/input/demo/suffix.vue",
-          "source": "<template>\n  <Space vertical block>\n    <Input placeholder=\"Please input username\" :icon=\"User\" />\n    <Input\n      placeholder=\"Please input the captcha\"\n      :maxlength=\"8\"\n      :prefix=\"h(Icon, { type: Search })\"\n      :suffix=\"h(Tag, { theme: 'outline' }, { default: () => '⌘K' })\"\n    >\n    </Input>\n    <Input placeholder=\"Please input the captcha\" :maxlength=\"8\">\n      <template #suffix>\n        <Button :disabled=\"time < 60\" @click=\"sendCode\">\n          {{ time == 60 ? \"Get verification code\" : time + \"(s)\" }}\n        </Button>\n      </template>\n    </Input>\n    <Input placeholder=\"Please input\" :icon=\"Gift\">\n      <template #suffix>\n        <Tooltip title=\"Please contact the administrator\">\n          <Button :icon=\"CircleQuestionMark\" />\n        </Tooltip>\n      </template>\n    </Input>\n    <Input placeholder=\"Please enter the amount\" suffix=\"RMB\" prefix=\"¥\" />\n    <Input placeholder=\"Please enter the domain\" suffix=\".com\" prefix=\"https://\" />\n    <Input placeholder=\"Please input\" prefix=\"www.\">\n      <template #prefix>\n        <Select :options=\"options\" clearable modelValue=\"http\"></Select>\n      </template>\n      <template #suffix>\n        <Select :options=\"list\" clearable modelValue=\".com\"></Select>\n      </template>\n    </Input>\n    <Input placeholder=\"Please input\" suffix=\".00\" />\n    <Input placeholder=\"Please input\" prefix=\"www.\">\n      <template #prefix>\n        <Select :options=\"options\" clearable modelValue=\"http\"></Select>\n      </template>\n      <template #suffix>\n        <TreeSelect :tree-data=\"treeData\" clearable style=\"width: 100px\"></TreeSelect>\n      </template>\n    </Input>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { CircleQuestionMark, Gift, Search, User } from \"kui-icons\";\nimport { Icon, message, Tag } from \"kui-vue\";\nimport { h, onUnmounted, ref } from \"vue\";\nconst time = ref(60);\nconst timer = ref();\n\nconst sendCode = () => {\n  if (timer.value) {\n    clearInterval(timer.value);\n  }\n  time.value = 59;\n  message.success(\"Verification code sent successfully\");\n  timer.value = setInterval(() => {\n    time.value--;\n    if (time.value <= 0) {\n      clearInterval(timer.value);\n      time.value = 60;\n    }\n  }, 1000);\n};\nconst options = [\n  { label: \"http\", value: \"http\" },\n  { label: \"https\", value: \"https\" },\n];\nconst list = [\n  { label: \".com\", value: \".com\" },\n  { label: \".cn\", value: \".cn\" },\n  { label: \".org\", value: \".org\" },\n];\nconst treeData = [\n  {\n    title: \"fruit\",\n    key: \"1\",\n    children: [\n      { title: \"apple\", key: \"11\" },\n      { title: \"orange\", key: \"12\" },\n    ],\n  },\n];\n\nonUnmounted(() => {\n  if (timer.value) {\n    clearInterval(timer.value);\n  }\n});\n</script>"
+          "source": "<template>\n  <Space vertical block>\n    <Input placeholder=\"Please input username\" :icon=\"User\" />\n    <Input\n      placeholder=\"Please input the captcha\"\n      :maxlength=\"8\"\n      :prefix=\"h(Icon, { type: Search })\"\n      :suffix=\"h(Tag, { theme: 'outline' }, { default: () => '⌘K' })\"\n    >\n    </Input>\n    <Input placeholder=\"Please input the captcha\" :maxlength=\"8\">\n      <template #suffix>\n        <Button :disabled=\"time < 60\" @click=\"sendCode\">\n          {{ time == 60 ? \"Get Captcha\" : time + \"(s)\" }}\n        </Button>\n      </template>\n    </Input>\n    <Input placeholder=\"Please input\" :icon=\"Gift\">\n      <template #suffix>\n        <Tooltip title=\"Please contact the administrator\">\n          <Button :icon=\"CircleQuestionMark\" />\n        </Tooltip>\n      </template>\n    </Input>\n    <Input placeholder=\"Please enter the amount\" suffix=\"RMB\" prefix=\"¥\" />\n    <Input placeholder=\"Please enter the domain\" suffix=\".com\" prefix=\"https://\" />\n    <Input placeholder=\"Please input\" prefix=\"www.\">\n      <template #prefix>\n        <Select :options=\"options\" clearable modelValue=\"http\"></Select>\n      </template>\n      <template #suffix>\n        <Select :options=\"list\" clearable modelValue=\".com\"></Select>\n      </template>\n    </Input>\n    <Input placeholder=\"Please input\" suffix=\".00\" />\n    <Input placeholder=\"Please input\" prefix=\"www.\">\n      <template #prefix>\n        <Select :options=\"options\" clearable modelValue=\"http\"></Select>\n      </template>\n      <template #suffix>\n        <TreeSelect :tree-data=\"treeData\" clearable style=\"width: 100px\"></TreeSelect>\n      </template>\n    </Input>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { CircleQuestionMark, Gift, Search, User } from \"kui-icons\";\nimport { Icon, message, Tag } from \"kui-vue\";\nimport { h, onUnmounted, ref } from \"vue\";\nconst time = ref(60);\nconst timer = ref();\n\nconst sendCode = () => {\n  if (timer.value) {\n    clearInterval(timer.value);\n  }\n  time.value = 59;\n  message.success(\"Verification code sent successfully\");\n  timer.value = setInterval(() => {\n    time.value--;\n    if (time.value <= 0) {\n      clearInterval(timer.value);\n      time.value = 60;\n    }\n  }, 1000);\n};\nconst options = [\n  { label: \"http\", value: \"http\" },\n  { label: \"https\", value: \"https\" },\n];\nconst list = [\n  { label: \".com\", value: \".com\" },\n  { label: \".cn\", value: \".cn\" },\n  { label: \".org\", value: \".org\" },\n];\nconst treeData = [\n  {\n    title: \"fruit\",\n    key: \"1\",\n    children: [\n      { title: \"apple\", key: \"11\" },\n      { title: \"orange\", key: \"12\" },\n    ],\n  },\n];\n\nonUnmounted(() => {\n  if (timer.value) {\n    clearInterval(timer.value);\n  }\n});\n</script>"
         },
         {
           "title": "输入框组合",
@@ -5797,10 +5621,7 @@
     },
     {
       "name": "TextArea",
-      "tags": [
-        "text-area",
-        "k-text-area"
-      ],
+      "tags": ["text-area", "k-text-area"],
       "children": [],
       "documentation": "https://k-ui.cn/components/input",
       "props": [
@@ -5916,7 +5737,7 @@
         {
           "title": "扩展, 前缀和后缀",
           "file": "components/input/demo/suffix.vue",
-          "source": "<template>\n  <Space vertical block>\n    <Input placeholder=\"Please input username\" :icon=\"User\" />\n    <Input\n      placeholder=\"Please input the captcha\"\n      :maxlength=\"8\"\n      :prefix=\"h(Icon, { type: Search })\"\n      :suffix=\"h(Tag, { theme: 'outline' }, { default: () => '⌘K' })\"\n    >\n    </Input>\n    <Input placeholder=\"Please input the captcha\" :maxlength=\"8\">\n      <template #suffix>\n        <Button :disabled=\"time < 60\" @click=\"sendCode\">\n          {{ time == 60 ? \"Get verification code\" : time + \"(s)\" }}\n        </Button>\n      </template>\n    </Input>\n    <Input placeholder=\"Please input\" :icon=\"Gift\">\n      <template #suffix>\n        <Tooltip title=\"Please contact the administrator\">\n          <Button :icon=\"CircleQuestionMark\" />\n        </Tooltip>\n      </template>\n    </Input>\n    <Input placeholder=\"Please enter the amount\" suffix=\"RMB\" prefix=\"¥\" />\n    <Input placeholder=\"Please enter the domain\" suffix=\".com\" prefix=\"https://\" />\n    <Input placeholder=\"Please input\" prefix=\"www.\">\n      <template #prefix>\n        <Select :options=\"options\" clearable modelValue=\"http\"></Select>\n      </template>\n      <template #suffix>\n        <Select :options=\"list\" clearable modelValue=\".com\"></Select>\n      </template>\n    </Input>\n    <Input placeholder=\"Please input\" suffix=\".00\" />\n    <Input placeholder=\"Please input\" prefix=\"www.\">\n      <template #prefix>\n        <Select :options=\"options\" clearable modelValue=\"http\"></Select>\n      </template>\n      <template #suffix>\n        <TreeSelect :tree-data=\"treeData\" clearable style=\"width: 100px\"></TreeSelect>\n      </template>\n    </Input>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { CircleQuestionMark, Gift, Search, User } from \"kui-icons\";\nimport { Icon, message, Tag } from \"kui-vue\";\nimport { h, onUnmounted, ref } from \"vue\";\nconst time = ref(60);\nconst timer = ref();\n\nconst sendCode = () => {\n  if (timer.value) {\n    clearInterval(timer.value);\n  }\n  time.value = 59;\n  message.success(\"Verification code sent successfully\");\n  timer.value = setInterval(() => {\n    time.value--;\n    if (time.value <= 0) {\n      clearInterval(timer.value);\n      time.value = 60;\n    }\n  }, 1000);\n};\nconst options = [\n  { label: \"http\", value: \"http\" },\n  { label: \"https\", value: \"https\" },\n];\nconst list = [\n  { label: \".com\", value: \".com\" },\n  { label: \".cn\", value: \".cn\" },\n  { label: \".org\", value: \".org\" },\n];\nconst treeData = [\n  {\n    title: \"fruit\",\n    key: \"1\",\n    children: [\n      { title: \"apple\", key: \"11\" },\n      { title: \"orange\", key: \"12\" },\n    ],\n  },\n];\n\nonUnmounted(() => {\n  if (timer.value) {\n    clearInterval(timer.value);\n  }\n});\n</script>"
+          "source": "<template>\n  <Space vertical block>\n    <Input placeholder=\"Please input username\" :icon=\"User\" />\n    <Input\n      placeholder=\"Please input the captcha\"\n      :maxlength=\"8\"\n      :prefix=\"h(Icon, { type: Search })\"\n      :suffix=\"h(Tag, { theme: 'outline' }, { default: () => '⌘K' })\"\n    >\n    </Input>\n    <Input placeholder=\"Please input the captcha\" :maxlength=\"8\">\n      <template #suffix>\n        <Button :disabled=\"time < 60\" @click=\"sendCode\">\n          {{ time == 60 ? \"Get Captcha\" : time + \"(s)\" }}\n        </Button>\n      </template>\n    </Input>\n    <Input placeholder=\"Please input\" :icon=\"Gift\">\n      <template #suffix>\n        <Tooltip title=\"Please contact the administrator\">\n          <Button :icon=\"CircleQuestionMark\" />\n        </Tooltip>\n      </template>\n    </Input>\n    <Input placeholder=\"Please enter the amount\" suffix=\"RMB\" prefix=\"¥\" />\n    <Input placeholder=\"Please enter the domain\" suffix=\".com\" prefix=\"https://\" />\n    <Input placeholder=\"Please input\" prefix=\"www.\">\n      <template #prefix>\n        <Select :options=\"options\" clearable modelValue=\"http\"></Select>\n      </template>\n      <template #suffix>\n        <Select :options=\"list\" clearable modelValue=\".com\"></Select>\n      </template>\n    </Input>\n    <Input placeholder=\"Please input\" suffix=\".00\" />\n    <Input placeholder=\"Please input\" prefix=\"www.\">\n      <template #prefix>\n        <Select :options=\"options\" clearable modelValue=\"http\"></Select>\n      </template>\n      <template #suffix>\n        <TreeSelect :tree-data=\"treeData\" clearable style=\"width: 100px\"></TreeSelect>\n      </template>\n    </Input>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { CircleQuestionMark, Gift, Search, User } from \"kui-icons\";\nimport { Icon, message, Tag } from \"kui-vue\";\nimport { h, onUnmounted, ref } from \"vue\";\nconst time = ref(60);\nconst timer = ref();\n\nconst sendCode = () => {\n  if (timer.value) {\n    clearInterval(timer.value);\n  }\n  time.value = 59;\n  message.success(\"Verification code sent successfully\");\n  timer.value = setInterval(() => {\n    time.value--;\n    if (time.value <= 0) {\n      clearInterval(timer.value);\n      time.value = 60;\n    }\n  }, 1000);\n};\nconst options = [\n  { label: \"http\", value: \"http\" },\n  { label: \"https\", value: \"https\" },\n];\nconst list = [\n  { label: \".com\", value: \".com\" },\n  { label: \".cn\", value: \".cn\" },\n  { label: \".org\", value: \".org\" },\n];\nconst treeData = [\n  {\n    title: \"fruit\",\n    key: \"1\",\n    children: [\n      { title: \"apple\", key: \"11\" },\n      { title: \"orange\", key: \"12\" },\n    ],\n  },\n];\n\nonUnmounted(() => {\n  if (timer.value) {\n    clearInterval(timer.value);\n  }\n});\n</script>"
         },
         {
           "title": "输入框组合",
@@ -5942,10 +5763,7 @@
     },
     {
       "name": "InputTag",
-      "tags": [
-        "input-tag",
-        "k-input-tag"
-      ],
+      "tags": ["input-tag", "k-input-tag"],
       "children": [],
       "documentation": "https://k-ui.cn/components/input-tag",
       "props": [
@@ -6173,10 +5991,7 @@
     },
     {
       "name": "InputOTP",
-      "tags": [
-        "input-otp",
-        "k-input-otp"
-      ],
+      "tags": ["input-otp", "k-input-otp"],
       "children": [],
       "documentation": "https://k-ui.cn/components/input-otp",
       "props": [
@@ -6422,10 +6237,7 @@
     },
     {
       "name": "InputNumber",
-      "tags": [
-        "input-number",
-        "k-input-number"
-      ],
+      "tags": ["input-number", "k-input-number"],
       "children": [],
       "documentation": "https://k-ui.cn/components/input-number",
       "props": [
@@ -6637,10 +6449,7 @@
     },
     {
       "name": "Content",
-      "tags": [
-        "content",
-        "k-content"
-      ],
+      "tags": ["content", "k-content"],
       "parent": "Layout",
       "children": [],
       "documentation": "https://k-ui.cn/components/content",
@@ -6651,10 +6460,7 @@
     },
     {
       "name": "Footer",
-      "tags": [
-        "footer",
-        "k-footer"
-      ],
+      "tags": ["footer", "k-footer"],
       "parent": "Layout",
       "children": [],
       "documentation": "https://k-ui.cn/components/footer",
@@ -6665,10 +6471,7 @@
     },
     {
       "name": "Header",
-      "tags": [
-        "header",
-        "k-header"
-      ],
+      "tags": ["header", "k-header"],
       "parent": "Layout",
       "children": [],
       "documentation": "https://k-ui.cn/components/header",
@@ -6679,16 +6482,8 @@
     },
     {
       "name": "Layout",
-      "tags": [
-        "layout",
-        "k-layout"
-      ],
-      "children": [
-        "Header",
-        "Sider",
-        "Content",
-        "Footer"
-      ],
+      "tags": ["layout", "k-layout"],
+      "children": ["Header", "Sider", "Content", "Footer"],
       "documentation": "https://k-ui.cn/components/layout",
       "props": [],
       "events": [],
@@ -6733,10 +6528,7 @@
     },
     {
       "name": "Sider",
-      "tags": [
-        "sider",
-        "k-sider"
-      ],
+      "tags": ["sider", "k-sider"],
       "parent": "Layout",
       "children": [],
       "documentation": "https://k-ui.cn/components/sider",
@@ -6747,16 +6539,8 @@
     },
     {
       "name": "Menu",
-      "tags": [
-        "menu",
-        "k-menu"
-      ],
-      "children": [
-        "MenuItem",
-        "SubMenu",
-        "MenuGroup",
-        "MenuDivider"
-      ],
+      "tags": ["menu", "k-menu"],
+      "children": ["MenuItem", "SubMenu", "MenuGroup", "MenuDivider"],
       "documentation": "https://k-ui.cn/components/menu",
       "props": [
         {
@@ -6900,10 +6684,7 @@
     },
     {
       "name": "MenuDivider",
-      "tags": [
-        "menu-divider",
-        "k-menu-divider"
-      ],
+      "tags": ["menu-divider", "k-menu-divider"],
       "parent": "Menu",
       "children": [],
       "documentation": "https://k-ui.cn/components/menu-divider",
@@ -6914,10 +6695,7 @@
     },
     {
       "name": "MenuGroup",
-      "tags": [
-        "menu-group",
-        "k-menu-group"
-      ],
+      "tags": ["menu-group", "k-menu-group"],
       "parent": "Menu",
       "children": [],
       "documentation": "https://k-ui.cn/components/menu",
@@ -6974,10 +6752,7 @@
     },
     {
       "name": "MenuItem",
-      "tags": [
-        "menu-item",
-        "k-menu-item"
-      ],
+      "tags": ["menu-item", "k-menu-item"],
       "parent": "Menu",
       "children": [],
       "documentation": "https://k-ui.cn/components/menu",
@@ -7052,10 +6827,7 @@
     },
     {
       "name": "SubMenu",
-      "tags": [
-        "sub-menu",
-        "k-sub-menu"
-      ],
+      "tags": ["sub-menu", "k-sub-menu"],
       "parent": "Menu",
       "children": [],
       "documentation": "https://k-ui.cn/components/menu",
@@ -7130,10 +6902,7 @@
     },
     {
       "name": "Mentions",
-      "tags": [
-        "mentions",
-        "k-mentions"
-      ],
+      "tags": ["mentions", "k-mentions"],
       "children": [],
       "documentation": "https://k-ui.cn/components/mentions",
       "props": [
@@ -7403,10 +7172,7 @@
     },
     {
       "name": "MessagePanel",
-      "tags": [
-        "message-panel",
-        "k-message-panel"
-      ],
+      "tags": ["message-panel", "k-message-panel"],
       "children": [],
       "documentation": "https://k-ui.cn/components/message-panel",
       "props": [],
@@ -7416,10 +7182,7 @@
     },
     {
       "name": "NoticePanel",
-      "tags": [
-        "notice-panel",
-        "k-notice-panel"
-      ],
+      "tags": ["notice-panel", "k-notice-panel"],
       "children": [],
       "documentation": "https://k-ui.cn/components/notice-panel",
       "props": [],
@@ -7429,10 +7192,7 @@
     },
     {
       "name": "ModalPanel",
-      "tags": [
-        "modal-panel",
-        "k-modal-panel"
-      ],
+      "tags": ["modal-panel", "k-modal-panel"],
       "parent": "Modal",
       "children": [],
       "documentation": "https://k-ui.cn/components/modal-panel",
@@ -7443,13 +7203,8 @@
     },
     {
       "name": "Modal",
-      "tags": [
-        "modal",
-        "k-modal"
-      ],
-      "children": [
-        "ModalPanel"
-      ],
+      "tags": ["modal", "k-modal"],
+      "children": ["ModalPanel"],
       "documentation": "https://k-ui.cn/components/modal",
       "props": [
         {
@@ -7698,10 +7453,7 @@
     },
     {
       "name": "Page",
-      "tags": [
-        "page",
-        "k-page"
-      ],
+      "tags": ["page", "k-page"],
       "children": [],
       "documentation": "https://k-ui.cn/components/page",
       "props": [
@@ -7859,10 +7611,7 @@
     },
     {
       "name": "PageHeader",
-      "tags": [
-        "page-header",
-        "k-page-header"
-      ],
+      "tags": ["page-header", "k-page-header"],
       "children": [],
       "documentation": "https://k-ui.cn/components/page-header",
       "props": [
@@ -7944,10 +7693,7 @@
     },
     {
       "name": "PoptipPanel",
-      "tags": [
-        "poptip-panel",
-        "k-poptip-panel"
-      ],
+      "tags": ["poptip-panel", "k-poptip-panel"],
       "parent": "Poptip",
       "children": [],
       "documentation": "https://k-ui.cn/components/poptip-panel",
@@ -7958,13 +7704,8 @@
     },
     {
       "name": "Poptip",
-      "tags": [
-        "poptip",
-        "k-poptip"
-      ],
-      "children": [
-        "PoptipPanel"
-      ],
+      "tags": ["poptip", "k-poptip"],
+      "children": ["PoptipPanel"],
       "documentation": "https://k-ui.cn/components/poptip",
       "props": [
         {
@@ -8085,10 +7826,7 @@
     },
     {
       "name": "PopconfirmPanel",
-      "tags": [
-        "popconfirm-panel",
-        "k-popconfirm-panel"
-      ],
+      "tags": ["popconfirm-panel", "k-popconfirm-panel"],
       "parent": "Popconfirm",
       "children": [],
       "documentation": "https://k-ui.cn/components/popconfirm-panel",
@@ -8099,13 +7837,8 @@
     },
     {
       "name": "Popconfirm",
-      "tags": [
-        "popconfirm",
-        "k-popconfirm"
-      ],
-      "children": [
-        "PopconfirmPanel"
-      ],
+      "tags": ["popconfirm", "k-popconfirm"],
+      "children": ["PopconfirmPanel"],
       "documentation": "https://k-ui.cn/components/popconfirm",
       "props": [
         {
@@ -8238,10 +7971,7 @@
     },
     {
       "name": "Progress",
-      "tags": [
-        "progress",
-        "k-progress"
-      ],
+      "tags": ["progress", "k-progress"],
       "children": [],
       "documentation": "https://k-ui.cn/components/progress",
       "props": [
@@ -8391,10 +8121,7 @@
     },
     {
       "name": "Ripple",
-      "tags": [
-        "ripple",
-        "k-ripple"
-      ],
+      "tags": ["ripple", "k-ripple"],
       "children": [],
       "documentation": "https://k-ui.cn/components/ripple",
       "props": [
@@ -8506,10 +8233,7 @@
     },
     {
       "name": "QRCode",
-      "tags": [
-        "qr-code",
-        "k-qr-code"
-      ],
+      "tags": ["qr-code", "k-qr-code"],
       "children": [],
       "documentation": "https://k-ui.cn/components/qrcode",
       "props": [
@@ -8672,10 +8396,7 @@
     },
     {
       "name": "Radio",
-      "tags": [
-        "radio",
-        "k-radio"
-      ],
+      "tags": ["radio", "k-radio"],
       "parent": "RadioGroup",
       "children": [],
       "documentation": "https://k-ui.cn/components/radio",
@@ -8794,10 +8515,7 @@
     },
     {
       "name": "RadioButton",
-      "tags": [
-        "radio-button",
-        "k-radio-button"
-      ],
+      "tags": ["radio-button", "k-radio-button"],
       "parent": "RadioGroup",
       "children": [],
       "documentation": "https://k-ui.cn/components/radio",
@@ -8934,14 +8652,8 @@
     },
     {
       "name": "RadioGroup",
-      "tags": [
-        "radio-group",
-        "k-radio-group"
-      ],
-      "children": [
-        "Radio",
-        "RadioButton"
-      ],
+      "tags": ["radio-group", "k-radio-group"],
+      "children": ["Radio", "RadioButton"],
       "documentation": "https://k-ui.cn/components/radio",
       "props": [
         {
@@ -9067,10 +8779,7 @@
     },
     {
       "name": "Rate",
-      "tags": [
-        "rate",
-        "k-rate"
-      ],
+      "tags": ["rate", "k-rate"],
       "children": [],
       "documentation": "https://k-ui.cn/components/rate",
       "props": [
@@ -9241,10 +8950,7 @@
     },
     {
       "name": "Result",
-      "tags": [
-        "result",
-        "k-result"
-      ],
+      "tags": ["result", "k-result"],
       "children": [],
       "documentation": "https://k-ui.cn/components/result",
       "props": [
@@ -9332,10 +9038,7 @@
     },
     {
       "name": "FeedbackPanel",
-      "tags": [
-        "feedback-panel",
-        "k-feedback-panel"
-      ],
+      "tags": ["feedback-panel", "k-feedback-panel"],
       "children": [],
       "documentation": "https://k-ui.cn/components/feedback-panel",
       "props": [
@@ -9420,10 +9123,7 @@
     },
     {
       "name": "Option",
-      "tags": [
-        "option",
-        "k-option"
-      ],
+      "tags": ["option", "k-option"],
       "parent": "Select",
       "children": [],
       "documentation": "https://k-ui.cn/components/select",
@@ -9548,13 +9248,8 @@
     },
     {
       "name": "Select",
-      "tags": [
-        "select",
-        "k-select"
-      ],
-      "children": [
-        "Option"
-      ],
+      "tags": ["select", "k-select"],
+      "children": ["Option"],
       "documentation": "https://k-ui.cn/components/select",
       "props": [
         {
@@ -9899,10 +9594,7 @@
     },
     {
       "name": "ConfigProvider",
-      "tags": [
-        "config-provider",
-        "k-config-provider"
-      ],
+      "tags": ["config-provider", "k-config-provider"],
       "children": [],
       "documentation": "https://k-ui.cn/components/config",
       "props": [
@@ -9931,16 +9623,8 @@
     },
     {
       "name": "Skeleton",
-      "tags": [
-        "skeleton",
-        "k-skeleton"
-      ],
-      "children": [
-        "SkeletonAvatar",
-        "SkeletonButton",
-        "SkeletonImage",
-        "SkeletonText"
-      ],
+      "tags": ["skeleton", "k-skeleton"],
+      "children": ["SkeletonAvatar", "SkeletonButton", "SkeletonImage", "SkeletonText"],
       "documentation": "https://k-ui.cn/components/skeleton",
       "props": [
         {
@@ -10049,10 +9733,7 @@
     },
     {
       "name": "SkeletonAvatar",
-      "tags": [
-        "skeleton-avatar",
-        "k-skeleton-avatar"
-      ],
+      "tags": ["skeleton-avatar", "k-skeleton-avatar"],
       "parent": "Skeleton",
       "children": [],
       "documentation": "https://k-ui.cn/components/skeleton-avatar",
@@ -10063,10 +9744,7 @@
     },
     {
       "name": "SkeletonButton",
-      "tags": [
-        "skeleton-button",
-        "k-skeleton-button"
-      ],
+      "tags": ["skeleton-button", "k-skeleton-button"],
       "parent": "Skeleton",
       "children": [],
       "documentation": "https://k-ui.cn/components/skeleton-button",
@@ -10077,10 +9755,7 @@
     },
     {
       "name": "SkeletonImage",
-      "tags": [
-        "skeleton-image",
-        "k-skeleton-image"
-      ],
+      "tags": ["skeleton-image", "k-skeleton-image"],
       "parent": "Skeleton",
       "children": [],
       "documentation": "https://k-ui.cn/components/skeleton-image",
@@ -10091,10 +9766,7 @@
     },
     {
       "name": "SkeletonText",
-      "tags": [
-        "skeleton-text",
-        "k-skeleton-text"
-      ],
+      "tags": ["skeleton-text", "k-skeleton-text"],
       "parent": "Skeleton",
       "children": [],
       "documentation": "https://k-ui.cn/components/skeleton-text",
@@ -10105,10 +9777,7 @@
     },
     {
       "name": "StatCard",
-      "tags": [
-        "stat-card",
-        "k-stat-card"
-      ],
+      "tags": ["stat-card", "k-stat-card"],
       "children": [],
       "documentation": "https://k-ui.cn/components/stat-card",
       "props": [
@@ -10221,10 +9890,7 @@
     },
     {
       "name": "StatNumber",
-      "tags": [
-        "stat-number",
-        "k-stat-number"
-      ],
+      "tags": ["stat-number", "k-stat-number"],
       "children": [],
       "documentation": "https://k-ui.cn/components/stat-card",
       "props": [
@@ -10337,10 +10003,7 @@
     },
     {
       "name": "Slider",
-      "tags": [
-        "slider",
-        "k-slider"
-      ],
+      "tags": ["slider", "k-slider"],
       "children": [],
       "documentation": "https://k-ui.cn/components/slider",
       "props": [
@@ -10522,10 +10185,7 @@
     },
     {
       "name": "Space",
-      "tags": [
-        "space",
-        "k-space"
-      ],
+      "tags": ["space", "k-space"],
       "children": [],
       "documentation": "https://k-ui.cn/components/space",
       "props": [
@@ -10641,10 +10301,7 @@
     },
     {
       "name": "Spin",
-      "tags": [
-        "spin",
-        "k-spin"
-      ],
+      "tags": ["spin", "k-spin"],
       "children": [],
       "documentation": "https://k-ui.cn/components/spin",
       "props": [
@@ -10707,10 +10364,7 @@
     },
     {
       "name": "Step",
-      "tags": [
-        "step",
-        "k-step"
-      ],
+      "tags": ["step", "k-step"],
       "parent": "Steps",
       "children": [],
       "documentation": "https://k-ui.cn/components/steps",
@@ -10798,13 +10452,8 @@
     },
     {
       "name": "Steps",
-      "tags": [
-        "steps",
-        "k-steps"
-      ],
-      "children": [
-        "Step"
-      ],
+      "tags": ["steps", "k-steps"],
+      "children": ["Step"],
       "documentation": "https://k-ui.cn/components/steps",
       "props": [
         {
@@ -10899,9 +10548,7 @@
     },
     {
       "name": "Switch",
-      "tags": [
-        "Switch"
-      ],
+      "tags": ["Switch"],
       "children": [],
       "documentation": "https://k-ui.cn/components/switch",
       "props": [
@@ -11046,13 +10693,8 @@
     },
     {
       "name": "Splitter",
-      "tags": [
-        "splitter",
-        "k-splitter"
-      ],
-      "children": [
-        "SplitterPanel"
-      ],
+      "tags": ["splitter", "k-splitter"],
+      "children": ["SplitterPanel"],
       "documentation": "https://k-ui.cn/components/splitter",
       "props": [
         {
@@ -11134,10 +10776,7 @@
     },
     {
       "name": "SplitterPanel",
-      "tags": [
-        "splitter-panel",
-        "k-splitter-panel"
-      ],
+      "tags": ["splitter-panel", "k-splitter-panel"],
       "parent": "Splitter",
       "children": [],
       "documentation": "https://k-ui.cn/components/splitter",
@@ -11187,10 +10826,7 @@
     },
     {
       "name": "Table",
-      "tags": [
-        "table",
-        "k-table"
-      ],
+      "tags": ["table", "k-table"],
       "children": [],
       "documentation": "https://k-ui.cn/components/table",
       "props": [
@@ -11582,10 +11218,7 @@
     },
     {
       "name": "TableColumnSetting",
-      "tags": [
-        "table-column-setting",
-        "k-table-column-setting"
-      ],
+      "tags": ["table-column-setting", "k-table-column-setting"],
       "children": [],
       "documentation": "https://k-ui.cn/components/table",
       "props": [
@@ -11730,9 +11363,7 @@
     },
     {
       "name": "Kanban",
-      "tags": [
-        "kanban"
-      ],
+      "tags": ["kanban"],
       "children": [],
       "documentation": "https://k-ui.cn/components/kanban",
       "props": [
@@ -11900,10 +11531,7 @@
     },
     {
       "name": "TooltipPanel",
-      "tags": [
-        "tooltip-panel",
-        "k-tooltip-panel"
-      ],
+      "tags": ["tooltip-panel", "k-tooltip-panel"],
       "parent": "Tooltip",
       "children": [],
       "documentation": "https://k-ui.cn/components/tooltip-panel",
@@ -11914,13 +11542,8 @@
     },
     {
       "name": "Tooltip",
-      "tags": [
-        "tooltip",
-        "k-tooltip"
-      ],
-      "children": [
-        "TooltipPanel"
-      ],
+      "tags": ["tooltip", "k-tooltip"],
+      "children": ["TooltipPanel"],
       "documentation": "https://k-ui.cn/components/tooltip",
       "props": [
         {
@@ -12009,10 +11632,7 @@
     },
     {
       "name": "Tour",
-      "tags": [
-        "tour",
-        "k-tour"
-      ],
+      "tags": ["tour", "k-tour"],
       "children": [],
       "documentation": "https://k-ui.cn/components/tour",
       "props": [
@@ -12159,10 +11779,7 @@
     },
     {
       "name": "Transfer",
-      "tags": [
-        "transfer",
-        "k-transfer"
-      ],
+      "tags": ["transfer", "k-transfer"],
       "children": [],
       "documentation": "https://k-ui.cn/components/transfer",
       "props": [
@@ -12342,15 +11959,8 @@
     },
     {
       "name": "Typography",
-      "tags": [
-        "typography",
-        "k-typography"
-      ],
-      "children": [
-        "TypographyParagraph",
-        "TypographyText",
-        "TypographyTitle"
-      ],
+      "tags": ["typography", "k-typography"],
+      "children": ["TypographyParagraph", "TypographyText", "TypographyTitle"],
       "documentation": "https://k-ui.cn/components/typography",
       "props": [
         {
@@ -12543,10 +12153,7 @@
     },
     {
       "name": "TypographyParagraph",
-      "tags": [
-        "typography-paragraph",
-        "k-typography-paragraph"
-      ],
+      "tags": ["typography-paragraph", "k-typography-paragraph"],
       "parent": "Typography",
       "children": [],
       "documentation": "https://k-ui.cn/components/typography-paragraph",
@@ -12557,10 +12164,7 @@
     },
     {
       "name": "TypographyText",
-      "tags": [
-        "typography-text",
-        "k-typography-text"
-      ],
+      "tags": ["typography-text", "k-typography-text"],
       "parent": "Typography",
       "children": [],
       "documentation": "https://k-ui.cn/components/typography-text",
@@ -12571,10 +12175,7 @@
     },
     {
       "name": "TypographyTitle",
-      "tags": [
-        "typography-title",
-        "k-typography-title"
-      ],
+      "tags": ["typography-title", "k-typography-title"],
       "parent": "Typography",
       "children": [],
       "documentation": "https://k-ui.cn/components/typography-title",
@@ -12585,10 +12186,7 @@
     },
     {
       "name": "TabPanel",
-      "tags": [
-        "tab-panel",
-        "k-tab-panel"
-      ],
+      "tags": ["tab-panel", "k-tab-panel"],
       "parent": "Tabs",
       "children": [],
       "documentation": "https://k-ui.cn/components/tabs",
@@ -12677,13 +12275,8 @@
     },
     {
       "name": "Tabs",
-      "tags": [
-        "tabs",
-        "k-tabs"
-      ],
-      "children": [
-        "TabPanel"
-      ],
+      "tags": ["tabs", "k-tabs"],
+      "children": ["TabPanel"],
       "documentation": "https://k-ui.cn/components/tabs",
       "props": [
         {
@@ -12831,13 +12424,8 @@
     },
     {
       "name": "TimeLine",
-      "tags": [
-        "time-line",
-        "k-time-line"
-      ],
-      "children": [
-        "TimeLineItem"
-      ],
+      "tags": ["time-line", "k-time-line"],
+      "children": ["TimeLineItem"],
       "documentation": "https://k-ui.cn/components/time-line",
       "props": [
         {
@@ -12872,10 +12460,7 @@
     },
     {
       "name": "TimeLineItem",
-      "tags": [
-        "time-line-item",
-        "k-time-line-item"
-      ],
+      "tags": ["time-line-item", "k-time-line-item"],
       "parent": "TimeLine",
       "children": [],
       "documentation": "https://k-ui.cn/components/time-line",
@@ -12939,10 +12524,7 @@
     },
     {
       "name": "Tree",
-      "tags": [
-        "tree",
-        "k-tree"
-      ],
+      "tags": ["tree", "k-tree"],
       "children": [],
       "documentation": "https://k-ui.cn/components/tree",
       "props": [
@@ -13284,10 +12866,7 @@
     },
     {
       "name": "TreeSelect",
-      "tags": [
-        "tree-select",
-        "k-tree-select"
-      ],
+      "tags": ["tree-select", "k-tree-select"],
       "children": [],
       "documentation": "https://k-ui.cn/components/tree-select",
       "props": [
@@ -13695,10 +13274,7 @@
     },
     {
       "name": "Tag",
-      "tags": [
-        "tag",
-        "k-tag"
-      ],
+      "tags": ["tag", "k-tag"],
       "children": [],
       "documentation": "https://k-ui.cn/components/tag",
       "props": [
@@ -13816,10 +13392,7 @@
     },
     {
       "name": "Col",
-      "tags": [
-        "col",
-        "k-col"
-      ],
+      "tags": ["col", "k-col"],
       "parent": "Row",
       "children": [],
       "documentation": "https://k-ui.cn/components/row-col",
@@ -13975,13 +13548,8 @@
     },
     {
       "name": "Row",
-      "tags": [
-        "row",
-        "k-row"
-      ],
-      "children": [
-        "Col"
-      ],
+      "tags": ["row", "k-row"],
+      "children": ["Col"],
       "documentation": "https://k-ui.cn/components/row-col",
       "props": [
         {
@@ -14063,10 +13631,7 @@
     },
     {
       "name": "Upload",
-      "tags": [
-        "upload",
-        "k-upload"
-      ],
+      "tags": ["upload", "k-upload"],
       "children": [],
       "documentation": "https://k-ui.cn/components/upload",
       "props": [
@@ -14425,10 +13990,7 @@
     },
     {
       "name": "Watermark",
-      "tags": [
-        "watermark",
-        "k-watermark"
-      ],
+      "tags": ["watermark", "k-watermark"],
       "children": [],
       "documentation": "https://k-ui.cn/components/watermark",
       "props": [
@@ -14573,10 +14135,7 @@
     },
     {
       "name": "VirtualList",
-      "tags": [
-        "virtual-list",
-        "k-virtual-list"
-      ],
+      "tags": ["virtual-list", "k-virtual-list"],
       "children": [],
       "documentation": "https://k-ui.cn/components/virtual-list",
       "props": [

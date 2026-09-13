@@ -10,12 +10,21 @@ const flushLayout = async () => {
 
 describe("Tabs scroll navigation", () => {
   it("updates the ink bar when the active panel title changes", async () => {
+    let triggerResize = () => {};
+    class MockResizeObserver {
+      constructor(callback: ResizeObserverCallback) {
+        triggerResize = () => callback([], this as unknown as ResizeObserver);
+      }
+      observe() {}
+      disconnect() {}
+    }
+    vi.stubGlobal("ResizeObserver", MockResizeObserver);
     const title = ref("Short");
     const Demo = defineComponent(
       () => () =>
         h(Tabs, { modelValue: "first" }, () => [
           h(TabPanel, { key: "first", title: title.value }, () => "Content"),
-        ])
+        ]),
     );
     const wrapper = mount(Demo, { attachTo: document.body });
     const tab = wrapper.get<HTMLElement>(".k-tabs-tab").element;
@@ -25,9 +34,13 @@ describe("Tabs scroll navigation", () => {
     });
 
     await flushLayout();
+    triggerResize();
+    await flushLayout();
     expect(wrapper.get<HTMLElement>(".k-tabs-ink-bar").element.style.width).toBe("50px");
 
     title.value = "A much longer title";
+    await nextTick();
+    triggerResize();
     await flushLayout();
     expect(wrapper.get<HTMLElement>(".k-tabs-ink-bar").element.style.width).toBe("190px");
     wrapper.unmount();
@@ -47,7 +60,7 @@ describe("Tabs scroll navigation", () => {
     vi.stubGlobal("ResizeObserver", MockResizeObserver);
 
     const panels = Array.from({ length: 6 }, (_, index) =>
-      h(TabPanel, { key: `tab-${index}`, title: `Tab ${index}` }, () => `Content ${index}`)
+      h(TabPanel, { key: `tab-${index}`, title: `Tab ${index}` }, () => `Content ${index}`),
     );
     const wrapper = mount(Tabs, {
       attachTo: document.body,
@@ -67,16 +80,16 @@ describe("Tabs scroll navigation", () => {
     triggerResize();
     await flushLayout();
     expect(wrapper.get<HTMLElement>(".k-tabs-nav").element.style.transform).toBe(
-      "translate3d(-400px,0,0)"
+      "translate3d(-400px,0,0)",
     );
 
     Object.defineProperty(wrap, "clientWidth", { configurable: true, value: 100 });
     triggerResize();
     await flushLayout();
     expect(wrapper.get<HTMLElement>(".k-tabs-nav").element.style.transform).toBe(
-      "translate3d(-500px,0,0)"
+      "translate3d(-500px,0,0)",
     );
-    expect(wrapper.get<HTMLButtonElement>(".k-tabs-tab-btn-next").element.disabled).toBe(true);
+    expect(wrapper.find(".k-tabs-overflow-trigger").exists()).toBe(true);
 
     wrapper.unmount();
     vi.stubGlobal("ResizeObserver", originalResizeObserver);

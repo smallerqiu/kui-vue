@@ -10,7 +10,7 @@
     <Input placeholder="Please input the captcha" :maxlength="8">
       <template #addonAfter>
         <Button :disabled="time < 60" @click="sendCode">
-          {{ time == 60 ? "Get verification code" : time + "(s)" }}
+          {{ time == 60 ? "Get Captcha" : time + "(s)" }}
         </Button>
       </template>
     </Input>

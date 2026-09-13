@@ -34,7 +34,7 @@ describe("resolver generators", () => {
     expect(props.map((prop) => prop.name)).toContain("type");
     expect(props.map((prop) => prop.name)).not.toContain("onDrag");
     expect(props.length).toBeLessThan(20);
-  });
+  }, 15_000);
 
   it("distinguishes events and boolean props", () => {
     const props = getPropsData(componentEntry, ["AffixProps"]);

@@ -82,6 +82,7 @@ export default {
 | shape      | 子组件的形状                                                                   | 'circle' \| 'square'                   | horizontal |
 | disabled   | 表单是否可用                                                                   | boolean                                | true       |
 | readonly   | 是否将表单内支持只读的控件统一设为只读                                         | boolean                                | false      |
+| colon      | 是否在标签后显示冒号                                                           | boolean                                | true       |
 | onReset    | 表单重置后的回调                                                               | ()=> void                              | -          |
 | onSubmit   | 提交表单时触发事件                                                             | (e: SubmitEvent)=> void                | -          |
 
@@ -96,11 +97,12 @@ export default {
 
 ## FormItem API
 
-| 属性  | 说明                                        | 类型       | 默认值 |
-| ----- | ------------------------------------------- | ---------- | ------ |
-| prop  | 对应表单域 model 里的字段，表单验证必须字段 | string     | -      |
-| label | 标签文本                                    | string     | -      |
-| rules | 表单验证规则                                | FormRule[] | -      |
+| 属性  | 说明                                           | 类型       | 默认值 |
+| ----- | ---------------------------------------------- | ---------- | ------ |
+| prop  | 对应表单域 model 里的字段，表单验证必须字段    | string     | -      |
+| label | 标签文本                                       | string     | -      |
+| rules | 表单验证规则                                   | FormRule[] | -      |
+| colon | 是否在标签后显示冒号；未设置时继承 Form 的配置 | boolean    | -      |
 
 ## rules API
 
