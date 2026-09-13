@@ -11,6 +11,7 @@ import {
 import { Button } from "../button";
 import { Checkbox } from "../checkbox";
 import Empty from "../empty";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import Input from "../input";
 
 export type TransferKey = string | number;
@@ -42,7 +43,7 @@ const transferProps = {
 
 export type TransferProps = ExtractPropTypes<typeof transferProps>;
 
-export default defineComponent({
+const Transfer = defineComponent({
   name: "Transfer",
   props: transferProps,
   emits: {
@@ -57,11 +58,17 @@ export default defineComponent({
       Array.isArray(sourceKeys) && Array.isArray(targetKeys),
   },
   setup(props, { emit, slots }) {
+    const field = useFormField(true);
+    const modelValue = computed<TransferKey[]>(() =>
+      field?.prop && Array.isArray(field.value.value)
+        ? (field.value.value as TransferKey[])
+        : props.modelValue,
+    );
     const sourceSelected = ref<TransferKey[]>([]);
     const targetSelected = ref<TransferKey[]>([]);
     const sourceKeyword = ref("");
     const targetKeyword = ref("");
-    const targetKeys = computed(() => new Set(props.modelValue));
+    const targetKeys = computed(() => new Set(modelValue.value));
     const sourceItems = computed(() =>
       props.dataSource.filter((item) => !targetKeys.value.has(item.key)),
     );
@@ -82,7 +89,7 @@ export default defineComponent({
     const visibleSource = computed(() => filter(sourceItems.value, sourceKeyword.value));
     const visibleTarget = computed(() => filter(targetItems.value, targetKeyword.value));
 
-    watch([() => props.modelValue, () => props.dataSource], () => {
+    watch([modelValue, () => props.dataSource], () => {
       sourceSelected.value = sourceSelected.value.filter(
         (key) => itemMap.value.has(key) && !targetKeys.value.has(key),
       );
@@ -94,7 +101,14 @@ export default defineComponent({
     const notifySelection = () =>
       emit("selectChange", [...sourceSelected.value], [...targetSelected.value]);
     const toggle = (direction: "left" | "right", key: TransferKey) => {
-      if (props.disabled || props.readonly || itemMap.value.get(key)?.disabled) return;
+      if (
+        props.disabled ||
+        field?.disabled.value ||
+        props.readonly ||
+        field?.readonly.value ||
+        itemMap.value.get(key)?.disabled
+      )
+        return;
       const selected = direction === "left" ? sourceSelected : targetSelected;
       selected.value = selected.value.includes(key)
         ? selected.value.filter((item) => item !== key)
@@ -104,7 +118,7 @@ export default defineComponent({
     const selectable = (items: TransferItem[]) =>
       items.filter((item) => !item.disabled).map((item) => item.key);
     const toggleAll = (direction: "left" | "right", items: TransferItem[]) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       const selected = direction === "left" ? sourceSelected : targetSelected;
       const keys = selectable(items);
       const unfilteredKeys = selected.value.filter((key) => !keys.includes(key));
@@ -115,7 +129,8 @@ export default defineComponent({
       notifySelection();
     };
     const move = (direction: "left" | "right") => {
-      if (props.disabled || props.readonly) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       const selected = direction === "right" ? sourceSelected : targetSelected;
       const movedKeys = selected.value.filter((key) => {
         const item = itemMap.value.get(key);
@@ -124,9 +139,10 @@ export default defineComponent({
       if (!movedKeys.length) return;
       const next =
         direction === "right"
-          ? [...new Set([...props.modelValue, ...movedKeys])]
-          : props.modelValue.filter((key) => !movedKeys.includes(key));
+          ? [...new Set([...modelValue.value, ...movedKeys])]
+          : modelValue.value.filter((key) => !movedKeys.includes(key));
       emit("update:modelValue", next);
+      if (field?.prop) field.update(next);
       emit("change", next, direction, [...movedKeys]);
       selected.value = selected.value.filter((key) => !movedKeys.includes(key));
       notifySelection();
@@ -152,8 +168,8 @@ export default defineComponent({
           <header class="k-transfer-header">
             <Checkbox
               checked={allChecked}
-              disabled={props.disabled || !enabledKeys.length}
-              readonly={props.readonly}
+              disabled={props.disabled || field?.disabled.value || !enabledKeys.length}
+              readonly={props.readonly || field?.readonly.value}
               onChange={() => toggleAll(direction, items)}
             >
               {title}
@@ -166,7 +182,7 @@ export default defineComponent({
             <div class="k-transfer-search">
               <Input
                 modelValue={direction === "left" ? sourceKeyword.value : targetKeyword.value}
-                disabled={props.disabled}
+                disabled={props.disabled || field?.disabled.value}
                 theme={props.theme}
                 clearable
                 icon={Search}
@@ -192,8 +208,8 @@ export default defineComponent({
                   key={item.key}
                   role="option"
                   aria-selected={selected.includes(item.key)}
-                  aria-disabled={props.disabled || item.disabled}
-                  tabindex={props.disabled || item.disabled ? -1 : 0}
+                  aria-disabled={props.disabled || field?.disabled.value || item.disabled}
+                  tabindex={props.disabled || field?.disabled.value || item.disabled ? -1 : 0}
                   onClick={() => toggle(direction, item.key)}
                   onKeydown={(event) => {
                     if (event.key === "Enter" || event.key === " ") {
@@ -208,8 +224,8 @@ export default defineComponent({
                   >
                     <Checkbox
                       checked={selected.includes(item.key)}
-                      disabled={props.disabled || item.disabled}
-                      readonly={props.readonly}
+                      disabled={props.disabled || field?.disabled.value || item.disabled}
+                      readonly={props.readonly || field?.readonly.value}
                       onChange={() => toggle(direction, item.key)}
                     />
                   </span>
@@ -229,20 +245,33 @@ export default defineComponent({
     };
     return () => (
       <div
+        id={field?.prop ? field.id : undefined}
         class={[
           "k-transfer",
           `k-transfer-${props.theme}`,
-          props.disabled && "is-disabled",
-          props.readonly && "is-readonly",
+          (props.disabled || field?.disabled.value) && "is-disabled",
+          (props.readonly || field?.readonly.value) && "is-readonly",
         ]}
-        aria-readonly={props.readonly || undefined}
+        aria-labelledby={field?.prop ? field.labelId : undefined}
+        aria-describedby={field?.describedBy.value}
+        aria-invalid={field?.invalid.value || undefined}
+        aria-required={field?.required.value || undefined}
+        aria-disabled={props.disabled || field?.disabled.value || undefined}
+        aria-readonly={props.readonly || field?.readonly.value || undefined}
+        onFocusout={() => field?.blur()}
       >
         {renderList("left", visibleSource.value, sourceItems.value, props.titles[0])}
         <div class="k-transfer-operations">
           <Button
             type="primary"
             size="small"
-            disabled={props.disabled || props.readonly || !sourceSelected.value.length}
+            disabled={
+              props.disabled ||
+              field?.disabled.value ||
+              props.readonly ||
+              field?.readonly.value ||
+              !sourceSelected.value.length
+            }
             icon={ChevronRight}
             onClick={() => move("right")}
           >
@@ -251,7 +280,13 @@ export default defineComponent({
           <Button
             type="primary"
             size="small"
-            disabled={props.disabled || props.readonly || !targetSelected.value.length}
+            disabled={
+              props.disabled ||
+              field?.disabled.value ||
+              props.readonly ||
+              field?.readonly.value ||
+              !targetSelected.value.length
+            }
             icon={ChevronLeft}
             onClick={() => move("left")}
           >
@@ -263,3 +298,5 @@ export default defineComponent({
     );
   },
 });
+
+export default markFormFieldComponent(Transfer);

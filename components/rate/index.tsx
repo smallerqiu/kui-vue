@@ -1,5 +1,6 @@
 import {
   defineComponent,
+  inject,
   ref,
   type CSSProperties,
   type ExtractPropTypes,
@@ -7,6 +8,7 @@ import {
   type VNodeChild,
 } from "vue";
 import { type BooleanType, type SizeType } from "../const/types";
+import { FORM_INJECTION_KEY, markFormFieldComponent, useFormField } from "../form/context";
 import type { IconType } from "../icon";
 import Star from "./star";
 const rateProps = {
@@ -37,6 +39,8 @@ const Rate = defineComponent({
     change: (value: number) => typeof value === "number",
   },
   setup(props, { emit }) {
+    const form = inject(FORM_INJECTION_KEY, {});
+    const field = useFormField(true);
     const innerValue = ref(props.value);
     const tempValue = ref<number | null>(null);
     const cleared = ref(false);
@@ -57,7 +61,9 @@ const Rate = defineComponent({
         let value = index - (props.allowHalf ? (percent < 0.5 ? 0.5 : 0) : 0);
         value = parseFloat(value.toFixed(2));
 
-        const currentValue = props.modelValue ?? innerValue.value;
+        const currentValue = field?.prop
+          ? Number(field.value.value ?? 0)
+          : (props.modelValue ?? innerValue.value);
         const nextValue = value === currentValue && props.allowClear ? 0 : value;
         if (props.modelValue === undefined) {
           innerValue.value = nextValue;
@@ -68,6 +74,7 @@ const Rate = defineComponent({
           tempValue.value = null;
         }
         emit("update:modelValue", nextValue);
+        if (field?.prop) field.update(nextValue);
         emit("change", nextValue);
       }
     };
@@ -78,7 +85,9 @@ const Rate = defineComponent({
     };
 
     return () => {
-      const currentValue = props.modelValue ?? innerValue.value;
+      const currentValue = field?.prop
+        ? Number(field.value.value ?? 0)
+        : (props.modelValue ?? innerValue.value);
       const tpValue = tempValue.value !== null ? tempValue.value : currentValue;
       const {
         count,
@@ -90,7 +99,10 @@ const Rate = defineComponent({
         showScore,
         color,
       } = props;
-      let { size } = props;
+      // FormItem normally forwards the inherited size through a cloned VNode.
+      // Rate also reads the Form context because its value update may render
+      // before that cloned VNode is refreshed.
+      let size = props.size ?? form.size;
 
       if (typeof size === "string") {
         const sizeValue = { small: 20, medium: 24, large: 32, default: 24 };
@@ -148,4 +160,4 @@ const Rate = defineComponent({
   },
 });
 
-export default Rate;
+export default markFormFieldComponent(Rate);

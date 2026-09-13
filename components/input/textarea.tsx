@@ -8,6 +8,7 @@ import {
   type TextareaHTMLAttributes,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 
 const textAreaProps = {
   value: [String, Number, Array] as PropType<string | number | readonly string[] | null>,
@@ -33,23 +34,37 @@ const TextArea = defineComponent({
     input: (event: Event) => typeof event?.type === "string",
   },
   setup(props, { attrs, emit }) {
+    const field = useFormField(true);
     const innerValue = ref(props.value);
     const currentValue = computed(() =>
-      props.modelValue !== undefined ? props.modelValue : innerValue.value,
+      field?.prop
+        ? (field.value.value as string | number | readonly string[] | null)
+        : props.modelValue !== undefined
+          ? props.modelValue
+          : innerValue.value,
     );
 
     const handleChange = (e: Event) => {
       const { value } = e.target as HTMLInputElement;
       if (props.modelValue === undefined) innerValue.value = value;
       emit("update:modelValue", value);
+      if (field?.prop) field.update(value);
       emit("change", value);
       emit("input", e);
     };
 
     return () => {
-      const { theme, disabled, readonly, size, shape, placeholder, rows } = props;
+      const { theme, shape, placeholder, rows } = props;
+      const disabled = props.disabled || field?.disabled.value;
+      const readonly = props.readonly || field?.readonly.value;
+      const size = props.size || field?.size.value;
       const rootProps = {
         ...attrs,
+        id: attrs.id ?? (field?.prop ? field.id : undefined),
+        "aria-labelledby": attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined),
+        "aria-describedby": attrs["aria-describedby"] ?? field?.describedBy.value,
+        "aria-invalid": (attrs["aria-invalid"] ?? field?.invalid.value) || undefined,
+        "aria-required": (attrs["aria-required"] ?? field?.required.value) || undefined,
         placeholder,
         rows,
         class: [
@@ -68,9 +83,10 @@ const TextArea = defineComponent({
         "aria-readonly": readonly || undefined,
         value: currentValue.value,
         onInput: handleChange,
+        onBlur: () => field?.blur(),
       };
       return <textarea {...rootProps} />;
     };
   },
 });
-export default TextArea as DefineComponent<TextAreaProps>;
+export default markFormFieldComponent(TextArea) as DefineComponent<TextAreaProps>;

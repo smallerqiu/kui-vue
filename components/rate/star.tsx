@@ -57,22 +57,26 @@ export default defineComponent({
 
       const iconType = typeof icon === "function" ? icon(index) : icon;
       const reverse = props.symbolReverseFill || !iconType;
-      const characterNode = (typeof character === "function" ? character(index) : character) || (
-        <Icon
-          type={iconType || StarIcon}
-          size={size}
-          reverseFill={reverse}
-          strokeWidth={props.strokeWidth}
-        />
-      );
+      // The front and back layers must not share the same VNode. Reusing one
+      // VNode in two positions makes Vue clone/patch it during value updates,
+      // which can cause one layer to lose the inherited size.
+      const renderCharacter = () =>
+        (typeof character === "function" ? character(index) : character) || (
+          <Icon
+            type={iconType || StarIcon}
+            size={size}
+            reverseFill={reverse}
+            strokeWidth={props.strokeWidth}
+          />
+        );
       const startProps = {
         class: ["k-star-front"],
         style: { width: disabled && percent !== undefined ? `${percent}%` : undefined },
       };
       const node = (
         <span {...starClasses}>
-          <span {...startProps}>{characterNode}</span>
-          <span class="k-star-back">{characterNode}</span>
+          <span {...startProps}>{renderCharacter()}</span>
+          <span class="k-star-back">{renderCharacter()}</span>
         </span>
       );
       return tooltips ? <Tooltip title={tooltips}>{node}</Tooltip> : node;

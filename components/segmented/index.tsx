@@ -11,6 +11,7 @@ import {
   type VNodeChild,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import Icon, { type IconType } from "../icon";
 
 export type SegmentedValue = string | number;
@@ -43,6 +44,10 @@ const Segmented = defineComponent({
     change: (value: SegmentedValue) => ["string", "number"].includes(typeof value),
   },
   setup(props, { attrs, emit, slots }) {
+    const field = useFormField(true);
+    const currentValue = computed(() =>
+      field?.prop ? (field.value.value as SegmentedValue | undefined) : props.modelValue,
+    );
     const rootRef = ref<HTMLElement>();
     const itemRefs = new Map<SegmentedValue, HTMLElement>();
     const indicatorStyle = ref<Record<string, string>>({});
@@ -52,7 +57,7 @@ const Segmented = defineComponent({
     let frame = 0;
 
     const updateIndicator = () => {
-      const item = props.modelValue === undefined ? undefined : itemRefs.get(props.modelValue);
+      const item = currentValue.value === undefined ? undefined : itemRefs.get(currentValue.value);
       if (!item) {
         ready.value = false;
         indicatorStyle.value = {};
@@ -65,18 +70,33 @@ const Segmented = defineComponent({
       frame = requestAnimationFrame(() => (ready.value = true));
     };
     const select = (option: SegmentedOption) => {
-      if (props.disabled || props.readonly || option.disabled || option.value === props.modelValue)
+      if (
+        props.disabled ||
+        field?.disabled.value ||
+        props.readonly ||
+        field?.readonly.value ||
+        option.disabled ||
+        option.value === currentValue.value
+      )
         return;
       emit("update:modelValue", option.value);
+      if (field?.prop) field.update(option.value);
       emit("change", option.value);
     };
     const move = (event: KeyboardEvent) => {
       if (!["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp", "Home", "End"].includes(event.key))
         return;
       const available = props.options.filter((option) => !option.disabled);
-      if (!available.length || props.disabled || props.readonly) return;
+      if (
+        !available.length ||
+        props.disabled ||
+        field?.disabled.value ||
+        props.readonly ||
+        field?.readonly.value
+      )
+        return;
       event.preventDefault();
-      const current = available.findIndex((option) => option.value === props.modelValue);
+      const current = available.findIndex((option) => option.value === currentValue.value);
       const next =
         event.key === "Home"
           ? available[0]
@@ -95,7 +115,7 @@ const Segmented = defineComponent({
     };
 
     watch(
-      () => [props.modelValue, props.direction, props.options],
+      () => [currentValue.value, props.direction, props.options],
       () => {
         nextTick(updateIndicator);
       },
@@ -114,6 +134,7 @@ const Segmented = defineComponent({
     return () => (
       <div
         {...attrs}
+        id={attrs.id ?? (field?.prop ? field.id : undefined)}
         ref={rootRef}
         class={[
           "k-segmented",
@@ -123,16 +144,21 @@ const Segmented = defineComponent({
           {
             "k-segmented-block": props.block,
             "k-segmented-vertical": isVertical.value,
-            "k-segmented-disabled": props.disabled,
+            "k-segmented-disabled": props.disabled || field?.disabled.value,
           },
         ]}
         role="radiogroup"
-        aria-disabled={props.disabled || undefined}
-        aria-readonly={props.readonly || undefined}
+        aria-labelledby={attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)}
+        aria-describedby={attrs["aria-describedby"] ?? field?.describedBy.value}
+        aria-invalid={(attrs["aria-invalid"] ?? field?.invalid.value) || undefined}
+        aria-required={(attrs["aria-required"] ?? field?.required.value) || undefined}
+        aria-disabled={props.disabled || field?.disabled.value || undefined}
+        aria-readonly={props.readonly || field?.readonly.value || undefined}
+        onFocusout={() => field?.blur()}
         onKeydown={move}
       >
         {props.options.map((option) => {
-          const selected = option.value === props.modelValue;
+          const selected = option.value === currentValue.value;
           return (
             <button
               key={option.value}
@@ -143,7 +169,7 @@ const Segmented = defineComponent({
               class={["k-segmented-item", { "k-segmented-item-active": selected }]}
               role="radio"
               aria-checked={selected}
-              disabled={props.disabled || option.disabled}
+              disabled={props.disabled || field?.disabled.value || option.disabled}
               tabindex={selected ? 0 : -1}
               onClick={() => select(option)}
             >
@@ -161,4 +187,4 @@ const Segmented = defineComponent({
   },
 });
 
-export default Segmented;
+export default markFormFieldComponent(Segmented);

@@ -8,10 +8,12 @@ import {
   isVNode,
   onBeforeUnmount,
   onMounted,
+  provide,
   reactive,
   ref,
   toRefs,
   Transition,
+  useId,
   watch,
   type Ref,
 } from "vue";
@@ -19,32 +21,14 @@ import zhCN from "../locale/zh-CN";
 import { Col, Row } from "../row-col";
 import { getChildren } from "../utils/vnode";
 
-import type { DirectionType, ShapeType, ThemeType } from "../const/types";
+import type { BooleanType } from "../const/types";
+import {
+  FORM_FIELD_INJECTION_KEY,
+  FORM_INJECTION_KEY,
+  isFormFieldComponent,
+  type FormFieldContext,
+} from "./context";
 import type { ColProps, FormRule, FormValidateTrigger } from "./types";
-
-interface FormContext {
-  getValueFromProp?: (prop: string | undefined) => unknown;
-  rules?: Record<string, FormRule | FormRule[]>;
-  register?: (item: FormItemRegistration) => void;
-  unregister?: (item: FormItemRegistration) => void;
-  layout?: "inline" | DirectionType;
-  name?: string;
-  size?: "large" | "small";
-  shape?: ShapeType;
-  disabled?: boolean;
-  theme?: ThemeType;
-  updateModel?: (prop: string, value: unknown) => void;
-  labelCol?: ColProps;
-  wrapperCol?: ColProps;
-  cleaned?: boolean;
-}
-
-interface FormItemRegistration {
-  prop?: string;
-  rules?: FormRule | FormRule[];
-  valid: boolean;
-  validate: (rules: FormRule | FormRule[], trigger?: FormValidateTrigger) => Promise<boolean>;
-}
 
 /**
  * 判断某条规则是否应该在指定时机触发。
@@ -56,12 +40,46 @@ const matchesTrigger = (rule: FormRule, trigger: FormValidateTrigger) => {
   return triggers.includes(trigger);
 };
 
+const isEmptyValue = (value: unknown) =>
+  value === null ||
+  value === undefined ||
+  value === "" ||
+  (Array.isArray(value) && value.length === 0);
+
+const hasModelValueProp = (child: ReturnType<typeof cloneVNode>) => {
+  if (typeof child.type === "string" || typeof child.type !== "object" || child.type === null) {
+    return false;
+  }
+  const componentProps = "props" in child.type ? child.type.props : undefined;
+  if (Array.isArray(componentProps)) return componentProps.includes("modelValue");
+  return (
+    typeof componentProps === "object" &&
+    componentProps !== null &&
+    Object.prototype.hasOwnProperty.call(componentProps, "modelValue")
+  );
+};
+
+const isNativeFormControl = (child: ReturnType<typeof cloneVNode>) =>
+  typeof child.type === "string" && ["input", "select", "textarea"].includes(child.type);
+
+const FormFieldProvider = defineComponent({
+  name: "FormFieldProvider",
+  props: {
+    context: { type: Object as PropType<FormFieldContext>, required: true },
+  },
+  setup(props, { slots }) {
+    provide(FORM_FIELD_INJECTION_KEY, props.context);
+    return () => slots.default?.();
+  },
+});
+
 const formItemProps = {
   label: String,
   prop: String,
   labelCol: Object as PropType<ColProps>,
   wrapperCol: Object as PropType<ColProps>,
   rules: [Array, Object] as PropType<FormRule | FormRule[]>,
+  colon: { type: Boolean as BooleanType, default: undefined },
 };
 
 export type FormItemProps = ExtractPropTypes<typeof formItemProps>;
@@ -78,28 +96,35 @@ const FormItem = defineComponent({
 
     const valid = ref(true);
     const message = ref<string>();
+    let validationVersion = 0;
 
-    const Form = inject<FormContext>("Form", {});
+    const Form = inject(FORM_INJECTION_KEY, {});
+    const generatedId = `form_${useId().replace(/:/g, "")}`;
 
     const test = async (rule: FormRule) => {
       let isValid = true;
       const itemValue = Form.getValueFromProp?.(props.prop);
       let msg = rule.message;
 
+      const empty = isEmptyValue(itemValue);
+
       if (rule.required) {
-        isValid = Array.isArray(itemValue)
-          ? itemValue.length > 0
-          : itemValue !== null &&
-            itemValue !== undefined &&
-            itemValue !== "" &&
-            itemValue !== false;
+        isValid = !empty && itemValue !== false;
         if (!isValid) {
           msg =
             msg || locale.value.k.form.required.replace("{label}", props.label || props.prop || "");
         }
-      } else if (rule.pattern) {
-        isValid = rule.pattern.test(String(itemValue ?? ""));
-      } else if (rule.type) {
+      } else if (empty) {
+        return { valid: true, message: undefined };
+      }
+
+      if (isValid && rule.pattern) {
+        rule.pattern.lastIndex = 0;
+        isValid = rule.pattern.test(String(itemValue));
+        rule.pattern.lastIndex = 0;
+      }
+
+      if (isValid && rule.type) {
         switch (rule.type) {
           case "mail":
             isValid = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[A-Za-z]{2,}$/.test(
@@ -128,32 +153,30 @@ const FormItem = defineComponent({
           default:
             break;
         }
-      } else if (rule.min !== undefined || rule.max !== undefined) {
-        const empty =
-          itemValue === null ||
-          itemValue === undefined ||
-          itemValue === "" ||
-          (Array.isArray(itemValue) && itemValue.length === 0);
+      }
+
+      if (isValid && (rule.min !== undefined || rule.max !== undefined)) {
+        const numeric = rule.type === "number" || typeof itemValue === "number";
         if (rule.min !== undefined) {
-          if (empty) {
-            isValid = false;
-          } else if (Array.isArray(itemValue)) {
+          if (Array.isArray(itemValue)) {
             isValid = itemValue.length >= rule.min;
           } else if (typeof itemValue === "string") {
-            isValid = itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length >= rule.min;
-          } else if (typeof itemValue === "number") {
-            isValid = itemValue >= rule.min;
+            isValid = numeric
+              ? Number(itemValue) >= rule.min
+              : itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length >= rule.min;
+          } else if (numeric) {
+            isValid = Number(itemValue) >= rule.min;
           }
         }
         if (rule.max !== undefined && isValid) {
-          if (empty) {
-            isValid = false;
-          } else if (Array.isArray(itemValue)) {
+          if (Array.isArray(itemValue)) {
             isValid = itemValue.length <= rule.max;
           } else if (typeof itemValue === "string") {
-            isValid = itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length <= rule.max;
-          } else if (typeof itemValue === "number") {
-            isValid = itemValue <= rule.max;
+            isValid = numeric
+              ? Number(itemValue) <= rule.max
+              : itemValue.replace(/[\u0391-\uFFE5]/g, "aa").length <= rule.max;
+          } else if (numeric) {
+            isValid = Number(itemValue) <= rule.max;
           }
         }
         if (!isValid) msg = msg || "Incorrect length";
@@ -200,13 +223,16 @@ const FormItem = defineComponent({
       if (target.length === 0) return true;
 
       const sortedRules = target.sort((a) => (a.required ? -1 : 0));
+      const currentVersion = ++validationVersion;
       let result = { valid: true, message: undefined as string | undefined };
       for (let i = 0; i < sortedRules.length; i++) {
         result = await test(sortedRules[i]);
         if (!result.valid) break;
       }
-      valid.value = result.valid;
-      message.value = result.message;
+      if (currentVersion === validationVersion) {
+        valid.value = result.valid;
+        message.value = result.message;
+      }
       return result.valid;
     };
 
@@ -218,41 +244,102 @@ const FormItem = defineComponent({
     };
     const { prop, rules } = toRefs(props);
     const formItem = reactive({ prop, rules, valid, validate });
-    onMounted(() => {
-      if (props.prop) {
-        Form.register?.(formItem);
-      }
-    });
+    let registeredProp: string | undefined;
+    const register = (nextProp?: string) => {
+      if (!nextProp) return;
+      Form.register?.(formItem);
+      registeredProp = nextProp;
+    };
+    const unregister = () => {
+      if (!registeredProp) return;
+      Form.unregister?.(formItem, registeredProp);
+      registeredProp = undefined;
+    };
 
-    onBeforeUnmount(() => {
-      if (props.prop) {
-        Form.unregister?.(formItem);
-      }
-    });
+    onMounted(() => register(props.prop));
+
+    watch(
+      () => props.prop,
+      (nextProp, previousProp) => {
+        if (nextProp === previousProp) return;
+        unregister();
+        register(nextProp);
+        valid.value = true;
+        message.value = undefined;
+      },
+    );
+
+    onBeforeUnmount(unregister);
 
     const ItemValue = computed(() => {
       const prop = props.prop;
       return prop ? (Form.getValueFromProp?.(prop) ?? undefined) : undefined;
     });
+    const renderedItemValue = ref(ItemValue.value);
 
-    watch(ItemValue, () => {
+    watch(ItemValue, (value) => {
+      // Slot VNodes can be compiler-cached when they contain no expressions.
+      // Mirroring the field into a local ref ensures FormItem itself renders
+      // again when the external model is changed (for example by setValue).
+      renderedItemValue.value = value;
       if (props.prop && Form.cleaned) {
         testValue();
       }
     });
 
+    const effectiveRules = computed(
+      () => props.rules || (props.prop ? Form.rules?.[props.prop] : undefined) || [],
+    );
+    const required = computed(() =>
+      (Array.isArray(effectiveRules.value) ? effectiveRules.value : [effectiveRules.value]).some(
+        (rule) => rule.required,
+      ),
+    );
+    const id = computed(() =>
+      Form.name && props.prop
+        ? `${Form.name}_${props.prop}`
+        : `${generatedId}_${props.prop || "field"}`,
+    );
+    const errorId = computed(() => `${id.value}_error`);
+    const labelId = computed(() => `${id.value}_label`);
+    const fieldContext: FormFieldContext = {
+      get id() {
+        return id.value;
+      },
+      get labelId() {
+        return labelId.value;
+      },
+      get errorId() {
+        return errorId.value;
+      },
+      get prop() {
+        return props.prop;
+      },
+      value: computed(() => renderedItemValue.value),
+      size: computed(() => Form.size),
+      shape: computed(() => Form.shape),
+      theme: computed(() => Form.theme),
+      disabled: computed(() => !!Form.disabled),
+      readonly: computed(() => !!Form.readonly),
+      invalid: computed(() => !valid.value),
+      required,
+      describedBy: computed(() => (!valid.value && props.prop ? errorId.value : undefined)),
+      update: (value) => {
+        if (props.prop) Form.updateModel?.(props.prop, value);
+      },
+      blur: () => testValue("blur"),
+    };
+
     return () => {
       const { label, prop } = props;
-      const rules = props.rules || (prop ? Form.rules?.[prop] : undefined) || [];
-      const required = !Array.isArray(rules)
-        ? (rules as FormRule).required
-        : rules.filter((r: FormRule) => r.required).length > 0;
+      const isRequired = required.value;
 
       const classes = [
         "k-form-item",
         {
-          "k-form-item-required": required,
+          "k-form-item-required": isRequired,
           "k-form-item-error": !valid.value,
+          "k-form-item-no-colon": !(props.colon ?? Form.colon ?? true),
         },
       ];
 
@@ -260,34 +347,58 @@ const FormItem = defineComponent({
         wrapperProp: ColProps = {};
 
       if (Form.layout != "inline") {
-        labelProp = props.labelCol || Form.labelCol || {};
-        wrapperProp = props.wrapperCol || Form.wrapperCol || {};
+        labelProp = { ...(props.labelCol || Form.labelCol) };
+        wrapperProp = { ...(props.wrapperCol || Form.wrapperCol) };
       }
       if (Form.layout == "vertical") {
         delete wrapperProp?.offset;
       }
 
       const children = getChildren(slots.default?.());
-      let id = undefined;
-      if (Form.name && prop) {
-        id = `${Form.name || `form_`}_${prop}`;
-      }
+      const controlId = id.value;
+      const controlErrorId = errorId.value;
+      const describedBy = !valid.value && prop ? controlErrorId : undefined;
+      const controlIndex = children.findIndex(
+        (child) => isVNode(child) && (hasModelValueProp(child) || isFormFieldComponent(child.type)),
+      );
 
       return (
         <Row class={classes} type="flex">
           {label ? (
             <Col class="k-form-item-label" {...labelProp}>
-              <label for={id}>{label}</label>
+              <label id={labelId.value} for={controlId}>
+                {label}
+              </label>
             </Col>
           ) : null}
           <Col {...wrapperProp}>
             <div class="k-form-item-content">
-              {children.map((child) => {
-                if (isVNode(child)) {
-                  const value = prop ? (Form.getValueFromProp?.(prop) ?? undefined) : undefined;
+              {children.map((child, index) => {
+                if (isVNode(child) && isNativeFormControl(child)) {
+                  return cloneVNode(child, {
+                    id: controlId,
+                    "aria-describedby": describedBy,
+                    "aria-invalid": !valid.value || undefined,
+                    "aria-required": isRequired || undefined,
+                    onBlur: prop ? () => testValue("blur") : undefined,
+                  });
+                }
+                if (isVNode(child) && index === controlIndex) {
+                  if (isFormFieldComponent(child.type)) {
+                    return (
+                      <FormFieldProvider context={fieldContext}>{() => child}</FormFieldProvider>
+                    );
+                  }
+                  // Read through the computed value so external writes to the
+                  // form model reliably invalidate this render and patch the
+                  // cloned control's modelValue.
+                  const value = prop ? renderedItemValue.value : undefined;
                   const propsData = child?.props || {};
                   const childProps: Record<string, unknown> = {
-                    id,
+                    id: controlId,
+                    "aria-describedby": describedBy,
+                    "aria-invalid": !valid.value || undefined,
+                    "aria-required": isRequired || undefined,
                     size: propsData.size || Form.size,
                     disabled: propsData.disabled || Form.disabled,
                     readonly: propsData.readonly || Form.readonly,
@@ -310,12 +421,16 @@ const FormItem = defineComponent({
                   return child;
                 }
               })}
-              {prop ? (
-                <Transition name="k-form-item-fade">
-                  {!valid.value ? <div class="k-form-item-error-tip">{message.value}</div> : null}
-                </Transition>
-              ) : null}
             </div>
+            {prop ? (
+              <Transition name="k-form-item-fade">
+                {!valid.value ? (
+                  <div id={controlErrorId} class="k-form-item-error-tip" role="alert">
+                    {message.value}
+                  </div>
+                ) : null}
+              </Transition>
+            ) : null}
           </Col>
         </Row>
       );

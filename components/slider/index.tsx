@@ -14,6 +14,7 @@ import Thumb from "./thumb";
 
 import Big from "big.js";
 import type { BooleanType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import { getPosition } from "../utils/mouse";
 import { getClosestStep } from "../utils/number";
 
@@ -45,8 +46,16 @@ const Slider = defineComponent({
     change: (value: number | number[]) => typeof value === "number" || Array.isArray(value),
   },
 
-  setup(props, { emit }) {
+  setup(props, { emit, attrs }) {
+    const field = useFormField(true);
     const size = inject("size", undefined);
+    const disabled = () => Boolean(props.disabled || field?.disabled.value);
+    const readonly = () => Boolean(props.readonly || field?.readonly.value);
+    const emitValue = (value: number | number[]) => {
+      emit("update:modelValue", value);
+      if (field?.prop) field.update(value);
+      emit("change", value);
+    };
     const railWidth = ref(0);
     const thumbRefs = ref<HTMLElement[]>([]);
     const setThumbRef = (el: unknown, index: number) => {
@@ -103,11 +112,20 @@ const Slider = defineComponent({
     });
 
     watch(
-      () => [props.modelValue, props.min, props.max, props.step, props.range, props.marks],
+      () => [
+        field?.prop ? field.value.value : props.modelValue,
+        props.min,
+        props.max,
+        props.step,
+        props.range,
+        props.marks,
+      ],
       (nv) => {
         // 只有当不在拖拽状态时，才响应外部变化，防止拖拽时的抖动
         if (draggingIndex.value === -1) {
-          internalValue.value = formatValue(nv[0] as number | number[]);
+          internalValue.value = formatValue(
+            (nv[0] ?? (props.range ? [props.min, props.min] : props.min)) as number | number[],
+          );
         }
       },
       { immediate: true },
@@ -144,7 +162,7 @@ const Slider = defineComponent({
 
     // 处理滑块拖动
     const handleThumbMove = (e: MouseEvent | TouchEvent) => {
-      if (props.disabled || props.readonly || draggingIndex.value === -1) return;
+      if (disabled() || readonly() || draggingIndex.value === -1) return;
       if (e.cancelable) e.preventDefault();
 
       const newValue = getValueFromEvent(e);
@@ -172,14 +190,13 @@ const Slider = defineComponent({
 
       if (JSON.stringify(nextInternal) !== JSON.stringify(internalValue.value)) {
         internalValue.value = nextInternal;
-        emit("update:modelValue", nextInternal);
-        emit("change", nextInternal);
+        emitValue(nextInternal);
       }
     };
 
     // 处理轨道点击
     const handleRailClick = (e: MouseEvent) => {
-      if (props.disabled || props.readonly) return;
+      if (disabled() || readonly()) return;
       const newValue = getValueFromEvent(e);
 
       if (props.range) {
@@ -197,8 +214,7 @@ const Slider = defineComponent({
       } else {
         internalValue.value = newValue;
       }
-      emit("update:modelValue", internalValue.value);
-      emit("change", internalValue.value);
+      emitValue(internalValue.value);
     };
 
     const stopDragging = () => {
@@ -217,7 +233,7 @@ const Slider = defineComponent({
     };
 
     const handleThumbDown = (index: number) => {
-      if (props.disabled || props.readonly) return;
+      if (disabled() || readonly()) return;
       stopDragging();
       draggingIndex.value = index;
 
@@ -231,7 +247,7 @@ const Slider = defineComponent({
     };
 
     const handleKeydown = (e: KeyboardEvent, index: number) => {
-      if (props.disabled || props.readonly) return;
+      if (disabled() || readonly()) return;
       const isPlus = ["ArrowRight", "ArrowUp"].includes(e.key);
       const isMinus = ["ArrowLeft", "ArrowDown"].includes(e.key);
       if (!isPlus && !isMinus) return;
@@ -292,8 +308,7 @@ const Slider = defineComponent({
         internalValue.value = formatValue(nextValue);
       }
 
-      emit("update:modelValue", internalValue.value);
-      emit("change", internalValue.value);
+      emitValue(internalValue.value);
     };
 
     const getCoord = (val: number) => {
@@ -323,7 +338,10 @@ const Slider = defineComponent({
     };
 
     return () => {
-      const { vertical, reverse, min, max, disabled, marks, included } = props;
+      const { vertical, reverse, min, max, marks, included } = props;
+      const isDisabled = disabled();
+      const isReadonly = readonly();
+      const effectiveSize = props.size || field?.size.value || size;
 
       const renderTrack = () => {
         if (!included && marks) return null;
@@ -419,10 +437,15 @@ const Slider = defineComponent({
             value={val as number}
             min={min}
             max={max}
-            size={props.size || size}
+            id={idx === 0 && field?.prop ? field.id : undefined}
+            ariaLabelledby={idx === 0 && field?.prop ? field.labelId : undefined}
+            ariaDescribedby={idx === 0 ? field?.describedBy.value : undefined}
+            ariaInvalid={idx === 0 && field?.invalid.value}
+            ariaRequired={idx === 0 && field?.required.value}
+            size={effectiveSize}
             vertical={vertical}
             reverse={reverse}
-            disabled={disabled}
+            disabled={isDisabled || isReadonly}
             tooltipVisible={props.tooltipVisible}
             tipFormatter={props.tipFormatter}
             dragging={draggingIndex.value === idx} // 告诉子组件是否被激活
@@ -436,15 +459,20 @@ const Slider = defineComponent({
         class: [
           "k-slider",
           {
-            "k-slider-disabled": disabled,
-            "k-slider-readonly": props.readonly,
+            "k-slider-disabled": isDisabled,
+            "k-slider-readonly": isReadonly,
             "k-slider-vertical": vertical,
             "k-slider-reverse": reverse,
           },
         ],
       };
       return (
-        <div {...sliderProps} aria-readonly={props.readonly || undefined}>
+        <div
+          {...attrs}
+          {...sliderProps}
+          aria-readonly={isReadonly || undefined}
+          onFocusout={() => field?.blur()}
+        >
           <div class="k-slider-bar">
             <div class="k-slider-rail" ref={railRef} onClick={handleRailClick}></div>
             {renderTrack()}
@@ -457,4 +485,4 @@ const Slider = defineComponent({
   },
 });
 
-export default Slider;
+export default markFormFieldComponent(Slider);

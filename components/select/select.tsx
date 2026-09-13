@@ -22,6 +22,7 @@ import {
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
 import resize from "../directives/resize";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
@@ -95,6 +96,7 @@ const Select = defineComponent({
   },
   props: selectProps,
   setup(props, { slots, emit }) {
+    const field = useFormField(true);
     usePopupHost(() => closeDropdown());
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
@@ -109,7 +111,13 @@ const Select = defineComponent({
       if (Array.isArray(value)) return [...value];
       return value === undefined || isEmpty(value) ? [] : [value];
     };
-    const currentValue = ref<SelectValue[]>(toValueArray(props.modelValue));
+    const currentValue = ref<SelectValue[]>(
+      toValueArray(
+        field?.prop
+          ? (field.value.value as SelectValue | SelectValue[] | undefined)
+          : props.modelValue,
+      ),
+    );
     const createdOptions = ref<SelectOption[]>([]);
     const queryInputVisible = ref(false);
     const queryKey = ref("");
@@ -152,11 +160,11 @@ const Select = defineComponent({
     );
 
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (v) => {
         currentValue.value = props.multiple
-          ? toValueArray(Array.isArray(v) ? v : [])
-          : toValueArray(v);
+          ? toValueArray(Array.isArray(v) ? (v as SelectValue[]) : [])
+          : toValueArray(v as SelectValue | undefined);
         if (visible.value) {
           updatePosition();
         }
@@ -272,7 +280,7 @@ const Select = defineComponent({
     };
 
     const onSelect = (item: OptionSelectEvent) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       const { value, label } = { ...item };
       let selected = true;
       if (props.multiple) {
@@ -347,18 +355,20 @@ const Select = defineComponent({
     const emitValue = () => {
       const result = props.multiple ? currentValue.value : currentValue.value[0];
       emit("update:modelValue", result);
+      if (field?.prop) field.update(result);
       emit("change", result);
     };
 
     const removeTag = (index: number) => {
-      if (props.disabled || props.readonly) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       currentValue.value.splice(index, 1);
       updatePosition();
       emitValue();
     };
 
     const onClear = (e: Event) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       emit("clear");
       currentValue.value = [];
       emitValue();
@@ -376,7 +386,7 @@ const Select = defineComponent({
     };
 
     const toggle = (show: boolean | null = null) => {
-      if (props.disabled || props.readonly) {
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value) {
         return;
       }
       if (hasSearchEvent) {
@@ -536,7 +546,8 @@ const Select = defineComponent({
     };
 
     const onKeydown = (e: KeyboardEvent) => {
-      if (props.disabled || props.readonly) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
 
       if (!visible.value) {
         if (["Enter", " ", "ArrowDown", "ArrowUp"].includes(e.key)) {
@@ -572,8 +583,8 @@ const Select = defineComponent({
     const showClear = computed(() => {
       return (
         props.clearable &&
-        !props.disabled &&
-        !props.readonly &&
+        !(props.disabled || field?.disabled.value) &&
+        !(props.readonly || field?.readonly.value) &&
         !isEmpty(currentValue.value) &&
         !isEmpty(labelText.value)
       );
@@ -645,20 +656,12 @@ const Select = defineComponent({
     };
 
     return () => {
-      const {
-        disabled,
-        readonly,
-        size,
-        multiple,
-        placeholder,
-        showArrow,
-        bordered,
-        theme,
-        arrowIcon,
-        icon,
-        shape,
-        filterable,
-      } = props;
+      const { multiple, placeholder, showArrow, bordered, arrowIcon, icon, filterable } = props;
+      const disabled = props.disabled || field?.disabled.value;
+      const readonly = props.readonly || field?.readonly.value;
+      const size = props.size || field?.size.value;
+      const theme = field?.theme.value ?? props.theme;
+      const shape = props.shape || field?.shape.value;
       const childNode: VNodeChild[] = [];
       const finalArrowIcon = arrowIcon || ChevronDown;
 
@@ -807,6 +810,7 @@ const Select = defineComponent({
       ) : null;
 
       const rootProps = {
+        id: field?.prop ? field.id : undefined,
         tabIndex: disabled ? undefined : 0,
         class: rootClasses,
         style: rootStyles,
@@ -817,6 +821,11 @@ const Select = defineComponent({
         "aria-haspopup": "listbox" as const,
         "aria-disabled": disabled,
         "aria-readonly": readonly || undefined,
+        "aria-labelledby": field?.prop ? field.labelId : undefined,
+        "aria-describedby": field?.describedBy.value,
+        "aria-invalid": field?.invalid.value || undefined,
+        "aria-required": field?.required.value || undefined,
+        onBlur: () => field?.blur(),
         ref: refSelection,
       };
 
@@ -834,6 +843,6 @@ const Select = defineComponent({
     };
   },
 });
-export default Select;
+export default markFormFieldComponent(Select);
 
 export type { SelectOption } from "./types";

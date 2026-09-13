@@ -1,6 +1,7 @@
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
 import type { BooleanType, ButtonType, ShapeType, SizeType, ThemeType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import type { IconType } from "../icon";
 import type { ChangeEvent } from "./types";
 
@@ -32,11 +33,14 @@ const RadioButton = defineComponent({
     "update:checked": (value: boolean) => typeof value === "boolean",
   },
   setup(props, { slots, emit, attrs }) {
-    const isChecked = ref(props.modelValue ?? props.checked ?? false);
+    const field = useFormField(true);
+    const isChecked = ref(
+      field?.prop ? Boolean(field.value.value) : (props.modelValue ?? props.checked ?? false),
+    );
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (v) => {
-        if (v !== undefined) isChecked.value = v;
+        if (v !== undefined) isChecked.value = Boolean(v);
       },
     );
     watch(
@@ -48,7 +52,14 @@ const RadioButton = defineComponent({
 
     const handleClick = (e: Event) => {
       if (e.defaultPrevented) return;
-      if (props.disabled || props.readonly || isChecked.value) return;
+      if (
+        props.disabled ||
+        field?.disabled.value ||
+        props.readonly ||
+        field?.readonly.value ||
+        isChecked.value
+      )
+        return;
 
       const checked = !isChecked.value;
 
@@ -59,29 +70,38 @@ const RadioButton = defineComponent({
         label: props.label ?? String(props.value ?? ""),
       } as ChangeEvent);
       emit("update:modelValue", checked);
+      if (field?.prop) field.update(checked);
       emit("update:checked", checked);
       e.preventDefault();
     };
 
     return () => {
       const labelText = props.label ?? slots.default?.();
+      const disabled = props.disabled || field?.disabled.value;
+      const readonly = props.readonly || field?.readonly.value;
       const buttonProps = {
         ...attrs,
-        disabled: props.disabled,
-        size: props.size,
+        id: attrs.id ?? (field?.prop ? field.id : undefined),
+        disabled,
+        size: props.size || field?.size.value,
         icon: props.icon,
-        theme: props.theme,
-        shape: props.shape,
-        "aria-readonly": props.readonly || undefined,
+        theme: props.theme || field?.theme.value,
+        shape: props.shape || field?.shape.value,
+        "aria-labelledby": attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined),
+        "aria-describedby": attrs["aria-describedby"] ?? field?.describedBy.value,
+        "aria-invalid": (attrs["aria-invalid"] ?? field?.invalid.value) || undefined,
+        "aria-required": (attrs["aria-required"] ?? field?.required.value) || undefined,
+        "aria-readonly": readonly || undefined,
         "aria-checked": Boolean(isChecked.value),
         role: "radio",
         tabindex: isChecked.value ? 0 : -1,
         type: (isChecked.value ? "primary" : "default") as ButtonType,
         onClick: [attrs.onClick, handleClick].filter(Boolean) as EventListener[],
+        onBlur: () => field?.blur(),
       };
 
       return <Button {...buttonProps}>{labelText}</Button>;
     };
   },
 });
-export default RadioButton;
+export default markFormFieldComponent(RadioButton);

@@ -29,6 +29,7 @@ import type {
   ThemeType,
 } from "../const/types";
 import resize from "../directives/resize";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
@@ -114,6 +115,7 @@ const TreeSelect = defineComponent({
     clear: () => true,
   },
   setup(props, { emit }) {
+    const field = useFormField(true);
     usePopupHost(() => visible.value && openChange(false));
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
@@ -125,12 +127,13 @@ const TreeSelect = defineComponent({
 
     const visible = ref(false);
     const rendered = ref(false);
+    const initialValue = field?.prop ? (field.value.value as TreeSelectValue) : props.modelValue;
     const currentValue = ref<string[]>(
       props.multiple
-        ? [...(Array.isArray(props.modelValue) ? props.modelValue : [])]
-        : isEmpty(props.modelValue)
+        ? [...(Array.isArray(initialValue) ? initialValue : [])]
+        : isEmpty(initialValue)
           ? []
-          : [props.modelValue as string],
+          : [initialValue as string],
     );
     const queryInputVisible = ref(false);
     const queryKey = ref("");
@@ -160,7 +163,7 @@ const TreeSelect = defineComponent({
     );
 
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (v) => {
         currentValue.value = props.multiple
           ? [...(Array.isArray(v) ? v : [])]
@@ -285,18 +288,20 @@ const TreeSelect = defineComponent({
     const emitValue = () => {
       const result = props.multiple ? currentValue.value : currentValue.value[0] || null;
       emit("update:modelValue", result);
+      if (field?.prop) field.update(result);
       emit("change", result);
     };
 
     const removeTag = (index: number) => {
-      if (props.disabled || props.readonly) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       currentValue.value.splice(index, 1);
       emitValue();
       updatePosition();
     };
 
     const onClear = (e: Event) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       currentValue.value = [];
       emitValue();
       clearQuery();
@@ -315,7 +320,7 @@ const TreeSelect = defineComponent({
     };
 
     const toggle = (show = false) => {
-      if (props.disabled || props.readonly) {
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value) {
         return;
       }
       if (hasSearchEvent) {
@@ -402,13 +407,13 @@ const TreeSelect = defineComponent({
     };
 
     const onCheck = (_checkedNode: TreeNode, _checked: boolean, checkedKeys: string[]) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       currentValue.value = checkedKeys.slice();
       emitValue();
     };
 
     const onSelect = (item: TreeNode) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       const value = item.key;
       const label = item.title;
       let selected = true;
@@ -490,7 +495,12 @@ const TreeSelect = defineComponent({
     };
 
     const showClear = computed(() => {
-      return props.clearable && !props.disabled && !props.readonly && !isEmpty(currentValue.value);
+      return (
+        props.clearable &&
+        !(props.disabled || field?.disabled.value) &&
+        !(props.readonly || field?.readonly.value) &&
+        !isEmpty(currentValue.value)
+      );
     });
 
     const renderOverlay = () => {
@@ -544,6 +554,11 @@ const TreeSelect = defineComponent({
     };
 
     return () => {
+      const disabled = props.disabled || field?.disabled.value;
+      const readonly = props.readonly || field?.readonly.value;
+      const size = props.size || field?.size.value;
+      const theme = field?.theme.value ?? props.theme;
+      const shape = props.shape || field?.shape.value;
       let arrowIcon = props.arrowIcon;
       if (arrowIcon === undefined) {
         arrowIcon = ChevronDown;
@@ -555,7 +570,7 @@ const TreeSelect = defineComponent({
         ref: queryInputRef,
         class: "k-tree-select-search",
         autoComplete: "off",
-        readonly: props.readonly,
+        readonly,
         onChange: (e: Event) => e.stopPropagation(),
         onKeydown: queryKeydown,
         onInput: searchInput,
@@ -590,15 +605,15 @@ const TreeSelect = defineComponent({
           : labels.length;
         const visibleLabels = labels.slice(0, displayCount);
         const hiddenLabels = labels.slice(displayCount);
-        const tagSize = props.size || "medium";
+        const tagSize = size || "medium";
         const tags = visibleLabels.map((label, index) => (
           <Tag
             key={`${label}-${index}`}
             size={tagSize}
-            shape={props.shape}
-            theme={props.theme}
+            shape={shape}
+            theme={theme}
             compact
-            closeable={!props.disabled && !props.readonly}
+            closeable={!disabled && !readonly}
             onClose={() => removeTag(index)}
           >
             {label}
@@ -614,10 +629,10 @@ const TreeSelect = defineComponent({
                     <Tag
                       key={`${label}-${index}`}
                       size={tagSize}
-                      shape={props.shape}
-                      theme={props.theme}
+                      shape={shape}
+                      theme={theme}
                       compact
-                      closeable={!props.disabled && !props.readonly}
+                      closeable={!disabled && !readonly}
                       onClose={() => removeTag(displayCount + index)}
                     >
                       {label}
@@ -626,7 +641,7 @@ const TreeSelect = defineComponent({
                 </Space>
               }
             >
-              <Tag size={tagSize} shape={props.shape} theme={props.theme} compact>
+              <Tag size={tagSize} shape={shape} theme={theme} compact>
                 +{hiddenLabels.length}...
               </Tag>
             </Tooltip>,
@@ -667,17 +682,17 @@ const TreeSelect = defineComponent({
       const classes = [
         "k-tree-select",
         {
-          "k-tree-select-disabled": props.disabled,
-          "k-tree-select-readonly": props.readonly,
+          "k-tree-select-disabled": disabled,
+          "k-tree-select-readonly": readonly,
           "k-tree-select-block": props.block,
           "k-tree-select-opened": visible.value,
-          "k-tree-select-borderless": props.bordered === false || props.theme === "plain",
-          "k-tree-select-lg": props.size === "large",
-          "k-tree-select-sm": props.size === "small",
-          "k-tree-select-fill": props.theme === "fill",
+          "k-tree-select-borderless": props.bordered === false || theme === "plain",
+          "k-tree-select-lg": size === "large",
+          "k-tree-select-sm": size === "small",
+          "k-tree-select-fill": theme === "fill",
           "k-tree-select-has-icon": !!props.icon,
-          "k-tree-select-circle": props.shape === "circle",
-          "k-tree-select-square": props.shape == "square",
+          "k-tree-select-circle": shape === "circle",
+          "k-tree-select-square": shape == "square",
           "k-tree-select-multiple": props.multiple,
           "k-tree-select-show-search": queryInputFocused.value,
           "k-tree-select-show-tags": props.multiple && !isEmpty(labelText.value),
@@ -700,16 +715,22 @@ const TreeSelect = defineComponent({
         />
       ) : null;
       const treeProps = {
+        id: field?.prop ? field.id : undefined,
         tabindex: "0",
         role: "combobox",
         "aria-expanded": visible.value,
-        "aria-disabled": props.disabled || undefined,
-        "aria-readonly": props.readonly || undefined,
+        "aria-labelledby": field?.prop ? field.labelId : undefined,
+        "aria-describedby": field?.describedBy.value,
+        "aria-invalid": field?.invalid.value || undefined,
+        "aria-required": field?.required.value || undefined,
+        "aria-disabled": disabled || undefined,
+        "aria-readonly": readonly || undefined,
         "aria-haspopup": "tree",
         class: classes,
         style: styles,
         onClick: () => toggle(),
         onKeydown: triggerKeydown,
+        onBlur: () => field?.blur(),
         ref: refSelection,
       };
       return (
@@ -727,4 +748,4 @@ const TreeSelect = defineComponent({
   },
 });
 
-export default TreeSelect;
+export default markFormFieldComponent(TreeSelect);

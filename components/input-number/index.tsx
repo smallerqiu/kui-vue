@@ -10,6 +10,7 @@ import {
   type PropType,
 } from "vue";
 import { type BooleanType, type ShapeType, type SizeType, type ThemeType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import Icon, { type IconType } from "../icon";
 import { Input } from "../input";
 import { isValidBig, normalize } from "../utils/number";
@@ -53,6 +54,7 @@ const InputNumber = defineComponent({
   },
 
   setup(props, { slots, attrs, emit }) {
+    const field = useFormField(true);
     const parentSize = inject<SizeType | undefined>("size", undefined);
     const innerValue = ref("");
     const userInput = ref<string | null>(null);
@@ -78,7 +80,7 @@ const InputNumber = defineComponent({
     };
 
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (val) => {
         const next = normalize(val, safePrecision.value);
         if (next !== innerValue.value) {
@@ -90,6 +92,7 @@ const InputNumber = defineComponent({
 
     const emitValue = (value: number | undefined) => {
       emit("update:modelValue", value);
+      if (field?.prop) field.update(value);
       emit("change", value);
     };
 
@@ -131,10 +134,12 @@ const InputNumber = defineComponent({
     const handleBlur = (event: FocusEvent) => {
       triggerUpdate(userInput.value !== null ? userInput.value : innerValue.value);
       emit("blur", event);
+      if (field?.prop) field.blur();
     };
 
     const stepAction = (type: "up" | "down") => {
-      if (props.disabled || props.readonly) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
 
       const current = isValidBig(innerValue.value) ? innerValue.value : 0;
       let step = new Big(1);
@@ -160,14 +165,19 @@ const InputNumber = defineComponent({
         new Big(innerValue.value).gt(props.min);
       const inputProps = {
         ...attrs,
+        id: attrs.id ?? (field?.prop ? field.id : undefined),
+        "aria-labelledby": attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined),
+        "aria-describedby": attrs["aria-describedby"] ?? field?.describedBy.value,
+        "aria-invalid": (attrs["aria-invalid"] ?? field?.invalid.value) || undefined,
+        "aria-required": (attrs["aria-required"] ?? field?.required.value) || undefined,
         modelValue: displayValue.value,
-        disabled: props.disabled,
-        readonly: props.readonly,
+        disabled: props.disabled || field?.disabled.value,
+        readonly: props.readonly || field?.readonly.value,
         clearable: false,
         placeholder: props.placeholder,
         suffix: props.suffix,
         prefix: props.prefix,
-        size: props.size || parentSize,
+        size: props.size || field?.size.value || parentSize,
         icon: props.icon,
         shape: props.shape,
         theme: props.theme,
@@ -195,7 +205,9 @@ const InputNumber = defineComponent({
         },
       };
       const controls =
-        props.controls && !props.readonly && !props.disabled ? (
+        props.controls &&
+        !(props.readonly || field?.readonly.value) &&
+        !(props.disabled || field?.disabled.value) ? (
           <div class="k-input-number-controls">
             <button
               type="button"
@@ -232,4 +244,4 @@ const InputNumber = defineComponent({
   },
 });
 
-export default InputNumber;
+export default markFormFieldComponent(InputNumber);

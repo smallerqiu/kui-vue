@@ -32,6 +32,7 @@ import {
 import { Button } from "../button";
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import type {
   BooleanType,
   DropPlacementsType,
@@ -117,19 +118,24 @@ const DatePicker = defineComponent({
   props: datePickerProps,
   emits: {
     "update:modelValue": (value: DatePickerOutput | DatePickerOutput[]) =>
-      value === null || Array.isArray(value) || ["string", "number", "object"].includes(typeof value),
+      value === null ||
+      Array.isArray(value) ||
+      ["string", "number", "object"].includes(typeof value),
     "update:startDate": (value: DatePickerOutput) =>
       value === null || ["string", "number", "object"].includes(typeof value),
     "update:endDate": (value: DatePickerOutput) =>
       value === null || ["string", "number", "object"].includes(typeof value),
     change: (value: DatePickerOutput | DatePickerOutput[], text: string | string[]) =>
-      (value === null || Array.isArray(value) || ["string", "number", "object"].includes(typeof value)) &&
+      (value === null ||
+        Array.isArray(value) ||
+        ["string", "number", "object"].includes(typeof value)) &&
       (typeof text === "string" || Array.isArray(text)),
     openChange: (open: boolean) => typeof open === "boolean",
     clear: () => true,
   },
 
   setup(props, { emit, slots }) {
+    const field = useFormField(true);
     usePopupHost(() => isVisible.value && openChange(false));
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
@@ -290,7 +296,12 @@ const DatePicker = defineComponent({
     };
 
     watch(
-      [() => props.modelValue, () => props.startDate, () => props.endDate, isRange],
+      [
+        () => (field?.prop ? field.value.value : props.modelValue),
+        () => props.startDate,
+        () => props.endDate,
+        isRange,
+      ],
       ([modelValue, startDate, endDate]) => {
         const val =
           modelValue ??
@@ -321,6 +332,7 @@ const DatePicker = defineComponent({
     const emitValue = (closePanel = true) => {
       if (!innerValue.value) {
         emit("update:modelValue", null);
+        if (field?.prop) field.update(null);
         emit("change", null, "");
         return;
       }
@@ -334,6 +346,7 @@ const DatePicker = defineComponent({
           const dates = [start, end].sort((a, b) => a.valueOf() - b.valueOf());
           const out = dates.map((d) => formatOutputValue(d));
           emit("update:modelValue", out);
+          if (field?.prop) field.update(out);
           emit("update:startDate", out[0]);
           emit("update:endDate", out[1]);
           emit(
@@ -348,15 +361,17 @@ const DatePicker = defineComponent({
           if (closePanel && !props.panelOnly) openChange(false);
         }
       } else {
-        emit("update:modelValue", formatOutputValue(innerValue.value));
-        emit("change", formatOutputValue(innerValue.value), getStr(innerValue.value));
+        const output = formatOutputValue(innerValue.value);
+        emit("update:modelValue", output);
+        if (field?.prop) field.update(output);
+        emit("change", output, getStr(innerValue.value));
         syncTextFromValue();
         if (closePanel && !props.panelOnly) openChange(false);
       }
     };
 
     const handleInput = (e: InputEvent, index = 0) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       const val = (e.target as HTMLInputElement).value;
       const fmt = getFormat();
 
@@ -423,7 +438,14 @@ const DatePicker = defineComponent({
 
     // 切换面板
     const togglePanel = () => {
-      if (props.disabled || props.readonly || isVisible.value) return;
+      if (
+        props.disabled ||
+        field?.disabled.value ||
+        props.readonly ||
+        field?.readonly.value ||
+        isVisible.value
+      )
+        return;
       if (!rendered.value) {
         rendered.value = true;
         nextTick(() => {
@@ -473,7 +495,7 @@ const DatePicker = defineComponent({
     };
 
     const pickDate = (date: Dayjs) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       if (isRange.value) {
         let newVal = Array.isArray(innerValue.value) ? [...innerValue.value] : [];
         // 清理一下可能的 null
@@ -517,7 +539,7 @@ const DatePicker = defineComponent({
     };
 
     const pickYear = (y: number) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       panelDate.value = panelDate.value.year(y);
       if (props.mode === "year") {
         innerValue.value = panelDate.value;
@@ -530,7 +552,7 @@ const DatePicker = defineComponent({
     };
 
     const pickMonth = (m: number) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       panelDate.value = panelDate.value.month(m);
       if (props.mode === "month") {
         innerValue.value = panelDate.value;
@@ -547,7 +569,7 @@ const DatePicker = defineComponent({
       return props.disabledTime(d.toDate());
     };
     const handleTimeScrollPick = (type: UnitType, val: number) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       let activeDate = dayjs();
       let idx = 0;
 
@@ -937,18 +959,24 @@ const DatePicker = defineComponent({
     );
 
     const onClear = (e: Event) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       e.stopPropagation();
       innerValue.value = null;
       syncTextFromValue();
       emit("update:startDate", null);
       emit("update:endDate", null);
       emit("update:modelValue", null);
+      if (field?.prop) field.update(null);
       emit("change", null, "");
       emit("clear");
     };
 
     return () => {
+      const disabled = props.disabled || field?.disabled.value;
+      const readonly = props.readonly || field?.readonly.value;
+      const size = props.size || field?.size.value;
+      const theme = field?.theme.value ?? props.theme;
+      const shape = props.shape || field?.shape.value;
       const localPlaceholders: Record<string, string> = {
         year: locale?.value.k.datePicker.selectYear,
         month: locale?.value.k.datePicker.selectMonth,
@@ -962,21 +990,21 @@ const DatePicker = defineComponent({
         "k-datepicker",
         { "k-datepicker-opened": isVisible.value || isFocus.value },
         //   { 'k-datepicker-range': isRange },
-        { "k-datepicker-borderless": props.bordered === false || props.theme === "plain" },
-        { "k-datepicker-sm": props.size == "small" },
-        { "k-datepicker-lg": props.size == "large" },
+        { "k-datepicker-borderless": props.bordered === false || theme === "plain" },
+        { "k-datepicker-sm": size == "small" },
+        { "k-datepicker-lg": size == "large" },
         //   { 'k-datepicker-with-time': withTime },
-        { "k-datepicker-disabled": props.disabled },
-        { "k-datepicker-readonly": props.readonly },
-        { "k-datepicker-fill": props.theme == "fill" },
-        { "k-datepicker-circle": props.shape == "circle" },
-        { "k-datepicker-square": props.shape == "square" },
+        { "k-datepicker-disabled": disabled },
+        { "k-datepicker-readonly": readonly },
+        { "k-datepicker-fill": theme == "fill" },
+        { "k-datepicker-circle": shape == "circle" },
+        { "k-datepicker-square": shape == "square" },
       ];
       const showClear =
         props.clearable &&
         (textValue.value || (textValueStart.value && textValueStart.value)) &&
-        !props.disabled &&
-        !props.readonly;
+        !disabled &&
+        !readonly;
       const selectCls = [
         "k-datepicker-selection",
         {
@@ -1015,8 +1043,8 @@ const DatePicker = defineComponent({
               value={textValueStart.value}
               onInput={(e) => handleInput(e, 0)}
               placeholder={placeholders[0] || localPlaceholders.startDate}
-              disabled={props.disabled}
-              readonly={props.readonly || !props.editable}
+              disabled={disabled}
+              readonly={readonly || !props.editable}
               onClick={() => {
                 timeEditSide.value = "start";
               }} // 聚焦开始
@@ -1027,13 +1055,13 @@ const DatePicker = defineComponent({
             <input
               size={size}
               tabindex={-1}
-              readonly={props.readonly || !props.editable}
+              readonly={readonly || !props.editable}
               autocomplete="off"
               class="k-datepicker-input"
               value={textValueEnd.value}
               onInput={(e) => handleInput(e, 1)}
               placeholder={placeholders[1] || localPlaceholders.endDate}
-              disabled={props.disabled}
+              disabled={disabled}
               onClick={() => {
                 timeEditSide.value = "end";
               }} // 聚焦结束
@@ -1044,19 +1072,19 @@ const DatePicker = defineComponent({
             <input
               tabindex={-1}
               autocomplete="off"
-              readonly={props.readonly || !props.editable}
+              readonly={readonly || !props.editable}
               size={size}
               class="k-datepicker-input"
               value={textValue.value}
               onInput={(e) => handleInput(e)}
               placeholder={(props.placeholder as string) || localPlaceholders[props.mode]}
-              disabled={props.disabled}
+              disabled={disabled}
             />
           );
         }
       };
       const presetEmit = ({ value }: DatePickerPreset) => {
-        if (props.readonly) return;
+        if (props.readonly || field?.readonly.value) return;
         if (typeof value === "function") {
           const date = value();
           if (isRange.value && Array.isArray(date)) {
@@ -1131,11 +1159,18 @@ const DatePicker = defineComponent({
 
       return (
         <div
+          id={field?.prop ? field.id : undefined}
           class={classes}
           ref={refSelection}
-          tabindex={props.disabled ? undefined : 0}
-          aria-readonly={props.readonly || undefined}
+          tabindex={disabled ? undefined : 0}
+          aria-labelledby={field?.prop ? field.labelId : undefined}
+          aria-describedby={field?.describedBy.value}
+          aria-invalid={field?.invalid.value || undefined}
+          aria-required={field?.required.value || undefined}
+          aria-disabled={disabled || undefined}
+          aria-readonly={readonly || undefined}
           aria-expanded={isVisible.value}
+          onFocusout={() => field?.blur()}
           onKeydown={(event: KeyboardEvent) => {
             if (event.key === "Escape" && isVisible.value) {
               event.stopPropagation();
@@ -1183,4 +1218,4 @@ export const DatePickerPanel = defineComponent({
       h(DatePicker, { ...attrs, ...props, panelOnly: true }, slots),
 });
 
-export default DatePicker;
+export default markFormFieldComponent(DatePicker);

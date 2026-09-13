@@ -22,6 +22,7 @@ import {
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
 import type { ShapeType, SizeType, ThemeType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import Icon from "../icon";
 import { Input } from "../input";
 import zhCN from "../locale/zh-CN";
@@ -57,7 +58,7 @@ const propsDef = {
 };
 export type AutoCompleteProps = ExtractPropTypes<typeof propsDef>;
 
-export default defineComponent({
+const AutoComplete = defineComponent({
   name: "AutoComplete",
   inheritAttrs: false,
   props: propsDef,
@@ -71,6 +72,7 @@ export default defineComponent({
     openChange: (open: boolean) => typeof open === "boolean",
   },
   setup(props, { emit, attrs }) {
+    const field = useFormField(true);
     usePopupHost(() => visible.value && setOpen(false));
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
@@ -89,7 +91,9 @@ export default defineComponent({
     const dropdown = ref<HTMLElement | null>(null);
     const positioned = ref(false);
     const composing = ref(false);
-    const current = computed(() => props.modelValue ?? inner.value);
+    const current = computed(() =>
+      field?.prop ? String(field.value.value ?? "") : (props.modelValue ?? inner.value),
+    );
     const normalized = computed(() =>
       props.options.map((item) => (typeof item === "string" ? { value: item, label: item } : item)),
     );
@@ -113,9 +117,9 @@ export default defineComponent({
     let blurTimer: ReturnType<typeof setTimeout> | undefined;
     let resizeObserver: ResizeObserver | undefined;
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (value) => {
-        if (value !== undefined) inner.value = value;
+        if (value !== undefined) inner.value = String(value);
       },
     );
     const hasOptions = computed(() => normalized.value.length > 0);
@@ -156,7 +160,7 @@ export default defineComponent({
       return nextOptions.length > 0;
     };
     const setOpen = (next: boolean) => {
-      if (next && props.readonly) return;
+      if (next && (props.readonly || field?.readonly.value)) return;
       if (next && suppressRemoteOptions.value && !props.loading) return;
       if (next && !props.loading && (!hasOptions.value || !shownOptions.value.length)) return;
       if (next && !(props.open ?? innerOpen.value)) positioned.value = false;
@@ -210,9 +214,11 @@ export default defineComponent({
       }
       document.addEventListener("scroll", updatePosition, true);
       window.addEventListener("resize", updatePosition);
-      resizeObserver = new ResizeObserver(updatePosition);
-      if (root.value) resizeObserver.observe(root.value);
-      if (dropdown.value) resizeObserver.observe(dropdown.value);
+      if (typeof ResizeObserver !== "undefined") {
+        resizeObserver = new ResizeObserver(updatePosition);
+        if (root.value) resizeObserver.observe(root.value);
+        if (dropdown.value) resizeObserver.observe(dropdown.value);
+      }
     });
     onBeforeUnmount(() => {
       cancelAnimationFrame(positionRaf);
@@ -222,13 +228,14 @@ export default defineComponent({
       window.removeEventListener("resize", updatePosition);
     });
     const update = (next: string) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       inner.value = next;
       emit("update:modelValue", next);
+      if (field?.prop) field.update(next);
       emit("change", next);
     };
     const choose = (option: AutoCompleteOption) => {
-      if (props.readonly || option.disabled) return;
+      if (props.readonly || field?.readonly.value || option.disabled) return;
       update(option.value);
       emit("select", option.value, option);
       setOpen(false);
@@ -255,7 +262,7 @@ export default defineComponent({
       else if (typeof listener === "function") listener(event);
     };
     const keydown = (event: KeyboardEvent) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       if (event.key === "ArrowDown" || event.key === "ArrowUp") {
         if ((!current.value && !props.showOnEmpty) || suppressRemoteOptions.value) return;
         if (!filter(current.value).length) return;
@@ -289,21 +296,26 @@ export default defineComponent({
       nextTick(() => {
         dropdown.value
           ?.querySelector<HTMLElement>(`#${listboxId}-option-${active.value}`)
-          ?.scrollIntoView({ block: "nearest" });
+          ?.scrollIntoView?.({ block: "nearest" });
       });
     });
     return () => (
       <div ref={root} class={["k-auto-complete", attrs.class]}>
         <Input
           {...attrs}
+          id={attrs.id ?? (field?.prop ? field.id : undefined)}
+          aria-labelledby={attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)}
+          aria-describedby={attrs["aria-describedby"] ?? field?.describedBy.value}
+          aria-invalid={(attrs["aria-invalid"] ?? field?.invalid.value) || undefined}
+          aria-required={(attrs["aria-required"] ?? field?.required.value) || undefined}
           class={undefined}
           modelValue={current.value}
-          disabled={props.disabled}
-          readonly={props.readonly}
+          disabled={props.disabled || field?.disabled.value}
+          readonly={props.readonly || field?.readonly.value}
           placeholder={props.placeholder}
-          size={props.size}
-          shape={props.shape}
-          theme={props.theme}
+          size={props.size || field?.size.value}
+          shape={props.shape || field?.shape.value}
+          theme={field?.theme.value ?? props.theme}
           clearable={props.clearable}
           role="combobox"
           aria-autocomplete="list"
@@ -315,7 +327,8 @@ export default defineComponent({
           onFocus={(event: FocusEvent) => {
             invokeAttr("onFocus", event);
             if (event.defaultPrevented) return;
-            if (props.disabled || props.readonly) return;
+            if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+              return;
             const hasMatches = refreshOptions();
             if ((current.value || props.showOnEmpty) && (hasMatches || props.loading))
               setOpen(true);
@@ -325,6 +338,7 @@ export default defineComponent({
             if (event.defaultPrevented) return;
             clearTimeout(blurTimer);
             blurTimer = setTimeout(() => setOpen(false), 120);
+            field?.blur();
           }}
           onCompositionstart={(event: CompositionEvent) => {
             composing.value = true;
@@ -409,3 +423,5 @@ export default defineComponent({
     );
   },
 });
+
+export default markFormFieldComponent(AutoComplete);

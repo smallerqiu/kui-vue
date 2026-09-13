@@ -1,7 +1,8 @@
 import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent, nextTick, provide, reactive, ref, toRefs } from "vue";
 import type { BooleanType, DirectionType, ShapeType, SizeType, ThemeType } from "../const/types";
-import type { ColProps, FormRule, FormSubmitEvent, FormValidateTrigger } from "./types";
+import { FORM_INJECTION_KEY, type FormItemRegistration } from "./context";
+import type { ColProps, FormRules, FormSubmitEvent, FormValidateTrigger } from "./types";
 
 const formProps = {
   layout: {
@@ -13,7 +14,7 @@ const formProps = {
   labelCol: Object as PropType<ColProps>,
   wrapperCol: Object as PropType<ColProps>,
   rules: {
-    type: Object as PropType<Record<string, FormRule[]>>,
+    type: Object as PropType<FormRules>,
   },
   size: {
     type: String as PropType<SizeType>,
@@ -22,6 +23,7 @@ const formProps = {
   shape: String as PropType<ShapeType>,
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
+  colon: { type: Boolean as BooleanType, default: true },
 };
 
 export type FormProps = ExtractPropTypes<typeof formProps>;
@@ -37,16 +39,21 @@ const Form = defineComponent({
   setup(props, { emit, slots, expose }) {
     const formRef = ref(null);
     const model = props.model ?? {};
-    interface RegisteredFormItem {
-      prop: string;
-      rules?: FormRule | FormRule[];
-      valid: boolean;
-      validate: (rules: FormRule | FormRule[], trigger?: FormValidateTrigger) => Promise<boolean>;
-    }
-    const formItems = ref<Record<string, RegisteredFormItem>>({});
+    const formItems = ref<Record<string, FormItemRegistration>>({});
 
-    const { rules, size, shape, theme, disabled, readonly, layout, name, labelCol, wrapperCol } =
-      toRefs(props);
+    const {
+      rules,
+      size,
+      shape,
+      theme,
+      disabled,
+      readonly,
+      colon,
+      layout,
+      name,
+      labelCol,
+      wrapperCol,
+    } = toRefs(props);
 
     const updateModel = (prop: string, value = null) => {
       const { o, k } = getPropByPath(model, prop);
@@ -133,13 +140,12 @@ const Form = defineComponent({
       return result;
     };
 
-    const register = (item: RegisteredFormItem) => {
+    const register = (item: FormItemRegistration) => {
       // formItems.value.set(item.prop, item);
       if (item.prop) formItems.value[item.prop] = item;
     };
-    const unregister = (item: RegisteredFormItem) => {
-      if (item.prop) delete formItems.value[item.prop];
-      // formItems.value.delete(item.prop);
+    const unregister = (item: FormItemRegistration, prop = item.prop) => {
+      if (prop && formItems.value[prop] === item) delete formItems.value[prop];
     };
 
     expose({ validate, reset, test, submit });
@@ -151,6 +157,7 @@ const Form = defineComponent({
       rules,
       disabled,
       readonly,
+      colon,
       size,
       shape,
       theme,
@@ -162,7 +169,7 @@ const Form = defineComponent({
       wrapperCol,
       cleaned: ref(true),
     });
-    provide("Form", form);
+    provide(FORM_INJECTION_KEY, form);
 
     return () => {
       const { layout, size, name } = props;

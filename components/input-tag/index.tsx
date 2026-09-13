@@ -1,6 +1,7 @@
 import { CircleX } from "kui-icons";
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { ShapeType, SizeType, ThemeType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import Icon from "../icon";
 import Space from "../space";
 import Tag from "../tag";
@@ -24,7 +25,7 @@ const propsDef = {
 };
 export type InputTagProps = ExtractPropTypes<typeof propsDef>;
 
-export default defineComponent({
+const InputTag = defineComponent({
   name: "InputTag",
   inheritAttrs: false,
   props: propsDef,
@@ -32,29 +33,37 @@ export default defineComponent({
     "update:modelValue": (value: string[]) => Array.isArray(value),
     change: (value: string[]) => Array.isArray(value),
     add: (value: string) => typeof value === "string",
-    remove: (value: string, index: number) =>
-      typeof value === "string" && Number.isInteger(index),
+    remove: (value: string, index: number) => typeof value === "string" && Number.isInteger(index),
     clear: () => true,
   },
   setup(props, { emit, attrs }) {
+    const field = useFormField(true);
     const inner = ref([...props.value]);
     const draft = ref("");
     const input = ref<HTMLInputElement>();
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (value) => {
-        if (value) inner.value = [...value];
+        if (Array.isArray(value)) inner.value = [...value];
       },
-      { deep: true },
+      { deep: true, immediate: true },
     );
-    const values = () => props.modelValue ?? inner.value;
+    const values = () =>
+      field?.prop
+        ? Array.isArray(field.value.value)
+          ? (field.value.value as string[])
+          : []
+        : (props.modelValue ?? inner.value);
+    const disabled = () => Boolean(props.disabled || field?.disabled.value);
+    const readonly = () => Boolean(props.readonly || field?.readonly.value);
     const update = (next: string[]) => {
       inner.value = next;
       emit("update:modelValue", next);
+      if (field?.prop) field.update(next);
       emit("change", next);
     };
     const addValues = (items: string[]) => {
-      if (props.disabled || props.readonly) return;
+      if (disabled() || readonly()) return;
       const next = [...values()];
       const added: string[] = [];
       for (const item of items) {
@@ -77,14 +86,14 @@ export default defineComponent({
       draft.value = "";
     };
     const remove = (index: number) => {
-      if (props.disabled || props.readonly || index < 0) return;
+      if (disabled() || readonly() || index < 0) return;
       const tags = values();
       const removed = tags[index];
       update(tags.filter((_, itemIndex) => itemIndex !== index));
       emit("remove", removed, index);
     };
     const clear = (event: Event) => {
-      if (props.disabled || props.readonly) return;
+      if (disabled() || readonly()) return;
       event.stopPropagation();
       draft.value = "";
       update([]);
@@ -111,7 +120,7 @@ export default defineComponent({
       const listener = attrs.onClick;
       if (Array.isArray(listener)) listener.forEach((handler) => handler(event));
       else if (typeof listener === "function") listener(event);
-      if (!event.defaultPrevented && !props.disabled) input.value?.focus();
+      if (!event.defaultPrevented && !disabled()) input.value?.focus();
     };
     return () => {
       const currentValues = values();
@@ -123,37 +132,47 @@ export default defineComponent({
       const visibleValues = currentValues.slice(0, displayCount);
       const hiddenValues = currentValues.slice(displayCount);
       const hiddenCount = hiddenValues.length;
+      const isDisabled = disabled();
+      const isReadonly = readonly();
+      const size = field?.size.value ?? props.size;
+      const shape = props.shape || field?.shape.value;
+      const theme = field?.theme.value ?? props.theme;
 
       return (
         <div
           {...attrs}
+          id={attrs.id ?? (field?.prop ? field.id : undefined)}
           class={[
             "k-input-tag",
             {
-              "k-input-tag-disabled": props.disabled,
-              "k-input-tag-readonly": props.readonly,
+              "k-input-tag-disabled": isDisabled,
+              "k-input-tag-readonly": isReadonly,
               "k-input-tag-has-clear": props.clearable && currentValues.length > 0,
-              "k-input-tag-sm": props.size === "small",
+              "k-input-tag-sm": size === "small",
               "k-input-tag-block": props.block,
-              "k-input-tag-lg": props.size === "large",
-              [`k-input-tag-${props.shape}`]: props.shape,
-              [`k-input-tag-${props.theme}`]: props.theme,
+              "k-input-tag-lg": size === "large",
+              [`k-input-tag-${shape}`]: shape,
+              [`k-input-tag-${theme}`]: theme,
             },
             attrs.class,
           ]}
-          aria-disabled={props.disabled || undefined}
-          aria-readonly={props.readonly || undefined}
+          aria-labelledby={attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)}
+          aria-describedby={attrs["aria-describedby"] ?? field?.describedBy.value}
+          aria-invalid={(attrs["aria-invalid"] ?? field?.invalid.value) || undefined}
+          aria-required={(attrs["aria-required"] ?? field?.required.value) || undefined}
+          aria-disabled={isDisabled || undefined}
+          aria-readonly={isReadonly || undefined}
           onClick={focusInput}
         >
           {visibleValues.map((tag, index) => (
             <Tag
               key={`${tag}-${index}`}
               class="k-input-tag-item"
-              size={props.size}
-              shape={props.shape}
-              theme={props.theme}
+              size={size}
+              shape={shape}
+              theme={theme}
               compact
-              closeable={!props.disabled && !props.readonly}
+              closeable={!isDisabled && !isReadonly}
               onClose={() => remove(index)}
             >
               {tag}
@@ -167,11 +186,11 @@ export default defineComponent({
                     {hiddenValues.map((tag, index) => (
                       <Tag
                         key={`${tag}-${index}`}
-                        size={props.size}
-                        shape={props.shape}
-                        theme={props.theme}
+                        size={size}
+                        shape={shape}
+                        theme={theme}
                         compact
-                        closeable={!props.disabled && !props.readonly}
+                        closeable={!isDisabled && !isReadonly}
                         onClose={() => remove(displayCount + index)}
                       >
                         {tag}
@@ -183,9 +202,9 @@ export default defineComponent({
             >
               <Tag
                 class="k-input-tag-item k-input-tag-rest"
-                size={props.size}
-                shape={props.shape}
-                theme={props.theme}
+                size={size}
+                shape={shape}
+                theme={theme}
                 compact
               >
                 +{hiddenCount}...
@@ -195,12 +214,15 @@ export default defineComponent({
           <input
             ref={input}
             class="k-input-text k-input-tag-input"
-            disabled={props.disabled}
-            readonly={props.readonly}
+            disabled={isDisabled}
+            readonly={isReadonly}
             value={draft.value}
             placeholder={!values().length ? props.placeholder : undefined}
             onInput={inputHandler}
-            onBlur={() => commit()}
+            onBlur={() => {
+              commit();
+              field?.blur();
+            }}
             onKeydown={(event) => {
               if (event.isComposing) return;
               if (event.key === "Enter") {
@@ -214,7 +236,7 @@ export default defineComponent({
               }
             }}
           />
-          {props.clearable && currentValues.length > 0 && !props.disabled && !props.readonly && (
+          {props.clearable && currentValues.length > 0 && !isDisabled && !isReadonly && (
             <Icon
               class="k-input-tag-clearable"
               type={CircleX}
@@ -233,3 +255,5 @@ export default defineComponent({
     };
   },
 });
+
+export default markFormFieldComponent(InputTag);

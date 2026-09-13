@@ -4,6 +4,7 @@ import { setPlacement } from "../utils/placement";
 import { cloneNodes } from "../utils/vnode";
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import Alpha from "./alpha";
 import Hue from "./hue";
 import Mode from "./mode";
@@ -69,9 +70,11 @@ const ColorPicker = defineComponent({
   },
 
   setup(props, { emit, slots }) {
+    const field = useFormField(true);
     usePopupHost(() => visible.value && openChange(false));
     const getPopupContainer = usePopupContainer();
-    const initialColor = props.modelValue || "#000000ff";
+    const initialColor =
+      (field?.prop ? String(field.value.value ?? "") : props.modelValue) || "#000000ff";
     const initialColorValue = Color(initialColor);
     const currentMode = ref(props.mode);
     type ColorInstance = ReturnType<typeof Color>;
@@ -98,9 +101,9 @@ const ColorPicker = defineComponent({
     };
 
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (v) => {
-        const value = v || "#000000ff";
+        const value = String(v || "#000000ff");
         const color = Color(value);
         currentColor.value = value;
         currentAlpha.value = color.alpha();
@@ -175,7 +178,7 @@ const ColorPicker = defineComponent({
       emit("openChange", opened);
     };
     const toggle = (open: boolean) => {
-      if (props.disabled || props.readonly) {
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value) {
         return false;
       }
       if (open) {
@@ -215,33 +218,34 @@ const ColorPicker = defineComponent({
       return props.showText ? <div class="k-color-picker-trigger-text">{text}</div> : null;
     };
     const onUpdate = (color: string | ColorInstance) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       currentColor.value = color;
       const value = getColor();
       emit("update:modelValue", value);
+      if (field?.prop) field.update(value);
       emit("change", value);
     };
 
     const onUpdateRGB = ({ r, g, b }: ColorObject) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       const color = Color({ r, g, b, alpha: currentAlpha.value });
       onUpdate(color.rgb());
     };
     const onUpdateHue = (hue: number) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       currentHue.value = hue;
       const value = Color(currentColor.value).hue(hue).rgb();
       onUpdate(value);
     };
 
     const onUpdateAlpha = (a: number) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       currentAlpha.value = a;
       const value = Color(currentColor.value).alpha(a).rgb();
       onUpdate(value);
     };
     const onUpdateMode = (mode: ColorMode) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       currentMode.value = mode;
       onUpdate(currentColor.value);
       emit("update:mode", mode);
@@ -250,7 +254,7 @@ const ColorPicker = defineComponent({
       }, 0);
     };
     const updateColorValue = (color: ColorInstance) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       // console.log(color.string(), currentAlpha.value);
       currentAlpha.value = color.alpha();
       currentColor.value = color;
@@ -258,7 +262,7 @@ const ColorPicker = defineComponent({
       onUpdate(color);
     };
     const updateColor = (color: ColorInstance) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       currentAlpha.value = color.alpha();
       currentHue.value = color.hue();
       updateColorValue(color.rgb());
@@ -350,7 +354,7 @@ const ColorPicker = defineComponent({
     };
 
     const onMouseleave = () => {
-      if (props.disabled) {
+      if (props.disabled || field?.disabled.value) {
         return;
       }
       if (props.trigger == "hover") {
@@ -363,14 +367,17 @@ const ColorPicker = defineComponent({
     return () => {
       const drop = renderDrop();
       if (props.panelOnly) return drop;
+      const disabled = props.disabled || field?.disabled.value;
+      const readonly = props.readonly || field?.readonly.value;
+      const size = props.size || field?.size.value;
       const style = [
         "k-color-picker",
         {
           "k-color-picker-opened": visible.value,
-          "k-color-picker-disabled": props.disabled,
-          "k-color-picker-readonly": props.readonly,
-          "k-color-picker-sm": props.size == "small",
-          "k-color-picker-lg": props.size == "large",
+          "k-color-picker-disabled": disabled,
+          "k-color-picker-readonly": readonly,
+          "k-color-picker-sm": size == "small",
+          "k-color-picker-lg": size == "large",
         },
       ];
       const triggerClick = props.trigger == "click";
@@ -390,9 +397,16 @@ const ColorPicker = defineComponent({
         </span>
       ) : (
         <div
+          id={field?.prop ? field.id : undefined}
           class={style}
           ref={refSelection}
-          aria-readonly={props.readonly || undefined}
+          aria-labelledby={field?.prop ? field.labelId : undefined}
+          aria-describedby={field?.describedBy.value}
+          aria-invalid={field?.invalid.value || undefined}
+          aria-required={field?.required.value || undefined}
+          aria-disabled={disabled || undefined}
+          aria-readonly={readonly || undefined}
+          onFocusout={() => field?.blur()}
           v-resize={updatePopPosition}
         >
           <div
@@ -425,4 +439,4 @@ export const ColorPickerPanel = defineComponent({
     () =>
       h(ColorPicker, { ...attrs, ...props, panelOnly: true }),
 });
-export default ColorPicker;
+export default markFormFieldComponent(ColorPicker);

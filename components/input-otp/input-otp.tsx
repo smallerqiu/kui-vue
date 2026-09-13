@@ -10,6 +10,7 @@ import {
   type VNodeChild,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import type { InputOTPValidator } from "./types";
 
 const inputOTPProps = {
@@ -44,6 +45,7 @@ const InputOTP = defineComponent({
     blur: (event: FocusEvent) => Boolean(event),
   },
   setup(props, { attrs, emit, expose }) {
+    const field = useFormField(true);
     const inputs = ref<Array<HTMLInputElement | null>>([]);
     const focusedIndex = ref(-1);
     const composing = new Set<number>();
@@ -57,7 +59,7 @@ const InputOTP = defineComponent({
         .join("")
         .slice(0, otpLength.value);
     };
-    const currentValue = ref(normalize(props.modelValue));
+    const currentValue = ref(normalize(field?.prop ? field.value.value : props.modelValue));
     const chars = computed(() =>
       Array.from(
         { length: otpLength.value },
@@ -70,13 +72,14 @@ const InputOTP = defineComponent({
       if (nextValue === currentValue.value) return;
       currentValue.value = nextValue;
       emit("update:modelValue", nextValue);
+      if (field?.prop) field.update(nextValue);
       emit("change", nextValue);
       if (otpLength.value > 0 && Array.from(nextValue).length === otpLength.value)
         emit("complete", nextValue);
     };
 
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (value) => (currentValue.value = normalize(value)),
     );
     watch(
@@ -87,14 +90,15 @@ const InputOTP = defineComponent({
     const focus = (
       index = Math.min(Array.from(currentValue.value).length, otpLength.value - 1),
     ) => {
-      if (props.disabled || otpLength.value <= 0) return;
+      if (props.disabled || field?.disabled.value || otpLength.value <= 0) return;
       nextTick(() => inputs.value[Math.max(0, Math.min(index, otpLength.value - 1))]?.focus());
     };
     const blur = () => inputs.value[focusedIndex.value]?.blur();
     expose({ focus, blur });
 
     const insert = (text: string, index: number) => {
-      if (props.disabled || props.readonly) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       const value = normalize(text);
       if (!value) return;
       const start = Math.min(index, Array.from(currentValue.value).length);
@@ -122,7 +126,7 @@ const InputOTP = defineComponent({
         event.preventDefault();
         focus(event.key === "Home" ? 0 : otpLength.value - 1);
       } else if (event.key === "Backspace" || event.key === "Delete") {
-        if (props.readonly) return;
+        if (props.readonly || field?.readonly.value) return;
         event.preventDefault();
         const target =
           event.key === "Backspace" && !chars.value[index] ? Math.max(0, index - 1) : index;
@@ -141,21 +145,26 @@ const InputOTP = defineComponent({
     return () => (
       <div
         {...attrs}
+        id={attrs.id ?? (field?.prop ? field.id : undefined)}
         class={[
           "k-input-otp",
           {
-            "k-input-otp-sm": props.size === "small",
-            "k-input-otp-lg": props.size === "large",
-            "k-input-otp-disabled": props.disabled,
-            "k-input-otp-readonly": props.readonly,
-            [`k-input-otp-${props.theme}`]: props.theme,
-            [`k-input-otp-${props.shape}`]: props.shape,
+            "k-input-otp-sm": (field?.size.value ?? props.size) === "small",
+            "k-input-otp-lg": (field?.size.value ?? props.size) === "large",
+            "k-input-otp-disabled": props.disabled || field?.disabled.value,
+            "k-input-otp-readonly": props.readonly || field?.readonly.value,
+            [`k-input-otp-${field?.theme.value ?? props.theme}`]: field?.theme.value ?? props.theme,
+            [`k-input-otp-${field?.shape.value ?? props.shape}`]: field?.shape.value ?? props.shape,
           },
           attrs.class,
         ]}
         role="group"
-        aria-disabled={props.disabled || undefined}
-        aria-readonly={props.readonly || undefined}
+        aria-labelledby={attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)}
+        aria-describedby={attrs["aria-describedby"] ?? field?.describedBy.value}
+        aria-invalid={(attrs["aria-invalid"] ?? field?.invalid.value) || undefined}
+        aria-required={(attrs["aria-required"] ?? field?.required.value) || undefined}
+        aria-disabled={props.disabled || field?.disabled.value || undefined}
+        aria-readonly={props.readonly || field?.readonly.value || undefined}
       >
         {chars.value.map((char, index) => (
           <Fragment key={index}>
@@ -173,8 +182,8 @@ const InputOTP = defineComponent({
               inputmode={props.type === "number" ? "numeric" : "text"}
               pattern={props.type === "number" ? "[0-9]*" : undefined}
               maxlength={otpLength.value}
-              disabled={props.disabled}
-              readonly={props.readonly}
+              disabled={props.disabled || field?.disabled.value}
+              readonly={props.readonly || field?.readonly.value}
               autocomplete={index === 0 ? "one-time-code" : "off"}
               aria-label={`${index + 1} / ${otpLength.value}`}
               autofocus={props.autofocus && index === 0}
@@ -193,6 +202,7 @@ const InputOTP = defineComponent({
               onBlur={(event) => {
                 focusedIndex.value = -1;
                 emit("blur", event);
+                field?.blur();
               }}
             />
           </Fragment>
@@ -202,6 +212,6 @@ const InputOTP = defineComponent({
   },
 });
 
-export default InputOTP;
+export default markFormFieldComponent(InputOTP);
 
 export type { InputOTPValidator } from "./types";

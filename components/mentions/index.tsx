@@ -19,6 +19,7 @@ import {
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
 import type { DropPlacementsType, ShapeType, SizeType, ThemeType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import Empty from "../empty";
 import Icon from "../icon";
 import { TextArea } from "../input";
@@ -50,7 +51,7 @@ const propsDef = {
 };
 export type MentionsProps = ExtractPropTypes<typeof propsDef>;
 
-export default defineComponent({
+const Mentions = defineComponent({
   name: "Mentions",
   inheritAttrs: false,
   props: propsDef,
@@ -64,6 +65,7 @@ export default defineComponent({
     clear: () => true,
   },
   setup(props, { emit, attrs, slots }) {
+    const field = useFormField(true);
     usePopupHost(() => query.value && (query.value = undefined));
     const getPopupContainer = usePopupContainer();
     const instance = getCurrentInstance();
@@ -173,12 +175,14 @@ export default defineComponent({
       positioned.value = true;
     };
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (value) => {
-        if (value !== undefined) inner.value = value;
+        if (value !== undefined) inner.value = String(value);
       },
     );
-    const current = computed(() => props.modelValue ?? inner.value);
+    const current = computed(() =>
+      field?.prop ? String(field.value.value ?? "") : (props.modelValue ?? inner.value),
+    );
     const normalized = computed(() =>
       props.options.map((item) => (typeof item === "string" ? { value: item, label: item } : item)),
     );
@@ -204,7 +208,7 @@ export default defineComponent({
       nextTick(() =>
         dropdown.value
           ?.querySelector<HTMLElement>(`#${listboxId}-option-${active.value}`)
-          ?.scrollIntoView({ block: "nearest" }),
+          ?.scrollIntoView?.({ block: "nearest" }),
       );
     };
     watch(active, ensureActiveVisible);
@@ -217,13 +221,14 @@ export default defineComponent({
       );
     };
     const update = (next: string) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       inner.value = next;
       emit("update:modelValue", next);
+      if (field?.prop) field.update(next);
       emit("change", next);
     };
     const updateQuery = (text: string, caret: number, search = false) => {
-      if (props.readonly) {
+      if (props.readonly || field?.readonly.value) {
         query.value = undefined;
         return;
       }
@@ -262,8 +267,10 @@ export default defineComponent({
       window.addEventListener("resize", updateDropdownPosition);
       window.addEventListener("scroll", updateDropdownPosition, true);
       document.addEventListener("mousedown", closeOutside);
-      resizeObserver = new ResizeObserver(updateDropdownPosition);
-      if (root.value) resizeObserver.observe(root.value);
+      if (typeof ResizeObserver !== "undefined") {
+        resizeObserver = new ResizeObserver(updateDropdownPosition);
+        if (root.value) resizeObserver.observe(root.value);
+      }
     });
     onBeforeUnmount(() => {
       window.removeEventListener("resize", updateDropdownPosition);
@@ -273,7 +280,8 @@ export default defineComponent({
     });
     const choose = (option: MentionOption) => {
       const element = getTextarea();
-      if (props.readonly || !query.value || option.disabled || !element) return;
+      if (props.readonly || field?.readonly.value || !query.value || option.disabled || !element)
+        return;
       const state = query.value;
       const caret = element.selectionStart;
       update(
@@ -292,7 +300,7 @@ export default defineComponent({
       if (element) updateQuery(current.value, element.selectionStart);
     };
     const clear = (event: Event) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       event.stopPropagation();
       update("");
       query.value = undefined;
@@ -308,26 +316,34 @@ export default defineComponent({
           {
             "k-mentions-sm": props.size == "small",
             "k-mentions-lg": props.size == "large",
-            "k-mentions-disabled": props.disabled,
-            "k-mentions-readonly": props.readonly,
+            "k-mentions-disabled": props.disabled || field?.disabled.value,
+            "k-mentions-readonly": props.readonly || field?.readonly.value,
             "k-mentions-has-clear":
-              props.clearable && !!current.value && !props.disabled && !props.readonly,
+              props.clearable &&
+              !!current.value &&
+              !(props.disabled || field?.disabled.value) &&
+              !(props.readonly || field?.readonly.value),
           },
           attrs.class,
         ]}
       >
         <TextArea
           {...attrs}
+          id={attrs.id ?? (field?.prop ? field.id : undefined)}
+          aria-labelledby={attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)}
+          aria-describedby={attrs["aria-describedby"] ?? field?.describedBy.value}
+          aria-invalid={(attrs["aria-invalid"] ?? field?.invalid.value) || undefined}
+          aria-required={(attrs["aria-required"] ?? field?.required.value) || undefined}
           class={undefined}
           ref={textarea}
           modelValue={current.value}
           placeholder={props.placeholder}
-          disabled={props.disabled}
-          readonly={props.readonly}
+          disabled={props.disabled || field?.disabled.value}
+          readonly={props.readonly || field?.readonly.value}
           rows={props.rows}
-          size={props.size}
-          shape={props.shape}
-          theme={props.theme}
+          size={props.size || field?.size.value}
+          shape={props.shape || field?.shape.value}
+          theme={field?.theme.value ?? props.theme}
           aria-haspopup="listbox"
           aria-expanded={Boolean(query.value)}
           aria-controls={query.value ? listboxId : undefined}
@@ -343,6 +359,12 @@ export default defineComponent({
               const element = getTextarea();
               if (element) updateQuery(value, element.selectionStart, true);
             });
+          }}
+          onBlur={(event: FocusEvent) => {
+            const listener = attrs.onBlur;
+            if (Array.isArray(listener)) listener.forEach((handler) => handler(event));
+            else if (typeof listener === "function") listener(event);
+            field?.blur();
           }}
           onCompositionstart={() => (composing.value = true)}
           onCompositionend={(event: CompositionEvent) => {
@@ -375,20 +397,23 @@ export default defineComponent({
             }
           }}
         />
-        {props.clearable && current.value && !props.disabled && !props.readonly && (
-          <Icon
-            class="k-mentions-clearable"
-            type={CircleX}
-            role="button"
-            tabindex={0}
-            aria-label="Clear"
-            onPointerdown={(event: PointerEvent) => event.preventDefault()}
-            onClick={clear}
-            onKeydown={(event: KeyboardEvent) => {
-              if (event.key === "Enter" || event.key === " ") clear(event);
-            }}
-          />
-        )}
+        {props.clearable &&
+          current.value &&
+          !(props.disabled || field?.disabled.value) &&
+          !(props.readonly || field?.readonly.value) && (
+            <Icon
+              class="k-mentions-clearable"
+              type={CircleX}
+              role="button"
+              tabindex={0}
+              aria-label="Clear"
+              onPointerdown={(event: PointerEvent) => event.preventDefault()}
+              onClick={clear}
+              onKeydown={(event: KeyboardEvent) => {
+                if (event.key === "Enter" || event.key === " ") clear(event);
+              }}
+            />
+          )}
         {rendered.value
           ? [
               <Teleport key="overlay" to={getPopupContainer()}>
@@ -449,3 +474,5 @@ export default defineComponent({
     );
   },
 });
+
+export default markFormFieldComponent(Mentions);

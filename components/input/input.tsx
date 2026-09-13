@@ -16,6 +16,7 @@ import {
 } from "vue";
 import { type BooleanType, type ShapeType, type SizeType, type ThemeType } from "../const/types";
 import Icon, { type IconType } from "../icon";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
 import InputBox from "./input-box";
@@ -62,11 +63,16 @@ const Input = defineComponent({
     blur: (event: FocusEvent) => typeof event?.type === "string",
   },
   setup(props, { slots, emit, attrs, expose }) {
+    const field = useFormField(true);
     const instance = getCurrentInstance();
     const hasListener = (name: string) => Boolean(instance?.vnode.props?.[`on${name}`]);
     const innerValue = ref(props.value);
     const currentValue = computed(() =>
-      props.modelValue !== undefined ? props.modelValue : innerValue.value,
+      field?.prop
+        ? field.value.value
+        : props.modelValue !== undefined
+          ? props.modelValue
+          : innerValue.value,
     );
     const focused = ref(false);
     const showPassword = ref(false);
@@ -84,6 +90,7 @@ const Input = defineComponent({
       if (props.disabled || props.readonly) return;
       if (props.modelValue === undefined) innerValue.value = "";
       emit("update:modelValue", "");
+      if (field?.prop) field.update("");
       emit("clear");
       emit("change", "");
       nextTick(() => focus());
@@ -141,9 +148,7 @@ const Input = defineComponent({
     return () => {
       const {
         icon,
-        size = parentSize || undefined,
-        disabled,
-        readonly,
+        size = field?.size.value || parentSize || undefined,
         type,
         clearable,
         suffix,
@@ -154,6 +159,8 @@ const Input = defineComponent({
         shape,
         inputType,
       } = props;
+      const disabled = props.disabled || field?.disabled.value;
+      const readonly = props.readonly || field?.readonly.value;
 
       const slotSuffix = getChildren(slots.suffix?.());
       const slotPrefix = getChildren(slots.prefix?.());
@@ -184,6 +191,11 @@ const Input = defineComponent({
       const inputBoxProps: Record<string, unknown> = {
         // htmlAttrs: { ...attrs },
         ...attrs,
+        id: attrs.id ?? (field?.prop ? field.id : undefined),
+        "aria-labelledby": attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined),
+        "aria-describedby": attrs["aria-describedby"] ?? field?.describedBy.value,
+        "aria-invalid": (attrs["aria-invalid"] ?? field?.invalid.value) || undefined,
+        "aria-required": (attrs["aria-required"] ?? field?.required.value) || undefined,
         disabled,
         readonly,
         multiple,
@@ -199,6 +211,7 @@ const Input = defineComponent({
           const v = (e.target as HTMLInputElement).value;
           if (props.modelValue === undefined) innerValue.value = v;
           emit("update:modelValue", v);
+          if (field?.prop) field.update(v);
           emit("change", v);
         },
         onFocus: (e: FocusEvent) => {
@@ -208,6 +221,7 @@ const Input = defineComponent({
         onBlur: (e: FocusEvent) => {
           focused.value = false;
           emit("blur", e);
+          if (field?.prop) field.blur();
         },
         class: multiple ? undefined : attrs.class,
         style: multiple ? undefined : attrs.style,
@@ -373,4 +387,4 @@ const Input = defineComponent({
   },
 });
 
-export default Input as DefineComponent<InputProps>;
+export default markFormFieldComponent(Input) as DefineComponent<InputProps>;

@@ -22,6 +22,8 @@ export interface FormRule {
   trigger?: FormValidateTrigger | FormValidateTrigger[];
 }
 
+export type FormRules = Record<string, FormRule | FormRule[]>;
+
 export interface FormSubmitEvent {
   valid: boolean;
 }

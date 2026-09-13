@@ -2,12 +2,12 @@
 @import "../../styles/motion.less";
 
 .k-form {
-  padding: 3px;
+  --kui-form-item-message-space: 24px;
+
   box-sizing: border-box;
   .k-form-item {
-    margin-bottom: 24px;
+    margin-bottom: var(--kui-form-item-message-space);
     vertical-align: top;
-    zoom: 1;
     color: var(--kui-color-text);
 
     .k-form-item {
@@ -30,11 +30,13 @@
     box-sizing: border-box;
     font-size: 14px;
     display: flex;
-    height: var(--kui-control-height);
+    min-height: var(--kui-control-height);
     align-items: center;
-    white-space: nowrap;
-    overflow: hidden;
-    transition: all 0.3s ease-in-out;
+    overflow-wrap: anywhere;
+    transition:
+      min-height var(--kui-motion-duration) var(--kui-motion-easing),
+      font-size var(--kui-motion-duration) var(--kui-motion-easing),
+      margin-bottom var(--kui-motion-duration) var(--kui-motion-easing);
     justify-content: flex-end;
 
     &::after {
@@ -44,23 +46,25 @@
   }
 
   .k-form-item-content {
-    position: relative;
     min-height: var(--kui-control-height);
     display: flex;
     align-items: center;
-    transition: all 0.3s ease-in-out;
+    transition: min-height var(--kui-motion-duration) var(--kui-motion-easing);
   }
 
   .k-form-item-error-tip {
-    position: absolute;
-    top: 100%;
-    left: 0;
+    width: 100%;
+    min-height: var(--kui-form-item-message-space);
+    margin-bottom: calc(-1 * var(--kui-form-item-message-space));
     color: var(--kui-color-danger);
-    line-height: 1.5;
     transform-origin: 0 0;
-    margin: 0;
+    padding-top: 2px;
     font-size: 12px;
     line-height: 1.5;
+  }
+
+  .k-form-item-no-colon .k-form-item-label::after {
+    display: none;
   }
 
   .k-form-item-required {
@@ -144,7 +148,7 @@
 
 .k-form-lg {
   .k-form-item-label {
-    height: var(--kui-control-height-lg);
+    min-height: var(--kui-control-height-lg);
     font-size: 16px;
   }
 
@@ -163,7 +167,7 @@
   }
 
   .k-form-item-label {
-    height: auto;
+    min-height: 0;
     justify-content: start;
     margin-bottom: 8px;
 
@@ -191,7 +195,7 @@
 
 .k-form-sm {
   .k-form-item-label {
-    height: var(--kui-control-height-sm);
+    min-height: var(--kui-control-height-sm);
     font-size: 12px;
   }
 

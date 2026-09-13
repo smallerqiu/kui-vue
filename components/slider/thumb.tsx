@@ -4,6 +4,7 @@ import Tooltip from "../tooltip";
 
 export default defineComponent({
   props: {
+    id: String,
     value: { type: Number, required: true },
     min: { type: Number, default: 0 },
     max: { type: Number, default: 100 },
@@ -13,6 +14,10 @@ export default defineComponent({
     disabled: Boolean as BooleanType,
     tooltipVisible: { type: Boolean as BooleanType, default: null },
     tipFormatter: Function as PropType<(value: number) => string | number>,
+    ariaLabelledby: String,
+    ariaDescribedby: String,
+    ariaInvalid: Boolean as BooleanType,
+    ariaRequired: Boolean as BooleanType,
     dragging: Boolean as BooleanType, // 接收父组件传入的拖拽状态
   },
   emits: {
@@ -78,6 +83,11 @@ export default defineComponent({
         ref: elRef,
         tabindex: props.disabled ? undefined : 0,
         role: "slider",
+        id: props.id,
+        "aria-labelledby": props.ariaLabelledby,
+        "aria-describedby": props.ariaDescribedby,
+        "aria-invalid": props.ariaInvalid || undefined,
+        "aria-required": props.ariaRequired || undefined,
         "aria-valuemin": props.min,
         "aria-valuemax": props.max,
         "aria-valuenow": props.value,

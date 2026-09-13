@@ -1,5 +1,6 @@
 import { defineComponent, type ExtractPropTypes, type PropType, ref, watch } from "vue";
 import type { BooleanType, SizeType, ThemeType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import type { ChangeEvent } from "./types";
 const radioProps = {
   modelValue: { type: Boolean, default: undefined },
@@ -19,18 +20,22 @@ export type RadioProps = ExtractPropTypes<typeof radioProps>;
 
 const Radio = defineComponent({
   name: "Radio",
+  inheritAttrs: false,
   props: radioProps,
   emits: {
     change: (event: ChangeEvent) => typeof event.checked === "boolean",
     "update:modelValue": (value: boolean) => typeof value === "boolean",
     "update:checked": (value: boolean) => typeof value === "boolean",
   },
-  setup(props, { slots, emit }) {
-    const isChecked = ref(props.modelValue ?? props.checked ?? false);
+  setup(props, { slots, emit, attrs }) {
+    const field = useFormField(true);
+    const isChecked = ref(
+      field?.prop ? Boolean(field.value.value) : (props.modelValue ?? props.checked ?? false),
+    );
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (v) => {
-        if (v !== undefined) isChecked.value = v;
+        if (v !== undefined) isChecked.value = Boolean(v);
       },
     );
     watch(
@@ -48,42 +53,65 @@ const Radio = defineComponent({
         label: props.label ?? String(props.value ?? ""),
       } as ChangeEvent);
       emit("update:modelValue", checked);
+      if (field?.prop) field.update(checked);
       emit("update:checked", checked);
     };
     const onChange = (e: Event) => {
-      if (props.disabled || props.readonly || isChecked.value) return;
+      if (
+        props.disabled ||
+        field?.disabled.value ||
+        props.readonly ||
+        field?.readonly.value ||
+        isChecked.value
+      )
+        return;
       e.stopPropagation();
       e.preventDefault();
       const checked = (e.target as HTMLInputElement).checked;
       emitValue(checked);
     };
     const onClick = (e: MouseEvent) => {
-      if (props.readonly) e.preventDefault();
+      if (props.readonly || field?.readonly.value) e.preventDefault();
     };
     return () => {
+      const { class: attrClass, style: attrStyle, ...inputAttrs } = attrs;
+      const disabled = props.disabled || field?.disabled.value;
+      const readonly = props.readonly || field?.readonly.value;
+      const size = props.size || field?.size.value;
+      const theme = field?.theme.value ?? props.theme;
       const classes = [
         "k-radio",
         {
-          ["k-radio-fill"]: props.theme == "fill",
-          ["k-radio-disabled"]: props.disabled,
-          ["k-radio-readonly"]: props.readonly,
+          ["k-radio-fill"]: theme == "fill",
+          ["k-radio-disabled"]: disabled,
+          ["k-radio-readonly"]: readonly,
           ["k-radio-checked"]: isChecked.value,
-          ["k-radio-lg"]: props.size === "large",
-          ["k-radio-sm"]: props.size === "small",
+          ["k-radio-lg"]: size === "large",
+          ["k-radio-sm"]: size === "small",
         },
+        attrClass,
       ];
 
       const labelNode = props.label ?? slots.default?.();
 
       return (
-        <label class={classes} aria-readonly={props.readonly || undefined}>
+        <label class={classes} style={attrStyle} aria-readonly={readonly || undefined}>
           <span class="k-radio-symbol">
             <input
+              {...inputAttrs}
+              id={inputAttrs.id ?? (field?.prop ? field.id : undefined)}
               type="radio"
               class="k-radio-input"
               name={props.name}
-              disabled={props.disabled}
-              aria-readonly={props.readonly || undefined}
+              disabled={disabled}
+              aria-labelledby={
+                inputAttrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)
+              }
+              aria-describedby={inputAttrs["aria-describedby"] ?? field?.describedBy.value}
+              aria-invalid={(inputAttrs["aria-invalid"] ?? field?.invalid.value) || undefined}
+              aria-required={(inputAttrs["aria-required"] ?? field?.required.value) || undefined}
+              aria-readonly={readonly || undefined}
+              onBlur={() => field?.blur()}
               onClick={onClick}
               onChange={onChange}
               checked={isChecked.value}
@@ -95,4 +123,4 @@ const Radio = defineComponent({
     };
   },
 });
-export default Radio;
+export default markFormFieldComponent(Radio);

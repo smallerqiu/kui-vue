@@ -16,6 +16,7 @@ import type {
   SizeType,
   ThemeType,
 } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import { getChildren } from "../utils/vnode";
 import Radio from "./radio";
 import RadioButton from "./radio-button";
@@ -48,19 +49,23 @@ const RadioGroup = defineComponent({
     change: (value: string | number) => ["string", "number"].includes(typeof value),
   },
   setup(props, { slots, emit }) {
+    const field = useFormField(true);
     const name = `k-radio-group-${getCurrentInstance()?.uid ?? "default"}`;
     const rootRef = ref<HTMLElement | null>(null);
-    const currentValue = ref(props.modelValue);
+    const currentValue = ref(
+      field?.prop ? (field.value.value as string | number) : props.modelValue,
+    );
     const onChange = ({ value }: ChangeEvent) => {
-      if (props.readonly || value === undefined) return;
+      if (props.readonly || field?.readonly.value || value === undefined) return;
       currentValue.value = value;
       emit("update:modelValue", value);
+      if (field?.prop) field.update(value);
       emit("change", value);
     };
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (val) => {
-        currentValue.value = val;
+        currentValue.value = val as string | number;
       },
     );
     return () => {
@@ -75,12 +80,12 @@ const RadioGroup = defineComponent({
               name={isButton ? undefined : name}
               onChange={onChange}
               checked={currentValue.value === option.value}
-              disabled={props.disabled || option.disabled}
-              readonly={props.readonly}
+              disabled={props.disabled || field?.disabled.value || option.disabled}
+              readonly={props.readonly || field?.readonly.value}
               icon={option.icon}
-              size={props.size}
-              theme={props.theme}
-              shape={props.shape}
+              size={props.size || field?.size.value}
+              theme={props.theme || field?.theme.value}
+              shape={props.shape || field?.shape.value}
             />
           ))
         : getChildren(slots.default?.()).map((child) => {
@@ -90,11 +95,11 @@ const RadioGroup = defineComponent({
               {
                 name: isButton ? undefined : name,
                 checked: value !== undefined && currentValue.value === value,
-                disabled: props.disabled || Boolean(child.props?.disabled),
-                readonly: props.readonly || Boolean(child.props?.readonly),
-                size: props.size,
-                theme: props.theme,
-                shape: props.shape,
+                disabled: props.disabled || field?.disabled.value || Boolean(child.props?.disabled),
+                readonly: props.readonly || field?.readonly.value || Boolean(child.props?.readonly),
+                size: props.size || field?.size.value,
+                theme: props.theme || field?.theme.value,
+                shape: props.shape || field?.shape.value,
                 onChange,
               },
               true,
@@ -113,10 +118,16 @@ const RadioGroup = defineComponent({
       return (
         <div
           class={classes}
+          id={field?.prop ? field.id : undefined}
           ref={rootRef}
           role="radiogroup"
-          aria-disabled={props.disabled || undefined}
-          aria-readonly={props.readonly || undefined}
+          aria-labelledby={field?.prop ? field.labelId : undefined}
+          aria-describedby={field?.describedBy.value}
+          aria-invalid={field?.invalid.value || undefined}
+          aria-required={field?.required.value || undefined}
+          aria-disabled={props.disabled || field?.disabled.value || undefined}
+          aria-readonly={props.readonly || field?.readonly.value || undefined}
+          onFocusout={() => field?.blur()}
           onKeydown={(event: KeyboardEvent) => {
             if (
               !isButton ||
@@ -142,4 +153,4 @@ const RadioGroup = defineComponent({
     };
   },
 });
-export default RadioGroup;
+export default markFormFieldComponent(RadioGroup);

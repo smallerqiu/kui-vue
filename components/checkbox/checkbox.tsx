@@ -1,6 +1,7 @@
 import { Check } from "kui-icons";
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType, SizeType, ThemeType, ValueType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import Icon from "../icon";
 import { getValueWithType } from "../utils/checked";
 import type { CheckboxChangeEvent } from "./types";
@@ -30,6 +31,7 @@ export type CheckboxProps = ExtractPropTypes<typeof checkboxProps>;
 
 const Checkbox = defineComponent({
   name: "Checkbox",
+  inheritAttrs: false,
   props: checkboxProps,
   emits: {
     change: (event: CheckboxChangeEvent) => typeof event.checked === "boolean",
@@ -37,10 +39,18 @@ const Checkbox = defineComponent({
       ["string", "number", "boolean"].includes(typeof value),
     "update:checked": (value: boolean) => typeof value === "boolean",
   },
-  setup(props, { slots, emit }) {
+  setup(props, { slots, emit, attrs }) {
+    const field = useFormField(true);
     const resolveChecked = (value: string | number | boolean | undefined, fallback = false) =>
       value === undefined ? fallback : value === true || value === 1 || value === "1";
-    const isChecked = ref(resolveChecked(props.modelValue, props.checked));
+    const isChecked = ref(
+      resolveChecked(
+        field?.prop
+          ? (field.value.value as string | number | boolean | undefined)
+          : props.modelValue,
+        props.checked,
+      ),
+    );
 
     watch(
       () => props.checked,
@@ -50,9 +60,9 @@ const Checkbox = defineComponent({
     );
 
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (v) => {
-        isChecked.value = resolveChecked(v, props.checked);
+        isChecked.value = resolveChecked(v as string | number | boolean | undefined, props.checked);
       },
     );
 
@@ -65,18 +75,25 @@ const Checkbox = defineComponent({
         label: props.label ?? String(props.value ?? ""),
       } as CheckboxChangeEvent);
       emit("update:modelValue", value);
+      if (field?.prop) field.update(value);
       emit("update:checked", checked);
     };
 
     const onChange = (e: Event) => {
-      if (props.disabled || props.readonly) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       e.stopPropagation();
       const target = e.target as HTMLInputElement;
       emitValue(target.checked);
     };
 
     return () => {
-      const { theme, disabled, indeterminate, size, label } = props;
+      const { indeterminate, label } = props;
+      const theme = field?.theme.value ?? props.theme;
+      const disabled = props.disabled || field?.disabled.value;
+      const readonly = props.readonly || field?.readonly.value;
+      const size = props.size || field?.size.value;
+      const { class: attrClass, style: attrStyle, ...inputAttrs } = attrs;
 
       const rootProps = {
         class: [
@@ -84,28 +101,38 @@ const Checkbox = defineComponent({
           {
             "k-checkbox-fill": theme === "fill",
             "k-checkbox-disabled": disabled,
-            "k-checkbox-readonly": props.readonly,
+            "k-checkbox-readonly": readonly,
             "k-checkbox-checked": isChecked.value && !indeterminate,
             "k-checkbox-indeterminate": indeterminate,
             "k-checkbox-sm": size === "small",
             "k-checkbox-lg": size === "large",
           },
+          attrClass,
         ],
-        "aria-readonly": props.readonly || undefined,
+        style: attrStyle,
+        "aria-readonly": readonly || undefined,
       };
 
       const inputProps = {
+        ...inputAttrs,
+        id: inputAttrs.id ?? (field?.prop ? field.id : undefined),
         type: "checkbox",
         class: "k-checkbox-input",
         disabled: disabled,
         indeterminate,
         "aria-checked": indeterminate ? "mixed" : isChecked.value,
-        "aria-readonly": props.readonly || undefined,
+        "aria-labelledby":
+          inputAttrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined),
+        "aria-describedby": inputAttrs["aria-describedby"] ?? field?.describedBy.value,
+        "aria-invalid": (inputAttrs["aria-invalid"] ?? field?.invalid.value) || undefined,
+        "aria-required": (inputAttrs["aria-required"] ?? field?.required.value) || undefined,
+        "aria-readonly": readonly || undefined,
         checked: !!isChecked.value,
         onClick: (event: MouseEvent) => {
-          if (props.readonly) event.preventDefault();
+          if (readonly) event.preventDefault();
         },
         onChange: onChange,
+        onBlur: () => field?.blur(),
       };
 
       const innerNode = isChecked.value && !indeterminate ? <Icon type={Check} /> : null;
@@ -124,4 +151,4 @@ const Checkbox = defineComponent({
   },
 });
 
-export default Checkbox;
+export default markFormFieldComponent(Checkbox);

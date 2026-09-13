@@ -8,6 +8,7 @@ import {
   type PropType,
 } from "vue";
 import type { BooleanType, DirectionType, ShapeType, SizeType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import CheckCard from "./check-card";
 import { checkCardGroupKey, type CheckCardRegistryItem } from "./context";
 import type { CheckCardOption, CheckCardTheme, CheckCardValue } from "./types";
@@ -34,18 +35,29 @@ const CheckCardGroup = defineComponent({
     change: (value: CheckCardValue) => typeof value === "string" || typeof value === "number",
   },
   setup(props, { emit, slots }) {
+    const field = useFormField(true);
     const registry = new Map<CheckCardValue, CheckCardRegistryItem>();
-    const localValue = ref(props.modelValue);
+    const localValue = ref(
+      field?.prop ? (field.value.value as CheckCardValue | undefined) : props.modelValue,
+    );
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (value) => {
-        localValue.value = value;
+        localValue.value = value as CheckCardValue | undefined;
       },
     );
     const select = (value: CheckCardValue) => {
-      if (props.disabled || props.readonly || localValue.value === value) return;
+      if (
+        props.disabled ||
+        field?.disabled.value ||
+        props.readonly ||
+        field?.readonly.value ||
+        localValue.value === value
+      )
+        return;
       localValue.value = value;
       emit("update:modelValue", value);
+      if (field?.prop) field.update(value);
       emit("change", value);
     };
     const selectRelative = (value: CheckCardValue, offset: number) => {
@@ -61,11 +73,11 @@ const CheckCardGroup = defineComponent({
     };
     provide(checkCardGroupKey, {
       modelValue: computed(() => localValue.value),
-      disabled: computed(() => Boolean(props.disabled)),
-      readonly: computed(() => Boolean(props.readonly)),
-      theme: computed(() => props.theme),
-      size: computed(() => props.size),
-      shape: computed(() => props.shape),
+      disabled: computed(() => Boolean(props.disabled || field?.disabled.value)),
+      readonly: computed(() => Boolean(props.readonly || field?.readonly.value)),
+      theme: computed(() => field?.theme.value ?? props.theme),
+      size: computed(() => field?.size.value ?? props.size),
+      shape: computed(() => field?.shape.value ?? props.shape),
       select,
       selectRelative,
       register: (value, item) => registry.set(value, item),
@@ -74,15 +86,21 @@ const CheckCardGroup = defineComponent({
 
     return () => (
       <div
+        id={field?.prop ? field.id : undefined}
         class={[
           "k-check-card-group",
           `k-check-card-group-${props.direction}`,
-          props.disabled && "is-disabled",
-          props.readonly && "is-readonly",
+          (props.disabled || field?.disabled.value) && "is-disabled",
+          (props.readonly || field?.readonly.value) && "is-readonly",
         ]}
         role="radiogroup"
-        aria-disabled={props.disabled || undefined}
-        aria-readonly={props.readonly || undefined}
+        aria-labelledby={field?.prop ? field.labelId : undefined}
+        aria-describedby={field?.describedBy.value}
+        aria-invalid={field?.invalid.value || undefined}
+        aria-required={field?.required.value || undefined}
+        aria-disabled={props.disabled || field?.disabled.value || undefined}
+        aria-readonly={props.readonly || field?.readonly.value || undefined}
+        onFocusout={() => field?.blur()}
       >
         {props.options?.map((option) => (
           <CheckCard
@@ -101,4 +119,4 @@ const CheckCardGroup = defineComponent({
   },
 });
 
-export default CheckCardGroup;
+export default markFormFieldComponent(CheckCardGroup);

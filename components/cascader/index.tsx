@@ -13,6 +13,7 @@ import {
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
 import Empty from "../empty";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import Icon from "../icon";
 import { setPlacement } from "../utils/placement";
 import { cascaderProps, type CascaderOption, type CascaderValue } from "./types";
@@ -27,6 +28,12 @@ const Cascader = defineComponent({
     expandChange: (value: CascaderValue) => Array.isArray(value),
   },
   setup(props, { emit }) {
+    const field = useFormField(true);
+    const modelValue = computed<CascaderValue>(() =>
+      field?.prop && Array.isArray(field.value.value)
+        ? (field.value.value as CascaderValue)
+        : props.modelValue,
+    );
     usePopupHost(() => visible.value && toggleMenu(false));
     const getPopupContainer = usePopupContainer();
     const visible = ref(false);
@@ -84,7 +91,7 @@ const Cascader = defineComponent({
 
     // 监听已选择的真正结果路径值，反向初始化或校准当前展开高亮状态
     watch(
-      () => props.modelValue,
+      modelValue,
       (newVal) => {
         if (newVal && newVal.length > 0) {
           // 根据最终值重构高亮路径
@@ -111,7 +118,7 @@ const Cascader = defineComponent({
       () => {
         const path: CascaderOption[] = [];
         let options = props.options;
-        for (const value of props.modelValue) {
+        for (const value of modelValue.value) {
           const option = options.find((item) => item.value === value);
           if (!option) break;
           path.push(option);
@@ -145,12 +152,12 @@ const Cascader = defineComponent({
 
     // 拼接最终展示在 Input 容器内的文本
     const displayLabel = computed(() => {
-      if (!props.modelValue || props.modelValue.length === 0) return "";
+      if (!modelValue.value || modelValue.value.length === 0) return "";
 
       const labels: string[] = [];
       let currentOptions = props.options;
 
-      for (const val of props.modelValue) {
+      for (const val of modelValue.value) {
         const match = currentOptions.find((o) => o.value === val);
         if (match) {
           labels.push(match.label);
@@ -181,7 +188,8 @@ const Cascader = defineComponent({
     };
 
     const toggleMenu = (show: boolean | null = null) => {
-      if (props.disabled || props.readonly) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
 
       const isFirstRender = !rendered.value;
       if (isFirstRender) {
@@ -242,7 +250,7 @@ const Cascader = defineComponent({
       columnIndex: number,
       isHoverTrigger = false,
     ) => {
-      if (props.readonly || option.disabled) return;
+      if (props.readonly || field?.readonly.value || option.disabled) return;
 
       // 斩断当前列后面的所有老旧高亮分支，重构高亮路径
       const nextPath = activePath.value.slice(0, columnIndex);
@@ -263,6 +271,7 @@ const Cascader = defineComponent({
         // 完成最终选择，抽取路径里所有节点的值
         const finalValue = activePath.value.map((item) => item.value);
         emit("update:modelValue", finalValue);
+        if (field?.prop) field.update(finalValue);
         emit("change", finalValue);
         // 关闭下拉层
         visible.value = false;
@@ -275,9 +284,10 @@ const Cascader = defineComponent({
     };
 
     const handleClear = (e: Event) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       e.stopPropagation();
       emit("update:modelValue", []);
+      if (field?.prop) field.update([]);
       emit("change", []);
       activePath.value = [];
       activeColumn.value = 0;
@@ -285,7 +295,8 @@ const Cascader = defineComponent({
     };
 
     const handleKeydown = (event: KeyboardEvent) => {
-      if (props.disabled || props.readonly) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       if (event.key === "Escape") {
         if (visible.value) {
           event.preventDefault();
@@ -423,7 +434,7 @@ const Cascader = defineComponent({
                       >
                         {menuItems.map((item) => {
                           const isActive = activePath.value[columnIndex]?.value === item.value;
-                          const isSelected = props.modelValue[columnIndex] === item.value;
+                          const isSelected = modelValue.value[columnIndex] === item.value;
                           const hasChildren = isExpandable(item);
                           const isLoading = loadingOptions.value.has(item);
                           const isFailed = failedOptions.value.has(item);
@@ -472,26 +483,20 @@ const Cascader = defineComponent({
     };
 
     return () => {
-      const {
-        disabled,
-        showArrow,
-        size,
-        placeholder,
-        clearable,
-        theme,
-        bordered,
-        arrowIcon,
-        shape,
-        icon,
-      } = props;
-      const hasValue = props.modelValue && props.modelValue.length > 0;
-      const showClear = clearable && !disabled && !props.readonly && hasValue;
+      const { showArrow, placeholder, clearable, bordered, arrowIcon, icon } = props;
+      const disabled = props.disabled || field?.disabled.value;
+      const readonly = props.readonly || field?.readonly.value;
+      const size = props.size || field?.size.value;
+      const theme = field?.theme.value ?? props.theme;
+      const shape = props.shape || field?.shape.value;
+      const hasValue = modelValue.value.length > 0;
+      const showClear = clearable && !disabled && !readonly && hasValue;
 
       const rootClasses = [
         "k-cascader",
         {
           "k-cascader-disabled": disabled,
-          "k-cascader-readonly": props.readonly,
+          "k-cascader-readonly": readonly,
           "k-cascader-opened": visible.value,
           "k-cascader-borderless": bordered === false || theme === "plain",
           "k-cascader-circle": shape === "circle",
@@ -517,12 +522,18 @@ const Cascader = defineComponent({
       return (
         <div
           ref={refSelection}
+          id={field?.prop ? field.id : undefined}
           class={rootClasses}
           tabindex={disabled ? undefined : 0}
           role="combobox"
           aria-expanded={visible.value}
           aria-disabled={disabled}
-          aria-readonly={props.readonly || undefined}
+          aria-labelledby={field?.prop ? field.labelId : undefined}
+          aria-describedby={field?.describedBy.value}
+          aria-invalid={field?.invalid.value || undefined}
+          aria-required={field?.required.value || undefined}
+          aria-readonly={readonly || undefined}
+          onBlur={() => field?.blur()}
           onKeydown={handleKeydown}
           onClick={() => toggleMenu()}
         >
@@ -561,4 +572,4 @@ const Cascader = defineComponent({
   },
 });
 
-export default Cascader;
+export default markFormFieldComponent(Cascader);

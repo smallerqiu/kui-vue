@@ -1,5 +1,6 @@
 import { cloneVNode, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType, DirectionType, SizeType, ThemeType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import { getChildren } from "../utils/vnode";
 import Checkbox from "./checkbox";
 import type { CheckboxChangeEvent, CheckboxOption, CheckboxValue } from "./types";
@@ -32,17 +33,20 @@ const CheckboxGroup = defineComponent({
     change: (value: CheckboxValue[]) => Array.isArray(value),
   },
   setup(props, { slots, emit }) {
-    const currentValue = ref(props.modelValue);
+    const field = useFormField(true);
+    const currentValue = ref(
+      field?.prop ? (field.value.value as CheckboxValue[]) : props.modelValue,
+    );
 
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (val) => {
-        currentValue.value = val;
+        currentValue.value = Array.isArray(val) ? (val as CheckboxValue[]) : [];
       },
     );
 
     const onChange = ({ checked, value }: CheckboxChangeEvent) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       if (value === undefined) return;
       const val = [...currentValue.value];
       const index = val.indexOf(value);
@@ -54,11 +58,16 @@ const CheckboxGroup = defineComponent({
       }
       currentValue.value = val;
       emit("update:modelValue", val);
+      if (field?.prop) field.update(val);
       emit("change", val);
     };
 
     return () => {
-      const { direction, disabled, theme, size } = props;
+      const { direction } = props;
+      const disabled = props.disabled || field?.disabled.value;
+      const readonly = props.readonly || field?.readonly.value;
+      const theme = props.theme || field?.theme.value;
+      const size = props.size || field?.size.value;
 
       const rootProps = {
         class: ["k-checkbox-group", { "k-checkbox-group-vertical": direction === "vertical" }],
@@ -72,7 +81,7 @@ const CheckboxGroup = defineComponent({
               value={option.value}
               checked={currentValue.value.indexOf(option.value) > -1}
               disabled={disabled || option.disabled}
-              readonly={props.readonly || option.readonly}
+              readonly={readonly || option.readonly}
               theme={theme}
               size={size}
               onChange={onChange}
@@ -85,7 +94,7 @@ const CheckboxGroup = defineComponent({
               {
                 checked: value !== undefined && currentValue.value.includes(value),
                 disabled: disabled || Boolean(child.props?.disabled),
-                readonly: props.readonly || Boolean(child.props?.readonly),
+                readonly: readonly || Boolean(child.props?.readonly),
                 theme,
                 size,
                 onChange,
@@ -97,9 +106,15 @@ const CheckboxGroup = defineComponent({
       return (
         <div
           {...rootProps}
+          id={field?.prop ? field.id : undefined}
           role="group"
-          aria-disabled={props.disabled || undefined}
-          aria-readonly={props.readonly || undefined}
+          aria-labelledby={field?.prop ? field.labelId : undefined}
+          aria-describedby={field?.describedBy.value}
+          aria-invalid={field?.invalid.value || undefined}
+          aria-required={field?.required.value || undefined}
+          aria-disabled={disabled || undefined}
+          aria-readonly={readonly || undefined}
+          onFocusout={() => field?.blur()}
         >
           {nodes}
         </div>
@@ -107,4 +122,4 @@ const CheckboxGroup = defineComponent({
     };
   },
 });
-export default CheckboxGroup;
+export default markFormFieldComponent(CheckboxGroup);

@@ -13,6 +13,7 @@ import {
   type Ref,
 } from "vue";
 import type { BooleanType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
 import FileList from "./file-list";
@@ -91,16 +92,23 @@ const Upload = defineComponent({
     sizeError: (event: UploadChangeEvent) => Array.isArray(event?.fileList),
     typeError: (event: UploadChangeEvent) => Array.isArray(event?.fileList),
     sort: (event: UploadSortEvent) =>
-      Array.isArray(event?.fileList) && Number.isInteger(event.oldIndex) && Number.isInteger(event.newIndex),
+      Array.isArray(event?.fileList) &&
+      Number.isInteger(event.oldIndex) &&
+      Number.isInteger(event.newIndex),
   },
   setup(props, { emit, slots, expose }) {
+    const field = useFormField(true);
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
 
-    const innerFileList = ref<UploadFile[]>([...(props.fileList ?? props.defaultFileList)]);
+    const innerFileList = ref<UploadFile[]>([
+      ...(field?.prop && Array.isArray(field.value.value)
+        ? (field.value.value as UploadFile[])
+        : (props.fileList ?? props.defaultFileList)),
+    ]);
     const uploadTemp = reactive<Record<string, File>>({});
     const generatedPreviewUrls = new Set<string>();
     const requestHandles = new Map<string, UploadRequestHandle>();
@@ -121,9 +129,9 @@ const Upload = defineComponent({
 
     // Watch for fileList changes
     watch(
-      () => props.fileList,
+      () => (field?.prop ? field.value.value : props.fileList),
       (newVal) => {
-        const nextList = [...(newVal || [])];
+        const nextList = [...(Array.isArray(newVal) ? (newVal as UploadFile[]) : [])];
         const activePreviews = new Set(nextList.map((item) => item.preview).filter(Boolean));
         generatedPreviewUrls.forEach((url) => {
           if (!activePreviews.has(url)) {
@@ -152,11 +160,12 @@ const Upload = defineComponent({
 
     const triggerUpdate = (fileItem: UploadFile) => {
       emit("update:fileList", innerFileList.value);
+      if (field?.prop) field.update([...innerFileList.value]);
       emit("change", { file: fileItem, fileList: innerFileList.value });
     };
 
     const onSelectFiles = (files: FileList | File[]) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       const { limit, minSize, maxSize } = props;
       const selectedFiles = Array.from(files).filter((file) => file.name !== ".DS_Store");
       const fileArray = props.multiple ? selectedFiles : selectedFiles.slice(0, 1);
@@ -227,7 +236,7 @@ const Upload = defineComponent({
     };
 
     const handleRemove = ({ index, file }: { index: number; file: UploadFile }) => {
-      if (props.readonly) return;
+      if (props.readonly || field?.readonly.value) return;
       const currentIndex = innerFileList.value.findIndex(
         (item) => item === file || (!!file.uid && item.uid === file.uid),
       );
@@ -261,11 +270,16 @@ const Upload = defineComponent({
       }
 
       emit("update:fileList", innerFileList.value);
+      if (field?.prop) field.update([...innerFileList.value]);
       emit("remove", { file: item, fileList: innerFileList.value });
     };
 
     const upload = () => {
-      if (!props.autoTrigger && !props.disabled && !props.readonly) {
+      if (
+        !props.autoTrigger &&
+        !(props.disabled || field?.disabled.value) &&
+        !(props.readonly || field?.readonly.value)
+      ) {
         Object.keys(uploadTemp).forEach((uid) => {
           const item = innerFileList.value.find((x) => x.uid === uid);
           const file = uploadTemp[uid];
@@ -456,7 +470,14 @@ const Upload = defineComponent({
       });
     };
     const retry = (item: UploadFile) => {
-      if (props.disabled || props.readonly || !item.uid) return;
+      if (
+        props.disabled ||
+        field?.disabled.value ||
+        props.readonly ||
+        field?.readonly.value ||
+        !item.uid
+      )
+        return;
       const file = uploadTemp[item.uid];
       if (!file) return;
       item.status = "waiting";
@@ -467,11 +488,19 @@ const Upload = defineComponent({
     };
 
     const handleSort = ({ oldIndex, newIndex }: { oldIndex: number; newIndex: number }) => {
-      if (oldIndex === newIndex || props.readonly || props.disabled) return;
+      if (
+        oldIndex === newIndex ||
+        props.readonly ||
+        field?.readonly.value ||
+        props.disabled ||
+        field?.disabled.value
+      )
+        return;
       const [item] = innerFileList.value.splice(oldIndex, 1);
       if (!item) return;
       innerFileList.value.splice(newIndex, 0, item);
       emit("update:fileList", innerFileList.value);
+      if (field?.prop) field.update([...innerFileList.value]);
       emit("sort", { file: item, fileList: innerFileList.value, oldIndex, newIndex });
     };
 
@@ -509,9 +538,9 @@ const Upload = defineComponent({
         draggable,
         sortable,
         preview,
-        disabled,
-        readonly,
       } = props;
+      const disabled = props.disabled || field?.disabled.value;
+      const readonly = props.readonly || field?.readonly.value;
       const isPicture = type === "picture";
 
       const selectorProps = {
@@ -556,6 +585,7 @@ const Upload = defineComponent({
       );
       return (
         <div
+          id={field?.prop ? field.id : undefined}
           class={[
             "k-upload",
             {
@@ -565,6 +595,13 @@ const Upload = defineComponent({
               "k-upload-drag": draggable,
             },
           ]}
+          aria-labelledby={field?.prop ? field.labelId : undefined}
+          aria-describedby={field?.describedBy.value}
+          aria-invalid={field?.invalid.value || undefined}
+          aria-required={field?.required.value || undefined}
+          aria-disabled={disabled || undefined}
+          aria-readonly={readonly || undefined}
+          onFocusout={() => field?.blur()}
         >
           {!isPicture ? [SelectorNode, FileListNode] : FileListNode}
         </div>
@@ -572,7 +609,7 @@ const Upload = defineComponent({
     };
   },
 });
-export default Upload;
+export default markFormFieldComponent(Upload);
 
 export type {
   UploadChangeEvent,

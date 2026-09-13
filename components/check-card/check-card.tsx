@@ -12,6 +12,7 @@ import {
   type PropType,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType } from "../const/types";
+import { markFormFieldComponent, useFormField } from "../form/context";
 import Icon, { type IconType } from "../icon";
 import { checkCardGroupKey } from "./context";
 import type { CheckCardChangeEvent, CheckCardTheme, CheckCardValue } from "./types";
@@ -42,21 +43,26 @@ const CheckCard = defineComponent({
     change: (event: CheckCardChangeEvent) => Boolean(event && typeof event.checked === "boolean"),
   },
   setup(props, { attrs, emit, slots }) {
+    const field = useFormField(true);
     const group = inject(checkCardGroupKey, null);
     const rootRef = ref<HTMLElement>();
-    const localChecked = ref(props.modelValue);
+    const localChecked = ref(field?.prop ? Boolean(field.value.value) : props.modelValue);
     watch(
-      () => props.modelValue,
+      () => (field?.prop ? field.value.value : props.modelValue),
       (value) => {
-        localChecked.value = value;
+        localChecked.value = Boolean(value);
       },
     );
     const grouped = computed(() => Boolean(group && props.value !== undefined));
     const checked = computed(() =>
       grouped.value ? group?.modelValue.value === props.value : localChecked.value,
     );
-    const disabled = computed(() => Boolean(props.disabled || group?.disabled.value));
-    const readonly = computed(() => Boolean(props.readonly || group?.readonly.value));
+    const disabled = computed(() =>
+      Boolean(props.disabled || field?.disabled.value || group?.disabled.value),
+    );
+    const readonly = computed(() =>
+      Boolean(props.readonly || field?.readonly.value || group?.readonly.value),
+    );
     const theme = computed(() => group?.theme.value ?? props.theme);
     const size = computed(() => group?.size.value ?? props.size);
     const shape = computed(() => group?.shape.value ?? props.shape);
@@ -85,6 +91,7 @@ const CheckCard = defineComponent({
       const next = !checked.value;
       localChecked.value = next;
       emit("update:modelValue", next);
+      if (field?.prop) field.update(next);
       emit("change", { checked: next, value: props.value } satisfies CheckCardChangeEvent);
     };
     const onKeydown = (event: KeyboardEvent) => {
@@ -114,6 +121,7 @@ const CheckCard = defineComponent({
       return (
         <div
           {...attrs}
+          id={attrs.id ?? (field?.prop ? field.id : undefined)}
           ref={rootRef}
           class={[
             "k-check-card",
@@ -130,11 +138,16 @@ const CheckCard = defineComponent({
           ]}
           role={grouped.value ? "radio" : "checkbox"}
           aria-checked={checked.value}
+          aria-labelledby={attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)}
+          aria-describedby={attrs["aria-describedby"] ?? field?.describedBy.value}
+          aria-invalid={(attrs["aria-invalid"] ?? field?.invalid.value) || undefined}
+          aria-required={(attrs["aria-required"] ?? field?.required.value) || undefined}
           aria-disabled={disabled.value}
           aria-readonly={readonly.value || undefined}
           tabindex={disabled.value ? -1 : checked.value || !grouped.value ? 0 : -1}
           onClick={select}
           onKeydown={onKeydown}
+          onBlur={() => field?.blur()}
         >
           {symbolNode && <div class="k-check-card-symbol">{symbolNode}</div>}
           <div class="k-check-card-content">
@@ -157,4 +170,4 @@ const CheckCard = defineComponent({
   },
 });
 
-export default CheckCard;
+export default markFormFieldComponent(CheckCard);
