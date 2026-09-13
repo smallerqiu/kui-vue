@@ -143,7 +143,7 @@
     outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
   }
 
-  &:hover {
+  &:not(:disabled):hover {
     border-color: var(--kui-color-primary);
   }
 
@@ -404,6 +404,9 @@
   cursor: not-allowed;
   color: var(--kui-color-text-disabled);
   background: var(--kui-control-bg-disabled);
+  border-color: var(--kui-control-border);
+  box-shadow: none;
+  outline: none;
 
   & * {
     cursor: not-allowed;

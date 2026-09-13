@@ -392,7 +392,7 @@ export default defineComponent({
         {rendered.value
           ? [
               <Teleport key="overlay" to={getPopupContainer()}>
-                <Transition name="k-select">
+                <Transition name="k-select" appear>
                   <div
                     ref={dropdown}
                     v-show={!!query.value}

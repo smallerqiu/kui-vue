@@ -1,15 +1,15 @@
 <template>
-  <Flex size="small" wrap>
-    <Flex size="small" wrap>
+  <Space size="small" wrap>
+    <Space size="small" wrap>
       <Button v-for="color in colors" :color="color" :key="color" theme="solid">Solid</Button>
-    </Flex>
-    <Flex size="small" wrap>
+    </Space>
+    <Space size="small" wrap>
       <Button v-for="color in colors" :color="color" :key="color" theme="outline">Outline</Button>
-    </Flex>
-    <Flex size="small" wrap>
+    </Space>
+    <Space size="small" wrap>
       <Button v-for="color in colors" :color="color" :key="color" theme="dashed">Dashed</Button>
-    </Flex>
-  </Flex>
+    </Space>
+  </Space>
 </template>
 <script setup lang="ts">
 const colors = [

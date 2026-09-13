@@ -21,9 +21,9 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 
 - By setting the `icon` attribute, you can add an icon to the input field, which is only effective for `input`. This allows for quick implementation of features like password visibility toggle or search.
 
-[Extension, Prefix and Suffix](./demo/suffix.vue?show=vertical)
+[Addons, Prefix and Suffix](./demo/suffix.vue?show=vertical)
 
-- suffix, prefix extension.
+- `prefix` and `suffix` render inside the input. `addonBefore` and `addonAfter` render outside it; use their named slots for complex content.
 
 [Input Group](./demo/group.vue?show=vertical)
 
@@ -56,6 +56,8 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | icon                | Input box icon                                                      | string                           | -       |
 | suffix              | Inline suffix                                                       | string \| VNodeChild             | -       |
 | prefix              | Inline prefix                                                       | string \| VNodeChild             | -       |
+| addonBefore         | Addon before the input; complex content can use the named slot      | string \| number \| VNodeChild   | -       |
+| addonAfter          | Addon after the input; complex content can use the named slot       | string \| number \| VNodeChild   | -       |
 | theme               | The theme of Input                                                  | string                           | fill    |
 | clearable           | Show the clear button on hover when a value exists                  | boolean                          | true    |
 | visiblePasswordIcon | Whether to show the toggle button or control password visibility    | boolean                          | true    |

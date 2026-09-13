@@ -8,14 +8,14 @@
       :suffix="h(Tag, { theme: 'outline' }, { default: () => '⌘K' })"
     ></Input>
     <Input placeholder="Please input the captcha" :maxlength="8">
-      <template #suffix>
+      <template #addonAfter>
         <Button :disabled="time < 60" @click="sendCode">
           {{ time == 60 ? "Get verification code" : time + "(s)" }}
         </Button>
       </template>
     </Input>
     <Input placeholder="Please input" :icon="Gift">
-      <template #suffix>
+      <template #addonAfter>
         <Tooltip title="Please contact the administrator">
           <Button :icon="CircleQuestionMark" />
         </Tooltip>
@@ -24,19 +24,19 @@
     <Input placeholder="Please enter the amount" suffix="RMB" prefix="¥" />
     <Input placeholder="Please enter the domain" suffix=".com" prefix="https://" />
     <Input placeholder="Please input" prefix="www.">
-      <template #prefix>
+      <template #addonBefore>
         <Select :options="options" clearable modelValue="http"></Select>
       </template>
-      <template #suffix>
+      <template #addonAfter>
         <Select :options="list" clearable modelValue=".com"></Select>
       </template>
     </Input>
     <Input placeholder="Please input" suffix=".00" />
     <Input placeholder="Please input" prefix="www.">
-      <template #prefix>
+      <template #addonBefore>
         <Select :options="options" clearable modelValue="http"></Select>
       </template>
-      <template #suffix>
+      <template #addonAfter>
         <TreeSelect :tree-data="treeData" clearable style="width: 100px"></TreeSelect>
       </template>
     </Input>

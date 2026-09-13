@@ -21,9 +21,9 @@
 
 - 通过设置 `icon` 属性，可设置输入框图标，只对 `input` 有效。可以快速的实现 ，密码显示隐藏，搜索
 
-[扩展, 前缀和后缀](./demo/suffix.vue?show=vertical)
+[扩展、前缀和后缀](./demo/suffix.vue?show=vertical)
 
-- suffix，prefix 扩展
+- `prefix`、`suffix` 用于输入框内部内容；`addonBefore`、`addonAfter` 用于输入框外部附件，复杂内容使用同名插槽。
 
 [输入框组合](./demo/group.vue?show=vertical)
 
@@ -56,6 +56,8 @@
 | icon                | 输入框图标                                 | string                           | -      |
 | suffix              | 输入框内部后缀                             | string \| VNodeChild             | -      |
 | prefix              | 输入框内部前缀                             | string \| VNodeChild             | -      |
+| addonBefore         | 输入框外部前置附件，复杂内容可使用同名插槽 | string \| number \| VNodeChild   | -      |
+| addonAfter          | 输入框外部后置附件，复杂内容可使用同名插槽 | string \| number \| VNodeChild   | -      |
 | theme               | 主题                                       | string                           | fill   |
 | clearable           | 有值且悬停时显示清除按钮                   | boolean                          | true   |
 | visiblePasswordIcon | 是否显示切换按钮或者控制密码显隐           | boolean                          | true   |

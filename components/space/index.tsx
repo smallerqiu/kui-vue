@@ -84,6 +84,7 @@ const Space = defineComponent({
           },
         };
         if (
+          props.compact &&
           typeof size === "string" &&
           typeof children[i].type !== "string" &&
           children[i].type !== Text
@@ -94,6 +95,10 @@ const Space = defineComponent({
           ? children[i].type === Text
             ? h("span", p, children[i])
             : cloneVNode(children[i], p, true, true)
+          : children.length === 1
+            ? children[i].type === Text
+              ? h("span", { key: p.key }, children[i])
+              : cloneVNode(children[i], { key: p.key }, true, true)
           : h("div", p, [children[i]]);
         vNodes.push(child);
         if (slots.split && i < children.length - 1) {

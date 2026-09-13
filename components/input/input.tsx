@@ -36,6 +36,8 @@ const inputProps = {
   icon: [Array] as PropType<IconType[]>,
   suffix: { type: [String, Object] as PropType<VNodeChild> },
   prefix: { type: [String, Object] as PropType<VNodeChild> },
+  addonBefore: { type: [String, Number, Object] as PropType<VNodeChild> },
+  addonAfter: { type: [String, Number, Object] as PropType<VNodeChild> },
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: String as PropType<ShapeType>,
   inputType: { type: String, default: "input" },
@@ -145,6 +147,8 @@ const Input = defineComponent({
         type,
         clearable,
         suffix,
+        addonBefore,
+        addonAfter,
         theme,
         prefix,
         shape,
@@ -153,8 +157,16 @@ const Input = defineComponent({
 
       const slotSuffix = getChildren(slots.suffix?.());
       const slotPrefix = getChildren(slots.prefix?.());
+      const slotAddonBefore = getChildren(slots.addonBefore?.());
+      const slotAddonAfter = getChildren(slots.addonAfter?.());
       const slotControls = getChildren(slots.controls?.());
-      const grouped = slotPrefix.length > 0 || slotSuffix.length > 0;
+      const grouped =
+        slotAddonBefore.length > 0 ||
+        slotAddonAfter.length > 0 ||
+        addonBefore !== undefined ||
+        addonAfter !== undefined ||
+        slotPrefix.length > 0 ||
+        slotSuffix.length > 0;
 
       const multiple =
         (icon ||
@@ -165,6 +177,7 @@ const Input = defineComponent({
           prefix ||
           type === "password" ||
           clearable ||
+          grouped ||
           slotControls.length > 0) &&
         type !== "hidden";
 
@@ -231,8 +244,22 @@ const Input = defineComponent({
       };
 
       if (grouped) {
-        const preChildren = slotPrefix.length ? (
-          <div class="k-input-group-prefix">{slotPrefix}</div>
+        const beforeContent = slotAddonBefore.length
+          ? slotAddonBefore
+          : addonBefore !== undefined
+            ? addonBefore
+            : slotPrefix.length
+              ? slotPrefix
+              : undefined;
+        const afterContent = slotAddonAfter.length
+          ? slotAddonAfter
+          : addonAfter !== undefined
+            ? addonAfter
+            : slotSuffix.length
+              ? slotSuffix
+              : undefined;
+        const preChildren = beforeContent ? (
+          <div class="k-input-group-prefix">{beforeContent}</div>
         ) : null;
         const innerChildren: VNodeChild[] = [];
         if (icon)
@@ -278,8 +305,8 @@ const Input = defineComponent({
         const suffixNode = getSuffix([]);
         if (suffixNode) innerChildren.push(suffixNode);
         if (slotControls.length) innerChildren.push(slotControls);
-        const sufChildren = slotSuffix.length ? (
-          <div class="k-input-group-suffix">{slotSuffix}</div>
+        const sufChildren = afterContent ? (
+          <div class="k-input-group-suffix">{afterContent}</div>
         ) : null;
 
         return (

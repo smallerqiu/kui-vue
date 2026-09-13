@@ -1,5 +1,5 @@
 import * as kuiIcons from "kui-icons";
-import { Affix, Flex, Grid, GridItem, Icon, Input, message, Tag, type IconType } from "kui-vue";
+import { Affix, Grid, GridItem, Icon, Input, message, Space, Tag, type IconType } from "kui-vue";
 import { copyToClipboard } from "../../utils/share";
 
 import { defineComponent, ref } from "vue";
@@ -57,7 +57,7 @@ export default defineComponent({
       <div>
         <h3>Icons Filter</h3>
         <Affix offsetTop={65}>
-          <Flex size="large" style={{ backgroundColor: "var(--kui-color-bg)" }}>
+          <Space block size="large" style={{ backgroundColor: "var(--kui-color-bg)" }}>
             <Input
               v-model={searchKey.value}
               placeholder="Enter keyword to search for icons, then click on the icon to copy it."
@@ -66,7 +66,7 @@ export default defineComponent({
               prefix={<Icon type={kuiIcons.Search} />}
               suffix={<Tag>⌘K</Tag>}
             ></Input>
-          </Flex>
+          </Space>
         </Affix>
 
         <div class="show-icons">
