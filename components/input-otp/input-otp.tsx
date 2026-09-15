@@ -10,7 +10,7 @@ import {
   type VNodeChild,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
 import type { InputOTPValidator } from "./types";
 
 const inputOTPProps = {
@@ -145,7 +145,6 @@ const InputOTP = defineComponent({
     return () => (
       <div
         {...attrs}
-        id={attrs.id ?? (field?.prop ? field.id : undefined)}
         class={[
           "k-input-otp",
           {
@@ -159,10 +158,7 @@ const InputOTP = defineComponent({
           attrs.class,
         ]}
         role="group"
-        aria-labelledby={attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)}
-        aria-describedby={attrs["aria-describedby"] ?? field?.describedBy.value}
-        aria-invalid={(attrs["aria-invalid"] ?? field?.invalid.value) || undefined}
-        aria-required={(attrs["aria-required"] ?? field?.required.value) || undefined}
+        {...resolveFormControlAttrs(attrs, field)}
         aria-disabled={props.disabled || field?.disabled.value || undefined}
         aria-readonly={props.readonly || field?.readonly.value || undefined}
       >

@@ -11,7 +11,7 @@ import {
   type VNodeChild,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType } from "../const/types";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
 import Icon, { type IconType } from "../icon";
 
 export type SegmentedValue = string | number;
@@ -35,6 +35,19 @@ const segmentedProps = {
 };
 
 export type SegmentedProps = ExtractPropTypes<typeof segmentedProps>;
+type SegmentedPublicProps<T extends SegmentedValue> = Omit<
+  Partial<SegmentedProps>,
+  "modelValue"
+> & {
+  modelValue?: T;
+  "onUpdate:modelValue"?: (value: T) => void;
+  onChange?: (value: T) => void;
+};
+type SegmentedComponent = {
+  new <T extends SegmentedValue = SegmentedValue>(
+    props: SegmentedPublicProps<T>,
+  ): { $props: SegmentedPublicProps<T> };
+};
 
 const Segmented = defineComponent({
   name: "Segmented",
@@ -134,7 +147,6 @@ const Segmented = defineComponent({
     return () => (
       <div
         {...attrs}
-        id={attrs.id ?? (field?.prop ? field.id : undefined)}
         ref={rootRef}
         class={[
           "k-segmented",
@@ -148,10 +160,7 @@ const Segmented = defineComponent({
           },
         ]}
         role="radiogroup"
-        aria-labelledby={attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)}
-        aria-describedby={attrs["aria-describedby"] ?? field?.describedBy.value}
-        aria-invalid={(attrs["aria-invalid"] ?? field?.invalid.value) || undefined}
-        aria-required={(attrs["aria-required"] ?? field?.required.value) || undefined}
+        {...resolveFormControlAttrs(attrs, field)}
         aria-disabled={props.disabled || field?.disabled.value || undefined}
         aria-readonly={props.readonly || field?.readonly.value || undefined}
         onFocusout={() => field?.blur()}
@@ -187,4 +196,5 @@ const Segmented = defineComponent({
   },
 });
 
-export default markFormFieldComponent(Segmented);
+const FormSegmented = markFormFieldComponent(Segmented);
+export default FormSegmented as SegmentedComponent;

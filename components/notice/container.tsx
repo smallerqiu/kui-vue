@@ -1,7 +1,7 @@
 import { defineComponent, ref, TransitionGroup, type TransitionProps } from "vue";
 import { getTransitionProp } from "../base/transition";
-import Content, { type ContentProps } from "./content";
-interface NoticeItem extends ContentProps {
+import Content, { type NoticeOptions } from "./content";
+interface NoticeItem extends NoticeOptions {
   key: string;
   __timer?: ReturnType<typeof setTimeout>;
   __callback: () => void;
@@ -16,7 +16,7 @@ export default defineComponent({
   setup(ps, { expose }) {
     const options = ref<NoticeItem[]>([]);
 
-    const show = (option: ContentProps) => {
+    const show = (option: NoticeOptions) => {
       const { duration = 3.5, onClose, closable, noticeType, grouping } = option;
 
       // 相同 grouping 的通知只更新内容，不新增条目

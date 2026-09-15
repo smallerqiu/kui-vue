@@ -14,6 +14,7 @@ import {
   watch,
   type CSSProperties,
   type ExtractPropTypes,
+  type HTMLAttributes,
   type PropType,
   type Ref,
   type VNode,
@@ -78,6 +79,20 @@ const selectProps = {
 };
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>;
+type SelectModelValue = SelectValue | SelectValue[];
+type SelectPublicProps<T extends SelectModelValue> = Omit<Partial<SelectProps>, "modelValue"> &
+  Omit<HTMLAttributes, "onChange" | "onSelect"> & {
+    modelValue?: T;
+    "onUpdate:modelValue"?: (value: T) => void;
+    onChange?: (value: T) => void;
+    onSearch?: (event: InputEvent) => void;
+    onSelect?: (option: OptionSelectEvent) => void;
+  };
+type SelectComponent = {
+  new <T extends SelectModelValue = SelectValue>(
+    props: SelectPublicProps<T>,
+  ): { $props: SelectPublicProps<T> };
+};
 
 const Select = defineComponent({
   name: "Select",
@@ -87,7 +102,7 @@ const Select = defineComponent({
     search: (event: InputEvent) => typeof event?.type === "string",
     change: (value: SelectValue | SelectValue[]) =>
       Array.isArray(value) || ["string", "number", "boolean"].includes(typeof value),
-    select: (option: SelectOption) => typeof option === "object" && option !== null,
+    select: (option: OptionSelectEvent) => typeof option === "object" && option !== null,
     openChange: (open: boolean) => typeof open === "boolean",
     clear: () => true,
   },
@@ -339,7 +354,7 @@ const Select = defineComponent({
               updatePosition();
             });
           }
-          emit("search", e);
+          emit("search", e as InputEvent);
         }, 500);
       }
     };
@@ -843,6 +858,7 @@ const Select = defineComponent({
     };
   },
 });
-export default markFormFieldComponent(Select);
+const FormSelect = markFormFieldComponent(Select);
+export default FormSelect as SelectComponent;
 
 export type { SelectOption } from "./types";

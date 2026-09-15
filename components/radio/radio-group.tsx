@@ -40,6 +40,17 @@ const radioGroupProps = {
 };
 
 export type RadioGroupProps = ExtractPropTypes<typeof radioGroupProps>;
+type RadioValue = string | number;
+type RadioGroupPublicProps<T extends RadioValue> = Omit<Partial<RadioGroupProps>, "modelValue"> & {
+  modelValue?: T;
+  "onUpdate:modelValue"?: (value: T) => void;
+  onChange?: (value: T) => void;
+};
+type RadioGroupComponent = {
+  new <T extends RadioValue = RadioValue>(
+    props: RadioGroupPublicProps<T>,
+  ): { $props: RadioGroupPublicProps<T> };
+};
 
 const RadioGroup = defineComponent({
   name: "RadioGroup",
@@ -153,4 +164,5 @@ const RadioGroup = defineComponent({
     };
   },
 });
-export default markFormFieldComponent(RadioGroup);
+const FormRadioGroup = markFormFieldComponent(RadioGroup);
+export default FormRadioGroup as RadioGroupComponent;

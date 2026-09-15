@@ -56,7 +56,7 @@ export default defineComponent({
       const files = (e as DragEvent).dataTransfer
         ? (e as DragEvent).dataTransfer?.files
         : (e.target as HTMLInputElement).files;
-      if (files && files.length > 0) emit("select", files);
+      if (files && files.length > 0) emit("select", Array.from(files));
       if (e.target instanceof HTMLInputElement) e.target.value = "";
       e.preventDefault();
       dragOver.value = false;
@@ -107,7 +107,7 @@ export default defineComponent({
         class: ["k-upload-add", { "k-upload-drag-over": dragOver.value }],
         role: "button",
         tabindex: disabled ? -1 : 0,
-        "aria-disabled": disabled ? "true" : undefined,
+        "aria-disabled": disabled || undefined,
         onDragenter: draggable && !disabled ? onDragEnter : undefined,
         onDrop: draggable && !disabled ? onDrop : undefined,
         onDragover: draggable && !disabled ? onDragOver : undefined,

@@ -122,4 +122,5 @@ const CheckboxGroup = defineComponent({
     };
   },
 });
-export default markFormFieldComponent(CheckboxGroup);
+const FormCheckboxGroup = markFormFieldComponent(CheckboxGroup);
+export default FormCheckboxGroup;

@@ -17,8 +17,8 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-const checked = ref(true);
+const checked = ref<boolean>(true);
 const value1 = ref(true);
-const value2 = ref("1");
+const value2 = ref<string>("1");
 const value3 = ref(1);
 </script>

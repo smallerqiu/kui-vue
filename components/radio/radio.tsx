@@ -1,6 +1,6 @@
 import { defineComponent, type ExtractPropTypes, type PropType, ref, watch } from "vue";
 import type { BooleanType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
 import type { ChangeEvent } from "./types";
 const radioProps = {
   modelValue: { type: Boolean, default: undefined },
@@ -99,17 +99,11 @@ const Radio = defineComponent({
           <span class="k-radio-symbol">
             <input
               {...inputAttrs}
-              id={inputAttrs.id ?? (field?.prop ? field.id : undefined)}
               type="radio"
               class="k-radio-input"
               name={props.name}
               disabled={disabled}
-              aria-labelledby={
-                inputAttrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)
-              }
-              aria-describedby={inputAttrs["aria-describedby"] ?? field?.describedBy.value}
-              aria-invalid={(inputAttrs["aria-invalid"] ?? field?.invalid.value) || undefined}
-              aria-required={(inputAttrs["aria-required"] ?? field?.required.value) || undefined}
+              {...resolveFormControlAttrs(inputAttrs, field)}
               aria-readonly={readonly || undefined}
               onBlur={() => field?.blur()}
               onClick={onClick}

@@ -11,10 +11,10 @@ import { Heart, Mail, Settings, Table } from "kui-icons";
 import { ref } from "vue";
 const current = ref(["1-1"]);
 const openKeys = ref(["sub2"]);
-const theme = ref("dark");
+const theme = ref<"dark" | "light">("dark");
 
-const change = (checked: boolean) => {
-  theme.value = checked ? "dark" : "light";
+const change = (value: string | number | boolean) => {
+  theme.value = value ? "dark" : "light";
 };
 const items = [
   { key: "1-1", icon: Mail, title: "Option 1" },

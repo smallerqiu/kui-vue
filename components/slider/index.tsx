@@ -36,6 +36,20 @@ const sliderProps = {
 };
 
 export type SliderProps = ExtractPropTypes<typeof sliderProps>;
+type SliderModelProps<T extends number | number[]> = {
+  modelValue?: T | undefined;
+  "onUpdate:modelValue"?: (value: T) => void;
+  onChange?: (value: T) => void;
+};
+type SliderPublicProps = Omit<Partial<SliderProps>, "modelValue" | "range">;
+type SliderComponent = {
+  new (props: SliderPublicProps & { range: true } & SliderModelProps<number[]>): {
+    $props: SliderPublicProps & { range: true } & SliderModelProps<number[]>;
+  };
+  new (props: SliderPublicProps & { range?: false } & SliderModelProps<number>): {
+    $props: SliderPublicProps & { range?: false } & SliderModelProps<number>;
+  };
+};
 
 const Slider = defineComponent({
   name: "Slider",
@@ -485,4 +499,5 @@ const Slider = defineComponent({
   },
 });
 
-export default markFormFieldComponent(Slider);
+const FormSlider = markFormFieldComponent(Slider);
+export default FormSlider as SliderComponent;

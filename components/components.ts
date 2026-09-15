@@ -52,7 +52,13 @@ export { Carousel, CarouselItem } from "./carousel";
 export type { CarouselProps } from "./carousel";
 
 export { Checkbox, CheckboxGroup } from "./checkbox";
-export type { ChangeEvent, CheckboxGroupProps, CheckboxOption, CheckboxProps } from "./checkbox";
+export type {
+  ChangeEvent,
+  CheckboxGroupProps,
+  CheckboxOption,
+  CheckboxProps,
+  CheckboxValue,
+} from "./checkbox";
 
 export { CheckCard, CheckCardGroup } from "./check-card";
 export type {
@@ -265,7 +271,13 @@ export { Col, Row } from "./row-col";
 export type { ColProps, ColResponsiveSize, ColSize, RowProps } from "./row-col";
 
 export { default as Upload } from "./upload";
-export type { UploadChangeEvent, UploadContext, UploadFile, UploadProps } from "./upload";
+export type {
+  UploadChangeEvent,
+  UploadContext,
+  UploadCustomRequest,
+  UploadFile,
+  UploadProps,
+} from "./upload";
 
 export { default as Watermark } from "./watermark";
 export type {

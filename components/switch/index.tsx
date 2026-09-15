@@ -2,7 +2,7 @@ import { Loading } from "kui-icons";
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { defineComponent, ref, watch } from "vue";
 import type { BooleanType, ShapeType, SizeType, ValueType } from "../const/types";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
 import Icon from "../icon";
 import { getValueWithType } from "../utils/checked";
 
@@ -30,6 +30,23 @@ const switchProps = {
 };
 
 export type SwitchProps = ExtractPropTypes<typeof switchProps>;
+type SwitchModelProps<T extends string | number | boolean> = {
+  modelValue?: T;
+  "onUpdate:modelValue"?: (value: T) => void;
+  onChange?: (value: T) => void;
+};
+type SwitchPublicProps = Omit<Partial<SwitchProps>, "modelValue" | "valueType">;
+type SwitchComponent = {
+  new (props: SwitchPublicProps & { valueType: "string" } & SwitchModelProps<string>): {
+    $props: SwitchPublicProps & { valueType: "string" } & SwitchModelProps<string>;
+  };
+  new (props: SwitchPublicProps & { valueType: "number" } & SwitchModelProps<number>): {
+    $props: SwitchPublicProps & { valueType: "number" } & SwitchModelProps<number>;
+  };
+  new (props: SwitchPublicProps & { valueType?: "boolean" } & SwitchModelProps<boolean>): {
+    $props: SwitchPublicProps & { valueType?: "boolean" } & SwitchModelProps<boolean>;
+  };
+};
 
 const Switch = defineComponent({
   name: "Switch",
@@ -106,17 +123,13 @@ const Switch = defineComponent({
       return (
         <button
           {...attrs}
-          id={attrs.id ?? (field?.prop ? field.id : undefined)}
           class={classes}
           style={props.color ? ({ "--kui-switch-color": props.color } as CSSProperties) : undefined}
           onClick={change}
           disabled={disabled || loading}
           role="switch"
           aria-checked={isChecked.value}
-          aria-labelledby={attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)}
-          aria-describedby={attrs["aria-describedby"] ?? field?.describedBy.value}
-          aria-invalid={(attrs["aria-invalid"] ?? field?.invalid.value) || undefined}
-          aria-required={(attrs["aria-required"] ?? field?.required.value) || undefined}
+          {...resolveFormControlAttrs(attrs, field)}
           aria-readonly={readonly || undefined}
           onBlur={() => field?.blur()}
           type="button"
@@ -128,4 +141,5 @@ const Switch = defineComponent({
     };
   },
 });
-export default markFormFieldComponent(Switch);
+const FormSwitch = markFormFieldComponent(Switch);
+export default FormSwitch as SwitchComponent;

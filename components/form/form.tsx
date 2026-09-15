@@ -55,7 +55,7 @@ const Form = defineComponent({
       wrapperCol,
     } = toRefs(props);
 
-    const updateModel = (prop: string, value = null) => {
+    const updateModel = (prop: string, value: unknown = null) => {
       const { o, k } = getPropByPath(model, prop);
       // console.log(o, k, value);
       if (o) {
@@ -63,7 +63,8 @@ const Form = defineComponent({
         emit("change", model);
       }
     };
-    const getValueFromProp = (path: string) => {
+    const getValueFromProp = (path?: string) => {
+      if (!path) return undefined;
       const { v } = getPropByPath(model, path);
       // console.log("v", v);
       return v;
@@ -127,7 +128,7 @@ const Form = defineComponent({
       const results = await Promise.all(
         Object.keys(formItems.value).map((key) => {
           const item = formItems.value[key];
-          const rules = item.rules || (props.rules || {})[item.prop];
+          const rules = item.rules || (item.prop ? (props.rules || {})[item.prop] : undefined);
           return rules ? item.validate(rules) : Promise.resolve(true);
         }),
       );
@@ -167,7 +168,7 @@ const Form = defineComponent({
       unregister,
       labelCol,
       wrapperCol,
-      cleaned: ref(true),
+      cleaned: true,
     });
     provide(FORM_INJECTION_KEY, form);
 

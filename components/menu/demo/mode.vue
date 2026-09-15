@@ -23,7 +23,7 @@ import { ref } from "vue";
 const current = ref(["1-1"]);
 const openKeys = ref(["sub2"]);
 const mode = ref<DirectionType>("inline");
-const theme = ref("light");
+const theme = ref<"dark" | "light">("light");
 
 const changeMode = () => {
   mode.value = mode.value == "inline" ? "vertical" : "inline";

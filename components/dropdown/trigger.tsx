@@ -1,6 +1,6 @@
 import { defineComponent, inject, type PropType } from "vue";
 import Button from "../button/button";
-import type { BooleanType } from "../const/types";
+import type { BooleanType, ThemeType } from "../const/types";
 import { type IconType } from "../icon";
 import { DropdownContextKey, type DropdownContext } from "./dropdown-context";
 export default defineComponent({
@@ -8,6 +8,7 @@ export default defineComponent({
   props: {
     icon: Array as PropType<IconType[]>,
     disabled: Boolean as BooleanType,
+    theme: String as PropType<ThemeType>,
   },
   setup(ps, { attrs, slots }) {
     const dropdownContext = inject<DropdownContext | null>(DropdownContextKey, null);
@@ -16,6 +17,7 @@ export default defineComponent({
         <Button
           icon={ps.icon}
           disabled={ps.disabled}
+          theme={ps.theme}
           {...attrs}
           onMouseenter={() => dropdownContext?.triggerIn?.()}
           onMouseleave={() => dropdownContext?.triggerOut?.()}

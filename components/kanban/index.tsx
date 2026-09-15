@@ -124,7 +124,8 @@ const Kanban = defineComponent({
                   dragOverKey.value = column.key;
                 }}
                 onDragleave={(event) => {
-                  if (!event.currentTarget.contains(event.relatedTarget as Node | null))
+                  const currentTarget = event.currentTarget as HTMLElement;
+                  if (!currentTarget.contains(event.relatedTarget as Node | null))
                     dragOverKey.value = undefined;
                 }}
                 onDrop={(event) => {

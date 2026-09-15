@@ -109,6 +109,24 @@ const datePickerProps = {
 };
 
 export type DatePickerProps = ExtractPropTypes<typeof datePickerProps>;
+type DatePickerModelValue = DatePickerOutput | DatePickerOutput[];
+type DatePickerPublicProps<T extends DatePickerModelValue> = Omit<
+  Partial<DatePickerProps>,
+  "modelValue" | "startDate" | "endDate"
+> & {
+  modelValue?: T;
+  startDate?: T extends readonly unknown[] ? never : T;
+  endDate?: T extends readonly unknown[] ? never : T;
+  "onUpdate:modelValue"?: (value: T) => void;
+  "onUpdate:startDate"?: (value: Exclude<T, DatePickerOutput[]>) => void;
+  "onUpdate:endDate"?: (value: Exclude<T, DatePickerOutput[]>) => void;
+  onChange?: (value: T, text: string | string[]) => void;
+};
+type DatePickerComponent = {
+  new <T extends DatePickerModelValue = DatePickerOutput>(
+    props: DatePickerPublicProps<T>,
+  ): { $props: DatePickerPublicProps<T> };
+};
 
 const DatePicker = defineComponent({
   name: "DatePicker",
@@ -320,7 +338,7 @@ const DatePicker = defineComponent({
           // 设置面板基准时间
           if (innerValue.value[0]) panelDate.value = innerValue.value[0];
         } else if (!Array.isArray(val)) {
-          const d = parsePropValue(val);
+          const d = parsePropValue(val as DatePickerInput);
           innerValue.value = d;
           if (!isFocus.value) syncTextFromValue();
           if (d?.isValid()) panelDate.value = d;
@@ -1218,4 +1236,5 @@ export const DatePickerPanel = defineComponent({
       h(DatePicker, { ...attrs, ...props, panelOnly: true }, slots),
 });
 
-export default markFormFieldComponent(DatePicker);
+const FormDatePicker = markFormFieldComponent(DatePicker);
+export default FormDatePicker as DatePickerComponent;

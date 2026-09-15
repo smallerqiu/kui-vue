@@ -34,7 +34,7 @@ const Option = defineComponent({
     const checked = computed(() => props.checked);
     const onSelect = () => {
       if (props.disabled) return;
-      emit("select", { value: props.value, label: labelText.value });
+      emit("select", { value: props.value!, label: labelText.value });
     };
 
     return () => {
@@ -65,6 +65,6 @@ const Option = defineComponent({
     };
   },
 });
-export default Option as DefineComponent<OptionProps>;
+export default Option as typeof Option & DefineComponent<OptionProps>;
 
 export type { OptionSelectEvent } from "./types";

@@ -141,7 +141,7 @@ const Page = defineComponent({
           key: i,
           role: "button",
           tabindex: props.disabled ? -1 : 0,
-          "aria-current": page === p ? "page" : undefined,
+          "aria-current": page === p ? ("page" as const) : undefined,
           "aria-label": `Page ${p}`,
           onClick: () => toPage(p),
           onKeydown: (event: KeyboardEvent) => activateByKeyboard(event, () => toPage(p)),

@@ -1,4 +1,10 @@
-import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
+import type {
+  CSSProperties,
+  DefineComponent,
+  ExtractPropTypes,
+  HTMLAttributes,
+  PropType,
+} from "vue";
 import { cloneVNode, defineComponent, Fragment, h, inject, provide, Text } from "vue";
 import { type BooleanType, type SizeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
@@ -16,7 +22,7 @@ const spaceProps = {
   },
 };
 
-export type SpaceProps = ExtractPropTypes<typeof spaceProps>;
+export type SpaceProps = Partial<ExtractPropTypes<typeof spaceProps>> & HTMLAttributes;
 
 const Space = defineComponent({
   name: "Space",
@@ -97,9 +103,9 @@ const Space = defineComponent({
             : cloneVNode(children[i], p, true, true)
           : children.length === 1
             ? children[i].type === Text
-              ? h("span", { key: p.key }, children[i])
-              : cloneVNode(children[i], { key: p.key }, true, true)
-          : h("div", p, [children[i]]);
+              ? h("span", { key: p.key as PropertyKey }, children[i])
+              : cloneVNode(children[i], { key: p.key as PropertyKey }, true, true)
+            : h("div", p, [children[i]]);
         vNodes.push(child);
         if (slots.split && i < children.length - 1) {
           vNodes.push(h(Fragment, { key: `split-${i}` }, slots.split()));
@@ -109,4 +115,4 @@ const Space = defineComponent({
     };
   },
 });
-export default Space;
+export default Space as typeof Space & DefineComponent<SpaceProps>;

@@ -1,7 +1,15 @@
 import { Check } from "kui-icons";
-import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
+import {
+  defineComponent,
+  ref,
+  watch,
+  type ExtractPropTypes,
+  type HTMLAttributes,
+  type PropType,
+  type VNodeProps,
+} from "vue";
 import type { BooleanType, SizeType, ThemeType, ValueType } from "../const/types";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
 import Icon from "../icon";
 import { getValueWithType } from "../utils/checked";
 import type { CheckboxChangeEvent } from "./types";
@@ -28,6 +36,26 @@ const checkboxProps = {
 };
 
 export type CheckboxProps = ExtractPropTypes<typeof checkboxProps>;
+type CheckboxModelProps<T extends string | number | boolean> = {
+  modelValue?: T;
+  "onUpdate:modelValue"?: (value: T) => void;
+};
+type CheckboxPublicProps = Omit<Partial<CheckboxProps>, "modelValue" | "valueType"> &
+  Omit<HTMLAttributes, "onChange"> & {
+    key?: VNodeProps["key"];
+    onChange?: (event: CheckboxChangeEvent) => void;
+  };
+type CheckboxComponent = {
+  new (props: CheckboxPublicProps & { valueType: "string" } & CheckboxModelProps<string>): {
+    $props: CheckboxPublicProps & { valueType: "string" } & CheckboxModelProps<string>;
+  };
+  new (props: CheckboxPublicProps & { valueType: "number" } & CheckboxModelProps<number>): {
+    $props: CheckboxPublicProps & { valueType: "number" } & CheckboxModelProps<number>;
+  };
+  new (props: CheckboxPublicProps & { valueType?: "boolean" } & CheckboxModelProps<boolean>): {
+    $props: CheckboxPublicProps & { valueType?: "boolean" } & CheckboxModelProps<boolean>;
+  };
+};
 
 const Checkbox = defineComponent({
   name: "Checkbox",
@@ -115,17 +143,12 @@ const Checkbox = defineComponent({
 
       const inputProps = {
         ...inputAttrs,
-        id: inputAttrs.id ?? (field?.prop ? field.id : undefined),
         type: "checkbox",
         class: "k-checkbox-input",
         disabled: disabled,
         indeterminate,
-        "aria-checked": indeterminate ? "mixed" : isChecked.value,
-        "aria-labelledby":
-          inputAttrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined),
-        "aria-describedby": inputAttrs["aria-describedby"] ?? field?.describedBy.value,
-        "aria-invalid": (inputAttrs["aria-invalid"] ?? field?.invalid.value) || undefined,
-        "aria-required": (inputAttrs["aria-required"] ?? field?.required.value) || undefined,
+        "aria-checked": indeterminate ? ("mixed" as const) : isChecked.value,
+        ...resolveFormControlAttrs(inputAttrs, field),
         "aria-readonly": readonly || undefined,
         checked: !!isChecked.value,
         onClick: (event: MouseEvent) => {
@@ -151,4 +174,5 @@ const Checkbox = defineComponent({
   },
 });
 
-export default markFormFieldComponent(Checkbox);
+const FormCheckbox = markFormFieldComponent(Checkbox);
+export default FormCheckbox as CheckboxComponent;

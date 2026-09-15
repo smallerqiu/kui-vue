@@ -11,8 +11,9 @@
   </Space>
 </template>
 <script setup lang="ts">
+import type { CheckboxValue } from "kui-vue";
 import { ref } from "vue";
-const value = ref(["apple", "grape"]);
+const value = ref<CheckboxValue[]>(["apple", "grape"]);
 const options = ref([
   { label: "Apple", value: "apple" },
   { label: "Orange", value: "orange" },

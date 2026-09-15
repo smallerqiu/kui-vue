@@ -8,5 +8,7 @@ export interface SelectOption {
 
 export interface OptionSelectEvent {
   value: SelectValue;
-  label: SelectValue;
+  label: VNodeChild;
+  selected?: boolean;
 }
+import type { VNodeChild } from "vue";

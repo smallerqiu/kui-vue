@@ -46,7 +46,7 @@ const BackTop = defineComponent({
       const scrollTop =
         eventTarget === window
           ? window.scrollY || document.documentElement.scrollTop || document.body.scrollTop
-          : eventTarget.scrollTop;
+          : (eventTarget as HTMLElement).scrollTop;
       visible.value = scrollTop >= props.height;
     };
     const unbind = () => eventTarget?.removeEventListener("scroll", update);

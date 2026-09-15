@@ -19,7 +19,7 @@ import {
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
 import type { DropPlacementsType, ShapeType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
 import Empty from "../empty";
 import Icon from "../icon";
 import { TextArea } from "../input";
@@ -329,11 +329,7 @@ const Mentions = defineComponent({
       >
         <TextArea
           {...attrs}
-          id={attrs.id ?? (field?.prop ? field.id : undefined)}
-          aria-labelledby={attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)}
-          aria-describedby={attrs["aria-describedby"] ?? field?.describedBy.value}
-          aria-invalid={(attrs["aria-invalid"] ?? field?.invalid.value) || undefined}
-          aria-required={(attrs["aria-required"] ?? field?.required.value) || undefined}
+          {...resolveFormControlAttrs(attrs, field)}
           class={undefined}
           ref={textarea}
           modelValue={current.value}

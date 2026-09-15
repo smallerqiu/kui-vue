@@ -3,7 +3,7 @@
     multiple
     :max-concurrent="2"
     :custom-request="customRequest"
-    :before-upload="beforeUpload"
+    :on-before-upload="beforeUpload"
     upload-text="Select files"
   >
     <Button>Custom upload</Button>

@@ -8,7 +8,7 @@
   </Space>
 </template>
 <script setup lang="ts">
-import type { ChangeEvent } from "kui-vue";
+import type { ChangeEvent, CheckboxValue } from "kui-vue";
 import { ref } from "vue";
 const checkAll = ref(false);
 const indeterminate = ref(false);
@@ -20,7 +20,7 @@ const options = [
   { label: "Guangzhou", value: "guangzhou" },
   { label: "Wuhan", value: "wuhan" },
 ];
-const cities = ref<string[]>([]);
+const cities = ref<CheckboxValue[]>([]);
 
 const handleCheckAll = ({ checked }: ChangeEvent) => {
   console.log(checked);

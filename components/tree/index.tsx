@@ -60,7 +60,10 @@ const Tree = defineComponent({
     "update:selectedKeys": (keys: string[]) => Array.isArray(keys),
     expand: (result: TreeExpandEvent) => typeof result === "object" && result !== null,
     check: (node: TreeNode, checked: boolean, keys: string[]) =>
-      typeof node === "object" && node !== null && typeof checked === "boolean" && Array.isArray(keys),
+      typeof node === "object" &&
+      node !== null &&
+      typeof checked === "boolean" &&
+      Array.isArray(keys),
     select: (node: TreeNode) => typeof node === "object" && node !== null,
     dragstart: (node: TreeNode, event: DragEvent) =>
       typeof node === "object" && node !== null && typeof event?.type === "string",
@@ -491,7 +494,7 @@ const Tree = defineComponent({
       dragNode.key = null;
       dragNode.data = null;
 
-      if (moved) {
+      if (moved && currentDragNode) {
         emit(
           "drop",
           {

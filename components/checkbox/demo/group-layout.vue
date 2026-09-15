@@ -7,7 +7,7 @@
   </Space>
 </template>
 <script setup lang="ts">
-import type { DirectionType } from "kui-vue";
+import type { CheckboxValue, DirectionType } from "kui-vue";
 import { ref } from "vue";
 const direction = ref<DirectionType>("horizontal");
 const types = [
@@ -21,7 +21,7 @@ const options = [
   { label: "Wuhan", value: "wuhan" },
   { label: "Other", value: "other" },
 ];
-const cities = ref(["wuhan"]);
+const cities = ref<CheckboxValue[]>(["wuhan"]);
 
 const change = (v: (string | number | boolean)[]) => {
   console.log(v);

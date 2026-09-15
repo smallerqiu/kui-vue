@@ -31,10 +31,10 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-const n = ref(0.1);
-const n1 = ref(0.1);
-const n3 = ref(3.14159);
-const n4 = ref(1000);
-const n5 = ref(98);
-const n7 = ref(111111);
+const n = ref<number | undefined>(0.1);
+const n1 = ref<number | undefined>(0.1);
+const n3 = ref<number | undefined>(3.14159);
+const n4 = ref<number | undefined>(1000);
+const n5 = ref<number | undefined>(98);
+const n7 = ref<number | undefined>(111111);
 </script>

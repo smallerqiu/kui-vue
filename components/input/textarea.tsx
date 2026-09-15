@@ -8,7 +8,7 @@ import {
   type TextareaHTMLAttributes,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
 
 const textAreaProps = {
   value: [String, Number, Array] as PropType<string | number | readonly string[] | null>,
@@ -60,11 +60,7 @@ const TextArea = defineComponent({
       const size = props.size || field?.size.value;
       const rootProps = {
         ...attrs,
-        id: attrs.id ?? (field?.prop ? field.id : undefined),
-        "aria-labelledby": attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined),
-        "aria-describedby": attrs["aria-describedby"] ?? field?.describedBy.value,
-        "aria-invalid": (attrs["aria-invalid"] ?? field?.invalid.value) || undefined,
-        "aria-required": (attrs["aria-required"] ?? field?.required.value) || undefined,
+        ...resolveFormControlAttrs(attrs, field),
         placeholder,
         rows,
         class: [
@@ -89,4 +85,5 @@ const TextArea = defineComponent({
     };
   },
 });
-export default markFormFieldComponent(TextArea) as DefineComponent<TextAreaProps>;
+const FormTextArea = markFormFieldComponent(TextArea);
+export default FormTextArea as typeof FormTextArea & DefineComponent<TextAreaProps>;

@@ -15,6 +15,7 @@ import {
   watch,
   type CSSProperties,
   type ExtractPropTypes,
+  type HTMLAttributes,
   type PropType,
   type Ref,
   type VNodeChild,
@@ -94,6 +95,21 @@ const treeSelectProps = {
 };
 
 export type TreeSelectProps = ExtractPropTypes<typeof treeSelectProps>;
+type TreeSelectPublicProps<T extends TreeSelectValue> = Omit<
+  Partial<TreeSelectProps>,
+  "modelValue"
+> &
+  Omit<HTMLAttributes, "onChange"> & {
+    modelValue?: T;
+    "onUpdate:modelValue"?: (value: T) => void;
+    onChange?: (value: T) => void;
+    onTreeExpand?: (event: TreeExpandEvent) => void;
+  };
+type TreeSelectComponent = {
+  new <T extends TreeSelectValue = string>(
+    props: TreeSelectPublicProps<T>,
+  ): { $props: TreeSelectPublicProps<T> };
+};
 
 const TreeSelect = defineComponent({
   name: "TreeSelect",
@@ -725,7 +741,7 @@ const TreeSelect = defineComponent({
         "aria-required": field?.required.value || undefined,
         "aria-disabled": disabled || undefined,
         "aria-readonly": readonly || undefined,
-        "aria-haspopup": "tree",
+        "aria-haspopup": "tree" as const,
         class: classes,
         style: styles,
         onClick: () => toggle(),
@@ -748,4 +764,5 @@ const TreeSelect = defineComponent({
   },
 });
 
-export default markFormFieldComponent(TreeSelect);
+const FormTreeSelect = markFormFieldComponent(TreeSelect);
+export default FormTreeSelect as TreeSelectComponent;

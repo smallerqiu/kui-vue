@@ -1,4 +1,4 @@
-import type { App, Component, Plugin } from "vue";
+import type { App, Component, Plugin, PropType } from "vue";
 // export type WithInstall<T> = T & Plugin;
 
 const globalComponents = ["message", "modal", "notice", "loading", "theme"];
@@ -8,6 +8,15 @@ export const installGlobal = (app: App, component: Component) => {
     app.config.globalProperties[`$${component.name}`] = component;
   }
 };
+
+/**
+ * Keeps an Array runtime validator while exposing a fixed-length tuple to TypeScript.
+ * Vue's ArrayConstructor is typed as producing any[], so the compatibility bridge
+ * belongs here instead of being repeated in every component prop declaration.
+ */
+export const tuplePropType = <T extends readonly unknown[]>(): PropType<T> =>
+  Array as unknown as PropType<T>;
+
 export const WithInstall = <T extends Component>(component: T): T & Plugin => {
   const c = component as T & Plugin & { name: string };
   c.install = function (app: App) {

@@ -7,7 +7,6 @@ import {
   ref,
   watch,
   type ExtractPropTypes,
-  type PropType,
 } from "vue";
 import {
   createFlameWrap,
@@ -15,9 +14,15 @@ import {
   type FlameWrapInstance,
   type FlameWrapOptions,
 } from "./engine";
+import { tuplePropType } from "../utils/vue";
 
 const flameWrapProps = {
-  color: Array as PropType<[number, number, number]>,
+  color: {
+    type: tuplePropType<[number, number, number]>(),
+    validator: (value: unknown[]) =>
+      value.length === 3 &&
+      value.every((item) => typeof item === "number" && Number.isFinite(item)),
+  },
   intensity: Number,
   height: Number,
   spread: Number,

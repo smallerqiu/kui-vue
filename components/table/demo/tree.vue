@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Column } from "kui-vue";
+import type { Column, TableKey } from "kui-vue";
 import { ref } from "vue";
 
 interface Department {
@@ -27,7 +27,7 @@ interface Department {
   children?: Department[];
 }
 
-const expandedKeys = ref(["product"]);
+const expandedKeys = ref<TableKey[]>(["product"]);
 const data: Department[] = [
   {
     key: "product",

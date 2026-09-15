@@ -8,16 +8,16 @@
     <InputNumber v-model="value" disabled />
     <code>group</code>
     <InputGroup>
-      <Button @click="value -= 1">-</Button>
+      <Button @click="value = (value ?? 0) - 1">-</Button>
       <InputNumber v-model="value" :controls="false" />
-      <Button @click="value += 1">+</Button>
+      <Button @click="value = (value ?? 0) + 1">+</Button>
     </InputGroup>
   </Space>
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-const value = ref(1);
-const change = (value: number) => {
+const value = ref<number | undefined>(1);
+const change = (value: number | undefined) => {
   console.log("change", value);
 };
 </script>

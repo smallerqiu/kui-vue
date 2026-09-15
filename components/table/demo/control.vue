@@ -99,7 +99,7 @@ const empty = ref(false);
 const dataSource = ref(data);
 const striped = ref(false);
 
-const setEmpty = (empty: boolean) => {
-  dataSource.value = empty ? [] : data;
+const setEmpty = (value: string | number | boolean) => {
+  dataSource.value = value ? [] : data;
 };
 </script>

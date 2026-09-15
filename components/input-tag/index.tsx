@@ -1,7 +1,7 @@
 import { CircleX } from "kui-icons";
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { ShapeType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
 import Icon from "../icon";
 import Space from "../space";
 import Tag from "../tag";
@@ -141,7 +141,6 @@ const InputTag = defineComponent({
       return (
         <div
           {...attrs}
-          id={attrs.id ?? (field?.prop ? field.id : undefined)}
           class={[
             "k-input-tag",
             {
@@ -156,10 +155,7 @@ const InputTag = defineComponent({
             },
             attrs.class,
           ]}
-          aria-labelledby={attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)}
-          aria-describedby={attrs["aria-describedby"] ?? field?.describedBy.value}
-          aria-invalid={(attrs["aria-invalid"] ?? field?.invalid.value) || undefined}
-          aria-required={(attrs["aria-required"] ?? field?.required.value) || undefined}
+          {...resolveFormControlAttrs(attrs, field)}
           aria-disabled={isDisabled || undefined}
           aria-readonly={isReadonly || undefined}
           onClick={focusInput}

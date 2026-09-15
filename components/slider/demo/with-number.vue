@@ -20,6 +20,6 @@
 </template>
 <script setup lang="ts">
 import { ref } from "vue";
-const n1 = ref(1);
-const n2 = ref(0);
+const n1 = ref<number | undefined>(1);
+const n2 = ref<number | undefined>(0);
 </script>

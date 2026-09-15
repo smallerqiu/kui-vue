@@ -78,7 +78,11 @@ const Descriptions = defineComponent({
         const span = Math.min(safeColumn, Math.max(1, parsedSpan));
         if (currentSpanSum && currentSpanSum + span > safeColumn) finishRow();
         logicalRow.push({
-          content: childSlots?.default?.() || child.children,
+          content:
+            childSlots?.default?.() ??
+            (child.children && typeof child.children !== "object"
+              ? (child.children as VNodeChild)
+              : undefined),
           index,
           label: (childProps.label as VNodeChild) || childSlots?.label?.(),
           span,

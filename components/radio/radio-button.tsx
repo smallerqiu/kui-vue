@@ -1,7 +1,7 @@
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
 import type { BooleanType, ButtonType, ShapeType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
 import type { IconType } from "../icon";
 import type { ChangeEvent } from "./types";
 
@@ -81,22 +81,21 @@ const RadioButton = defineComponent({
       const readonly = props.readonly || field?.readonly.value;
       const buttonProps = {
         ...attrs,
-        id: attrs.id ?? (field?.prop ? field.id : undefined),
         disabled,
         size: props.size || field?.size.value,
         icon: props.icon,
         theme: props.theme || field?.theme.value,
         shape: props.shape || field?.shape.value,
-        "aria-labelledby": attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined),
-        "aria-describedby": attrs["aria-describedby"] ?? field?.describedBy.value,
-        "aria-invalid": (attrs["aria-invalid"] ?? field?.invalid.value) || undefined,
-        "aria-required": (attrs["aria-required"] ?? field?.required.value) || undefined,
+        ...resolveFormControlAttrs(attrs, field),
         "aria-readonly": readonly || undefined,
         "aria-checked": Boolean(isChecked.value),
         role: "radio",
         tabindex: isChecked.value ? 0 : -1,
         type: (isChecked.value ? "primary" : "default") as ButtonType,
-        onClick: [attrs.onClick, handleClick].filter(Boolean) as EventListener[],
+        onClick: (event: PointerEvent) => {
+          if (typeof attrs.onClick === "function") attrs.onClick(event);
+          handleClick(event);
+        },
         onBlur: () => field?.blur(),
       };
 

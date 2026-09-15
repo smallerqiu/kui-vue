@@ -22,7 +22,7 @@ import {
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
 import type { ShapeType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
 import Icon from "../icon";
 import { Input } from "../input";
 import zhCN from "../locale/zh-CN";
@@ -303,11 +303,7 @@ const AutoComplete = defineComponent({
       <div ref={root} class={["k-auto-complete", attrs.class]}>
         <Input
           {...attrs}
-          id={attrs.id ?? (field?.prop ? field.id : undefined)}
-          aria-labelledby={attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)}
-          aria-describedby={attrs["aria-describedby"] ?? field?.describedBy.value}
-          aria-invalid={(attrs["aria-invalid"] ?? field?.invalid.value) || undefined}
-          aria-required={(attrs["aria-required"] ?? field?.required.value) || undefined}
+          {...resolveFormControlAttrs(attrs, field)}
           class={undefined}
           modelValue={current.value}
           disabled={props.disabled || field?.disabled.value}

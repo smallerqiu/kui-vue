@@ -13,6 +13,7 @@ import { Checkbox } from "../checkbox";
 import Empty from "../empty";
 import { markFormFieldComponent, useFormField } from "../form/context";
 import Input from "../input";
+import { tuplePropType } from "../utils/vue";
 
 export type TransferKey = string | number;
 export interface TransferItem {
@@ -26,10 +27,17 @@ const transferProps = {
   modelValue: { type: Array as PropType<TransferKey[]>, default: () => [] },
   dataSource: { type: Array as PropType<TransferItem[]>, default: () => [] },
   titles: {
-    type: Array as PropType<[string, string]>,
+    type: tuplePropType<[string, string]>(),
     default: () => ["Source", "Target"],
+    validator: (value: unknown[]) =>
+      value.length === 2 && value.every((item) => typeof item === "string"),
   },
-  operations: { type: Array as PropType<[string, string]>, default: () => ["", ""] },
+  operations: {
+    type: tuplePropType<[string, string]>(),
+    default: () => ["", ""],
+    validator: (value: unknown[]) =>
+      value.length === 2 && value.every((item) => typeof item === "string"),
+  },
   searchable: Boolean,
   disabled: Boolean,
   readonly: Boolean,

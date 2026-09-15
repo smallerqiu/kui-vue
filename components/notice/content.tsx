@@ -17,6 +17,9 @@ export const contentProps = {
 };
 
 export type ContentProps = ExtractPropTypes<typeof contentProps>;
+export interface NoticeOptions extends ContentProps {
+  onClose?: () => void;
+}
 
 const NoticeContent = defineComponent({
   props: contentProps,

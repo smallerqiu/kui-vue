@@ -24,6 +24,12 @@ const iconProps = {
   spin: Boolean as BooleanType,
   strokeWidth: { type: [String, Number], default: 2 },
   reverseFill: Boolean as BooleanType,
+  role: String,
+  tabindex: Number,
+  "aria-label": String,
+  onPointerdown: Function as PropType<(event: PointerEvent) => void>,
+  onKeydown: Function as PropType<(event: KeyboardEvent) => void>,
+  onPointerup: Function as PropType<(event: PointerEvent) => void>,
 };
 
 export type IconProps = ExtractPropTypes<typeof iconProps>;
@@ -66,6 +72,12 @@ const Icon = defineComponent({
       }
       const iProps = {
         ...attrs,
+        role: props.role,
+        tabindex: props.tabindex,
+        "aria-label": props["aria-label"],
+        onPointerdown: props.onPointerdown,
+        onKeydown: props.onKeydown,
+        onPointerup: props.onPointerup,
         style: styles,
         class: ["k-icon", { "k-load-loop": props.spin }],
         onClick: (e: PointerEvent) => emit("click", e),

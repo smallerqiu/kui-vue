@@ -12,7 +12,7 @@ import {
   type PropType,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType } from "../const/types";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
 import Icon, { type IconType } from "../icon";
 import { checkCardGroupKey } from "./context";
 import type { CheckCardChangeEvent, CheckCardTheme, CheckCardValue } from "./types";
@@ -121,7 +121,6 @@ const CheckCard = defineComponent({
       return (
         <div
           {...attrs}
-          id={attrs.id ?? (field?.prop ? field.id : undefined)}
           ref={rootRef}
           class={[
             "k-check-card",
@@ -138,10 +137,7 @@ const CheckCard = defineComponent({
           ]}
           role={grouped.value ? "radio" : "checkbox"}
           aria-checked={checked.value}
-          aria-labelledby={attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined)}
-          aria-describedby={attrs["aria-describedby"] ?? field?.describedBy.value}
-          aria-invalid={(attrs["aria-invalid"] ?? field?.invalid.value) || undefined}
-          aria-required={(attrs["aria-required"] ?? field?.required.value) || undefined}
+          {...resolveFormControlAttrs(attrs, field)}
           aria-disabled={disabled.value}
           aria-readonly={readonly.value || undefined}
           tabindex={disabled.value ? -1 : checked.value || !grouped.value ? 0 : -1}

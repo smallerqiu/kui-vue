@@ -15,8 +15,8 @@ import {
   type VNodeChild,
 } from "vue";
 import { type BooleanType, type ShapeType, type SizeType, type ThemeType } from "../const/types";
+import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
 import Icon, { type IconType } from "../icon";
-import { markFormFieldComponent, useFormField } from "../form/context";
 import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
 import InputBox from "./input-box";
@@ -128,11 +128,14 @@ const Input = defineComponent({
             role="button"
             tabindex={props.disabled || props.readonly ? undefined : 0}
             aria-label="Search"
-            onClick={() => !props.disabled && !props.readonly && emit("search", currentValue.value)}
+            onClick={() =>
+              !props.disabled && !props.readonly && emit("search", String(currentValue.value ?? ""))
+            }
             onKeydown={(event: KeyboardEvent) => {
               if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
-                if (!props.disabled && !props.readonly) emit("search", currentValue.value);
+                if (!props.disabled && !props.readonly)
+                  emit("search", String(currentValue.value ?? ""));
               }
             }}
           />
@@ -191,11 +194,7 @@ const Input = defineComponent({
       const inputBoxProps: Record<string, unknown> = {
         // htmlAttrs: { ...attrs },
         ...attrs,
-        id: attrs.id ?? (field?.prop ? field.id : undefined),
-        "aria-labelledby": attrs["aria-labelledby"] ?? (field?.prop ? field.labelId : undefined),
-        "aria-describedby": attrs["aria-describedby"] ?? field?.describedBy.value,
-        "aria-invalid": (attrs["aria-invalid"] ?? field?.invalid.value) || undefined,
-        "aria-required": (attrs["aria-required"] ?? field?.required.value) || undefined,
+        ...resolveFormControlAttrs(attrs, field),
         disabled,
         readonly,
         multiple,
@@ -387,4 +386,5 @@ const Input = defineComponent({
   },
 });
 
-export default markFormFieldComponent(Input) as DefineComponent<InputProps>;
+const FormInput = markFormFieldComponent(Input);
+export default FormInput as typeof FormInput & DefineComponent<InputProps>;

@@ -122,7 +122,7 @@ const Dropdown = defineComponent({
         toggle(false);
       }
     };
-    const updatePosition = (e?: MouseEvent) => {
+    const updatePosition = (e?: Event) => {
       nextTick(() => {
         if (props.target?.value) {
           const target = props.target.value as HTMLElement & { $el?: HTMLElement };
@@ -131,14 +131,15 @@ const Dropdown = defineComponent({
         const triggerElement = getTriggerElement();
         if (!refPopper.value || !triggerElement) return;
         const targetRect = triggerElement.getBoundingClientRect();
-        const position = e
-          ? { x: e.clientX, y: e.clientY }
-          : props.trigger === "contextmenu" && contextmenuPosition.value
-            ? {
-                x: targetRect.left + contextmenuPosition.value.offsetX,
-                y: targetRect.top + contextmenuPosition.value.offsetY,
-              }
-            : null;
+        const position =
+          e instanceof MouseEvent
+            ? { x: e.clientX, y: e.clientY }
+            : props.trigger === "contextmenu" && contextmenuPosition.value
+              ? {
+                  x: targetRect.left + contextmenuPosition.value.offsetX,
+                  y: targetRect.top + contextmenuPosition.value.offsetY,
+                }
+              : null;
         currentPlacement.value = props.placement;
         setPlacement({
           refSelection,

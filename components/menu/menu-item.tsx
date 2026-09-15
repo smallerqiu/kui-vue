@@ -80,7 +80,7 @@ const MenuItem = defineComponent({
         role: "menuitem",
         tabindex: disabled ? -1 : 0,
         "aria-disabled": disabled || undefined,
-        "aria-current": selected ? "page" : undefined,
+        "aria-current": selected ? ("page" as const) : undefined,
       };
 
       // 没有子集的时候才展示

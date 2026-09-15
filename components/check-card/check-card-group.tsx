@@ -75,7 +75,10 @@ const CheckCardGroup = defineComponent({
       modelValue: computed(() => localValue.value),
       disabled: computed(() => Boolean(props.disabled || field?.disabled.value)),
       readonly: computed(() => Boolean(props.readonly || field?.readonly.value)),
-      theme: computed(() => field?.theme.value ?? props.theme),
+      theme: computed(() => {
+        const theme = field?.theme.value;
+        return theme === "outline" || theme === "fill" ? theme : props.theme;
+      }),
       size: computed(() => field?.size.value ?? props.size),
       shape: computed(() => field?.shape.value ?? props.shape),
       select,

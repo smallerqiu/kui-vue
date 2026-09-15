@@ -1,4 +1,11 @@
-import { inject, provide, type ComputedRef, type InjectionKey } from "vue";
+import {
+  inject,
+  provide,
+  type Attrs,
+  type ComputedRef,
+  type HTMLAttributes,
+  type InjectionKey,
+} from "vue";
 import type { DirectionType, ShapeType, SizeType, ThemeType } from "../const/types";
 import type { ColProps, FormRule, FormRules, FormValidateTrigger } from "./types";
 
@@ -56,6 +63,27 @@ export const useFormField = (isolate = false) => {
   if (isolate) provide(FORM_FIELD_INJECTION_KEY, null);
   return field;
 };
+
+const stringAttr = (value: unknown) => (typeof value === "string" ? value : undefined);
+const ariaInvalidAttr = (value: unknown): HTMLAttributes["aria-invalid"] =>
+  typeof value === "boolean" ||
+  value === "true" ||
+  value === "false" ||
+  value === "grammar" ||
+  value === "spelling"
+    ? value
+    : undefined;
+const ariaRequiredAttr = (value: unknown): HTMLAttributes["aria-required"] =>
+  typeof value === "boolean" || value === "true" || value === "false" ? value : undefined;
+
+export const resolveFormControlAttrs = (attrs: Attrs, field: FormFieldContext | null) => ({
+  id: stringAttr(attrs.id) ?? (field?.prop ? field.id : undefined),
+  "aria-labelledby":
+    stringAttr(attrs["aria-labelledby"]) ?? (field?.prop ? field.labelId : undefined),
+  "aria-describedby": stringAttr(attrs["aria-describedby"]) ?? field?.describedBy.value,
+  "aria-invalid": (ariaInvalidAttr(attrs["aria-invalid"]) ?? field?.invalid.value) || undefined,
+  "aria-required": (ariaRequiredAttr(attrs["aria-required"]) ?? field?.required.value) || undefined,
+});
 
 export const markFormFieldComponent = <T extends object>(component: T): T => {
   formFieldComponents.add(component);

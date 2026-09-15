@@ -232,7 +232,7 @@
               <Slider :modelValue="20" :step="10" />
               <Slider :modelValue="[25, 78]" range />
               <Slider :modelValue="60" disabled />
-              <Input placeholder="Search components" :icon="Search"> </Input>
+              <Input placeholder="Search components" :icon="Search"></Input>
             </Space>
           </GridItem>
 

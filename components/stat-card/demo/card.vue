@@ -47,7 +47,10 @@ const showTitle = ref(true);
 const reverse = ref(false);
 const bordered = ref(false);
 const size = ref<SizeType>("medium");
-const sizes: SizeType[] = ["small", "medium", "large"];
+const sizes = ["small", "medium", "large"].map((value) => ({
+  value,
+  label: value,
+}));
 const items = [
   { value: 5872, desc: "Number of orders" },
   { value: 9873672, desc: "Total Order Amount", prefix: "￥" },

@@ -21,9 +21,9 @@
   </Table>
 </template>
 <script setup lang="ts">
-import type { Column } from "kui-vue";
+import type { Column, TableKey } from "kui-vue";
 import { ref } from "vue";
-const selectedKeys = ref([]);
+const selectedKeys = ref<TableKey[]>([]);
 const data = [
   {
     key: "0",

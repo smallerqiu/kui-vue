@@ -364,7 +364,7 @@ const Upload = defineComponent({
             filename: item.filename || (file instanceof File ? file.name : name),
             data,
             headers,
-            withCredentials: props.withCredentials,
+            withCredentials: Boolean(props.withCredentials),
             timeout: props.timeout,
             onProgress: (percent) => {
               if (!settled) {
@@ -403,7 +403,7 @@ const Upload = defineComponent({
       if (item.uid) requestHandles.set(item.uid, { abort: () => xhr.abort() });
 
       xhr.open(method.toUpperCase(), action);
-      xhr.withCredentials = props.withCredentials;
+      xhr.withCredentials = Boolean(props.withCredentials);
       xhr.timeout = Math.max(0, props.timeout);
       if (headers) {
         for (const k in headers) {
@@ -610,7 +610,6 @@ const Upload = defineComponent({
   },
 });
 export default markFormFieldComponent(Upload);
-
 export type {
   UploadChangeEvent,
   UploadCustomRequest,

@@ -1,4 +1,4 @@
-import Color from "color";
+import Color, { type ColorObject } from "color";
 import {
   defineComponent,
   nextTick,
@@ -18,7 +18,7 @@ export default defineComponent({
     visible: { type: Boolean, default: true },
   },
   emits: {
-    updateRGB: (value: Color.RgbObject) =>
+    updateRGB: (value: ColorObject) =>
       typeof value?.r === "number" && typeof value?.g === "number" && typeof value?.b === "number",
   },
   setup(props, { emit }) {

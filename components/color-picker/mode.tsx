@@ -46,7 +46,8 @@ export default defineComponent({
       const color = Color(hex).rgb();
       emit("updateColorValue", color);
     };
-    const valueChange = (value: number, type: string) => {
+    const valueChange = (value?: number, type?: string) => {
+      if (value === undefined) return;
       let color = Color(props.modelValue);
       switch (type) {
         case "r":
@@ -88,7 +89,7 @@ export default defineComponent({
       if (currentMode.value === "hex") {
         const hex = color.hex().slice(1);
         nodes.push(
-          <Input prefix="#" size="small" modelValue={hex} onChange={(e) => updateHex(e)} />,
+          <Input prefix="#" size="small" modelValue={hex} onUpdate:modelValue={updateHex} />,
         );
       } else if (currentMode.value === "rgb") {
         const [r, g, b] = color.rgb().array();
