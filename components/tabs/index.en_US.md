@@ -49,18 +49,18 @@ Provide peer areas to accommodate and display large chunks of content, keeping t
 
 ## Tabs API
 
-| Property     | Description                                                     | Type                                      | Default             |
-| ------------ | --------------------------------------------------------------- | ----------------------------------------- | ------------------- |
-| modelValue   | Currently active tab panel's key                                | string \| number                          | -                   |
-| defaultValue | Initially active key in uncontrolled mode                       | string \| number                          | First enabled panel |
-| variant      | Tab presentation                                                | `line` \| `card` \| `sample` \| `browser` | `line`              |
-| card         | Whether to use card style; retained for compatibility           | boolean                                   | false               |
-| sample       | Whether to use sample style; retained for compatibility         | boolean                                   | false               |
-| animated     | Whether to use animation to switch Tabs                         | boolean                                   | true                |
-| centered     | Whether to center the label                                     | boolean                                   | false               |
-| onRemove     | Callback when tab is closed, returns the closed tab's key value | (key: string) => void                     | -                   |
-| onChange     | Callback when switching panels                                  | (key: string) => void                     | -                   |
-| onTabClick   | Callback when tab is clicked                                    | (key: string) => void                     | -                   |
+| Property   | Description                                                     | Type                                      | Default             |
+| ---------- | --------------------------------------------------------------- | ----------------------------------------- | ------------------- |
+| modelValue | Currently active tab panel's key                                | string \| number                          | -                   |
+| value      | Initially active key in uncontrolled mode                       | string \| number                          | First enabled panel |
+| variant    | Tab presentation                                                | `line` \| `card` \| `sample` \| `browser` | `line`              |
+| card       | Whether to use card style; retained for compatibility           | boolean                                   | false               |
+| sample     | Whether to use sample style; retained for compatibility         | boolean                                   | false               |
+| animated   | Whether to use animation to switch Tabs                         | boolean                                   | true                |
+| centered   | Whether to center the label                                     | boolean                                   | false               |
+| onRemove   | Callback when tab is closed, returns the closed tab's key value | (key: string) => void                     | -                   |
+| onChange   | Callback when switching panels                                  | (key: string) => void                     | -                   |
+| onTabClick | Callback when tab is clicked                                    | (key: string) => void                     | -                   |
 
 ## Tabs.TabPanel API
 

@@ -24,7 +24,7 @@ import { getChildren } from "../utils/vnode";
 
 const tabsProps = {
   modelValue: [String, Number],
-  defaultValue: [String, Number],
+  value: [String, Number],
   variant: String as PropType<"line" | "card" | "sample" | "browser">,
   card: Boolean as BooleanType,
   sample: Boolean as BooleanType,
@@ -57,8 +57,8 @@ const Tabs = defineComponent({
     const defaultActiveKey = ref<string | undefined>(
       props.modelValue !== undefined
         ? String(props.modelValue)
-        : props.defaultValue !== undefined
-          ? String(props.defaultValue)
+        : props.value !== undefined
+          ? String(props.value)
           : undefined,
     );
     const currentIndex = ref(-1);

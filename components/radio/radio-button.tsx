@@ -40,7 +40,7 @@ const RadioButton = defineComponent({
     watch(
       () => (field?.prop ? field.value.value : props.modelValue),
       (v) => {
-        if (v !== undefined) isChecked.value = Boolean(v);
+        if (field?.prop || v !== undefined) isChecked.value = Boolean(v);
       },
     );
     watch(

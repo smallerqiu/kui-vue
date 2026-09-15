@@ -49,18 +49,18 @@
 
 ## Tabs API
 
-| 属性         | 说明                                  | 类型                                      | 默认值         |
-| ------------ | ------------------------------------- | ----------------------------------------- | -------------- |
-| modelValue   | 当前激活 tab 面板的 key（v-model）    | string \| number                          | -              |
-| defaultValue | 非受控模式初始激活的 key              | string \| number                          | 第一个可用面板 |
-| variant      | 页签形态                              | `line` \| `card` \| `sample` \| `browser` | `line`         |
-| card         | 是否为卡片式，兼容旧版本              | boolean                                   | false          |
-| sample       | 是否为极简式，兼容旧版本              | boolean                                   | false          |
-| animated     | 是否使用动画切换 Tabs                 | boolean                                   | true           |
-| centered     | 是否居中显示标签                      | boolean                                   | false          |
-| onRemove     | tab关闭时的回调，返回关闭的tab的key值 | (key: string) => void                     | -              |
-| onChange     | 切换面板的回调                        | (key: string) => void                     | -              |
-| onTabClick   | tab点击时的回调                       | (key: string) => void                     | -              |
+| 属性       | 说明                                  | 类型                                      | 默认值         |
+| ---------- | ------------------------------------- | ----------------------------------------- | -------------- |
+| modelValue | 当前激活 tab 面板的 key（v-model）    | string \| number                          | -              |
+| value      | 非受控模式初始激活的 key              | string \| number                          | 第一个可用面板 |
+| variant    | 页签形态                              | `line` \| `card` \| `sample` \| `browser` | `line`         |
+| card       | 是否为卡片式，兼容旧版本              | boolean                                   | false          |
+| sample     | 是否为极简式，兼容旧版本              | boolean                                   | false          |
+| animated   | 是否使用动画切换 Tabs                 | boolean                                   | true           |
+| centered   | 是否居中显示标签                      | boolean                                   | false          |
+| onRemove   | tab关闭时的回调，返回关闭的tab的key值 | (key: string) => void                     | -              |
+| onChange   | 切换面板的回调                        | (key: string) => void                     | -              |
+| onTabClick | tab点击时的回调                       | (key: string) => void                     | -              |
 
 ## Tabs.TabPanel API
 

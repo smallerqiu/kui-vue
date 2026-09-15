@@ -167,6 +167,24 @@ describe("Form", () => {
     expect(inputs.every((input) => input.attributes("aria-invalid") === "true")).toBe(true);
   });
 
+  it("clears a standalone Radio when the form is reset", async () => {
+    const model = reactive({ choice: true });
+    const wrapper = mount(Form, {
+      props: { model },
+      slots: {
+        default: () =>
+          h(FormItem, { label: "Choice", prop: "choice" }, () => h(Radio, { value: "yes" })),
+      },
+    });
+
+    expect(wrapper.find(".k-radio").classes()).toContain("k-radio-checked");
+    (wrapper.vm as unknown as { reset: () => void }).reset();
+    await nextTick();
+
+    expect(model.choice).toBeNull();
+    expect(wrapper.find(".k-radio").classes()).not.toContain("k-radio-checked");
+  });
+
   it("does not mutate wrapperCol in vertical layout", () => {
     const wrapperCol = { span: 12, offset: 6 };
     mount(Form, {
