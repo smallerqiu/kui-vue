@@ -22,6 +22,8 @@ import { usePopupContainer } from "../config/popup";
 import { providePopupHost } from "../config/popup-host";
 import type { DrawerPlacementsType } from "../const/types";
 import zhCN from "../locale/zh-CN";
+import { toCssLength } from "../utils/css";
+import { createFocusTrap } from "../utils/focus";
 import { toggleContainerScroll } from "../utils/vnode";
 
 const drawerProps = {
@@ -67,6 +69,8 @@ const Drawer = defineComponent({
     const visible = ref(props.modelValue);
     const opened = ref(props.modelValue);
     const closeHostedPopups = providePopupHost();
+    const drawerBoxRef = ref<HTMLElement>();
+    const focusTrap = createFocusTrap(() => drawerBoxRef.value);
     const resolveTarget = () => {
       const target = props.target?.();
       const element = target && "$el" in target ? target.$el : target;
@@ -119,6 +123,7 @@ const Drawer = defineComponent({
       if (props.escKey) document.removeEventListener("keydown", escToClose);
       updateScrollLock(false);
       restorePositioningContext();
+      focusTrap.deactivate();
     });
 
     watch(
@@ -142,9 +147,11 @@ const Drawer = defineComponent({
             opened.value = value;
             emit("update:modelValue", true);
             emit("openChange", true);
+            focusTrap.activate();
           });
         } else {
           closeHostedPopups();
+          focusTrap.deactivate();
           updateScrollLock(false);
           visible.value = false;
           setTimeout(() => {
@@ -218,10 +225,10 @@ const Drawer = defineComponent({
 
       const styles: CSSProperties = {};
       if (placement === "left" || placement === "right") {
-        styles.width = typeof width === "number" ? `${width}px` : width;
+        styles.width = toCssLength(width);
       }
       if (placement === "top" || placement === "bottom") {
-        styles.height = typeof height === "number" ? `${height}px` : height;
+        styles.height = toCssLength(height);
       }
 
       const maskNode = props.mask ? (
@@ -233,7 +240,15 @@ const Drawer = defineComponent({
           />
         </Transition>
       ) : null;
-      const drawerProps = { class: "k-drawer-box", style: styles };
+      const drawerProps = {
+        class: "k-drawer-box",
+        style: styles,
+        ref: drawerBoxRef,
+        tabindex: -1,
+        role: "dialog",
+        "aria-modal": props.mask || undefined,
+        onKeydown: focusTrap.handleKeydown,
+      };
       return rendered.value ? (
         <Teleport to={target}>
           <div class={classes}>

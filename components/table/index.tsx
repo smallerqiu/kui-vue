@@ -12,7 +12,8 @@ import {
   watch,
 } from "vue";
 import { Checkbox, type ChangeEvent } from "../checkbox";
-import type { BooleanType, ShapeType, SizeType } from "../const/types";
+import { useConfigAppearance } from "../config/context";
+import type { BooleanType, SizeType, SurfaceShapeType } from "../const/types";
 import Empty from "../empty";
 import Icon from "../icon";
 import Spin from "../spin";
@@ -42,7 +43,7 @@ const tableProps = {
   },
   striped: Boolean as BooleanType,
   bordered: { type: Boolean as BooleanType, default: false },
-  shape: { type: String as PropType<ShapeType>, default: "round" },
+  shape: { type: String as PropType<SurfaceShapeType>, default: "round" },
   checkable: Boolean as BooleanType,
   loading: Boolean as BooleanType,
   emptyText: String,
@@ -80,6 +81,7 @@ const Table = defineComponent({
     expandedKeysChange: (keys: TableKey[]) => Array.isArray(keys),
   },
   setup(props, { emit, slots }) {
+    const appearance = useConfigAppearance(props);
     const headerWrapperRef = ref<HTMLElement>();
     const bodyWrapperRef = ref<HTMLElement>();
     const scrollbarWidth = ref(0);
@@ -475,7 +477,22 @@ const Table = defineComponent({
                     rowspan={col.rowSpan as number}
                     class={getFixedClass(col, leafIndex)}
                     style={fixedInfo.value.header[col.key]}
+                    tabindex={col.sorter ? 0 : undefined}
+                    aria-sort={
+                      !col.sorter
+                        ? undefined
+                        : sortState.key !== col.key || !sortState.order
+                          ? "none"
+                          : sortState.order === "asc"
+                            ? "ascending"
+                            : "descending"
+                    }
                     onClick={() => handleSort(col)}
+                    onKeydown={(event: KeyboardEvent) => {
+                      if (!col.sorter || (event.key !== "Enter" && event.key !== " ")) return;
+                      event.preventDefault();
+                      handleSort(col);
+                    }}
                   >
                     <div class="k-table-header-col">
                       {headerContent ?? col.title}
@@ -730,9 +747,9 @@ const Table = defineComponent({
         "k-table",
         {
           "k-table-striped": props.striped,
-          "k-table-sm": props.size == "small",
-          "k-table-lg": props.size == "large",
-          [`k-table-${props.shape}`]: props.shape,
+          "k-table-sm": appearance.size.value == "small",
+          "k-table-lg": appearance.size.value == "large",
+          [`k-table-${appearance.surfaceShape.value}`]: appearance.surfaceShape.value,
           "k-table-bordered": props.bordered,
           "k-table-has-footer": !!slots.footer,
           "k-table-ping-left": pingLeft.value,
@@ -773,7 +790,10 @@ const Table = defineComponent({
           onScroll={(e) => handleBodyScroll(e.target as HTMLDivElement)}
         >
           {renderTable(!isSplit.value, true)}
-          {isEmpty && <Empty description={props.emptyText} />}
+          {isEmpty && props.loading && (
+            <div class="k-table-loading-placeholder" aria-hidden="true" />
+          )}
+          {isEmpty && !props.loading && <Empty description={props.emptyText} />}
         </div>
       );
 

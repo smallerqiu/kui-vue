@@ -11,6 +11,7 @@ import {
   type Ref,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
+import { useConfigAppearance } from "../config/context";
 import Icon from "../icon";
 import InputNumber from "../input-number";
 import zhCN from "../locale/zh-CN";
@@ -44,6 +45,7 @@ const Page = defineComponent({
     change: (page: number, pageSize: number) => Number.isFinite(page) && Number.isFinite(pageSize),
   },
   setup(props, { emit, attrs }) {
+    const appearance = useConfigAppearance(props);
     const nextPageGroup = ref(false);
     const prevPageGroup = ref(false);
     const normalizePageSize = (value: number) => (Number.isFinite(value) && value > 0 ? value : 10);
@@ -280,9 +282,9 @@ const Page = defineComponent({
     const renderSize = () => {
       const prop = {
         modelValue: defaultPageSize.value,
-        size: props.size,
+        size: appearance.size.value,
         clearable: false,
-        theme: props.theme,
+        theme: appearance.theme.value,
         options: sizeOptions.value,
         disabled: props.disabled,
         onChange: changeSize,
@@ -314,8 +316,8 @@ const Page = defineComponent({
     const renderElevator = () => {
       const _props = {
         class: "k-page-options-elevator",
-        size: props.size,
-        theme: props.theme,
+        size: appearance.size.value,
+        theme: appearance.theme.value,
         disabled: props.disabled,
         clearable: false,
         min: 1,
@@ -332,12 +334,13 @@ const Page = defineComponent({
     return () => {
       const classes = [
           "k-page",
-          `k-page-${props.shape}`,
+          `k-page-${appearance.shape.value}`,
           {
-            ["k-page-sm"]: props.size == "small",
-            ["k-page-lg"]: props.size == "large",
-            "k-page-fill": props.theme == "fill",
-            "k-page-outline": props.theme == "outline",
+            ["k-page-sm"]: appearance.size.value == "small",
+            ["k-page-lg"]: appearance.size.value == "large",
+            "k-page-fill": appearance.theme.value == "fill",
+            "k-page-outline": appearance.theme.value == "outline",
+            "k-page-plain": appearance.theme.value == "plain",
             "k-page-disabled": props.disabled,
             "k-page-simple": props.simple,
           },
@@ -397,8 +400,8 @@ const Page = defineComponent({
                 max={pageCount.value}
                 controls={false}
                 disabled={props.disabled}
-                size={props.size}
-                theme={props.theme}
+                size={appearance.size.value}
+                theme={appearance.theme.value}
                 onChange={changePageByElevator}
               />
             </span>

@@ -16,6 +16,7 @@ import {
   type ThemeType,
 } from "../const/types";
 import { colors } from "../const/var";
+import { useConfigAppearance } from "../config/context";
 import Icon, { type IconType } from "../icon";
 import { isColor } from "../utils/color";
 
@@ -41,6 +42,7 @@ const Tag = defineComponent({
     close: () => true,
   },
   setup(props, { slots, emit, attrs }) {
+    const appearance = useConfigAppearance(props);
     const visible = ref(true);
     const hidden = ref(false);
     let hideTimer: ReturnType<typeof setTimeout> | undefined;
@@ -58,7 +60,9 @@ const Tag = defineComponent({
     onBeforeUnmount(() => clearTimeout(hideTimer));
 
     return () => {
-      const { shape, icon, size, color, closeable, compact } = props;
+      const { icon, color, closeable, compact } = props;
+      const size = appearance.size.value;
+      const shape = appearance.shape.value;
 
       const isPresetColor = color && colors.some((preset) => preset === color);
       const isCustomColor = color && isColor(color) && !isPresetColor;
@@ -75,7 +79,7 @@ const Tag = defineComponent({
           "k-tag-closeable": closeable,
           "k-tag-compact": compact,
           "k-tag-hidden": hidden.value,
-          [`k-tag-${props.theme}`]: !!props.theme,
+          [`k-tag-${appearance.theme.value}`]: !!appearance.theme.value,
         },
       ];
 

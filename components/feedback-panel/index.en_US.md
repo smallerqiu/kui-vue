@@ -22,4 +22,4 @@ Embeds status, supporting information, and next steps within page content.
 | symbol      | Custom marker      | IconType                                           | -       |
 | compact     | Compact layout     | boolean                                            | false   |
 | theme       | Appearance theme   | ThemeType                                          | default |
-| shape       | Panel shape        | ShapeType                                          | round   |
+| shape       | Panel shape        | 'round' \| 'square'                                | round   |

@@ -137,15 +137,16 @@ const columns = [
 
 ## TableColumnSetting API
 
-| 属性         | 说明                                   | 类型     | 默认值          |
-| ------------ | -------------------------------------- | -------- | --------------- |
-| columns      | 与 Table 共用的列配置                  | Column[] | []              |
-| hiddenKeys   | 隐藏列 key，支持 `v-model:hidden-keys` | string[] | []              |
-| disabledKeys | 不允许在设置面板中切换的关键列         | string[] | []              |
-| title        | 面板标题及默认触发按钮文字             | string   | Column settings |
-| resetText    | 重置按钮文字                           | string   | Reset           |
-| size         | 触发按钮和选择项尺寸                   | SizeType | -               |
-| showReset    | 是否显示重置按钮                       | boolean  | true            |
+| 属性         | 说明                                   | 类型                           | 默认值          |
+| ------------ | -------------------------------------- | ------------------------------ | --------------- |
+| columns      | 与 Table 共用的列配置                  | Column[]                       | []              |
+| hiddenKeys   | 隐藏列 key，支持 `v-model:hidden-keys` | string[]                       | []              |
+| disabledKeys | 不允许在设置面板中切换的关键列         | string[]                       | []              |
+| title        | 面板标题及默认触发按钮文字             | string                         | Column settings |
+| resetText    | 重置按钮文字                           | string                         | Reset           |
+| size         | 触发按钮和选择项尺寸                   | SizeType                       | -               |
+| showReset    | 是否显示重置按钮                       | boolean                        | true            |
+| onChange     | 隐藏列变化时触发                       | (hiddenKeys: string[]) => void | -               |
 
 插槽：`default` 可自定义触发元素。事件：`update:hiddenKeys`、`change`，参数均为最新隐藏列 key。
 
@@ -165,6 +166,6 @@ const columns = [
 
 ### 通用外观
 
-| 属性  | 说明     | 类型      | 默认值 |
-| ----- | -------- | --------- | ------ |
-| shape | 表格形状 | ShapeType | round  |
+| 属性  | 说明     | 类型                | 默认值 |
+| ----- | -------- | ------------------- | ------ |
+| shape | 表格形状 | 'round' \| 'square' | round  |

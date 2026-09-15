@@ -1,12 +1,15 @@
 import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
-import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
+import type { BooleanType, SizeType, SurfaceShapeType, ThemeType } from "../const/types";
+import { useConfigAppearance } from "../config/context";
 import Icon, { type IconType } from "../icon";
 import CardMeta from "./card-meta";
+
+export type CardShape = SurfaceShapeType;
 
 const cardProps = {
   bordered: { type: Boolean as BooleanType, default: false },
   theme: { type: String as PropType<ThemeType>, default: "fill" },
-  shape: { type: String as PropType<ShapeType>, default: "round" },
+  shape: { type: String as PropType<CardShape>, default: "round" },
   size: { type: String as PropType<SizeType>, default: "medium" },
   title: String,
   icon: [Array] as PropType<IconType[]>,
@@ -19,8 +22,12 @@ const Card = defineComponent({
   name: "Card",
   props: cardProps,
   setup(props, { slots, attrs }) {
+    const appearance = useConfigAppearance(props);
     return () => {
-      const { title, icon, bordered, cover, theme, shape, size } = props;
+      const { title, icon, bordered, cover } = props;
+      const theme = appearance.theme.value;
+      const shape: CardShape = appearance.shape.value === "square" ? "square" : "round";
+      const size = appearance.size.value;
 
       const extraSlot = slots.extra?.();
       const titleSlot = slots.title?.();

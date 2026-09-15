@@ -1,186 +1,113 @@
 <template>
-  <Space vertical block>
-    <Space>
-      <code>Language :</code>
-      <RadioGroup v-model="lang" type="button" @change="changeLocale">
+  <Space vertical block size="large">
+    <Space align="center" wrap>
+      <strong>Language</strong>
+      <RadioGroup v-model="lang" type="button">
         <RadioButton value="en">English</RadioButton>
         <RadioButton value="zh">中文</RadioButton>
-        <RadioButton value="de">De</RadioButton>
+        <RadioButton value="de">Deutsch</RadioButton>
       </RadioGroup>
     </Space>
+
     <ConfigProvider :locale="locale">
-      <Space vertical block>
-        <Space wrap>
-          <DatePicker mode="year" />
-          <DatePicker mode="month" />
-          <DatePicker mode="date" />
-          <DatePicker mode="time" />
-          <DatePicker mode="dateTime" />
-          <DatePicker mode="dateRange" />
-        </Space>
-        <Space>
-          <Select style="width: 120px" />
-          <Select
-            :modelValue="[]"
-            multiple
-            style="width: 120px"
-            @search="selectSearch"
-            :loading="loading"
-          />
-        </Space>
-        <Space vertical>
-          <Page :total="50" show-total showSizer showElevator />
-        </Space>
-        <Space>
-          <Button @click="showModal">Modal</Button>
-          <Button @click="showInfo">Info</Button>
-          <Button @click="showConfirm">Confirm</Button>
-          <Popconfirm title="Are you sure?">
-            <Button>Pop Confirm</Button>
-          </Popconfirm>
-          <Button @click="openDrawer">Open Drawer</Button>
-        </Space>
-        <Space>
-          <Table :columns="columns" />
-        </Space>
-        <Space>
-          TreeSelect :
-          <TreeSelect :treeData="[]" style="width: 180px" />
-        </Space>
-        <Space>
-          Image :
-          <Image :width="120" :height="120" src="https://cdn.chuchur.com/upload/cat/cat1.jpg" />
-        </Space>
-        <Space>
-          <Upload
-            action="https://www.chuchur.com/api/upload/image"
-            name="file"
-            directory
-            :fileList="fileList"
-          >
-            <Button>Click to upload</Button>
-          </Upload>
-        </Space>
-        <Space block style="max-width: 500px">
-          <Form :model="form" :rules="rules" :labelCol="labelCol" :wrapperCol="wrapperCol">
-            <FormItem label="Name" prop="name">
-              <Input placeholder="Please input" />
-            </FormItem>
-            <FormItem label="Email" prop="email">
-              <Input placeholder="Please input" />
-            </FormItem>
-            <FormItem label="Age" prop="age">
-              <InputNumber placeholder="Please input" />
-            </FormItem>
-            <FormItem :wrapperCol="{ offset: 6 }">
-              <Button type="primary" htmlType="submit">Submit</Button>
-              <Button style="margin: 0 10px" htmlType="reset">Reset</Button>
-            </FormItem>
-          </Form>
-        </Space>
-        <Modal v-model="visible" title="Basic Modal" />
-        <Drawer v-model="visible1" title="Basic Drawer" />
-      </Space>
+      <div class="locale-grid">
+        <Card title="Date and time" bordered>
+          <Space vertical block>
+            <DatePicker />
+            <DatePicker mode="dateRange" />
+            <DatePicker mode="time" />
+          </Space>
+        </Card>
+
+        <Card title="Selection" bordered>
+          <Space vertical block>
+            <div class="locale-control"><Select :options="[]" /></div>
+            <div class="locale-control"><TreeSelect :tree-data="[]" /></div>
+          </Space>
+        </Card>
+
+        <Card class="locale-wide" title="Data feedback" bordered>
+          <Space vertical block>
+            <div class="locale-overflow">
+              <Page :total="85" show-total show-sizer show-elevator />
+            </div>
+            <Table :columns="columns" :data="[]" />
+          </Space>
+        </Card>
+
+        <Card class="locale-wide" title="Overlay" bordered>
+          <Button @click="visible = true">Open Modal</Button>
+          <Modal v-model="visible" title="Locale preview">
+            The buttons and other built-in text follow the current locale.
+          </Modal>
+        </Card>
+      </div>
     </ConfigProvider>
   </Space>
 </template>
+
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { message, modal, type FormRule, type UploadFile } from "kui-vue";
-// need run: npm run build
 import de from "kui-vue/locale/de";
 import en from "kui-vue/locale/en";
 import zh from "kui-vue/locale/zh-CN";
-import { reactive, ref } from "vue";
+import { computed, ref, watch } from "vue";
 
 import "dayjs/locale/de";
 import "dayjs/locale/zh-cn";
 
-const lang = ref("en");
-const locale = ref(en);
+type Language = "en" | "zh" | "de";
 
-dayjs.locale("en");
-
+const lang = ref<Language>("en");
+const visible = ref(false);
+const locales = { en, zh, de };
+const locale = computed(() => locales[lang.value]);
+const dayjsLocales: Record<Language, string> = {
+  en: "en",
+  zh: "zh-cn",
+  de: "de",
+};
 const columns = [
   { title: "Name", key: "name" },
   { title: "Age", key: "age" },
 ];
-const fileList = ref<UploadFile[]>([
-  {
-    url: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
-    status: "uploading",
-    filename: "test.jpg",
-    size: "222kb",
-    percent: 50,
+
+watch(
+  lang,
+  (value) => {
+    dayjs.locale(dayjsLocales[value]);
   },
-  {
-    url: "https://cdn.chuchur.com/upload/demo/test_300.jpg",
-    status: "error",
-    filename: "test.jpg",
-    size: "222kb",
-  },
-]);
-const loading = ref(false);
-const visible = ref(false);
-const visible1 = ref(false);
-const labelCol = { span: 6 };
-const wrapperCol = { span: 16 };
-const form = reactive({
-  name: "",
-  email: "",
-  age: "",
-});
-const rules: Record<string, FormRule[]> = {
-  name: [{ required: true }],
-  email: [{ required: true }, { type: "mail" }],
-  age: [{ required: true }, { type: "number", min: 10, max: 50 }],
-};
-const langs: Record<string, typeof en> = {
-  en,
-  zh,
-  de,
-};
-const changeLocale = (value: string | number) => {
-  locale.value = langs[value];
-  if (value === "en") {
-    dayjs.locale("en");
-  } else if (value == "de") {
-    dayjs.locale("de");
-  } else {
-    dayjs.locale("zh-cn");
-  }
-};
-const showModal = () => {
-  visible.value = true;
-};
-const openDrawer = () => {
-  visible1.value = true;
-};
-const showInfo = () => {
-  modal.info({
-    title: "Hello",
-    content: "modal info.",
-    onOk: () => {
-      message.info("info");
-    },
-  });
-};
-const showConfirm = () => {
-  modal.confirm({
-    title: "您确认要这么做吗",
-    content: "此操作不可逆转，谨慎！！！",
-    onOk: () => {
-      message.success("你点了确认");
-    },
-    onCancel: () => {
-      message.info("你点了取消");
-    },
-  });
-};
-const selectSearch = () => {
-  loading.value = true;
-  setTimeout(() => {
-    loading.value = false;
-  }, 1000);
-};
+  { immediate: true },
+);
 </script>
+
+<style scoped>
+.locale-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.locale-control {
+  width: 100%;
+}
+
+.locale-control :deep(> *) {
+  width: 100%;
+}
+
+.locale-wide {
+  min-width: 0;
+  grid-column: 1 / -1;
+}
+
+.locale-overflow {
+  overflow-x: auto;
+}
+
+@media (max-width: 720px) {
+  .locale-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+</style>

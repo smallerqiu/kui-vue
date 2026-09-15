@@ -87,15 +87,21 @@ const QRCode = defineComponent({
         attributeFilter: ["theme-mode"], // 只对 theme-mode 敏感，性能损耗几乎为 0
       });
     };
-    const parseCssVariable = (colorStr: string): string => {
+    const parseCssVariable = (colorStr: string, fallback: string): string => {
       if (colorStr.trim().startsWith("var(")) {
         const tempDiv = document.createElement("div");
         tempDiv.style.color = colorStr;
         (canvasRef.value?.parentElement || document.body).appendChild(tempDiv);
-        let computedColor = window.getComputedStyle(tempDiv).color;
-        computedColor = Color(computedColor).hex();
+        const computedColor = window.getComputedStyle(tempDiv).color;
         tempDiv.remove();
-        return computedColor || "#000000";
+        // jsdom and pages that have not loaded the theme stylesheet may leave
+        // custom properties unresolved. QR rendering still needs a real color.
+        if (!computedColor || computedColor.includes("var(")) return fallback;
+        try {
+          return Color(computedColor).hex();
+        } catch {
+          return fallback;
+        }
       }
       return colorStr;
     };
@@ -121,8 +127,8 @@ const QRCode = defineComponent({
       const pixelSize = Math.max(1, Math.round(size * ratio));
 
       try {
-        const realDark = parseCssVariable(props.colorDark);
-        const realLight = parseCssVariable(props.colorLight);
+        const realDark = parseCssVariable(props.colorDark, "#000000");
+        const realLight = parseCssVariable(props.colorLight, "#ffffff");
         const options: QRCodeRenderersOptions = {
           width: pixelSize,
           margin: safeMargin.value,

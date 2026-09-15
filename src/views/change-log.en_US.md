@@ -13,6 +13,53 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 6.0.0
+
+`2026-9-15`
+
+### Important changes
+
+- The minimum supported Vue version is now `3.5.0`, enabling stable IDs, improved type inference, and current runtime capabilities. Upgrade the application to Vue 3.5 or later before adopting this release.
+- Added the dedicated `Segmented` control for card-like sliding selection. `Radio`, `RadioButton`, and `RadioGroup` now focus on standard single-selection semantics.
+- Reworked controlled values, defaults, reset behavior, readonly and disabled states, and events across form controls. Applications relying on legacy behavior should pay particular attention to Form, Radio, Rate, Slider, InputNumber, and date-range forms.
+
+### New components and capabilities
+
+- Added `Segmented` with controlled and uncontrolled values, sizes, disabled options, custom icons and labels, and an animated selection indicator.
+- Added on-demand asynchronous loading to `Cascader`, including per-node loading, request deduplication, result caching, empty-result handling, retry after failure, and support for either returned children or mutations to `option.children`.
+- Expanded `Upload` with custom requests, file validation, concurrency control, error details, and drag-and-drop reordering for picture walls, together with improved progress and file states.
+- Added the `browser` variant to `Tabs`, including closable and dynamically added tabs, plus an overflow dropdown for quickly switching hidden tabs.
+- Added collapsed-item Tooltip control, collapsed submenu popups, keyboard navigation, and deep-menu state restoration to `Menu`.
+- Added responsive columns to `Descriptions`, custom scroll containers to `BackTop`, and improved simple pagination, editable page numbers, and adaptive page-size controls to `Page`.
+
+### Forms and input controls
+
+- Rebuilt the FormField context and integrated major controls so Form-level `size`, `theme`, `shape`, `disabled`, and `readonly` settings are inherited consistently.
+- `resetFields` now restores initial field values. Fixed synchronization after replacing the external model, calling `setFieldsValue`, changing dynamic fields, and resetting standalone radios.
+- Improved validation triggers, asynchronous validation races, optional empty values, reusable regular expressions, and error layout so long messages no longer overlap the following field.
+- Added stable field IDs and accessible relationships through `label for`, `aria-invalid`, `aria-describedby`, and `role="alert"`.
+- Added `addonBefore` and `addonAfter` to `Input`; aligned prefix, suffix, clear button, and InputGroup layout; and fixed fill/outline, disabled, dark-mode, and size-specific states.
+- Unified clearable and readonly behavior, tags, dropdown motion, keyboard navigation, and remote-search states across `Select`, `TreeSelect`, `AutoComplete`, `Mentions`, and `InputTag`.
+- Added semantic and custom colors to `Switch`, string steps to `InputNumber`, and improved length boundaries, themes, and input behavior in `InputOTP`.
+
+### Advanced component improvements
+
+- Improved `DatePicker` range values and `startDate`/`endDate` models, date and time panels, keyboard interaction, popup motion, and external-value synchronization.
+- Improved `Table` virtual scrolling, tree expansion, fixed columns, striped rows, column visibility, horizontal minimum width, and loading states. Empty is no longer displayed while an empty table is loading.
+- Improved virtual lists, filtering, expansion motion, keyboard interaction, and popup repositioning in `Tree` and `TreeSelect`.
+- Fixed `Drawer` targets so drawers mount inside the configured element rather than body, with consistent target positioning restoration, scroll locking, and child-popup cleanup.
+- Introduced shared popup-host management for `Modal`, `Drawer`, and related overlays so closing a parent or pressing Escape also closes child popups teleported to body.
+- Rebuilt `Skeleton` with flex layout, added `titleWidth`, unified delayed display to prevent loading flicker, and improved reduced-motion and accessibility support.
+- Improved `QRCode` status overlays, keyboard refresh, logo rendering, theme-color resolution, and download support.
+
+### Interaction, styling, and documentation
+
+- Unified sizing, themes, shapes, disabled states, clear buttons, tags, masks, and popup motion, fixing dark-mode inconsistencies and several first-open flashes.
+- Consolidated shared motion and removed `transition: all` from component styles to avoid unrelated animations and layout jank.
+- Fixed Layout.Sider sizing and collapse motion, Steps alignment, Anchor positioning, Breadcrumb separator updates, and Dropdown context-menu positioning.
+- Standardized Vue event declarations and payload validation while removing invalid `onXxx` props, debug logging, and duplicated documentation tables.
+- Expanded bilingual APIs, functional demos, declarations, Vetur/Web Types, and AI metadata, with stronger CI checks for documentation, package exports, AI assets, and evals.
+
 ## 5.8.0
 
 `2026-8-24`

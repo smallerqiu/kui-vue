@@ -8,7 +8,12 @@ import {
   type TextareaHTMLAttributes,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 
 const textAreaProps = {
   value: [String, Number, Array] as PropType<string | number | readonly string[] | null>,
@@ -35,6 +40,7 @@ const TextArea = defineComponent({
   },
   setup(props, { attrs, emit }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const innerValue = ref(props.value);
     const currentValue = computed(() =>
       field?.prop
@@ -57,7 +63,9 @@ const TextArea = defineComponent({
       const { theme, shape, placeholder, rows } = props;
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
-      const size = props.size || field?.size.value;
+      const size = appearance.size.value;
+      const effectiveTheme = appearance.theme.value ?? theme;
+      const effectiveShape = appearance.shape.value ?? shape;
       const rootProps = {
         ...attrs,
         ...resolveFormControlAttrs(attrs, field),
@@ -66,10 +74,10 @@ const TextArea = defineComponent({
         class: [
           "k-textarea",
           {
-            [`k-textarea-${theme}`]: !!theme && theme !== "outline",
+            [`k-textarea-${effectiveTheme}`]: !!effectiveTheme && effectiveTheme !== "outline",
             "k-textarea-sm": size === "small",
-            "k-textarea-square": shape === "square",
-            "k-textarea-circle": shape === "circle",
+            "k-textarea-square": effectiveShape === "square",
+            "k-textarea-circle": effectiveShape === "circle",
             "k-textarea-lg": size === "large",
           },
           attrs.class,

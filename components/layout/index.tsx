@@ -10,6 +10,7 @@ import {
   type InjectionKey,
 } from "vue";
 import type { BooleanType } from "../const/types";
+import { toCssLength } from "../utils/css";
 
 const SiderHookKey: InjectionKey<(mounted: boolean) => void> = Symbol("SiderHookKey");
 
@@ -80,7 +81,7 @@ const Sider = defineComponent({
 
     const siderStyle = computed(() => {
       const siderWidth = props.collapsible && props.collapsed ? props.collapsedWidth : props.width;
-      const width = typeof siderWidth === "number" ? `${siderWidth}px` : siderWidth;
+      const width = toCssLength(siderWidth);
       return {
         width,
         flex: `0 0 ${width}`,
@@ -88,8 +89,15 @@ const Sider = defineComponent({
         minWidth: width,
       };
     });
+    const siderClass = computed(() => [
+      `k-${props.suffixCls}`,
+      {
+        [`k-${props.suffixCls}-collapsible`]: props.collapsible,
+        [`k-${props.suffixCls}-collapsed`]: props.collapsible && props.collapsed,
+      },
+    ]);
     return () => (
-      <aside class={`k-${props.suffixCls}`} style={siderStyle.value}>
+      <aside class={siderClass.value} style={siderStyle.value}>
         {slots.default?.()}
       </aside>
     );

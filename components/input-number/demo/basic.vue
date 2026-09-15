@@ -1,7 +1,7 @@
 <template>
   <Space style="font-size: 12px; max-width: 200px" block vertical>
     <code>v-model: {{ value }}</code>
-    <InputNumber v-model="value" @change="change" />
+    <InputNumber v-model="value" />
     <code>readonly</code>
     <InputNumber v-model="value" readonly />
     <code>disabled</code>
@@ -17,7 +17,4 @@
 <script setup lang="ts">
 import { ref } from "vue";
 const value = ref<number | undefined>(1);
-const change = (value: number | undefined) => {
-  console.log("change", value);
-};
 </script>

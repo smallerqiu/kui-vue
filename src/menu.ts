@@ -14,6 +14,7 @@ import {
   CirclePlay,
   Columns3,
   Component,
+  Cog,
   CreditCard,
   DecimalsArrowRight,
   FileText,
@@ -91,6 +92,7 @@ const navData = [
     title: "menu.universal",
     key: "basic",
     children: [
+      { title: "全局配置", sub: "ConfigProvider", name: "config", icon: Cog },
       { title: "按钮", sub: "Button", name: "button", icon: SquareMousePointer },
       { title: "图标", sub: "Icon", name: "icon", icon: Heart },
       { title: "排版", sub: "Typography", name: "typography", icon: TextAlignStart },

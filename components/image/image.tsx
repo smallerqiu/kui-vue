@@ -11,6 +11,7 @@ import {
   watch,
 } from "vue";
 import type { BooleanType, ShapeType, ThemeType } from "../const/types";
+import { useConfigAppearance } from "../config/context";
 import Icon from "../icon";
 import createInstance from "./instance";
 import { imageGroupKey } from "./context";
@@ -42,6 +43,7 @@ const Image = defineComponent({
     switch: (index: number) => Number.isInteger(index),
   },
   setup(props, { emit, slots, expose }) {
+    const appearance = useConfigAppearance(props);
     const loading = ref(false);
     const showPlaceholder = ref(false);
     const imageUrl = ref<string>();
@@ -147,7 +149,11 @@ const Image = defineComponent({
           width: typeof width === "number" ? `${width}px` : width,
           height: typeof height === "number" ? `${height}px` : height,
         },
-        class: ["k-image", `k-image-${props.theme}`, `k-image-${props.shape}`],
+        class: [
+          "k-image",
+          `k-image-${appearance.theme.value}`,
+          `k-image-${appearance.shape.value}`,
+        ],
         onClick: showPreview,
       };
 

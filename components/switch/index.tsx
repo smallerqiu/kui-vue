@@ -2,7 +2,12 @@ import { Loading } from "kui-icons";
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
 import { defineComponent, ref, watch } from "vue";
 import type { BooleanType, ShapeType, SizeType, ValueType } from "../const/types";
-import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 import Icon from "../icon";
 import { getValueWithType } from "../utils/checked";
 
@@ -61,6 +66,7 @@ const Switch = defineComponent({
   },
   setup(props, { slots, emit, attrs }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const resolveChecked = (value: string | number | boolean | undefined, fallback = false) =>
       value === undefined ? fallback : value === true || value === 1 || value === "1";
     const isChecked = ref(resolveChecked(props.modelValue, props.checked));
@@ -98,7 +104,8 @@ const Switch = defineComponent({
       const { type, trueText, falseText, loading } = props;
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
-      const size = props.size || field?.size.value;
+      const size = appearance.size.value;
+      const shape = appearance.shape.value;
       const classes = [
         "k-switch",
         {
@@ -106,8 +113,8 @@ const Switch = defineComponent({
           ["k-switch-disabled"]: disabled || loading,
           ["k-switch-readonly"]: readonly,
           [`k-switch-${type}`]: !!type,
-          ["k-switch-sm"]: props.size == "small",
-          [`k-switch-${props.shape}`]: props.shape,
+          ["k-switch-sm"]: size === "small",
+          [`k-switch-${shape}`]: shape,
         },
       ];
       const children = slots.checked?.() || trueText || slots.unchecked?.() || falseText;

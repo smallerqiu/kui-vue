@@ -32,7 +32,7 @@ const showModal = (props = {}) => {
     ...props,
     onDestroy: destroy,
   });
-  vm.appContext = context?.appContext || getAppContext()?.appContext || null;
+  vm.appContext = getAppContext(context);
   render(vm, container);
 
   instance = vm.component?.exposed as ModalInstance | null;

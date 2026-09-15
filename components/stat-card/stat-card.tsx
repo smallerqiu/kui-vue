@@ -1,6 +1,7 @@
 import type { ExtractPropTypes, PropType, VNodeChild } from "vue";
 import { defineComponent } from "vue";
-import type { BooleanType, ShapeType, SizeType } from "../const/types";
+import type { BooleanType, SizeType, SurfaceShapeType } from "../const/types";
+import { useConfigAppearance } from "../config/context";
 import StatNumber from "./stat-number";
 import type { StatNumberItem } from "./types";
 
@@ -13,7 +14,7 @@ const statCardProps = {
   reverse: Boolean as BooleanType,
   bordered: { type: Boolean as BooleanType, default: false },
   theme: { type: String as PropType<"fill" | "outline" | "plain">, default: "fill" },
-  shape: { type: String as PropType<ShapeType>, default: "round" },
+  shape: { type: String as PropType<SurfaceShapeType>, default: "round" },
   size: { type: String as PropType<SizeType>, default: "medium" },
 };
 
@@ -23,6 +24,7 @@ const StatCard = defineComponent({
   name: "StatCard",
   props: statCardProps,
   setup(props, { slots, attrs }) {
+    const appearance = useConfigAppearance(props);
     return () => {
       const { class: customClass, ...restAttrs } = attrs;
       return (
@@ -33,9 +35,9 @@ const StatCard = defineComponent({
             customClass,
             {
               "k-stat-card-bordered": props.bordered,
-              [`k-stat-card-${props.theme}`]: props.theme,
-              [`k-stat-card-${props.shape}`]: props.shape,
-              [`k-stat-card-${props.size}`]: props.size,
+              [`k-stat-card-${appearance.theme.value}`]: appearance.theme.value,
+              [`k-stat-card-${appearance.surfaceShape.value}`]: appearance.surfaceShape.value,
+              [`k-stat-card-${appearance.size.value}`]: appearance.size.value,
             },
           ]}
         >

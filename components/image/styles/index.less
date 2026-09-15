@@ -77,7 +77,9 @@
   outline: 0;
   z-index: 1002;
   pointer-events: none;
-  transition: all 0.3s;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
 }
 
 .k-image-preview-control {
@@ -242,7 +244,9 @@
   z-index: 1002;
   transform: translateX(0);
   opacity: 1;
-  transition: all 0.3s;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
   color: var(--kui-color-text);
 }
 
@@ -273,7 +277,9 @@
 
 .k-image-panel-enter-active,
 .k-image-panel-leave-active {
-  transition: all 0.3s;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
 }
 
 .k-image-group {

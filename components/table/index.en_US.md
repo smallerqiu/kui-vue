@@ -137,15 +137,16 @@ const columns = [
 
 ## TableColumnSetting API
 
-| Property     | Description                                     | Type     | Default         |
-| ------------ | ----------------------------------------------- | -------- | --------------- |
-| columns      | Column definitions shared with Table            | Column[] | []              |
-| hiddenKeys   | Hidden keys; supports `v-model:hidden-keys`     | string[] | []              |
-| disabledKeys | Essential columns excluded from the settings UI | string[] | []              |
-| title        | Panel title and default trigger label           | string   | Column settings |
-| resetText    | Reset button label                              | string   | Reset           |
-| size         | Trigger and checkbox size                       | SizeType | -               |
-| showReset    | Whether to show the reset action                | boolean  | true            |
+| Property     | Description                                     | Type                           | Default         |
+| ------------ | ----------------------------------------------- | ------------------------------ | --------------- |
+| columns      | Column definitions shared with Table            | Column[]                       | []              |
+| hiddenKeys   | Hidden keys; supports `v-model:hidden-keys`     | string[]                       | []              |
+| disabledKeys | Essential columns excluded from the settings UI | string[]                       | []              |
+| title        | Panel title and default trigger label           | string                         | Column settings |
+| resetText    | Reset button label                              | string                         | Reset           |
+| size         | Trigger and checkbox size                       | SizeType                       | -               |
+| showReset    | Whether to show the reset action                | boolean                        | true            |
+| onChange     | Called when hidden column keys change           | (hiddenKeys: string[]) => void | -               |
 
 Slot: `default` customizes the trigger. Events: `update:hiddenKeys` and `change`, both carrying the latest hidden keys.
 
@@ -165,6 +166,6 @@ Slot: `default` customizes the trigger. Events: `update:hiddenKeys` and `change`
 
 ### Common appearance
 
-| Property | Description | Type      | Default |
-| -------- | ----------- | --------- | ------- |
-| shape    | Table shape | ShapeType | round   |
+| Property | Description | Type                | Default |
+| -------- | ----------- | ------------------- | ------- |
+| shape    | Table shape | 'round' \| 'square' | round   |

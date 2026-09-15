@@ -16,7 +16,7 @@ export const createInstance = (type: string, context?: VNode) => {
     document.body.appendChild(container);
   }
   const vm = createVNode(Container, { type });
-  vm.appContext = context?.appContext || getAppContext()?.appContext || null;
+  vm.appContext = context?.appContext || getAppContext();
   render(vm, container);
   const instance = vm.component?.exposed as NoticeInstance;
   if (instance)

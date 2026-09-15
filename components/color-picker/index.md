@@ -38,6 +38,8 @@
 | trigger       | 下拉触发形式                                       | 'hover' \| 'click'             | hover       |
 | showText      | 是否展示颜色文字                                   | boolean                        | false       |
 | size          | 颜色选择器的尺寸                                   | 'small' \| 'medium' \| 'large' | -           |
+| theme         | 外观主题，未设置时可继承 Form                      | ThemeType                      | outline     |
+| shape         | 形状，未设置时可继承 Form                          | ShapeType                      | -           |
 | placement     | 颜色选择器的放置位置                               | string                         | bottom-left |
 | onUpdateMode  | 颜色模式更新时触发                                 | (mode: ColorMode) => void      | -           |
 | onChange      | 颜色值改变的时候触发,返回颜色的值                  | (color: string) => void        | -           |

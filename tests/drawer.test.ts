@@ -5,6 +5,17 @@ import Drawer from "../components/drawer";
 import Select from "../components/select/select";
 
 describe("Drawer target", () => {
+  it("treats numeric string dimensions as pixels", async () => {
+    const wrapper = mount(Drawer, {
+      attachTo: document.body,
+      props: { modelValue: true, width: "480", footer: false },
+    });
+    await nextTick();
+
+    expect(document.body.querySelector<HTMLElement>(".k-drawer-box")?.style.width).toBe("480px");
+    wrapper.unmount();
+  });
+
   it("renders inside a static target and restores its positioning style", async () => {
     const Host = defineComponent({
       setup() {
@@ -43,14 +54,15 @@ describe("Drawer target", () => {
   it("closes popups hosted by the drawer when the drawer closes", async () => {
     const options = [{ label: "Alpha", value: "alpha" }];
     const wrapper = mount(
-      defineComponent(() => () =>
-        h("div", [
-          h(
-            Drawer,
-            { modelValue: true, footer: false },
-            { default: () => h(Select, { options, class: "inside-select" }) },
-          ),
-        ]),
+      defineComponent(
+        () => () =>
+          h("div", [
+            h(
+              Drawer,
+              { modelValue: true, footer: false },
+              { default: () => h(Select, { options, class: "inside-select" }) },
+            ),
+          ]),
       ),
       { attachTo: document.body },
     );

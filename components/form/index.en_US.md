@@ -69,22 +69,23 @@ export default {
 
 ## Form API
 
-| Property   | Description                                                                                           | Type                                   | Default    |
-| ---------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------- | ---------- |
-| model      | Form data object                                                                                      | Object                                 | -          |
-| rules      | Form validation rules                                                                                 | boolean                                | false      |
-| name       | Form name, will be used as the id prefix for form fields                                              | string                                 | -          |
-| labelCol   | Label layout, same as the `<Col>` component, set span offset values, such as {span: 3, offset: 12}    | {span:number,offset:number}            | -          |
-| wrapperCol | Control layout, same as the `<Col>` component, set span offset values, such as {span: 15, offset: 12} | {span:number,offset:number}            | -          |
-| theme      | The component renders the theme                                                                       | string                                 | -          |
-| size       | Sub component size                                                                                    | string                                 | -          |
-| layout     | Form layout                                                                                           | 'horizontal' \| 'vertical' \| 'inline' | horizontal |
-| shape      | Sub component shape                                                                                   | 'circle' \| 'square'                   | horizontal |
-| disabled   | Whether the form is enabled                                                                           | boolean                                | true       |
-| readonly   | Make supported controls in the form read-only                                                         | boolean                                | false      |
-| colon      | Whether to display a colon after labels                                                               | boolean                                | true       |
-| onReset    | Reset the entire form, reset all field values to empty and remove validation results                  | ()=> void                              | -          |
-| onSubmit   | Trigger event when submitting the form                                                                | (e: FormSubmitEvent) => void           | -          |
+| Property   | Description                                                                          | Type                                     | Default    |
+| ---------- | ------------------------------------------------------------------------------------ | ---------------------------------------- | ---------- |
+| model      | Form data object                                                                     | Object                                   | -          |
+| rules      | Form validation rules                                                                | FormRules                                | -          |
+| name       | Form name, will be used as the id prefix for form fields                             | string                                   | -          |
+| labelCol   | Label layout using `<Col>` span and offset; ignored in inline layout                 | {span:number,offset:number}              | -          |
+| wrapperCol | Control layout using `<Col>` span and offset; ignored in inline layout               | {span:number,offset:number}              | -          |
+| theme      | The component renders the theme                                                      | string                                   | -          |
+| size       | Sub component size                                                                   | string                                   | -          |
+| layout     | Form layout                                                                          | 'horizontal' \| 'vertical' \| 'inline'   | horizontal |
+| shape      | Child component shape                                                                | ShapeType                                | -          |
+| disabled   | Whether the form is disabled                                                         | boolean                                  | false      |
+| readonly   | Make supported controls in the form read-only                                        | boolean                                  | false      |
+| colon      | Whether to display a colon after labels                                              | boolean                                  | true       |
+| onChange   | Called when a field value changes with the current form model                        | (model: Record<string, unknown>) => void | -          |
+| onReset    | Reset the entire form, reset all field values to empty and remove validation results | ()=> void                                | -          |
+| onSubmit   | Called after submission validation with the validation result                        | (result: { valid: boolean }) => void     | -          |
 
 ## Form Expose API
 

@@ -13,6 +13,7 @@ import {
   type VNodeChild,
 } from "vue";
 import type { BooleanType, ButtonType, ShapeType, SizeType, ThemeType } from "../const/types";
+import { useConfigAppearance } from "../config/context";
 import { colors } from "../const/var";
 import Icon, { type IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
@@ -51,6 +52,7 @@ const Button = defineComponent({
   name: "Button",
   props: buttonProps,
   setup(props, { slots, attrs }) {
+    const appearance = useConfigAppearance(props);
     const buttonGroup = inject<{ size?: SizeType; shape?: Ref<ShapeType> } | null>(
       "KButtonGroup",
       null,
@@ -58,11 +60,11 @@ const Button = defineComponent({
     const parentSize = inject<string | null>("size", null);
 
     const computedSize = computed(() => {
-      return props.size || buttonGroup?.size || parentSize || "default";
+      return props.size || buttonGroup?.size || parentSize || appearance.size.value || "default";
     });
 
     const computedShape = computed(() => {
-      return props.shape || buttonGroup?.shape?.value;
+      return props.shape || buttonGroup?.shape?.value || appearance.shape.value;
     });
 
     const handleClick = (e: MouseEvent) => {
@@ -94,7 +96,7 @@ const Button = defineComponent({
         "k-btn",
         {
           [`k-btn-${props.type}`]: !!props.type && !props.color,
-          [`k-btn-outline`]: props.theme === "outline",
+          [`k-btn-outline`]: appearance.theme.value === "outline",
           ["k-btn-sm"]: computedSize.value === "small",
           ["k-btn-block"]: !!props.block,
           ["k-btn-loading"]: props.loading,
@@ -103,7 +105,7 @@ const Button = defineComponent({
           ["k-btn-lg"]: computedSize.value === "large",
           ["k-btn-circle"]: computedShape.value === "circle",
           ["k-btn-square"]: computedShape.value === "square",
-          [`k-btn-${props.theme}`]: !!props.theme,
+          [`k-btn-${appearance.theme.value}`]: !!appearance.theme.value,
         },
       ];
 

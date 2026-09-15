@@ -30,9 +30,10 @@
 
 ## BreadcrumbItem API
 
-| 属性   | 说明         | 类型       | 默认值 |
-| ------ | ------------ | ---------- | ------ |
-| href   | 链接地址     | string     | -      |
-| target | 链接打开方式 | string     | -      |
-| rel    | 链接关系属性 | string     | -      |
-| icon   | 节点图标     | IconType[] | -      |
+| 属性    | 说明               | 类型                        | 默认值 |
+| ------- | ------------------ | --------------------------- | ------ |
+| href    | 链接地址           | string                      | -      |
+| target  | 链接打开方式       | string                      | -      |
+| rel     | 链接关系属性       | string                      | -      |
+| icon    | 节点图标           | IconType[]                  | -      |
+| onClick | 点击面包屑项时触发 | (event: MouseEvent) => void | -      |

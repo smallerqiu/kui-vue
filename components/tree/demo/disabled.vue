@@ -1,15 +1,7 @@
 <template>
-  <Tree
-    :data="data"
-    checkable
-    @check="check"
-    :checkedKeys="checkedKeys"
-    :expandedKeys="expandedKeys"
-  />
+  <Tree :data="data" checkable :checkedKeys="checkedKeys" :expandedKeys="expandedKeys" />
 </template>
 <script setup lang="ts">
-import type { TreeNode } from "kui-vue";
-
 const expandedKeys = ["0-0", "1-0", "1-1"];
 const checkedKeys = ["1-0-0"];
 const data = [
@@ -37,7 +29,4 @@ const data = [
     ],
   },
 ];
-const check = (data: TreeNode) => {
-  console.log(data);
-};
 </script>

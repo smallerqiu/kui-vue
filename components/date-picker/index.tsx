@@ -18,6 +18,7 @@ import {
   h,
   inject,
   isRef,
+  mergeProps,
   nextTick,
   onMounted,
   onUnmounted,
@@ -32,7 +33,12 @@ import {
 import { Button } from "../button";
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 import type {
   BooleanType,
   DropPlacementsType,
@@ -152,8 +158,9 @@ const DatePicker = defineComponent({
     clear: () => true,
   },
 
-  setup(props, { emit, slots }) {
+  setup(props, { attrs, emit, slots }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     usePopupHost(() => isVisible.value && openChange(false));
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
@@ -180,7 +187,6 @@ const DatePicker = defineComponent({
     const refPopper = ref<HTMLElement | null>(null);
     const refSelection = ref<HTMLElement | null>(null);
     let positionRaf = 0;
-    // console.log(local);
 
     // DOM 引用，用于滚动计算
     const timeColRefs = ref<Record<string, HTMLElement | null>>({});
@@ -246,6 +252,15 @@ const DatePicker = defineComponent({
       emit("openChange", opened);
     };
 
+    const centerTimeItem = (type: UnitType, index: number, behavior: ScrollBehavior = "auto") => {
+      const column = timeColRefs.value[type];
+      const item = column?.children.item(index);
+      if (!(column instanceof HTMLElement) || !(item instanceof HTMLElement)) return;
+
+      const top = item.offsetTop - (column.clientHeight - item.offsetHeight) / 2;
+      column.scrollTo({ top, behavior });
+    };
+
     const scrollToCurrentTime = () => {
       nextTick(() => {
         let activeDate = dayjs();
@@ -263,11 +278,8 @@ const DatePicker = defineComponent({
           second: activeDate.second(),
         };
 
-        ["hour", "minute", "second"].forEach((type) => {
-          const el = timeColRefs.value[type];
-          if (el) {
-            el.scrollTop = targets[type] * 32 + 16;
-          }
+        (["hour", "minute", "second"] as UnitType[]).forEach((type) => {
+          centerTimeItem(type, targets[type]);
         });
       });
     };
@@ -621,8 +633,7 @@ const DatePicker = defineComponent({
         emitValue(false);
       }
 
-      const el = timeColRefs.value[type];
-      if (el) el.scrollTo({ top: val * 32 + 16, behavior: "smooth" });
+      centerTimeItem(type, val, "smooth");
     };
 
     const renderHeader = () => {
@@ -992,9 +1003,9 @@ const DatePicker = defineComponent({
     return () => {
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
-      const size = props.size || field?.size.value;
-      const theme = field?.theme.value ?? props.theme;
-      const shape = props.shape || field?.shape.value;
+      const size = appearance.size.value;
+      const theme = appearance.theme.value;
+      const shape = appearance.shape.value;
       const localPlaceholders: Record<string, string> = {
         year: locale?.value.k.datePicker.selectYear,
         month: locale?.value.k.datePicker.selectMonth,
@@ -1043,6 +1054,7 @@ const DatePicker = defineComponent({
         mode: props.mode,
         role: "dialog",
       };
+      const resolvedOverlayProps = props.panelOnly ? mergeProps(attrs, overlayProps) : overlayProps;
 
       const renderInput = () => {
         const fmt = getFormat();
@@ -1150,7 +1162,7 @@ const DatePicker = defineComponent({
         ) : null;
       };
       const panel = rendered.value ? (
-        <div v-show={isVisible.value} {...overlayProps}>
+        <div v-show={isVisible.value} {...resolvedOverlayProps}>
           {renderPresets()}
           <div class="k-picker-container">
             {renderExtraHeader()}
@@ -1175,31 +1187,28 @@ const DatePicker = defineComponent({
           ]
         : [];
 
+      const rootProps = mergeProps(attrs, resolveFormControlAttrs(attrs, field), {
+        class: classes,
+        ref: refSelection,
+        tabindex: disabled ? undefined : 0,
+        "aria-disabled": disabled || undefined,
+        "aria-readonly": readonly || undefined,
+        "aria-expanded": isVisible.value,
+        onFocusout: () => field?.blur(),
+        onKeydown: (event: KeyboardEvent) => {
+          if (event.key === "Escape" && isVisible.value) {
+            event.stopPropagation();
+            openChange(false);
+            isFocus.value = false;
+          } else if ((event.key === "Enter" || event.key === " ") && !isVisible.value) {
+            event.preventDefault();
+            togglePanel();
+          }
+        },
+      });
+
       return (
-        <div
-          id={field?.prop ? field.id : undefined}
-          class={classes}
-          ref={refSelection}
-          tabindex={disabled ? undefined : 0}
-          aria-labelledby={field?.prop ? field.labelId : undefined}
-          aria-describedby={field?.describedBy.value}
-          aria-invalid={field?.invalid.value || undefined}
-          aria-required={field?.required.value || undefined}
-          aria-disabled={disabled || undefined}
-          aria-readonly={readonly || undefined}
-          aria-expanded={isVisible.value}
-          onFocusout={() => field?.blur()}
-          onKeydown={(event: KeyboardEvent) => {
-            if (event.key === "Escape" && isVisible.value) {
-              event.stopPropagation();
-              openChange(false);
-              isFocus.value = false;
-            } else if ((event.key === "Enter" || event.key === " ") && !isVisible.value) {
-              event.preventDefault();
-              togglePanel();
-            }
-          }}
-        >
+        <div {...rootProps}>
           <div class={selectCls} onClick={togglePanel}>
             {renderInput()}
             <Icon type={dateIcon} class="k-icon-calendar" strokeWidth={1.5} />

@@ -121,7 +121,10 @@
       transform: translate3d(-50%, -50%, 0);
       content: "";
       background-color: var(--kui-color-primary);
-      transition: all 0.2s ease-in-out;
+      transition:
+        width 0.2s ease-in-out,
+        height 0.2s ease-in-out,
+        background-color 0.2s ease-in-out;
     }
   }
   &:not(.k-radio-disabled, .k-radio-readonly):hover {
@@ -154,6 +157,14 @@
 .k-radio-fill {
   .k-radio-symbol {
     background-color: var(--kui-theme-fill-bg);
+    border-color: transparent;
+  }
+
+  &:not(.k-radio-checked, .k-radio-disabled, .k-radio-readonly):hover {
+    .k-radio-symbol {
+      background-color: var(--kui-color-item-hover);
+      border-color: transparent;
+    }
   }
 }
 
@@ -188,6 +199,13 @@
         background-color: var(--kui-color-border-disabled);
       }
     }
+  }
+}
+
+.k-radio-fill.k-radio-checked,
+.k-radio-fill.k-radio-disabled {
+  .k-radio-symbol {
+    border-color: transparent;
   }
 }
 

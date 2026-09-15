@@ -1,5 +1,6 @@
 import { defineComponent, type ExtractPropTypes, type PropType, type StyleValue } from "vue";
-import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
+import type { BooleanType, SizeType, SurfaceShapeType, ThemeType } from "../const/types";
+import { useConfigAppearance } from "../config/context";
 import Icon, { type IconType } from "../icon";
 
 const featureCardProps = {
@@ -8,7 +9,7 @@ const featureCardProps = {
   desc: String,
   bordered: { type: Boolean as BooleanType, default: false },
   theme: { type: String as PropType<ThemeType>, default: "fill" },
-  shape: { type: String as PropType<ShapeType>, default: "round" },
+  shape: { type: String as PropType<SurfaceShapeType>, default: "round" },
   size: { type: String as PropType<SizeType>, default: "medium" },
   direction: {
     type: String as PropType<"horizontal" | "vertical">,
@@ -29,6 +30,7 @@ const FeatureCard = defineComponent({
     click: (event: MouseEvent) => event instanceof MouseEvent,
   },
   setup(props, { attrs, emit, slots }) {
+    const appearance = useConfigAppearance(props);
     const handleClick = (event: MouseEvent) => {
       if (props.disabled) {
         event.preventDefault();
@@ -52,9 +54,9 @@ const FeatureCard = defineComponent({
             customClass,
             {
               "k-feature-card-bordered": props.bordered,
-              [`k-feature-card-${props.theme}`]: props.theme,
-              [`k-feature-card-${props.shape}`]: props.shape,
-              [`k-feature-card-${props.size}`]: props.size,
+              [`k-feature-card-${appearance.theme.value}`]: appearance.theme.value,
+              [`k-feature-card-${appearance.surfaceShape.value}`]: appearance.surfaceShape.value,
+              [`k-feature-card-${appearance.size.value}`]: appearance.size.value,
               [`k-feature-card-${props.direction}`]: props.direction,
               "k-feature-card-clickable": props.clickable,
               "k-feature-card-disabled": props.disabled,

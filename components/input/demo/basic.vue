@@ -11,10 +11,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
 const value = ref("");
-const blur = () => {
-  console.log("blur");
-};
-const focus = () => {
-  console.log("focus");
-};
+const blur = () => {};
+const focus = () => {};
 </script>

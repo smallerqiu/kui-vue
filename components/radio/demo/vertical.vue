@@ -3,7 +3,7 @@
     <RadioGroup :options="directions" v-model="direction" type="button" />
     <code>direction: {{ direction }}</code>
     <code>value: {{ cities }}</code>
-    <RadioGroup :options="options" v-model="cities" @change="change" :direction="direction" />
+    <RadioGroup :options="options" v-model="cities" :direction="direction" />
   </Space>
 </template>
 <script setup lang="ts">
@@ -22,8 +22,4 @@ const options = [
   { label: "Other", value: "other" },
 ];
 const cities = ref("wuhan");
-
-const change = (v: string | number) => {
-  console.log(v);
-};
 </script>

@@ -27,24 +27,30 @@ onMounted(() => {
 });
 
 const sort = ({ key, order }: SortState) => {
-  console.log(key, order);
+  fetch(key, order);
 };
 
 const fetch = (key?: string, order?: SortState["order"]) => {
-  console.log(key, order);
   loading.value = true;
   // 模拟异步加载数据排序
   setTimeout(() => {
     loading.value = false;
-    let fetchData = [
+    const fetchData = [
       { key: "0", name: "Qiu", age: 32, mail: "chuchur@qq.com" },
       { key: "3", name: "Wang Kang", age: 26, mail: "wangkang@gmail.com" },
       { key: "2", name: "Liu Hao", age: 27, mail: "liuhao@162.com" },
       { key: "1", name: "Li Lei", age: 33, mail: "hanlin@hotmail.com" },
       { key: "4", name: "Hu Cong", age: 25, mail: "hucong@163.com" },
     ];
-
-    data.value = fetchData;
+    const direction = order === "asc" ? 1 : -1;
+    data.value =
+      key && order
+        ? fetchData.sort(
+            (a, b) =>
+              String(a[key as keyof TableRow]).localeCompare(String(b[key as keyof TableRow])) *
+              direction,
+          )
+        : fetchData;
   }, 2000);
 };
 </script>

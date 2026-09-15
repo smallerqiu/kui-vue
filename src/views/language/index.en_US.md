@@ -1,8 +1,8 @@
 # Multilingual
 
-Starting from version 3.6+, KUI no longer relies on the i18npackage and implements multilingual support using Vue's provideand inject.
+KUI does not depend on a third-party i18n package. `ConfigProvider` supplies locale data to KUI components, which use Simplified Chinese by default.
 
-KUI components use Chinese by default internally. If you wish to use another language, you need to configure multilingual settings. Taking English as an example, in App.vue:
+Locale is normally configured at the root of the application. For example:
 
 ```html
 <template>
@@ -22,7 +22,11 @@ KUI components use Chinese by default internally. If you wish to use another lan
 
 [Multilingual switching example](./demo.vue?show=vertical)
 
-- Switch languages by modifying the locale property of ConfigProvider.
+- The demo focuses on components with built-in copy: date and selection controls, pagination, empty states, and overlays.
+- Descendant components react when the `locale` property of `ConfigProvider` changes.
+- DatePicker uses dayjs for date formatting. Load and set the matching dayjs locale when switching languages.
+- Application copy is not translated automatically; use your application's internationalization solution for it.
+- Programmatic APIs such as `modal.info` use the application's root `ConfigProvider` configuration.
 
 Currently, KUI has the following languages built-in:
 
@@ -40,4 +44,4 @@ Currently, KUI has the following languages built-in:
 - Ukrainian (uk)
 - Vietnamese (vi)
 
-We welcome code contributions to support more languages.[Join](https://github.com/smallerqiu/kui-vue/tree/master/components/locale/lang)
+Contributions for additional languages are welcome. [Contribute](https://github.com/smallerqiu/kui-vue/tree/master/components/locale)

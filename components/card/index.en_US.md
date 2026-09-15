@@ -40,7 +40,7 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 | icon     | Icon for the card title                    | string                                      | -       |
 | bordered | Whether the card displays a border         | boolean                                     | true    |
 | theme    | Surface theme                              | 'default' \| 'fill' \| 'outline' \| 'plain' | fill    |
-| shape    | Surface shape                              | 'round' \| 'square' \| 'circle'             | round   |
+| shape    | Surface shape                              | 'round' \| 'square'                         | round   |
 | size     | Card size                                  | 'small' \| 'medium' \| 'large'              | medium  |
 | extra    | Card title extension                       | slot                                        | -       |
 | cover    | Card cover; hides the card header when set | VNodeChild                                  | -       |

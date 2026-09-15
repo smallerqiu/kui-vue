@@ -7,6 +7,7 @@ import type {
 } from "vue";
 import { cloneVNode, defineComponent, Fragment, h, inject, provide, Text } from "vue";
 import { type BooleanType, type SizeType } from "../const/types";
+import { toCssLength } from "../utils/css";
 import { getChildren } from "../utils/vnode";
 const spaceProps = {
   align: {
@@ -33,12 +34,6 @@ const Space = defineComponent({
     const inheritedSize = props.size ?? parentSize;
     provide("size", typeof inheritedSize === "string" ? inheritedSize : undefined);
 
-    const toCssLength = (value: number | string | undefined) => {
-      if (typeof value === "number") return `${value}px`;
-      if (typeof value === "string") return /^-?\d+(\.\d+)?$/.test(value) ? `${value}px` : value;
-      return "0px";
-    };
-
     return () => {
       const size = props.size ?? parentSize;
       const children = getChildren(slots.default?.());
@@ -61,10 +56,10 @@ const Space = defineComponent({
         if (Array.isArray(size)) {
           const horizontal = size[0];
           const vertical = size[1] ?? horizontal;
-          style.gap = `${toCssLength(vertical)} ${toCssLength(horizontal)}`;
+          style.gap = `${toCssLength(vertical) ?? "0px"} ${toCssLength(horizontal) ?? "0px"}`;
         } else if (typeof size === "string") {
           const sizes: Record<string, number> = { small: 8, medium: 16, large: 24, default: 16 };
-          style.gap = `${sizes[size] || 16}px`;
+          style.gap = sizes[size] ? `${sizes[size]}px` : toCssLength(size);
         } else if (typeof size === "number") {
           style.gap = `${size}px`;
         } else if (!size) {

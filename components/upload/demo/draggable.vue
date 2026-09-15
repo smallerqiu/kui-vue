@@ -20,9 +20,6 @@ const headers = ref({
   authorization: "here is token",
 });
 const handleChange = (e: UploadChangeEvent) => {
-  if (e.file.status !== "uploading") {
-    console.log(e.file, e.fileList);
-  }
   if (e.file.status === "success") {
     message.success(`${e.file.filename} uploaded successfully`);
   } else if (e.file.status === "error") {

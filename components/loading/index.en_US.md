@@ -76,10 +76,10 @@ export default axiosInstance;
 
 ## Loading API
 
-| Property | Description              | Type                    | Default |
-| -------- | ------------------------ | ----------------------- | ------- |
-| start    | Start loading            | () => void              | -       |
-| finish   | Finish loading           | () => void              | -       |
-| error    | Loading error            | () => void              | -       |
-| update   | Manually update progress | (percent:number)=> void | -       |
-| destroy  | vue's $.destroy()        | () => void              | -       |
+| Property | Description                                      | Type                                            | Default |
+| -------- | ------------------------------------------------ | ----------------------------------------------- | ------- |
+| start    | Start loading with an optional bar height        | (props?: { height?: number \| string }) => void | -       |
+| finish   | Finish loading                                   | () => void                                      | -       |
+| error    | Show a loading error with an optional bar height | (props?: { height?: number \| string }) => void | -       |
+| update   | Manually update progress                         | (percent:number)=> void                         | -       |
+| destroy  | vue's $.destroy()                                | () => void                                      | -       |

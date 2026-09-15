@@ -22,7 +22,12 @@ import {
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
 import type { ShapeType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 import Icon from "../icon";
 import { Input } from "../input";
 import zhCN from "../locale/zh-CN";
@@ -73,6 +78,7 @@ const AutoComplete = defineComponent({
   },
   setup(props, { emit, attrs }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     usePopupHost(() => visible.value && setOpen(false));
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
@@ -309,9 +315,9 @@ const AutoComplete = defineComponent({
           disabled={props.disabled || field?.disabled.value}
           readonly={props.readonly || field?.readonly.value}
           placeholder={props.placeholder}
-          size={props.size || field?.size.value}
-          shape={props.shape || field?.shape.value}
-          theme={field?.theme.value ?? props.theme}
+          size={appearance.size.value}
+          shape={appearance.shape.value}
+          theme={appearance.theme.value}
           clearable={props.clearable}
           role="combobox"
           aria-autocomplete="list"

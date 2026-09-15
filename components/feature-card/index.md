@@ -29,7 +29,7 @@
 | desc           | 描述内容，也可通过同名插槽自定义            | string \| VNodeChild     | -          |
 | bordered       | 是否显示边框                                | boolean                  | false      |
 | theme          | 外观主题                                    | ThemeType                | fill       |
-| shape          | 卡片形状                                    | ShapeType                | round      |
+| shape          | 卡片形状                                    | 'round' \| 'square'      | round      |
 | size           | 卡片尺寸                                    | SizeType                 | medium     |
 | direction      | 内容排列方向                                | `horizontal \| vertical` | horizontal |
 | clickable      | 是否可交互；启用键盘及按钮语义              | boolean                  | false      |

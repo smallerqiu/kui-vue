@@ -1,7 +1,12 @@
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
 import type { BooleanType, ButtonType, ShapeType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 import type { IconType } from "../icon";
 import type { ChangeEvent } from "./types";
 
@@ -34,6 +39,7 @@ const RadioButton = defineComponent({
   },
   setup(props, { slots, emit, attrs }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const isChecked = ref(
       field?.prop ? Boolean(field.value.value) : (props.modelValue ?? props.checked ?? false),
     );
@@ -82,10 +88,10 @@ const RadioButton = defineComponent({
       const buttonProps = {
         ...attrs,
         disabled,
-        size: props.size || field?.size.value,
+        size: appearance.size.value,
         icon: props.icon,
-        theme: props.theme || field?.theme.value,
-        shape: props.shape || field?.shape.value,
+        theme: appearance.theme.value,
+        shape: appearance.shape.value,
         ...resolveFormControlAttrs(attrs, field),
         "aria-readonly": readonly || undefined,
         "aria-checked": Boolean(isChecked.value),

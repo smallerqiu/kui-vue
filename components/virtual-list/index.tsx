@@ -10,6 +10,7 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
+import { toCssLength } from "../utils/css";
 import { getVirtualRange, normalizeItemHeight } from "./range";
 
 export type VirtualListKey = string | number;
@@ -118,7 +119,7 @@ const VirtualList = defineComponent({
       return index;
     };
     return () => {
-      const height = typeof props.height === "number" ? `${props.height}px` : props.height;
+      const height = toCssLength(props.height);
       return (
         <div
           {...attrs}

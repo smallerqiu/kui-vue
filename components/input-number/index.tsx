@@ -10,7 +10,12 @@ import {
   type PropType,
 } from "vue";
 import { type BooleanType, type ShapeType, type SizeType, type ThemeType } from "../const/types";
-import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 import Icon, { type IconType } from "../icon";
 import { Input } from "../input";
 import { isValidBig, normalize } from "../utils/number";
@@ -54,6 +59,7 @@ const InputNumber = defineComponent({
 
   setup(props, { slots, attrs, emit }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const parentSize = inject<SizeType | undefined>("size", undefined);
     const innerValue = ref("");
     const userInput = ref<string | null>(null);
@@ -172,10 +178,10 @@ const InputNumber = defineComponent({
         placeholder: props.placeholder,
         suffix: props.suffix,
         prefix: props.prefix,
-        size: props.size || field?.size.value || parentSize,
+        size: appearance.size.value || parentSize,
         icon: props.icon,
-        shape: props.shape,
-        theme: props.theme,
+        shape: appearance.shape.value,
+        theme: appearance.theme.value,
         inputType: "input-number",
         role: "spinbutton",
         inputmode: "decimal" as const,

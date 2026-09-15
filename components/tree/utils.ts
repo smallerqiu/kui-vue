@@ -20,6 +20,8 @@ export interface TreeNode {
   [key: string]: unknown;
 }
 
+export type TreeNodeData = Record<string, unknown> & Partial<TreeNode>;
+
 export interface BuildTreeOptions {
   data: TreeNode[];
   expandedKeys?: string[];

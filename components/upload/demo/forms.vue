@@ -82,7 +82,6 @@ const wrapperCol = { span: 16 };
 const files = ref<string[]>([]);
 const getResponseUrl = (file: UploadFile) => (file.response as { url?: string } | undefined)?.url;
 const uploadFile = ({ file }: UploadChangeEvent) => {
-  console.log(file);
   loading.value = true;
   if (file.status == "success") {
     loading.value = false;

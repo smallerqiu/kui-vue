@@ -31,6 +31,7 @@
 | steps          | 引导步骤            | TourStep[] | []     |
 | mask           | 显示遮罩            | boolean    | true   |
 | closable       | 显示关闭按钮        | boolean    | true   |
+| escKey         | 按 Esc 关闭引导     | boolean    | true   |
 | onChange       | 步骤变化            | function   | -      |
 | onOpenChange   | 显示状态变化        | function   | -      |
 | onFinish       | 完成引导            | function   | -      |

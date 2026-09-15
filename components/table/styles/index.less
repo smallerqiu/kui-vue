@@ -254,6 +254,12 @@
     box-sizing: content-box;
   }
 
+  // Empty normally provides the table body's height. Keep an equivalent
+  // content area while loading so the spinner is not centred over the header.
+  &-loading-placeholder {
+    min-height: 160px;
+  }
+
   &-fixed {
     table {
       table-layout: fixed;
@@ -561,9 +567,6 @@
 .k-table-round,
 .k-table-default {
   border-radius: var(--kui-shape-round);
-}
-.k-table-circle {
-  border-radius: var(--kui-shape-circle);
 }
 .k-table-square {
   border-radius: var(--kui-shape-square);

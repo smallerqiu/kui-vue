@@ -61,6 +61,18 @@ export default defineComponent({
       document.removeEventListener("mousemove", handleMove);
       document.removeEventListener("mouseup", onMouseUp);
     };
+    const onKeydown = (event: KeyboardEvent) => {
+      const current = Color(props.modelValue).alpha();
+      const step = event.shiftKey ? 0.1 : 0.01;
+      let value = current;
+      if (event.key === "ArrowRight" || event.key === "ArrowUp") value += step;
+      else if (event.key === "ArrowLeft" || event.key === "ArrowDown") value -= step;
+      else if (event.key === "Home") value = 0;
+      else if (event.key === "End") value = 1;
+      else return;
+      event.preventDefault();
+      emit("updateAlpha", Number(clamp(value, 0, 1).toFixed(2)));
+    };
 
     watch(
       () => props.modelValue,
@@ -84,7 +96,14 @@ export default defineComponent({
           width={190}
           height={8}
           ref={refPaint}
+          role="slider"
+          tabindex={0}
+          aria-label="Opacity"
+          aria-valuemin={0}
+          aria-valuemax={1}
+          aria-valuenow={Color(props.modelValue).alpha()}
           onMousedown={onMouseDown}
+          onKeydown={onKeydown}
         />
         <span
           class="k-color-picker-alpha-dot"

@@ -37,7 +37,6 @@ const TabPanel = defineComponent({
       () => tabUpdateNav?.(),
       { flush: "post" },
     );
-    // console.log(activeKey.value, key);
     return () => {
       return (
         <div

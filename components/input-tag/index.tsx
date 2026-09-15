@@ -1,7 +1,12 @@
 import { CircleX } from "kui-icons";
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { ShapeType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 import Icon from "../icon";
 import Space from "../space";
 import Tag from "../tag";
@@ -38,6 +43,7 @@ const InputTag = defineComponent({
   },
   setup(props, { emit, attrs }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const inner = ref([...props.value]);
     const draft = ref("");
     const input = ref<HTMLInputElement>();
@@ -134,9 +140,9 @@ const InputTag = defineComponent({
       const hiddenCount = hiddenValues.length;
       const isDisabled = disabled();
       const isReadonly = readonly();
-      const size = field?.size.value ?? props.size;
-      const shape = props.shape || field?.shape.value;
-      const theme = field?.theme.value ?? props.theme;
+      const size = appearance.size.value;
+      const shape = appearance.shape.value;
+      const theme = appearance.theme.value;
 
       return (
         <div

@@ -15,7 +15,10 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  transition: all 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+  transition:
+    width 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
+    border-color 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
+    background-color 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
   display: inline-block;
   box-sizing: border-box;
   overflow: hidden;
@@ -43,7 +46,10 @@
     top: 50%;
     cursor: inherit;
     transform: translate3d(0, -50%, 0);
-    transition: all 0.36s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+    transition:
+      left 0.36s cubic-bezier(0.78, 0.14, 0.15, 0.86),
+      width 0.36s cubic-bezier(0.78, 0.14, 0.15, 0.86),
+      transform 0.36s cubic-bezier(0.78, 0.14, 0.15, 0.86);
     box-shadow:
       0 4px 6px rgba(0, 0, 0, 0.1),
       0 0 1px rgba(0, 0, 0, 0.3);

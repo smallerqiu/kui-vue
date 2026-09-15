@@ -1,17 +1,14 @@
 <template>
-  <Tree :data="data" :loadData="loadData" @expand="expand" />
+  <Tree :data="data" :loadData="loadData" />
 </template>
 <script setup lang="ts">
-import type { TreeExpandEvent, TreeNode } from "kui-vue";
+import type { TreeNode } from "kui-vue";
 import { ref } from "vue";
 const data = ref([
   { title: "Expand to load", key: "0-0" },
   { title: "Expand to load", key: "0-1" },
   { title: "Tree Node", isLeaf: true, key: "0-2" },
 ]);
-const expand = (data: TreeExpandEvent) => {
-  console.log(data);
-};
 const insertChildren = (nodes: TreeNode[], targetKey: string, childrenData: TreeNode[]) => {
   for (const node of nodes) {
     if (node.key === targetKey) {

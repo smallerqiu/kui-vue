@@ -43,7 +43,9 @@
   border-radius: var(--kui-shape-square);
 }
 .k-input-number-controls {
-  transition: all 0.15s ease-in-out;
+  transition:
+    color 0.15s ease-in-out,
+    opacity 0.15s ease-in-out;
   -webkit-user-select: none;
   user-select: none;
   display: flex;
@@ -151,7 +153,9 @@
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
-  transition: all var(--kui-motion-duration) var(--kui-motion-easing);
+  transition:
+    color var(--kui-motion-duration) var(--kui-motion-easing),
+    opacity var(--kui-motion-duration) var(--kui-motion-easing);
   display: flex;
 
   &:hover {
@@ -160,7 +164,7 @@
 
   .k-icon {
     font-size: var(--kui-font-size);
-    transition: all var(--kui-motion-duration) var(--kui-motion-easing);
+    transition: color var(--kui-motion-duration) var(--kui-motion-easing);
     color: var(--kui-color-icon);
   }
 }

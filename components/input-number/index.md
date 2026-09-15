@@ -47,3 +47,5 @@
 | placeholder | 输入框占位提示                                             | string                               | -         |
 | keyboard    | 是否允许键盘控制                                           | boolean                              | true      |
 | onChange    | 变化回调，清空时返回 `undefined`                           | (value: number \| undefined) => void | -         |
+| onBlur      | 输入框失焦时触发                                           | (event: FocusEvent) => void          | -         |
+| onKeydown   | 输入框按键时触发                                           | (event: KeyboardEvent) => void       | -         |

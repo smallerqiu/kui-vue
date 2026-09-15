@@ -1,12 +1,13 @@
 import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
-import Card from "../card";
-import type { BooleanType, ShapeType, SizeType } from "../const/types";
+import Card, { type CardShape } from "../card";
+import { useConfigAppearance } from "../config/context";
+import type { BooleanType, SizeType } from "../const/types";
 
 const listPanelProps = {
   summary: [String, Number, Object, Array] as PropType<VNodeChild>,
   bordered: { type: Boolean as BooleanType, default: true },
   theme: { type: String as PropType<"fill" | "outline" | "plain">, default: "outline" },
-  shape: { type: String as PropType<ShapeType>, default: "round" },
+  shape: { type: String as PropType<CardShape>, default: "round" },
   size: { type: String as PropType<SizeType>, default: "medium" },
   selectedCount: { type: Number, default: 0 },
 };
@@ -17,6 +18,7 @@ const ListPanel = defineComponent({
   name: "ListPanel",
   props: listPanelProps,
   setup(props, { attrs, slots }) {
+    const appearance = useConfigAppearance(props);
     return () => {
       const { class: customClass, ...restAttrs } = attrs;
       const hasSummary = props.summary != null || Boolean(slots.summary);
@@ -28,9 +30,9 @@ const ListPanel = defineComponent({
           {...restAttrs}
           class={["k-list-panel", { "k-list-panel-borderless": !props.bordered }, customClass]}
           bordered={props.bordered}
-          theme={props.theme}
-          shape={props.shape}
-          size={props.size}
+          theme={appearance.theme.value}
+          shape={appearance.shape.value === "square" ? "square" : "round"}
+          size={appearance.size.value}
         >
           {hasToolbar && (
             <div

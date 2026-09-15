@@ -12,7 +12,7 @@ const canvasContext = {
 
 beforeEach(() => {
   vi.spyOn(HTMLCanvasElement.prototype, "getContext").mockReturnValue(
-    canvasContext as unknown as CanvasRenderingContext2D
+    canvasContext as unknown as CanvasRenderingContext2D,
   );
   vi.spyOn(HTMLCanvasElement.prototype, "getBoundingClientRect").mockImplementation(function () {
     const width = this.classList.contains("k-color-picker-paint") ? 234 : 190;
@@ -28,6 +28,30 @@ afterEach(() => {
 });
 
 describe("ColorPicker", () => {
+  it("supports keyboard opening and slider adjustments", async () => {
+    const wrapper = mount(ColorPicker, { props: { modelValue: "#ff0000" } });
+    await wrapper.trigger("keydown", { key: "Enter" });
+    await nextTick();
+
+    expect(wrapper.attributes("aria-expanded")).toBe("true");
+    const hue = document.body.querySelector<HTMLElement>(".k-color-picker-hue");
+    expect(hue?.getAttribute("role")).toBe("slider");
+    hue?.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowRight", bubbles: true }));
+    await nextTick();
+    expect(wrapper.emitted("change")).toBeTruthy();
+    wrapper.unmount();
+  });
+
+  it("forwards native attributes and merges root classes", () => {
+    const wrapper = mount(ColorPicker, {
+      attrs: { id: "brand-color", class: "custom-picker", "aria-label": "Brand color" },
+    });
+
+    expect(wrapper.attributes("id")).toBe("brand-color");
+    expect(wrapper.classes()).toContain("custom-picker");
+    expect(wrapper.attributes("aria-label")).toBe("Brand color");
+  });
+
   it("synchronizes external color and mode changes", async () => {
     const wrapper = mount(ColorPicker, {
       props: { panelOnly: true, modelValue: "#ff0000", mode: "hex" },
@@ -39,7 +63,7 @@ describe("ColorPicker", () => {
     expect(wrapper.findComponent({ name: "Paint" }).props("hue")).toBe(210);
     expect(wrapper.findComponent({ name: "Mode" }).props("mode")).toBe("rgb");
     expect(parseFloat(wrapper.find(".k-color-picker-hue-dot").element.style.left)).toBeCloseTo(
-      103.83
+      103.83,
     );
     expect(parseFloat(wrapper.find(".k-color-picker-alpha-dot").element.style.left)).toBe(88);
   });

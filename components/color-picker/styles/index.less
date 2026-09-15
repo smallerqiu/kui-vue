@@ -90,6 +90,21 @@
   }
 }
 
+.k-color-picker-fill {
+  border-color: transparent;
+  background: var(--kui-theme-fill-bg);
+
+  &.k-color-picker-opened {
+    border-color: transparent;
+  }
+}
+
+.k-color-picker-plain {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
 .k-color-picker-lg {
   height: var(--kui-control-height-lg);
 
@@ -422,6 +437,11 @@
   .k-color-picker-color {
     border-radius: 50%;
   }
+}
+
+.k-color-picker-square,
+.k-color-picker-square .k-color-picker-color {
+  border-radius: var(--kui-shape-square);
 }
 
 .k-color-picker-enter-active {

@@ -1,8 +1,9 @@
+import { spawn, spawnSync } from "node:child_process";
 import fs from "node:fs";
+import { createRequire } from "node:module";
 import os from "node:os";
 import path from "node:path";
-import { spawn, spawnSync } from "node:child_process";
-import { createRequire } from "node:module";
+import process from "node:process";
 import { afterEach, describe, expect, it } from "vitest";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -33,11 +34,11 @@ describe("AI distribution assets", () => {
       metadata.components.every(
         (component) =>
           component.props.length === 0 ||
-          component.props.every((prop) => prop.descriptionEn && prop.descriptionZh)
-      )
+          component.props.every((prop) => prop.descriptionEn && prop.descriptionZh),
+      ),
     ).toBe(true);
     expect(metadata.components.find((component) => component.name === "Option")?.parent).toBe(
-      "Select"
+      "Select",
     );
   });
 
@@ -45,7 +46,7 @@ describe("AI distribution assets", () => {
     const compact = fs.readFileSync(path.join(root, "public/llms.txt"), "utf8");
     const full = fs.readFileSync(path.join(root, "public/llms-full.txt"), "utf8");
     const schema = JSON.parse(
-      fs.readFileSync(path.join(root, "public/schema/kui-components.schema.json"), "utf8")
+      fs.readFileSync(path.join(root, "public/schema/kui-components.schema.json"), "utf8"),
     ) as { $id: string };
     expect(compact).toContain("https://k-ui.cn/components/select");
     expect(full.length).toBeGreaterThan(compact.length);
@@ -58,7 +59,7 @@ describe("AI distribution assets", () => {
     const require = createRequire(import.meta.url);
     expect(require.resolve("kui-vue/metadata")).toBe(path.join(root, "ai/kui-components.json"));
     expect(require.resolve("kui-vue/metadata/schema")).toBe(
-      path.join(root, "ai/kui-components.schema.json")
+      path.join(root, "ai/kui-components.schema.json"),
     );
     expect(require.resolve("kui-vue/skill")).toBe(path.join(root, "ai/skills/kui-vue/SKILL.md"));
     const skill = fs.readFileSync(require.resolve("kui-vue/skill"), "utf8");
@@ -93,22 +94,22 @@ describe("AI distribution assets", () => {
       lines.filter(Boolean).forEach((line) => responses.push(JSON.parse(line)));
     });
     child.stdin.write(
-      `${JSON.stringify({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-06-18" } })}\n`
+      `${JSON.stringify({ jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2025-06-18" } })}\n`,
     );
     child.stdin.write(
-      `${JSON.stringify({ jsonrpc: "2.0", id: 2, method: "tools/call", params: { name: "search_components", arguments: { query: "VirtualList" } } })}\n`
+      `${JSON.stringify({ jsonrpc: "2.0", id: 2, method: "tools/call", params: { name: "search_components", arguments: { query: "VirtualList" } } })}\n`,
     );
     child.stdin.write(
-      `${JSON.stringify({ jsonrpc: "2.0", id: 3, method: "resources/read", params: { uri: "kui-vue://components/Select" } })}\n`
+      `${JSON.stringify({ jsonrpc: "2.0", id: 3, method: "resources/read", params: { uri: "kui-vue://components/Select" } })}\n`,
     );
     child.stdin.write(
-      `${JSON.stringify({ jsonrpc: "2.0", id: 4, method: "prompts/get", params: { name: "build_table", arguments: { columns: "name and status" } } })}\n`
+      `${JSON.stringify({ jsonrpc: "2.0", id: 4, method: "prompts/get", params: { name: "build_table", arguments: { columns: "name and status" } } })}\n`,
     );
     child.stdin.write(
-      `${JSON.stringify({ jsonrpc: "2.0", id: 5, method: "tools/call", params: { name: "recommend_components", arguments: { requirement: "后台数据表格" } } })}\n`
+      `${JSON.stringify({ jsonrpc: "2.0", id: 5, method: "tools/call", params: { name: "recommend_components", arguments: { requirement: "后台数据表格" } } })}\n`,
     );
     child.stdin.write(
-      `${JSON.stringify({ jsonrpc: "2.0", id: 6, method: "tools/call", params: { name: "validate_kui_usage", arguments: { source: "<Select made-up />" } } })}\n`
+      `${JSON.stringify({ jsonrpc: "2.0", id: 6, method: "tools/call", params: { name: "validate_kui_usage", arguments: { source: "<Select made-up />" } } })}\n`,
     );
     await new Promise<void>((resolve, reject) => {
       const timeout = setTimeout(() => reject(new Error("MCP response timed out")), 2000);

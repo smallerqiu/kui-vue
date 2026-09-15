@@ -57,6 +57,17 @@ export default defineComponent({
       document.addEventListener("mouseup", onMouseUp);
       e.preventDefault();
     };
+    const onKeydown = (event: KeyboardEvent) => {
+      const step = event.shiftKey ? 10 : 1;
+      let value = props.hue;
+      if (event.key === "ArrowRight" || event.key === "ArrowUp") value += step;
+      else if (event.key === "ArrowLeft" || event.key === "ArrowDown") value -= step;
+      else if (event.key === "Home") value = 0;
+      else if (event.key === "End") value = 360;
+      else return;
+      event.preventDefault();
+      emit("updateHue", clamp(value, 0, 360));
+    };
 
     watch(() => props.hue, updatePos);
     onMounted(() => {
@@ -73,7 +84,14 @@ export default defineComponent({
           width={190}
           height={8}
           ref={refPaint}
+          role="slider"
+          tabindex={0}
+          aria-label="Hue"
+          aria-valuemin={0}
+          aria-valuemax={360}
+          aria-valuenow={Math.round(props.hue)}
           onMousedown={onMouseDown}
+          onKeydown={onKeydown}
         />
         <span class="k-color-picker-hue-dot" style={{ left: `${dotPos.value}px` }} />
       </div>

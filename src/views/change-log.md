@@ -15,6 +15,53 @@ vite 好像有缓存, 可手动清除
 rm -rf node_modules/.vite
 ```
 
+## 6.0.0
+
+`2026-9-15`
+
+### 重要变更
+
+- 最低 Vue 版本调整为 `3.5.0`，以使用稳定 ID、完善的类型推导及新版运行时能力。升级前请先确认业务项目使用 Vue 3.5 或更高版本。
+- 新增 `Segmented` 分段控制器，替代原先由 `RadioGroup` 承担的卡片式滑块场景；`Radio`、`RadioButton` 和 `RadioGroup` 回归单选语义。
+- 重新梳理表单控件的受控值、默认值、重置、只读、禁用和事件语义。依赖旧版非标准行为的项目建议重点回归 Form、Radio、Rate、Slider、InputNumber 与日期范围表单。
+
+### 新增组件与能力
+
+- 新增 `Segmented` 组件，支持受控与非受控值、不同尺寸、禁用项、自定义图标和自定义标签内容，并提供带动画的选中滑块。
+- `Cascader` 新增按需异步加载，支持加载状态、并发去重、结果缓存、空结果处理、失败重试，以及返回子节点或直接更新 `option.children` 两种用法。
+- `Upload` 新增自定义上传请求、文件校验、并发控制、错误信息和图片墙拖拽排序，完善上传进度、文件状态与照片墙交互。
+- `Tabs` 新增 `browser` 浏览器页签外观、可关闭及动态新增页签，并将溢出页签收纳到下拉菜单中快速切换。
+- `Menu` 新增折叠 Tooltip 控制、折叠状态子菜单浮层、键盘导航和多级菜单状态恢复。
+- `Descriptions` 新增响应式列配置；`BackTop` 支持自定义滚动容器；`Page` 完善 simple 模式、页码编辑和自适应页容量选择器。
+
+### Form 与输入控件
+
+- 重构 FormField 上下文并接入主要表单控件，统一 Form 的 `size`、`theme`、`shape`、`disabled` 和 `readonly` 继承行为。
+- `resetFields` 现在恢复字段初始值，并修复外部替换 model、调用 `setFieldsValue`、动态字段及单选框重置不同步的问题。
+- 完善规则触发、异步校验竞争、可选空值、正则复用和错误信息布局；长错误文案不再覆盖下一项。
+- 增加稳定字段 ID，以及 `label for`、`aria-invalid`、`aria-describedby`、`role="alert"` 等无障碍关联。
+- `Input` 新增 `addonBefore`、`addonAfter`，统一前后缀、清空按钮和 InputGroup 布局；修复 fill/outline、禁用、暗色模式及不同尺寸下的状态样式。
+- `Select`、`TreeSelect`、`AutoComplete`、`Mentions`、`InputTag` 等组件统一 clearable、readonly、标签、下拉动画、键盘操作及远程搜索状态。
+- `Switch` 增加语义色和自定义颜色；`InputNumber` 支持字符串步长；`InputOTP` 完善长度边界、主题和输入行为。
+
+### 复杂组件增强
+
+- `DatePicker` 完善范围值及 `startDate`、`endDate` 双向绑定、日期与时间面板、键盘交互、弹层动画和外部值同步。
+- `Table` 完善虚拟滚动、树形展开、固定列、斑马纹、列显隐、横向最小宽度和加载状态；加载空数据时不再同时展示 Empty。
+- `Tree`、`TreeSelect` 优化虚拟列表、过滤、展开动画、键盘操作和浮层重新定位。
+- `Drawer` 修复 target 指向元素时仍挂载到 body 的问题，并统一目标容器定位恢复、滚动锁定和子弹层关闭行为。
+- `Modal`、`Drawer` 与其他 Popup 建立统一宿主管理，父级关闭或按 Esc 时会同步关闭 Teleport 到 body 的子弹层。
+- `Skeleton` 重构为 flex 布局，新增 `titleWidth`，统一延迟显示并避免 loading 快速切换闪烁，同时完善 reduced-motion 与无障碍状态。
+- `QRCode` 完善状态遮罩、刷新键盘操作、Logo 绘制、主题色解析和下载能力。
+
+### 交互、样式与文档
+
+- 统一组件尺寸、主题、形状、禁用态、清空按钮、标签、遮罩和弹层动画，修复暗色模式及多处首次展开闪现问题。
+- 统一公共动画并移除组件样式中的 `transition: all`，减少无关属性动画和布局抖动。
+- 修复 Layout.Sider 宽度与折叠动画、Steps 对齐、Anchor 固定定位、Breadcrumb 分隔符更新、Dropdown 右键菜单定位等问题。
+- 统一 Vue 事件声明与参数校验，清理无效的 `onXxx` Props、调试日志和重复文档表格。
+- 扩充中英文 API、功能 Demo、类型声明、Vetur/Web Types 和 AI 元数据；加强 API 文档、包导出、AI 资源及评测的 CI 校验。
+
 ## 5.8.0
 
 `2026-8-24`

@@ -18,7 +18,9 @@
     left: -2px;
     width: 2px;
     background-color: var(--kui-color-primary);
-    transition: all 0.3s cubic-bezier(0.45, 0.05, 0.55, 0.95);
+    transition:
+      top 0.3s cubic-bezier(0.45, 0.05, 0.55, 0.95),
+      height 0.3s cubic-bezier(0.45, 0.05, 0.55, 0.95);
     border-radius: 2px;
   }
 }
@@ -30,7 +32,7 @@
   .k-anchor-link-title {
     display: block;
     position: relative;
-    transition: all 0.3s;
+    transition: color 0.3s;
     color: var(--kui-color-text);
     white-space: nowrap;
     text-overflow: ellipsis;

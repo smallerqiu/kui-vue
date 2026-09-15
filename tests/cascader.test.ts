@@ -72,8 +72,77 @@ describe("Cascader", () => {
     item.click();
     item.click();
     expect(loadData).toHaveBeenCalledOnce();
+    await nextTick();
+    expect(item.getAttribute("aria-busy")).toBe("true");
+    expect(item.querySelector(".k-load-loop")).not.toBeNull();
     resolveLoad([{ label: "Loaded child", value: "child", isLeaf: true }]);
     await flushPromises();
+    expect(item.hasAttribute("aria-busy")).toBe(false);
+    expect(item.querySelector(".k-load-loop")).toBeNull();
     expect(document.body.textContent).toContain("Loaded child");
+  });
+
+  it("treats an empty successful load as completed", async () => {
+    const loadData = vi.fn(async () => [] as CascaderOption[]);
+    const wrapper = mount(Cascader, {
+      props: {
+        options: [{ label: "Empty branch", value: "empty", isLeaf: false }],
+        loadData,
+      },
+      attachTo: document.body,
+    });
+    await wrapper.trigger("click");
+    await nextTick();
+    const item = document.querySelector<HTMLElement>(".k-cascader-dropdown-item")!;
+    item.click();
+    await flushPromises();
+    item.click();
+    await flushPromises();
+
+    expect(loadData).toHaveBeenCalledOnce();
+    expect(wrapper.emitted("change")?.at(-1)?.[0]).toEqual(["empty"]);
+  });
+
+  it("allows a failed load to be retried", async () => {
+    const loadData = vi
+      .fn<() => Promise<CascaderOption[]>>()
+      .mockRejectedValueOnce(new Error("network"))
+      .mockResolvedValueOnce([{ label: "Retried child", value: "child", isLeaf: true }]);
+    const wrapper = mount(Cascader, {
+      props: {
+        options: [{ label: "Retry branch", value: "retry", isLeaf: false }],
+        loadData,
+      },
+      attachTo: document.body,
+    });
+    await wrapper.trigger("click");
+    await nextTick();
+    const item = document.querySelector<HTMLElement>(".k-cascader-dropdown-item")!;
+    item.click();
+    await flushPromises();
+    item.click();
+    await flushPromises();
+
+    expect(loadData).toHaveBeenCalledTimes(2);
+    expect(document.body.textContent).toContain("Retried child");
+  });
+
+  it("supports loadData mutating option children and returning void", async () => {
+    const option: CascaderOption = { label: "Mutable branch", value: "mutable", isLeaf: false };
+    const loadData = vi.fn(async (target: CascaderOption) => {
+      target.children = [{ label: "Mutated child", value: "child", isLeaf: true }];
+    });
+    const wrapper = mount(Cascader, {
+      props: { options: [option], loadData },
+      attachTo: document.body,
+    });
+    await wrapper.trigger("click");
+    await nextTick();
+    document.querySelector<HTMLElement>(".k-cascader-dropdown-item")!.click();
+    await flushPromises();
+    await nextTick();
+
+    expect(loadData).toHaveBeenCalledOnce();
+    expect(document.body.textContent).toContain("Mutated child");
   });
 });

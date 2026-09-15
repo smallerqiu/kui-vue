@@ -411,6 +411,10 @@
   & * {
     cursor: not-allowed;
   }
+
+  &.k-input-fill {
+    border-color: transparent;
+  }
 }
 .k-input-group-suffix,
 .k-input-group-prefix {
@@ -529,7 +533,9 @@
   }
 }
 
-:where(.k-input-plain, .k-textarea-plain) {
+.k-input.k-input-plain[data-single],
+.k-input.k-input-plain[data-multiple],
+.k-textarea.k-textarea-plain {
   border-color: transparent;
   background: transparent;
   box-shadow: none;

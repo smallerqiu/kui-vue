@@ -6,6 +6,7 @@ import {
   onBeforeUnmount,
   ref,
   Teleport,
+  toRaw,
   Transition,
   watch,
   type CSSProperties,
@@ -13,7 +14,7 @@ import {
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
 import Empty from "../empty";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import Icon from "../icon";
 import { setPlacement } from "../utils/placement";
 import { cascaderProps, type CascaderOption, type CascaderValue } from "./types";
@@ -29,6 +30,7 @@ const Cascader = defineComponent({
   },
   setup(props, { emit }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const modelValue = computed<CascaderValue>(() =>
       field?.prop && Array.isArray(field.value.value)
         ? (field.value.value as CascaderValue)
@@ -57,7 +59,7 @@ const Cascader = defineComponent({
     let unmounted = false;
     let positionRaf = 0;
     const getOptionChildren = (option: CascaderOption) =>
-      loadedChildren.value.get(option) || option.children || [];
+      option.children ?? loadedChildren.value.get(option) ?? [];
     const isExpandable = (option: CascaderOption) =>
       getOptionChildren(option).length > 0 ||
       Boolean(props.loadData && option.isLeaf !== true && !loadedChildren.value.has(option));
@@ -69,9 +71,15 @@ const Cascader = defineComponent({
       nextFailed.delete(option);
       failedOptions.value = nextFailed;
       try {
-        const result = await props.loadData(option, path);
-        const children = Array.isArray(result) ? result : option.children || [];
+        const rawOption = toRaw(option);
+        const result = await props.loadData(
+          rawOption,
+          path.map((item) => toRaw(item)),
+        );
+        const children = Array.isArray(result) ? result : rawOption.children || [];
         if (!unmounted) {
+          // An empty successful response is still a completed load. Caching it
+          // prevents the node from remaining expandable and loading forever.
           loadedChildren.value = new Map(loadedChildren.value).set(option, children);
           activePath.value = [...activePath.value];
           updatePosition();
@@ -452,6 +460,7 @@ const Cascader = defineComponent({
                               key={item.value}
                               role="option"
                               aria-disabled={item.disabled}
+                              aria-busy={isLoading || undefined}
                               aria-selected={isSelected}
                               onClick={() => handleOptionClick(item, columnIndex, false)}
                               onMouseenter={() => {
@@ -486,9 +495,9 @@ const Cascader = defineComponent({
       const { showArrow, placeholder, clearable, bordered, arrowIcon, icon } = props;
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
-      const size = props.size || field?.size.value;
-      const theme = field?.theme.value ?? props.theme;
-      const shape = props.shape || field?.shape.value;
+      const size = appearance.size.value;
+      const theme = appearance.theme.value;
+      const shape = appearance.shape.value;
       const hasValue = modelValue.value.length > 0;
       const showClear = clearable && !disabled && !readonly && hasValue;
 

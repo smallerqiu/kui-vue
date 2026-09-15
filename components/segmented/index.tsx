@@ -11,7 +11,12 @@ import {
   type VNodeChild,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType } from "../const/types";
-import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 import Icon, { type IconType } from "../icon";
 
 export type SegmentedValue = string | number;
@@ -58,6 +63,7 @@ const Segmented = defineComponent({
   },
   setup(props, { attrs, emit, slots }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const currentValue = computed(() =>
       field?.prop ? (field.value.value as SegmentedValue | undefined) : props.modelValue,
     );
@@ -135,8 +141,10 @@ const Segmented = defineComponent({
       { deep: true },
     );
     onMounted(() => {
-      observer = new ResizeObserver(updateIndicator);
-      if (rootRef.value) observer.observe(rootRef.value);
+      if (typeof ResizeObserver !== "undefined") {
+        observer = new ResizeObserver(updateIndicator);
+        if (rootRef.value) observer.observe(rootRef.value);
+      }
       updateIndicator();
     });
     onUnmounted(() => {
@@ -144,55 +152,59 @@ const Segmented = defineComponent({
       cancelAnimationFrame(frame);
     });
 
-    return () => (
-      <div
-        {...attrs}
-        ref={rootRef}
-        class={[
-          "k-segmented",
-          attrs.class,
-          `k-segmented-${props.size}`,
-          `k-segmented-${props.shape}`,
-          {
-            "k-segmented-block": props.block,
-            "k-segmented-vertical": isVertical.value,
-            "k-segmented-disabled": props.disabled || field?.disabled.value,
-          },
-        ]}
-        role="radiogroup"
-        {...resolveFormControlAttrs(attrs, field)}
-        aria-disabled={props.disabled || field?.disabled.value || undefined}
-        aria-readonly={props.readonly || field?.readonly.value || undefined}
-        onFocusout={() => field?.blur()}
-        onKeydown={move}
-      >
-        {props.options.map((option) => {
-          const selected = option.value === currentValue.value;
-          return (
-            <button
-              key={option.value}
-              ref={(el) =>
-                el ? itemRefs.set(option.value, el as HTMLElement) : itemRefs.delete(option.value)
-              }
-              type="button"
-              class={["k-segmented-item", { "k-segmented-item-active": selected }]}
-              role="radio"
-              aria-checked={selected}
-              disabled={props.disabled || field?.disabled.value || option.disabled}
-              tabindex={selected ? 0 : -1}
-              onClick={() => select(option)}
-            >
-              {option.icon && <Icon type={option.icon} />}
-              <span>{slots.label?.({ option, selected }) ?? option.label ?? option.value}</span>
-            </button>
-          );
-        })}
-        <span
-          class={["k-segmented-indicator", ready.value && "is-ready"]}
-          style={indicatorStyle.value}
-        />
-      </div>
-    );
+    return () => {
+      const size = appearance.size.value;
+      const shape = appearance.shape.value;
+      return (
+        <div
+          {...attrs}
+          ref={rootRef}
+          class={[
+            "k-segmented",
+            attrs.class,
+            `k-segmented-${size}`,
+            `k-segmented-${shape}`,
+            {
+              "k-segmented-block": props.block,
+              "k-segmented-vertical": isVertical.value,
+              "k-segmented-disabled": props.disabled || field?.disabled.value,
+            },
+          ]}
+          role="radiogroup"
+          {...resolveFormControlAttrs(attrs, field)}
+          aria-disabled={props.disabled || field?.disabled.value || undefined}
+          aria-readonly={props.readonly || field?.readonly.value || undefined}
+          onFocusout={() => field?.blur()}
+          onKeydown={move}
+        >
+          {props.options.map((option) => {
+            const selected = option.value === currentValue.value;
+            return (
+              <button
+                key={option.value}
+                ref={(el) =>
+                  el ? itemRefs.set(option.value, el as HTMLElement) : itemRefs.delete(option.value)
+                }
+                type="button"
+                class={["k-segmented-item", { "k-segmented-item-active": selected }]}
+                role="radio"
+                aria-checked={selected}
+                disabled={props.disabled || field?.disabled.value || option.disabled}
+                tabindex={selected ? 0 : -1}
+                onClick={() => select(option)}
+              >
+                {option.icon && <Icon type={option.icon} />}
+                <span>{slots.label?.({ option, selected }) ?? option.label ?? option.value}</span>
+              </button>
+            );
+          })}
+          <span
+            class={["k-segmented-indicator", ready.value && "is-ready"]}
+            style={indicatorStyle.value}
+          />
+        </div>
+      );
+    };
   },
 });
 

@@ -1,6 +1,6 @@
 import { cloneVNode, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType, DirectionType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import { getChildren } from "../utils/vnode";
 import Checkbox from "./checkbox";
 import type { CheckboxChangeEvent, CheckboxOption, CheckboxValue } from "./types";
@@ -34,6 +34,7 @@ const CheckboxGroup = defineComponent({
   },
   setup(props, { slots, emit }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const currentValue = ref(
       field?.prop ? (field.value.value as CheckboxValue[]) : props.modelValue,
     );
@@ -66,8 +67,8 @@ const CheckboxGroup = defineComponent({
       const { direction } = props;
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
-      const theme = props.theme || field?.theme.value;
-      const size = props.size || field?.size.value;
+      const theme = appearance.theme.value;
+      const size = appearance.size.value;
 
       const rootProps = {
         class: ["k-checkbox-group", { "k-checkbox-group-vertical": direction === "vertical" }],

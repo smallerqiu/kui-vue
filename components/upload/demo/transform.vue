@@ -4,7 +4,6 @@
     name="file"
     type="picture"
     :headers="headers"
-    @change="handleChange"
     :transformFile="transformFile"
     :limit="1"
     accept="image/*"
@@ -14,7 +13,6 @@
 </template>
 <script setup lang="ts">
 import { Camera } from "kui-icons";
-import type { UploadChangeEvent } from "kui-vue";
 import { ref } from "vue";
 const headers = ref({
   authorization: "here is token",
@@ -52,10 +50,5 @@ const transformFile = (file: File) => {
     };
     img.src = URL.createObjectURL(file);
   });
-};
-const handleChange = (info: UploadChangeEvent) => {
-  if (info.file.status !== "uploading") {
-    console.log(info.file, info.fileList);
-  }
 };
 </script>

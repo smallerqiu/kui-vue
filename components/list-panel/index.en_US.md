@@ -27,7 +27,7 @@ Provides a consistent layout for filters, result summaries, list content and pag
 | summary       | Result summary, customizable via the named slot   | string \| number \| VNodeChild | -       |
 | bordered      | Show border                                       | boolean                        | true    |
 | theme         | Panel theme                                       | `fill \| outline \| plain`     | outline |
-| shape         | Panel shape                                       | ShapeType                      | round   |
+| shape         | Panel shape                                       | 'round' \| 'square'            | round   |
 | size          | Panel size                                        | SizeType                       | medium  |
 | selectedCount | Current selection count used to show bulk actions | number                         | 0       |
 | filters       | Query controls                                    | VNodeChild                     | -       |

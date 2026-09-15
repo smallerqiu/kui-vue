@@ -23,7 +23,6 @@ const options = [
 const cities = ref<CheckboxValue[]>([]);
 
 const handleCheckAll = ({ checked }: ChangeEvent) => {
-  console.log(checked);
   cities.value = checked ? options.map((v) => v.value) : [];
   indeterminate.value = !checked && !options.length;
 };

@@ -47,3 +47,5 @@ When standard numerical values need to be obtained.
 | placeholder | Input placeholder                                                           | string                               | -         |
 | keyboard    | Allow keyboard control                                                      | boolean                              | true      |
 | onChange    | Change callback; returns `undefined` when cleared                           | (value: number \| undefined) => void | -         |
+| onBlur      | Called when the input loses focus                                           | (event: FocusEvent) => void          | -         |
+| onKeydown   | Called when a key is pressed in the input                                   | (event: KeyboardEvent) => void       | -         |

@@ -24,7 +24,10 @@
   border: 1px solid var(--kui-control-border);
   border-radius: var(--kui-shape-circle);
   background: var(--kui-control-bg);
-  transition: all var(--kui-motion-duration-slow) var(--kui-motion-easing);
+  transition:
+    color var(--kui-motion-duration-slow) var(--kui-motion-easing),
+    border-color var(--kui-motion-duration-slow) var(--kui-motion-easing),
+    background-color var(--kui-motion-duration-slow) var(--kui-motion-easing);
 }
 .k-step-line {
   flex: 1;

@@ -3,6 +3,15 @@ import { describe, expect, it } from "vitest";
 import Page from "../components/page";
 
 describe("Page", () => {
+  it("keeps an active-page state in plain theme", () => {
+    const wrapper = mount(Page, {
+      props: { theme: "plain", page: 2, total: 50, pageSize: 10 },
+    });
+
+    expect(wrapper.classes()).toContain("k-page-plain");
+    expect(wrapper.get(".k-pager-item-active").text()).toBe("2");
+  });
+
   it("renders compact controls in simple mode", () => {
     const wrapper = mount(Page, {
       props: { simple: true, page: 2, total: 50, pageSize: 10 },

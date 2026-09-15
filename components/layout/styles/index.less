@@ -13,9 +13,22 @@
     position: relative;
     min-width: 0;
   }
+  .k-layout-sider-collapsible {
+    transition:
+      width var(--kui-motion-duration) var(--kui-motion-easing),
+      min-width var(--kui-motion-duration) var(--kui-motion-easing),
+      max-width var(--kui-motion-duration) var(--kui-motion-easing),
+      flex-basis var(--kui-motion-duration) var(--kui-motion-easing);
+  }
   .k-layout-footer {
     padding: 24px 50px;
     font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .k-layout .k-layout-sider-collapsible {
+    transition: none;
   }
 }
 

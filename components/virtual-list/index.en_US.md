@@ -35,6 +35,7 @@ Render only data near the viewport to improve large-list performance.
 | itemHeight | Fixed item height                | number                                      | 32      |
 | overscan   | Extra items rendered above/below | number                                      | 5       |
 | itemKey    | Key field or key resolver        | string \| (item, index) => string \| number | -       |
+| onScroll   | Called when the list scrolls     | (event: Event) => void                      | -       |
 
 ## Methods
 

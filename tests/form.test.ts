@@ -4,14 +4,87 @@ import { describe, expect, it, vi } from "vitest";
 import Form from "../components/form/form";
 import FormItem from "../components/form/form-item";
 import Checkbox from "../components/checkbox/checkbox";
+import CheckboxGroup from "../components/checkbox/checkbox-group";
+import CheckCard from "../components/check-card/check-card";
+import ColorPicker from "../components/color-picker";
+import ConfigProvider from "../components/config";
 import Radio from "../components/radio/radio";
+import RadioGroup from "../components/radio/radio-group";
 import type { FormExpose, FormRule } from "../components/form/types";
 import Rate from "../components/rate";
 import { Input } from "../components/input";
+import TextArea from "../components/input/textarea";
 import InputNumber from "../components/input-number";
+import Segmented from "../components/segmented";
 import Switch from "../components/switch";
+import Transfer from "../components/transfer";
 
 describe("Form", () => {
+  it("inherits appearance defaults from ConfigProvider and allows local overrides", () => {
+    const wrapper = mount(ConfigProvider, {
+      props: { size: "small", theme: "fill", shape: "square" },
+      slots: {
+        default: () =>
+          h(Form, { model: { global: "", local: "" } }, () => [
+            h(FormItem, { prop: "global" }, () => h(Input)),
+            h(FormItem, { prop: "local" }, () =>
+              h(Input, { size: "large", theme: "outline", shape: "round" }),
+            ),
+          ]),
+      },
+    });
+    const inputs = wrapper.findAll(".k-input");
+
+    expect(inputs[0].classes()).toEqual(
+      expect.arrayContaining(["k-input-sm", "k-input-fill", "k-input-square"]),
+    );
+    expect(inputs[1].classes()).toContain("k-input-lg");
+    expect(inputs[1].classes()).not.toContain("k-input-fill");
+    expect(inputs[1].classes()).not.toContain("k-input-square");
+  });
+
+  it("keeps the required marker and colon inside a wrapping label", () => {
+    const wrapper = mount(Form, {
+      props: {
+        model: { password: "" },
+        rules: { password: { required: true } },
+      },
+      slots: {
+        default: () => h(FormItem, { label: "Confirm Password", prop: "password" }, () => h(Input)),
+      },
+    });
+    const label = wrapper.get(".k-form-item-label label");
+
+    expect(label.get(".k-form-item-label-main").element.children).toHaveLength(2);
+    expect(label.find(".k-form-item-required-mark").text()).toBe("*");
+    expect(label.find(".k-form-item-label-text").text()).toBe("Confirm Password");
+    expect(label.find(".k-form-item-colon").text()).toBe(":");
+  });
+
+  it("uses a replacement model object instead of the setup-time reference", async () => {
+    const model = ref<Record<string, unknown>>({ name: "Ada" });
+    const Host = defineComponent(
+      () => () =>
+        h(Form, { model: model.value }, () => h(FormItem, { prop: "name" }, () => h(Input))),
+    );
+    const wrapper = mount(Host);
+
+    model.value = { name: "Grace" };
+    await nextTick();
+    expect(wrapper.find("input").element.value).toBe("Grace");
+
+    await wrapper.find("input").setValue("Lin");
+    expect(model.value.name).toBe("Lin");
+  });
+
+  it("does not select an empty-string RadioGroup option by default", () => {
+    const wrapper = mount(RadioGroup, {
+      props: { options: [{ label: "Empty", value: "" }] },
+    });
+
+    expect(wrapper.find("input").element.checked).toBe(false);
+  });
+
   it("validates required fields through the exposed API", async () => {
     const model = { name: "" };
     const wrapper = mount(Form, {
@@ -376,5 +449,73 @@ describe("Form", () => {
     await wrapper.find(".k-switch").trigger("click");
     expect(model.name).toBe("Lin");
     expect(model.enabled).toBe(false);
+  });
+
+  it("passes Form appearance to every compatible field control", async () => {
+    const model = reactive({
+      input: "",
+      textarea: "",
+      number: 1,
+      enabled: false,
+      segmented: "daily",
+      checks: [] as string[],
+      color: "#1677ff",
+    });
+    const wrapper = mount(Form, {
+      props: { model, size: "small", theme: "outline", shape: "square" },
+      slots: {
+        default: () => [
+          h(FormItem, { prop: "input" }, () => h(Input)),
+          h(FormItem, { prop: "textarea" }, () => h(TextArea)),
+          h(FormItem, { prop: "number" }, () => h(InputNumber)),
+          h(FormItem, { prop: "enabled" }, () => h(Switch)),
+          h(FormItem, { prop: "segmented" }, () => h(Segmented, { options: ["daily", "weekly"] })),
+          h(FormItem, { prop: "checks" }, () =>
+            h(CheckboxGroup, { options: [{ label: "Vue", value: "vue" }] }),
+          ),
+          h(FormItem, { prop: "color" }, () => h(ColorPicker)),
+        ],
+      },
+    });
+
+    expect(wrapper.get(".k-input").classes()).toEqual(
+      expect.arrayContaining(["k-input-sm", "k-input-square"]),
+    );
+    expect(wrapper.get(".k-input").classes()).not.toContain("k-input-fill");
+    expect(wrapper.get(".k-textarea").classes()).toEqual(
+      expect.arrayContaining(["k-textarea-sm", "k-textarea-square"]),
+    );
+    expect(wrapper.get(".k-input-number").classes()).toEqual(
+      expect.arrayContaining(["k-input-number-sm", "k-input-number-square"]),
+    );
+    expect(wrapper.get(".k-switch").classes()).toEqual(
+      expect.arrayContaining(["k-switch-sm", "k-switch-square"]),
+    );
+    expect(wrapper.get(".k-segmented").classes()).toEqual(
+      expect.arrayContaining(["k-segmented-small", "k-segmented-square"]),
+    );
+    expect(wrapper.get(".k-checkbox").classes()).not.toContain("k-checkbox-fill");
+    expect(wrapper.get(".k-color-picker").classes()).toContain("k-color-picker-square");
+    expect(wrapper.get(".k-color-picker").classes()).not.toContain("k-color-picker-fill");
+  });
+
+  it("passes fill and shape appearance to compound field controls", () => {
+    const model = reactive({ card: false, transfer: [] as string[] });
+    const wrapper = mount(Form, {
+      props: { model, theme: "fill", shape: "square", size: "small" },
+      slots: {
+        default: () => [
+          h(FormItem, { prop: "card" }, () => h(CheckCard, { title: "Card" })),
+          h(FormItem, { prop: "transfer" }, () =>
+            h(Transfer, { dataSource: [{ key: "vue", title: "Vue" }] }),
+          ),
+        ],
+      },
+    });
+
+    expect(wrapper.get(".k-check-card").classes()).toEqual(
+      expect.arrayContaining(["k-check-card-fill", "k-check-card-small", "k-check-card-square"]),
+    );
+    expect(wrapper.get(".k-transfer").classes()).toContain("k-transfer-fill");
   });
 });

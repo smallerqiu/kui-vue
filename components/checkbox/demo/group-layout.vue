@@ -3,7 +3,7 @@
     <Segmented :options="types" v-model="direction" />
     <code>direction: {{ direction }}</code>
     <code>value: {{ cities }}</code>
-    <CheckboxGroup :options="options" v-model="cities" @change="change" :direction="direction" />
+    <CheckboxGroup :options="options" v-model="cities" :direction="direction" />
   </Space>
 </template>
 <script setup lang="ts">
@@ -22,8 +22,4 @@ const options = [
   { label: "Other", value: "other" },
 ];
 const cities = ref<CheckboxValue[]>(["wuhan"]);
-
-const change = (v: (string | number | boolean)[]) => {
-  console.log(v);
-};
 </script>

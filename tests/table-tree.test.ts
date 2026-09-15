@@ -4,6 +4,47 @@ import Table from "../components/table";
 import type { Column, TableRecord } from "../components/table";
 
 describe("Table tree data", () => {
+  it("supports keyboard sorting and exposes the current sort direction", async () => {
+    const wrapper = mount(Table, {
+      props: {
+        data: [
+          { key: 1, name: "Beta" },
+          { key: 2, name: "Alpha" },
+        ],
+        columns: [{ key: "name", title: "Name", sorter: true }],
+      },
+    });
+    const header = wrapper.get("th");
+
+    expect(header.attributes("tabindex")).toBe("0");
+    expect(header.attributes("aria-sort")).toBe("none");
+    await header.trigger("keydown", { key: "Enter" });
+    expect(header.attributes("aria-sort")).toBe("ascending");
+    await header.trigger("keydown", { key: " " });
+    expect(header.attributes("aria-sort")).toBe("descending");
+  });
+
+  it("does not show the empty state while loading", async () => {
+    const wrapper = mount(Table, {
+      props: {
+        data: [],
+        columns: [{ key: "name", title: "Name" }],
+        loading: true,
+        emptyText: "No records",
+      },
+    });
+
+    expect(wrapper.find(".k-spin").exists()).toBe(true);
+    expect(wrapper.find(".k-empty").exists()).toBe(false);
+    expect(wrapper.find(".k-table-loading-placeholder").exists()).toBe(true);
+
+    await wrapper.setProps({ loading: false });
+    expect(wrapper.find(".k-spin").exists()).toBe(false);
+    expect(wrapper.find(".k-empty").exists()).toBe(true);
+    expect(wrapper.find(".k-table-loading-placeholder").exists()).toBe(false);
+    expect(wrapper.text()).toContain("No records");
+  });
+
   it("hides columns by key", async () => {
     const wrapper = mount(Table, {
       props: {

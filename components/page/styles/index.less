@@ -133,6 +133,7 @@
 
     .k-page-options-elevator {
       width: 50px;
+      height: var(--kui-control-height);
       font-size: 14px;
       text-align: center;
       vertical-align: middle;
@@ -182,6 +183,15 @@
     color: var(--kui-color-primary);
   }
 }
+.k-page-plain:not(.k-page-disabled) {
+  .k-pager-item:not(.k-pager-item-disabled, .k-pager-item-active):hover {
+    color: var(--kui-color-primary);
+  }
+
+  .k-pager-item-active {
+    color: var(--kui-color-primary);
+  }
+}
 .k-page-disabled {
   cursor: not-allowed;
   color: var(--kui-color-text-disabled);
@@ -202,6 +212,7 @@
     font-size: 12px;
 
     .k-page-options-elevator {
+      height: var(--kui-control-height-sm);
       font-size: 12px;
     }
   }
@@ -230,6 +241,7 @@
     font-size: var(--kui-font-size-lg);
 
     .k-page-options-elevator {
+      height: var(--kui-control-height-lg);
       font-size: var(--kui-font-size-lg);
     }
   }

@@ -16,6 +16,7 @@ import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
 import { setPlacement } from "../utils/placement";
 import { cloneNodes, getChildren } from "../utils/vnode";
+import { toCssLength } from "../utils/css";
 
 import type { BooleanType, PlacementsType } from "../const/types";
 
@@ -183,6 +184,7 @@ const Poptip = defineComponent({
               { [`k-${preCls}-dark`]: props.dark },
             ]}
             k-placement={props.placement}
+            style={{ width: toCssLength(props.width) }}
           >
             {contentNode}
           </div>
@@ -215,6 +217,7 @@ const Poptip = defineComponent({
         left: `${left.value}px`,
         top: `${top.value}px`,
         transformOrigin: transOrigin.value,
+        width: toCssLength(props.width),
       };
       const childNodes = [nodeWrapper];
       const _props = {

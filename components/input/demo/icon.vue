@@ -27,7 +27,6 @@ import { message } from "kui-vue";
 import { ref } from "vue";
 const visiblePasswordIcon = ref(true);
 const search = (value: string) => {
-  message.info("This is search event");
-  console.log(value);
+  message.info(`Search: ${value}`);
 };
 </script>

@@ -6,20 +6,23 @@ import {
   render,
   Transition,
   type CSSProperties,
-  type ExtractPropTypes,
+  type PropType,
 } from "vue";
 import { getAppContext } from "../config/context";
+import { toCssLength } from "../utils/css";
+
+export interface LoadingProps {
+  height?: number | string;
+}
 
 const loadingProps = {
-  height: { type: [Number, String], default: 2 },
+  height: { type: [Number, String] as PropType<number | string>, default: 2 },
 };
-
-export type LoadingProps = ExtractPropTypes<typeof loadingProps>;
 
 const LoadingComponent = defineComponent({
   name: "LoadingBar",
   props: loadingProps,
-  setup(_, { expose }) {
+  setup(props, { expose }) {
     const visible = ref(false);
     const percent = ref(0);
     const animate = ref(false);
@@ -90,7 +93,11 @@ const LoadingComponent = defineComponent({
 
       return (
         <Transition name="fade">
-          <div class="k-loading-container" v-show={visible.value}>
+          <div
+            class="k-loading-container"
+            style={{ height: toCssLength(props.height) }}
+            v-show={visible.value}
+          >
             <div {...lineProps}></div>
           </div>
         </Transition>
@@ -119,10 +126,10 @@ const createInstance = (props?: LoadingProps) => {
   }
 
   // 使用类型断言解决 "缺少索引签名" 的报错
-  const vm = createVNode(LoadingComponent, props);
+  const vm = createVNode(LoadingComponent, props ? { ...props } : null);
 
   // 关联应用上下文
-  vm.appContext = getAppContext()?.appContext ?? null;
+  vm.appContext = getAppContext();
 
   render(vm, container);
 
@@ -139,15 +146,15 @@ const createInstance = (props?: LoadingProps) => {
 };
 
 const loading = {
-  start() {
-    loadInstance ??= createInstance();
+  start(props?: LoadingProps) {
+    loadInstance ??= createInstance(props);
     loadInstance?.start();
   },
   finish() {
     loadInstance?.finish();
   },
-  error() {
-    loadInstance ??= createInstance();
+  error(props?: LoadingProps) {
+    loadInstance ??= createInstance(props);
     loadInstance?.error();
   },
   update(pt: number) {

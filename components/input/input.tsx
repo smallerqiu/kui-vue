@@ -15,7 +15,12 @@ import {
   type VNodeChild,
 } from "vue";
 import { type BooleanType, type ShapeType, type SizeType, type ThemeType } from "../const/types";
-import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 import Icon, { type IconType } from "../icon";
 import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
@@ -56,7 +61,7 @@ const Input = defineComponent({
   emits: {
     "update:modelValue": (value: string) => typeof value === "string",
     search: (value: string) => typeof value === "string",
-    iconClick: (event: PointerEvent) => typeof event?.type === "string",
+    iconClick: (event: MouseEvent) => typeof event?.type === "string",
     clear: () => true,
     change: (value: string) => typeof value === "string",
     focus: (event: FocusEvent) => typeof event?.type === "string",
@@ -64,6 +69,7 @@ const Input = defineComponent({
   },
   setup(props, { slots, emit, attrs, expose }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const instance = getCurrentInstance();
     const hasListener = (name: string) => Boolean(instance?.vnode.props?.[`on${name}`]);
     const innerValue = ref(props.value);
@@ -151,7 +157,7 @@ const Input = defineComponent({
     return () => {
       const {
         icon,
-        size = field?.size.value || parentSize || undefined,
+        size = appearance.size.value || parentSize || undefined,
         type,
         clearable,
         suffix,
@@ -164,6 +170,8 @@ const Input = defineComponent({
       } = props;
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
+      const effectiveTheme = appearance.theme.value ?? theme;
+      const effectiveShape = appearance.shape.value ?? shape;
 
       const slotSuffix = getChildren(slots.suffix?.());
       const slotPrefix = getChildren(slots.prefix?.());
@@ -200,8 +208,8 @@ const Input = defineComponent({
         multiple,
         // size,
         type,
-        theme,
-        shape,
+        theme: effectiveTheme,
+        shape: effectiveShape,
         inputRef: inputRef,
         inputType,
         value: currentValue.value,
@@ -246,9 +254,9 @@ const Input = defineComponent({
             [`k-${inputType}-has-clear`]: clearableShow,
             [`k-${inputType}-sm`]: size === "small",
             [`k-${inputType}-lg`]: size === "large",
-            [`k-${inputType}-${theme}`]: theme && theme !== "outline",
-            [`k-${inputType}-circle`]: shape === "circle",
-            [`k-${inputType}-square`]: shape === "square",
+            [`k-${inputType}-${effectiveTheme}`]: effectiveTheme && effectiveTheme !== "outline",
+            [`k-${inputType}-circle`]: effectiveShape === "circle",
+            [`k-${inputType}-square`]: effectiveShape === "square",
           },
           !grouped && attrs.class,
         ],

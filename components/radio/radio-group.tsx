@@ -16,14 +16,14 @@ import type {
   SizeType,
   ThemeType,
 } from "../const/types";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import { getChildren } from "../utils/vnode";
 import Radio from "./radio";
 import RadioButton from "./radio-button";
 import type { ChangeEvent, RadioOption } from "./types";
 
 const radioGroupProps = {
-  modelValue: { type: [String, Number], default: "" },
+  modelValue: [String, Number] as PropType<string | number>,
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
   direction: {
@@ -61,6 +61,7 @@ const RadioGroup = defineComponent({
   },
   setup(props, { slots, emit }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const name = `k-radio-group-${getCurrentInstance()?.uid ?? "default"}`;
     const rootRef = ref<HTMLElement | null>(null);
     const currentValue = ref(
@@ -94,9 +95,9 @@ const RadioGroup = defineComponent({
               disabled={props.disabled || field?.disabled.value || option.disabled}
               readonly={props.readonly || field?.readonly.value}
               icon={option.icon}
-              size={props.size || field?.size.value}
-              theme={props.theme || field?.theme.value}
-              shape={props.shape || field?.shape.value}
+              size={appearance.size.value}
+              theme={appearance.theme.value}
+              shape={appearance.shape.value}
             />
           ))
         : getChildren(slots.default?.()).map((child) => {
@@ -108,9 +109,9 @@ const RadioGroup = defineComponent({
                 checked: value !== undefined && currentValue.value === value,
                 disabled: props.disabled || field?.disabled.value || Boolean(child.props?.disabled),
                 readonly: props.readonly || field?.readonly.value || Boolean(child.props?.readonly),
-                size: props.size || field?.size.value,
-                theme: props.theme || field?.theme.value,
-                shape: props.shape || field?.shape.value,
+                size: appearance.size.value,
+                theme: appearance.theme.value,
+                shape: appearance.shape.value,
                 onChange,
               },
               true,

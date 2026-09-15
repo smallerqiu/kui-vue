@@ -8,7 +8,7 @@ import {
   type PropType,
 } from "vue";
 import type { BooleanType, DirectionType, ShapeType, SizeType } from "../const/types";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import CheckCard from "./check-card";
 import { checkCardGroupKey, type CheckCardRegistryItem } from "./context";
 import type { CheckCardOption, CheckCardTheme, CheckCardValue } from "./types";
@@ -36,6 +36,7 @@ const CheckCardGroup = defineComponent({
   },
   setup(props, { emit, slots }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const registry = new Map<CheckCardValue, CheckCardRegistryItem>();
     const localValue = ref(
       field?.prop ? (field.value.value as CheckCardValue | undefined) : props.modelValue,
@@ -76,11 +77,11 @@ const CheckCardGroup = defineComponent({
       disabled: computed(() => Boolean(props.disabled || field?.disabled.value)),
       readonly: computed(() => Boolean(props.readonly || field?.readonly.value)),
       theme: computed(() => {
-        const theme = field?.theme.value;
+        const theme = appearance.theme.value;
         return theme === "outline" || theme === "fill" ? theme : props.theme;
       }),
-      size: computed(() => field?.size.value ?? props.size),
-      shape: computed(() => field?.shape.value ?? props.shape),
+      size: computed(() => appearance.size.value ?? props.size),
+      shape: computed(() => appearance.shape.value ?? props.shape),
       select,
       selectRelative,
       register: (value, item) => registry.set(value, item),

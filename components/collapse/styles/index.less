@@ -39,7 +39,9 @@
 
     .k-collapse-content {
       padding: 0 16px;
-      transition: all 0.3s ease-in-out;
+      transition:
+        height 0.3s ease-in-out,
+        padding 0.3s ease-in-out;
       box-sizing: border-box;
       overflow: hidden;
     }
@@ -95,9 +97,6 @@
 .k-collapse-round,
 .k-collapse-default {
   border-radius: var(--kui-shape-round);
-}
-.k-collapse-circle {
-  border-radius: var(--kui-shape-circle);
 }
 .k-collapse-square {
   border-radius: var(--kui-shape-square);

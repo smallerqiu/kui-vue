@@ -31,6 +31,7 @@ Gradually introduce features around the actual goals on the page.
 | steps          | Tour steps           | TourStep[] | []      |
 | mask           | Show mask            | boolean    | true    |
 | closable       | Show close button    | boolean    | true    |
+| escKey         | Close with Escape    | boolean    | true    |
 | onChange       | Step change          | function   | -       |
 | onOpenChange   | Visibility change    | function   | -       |
 | onFinish       | Tour completed       | function   | -       |

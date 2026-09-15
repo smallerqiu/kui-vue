@@ -21,6 +21,7 @@ import { colors } from "../const/var";
 import { isColor } from "../utils/color";
 import { setPlacement } from "../utils/placement";
 import { cloneNodes, getChildren } from "../utils/vnode";
+import { toCssLength } from "../utils/css";
 
 const tooltipProps = {
   show: Boolean as BooleanType,
@@ -186,6 +187,7 @@ const Tooltip = defineComponent({
         left: `${left.value}px`,
         top: `${top.value}px`,
         transformOrigin: transOrigin.value,
+        width: toCssLength(props.width),
       };
 
       const overlayProps = {
@@ -236,7 +238,7 @@ const Tooltip = defineComponent({
           v-show={visible.value && anchorVisible.value}
           {...overlayProps}
           class={[overlayProps.class, { "k-tooltip-panel": props.panelOnly }]}
-          style={props.panelOnly ? undefined : overlayProps.style}
+          style={props.panelOnly ? { width: toCssLength(props.width) } : overlayProps.style}
           onMouseenter={props.panelOnly ? undefined : overlayProps.onMouseenter}
           onMouseleave={props.panelOnly ? undefined : overlayProps.onMouseleave}
         >

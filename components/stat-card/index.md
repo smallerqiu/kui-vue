@@ -75,4 +75,4 @@
 | 属性  | 说明     | 类型                       | 默认值 |
 | ----- | -------- | -------------------------- | ------ |
 | theme | 外观主题 | `fill \| outline \| plain` | fill   |
-| shape | 卡片形状 | ShapeType                  | round  |
+| shape | 卡片形状 | 'round' \| 'square'        | round  |

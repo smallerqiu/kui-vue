@@ -1,5 +1,6 @@
 import type { ExtractPropTypes, PropType } from "vue";
-import { defineComponent, nextTick, provide, reactive, ref, toRefs } from "vue";
+import { computed, defineComponent, inject, nextTick, provide, reactive, ref, toRefs } from "vue";
+import { CONFIG_PROVIDER_INJECTION_KEY } from "../config/context";
 import type { BooleanType, DirectionType, ShapeType, SizeType, ThemeType } from "../const/types";
 import { FORM_INJECTION_KEY, type FormItemRegistration } from "./context";
 import type { ColProps, FormRules, FormSubmitEvent, FormValidateTrigger } from "./types";
@@ -37,36 +38,27 @@ const Form = defineComponent({
     submit: (result: { valid: boolean }) => typeof result?.valid === "boolean",
   },
   setup(props, { emit, slots, expose }) {
+    const globalConfig = inject(CONFIG_PROVIDER_INJECTION_KEY, null);
     const formRef = ref(null);
-    const model = props.model ?? {};
+    const fallbackModel: Record<string, unknown> = {};
+    const model = computed(() => props.model ?? fallbackModel);
     const formItems = ref<Record<string, FormItemRegistration>>({});
 
-    const {
-      rules,
-      size,
-      shape,
-      theme,
-      disabled,
-      readonly,
-      colon,
-      layout,
-      name,
-      labelCol,
-      wrapperCol,
-    } = toRefs(props);
+    const { rules, disabled, readonly, colon, layout, name, labelCol, wrapperCol } = toRefs(props);
+    const size = computed(() => props.size ?? globalConfig?.size.value);
+    const shape = computed(() => props.shape ?? globalConfig?.shape.value);
+    const theme = computed(() => props.theme ?? globalConfig?.theme.value);
 
     const updateModel = (prop: string, value: unknown = null) => {
-      const { o, k } = getPropByPath(model, prop);
-      // console.log(o, k, value);
+      const { o, k } = getPropByPath(model.value, prop);
       if (o) {
         o[k] = value;
-        emit("change", model);
+        emit("change", model.value);
       }
     };
     const getValueFromProp = (path?: string) => {
       if (!path) return undefined;
-      const { v } = getPropByPath(model, path);
-      // console.log("v", v);
+      const { v } = getPropByPath(model.value, path);
       return v;
     };
 
@@ -94,7 +86,6 @@ const Form = defineComponent({
     };
 
     const getPropByPath = (obj: Record<string, unknown>, path: string) => {
-      // console.log("path", obj, path);
       let tempObj: Record<string, unknown> | undefined = obj;
       path = path.replace(/\[(\w+)\]/g, ".$1").replace(/^\./, "");
       const keyArr = path.split(".");
@@ -152,7 +143,6 @@ const Form = defineComponent({
     expose({ validate, reset, test, submit });
 
     const form = reactive({
-      model,
       layout,
       name,
       rules,
@@ -173,14 +163,14 @@ const Form = defineComponent({
     provide(FORM_INJECTION_KEY, form);
 
     return () => {
-      const { layout, size, name } = props;
+      const { layout, name } = props;
 
       const classes = [
         "k-form",
         {
           [`k-form-${layout}`]: layout,
-          "k-form-lg": size === "large",
-          "k-form-sm": size === "small",
+          "k-form-lg": size.value === "large",
+          "k-form-sm": size.value === "small",
         },
       ];
 

@@ -1,4 +1,6 @@
 import {
+  computed,
+  getCurrentInstance,
   inject,
   provide,
   type Attrs,
@@ -7,6 +9,7 @@ import {
   type InjectionKey,
 } from "vue";
 import type { DirectionType, ShapeType, SizeType, ThemeType } from "../const/types";
+import { CONFIG_PROVIDER_INJECTION_KEY } from "../config/context";
 import type { ColProps, FormRule, FormRules, FormValidateTrigger } from "./types";
 
 export interface FormItemRegistration {
@@ -62,6 +65,35 @@ export const useFormField = (isolate = false) => {
   const field = inject(FORM_FIELD_INJECTION_KEY, null);
   if (isolate) provide(FORM_FIELD_INJECTION_KEY, null);
   return field;
+};
+
+/** Resolve appearance without letting an inherited Form value override an explicit component prop. */
+export const useFormAppearance = <
+  T extends { size?: SizeType; theme?: ThemeType; shape?: ShapeType },
+>(
+  props: T,
+  field: FormFieldContext | null,
+) => {
+  const instance = getCurrentInstance();
+  const config = inject(CONFIG_PROVIDER_INJECTION_KEY, null);
+  const isExplicit = (name: "size" | "theme" | "shape") =>
+    Object.prototype.hasOwnProperty.call(instance?.vnode.props ?? {}, name);
+
+  return {
+    size: computed(() =>
+      isExplicit("size") ? props.size : (field?.size.value ?? config?.size.value ?? props.size),
+    ),
+    theme: computed(() =>
+      isExplicit("theme")
+        ? props.theme
+        : (field?.theme.value ?? config?.theme.value ?? props.theme),
+    ),
+    shape: computed(() =>
+      isExplicit("shape")
+        ? props.shape
+        : (field?.shape.value ?? config?.shape.value ?? props.shape),
+    ),
+  };
 };
 
 const stringAttr = (value: unknown) => (typeof value === "string" ? value : undefined);

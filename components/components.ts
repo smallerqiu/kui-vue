@@ -34,7 +34,7 @@ export type {
 } from "./cascader/types";
 
 export { default as Card, CardMeta } from "./card";
-export type { CardMetaProps, CardProps } from "./card";
+export type { CardMetaProps, CardProps, CardShape } from "./card";
 
 export { default as Calendar } from "./calendar";
 export type { CalendarDateCell, CalendarEventData, CalendarProps } from "./calendar";
@@ -259,7 +259,15 @@ export { TimeLine, TimeLineItem } from "./time-line";
 export type { TimelineItemProps, TimelineMode, TimelineProps } from "./time-line";
 
 export { default as Tree } from "./tree";
-export type { TreeExpandEvent, TreeNode, TreeProps } from "./tree";
+export type {
+  TreeDropEvent,
+  TreeDropPosition,
+  TreeExpandEvent,
+  TreeExpose,
+  TreeFieldNames,
+  TreeNode,
+  TreeProps,
+} from "./tree";
 
 export { default as TreeSelect } from "./tree-select";
 export type { TreeSelectProps } from "./tree-select";
@@ -305,6 +313,7 @@ export type {
   ShapeType,
   SizeType,
   SpinModeType,
+  SurfaceShapeType,
   ThemeType,
   UploadStatusType,
 } from "./const/types";

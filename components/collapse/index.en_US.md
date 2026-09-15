@@ -38,13 +38,14 @@ Content area that can be collapsed/expanded.
 | sample    | Whether to enable simple mode                                                               | boolean                         | false   |
 | onChange  | Callback triggered when switching panels, returns the `name` of the current tab             | (key: string \| number) => void | -       |
 | theme     | Appearance theme                                                                            | ThemeType                       | outline |
-| shape     | Panel shape                                                                                 | ShapeType                       | round   |
+| shape     | Panel shape                                                                                 | 'round' \| 'square'             | round   |
 
 ## Panel
 
-| Property | Description                   | Type             | Default |
-| -------- | ----------------------------- | ---------------- | ------- |
-| title    | Panel title                   | VNodeChild       | -       |
-| key      | Unique panel identifier       | string \| number | -       |
-| disabled | Whether the panel is disabled | boolean          | false   |
-| extra    | Extra title content           | Slots            | -       |
+| Property | Description                                   | Type                            | Default |
+| -------- | --------------------------------------------- | ------------------------------- | ------- |
+| title    | Panel title                                   | VNodeChild                      | -       |
+| key      | Unique panel identifier                       | string \| number                | -       |
+| disabled | Whether the panel is disabled                 | boolean                         | false   |
+| extra    | Extra title content                           | Slots                           | -       |
+| onExpand | Called when the panel expansion state changes | (key: string \| number) => void | -       |

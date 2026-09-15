@@ -84,6 +84,18 @@ export default defineComponent({
       dragging = false;
       document.removeEventListener("mousemove", handleMove);
     };
+    const onKeydown = (event: KeyboardEvent) => {
+      const hsv = Color(props.modelValue).hsv().object();
+      const step = event.shiftKey ? 10 : 1;
+      if (event.key === "ArrowRight") hsv.s += step;
+      else if (event.key === "ArrowLeft") hsv.s -= step;
+      else if (event.key === "ArrowUp") hsv.v += step;
+      else if (event.key === "ArrowDown") hsv.v -= step;
+      else return;
+      event.preventDefault();
+      const color = Color().hsv(props.hue, clamp(hsv.s, 0, 100), clamp(hsv.v, 0, 100));
+      emit("updateRGB", color.rgb().object());
+    };
 
     watch([() => props.hue, () => props.modelValue], () => {
       renderPaint();
@@ -117,7 +129,11 @@ export default defineComponent({
           width={234}
           height={136}
           ref={refPaint}
+          role="application"
+          tabindex={0}
+          aria-label="Saturation and brightness"
           onMousedown={onMouseDown}
+          onKeydown={onKeydown}
         />
         <span
           class="k-color-picker-paint-dot"

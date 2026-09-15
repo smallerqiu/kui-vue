@@ -21,6 +21,7 @@ export type DropPlacementsType =
 export type ValueType = "string" | "number" | "boolean";
 export type SizeType = "small" | "medium" | "large";
 export type ShapeType = "circle" | "square" | "round" | "default";
+export type SurfaceShapeType = "square" | "round";
 export type BooleanType = PropType<boolean | undefined>;
 
 export type ButtonType = "primary" | "danger" | "warning" | "default" | "text" | "link";

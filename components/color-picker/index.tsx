@@ -4,7 +4,12 @@ import { setPlacement } from "../utils/placement";
 import { cloneNodes } from "../utils/vnode";
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 import Alpha from "./alpha";
 import Hue from "./hue";
 import Mode from "./mode";
@@ -14,6 +19,7 @@ import Presets from "./presets";
 import {
   defineComponent,
   h,
+  mergeProps,
   type ExtractPropTypes,
   nextTick,
   onBeforeUnmount,
@@ -24,7 +30,13 @@ import {
   Transition,
   watch,
 } from "vue";
-import type { BooleanType, DropPlacementsType, SizeType } from "../const/types";
+import type {
+  BooleanType,
+  DropPlacementsType,
+  ShapeType,
+  SizeType,
+  ThemeType,
+} from "../const/types";
 type ColorMode = "hex" | "rgb" | "hsl";
 const colorPickerProps = {
   modelValue: String,
@@ -44,6 +56,8 @@ const colorPickerProps = {
   size: {
     type: String as PropType<SizeType>,
   },
+  theme: { type: String as PropType<ThemeType>, default: "outline" },
+  shape: String as PropType<ShapeType>,
   mode: {
     type: String as PropType<ColorMode>,
     default: "hex",
@@ -69,8 +83,9 @@ const ColorPicker = defineComponent({
     openChange: (open: boolean) => typeof open === "boolean",
   },
 
-  setup(props, { emit, slots }) {
+  setup(props, { attrs, emit, slots }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     usePopupHost(() => visible.value && openChange(false));
     const getPopupContainer = usePopupContainer();
     const initialColor =
@@ -255,7 +270,6 @@ const ColorPicker = defineComponent({
     };
     const updateColorValue = (color: ColorInstance) => {
       if (props.readonly || field?.readonly.value) return;
-      // console.log(color.string(), currentAlpha.value);
       currentAlpha.value = color.alpha();
       currentColor.value = color;
       currentHue.value = color.hue();
@@ -290,10 +304,11 @@ const ColorPicker = defineComponent({
           clearTimeout(hideTimer.value);
         },
       };
+      const panelProps = props.panelOnly ? mergeProps(attrs, _props) : _props;
 
       // let [r, g, b] = hslToRgb(color.H, color.S, color.L);
       const panel = (
-        <div v-show={visible.value} {..._props}>
+        <div v-show={visible.value} {...panelProps}>
           <div class="k-color-picker-body">
             <Paint
               hue={currentHue.value}
@@ -369,7 +384,9 @@ const ColorPicker = defineComponent({
       if (props.panelOnly) return drop;
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
-      const size = props.size || field?.size.value;
+      const size = appearance.size.value;
+      const theme = appearance.theme.value;
+      const shape = appearance.shape.value;
       const style = [
         "k-color-picker",
         {
@@ -378,11 +395,30 @@ const ColorPicker = defineComponent({
           "k-color-picker-readonly": readonly,
           "k-color-picker-sm": size == "small",
           "k-color-picker-lg": size == "large",
+          [`k-color-picker-${theme}`]: theme && theme !== "outline",
+          [`k-color-picker-${shape}`]: shape,
         },
       ];
       const triggerClick = props.trigger == "click";
+      const onTriggerKeydown = (event: KeyboardEvent) => {
+        if (disabled || readonly) return;
+        if (event.key === "Enter" || event.key === " " || event.key === "ArrowDown") {
+          event.preventDefault();
+          toggle(true);
+        } else if (event.key === "Escape" && visible.value) {
+          event.preventDefault();
+          toggle(false);
+        }
+      };
       return slots.default ? (
-        <span>
+        <span
+          {...mergeProps(attrs, resolveFormControlAttrs(attrs, field))}
+          role="combobox"
+          tabindex={disabled ? undefined : 0}
+          aria-haspopup="dialog"
+          aria-expanded={visible.value}
+          onKeydown={onTriggerKeydown}
+        >
           {cloneNodes(
             slots.default(),
             {
@@ -397,16 +433,18 @@ const ColorPicker = defineComponent({
         </span>
       ) : (
         <div
-          id={field?.prop ? field.id : undefined}
-          class={style}
-          ref={refSelection}
-          aria-labelledby={field?.prop ? field.labelId : undefined}
-          aria-describedby={field?.describedBy.value}
-          aria-invalid={field?.invalid.value || undefined}
-          aria-required={field?.required.value || undefined}
-          aria-disabled={disabled || undefined}
-          aria-readonly={readonly || undefined}
-          onFocusout={() => field?.blur()}
+          {...mergeProps(attrs, resolveFormControlAttrs(attrs, field), {
+            class: style,
+            ref: refSelection,
+            "aria-disabled": disabled || undefined,
+            "aria-readonly": readonly || undefined,
+            role: "combobox",
+            tabindex: disabled ? undefined : 0,
+            "aria-haspopup": "dialog",
+            "aria-expanded": visible.value,
+            onKeydown: onTriggerKeydown,
+            onFocusout: () => field?.blur(),
+          })}
           v-resize={updatePopPosition}
         >
           <div

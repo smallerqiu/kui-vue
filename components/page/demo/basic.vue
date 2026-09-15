@@ -33,7 +33,6 @@ import { ref } from "vue";
 const page = ref(1);
 const size = ref(15);
 const onChange = (page: number, pageSize: number) => {
-  console.log(page, pageSize);
   message.info(`当前页: ${page}, 每页: ${pageSize}`);
 };
 </script>

@@ -20,7 +20,7 @@ const createInstance = (props = {}, slots: Slots) => {
   delete previewProps.onClose;
   delete previewProps.onSwitch;
   const vm = createVNode(Preview, previewProps, slots);
-  vm.appContext = getAppContext()?.appContext || null;
+  vm.appContext = getAppContext();
   render(vm, container);
   const instance = vm.component?.exposed as ImagePreviewInstance | null;
   if (instance) {

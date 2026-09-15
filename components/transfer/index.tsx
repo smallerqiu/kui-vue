@@ -11,7 +11,7 @@ import {
 import { Button } from "../button";
 import { Checkbox } from "../checkbox";
 import Empty from "../empty";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import Input from "../input";
 import { tuplePropType } from "../utils/vue";
 
@@ -67,6 +67,7 @@ const Transfer = defineComponent({
   },
   setup(props, { emit, slots }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const modelValue = computed<TransferKey[]>(() =>
       field?.prop && Array.isArray(field.value.value)
         ? (field.value.value as TransferKey[])
@@ -165,6 +166,7 @@ const Transfer = defineComponent({
       items: TransferItem[],
       allItems: TransferItem[],
       title: string,
+      theme: "outline" | "fill",
     ) => {
       const selected = direction === "left" ? sourceSelected.value : targetSelected.value;
       const enabledKeys = selectable(items);
@@ -191,7 +193,7 @@ const Transfer = defineComponent({
               <Input
                 modelValue={direction === "left" ? sourceKeyword.value : targetKeyword.value}
                 disabled={props.disabled || field?.disabled.value}
-                theme={props.theme}
+                theme={theme}
                 clearable
                 icon={Search}
                 placeholder="Search"
@@ -251,59 +253,63 @@ const Transfer = defineComponent({
         </section>
       );
     };
-    return () => (
-      <div
-        id={field?.prop ? field.id : undefined}
-        class={[
-          "k-transfer",
-          `k-transfer-${props.theme}`,
-          (props.disabled || field?.disabled.value) && "is-disabled",
-          (props.readonly || field?.readonly.value) && "is-readonly",
-        ]}
-        aria-labelledby={field?.prop ? field.labelId : undefined}
-        aria-describedby={field?.describedBy.value}
-        aria-invalid={field?.invalid.value || undefined}
-        aria-required={field?.required.value || undefined}
-        aria-disabled={props.disabled || field?.disabled.value || undefined}
-        aria-readonly={props.readonly || field?.readonly.value || undefined}
-        onFocusout={() => field?.blur()}
-      >
-        {renderList("left", visibleSource.value, sourceItems.value, props.titles[0])}
-        <div class="k-transfer-operations">
-          <Button
-            type="primary"
-            size="small"
-            disabled={
-              props.disabled ||
-              field?.disabled.value ||
-              props.readonly ||
-              field?.readonly.value ||
-              !sourceSelected.value.length
-            }
-            icon={ChevronRight}
-            onClick={() => move("right")}
-          >
-            {props.operations[0]}
-          </Button>
-          <Button
-            type="primary"
-            size="small"
-            disabled={
-              props.disabled ||
-              field?.disabled.value ||
-              props.readonly ||
-              field?.readonly.value ||
-              !targetSelected.value.length
-            }
-            icon={ChevronLeft}
-            onClick={() => move("left")}
-          >
-            {props.operations[1]}
-          </Button>
+    return () => {
+      const formTheme = appearance.theme.value;
+      const theme = formTheme === "outline" || formTheme === "fill" ? formTheme : props.theme;
+      return (
+        <div
+          id={field?.prop ? field.id : undefined}
+          class={[
+            "k-transfer",
+            `k-transfer-${theme}`,
+            (props.disabled || field?.disabled.value) && "is-disabled",
+            (props.readonly || field?.readonly.value) && "is-readonly",
+          ]}
+          aria-labelledby={field?.prop ? field.labelId : undefined}
+          aria-describedby={field?.describedBy.value}
+          aria-invalid={field?.invalid.value || undefined}
+          aria-required={field?.required.value || undefined}
+          aria-disabled={props.disabled || field?.disabled.value || undefined}
+          aria-readonly={props.readonly || field?.readonly.value || undefined}
+          onFocusout={() => field?.blur()}
+        >
+          {renderList("left", visibleSource.value, sourceItems.value, props.titles[0], theme)}
+          <div class="k-transfer-operations">
+            <Button
+              type="primary"
+              size="small"
+              disabled={
+                props.disabled ||
+                field?.disabled.value ||
+                props.readonly ||
+                field?.readonly.value ||
+                !sourceSelected.value.length
+              }
+              icon={ChevronRight}
+              onClick={() => move("right")}
+            >
+              {props.operations[0]}
+            </Button>
+            <Button
+              type="primary"
+              size="small"
+              disabled={
+                props.disabled ||
+                field?.disabled.value ||
+                props.readonly ||
+                field?.readonly.value ||
+                !targetSelected.value.length
+              }
+              icon={ChevronLeft}
+              onClick={() => move("left")}
+            >
+              {props.operations[1]}
+            </Button>
+          </div>
+          {renderList("right", visibleTarget.value, targetItems.value, props.titles[1], theme)}
         </div>
-        {renderList("right", visibleTarget.value, targetItems.value, props.titles[1])}
-      </div>
-    );
+      );
+    };
   },
 });
 

@@ -52,6 +52,6 @@ Commonly seen in detail page information display.
 
 ### Common appearance
 
-| Property | Description            | Type      | Default |
-| -------- | ---------------------- | --------- | ------- |
-| shape    | Description list shape | ShapeType | round   |
+| Property | Description            | Type                | Default |
+| -------- | ---------------------- | ------------------- | ------- |
+| shape    | Description list shape | 'round' \| 'square' | round   |

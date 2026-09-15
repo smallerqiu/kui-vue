@@ -5,8 +5,9 @@
     <Input placeholder="Disabled" disabled :shape="shape" />
     <Input placeholder="Please input" :icon="Search" :shape="shape" />
     <Input placeholder="theme='outline'" theme="outline" :shape="shape" />
+    <Input placeholder="theme='plain'" theme="plain" :shape="shape" />
     <Input placeholder="Please input" :clearable="false" :shape="shape" @search="onSearch" />
-    <TextArea placeholder="Please input" :rows="3" />
+    <TextArea placeholder="theme='plain'" theme="plain" :rows="3" />
   </Space>
 </template>
 <script setup lang="ts">
@@ -19,7 +20,6 @@ const setShape = ({ checked }: ChangeEvent) => {
   shape.value = checked ? "circle" : null;
 };
 const onSearch = (value: string) => {
-  message.info("This is search event");
-  console.log(value);
+  message.info(`Search: ${value}`);
 };
 </script>

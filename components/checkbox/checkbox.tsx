@@ -9,7 +9,12 @@ import {
   type VNodeProps,
 } from "vue";
 import type { BooleanType, SizeType, ThemeType, ValueType } from "../const/types";
-import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 import Icon from "../icon";
 import { getValueWithType } from "../utils/checked";
 import type { CheckboxChangeEvent } from "./types";
@@ -69,6 +74,7 @@ const Checkbox = defineComponent({
   },
   setup(props, { slots, emit, attrs }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const resolveChecked = (value: string | number | boolean | undefined, fallback = false) =>
       value === undefined ? fallback : value === true || value === 1 || value === "1";
     const isChecked = ref(
@@ -117,10 +123,10 @@ const Checkbox = defineComponent({
 
     return () => {
       const { indeterminate, label } = props;
-      const theme = field?.theme.value ?? props.theme;
+      const theme = appearance.theme.value;
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
-      const size = props.size || field?.size.value;
+      const size = appearance.size.value;
       const { class: attrClass, style: attrStyle, ...inputAttrs } = attrs;
 
       const rootProps = {

@@ -1,16 +1,19 @@
 import {
+  computed,
   defineComponent,
   getCurrentInstance,
   inject,
   isRef,
+  onBeforeUnmount,
   provide,
   ref,
   watch,
   type ExtractPropTypes,
   type PropType,
 } from "vue";
+import type { ShapeType, SizeType, ThemeType } from "../const/types";
 import zhCN from "../locale/zh-CN";
-import { setAppContext } from "./context";
+import { CONFIG_PROVIDER_INJECTION_KEY, registerAppContext } from "./context";
 import { popupContainerKey, type PopupContainerGetter } from "./popup";
 const configProviderProps = {
   locale: {
@@ -18,6 +21,9 @@ const configProviderProps = {
     default: () => null,
   },
   getPopupContainer: Function as PropType<PopupContainerGetter>,
+  size: String as PropType<SizeType>,
+  theme: String as PropType<ThemeType>,
+  shape: String as PropType<ShapeType>,
 };
 
 export type ConfigProviderProps = Partial<ExtractPropTypes<typeof configProviderProps>>;
@@ -26,6 +32,12 @@ const ConfigProvider = defineComponent({
   name: "ConfigProvider",
   props: configProviderProps,
   setup(props, { slots }) {
+    const parentConfig = inject(CONFIG_PROVIDER_INJECTION_KEY, null);
+    provide(CONFIG_PROVIDER_INJECTION_KEY, {
+      size: computed(() => props.size ?? parentConfig?.size.value),
+      theme: computed(() => props.theme ?? parentConfig?.theme.value),
+      shape: computed(() => props.shape ?? parentConfig?.shape.value),
+    });
     const inheritedLocale = inject("locale", zhCN);
     const getInheritedLocale = () =>
       isRef(inheritedLocale) ? inheritedLocale.value : inheritedLocale;
@@ -33,11 +45,8 @@ const ConfigProvider = defineComponent({
     provide("locale", locale);
     if (props.getPopupContainer) provide(popupContainerKey, props.getPopupContainer);
     const instance = getCurrentInstance();
-    if (instance && instance.appContext) {
-      instance.appContext.provides["locale"] = locale;
-    }
-    const context = getCurrentInstance();
-    setAppContext(context);
+    const unregisterAppContext = !parentConfig && instance ? registerAppContext(instance) : null;
+    onBeforeUnmount(() => unregisterAppContext?.());
     watch(
       [() => props.locale, getInheritedLocale],
       ([newVal, parentLocale]) => {

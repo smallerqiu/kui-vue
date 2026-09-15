@@ -110,7 +110,6 @@ const SubMenu = defineComponent({
     };
     const updatePosition = () => {
       popupPositioned.value = false;
-      // console.log(mode, keyPath);
       // the second level menu show right top
       // or the mode is vertical
       if (

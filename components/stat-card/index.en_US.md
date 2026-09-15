@@ -75,4 +75,4 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 | Property | Description      | Type                       | Default |
 | -------- | ---------------- | -------------------------- | ------- |
 | theme    | Appearance theme | `fill \| outline \| plain` | fill    |
-| shape    | Card shape       | ShapeType                  | round   |
+| shape    | Card shape       | 'round' \| 'square'        | round   |

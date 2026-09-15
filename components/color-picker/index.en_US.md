@@ -38,6 +38,8 @@ Freely output colors.
 | trigger       | Pull-down trigger mode                                          | 'hover' \| 'click'             | click       |
 | showText      | Whether to display colored text                                 | boolean                        | false       |
 | size          | Size of the color picker                                        | 'small' \| 'medium' \| 'large' | -           |
+| theme         | Appearance theme; inherits from Form when available             | ThemeType                      | outline     |
+| shape         | Shape; inherits from Form when available                        | ShapeType                      | -           |
 | placement     | Placement of the color picker                                   | string                         | bottom-left |
 | onUpdateMode  | Triggered when the color mode is updated                        | (mode: ColorMode) => void      | -           |
 | onChange      | Triggered when the color value changes, returns the color value | (color: string) => void        | -           |

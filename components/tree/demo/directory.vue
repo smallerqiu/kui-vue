@@ -57,6 +57,7 @@ import {
   SquarePen,
   Trash,
 } from "kui-icons";
+import { message } from "kui-vue";
 import type { TreeExpandEvent, TreeNode } from "kui-vue";
 import { ref } from "vue";
 const directory = ref(true);
@@ -182,9 +183,8 @@ const deleteNode = (e: MouseEvent, node: TreeNode) => {
 };
 const expand = ({ expanded, node }: TreeExpandEvent) => {
   node.icon = expanded ? FolderOpen : Folder;
-  console.log(node);
 };
 const onCheck = (node: TreeNode, checked: boolean) => {
-  console.log(node, checked);
+  message.info(`${String(node.title)}: ${checked ? "checked" : "unchecked"}`);
 };
 </script>

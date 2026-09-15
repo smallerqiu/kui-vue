@@ -73,7 +73,6 @@ const columns: Column[] = [
 ];
 const count = ref(4);
 const save = (record: TableRow) => {
-  console.log(record);
   record.isEdit = false;
   message.success("Save successfully!");
 };

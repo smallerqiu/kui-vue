@@ -15,10 +15,7 @@
         <Button type="primary" theme="outline" @click="dark = !dark">
           {{ dark ? "Light mode" : "Dark mode" }}
         </Button>
-        <RadioGroup v-model="shapeMode" type="button">
-          <Radio value="round" label="Round" />
-          <Radio value="square" label="Square" />
-        </RadioGroup>
+        <Segmented v-model="shapeMode" :options="shapeOptions"></Segmented>
       </Space>
     </div>
 
@@ -271,6 +268,10 @@ import { ref } from "vue";
 
 const dark = ref(true);
 const shapeMode = ref<"round" | "square">("round");
+const shapeOptions = [
+  { label: "Round", value: "round" },
+  { label: "Square", value: "square" },
+];
 const options = [
   { label: "Option A", value: "1" },
   { label: "Option B", value: "2" },

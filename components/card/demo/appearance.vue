@@ -14,8 +14,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ShapeType, ThemeType } from "kui-vue";
+import type { CardShape, ThemeType } from "kui-vue";
 
-const shapes: ShapeType[] = ["round", "square", "circle"];
+const shapes: CardShape[] = ["round", "square"];
 const themes: ThemeType[] = ["default", "fill", "outline", "plain"];
 </script>

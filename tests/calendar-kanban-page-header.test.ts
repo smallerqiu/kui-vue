@@ -96,6 +96,11 @@ describe("Kanban", () => {
     expect(wrapper.classes()).toContain("k-kanban-outline");
   });
 
+  it("treats a numeric string column width as pixels", () => {
+    const wrapper = mount(Kanban, { props: { minColumnWidth: "280" } });
+    expect(wrapper.attributes("style")).toContain("--k-kanban-column-width: 280px");
+  });
+
   it("uses the global locale for empty columns", () => {
     const wrapper = mount({
       components: { ConfigProvider, Kanban },

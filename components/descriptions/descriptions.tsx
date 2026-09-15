@@ -7,7 +7,8 @@ import {
   type VNode,
   type VNodeChild,
 } from "vue";
-import type { BooleanType, DirectionType, ShapeType, SizeType } from "../const/types";
+import type { BooleanType, DirectionType, SizeType, SurfaceShapeType } from "../const/types";
+import { useConfigAppearance } from "../config/context";
 import { useBreakpoint } from "../grid/useBreakpoint";
 import { getChildren } from "../utils/vnode";
 import DescriptionsItem from "./descriptions-item";
@@ -19,7 +20,7 @@ const descriptionsProps = {
   title: String,
   extra: String,
   size: { type: String as PropType<SizeType> },
-  shape: { type: String as PropType<ShapeType>, default: "round" },
+  shape: { type: String as PropType<SurfaceShapeType>, default: "round" },
 };
 
 export type DescriptionsProps = ExtractPropTypes<typeof descriptionsProps>;
@@ -30,10 +31,12 @@ const Descriptions = defineComponent({
   name: "Descriptions",
   props: descriptionsProps,
   setup(props, { slots }) {
+    const appearance = useConfigAppearance(props);
     const rootRef = ref<HTMLElement | null>(null);
     const breakpoint = useBreakpoint(rootRef);
     return () => {
-      const { column, bordered, layout, size, title, extra } = props;
+      const { column, bordered, layout, title, extra } = props;
+      const size = appearance.size.value;
       const children = getChildren(slots.default?.()) as VNode[];
       const isVertical = layout === "vertical";
 
@@ -152,7 +155,7 @@ const Descriptions = defineComponent({
             "k-descriptions-bordered": bordered,
             "k-descriptions-medium": size === "medium",
             "k-descriptions-sm": size === "small",
-            [`k-descriptions-${props.shape}`]: props.shape,
+            [`k-descriptions-${appearance.surfaceShape.value}`]: appearance.surfaceShape.value,
           },
         ],
       };

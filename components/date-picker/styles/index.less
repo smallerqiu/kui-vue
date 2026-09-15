@@ -16,7 +16,11 @@
   cursor: default;
   -webkit-user-select: none;
   user-select: none;
-  transition: all 0.3s;
+  transition:
+    border-color 0.3s,
+    background-color 0.3s,
+    box-shadow 0.3s,
+    outline-color 0.3s;
   flex-shrink: 0;
   align-items: center;
   padding: 0 8px;
@@ -110,6 +114,19 @@
   &:focus {
     box-shadow: none;
     border-color: transparent;
+  }
+}
+.k-datepicker-plain {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+
+  &:hover,
+  &:focus,
+  &.k-datepicker-opened {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
   }
 }
 
@@ -235,6 +252,8 @@
 }
 
 .k-picker-container {
+  --kui-picker-panel-height: 262px;
+
   display: flex;
   flex-direction: column;
   width: 272px;
@@ -259,7 +278,7 @@
   }
   .k-picker-body {
     position: relative;
-    min-height: 262px;
+    min-height: var(--kui-picker-panel-height);
     padding: 0 10px 10px 10px;
     box-sizing: border-box;
     display: flex;
@@ -425,7 +444,7 @@
   }
   .k-picker-time-picker {
     display: flex;
-    height: 262px;
+    height: var(--kui-picker-panel-height);
     border-top: 1px solid var(--kui-control-border);
   }
   .k-picker-time-col {
@@ -447,7 +466,7 @@
     &::after {
       content: "";
       display: block;
-      height: 152px;
+      height: calc((100% - var(--kui-control-height)) / 2);
     }
     &:nth-last-child(2) {
       border-left: 1px solid var(--kui-control-border);
@@ -461,7 +480,9 @@
     color: var(--kui-control-text);
     font-size: 13px;
     opacity: 0.6;
-    transition: all 0.2s;
+    transition:
+      background-color 0.2s,
+      opacity 0.2s;
     &:hover {
       background: var(--kui-color-item-hover);
       opacity: 1;

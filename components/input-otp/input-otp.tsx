@@ -10,7 +10,12 @@ import {
   type VNodeChild,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 import type { InputOTPValidator } from "./types";
 
 const inputOTPProps = {
@@ -46,6 +51,7 @@ const InputOTP = defineComponent({
   },
   setup(props, { attrs, emit, expose }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const inputs = ref<Array<HTMLInputElement | null>>([]);
     const focusedIndex = ref(-1);
     const composing = new Set<number>();
@@ -148,12 +154,12 @@ const InputOTP = defineComponent({
         class={[
           "k-input-otp",
           {
-            "k-input-otp-sm": (field?.size.value ?? props.size) === "small",
-            "k-input-otp-lg": (field?.size.value ?? props.size) === "large",
+            "k-input-otp-sm": appearance.size.value === "small",
+            "k-input-otp-lg": appearance.size.value === "large",
             "k-input-otp-disabled": props.disabled || field?.disabled.value,
             "k-input-otp-readonly": props.readonly || field?.readonly.value,
-            [`k-input-otp-${field?.theme.value ?? props.theme}`]: field?.theme.value ?? props.theme,
-            [`k-input-otp-${field?.shape.value ?? props.shape}`]: field?.shape.value ?? props.shape,
+            [`k-input-otp-${appearance.theme.value}`]: appearance.theme.value,
+            [`k-input-otp-${appearance.shape.value}`]: appearance.shape.value,
           },
           attrs.class,
         ]}

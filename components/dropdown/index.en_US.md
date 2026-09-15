@@ -51,9 +51,13 @@ When there are too many operation commands on the page, this component can be us
 
 ### DropdownButton API
 
-| Property | Description                               | Type                  | Default  |
-| -------- | ----------------------------------------- | --------------------- | -------- |
-| size     | Button size                               | 'small' \| 'large'    | -        |
-| shape    | Button shape                              | 'circle' \| 'square'  | -        |
-| icon     | Custom dropdown trigger icon              | IconType[]            | Ellipsis |
-| onClick  | Triggered when the main button is clicked | (e: MouseEvent)=>void | -        |
+| Property  | Description                               | Type                    | Default        |
+| --------- | ----------------------------------------- | ----------------------- | -------------- |
+| size      | Button size                               | SizeType                | -              |
+| shape     | Button shape                              | ShapeType               | -              |
+| disabled  | Whether the button is disabled            | boolean                 | false          |
+| icon      | Custom dropdown trigger icon              | IconType[]              | Ellipsis       |
+| theme     | Button theme                              | ThemeType               | -              |
+| arrow     | Whether to display the dropdown arrow     | boolean                 | false          |
+| placement | Dropdown placement                        | DropPlacementsType      | `bottom-right` |
+| onClick   | Triggered when the main button is clicked | (e: MouseEvent) => void | -              |

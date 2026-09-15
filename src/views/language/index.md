@@ -1,8 +1,8 @@
 # 多语言
 
-`3.6+` 不再依赖 i18n 包，使用 `vue` 的 `provide` 和 `inject` 实现多语言。
+KUI 不依赖第三方 i18n 包，通过 `ConfigProvider` 为组件提供语言配置。KUI 组件默认使用简体中文。
 
-KUI 组件内部默认使用中文，若希望使用其他语言，则需要进行多语言设置。以英文为例，在 App.vue 中:
+通常应在应用根部配置语言。以英文为例：
 
 ```html
 <template>
@@ -22,7 +22,11 @@ KUI 组件内部默认使用中文，若希望使用其他语言，则需要进�
 
 [多语言切换示例](./demo.vue?show=vertical)
 
-- 通过修改 ConfigProvider 的 locale 属性，切换语言。
+- 示例集中展示日期、选择、分页、空状态和弹层等包含内置文案的组件。
+- 修改 `ConfigProvider` 的 `locale` 属性后，后代组件会响应语言变化。
+- DatePicker 使用 dayjs 格式化日期；切换语言时，还应加载并设置对应的 dayjs locale。
+- 业务文案不会自动翻译，需要由应用自身的国际化方案处理。
+- 命令式调用（如 `modal.info`）使用应用根部 `ConfigProvider` 的配置。
 
 目前 KUI 内置了以下语言：
 
@@ -40,4 +44,4 @@ KUI 组件内部默认使用中文，若希望使用其他语言，则需要进�
 - 乌克兰语(uk)
 - 越南语(vi)
 
-欢迎贡献代码，以支持更多语言。[Join](https://github.com/smallerqiu/kui-vue/tree/master/components/locale/lang)
+欢迎贡献代码，以支持更多语言。[参与贡献](https://github.com/smallerqiu/kui-vue/tree/master/components/locale)

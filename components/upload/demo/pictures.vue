@@ -7,7 +7,6 @@
       type="picture"
       sortable
       :headers="headers"
-      @change="handleChange"
       v-model:fileList="fileList"
       accept="image/*"
       uploadText="Upload Avatar"
@@ -15,7 +14,7 @@
   </Space>
 </template>
 <script setup lang="ts">
-import type { UploadChangeEvent, UploadFile } from "kui-vue";
+import type { UploadFile } from "kui-vue";
 import { ref } from "vue";
 const headers = ref({
   authorization: "here is token",
@@ -41,11 +40,6 @@ const fileList = ref<UploadFile[]>([
     size: "222kb",
   },
 ]);
-const handleChange = (e: UploadChangeEvent) => {
-  if (e.file.status !== "uploading") {
-    console.log(e.file, e.fileList);
-  }
-};
 const test = () => {
   fileList.value = [
     {

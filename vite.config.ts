@@ -31,7 +31,7 @@ export default defineConfig({
       tsconfigPath: "./tsconfig.app.json",
       outDirs: "./types/",
       entryRoot: path.resolve(import.meta.dirname, "components"),
-      exclude: ["node_modules/**", "src/**", "plugins"],
+      exclude: ["node_modules/**", "src/**", "plugins", "components/**/demo/**"],
       include: ["components/**/*.ts", "components/**/*.tsx"],
       afterBuild: () => {
         // 在 ES 构建完成后生成 global.d.ts、Vetur 和 Web-Types 配置

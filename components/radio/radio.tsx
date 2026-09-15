@@ -1,6 +1,11 @@
 import { defineComponent, type ExtractPropTypes, type PropType, ref, watch } from "vue";
 import type { BooleanType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 import type { ChangeEvent } from "./types";
 const radioProps = {
   modelValue: { type: Boolean, default: undefined },
@@ -29,6 +34,7 @@ const Radio = defineComponent({
   },
   setup(props, { slots, emit, attrs }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const isChecked = ref(
       field?.prop ? Boolean(field.value.value) : (props.modelValue ?? props.checked ?? false),
     );
@@ -77,8 +83,8 @@ const Radio = defineComponent({
       const { class: attrClass, style: attrStyle, ...inputAttrs } = attrs;
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
-      const size = props.size || field?.size.value;
-      const theme = field?.theme.value ?? props.theme;
+      const size = appearance.size.value;
+      const theme = appearance.theme.value;
       const classes = [
         "k-radio",
         {

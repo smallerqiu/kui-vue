@@ -24,12 +24,12 @@
 
 ## API
 
-| 属性      | 说明                                                                                                                                                                       | 类型         | 默认值 |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | ------ |
-| title     | 显示的标题                                                                                                                                                                 | string, slot | -      |
-| color     | 背景颜色                                                                                                                                                                   | string       | -      |
-| placement | 提示框出现的位置，可选值为`top`、`top-left`、`top-right`、`bottom`、`bottom-left`、`bottom-right`、`left`、`left-top`、`left-bottom`、`right`、`right-top`、`right-bottom` | string       | top    |
-| width     | 展示的宽度,默认为内容区域的大小                                                                                                                                            | string       | -      |
-| disabled  | 禁用状态                                                                                                                                                                   | boolean      | false  |
-| show      | 初始化时是否展示                                                                                                                                                           | boolean      | false  |
-| panelOnly | 仅渲染提示面板，不需要触发元素                                                                                                                                             | boolean      | false  |
+| 属性      | 说明                                                                                                                                                                       | 类型             | 默认值 |
+| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ------ |
+| title     | 显示的标题                                                                                                                                                                 | string, slot     | -      |
+| color     | 背景颜色                                                                                                                                                                   | string           | -      |
+| placement | 提示框出现的位置，可选值为`top`、`top-left`、`top-right`、`bottom`、`bottom-left`、`bottom-right`、`left`、`left-top`、`left-bottom`、`right`、`right-top`、`right-bottom` | string           | top    |
+| width     | 展示的宽度，数字及纯数字字符串按 px 处理                                                                                                                                   | string \| number | -      |
+| disabled  | 禁用状态                                                                                                                                                                   | boolean          | false  |
+| show      | 初始化时是否展示                                                                                                                                                           | boolean          | false  |
+| panelOnly | 仅渲染提示面板，不需要触发元素                                                                                                                                             | boolean          | false  |

@@ -35,6 +35,7 @@
 | itemHeight | 每一项的固定高度             | number                                      | 32     |
 | overscan   | 视口上下额外渲染的项目数量   | number                                      | 5      |
 | itemKey    | 唯一标识字段或获取唯一值方法 | string \| (item, index) => string \| number | -      |
+| onScroll   | 滚动时触发                   | (event: Event) => void                      | -      |
 
 ## Methods
 

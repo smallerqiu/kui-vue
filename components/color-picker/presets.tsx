@@ -39,11 +39,28 @@ export default defineComponent({
     return () => {
       if (props.modelValue.length == 0) return null;
       const color = props.modelValue.map((hex) => (
-        <span style={{ backgroundColor: hex }} onClick={() => emit("updateColor", Color(hex))}>
+        <span
+          key={hex}
+          style={{ backgroundColor: hex }}
+          role="option"
+          tabindex={0}
+          aria-label={hex}
+          aria-selected={Color(props.color).hex() == Color(hex).hex()}
+          onClick={() => emit("updateColor", Color(hex))}
+          onKeydown={(event: KeyboardEvent) => {
+            if (event.key !== "Enter" && event.key !== " ") return;
+            event.preventDefault();
+            emit("updateColor", Color(hex));
+          }}
+        >
           {Color(props.color).hex() == Color(hex).hex() ? <Icon type={Check} /> : null}
         </span>
       ));
-      return <div class="k-color-picker-presets">{color}</div>;
+      return (
+        <div class="k-color-picker-presets" role="listbox">
+          {color}
+        </div>
+      );
     };
   },
 });

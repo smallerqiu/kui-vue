@@ -16,8 +16,8 @@ import { ref } from "vue";
 const current = ref(["1-1"]);
 const openKeys = ref(["sub1"]);
 
-const openChange = (openKeys: string[]) => {
-  console.log(openKeys);
+const openChange = (keys: string[]) => {
+  openKeys.value = keys;
 };
 
 const items = [

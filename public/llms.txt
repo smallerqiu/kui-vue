@@ -99,6 +99,7 @@ Import `kui-vue/style/index.css`, then import components from `kui-vue` or insta
 - [Radio](https://k-ui.cn/components/radio): tags `radio`, `k-radio`
 - [RadioButton](https://k-ui.cn/components/radio): tags `radio-button`, `k-radio-button`
 - [RadioGroup](https://k-ui.cn/components/radio): tags `radio-group`, `k-radio-group`
+- [Segmented](https://k-ui.cn/components/segmented): tags `segmented`, `k-segmented`
 - [Rate](https://k-ui.cn/components/rate): tags `rate`, `k-rate`
 - [Result](https://k-ui.cn/components/result): tags `result`, `k-result`
 - [FeedbackPanel](https://k-ui.cn/components/feedback-panel): tags `feedback-panel`, `k-feedback-panel`

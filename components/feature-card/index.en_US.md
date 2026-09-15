@@ -29,7 +29,7 @@ Used to present product features, navigation entries, or capability descriptions
 | desc           | Description, customizable via the named slot                 | string \| VNodeChild     | -          |
 | bordered       | Whether to show border                                       | boolean                  | false      |
 | theme          | Appearance theme                                             | ThemeType                | fill       |
-| shape          | Card shape                                                   | ShapeType                | round      |
+| shape          | Card shape                                                   | 'round' \| 'square'      | round      |
 | size           | Card size                                                    | SizeType                 | medium     |
 | direction      | Content direction                                            | `horizontal \| vertical` | horizontal |
 | clickable      | Enable interaction and keyboard semantics                    | boolean                  | false      |

@@ -23,7 +23,7 @@ import {
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
 import resize from "../directives/resize";
-import { markFormFieldComponent, useFormField } from "../form/context";
+import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
@@ -112,6 +112,7 @@ const Select = defineComponent({
   props: selectProps,
   setup(props, { slots, emit }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     usePopupHost(() => closeDropdown());
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
@@ -674,9 +675,9 @@ const Select = defineComponent({
       const { multiple, placeholder, showArrow, bordered, arrowIcon, icon, filterable } = props;
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
-      const size = props.size || field?.size.value;
-      const theme = field?.theme.value ?? props.theme;
-      const shape = props.shape || field?.shape.value;
+      const size = appearance.size.value;
+      const theme = appearance.theme.value;
+      const shape = appearance.shape.value;
       const childNode: VNodeChild[] = [];
       const finalArrowIcon = arrowIcon || ChevronDown;
 
@@ -704,7 +705,6 @@ const Select = defineComponent({
       );
 
       const placeholderText = placeholder || locale.value?.k.select.placeholder;
-      // console.log(placeholderText, labelText.value, queryKey.value);
       const placeNode =
         placeholderText && isEmpty(labelText.value) && !queryKey.value ? (
           <div class="k-select-placeholder">{placeholderText}</div>

@@ -38,7 +38,7 @@ const Icon = defineComponent({
   name: "Icon",
   props: iconProps,
   emits: {
-    click: (event: PointerEvent) => event instanceof PointerEvent,
+    click: (event: MouseEvent) => event instanceof MouseEvent,
   },
   setup(props, { attrs, emit }) {
     const renderPaths = () => {
@@ -80,7 +80,7 @@ const Icon = defineComponent({
         onPointerup: props.onPointerup,
         style: styles,
         class: ["k-icon", { "k-load-loop": props.spin }],
-        onClick: (e: PointerEvent) => emit("click", e),
+        onClick: (event: MouseEvent) => emit("click", event),
       };
 
       return (

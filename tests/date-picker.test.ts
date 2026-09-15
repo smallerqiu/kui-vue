@@ -3,6 +3,16 @@ import { describe, expect, it } from "vitest";
 import DatePicker from "../components/date-picker";
 
 describe("DatePicker calendar grid", () => {
+  it("forwards native attributes and merges root classes", () => {
+    const wrapper = mount(DatePicker, {
+      attrs: { id: "booking-date", class: "custom-picker", "aria-label": "Booking date" },
+    });
+
+    expect(wrapper.attributes("id")).toBe("booking-date");
+    expect(wrapper.classes()).toContain("custom-picker");
+    expect(wrapper.attributes("aria-label")).toBe("Booking date");
+  });
+
   it("does not create a Teleport before the panel is opened", () => {
     const wrapper = mount(DatePicker, { attachTo: document.body });
 

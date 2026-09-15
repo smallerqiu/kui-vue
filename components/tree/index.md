@@ -38,35 +38,42 @@
 
 - 大数据量时设置 `virtual`，仅渲染可视区域内的节点。虚拟滚动要求节点高度固定。
 
+[字段映射与实例方法](./demo/advanced.vue?show=vertical)
+
+- 使用 `fieldNames` 适配后端字段，通过 `title` 插槽自定义节点，并调用实例方法控制树。
+
+Tree 支持焦点管理以及上下、左右、Home、End、Enter 和 Space 键操作。
+
 ## Tree API
 
-| 属性          | 说明                                                         | 类型                              | 默认值 |
-| ------------- | ------------------------------------------------------------ | --------------------------------- | ------ |
-| data          | 可嵌套的节点属性的数组，生成 `tree` 的数据                   | TreeNode[]                        | []     |
-| checkable     | 是否显示多选框                                               | boolean                           | false  |
-| draggable     | 是否可以拖拽                                                 | boolean                           | false  |
-| showLine      | 是否展示连接线                                               | boolean                           | false  |
-| showIcon      | 是否展示图标                                                 | boolean                           | true   |
-| extra         | 扩展元素                                                     | slot(node)                        | -      |
-| showExtra     | 是否默认展示扩展元素                                         | boolean                           | false  |
-| checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | boolean                           | false  |
-| checkedKeys   | 选中复选框的树节点                                           | string[]                          | []     |
-| expandedKeys  | 指定展开的节点                                               | string[]                          | []     |
-| selectedKeys  | 选中的节点                                                   | string[]                          | []     |
-| multiple      | 是否支持多选                                                 | boolean                           | false  |
-| loading       | 异步加载状态                                                 | boolean                           | false  |
-| loadData      | 异步加载数据的方法                                           | (node: TreeNode) => Promise<any\> | -      |
-| directory     | 是不显示为目录树                                             | boolean                           | false  |
-| virtual       | 是否启用虚拟滚动                                             | boolean                           | false  |
-| height        | 虚拟滚动视口高度                                             | number \| string                  | 300    |
-| itemHeight    | 虚拟滚动节点高度                                             | number                            | 28     |
-| overscan      | 可视区域外预渲染的节点数量                                   | number                            | 5      |
+| 属性          | 说明                                                         | 类型                                 | 默认值 |
+| ------------- | ------------------------------------------------------------ | ------------------------------------ | ------ |
+| data          | 可嵌套的节点属性的数组，生成 `tree` 的数据                   | TreeNode[]                           | []     |
+| checkable     | 是否显示多选框                                               | boolean                              | false  |
+| draggable     | 是否可以拖拽                                                 | boolean                              | false  |
+| showLine      | 是否展示连接线                                               | boolean                              | false  |
+| showIcon      | 是否展示图标                                                 | boolean                              | true   |
+| extra         | 扩展元素                                                     | slot(node)                           | -      |
+| showExtra     | 是否默认展示扩展元素                                         | boolean                              | false  |
+| checkStrictly | checkable 状态下节点选择完全受控（父子节点选中状态不再关联） | boolean                              | false  |
+| checkedKeys   | 选中复选框的树节点                                           | string[]                             | []     |
+| expandedKeys  | 指定展开的节点                                               | string[]                             | []     |
+| selectedKeys  | 选中的节点                                                   | string[]                             | []     |
+| multiple      | 是否支持多选                                                 | boolean                              | false  |
+| loading       | 异步加载状态                                                 | boolean                              | false  |
+| loadData      | 异步加载数据的方法；成功后同一节点不会重复加载               | (node: TreeNode) => Promise\<unknown\> | -      |
+| fieldNames    | 自定义节点字段名称                                           | TreeFieldNames                       | -      |
+| directory     | 是否显示为目录树                                             | boolean                              | false  |
+| virtual       | 是否启用虚拟滚动                                             | boolean                              | false  |
+| height        | 虚拟滚动视口高度                                             | number \| string                     | 300    |
+| itemHeight    | 虚拟滚动节点高度                                             | number                               | 28     |
+| overscan      | 可视区域外预渲染的节点数量                                   | number                               | 5      |
 
 ## TreeNode API
 
 | 属性     | 说明                                                                     | 类型       | 默认值 |
 | -------- | ------------------------------------------------------------------------ | ---------- | ------ |
-| title    | 节点标题                                                                 | string     | -      |
+| title    | 节点标题，也可使用 `title` 插槽                                          | string     | -      |
 | icon     | 自定义图标                                                               | string     | -      |
 | disabled | 是否禁用节点                                                             | boolean    | false  |
 | children | 子节点                                                                   | TreeNode[] | -      |
@@ -84,3 +91,17 @@
 | onDragenter | dragenter 触发时调用   | (node: TreeNode, event: DragEvent) => void                                   |
 | onDragleave | dragleave 触发时调用   | (node: TreeNode, event: DragEvent) => void                                   |
 | onDrop      | drop 触发时调用        | (node: { dragNode: TreeNode; dropNode: TreeNode }, event: DragEvent) => void |
+| onLoadError | 异步加载失败时触发     | (error: unknown, node: TreeNode) => void                                     |
+
+`onDrop` 的第一个参数还包含 `dropPosition: 'before' | 'inside' | 'after'`。
+
+## 实例方法
+
+| 方法             | 说明               |
+| ---------------- | ------------------ |
+| getNode          | 根据 key 获取节点  |
+| getCheckedNodes  | 获取已勾选节点     |
+| getSelectedNodes | 获取已选中节点     |
+| scrollTo         | 滚动到指定节点     |
+| expandAll        | 展开全部非叶子节点 |
+| collapseAll      | 折叠全部节点       |

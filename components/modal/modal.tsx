@@ -23,6 +23,8 @@ import { usePopupContainer } from "../config/popup";
 import { providePopupHost } from "../config/popup-host";
 import type { BooleanType } from "../const/types";
 import zhCN from "../locale/zh-CN";
+import { toCssLength } from "../utils/css";
+import { createFocusTrap } from "../utils/focus";
 import { toggleContainerScroll } from "../utils/vnode";
 
 const modalProps = {
@@ -66,9 +68,10 @@ const Modal = defineComponent({
     const isMousePressed = ref(false);
     const mousedownIn = ref(false);
     const startPos = ref({ x: 0, y: 0 });
-    const refModal = ref();
-    const refHeader = ref();
+    const refModal = ref<HTMLElement | null>(null);
+    const refHeader = ref<HTMLElement | null>(null);
     const closeHostedPopups = providePopupHost();
+    const focusTrap = createFocusTrap(() => refModal.value);
     let scrollLocked = false;
     const updateScrollLock = (lock: boolean) => {
       if (props.panelOnly || scrollLocked === lock) return;
@@ -99,6 +102,7 @@ const Modal = defineComponent({
       document.removeEventListener("mousedown", mousedown);
       document.removeEventListener("keydown", escToClose);
       updateScrollLock(false);
+      focusTrap.deactivate();
     });
     watch(
       () => props.modelValue,
@@ -129,13 +133,16 @@ const Modal = defineComponent({
             emit("openChange", true);
             nextTick(() => {
               if (props.draggable) {
-                left.value = (document.body.offsetWidth - refModal.value.offsetWidth) / 2;
+                const modal = refModal.value;
+                if (modal) left.value = (document.body.offsetWidth - modal.offsetWidth) / 2;
               }
               updateOrigin();
+              if (!props.panelOnly) focusTrap.activate();
             });
           });
         } else {
           closeHostedPopups();
+          focusTrap.deactivate();
           updateScrollLock(false);
           visible.value = false;
           setTimeout(() => {
@@ -150,7 +157,7 @@ const Modal = defineComponent({
       if (refModal.value) {
         const { x, y } = getMousePoint();
         const p = getOffset(refModal.value);
-        refModal.value.style["transform-origin"] = `${x - p.left}px ${y - p.top}px`;
+        refModal.value.style.transformOrigin = `${x - p.left}px ${y - p.top}px`;
       }
     };
     const ok = () => {
@@ -168,6 +175,8 @@ const Modal = defineComponent({
       if (
         !props.loading &&
         props.maskClosable &&
+        refModal.value &&
+        e.target instanceof Node &&
         !refModal.value.contains(e.target) &&
         !mousedownIn.value
       ) {
@@ -195,6 +204,7 @@ const Modal = defineComponent({
         e.button == 0 &&
         props.draggable === true &&
         refHeader.value &&
+        e.target instanceof Node &&
         refHeader.value.contains(e.target)
       ) {
         isMousePressed.value = true;
@@ -204,7 +214,12 @@ const Modal = defineComponent({
         document.addEventListener("mouseup", mouseup);
       }
 
-      mousedownIn.value = visible.value && refModal.value && refModal.value.contains(e.target);
+      mousedownIn.value = Boolean(
+        visible.value &&
+        refModal.value &&
+        e.target instanceof Node &&
+        refModal.value.contains(e.target),
+      );
     };
 
     return () => {
@@ -270,7 +285,7 @@ const Modal = defineComponent({
       const style = props.maximized
         ? null
         : {
-            width: typeof width === "number" ? `${width}px` : width,
+            width: toCssLength(width),
             top: props.centered ? undefined : `${currentTop.value}px`,
             left: props.centered ? undefined : `${left.value}px`,
           };
@@ -294,11 +309,19 @@ const Modal = defineComponent({
             class="k-modal-wrap"
             tabindex="-1"
             role="dialog"
+            aria-modal={props.mask || undefined}
             v-show={showInner.value}
             onClick={clickMaskToClose}
           >
             <Transition name="k-modal-zoom">
-              <div class="k-modal-inner" ref={refModal} v-show={visible.value} style={style}>
+              <div
+                class="k-modal-inner"
+                ref={refModal}
+                tabindex={-1}
+                v-show={visible.value}
+                style={style}
+                onKeydown={focusTrap.handleKeydown}
+              >
                 {contentNode}
                 <div tabindex="0"></div>
               </div>

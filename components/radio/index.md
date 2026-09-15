@@ -42,7 +42,15 @@
 | readonly   | 是否只读，不可切换       | boolean                  | false  |
 | onChange   | 在选项状态发生改变时回调 | (e: ChangeEvent) => void | -      |
 
-`RadioButton` 额外支持 `icon`、`theme`、`size` 和 `shape`，在 `RadioGroup type="button"` 中使用。
+### RadioButton API
+
+`RadioButton` 支持 Radio 的属性，并额外支持以下属性：
+
+| 属性 | 说明     | 类型       | 默认值 |
+| ---- | -------- | ---------- | ------ |
+| icon | 按钮图标 | IconType[] | -      |
+
+`RadioButton` 在 `RadioGroup type="button"` 中使用。
 
 滑块式分段选择请使用独立的 [Segmented](../segmented/index.md) 组件；`RadioGroup` 不再支持 `theme="card"`。
 

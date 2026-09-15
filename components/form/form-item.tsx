@@ -333,13 +333,14 @@ const FormItem = defineComponent({
     return () => {
       const { label, prop } = props;
       const isRequired = required.value;
+      const showColon = props.colon ?? Form.colon ?? true;
 
       const classes = [
         "k-form-item",
         {
           "k-form-item-required": isRequired,
           "k-form-item-error": !valid.value,
-          "k-form-item-no-colon": !(props.colon ?? Form.colon ?? true),
+          "k-form-item-no-colon": !showColon,
         },
       ];
 
@@ -367,7 +368,19 @@ const FormItem = defineComponent({
           {label ? (
             <Col class="k-form-item-label" {...labelProp}>
               <label id={labelId.value} for={controlId}>
-                {label}
+                <span class="k-form-item-label-main">
+                  {isRequired ? (
+                    <span class="k-form-item-required-mark" aria-hidden="true">
+                      *
+                    </span>
+                  ) : null}
+                  <span class="k-form-item-label-text">{label}</span>
+                </span>
+                {showColon ? (
+                  <span class="k-form-item-colon" aria-hidden="true">
+                    :
+                  </span>
+                ) : null}
               </label>
             </Col>
           ) : null}

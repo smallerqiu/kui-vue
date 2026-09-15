@@ -8,6 +8,7 @@ import {
   type StyleValue,
 } from "vue";
 import Empty from "../empty";
+import { toCssLength } from "../utils/css";
 
 export interface KanbanColumnData {
   key: string | number;
@@ -91,10 +92,7 @@ const Kanban = defineComponent({
       move(item, target);
     };
     return () => {
-      const width =
-        typeof props.minColumnWidth === "number"
-          ? `${props.minColumnWidth}px`
-          : props.minColumnWidth;
+      const width = toCssLength(props.minColumnWidth);
       const { class: customClass, style: customStyle, ...restAttrs } = attrs;
       return (
         <div

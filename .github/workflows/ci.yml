@@ -28,6 +28,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Install browser for visual tests
+        run: pnpm exec playwright install --with-deps chromium
+
       - name: Verify AI metadata and evals
         run: pnpm check:ai-assets && pnpm check:ai-evals
 

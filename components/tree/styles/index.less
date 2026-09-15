@@ -11,7 +11,9 @@
     display: flex;
     align-items: center;
     line-height: 1;
-    transition: all 0.2s ease-in-out;
+    transition:
+      color 0.2s ease-in-out,
+      background-color 0.2s ease-in-out;
     position: relative;
     .k-checkbox {
       margin: 0 4px;
@@ -71,6 +73,33 @@
     }
   }
 
+  .k-tree-item-drop-before::after,
+  .k-tree-item-drop-after::after {
+    content: "";
+    position: absolute;
+    z-index: 2;
+    right: 0;
+    left: 0;
+    height: 2px;
+    background: var(--kui-color-primary);
+  }
+
+  .k-tree-item-drop-before::after {
+    top: 0;
+  }
+
+  .k-tree-item-drop-after::after {
+    bottom: 0;
+  }
+
+  .k-tree-item-drop-before,
+  .k-tree-item-drop-after {
+    > .k-tree-title {
+      color: var(--kui-color-text);
+      background: transparent !important;
+    }
+  }
+
   .k-tree-item-extra {
     flex: 1;
     text-align: right;
@@ -116,7 +145,7 @@
     justify-content: center;
     cursor: pointer;
     .k-icon {
-      transition: all 0.2s ease-in-out;
+      transition: transform 0.2s ease-in-out;
     }
   }
 
@@ -141,6 +170,16 @@
   .k-tree-item {
     margin-bottom: 0;
   }
+}
+
+.k-tree .k-tree-item.k-tree-slide-enter-active,
+.k-tree .k-tree-item.k-tree-slide-leave-active {
+  overflow: hidden;
+  transition:
+    height var(--kui-motion-duration) var(--kui-motion-easing),
+    opacity var(--kui-motion-duration) var(--kui-motion-easing),
+    margin var(--kui-motion-duration) var(--kui-motion-easing),
+    padding var(--kui-motion-duration) var(--kui-motion-easing);
 }
 
 .k-tree-directory {

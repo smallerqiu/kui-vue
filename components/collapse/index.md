@@ -38,13 +38,14 @@
 | sample    | 是否开启简洁模式                                         | boolean                         | false   |
 | onChange  | 切换面板时触发回调，返回当前选项卡的 `name`              | (key: string \| number) => void | -       |
 | theme     | 外观主题                                                 | ThemeType                       | outline |
-| shape     | 面板形状                                                 | ShapeType                       | round   |
+| shape     | 面板形状                                                 | 'round' \| 'square'             | round   |
 
 ## Panel
 
-| 属性     | 说明             | 类型             | 默认值 |
-| -------- | ---------------- | ---------------- | ------ |
-| title    | 面板标题         | VNodeChild       | -      |
-| key      | Panel 的唯一标识 | string \| number | -      |
-| disabled | 是否禁用         | boolean          | false  |
-| extra    | 标题右侧扩展内容 | Slots            | -      |
+| 属性     | 说明                   | 类型                            | 默认值 |
+| -------- | ---------------------- | ------------------------------- | ------ |
+| title    | 面板标题               | VNodeChild                      | -      |
+| key      | Panel 的唯一标识       | string \| number                | -      |
+| disabled | 是否禁用               | boolean                         | false  |
+| extra    | 标题右侧扩展内容       | Slots                           | -      |
+| onExpand | 面板切换展开状态时触发 | (key: string \| number) => void | -      |

@@ -2,6 +2,7 @@ import { X } from "kui-icons";
 import {
   computed,
   defineComponent,
+  nextTick,
   onBeforeUnmount,
   onMounted,
   ref,
@@ -13,6 +14,7 @@ import {
   type VNodeChild,
 } from "vue";
 import { Button } from "../button";
+import { createFocusTrap } from "../utils/focus";
 import { toggleContainerScroll } from "../utils/vnode";
 
 export interface TourStep {
@@ -31,6 +33,7 @@ const propsDef = {
   steps: { type: Array as PropType<TourStep[]>, default: () => [] },
   mask: { type: Boolean, default: true },
   closable: { type: Boolean, default: true },
+  escKey: { type: Boolean, default: true },
 };
 export type TourProps = ExtractPropTypes<typeof propsDef>;
 
@@ -49,6 +52,8 @@ export default defineComponent({
     const tick = ref(0);
     const visible = computed(() => props.modelValue ?? innerOpen.value);
     const rendered = ref(visible.value);
+    const panelRef = ref<HTMLElement>();
+    const focusTrap = createFocusTrap(() => panelRef.value);
     const index = computed(() => props.current ?? innerCurrent.value);
     const refresh = () => (tick.value += 1);
     let scrollLocked = false;
@@ -67,21 +72,30 @@ export default defineComponent({
       window.addEventListener("resize", refresh);
       window.addEventListener("scroll", refresh, true);
       updateScrollLock(visible.value);
+      document.addEventListener("keydown", handleDocumentKeydown);
+      if (visible.value) nextTick(focusTrap.activate);
     });
     onBeforeUnmount(() => {
       window.removeEventListener("resize", refresh);
       window.removeEventListener("scroll", refresh, true);
       updateScrollLock(false);
+      document.removeEventListener("keydown", handleDocumentKeydown);
+      focusTrap.deactivate();
     });
     watch(visible, (value) => {
       if (value) rendered.value = true;
       updateScrollLock(value);
+      if (value) nextTick(focusTrap.activate);
+      else focusTrap.deactivate();
     });
     const close = () => {
       innerOpen.value = false;
       emit("update:modelValue", false);
       emit("openChange", false);
     };
+    function handleDocumentKeydown(event: KeyboardEvent) {
+      if (event.key === "Escape" && props.escKey && visible.value) close();
+    }
     const go = (next: number) => {
       innerCurrent.value = next;
       emit("change", next);
@@ -145,11 +159,14 @@ export default defineComponent({
               </div>
             </Transition>
             <section
+              ref={panelRef}
               v-show={visible.value}
               class={["k-tour-panel", `k-tour-${placement}`]}
               style={panelStyle}
               role="dialog"
               aria-modal="true"
+              tabindex={-1}
+              onKeydown={focusTrap.handleKeydown}
             >
               {rect && (
                 <div class="k-tour-arrow" aria-hidden="true">

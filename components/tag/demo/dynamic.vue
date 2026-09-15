@@ -22,7 +22,6 @@ const inputRef = ref();
 const show = () => {
   showInput.value = true;
   nextTick(() => {
-    // console.log(inputRef.value)
     inputRef.value.focus();
   });
 };

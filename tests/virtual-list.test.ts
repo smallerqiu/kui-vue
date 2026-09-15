@@ -3,6 +3,11 @@ import { describe, expect, it } from "vitest";
 import VirtualList, { getVirtualRange } from "../components/virtual-list";
 
 describe("VirtualList", () => {
+  it("treats a numeric string height as pixels", () => {
+    const wrapper = mount(VirtualList, { props: { height: "120" } });
+    expect(wrapper.attributes("style")).toContain("height: 120px");
+  });
+
   it("calculates a bounded virtual range", () => {
     expect(
       getVirtualRange({

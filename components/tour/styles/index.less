@@ -23,7 +23,12 @@
   border-radius: var(--kui-popup-radius);
   box-shadow: 0 0 0 9999px var(--kui-color-mask);
   pointer-events: none;
-  transition: all var(--kui-motion-duration-slow) var(--kui-motion-easing);
+  transition:
+    top var(--kui-motion-duration-slow) var(--kui-motion-easing),
+    left var(--kui-motion-duration-slow) var(--kui-motion-easing),
+    width var(--kui-motion-duration-slow) var(--kui-motion-easing),
+    height var(--kui-motion-duration-slow) var(--kui-motion-easing),
+    border-radius var(--kui-motion-duration-slow) var(--kui-motion-easing);
 }
 .k-tour-panel {
   position: fixed;

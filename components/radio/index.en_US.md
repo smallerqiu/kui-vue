@@ -42,7 +42,15 @@ Radio button.
 | readonly   | Read-only; cannot be toggled       | boolean                  | false   |
 | onChange   | Callback when option state changes | (e: ChangeEvent) => void | -       |
 
-`RadioButton` additionally supports `icon`, `theme`, `size`, and `shape`, and is used through `RadioGroup type="button"`.
+### RadioButton API
+
+`RadioButton` supports Radio properties and adds:
+
+| Property | Description | Type       | Default |
+| -------- | ----------- | ---------- | ------- |
+| icon     | Button icon | IconType[] | -       |
+
+Use `RadioButton` through `RadioGroup type="button"`.
 
 Use the standalone [Segmented](../segmented/index.en_US.md) component for slider-style selection. `RadioGroup` no longer supports `theme="card"`.
 

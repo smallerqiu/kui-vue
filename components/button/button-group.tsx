@@ -7,6 +7,7 @@ import {
   type PropType,
 } from "vue";
 import { type ShapeType, type SizeType } from "../const/types";
+import { useConfigAppearance } from "../config/context";
 
 const buttonGroupProps = {
   size: {
@@ -21,12 +22,13 @@ const ButtonGroup = defineComponent({
   name: "ButtonGroup",
   props: buttonGroupProps,
   setup(props, { slots }) {
-    const { size, shape } = toRefs(props);
+    const appearance = useConfigAppearance(props);
+    const { size } = toRefs(props);
     const parentSize = inject<string | null>("size", null);
 
     provide("KButtonGroup", {
-      size: props.size || parentSize,
-      shape,
+      size: props.size || parentSize || appearance.size.value,
+      shape: appearance.shape,
     });
 
     return () => {
@@ -34,10 +36,10 @@ const ButtonGroup = defineComponent({
         class: [
           "k-btn-group",
           {
-            ["k-btn-group-sm"]: size.value === "small",
-            ["k-btn-group-lg"]: size.value === "large",
-            ["k-btn-group-circle"]: shape.value === "circle",
-            ["k-btn-group-square"]: shape.value === "square",
+            ["k-btn-group-sm"]: (size.value || appearance.size.value) === "small",
+            ["k-btn-group-lg"]: (size.value || appearance.size.value) === "large",
+            ["k-btn-group-circle"]: appearance.shape.value === "circle",
+            ["k-btn-group-square"]: appearance.shape.value === "square",
           },
         ],
       };

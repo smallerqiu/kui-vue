@@ -19,7 +19,12 @@ import {
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
 import type { DropPlacementsType, ShapeType, SizeType, ThemeType } from "../const/types";
-import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 import Empty from "../empty";
 import Icon from "../icon";
 import { TextArea } from "../input";
@@ -66,6 +71,7 @@ const Mentions = defineComponent({
   },
   setup(props, { emit, attrs, slots }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     usePopupHost(() => query.value && (query.value = undefined));
     const getPopupContainer = usePopupContainer();
     const instance = getCurrentInstance();
@@ -337,9 +343,9 @@ const Mentions = defineComponent({
           disabled={props.disabled || field?.disabled.value}
           readonly={props.readonly || field?.readonly.value}
           rows={props.rows}
-          size={props.size || field?.size.value}
-          shape={props.shape || field?.shape.value}
-          theme={field?.theme.value ?? props.theme}
+          size={appearance.size.value}
+          shape={appearance.shape.value}
+          theme={appearance.theme.value}
           aria-haspopup="listbox"
           aria-expanded={Boolean(query.value)}
           aria-controls={query.value ? listboxId : undefined}

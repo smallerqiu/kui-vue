@@ -12,7 +12,12 @@ import {
   type PropType,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType } from "../const/types";
-import { markFormFieldComponent, resolveFormControlAttrs, useFormField } from "../form/context";
+import {
+  markFormFieldComponent,
+  resolveFormControlAttrs,
+  useFormAppearance,
+  useFormField,
+} from "../form/context";
 import Icon, { type IconType } from "../icon";
 import { checkCardGroupKey } from "./context";
 import type { CheckCardChangeEvent, CheckCardTheme, CheckCardValue } from "./types";
@@ -44,6 +49,7 @@ const CheckCard = defineComponent({
   },
   setup(props, { attrs, emit, slots }) {
     const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
     const group = inject(checkCardGroupKey, null);
     const rootRef = ref<HTMLElement>();
     const localChecked = ref(field?.prop ? Boolean(field.value.value) : props.modelValue);
@@ -63,9 +69,15 @@ const CheckCard = defineComponent({
     const readonly = computed(() =>
       Boolean(props.readonly || field?.readonly.value || group?.readonly.value),
     );
-    const theme = computed(() => group?.theme.value ?? props.theme);
-    const size = computed(() => group?.size.value ?? props.size);
-    const shape = computed(() => group?.shape.value ?? props.shape);
+    const theme = computed(() => {
+      const formTheme = appearance.theme.value;
+      return (
+        group?.theme.value ??
+        (formTheme === "outline" || formTheme === "fill" ? formTheme : props.theme)
+      );
+    });
+    const size = computed(() => group?.size.value ?? appearance.size.value);
+    const shape = computed(() => group?.shape.value ?? appearance.shape.value);
 
     const register = () => {
       if (!group || props.value === undefined || !rootRef.value) return;

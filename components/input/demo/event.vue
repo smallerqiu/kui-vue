@@ -28,8 +28,7 @@ import { message } from "kui-vue";
 const events: Record<string, (e: Event | string) => void> = {};
 ["focus", "blur", "change", "keypress", "keyup", "keydown", "keydownEnter"].forEach((type) => {
   events[type] = (e) => {
-    message.info(type);
-    console.log(type, e);
+    message.info(`${type}: ${typeof e === "string" ? e : e.type}`);
   };
 });
 </script>

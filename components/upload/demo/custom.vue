@@ -29,11 +29,9 @@ const headers = ref({
   authorization: "here is token",
 });
 const onSelectFiles = (fileList: UploadFile[]) => {
-  console.log(fileList);
   disabled.value = fileList.length == 0;
 };
 const startUpload = () => {
-  console.log("startUpload", uploadRef);
   uploadRef.value?.upload();
 };
 </script>
