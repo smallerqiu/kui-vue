@@ -35,7 +35,7 @@
         :step="null"
       />
     </div>
-    <Row :gutter="[v, h]" class="row-gutter">
+    <Row :gutter="[h, v]" class="row-gutter">
       <Col :span="24 / cols" v-for="c in cols" :key="c">
         <div>col-{{ cols }}</div>
       </Col>

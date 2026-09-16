@@ -2,10 +2,9 @@
   <Form
     :model="form"
     :rules="rules"
+    :wrapper-col="wrapperCol"
+    :label-col="labelCol"
     @submit="submit"
-    :wrapperCol="wrapperCol"
-    :labelCol="labelCol"
-    ref="formRef"
   >
     <FormItem label="Avatar" prop="avatar">
       <Upload
@@ -13,110 +12,74 @@
         name="file"
         type="picture"
         :headers="headers"
-        @change="uploadAvatar"
-        @remove="() => (form.avatar = '')"
         :limit="1"
         accept="image/*"
-        :uploadIcon="Camera"
-        uploadText="Upload Avatar"
-      ></Upload>
-      <Input type="hidden" />
+        :upload-icon="Camera"
+        upload-text="Upload Avatar"
+      />
     </FormItem>
+
     <FormItem label="Single file" prop="file">
-      <Input placeholder="Please upload file" clearable readonly>
-        <template #suffix>
-          <Upload
-            action="https://www.chuchur.com/api/upload/image"
-            name="file"
-            :headers="headers"
-            @change="uploadFile"
-            :showUploadList="false"
-            :limit="1"
-            accept="image/*"
-          >
-            <Button :icon="UploadIcon" :loading="loading" />
-          </Upload>
-        </template>
-      </Input>
+      <Upload
+        action="https://www.chuchur.com/api/upload/image"
+        name="file"
+        :headers="headers"
+        :limit="1"
+        accept="image/*"
+      >
+        <Button :icon="UploadIcon">Upload File</Button>
+      </Upload>
     </FormItem>
+
     <FormItem label="Multiple files" prop="files">
       <Upload
         action="https://www.chuchur.com/api/upload/image"
         name="file"
         :headers="headers"
-        @change="uploadFiles"
-        @remove="remove"
+        multiple
         accept="image/*"
       >
-        <Button>Upload File</Button>
+        <Button :icon="UploadIcon">Upload Files</Button>
       </Upload>
-      <Input type="hidden" />
     </FormItem>
-    <FormItem :wrapperCol="{ offset: 8 }">
-      <Button type="primary" htmlType="submit">Submit Forms</Button>
+
+    <FormItem :wrapper-col="{ offset: 8 }">
+      <Space>
+        <Button type="primary" html-type="submit">Submit Form</Button>
+        <Button html-type="reset">Reset</Button>
+      </Space>
     </FormItem>
   </Form>
 </template>
+
 <script setup lang="ts">
 import { Camera, Upload as UploadIcon } from "kui-icons";
-import type { FormContext, FormSubmitEvent, UploadChangeEvent, UploadFile } from "kui-vue";
-import { message } from "kui-vue";
-import { reactive, ref } from "vue";
-const formRef = ref<FormContext>();
-const loading = ref(false);
-const headers = ref({
+import { message, type FormRule, type FormSubmitEvent, type UploadFile } from "kui-vue";
+import { reactive } from "vue";
+
+interface UploadForm extends Record<string, unknown> {
+  avatar: UploadFile[] | null;
+  file: UploadFile[] | null;
+  files: UploadFile[] | null;
+}
+
+const headers = {
   authorization: "here is token",
+};
+const form = reactive<UploadForm>({
+  avatar: [],
+  file: [],
+  files: [],
 });
-const form = reactive({
-  avatar: "",
-  file: "",
-  files: "",
-});
-const rules = ref({
+const rules: Record<string, FormRule[]> = {
   avatar: [{ required: true, message: "Please select an avatar" }],
   file: [{ required: true, message: "Please select a file" }],
-  files: [{ required: true, message: "Please select a file" }],
-});
+  files: [{ required: true, message: "Please select at least one file" }],
+};
 const labelCol = { span: 8 };
 const wrapperCol = { span: 16 };
-const files = ref<string[]>([]);
-const getResponseUrl = (file: UploadFile) => (file.response as { url?: string } | undefined)?.url;
-const uploadFile = ({ file }: UploadChangeEvent) => {
-  loading.value = true;
-  if (file.status == "success") {
-    loading.value = false;
-    form.file = getResponseUrl(file) || "";
-    formRef.value?.test("file");
-  }
-};
-const uploadFiles = ({ file }: UploadChangeEvent) => {
-  if (file.status == "success") {
-    const url = getResponseUrl(file);
-    if (!url) return;
-    files.value.push(url);
-    form.files = files.value.join(",");
-    // form.files.push(file.response.url);
-    formRef.value?.test("files");
-  }
-};
-const remove = ({ file }: UploadChangeEvent) => {
-  // 删除文件的时候 要对应的从表单中删除相对应的url
-  if (file.status == "success") {
-    const url = getResponseUrl(file);
-    if (!url) return;
-    const index = files.value.indexOf(url);
-    files.value.splice(index, 1);
-    form.files = files.value.join(",");
-    formRef.value?.test("files");
-  }
-};
-const uploadAvatar = ({ file }: UploadChangeEvent) => {
-  if (file.status == "success") {
-    form.avatar = getResponseUrl(file) || "";
-    formRef.value?.test("avatar");
-  }
-};
-const submit = (e: FormSubmitEvent) => {
-  message[e.valid ? "success" : "error"](e.valid ? "success" : "failed");
+
+const submit = ({ valid }: FormSubmitEvent) => {
+  message[valid ? "success" : "error"](valid ? "success" : "failed");
 };
 </script>

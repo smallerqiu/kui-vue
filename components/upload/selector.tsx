@@ -131,7 +131,7 @@ export default defineComponent({
               name={name}
               accept={accept}
               disabled={disabled}
-              multiple={multiple}
+              multiple={multiple || directory}
               onChange={selectFiles}
               ref={uploadFileRef}
             />

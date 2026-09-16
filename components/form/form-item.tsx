@@ -364,7 +364,7 @@ const FormItem = defineComponent({
       );
 
       return (
-        <Row class={classes} type="flex">
+        <Row class={classes}>
           {label ? (
             <Col class="k-form-item-label" {...labelProp}>
               <label id={labelId.value} for={controlId}>

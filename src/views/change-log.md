@@ -24,6 +24,7 @@ rm -rf node_modules/.vite
 - 最低 Vue 版本调整为 `3.5.0`，以使用稳定 ID、完善的类型推导及新版运行时能力。升级前请先确认业务项目使用 Vue 3.5 或更高版本。
 - 新增 `Segmented` 分段控制器，替代原先由 `RadioGroup` 承担的卡片式滑块场景；`Radio`、`RadioButton` 和 `RadioGroup` 回归单选语义。
 - 重新梳理表单控件的受控值、默认值、重置、只读、禁用和事件语义。依赖旧版非标准行为的项目建议重点回归 Form、Radio、Rate、Slider、InputNumber 与日期范围表单。
+- `Row` 统一使用 Flex 布局并移除已无实际作用的 `type`；`GridItem` 移除不符合 CSS Grid 放置语义的 `offset`，精确定位请改用 `columnStart` 和 `rowStart`。
 
 ### 新增组件与能力
 
@@ -33,6 +34,7 @@ rm -rf node_modules/.vite
 - `Tabs` 新增 `browser` 浏览器页签外观、可关闭及动态新增页签，并将溢出页签收纳到下拉菜单中快速切换。
 - `Menu` 新增折叠 Tooltip 控制、折叠状态子菜单浮层、键盘导航和多级菜单状态恢复。
 - `Descriptions` 新增响应式列配置；`BackTop` 支持自定义滚动容器；`Page` 完善 simple 模式、页码编辑和自适应页容量选择器。
+- `Grid` 新增 `columnStart`、`rowStart` 精确行列定位，完善容器响应式断点、`suffix` 多列放置和 `itemMinWidth` CSS 长度支持。
 
 ### Form 与输入控件
 
@@ -59,8 +61,10 @@ rm -rf node_modules/.vite
 - 统一组件尺寸、主题、形状、禁用态、清空按钮、标签、遮罩和弹层动画，修复暗色模式及多处首次展开闪现问题。
 - 统一公共动画并移除组件样式中的 `transition: all`，减少无关属性动画和布局抖动。
 - 修复 Layout.Sider 宽度与折叠动画、Steps 对齐、Anchor 固定定位、Breadcrumb 分隔符更新、Dropdown 右键菜单定位等问题。
+- `Row` 使用原生 `row-gap`、`column-gap` 替代负 margin 与 Col padding，并在计算栅格宽度、偏移及推拉位置时正确扣除间距。
+- 修复 `Upload` 选择文件夹时只处理一个文件的问题；目录上传现在自动启用多文件选择并处理目录内全部文件。
 - 统一 Vue 事件声明与参数校验，清理无效的 `onXxx` Props、调试日志和重复文档表格。
-- 扩充中英文 API、功能 Demo、类型声明、Vetur/Web Types 和 AI 元数据；加强 API 文档、包导出、AI 资源及评测的 CI 校验。
+- 扩充中英文 API、功能 Demo、类型声明、Vetur/Web Types 和 AI 元数据；MCP 使用校验改为基于 Vue AST；加强 API 文档、包导出、AI 资源及评测的 CI 校验。
 
 ## 5.8.0
 

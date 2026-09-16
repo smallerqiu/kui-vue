@@ -35,7 +35,7 @@ Two concepts: row `row` and column `col`. Specific usage is as follows:
 
 [Flex Layout](./demo/flex.vue?show=vertical)
 
-- Flex layout basics. Use `row-flex` to define a `flex` layout, where its child elements, based on different values like `start` , `center` , `end` , `space-between`, `space-around` , define their layout within the parent node.
+- Row uses Flex layout by default. Set `justify` to control the horizontal alignment of its children.
 
 [Flex Fill](./demo/fill.vue?show=vertical)
 
@@ -47,8 +47,7 @@ Two concepts: row `row` and column `col`. Specific usage is as follows:
 | -------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------ | ------- |
 | align    | Vertical alignment in flex layout: `top` `middle` `bottom`                                                             | string             | `top`   |
 | justify  | Horizontal arrangement in flex layout: `start` `end` `center` `space-around` `space-between`                           | string             | `start` |
-| gutter   | Grid spacing, in px, evenly distributed left and right. Use array format to set [horizontal spacing, vertical spacing] | number \| number[] | -       |
-| type     | Layout mode; supports `flex`                                                                                           | string             | `flex`  |
+| gutter   | Grid spacing in px. Use `[horizontal, vertical]` to set both directions                                                 | number \| [number, number] | - |
 
 ## Col API
 

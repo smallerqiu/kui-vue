@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid";
 import {
   computed,
   defineComponent,
@@ -25,6 +24,10 @@ import type {
   UploadRequestHandle,
   UploadSortEvent,
 } from "./types";
+
+let uploadUid = 0;
+const createUploadUid = () =>
+  globalThis.crypto?.randomUUID?.() ?? `k-upload-${Date.now().toString(36)}-${uploadUid++}`;
 
 const uploadProps = {
   method: { type: String, default: "post" },
@@ -168,7 +171,8 @@ const Upload = defineComponent({
       if (props.readonly || field?.readonly.value) return;
       const { limit, minSize, maxSize } = props;
       const selectedFiles = Array.from(files).filter((file) => file.name !== ".DS_Store");
-      const fileArray = props.multiple ? selectedFiles : selectedFiles.slice(0, 1);
+      const fileArray =
+        props.multiple || props.directory ? selectedFiles : selectedFiles.slice(0, 1);
       const normalizedLimit = limit !== undefined && limit >= 0 ? Math.floor(limit) : undefined;
       let exceeded = false;
 
@@ -180,7 +184,7 @@ const Upload = defineComponent({
         }
 
         const item: UploadFile = {
-          uid: uuid(),
+          uid: createUploadUid(),
           filename: file.name,
           size: formatFileSize(file.size),
           status: "waiting",
@@ -548,7 +552,7 @@ const Upload = defineComponent({
         disabled,
         name,
         accept,
-        multiple,
+        multiple: multiple || directory,
         directory,
         limit,
         uploadText,

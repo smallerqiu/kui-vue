@@ -1,10 +1,10 @@
 import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
-import { defineComponent, provide, toRef } from "vue";
+import { defineComponent } from "vue";
 const rowProps = {
   gutter: [Number, Array] as PropType<number | [number, number]>,
-  type: { type: String, default: "flex" },
   justify: {
     type: String as PropType<"start" | "end" | "center" | "space-around" | "space-between">,
+    default: "start",
   },
   align: {
     type: String as PropType<"top" | "middle" | "bottom">,
@@ -17,40 +17,26 @@ const Row = defineComponent({
   name: "Row",
   props: rowProps,
   setup(props, { slots }) {
-    provide("gutter", toRef(props, "gutter"));
-
     return () => {
       const { align, justify, gutter } = props;
       const _props = {
         class: [
           "k-row",
           {
-            "k-row-flex": props.type == "flex",
-            [`k-row-flex-${justify}`]: justify,
-            [`k-row-flex-${align}`]: align,
+            [`k-row-${justify}`]: justify,
+            [`k-row-${align}`]: align,
           },
         ],
         style: {} as CSSProperties,
       };
       if (Array.isArray(gutter)) {
-        const [v = 0, _h = 0] = gutter;
-        if (v == _h && v > 0) {
-          _props.style.margin = `-${v / 2}px`;
-        } else if (v > 0 && _h > 0) {
-          _props.style.margin = `-${_h / 2}px -${v / 2}px`;
-        } else {
-          if (v > 0) {
-            _props.style.marginLeft = `-${v / 2}px`;
-            _props.style.marginRight = `-${v / 2}px`;
-          }
-          if (_h > 0) {
-            _props.style.marginTop = `-${_h / 2}px`;
-            _props.style.marginBottom = `-${_h / 2}px`;
-          }
-        }
+        const [columnGap = 0, rowGap = 0] = gutter;
+        _props.style.columnGap = `${Math.max(0, columnGap)}px`;
+        _props.style.rowGap = `${Math.max(0, rowGap)}px`;
+        _props.style["--k-row-column-gap"] = `${Math.max(0, columnGap)}px`;
       } else if (gutter && gutter > 0) {
-        _props.style.marginLeft = `-${gutter / 2}px`;
-        _props.style.marginRight = `-${gutter / 2}px`;
+        _props.style.columnGap = `${gutter}px`;
+        _props.style["--k-row-column-gap"] = `${gutter}px`;
       }
       return <div {..._props}>{slots.default?.()}</div>;
     };

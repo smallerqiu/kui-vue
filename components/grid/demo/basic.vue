@@ -1,10 +1,10 @@
 <template>
-  <Grid :cols="{ xs: 1, md: 2, lg: 4 }" :xGap="16" :yGap="16">
-    <GridItem :span="2">
+  <Grid :cols="{ xs: 2, md: 4 }" :x-gap="16" :y-gap="16">
+    <GridItem :span="{ xs: 2, md: 2 }">
       <div class="box">Occupies 2 columns</div>
     </GridItem>
-    <GridItem :offset="1">
-      <div class="box">Offset by 1 column</div>
+    <GridItem>
+      <div class="box">Regular item</div>
     </GridItem>
     <GridItem suffix>
       <div class="box">Always at the end</div>

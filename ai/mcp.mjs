@@ -1,19 +1,20 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 import process from "node:process";
+import { baseParse, ElementTypes, NodeTypes } from "@vue/compiler-dom";
 
 const metadata = JSON.parse(fs.readFileSync(new URL("./kui-components.json", import.meta.url)));
 const byName = new Map(metadata.components.map((item) => [item.name.toLowerCase(), item]));
 const byTag = new Map(
   metadata.components.flatMap((item) =>
-    [item.name, ...item.tags].map((tag) => [tag.toLowerCase(), item])
-  )
+    [item.name, ...item.tags].map((tag) => [tag.toLowerCase(), item]),
+  ),
 );
 const tools = [
   ["search_components", "Search components by name, tag, or API description", "query"],
   ["get_component_api", "Get a component's complete public API and examples", "name"],
   ["recommend_components", "Recommend components for a UI requirement", "requirement"],
-  ["validate_kui_usage", "Find unknown Kui Vue props in a Vue template", "source"],
+  ["validate_kui_usage", "Find unknown Kui Vue props using the Vue template AST", "source"],
 ].map(([name, description, argument]) => ({
   name,
   description,
@@ -51,6 +52,7 @@ const standardAttributes = new Set([
   "slot",
   "name",
   "aria-label",
+  "tabindex",
 ]);
 
 const search = (query) => {
@@ -70,7 +72,7 @@ const recommend = (requirement) => {
     [/(layout|布局|admin|后台)/i, ["Layout", "Sider", "Header", "Content", "Menu"]],
   ];
   const names = new Set(
-    groups.filter(([pattern]) => pattern.test(requirement)).flatMap(([, values]) => values)
+    groups.filter(([pattern]) => pattern.test(requirement)).flatMap(([, values]) => values),
   );
   if (!names.size)
     search(requirement)
@@ -80,27 +82,74 @@ const recommend = (requirement) => {
 };
 const validate = (source) => {
   const issues = [];
-  for (const match of String(source).matchAll(/<([A-Z][\w]*|k-[\w-]+)\b([^>]*)>/g)) {
-    const component = byTag.get(match[1].toLowerCase());
-    if (!component) continue;
+  const parseErrors = [];
+  const ast = baseParse(String(source), { onError: (error) => parseErrors.push(error) });
+
+  for (const error of parseErrors) {
+    issues.push({
+      kind: "syntax",
+      message: error.message,
+      line: error.loc?.start.line,
+      column: error.loc?.start.column,
+    });
+  }
+
+  const visit = (node) => {
+    if (node.type === NodeTypes.ELEMENT) {
+      if (node.tagType === ElementTypes.COMPONENT) validateElement(node);
+      node.children.forEach(visit);
+      return;
+    }
+    if (Array.isArray(node.children)) node.children.forEach(visit);
+  };
+
+  const validateElement = (node) => {
+    const component = byTag.get(node.tag.toLowerCase());
+    if (!component) return;
     const publicNames = new Set(
       component.props.flatMap((prop) => [
         prop.name.toLowerCase(),
         prop.name.replace(/[A-Z]/g, (letter) => `-${letter.toLowerCase()}`).toLowerCase(),
-      ])
+      ]),
     );
-    for (const attribute of match[2].matchAll(/(?:^|\s)(?:v-bind:|:)?([\w-]+)(?:\s*=|\s|$)/g)) {
-      const name = attribute[1].toLowerCase();
-      if (name.startsWith("v-") || standardAttributes.has(name)) continue;
+
+    for (const attribute of node.props) {
+      let rawName;
+      if (attribute.type === NodeTypes.ATTRIBUTE) {
+        rawName = attribute.name;
+      } else if (
+        attribute.type === NodeTypes.DIRECTIVE &&
+        (attribute.name === "bind" || attribute.name === "model") &&
+        attribute.arg?.type === NodeTypes.SIMPLE_EXPRESSION &&
+        attribute.arg.isStatic
+      ) {
+        rawName =
+          attribute.name === "model" && !attribute.arg.content
+            ? "modelValue"
+            : attribute.arg.content;
+      } else if (attribute.type === NodeTypes.DIRECTIVE && attribute.name === "model") {
+        rawName = "modelValue";
+      }
+
+      if (!rawName) continue;
+      const name = rawName.toLowerCase();
+      if (standardAttributes.has(name) || name.startsWith("aria-") || name.startsWith("data-")) {
+        continue;
+      }
       if (!publicNames.has(name)) {
         issues.push({
+          kind: "prop",
           component: component.name,
-          prop: attribute[1],
-          message: `Unknown prop ${attribute[1]} on ${component.name}`,
+          prop: rawName,
+          message: `Unknown prop ${rawName} on ${component.name}`,
+          line: attribute.loc.start.line,
+          column: attribute.loc.start.column,
         });
       }
     }
-  }
+  };
+
+  visit(ast);
   return { valid: issues.length === 0, issues };
 };
 const toolResult = (value) => ({
@@ -185,7 +234,7 @@ process.stdin.on("data", (chunk) => {
             documentation,
             parent,
             children,
-          })
+          }),
         );
       } else if (name === "validate_kui_usage") value = validate(args.source);
       else value = { error: `Unknown tool: ${name}` };

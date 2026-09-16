@@ -1,20 +1,17 @@
 <template>
   <Grid :cols="12" :rows="8" :style="{ height: '400px', background: 'var(--kui-color-bg-5)' }">
-    <!-- 背景图片：占据全部格子  -->
-    <GridItem :span="12" :rowSpan="8" :style="{ gridColumnStart: 1, gridRowStart: 1 }">
-      <img
-        src="https://cdn.chuchur.com/upload/2017/kui-for-vue.jpg"
-        :style="{ width: '100%', height: '100%', objectFit: 'cover' }"
-      />
+    <!-- 背景：占据全部格子 -->
+    <GridItem :span="12" :row-span="8" :column-start="1" :row-start="1">
+      <div class="hero-backdrop" />
     </GridItem>
 
     <!-- 文字内容：浮动在图片正中心，占据中间 6 列和中间 4 行  -->
     <GridItem
       :span="{ xs: 10, md: 6 }"
-      :rowSpan="4"
+      :row-span="4"
+      :column-start="{ xs: 2, md: 4 }"
+      :row-start="3"
       :style="{
-        gridColumnStart: 'calc(50% - 3)',
-        gridRowStart: 3,
         background: 'var(--kui-color-bg-3)',
         zIndex: 1,
         padding: '20px',
@@ -25,3 +22,13 @@
     </GridItem>
   </Grid>
 </template>
+
+<style scoped>
+.hero-backdrop {
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 75% 25%, var(--kui-color-primary), transparent 35%),
+    linear-gradient(135deg, var(--kui-color-bg-3), var(--kui-color-bg-5));
+}
+</style>

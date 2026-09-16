@@ -1,51 +1,56 @@
-import type { CSSProperties, DefineComponent, ExtractPropTypes, HTMLAttributes } from "vue";
+import type {
+  CSSProperties,
+  DefineComponent,
+  ExtractPropTypes,
+  HTMLAttributes,
+  PropType,
+} from "vue";
 import { computed, defineComponent, inject } from "vue";
+import type { GridResponsive } from "./useBreakpoint";
 import { GRID_KEY } from "./useBreakpoint";
 
+const responsiveNumberProp = [Number, Object] as PropType<GridResponsive<number>>;
+
 const gridItemProps = {
-  span: { type: [Number, String, Object], default: 1 }, // 跨越几列
-  rowSpan: { type: [Number, String, Object], default: 1 }, // 跨越几行
-  offset: { type: [Number, Object], default: 0 }, // 左侧偏移（通过 grid-column-start 实现）
-  suffix: { type: Boolean, default: false }, // 是否作为末尾填充
+  span: { type: responsiveNumberProp, default: 1 },
+  rowSpan: { type: responsiveNumberProp, default: 1 },
+  columnStart: { type: responsiveNumberProp },
+  rowStart: { type: responsiveNumberProp },
+  suffix: { type: Boolean, default: false },
 };
 
 export type GridItemProps = Partial<ExtractPropTypes<typeof gridItemProps>> & HTMLAttributes;
-
-interface GridContext {
-  resolveResponsive: (span: GridItemProps["span"], defaultValue: number) => number;
-}
 
 const GridItem = defineComponent({
   name: "GridItem",
   inheritAttrs: false,
   props: gridItemProps,
   setup(props, { attrs, slots }) {
-    const context: GridContext | undefined = inject(GRID_KEY);
+    const context = inject(GRID_KEY);
     const itemStyle = computed(() => {
       if (!context) return {};
 
       const s = context.resolveResponsive(props.span, 1);
       const rs = context.resolveResponsive(props.rowSpan, 1);
-      const o = context.resolveResponsive(props.offset, 0);
+      const columnStart = context.resolveResponsive(props.columnStart, 0);
+      const rowStart = context.resolveResponsive(props.rowStart, 0);
       if (s === 0) return { display: "none" };
+      const span = Math.max(1, Math.floor(s));
+      const rowSpan = Math.max(1, Math.floor(rs));
       const styles: CSSProperties = {};
-      if (s !== 1) {
-        styles.gridColumn = `span ${s} / span ${s}`;
-      }
-
-      if (o > 0) {
-        styles.gridColumnStart = `span ${s + o}`;
-        if (s === 1) {
-          styles.gridColumnEnd = `span 1`;
-        }
-      }
-      if (rs !== 1) {
-        styles.gridRow = `span ${rs} / span ${rs}`;
-      }
 
       if (props.suffix) {
-        styles.gridColumnStart = "-1";
-        styles.justifySelf = "end";
+        styles.gridColumn = `${-span - 1} / -1`;
+      } else if (columnStart > 0) {
+        styles.gridColumn = `${Math.floor(columnStart)} / span ${span}`;
+      } else if (span !== 1) {
+        styles.gridColumn = `span ${span}`;
+      }
+
+      if (rowStart > 0) {
+        styles.gridRow = `${Math.floor(rowStart)} / span ${rowSpan}`;
+      } else if (rowSpan !== 1) {
+        styles.gridRow = `span ${rowSpan}`;
       }
 
       return styles;

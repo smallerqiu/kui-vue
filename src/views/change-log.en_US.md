@@ -22,6 +22,7 @@ rm -rf node_modules/.vite
 - The minimum supported Vue version is now `3.5.0`, enabling stable IDs, improved type inference, and current runtime capabilities. Upgrade the application to Vue 3.5 or later before adopting this release.
 - Added the dedicated `Segmented` control for card-like sliding selection. `Radio`, `RadioButton`, and `RadioGroup` now focus on standard single-selection semantics.
 - Reworked controlled values, defaults, reset behavior, readonly and disabled states, and events across form controls. Applications relying on legacy behavior should pay particular attention to Form, Radio, Rate, Slider, InputNumber, and date-range forms.
+- `Row` now always uses Flex and removes the ineffective `type` prop. `GridItem` removes `offset`, which did not map reliably to CSS Grid placement; use `columnStart` and `rowStart` for explicit positioning.
 
 ### New components and capabilities
 
@@ -31,6 +32,7 @@ rm -rf node_modules/.vite
 - Added the `browser` variant to `Tabs`, including closable and dynamically added tabs, plus an overflow dropdown for quickly switching hidden tabs.
 - Added collapsed-item Tooltip control, collapsed submenu popups, keyboard navigation, and deep-menu state restoration to `Menu`.
 - Added responsive columns to `Descriptions`, custom scroll containers to `BackTop`, and improved simple pagination, editable page numbers, and adaptive page-size controls to `Page`.
+- Added `columnStart` and `rowStart` to `Grid`, with improved container breakpoints, multi-column `suffix` placement, and CSS length support for `itemMinWidth`.
 
 ### Forms and input controls
 
@@ -57,8 +59,10 @@ rm -rf node_modules/.vite
 - Unified sizing, themes, shapes, disabled states, clear buttons, tags, masks, and popup motion, fixing dark-mode inconsistencies and several first-open flashes.
 - Consolidated shared motion and removed `transition: all` from component styles to avoid unrelated animations and layout jank.
 - Fixed Layout.Sider sizing and collapse motion, Steps alignment, Anchor positioning, Breadcrumb separator updates, and Dropdown context-menu positioning.
+- Replaced Row's negative margins and Col padding with native `row-gap` and `column-gap`, accounting for spacing in grid widths, offsets, push, and pull positions.
+- Fixed `Upload` processing only one file when selecting a directory. Directory uploads now enable multiple selection and process all contained files.
 - Standardized Vue event declarations and payload validation while removing invalid `onXxx` props, debug logging, and duplicated documentation tables.
-- Expanded bilingual APIs, functional demos, declarations, Vetur/Web Types, and AI metadata, with stronger CI checks for documentation, package exports, AI assets, and evals.
+- Expanded bilingual APIs, functional demos, declarations, Vetur/Web Types, and AI metadata; moved MCP usage validation to the Vue AST; and strengthened CI checks for documentation, package exports, AI assets, and evals.
 
 ## 5.8.0
 

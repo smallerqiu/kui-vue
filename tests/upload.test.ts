@@ -110,6 +110,23 @@ describe("Upload", () => {
     expect(selected).toHaveLength(1);
   });
 
+  it("treats directory selection as multiple files", async () => {
+    const wrapper = mount(Upload, {
+      props: { action: "/upload", autoTrigger: false, directory: true },
+    });
+    const input = wrapper.find("input[type=file]");
+    expect(input.attributes("multiple")).toBeDefined();
+
+    Object.defineProperty(input.element, "files", {
+      value: [new File(["a"], "a.txt"), new File(["b"], "b.txt")],
+      configurable: true,
+    });
+    await input.trigger("change");
+
+    const selected = wrapper.emitted("selectFiles")?.[0]?.[0] as UploadChangeEvent["fileList"];
+    expect(selected).toHaveLength(2);
+  });
+
   it("limits custom request concurrency", async () => {
     const requests: UploadRequestOptions[] = [];
     const wrapper = mount(Upload, {

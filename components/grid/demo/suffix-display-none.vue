@@ -1,5 +1,5 @@
 <template>
-  <Grid :cols="{ xs: 2, md: 6 }" :xGap="8">
+  <Grid :cols="{ xs: 2, md: 6 }" :x-gap="8">
     <GridItem :span="2">
       <Input placeholder="Search keywords..." />
     </GridItem>

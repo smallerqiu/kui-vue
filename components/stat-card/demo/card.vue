@@ -2,17 +2,18 @@
   <Space vertical block>
     <Space>
       <Checkbox v-model="showTitle">Show Title</Checkbox>
-      <Checkbox v-model="bordered">Show border</Checkbox>
       <Checkbox v-model="reverse">Reverse</Checkbox>
       <Segmented v-model="size" :options="sizes" />
+      <Segmented v-model="theme" :options="themeOptions" />
     </Space>
+
     <Grid :cols="{ xs: 1, sm: 2, md: 3 }" :xGap="16" :yGap="16">
       <GridItem>
         <StatCard
           :title="showTitle ? `Today's Orders` : undefined"
           :reverse="reverse"
           :items="items"
-          :bordered="bordered"
+          :theme="theme"
           :size="size"
         />
       </GridItem>
@@ -21,7 +22,7 @@
           statNumberType="rollup"
           :title="showTitle ? `Today's income` : undefined"
           :items="items1"
-          :bordered="bordered"
+          :theme="theme"
           :reverse="reverse"
           :size="size"
         />
@@ -32,7 +33,7 @@
           statNumberType="rollup"
           :title="showTitle ? 'Media data' : undefined"
           :items="items2"
-          :bordered="bordered"
+          :theme="theme"
           :size="size"
         />
       </GridItem>
@@ -45,9 +46,13 @@ import { Icon, type SizeType, type StatNumberItem } from "kui-vue";
 import { h, ref } from "vue";
 const showTitle = ref(true);
 const reverse = ref(false);
-const bordered = ref(false);
 const size = ref<SizeType>("medium");
+const theme = ref<"fill" | "outline" | "plain">("fill");
 const sizes = ["small", "medium", "large"].map((value) => ({
+  value,
+  label: value,
+}));
+const themeOptions = ["outline", "fill", "plain"].map((value) => ({
   value,
   label: value,
 }));

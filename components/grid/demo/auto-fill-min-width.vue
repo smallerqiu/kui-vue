@@ -1,5 +1,5 @@
 <template>
-  <Grid :itemMinWidth="256" :xGap="16" :yGap="16">
+  <Grid :item-min-width="256" :x-gap="16" :y-gap="16">
     <GridItem v-for="(_, i) in data" :key="i" class="box">
       Card {{ i + 1 }} (Minimum 256px)
     </GridItem>

@@ -1,5 +1,5 @@
-import type { CSSProperties, ExtractPropTypes, PropType, Ref } from "vue";
-import { defineComponent, inject } from "vue";
+import type { CSSProperties, ExtractPropTypes, PropType } from "vue";
+import { defineComponent } from "vue";
 
 export interface ColSize {
   span?: number;
@@ -34,8 +34,6 @@ const Col = defineComponent({
   name: "Col",
   props: colProps,
   setup(props, { slots }) {
-    const gutter = inject<Ref<number | [number, number] | undefined>>("gutter");
-
     const parseFlex = (flex: number | string) => {
       if (typeof flex === "number") {
         return `${flex} ${flex} auto`;
@@ -47,7 +45,6 @@ const Col = defineComponent({
     };
 
     return () => {
-      const gutterValue = gutter?.value;
       const { offset, span, order, push, pull, flex } = props;
       const classes: string[] = ["k-col"];
 
@@ -76,26 +73,6 @@ const Col = defineComponent({
         class: classes,
         style: {} as CSSProperties,
       };
-      if (Array.isArray(gutterValue)) {
-        const [v = 0, _h = 0] = gutterValue;
-        if (v == _h && v > 0) {
-          _props.style.padding = `${v / 2}px`;
-        } else if (v > 0 && _h > 0) {
-          _props.style.padding = `${_h / 2}px ${v / 2}px`;
-        } else {
-          if (v > 0) {
-            _props.style.paddingLeft = `${v / 2}px`;
-            _props.style.paddingRight = `${v / 2}px`;
-          }
-          if (_h > 0) {
-            _props.style.paddingTop = `${_h / 2}px`;
-            _props.style.paddingBottom = `${_h / 2}px`;
-          }
-        }
-      } else if (gutterValue && gutterValue > 0) {
-        _props.style.paddingLeft = `${gutterValue / 2}px`;
-        _props.style.paddingRight = `${gutterValue / 2}px`;
-      }
       if (flex !== undefined) {
         _props.style.flex = parseFlex(flex);
       }

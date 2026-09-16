@@ -49,9 +49,9 @@
       </Form>
     </Col>
     <Col :span="8">
-      <pre style="height: 100%; overflow: scroll; line-height: 1.4">{{
-        JSON.stringify(form, null, 2)
-      }}</pre>
+      <pre style="height: 100%; overflow: scroll; line-height: 1.4">
+        {{ JSON.stringify(form, null, 2) }}
+      </pre>
     </Col>
   </Row>
 </template>

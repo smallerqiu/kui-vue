@@ -3,11 +3,11 @@
     <h1 class="demo-title">技术规格矩阵</h1>
 
     <Grid
-      :cols="{ xs: 2, md: 6, xl: 8 }"
+      :cols="{ xs: 2, md: 6, lg: 10 }"
       :x-gap="20"
       :y-gap="20"
       auto-rows="120px"
-      :style="{ gridAutoFlow: 'dense' }"
+      flow="row dense"
     >
       <GridItem v-for="item in features" :key="item.id" :span="item.span" :row-span="item.rowSpan">
         <div
@@ -25,7 +25,7 @@
         </div>
       </GridItem>
 
-      <GridItem suffix :span="{ xs: 2, md: 3, xl: 2 }">
+      <GridItem suffix :span="{ xs: 2, md: 3, lg: 2 }">
         <div class="bento-cta">
           <span>了解更多参数 →</span>
         </div>
@@ -40,7 +40,7 @@ const features = [
     id: 1,
     title: "自研芯片 M3 Max",
     desc: "极致算力，从容应对专业级工作流。",
-    span: { xs: 2, md: 3, xl: 4 }, // 桌面占一半宽
+    span: { xs: 2, md: 3, lg: 4 },
     rowSpan: 3, // 高度占 3 个单位
     color: "var(--kui-color-bg-4)",
     textColor: "#fff",
@@ -49,7 +49,7 @@ const features = [
     id: 2,
     title: "超长续航",
     desc: "长达 22 小时视频播放。",
-    span: { xs: 1, md: 3, xl: 2 },
+    span: { xs: 1, md: 3, lg: 4 },
     rowSpan: 2,
     color: "#f5f5f7",
   },
@@ -57,7 +57,7 @@ const features = [
     id: 3,
     title: "5G 超高速",
     desc: "随时随地，畅享疾速。",
-    span: { xs: 1, md: 3, xl: 2 },
+    span: { xs: 1, md: 3, lg: 2 },
     rowSpan: 1,
     color: "#e8e8ed",
   },
@@ -65,7 +65,7 @@ const features = [
     id: 4,
     title: "Retina 显示屏",
     desc: "绚丽色彩，纤毫毕现。",
-    span: { xs: 2, md: 3, xl: 4 },
+    span: { xs: 2, md: 3, lg: 4 },
     rowSpan: 2,
     color: "#fff",
     border: "1px solid var(--kui-color-border)",
@@ -74,7 +74,7 @@ const features = [
     id: 5,
     title: "隐私保护",
     desc: "你的数据，由你掌控。",
-    span: { xs: 1, md: 3, xl: 2 },
+    span: { xs: 1, md: 3, lg: 2 },
     rowSpan: 2,
     color: "#f2f2f2",
   },
@@ -82,7 +82,7 @@ const features = [
     id: 6,
     title: "多设备协作",
     desc: "无缝衔接，效率翻倍。",
-    span: { xs: 1, md: 3, xl: 2 },
+    span: { xs: 1, md: 3, lg: 4 },
     rowSpan: 1,
     color: "#fafafa",
   },

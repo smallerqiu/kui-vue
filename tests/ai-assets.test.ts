@@ -111,10 +111,16 @@ describe("AI distribution assets", () => {
     child.stdin.write(
       `${JSON.stringify({ jsonrpc: "2.0", id: 6, method: "tools/call", params: { name: "validate_kui_usage", arguments: { source: "<Select made-up />" } } })}\n`,
     );
+    child.stdin.write(
+      `${JSON.stringify({ jsonrpc: "2.0", id: 7, method: "tools/call", params: { name: "validate_kui_usage", arguments: { source: '<template>\n  <!-- <Select fake-prop /> -->\n  <Select v-model="value" :options="[]" data-test="select" />\n</template>' } } })}\n`,
+    );
+    child.stdin.write(
+      `${JSON.stringify({ jsonrpc: "2.0", id: 8, method: "tools/call", params: { name: "validate_kui_usage", arguments: { source: '<template>\n  <Select\n    v-model="value"\n    :made-up="true"\n  />\n</template>' } } })}\n`,
+    );
     await new Promise<void>((resolve, reject) => {
       const timeout = setTimeout(() => reject(new Error("MCP response timed out")), 2000);
       const poll = setInterval(() => {
-        if (responses.length < 6) return;
+        if (responses.length < 8) return;
         clearTimeout(timeout);
         clearInterval(poll);
         resolve();
@@ -128,5 +134,8 @@ describe("AI distribution assets", () => {
     expect(JSON.stringify(responses[3].result)).toContain("name and status");
     expect(JSON.stringify(responses[4].result)).toContain("Table");
     expect(JSON.stringify(responses[5].result)).toContain('"valid":false');
+    expect(JSON.stringify(responses[6].result)).toContain('"valid":true');
+    expect(JSON.stringify(responses[7].result)).toContain('"prop":"made-up"');
+    expect(JSON.stringify(responses[7].result)).toContain('"line":4');
   });
 });

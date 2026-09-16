@@ -102,7 +102,7 @@ export { default as Flex } from "./flex";
 export type { FlexAlignType, FlexJustifyType, FlexProps, FlexSizeType } from "./flex";
 
 export { Grid, GridItem } from "./grid";
-export type { GridItemProps, GridProps } from "./grid";
+export type { GridBreakpoint, GridItemProps, GridProps, GridResponsive } from "./grid";
 
 export { Image, ImageGroup } from "./image";
 export type { ImageGroupProps, ImagePreviewProps, ImageProps, ImageType } from "./image";

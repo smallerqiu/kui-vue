@@ -2,61 +2,78 @@
   <div>
     <Form
       :model="form"
-      :size="size"
       :rules="rules"
-      ref="formRef"
       :labelCol="labelCol"
       :wrapperCol="wrapperCol"
+      @reset="handleReset"
+      @submit="handleSubmit"
     >
-      <FormItem label="Size">
-        <RadioGroup v-model="size" type="button">
-          <RadioButton value="large" label="Large" />
-          <RadioButton value="medium" label="Medium" />
-          <RadioButton value="small" label="Small" />
-        </RadioGroup>
-      </FormItem>
-
       <Row>
-        <Col :span="12">
-          <FormItem label="E-mail" prop="email" :label-col="hrSpan" :wrapper-col="hrSpan">
+        <Col v-bind="halfCol">
+          <FormItem
+            label="E-mail"
+            prop="email"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
             <Input clearable placeholder="Please enter your email" />
           </FormItem>
         </Col>
-        <Col :span="12">
-          <FormItem label="Number" prop="number" :label-col="hrSpan2" :wrapper-col="hrSpan">
+        <Col v-bind="halfCol">
+          <FormItem
+            label="Number"
+            prop="number"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
             <InputNumber placeholder="Please enter your number" />
           </FormItem>
         </Col>
       </Row>
       <Row>
-        <Col :span="12">
-          <FormItem label="Password" prop="password" :label-col="hrSpan" :wrapper-col="hrSpan">
+        <Col v-bind="halfCol">
+          <FormItem
+            label="Password"
+            prop="password"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
             <Input type="password" placeholder="Please enter password" />
           </FormItem>
         </Col>
-        <Col :span="12">
+        <Col v-bind="halfCol">
           <FormItem
             label="Confirm Password"
             prop="confirm_password"
-            :label-col="hrSpan2"
-            :wrapper-col="hrSpan"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
           >
             <Input type="password" placeholder="Please enter password" />
           </FormItem>
         </Col>
       </Row>
       <Row>
-        <Col :span="12">
-          <FormItem label="Phone Number" prop="phone" :label-col="hrSpan" :wrapper-col="hrSpan">
+        <Col v-bind="halfCol">
+          <FormItem
+            label="Phone Number"
+            prop="phone"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
             <Input placeholder="Please enter phone number" />
           </FormItem>
         </Col>
-        <Col :span="12">
-          <FormItem label="Captcha" prop="captcha" :label-col="hrSpan2" :wrapper-col="{ span: 12 }">
+        <Col v-bind="halfCol">
+          <FormItem
+            label="Captcha"
+            prop="captcha"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
             <Input placeholder="Please enter captcha">
-              <template #suffix>
-                <Button :size="size" :disabled="time != 60" @click="sendCode">
-                  {{ time == 60 ? "Get Captcha" : time + "(s)" }}
+              <template #addonAfter>
+                <Button :disabled="time !== 60" html-type="button" @click="sendCode">
+                  {{ time === 60 ? "Get Captcha" : time + "(s)" }}
                 </Button>
               </template>
             </Input>
@@ -64,12 +81,12 @@
         </Col>
       </Row>
       <Row>
-        <Col :span="12">
+        <Col v-bind="halfCol">
           <FormItem
             label="Country"
             prop="country"
-            :label-col="{ span: 12 }"
-            :wrapper-col="{ span: 12 }"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
           >
             <Select clearable style="width: 100%">
               <Option value="0" label="China" />
@@ -77,8 +94,13 @@
             </Select>
           </FormItem>
         </Col>
-        <Col :span="12">
-          <FormItem prop="city" label="City" :label-col="hrSpan2" :wrapper-col="{ span: 12 }">
+        <Col v-bind="halfCol">
+          <FormItem
+            prop="city"
+            label="City"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
             <Select clearable style="width: 100%">
               <Option value="0" label="Shanghai" />
               <Option value="1" label="Wuhan" />
@@ -88,72 +110,140 @@
         </Col>
       </Row>
       <Row>
-        <Col :span="12">
-          <FormItem label="TreeSelect" prop="tree" :label-col="hrSpan" :wrapper-col="{ span: 12 }">
+        <Col v-bind="halfCol">
+          <FormItem
+            label="TreeSelect"
+            prop="tree"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
             <TreeSelect style="width: 100%" :tree-data="treeData"></TreeSelect>
           </FormItem>
         </Col>
-        <Col :span="12">
-          <FormItem label="Birthday" prop="birthday">
+        <Col v-bind="halfCol">
+          <FormItem
+            label="Birthday"
+            prop="birthday"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
             <DatePicker clearable />
           </FormItem>
         </Col>
       </Row>
 
-      <FormItem label="Slider" prop="slider">
-        <Slider />
-      </FormItem>
-      <FormItem label="Rate" prop="rate">
-        <Rate />
-      </FormItem>
-      <FormItem label="Gender" prop="gender">
-        <RadioGroup>
-          <Radio :value="0" label="Girl" />
-          <Radio :value="1" label="Boy" />
-        </RadioGroup>
-      </FormItem>
-      <FormItem label="One" prop="one">
-        <Radio label="Only One?" />
-      </FormItem>
-      <FormItem label="System" prop="system">
-        <RadioGroup type="button">
-          <RadioButton :value="0" label="Mac OS" />
-          <RadioButton :value="1" label="Windows" />
-          <RadioButton :value="2" label="Linux" />
-        </RadioGroup>
-      </FormItem>
-
-      <FormItem label="Hobby" prop="hobbies">
-        <CheckboxGroup>
-          <Checkbox value="0" label="Football" />
-          <Checkbox value="1" label="Music" />
-          <Checkbox value="2" label="Photograph" />
-          <Checkbox value="3" label="Tennis" />
-        </CheckboxGroup>
-      </FormItem>
-      <FormItem label="Hardcore" prop="hardcore">
-        <Switch true-text="Yes" false-text="No" />
-      </FormItem>
-      <FormItem label="Other" prop="other">
-        <TextArea placeholder="Maximum 10 characters" v-model="form.other" />
-      </FormItem>
+      <Row>
+        <Col v-bind="halfCol">
+          <FormItem
+            label="Slider"
+            prop="slider"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
+            <Slider />
+          </FormItem>
+        </Col>
+        <Col v-bind="halfCol">
+          <FormItem
+            label="Rate"
+            prop="rate"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
+            <Rate />
+          </FormItem>
+        </Col>
+      </Row>
+      <Row>
+        <Col v-bind="halfCol">
+          <FormItem
+            label="Gender"
+            prop="gender"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
+            <RadioGroup>
+              <Radio :value="0" label="Girl" />
+              <Radio :value="1" label="Boy" />
+            </RadioGroup>
+          </FormItem>
+        </Col>
+        <Col v-bind="halfCol">
+          <FormItem label="One" prop="one" :label-col="halfLabelCol" :wrapper-col="halfWrapperCol">
+            <Radio label="Only One?" />
+          </FormItem>
+        </Col>
+      </Row>
+      <Row>
+        <Col v-bind="halfCol">
+          <FormItem
+            label="System"
+            prop="system"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
+            <RadioGroup type="button">
+              <RadioButton :value="0" label="Mac OS" />
+              <RadioButton :value="1" label="Windows" />
+              <RadioButton :value="2" label="Linux" />
+            </RadioGroup>
+          </FormItem>
+        </Col>
+        <Col v-bind="halfCol">
+          <FormItem
+            label="Hardcore"
+            prop="hardcore"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
+            <Switch true-text="Yes" false-text="No" />
+          </FormItem>
+        </Col>
+      </Row>
+      <Row>
+        <Col v-bind="halfCol">
+          <FormItem
+            label="Hobby"
+            prop="hobbies"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
+            <CheckboxGroup>
+              <Checkbox value="0" label="Football" />
+              <Checkbox value="1" label="Music" />
+              <Checkbox value="2" label="Photograph" />
+              <Checkbox value="3" label="Tennis" />
+            </CheckboxGroup>
+          </FormItem>
+        </Col>
+        <Col v-bind="halfCol">
+          <FormItem
+            label="Other"
+            prop="other"
+            :label-col="halfLabelCol"
+            :wrapper-col="halfWrapperCol"
+          >
+            <TextArea v-model="form.other" placeholder="Maximum 10 characters" />
+          </FormItem>
+        </Col>
+      </Row>
       <FormItem prop="readme" :wrapperCol="{ offset: 6 }">
         <Checkbox>
-          我已阅读
-          <a>服务条款</a>
+          I have read the
+          <a>Terms of Service</a>
         </Checkbox>
       </FormItem>
       <FormItem :wrapperCol="{ offset: 6 }">
-        <Button type="primary" @click="submit">Submit</Button>
-        <Button style="margin: 0 10px" @click="reset">Reset</Button>
-        <Button theme="dashed" @click="setValue">Set Value</Button>
+        <Button type="primary" html-type="submit">Submit</Button>
+        <Button style="margin: 0 10px" html-type="reset">Reset</Button>
+        <Button theme="dashed" html-type="button" @click="setValue">Set Value</Button>
       </FormItem>
     </Form>
   </div>
 </template>
 <script setup lang="ts">
-import { message, type FormContext, type FormRule, type SizeType } from "kui-vue";
-import { reactive, ref } from "vue";
+import { message, type FormRule, type FormSubmitEvent } from "kui-vue";
+import { onBeforeUnmount, reactive, ref } from "vue";
 const validatePass = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {
   if (value !== form.password) {
     return callback(new Error("Please confirm the password"));
@@ -162,20 +252,19 @@ const validatePass = (_: FormRule, value: unknown, callback: (error?: Error) => 
 };
 const validateReadme = (_: FormRule, value: unknown, callback: (error?: Error) => void) => {
   if (value !== true) {
-    return callback(new Error("请阅读服务条款"));
+    return callback(new Error("Please accept the Terms of Service"));
   }
   callback();
 };
 const labelCol = { span: 6 };
 const wrapperCol = { span: 16 };
 
-const hrSpan = { span: 12 };
-const hrSpan2 = { span: 6 };
+const halfCol = { xs: 24, md: 12 };
+const halfLabelCol = { span: 8 };
+const halfWrapperCol = { span: 16 };
 
 const time = ref(60);
-const timer = ref<ReturnType<typeof setTimeout>>();
-const size = ref<SizeType>("medium");
-const formRef = ref<FormContext>();
+const timer = ref<ReturnType<typeof setInterval>>();
 const treeData = [
   {
     title: "food",
@@ -186,7 +275,29 @@ const treeData = [
     ],
   },
 ];
-const form = reactive({
+interface FormModel {
+  email: string | null;
+  number?: number | null;
+  password: string | null;
+  confirm_password: string | null;
+  phone: string | null;
+  captcha: string | null;
+  slider: number | null;
+  rate: number | null;
+  tree?: string | null;
+  gender?: number | null;
+  one: boolean | null;
+  system?: number | null;
+  birthday?: Date | null;
+  country?: string | null;
+  city?: string | null;
+  hobbies: string[] | null;
+  hardcore: boolean | null;
+  other: string | null;
+  readme: boolean | null;
+}
+
+const form = reactive<FormModel>({
   email: "",
   number: undefined,
   password: "",
@@ -195,15 +306,9 @@ const form = reactive({
   captcha: "",
   slider: 3,
   rate: 0,
-  tree: "",
-  gender: "",
   one: false,
-  system: "",
-  birthday: "",
-  country: "",
-  city: "",
   hobbies: [],
-  hardcore: "",
+  hardcore: false,
   other: "",
   readme: false,
 });
@@ -255,9 +360,9 @@ const rules: Record<string, FormRule[]> = {
     { required: true, message: "Please select your rate" },
     { min: 1, message: "The minimum value is 1" },
   ],
-  one: [{ required: true, message: "霸王选项" }],
+  one: [{ required: true, message: "Please select this option" }],
   system: [{ required: true, message: "Please select your system" }],
-  hardcore: [{ required: true, message: "霸王选项" }],
+  hardcore: [{ required: true, message: "Please enable this option" }],
   readme: [{ validator: validateReadme, required: true }],
   hobbies: [
     { required: true, message: "Please select your hobbies" },
@@ -283,7 +388,7 @@ const setValue = () => {
     tree: "0",
     system: 0,
     one: true,
-    birthday: "1995-05-05",
+    birthday: new Date(1995, 4, 5),
     country: "1",
     city: "1",
     hobbies: ["0", "1"],
@@ -305,12 +410,13 @@ const sendCode = () => {
     }
   }, 1000);
 };
-const submit = () => {
-  formRef.value?.validate().then(({ valid }) => {
-    message[valid ? "success" : "error"](valid ? "success" : "failed");
-  });
+const handleSubmit = ({ valid }: FormSubmitEvent) => {
+  message[valid ? "success" : "error"](valid ? "success" : "failed");
 };
-const reset = () => {
-  formRef.value?.reset();
+const handleReset = () => {
+  clearInterval(timer.value);
+  time.value = 60;
 };
+
+onBeforeUnmount(handleReset);
 </script>

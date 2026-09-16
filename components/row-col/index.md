@@ -35,7 +35,7 @@
 
 [Flex 布局](./demo/flex.vue?show=vertical)
 
-- Flex 布局基础。 使用 `row-flex` 定义 `flex` 布局，其子元素根据不同的值 `start` , `center`,`end` , `space-between` ,`space-around`，分别定义其在父节点里面的排版方式。
+- Row 默认使用 Flex 布局，通过 `justify` 设置子元素的水平排列方式。
 
 [Flex 填充](./demo/fill.vue?show=vertical)
 
@@ -47,8 +47,7 @@
 | ------- | -------------------------------------------------------------------------------- | ------------------ | ------- |
 | align   | flex 布局下的垂直对齐方式：`top` `middle` `bottom`                               | string             | `top`   |
 | justify | flex 布局下的水平排列方式：`start` `end` `center` `space-around` `space-between` | string             | `start` |
-| gutter  | 栅格间距，单位 px，左右平分,使用数组形式同时设置 [水平间距, 垂直间距]            | number \| number[] | -       |
-| type    | 布局模式，可选 `flex`                                                            | string             | `flex`  |
+| gutter  | 栅格间距，单位 px；使用 `[水平间距, 垂直间距]` 同时设置两个方向                  | number \| [number, number] | - |
 
 ## Col API
 
