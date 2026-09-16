@@ -1,6 +1,6 @@
 <template>
   <ConfigProvider :locale="locale" :size="size" :theme="theme">
-    <main class="visual-fixture">
+    <main class="visual-fixture" :style="{ minHeight: fixtureMinHeight }">
       <h1>KUI visual regression</h1>
       <section class="visual-grid">
         <article>
@@ -48,6 +48,7 @@ import { reactive, ref } from "vue";
 const params = new URLSearchParams(location.search);
 const size = (params.get("size") || "medium") as SizeType;
 const theme = (params.get("theme") || "fill") as ThemeType;
+const fixtureMinHeight = size === "small" ? "802px" : undefined;
 const locales = { en, zh, de };
 const locale = locales[(params.get("lang") || "zh") as keyof typeof locales] || zh;
 document.documentElement.setAttribute("theme-mode", params.get("dark") === "1" ? "dark" : "light");
