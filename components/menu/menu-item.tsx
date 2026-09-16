@@ -30,8 +30,11 @@ export type MenuItemProps = ExtractPropTypes<typeof menuItemProps>;
 const MenuItem = defineComponent({
   name: "MenuItem",
   props: menuItemProps,
+  emits: {
+    click: (event: MouseEvent) => event instanceof MouseEvent,
+  },
 
-  setup(props, { slots }) {
+  setup(props, { emit, slots }) {
     const instance = getCurrentInstance();
     const key = instance?.vnode.key;
     const menuContext = inject<MenuContext | null>(MenuContextKey, null);
@@ -68,9 +71,14 @@ const MenuItem = defineComponent({
         onMouseleave: () => {
           if (!disabled) active.value = false;
         },
-        onClick: () => {
-          if (!disabled)
-            menuContext?.selectedKeysChange?.(key as string, true, subMenuContext?.keyPath || []);
+        onClick: (event: MouseEvent) => {
+          if (disabled) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+          }
+          menuContext?.selectedKeysChange?.(key as string, true, subMenuContext?.keyPath || []);
+          emit("click", event);
         },
         onKeydown: (event: KeyboardEvent) =>
           handleMenuItemKeydown(event, () => {

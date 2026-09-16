@@ -110,13 +110,16 @@
 
   .k-menu-item-disabled,
   .k-menu-submenu-disabled {
+    color: var(--kui-color-text-disabled);
+    cursor: not-allowed;
+
     &:hover {
       border-color: transparent;
     }
 
     * {
-      color: var(--kui-color-text-disabled);
-      cursor: not-allowed;
+      color: inherit;
+      cursor: inherit;
     }
   }
 }
