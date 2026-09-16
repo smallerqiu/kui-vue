@@ -255,6 +255,10 @@ const Upload = defineComponent({
         item.xhr.upload.onprogress = null;
         item.xhr.abort();
         item.xhr = undefined;
+        if (item.uid) {
+          requestHandles.delete(item.uid);
+          finishUpload(item);
+        }
       }
       if (item.uid) {
         const handle = requestHandles.get(item.uid);
