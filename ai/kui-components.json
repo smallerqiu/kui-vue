@@ -7297,9 +7297,27 @@
           "type": "VNodeChild",
           "boolean": false,
           "documented": true
+        },
+        {
+          "name": "onClick",
+          "description": "Event emitted for click",
+          "descriptionZh": "Event emitted for click",
+          "descriptionEn": "Event emitted for click",
+          "type": "(...args: unknown[]) => void",
+          "eventName": "click",
+          "boolean": false,
+          "documented": false
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "name": "click",
+          "type": "(...args: unknown[]) => void",
+          "description": "Event emitted for click",
+          "descriptionZh": "Event emitted for click",
+          "descriptionEn": "Event emitted for click"
+        }
+      ],
       "slots": [],
       "examples": [
         {
