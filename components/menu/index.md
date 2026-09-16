@@ -65,12 +65,13 @@
 
 ### MenuItem
 
-| 属性     | 说明            | 类型       | 默认值 |
-| -------- | --------------- | ---------- | ------ |
-| icon     | item 的图标     | IconType   | -      |
-| disabled | 是否禁用        | boolean    | false  |
-| key      | item 的唯一标志 | string     | -      |
-| title    | 菜单项内容      | VNodeChild | -      |
+| 属性     | 说明                     | 类型                        | 默认值 |
+| -------- | ------------------------ | --------------------------- | ------ |
+| icon     | item 的图标              | IconType                    | -      |
+| disabled | 是否禁用                 | boolean                     | false  |
+| key      | item 的唯一标志          | string                      | -      |
+| title    | 菜单项内容               | VNodeChild                  | -      |
+| onClick  | 点击菜单项时触发的回调   | (event: MouseEvent) => void | -      |
 
 ### SubMenu
 

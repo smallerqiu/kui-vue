@@ -7300,22 +7300,22 @@
         },
         {
           "name": "onClick",
-          "description": "Event emitted for click",
-          "descriptionZh": "Event emitted for click",
-          "descriptionEn": "Event emitted for click",
+          "description": "Callback fired when item clicked",
+          "descriptionZh": "点击菜单项时触发的回调",
+          "descriptionEn": "Callback fired when item clicked",
           "type": "(...args: unknown[]) => void",
           "eventName": "click",
           "boolean": false,
-          "documented": false
+          "documented": true
         }
       ],
       "events": [
         {
           "name": "click",
           "type": "(...args: unknown[]) => void",
-          "description": "Event emitted for click",
-          "descriptionZh": "Event emitted for click",
-          "descriptionEn": "Event emitted for click"
+          "description": "Callback fired when item clicked",
+          "descriptionZh": "点击菜单项时触发的回调",
+          "descriptionEn": "Callback fired when item clicked"
         }
       ],
       "slots": [],

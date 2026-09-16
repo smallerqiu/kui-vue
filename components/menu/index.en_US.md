@@ -65,12 +65,13 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 ### MenuItem
 
-| Property | Description                | Type       | Default |
-| -------- | -------------------------- | ---------- | ------- |
-| icon     | Item icon                  | IconType   | -       |
-| disabled | Whether disabled           | boolean    | false   |
-| key      | Unique identifier for item | string     | -       |
-| title    | Menu item content          | VNodeChild | -       |
+| Property | Description                       | Type                        | Default |
+| -------- | --------------------------------- | --------------------------- | ------- |
+| icon     | Item icon                         | IconType                    | -       |
+| disabled | Whether disabled                  | boolean                     | false   |
+| key      | Unique identifier for item        | string                      | -       |
+| title    | Menu item content                 | VNodeChild                  | -       |
+| onClick  | Callback fired when item clicked  | (event: MouseEvent) => void | -       |
 
 ### SubMenu
 
