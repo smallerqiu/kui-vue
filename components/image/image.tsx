@@ -67,7 +67,7 @@ const Image = defineComponent({
       if (!preview.value) {
         preview.value = createInstance({ ...props }, slots);
       }
-      preview.value.show(props);
+      preview.value.show(props, slots);
     };
 
     // global api

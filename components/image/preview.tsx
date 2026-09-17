@@ -400,7 +400,7 @@ const ImagePreview = defineComponent({
       };
       const moveStyle: CSSProperties = {
         transform: `translate3d(${left}px, ${top}px, 0px)`,
-        transition: state.isMouseDown ? "0" : undefined,
+        transition: state.isMouseDown ? "none" : undefined,
       };
       const imgProps = {
         class: "k-image-preview-img",
@@ -463,7 +463,10 @@ const ImagePreview = defineComponent({
                       max={maxScale}
                       size="small"
                       tooltipVisible={false}
-                      onChange={(val) => (state.scale = val as number)}
+                      onChange={(val) => {
+                        state.scale = val as number;
+                        resetPosition();
+                      }}
                     />
                   </li>
                   <li

@@ -31,7 +31,7 @@ const ImageGroup = defineComponent({
       if (!preview.value) {
         preview.value = createInstance(options, slots);
       }
-      preview.value?.show(options);
+      preview.value?.show(options, slots);
     };
     const togglePanel = () => {
       if (preview.value) {
