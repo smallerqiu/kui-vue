@@ -82,8 +82,7 @@ const MenuItem = defineComponent({
         },
         onKeydown: (event: KeyboardEvent) =>
           handleMenuItemKeydown(event, () => {
-            if (!disabled)
-              menuContext?.selectedKeysChange?.(key as string, true, subMenuContext?.keyPath || []);
+            if (!disabled) (event.currentTarget as HTMLElement).click();
           }),
         role: "menuitem",
         tabindex: disabled ? -1 : 0,
@@ -111,8 +110,8 @@ const MenuItem = defineComponent({
         menuContext.collapsedTooltip &&
         !menuContext.dropdown &&
         !subMenuContext?.keyPath.length;
-      return showCollapsedTooltip ? (
-        <Tooltip title={content} placement="right">
+      return menuContext?.mode === "inline" && !menuContext.dropdown && !subMenuContext ? (
+        <Tooltip title={content} placement="right" disabled={!showCollapsedTooltip}>
           {itemNode}
         </Tooltip>
       ) : (

@@ -67,17 +67,13 @@ const SubMenu = defineComponent({
     const preCls = menuContext?.dropdown ? "dropdown-menu-submenu" : "menu-submenu";
 
     // inline 模式先在原位置渲染；切换为折叠模式后由 Teleport 移动同一棵子树。
-    // horizontal/vertical 初始仍保持懒渲染，第一次交互时才创建 popup。
+    // popup 在首次展开时创建，包括由 openKeys 控制的展开。
     const rendered = ref(menuContext?.mode === "inline" && !menuContext?.popupInlineCollapsed);
 
     onMounted(() => {
       nextTick(() => {
         const width = refSelection.value?.offsetWidth;
         minWidth.value = `${width}px`;
-
-        if (menuContext?.openKeys.includes(key)) {
-          updatePosition();
-        }
       });
     });
 
@@ -137,11 +133,25 @@ const SubMenu = defineComponent({
       menuContext?.mode === "vertical" ||
       menuContext?.popupInlineCollapsed;
 
+    watch(
+      () => !!menuContext?.openKeys.includes(key) && !!usePopup(),
+      (opened) => {
+        if (!opened) return;
+        rendered.value = true;
+        updatePosition();
+      },
+      { immediate: true },
+    );
+
     const renderChildren = () => {
       const popup = usePopup();
       if (popup && !rendered.value) return [];
 
-      const opened = menuContext?.openKeys.includes(key);
+      // 恢复记忆状态时先铺好内部层级，根子菜单才能测到完整高度。
+      const restoreNested = !popup && menuContext?.inlineTransition && !!subMenuContext;
+      const opened = (
+        restoreNested ? menuContext?.inlineOpenKeys : menuContext?.openKeys
+      )?.includes(key);
       let leftValue = left.value;
       if (
         (menuContext?.mode == "horizontal" && subMenuContext?.keyPath.length) ||
@@ -175,7 +185,9 @@ const SubMenu = defineComponent({
 
       const transitionProps = popup
         ? { name: `k-${preCls}-popup` }
-        : getTransitionProp("k-collapse-slide");
+        : restoreNested
+          ? { css: false }
+          : getTransitionProp("k-collapse-slide");
       const containerProps = popup
         ? { class: `k-${preCls}-popup`, ...popperPros }
         : { class: `k-${preCls}-sub` };

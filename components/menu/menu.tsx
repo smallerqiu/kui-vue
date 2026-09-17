@@ -17,6 +17,7 @@ import { DropdownContextKey, type DropdownContext } from "../dropdown/dropdown-c
 import type { BooleanType, DirectionType } from "../const/types";
 import { MenuContextKey } from "./menu-context";
 import RecursiveMenu from "./recursive-menu";
+import { getChildren } from "../utils/vnode";
 import SubMenu from "./sub-menu";
 import type { MenuOptionsProps } from "./types";
 const menuProps = {
@@ -50,6 +51,7 @@ const Menu = defineComponent({
     const currentMode = ref(props.mode);
     const currentInlineCollapsed = ref(!!props.inlineCollapsed);
     const popupInlineCollapsed = ref(!!props.inlineCollapsed);
+    const inlineTransition = ref(false);
     const tempOpenKeys = ref([...(props.openKeys || [])]);
     const collapseTimer = ref<ReturnType<typeof setTimeout>>();
     const collapseFrame = ref(0);
@@ -83,7 +85,7 @@ const Menu = defineComponent({
     watch(
       () => props.openKeys,
       (value) => {
-        if (props.inlineCollapsed || currentMode.value === "vertical") {
+        if (props.inlineCollapsed) {
           tempOpenKeys.value = [...value];
         } else {
           defaultOpenKeys.value = [...value];
@@ -97,18 +99,25 @@ const Menu = defineComponent({
         clearTimeout(collapseTimer.value);
         cancelAnimationFrame(collapseFrame.value);
         if (collapsed) {
+          if (!inlineTransition.value) tempOpenKeys.value = [...defaultOpenKeys.value];
+          inlineTransition.value = true;
           // 先提交折叠外观，下一帧再收起子菜单，避免宽度与高度测量挤在同一帧。
           currentInlineCollapsed.value = true;
           collapseFrame.value = requestAnimationFrame(collapseOpenKeys);
           collapseTimer.value = setTimeout(() => {
             popupInlineCollapsed.value = true;
+            inlineTransition.value = false;
           }, 220);
         } else {
+          inlineTransition.value = true;
           // 先把关闭状态的子树移回 inline 位置，下一帧再恢复展开项。
           // 避免 Teleport 搬移与多级高度动画在同一帧发生。
           popupInlineCollapsed.value = false;
           currentInlineCollapsed.value = false;
           collapseFrame.value = requestAnimationFrame(restoreOpenKeys);
+          collapseTimer.value = setTimeout(() => {
+            inlineTransition.value = false;
+          }, 300);
         }
       },
     );
@@ -224,6 +233,8 @@ const Menu = defineComponent({
       inlineCollapsed: currentInlineCollapsed,
       collapsedTooltip: computed(() => props.collapsedTooltip),
       popupInlineCollapsed,
+      inlineTransition,
+      inlineOpenKeys: tempOpenKeys,
       dropdown: dropdownContext != null,
       openKeysChange,
       selectedKeysChange,
@@ -237,7 +248,7 @@ const Menu = defineComponent({
       const allChildren =
         items && items.length > 0
           ? items.map((item) => <RecursiveMenu item={item} key={item.key} />)
-          : slots.default?.() || [];
+          : getChildren(slots.default?.());
       if (totalItemCount.value !== allChildren.length) {
         totalItemCount.value = allChildren.length;
         itemWidths = [];

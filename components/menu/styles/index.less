@@ -41,13 +41,14 @@
   .k-menu-submenu-title-content {
     opacity: 1;
     white-space: nowrap;
-    transition: font-size 0.3s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
     line-height: 1;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   .k-menu-item-icon {
+    flex-shrink: 0;
     margin-right: 8px;
     font-size: 14px;
     transition: font-size 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -232,6 +233,18 @@
       opacity 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     overflow: hidden;
     position: static;
+  }
+
+  > .k-menu-item,
+  > .k-menu-submenu > .k-menu-submenu-title {
+    overflow: hidden;
+    transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+
+    > .k-menu-item-icon {
+      transition:
+        font-size 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+        margin-right 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    }
   }
 
   > .k-menu-submenu-opened > .k-menu-submenu-title > .k-menu-submenu-arrow {
@@ -432,11 +445,12 @@
   > .k-menu-item,
   > .k-menu-submenu > .k-menu-submenu-title {
     text-overflow: clip;
-    transition: padding 0.2s 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    // 固定终点，避免百分比 padding 随容器宽度动画再次移动图标。
+    padding: 12px 17.5px;
 
     > .k-menu-item-icon {
-      transition: font-size 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
       font-size: 16px;
+      margin-right: 0;
     }
 
     > .k-menu-title-content,
@@ -512,28 +526,10 @@
 }
 
 .k-menu-inline-collapsed {
-  width: 60px;
-
-  .k-menu-item,
-  .k-menu-submenu-title {
-    padding: 12px calc(50% - 8px);
-    transition: padding 200ms 200ms ease-in-out;
-  }
-
   .k-menu-submenu-selected {
     .k-menu-submenu-title {
       background-color: var(--kui-color-item-selected);
     }
-  }
-
-  .k-menu-item-icon {
-    font-size: 16px;
-    transition: font-size 0.3s ease-in-out;
-    margin-right: 0;
-  }
-
-  .k-menu-submenu-arrow {
-    opacity: 0;
   }
 }
 

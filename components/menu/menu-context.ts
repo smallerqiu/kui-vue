@@ -9,6 +9,8 @@ export interface MenuContext {
   inlineCollapsed: boolean;
   collapsedTooltip: boolean;
   popupInlineCollapsed: boolean;
+  inlineTransition: boolean;
+  inlineOpenKeys: string[];
   dropdown: boolean;
   openKeysChange: (key: string, opened: boolean, keyPath: string[]) => void;
   selectedKeysChange: (key: string, selected: boolean, keyPath: string[]) => void;
