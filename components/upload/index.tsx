@@ -117,6 +117,7 @@ const Upload = defineComponent({
     const requestHandles = new Map<string, UploadRequestHandle>();
     const queuedUids = new Set<string>();
     let activeUploads = 0;
+    const activeUids = new Set<string>();
     let unmounted = false;
 
     const matchesAccept = (file: File) => {
@@ -135,6 +136,21 @@ const Upload = defineComponent({
       () => (field?.prop ? field.value.value : props.fileList),
       (newVal) => {
         const nextList = [...(Array.isArray(newVal) ? (newVal as UploadFile[]) : [])];
+        const retained = new Set(nextList.map((item) => item.uid));
+        const removed = innerFileList.value.filter((item) => !retained.has(item.uid));
+        innerFileList.value = nextList;
+        for (let i = uploadQueue.length - 1; i >= 0; i--) {
+          if (!retained.has(uploadQueue[i].item.uid)) uploadQueue.splice(i, 1);
+        }
+        removed.forEach((item) => {
+          if (!item.uid) return;
+          delete uploadTemp[item.uid];
+          queuedUids.delete(item.uid);
+          const handle = requestHandles.get(item.uid);
+          requestHandles.delete(item.uid);
+          handle?.abort();
+          if (activeUids.delete(item.uid)) activeUploads -= 1;
+        });
         const activePreviews = new Set(nextList.map((item) => item.preview).filter(Boolean));
         generatedPreviewUrls.forEach((url) => {
           if (!activePreviews.has(url)) {
@@ -162,6 +178,7 @@ const Upload = defineComponent({
     };
 
     const triggerUpdate = (fileItem: UploadFile) => {
+      if (unmounted || !innerFileList.value.includes(fileItem)) return;
       emit("update:fileList", innerFileList.value);
       if (field?.prop) field.update([...innerFileList.value]);
       emit("change", { file: fileItem, fileList: innerFileList.value });
@@ -302,11 +319,13 @@ const Upload = defineComponent({
       while (activeUploads < maximum && uploadQueue.length) {
         const task = uploadQueue.shift()!;
         if (!task.item.uid || !queuedUids.delete(task.item.uid)) continue;
+        activeUids.add(task.item.uid);
         activeUploads += 1;
         void uploadFile(task.item, task.file);
       }
     };
     const finishUpload = (item: UploadFile) => {
+      if (!item.uid || !activeUids.delete(item.uid)) return;
       if (item.uid) requestHandles.delete(item.uid);
       activeUploads = Math.max(0, activeUploads - 1);
       runNext();
@@ -386,7 +405,8 @@ const Upload = defineComponent({
         )
           .then((handle) => {
             if (handle && typeof handle.abort === "function" && item.uid) {
-              requestHandles.set(item.uid, handle);
+              if (unmounted || !innerFileList.value.includes(item)) handle.abort();
+              else if (!settled) requestHandles.set(item.uid, handle);
             }
           })
           .catch((error) => finish("error", error));

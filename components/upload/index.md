@@ -48,7 +48,7 @@
 
 [照片墙](./demo/pictures.vue)
 
-- 设置 `type="picture"` 展示缩略图；开启 `sortable` 后可拖动调整顺序，点击图片可预览。
+- 设置 `type="picture"` 展示缩略图；开启 `sortable` 后可拖动整张卡片调整顺序，其他卡片会实时让位，松手后确认排序。按 `Esc` 或在列表外松手可取消；轻点图片仍可预览。
 
 [上传头像](./demo/avatar.vue)
 

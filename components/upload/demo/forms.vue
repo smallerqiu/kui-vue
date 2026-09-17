@@ -71,15 +71,44 @@ const form = reactive<UploadForm>({
   file: [],
   files: [],
 });
+const uploaded: FormRule = {
+  // Check completion on submit, not during normal upload progress.
+  trigger: [],
+  validator: (_rule, value, done) => {
+    const files = value as UploadFile[] | null;
+    if (!files?.length) return done();
+    if (files.some((file) => file.status === "error")) {
+      return done(new Error("Remove or retry failed files"));
+    }
+    if (files.some((file) => file.status !== "success")) {
+      return done(new Error("Please wait for all files to finish uploading"));
+    }
+    done();
+  },
+};
+
+const uploadFailed: FormRule = {
+  validator: (_rule, value, done) => {
+    const files = value as UploadFile[] | null;
+    done(
+      files?.some((file) => file.status === "error")
+        ? new Error("Remove or retry failed files")
+        : undefined,
+    );
+  },
+};
+
 const rules: Record<string, FormRule[]> = {
-  avatar: [{ required: true, message: "Please select an avatar" }],
-  file: [{ required: true, message: "Please select a file" }],
-  files: [{ required: true, message: "Please select at least one file" }],
+  avatar: [{ required: true, message: "Please select an avatar" }, uploadFailed, uploaded],
+  file: [{ required: true, message: "Please select a file" }, uploadFailed, uploaded],
+  files: [{ required: true, message: "Please select at least one file" }, uploadFailed, uploaded],
 };
 const labelCol = { span: 8 };
 const wrapperCol = { span: 16 };
 
 const submit = ({ valid }: FormSubmitEvent) => {
-  message[valid ? "success" : "error"](valid ? "success" : "failed");
+  message[valid ? "success" : "error"](
+    valid ? "Validation passed (demo only)" : "Please check the upload fields",
+  );
 };
 </script>

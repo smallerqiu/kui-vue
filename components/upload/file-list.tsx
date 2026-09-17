@@ -1,5 +1,6 @@
+import { startPictureSort } from "./picture-sort";
 import { CircleCheck, CircleX, FileText, Info, RotateCcw, X } from "kui-icons";
-import { defineComponent, ref, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, onBeforeUnmount, watch, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
 import type { BooleanType } from "../const/types";
 import Icon from "../icon";
@@ -38,7 +39,12 @@ export default defineComponent({
     retry: (file: UploadFile) => typeof file === "object" && file !== null,
   },
   setup(props, { emit, slots }) {
-    const draggingIndex = ref<number | null>(null);
+    let cancelSort: (() => void) | undefined;
+    onBeforeUnmount(() => cancelSort?.());
+    watch(
+      () => [props.fileList, props.sortable, props.disabled, props.readonly],
+      () => cancelSort?.(),
+    );
     const getPreview = (item: UploadFile) => {
       const src = item.preview || item.url;
       if (src && props.preview)
@@ -70,19 +76,21 @@ export default defineComponent({
               <div
                 class={[`k-upload-file-${type}-item`, `k-upload-file-status-${item.status}`]}
                 key={item.uid || i}
-                draggable={isPicture && props.sortable && !props.disabled && !props.readonly}
-                onDragstart={() => (draggingIndex.value = i)}
-                onDragover={(event: DragEvent) => {
-                  if (draggingIndex.value !== null) event.preventDefault();
+                data-sortable={
+                  (isPicture && props.sortable && !props.disabled && !props.readonly) || undefined
+                }
+                onDragstart={(event: DragEvent) => {
+                  if (isPicture && props.sortable) event.preventDefault();
                 }}
-                onDrop={(event: DragEvent) => {
-                  event.preventDefault();
-                  if (draggingIndex.value !== null) {
-                    emit("sort", { oldIndex: draggingIndex.value, newIndex: i });
-                  }
-                  draggingIndex.value = null;
+                onPointerdown={(event: PointerEvent) => {
+                  if (!isPicture || !props.sortable || props.disabled || props.readonly) return;
+                  cancelSort?.();
+                  cancelSort = startPictureSort(
+                    event,
+                    event.currentTarget as HTMLElement,
+                    (oldIndex, newIndex) => emit("sort", { oldIndex, newIndex }),
+                  );
                 }}
-                onDragend={() => (draggingIndex.value = null)}
               >
                 <div class={`k-upload-${isPicture ? "picture" : "file"}-preview`}>
                   {getPreview(item) || <Icon type={FileText} strokeWidth={1} size={30} />}

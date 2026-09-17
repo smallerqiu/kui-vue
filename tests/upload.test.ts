@@ -1,3 +1,5 @@
+import { defineComponent, h, reactive } from "vue";
+import { Form, FormItem } from "../components/form";
 import { flushPromises, mount } from "@vue/test-utils";
 import { describe, expect, it, vi } from "vitest";
 import Upload from "../components/upload/index";
@@ -41,6 +43,50 @@ const lastChangeEvent = (wrapper: ReturnType<typeof mount>) => {
 };
 
 describe("Upload", () => {
+  it("resets form uploads, aborts requests and ignores late callbacks", async () => {
+    const requests: UploadRequestOptions[] = [];
+    const abort = vi.fn();
+    const Demo = defineComponent({
+      setup() {
+        const model = reactive({ files: [] });
+        return () =>
+          h(Form, { model }, () => [
+            h(FormItem, { prop: "files" }, () =>
+              h(Upload, {
+                multiple: true,
+                maxConcurrent: 1,
+                customRequest: (options: UploadRequestOptions) => {
+                  requests.push(options);
+                  return { abort };
+                },
+              }),
+            ),
+            h("button", { type: "reset" }, "Reset"),
+          ]);
+      },
+    });
+    const wrapper = mount(Demo);
+    const input = wrapper.find("input[type=file]");
+    Object.defineProperty(input.element, "files", {
+      value: [new File(["a"], "a.txt")],
+      configurable: true,
+    });
+    await input.trigger("change");
+    await flushPromises();
+    expect(requests).toHaveLength(1);
+    await wrapper.find("form").trigger("reset");
+    expect(wrapper.findAll(".k-upload-file-list-item")).toHaveLength(0);
+    expect(abort).toHaveBeenCalledTimes(1);
+    requests[0].onProgress(90);
+    requests[0].onSuccess();
+    await flushPromises();
+    expect(wrapper.findAll(".k-upload-file-list-item")).toHaveLength(0);
+    await input.trigger("change");
+    await flushPromises();
+    expect(requests).toHaveLength(2);
+    wrapper.unmount();
+  });
+
   it("surfaces the http status when the request fails", async () => {
     MockXHR.instances = [];
     vi.stubGlobal("XMLHttpRequest", MockXHR as unknown as typeof XMLHttpRequest);
@@ -163,9 +209,37 @@ describe("Upload", () => {
         ],
       },
     });
-    const items = wrapper.findAll(".k-upload-file-picture-item");
-    await items[0].trigger("dragstart");
-    await items[1].trigger("drop");
+    const items = wrapper
+      .findAll(".k-upload-file-picture-item")
+      .map((item) => item.element as HTMLElement);
+    items.forEach((item, index) => {
+      item.getBoundingClientRect = () =>
+        ({
+          left: index * 104,
+          right: index * 104 + 96,
+          top: 0,
+          bottom: 96,
+          width: 96,
+          height: 96,
+        }) as DOMRect;
+    });
+    items[0].parentElement!.getBoundingClientRect = () =>
+      ({ left: 0, top: 0, right: 200, bottom: 96 }) as DOMRect;
+    const pointer = (type: string, x: number) => {
+      const event = new MouseEvent(type, {
+        bubbles: true,
+        cancelable: true,
+        clientX: x,
+        clientY: 40,
+        button: 0,
+      });
+      Object.defineProperty(event, "pointerId", { value: 1 });
+      return event;
+    };
+    items[0].dispatchEvent(pointer("pointerdown", 40));
+    document.dispatchEvent(pointer("pointermove", 145));
+    document.dispatchEvent(pointer("pointerup", 145));
+    await vi.waitFor(() => expect(wrapper.emitted("sort")).toBeTruthy());
 
     expect(wrapper.emitted("sort")?.[0]?.[0]).toEqual(
       expect.objectContaining({

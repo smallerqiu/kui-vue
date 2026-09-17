@@ -49,7 +49,7 @@ Uploading is the process of publishing information (web pages, text, images, vid
 
 [Photo Wall](./demo/pictures.vue)
 
-- Set `type="picture"` to display thumbnails. Enable `sortable` to reorder them, and click an image to preview it.
+- Set `type="picture"` to display thumbnails. Enable `sortable` to drag whole cards with live animated reordering. Release to confirm, or press `Esc` or release outside the list to cancel. Click an image to preview it.
 
 [Upload Avatar](./demo/avatar.vue)
 

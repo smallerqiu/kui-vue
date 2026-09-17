@@ -16,7 +16,7 @@
   </Space>
 </template>
 <style lang="less">
-.demo-slider-vertical > div {
-  height: 100%;
+.demo-slider-vertical .k-slider {
+  height: 300px;
 }
 </style>

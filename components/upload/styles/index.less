@@ -148,6 +148,7 @@
   }
 
   .k-upload-picture-list {
+    position: relative;
     display: inline-flex;
     margin-top: 0;
     flex-wrap: wrap;
@@ -193,7 +194,7 @@
     position: relative;
     overflow: hidden;
 
-    &[draggable="true"] {
+    &[data-sortable="true"] {
       cursor: grab;
       touch-action: none;
 
@@ -207,6 +208,33 @@
         display: flex;
       }
     }
+  }
+
+  .k-upload-sorting {
+    cursor: grabbing;
+    user-select: none;
+    .k-upload-file-picture-item {
+      will-change: transform;
+    }
+    .k-upload-sort-dragging {
+      z-index: 10;
+      cursor: grabbing;
+      background: var(--kui-color-bg-component);
+      box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
+      pointer-events: none;
+      .k-upload-file-picture-remove {
+        display: flex;
+      }
+    }
+  }
+
+  .k-upload-sort-placeholder {
+    position: absolute;
+    box-sizing: border-box;
+    border: 1px dashed var(--kui-color-primary);
+    border-radius: var(--kui-border-radius);
+    background: var(--kui-color-item-hover);
+    pointer-events: none;
   }
 
   .k-upload-picture-preview {
