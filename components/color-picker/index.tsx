@@ -1,15 +1,15 @@
 import Color, { type ColorObject } from "color";
-import resize from "../directives/resize";
-import { setPlacement } from "../utils/placement";
-import { cloneNodes } from "../utils/vnode";
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
+import resize from "../directives/resize";
 import {
   markFormFieldComponent,
   resolveFormControlAttrs,
   useFormAppearance,
   useFormField,
 } from "../form/context";
+import { setPlacement } from "../utils/placement";
+import { cloneNodes } from "../utils/vnode";
 import Alpha from "./alpha";
 import Hue from "./hue";
 import Mode from "./mode";
@@ -18,9 +18,9 @@ import Presets from "./presets";
 
 import {
   defineComponent,
+  type ExtractPropTypes,
   h,
   mergeProps,
-  type ExtractPropTypes,
   nextTick,
   onBeforeUnmount,
   onMounted,
@@ -56,7 +56,7 @@ const colorPickerProps = {
   size: {
     type: String as PropType<SizeType>,
   },
-  theme: { type: String as PropType<ThemeType>, default: "outline" },
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: String as PropType<ShapeType>,
   mode: {
     type: String as PropType<ColorMode>,

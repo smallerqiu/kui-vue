@@ -147,11 +147,8 @@ const Input = defineComponent({
           />
         );
       }
-      return slotSuffix.length > 0 ? (
-        slotSuffix
-      ) : suffix ? (
-        <div class="k-input-suffix">{suffix}</div>
-      ) : null;
+      const suffixContent = slotSuffix.length > 0 ? slotSuffix : suffix;
+      return suffixContent ? <div class="k-input-suffix">{suffixContent}</div> : null;
     };
 
     return () => {
@@ -182,9 +179,7 @@ const Input = defineComponent({
         slotAddonBefore.length > 0 ||
         slotAddonAfter.length > 0 ||
         addonBefore !== undefined ||
-        addonAfter !== undefined ||
-        slotPrefix.length > 0 ||
-        slotSuffix.length > 0;
+        addonAfter !== undefined;
 
       const multiple =
         (icon ||
@@ -269,16 +264,12 @@ const Input = defineComponent({
           ? slotAddonBefore
           : addonBefore !== undefined
             ? addonBefore
-            : slotPrefix.length
-              ? slotPrefix
-              : undefined;
+            : undefined;
         const afterContent = slotAddonAfter.length
           ? slotAddonAfter
           : addonAfter !== undefined
             ? addonAfter
-            : slotSuffix.length
-              ? slotSuffix
-              : undefined;
+            : undefined;
         const preChildren = beforeContent ? (
           <div class="k-input-group-prefix">{beforeContent}</div>
         ) : null;
@@ -299,7 +290,9 @@ const Input = defineComponent({
               }}
             />,
           );
-        if (prefix) innerChildren.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
+        const prefixContent = slotPrefix.length ? slotPrefix : prefix;
+        if (prefixContent)
+          innerChildren.push(<div class={`k-${inputType}-prefix`}>{prefixContent}</div>);
         innerChildren.push(textInput);
         if (clearable) {
           innerChildren.push(
@@ -323,7 +316,7 @@ const Input = defineComponent({
             />,
           );
         }
-        const suffixNode = getSuffix([]);
+        const suffixNode = getSuffix(slotSuffix);
         if (suffixNode) innerChildren.push(suffixNode);
         if (slotControls.length) innerChildren.push(slotControls);
         const sufChildren = afterContent ? (
@@ -361,7 +354,9 @@ const Input = defineComponent({
               }}
             />,
           );
-        if (prefix) children.push(<div class={`k-${inputType}-prefix`}>{prefix}</div>);
+        const prefixContent = slotPrefix.length ? slotPrefix : prefix;
+        if (prefixContent)
+          children.push(<div class={`k-${inputType}-prefix`}>{prefixContent}</div>);
         children.push(textInput);
         if (clearable) {
           children.push(

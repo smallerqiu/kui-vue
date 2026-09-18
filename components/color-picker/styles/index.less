@@ -94,6 +94,7 @@
   border-color: transparent;
   background: var(--kui-theme-fill-bg);
 
+  &:not(.k-color-picker-disabled):hover,
   &.k-color-picker-opened {
     border-color: transparent;
   }
@@ -103,6 +104,13 @@
   border-color: transparent;
   background: transparent;
   box-shadow: none;
+
+  &:not(.k-color-picker-disabled):hover,
+  &.k-color-picker-opened {
+    border-color: transparent;
+    background: transparent;
+    box-shadow: none;
+  }
 }
 
 .k-color-picker-lg {
@@ -432,10 +440,10 @@
 }
 
 .k-color-picker-circle {
-  border-radius: 50%;
+  border-radius: var(--kui-shape-circle);
 
   .k-color-picker-color {
-    border-radius: 50%;
+    border-radius: var(--kui-shape-circle);
   }
 }
 

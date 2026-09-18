@@ -603,12 +603,18 @@ const Tree = defineComponent({
       }
 
       const checkNode = props.checkable ? (
-        <Checkbox
-          onChange={(e: ChangeEvent) => toggleCheck(e, item)}
-          checked={item.checked}
-          disabled={item.disabled}
-          indeterminate={item.indeterminate}
-        />
+        <span
+          class="k-tree-checkbox"
+          onClick={(event) => event.stopPropagation()}
+          onKeydown={(event) => event.stopPropagation()}
+        >
+          <Checkbox
+            onChange={(e: ChangeEvent) => toggleCheck(e, item)}
+            checked={item.checked}
+            disabled={item.disabled}
+            indeterminate={item.indeterminate}
+          />
+        </span>
       ) : null;
 
       const iconNode = <Icon type={item.icon} class="k-tree-icon" />;

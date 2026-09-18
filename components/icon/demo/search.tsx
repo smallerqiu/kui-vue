@@ -69,7 +69,7 @@ export default defineComponent({
           </Space>
         </Affix>
 
-        <div class="show-icons">
+        <div class="icon-list-container k-scroll">
           {appIcons.value.length > 0 && (
             <>
               <div class="icon-head">
