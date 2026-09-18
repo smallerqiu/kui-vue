@@ -1,12 +1,14 @@
 <template>
   <Space vertical block>
     <Input placeholder="Please input username" :icon="User" />
-    <Input
-      placeholder="Please input the captcha"
-      :maxlength="8"
-      :prefix="h(Icon, { type: Search })"
-      :suffix="h(Tag, { theme: 'outline' }, { default: () => '⌘K' })"
-    ></Input>
+    <Input placeholder="Please input the captcha" :maxlength="8">
+      <template #prefix>
+        <Icon :type="Search" />
+      </template>
+      <template #suffix>
+        <Tag theme="outline">⌘K</Tag>
+      </template>
+    </Input>
     <Input placeholder="Please input the captcha" :maxlength="8">
       <template #addonAfter>
         <Button :disabled="time < 60" @click="sendCode">
@@ -45,7 +47,7 @@
 <script setup lang="ts">
 import { CircleQuestionMark, Gift, Search, User } from "kui-icons";
 import { Icon, message, Tag } from "kui-vue";
-import { h, onUnmounted, ref } from "vue";
+import { onUnmounted, ref } from "vue";
 const time = ref(60);
 const timer = ref();
 

@@ -201,10 +201,17 @@
 
   .k-tree-item:not(.k-tree-item-selected) {
     &:hover::before {
-      background-color: var(--kui-color-item-hover);
+      background-color: var(--kui-color-row-hover);
     }
     &:active::before {
       background-color: var(--kui-color-item-active);
+    }
+  }
+
+  .k-tree-title:not(.k-tree-title-selected) {
+    &:hover,
+    &:active {
+      background-color: transparent;
     }
   }
 

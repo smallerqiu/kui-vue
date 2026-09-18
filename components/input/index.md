@@ -23,7 +23,7 @@
 
 [扩展、前缀和后缀](./demo/suffix.vue?show=vertical)
 
-- `prefix`、`suffix` 用于输入框内部内容；`addonBefore`、`addonAfter` 用于输入框外部附件，复杂内容使用同名插槽。
+- `prefix`、`suffix` 显示在输入框内部；复杂内容使用同名插槽（`.vue` 推荐）或 VNode 属性（TSX），两者效果相同。`addonBefore`、`addonAfter` 用于输入框外部附件。
 
 [输入框组合](./demo/group.vue?show=vertical)
 
@@ -54,8 +54,8 @@
 | shape               | 输入框形状                                 | ShapeType                        | -      |
 | size                | 按钮尺寸,可选值 `small`、`large`，默认不选 | string                           | -      |
 | icon                | 输入框图标                                 | string                           | -      |
-| suffix              | 输入框内部后缀                             | string \| VNodeChild             | -      |
-| prefix              | 输入框内部前缀                             | string \| VNodeChild             | -      |
+| suffix              | 输入框内部后缀，复杂内容可使用同名插槽     | string \| VNodeChild             | -      |
+| prefix              | 输入框内部前缀，复杂内容可使用同名插槽     | string \| VNodeChild             | -      |
 | addonBefore         | 输入框外部前置附件，复杂内容可使用同名插槽 | string \| number \| VNodeChild   | -      |
 | addonAfter          | 输入框外部后置附件，复杂内容可使用同名插槽 | string \| number \| VNodeChild   | -      |
 | theme               | 主题                                       | string                           | fill   |

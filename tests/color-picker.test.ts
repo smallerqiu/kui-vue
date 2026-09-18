@@ -52,6 +52,21 @@ describe("ColorPicker", () => {
     expect(wrapper.attributes("aria-label")).toBe("Brand color");
   });
 
+  it("supports theme and shape appearance classes", async () => {
+    const wrapper = mount(ColorPicker, {
+      props: { theme: "fill", shape: "circle" },
+    });
+
+    expect(wrapper.classes()).toContain("k-color-picker-fill");
+    expect(wrapper.classes()).toContain("k-color-picker-circle");
+
+    await wrapper.setProps({ theme: "plain", shape: "square" });
+
+    expect(wrapper.classes()).toContain("k-color-picker-plain");
+    expect(wrapper.classes()).toContain("k-color-picker-square");
+    expect(wrapper.classes()).not.toContain("k-color-picker-circle");
+  });
+
   it("synchronizes external color and mode changes", async () => {
     const wrapper = mount(ColorPicker, {
       props: { panelOnly: true, modelValue: "#ff0000", mode: "hex" },

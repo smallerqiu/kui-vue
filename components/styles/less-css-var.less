@@ -154,6 +154,11 @@
   --kui-color-bg-component: @component-color; /* 基础组件/表头背景 */
   --kui-color-bg-component-hover: @component-color-hover;
   --kui-color-bg-component-active: @component-color-active;
+  --kui-color-row-hover: color-mix(
+    in srgb,
+    var(--kui-color-bg-component-hover) 40%,
+    var(--kui-color-bg-component)
+  );
   --kui-color-bg-component-disabled: @component-color-disabled;
   --kui-color-bg-component-overlay: @component-overlay-color;
   --kui-color-bg-elevated: @dark-gray-4; /* Modal/Popover 背景 */
@@ -225,6 +230,11 @@
   --kui-color-bg-component: @dark-component-color;
   --kui-color-bg-component-hover: @dark-component-color-hover;
   --kui-color-bg-component-active: @dark-component-color-active;
+  --kui-color-row-hover: color-mix(
+    in srgb,
+    var(--kui-color-bg-component-hover) 40%,
+    var(--kui-color-bg-component)
+  );
   --kui-color-bg-component-disabled: @dark-component-color-disabled;
   --kui-color-bg-component-overlay: @dark-component-overlay-color;
   --kui-color-bg-elevated: @dark-gray-4;

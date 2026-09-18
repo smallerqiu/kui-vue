@@ -116,22 +116,30 @@ const datePickerProps = {
 
 export type DatePickerProps = ExtractPropTypes<typeof datePickerProps>;
 type DatePickerModelValue = DatePickerOutput | DatePickerOutput[];
-type DatePickerPublicProps<T extends DatePickerModelValue> = Omit<
-  Partial<DatePickerProps>,
-  "modelValue" | "startDate" | "endDate"
-> & {
+type DatePickerBoundaryValue<T extends DatePickerModelValue> = T extends readonly (infer Item)[]
+  ? Extract<Item, DatePickerOutput>
+  : Extract<T, DatePickerOutput>;
+type DatePickerPublicProps<
+  T extends DatePickerModelValue,
+  TStart extends DatePickerOutput = DatePickerBoundaryValue<T>,
+  TEnd extends DatePickerOutput = DatePickerBoundaryValue<T>,
+> = Omit<Partial<DatePickerProps>, "modelValue" | "startDate" | "endDate"> & {
   modelValue?: T;
-  startDate?: T extends readonly unknown[] ? never : T;
-  endDate?: T extends readonly unknown[] ? never : T;
+  startDate?: TStart;
+  endDate?: TEnd;
   "onUpdate:modelValue"?: (value: T) => void;
-  "onUpdate:startDate"?: (value: Exclude<T, DatePickerOutput[]>) => void;
-  "onUpdate:endDate"?: (value: Exclude<T, DatePickerOutput[]>) => void;
+  "onUpdate:startDate"?: (value: TStart) => void;
+  "onUpdate:endDate"?: (value: TEnd) => void;
   onChange?: (value: T, text: string | string[]) => void;
 };
 type DatePickerComponent = {
-  new <T extends DatePickerModelValue = DatePickerOutput>(
-    props: DatePickerPublicProps<T>,
-  ): { $props: DatePickerPublicProps<T> };
+  new <
+    T extends DatePickerModelValue = DatePickerOutput,
+    TStart extends DatePickerOutput = DatePickerBoundaryValue<T>,
+    TEnd extends DatePickerOutput = DatePickerBoundaryValue<T>,
+  >(
+    props: DatePickerPublicProps<T, TStart, TEnd>,
+  ): { $props: DatePickerPublicProps<T, TStart, TEnd> };
 };
 
 const DatePicker = defineComponent({
@@ -249,6 +257,7 @@ const DatePicker = defineComponent({
 
     const openChange = (opened: boolean) => {
       isVisible.value = props.panelOnly || opened;
+      if (!opened) isFocus.value = false;
       emit("openChange", opened);
     };
 
@@ -324,6 +333,16 @@ const DatePicker = defineComponent({
 
       return d.isValid() ? d.locale(localeName.value) : null;
     };
+    const isValueDisabled = (date: Dayjs) =>
+      props.disabledDate(date.toDate()) ||
+      (props.mode.includes("Time") && props.disabledTime(date.toDate()));
+    const propRangeValue = () => {
+      if (Array.isArray(props.modelValue)) return props.modelValue;
+      if (props.startDate !== null || props.endDate !== null) {
+        return [props.startDate, props.endDate];
+      }
+      return null;
+    };
 
     watch(
       [
@@ -388,7 +407,10 @@ const DatePicker = defineComponent({
           innerValue.value = dates;
           syncTextFromValue();
 
-          if (closePanel && !props.panelOnly) openChange(false);
+          if (closePanel && !props.panelOnly) {
+            openChange(false);
+            isFocus.value = false;
+          }
         }
       } else {
         const output = formatOutputValue(innerValue.value);
@@ -396,7 +418,10 @@ const DatePicker = defineComponent({
         if (field?.prop) field.update(output);
         emit("change", output, getStr(innerValue.value));
         syncTextFromValue();
-        if (closePanel && !props.panelOnly) openChange(false);
+        if (closePanel && !props.panelOnly) {
+          openChange(false);
+          isFocus.value = false;
+        }
       }
     };
 
@@ -414,7 +439,7 @@ const DatePicker = defineComponent({
 
       const d = dayjs(val, fmt, localeName.value, true);
 
-      if (d.isValid()) {
+      if (d.isValid() && !isValueDisabled(d)) {
         if (isRange.value) {
           const newArr = Array.isArray(innerValue.value) ? [...innerValue.value] : [null, null];
 
@@ -430,6 +455,8 @@ const DatePicker = defineComponent({
           panelDate.value = d;
           emitValue(false);
         }
+      } else if (d.isValid()) {
+        syncTextFromValue();
       } else if (val === "") {
         if (isRange.value) {
           const newArr = Array.isArray(innerValue.value) ? [...innerValue.value] : [null, null];
@@ -502,11 +529,13 @@ const DatePicker = defineComponent({
           if (innerValue.value.length === 1 || !innerValue.value[1]) {
             syncTextFromValue(); // 这会根据 props.modelValue 恢复 textValue
             // 重新从 props 解析 innerValue
-            const val = props.modelValue;
-            if (Array.isArray(val)) {
+            const val = propRangeValue();
+            if (val) {
               innerValue.value = val.map((d) => parsePropValue(d));
+              syncTextFromValue();
             } else {
               innerValue.value = null;
+              syncTextFromValue();
             }
           }
         }
@@ -559,7 +588,9 @@ const DatePicker = defineComponent({
       } else {
         if (props.mode === "dateTime") {
           const old = (innerValue.value || dayjs()) as Dayjs;
-          innerValue.value = date.hour(old.hour()).minute(old.minute()).second(old.second());
+          const next = date.hour(old.hour()).minute(old.minute()).second(old.second());
+          if (isValueDisabled(next)) return;
+          innerValue.value = next;
           emitValue(false);
         } else {
           innerValue.value = date;
@@ -815,6 +846,7 @@ const DatePicker = defineComponent({
                 <div
                   key={idx}
                   role="gridcell"
+                  tabindex={isDisabled ? -1 : 0}
                   aria-selected={isSelected || undefined}
                   aria-disabled={isDisabled || undefined}
                   class={[
@@ -833,6 +865,12 @@ const DatePicker = defineComponent({
                     if (props.mode.includes("Range")) hoverDate.value = date;
                   }}
                   onClick={() => !isDisabled && pickDate(date)}
+                  onKeydown={(event: KeyboardEvent) => {
+                    if (!isDisabled && (event.key === "Enter" || event.key === " ")) {
+                      event.preventDefault();
+                      pickDate(date);
+                    }
+                  }}
                 >
                   {date.date()}
                 </div>
@@ -981,9 +1019,10 @@ const DatePicker = defineComponent({
     watch(
       () => props.opened,
       (opened) => {
-        if (opened) rendered.value = true;
-        isVisible.value = opened;
-        if (opened) nextTick(updatePosition);
+        const nextVisible = Boolean(props.panelOnly || opened);
+        if (nextVisible) rendered.value = true;
+        isVisible.value = nextVisible;
+        if (nextVisible && !props.panelOnly) nextTick(updatePosition);
       },
     );
 
@@ -1031,7 +1070,7 @@ const DatePicker = defineComponent({
       ];
       const showClear =
         props.clearable &&
-        (textValue.value || (textValueStart.value && textValueStart.value)) &&
+        (textValue.value || textValueStart.value || textValueEnd.value) &&
         !disabled &&
         !readonly;
       const selectCls = [
@@ -1118,10 +1157,14 @@ const DatePicker = defineComponent({
         if (typeof value === "function") {
           const date = value();
           if (isRange.value && Array.isArray(date)) {
-            innerValue.value = [dayjs(date[0]), dayjs(date[1])];
+            const parsed = [parsePropValue(date[0]), parsePropValue(date[1])];
+            if (parsed.some((item) => !item || isValueDisabled(item))) return;
+            innerValue.value = parsed as Dayjs[];
             emitValue(true);
           } else if (!Array.isArray(date)) {
-            innerValue.value = dayjs(date);
+            const parsed = parsePropValue(date);
+            if (!parsed || isValueDisabled(parsed)) return;
+            innerValue.value = parsed;
             emitValue(true);
           }
         }
@@ -1143,10 +1186,14 @@ const DatePicker = defineComponent({
       };
       const extraEmit = (date: DatePickerInput | DatePickerInput[]) => {
         if (isRange.value && Array.isArray(date)) {
-          innerValue.value = [dayjs(date[0]), dayjs(date[1])];
+          const parsed = [parsePropValue(date[0]), parsePropValue(date[1])];
+          if (parsed.some((item) => !item || isValueDisabled(item))) return;
+          innerValue.value = parsed as Dayjs[];
           emitValue(true);
         } else if (!Array.isArray(date)) {
-          innerValue.value = dayjs(date);
+          const parsed = parsePropValue(date);
+          if (!parsed || isValueDisabled(parsed)) return;
+          innerValue.value = parsed;
           emitValue(true);
         }
       };

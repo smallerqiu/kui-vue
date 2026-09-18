@@ -23,7 +23,7 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 
 [Addons, Prefix and Suffix](./demo/suffix.vue?show=vertical)
 
-- `prefix` and `suffix` render inside the input. `addonBefore` and `addonAfter` render outside it; use their named slots for complex content.
+- `prefix` and `suffix` render inside the input. For complex content, use the named slots (recommended in `.vue`) or VNode props (TSX); both render identically. `addonBefore` and `addonAfter` render outside the input.
 
 [Input Group](./demo/group.vue?show=vertical)
 
@@ -54,8 +54,8 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | shape               | Input shape                                                         | ShapeType                        | -       |
 | size                | Button size, optional values `small`, `large`, default not selected | string                           | -       |
 | icon                | Input box icon                                                      | string                           | -       |
-| suffix              | Inline suffix                                                       | string \| VNodeChild             | -       |
-| prefix              | Inline prefix                                                       | string \| VNodeChild             | -       |
+| suffix              | Suffix inside the input; complex content can use the named slot     | string \| VNodeChild             | -       |
+| prefix              | Prefix inside the input; complex content can use the named slot     | string \| VNodeChild             | -       |
 | addonBefore         | Addon before the input; complex content can use the named slot      | string \| number \| VNodeChild   | -       |
 | addonAfter          | Addon after the input; complex content can use the named slot       | string \| number \| VNodeChild   | -       |
 | theme               | The theme of Input                                                  | string                           | fill    |

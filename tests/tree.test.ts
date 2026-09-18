@@ -131,4 +131,22 @@ describe("Tree", () => {
     expect(source[0].key).toBe("target");
     expect(source[0].children?.[0].key).toBe("drag");
   });
+
+  it("does not expand or collapse a directory node when checking it", async () => {
+    const wrapper = mount(Tree, {
+      props: {
+        data,
+        directory: true,
+        checkable: true,
+        expandedKeys: ["root"],
+      },
+    });
+    const checkbox = wrapper.get<HTMLInputElement>("[data-tree-key='root'] .k-checkbox-input");
+
+    await checkbox.trigger("click");
+    await checkbox.trigger("keydown", { key: " " });
+
+    expect(wrapper.emitted("update:expandedKeys")).toBeUndefined();
+    expect(wrapper.find("[data-tree-key='one']").exists()).toBe(true);
+  });
 });
