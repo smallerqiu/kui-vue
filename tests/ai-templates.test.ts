@@ -4,7 +4,6 @@ import FormTemplate from "../ai/templates/form.vue";
 import TableTemplate from "../ai/templates/table.vue";
 import ModalTemplate from "../ai/templates/modal-editor.vue";
 
-vi.mock("kui-vue", () => import("../components"));
 afterEach(() => {
   vi.useRealTimers();
   document.body.innerHTML = "";
