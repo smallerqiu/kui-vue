@@ -3,13 +3,14 @@ import vueJsx from "@vitejs/plugin-vue-jsx";
 import path from "path";
 import { defineConfig } from "vite";
 import banner from "./plugins/banner/index.ts";
-import { getLocaleEntries } from "./vite.config.ts";
+import { getLocaleEntries } from "./scripts/build-entries.ts";
 
 export default defineConfig({
   publicDir: false,
   plugins: [vue(), vueJsx(), banner()],
   build: {
     outDir: "lib",
+    reportCompressedSize: false,
     lib: {
       entry: {
         index: path.resolve(import.meta.dirname, "components/index.ts"),
@@ -21,6 +22,7 @@ export default defineConfig({
     },
     minify: "terser",
     terserOptions: {
+      maxWorkers: 1,
       compress: { drop_console: true, drop_debugger: true },
     },
     rollupOptions: {

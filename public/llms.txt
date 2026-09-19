@@ -19,128 +19,128 @@ Import `kui-vue/style/index.css`, then import components from `kui-vue` or insta
 
 ## Components
 
-- [Affix](https://k-ui.cn/components/affix): tags `affix`, `k-affix`
-- [Alert](https://k-ui.cn/components/alert): tags `alert`, `k-alert`
-- [AutoComplete](https://k-ui.cn/components/auto-complete): tags `auto-complete`, `k-auto-complete`
-- [Anchor](https://k-ui.cn/components/anchor): tags `anchor`, `k-anchor`
-- [AnchorLink](https://k-ui.cn/components/anchor): tags `anchor-link`, `k-anchor-link`
-- [Avatar](https://k-ui.cn/components/avatar): tags `avatar`, `k-avatar`
-- [AvatarGroup](https://k-ui.cn/components/avatar): tags `avatar-group`, `k-avatar-group`
-- [Breadcrumb](https://k-ui.cn/components/breadcrumb): tags `breadcrumb`, `k-breadcrumb`
-- [BreadcrumbItem](https://k-ui.cn/components/breadcrumb): tags `breadcrumb-item`, `k-breadcrumb-item`
-- [BackTop](https://k-ui.cn/components/back-top): tags `back-top`, `k-back-top`
-- [Badge](https://k-ui.cn/components/badge): tags `badge`, `k-badge`
-- [Button](https://k-ui.cn/components/button): tags `button`, `k-button`
-- [ButtonGroup](https://k-ui.cn/components/button): tags `button-group`, `k-button-group`
-- [Cascader](https://k-ui.cn/components/cascader): tags `cascader`, `k-cascader`
-- [Card](https://k-ui.cn/components/card): tags `card`, `k-card`
-- [CardMeta](https://k-ui.cn/components/card): tags `card-meta`, `k-card-meta`
-- [Calendar](https://k-ui.cn/components/calendar): tags `calendar`, `k-calendar`
-- [FeatureCard](https://k-ui.cn/components/feature-card): tags `feature-card`, `k-feature-card`
-- [FlameWrap](https://k-ui.cn/components/flame-wrap): tags `flame-wrap`, `k-flame-wrap`
-- [ListPanel](https://k-ui.cn/components/list-panel): tags `list-panel`, `k-list-panel`
-- [Carousel](https://k-ui.cn/components/carousel): tags `carousel`, `k-carousel`
-- [CarouselItem](https://k-ui.cn/components/carousel-item): tags `carousel-item`, `k-carousel-item`
-- [Checkbox](https://k-ui.cn/components/checkbox): tags `checkbox`, `k-checkbox`
-- [CheckboxGroup](https://k-ui.cn/components/checkbox): tags `checkbox-group`, `k-checkbox-group`
-- [CheckCard](https://k-ui.cn/components/check-card): tags `check-card`, `k-check-card`
-- [CheckCardGroup](https://k-ui.cn/components/check-card): tags `check-card-group`, `k-check-card-group`
-- [Collapse](https://k-ui.cn/components/collapse): tags `collapse`, `k-collapse`
-- [CollapsePanel](https://k-ui.cn/components/collapse): tags `collapse-panel`, `k-collapse-panel`
-- [ColorPickerPanel](https://k-ui.cn/components/color-picker-panel): tags `color-picker-panel`, `k-color-picker-panel`
-- [ColorPicker](https://k-ui.cn/components/color-picker): tags `color-picker`, `k-color-picker`
-- [DatePickerPanel](https://k-ui.cn/components/date-picker-panel): tags `date-picker-panel`, `k-date-picker-panel`
-- [DatePicker](https://k-ui.cn/components/date-picker): tags `date-picker`, `k-date-picker`
-- [Descriptions](https://k-ui.cn/components/descriptions): tags `descriptions`, `k-descriptions`
-- [DescriptionsItem](https://k-ui.cn/components/descriptions): tags `descriptions-item`, `k-descriptions-item`
-- [Drawer](https://k-ui.cn/components/drawer): tags `drawer`, `k-drawer`
-- [Dropdown](https://k-ui.cn/components/dropdown): tags `dropdown`, `k-dropdown`
-- [DropdownButton](https://k-ui.cn/components/dropdown): tags `dropdown-button`, `k-dropdown-button`
-- [Divider](https://k-ui.cn/components/divider): tags `divider`, `k-divider`
-- [Empty](https://k-ui.cn/components/empty): tags `empty`, `k-empty`
-- [Form](https://k-ui.cn/components/form): tags `form`, `k-form`
-- [FormItem](https://k-ui.cn/components/form): tags `form-item`, `k-form-item`
-- [Flex](https://k-ui.cn/components/flex): tags `flex`, `k-flex`
-- [Grid](https://k-ui.cn/components/grid): tags `grid`, `k-grid`
-- [GridItem](https://k-ui.cn/components/grid): tags `grid-item`, `k-grid-item`
-- [Image](https://k-ui.cn/components/image): tags `Image`
-- [ImageGroup](https://k-ui.cn/components/image): tags `image-group`, `k-image-group`
-- [Icon](https://k-ui.cn/components/icon): tags `icon`, `k-icon`
-- [Input](https://k-ui.cn/components/input): tags `input`, `k-input`
-- [InputGroup](https://k-ui.cn/components/input): tags `input-group`, `k-input-group`
-- [TextArea](https://k-ui.cn/components/input): tags `text-area`, `k-text-area`
-- [InputTag](https://k-ui.cn/components/input-tag): tags `input-tag`, `k-input-tag`
-- [InputOTP](https://k-ui.cn/components/input-otp): tags `input-otp`, `k-input-otp`
-- [InputNumber](https://k-ui.cn/components/input-number): tags `input-number`, `k-input-number`
-- [Content](https://k-ui.cn/components/content): tags `content`, `k-content`
-- [Footer](https://k-ui.cn/components/footer): tags `footer`, `k-footer`
-- [Header](https://k-ui.cn/components/header): tags `header`, `k-header`
-- [Layout](https://k-ui.cn/components/layout): tags `layout`, `k-layout`
-- [Sider](https://k-ui.cn/components/sider): tags `sider`, `k-sider`
-- [Menu](https://k-ui.cn/components/menu): tags `menu`, `k-menu`
-- [MenuDivider](https://k-ui.cn/components/menu-divider): tags `menu-divider`, `k-menu-divider`
-- [MenuGroup](https://k-ui.cn/components/menu): tags `menu-group`, `k-menu-group`
-- [MenuItem](https://k-ui.cn/components/menu): tags `menu-item`, `k-menu-item`
-- [SubMenu](https://k-ui.cn/components/menu): tags `sub-menu`, `k-sub-menu`
-- [Mentions](https://k-ui.cn/components/mentions): tags `mentions`, `k-mentions`
-- [MessagePanel](https://k-ui.cn/components/message-panel): tags `message-panel`, `k-message-panel`
-- [NoticePanel](https://k-ui.cn/components/notice-panel): tags `notice-panel`, `k-notice-panel`
-- [ModalPanel](https://k-ui.cn/components/modal-panel): tags `modal-panel`, `k-modal-panel`
-- [Modal](https://k-ui.cn/components/modal): tags `modal`, `k-modal`
-- [Page](https://k-ui.cn/components/page): tags `page`, `k-page`
-- [PageHeader](https://k-ui.cn/components/page-header): tags `page-header`, `k-page-header`
-- [PoptipPanel](https://k-ui.cn/components/poptip-panel): tags `poptip-panel`, `k-poptip-panel`
-- [Poptip](https://k-ui.cn/components/poptip): tags `poptip`, `k-poptip`
-- [PopconfirmPanel](https://k-ui.cn/components/popconfirm-panel): tags `popconfirm-panel`, `k-popconfirm-panel`
-- [Popconfirm](https://k-ui.cn/components/popconfirm): tags `popconfirm`, `k-popconfirm`
-- [Progress](https://k-ui.cn/components/progress): tags `progress`, `k-progress`
-- [Ripple](https://k-ui.cn/components/ripple): tags `ripple`, `k-ripple`
-- [QRCode](https://k-ui.cn/components/qrcode): tags `qr-code`, `k-qr-code`
-- [Radio](https://k-ui.cn/components/radio): tags `radio`, `k-radio`
-- [RadioButton](https://k-ui.cn/components/radio): tags `radio-button`, `k-radio-button`
-- [RadioGroup](https://k-ui.cn/components/radio): tags `radio-group`, `k-radio-group`
-- [Segmented](https://k-ui.cn/components/segmented): tags `segmented`, `k-segmented`
-- [Rate](https://k-ui.cn/components/rate): tags `rate`, `k-rate`
-- [Result](https://k-ui.cn/components/result): tags `result`, `k-result`
-- [FeedbackPanel](https://k-ui.cn/components/feedback-panel): tags `feedback-panel`, `k-feedback-panel`
-- [Option](https://k-ui.cn/components/select): tags `option`, `k-option`
-- [Select](https://k-ui.cn/components/select): tags `select`, `k-select`
-- [ConfigProvider](https://k-ui.cn/components/config): tags `config-provider`, `k-config-provider`
-- [Skeleton](https://k-ui.cn/components/skeleton): tags `skeleton`, `k-skeleton`
-- [SkeletonAvatar](https://k-ui.cn/components/skeleton-avatar): tags `skeleton-avatar`, `k-skeleton-avatar`
-- [SkeletonButton](https://k-ui.cn/components/skeleton-button): tags `skeleton-button`, `k-skeleton-button`
-- [SkeletonImage](https://k-ui.cn/components/skeleton-image): tags `skeleton-image`, `k-skeleton-image`
-- [SkeletonText](https://k-ui.cn/components/skeleton-text): tags `skeleton-text`, `k-skeleton-text`
-- [StatCard](https://k-ui.cn/components/stat-card): tags `stat-card`, `k-stat-card`
-- [StatNumber](https://k-ui.cn/components/stat-card): tags `stat-number`, `k-stat-number`
-- [Slider](https://k-ui.cn/components/slider): tags `slider`, `k-slider`
-- [Space](https://k-ui.cn/components/space): tags `space`, `k-space`
-- [Spin](https://k-ui.cn/components/spin): tags `spin`, `k-spin`
-- [Step](https://k-ui.cn/components/steps): tags `step`, `k-step`
-- [Steps](https://k-ui.cn/components/steps): tags `steps`, `k-steps`
-- [Switch](https://k-ui.cn/components/switch): tags `Switch`
-- [Splitter](https://k-ui.cn/components/splitter): tags `splitter`, `k-splitter`
-- [SplitterPanel](https://k-ui.cn/components/splitter): tags `splitter-panel`, `k-splitter-panel`
-- [Table](https://k-ui.cn/components/table): tags `table`, `k-table`
-- [TableColumnSetting](https://k-ui.cn/components/table): tags `table-column-setting`, `k-table-column-setting`
-- [Kanban](https://k-ui.cn/components/kanban): tags `kanban`
-- [TooltipPanel](https://k-ui.cn/components/tooltip-panel): tags `tooltip-panel`, `k-tooltip-panel`
-- [Tooltip](https://k-ui.cn/components/tooltip): tags `tooltip`, `k-tooltip`
-- [Tour](https://k-ui.cn/components/tour): tags `tour`, `k-tour`
-- [Transfer](https://k-ui.cn/components/transfer): tags `transfer`, `k-transfer`
-- [Typography](https://k-ui.cn/components/typography): tags `typography`, `k-typography`
-- [TypographyParagraph](https://k-ui.cn/components/typography-paragraph): tags `typography-paragraph`, `k-typography-paragraph`
-- [TypographyText](https://k-ui.cn/components/typography-text): tags `typography-text`, `k-typography-text`
-- [TypographyTitle](https://k-ui.cn/components/typography-title): tags `typography-title`, `k-typography-title`
-- [TabPanel](https://k-ui.cn/components/tabs): tags `tab-panel`, `k-tab-panel`
-- [Tabs](https://k-ui.cn/components/tabs): tags `tabs`, `k-tabs`
-- [TimeLine](https://k-ui.cn/components/time-line): tags `time-line`, `k-time-line`
-- [TimeLineItem](https://k-ui.cn/components/time-line): tags `time-line-item`, `k-time-line-item`
-- [Tree](https://k-ui.cn/components/tree): tags `tree`, `k-tree`
-- [TreeSelect](https://k-ui.cn/components/tree-select): tags `tree-select`, `k-tree-select`
-- [Tag](https://k-ui.cn/components/tag): tags `tag`, `k-tag`
-- [Col](https://k-ui.cn/components/row-col): tags `col`, `k-col`
-- [Row](https://k-ui.cn/components/row-col): tags `row`, `k-row`
-- [Upload](https://k-ui.cn/components/upload): tags `upload`, `k-upload`
-- [Watermark](https://k-ui.cn/components/watermark): tags `watermark`, `k-watermark`
-- [VirtualList](https://k-ui.cn/components/virtual-list): tags `virtual-list`, `k-virtual-list`
+- [Affix](https://k-ui.cn/components/affix): tags `Affix`, `KAffix`, `k-affix`, `affix`
+- [Alert](https://k-ui.cn/components/alert): tags `Alert`, `KAlert`, `k-alert`, `alert`
+- [AutoComplete](https://k-ui.cn/components/auto-complete): tags `AutoComplete`, `KAutoComplete`, `k-auto-complete`, `auto-complete`
+- [Anchor](https://k-ui.cn/components/anchor): tags `Anchor`, `KAnchor`, `k-anchor`, `anchor`
+- [AnchorLink](https://k-ui.cn/components/anchor): tags `AnchorLink`, `KAnchorLink`, `k-anchor-link`, `anchor-link`
+- [Avatar](https://k-ui.cn/components/avatar): tags `Avatar`, `KAvatar`, `k-avatar`, `avatar`
+- [AvatarGroup](https://k-ui.cn/components/avatar): tags `AvatarGroup`, `KAvatarGroup`, `k-avatar-group`, `avatar-group`
+- [Breadcrumb](https://k-ui.cn/components/breadcrumb): tags `Breadcrumb`, `KBreadcrumb`, `k-breadcrumb`, `breadcrumb`
+- [BreadcrumbItem](https://k-ui.cn/components/breadcrumb): tags `BreadcrumbItem`, `KBreadcrumbItem`, `k-breadcrumb-item`, `breadcrumb-item`
+- [BackTop](https://k-ui.cn/components/back-top): tags `BackTop`, `KBackTop`, `k-back-top`, `back-top`
+- [Badge](https://k-ui.cn/components/badge): tags `Badge`, `KBadge`, `k-badge`, `badge`
+- [Button](https://k-ui.cn/components/button): tags `Button`, `KButton`, `k-button`, `button`
+- [ButtonGroup](https://k-ui.cn/components/button): tags `ButtonGroup`, `KButtonGroup`, `k-button-group`, `button-group`
+- [Cascader](https://k-ui.cn/components/cascader): tags `Cascader`, `KCascader`, `k-cascader`, `cascader`
+- [Card](https://k-ui.cn/components/card): tags `Card`, `KCard`, `k-card`, `card`
+- [CardMeta](https://k-ui.cn/components/card): tags `CardMeta`, `KCardMeta`, `k-card-meta`, `card-meta`
+- [Calendar](https://k-ui.cn/components/calendar): tags `Calendar`, `KCalendar`, `k-calendar`, `calendar`
+- [FeatureCard](https://k-ui.cn/components/feature-card): tags `FeatureCard`, `KFeatureCard`, `k-feature-card`, `feature-card`
+- [FlameWrap](https://k-ui.cn/components/flame-wrap): tags `FlameWrap`, `KFlameWrap`, `k-flame-wrap`, `flame-wrap`
+- [ListPanel](https://k-ui.cn/components/list-panel): tags `ListPanel`, `KListPanel`, `k-list-panel`, `list-panel`
+- [Carousel](https://k-ui.cn/components/carousel): tags `Carousel`, `KCarousel`, `k-carousel`, `carousel`
+- [CarouselItem](https://k-ui.cn/components/carousel-item): tags `CarouselItem`, `KCarouselItem`, `k-carousel-item`, `carousel-item`
+- [Checkbox](https://k-ui.cn/components/checkbox): tags `Checkbox`, `KCheckbox`, `k-checkbox`, `checkbox`
+- [CheckboxGroup](https://k-ui.cn/components/checkbox): tags `CheckboxGroup`, `KCheckboxGroup`, `k-checkbox-group`, `checkbox-group`
+- [CheckCard](https://k-ui.cn/components/check-card): tags `CheckCard`, `KCheckCard`, `k-check-card`, `check-card`
+- [CheckCardGroup](https://k-ui.cn/components/check-card): tags `CheckCardGroup`, `KCheckCardGroup`, `k-check-card-group`, `check-card-group`
+- [Collapse](https://k-ui.cn/components/collapse): tags `Collapse`, `KCollapse`, `k-collapse`, `collapse`
+- [CollapsePanel](https://k-ui.cn/components/collapse): tags `CollapsePanel`, `KCollapsePanel`, `k-collapse-panel`, `collapse-panel`
+- [ColorPickerPanel](https://k-ui.cn/components/color-picker-panel): tags `ColorPickerPanel`, `KColorPickerPanel`, `k-color-picker-panel`, `color-picker-panel`
+- [ColorPicker](https://k-ui.cn/components/color-picker): tags `ColorPicker`, `KColorPicker`, `k-color-picker`, `color-picker`
+- [DatePickerPanel](https://k-ui.cn/components/date-picker-panel): tags `DatePickerPanel`, `KDatePickerPanel`, `k-date-picker-panel`, `date-picker-panel`
+- [DatePicker](https://k-ui.cn/components/date-picker): tags `DatePicker`, `KDatePicker`, `k-date-picker`, `date-picker`
+- [Descriptions](https://k-ui.cn/components/descriptions): tags `Descriptions`, `KDescriptions`, `k-descriptions`, `descriptions`
+- [DescriptionsItem](https://k-ui.cn/components/descriptions): tags `DescriptionsItem`, `KDescriptionsItem`, `k-descriptions-item`, `descriptions-item`
+- [Drawer](https://k-ui.cn/components/drawer): tags `Drawer`, `KDrawer`, `k-drawer`, `drawer`
+- [Dropdown](https://k-ui.cn/components/dropdown): tags `Dropdown`, `KDropdown`, `k-dropdown`, `dropdown`
+- [DropdownButton](https://k-ui.cn/components/dropdown): tags `DropdownButton`, `KDropdownButton`, `k-dropdown-button`, `dropdown-button`
+- [Divider](https://k-ui.cn/components/divider): tags `Divider`, `KDivider`, `k-divider`, `divider`
+- [Empty](https://k-ui.cn/components/empty): tags `Empty`, `KEmpty`, `k-empty`, `empty`
+- [Form](https://k-ui.cn/components/form): tags `Form`, `KForm`, `k-form`, `form`
+- [FormItem](https://k-ui.cn/components/form): tags `FormItem`, `KFormItem`, `k-form-item`, `form-item`
+- [Flex](https://k-ui.cn/components/flex): tags `Flex`, `KFlex`, `k-flex`, `flex`
+- [Grid](https://k-ui.cn/components/grid): tags `Grid`, `KGrid`, `k-grid`, `grid`
+- [GridItem](https://k-ui.cn/components/grid): tags `GridItem`, `KGridItem`, `k-grid-item`, `grid-item`
+- [Image](https://k-ui.cn/components/image): tags `Image`, `KImage`, `k-image`
+- [ImageGroup](https://k-ui.cn/components/image): tags `ImageGroup`, `KImageGroup`, `k-image-group`, `image-group`
+- [Icon](https://k-ui.cn/components/icon): tags `Icon`, `KIcon`, `k-icon`, `icon`
+- [Input](https://k-ui.cn/components/input): tags `Input`, `KInput`, `k-input`, `input`
+- [InputGroup](https://k-ui.cn/components/input): tags `InputGroup`, `KInputGroup`, `k-input-group`, `input-group`
+- [TextArea](https://k-ui.cn/components/input): tags `TextArea`, `KTextArea`, `k-text-area`, `text-area`
+- [InputTag](https://k-ui.cn/components/input-tag): tags `InputTag`, `KInputTag`, `k-input-tag`, `input-tag`
+- [InputOTP](https://k-ui.cn/components/input-otp): tags `InputOTP`, `KInputOTP`, `k-input-otp`, `input-otp`
+- [InputNumber](https://k-ui.cn/components/input-number): tags `InputNumber`, `KInputNumber`, `k-input-number`, `input-number`
+- [Content](https://k-ui.cn/components/content): tags `Content`, `KContent`, `k-content`, `content`
+- [Footer](https://k-ui.cn/components/footer): tags `Footer`, `KFooter`, `k-footer`, `footer`
+- [Header](https://k-ui.cn/components/header): tags `Header`, `KHeader`, `k-header`, `header`
+- [Layout](https://k-ui.cn/components/layout): tags `Layout`, `KLayout`, `k-layout`, `layout`
+- [Sider](https://k-ui.cn/components/sider): tags `Sider`, `KSider`, `k-sider`, `sider`
+- [Menu](https://k-ui.cn/components/menu): tags `Menu`, `KMenu`, `k-menu`, `menu`
+- [MenuDivider](https://k-ui.cn/components/menu-divider): tags `MenuDivider`, `KMenuDivider`, `k-menu-divider`, `menu-divider`
+- [MenuGroup](https://k-ui.cn/components/menu): tags `MenuGroup`, `KMenuGroup`, `k-menu-group`, `menu-group`
+- [MenuItem](https://k-ui.cn/components/menu): tags `MenuItem`, `KMenuItem`, `k-menu-item`, `menu-item`
+- [SubMenu](https://k-ui.cn/components/menu): tags `SubMenu`, `KSubMenu`, `k-sub-menu`, `sub-menu`
+- [Mentions](https://k-ui.cn/components/mentions): tags `Mentions`, `KMentions`, `k-mentions`, `mentions`
+- [MessagePanel](https://k-ui.cn/components/message-panel): tags `MessagePanel`, `KMessagePanel`, `k-message-panel`, `message-panel`
+- [NoticePanel](https://k-ui.cn/components/notice-panel): tags `NoticePanel`, `KNoticePanel`, `k-notice-panel`, `notice-panel`
+- [ModalPanel](https://k-ui.cn/components/modal-panel): tags `ModalPanel`, `KModalPanel`, `k-modal-panel`, `modal-panel`
+- [Modal](https://k-ui.cn/components/modal): tags `Modal`, `KModal`, `k-modal`, `modal`
+- [Page](https://k-ui.cn/components/page): tags `Page`, `KPage`, `k-page`, `page`
+- [PageHeader](https://k-ui.cn/components/page-header): tags `PageHeader`, `KPageHeader`, `k-page-header`, `page-header`
+- [PoptipPanel](https://k-ui.cn/components/poptip-panel): tags `PoptipPanel`, `KPoptipPanel`, `k-poptip-panel`, `poptip-panel`
+- [Poptip](https://k-ui.cn/components/poptip): tags `Poptip`, `KPoptip`, `k-poptip`, `poptip`
+- [PopconfirmPanel](https://k-ui.cn/components/popconfirm-panel): tags `PopconfirmPanel`, `KPopconfirmPanel`, `k-popconfirm-panel`, `popconfirm-panel`
+- [Popconfirm](https://k-ui.cn/components/popconfirm): tags `Popconfirm`, `KPopconfirm`, `k-popconfirm`, `popconfirm`
+- [Progress](https://k-ui.cn/components/progress): tags `Progress`, `KProgress`, `k-progress`, `progress`
+- [Ripple](https://k-ui.cn/components/ripple): tags `Ripple`, `KRipple`, `k-ripple`, `ripple`
+- [QRCode](https://k-ui.cn/components/qrcode): tags `QRCode`, `KQRCode`, `k-qr-code`, `qr-code`
+- [Radio](https://k-ui.cn/components/radio): tags `Radio`, `KRadio`, `k-radio`, `radio`
+- [RadioButton](https://k-ui.cn/components/radio): tags `RadioButton`, `KRadioButton`, `k-radio-button`, `radio-button`
+- [RadioGroup](https://k-ui.cn/components/radio): tags `RadioGroup`, `KRadioGroup`, `k-radio-group`, `radio-group`
+- [Segmented](https://k-ui.cn/components/segmented): tags `Segmented`, `KSegmented`, `k-segmented`, `segmented`
+- [Rate](https://k-ui.cn/components/rate): tags `Rate`, `KRate`, `k-rate`, `rate`
+- [Result](https://k-ui.cn/components/result): tags `Result`, `KResult`, `k-result`, `result`
+- [FeedbackPanel](https://k-ui.cn/components/feedback-panel): tags `FeedbackPanel`, `KFeedbackPanel`, `k-feedback-panel`, `feedback-panel`
+- [Option](https://k-ui.cn/components/select): tags `Option`, `KOption`, `k-option`, `option`
+- [Select](https://k-ui.cn/components/select): tags `Select`, `KSelect`, `k-select`, `select`
+- [ConfigProvider](https://k-ui.cn/components/config): tags `ConfigProvider`, `KConfigProvider`, `k-config-provider`, `config-provider`
+- [Skeleton](https://k-ui.cn/components/skeleton): tags `Skeleton`, `KSkeleton`, `k-skeleton`, `skeleton`
+- [SkeletonAvatar](https://k-ui.cn/components/skeleton-avatar): tags `SkeletonAvatar`, `KSkeletonAvatar`, `k-skeleton-avatar`, `skeleton-avatar`
+- [SkeletonButton](https://k-ui.cn/components/skeleton-button): tags `SkeletonButton`, `KSkeletonButton`, `k-skeleton-button`, `skeleton-button`
+- [SkeletonImage](https://k-ui.cn/components/skeleton-image): tags `SkeletonImage`, `KSkeletonImage`, `k-skeleton-image`, `skeleton-image`
+- [SkeletonText](https://k-ui.cn/components/skeleton-text): tags `SkeletonText`, `KSkeletonText`, `k-skeleton-text`, `skeleton-text`
+- [StatCard](https://k-ui.cn/components/stat-card): tags `StatCard`, `KStatCard`, `k-stat-card`, `stat-card`
+- [StatNumber](https://k-ui.cn/components/stat-card): tags `StatNumber`, `KStatNumber`, `k-stat-number`, `stat-number`
+- [Slider](https://k-ui.cn/components/slider): tags `Slider`, `KSlider`, `k-slider`, `slider`
+- [Space](https://k-ui.cn/components/space): tags `Space`, `KSpace`, `k-space`, `space`
+- [Spin](https://k-ui.cn/components/spin): tags `Spin`, `KSpin`, `k-spin`, `spin`
+- [Step](https://k-ui.cn/components/steps): tags `Step`, `KStep`, `k-step`, `step`
+- [Steps](https://k-ui.cn/components/steps): tags `Steps`, `KSteps`, `k-steps`, `steps`
+- [Switch](https://k-ui.cn/components/switch): tags `Switch`, `KSwitch`, `k-switch`
+- [Splitter](https://k-ui.cn/components/splitter): tags `Splitter`, `KSplitter`, `k-splitter`, `splitter`
+- [SplitterPanel](https://k-ui.cn/components/splitter): tags `SplitterPanel`, `KSplitterPanel`, `k-splitter-panel`, `splitter-panel`
+- [Table](https://k-ui.cn/components/table): tags `Table`, `KTable`, `k-table`, `table`
+- [TableColumnSetting](https://k-ui.cn/components/table): tags `TableColumnSetting`, `KTableColumnSetting`, `k-table-column-setting`, `table-column-setting`
+- [Kanban](https://k-ui.cn/components/kanban): tags `Kanban`, `kanban`
+- [TooltipPanel](https://k-ui.cn/components/tooltip-panel): tags `TooltipPanel`, `KTooltipPanel`, `k-tooltip-panel`, `tooltip-panel`
+- [Tooltip](https://k-ui.cn/components/tooltip): tags `Tooltip`, `KTooltip`, `k-tooltip`, `tooltip`
+- [Tour](https://k-ui.cn/components/tour): tags `Tour`, `KTour`, `k-tour`, `tour`
+- [Transfer](https://k-ui.cn/components/transfer): tags `Transfer`, `KTransfer`, `k-transfer`, `transfer`
+- [Typography](https://k-ui.cn/components/typography): tags `Typography`, `KTypography`, `k-typography`, `typography`
+- [TypographyParagraph](https://k-ui.cn/components/typography-paragraph): tags `TypographyParagraph`, `KTypographyParagraph`, `k-typography-paragraph`, `typography-paragraph`
+- [TypographyText](https://k-ui.cn/components/typography-text): tags `TypographyText`, `KTypographyText`, `k-typography-text`, `typography-text`
+- [TypographyTitle](https://k-ui.cn/components/typography-title): tags `TypographyTitle`, `KTypographyTitle`, `k-typography-title`, `typography-title`
+- [TabPanel](https://k-ui.cn/components/tabs): tags `TabPanel`, `KTabPanel`, `k-tab-panel`, `tab-panel`
+- [Tabs](https://k-ui.cn/components/tabs): tags `Tabs`, `KTabs`, `k-tabs`, `tabs`
+- [TimeLine](https://k-ui.cn/components/time-line): tags `TimeLine`, `KTimeLine`, `k-time-line`, `time-line`
+- [TimeLineItem](https://k-ui.cn/components/time-line): tags `TimeLineItem`, `KTimeLineItem`, `k-time-line-item`, `time-line-item`
+- [Tree](https://k-ui.cn/components/tree): tags `Tree`, `KTree`, `k-tree`, `tree`
+- [TreeSelect](https://k-ui.cn/components/tree-select): tags `TreeSelect`, `KTreeSelect`, `k-tree-select`, `tree-select`
+- [Tag](https://k-ui.cn/components/tag): tags `Tag`, `KTag`, `k-tag`, `tag`
+- [Col](https://k-ui.cn/components/row-col): tags `Col`, `KCol`, `k-col`, `col`
+- [Row](https://k-ui.cn/components/row-col): tags `Row`, `KRow`, `k-row`, `row`
+- [Upload](https://k-ui.cn/components/upload): tags `Upload`, `KUpload`, `k-upload`, `upload`
+- [Watermark](https://k-ui.cn/components/watermark): tags `Watermark`, `KWatermark`, `k-watermark`, `watermark`
+- [VirtualList](https://k-ui.cn/components/virtual-list): tags `VirtualList`, `KVirtualList`, `k-virtual-list`, `virtual-list`

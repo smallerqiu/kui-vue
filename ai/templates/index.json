@@ -1,0 +1,23 @@
+[
+  {
+    "id": "form",
+    "title": "Validated form",
+    "description": "Required/email validation, disabled state, submit, reset, loading and error handling.",
+    "file": "form.vue",
+    "components": ["Form", "FormItem", "Input", "Button", "Space"]
+  },
+  {
+    "id": "table",
+    "title": "Searchable paginated table",
+    "description": "Local asynchronous mock API, search, paging, loading, errors and stale response protection.",
+    "file": "table.vue",
+    "components": ["Table", "Page", "Input", "Button", "Space"]
+  },
+  {
+    "id": "modal-editor",
+    "title": "Create/edit modal",
+    "description": "Isolated editing draft, validation, asynchronous save, cancel and loading state.",
+    "file": "modal-editor.vue",
+    "components": ["Modal", "Form", "FormItem", "Input", "Button", "Space"]
+  }
+]

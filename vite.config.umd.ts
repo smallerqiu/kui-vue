@@ -19,6 +19,8 @@ export default defineConfig({
       fileName: () => "index.js",
     },
     minify: "terser",
+    terserOptions: { maxWorkers: 1 },
+    reportCompressedSize: false,
     rollupOptions: {
       external: ["vue", "dayjs"],
       output: {

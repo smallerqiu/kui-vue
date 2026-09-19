@@ -50,7 +50,8 @@
     "tests/visual/**/*.ts",
     "tests/visual/**/*.vue",
     "playwright.config.ts",
-    "vite.config*.ts"
+    "vite.config*.ts",
+    "scripts/build-entries.ts"
   ],
   "exclude": ["node_modules", "dist", "lib", "es", "types"]
 }

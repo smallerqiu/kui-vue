@@ -42,6 +42,57 @@
           "name": {
             "type": "string"
           },
+          "behavior": {
+            "type": "object",
+            "required": [
+              "rules"
+            ],
+            "properties": {
+              "rules": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "methods": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "slots": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "slotsComplete": {
+                "type": "boolean"
+              }
+            }
+          },
+          "models": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "prop",
+                "event",
+                "directive"
+              ],
+              "properties": {
+                "prop": {
+                  "type": "string"
+                },
+                "event": {
+                  "type": "string"
+                },
+                "directive": {
+                  "type": "string"
+                }
+              }
+            }
+          },
           "tags": {
             "type": "array",
             "items": {
@@ -136,6 +187,22 @@
         },
         "boolean": {
           "type": "boolean"
+        },
+        "enumValues": {
+          "type": "array",
+          "items": {
+            "type": [
+              "string",
+              "number",
+              "boolean"
+            ]
+          }
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "defaultExpression": {
+          "type": "string"
         },
         "documented": {
           "type": "boolean"

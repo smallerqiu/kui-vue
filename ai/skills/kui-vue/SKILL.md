@@ -13,7 +13,8 @@ description: Build Vue 3 interfaces with Kui Vue components and APIs. Use when c
 4. Prefer existing Kui Vue controls, layout primitives, popup behavior, theme, size, and shape conventions over custom replacements.
 5. Use TypeScript types exported by `kui-vue`; avoid `any` and native-element substitutions when a library component exists.
 6. After changes, run the consuming project's typecheck, lint, and relevant tests.
-7. When the Kui Vue MCP server is available, use `recommend_components` to plan, `get_component_api` for exact APIs, and `validate_kui_usage` before finishing.
+7. When MCP is available, query `get_component_api` for exact APIs and behavior/model contracts. Fetch only the needed example via `list_component_examples` and `get_component_example`; use `get_template` for common business flows.
+8. Run `validate_kui_usage` before finishing, read its `skipped` checks, and still run application typecheck and relevant tests. Static `valid` does not mean the code is fully verified.
 
 ## Common patterns
 

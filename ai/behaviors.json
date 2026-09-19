@@ -1,0 +1,82 @@
+{
+  "Form": {
+    "rules": [
+      "Pass a reactive object to :model. FormItem prop selects its field path; supported controls receive value/update bindings automatically, without a second v-model.",
+      "disabled and readonly are inherited by supported form controls; explicit control props override inherited values.",
+      "Use Button html-type=submit. The submit event contains { valid }; save only when valid is true. Use html-type=reset to reset fields and validation.",
+      "reset clears registered field values and validation; it does not restore an original model snapshot. Keep a separate snapshot when implementing cancel/revert."
+    ],
+    "methods": [
+      "validate(): Promise<{ valid: boolean }>",
+      "reset(): void",
+      "submit(): Promise<void>"
+    ],
+    "slots": [
+      "default"
+    ],
+    "slotsComplete": true
+  },
+  "FormItem": {
+    "rules": [
+      "Use inside Form. prop is a model field path, not its current value. A label alone does not bind a field."
+    ]
+  },
+  "Button": {
+    "rules": [
+      "type controls semantic appearance; htmlType controls native submit/reset/button behavior. Do not use type=submit.",
+      "icon takes an icon definition imported from kui-icons."
+    ]
+  },
+  "Modal": {
+    "rules": [
+      "Use v-model to control visibility.",
+      "The ok event does not automatically close the modal. Validate and save first, then set the bound visibility to false. loading prevents closing while a save is pending."
+    ],
+    "slots": [
+      "default",
+      "content",
+      "footer"
+    ],
+    "slotsComplete": true
+  },
+  "Table": {
+    "rules": [
+      "Pass columns and data explicitly. For remote paging, fetch data and total on page changes; Table does not fetch your backend automatically."
+    ]
+  },
+  "Page": {
+    "rules": [
+      "Pages are one-based. Use v-model:page and v-model:pageSize, not default v-model. change emits (page, pageSize)."
+    ]
+  },
+  "Menu": {
+    "rules": [
+      "Use default v-model for selection and v-model:openKeys with arrays. Use inlineCollapsed in inline mode; preserve expanded keys when implementing collapse controls."
+    ]
+  },
+  "ConfigProvider": {
+    "rules": [
+      "Provides locale, size, theme and shape to descendants. Explicit component props take priority. Locale objects are imported from kui-vue/locale/<locale>."
+    ]
+  },
+  "Select": {
+    "rules": [
+      "Bind the selected value with v-model. When multiple is true, use an array of values. Consult examples before enabling virtual scrolling."
+    ]
+  },
+  "Switch": {
+    "rules": [
+      "Default v-model is boolean. value-type=string or number changes the value type; keep the bound ref type consistent."
+    ]
+  },
+  "Input": {
+    "rules": [
+      "Use default v-model outside FormItem. Inside a bound FormItem, prefer Form model binding."
+    ]
+  },
+  "Space": {
+    "rules": [
+      "compact joins adjacent controls. Vertical compact layout supports Button groups; it is not a general-purpose vertical form layout."
+    ]
+  }
+}

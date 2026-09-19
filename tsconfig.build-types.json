@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.app.json",
+  "compilerOptions": {
+    "rootDir": "./components",
+    "composite": false,
+    "incremental": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationDir": "./types",
+    "noEmit": false
+  },
+  "include": ["components/**/*.ts", "components/**/*.tsx"],
+  "exclude": ["components/**/demo/**", "node_modules"]
+}

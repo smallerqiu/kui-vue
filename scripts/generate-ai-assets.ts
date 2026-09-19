@@ -56,8 +56,8 @@ const componentChildren: Record<string, string[]> = {
 };
 const componentParents = new Map(
   Object.entries(componentChildren).flatMap(([parent, children]) =>
-    children.map((child) => [child, parent] as const)
-  )
+    children.map((child) => [child, parent] as const),
+  ),
 );
 
 const findDocumentation = (name: string, props: ReturnType<typeof getPropsData>) => {
@@ -94,51 +94,97 @@ const getSlots = (markdownPath: string) => {
         .trim()
         .replace(/^\||\|$/g, "")
         .split("|")
-        .map((cell) => cell.trim().replace(/^`|`$/g, ""))
+        .map((cell) => cell.trim().replace(/^`|`$/g, "")),
     )
     .filter(
-      (cells) =>
-        cells.length >= 2 &&
-        !/^(name|名称)$/i.test(cells[0]) &&
-        !/^[-:]+$/.test(cells[0])
+      (cells) => cells.length >= 2 && !/^(name|名称)$/i.test(cells[0]) && !/^[-:]+$/.test(cells[0]),
     )
     .map(([name, description, scope]) => ({ name, description, scope: scope || undefined }));
 };
 
+const behaviors = JSON.parse(
+  fs.readFileSync(path.join(root, "ai/behaviors.json"), "utf8"),
+) as Record<
+  string,
+  { rules: string[]; methods?: string[]; slots?: string[]; slotsComplete?: boolean }
+>;
 const components = getComponentNames().map((name) => {
-  const props = getPropsData(componentEntry, getPropsNameCandidates(name));
-  const englishProps = getPropsData(componentEntry, getPropsNameCandidates(name), "index.en_US.md");
+  const props = getPropsData(componentEntry, getPropsNameCandidates(name), "index.md", true);
+  const englishProps = getPropsData(
+    componentEntry,
+    getPropsNameCandidates(name),
+    "index.en_US.md",
+    true,
+  );
   const englishByName = new Map(englishProps.map((prop) => [prop.name, prop]));
   const documentationPath = findDocumentation(name, props);
   const englishDocumentationPath = documentationPath
     ? path.join(path.dirname(documentationPath), "index.en_US.md")
     : "";
-  const slots = getSlots(documentationPath);
-  const englishSlots = new Map(
-    getSlots(englishDocumentationPath).map((slot) => [slot.name, slot])
-  );
+  const documentedSlots = getSlots(documentationPath);
+  const slots = [
+    ...documentedSlots,
+    ...(behaviors[name]?.slots || [])
+      .filter((slot) => !documentedSlots.some((item) => item.name === slot))
+      .map((slot) => ({
+        name: slot,
+        description: `Supported ${slot} slot on ${name}`,
+        scope: undefined,
+      })),
+  ];
+  const englishSlots = new Map(getSlots(englishDocumentationPath).map((slot) => [slot.name, slot]));
   const slug = documentationPath
     ? path.basename(path.dirname(documentationPath))
     : toKebabCase(name);
   return {
     name,
-    tags: getComponentTagNames(name),
+    behavior: behaviors[name] || { rules: [] },
+    models: props
+      .filter((p) => p.eventName?.startsWith("update:"))
+      .map((p) => ({
+        prop: p.eventName!.slice(7),
+        event: p.eventName!,
+        directive:
+          p.eventName === "update:modelValue" ? "v-model" : `v-model:${p.eventName!.slice(7)}`,
+      })),
+    tags: [
+      ...new Set([
+        name,
+        ...(name.startsWith("K") ? [] : [`K${name}`, `k-${toKebabCase(name)}`]),
+        ...getComponentTagNames(name),
+      ]),
+    ],
     parent: componentParents.get(name),
     children: componentChildren[name] || [],
     documentation: `${site}/components/${slug}`,
-    props: props.map(({ name, description, type, eventName, boolean, documented }) => {
-      const english = englishByName.get(name);
-      return {
+    props: props.map(
+      ({
         name,
-        description: english?.documented ? english.description : description,
-        descriptionZh: description,
-        descriptionEn: english?.description || description,
+        description,
         type,
         eventName,
         boolean,
-        documented: documented && Boolean(english?.documented),
-      };
-    }),
+        documented,
+        enumValues,
+        required,
+        defaultExpression,
+      }) => {
+        const english = englishByName.get(name);
+        return {
+          name,
+          description: english?.documented ? english.description : description,
+          descriptionZh: description,
+          descriptionEn: english?.description || description,
+          type,
+          eventName,
+          boolean,
+          enumValues,
+          required,
+          defaultExpression,
+          documented: documented && Boolean(english?.documented),
+        };
+      },
+    ),
     events: props
       .filter((prop) => prop.eventName)
       .map((prop) => {
@@ -187,9 +233,40 @@ const metadataSchema = {
       type: "array",
       items: {
         type: "object",
-        required: ["name", "tags", "children", "documentation", "props", "events", "slots", "examples"],
+        required: [
+          "name",
+          "tags",
+          "children",
+          "documentation",
+          "props",
+          "events",
+          "slots",
+          "examples",
+        ],
         properties: {
           name: { type: "string" },
+          behavior: {
+            type: "object",
+            required: ["rules"],
+            properties: {
+              rules: { type: "array", items: { type: "string" } },
+              methods: { type: "array", items: { type: "string" } },
+              slots: { type: "array", items: { type: "string" } },
+              slotsComplete: { type: "boolean" },
+            },
+          },
+          models: {
+            type: "array",
+            items: {
+              type: "object",
+              required: ["prop", "event", "directive"],
+              properties: {
+                prop: { type: "string" },
+                event: { type: "string" },
+                directive: { type: "string" },
+              },
+            },
+          },
           tags: { type: "array", items: { type: "string" } },
           parent: { type: "string" },
           children: { type: "array", items: { type: "string" } },
@@ -225,6 +302,9 @@ const metadataSchema = {
         type: { type: "string" },
         eventName: { type: "string" },
         boolean: { type: "boolean" },
+        enumValues: { type: "array", items: { type: ["string", "number", "boolean"] } },
+        required: { type: "boolean" },
+        defaultExpression: { type: "string" },
         documented: { type: "boolean" },
       },
     },
@@ -252,7 +332,7 @@ writeGeneratedFile(path.join(aiDir, "kui-components.schema.json"), schemaContent
 const componentIndex = components
   .map(
     (component) =>
-      `- [${component.name}](${component.documentation}): tags ${component.tags.map((tag) => `\`${tag}\``).join(", ")}`
+      `- [${component.name}](${component.documentation}): tags ${component.tags.map((tag) => `\`${tag}\``).join(", ")}`,
   )
   .join("\n");
 const llms = `# Kui Vue
@@ -285,7 +365,7 @@ const fullDocs = components
       root,
       "components",
       new URL(component.documentation).pathname.split("/").at(-1)!,
-      "index.en_US.md"
+      "index.en_US.md",
     );
     const doc = fs.existsSync(docPath) ? fs.readFileSync(docPath, "utf8").trim() : "";
     return `\n---\n\n${doc || `# ${component.name}\n\nSee ${component.documentation}.`}`;
@@ -297,5 +377,5 @@ writeGeneratedFile(path.join(publicDir, "llms-full.txt"), `${llms}\n${fullDocs}\
 writeGeneratedFile(path.join(publicDir, "kui-components.json"), metadataContent);
 writeGeneratedFile(path.join(publicDir, "schema/kui-components.schema.json"), schemaContent);
 console.log(
-  `${checkOnly ? "Verified" : "Generated"} AI assets for ${components.length} component exports.`
+  `${checkOnly ? "Verified" : "Generated"} AI assets for ${components.length} component exports.`,
 );

@@ -10,6 +10,9 @@ export interface PropData {
   eventName?: string;
   boolean: boolean;
   documented: boolean;
+  enumValues?: (string | number | boolean)[];
+  required?: boolean;
+  defaultExpression?: string;
   documentationPath: string;
 }
 
@@ -85,8 +88,11 @@ const project = new Project({
 });
 
 // 预加载所有组件源码以建立类型上下文
-project.addSourceFilesAtPaths(path.resolve(import.meta.dirname, "../../components/**/*.ts"));
-project.addSourceFilesAtPaths(path.resolve(import.meta.dirname, "../../components/**/*.tsx"));
+project.addSourceFilesAtPaths([
+  path.resolve(import.meta.dirname, "../../components/**/*.ts"),
+  path.resolve(import.meta.dirname, "../../components/**/*.tsx"),
+  "!" + path.resolve(import.meta.dirname, "../../components/**/demo/**"),
+]);
 
 /**
  * 提取组件的 Props 属性并关联文档描述
@@ -102,6 +108,7 @@ export const getPropsData = (
   componentPath: string,
   propsNames: string | string[],
   documentationFileName = "index.md",
+  includeModelEvents = false,
 ): PropData[] => {
   const sourceFile =
     project.getSourceFile(componentPath) || project.addSourceFileAtPath(componentPath);
@@ -161,8 +168,36 @@ export const getPropsData = (
         .join(" ");
     }
 
+    const values = type.isUnion() ? type.getUnionTypes().filter((t) => !t.isUndefined()) : [type];
+    const enumValues =
+      values.length &&
+      values.every((t) => t.isStringLiteral() || t.isNumberLiteral() || t.isBooleanLiteral())
+        ? values.map((t) =>
+            t.isBooleanLiteral()
+              ? t.getText() === "true"
+              : (t.getLiteralValue() as string | number),
+          )
+        : undefined;
+    const runtimeProp = propDecls.find((d) => Node.isPropertyAssignment(d));
+    const initializer =
+      runtimeProp && Node.isPropertyAssignment(runtimeProp)
+        ? runtimeProp.getInitializer()
+        : undefined;
+    const options =
+      initializer && Node.isObjectLiteralExpression(initializer) ? initializer : undefined;
+    const defaultNode = options?.getProperty("default");
+    const requiredNode = options?.getProperty("required");
     props.push({
       name,
+      enumValues,
+      required:
+        requiredNode && Node.isPropertyAssignment(requiredNode)
+          ? requiredNode.getInitializer()?.getText() === "true"
+          : false,
+      defaultExpression:
+        defaultNode && Node.isPropertyAssignment(defaultNode)
+          ? defaultNode.getInitializer()?.getText()
+          : undefined,
       description: description || `Props for ${name}`,
       type: propType,
       eventName,
@@ -191,7 +226,7 @@ export const getPropsData = (
   });
 
   emittedEvents.forEach((eventName) => {
-    if (eventName.startsWith("update:")) return;
+    if (eventName.startsWith("update:") && !includeModelEvents) return;
     const name = `on${eventName.charAt(0).toUpperCase()}${eventName.slice(1)}`;
     if (props.some((prop) => prop.name === name)) return;
     const documentedDescription = [eventName, name]

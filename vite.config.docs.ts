@@ -39,10 +39,13 @@ export default defineConfig(({ command, mode }) => {
       },
       extensions: [".js", ".ts", ".jsx", ".tsx", ".json", ".vue", "md"],
     },
+    css: { preprocessorMaxWorkers: 0 },
     build: {
       outDir: "docs",
       sourcemap: false,
       minify: "terser",
+      terserOptions: { maxWorkers: 1 },
+      reportCompressedSize: false,
       rollupOptions: {
         output: {
           entryFileNames: "js/[name]-[hash].js",

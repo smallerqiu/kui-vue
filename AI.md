@@ -56,4 +56,40 @@ pnpm check:ai-assets
 pnpm check:ai-evals
 ```
 
-`check:ai-assets` 防止生成物过期，`check:ai-evals` 编译 20 个代表性 Vue SFC 用例并检查组件覆盖。
+`check:ai-assets` 防止生成物过期，`check:ai-evals` 编译代表性 Vue SFC 用例并检查组件覆盖。
+
+## 按需查询与校验范围
+
+优先查询安装版本附带的元数据，而不是在线最新版本：
+
+1. `search_components({ query, offset?, limit? })` 分页搜索，默认 10 条，最多 20 条。
+2. `get_component_api({ name, section? })` 默认返回 API 与行为约定，不包含示例源码。`section` 可选 `props`、`events`、`slots`、`models`、`behavior` 或 `all`。
+3. `list_component_examples({ name, offset?, limit? })` 返回示例标题和 ID；用 `get_component_example({ name, id })` 读取单个示例。
+4. `list_templates({ query? })` 列出业务模板；`get_template({ id })` 获取完整 SFC 和安装说明。
+
+元数据包含可提取的枚举值 `enumValues`、显式必填标记 `required`、源码默认表达式 `defaultExpression`、`models` 绑定关系与 `behavior` 行为约定。未提供默认表达式表示没有提取到明确默认值，不能据此猜测运行时结果。行为约定目前重点覆盖 Form、FormItem、Button、Modal、Table、Page、Menu、ConfigProvider、Select、Switch、Input、Space。
+
+`validate_kui_usage` 检查组件属性名、已知字面量枚举/布尔值/数字、事件名、v-model 更新事件、明确必填属性，以及有完整契约的命名插槽。原生事件与属性允许透传。动态表达式、展开绑定、自定义组件、别名导入及契约不完整的插槽不做完整类型推断。
+
+返回的 `valid` 仅表示没有发现静态错误；`complete: false`、`skipped` 和 `nextStep` 会明确检查边界。它不等于类型检查或运行测试通过，应用仍需执行 `vue-tsc --noEmit` 和交互测试。
+
+## 可运行的业务模板
+
+- `form`：必填和邮箱校验、提交、重置、禁用及保存反馈。
+- `table`：搜索、分页、加载、失败提示及过期请求保护。
+- `modal-editor`：新增/编辑共用弹窗、草稿隔离、校验、保存和取消。
+
+模板位于 npm 包的 `ai/templates/`，均使用局部组件导入。应用入口引入一次 `kui-vue/style/index.css`，将模板保存为 `App.vue` 即可运行。模板中的异步请求是本地模拟，需要接入真实后端；没有预设后端地址或凭证。
+
+维护时运行 `pnpm check:ai-templates` 检查模板类型与真实组件交互，`pnpm test -- tests/ai-validation.test.ts --maxWorkers=1` 检查 MCP 契约。
+
+## 低内存机器上的构建
+
+`pnpm build` 保留完整发布产物，但每个阶段单独启动 Node，顺序完成后退出，释放打包器和类型检查器内存。默认每个阶段的 Node old-space 上限为 2048 MB；Terser 最多 1 个工作线程，Less 在主线程执行。
+
+- 日常开发：`pnpm dev`，无需先构建发布包。
+- 本地检查打包效果：`pnpm build:local`，生成 CSS、ESM、类型和编辑器提示；不生成 CJS/UMD，也不适合直接发布。
+- 完整发布：`pnpm build`。
+- 单阶段排查：`pnpm build:css`、`pnpm build:es`、`pnpm build:types`、`pnpm build:lib`、`pnpm build:umd`。
+
+ES 构建不再同时生成类型，需要类型时使用 `build:types` 或 `build:local`。确需提高堆上限，可设置 `KUI_BUILD_HEAP_MB=2560 pnpm build`。堆上限不是整个进程或整台机器的内存上限；在 8 GB 机器上避免同时运行构建、全量测试和多个开发服务器。

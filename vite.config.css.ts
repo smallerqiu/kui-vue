@@ -7,6 +7,7 @@ export default defineConfig({
   publicDir: false,
   plugins: [banner()],
   css: {
+    preprocessorMaxWorkers: 0,
     postcss: {
       plugins: [autoprefixer()],
     },
@@ -16,6 +17,7 @@ export default defineConfig({
   },
   build: {
     outDir: "style",
+    reportCompressedSize: false,
     assetsDir: "",
     rollupOptions: {
       input: {
