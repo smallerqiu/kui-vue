@@ -2,6 +2,8 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests/visual",
+  // Keep browser instances and animation sampling predictable on low-memory machines.
+  workers: 1,
   snapshotPathTemplate: "{testDir}/__screenshots__/{arg}{ext}",
   expect: {
     toHaveScreenshot: {
