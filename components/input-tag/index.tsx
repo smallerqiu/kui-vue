@@ -184,7 +184,7 @@ const InputTag = defineComponent({
             <Tooltip
               title={
                 <div class="k-input-tag-tooltip-tags">
-                  <Space wrap size={4}>
+                  <Space wrap size={4} theme-mode="dark">
                     {hiddenValues.map((tag, index) => (
                       <Tag
                         key={`${tag}-${index}`}

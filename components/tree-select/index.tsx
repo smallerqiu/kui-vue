@@ -641,7 +641,7 @@ const TreeSelect = defineComponent({
           tags.push(
             <Tooltip
               title={
-                <Space wrap size={4}>
+                <Space wrap size={4} theme-mode="dark">
                   {hiddenLabels.map((label, index) => (
                     <Tag
                       key={`${label}-${index}`}
