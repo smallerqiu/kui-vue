@@ -6,15 +6,13 @@ import anchor from "markdown-it-anchor";
 import path from "path";
 import { transform } from "sucrase";
 import { type Plugin } from "vite";
+import { highlightVueSource } from "../../src/components/demo/highlight";
 
 const escapeTemplateInterpolation = (code: string) =>
   code.replace(/{{/g, "&#123;&#123;").replace(/}}/g, "&#125;&#125;");
 
 const highlightSfc = (code: string) =>
-  escapeTemplateInterpolation(hljs.highlight(code, { language: "html" }).value).replace(
-    /\n/g,
-    "<br>",
-  );
+  escapeTemplateInterpolation(highlightVueSource(code)).replace(/\n/g, "<br>");
 
 export const toJavaScriptSfc = (source: string) =>
   source.replace(
@@ -39,6 +37,9 @@ export default function vitePluginKuiMd(): Plugin {
     html: true,
     breaks: true,
     highlight: (code: string, lang: string) => {
+      if (lang === "vue") {
+        return `<pre><code class="hljs language-vue">${highlightSfc(code)}</code></pre>`;
+      }
       if (lang && hljs.getLanguage(lang)) {
         return `<pre><code class="hljs language-${lang}">${hljs.highlight(code, { language: lang }).value}</code></pre>`;
       }

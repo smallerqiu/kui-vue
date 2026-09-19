@@ -3,8 +3,52 @@ import path from "node:path";
 import type { HmrContext, ModuleNode, TransformPluginContext } from "vite";
 import { describe, expect, it, vi } from "vitest";
 import vitePluginKuiMd, { toJavaScriptSfc } from "../plugins/markdown";
+import { highlightVueSource } from "../src/components/demo/highlight";
 
 describe("markdown demo code", () => {
+  it("highlights scoped Less styles in the demo editor and Markdown preview", async () => {
+    const source = `<template><div class="demo-fixed-rows-areas" /></template>
+<style lang="less" scoped>
+@gap: 12px;
+.demo-fixed-rows-areas {
+  gap: @gap;
+  &:hover { color: red; }
+}
+</style>`;
+    const highlighted = highlightVueSource(source);
+    expect(highlighted).toContain('class="hljs-selector-class"');
+    expect(highlighted).toContain('class="hljs-variable"');
+    expect(highlighted).toContain('class="hljs-attribute"');
+
+    const transform = vitePluginKuiMd().transform;
+    if (typeof transform !== "function") throw new Error("Expected a transform hook");
+    const result = await transform.call(
+      { addWatchFile: vi.fn() } as unknown as TransformPluginContext,
+      `\`\`\`vue\n${source}\n\`\`\``,
+      path.resolve("test-less-fence.md"),
+    );
+    const code = typeof result === "object" && result && "code" in result ? result.code : "";
+    expect(code).toContain(highlighted.replace(/\n/g, "<br>"));
+  });
+
+  it("highlights Vue fences and preserves template interpolation as literal code", async () => {
+    const plugin = vitePluginKuiMd();
+    const transform = plugin.transform;
+    if (typeof transform !== "function") throw new Error("Expected a transform hook");
+    const result = await transform.call(
+      { addWatchFile: vi.fn() } as unknown as TransformPluginContext,
+      '```vue\n<script setup lang="ts">\nimport { Button } from "kui-vue";\n</script>\n<template><Button>{{ count }}</Button></template>\n```',
+      path.resolve("test-vue-fence.md"),
+    );
+    const code = typeof result === "object" && result && "code" in result ? result.code : "";
+
+    expect(code).toContain('class="hljs language-vue"');
+    expect(code).toContain('class="hljs-tag"');
+    expect(code).toContain('class="hljs-keyword"');
+    expect(code).toContain("&#123;&#123; count &#125;&#125;");
+    expect(code).not.toContain("{{ count }}");
+  });
+
   it("creates a JavaScript SFC view from a TypeScript demo", () => {
     const source = `<template><Button>{{ count }}</Button></template>
 <script setup lang="ts">

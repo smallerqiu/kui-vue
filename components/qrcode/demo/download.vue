@@ -4,10 +4,10 @@
       <Input v-model="url" />
       <Button type="primary" @click="qrcodeRef.download()">Download</Button>
     </Space>
-    <QRCode :value="url" :size="128" logo="/favicon.png" ref="qrcodeRef" />
+    <QRCode :value="url" :size="128" logo="/favicon.svg" ref="qrcodeRef" />
     <Poptip>
       <template #content>
-        <QRCode :value="url" :size="128" theme="plain" logo="/favicon.png" />
+        <QRCode :value="url" :size="128" theme="plain" logo="/favicon.svg" />
       </template>
       <Button type="primary">Hover me</Button>
     </Poptip>

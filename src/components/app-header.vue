@@ -2,7 +2,7 @@
   <Header class="header">
     <div class="header-inner">
       <div class="logo" @click="$router.push('/')">
-        <Icon :type="LogoKui" />
+        <img src="/favicon.svg" class="face" />
         <span class="wrap-name">
           <span class="name">Kui Vue</span>
           <span class="ver">v {{ version }}</span>
@@ -61,7 +61,7 @@
 </template>
 <script setup lang="ts">
 import Color from "color";
-import { ArrowUpRight, Languages, LogoGithub, LogoKui, Moon, Search, Sun } from "kui-icons";
+import { ArrowUpRight, Languages, LogoGithub, Moon, Search, Sun } from "kui-icons";
 import { Icon, type MenuSelectEvent, theme } from "kui-vue";
 import { computed, h, inject, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";

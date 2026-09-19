@@ -1,7 +1,4 @@
 import { CodeJar, type CodeJar as CodeJarInstance } from "codejar";
-import hljs from "highlight.js/lib/core";
-import typescript from "highlight.js/lib/languages/typescript";
-import xml from "highlight.js/lib/languages/xml";
 import { Copy, ListChevronsDownUp, ListChevronsUpDown, Play, Undo2 } from "kui-icons";
 import { Badge, Button, message, RadioGroup, Tooltip, type BadgeStatusType } from "kui-vue";
 import {
@@ -20,13 +17,9 @@ import {
 import { useRouter } from "vue-router";
 import { getTransitionProp } from "../../../components/base/transition";
 import { copyToClipboard } from "../../../components/utils/share";
+import { highlightVueSource } from "./highlight";
 import { CodePen, CodeSandbox, Stackblitz } from "./icons";
 import { openCodePen, openCodeSandbox, openStackBlitz } from "./utils";
-// XML grammar delegates <script> blocks to "javascript". TypeScript is a
-// superset here, so registering its grammar also covers both TS and JS demos.
-hljs.registerLanguage("javascript", typescript);
-hljs.registerLanguage("typescript", typescript);
-hljs.registerLanguage("xml", xml);
 
 const readHighlightedSource = (editor: HTMLElement) => {
   const root = editor.querySelector("code") || editor;
@@ -155,9 +148,7 @@ const Demo = defineComponent({
         const jar = CodeJar(
           editor,
           (element) => {
-            element.innerHTML = hljs.highlight(element.textContent || "", {
-              language: "xml",
-            }).value;
+            element.innerHTML = highlightVueSource(element.textContent || "");
           },
           { tab: "  ", spellcheck: false }
         );

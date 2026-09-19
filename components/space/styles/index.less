@@ -108,27 +108,46 @@
   .k-space-vertical-first-item {
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
-    // margin-bottom: -1px;
-    &:hover {
-      z-index: 1;
-    }
   }
 
   .k-space-vertical-item {
     border-radius: 0;
-    margin-bottom: -1px;
-
-    &:hover {
-      z-index: 1;
-    }
   }
 
   .k-space-vertical-last-item {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+  }
 
+  .k-space-vertical-first-item,
+  .k-space-vertical-item,
+  .k-space-vertical-last-item {
+    position: relative;
+
+    &:focus,
     &:hover {
       z-index: 1;
+    }
+  }
+
+  .k-space-vertical-first-item,
+  .k-space-vertical-item {
+    // Bordered buttons share one edge, including the first pair.
+    &.k-btn-outline,
+    &.k-btn-dashed {
+      margin-bottom: -1px;
+    }
+
+    // Filled buttons have no visible border to merge. Draw the separator
+    // without overlapping their backgrounds or replacing solid-theme ::before.
+    &.k-btn:not(.k-btn-outline, .k-btn-dashed, .k-btn-text, .k-btn-link, .k-btn-plain)::after {
+      content: "";
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      height: 1px;
+      background-color: var(--kui-color-border-split);
+      pointer-events: none;
     }
   }
 }

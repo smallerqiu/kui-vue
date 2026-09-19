@@ -2,7 +2,7 @@
   <Space vertical>
     <Input v-model="value" />
     <QRCode :value="value" :size="100" />
-    <QRCode :value="value" :size="100" logo="/favicon.png" />
+    <QRCode :value="value" :size="100" logo="/favicon.svg" />
   </Space>
 </template>
 <script setup lang="ts">

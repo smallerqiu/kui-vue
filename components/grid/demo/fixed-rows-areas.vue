@@ -27,19 +27,15 @@
   .demo-grid-header {
     height: 50px;
     background: var(--kui-color-bg-3);
-    padding: 8px;
   }
   .demo-grid-sidebar {
-    padding: 8px;
     background: var(--kui-color-bg-4);
   }
   .demo-grid-main {
-    padding: 8px;
     background: var(--kui-color-bg-2);
   }
   .demo-grid-footer {
     background: var(--kui-color-bg-3);
-    padding: 8px;
     height: 50px;
   }
 }
