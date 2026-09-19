@@ -13,6 +13,20 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 6.1.0
+
+`2026-9-19`
+
+- `MenuItem`: Added `onClick` / `@click`, including keyboard activation. Disabled items no longer respond to clicks or navigate links.
+- `Menu`: Fixed selection and expansion synchronization, nested collapse animations, and keyboard interactions. Restored submenu state after expanding a collapsed menu and made left/right popup spacing consistent.
+- `Image` / `ImageGroup`: Added custom slot support in the preview overlay. Dragging now follows the pointer without animation lag, and changing the zoom slider resets the image position.
+- `Upload`: Improved picture-wall sorting with card borders and rounded corners preserved during dragging, while other images move aside immediately. Refined cancellation and sort events, and fixed cleanup when custom upload requests complete synchronously.
+- `Switch`: Fixed thumb position jumps during pressing, release, and toggling. Disabled and readonly switches no longer show pressed deformation.
+- `DatePicker`: Fixed manual input and shortcuts bypassing disabled-date/time constraints. Improved range type inference, incomplete-range restoration, clearing, keyboard selection, and focus state after closing the panel.
+- `Input`: Fixed prop/slot precedence for prefixes and suffixes and prevented empty content from occupying decoration space.
+- `Tree`: Fixed checkbox interactions also triggering row interactions, keeping checking and row clicks independent.
+- `ColorPicker`: Refined `outline`, `fill`, and `plain` themes and `round`, `circle`, and `square` shapes.
+
 ## 6.0.0
 
 `2026-9-15`

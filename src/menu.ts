@@ -73,6 +73,12 @@ const navData = [
     key: "guide",
     children: [
       { title: "快速开始", sub: "Quick Started", name: "quick-started", icon: CirclePlay },
+      {
+        title: "从 react-kui 迁移",
+        sub: "From react-kui",
+        name: "migrate-from-react",
+        icon: FileText,
+      },
       { title: "KUI Vue Pro", sub: "Admin Solution", name: "pro", icon: LayoutDashboard },
       { title: "AI 辅助开发", sub: "AI Development", name: "ai", icon: AppWindow },
       {

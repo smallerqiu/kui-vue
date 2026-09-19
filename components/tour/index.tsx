@@ -142,7 +142,7 @@ export default defineComponent({
       return (
         <Teleport to="body">
           <div class="k-tour-root">
-            <Transition name="k-modal-fade">
+            <Transition name="k-modal-fade" appear>
               <div v-show={visible.value} class="k-tour-overlay">
                 {props.mask && <div class={["k-tour-mask", { "k-tour-mask-spotlight": !!rect }]} />}
                 {props.mask && rect && (

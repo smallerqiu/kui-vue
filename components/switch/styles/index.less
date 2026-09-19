@@ -1,6 +1,7 @@
 @import "../../styles/less-css-var.less";
 
 .k-switch {
+  --k-switch-thumb-inset: 3px;
   min-width: 44px;
   height: 24px;
   line-height: 22px;
@@ -42,7 +43,7 @@
     border-radius: 9px;
     background-color: var(--kui-color-control-thumb);
     position: absolute;
-    left: 3px;
+    left: var(--k-switch-thumb-inset);
     top: 50%;
     cursor: inherit;
     transform: translate3d(0, -50%, 0);
@@ -63,7 +64,7 @@
     line-height: 22px;
   }
 
-  &:active:not(&:disabled) {
+  &:active:not(:disabled):not(.k-switch-readonly) {
     &::before {
       width: 22px;
     }
@@ -100,6 +101,7 @@
 }
 
 .k-switch-sm {
+  --k-switch-thumb-inset: 2px;
   min-width: 28px;
   height: 16px;
 
@@ -107,7 +109,6 @@
     width: 12px;
     height: 12px;
     border-radius: 12px;
-    left: 2px;
   }
   &.k-switch-square {
     &::before {
@@ -115,13 +116,7 @@
     }
   }
 
-  &:active {
-    &::before {
-      width: 15px;
-    }
-  }
-
-  &:active:not(&:disabled) {
+  &:active:not(:disabled):not(.k-switch-readonly) {
     &::before {
       width: 15px;
     }
@@ -134,10 +129,6 @@
   }
 
   &.k-switch-checked {
-    &::before {
-      margin-left: -2px;
-    }
-
     .k-switch-loading {
       right: 3px;
       left: auto;
@@ -150,9 +141,8 @@
   border-color: var(--kui-switch-color, var(--kui-color-primary));
 
   &::before {
-    left: 100%;
+    left: calc(100% - var(--k-switch-thumb-inset));
     transform: translate3d(-100%, -50%, 0);
-    margin-left: -3px;
   }
 
   .k-switch-inner {

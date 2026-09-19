@@ -1,0 +1,96 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish to npm (false only verifies and packs)
+        type: boolean
+        default: false
+      dist_tag:
+        description: npm distribution tag
+        type: choice
+        options: [next, latest]
+        default: next
+
+permissions:
+  contents: read
+
+concurrency:
+  group: npm-release
+  cancel-in-progress: false
+
+env:
+  NODE_OPTIONS: --max-old-space-size=2048
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Check version and release tag
+        env:
+          PUBLISH: ${{ inputs.publish }}
+          DIST_TAG: ${{ inputs.dist_tag }}
+        run: node scripts/check-release.mjs
+      - name: Install browser for visual tests
+        run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm verify
+      - name: Ensure build does not modify tracked files
+        run: git diff --exit-code
+      - name: Pack the release artifact
+        run: pnpm pack --out artifacts/kui-vue.tgz
+      - uses: actions/upload-artifact@v7
+        with:
+          name: npm-package
+          path: artifacts/kui-vue.tgz
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Upload visual test failures
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: visual-test-results
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Upload AI evaluation report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ai-eval-results
+          path: .ai-eval-results/
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 7
+
+  publish:
+    if: ${{ inputs.publish }}
+    needs: prepare
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - uses: actions/download-artifact@v8
+        with:
+          name: npm-package
+          path: artifacts
+      - name: Publish verified tarball with npm trusted publishing
+        env:
+          DIST_TAG: ${{ inputs.dist_tag }}
+        run: npm publish artifacts/kui-vue.tgz --access public --provenance --tag "$DIST_TAG"

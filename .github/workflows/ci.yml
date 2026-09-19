@@ -3,6 +3,10 @@ name: CI
 on:
   push:
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -31,11 +35,27 @@ jobs:
       - name: Install browser for visual tests
         run: pnpm exec playwright install --with-deps chromium
 
-      - name: Verify AI metadata and evals
-        run: pnpm check:ai-assets && pnpm check:ai-evals
-
       - name: Verify source, API docs, tests, builds, docs, and package
         run: pnpm verify
 
       - name: Ensure build does not modify tracked files
         run: git diff --exit-code
+
+      - name: Upload visual test failures
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: visual-test-results
+          path: test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Upload AI evaluation report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ai-eval-results
+          path: .ai-eval-results/
+          include-hidden-files: true
+          if-no-files-found: ignore
+          retention-days: 7

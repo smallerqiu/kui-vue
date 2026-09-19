@@ -1,7 +1,7 @@
 {
   "name": "kui-vue",
   "private": false,
-  "version": "6.0.0",
+  "version": "6.1.0",
   "type": "module",
   "description": "A lightweight desktop UI component library suitable for Vue.js 3.",
   "main": "lib/index.cjs",
@@ -90,11 +90,12 @@
     "package:check": "publint --strict && node scripts/check-package-exports.mjs",
     "check:api-docs": "node --max-old-space-size=2048 --experimental-strip-types scripts/check-api-docs.ts",
     "check:ai-assets": "node --max-old-space-size=2048 --experimental-strip-types scripts/generate-ai-assets.ts --check",
-    "check:ai-evals": "node --experimental-strip-types scripts/check-ai-evals.ts",
+    "check:ai-evals": "node ai/evals/run.mjs --reference",
     "verify": "pnpm lint && pnpm typecheck && pnpm typecheck:exports && pnpm check:api-docs && pnpm check:ai-assets && pnpm check:ai-evals && pnpm check:ai-templates && pnpm test && pnpm test:visual && pnpm build && pnpm build:docs && pnpm package:check",
     "build:local": "node scripts/build.mjs local",
     "build:types": "node scripts/build.mjs types",
-    "check:ai-templates": "node --max-old-space-size=2048 node_modules/vue-tsc/bin/vue-tsc.js -p tsconfig.ai-templates.json --noEmit && node --max-old-space-size=2048 node_modules/vitest/vitest.mjs run tests/ai-templates.test.ts --maxWorkers=1"
+    "check:ai-templates": "node --max-old-space-size=2048 node_modules/vue-tsc/bin/vue-tsc.js -p tsconfig.ai-templates.json --noEmit && node --max-old-space-size=2048 node_modules/vitest/vitest.mjs run tests/ai-templates.test.ts --maxWorkers=1",
+    "eval:ai": "node ai/evals/run.mjs"
   },
   "author": {
     "name": "Qiu",

@@ -152,13 +152,6 @@ const SubMenu = defineComponent({
       const opened = (
         restoreNested ? menuContext?.inlineOpenKeys : menuContext?.openKeys
       )?.includes(key);
-      let leftValue = left.value;
-      if (
-        (menuContext?.mode == "horizontal" && subMenuContext?.keyPath.length) ||
-        menuContext?.mode == "vertical"
-      ) {
-        leftValue += 3;
-      }
       const popperPros = {
         ref: refPopper,
         "theme-mode": menuContext?.theme,
@@ -166,7 +159,7 @@ const SubMenu = defineComponent({
         style: {
           minWidth: menuContext?.mode == "horizontal" ? minWidth.value : null,
           top: top.value + "px",
-          left: leftValue + "px",
+          left: left.value + "px",
           transformOrigin: transOrigin.value,
           visibility: popup && !popupPositioned.value ? "hidden" : undefined,
         } as CSSProperties,

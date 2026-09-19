@@ -12,6 +12,8 @@ export default defineConfig({
   },
   use: {
     ...devices["Desktop Chrome"],
+    // Use installed Chrome locally; CI uses Playwright's pinned Chromium.
+    channel: process.env.CI ? undefined : "chrome",
     baseURL: "http://127.0.0.1:7010",
     colorScheme: "light",
   },

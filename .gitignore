@@ -30,3 +30,7 @@ pnpm-debug.log*
 *.sw?
 .vscode
 .idea
+
+# AI evaluation scratch files and generated reports
+/.ai-eval-*/
+/.ai-eval-results/
