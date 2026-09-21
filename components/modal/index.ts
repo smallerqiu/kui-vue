@@ -6,7 +6,7 @@ import Toast from "./toast";
 export type { ModalProps } from "./modal";
 export { ModalPanel };
 
-interface ModalInstance {
+export interface ModalInstance {
   show: () => void;
   hide: () => void;
   destroy: () => void;
@@ -14,7 +14,7 @@ interface ModalInstance {
 let modalList: ModalInstance[] = [];
 recordMousePoint();
 
-const showModal = (props = {}) => {
+const showModal = (props: ModalApiProps) => {
   const context = getCurrentInstance();
   const container = document.createElement("div");
   document.body.appendChild(container);
@@ -53,18 +53,18 @@ export interface ModalApiProps {
   content: string;
   color?: string;
   icon?: IconType[];
-  onOk?: () => void;
+  onOk?: () => void | PromiseLike<unknown>;
   onCancel?: () => void;
   type?: "info" | "success" | "error" | "warning" | "confirm";
 }
 export interface ModalApi {
   name?: "modal";
-  show(props: ModalApiProps): void;
-  info(props: ModalApiProps): void;
-  success(props: ModalApiProps): void;
-  warning(props: ModalApiProps): void;
-  confirm(props: ModalApiProps): void;
-  error(props: ModalApiProps): void;
+  show(props: ModalApiProps): ModalInstance | null;
+  info(props: ModalApiProps): ModalInstance | null;
+  success(props: ModalApiProps): ModalInstance | null;
+  warning(props: ModalApiProps): ModalInstance | null;
+  confirm(props: ModalApiProps): ModalInstance | null;
+  error(props: ModalApiProps): ModalInstance | null;
   destroyAll(): void;
 }
 export const modal: ModalApi = {

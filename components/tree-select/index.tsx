@@ -1,3 +1,5 @@
+import { createFrameScheduler, isEventOutside } from "../utils/popup";
+import { renderSelectionTags } from "../utils/selection-tags";
 import { ChevronDown, CircleX, LoaderCircle } from "kui-icons";
 import {
   computed,
@@ -34,16 +36,13 @@ import { markFormFieldComponent, useFormAppearance, useFormField } from "../form
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
-import Space from "../space";
-import Tag from "../tag";
-import Tooltip from "../tooltip";
 import Tree, { type TreeExpandEvent } from "../tree";
 import { treeSelectContextKey } from "../tree/context";
 import type { TreeNode } from "../tree/utils";
 import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
 
-type TreeSelectValue = string | string[] | null | undefined;
+export type TreeSelectValue = string | string[] | null | undefined;
 type TreeSelectPlacement =
   "top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right";
 
@@ -104,6 +103,11 @@ type TreeSelectPublicProps<T extends TreeSelectValue> = Omit<
     "onUpdate:modelValue"?: (value: T) => void;
     onChange?: (value: T) => void;
     onTreeExpand?: (event: TreeExpandEvent) => void;
+    "onUpdate:treeExpandedKeys"?: (keys: string[]) => void;
+    onTreeSelect?: (value: string, label: VNodeChild, selected: boolean) => void;
+    onSearch?: (event: InputEvent) => void;
+    onOpenChange?: (open: boolean) => void;
+    onClear?: () => void;
   };
 type TreeSelectComponent = {
   new <T extends TreeSelectValue = string>(
@@ -167,7 +171,7 @@ const TreeSelect = defineComponent({
     const currentPlacement = ref<TreeSelectPlacement>(props.placement);
     const queryInputEventTimer = ref<number | undefined>(undefined);
     const clearQueryTimer = ref<number | undefined>(undefined);
-    let positionRaf = 0;
+    const positionRaf = createFrameScheduler();
 
     const defaultExpandedKeys = ref<string[]>([...(props.treeExpandedKeys || [])]);
 
@@ -197,7 +201,7 @@ const TreeSelect = defineComponent({
     });
 
     onBeforeUnmount(() => {
-      cancelAnimationFrame(positionRaf);
+      positionRaf.cancel();
       document.removeEventListener("click", outsideClick);
       document.removeEventListener("scroll", updatePosition, true);
       clearTimeout(queryInputEventTimer.value);
@@ -205,8 +209,7 @@ const TreeSelect = defineComponent({
     });
 
     const updatePosition = () => {
-      cancelAnimationFrame(positionRaf);
-      positionRaf = requestAnimationFrame(() => {
+      positionRaf.schedule(() => {
         if (!visible.value) return;
         minWidth.value = refSelection.value ? refSelection.value.offsetWidth : "";
         setPlacement({
@@ -232,15 +235,7 @@ const TreeSelect = defineComponent({
       emit("openChange", opened);
     };
     const outsideClick = (e: Event) => {
-      const target = e.target as Node | null;
-      const ctx = refSelection.value;
-      if (
-        refPopper.value &&
-        target &&
-        !refPopper.value.contains(target) &&
-        ctx &&
-        !ctx.contains(target)
-      ) {
+      if (isEventOutside(e, [refSelection.value, refPopper.value])) {
         openChange(false);
         clearQuery();
       }
@@ -623,59 +618,17 @@ const TreeSelect = defineComponent({
           <div class="k-tree-select-placeholder">{placeholderText}</div>
         ) : null;
 
-      const renderTags = () => {
-        const labels = labelText.value;
-        const hasDisplayLimit =
-          typeof props.maxTagCount === "number" && Number.isFinite(props.maxTagCount);
-        const displayCount = hasDisplayLimit
-          ? Math.max(0, Math.floor(props.maxTagCount as number))
-          : labels.length;
-        const visibleLabels = labels.slice(0, displayCount);
-        const hiddenLabels = labels.slice(displayCount);
-        const tagSize = size || "medium";
-        const tags = visibleLabels.map((label, index) => (
-          <Tag
-            key={`${label}-${index}`}
-            size={tagSize}
-            shape={shape}
-            theme={theme}
-            compact
-            closeable={!disabled && !readonly}
-            onClose={() => removeTag(index)}
-          >
-            {label}
-          </Tag>
-        ));
-
-        if (hiddenLabels.length) {
-          tags.push(
-            <Tooltip
-              title={
-                <Space wrap size={4} theme-mode="dark">
-                  {hiddenLabels.map((label, index) => (
-                    <Tag
-                      key={`${label}-${index}`}
-                      size={tagSize}
-                      shape={shape}
-                      theme={theme}
-                      compact
-                      closeable={!disabled && !readonly}
-                      onClose={() => removeTag(displayCount + index)}
-                    >
-                      {label}
-                    </Tag>
-                  ))}
-                </Space>
-              }
-            >
-              <Tag size={tagSize} shape={shape} theme={theme} compact>
-                +{hiddenLabels.length}...
-              </Tag>
-            </Tooltip>,
-          );
-        }
-        return tags;
-      };
+      const renderTags = () =>
+        renderSelectionTags({
+          labels: labelText.value,
+          maxTagCount: props.maxTagCount,
+          size,
+          shape,
+          theme,
+          disabled,
+          readOnly: readonly,
+          onRemove: removeTag,
+        });
 
       const labelsNode = props.multiple ? (
         <div class="k-tree-select-labels">

@@ -8,7 +8,6 @@ import {
   provide,
   ref,
   type CSSProperties,
-  type DefineComponent,
   type ExtractPropTypes,
   type InputHTMLAttributes,
   type PropType,
@@ -51,8 +50,22 @@ const inputProps = {
   // "onUpdate:modelValue": Function as PropType<(value: string) => void>,
 };
 
+export interface InputEvents {
+  "onUpdate:modelValue"?: (value: string) => void;
+  onChange?: (value: string) => void;
+  onSearch?: (value: string) => void;
+  onIconClick?: (event: MouseEvent) => void;
+  onClear?: () => void;
+  onFocus?: (event: FocusEvent) => void;
+  onBlur?: (event: FocusEvent) => void;
+}
+export interface InputRef {
+  focus: () => void;
+  blur: () => void;
+}
 export type InputProps = Partial<ExtractPropTypes<typeof inputProps>> &
-  Omit<InputHTMLAttributes, "onChange" | "prefix">;
+  Omit<InputHTMLAttributes, keyof InputEvents | "prefix"> &
+  InputEvents;
 
 const Input = defineComponent({
   inheritAttrs: false,
@@ -390,4 +403,6 @@ const Input = defineComponent({
 });
 
 const FormInput = markFormFieldComponent(Input);
-export default FormInput as typeof FormInput & DefineComponent<InputProps>;
+export default FormInput as typeof FormInput & {
+  new (): Omit<InstanceType<typeof FormInput>, "$props"> & InputRef & { $props: InputProps };
+};

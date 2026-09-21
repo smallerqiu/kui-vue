@@ -35,7 +35,7 @@ const Form = defineComponent({
   emits: {
     change: (model: Record<string, unknown>) => typeof model === "object" && model !== null,
     reset: () => true,
-    submit: (result: { valid: boolean }) => typeof result?.valid === "boolean",
+    submit: (result: FormSubmitEvent) => typeof result?.valid === "boolean",
   },
   setup(props, { emit, slots, expose }) {
     const globalConfig = inject(CONFIG_PROVIDER_INJECTION_KEY, null);

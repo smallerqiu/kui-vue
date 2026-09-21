@@ -1,3 +1,4 @@
+import { createFrameScheduler, isEventOutside } from "../utils/popup";
 import { ChevronDown, ChevronRight, CircleAlert, CircleX, Loading } from "kui-icons";
 import {
   computed,
@@ -57,7 +58,7 @@ const Cascader = defineComponent({
     const loadingOptions = ref(new Set<CascaderOption>());
     const failedOptions = ref(new Set<CascaderOption>());
     let unmounted = false;
-    let positionRaf = 0;
+    const positionRaf = createFrameScheduler();
     const getOptionChildren = (option: CascaderOption) =>
       option.children ?? loadedChildren.value.get(option) ?? [];
     const isExpandable = (option: CascaderOption) =>
@@ -180,8 +181,7 @@ const Cascader = defineComponent({
     });
 
     const updatePosition = () => {
-      cancelAnimationFrame(positionRaf);
-      positionRaf = requestAnimationFrame(() => {
+      positionRaf.schedule(() => {
         if (!visible.value) return;
         minWidth.value = refSelection.value?.offsetWidth || 0;
         setPlacement({
@@ -231,14 +231,7 @@ const Cascader = defineComponent({
     };
 
     const outsideClick = (e: MouseEvent) => {
-      const selectionEl = refSelection.value;
-      const popperEl = refPopper.value;
-      if (
-        selectionEl &&
-        !selectionEl.contains(e.target as Node) &&
-        popperEl &&
-        !popperEl.contains(e.target as Node)
-      ) {
+      if (isEventOutside(e, [refSelection.value, refPopper.value])) {
         visible.value = false;
         emit("openChange", false);
       }
@@ -246,7 +239,7 @@ const Cascader = defineComponent({
 
     onBeforeUnmount(() => {
       unmounted = true;
-      cancelAnimationFrame(positionRaf);
+      positionRaf.cancel();
       document.removeEventListener("click", outsideClick);
       window.removeEventListener("resize", updatePosition);
       window.removeEventListener("scroll", updatePosition, true);

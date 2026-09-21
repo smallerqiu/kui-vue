@@ -14,7 +14,7 @@ const data = ref([
   { title: "Expand to load", key: "0-1" },
   { title: "Tree Node", isLeaf: true, key: "0-2" },
 ]);
-const expandedKeys = ref([]);
+const expandedKeys = ref<string[]>([]);
 const insertChildren = (nodes: TreeNode[], targetKey: string, childrenData: TreeNode[]) => {
   for (const node of nodes) {
     if (node.key === targetKey) {

@@ -1,4 +1,8 @@
 import type { App, Component, Plugin, PropType } from "vue";
+/** Attr-forwarding wrappers expose the source props/events, not its instance methods. */
+export type ForwardedComponent<
+  Source extends abstract new (...args: never[]) => { $props: object },
+> = new () => { $props: InstanceType<Source>["$props"] };
 // export type WithInstall<T> = T & Plugin;
 
 const globalComponents = ["message", "modal", "notice", "loading", "theme"];

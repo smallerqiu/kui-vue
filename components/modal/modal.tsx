@@ -1,3 +1,4 @@
+import type { ForwardedComponent } from "../utils/vue";
 import { X } from "kui-icons";
 import {
   computed,
@@ -343,5 +344,5 @@ export const ModalPanel = defineComponent({
     (props, { attrs, slots }) =>
     () =>
       h(Modal, { ...attrs, ...props, modelValue: true, mask: false, panelOnly: true }, slots),
-});
+}) as ForwardedComponent<typeof Modal>;
 export default Modal;

@@ -1,3 +1,4 @@
+import { createFrameScheduler } from "../utils/popup";
 import { Loading } from "kui-icons";
 import {
   computed,
@@ -119,7 +120,7 @@ const AutoComplete = defineComponent({
     const left = ref(0);
     const transOrigin = ref("left top");
     const currentPlacement = ref("bottom-left");
-    let positionRaf = 0;
+    const positionRaf = createFrameScheduler();
     let blurTimer: ReturnType<typeof setTimeout> | undefined;
     let resizeObserver: ResizeObserver | undefined;
     watch(
@@ -142,8 +143,7 @@ const AutoComplete = defineComponent({
       { immediate: true, flush: "sync" },
     );
     const updatePosition = () => {
-      cancelAnimationFrame(positionRaf);
-      positionRaf = requestAnimationFrame(() => {
+      positionRaf.schedule(() => {
         if (!visible.value) return;
         setPlacement({
           refSelection: root,
@@ -231,7 +231,7 @@ const AutoComplete = defineComponent({
       }
     });
     onBeforeUnmount(() => {
-      cancelAnimationFrame(positionRaf);
+      positionRaf.cancel();
       clearTimeout(blurTimer);
       resizeObserver?.disconnect();
       document.removeEventListener("scroll", updatePosition, true);

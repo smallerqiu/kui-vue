@@ -1,3 +1,5 @@
+import { createFrameScheduler, isEventOutside } from "../utils/popup";
+import { renderSelectionTags } from "../utils/selection-tags";
 import { ChevronDown, CircleX, Loading } from "kui-icons";
 import {
   computed,
@@ -27,9 +29,6 @@ import { markFormFieldComponent, useFormAppearance, useFormField } from "../form
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
-import Space from "../space";
-import Tag from "../tag";
-import Tooltip from "../tooltip";
 import VirtualList from "../virtual-list";
 import { isEmpty } from "../utils/number";
 import { setPlacement } from "../utils/placement";
@@ -87,6 +86,8 @@ type SelectPublicProps<T extends SelectModelValue> = Omit<Partial<SelectProps>, 
     onChange?: (value: T) => void;
     onSearch?: (event: InputEvent) => void;
     onSelect?: (option: OptionSelectEvent) => void;
+    onOpenChange?: (open: boolean) => void;
+    onClear?: () => void;
   };
 type SelectComponent = {
   new <T extends SelectModelValue = SelectValue>(
@@ -152,7 +153,7 @@ const Select = defineComponent({
     const currentPlacement = ref(props.placement);
     const queryInputEventTimer = ref<ReturnType<typeof setTimeout>>();
     const clearQueryTimer = ref<ReturnType<typeof setTimeout>>();
-    let positionRaf = 0;
+    const positionRaf = createFrameScheduler();
     const activeIndex = ref(-1);
     const virtualListRef = ref<{ scrollToIndex: (index: number, align?: "auto") => void }>();
 
@@ -206,7 +207,7 @@ const Select = defineComponent({
     };
 
     onBeforeUnmount(() => {
-      cancelAnimationFrame(positionRaf);
+      positionRaf.cancel();
       clearTimeout(queryInputEventTimer.value);
       clearTimeout(clearQueryTimer.value);
       document.removeEventListener("click", outsideClick);
@@ -225,8 +226,7 @@ const Select = defineComponent({
     });
 
     const updatePosition = () => {
-      cancelAnimationFrame(positionRaf);
-      positionRaf = requestAnimationFrame(() => {
+      positionRaf.schedule(() => {
         if (!visible.value) return;
         minWidth.value = refSelection.value?.offsetWidth || 0;
         setPlacement({
@@ -248,14 +248,7 @@ const Select = defineComponent({
     });
 
     const outsideClick = (e: MouseEvent) => {
-      const ctx =
-        (refSelection.value as HTMLElement & { $el?: HTMLElement })?.$el || refSelection.value;
-      if (
-        refPopper.value &&
-        !refPopper.value.contains(e.target as Node) &&
-        ctx &&
-        !ctx.contains(e.target as Node)
-      ) {
+      if (isEventOutside(e, [refSelection.value, refPopper.value])) {
         const wasVisible = visible.value;
         visible.value = false;
         if (wasVisible) emit("openChange", false);
@@ -717,59 +710,17 @@ const Select = defineComponent({
           <div class="k-select-placeholder">{placeholderText}</div>
         ) : null;
 
-      const renderTags = () => {
-        const labels = labelText.value;
-        const hasDisplayLimit =
-          typeof props.maxTagCount === "number" && Number.isFinite(props.maxTagCount);
-        const displayCount = hasDisplayLimit
-          ? Math.max(0, Math.floor(props.maxTagCount as number))
-          : labels.length;
-        const visibleLabels = labels.slice(0, displayCount);
-        const hiddenLabels = labels.slice(displayCount);
-        const tagSize = size || "medium";
-        const tags = visibleLabels.map((label, index) => (
-          <Tag
-            key={`${label}-${index}`}
-            size={tagSize}
-            shape={shape}
-            theme={theme}
-            compact
-            closeable={!disabled && !readonly}
-            onClose={() => removeTag(index)}
-          >
-            {label}
-          </Tag>
-        ));
-
-        if (hiddenLabels.length) {
-          tags.push(
-            <Tooltip
-              title={
-                <Space wrap size={4} theme-mode="dark">
-                  {hiddenLabels.map((label, index) => (
-                    <Tag
-                      key={`${label}-${index}`}
-                      size={tagSize}
-                      shape={shape}
-                      theme={theme}
-                      compact
-                      closeable={!disabled && !readonly}
-                      onClose={() => removeTag(displayCount + index)}
-                    >
-                      {label}
-                    </Tag>
-                  ))}
-                </Space>
-              }
-            >
-              <Tag size={tagSize} shape={shape} theme={theme} compact>
-                +{hiddenLabels.length}...
-              </Tag>
-            </Tooltip>,
-          );
-        }
-        return tags;
-      };
+      const renderTags = () =>
+        renderSelectionTags({
+          labels: labelText.value,
+          maxTagCount: props.maxTagCount,
+          size,
+          shape,
+          theme,
+          disabled,
+          readOnly: readonly,
+          onRemove: removeTag,
+        });
 
       const labelsNode = multiple ? (
         <div class="k-select-labels">

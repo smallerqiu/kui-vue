@@ -1,3 +1,5 @@
+import type { ForwardedComponent } from "../utils/vue";
+import { createFrameScheduler, isEventOutside } from "../utils/popup";
 import dayjs, { Dayjs, type UnitType } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import isBetween from "dayjs/plugin/isBetween";
@@ -131,6 +133,8 @@ type DatePickerPublicProps<
   "onUpdate:startDate"?: (value: TStart) => void;
   "onUpdate:endDate"?: (value: TEnd) => void;
   onChange?: (value: T, text: string | string[]) => void;
+  onOpenChange?: (open: boolean) => void;
+  onClear?: () => void;
 };
 type DatePickerComponent = {
   new <
@@ -194,7 +198,7 @@ const DatePicker = defineComponent({
     const transOrigin = ref("bottom");
     const refPopper = ref<HTMLElement | null>(null);
     const refSelection = ref<HTMLElement | null>(null);
-    let positionRaf = 0;
+    const positionRaf = createFrameScheduler();
 
     // DOM 引用，用于滚动计算
     const timeColRefs = ref<Record<string, HTMLElement | null>>({});
@@ -520,10 +524,7 @@ const DatePicker = defineComponent({
     };
 
     const handleClickOutside = (e: PointerEvent) => {
-      const ctx = refSelection.value;
-      const popper = refPopper.value;
-      const target = e.target as Node;
-      if (popper && !popper.contains(target) && ctx && !ctx.contains(target)) {
+      if (isEventOutside(e, [refSelection.value, refPopper.value])) {
         if (isRange.value && Array.isArray(innerValue.value)) {
           // 如果只选了一个值（即半选状态），关闭时重置为 props 传进来的原始状态
           if (innerValue.value.length === 1 || !innerValue.value[1]) {
@@ -982,8 +983,7 @@ const DatePicker = defineComponent({
       }
     };
     const updatePosition = () => {
-      cancelAnimationFrame(positionRaf);
-      positionRaf = requestAnimationFrame(() => {
+      positionRaf.schedule(() => {
         if (!isVisible.value) return;
         setPlacement({
           refSelection,
@@ -1003,7 +1003,7 @@ const DatePicker = defineComponent({
       }
     });
     onUnmounted(() => {
-      cancelAnimationFrame(positionRaf);
+      positionRaf.cancel();
       document.removeEventListener("click", handleClickOutside);
       if (!props.panelOnly) document.removeEventListener("scroll", updatePosition, true);
     });
@@ -1307,7 +1307,7 @@ export const DatePickerPanel = defineComponent({
     (props, { attrs, slots }) =>
     () =>
       h(DatePicker, { ...attrs, ...props, panelOnly: true }, slots),
-});
+}) as ForwardedComponent<typeof DatePicker>;
 
 const FormDatePicker = markFormFieldComponent(DatePicker);
 export default FormDatePicker as DatePickerComponent;

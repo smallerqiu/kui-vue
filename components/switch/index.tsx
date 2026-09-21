@@ -39,6 +39,7 @@ type SwitchModelProps<T extends string | number | boolean> = {
   modelValue?: T;
   "onUpdate:modelValue"?: (value: T) => void;
   onChange?: (value: T) => void;
+  "onUpdate:checked"?: (checked: boolean) => void;
 };
 type SwitchPublicProps = Omit<Partial<SwitchProps>, "modelValue" | "valueType">;
 type SwitchComponent = {

@@ -54,6 +54,7 @@ export type { CarouselProps } from "./carousel";
 export { Checkbox, CheckboxGroup } from "./checkbox";
 export type {
   ChangeEvent,
+  CheckboxChangeEvent,
   CheckboxGroupProps,
   CheckboxOption,
   CheckboxProps,
@@ -72,12 +73,20 @@ export type {
 
 export { Collapse, CollapsePanel } from "./collapse";
 export type { CollapsePanelProps, CollapseProps } from "./collapse";
+export type { CollapseKey } from "./collapse/context";
 
 export { ColorPickerPanel, default as ColorPicker } from "./color-picker";
-export type { ColorPickerProps } from "./color-picker";
+export type { ColorPickerProps, ColorMode } from "./color-picker";
 
 export { DatePickerPanel, default as DatePicker } from "./date-picker";
-export type { DatePickerProps } from "./date-picker";
+export type {
+  DatePickerInput,
+  DatePickerOutput,
+  DatePickerModeType,
+  DatePickerValueType,
+  DatePickerPreset,
+  DatePickerProps,
+} from "./date-picker";
 
 export { Descriptions, DescriptionsItem } from "./descriptions";
 export type { DescriptionsColumn, DescriptionsItemProps, DescriptionsProps } from "./descriptions";
@@ -95,7 +104,15 @@ export { default as Empty } from "./empty";
 export type { EmptyProps } from "./empty";
 
 export { Form, FormItem } from "./form";
-export type { FormContext, FormItemProps, FormProps, FormSubmitEvent } from "./form";
+export type {
+  FormContext,
+  FormExpose,
+  FormRules,
+  FormValidateTrigger,
+  FormItemProps,
+  FormProps,
+  FormSubmitEvent,
+} from "./form";
 export type { FormRule } from "./form/types";
 
 export { default as Flex } from "./flex";
@@ -111,7 +128,14 @@ export { default as Icon } from "./icon";
 export type { IconProps, IconType } from "./icon";
 
 export { Input, InputGroup, TextArea } from "./input";
-export type { InputGroupProps, InputProps, TextAreaProps } from "./input";
+export type {
+  InputGroupProps,
+  InputProps,
+  InputEvents,
+  InputRef,
+  TextAreaProps,
+  TextAreaEvents,
+} from "./input";
 
 export { default as InputTag } from "./input-tag";
 export type { InputTagProps } from "./input-tag";
@@ -138,17 +162,17 @@ export type {
 } from "./menu";
 
 export { default as message } from "./message";
-export type { MessageOptions } from "./message";
+export type { MessageOptions, MessageApi } from "./message";
 
 export { default as Mentions } from "./mentions";
 export type { MentionOption, MentionsProps } from "./mentions";
 export { MessagePanel, NoticePanel } from "./notice/content";
 
 export { modal, ModalPanel, default as Modal } from "./modal";
-export type { ModalApiProps, ModalProps } from "./modal";
+export type { ModalApi, ModalApiProps, ModalProps, ModalInstance } from "./modal";
 
 export { default as notice } from "./notice";
-export type { NoticeOptions } from "./notice";
+export type { NoticeOptions, NoticeApi } from "./notice";
 
 export { default as Page } from "./page";
 export type { PageProps } from "./page";
@@ -172,7 +196,13 @@ export { default as QRCode } from "./qrcode";
 export type { QRCodeErrorLevel, QRCodeProps, QRCodeRef, QRCodeStatus } from "./qrcode";
 
 export { Radio, RadioButton, RadioGroup } from "./radio";
-export type { RadioButtonProps, RadioGroupProps, RadioOption, RadioProps } from "./radio";
+export type {
+  RadioButtonProps,
+  RadioGroupProps,
+  RadioOption,
+  RadioProps,
+  RadioChangeEvent,
+} from "./radio";
 
 export { default as Segmented } from "./segmented";
 export type { SegmentedOption, SegmentedProps, SegmentedValue } from "./segmented";
@@ -187,13 +217,25 @@ export { default as FeedbackPanel } from "./feedback-panel";
 export type { FeedbackPanelKind, FeedbackPanelProps } from "./feedback-panel";
 
 export { Option, Select } from "./select";
-export type { OptionProps, SelectOption, SelectProps } from "./select";
+export type {
+  OptionProps,
+  OptionSelectEvent,
+  SelectOption,
+  SelectProps,
+  SelectValue,
+} from "./select";
 
 export { default as ConfigProvider } from "./config";
 export type { ConfigProviderProps } from "./config";
 
 export { Skeleton, SkeletonAvatar, SkeletonButton, SkeletonImage, SkeletonText } from "./skeleton";
-export type { SkeletonProps } from "./skeleton";
+export type {
+  SkeletonProps,
+  SkeletonAvatarProps,
+  SkeletonButtonProps,
+  SkeletonImageProps,
+  SkeletonTextProps,
+} from "./skeleton";
 
 export { StatCard, StatNumber } from "./stat-card";
 export type { StatCardProps, StatNumberItem, StatNumberProps } from "./stat-card";
@@ -250,10 +292,12 @@ export type {
   TypographyEditableOptions,
   TypographyEllipsisOptions,
   TypographyProps,
+  TypographyTag,
+  TypographyType,
 } from "./typography";
 
 export { TabPanel, Tabs } from "./tabs";
-export type { TabPanelProps, TabsProps } from "./tabs";
+export type { TabPanelProps, TabsProps, TabKey } from "./tabs";
 
 export { TimeLine, TimeLineItem } from "./time-line";
 export type { TimelineItemProps, TimelineMode, TimelineProps } from "./time-line";
@@ -270,7 +314,7 @@ export type {
 } from "./tree";
 
 export { default as TreeSelect } from "./tree-select";
-export type { TreeSelectProps } from "./tree-select";
+export type { TreeSelectProps, TreeSelectValue } from "./tree-select";
 
 export { default as Tag } from "./tag";
 export type { TagProps } from "./tag";
@@ -285,6 +329,9 @@ export type {
   UploadCustomRequest,
   UploadFile,
   UploadProps,
+  UploadRequestOptions,
+  UploadRequestHandle,
+  UploadSortEvent,
 } from "./upload";
 
 export { default as Watermark } from "./watermark";
@@ -316,4 +363,9 @@ export type {
   SurfaceShapeType,
   ThemeType,
   UploadStatusType,
+  ValueType,
+  TriggerType,
 } from "./const/types";
+
+export type { LayoutProps, SiderProps } from "./layout";
+export type { PopupContainerGetter } from "./config/popup";

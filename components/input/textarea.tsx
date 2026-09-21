@@ -2,7 +2,6 @@ import {
   computed,
   defineComponent,
   ref,
-  type DefineComponent,
   type ExtractPropTypes,
   type PropType,
   type TextareaHTMLAttributes,
@@ -27,8 +26,14 @@ const textAreaProps = {
   readonly: Boolean as BooleanType,
 };
 
+export interface TextAreaEvents {
+  "onUpdate:modelValue"?: (value: string) => void;
+  onChange?: (value: string) => void;
+  onInput?: (event: Event) => void;
+}
 export type TextAreaProps = Partial<ExtractPropTypes<typeof textAreaProps>> &
-  Omit<TextareaHTMLAttributes, "onChange">;
+  Omit<TextareaHTMLAttributes, keyof TextAreaEvents> &
+  TextAreaEvents;
 
 const TextArea = defineComponent({
   name: "TextArea",
@@ -94,4 +99,6 @@ const TextArea = defineComponent({
   },
 });
 const FormTextArea = markFormFieldComponent(TextArea);
-export default FormTextArea as typeof FormTextArea & DefineComponent<TextAreaProps>;
+export default FormTextArea as typeof FormTextArea & {
+  new (): Omit<InstanceType<typeof FormTextArea>, "$props"> & { $props: TextAreaProps };
+};

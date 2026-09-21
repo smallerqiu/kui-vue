@@ -29,6 +29,7 @@ import Empty from "../empty";
 import Icon from "../icon";
 import { TextArea } from "../input";
 import { setPlacement } from "../utils/placement";
+import { isEventOutside } from "../utils/popup";
 
 export interface MentionOption {
   value: string;
@@ -94,9 +95,7 @@ const Mentions = defineComponent({
     const textarea = ref<{ $el?: HTMLTextAreaElement } | HTMLTextAreaElement>();
     let resizeObserver: ResizeObserver | undefined;
     const closeOutside = (event: MouseEvent) => {
-      const target = event.target as Node;
-      if (!root.value?.contains(target) && !dropdown.value?.contains(target))
-        query.value = undefined;
+      if (isEventOutside(event, [root.value, dropdown.value], false)) query.value = undefined;
     };
     watch(
       query,

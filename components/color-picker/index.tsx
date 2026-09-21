@@ -1,3 +1,5 @@
+import type { ForwardedComponent } from "../utils/vue";
+import { createFrameScheduler, isEventOutside } from "../utils/popup";
 import Color, { type ColorObject } from "color";
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
@@ -37,7 +39,8 @@ import type {
   SizeType,
   ThemeType,
 } from "../const/types";
-type ColorMode = "hex" | "rgb" | "hsl";
+import type { ColorMode } from "./types";
+export type { ColorMode } from "./types";
 const colorPickerProps = {
   modelValue: String,
   opened: Boolean as BooleanType,
@@ -105,7 +108,7 @@ const ColorPicker = defineComponent({
     const currentAlpha = ref(initialColorValue.alpha());
     const currentHue = ref(initialColorValue.hue());
     const hideTimer = ref();
-    let positionRaf = 0;
+    const positionRaf = createFrameScheduler();
     let outsideClickListening = false;
 
     const syncOutsideClickListener = (opened: boolean) => {
@@ -156,14 +159,13 @@ const ColorPicker = defineComponent({
       }
     });
     onBeforeUnmount(() => {
-      cancelAnimationFrame(positionRaf);
+      positionRaf.cancel();
       clearTimeout(hideTimer.value);
       syncOutsideClickListener(false);
       if (!props.panelOnly) document.removeEventListener("scroll", updatePopPosition, true);
     });
     const updatePopPosition = () => {
-      cancelAnimationFrame(positionRaf);
-      positionRaf = requestAnimationFrame(() => {
+      positionRaf.schedule(() => {
         if (!visible.value) return;
         setPlacement({
           refSelection,
@@ -176,13 +178,7 @@ const ColorPicker = defineComponent({
       });
     };
     const outsideClick = (e: Event) => {
-      const ctx = refSelection.value?.$el || refSelection.value;
-      if (
-        refPopper.value &&
-        !refPopper.value.contains(e.target as Node) &&
-        ctx &&
-        !ctx.contains(e.target as Node)
-      ) {
+      if (isEventOutside(e, [refSelection.value, refPopper.value])) {
         clearTimeout(hideTimer.value);
         hideTimer.value = setTimeout(() => openChange(false), 200);
       }
@@ -497,5 +493,5 @@ export const ColorPickerPanel = defineComponent({
     (props, { attrs }) =>
     () =>
       h(ColorPicker, { ...attrs, ...props, panelOnly: true }),
-});
+}) as ForwardedComponent<typeof ColorPicker>;
 export default markFormFieldComponent(ColorPicker);

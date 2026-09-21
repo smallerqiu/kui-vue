@@ -1,3 +1,4 @@
+import { isEventOutside } from "../utils/popup";
 import {
   type ComponentPublicInstance,
   type ExtractPropTypes,
@@ -47,8 +48,8 @@ const Dropdown = defineComponent({
   },
   props: dropdownProps,
   emits: {
-    "update:show": null,
-    openChange: null,
+    "update:show": (show: boolean) => typeof show === "boolean",
+    openChange: (open: boolean) => typeof open === "boolean",
   },
   setup(props, { slots, emit, attrs }) {
     usePopupHost(() => visible.value && hidePopper());
@@ -111,13 +112,13 @@ const Dropdown = defineComponent({
     );
 
     const outsideClick = (e: PointerEvent) => {
-      const ctx =
-        (refSelection.value as HTMLElement & { $el?: HTMLElement })?.$el || refSelection.value;
       if (!refPopper.value) return;
-      const target = e.target as HTMLElement;
       if (
-        (!refPopper.value.contains(target) && (!ctx || !ctx.contains(target))) ||
-        (props.trigger == "contextmenu" && !refPopper.value.contains(target))
+        isEventOutside(
+          e,
+          [refPopper.value, props.trigger === "contextmenu" ? null : refSelection.value],
+          false,
+        )
       ) {
         toggle(false);
       }

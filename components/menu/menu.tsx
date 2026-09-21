@@ -19,7 +19,7 @@ import { MenuContextKey } from "./menu-context";
 import RecursiveMenu from "./recursive-menu";
 import { getChildren } from "../utils/vnode";
 import SubMenu from "./sub-menu";
-import type { MenuOptionsProps } from "./types";
+import type { MenuOptionsProps, MenuSelectEvent } from "./types";
 const menuProps = {
   theme: String as PropType<"light" | "dark">,
   mode: { type: String as PropType<DirectionType>, default: "vertical" },
@@ -41,7 +41,7 @@ const Menu = defineComponent({
   emits: {
     "update:modelValue": (keys: string[]) => Array.isArray(keys),
     "update:openKeys": (keys: string[]) => Array.isArray(keys),
-    select: (event: { key: string; keyPath: string[] }) =>
+    select: (event: MenuSelectEvent) =>
       typeof event?.key === "string" && Array.isArray(event.keyPath),
     openChange: (keys: string[]) => Array.isArray(keys),
   },

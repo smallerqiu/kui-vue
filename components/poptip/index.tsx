@@ -1,8 +1,8 @@
+import type { ForwardedComponent } from "../utils/vue";
 import {
   defineComponent,
   h,
   nextTick,
-  onMounted,
   onUnmounted,
   ref,
   Teleport,
@@ -14,7 +14,7 @@ import {
 } from "vue";
 import { usePopupContainer } from "../config/popup";
 import { usePopupHost } from "../config/popup-host";
-import { setPlacement } from "../utils/placement";
+import { usePopoverPosition, usePopoverOutsideClick } from "../utils/use-popover";
 import { cloneNodes, getChildren } from "../utils/vnode";
 import { toCssLength } from "../utils/css";
 
@@ -49,43 +49,14 @@ const Poptip = defineComponent({
     usePopupHost(() => visible.value && updateShow(false));
     const getPopupContainer = usePopupContainer();
     const rendered = ref(props.show || props.panelOnly);
-    const visible = ref(props.show || props.panelOnly);
-    const refPopper = ref();
-    const refSelection = ref();
-    const left = ref(0);
-    const top = ref(0);
-    const currentPlacement = ref(props.placement);
-    const transOrigin = ref("bottom");
-    const hideTimer = ref();
-    const showTimer = ref();
-    let positionRaf = 0;
-    const updatePosition = () => {
-      cancelAnimationFrame(positionRaf);
-      positionRaf = requestAnimationFrame(() => {
-        if (!visible.value) return;
-        setPlacement({
-          refSelection,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
-        });
-      });
-    };
-    onMounted(() => {
-      if (props.panelOnly) return;
-      updatePosition();
-      window.addEventListener("resize", updatePosition);
-      document.addEventListener("scroll", updatePosition, true);
-    });
+    const visible = ref(!!(props.show || props.panelOnly));
+    const { refPopper, refSelection, left, top, currentPlacement, transOrigin, updatePosition } =
+      usePopoverPosition(props, visible);
+    const hideTimer = ref<ReturnType<typeof setTimeout>>();
+    const showTimer = ref<ReturnType<typeof setTimeout>>();
     onUnmounted(() => {
-      cancelAnimationFrame(positionRaf);
       clearTimeout(hideTimer.value);
       clearTimeout(showTimer.value);
-      document.removeEventListener("click", outsideClick);
-      document.removeEventListener("scroll", updatePosition, true);
-      window.removeEventListener("resize", updatePosition);
     });
     watch(
       () => props.show,
@@ -94,13 +65,6 @@ const Poptip = defineComponent({
         if (nv) updatePosition();
       },
       // { immediate: true }
-    );
-    watch(
-      () => props.placement,
-      (placement) => {
-        currentPlacement.value = placement;
-        if (visible.value) updatePosition();
-      },
     );
     watch(
       () => props.title,
@@ -115,21 +79,10 @@ const Poptip = defineComponent({
       emit("update:show", value);
       if (value == false) emit("close");
     };
-    const outsideClick = (e: PointerEvent) => {
-      const ctx = refSelection.value?.$el || refSelection.value;
-      if (
-        refPopper.value &&
-        !refPopper.value.contains(e.target) &&
-        ctx &&
-        !ctx.contains(e.target)
-      ) {
-        updateShow(false);
-      }
-    };
+    usePopoverOutsideClick(visible, () => props.panelOnly, refSelection, refPopper, updateShow);
     const show = () => {
       if (!rendered.value) {
         rendered.value = true;
-        document.addEventListener("click", outsideClick);
         nextTick(() => {
           updateShow(true);
           nextTick(() => {
@@ -261,5 +214,5 @@ export const PoptipPanel = defineComponent({
     (props, { attrs, slots }) =>
     () =>
       h(Poptip, { ...attrs, ...props, panelOnly: true }, slots),
-});
+}) as ForwardedComponent<typeof Poptip>;
 export default Poptip;

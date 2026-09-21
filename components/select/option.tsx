@@ -10,6 +10,7 @@ import {
 } from "vue";
 import { type BooleanType } from "../const/types";
 import Icon from "../icon";
+import type { OptionSelectEvent } from "./types";
 const optionProps = {
   value: { type: [String, Number] as PropType<string | number>, required: true },
   label: { type: [String, Number, Object] as PropType<string | number | VNodeChild> },
@@ -27,7 +28,7 @@ const Option = defineComponent({
   emits: {
     click: (event: MouseEvent) => event instanceof MouseEvent,
     mouseenter: (event: MouseEvent) => event instanceof MouseEvent,
-    select: (option: { value: string | number; label: VNodeChild }) =>
+    select: (option: OptionSelectEvent) =>
       ["string", "number"].includes(typeof option?.value) && option.label !== undefined,
   },
   setup(props, { slots, emit, attrs }) {

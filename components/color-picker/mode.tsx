@@ -5,7 +5,7 @@ import { Input } from "../input";
 import InputNumber from "../input-number";
 import { Select } from "../select";
 import { isColor } from "../utils/color";
-type ColorMode = "hex" | "rgb" | "hsl";
+import type { ColorMode } from "./types";
 export default defineComponent({
   name: "Mode",
   props: {

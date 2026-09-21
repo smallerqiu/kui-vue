@@ -49,6 +49,7 @@ type CheckboxPublicProps = Omit<Partial<CheckboxProps>, "modelValue" | "valueTyp
   Omit<HTMLAttributes, "onChange"> & {
     key?: VNodeProps["key"];
     onChange?: (event: CheckboxChangeEvent) => void;
+    "onUpdate:checked"?: (checked: boolean) => void;
   };
 type CheckboxComponent = {
   new (props: CheckboxPublicProps & { valueType: "string" } & CheckboxModelProps<string>): {

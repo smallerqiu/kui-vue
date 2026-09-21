@@ -1,3 +1,4 @@
+import type { ForwardedComponent } from "../utils/vue";
 import { CircleAlert, CircleCheck, CircleX, Info, Loading, X } from "kui-icons";
 import { defineComponent, h, type ExtractPropTypes, type PropType, type VNode } from "vue";
 import { Button } from "../button";
@@ -90,7 +91,7 @@ export const MessagePanel = defineComponent({
     (props, { attrs, slots }) =>
     () =>
       h(NoticeContent, { ...attrs, ...props, noticeType: "message", closable: false }, slots),
-});
+}) as ForwardedComponent<typeof NoticeContent>;
 
 export const NoticePanel = defineComponent({
   name: "NoticePanel",
@@ -100,6 +101,6 @@ export const NoticePanel = defineComponent({
     (props, { attrs, slots }) =>
     () =>
       h(NoticeContent, { ...attrs, ...props, noticeType: "notice", closable: false }, slots),
-});
+}) as ForwardedComponent<typeof NoticeContent>;
 
 export default NoticeContent;

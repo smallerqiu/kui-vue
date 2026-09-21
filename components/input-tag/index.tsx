@@ -1,3 +1,4 @@
+import { renderSelectionTags } from "../utils/selection-tags";
 import { CircleX } from "kui-icons";
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { ShapeType, SizeType, ThemeType } from "../const/types";
@@ -8,9 +9,6 @@ import {
   useFormField,
 } from "../form/context";
 import Icon from "../icon";
-import Space from "../space";
-import Tag from "../tag";
-import Tooltip from "../tooltip";
 
 const propsDef = {
   size: { type: String as PropType<SizeType>, default: "medium" },
@@ -131,14 +129,6 @@ const InputTag = defineComponent({
     };
     return () => {
       const currentValues = values();
-      const hasDisplayLimit =
-        typeof props.maxTagCount === "number" && Number.isFinite(props.maxTagCount);
-      const displayCount = hasDisplayLimit
-        ? Math.max(0, Math.floor(props.maxTagCount as number))
-        : currentValues.length;
-      const visibleValues = currentValues.slice(0, displayCount);
-      const hiddenValues = currentValues.slice(displayCount);
-      const hiddenCount = hiddenValues.length;
       const isDisabled = disabled();
       const isReadonly = readonly();
       const size = appearance.size.value;
@@ -169,53 +159,20 @@ const InputTag = defineComponent({
           aria-readonly={isReadonly || undefined}
           onClick={focusInput}
         >
-          {visibleValues.map((tag, index) => (
-            <Tag
-              key={`${tag}-${index}`}
-              class="k-input-tag-item"
-              size={size}
-              shape={shape}
-              theme={theme}
-              compact
-              closeable={!isDisabled && !isReadonly}
-              onClose={() => remove(index)}
-            >
-              {tag}
-            </Tag>
-          ))}
-          {hiddenCount > 0 && (
-            <Tooltip
-              title={
-                <div class="k-input-tag-tooltip-tags">
-                  <Space wrap size={4} theme-mode="dark">
-                    {hiddenValues.map((tag, index) => (
-                      <Tag
-                        key={`${tag}-${index}`}
-                        size={size}
-                        shape={shape}
-                        theme={theme}
-                        compact
-                        closeable={!isDisabled && !isReadonly}
-                        onClose={() => remove(displayCount + index)}
-                      >
-                        {tag}
-                      </Tag>
-                    ))}
-                  </Space>
-                </div>
-              }
-            >
-              <Tag
-                class="k-input-tag-item k-input-tag-rest"
-                size={size}
-                shape={shape}
-                theme={theme}
-                compact
-              >
-                +{hiddenCount}...
-              </Tag>
-            </Tooltip>
-          )}
+          {renderSelectionTags({
+            labels: currentValues,
+            maxTagCount: props.maxTagCount,
+            size,
+            shape,
+            theme,
+            overflowSize: size,
+            disabled: isDisabled,
+            readOnly: isReadonly,
+            onRemove: remove,
+            tagClass: "k-input-tag-item",
+            restClass: "k-input-tag-item k-input-tag-rest",
+            tooltipClass: "k-input-tag-tooltip-tags",
+          })}
           <input
             ref={input}
             class="k-input-text k-input-tag-input"

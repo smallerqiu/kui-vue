@@ -1,3 +1,4 @@
+import type { ForwardedComponent } from "../utils/vue";
 import { CircleQuestionMark } from "kui-icons";
 import {
   computed,
@@ -6,7 +7,6 @@ import {
   inject,
   isRef,
   nextTick,
-  onMounted,
   onUnmounted,
   ref,
   Teleport,
@@ -23,7 +23,7 @@ import { usePopupHost } from "../config/popup-host";
 import type { BooleanType, PlacementsType } from "../const/types";
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
-import { setPlacement } from "../utils/placement";
+import { usePopoverPosition, usePopoverOutsideClick } from "../utils/use-popover";
 import { cloneNodes, getChildren } from "../utils/vnode";
 import { toCssLength } from "../utils/css";
 
@@ -61,56 +61,20 @@ const Popconfirm = defineComponent({
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
     const rendered = ref(props.show || props.panelOnly);
-    const visible = ref(props.show || props.panelOnly);
-    const refPopper = ref();
-    const refSelection = ref();
-    const left = ref(0);
-    const top = ref(0);
-    const currentPlacement = ref(props.placement);
-    const transOrigin = ref("bottom");
-    const hideTimer = ref();
-    const showTimer = ref();
-    let positionRaf = 0;
-    const updatePosition = () => {
-      cancelAnimationFrame(positionRaf);
-      positionRaf = requestAnimationFrame(() => {
-        if (!visible.value) return;
-        setPlacement({
-          refSelection,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
-        });
-      });
-    };
-    onMounted(() => {
-      if (props.panelOnly) return;
-      updatePosition();
-      window.addEventListener("resize", updatePosition);
-      document.addEventListener("scroll", updatePosition, true);
-    });
+    const visible = ref(!!(props.show || props.panelOnly));
+    const { refPopper, refSelection, left, top, currentPlacement, transOrigin, updatePosition } =
+      usePopoverPosition(props, visible);
+    const hideTimer = ref<ReturnType<typeof setTimeout>>();
+    const showTimer = ref<ReturnType<typeof setTimeout>>();
     onUnmounted(() => {
-      cancelAnimationFrame(positionRaf);
       clearTimeout(hideTimer.value);
       clearTimeout(showTimer.value);
-      document.removeEventListener("click", outsideClick);
-      document.removeEventListener("scroll", updatePosition, true);
-      window.removeEventListener("resize", updatePosition);
     });
     watch(
       () => props.show,
       (nv) => {
         visible.value = nv || false;
         if (nv) updatePosition();
-      },
-    );
-    watch(
-      () => props.placement,
-      (placement) => {
-        currentPlacement.value = placement;
-        if (visible.value) updatePosition();
       },
     );
     watch(
@@ -125,21 +89,10 @@ const Popconfirm = defineComponent({
       visible.value = value;
       emit("update:show", value);
     };
-    const outsideClick = (e: PointerEvent) => {
-      const ctx = refSelection.value?.$el || refSelection.value;
-      if (
-        refPopper.value &&
-        !refPopper.value.contains(e.target) &&
-        ctx &&
-        !ctx.contains(e.target)
-      ) {
-        updateShow(false);
-      }
-    };
+    usePopoverOutsideClick(visible, () => props.panelOnly, refSelection, refPopper, updateShow);
     const mouseEnter = () => {
       if (!rendered.value) {
         rendered.value = true;
-        document.addEventListener("click", outsideClick);
         nextTick(() => {
           updateShow(true);
           nextTick(() => {
@@ -275,5 +228,5 @@ export const PopconfirmPanel = defineComponent({
     (props, { attrs, slots }) =>
     () =>
       h(Popconfirm, { ...attrs, ...props, panelOnly: true }, slots),
-});
+}) as ForwardedComponent<typeof Popconfirm>;
 export default Popconfirm;

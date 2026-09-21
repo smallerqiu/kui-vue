@@ -1,3 +1,5 @@
+import type { ForwardedComponent } from "../utils/vue";
+import { createFrameScheduler } from "../utils/popup";
 import {
   defineComponent,
   h,
@@ -58,7 +60,7 @@ const Tooltip = defineComponent({
     const hideTimer = ref<ReturnType<typeof setTimeout>>();
     const showTimer = ref<ReturnType<typeof setTimeout>>();
     const anchorVisible = ref(props.panelOnly);
-    let positionRaf = 0;
+    const positionRaf = createFrameScheduler();
     let intersectionObserver: IntersectionObserver | null = null;
     let resizeObserver: ResizeObserver | null = null;
 
@@ -69,8 +71,7 @@ const Tooltip = defineComponent({
     };
 
     const updatePosition = () => {
-      cancelAnimationFrame(positionRaf);
-      positionRaf = requestAnimationFrame(() => {
+      positionRaf.schedule(() => {
         if (!visible.value || !anchorVisible.value) return;
         setPlacement({
           refSelection,
@@ -108,7 +109,7 @@ const Tooltip = defineComponent({
     });
 
     onUnmounted(() => {
-      cancelAnimationFrame(positionRaf);
+      positionRaf.cancel();
       intersectionObserver?.disconnect();
       resizeObserver?.disconnect();
       window.removeEventListener("resize", updatePosition);
@@ -276,5 +277,5 @@ export const TooltipPanel = defineComponent({
     (props, { attrs, slots }) =>
     () =>
       h(Tooltip, { ...attrs, ...props, panelOnly: true }, slots),
-});
+}) as ForwardedComponent<typeof Tooltip>;
 export default Tooltip;

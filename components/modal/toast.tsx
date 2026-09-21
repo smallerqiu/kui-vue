@@ -4,6 +4,7 @@ import { Button } from "../button";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
 import Modal from "./modal";
+import type { ModalApiProps } from "./index";
 export default defineComponent({
   name: "Toast",
   props: {
@@ -13,8 +14,8 @@ export default defineComponent({
     content: String,
     color: String,
     icon: Array as PropType<IconType[]>,
-    onOk: Function,
-    onCancel: Function,
+    onOk: Function as PropType<NonNullable<ModalApiProps["onOk"]>>,
+    onCancel: Function as PropType<NonNullable<ModalApiProps["onCancel"]>>,
     type: {
       type: String as PropType<"info" | "success" | "error" | "warning" | "confirm">,
       default: "info",

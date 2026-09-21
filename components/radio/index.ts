@@ -5,4 +5,5 @@ export type { RadioProps } from "./radio";
 export type { RadioButtonProps } from "./radio-button";
 export type { RadioGroupProps } from "./radio-group";
 export type { RadioOption } from "./types";
+export type { ChangeEvent as RadioChangeEvent } from "./types";
 export { Radio, RadioButton, RadioGroup };
