@@ -246,7 +246,9 @@ export default defineComponent({
           getTriggerElement()?.focus({ preventScroll: true });
         };
         const outsideEvent = props.outsideEvent;
-        document.addEventListener(outsideEvent, outside);
+        // Check the layer tree before a target handler can close/unregister a
+        // child popup. The same selection click must remain inside its parent.
+        document.addEventListener(outsideEvent, outside, true);
         document.addEventListener("keydown", keydown);
         document.addEventListener("scroll", update, true);
         window.addEventListener("resize", update);
@@ -255,7 +257,7 @@ export default defineComponent({
           scheduler.cancel();
           observer?.disconnect();
           intersection?.disconnect();
-          document.removeEventListener(outsideEvent, outside);
+          document.removeEventListener(outsideEvent, outside, true);
           document.removeEventListener("keydown", keydown);
           document.removeEventListener("scroll", update, true);
           window.removeEventListener("resize", update);

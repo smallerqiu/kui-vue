@@ -202,6 +202,7 @@ const navData = [
       { title: "全局提示", sub: "Message", name: "message", icon: RectangleEllipsis },
       { title: "通知提醒", sub: "Notice", name: "notice", icon: Info },
       { title: "对话框", sub: "Modal", name: "modal", icon: AppWindowMac },
+      { title: "通用弹层", sub: "Popup", name: "popup", icon: MessageCircleMore },
       { title: "气泡卡片", sub: "Poptip", name: "poptip", icon: MessageCircleMore },
       { title: "气泡确认框", sub: "Popconfirm", name: "popconfirm", icon: MessageCircleCheck },
       { title: "进度条", sub: "Progress", name: "progress", icon: Gauge },

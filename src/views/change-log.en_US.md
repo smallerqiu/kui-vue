@@ -13,6 +13,24 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 6.2.0
+
+`2026-9-21`
+
+### Shared popup infrastructure
+
+- Added the public `Popup` component and related types, unifying triggers, placement, arrows, containers, outside-click dismissal, Escape handling, and nested popup management.
+- Migrated `Dropdown`, `Tooltip`, `Poptip`, `Popconfirm`, `Select`, `TreeSelect`, `Cascader`, `AutoComplete`, `Mentions`, `DatePicker`, and `ColorPicker` to shared popup infrastructure, reducing duplicate positioning and event listeners.
+- Improved nested popup click detection, coordinated dismissal, and position updates while retaining each selector's filtering, selection, and keyboard behavior.
+
+### Interactions, types, and maintenance
+
+- Improved disabled / readonly interactions across components and their items, preventing unintended clicks, hover/active feedback, and incorrect cursors.
+- Improved contrast between `Table` row hover backgrounds and action buttons, and aligned hover backgrounds across regular and fixed columns.
+- Refined directory-mode `Tree` checkbox and row hover contrast in light and dark themes; improved default `Cascader` dropdown width.
+- Completed component emits, event listener props, and related public type exports; shared multi-select tag rendering and popup logic.
+- Added regression coverage for popups, selectors, disabled interactions, and event types.
+
 ## 6.1.0
 
 `2026-9-19`

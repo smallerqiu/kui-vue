@@ -1,7 +1,7 @@
 {
   "$schema": "https://k-ui.cn/schema/kui-components.schema.json",
   "library": "kui-vue",
-  "version": "6.1.0",
+  "version": "6.2.0",
   "homepage": "https://k-ui.cn",
   "components": [
     {
@@ -92,6 +92,508 @@
           "title": "固定在底部",
           "file": "components/affix/demo/bottom.vue",
           "source": "<template>\n  <Affix :offsetBottom=\"bottom\">\n    <Button type=\"primary\" @click=\"bottom += 10\">{{ bottom }}px to affix bottom</Button>\n  </Affix>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst bottom = ref(120);\n</script>"
+        }
+      ]
+    },
+    {
+      "name": "Popup",
+      "behavior": {
+        "rules": []
+      },
+      "models": [
+        {
+          "prop": "open",
+          "event": "update:open",
+          "directive": "v-model:open"
+        }
+      ],
+      "tags": [
+        "Popup",
+        "KPopup",
+        "k-popup",
+        "popup"
+      ],
+      "children": [],
+      "documentation": "https://k-ui.cn/components/popup",
+      "props": [
+        {
+          "name": "defaultOpen",
+          "description": "Initial uncontrolled visibility",
+          "descriptionZh": "非受控初始状态",
+          "descriptionEn": "Initial uncontrolled visibility",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "disabled",
+          "description": "Prevents opening and cancels delayed opening; does not override open",
+          "descriptionZh": "禁止交互打开并取消待执行的打开操作，不强制覆盖 open",
+          "descriptionEn": "Prevents opening and cancels delayed opening; does not override open",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "placement",
+          "description": "Popup placement; supports 12 positions",
+          "descriptionZh": "弹层方位，支持 12 个方向",
+          "descriptionEn": "Popup placement; supports 12 positions",
+          "type": "PlacementsType | undefined",
+          "boolean": false,
+          "enumValues": [
+            "top",
+            "top-left",
+            "top-right",
+            "bottom",
+            "bottom-left",
+            "bottom-right",
+            "left",
+            "left-bottom",
+            "left-top",
+            "right",
+            "right-top",
+            "right-bottom"
+          ],
+          "required": false,
+          "defaultExpression": "\"bottom-left\"",
+          "documented": true
+        },
+        {
+          "name": "trigger",
+          "description": "Trigger mode; manual uses open or instance methods",
+          "descriptionZh": "触发方式；manual 仅由 open 或实例方法控制",
+          "descriptionEn": "Trigger mode; manual uses open or instance methods",
+          "type": "PopupTrigger | undefined",
+          "boolean": false,
+          "enumValues": [
+            "hover",
+            "click",
+            "focus",
+            "contextmenu",
+            "manual"
+          ],
+          "required": false,
+          "defaultExpression": "\"click\"",
+          "documented": true
+        },
+        {
+          "name": "arrow",
+          "description": "Show arrow",
+          "descriptionZh": "显示箭头",
+          "descriptionEn": "Show arrow",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "offset",
+          "description": "Position offset in pixels",
+          "descriptionZh": "定位间距（像素）",
+          "descriptionEn": "Position offset in pixels",
+          "type": "number | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "3",
+          "documented": true
+        },
+        {
+          "name": "openDelay",
+          "description": "Hover opening delay in milliseconds",
+          "descriptionZh": "hover 打开延时（毫秒）",
+          "descriptionEn": "Hover opening delay in milliseconds",
+          "type": "number | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "0",
+          "documented": true
+        },
+        {
+          "name": "closeDelay",
+          "description": "Hover / focus closing delay in milliseconds",
+          "descriptionZh": "hover / focus 关闭延时（毫秒）",
+          "descriptionEn": "Hover / focus closing delay in milliseconds",
+          "type": "number | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "300",
+          "documented": true
+        },
+        {
+          "name": "closeOnOutsideClick",
+          "description": "Close on outside click; nested Popup content counts as inside",
+          "descriptionZh": "外部点击关闭，包含嵌套 Popup 的内容边界",
+          "descriptionEn": "Close on outside click; nested Popup content counts as inside",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
+          "name": "closeOnEscape",
+          "description": "Escape closes the top Popup and restores trigger focus",
+          "descriptionZh": "Escape 关闭最上层 Popup 并还原触发器焦点",
+          "descriptionEn": "Escape closes the top Popup and restores trigger focus",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
+          "name": "matchTriggerWidth",
+          "description": "Use trigger width as the minimum popup width",
+          "descriptionZh": "弹层最小宽度不小于触发器",
+          "descriptionEn": "Use trigger width as the minimum popup width",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "destroyOnClose",
+          "description": "Destroy after exit; preserves form state by default",
+          "descriptionZh": "退出动画结束后销毁内容；默认保留表单状态",
+          "descriptionEn": "Destroy after exit; preserves form state by default",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "raw",
+          "description": "Reuse the single overlay root and preserve its DOM ref; no extra wrapper",
+          "descriptionZh": "复用唯一弹层根节点及其 DOM 引用，不增加包装元素",
+          "descriptionEn": "Reuse the single overlay root and preserve its DOM ref; no extra wrapper",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "outsideEvent",
+          "description": "Outside pointer event used by legacy selector adapters",
+          "descriptionZh": "外部点击事件，适配选择器原有的关闭时机",
+          "descriptionEn": "Outside pointer event used by legacy selector adapters",
+          "type": "\"click\" | \"mousedown\" | undefined",
+          "boolean": false,
+          "enumValues": [
+            "click",
+            "mousedown"
+          ],
+          "required": false,
+          "defaultExpression": "\"click\"",
+          "documented": true
+        },
+        {
+          "name": "prefixCls",
+          "description": "Root CSS prefix",
+          "descriptionZh": "根样式前缀",
+          "descriptionEn": "Root CSS prefix",
+          "type": "string | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "\"k-popup\"",
+          "documented": true
+        },
+        {
+          "name": "panelOnly",
+          "description": "Inline content only; no positioning, trigger, or global listeners",
+          "descriptionZh": "只渲染内联内容，无定位、触发器或全局事件",
+          "descriptionEn": "Inline content only; no positioning, trigger, or global listeners",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "respectDefaultPrevented",
+          "description": "Honor preventDefault on trigger click",
+          "descriptionZh": "遵循触发器 click 的 preventDefault",
+          "descriptionEn": "Honor preventDefault on trigger click",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
+          "name": "hideWhenDetached",
+          "description": "Hide when the anchor is outside the viewport",
+          "descriptionZh": "锚点不在视口时隐藏",
+          "descriptionEn": "Hide when the anchor is outside the viewport",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "target",
+          "description": "Optional external positioning anchor; no event binding, use with manual and open",
+          "descriptionZh": "可选外部定位锚点；不自动绑定事件，配合 manual 和 open 使用",
+          "descriptionEn": "Optional external positioning anchor; no event binding, use with manual and open",
+          "type": "HTMLElement | Ref<HTMLElement | { $el: HTMLElement; } | null, HTMLElement | { $el: HTMLElement; } | null> | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "open",
+          "description": "Controlled visibility; Vue supports v-model:open",
+          "descriptionZh": "受控显示状态；Vue 支持 v-model:open",
+          "descriptionEn": "Controlled visibility; Vue supports v-model:open",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "undefined",
+          "documented": true
+        },
+        {
+          "name": "getPopupContainer",
+          "description": "Container; falls back to Config or body",
+          "descriptionZh": "挂载容器，默认使用 Config 配置或 body",
+          "descriptionEn": "Container; falls back to Config or body",
+          "type": "(() => HTMLElement | null | undefined) | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "overlay",
+          "description": "Overlay content; prefer the overlay slot in Vue",
+          "descriptionZh": "弹层内容；Vue 推荐 overlay 插槽",
+          "descriptionEn": "Overlay content; prefer the overlay slot in Vue",
+          "type": "VNodeChild",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "transitionDuration",
+          "description": "Transition duration in milliseconds",
+          "descriptionZh": "过渡时长（毫秒）",
+          "descriptionEn": "Transition duration in milliseconds",
+          "type": "number | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "getAnchorPosition",
+          "description": "Optional viewport point resolver, for caret-anchored Mentions",
+          "descriptionZh": "可选视口坐标解析函数，用于 Mentions 光标定位",
+          "descriptionEn": "Optional viewport point resolver, for caret-anchored Mentions",
+          "type": "(() => { x: number; y: number; } | null) | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "transitionName",
+          "description": "Transition CSS prefix",
+          "descriptionZh": "动画类名前缀",
+          "descriptionEn": "Transition CSS prefix",
+          "type": "string | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "triggerAttrs",
+          "description": "Attributes forwarded to the trigger",
+          "descriptionZh": "传递给触发器的属性",
+          "descriptionEn": "Attributes forwarded to the trigger",
+          "type": "Record<string, unknown> | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "contentStyle",
+          "description": "Content container styles",
+          "descriptionZh": "内容容器样式",
+          "descriptionEn": "Content container styles",
+          "type": "CSSProperties | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "onTriggerKeydown",
+          "description": "Business keyboard handler; preventDefault cancels the default action",
+          "descriptionZh": "业务键盘处理，preventDefault 可取消后续行为",
+          "descriptionEn": "Business keyboard handler; preventDefault cancels the default action",
+          "type": "((event: KeyboardEvent, popup: PopupRef) => void) | undefined",
+          "eventName": "triggerKeydown",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "onUpdate:open",
+          "description": "Update event for v-model:open",
+          "descriptionZh": "v-model:open 的状态更新事件",
+          "descriptionEn": "Update event for v-model:open",
+          "type": "((open: boolean) => void) | undefined",
+          "eventName": "update:open",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "onOpenChange",
+          "description": "Visibility change request with reason and native event",
+          "descriptionZh": "请求改变显示状态，参数包含原因和原生事件",
+          "descriptionEn": "Visibility change request with reason and native event",
+          "type": "((open: boolean, detail: PopupOpenChangeDetail) => void) | undefined",
+          "eventName": "openChange",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "onAfterOpen",
+          "description": "Called after entering",
+          "descriptionZh": "进入动画结束",
+          "descriptionEn": "Called after entering",
+          "type": "(() => void) | undefined",
+          "eventName": "afterOpen",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "onAfterClose",
+          "description": "Called after leaving",
+          "descriptionZh": "退出动画结束",
+          "descriptionEn": "Called after leaving",
+          "type": "(() => void) | undefined",
+          "eventName": "afterClose",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        }
+      ],
+      "events": [
+        {
+          "name": "triggerKeydown",
+          "type": "((event: KeyboardEvent, popup: PopupRef) => void) | undefined",
+          "description": "Business keyboard handler; preventDefault cancels the default action",
+          "descriptionZh": "业务键盘处理，preventDefault 可取消后续行为",
+          "descriptionEn": "Business keyboard handler; preventDefault cancels the default action"
+        },
+        {
+          "name": "update:open",
+          "type": "((open: boolean) => void) | undefined",
+          "description": "Update event for v-model:open",
+          "descriptionZh": "v-model:open 的状态更新事件",
+          "descriptionEn": "Update event for v-model:open"
+        },
+        {
+          "name": "openChange",
+          "type": "((open: boolean, detail: PopupOpenChangeDetail) => void) | undefined",
+          "description": "Visibility change request with reason and native event",
+          "descriptionZh": "请求改变显示状态，参数包含原因和原生事件",
+          "descriptionEn": "Visibility change request with reason and native event"
+        },
+        {
+          "name": "afterOpen",
+          "type": "(() => void) | undefined",
+          "description": "Called after entering",
+          "descriptionZh": "进入动画结束",
+          "descriptionEn": "Called after entering"
+        },
+        {
+          "name": "afterClose",
+          "type": "(() => void) | undefined",
+          "description": "Called after leaving",
+          "descriptionZh": "退出动画结束",
+          "descriptionEn": "Called after leaving"
+        }
+      ],
+      "slots": [],
+      "examples": [
+        {
+          "title": "基础用法与自定义内容",
+          "file": "components/base/popup/demo/basic.vue",
+          "source": "<script setup lang=\"ts\">\nimport { Button, Input, Popup, Space } from \"kui-vue\";\n</script>\n<template>\n  <Popup arrow>\n    <Button>Open popup</Button>\n    <template #overlay=\"{ close }\">\n      <Space vertical>\n        <strong>Quick note</strong>\n        <Input aria-label=\"Note\" placeholder=\"Write a note…\" />\n        <Button type=\"primary\" @click=\"close\">Done</Button>\n      </Space>\n    </template>\n  </Popup>\n</template>"
+        },
+        {
+          "title": "触发方式",
+          "file": "components/base/popup/demo/trigger.vue",
+          "source": "<script setup lang=\"ts\">\nimport { Button, Popup, Space } from \"kui-vue\";\nconst triggers = [\"click\", \"hover\", \"focus\", \"contextmenu\"] as const;\n</script>\n<template>\n  <Space wrap>\n    <Popup\n      v-for=\"trigger in triggers\"\n      :key=\"trigger\"\n      :trigger=\"trigger\"\n      arrow\n      :open-delay=\"150\"\n      :close-delay=\"300\"\n    >\n      <Button>{{ trigger }}</Button>\n      <template #overlay>Opened by {{ trigger }}</template>\n    </Popup>\n    <Popup disabled>\n      <Button disabled>Disabled</Button>\n      <template #overlay>Unavailable</template>\n    </Popup>\n  </Space>\n</template>"
+        },
+        {
+          "title": "方位与箭头",
+          "file": "components/base/popup/demo/placement.vue",
+          "source": "<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { Button, Checkbox, Popup, Space } from \"kui-vue\";\nconst arrow = ref(true);\nconst placements = [\n  \"top-left\",\n  \"top\",\n  \"top-right\",\n  \"bottom-left\",\n  \"bottom\",\n  \"bottom-right\",\n  \"left-top\",\n  \"left\",\n  \"left-bottom\",\n  \"right-top\",\n  \"right\",\n  \"right-bottom\",\n] as const;\n</script>\n<template>\n  <Space vertical>\n    <Checkbox v-model=\"arrow\">Show arrow</Checkbox>\n    <div\n      style=\"\n        display: grid;\n        grid-template-columns: repeat(3, minmax(0, 1fr));\n        gap: 8px;\n        max-width: 420px;\n      \"\n    >\n      <Popup\n        v-for=\"placement in placements\"\n        :key=\"placement\"\n        :placement=\"placement\"\n        :arrow=\"arrow\"\n        :offset=\"10\"\n      >\n        <Button>{{ placement }}</Button>\n        <template #overlay>{{ placement }}</template>\n      </Popup>\n    </div>\n  </Space>\n</template>"
+        },
+        {
+          "title": "受控开关与实例方法",
+          "file": "components/base/popup/demo/controlled.vue",
+          "source": "<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport {\n  Button,\n  Popup,\n  Space,\n  type PopupOpenReason,\n  type PopupOpenChangeDetail,\n  type PopupRef,\n} from \"kui-vue\";\nconst open = ref(false);\nconst reason = ref<PopupOpenReason>(\"programmatic\");\nconst popup = ref<PopupRef | null>(null);\nconst onOpenChange = (_open: boolean, detail: PopupOpenChangeDetail) => {\n  reason.value = detail.reason;\n};\n</script>\n<template>\n  <Space vertical>\n    <Space>\n      <Button @click.stop=\"popup?.open()\">Open via ref</Button>\n      <Popup ref=\"popup\" v-model:open=\"open\" trigger=\"manual\" @open-change=\"onOpenChange\">\n        <Button @click=\"open = !open\">Toggle controlled popup</Button>\n        <template #overlay=\"{ close }\">\n          <Space vertical>\n            <span>Click outside or press Escape.</span>\n            <Button @click=\"close\">Close from inside</Button>\n          </Space>\n        </template>\n      </Popup>\n    </Space>\n    <span role=\"status\">Open: {{ open }} · Reason: {{ reason }}</span>\n  </Space>\n</template>"
+        },
+        {
+          "title": "自定义挂载容器",
+          "file": "components/base/popup/demo/container.vue",
+          "source": "<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { Button, Popup } from \"kui-vue\";\nconst container = ref<HTMLDivElement | null>(null);\nconst getContainer = () => container.value;\n</script>\n<template>\n  <div\n    ref=\"container\"\n    style=\"\n      position: relative;\n      min-height: 200px;\n      padding: 24px;\n      border: 1px dashed var(--kui-color-border);\n    \"\n  >\n    <Popup :get-popup-container=\"getContainer\" match-trigger-width>\n      <Button style=\"width: 240px; max-width: 100%\">Custom container</Button>\n      <template #overlay>Mounted inside this container.</template>\n    </Popup>\n  </div>\n</template>"
+        },
+        {
+          "title": "嵌套弹层与选择器",
+          "file": "components/base/popup/demo/nested.vue",
+          "source": "<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { Button, Popup, Select, Space } from \"kui-vue\";\nconst value = ref(\"all\");\nconst options = [\n  { label: \"All\", value: \"all\" },\n  { label: \"Active\", value: \"active\" },\n];\n</script>\n<template>\n  <Popup arrow>\n    <Button>Open filters</Button>\n    <template #overlay=\"{ close }\">\n      <Space vertical>\n        <strong>Filter results</strong>\n        <Select v-model=\"value\" style=\"width: 220px\" :clearable=\"false\" :options=\"options\" />\n        <Popup placement=\"right\">\n          <Button>More details</Button>\n          <template #overlay>This is a nested popup.</template>\n        </Popup>\n        <Button type=\"primary\" @click=\"close\">Apply</Button>\n      </Space>\n    </template>\n  </Popup>\n</template>"
         }
       ]
     },
@@ -303,6 +805,34 @@
       "documentation": "https://k-ui.cn/components/auto-complete",
       "props": [
         {
+          "name": "defaultOpen",
+          "description": "Initial open state",
+          "descriptionZh": "初始展开状态",
+          "descriptionEn": "Initial open state",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "disabled",
+          "description": "Disabled",
+          "descriptionZh": "禁用",
+          "descriptionEn": "Disabled",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "theme",
           "description": "Theme",
           "descriptionZh": "主题",
@@ -345,20 +875,6 @@
           "documented": true
         },
         {
-          "name": "defaultOpen",
-          "description": "Initial open state",
-          "descriptionZh": "初始展开状态",
-          "descriptionEn": "Initial open state",
-          "type": "boolean",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "showOnEmpty",
           "description": "Show suggestions when an empty input is focused",
           "descriptionZh": "空输入聚焦时展示建议",
@@ -377,20 +893,6 @@
           "description": "Show the clear button on hover when a value exists",
           "descriptionZh": "有值且悬停时显示清除按钮",
           "descriptionEn": "Show the clear button on hover when a value exists",
-          "type": "boolean",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Disabled",
-          "descriptionZh": "禁用",
-          "descriptionEn": "Disabled",
           "type": "boolean",
           "boolean": true,
           "enumValues": [
@@ -440,6 +942,21 @@
           "documented": true
         },
         {
+          "name": "open",
+          "description": "Controlled open state",
+          "descriptionZh": "受控展开状态",
+          "descriptionEn": "Controlled open state",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "undefined",
+          "documented": true
+        },
+        {
           "name": "shape",
           "description": "Shape",
           "descriptionZh": "形状",
@@ -463,21 +980,6 @@
           "type": "string | undefined",
           "boolean": false,
           "required": false,
-          "documented": true
-        },
-        {
-          "name": "open",
-          "description": "Controlled open state",
-          "descriptionZh": "受控展开状态",
-          "descriptionEn": "Controlled open state",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
-          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -1237,20 +1739,20 @@
           "documented": true
         },
         {
-          "name": "right",
-          "description": "Distance from the right",
-          "descriptionZh": "组件距离右部的距离",
-          "descriptionEn": "Distance from the right",
+          "name": "bottom",
+          "description": "Distance from the bottom",
+          "descriptionZh": "组件距离底部的距离",
+          "descriptionEn": "Distance from the bottom",
           "type": "string | number | undefined",
           "boolean": false,
           "required": false,
           "documented": true
         },
         {
-          "name": "bottom",
-          "description": "Distance from the bottom",
-          "descriptionZh": "组件距离底部的距离",
-          "descriptionEn": "Distance from the bottom",
+          "name": "right",
+          "description": "Distance from the right",
+          "descriptionZh": "组件距离右部的距离",
+          "descriptionEn": "Distance from the right",
           "type": "string | number | undefined",
           "boolean": false,
           "required": false,
@@ -1563,6 +2065,20 @@
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Disabled state of the button",
+          "descriptionZh": "按钮失效状态 ˚",
+          "descriptionEn": "Disabled state of the button",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "icon",
           "description": "Button icon",
           "descriptionZh": "按钮的图标",
@@ -1603,20 +2119,6 @@
             "circle",
             "square",
             "round"
-          ],
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Disabled state of the button",
-          "descriptionZh": "按钮失效状态 ˚",
-          "descriptionEn": "Disabled state of the button",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
           ],
           "required": false,
           "documented": true
@@ -1842,6 +2344,39 @@
       "documentation": "https://k-ui.cn/components/cascader",
       "props": [
         {
+          "name": "disabled",
+          "description": "Whether to disable the current option. When enabled, the row appears grayed out and unclickable, and all its child levels will be locked synchronously.",
+          "descriptionZh": "是否禁用当前选项。开启后该行文本变灰且不可点击，同时其下方的所有子层级都将被同步锁定。",
+          "descriptionEn": "Whether to disable the current option. When enabled, the row appears grayed out and unclickable, and all its child levels will be locked synchronously.",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "placement",
+          "description": "Dropdown orientation",
+          "descriptionZh": "下拉展示的方位",
+          "descriptionEn": "Dropdown orientation",
+          "type": "DropPlacementsType",
+          "boolean": false,
+          "enumValues": [
+            "top",
+            "top-left",
+            "top-right",
+            "bottom",
+            "bottom-left",
+            "bottom-right"
+          ],
+          "required": false,
+          "defaultExpression": "\"bottom-left\"",
+          "documented": true
+        },
+        {
           "name": "bordered",
           "description": "Whether to display borders",
           "descriptionZh": "是否显示边框",
@@ -1914,20 +2449,6 @@
           "documented": true
         },
         {
-          "name": "disabled",
-          "description": "Whether to disable the current option. When enabled, the row appears grayed out and unclickable, and all its child levels will be locked synchronously.",
-          "descriptionZh": "是否禁用当前选项。开启后该行文本变灰且不可点击，同时其下方的所有子层级都将被同步锁定。",
-          "descriptionEn": "Whether to disable the current option. When enabled, the row appears grayed out and unclickable, and all its child levels will be locked synchronously.",
-          "type": "boolean",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "readonly",
           "description": "Read-only; prevents opening, clearing and changing.",
           "descriptionZh": "是否只读，不可展开、清空或修改。",
@@ -1983,11 +2504,11 @@
           "description": "Interaction mode for expanding the next-level menu. Options: `'click'` or `'hover'`.",
           "descriptionZh": "下一级菜单的展开交互触发方式。可选值：`'click'` (点击) 或 `'hover'` (鼠标悬浮即展开)。",
           "descriptionEn": "Interaction mode for expanding the next-level menu. Options: `'click'` or `'hover'`.",
-          "type": "\"click\" | \"hover\"",
+          "type": "\"hover\" | \"click\"",
           "boolean": false,
           "enumValues": [
-            "click",
-            "hover"
+            "hover",
+            "click"
           ],
           "required": false,
           "defaultExpression": "\"click\"",
@@ -2006,25 +2527,6 @@
           ],
           "required": false,
           "defaultExpression": "true",
-          "documented": true
-        },
-        {
-          "name": "placement",
-          "description": "Dropdown orientation",
-          "descriptionZh": "下拉展示的方位",
-          "descriptionEn": "Dropdown orientation",
-          "type": "DropPlacementsType",
-          "boolean": false,
-          "enumValues": [
-            "bottom",
-            "top",
-            "top-left",
-            "top-right",
-            "bottom-left",
-            "bottom-right"
-          ],
-          "required": false,
-          "defaultExpression": "\"bottom-left\"",
           "documented": true
         },
         {
@@ -2645,16 +3147,6 @@
           "documented": true
         },
         {
-          "name": "icon",
-          "description": "Icon, customizable via the named slot",
-          "descriptionZh": "图标，也可通过同名插槽自定义",
-          "descriptionEn": "Icon, customizable via the named slot",
-          "type": "IconType[] | undefined",
-          "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "disabled",
           "description": "Disable interaction",
           "descriptionZh": "是否禁用交互",
@@ -2665,6 +3157,16 @@
             false,
             true
           ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "icon",
+          "description": "Icon, customizable via the named slot",
+          "descriptionZh": "图标，也可通过同名插槽自定义",
+          "descriptionEn": "Icon, customizable via the named slot",
+          "type": "IconType[] | undefined",
+          "boolean": false,
           "required": false,
           "documented": true
         },
@@ -3390,6 +3892,20 @@
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Whether the component is disabled",
+          "descriptionZh": "是否禁用组件",
+          "descriptionEn": "Whether the component is disabled",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "modelValue",
           "description": "Selected values; supports `v-model`",
           "descriptionZh": "用于设置当前选中的值，可使用 `v-model` 双向绑定",
@@ -3407,20 +3923,6 @@
           "descriptionEn": "The value represented when used in combination",
           "type": "string | number | boolean | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Whether the component is disabled",
-          "descriptionZh": "是否禁用组件",
-          "descriptionEn": "Whether the component is disabled",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -3631,16 +4133,6 @@
           "documented": true
         },
         {
-          "name": "options",
-          "description": "Can specify child `checkbox` items",
-          "descriptionZh": "可以指定子项 `checkbox`",
-          "descriptionEn": "Can specify child `checkbox` items",
-          "type": "CheckboxOption[] | undefined",
-          "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "disabled",
           "description": "Whether the component is disabled",
           "descriptionZh": "是否禁用组件",
@@ -3651,6 +4143,16 @@
             false,
             true
           ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "options",
+          "description": "Can specify child `checkbox` items",
+          "descriptionZh": "可以指定子项 `checkbox`",
+          "descriptionEn": "Can specify child `checkbox` items",
+          "type": "CheckboxOption[] | undefined",
+          "boolean": false,
           "required": false,
           "documented": true
         },
@@ -3860,6 +4362,20 @@
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Disable the group",
+          "descriptionZh": "是否禁用整个卡片组",
+          "descriptionEn": "Disable the group",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "description",
           "description": "Description, customizable via the named slot",
           "descriptionZh": "描述，也可通过同名插槽自定义",
@@ -3876,20 +4392,6 @@
           "descriptionEn": "Option value inside a group",
           "type": "CheckCardValue | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Disable the group",
-          "descriptionZh": "是否禁用整个卡片组",
-          "descriptionEn": "Disable the group",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -4076,6 +4578,20 @@
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Disable the group",
+          "descriptionZh": "是否禁用整个卡片组",
+          "descriptionEn": "Disable the group",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "modelValue",
           "description": "Selected value, supports `v-model`",
           "descriptionZh": "当前选项值，可用 `v-model`",
@@ -4092,20 +4608,6 @@
           "descriptionEn": "Card options",
           "type": "CheckCardOption[] | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Disable the group",
-          "descriptionZh": "是否禁用整个卡片组",
-          "descriptionEn": "Disable the group",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -4485,6 +4987,40 @@
       "documentation": "https://k-ui.cn/components/color-picker",
       "props": [
         {
+          "name": "placement",
+          "description": "Placement of the color picker",
+          "descriptionZh": "颜色选择器的放置位置",
+          "descriptionEn": "Placement of the color picker",
+          "type": "DropPlacementsType",
+          "boolean": false,
+          "enumValues": [
+            "top",
+            "top-left",
+            "top-right",
+            "bottom",
+            "bottom-left",
+            "bottom-right"
+          ],
+          "required": false,
+          "defaultExpression": "\"bottom-left\"",
+          "documented": true
+        },
+        {
+          "name": "trigger",
+          "description": "Pull-down trigger mode",
+          "descriptionZh": "下拉触发形式",
+          "descriptionEn": "Pull-down trigger mode",
+          "type": "\"hover\" | \"click\"",
+          "boolean": false,
+          "enumValues": [
+            "hover",
+            "click"
+          ],
+          "required": false,
+          "defaultExpression": "\"click\"",
+          "documented": true
+        },
+        {
           "name": "theme",
           "description": "Appearance theme: `outline`, `fill`, or `plain`; inherits from Form when available",
           "descriptionZh": "外观主题，支持 `outline`、`fill`、`plain`，未设置时可继承 Form",
@@ -4505,40 +5041,6 @@
           "documented": true
         },
         {
-          "name": "placement",
-          "description": "Placement of the color picker",
-          "descriptionZh": "颜色选择器的放置位置",
-          "descriptionEn": "Placement of the color picker",
-          "type": "DropPlacementsType",
-          "boolean": false,
-          "enumValues": [
-            "bottom",
-            "top",
-            "top-left",
-            "top-right",
-            "bottom-left",
-            "bottom-right"
-          ],
-          "required": false,
-          "defaultExpression": "\"bottom-left\"",
-          "documented": true
-        },
-        {
-          "name": "trigger",
-          "description": "Pull-down trigger mode",
-          "descriptionZh": "下拉触发形式",
-          "descriptionEn": "Pull-down trigger mode",
-          "type": "\"click\" | \"hover\"",
-          "boolean": false,
-          "enumValues": [
-            "click",
-            "hover"
-          ],
-          "required": false,
-          "defaultExpression": "\"click\"",
-          "documented": true
-        },
-        {
           "name": "mode",
           "description": "Color display type, provides 3 modes (`hex` , `rgb` ,`hsl`)",
           "descriptionZh": "颜色展示类型,提供 3 种模式(`hex` 、 `rgb` 、`hsl`)",
@@ -4552,6 +5054,34 @@
           ],
           "required": false,
           "defaultExpression": "\"hex\"",
+          "documented": true
+        },
+        {
+          "name": "disabled",
+          "description": "Is it in an invalid state?",
+          "descriptionZh": "是否失效状态",
+          "descriptionEn": "Is it in an invalid state?",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "panelOnly",
+          "description": "Render only the color panel without the trigger input",
+          "descriptionZh": "仅渲染颜色选择面板，不显示触发输入框",
+          "descriptionEn": "Render only the color panel without the trigger input",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
           "documented": true
         },
         {
@@ -4577,20 +5107,6 @@
           "descriptionEn": "Color value, can use `v-model` for two-way binding",
           "type": "string | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Is it in an invalid state?",
-          "descriptionZh": "是否失效状态",
-          "descriptionEn": "Is it in an invalid state?",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -4672,20 +5188,6 @@
           "descriptionEn": "Custom color palette",
           "type": "string[] | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "panelOnly",
-          "description": "Render only the color panel without the trigger input",
-          "descriptionZh": "仅渲染颜色选择面板，不显示触发输入框",
-          "descriptionEn": "Render only the color panel without the trigger input",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -4843,6 +5345,25 @@
       "documentation": "https://k-ui.cn/components/date-picker",
       "props": [
         {
+          "name": "placement",
+          "description": "Direction displayed when pulled down",
+          "descriptionZh": "下拉展示的方位",
+          "descriptionEn": "Direction displayed when pulled down",
+          "type": "DropPlacementsType",
+          "boolean": false,
+          "enumValues": [
+            "top",
+            "top-left",
+            "top-right",
+            "bottom",
+            "bottom-left",
+            "bottom-right"
+          ],
+          "required": false,
+          "defaultExpression": "\"bottom-left\"",
+          "documented": true
+        },
+        {
           "name": "bordered",
           "description": "Whether to display the border",
           "descriptionZh": "是否展示边框",
@@ -4912,25 +5433,6 @@
           "boolean": false,
           "required": false,
           "defaultExpression": "\"\"",
-          "documented": true
-        },
-        {
-          "name": "placement",
-          "description": "Direction displayed when pulled down",
-          "descriptionZh": "下拉展示的方位",
-          "descriptionEn": "Direction displayed when pulled down",
-          "type": "DropPlacementsType",
-          "boolean": false,
-          "enumValues": [
-            "bottom",
-            "top",
-            "top-left",
-            "top-right",
-            "bottom-left",
-            "bottom-right"
-          ],
-          "required": false,
-          "defaultExpression": "\"bottom-left\"",
           "documented": true
         },
         {
@@ -5041,6 +5543,34 @@
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Whether the component is disabled",
+          "descriptionZh": "是否禁用组件",
+          "descriptionEn": "Whether the component is disabled",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "panelOnly",
+          "description": "Render only the date panel without the trigger input",
+          "descriptionZh": "仅渲染日期选择面板，不显示触发输入框",
+          "descriptionEn": "Render only the date panel without the trigger input",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "shape",
           "description": "The form in which the component is presented",
           "descriptionZh": "组件呈现的形式",
@@ -5052,20 +5582,6 @@
             "circle",
             "square",
             "round"
-          ],
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Whether the component is disabled",
-          "descriptionZh": "是否禁用组件",
-          "descriptionEn": "Whether the component is disabled",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
           ],
           "required": false,
           "documented": true
@@ -5120,20 +5636,6 @@
           "descriptionEn": "Preset dates",
           "type": "DatePickerPreset[] | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "panelOnly",
-          "description": "Render only the date panel without the trigger input",
-          "descriptionZh": "仅渲染日期选择面板，不显示触发输入框",
-          "descriptionEn": "Render only the date panel without the trigger input",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -5539,6 +6041,23 @@
       "documentation": "https://k-ui.cn/components/drawer",
       "props": [
         {
+          "name": "placement",
+          "description": "The display direction of the drawer. Provides 4 display methods: `left`, `top`, `right`, `bottom`",
+          "descriptionZh": "抽屉显示方向，提供 `left`、`top`、`right`、`bottom` 4种展示方式",
+          "descriptionEn": "The display direction of the drawer. Provides 4 display methods: `left`, `top`, `right`, `bottom`",
+          "type": "DrawerPlacementsType",
+          "boolean": false,
+          "enumValues": [
+            "top",
+            "bottom",
+            "left",
+            "right"
+          ],
+          "required": false,
+          "defaultExpression": "\"right\"",
+          "documented": true
+        },
+        {
           "name": "closable",
           "description": "Whether to show the close button",
           "descriptionZh": "是否显示关闭按钮",
@@ -5602,23 +6121,6 @@
           "boolean": false,
           "required": false,
           "defaultExpression": "520",
-          "documented": true
-        },
-        {
-          "name": "placement",
-          "description": "The display direction of the drawer. Provides 4 display methods: `left`, `top`, `right`, `bottom`",
-          "descriptionZh": "抽屉显示方向，提供 `left`、`top`、`right`、`bottom` 4种展示方式",
-          "descriptionEn": "The display direction of the drawer. Provides 4 display methods: `left`, `top`, `right`, `bottom`",
-          "type": "DrawerPlacementsType",
-          "boolean": false,
-          "enumValues": [
-            "right",
-            "bottom",
-            "top",
-            "left"
-          ],
-          "required": false,
-          "defaultExpression": "\"right\"",
           "documented": true
         },
         {
@@ -5863,10 +6365,10 @@
           "type": "DropPlacementsType",
           "boolean": false,
           "enumValues": [
-            "bottom",
             "top",
             "top-left",
             "top-right",
+            "bottom",
             "bottom-left",
             "bottom-right"
           ],
@@ -5882,9 +6384,9 @@
           "type": "TriggerType",
           "boolean": false,
           "enumValues": [
-            "contextmenu",
+            "hover",
             "click",
-            "hover"
+            "contextmenu"
           ],
           "required": false,
           "defaultExpression": "\"hover\"",
@@ -6042,15 +6544,43 @@
           "type": "DropPlacementsType",
           "boolean": false,
           "enumValues": [
-            "bottom",
             "top",
             "top-left",
             "top-right",
+            "bottom",
             "bottom-left",
             "bottom-right"
           ],
           "required": false,
           "defaultExpression": "\"bottom-right\"",
+          "documented": true
+        },
+        {
+          "name": "disabled",
+          "description": "Whether the button is disabled",
+          "descriptionZh": "是否禁用",
+          "descriptionEn": "Whether the button is disabled",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "arrow",
+          "description": "Whether to display the dropdown arrow",
+          "descriptionZh": "是否显示下拉箭头",
+          "descriptionEn": "Whether to display the dropdown arrow",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
           "documented": true
         },
         {
@@ -6099,20 +6629,6 @@
           "documented": true
         },
         {
-          "name": "disabled",
-          "description": "Whether the button is disabled",
-          "descriptionZh": "是否禁用",
-          "descriptionEn": "Whether the button is disabled",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "size",
           "description": "Button size",
           "descriptionZh": "按钮尺寸",
@@ -6123,20 +6639,6 @@
             "small",
             "medium",
             "large"
-          ],
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "arrow",
-          "description": "Whether to display the dropdown arrow",
-          "descriptionZh": "是否显示下拉箭头",
-          "descriptionEn": "Whether to display the dropdown arrow",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
           ],
           "required": false,
           "documented": true
@@ -6236,11 +6738,11 @@
           "description": "The position of the divider title : left right",
           "descriptionZh": "分割线标题的位置：left right",
           "descriptionEn": "The position of the divider title : left right",
-          "type": "\"right\" | \"left\" | \"center\"",
+          "type": "\"left\" | \"right\" | \"center\"",
           "boolean": false,
           "enumValues": [
-            "right",
             "left",
+            "right",
             "center"
           ],
           "required": false,
@@ -6427,6 +6929,20 @@
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Whether the form is disabled",
+          "descriptionZh": "是否禁用表单",
+          "descriptionEn": "Whether the form is disabled",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "theme",
           "description": "The component renders the theme",
           "descriptionZh": "组件呈现主题",
@@ -6457,20 +6973,6 @@
             "circle",
             "square",
             "round"
-          ],
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Whether the form is disabled",
-          "descriptionZh": "是否禁用表单",
-          "descriptionEn": "Whether the form is disabled",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
           ],
           "required": false,
           "documented": true
@@ -7747,6 +8249,20 @@
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Whether the textarea is disabled",
+          "descriptionZh": "是否禁用文本域",
+          "descriptionEn": "Whether the textarea is disabled",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "icon",
           "description": "Input box icon",
           "descriptionZh": "输入框图标",
@@ -7789,20 +8305,6 @@
           "descriptionEn": "Initial value for uncontrolled use",
           "type": "any",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Whether the textarea is disabled",
-          "descriptionZh": "是否禁用文本域",
-          "descriptionEn": "Whether the textarea is disabled",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -7877,22 +8379,35 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
-          "type": "(...args: unknown[]) => void",
+          "description": "Props for onUpdate:modelValue",
+          "descriptionZh": "Props for onUpdate:modelValue",
+          "descriptionEn": "Props for onUpdate:modelValue",
+          "type": "((value: string) => void) | undefined",
           "eventName": "update:modelValue",
           "boolean": false,
+          "required": false,
           "documented": false
+        },
+        {
+          "name": "onChange",
+          "description": "Triggered when the content changes",
+          "descriptionZh": "内容变化时触发",
+          "descriptionEn": "Triggered when the content changes",
+          "type": "((value: string) => void) | undefined",
+          "eventName": "change",
+          "boolean": false,
+          "required": false,
+          "documented": true
         },
         {
           "name": "onSearch",
           "description": "Search event callback",
           "descriptionZh": "搜索事件的回调",
           "descriptionEn": "Search event callback",
-          "type": "(...args: unknown[]) => void",
+          "type": "((value: string) => void) | undefined",
           "eventName": "search",
           "boolean": false,
+          "required": false,
           "documented": true
         },
         {
@@ -7900,9 +8415,10 @@
           "description": "Callback for icon click event",
           "descriptionZh": "图标点击事件的回调",
           "descriptionEn": "Callback for icon click event",
-          "type": "(...args: unknown[]) => void",
+          "type": "((event: MouseEvent) => void) | undefined",
           "eventName": "iconClick",
           "boolean": false,
+          "required": false,
           "documented": true
         },
         {
@@ -7910,91 +8426,84 @@
           "description": "Callback for pressing the clear button",
           "descriptionZh": "按下清除按钮的回调",
           "descriptionEn": "Callback for pressing the clear button",
-          "type": "(...args: unknown[]) => void",
+          "type": "(() => void) | undefined",
           "eventName": "clear",
           "boolean": false,
-          "documented": true
-        },
-        {
-          "name": "onChange",
-          "description": "Triggered when the content changes",
-          "descriptionZh": "内容变化时触发",
-          "descriptionEn": "Triggered when the content changes",
-          "type": "(...args: unknown[]) => void",
-          "eventName": "change",
-          "boolean": false,
+          "required": false,
           "documented": true
         },
         {
           "name": "onFocus",
-          "description": "Event emitted for focus",
-          "descriptionZh": "Event emitted for focus",
-          "descriptionEn": "Event emitted for focus",
-          "type": "(...args: unknown[]) => void",
+          "description": "Props for onFocus",
+          "descriptionZh": "Props for onFocus",
+          "descriptionEn": "Props for onFocus",
+          "type": "((event: FocusEvent) => void) | undefined",
           "eventName": "focus",
           "boolean": false,
+          "required": false,
           "documented": false
         },
         {
           "name": "onBlur",
-          "description": "Event emitted for blur",
-          "descriptionZh": "Event emitted for blur",
-          "descriptionEn": "Event emitted for blur",
-          "type": "(...args: unknown[]) => void",
+          "description": "Props for onBlur",
+          "descriptionZh": "Props for onBlur",
+          "descriptionEn": "Props for onBlur",
+          "type": "((event: FocusEvent) => void) | undefined",
           "eventName": "blur",
           "boolean": false,
+          "required": false,
           "documented": false
         }
       ],
       "events": [
         {
           "name": "update:modelValue",
-          "type": "(...args: unknown[]) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "type": "((value: string) => void) | undefined",
+          "description": "Props for onUpdate:modelValue",
+          "descriptionZh": "Props for onUpdate:modelValue",
+          "descriptionEn": "Props for onUpdate:modelValue"
+        },
+        {
+          "name": "change",
+          "type": "((value: string) => void) | undefined",
+          "description": "Triggered when the content changes",
+          "descriptionZh": "内容变化时触发",
+          "descriptionEn": "Triggered when the content changes"
         },
         {
           "name": "search",
-          "type": "(...args: unknown[]) => void",
+          "type": "((value: string) => void) | undefined",
           "description": "Search event callback",
           "descriptionZh": "搜索事件的回调",
           "descriptionEn": "Search event callback"
         },
         {
           "name": "iconClick",
-          "type": "(...args: unknown[]) => void",
+          "type": "((event: MouseEvent) => void) | undefined",
           "description": "Callback for icon click event",
           "descriptionZh": "图标点击事件的回调",
           "descriptionEn": "Callback for icon click event"
         },
         {
           "name": "clear",
-          "type": "(...args: unknown[]) => void",
+          "type": "(() => void) | undefined",
           "description": "Callback for pressing the clear button",
           "descriptionZh": "按下清除按钮的回调",
           "descriptionEn": "Callback for pressing the clear button"
         },
         {
-          "name": "change",
-          "type": "(...args: unknown[]) => void",
-          "description": "Triggered when the content changes",
-          "descriptionZh": "内容变化时触发",
-          "descriptionEn": "Triggered when the content changes"
-        },
-        {
           "name": "focus",
-          "type": "(...args: unknown[]) => void",
-          "description": "Event emitted for focus",
-          "descriptionZh": "Event emitted for focus",
-          "descriptionEn": "Event emitted for focus"
+          "type": "((event: FocusEvent) => void) | undefined",
+          "description": "Props for onFocus",
+          "descriptionZh": "Props for onFocus",
+          "descriptionEn": "Props for onFocus"
         },
         {
           "name": "blur",
-          "type": "(...args: unknown[]) => void",
-          "description": "Event emitted for blur",
-          "descriptionZh": "Event emitted for blur",
-          "descriptionEn": "Event emitted for blur"
+          "type": "((event: FocusEvent) => void) | undefined",
+          "description": "Props for onBlur",
+          "descriptionZh": "Props for onBlur",
+          "descriptionEn": "Props for onBlur"
         }
       ],
       "slots": [],
@@ -8215,6 +8724,20 @@
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Whether the textarea is disabled",
+          "descriptionZh": "是否禁用文本域",
+          "descriptionEn": "Whether the textarea is disabled",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "shape",
           "description": "Textarea shape",
           "descriptionZh": "文本域形状",
@@ -8247,20 +8770,6 @@
           "descriptionEn": "Initial value for uncontrolled use",
           "type": "string | number | readonly string[] | null | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Whether the textarea is disabled",
-          "descriptionZh": "是否禁用文本域",
-          "descriptionEn": "Whether the textarea is disabled",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -8305,12 +8814,13 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
-          "type": "(...args: unknown[]) => void",
+          "description": "Props for onUpdate:modelValue",
+          "descriptionZh": "Props for onUpdate:modelValue",
+          "descriptionEn": "Props for onUpdate:modelValue",
+          "type": "((value: string) => void) | undefined",
           "eventName": "update:modelValue",
           "boolean": false,
+          "required": false,
           "documented": false
         },
         {
@@ -8318,43 +8828,45 @@
           "description": "Triggered when the content changes",
           "descriptionZh": "内容变化时触发",
           "descriptionEn": "Triggered when the content changes",
-          "type": "(...args: unknown[]) => void",
+          "type": "((value: string) => void) | undefined",
           "eventName": "change",
           "boolean": false,
+          "required": false,
           "documented": true
         },
         {
           "name": "onInput",
-          "description": "Event emitted for input",
-          "descriptionZh": "Event emitted for input",
-          "descriptionEn": "Event emitted for input",
-          "type": "(...args: unknown[]) => void",
+          "description": "Props for onInput",
+          "descriptionZh": "Props for onInput",
+          "descriptionEn": "Props for onInput",
+          "type": "((event: Event) => void) | undefined",
           "eventName": "input",
           "boolean": false,
+          "required": false,
           "documented": false
         }
       ],
       "events": [
         {
           "name": "update:modelValue",
-          "type": "(...args: unknown[]) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "type": "((value: string) => void) | undefined",
+          "description": "Props for onUpdate:modelValue",
+          "descriptionZh": "Props for onUpdate:modelValue",
+          "descriptionEn": "Props for onUpdate:modelValue"
         },
         {
           "name": "change",
-          "type": "(...args: unknown[]) => void",
+          "type": "((value: string) => void) | undefined",
           "description": "Triggered when the content changes",
           "descriptionZh": "内容变化时触发",
           "descriptionEn": "Triggered when the content changes"
         },
         {
           "name": "input",
-          "type": "(...args: unknown[]) => void",
-          "description": "Event emitted for input",
-          "descriptionZh": "Event emitted for input",
-          "descriptionEn": "Event emitted for input"
+          "type": "((event: Event) => void) | undefined",
+          "description": "Props for onInput",
+          "descriptionZh": "Props for onInput",
+          "descriptionEn": "Props for onInput"
         }
       ],
       "slots": [],
@@ -8423,6 +8935,20 @@
       "documentation": "https://k-ui.cn/components/input-tag",
       "props": [
         {
+          "name": "disabled",
+          "description": "Disabled",
+          "descriptionZh": "禁用",
+          "descriptionEn": "Disabled",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "theme",
           "description": "Theme",
           "descriptionZh": "主题",
@@ -8466,20 +8992,6 @@
           ],
           "required": false,
           "defaultExpression": "true",
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Disabled",
-          "descriptionZh": "禁用",
-          "descriptionEn": "Disabled",
-          "type": "boolean",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
           "documented": true
         },
         {
@@ -8808,6 +9320,20 @@
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Disable the inputs",
+          "descriptionZh": "是否禁用",
+          "descriptionEn": "Disable the inputs",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "shape",
           "description": "Field shape",
           "descriptionZh": "外观形状",
@@ -8819,20 +9345,6 @@
             "circle",
             "square",
             "round"
-          ],
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Disable the inputs",
-          "descriptionZh": "是否禁用",
-          "descriptionEn": "Disable the inputs",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
           ],
           "required": false,
           "documented": true
@@ -9151,6 +9663,20 @@
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Disabled",
+          "descriptionZh": "禁用",
+          "descriptionEn": "Disabled",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "icon",
           "description": "Input icon",
           "descriptionZh": "输入框图标",
@@ -9183,20 +9709,6 @@
           "descriptionEn": "The value of InputNumber(v-model)",
           "type": "string | number | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Disabled",
-          "descriptionZh": "禁用",
-          "descriptionEn": "Disabled",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -9463,7 +9975,34 @@
         "Footer"
       ],
       "documentation": "https://k-ui.cn/components/layout",
-      "props": [],
+      "props": [
+        {
+          "name": "suffixCls",
+          "description": "Props for suffixCls",
+          "descriptionZh": "Props for suffixCls",
+          "descriptionEn": "Props for suffixCls",
+          "type": "string",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "\"layout\"",
+          "documented": false
+        },
+        {
+          "name": "hasSider",
+          "description": "Whether the layout contains a sider; detected automatically when omitted",
+          "descriptionZh": "是否包含侧边栏；未设置时自动检测 Sider",
+          "descriptionEn": "Whether the layout contains a sider; detected automatically when omitted",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "undefined",
+          "documented": true
+        }
+      ],
       "events": [],
       "slots": [],
       "examples": [
@@ -9503,11 +10042,94 @@
       ],
       "parent": "Layout",
       "children": [],
-      "documentation": "https://k-ui.cn/components/sider",
-      "props": [],
+      "documentation": "https://k-ui.cn/components/layout",
+      "props": [
+        {
+          "name": "width",
+          "description": "Expanded width",
+          "descriptionZh": "展开宽度",
+          "descriptionEn": "Expanded width",
+          "type": "string | number",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "200",
+          "documented": true
+        },
+        {
+          "name": "suffixCls",
+          "description": "Props for suffixCls",
+          "descriptionZh": "Props for suffixCls",
+          "descriptionEn": "Props for suffixCls",
+          "type": "string",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "\"layout-sider\"",
+          "documented": false
+        },
+        {
+          "name": "collapsedWidth",
+          "description": "Collapsed width",
+          "descriptionZh": "收起宽度",
+          "descriptionEn": "Collapsed width",
+          "type": "string | number",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "80",
+          "documented": true
+        },
+        {
+          "name": "collapsible",
+          "description": "Whether collapsed styling is enabled",
+          "descriptionZh": "是否启用收起样式",
+          "descriptionEn": "Whether collapsed styling is enabled",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "collapsed",
+          "description": "Controlled collapsed state",
+          "descriptionZh": "受控的收起状态",
+          "descriptionEn": "Controlled collapsed state",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        }
+      ],
       "events": [],
       "slots": [],
-      "examples": []
+      "examples": [
+        {
+          "title": "基础布局",
+          "file": "components/layout/demo/basic.vue",
+          "source": "<template>\n  <Flex class=\"demo-layout\" size=\"small\" wrap>\n    <Layout>\n      <Header>Header</Header>\n      <Content>Content</Content>\n      <Footer>Footer</Footer>\n    </Layout>\n    <Layout>\n      <Header>Header</Header>\n      <Layout>\n        <Sider>Sider</Sider>\n        <Content>Content</Content>\n      </Layout>\n      <Footer>Footer</Footer>\n    </Layout>\n    <Layout>\n      <Header>Header</Header>\n      <Layout>\n        <Content>Content</Content>\n        <Sider>Sider</Sider>\n      </Layout>\n      <Footer>Footer</Footer>\n    </Layout>\n    <Layout>\n      <Sider>Sider</Sider>\n      <Layout>\n        <Header>Header</Header>\n        <Content>Content</Content>\n        <Footer>Footer</Footer>\n      </Layout>\n    </Layout>\n  </Flex>\n</template>\n<style lang=\"less\"></style>"
+        },
+        {
+          "title": "可折叠侧边栏",
+          "file": "components/layout/demo/collapsible-sider.vue",
+          "source": "<template>\n  <Layout class=\"layout-demo-frame\">\n    <Sider :collapsed=\"collapsed\" collapsible>\n      <span class=\"sider-label\">\n        <span :class=\"{ hidden: collapsed }\">Sider</span>\n        <span :class=\"{ hidden: !collapsed }\">S</span>\n      </span>\n    </Sider>\n    <Layout>\n      <Header>\n        <Button size=\"small\" @click=\"collapsed = !collapsed\">\n          {{ collapsed ? \"Expand\" : \"Collapse\" }}\n        </Button>\n      </Header>\n      <Content>Content</Content>\n      <Footer>Footer</Footer>\n    </Layout>\n  </Layout>\n</template>\n\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\n\nconst collapsed = ref(false);\n</script>\n\n<style scoped>\n.layout-demo-frame {\n  height: 320px;\n  overflow: hidden;\n  text-align: center;\n}\n.layout-demo-frame :deep(.k-layout-header),\n.layout-demo-frame :deep(.k-layout-footer) {\n  padding: 16px;\n  background: var(--kui-color-bg-3);\n}\n.layout-demo-frame :deep(.k-layout-sider) {\n  display: grid;\n  place-items: center;\n  background: var(--kui-color-bg-4);\n}\n.sider-label {\n  display: grid;\n  place-items: center;\n}\n.sider-label > span {\n  grid-area: 1 / 1;\n  transition: opacity var(--kui-motion-duration) var(--kui-motion-easing);\n}\n.sider-label > .hidden {\n  opacity: 0;\n}\n.layout-demo-frame :deep(.k-layout-content) {\n  display: grid;\n  place-items: center;\n  background: var(--kui-color-bg-2);\n}\n</style>"
+        },
+        {
+          "title": "多层嵌套布局",
+          "file": "components/layout/demo/nested.vue",
+          "source": "<template>\n  <Layout class=\"nested-layout\">\n    <Header>Header</Header>\n    <Layout>\n      <Sider width=\"120\">Left Sider</Sider>\n      <Layout>\n        <Content>Content</Content>\n        <Footer>Inner Footer</Footer>\n      </Layout>\n      <Sider width=\"120\">Right Sider</Sider>\n    </Layout>\n  </Layout>\n</template>\n\n<style scoped>\n.nested-layout {\n  height: 320px;\n  overflow: hidden;\n  text-align: center;\n}\n.nested-layout :deep(.k-layout-header),\n.nested-layout :deep(.k-layout-footer) {\n  padding: 16px;\n  background: var(--kui-color-bg-3);\n}\n.nested-layout :deep(.k-layout-sider) {\n  display: grid;\n  place-items: center;\n  background: var(--kui-color-bg-4);\n}\n.nested-layout :deep(.k-layout-content) {\n  display: grid;\n  place-items: center;\n  background: var(--kui-color-bg-2);\n}\n</style>"
+        },
+        {
+          "title": "固定高度布局",
+          "file": "components/layout/demo/fixed-height.vue",
+          "source": "<template>\n  <Layout class=\"fixed-layout\">\n    <Header>Fixed-height Layout</Header>\n    <Layout class=\"fixed-layout-body\">\n      <Sider width=\"140\">Sider</Sider>\n      <Content>\n        <p v-for=\"item in 20\" :key=\"item\">Scrollable content {{ item }}</p>\n      </Content>\n    </Layout>\n    <Footer>Footer</Footer>\n  </Layout>\n</template>\n\n<style scoped>\n.fixed-layout {\n  height: 360px;\n  overflow: hidden;\n}\n.fixed-layout :deep(.k-layout-header),\n.fixed-layout :deep(.k-layout-footer) {\n  flex: none;\n  padding: 16px 24px;\n  background: var(--kui-color-bg-3);\n}\n.fixed-layout :deep(.k-layout-sider) {\n  display: grid;\n  place-items: center;\n  background: var(--kui-color-bg-4);\n}\n.fixed-layout :deep(.fixed-layout-body) {\n  min-height: 0;\n}\n.fixed-layout :deep(.k-layout-content) {\n  min-height: 0;\n  overflow: auto;\n  padding: 8px 24px;\n  background: var(--kui-color-bg-2);\n}\n</style>"
+        }
+      ]
     },
     {
       "name": "Menu",
@@ -9861,16 +10483,6 @@
       "documentation": "https://k-ui.cn/components/menu",
       "props": [
         {
-          "name": "icon",
-          "description": "Item icon",
-          "descriptionZh": "item 的图标",
-          "descriptionEn": "Item icon",
-          "type": "IconType[] | undefined",
-          "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "disabled",
           "description": "Whether disabled",
           "descriptionZh": "是否禁用",
@@ -9881,6 +10493,16 @@
             false,
             true
           ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "icon",
+          "description": "Item icon",
+          "descriptionZh": "item 的图标",
+          "descriptionEn": "Item icon",
+          "type": "IconType[] | undefined",
+          "boolean": false,
           "required": false,
           "documented": true
         },
@@ -9970,16 +10592,6 @@
       "documentation": "https://k-ui.cn/components/menu",
       "props": [
         {
-          "name": "icon",
-          "description": "Item icon",
-          "descriptionZh": "item 的图标",
-          "descriptionEn": "Item icon",
-          "type": "IconType[] | undefined",
-          "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "disabled",
           "description": "Whether disabled",
           "descriptionZh": "是否禁用",
@@ -9990,6 +10602,16 @@
             false,
             true
           ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "icon",
+          "description": "Item icon",
+          "descriptionZh": "item 的图标",
+          "descriptionEn": "Item icon",
+          "type": "IconType[] | undefined",
+          "boolean": false,
           "required": false,
           "documented": true
         },
@@ -10066,6 +10688,39 @@
       "documentation": "https://k-ui.cn/components/mentions",
       "props": [
         {
+          "name": "disabled",
+          "description": "Disabled",
+          "descriptionZh": "是否禁用",
+          "descriptionEn": "Disabled",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "placement",
+          "description": "Preferred dropdown placement",
+          "descriptionZh": "下拉菜单优先位置",
+          "descriptionEn": "Preferred dropdown placement",
+          "type": "DropPlacementsType",
+          "boolean": false,
+          "enumValues": [
+            "top",
+            "top-left",
+            "top-right",
+            "bottom",
+            "bottom-left",
+            "bottom-right"
+          ],
+          "required": false,
+          "defaultExpression": "\"bottom-left\"",
+          "documented": true
+        },
+        {
           "name": "theme",
           "description": "Theme",
           "descriptionZh": "主题",
@@ -10123,20 +10778,6 @@
           "documented": true
         },
         {
-          "name": "disabled",
-          "description": "Disabled",
-          "descriptionZh": "是否禁用",
-          "descriptionEn": "Disabled",
-          "type": "boolean",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "readonly",
           "description": "Read-only; prevents editing, selecting and clearing",
           "descriptionZh": "是否只读，不可输入、选择或清空",
@@ -10162,25 +10803,6 @@
             true
           ],
           "required": false,
-          "documented": true
-        },
-        {
-          "name": "placement",
-          "description": "Preferred dropdown placement",
-          "descriptionZh": "下拉菜单优先位置",
-          "descriptionEn": "Preferred dropdown placement",
-          "type": "DropPlacementsType",
-          "boolean": false,
-          "enumValues": [
-            "bottom",
-            "top",
-            "top-left",
-            "top-right",
-            "bottom-left",
-            "bottom-right"
-          ],
-          "required": false,
-          "defaultExpression": "\"bottom-left\"",
           "documented": true
         },
         {
@@ -10611,6 +11233,20 @@
           "documented": true
         },
         {
+          "name": "panelOnly",
+          "description": "Render only the dialog panel without overlay or Teleport",
+          "descriptionZh": "仅渲染对话框面板，不创建遮罩、定位和 Teleport",
+          "descriptionEn": "Render only the dialog panel without overlay or Teleport",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "modelValue",
           "description": "Whether the dialog is displayed, can use v-model for two-way binding.",
           "descriptionZh": "对话框是否显示，可使用 v-model 双向绑定数据。",
@@ -10653,20 +11289,6 @@
           "description": "Whether the modal can be dragged, not available in confirm mode",
           "descriptionZh": "弹框是否可拖动, confirm 模式不可用",
           "descriptionEn": "Whether the modal can be dragged, not available in confirm mode",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "panelOnly",
-          "description": "Render only the dialog panel without overlay or Teleport",
-          "descriptionZh": "仅渲染对话框面板，不创建遮罩、定位和 Teleport",
-          "descriptionEn": "Render only the dialog panel without overlay or Teleport",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -11240,16 +11862,16 @@
           "type": "PlacementsType",
           "boolean": false,
           "enumValues": [
-            "right",
-            "bottom",
             "top",
             "top-left",
             "top-right",
+            "bottom",
             "bottom-left",
             "bottom-right",
             "left",
             "left-bottom",
             "left-top",
+            "right",
             "right-top",
             "right-bottom"
           ],
@@ -11262,11 +11884,11 @@
           "description": "Trigger method: `hover`, `click`, or `focus`",
           "descriptionZh": "触发方式，可选值为 `hover`（悬停）、`click`（点击）、`focus`（聚焦）",
           "descriptionEn": "Trigger method: `hover`, `click`, or `focus`",
-          "type": "\"click\" | \"hover\" | \"focus\"",
+          "type": "\"hover\" | \"click\" | \"focus\"",
           "boolean": false,
           "enumValues": [
-            "click",
             "hover",
+            "click",
             "focus"
           ],
           "required": false,
@@ -11302,16 +11924,6 @@
           "documented": true
         },
         {
-          "name": "title",
-          "description": "Displayed title",
-          "descriptionZh": "显示的标题",
-          "descriptionEn": "Displayed title",
-          "type": "VNodeChild",
-          "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "panelOnly",
           "description": "Render only the popover panel without a trigger",
           "descriptionZh": "仅渲染气泡面板，不需要触发元素",
@@ -11322,6 +11934,16 @@
             false,
             true
           ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "title",
+          "description": "Displayed title",
+          "descriptionZh": "显示的标题",
+          "descriptionEn": "Displayed title",
+          "type": "VNodeChild",
+          "boolean": false,
           "required": false,
           "documented": true
         },
@@ -11457,31 +12079,21 @@
           "type": "PlacementsType",
           "boolean": false,
           "enumValues": [
-            "right",
-            "bottom",
             "top",
             "top-left",
             "top-right",
+            "bottom",
             "bottom-left",
             "bottom-right",
             "left",
             "left-bottom",
             "left-top",
+            "right",
             "right-top",
             "right-bottom"
           ],
           "required": false,
           "defaultExpression": "\"top\"",
-          "documented": true
-        },
-        {
-          "name": "title",
-          "description": "Displayed title",
-          "descriptionZh": "显示的标题",
-          "descriptionEn": "Displayed title",
-          "type": "VNodeChild",
-          "boolean": false,
-          "required": false,
           "documented": true
         },
         {
@@ -11495,6 +12107,16 @@
             false,
             true
           ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "title",
+          "description": "Displayed title",
+          "descriptionZh": "显示的标题",
+          "descriptionEn": "Displayed title",
+          "type": "VNodeChild",
+          "boolean": false,
           "required": false,
           "documented": true
         },
@@ -11848,16 +12470,6 @@
       "documentation": "https://k-ui.cn/components/ripple",
       "props": [
         {
-          "name": "speed",
-          "description": "Propagation speed multiplier",
-          "descriptionZh": "波纹传播速度倍率",
-          "descriptionEn": "Propagation speed multiplier",
-          "type": "number | undefined",
-          "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "trigger",
           "description": "Ripple trigger",
           "descriptionZh": "水波触发方式",
@@ -11865,10 +12477,20 @@
           "type": "RippleTrigger | undefined",
           "boolean": false,
           "enumValues": [
-            "click",
             "hover",
+            "click",
             "none"
           ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "speed",
+          "description": "Propagation speed multiplier",
+          "descriptionZh": "波纹传播速度倍率",
+          "descriptionEn": "Propagation speed multiplier",
+          "type": "number | undefined",
+          "boolean": false,
           "required": false,
           "documented": true
         },
@@ -12267,6 +12889,20 @@
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Disable the entire group",
+          "descriptionZh": "是否禁用整个单选组",
+          "descriptionEn": "Disable the entire group",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "modelValue",
           "description": "Used to set the currently selected value. Can use `v-model` for two-way binding data",
           "descriptionZh": "用于设置当前选中的值。可以使用 `v-model` 双向绑定数据",
@@ -12288,20 +12924,6 @@
           "descriptionEn": "Value when used in combination",
           "type": "string | number | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Disable the entire group",
-          "descriptionZh": "是否禁用整个单选组",
-          "descriptionEn": "Disable the entire group",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -12479,6 +13101,20 @@
       "documentation": "https://k-ui.cn/components/radio",
       "props": [
         {
+          "name": "disabled",
+          "description": "Disable the entire group",
+          "descriptionZh": "是否禁用整个单选组",
+          "descriptionEn": "Disable the entire group",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "icon",
           "description": "Button icon",
           "descriptionZh": "按钮图标",
@@ -12545,20 +13181,6 @@
           "descriptionEn": "Value when used in combination",
           "type": "string | number | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Disable the entire group",
-          "descriptionZh": "是否禁用整个单选组",
-          "descriptionEn": "Disable the entire group",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -12753,6 +13375,20 @@
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Disable the entire group",
+          "descriptionZh": "是否禁用整个单选组",
+          "descriptionEn": "Disable the entire group",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "theme",
           "description": "Button theme",
           "descriptionZh": "`button` 的主题",
@@ -12804,20 +13440,6 @@
           "descriptionEn": "Can specify child `radio` items",
           "type": "RadioOption[] | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Disable the entire group",
-          "descriptionZh": "是否禁用整个单选组",
-          "descriptionEn": "Disable the entire group",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -12997,16 +13619,6 @@
           "documented": true
         },
         {
-          "name": "modelValue",
-          "description": "Selected value",
-          "descriptionZh": "当前选中值",
-          "descriptionEn": "Selected value",
-          "type": "SegmentedValue | undefined",
-          "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "disabled",
           "description": "Disable this option",
           "descriptionZh": "是否禁用",
@@ -13017,6 +13629,16 @@
             false,
             true
           ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Selected value",
+          "descriptionZh": "当前选中值",
+          "descriptionEn": "Selected value",
+          "type": "SegmentedValue | undefined",
+          "boolean": false,
           "required": false,
           "documented": true
         },
@@ -13179,6 +13801,20 @@
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Read-only, cannot interact",
+          "descriptionZh": "只读，无法进行交互",
+          "descriptionEn": "Read-only, cannot interact",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "icon",
           "description": "Custom display icon",
           "descriptionZh": "自定义展示的图标",
@@ -13195,20 +13831,6 @@
           "descriptionEn": "Current controlled value, used with `v-model`",
           "type": "number | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Read-only, cannot interact",
-          "descriptionZh": "只读，无法进行交互",
-          "descriptionEn": "Read-only, cannot interact",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -13619,16 +14241,6 @@
       "documentation": "https://k-ui.cn/components/select",
       "props": [
         {
-          "name": "value",
-          "description": "Option value, used for filtering by default, required",
-          "descriptionZh": "选项值，默认根据此属性值进行筛选，必填",
-          "descriptionEn": "Option value, used for filtering by default, required",
-          "type": "string | number | undefined",
-          "boolean": false,
-          "required": true,
-          "documented": true
-        },
-        {
           "name": "disabled",
           "description": "Whether current item is disabled",
           "descriptionZh": "是否禁用当前项",
@@ -13640,6 +14252,16 @@
             true
           ],
           "required": false,
+          "documented": true
+        },
+        {
+          "name": "value",
+          "description": "Option value, used for filtering by default, required",
+          "descriptionZh": "选项值，默认根据此属性值进行筛选，必填",
+          "descriptionEn": "Option value, used for filtering by default, required",
+          "type": "string | number | undefined",
+          "boolean": false,
+          "required": true,
           "documented": true
         },
         {
@@ -13818,6 +14440,25 @@
       "documentation": "https://k-ui.cn/components/select",
       "props": [
         {
+          "name": "placement",
+          "description": "Dropdown placement",
+          "descriptionZh": "下拉菜单弹出位置",
+          "descriptionEn": "Dropdown placement",
+          "type": "DropPlacementsType",
+          "boolean": false,
+          "enumValues": [
+            "top",
+            "top-left",
+            "top-right",
+            "bottom",
+            "bottom-left",
+            "bottom-right"
+          ],
+          "required": false,
+          "defaultExpression": "\"bottom-left\"",
+          "documented": true
+        },
+        {
           "name": "bordered",
           "description": "Whether to show border",
           "descriptionZh": "是否显示边框",
@@ -13883,25 +14524,6 @@
           "documented": true
         },
         {
-          "name": "placement",
-          "description": "Dropdown placement",
-          "descriptionZh": "下拉菜单弹出位置",
-          "descriptionEn": "Dropdown placement",
-          "type": "DropPlacementsType",
-          "boolean": false,
-          "enumValues": [
-            "bottom",
-            "top",
-            "top-left",
-            "top-right",
-            "bottom-left",
-            "bottom-right"
-          ],
-          "required": false,
-          "defaultExpression": "\"bottom-left\"",
-          "documented": true
-        },
-        {
           "name": "itemHeight",
           "description": "Fixed virtual option height",
           "descriptionZh": "虚拟滚动选项的固定高度",
@@ -13921,6 +14543,20 @@
           "boolean": false,
           "required": false,
           "defaultExpression": "5",
+          "documented": true
+        },
+        {
+          "name": "disabled",
+          "description": "Whether current item is disabled",
+          "descriptionZh": "是否禁用当前项",
+          "descriptionEn": "Whether current item is disabled",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
           "documented": true
         },
         {
@@ -13966,20 +14602,6 @@
           "descriptionEn": "options data, if set, no need to manually construct Option nodes",
           "type": "SelectOption[] | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Whether current item is disabled",
-          "descriptionZh": "是否禁用当前项",
-          "descriptionEn": "Whether current item is disabled",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -14334,6 +14956,16 @@
           "documented": true
         },
         {
+          "name": "getPopupContainer",
+          "description": "Returns the popup mount container",
+          "descriptionZh": "指定弹层挂载容器",
+          "descriptionEn": "Returns the popup mount container",
+          "type": "PopupContainerGetter | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "theme",
           "description": "Default theme for compatible components",
           "descriptionZh": "兼容组件的默认主题",
@@ -14380,16 +15012,6 @@
             "medium",
             "large"
           ],
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "getPopupContainer",
-          "description": "Returns the popup mount container",
-          "descriptionZh": "指定弹层挂载容器",
-          "descriptionEn": "Returns the popup mount container",
-          "type": "PopupContainerGetter | undefined",
-          "boolean": false,
           "required": false,
           "documented": true
         }
@@ -14560,11 +15182,123 @@
       ],
       "parent": "Skeleton",
       "children": [],
-      "documentation": "https://k-ui.cn/components/skeleton-avatar",
-      "props": [],
+      "documentation": "https://k-ui.cn/components/skeleton",
+      "props": [
+        {
+          "name": "delay",
+          "description": "Delay showing the skeleton, in milliseconds",
+          "descriptionZh": "延迟显示骨架，单位毫秒",
+          "descriptionEn": "Delay showing the skeleton, in milliseconds",
+          "type": "number",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "500",
+          "documented": true
+        },
+        {
+          "name": "shape",
+          "description": "Specify the shape of the button",
+          "descriptionZh": "指定按钮的形状",
+          "descriptionEn": "Specify the shape of the button",
+          "type": "ShapeType | undefined",
+          "boolean": false,
+          "enumValues": [
+            "default",
+            "circle",
+            "square",
+            "round"
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "loading",
+          "description": "When true, show placeholder. Otherwise directly display child components",
+          "descriptionZh": "为 true 时，显示占位图。反之则直接展示子组件",
+          "descriptionEn": "When true, show placeholder. Otherwise directly display child components",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "size",
+          "description": "Image width (height)",
+          "descriptionZh": "图片的宽(高)度",
+          "descriptionEn": "Image width (height)",
+          "type": "number | SkeletonSize | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "radius",
+          "description": "Specify the border radius of the image",
+          "descriptionZh": "指定图片的圆角大小",
+          "descriptionEn": "Specify the border radius of the image",
+          "type": "number | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "animated",
+          "description": "Whether to show animation effect",
+          "descriptionZh": "是否展示动画效果",
+          "descriptionEn": "Whether to show animation effect",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        }
+      ],
       "events": [],
       "slots": [],
-      "examples": []
+      "examples": [
+        {
+          "title": "基本用法",
+          "file": "components/skeleton/demo/basic.vue",
+          "source": "<template>\n  <Skeleton />\n</template>"
+        },
+        {
+          "title": "组合",
+          "file": "components/skeleton/demo/group.vue",
+          "source": "<template>\n  <Skeleton avatar :rows=\"4\" />\n</template>"
+        },
+        {
+          "title": "动画效果",
+          "file": "components/skeleton/demo/animated.vue",
+          "source": "<template>\n  <Skeleton animated />\n</template>"
+        },
+        {
+          "title": "子组件",
+          "file": "components/skeleton/demo/child.vue",
+          "source": "<template>\n  <Skeleton :loading=\"loading\" :rows=\"2\" animated>\n    <div class=\"skeleton-demo\">\n      <h4>KUI is a desktop UI component library based on Vue.js</h4>\n      <p>\n        Dozens of useful and aesthetically pleasing components, a very user-friendly API suitable\n        for developers of any skill level, comprehensive documentation, and support for Electron,\n        SSR, Nuxt.js...\n      </p>\n    </div>\n  </Skeleton>\n  <br />\n  <br />\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style lang=\"less\">\n.skeleton-demo h4 {\n  font-weight: bold;\n  margin-bottom: 15px;\n}\n</style>"
+        },
+        {
+          "title": "列表",
+          "file": "components/skeleton/demo/list.vue",
+          "source": "<template>\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n  <br />\n  <br />\n  <Space class=\"demo-skeleton-list\" vertical block>\n    <Card class=\"demo-skeleton-item\" v-for=\"i in 3\" :key=\"i\">\n      <Skeleton avatar :loading=\"loading\" :rows=\"2\" animated>\n        <CardMeta :avatar=\"item.name\" :title=\"item.name\" :description=\"item.intro\"></CardMeta>\n        <p class=\"desc\">{{ item.desc }}</p>\n      </Skeleton>\n    </Card>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst item = {\n  name: \"KUI Design\",\n  intro: \"KUI is a desktop UI component library based on Vue.js\",\n  desc: \"Dozens of useful and aesthetically pleasing components, a very user-friendly API suitable for developers of any skill level, comprehensive documentation, and support for Electron, SSR, Nuxt.js...\",\n};\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style>\n.demo-skeleton-list {\n  font-size: 13px;\n}\n.demo-skeleton-item {\n  padding: 15px 20px;\n  border-bottom: 1px solid var(--kui-color-border);\n}\n.demo-skeleton-list h4 {\n  font-size: 14px;\n  font-weight: bold;\n  margin: 0;\n}\n.demo-skeleton-list .sub-desc {\n  color: #999;\n}\n.demo-skeleton-list .desc {\n  margin-top: 15px;\n  line-height: 25px;\n  margin: 0;\n}\n</style>"
+        },
+        {
+          "title": "按钮/头像/图像",
+          "file": "components/skeleton/demo/items.vue",
+          "source": "<template>\n  <Space :size=\"15\">\n    <Checkbox v-model=\"animated\" label=\"Animated\" />\n    <Checkbox v-model=\"block\" label=\"Button block\" />\n    Size:\n    <RadioGroup :options=\"sizes\" v-model=\"size\" type=\"button\" />\n  </Space>\n  <br />\n  <br />\n  <Space :size=\"15\">\n    Button Shape:\n    <RadioGroup :options=\"btnShapes\" v-model=\"btnShape\" type=\"button\" />\n    Avatar Shape:\n    <RadioGroup :options=\"avatarShapes\" v-model=\"avatarShape\" type=\"button\" />\n  </Space>\n  <br />\n  <br />\n  <Space :size=\"15\">\n    Image radius:\n    <Slider v-model=\"radius\" style=\"width: 300px\" />\n  </Space>\n  <br />\n  <Space :size=\"15\">\n    Image Size:\n    <Slider v-model=\"imgSize\" range :min=\"96\" :max=\"320\" style=\"width: 300px\" />\n  </Space>\n  <br />\n  <br />\n  <Space>\n    <SkeletonButton :animated=\"animated\" :size=\"size\" :shape=\"btnShape\" />\n    <SkeletonAvatar :animated=\"animated\" :size=\"size\" :shape=\"avatarShape\" />\n    <SkeletonText :animated=\"animated\" :size=\"size\" style=\"width: 200px\" />\n  </Space>\n  <br />\n  <br />\n  <SkeletonButton :animated=\"animated\" :size=\"size\" :shape=\"btnShape\" :block=\"block\" />\n  <br />\n  <br />\n  <SkeletonImage :animated=\"animated\" :radius=\"radius\" :size=\"imgSize\" />\n</template>\n<script setup lang=\"ts\">\nimport type { ShapeType, SizeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\nconst sizes = [\n  { label: \"Small\", value: \"small\" },\n  { label: \"Default\", value: \"default\" },\n  { label: \"Large\", value: \"large\" },\n];\nconst btnShapes = [\n  { label: \"Round\", value: \"round\" },\n  { label: \"Default\", value: \"default\" },\n  { label: \"Circle\", value: \"circle\" },\n];\nconst avatarShapes = [\n  { label: \"Square\", value: \"square\" },\n  { label: \"Circle\", value: \"circle\" },\n];\nconst imgSize = ref([196, 96]);\nconst animated = ref(false);\nconst size = ref<\"default\" | SizeType>(\"default\");\nconst block = ref(false);\nconst radius = ref(10);\nconst avatarShape = ref<ShapeType>(\"square\");\nconst btnShape = ref<ShapeType>(\"round\");\n</script>"
+        },
+        {
+          "title": "自定义",
+          "file": "components/skeleton/demo/custom.vue",
+          "source": "<template>\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n  <br />\n  <br />\n  <Card v-for=\"x in 3\" class=\"demo-skeleton-card\" title=\"A Poem\" :key=\"x\">\n    <SkeletonImage animated :loading=\"loading\" :radius=\"8\" style=\"width: 166px; height: 100px\">\n      <div class=\"cover\" />\n    </SkeletonImage>\n    <SkeletonText animated :loading=\"loading\" size=\"small\" style=\"min-width: 80px; margin: 8px 0\">\n      <p>Tony Stack</p>\n    </SkeletonText>\n    <SkeletonText animated :loading=\"loading\" size=\"small\" style=\"min-width: 130px\">\n      <span>I am Iron Man.</span>\n    </SkeletonText>\n  </Card>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style>\n.demo-skeleton-card {\n  width: 200px;\n  margin-bottom: 10px;\n  display: inline-block;\n  margin-right: 20px;\n}\n.demo-skeleton-card .cover {\n  height: 100px;\n  width: 166px;\n  border-radius: 8px;\n  background: url(\"https://cdn.chuchur.com/upload/demo/test_300.jpg\") no-repeat center;\n  background-size: cover;\n}\n.demo-skeleton-card h2 {\n  font-size: 15px;\n}\n.demo-skeleton-card span {\n  font-size: 13px;\n  color: #999;\n}\n</style>"
+        }
+      ]
     },
     {
       "name": "SkeletonButton",
@@ -14580,11 +15314,143 @@
       ],
       "parent": "Skeleton",
       "children": [],
-      "documentation": "https://k-ui.cn/components/skeleton-button",
-      "props": [],
+      "documentation": "https://k-ui.cn/components/skeleton",
+      "props": [
+        {
+          "name": "delay",
+          "description": "Delay showing the skeleton, in milliseconds",
+          "descriptionZh": "延迟显示骨架，单位毫秒",
+          "descriptionEn": "Delay showing the skeleton, in milliseconds",
+          "type": "number",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "500",
+          "documented": true
+        },
+        {
+          "name": "shape",
+          "description": "Specify the shape of the button",
+          "descriptionZh": "指定按钮的形状",
+          "descriptionEn": "Specify the shape of the button",
+          "type": "ShapeType | undefined",
+          "boolean": false,
+          "enumValues": [
+            "default",
+            "circle",
+            "square",
+            "round"
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "loading",
+          "description": "When true, show placeholder. Otherwise directly display child components",
+          "descriptionZh": "为 true 时，显示占位图。反之则直接展示子组件",
+          "descriptionEn": "When true, show placeholder. Otherwise directly display child components",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "size",
+          "description": "Image width (height)",
+          "descriptionZh": "图片的宽(高)度",
+          "descriptionEn": "Image width (height)",
+          "type": "SkeletonSize | undefined",
+          "boolean": false,
+          "enumValues": [
+            "default",
+            "small",
+            "medium",
+            "large"
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "block",
+          "description": "Option to adjust button width to its parent width",
+          "descriptionZh": "将按钮宽度调整为其父宽度的选项",
+          "descriptionEn": "Option to adjust button width to its parent width",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "width",
+          "description": "Text width",
+          "descriptionZh": "文本宽度",
+          "descriptionEn": "Text width",
+          "type": "number | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "animated",
+          "description": "Whether to show animation effect",
+          "descriptionZh": "是否展示动画效果",
+          "descriptionEn": "Whether to show animation effect",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        }
+      ],
       "events": [],
       "slots": [],
-      "examples": []
+      "examples": [
+        {
+          "title": "基本用法",
+          "file": "components/skeleton/demo/basic.vue",
+          "source": "<template>\n  <Skeleton />\n</template>"
+        },
+        {
+          "title": "组合",
+          "file": "components/skeleton/demo/group.vue",
+          "source": "<template>\n  <Skeleton avatar :rows=\"4\" />\n</template>"
+        },
+        {
+          "title": "动画效果",
+          "file": "components/skeleton/demo/animated.vue",
+          "source": "<template>\n  <Skeleton animated />\n</template>"
+        },
+        {
+          "title": "子组件",
+          "file": "components/skeleton/demo/child.vue",
+          "source": "<template>\n  <Skeleton :loading=\"loading\" :rows=\"2\" animated>\n    <div class=\"skeleton-demo\">\n      <h4>KUI is a desktop UI component library based on Vue.js</h4>\n      <p>\n        Dozens of useful and aesthetically pleasing components, a very user-friendly API suitable\n        for developers of any skill level, comprehensive documentation, and support for Electron,\n        SSR, Nuxt.js...\n      </p>\n    </div>\n  </Skeleton>\n  <br />\n  <br />\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style lang=\"less\">\n.skeleton-demo h4 {\n  font-weight: bold;\n  margin-bottom: 15px;\n}\n</style>"
+        },
+        {
+          "title": "列表",
+          "file": "components/skeleton/demo/list.vue",
+          "source": "<template>\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n  <br />\n  <br />\n  <Space class=\"demo-skeleton-list\" vertical block>\n    <Card class=\"demo-skeleton-item\" v-for=\"i in 3\" :key=\"i\">\n      <Skeleton avatar :loading=\"loading\" :rows=\"2\" animated>\n        <CardMeta :avatar=\"item.name\" :title=\"item.name\" :description=\"item.intro\"></CardMeta>\n        <p class=\"desc\">{{ item.desc }}</p>\n      </Skeleton>\n    </Card>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst item = {\n  name: \"KUI Design\",\n  intro: \"KUI is a desktop UI component library based on Vue.js\",\n  desc: \"Dozens of useful and aesthetically pleasing components, a very user-friendly API suitable for developers of any skill level, comprehensive documentation, and support for Electron, SSR, Nuxt.js...\",\n};\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style>\n.demo-skeleton-list {\n  font-size: 13px;\n}\n.demo-skeleton-item {\n  padding: 15px 20px;\n  border-bottom: 1px solid var(--kui-color-border);\n}\n.demo-skeleton-list h4 {\n  font-size: 14px;\n  font-weight: bold;\n  margin: 0;\n}\n.demo-skeleton-list .sub-desc {\n  color: #999;\n}\n.demo-skeleton-list .desc {\n  margin-top: 15px;\n  line-height: 25px;\n  margin: 0;\n}\n</style>"
+        },
+        {
+          "title": "按钮/头像/图像",
+          "file": "components/skeleton/demo/items.vue",
+          "source": "<template>\n  <Space :size=\"15\">\n    <Checkbox v-model=\"animated\" label=\"Animated\" />\n    <Checkbox v-model=\"block\" label=\"Button block\" />\n    Size:\n    <RadioGroup :options=\"sizes\" v-model=\"size\" type=\"button\" />\n  </Space>\n  <br />\n  <br />\n  <Space :size=\"15\">\n    Button Shape:\n    <RadioGroup :options=\"btnShapes\" v-model=\"btnShape\" type=\"button\" />\n    Avatar Shape:\n    <RadioGroup :options=\"avatarShapes\" v-model=\"avatarShape\" type=\"button\" />\n  </Space>\n  <br />\n  <br />\n  <Space :size=\"15\">\n    Image radius:\n    <Slider v-model=\"radius\" style=\"width: 300px\" />\n  </Space>\n  <br />\n  <Space :size=\"15\">\n    Image Size:\n    <Slider v-model=\"imgSize\" range :min=\"96\" :max=\"320\" style=\"width: 300px\" />\n  </Space>\n  <br />\n  <br />\n  <Space>\n    <SkeletonButton :animated=\"animated\" :size=\"size\" :shape=\"btnShape\" />\n    <SkeletonAvatar :animated=\"animated\" :size=\"size\" :shape=\"avatarShape\" />\n    <SkeletonText :animated=\"animated\" :size=\"size\" style=\"width: 200px\" />\n  </Space>\n  <br />\n  <br />\n  <SkeletonButton :animated=\"animated\" :size=\"size\" :shape=\"btnShape\" :block=\"block\" />\n  <br />\n  <br />\n  <SkeletonImage :animated=\"animated\" :radius=\"radius\" :size=\"imgSize\" />\n</template>\n<script setup lang=\"ts\">\nimport type { ShapeType, SizeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\nconst sizes = [\n  { label: \"Small\", value: \"small\" },\n  { label: \"Default\", value: \"default\" },\n  { label: \"Large\", value: \"large\" },\n];\nconst btnShapes = [\n  { label: \"Round\", value: \"round\" },\n  { label: \"Default\", value: \"default\" },\n  { label: \"Circle\", value: \"circle\" },\n];\nconst avatarShapes = [\n  { label: \"Square\", value: \"square\" },\n  { label: \"Circle\", value: \"circle\" },\n];\nconst imgSize = ref([196, 96]);\nconst animated = ref(false);\nconst size = ref<\"default\" | SizeType>(\"default\");\nconst block = ref(false);\nconst radius = ref(10);\nconst avatarShape = ref<ShapeType>(\"square\");\nconst btnShape = ref<ShapeType>(\"round\");\n</script>"
+        },
+        {
+          "title": "自定义",
+          "file": "components/skeleton/demo/custom.vue",
+          "source": "<template>\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n  <br />\n  <br />\n  <Card v-for=\"x in 3\" class=\"demo-skeleton-card\" title=\"A Poem\" :key=\"x\">\n    <SkeletonImage animated :loading=\"loading\" :radius=\"8\" style=\"width: 166px; height: 100px\">\n      <div class=\"cover\" />\n    </SkeletonImage>\n    <SkeletonText animated :loading=\"loading\" size=\"small\" style=\"min-width: 80px; margin: 8px 0\">\n      <p>Tony Stack</p>\n    </SkeletonText>\n    <SkeletonText animated :loading=\"loading\" size=\"small\" style=\"min-width: 130px\">\n      <span>I am Iron Man.</span>\n    </SkeletonText>\n  </Card>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style>\n.demo-skeleton-card {\n  width: 200px;\n  margin-bottom: 10px;\n  display: inline-block;\n  margin-right: 20px;\n}\n.demo-skeleton-card .cover {\n  height: 100px;\n  width: 166px;\n  border-radius: 8px;\n  background: url(\"https://cdn.chuchur.com/upload/demo/test_300.jpg\") no-repeat center;\n  background-size: cover;\n}\n.demo-skeleton-card h2 {\n  font-size: 15px;\n}\n.demo-skeleton-card span {\n  font-size: 13px;\n  color: #999;\n}\n</style>"
+        }
+      ]
     },
     {
       "name": "SkeletonImage",
@@ -14600,11 +15466,107 @@
       ],
       "parent": "Skeleton",
       "children": [],
-      "documentation": "https://k-ui.cn/components/skeleton-image",
-      "props": [],
+      "documentation": "https://k-ui.cn/components/skeleton",
+      "props": [
+        {
+          "name": "delay",
+          "description": "Delay showing the skeleton, in milliseconds",
+          "descriptionZh": "延迟显示骨架，单位毫秒",
+          "descriptionEn": "Delay showing the skeleton, in milliseconds",
+          "type": "number",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "500",
+          "documented": true
+        },
+        {
+          "name": "loading",
+          "description": "When true, show placeholder. Otherwise directly display child components",
+          "descriptionZh": "为 true 时，显示占位图。反之则直接展示子组件",
+          "descriptionEn": "When true, show placeholder. Otherwise directly display child components",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "size",
+          "description": "Image width (height)",
+          "descriptionZh": "图片的宽(高)度",
+          "descriptionEn": "Image width (height)",
+          "type": "number | number[] | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "radius",
+          "description": "Specify the border radius of the image",
+          "descriptionZh": "指定图片的圆角大小",
+          "descriptionEn": "Specify the border radius of the image",
+          "type": "number | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "animated",
+          "description": "Whether to show animation effect",
+          "descriptionZh": "是否展示动画效果",
+          "descriptionEn": "Whether to show animation effect",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        }
+      ],
       "events": [],
       "slots": [],
-      "examples": []
+      "examples": [
+        {
+          "title": "基本用法",
+          "file": "components/skeleton/demo/basic.vue",
+          "source": "<template>\n  <Skeleton />\n</template>"
+        },
+        {
+          "title": "组合",
+          "file": "components/skeleton/demo/group.vue",
+          "source": "<template>\n  <Skeleton avatar :rows=\"4\" />\n</template>"
+        },
+        {
+          "title": "动画效果",
+          "file": "components/skeleton/demo/animated.vue",
+          "source": "<template>\n  <Skeleton animated />\n</template>"
+        },
+        {
+          "title": "子组件",
+          "file": "components/skeleton/demo/child.vue",
+          "source": "<template>\n  <Skeleton :loading=\"loading\" :rows=\"2\" animated>\n    <div class=\"skeleton-demo\">\n      <h4>KUI is a desktop UI component library based on Vue.js</h4>\n      <p>\n        Dozens of useful and aesthetically pleasing components, a very user-friendly API suitable\n        for developers of any skill level, comprehensive documentation, and support for Electron,\n        SSR, Nuxt.js...\n      </p>\n    </div>\n  </Skeleton>\n  <br />\n  <br />\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style lang=\"less\">\n.skeleton-demo h4 {\n  font-weight: bold;\n  margin-bottom: 15px;\n}\n</style>"
+        },
+        {
+          "title": "列表",
+          "file": "components/skeleton/demo/list.vue",
+          "source": "<template>\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n  <br />\n  <br />\n  <Space class=\"demo-skeleton-list\" vertical block>\n    <Card class=\"demo-skeleton-item\" v-for=\"i in 3\" :key=\"i\">\n      <Skeleton avatar :loading=\"loading\" :rows=\"2\" animated>\n        <CardMeta :avatar=\"item.name\" :title=\"item.name\" :description=\"item.intro\"></CardMeta>\n        <p class=\"desc\">{{ item.desc }}</p>\n      </Skeleton>\n    </Card>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst item = {\n  name: \"KUI Design\",\n  intro: \"KUI is a desktop UI component library based on Vue.js\",\n  desc: \"Dozens of useful and aesthetically pleasing components, a very user-friendly API suitable for developers of any skill level, comprehensive documentation, and support for Electron, SSR, Nuxt.js...\",\n};\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style>\n.demo-skeleton-list {\n  font-size: 13px;\n}\n.demo-skeleton-item {\n  padding: 15px 20px;\n  border-bottom: 1px solid var(--kui-color-border);\n}\n.demo-skeleton-list h4 {\n  font-size: 14px;\n  font-weight: bold;\n  margin: 0;\n}\n.demo-skeleton-list .sub-desc {\n  color: #999;\n}\n.demo-skeleton-list .desc {\n  margin-top: 15px;\n  line-height: 25px;\n  margin: 0;\n}\n</style>"
+        },
+        {
+          "title": "按钮/头像/图像",
+          "file": "components/skeleton/demo/items.vue",
+          "source": "<template>\n  <Space :size=\"15\">\n    <Checkbox v-model=\"animated\" label=\"Animated\" />\n    <Checkbox v-model=\"block\" label=\"Button block\" />\n    Size:\n    <RadioGroup :options=\"sizes\" v-model=\"size\" type=\"button\" />\n  </Space>\n  <br />\n  <br />\n  <Space :size=\"15\">\n    Button Shape:\n    <RadioGroup :options=\"btnShapes\" v-model=\"btnShape\" type=\"button\" />\n    Avatar Shape:\n    <RadioGroup :options=\"avatarShapes\" v-model=\"avatarShape\" type=\"button\" />\n  </Space>\n  <br />\n  <br />\n  <Space :size=\"15\">\n    Image radius:\n    <Slider v-model=\"radius\" style=\"width: 300px\" />\n  </Space>\n  <br />\n  <Space :size=\"15\">\n    Image Size:\n    <Slider v-model=\"imgSize\" range :min=\"96\" :max=\"320\" style=\"width: 300px\" />\n  </Space>\n  <br />\n  <br />\n  <Space>\n    <SkeletonButton :animated=\"animated\" :size=\"size\" :shape=\"btnShape\" />\n    <SkeletonAvatar :animated=\"animated\" :size=\"size\" :shape=\"avatarShape\" />\n    <SkeletonText :animated=\"animated\" :size=\"size\" style=\"width: 200px\" />\n  </Space>\n  <br />\n  <br />\n  <SkeletonButton :animated=\"animated\" :size=\"size\" :shape=\"btnShape\" :block=\"block\" />\n  <br />\n  <br />\n  <SkeletonImage :animated=\"animated\" :radius=\"radius\" :size=\"imgSize\" />\n</template>\n<script setup lang=\"ts\">\nimport type { ShapeType, SizeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\nconst sizes = [\n  { label: \"Small\", value: \"small\" },\n  { label: \"Default\", value: \"default\" },\n  { label: \"Large\", value: \"large\" },\n];\nconst btnShapes = [\n  { label: \"Round\", value: \"round\" },\n  { label: \"Default\", value: \"default\" },\n  { label: \"Circle\", value: \"circle\" },\n];\nconst avatarShapes = [\n  { label: \"Square\", value: \"square\" },\n  { label: \"Circle\", value: \"circle\" },\n];\nconst imgSize = ref([196, 96]);\nconst animated = ref(false);\nconst size = ref<\"default\" | SizeType>(\"default\");\nconst block = ref(false);\nconst radius = ref(10);\nconst avatarShape = ref<ShapeType>(\"square\");\nconst btnShape = ref<ShapeType>(\"round\");\n</script>"
+        },
+        {
+          "title": "自定义",
+          "file": "components/skeleton/demo/custom.vue",
+          "source": "<template>\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n  <br />\n  <br />\n  <Card v-for=\"x in 3\" class=\"demo-skeleton-card\" title=\"A Poem\" :key=\"x\">\n    <SkeletonImage animated :loading=\"loading\" :radius=\"8\" style=\"width: 166px; height: 100px\">\n      <div class=\"cover\" />\n    </SkeletonImage>\n    <SkeletonText animated :loading=\"loading\" size=\"small\" style=\"min-width: 80px; margin: 8px 0\">\n      <p>Tony Stack</p>\n    </SkeletonText>\n    <SkeletonText animated :loading=\"loading\" size=\"small\" style=\"min-width: 130px\">\n      <span>I am Iron Man.</span>\n    </SkeletonText>\n  </Card>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style>\n.demo-skeleton-card {\n  width: 200px;\n  margin-bottom: 10px;\n  display: inline-block;\n  margin-right: 20px;\n}\n.demo-skeleton-card .cover {\n  height: 100px;\n  width: 166px;\n  border-radius: 8px;\n  background: url(\"https://cdn.chuchur.com/upload/demo/test_300.jpg\") no-repeat center;\n  background-size: cover;\n}\n.demo-skeleton-card h2 {\n  font-size: 15px;\n}\n.demo-skeleton-card span {\n  font-size: 13px;\n  color: #999;\n}\n</style>"
+        }
+      ]
     },
     {
       "name": "SkeletonText",
@@ -14620,11 +15582,113 @@
       ],
       "parent": "Skeleton",
       "children": [],
-      "documentation": "https://k-ui.cn/components/skeleton-text",
-      "props": [],
+      "documentation": "https://k-ui.cn/components/skeleton",
+      "props": [
+        {
+          "name": "delay",
+          "description": "Delay showing the skeleton, in milliseconds",
+          "descriptionZh": "延迟显示骨架，单位毫秒",
+          "descriptionEn": "Delay showing the skeleton, in milliseconds",
+          "type": "number",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "500",
+          "documented": true
+        },
+        {
+          "name": "loading",
+          "description": "When true, show placeholder. Otherwise directly display child components",
+          "descriptionZh": "为 true 时，显示占位图。反之则直接展示子组件",
+          "descriptionEn": "When true, show placeholder. Otherwise directly display child components",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "size",
+          "description": "Image width (height)",
+          "descriptionZh": "图片的宽(高)度",
+          "descriptionEn": "Image width (height)",
+          "type": "SkeletonSize | undefined",
+          "boolean": false,
+          "enumValues": [
+            "default",
+            "small",
+            "medium",
+            "large"
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "width",
+          "description": "Text width",
+          "descriptionZh": "文本宽度",
+          "descriptionEn": "Text width",
+          "type": "number | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "animated",
+          "description": "Whether to show animation effect",
+          "descriptionZh": "是否展示动画效果",
+          "descriptionEn": "Whether to show animation effect",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        }
+      ],
       "events": [],
       "slots": [],
-      "examples": []
+      "examples": [
+        {
+          "title": "基本用法",
+          "file": "components/skeleton/demo/basic.vue",
+          "source": "<template>\n  <Skeleton />\n</template>"
+        },
+        {
+          "title": "组合",
+          "file": "components/skeleton/demo/group.vue",
+          "source": "<template>\n  <Skeleton avatar :rows=\"4\" />\n</template>"
+        },
+        {
+          "title": "动画效果",
+          "file": "components/skeleton/demo/animated.vue",
+          "source": "<template>\n  <Skeleton animated />\n</template>"
+        },
+        {
+          "title": "子组件",
+          "file": "components/skeleton/demo/child.vue",
+          "source": "<template>\n  <Skeleton :loading=\"loading\" :rows=\"2\" animated>\n    <div class=\"skeleton-demo\">\n      <h4>KUI is a desktop UI component library based on Vue.js</h4>\n      <p>\n        Dozens of useful and aesthetically pleasing components, a very user-friendly API suitable\n        for developers of any skill level, comprehensive documentation, and support for Electron,\n        SSR, Nuxt.js...\n      </p>\n    </div>\n  </Skeleton>\n  <br />\n  <br />\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style lang=\"less\">\n.skeleton-demo h4 {\n  font-weight: bold;\n  margin-bottom: 15px;\n}\n</style>"
+        },
+        {
+          "title": "列表",
+          "file": "components/skeleton/demo/list.vue",
+          "source": "<template>\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n  <br />\n  <br />\n  <Space class=\"demo-skeleton-list\" vertical block>\n    <Card class=\"demo-skeleton-item\" v-for=\"i in 3\" :key=\"i\">\n      <Skeleton avatar :loading=\"loading\" :rows=\"2\" animated>\n        <CardMeta :avatar=\"item.name\" :title=\"item.name\" :description=\"item.intro\"></CardMeta>\n        <p class=\"desc\">{{ item.desc }}</p>\n      </Skeleton>\n    </Card>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst item = {\n  name: \"KUI Design\",\n  intro: \"KUI is a desktop UI component library based on Vue.js\",\n  desc: \"Dozens of useful and aesthetically pleasing components, a very user-friendly API suitable for developers of any skill level, comprehensive documentation, and support for Electron, SSR, Nuxt.js...\",\n};\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style>\n.demo-skeleton-list {\n  font-size: 13px;\n}\n.demo-skeleton-item {\n  padding: 15px 20px;\n  border-bottom: 1px solid var(--kui-color-border);\n}\n.demo-skeleton-list h4 {\n  font-size: 14px;\n  font-weight: bold;\n  margin: 0;\n}\n.demo-skeleton-list .sub-desc {\n  color: #999;\n}\n.demo-skeleton-list .desc {\n  margin-top: 15px;\n  line-height: 25px;\n  margin: 0;\n}\n</style>"
+        },
+        {
+          "title": "按钮/头像/图像",
+          "file": "components/skeleton/demo/items.vue",
+          "source": "<template>\n  <Space :size=\"15\">\n    <Checkbox v-model=\"animated\" label=\"Animated\" />\n    <Checkbox v-model=\"block\" label=\"Button block\" />\n    Size:\n    <RadioGroup :options=\"sizes\" v-model=\"size\" type=\"button\" />\n  </Space>\n  <br />\n  <br />\n  <Space :size=\"15\">\n    Button Shape:\n    <RadioGroup :options=\"btnShapes\" v-model=\"btnShape\" type=\"button\" />\n    Avatar Shape:\n    <RadioGroup :options=\"avatarShapes\" v-model=\"avatarShape\" type=\"button\" />\n  </Space>\n  <br />\n  <br />\n  <Space :size=\"15\">\n    Image radius:\n    <Slider v-model=\"radius\" style=\"width: 300px\" />\n  </Space>\n  <br />\n  <Space :size=\"15\">\n    Image Size:\n    <Slider v-model=\"imgSize\" range :min=\"96\" :max=\"320\" style=\"width: 300px\" />\n  </Space>\n  <br />\n  <br />\n  <Space>\n    <SkeletonButton :animated=\"animated\" :size=\"size\" :shape=\"btnShape\" />\n    <SkeletonAvatar :animated=\"animated\" :size=\"size\" :shape=\"avatarShape\" />\n    <SkeletonText :animated=\"animated\" :size=\"size\" style=\"width: 200px\" />\n  </Space>\n  <br />\n  <br />\n  <SkeletonButton :animated=\"animated\" :size=\"size\" :shape=\"btnShape\" :block=\"block\" />\n  <br />\n  <br />\n  <SkeletonImage :animated=\"animated\" :radius=\"radius\" :size=\"imgSize\" />\n</template>\n<script setup lang=\"ts\">\nimport type { ShapeType, SizeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\nconst sizes = [\n  { label: \"Small\", value: \"small\" },\n  { label: \"Default\", value: \"default\" },\n  { label: \"Large\", value: \"large\" },\n];\nconst btnShapes = [\n  { label: \"Round\", value: \"round\" },\n  { label: \"Default\", value: \"default\" },\n  { label: \"Circle\", value: \"circle\" },\n];\nconst avatarShapes = [\n  { label: \"Square\", value: \"square\" },\n  { label: \"Circle\", value: \"circle\" },\n];\nconst imgSize = ref([196, 96]);\nconst animated = ref(false);\nconst size = ref<\"default\" | SizeType>(\"default\");\nconst block = ref(false);\nconst radius = ref(10);\nconst avatarShape = ref<ShapeType>(\"square\");\nconst btnShape = ref<ShapeType>(\"round\");\n</script>"
+        },
+        {
+          "title": "自定义",
+          "file": "components/skeleton/demo/custom.vue",
+          "source": "<template>\n  <Button :disabled=\"loading\" @click=\"showSkeleton\">Reload</Button>\n  <br />\n  <br />\n  <Card v-for=\"x in 3\" class=\"demo-skeleton-card\" title=\"A Poem\" :key=\"x\">\n    <SkeletonImage animated :loading=\"loading\" :radius=\"8\" style=\"width: 166px; height: 100px\">\n      <div class=\"cover\" />\n    </SkeletonImage>\n    <SkeletonText animated :loading=\"loading\" size=\"small\" style=\"min-width: 80px; margin: 8px 0\">\n      <p>Tony Stack</p>\n    </SkeletonText>\n    <SkeletonText animated :loading=\"loading\" size=\"small\" style=\"min-width: 130px\">\n      <span>I am Iron Man.</span>\n    </SkeletonText>\n  </Card>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst loading = ref(false);\n\nconst showSkeleton = () => {\n  loading.value = true;\n  setTimeout(() => {\n    loading.value = false;\n  }, 3000);\n};\n</script>\n<style>\n.demo-skeleton-card {\n  width: 200px;\n  margin-bottom: 10px;\n  display: inline-block;\n  margin-right: 20px;\n}\n.demo-skeleton-card .cover {\n  height: 100px;\n  width: 166px;\n  border-radius: 8px;\n  background: url(\"https://cdn.chuchur.com/upload/demo/test_300.jpg\") no-repeat center;\n  background-size: cover;\n}\n.demo-skeleton-card h2 {\n  font-size: 15px;\n}\n.demo-skeleton-card span {\n  font-size: 13px;\n  color: #999;\n}\n</style>"
+        }
+      ]
     },
     {
       "name": "StatCard",
@@ -15821,17 +16885,6 @@
           "documented": true
         },
         {
-          "name": "modelValue",
-          "description": "Value bound through `v-model`",
-          "descriptionZh": "`v-model` 绑定值",
-          "descriptionEn": "Value bound through `v-model`",
-          "type": "string | number | boolean | undefined",
-          "boolean": false,
-          "required": false,
-          "defaultExpression": "undefined",
-          "documented": true
-        },
-        {
           "name": "disabled",
           "description": "Disable switch",
           "descriptionZh": "禁用开关",
@@ -15843,6 +16896,17 @@
             true
           ],
           "required": false,
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Value bound through `v-model`",
+          "descriptionZh": "`v-model` 绑定值",
+          "descriptionEn": "Value bound through `v-model`",
+          "type": "string | number | boolean | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -17121,16 +18185,16 @@
           "type": "PlacementsType",
           "boolean": false,
           "enumValues": [
-            "right",
-            "bottom",
             "top",
             "top-left",
             "top-right",
+            "bottom",
             "bottom-left",
             "bottom-right",
             "left",
             "left-bottom",
             "left-top",
+            "right",
             "right-top",
             "right-bottom"
           ],
@@ -17143,6 +18207,20 @@
           "description": "Disabled status",
           "descriptionZh": "禁用状态",
           "descriptionEn": "Disabled status",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "panelOnly",
+          "description": "Render only the tooltip panel without a trigger",
+          "descriptionZh": "仅渲染提示面板，不需要触发元素",
+          "descriptionEn": "Render only the tooltip panel without a trigger",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -17169,20 +18247,6 @@
           "descriptionEn": "Background color",
           "type": "string | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "panelOnly",
-          "description": "Render only the tooltip panel without a trigger",
-          "descriptionZh": "仅渲染提示面板，不需要触发元素",
-          "descriptionEn": "Render only the tooltip panel without a trigger",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -17271,6 +18335,20 @@
       "documentation": "https://k-ui.cn/components/tour",
       "props": [
         {
+          "name": "defaultOpen",
+          "description": "Initial visibility",
+          "descriptionZh": "初始显示状态",
+          "descriptionEn": "Initial visibility",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "closable",
           "description": "Show close button",
           "descriptionZh": "显示关闭按钮",
@@ -17283,20 +18361,6 @@
           ],
           "required": false,
           "defaultExpression": "true",
-          "documented": true
-        },
-        {
-          "name": "defaultOpen",
-          "description": "Initial visibility",
-          "descriptionZh": "初始显示状态",
-          "descriptionEn": "Initial visibility",
-          "type": "boolean",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
           "documented": true
         },
         {
@@ -17493,6 +18557,20 @@
       "documentation": "https://k-ui.cn/components/transfer",
       "props": [
         {
+          "name": "disabled",
+          "description": "Disable this item",
+          "descriptionZh": "是否禁用此项",
+          "descriptionEn": "Disable this item",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "theme",
           "description": "Appearance theme",
           "descriptionZh": "外观主题",
@@ -17516,20 +18594,6 @@
           "boolean": false,
           "required": false,
           "defaultExpression": "() => []",
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Disable this item",
-          "descriptionZh": "是否禁用此项",
-          "descriptionEn": "Disable this item",
-          "type": "boolean",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
           "documented": true
         },
         {
@@ -18091,6 +19155,20 @@
       "documentation": "https://k-ui.cn/components/tabs",
       "props": [
         {
+          "name": "disabled",
+          "description": "Whether tab is disabled",
+          "descriptionZh": "tab是否被禁用",
+          "descriptionEn": "Whether tab is disabled",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "closable",
           "description": "Whether tab shows close button",
           "descriptionZh": "tab是否显示关闭按钮",
@@ -18111,20 +19189,6 @@
           "descriptionEn": "Icon displayed in tab header",
           "type": "IconType[] | undefined",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Whether tab is disabled",
-          "descriptionZh": "tab是否被禁用",
-          "descriptionEn": "Whether tab is disabled",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -18450,8 +19514,8 @@
           "type": "TimelineMode",
           "boolean": false,
           "enumValues": [
-            "right",
             "left",
+            "right",
             "center",
             "alternate"
           ],
@@ -19121,6 +20185,25 @@
       "documentation": "https://k-ui.cn/components/tree-select",
       "props": [
         {
+          "name": "placement",
+          "description": "Dropdown placement",
+          "descriptionZh": "下拉菜单弹出位置",
+          "descriptionEn": "Dropdown placement",
+          "type": "DropPlacementsType",
+          "boolean": false,
+          "enumValues": [
+            "top",
+            "top-left",
+            "top-right",
+            "bottom",
+            "bottom-left",
+            "bottom-right"
+          ],
+          "required": false,
+          "defaultExpression": "\"bottom-left\"",
+          "documented": true
+        },
+        {
           "name": "bordered",
           "description": "Whether to show border",
           "descriptionZh": "是否显示边框",
@@ -19186,25 +20269,6 @@
           "documented": true
         },
         {
-          "name": "placement",
-          "description": "Dropdown placement",
-          "descriptionZh": "下拉菜单弹出位置",
-          "descriptionEn": "Dropdown placement",
-          "type": "DropPlacementsType",
-          "boolean": false,
-          "enumValues": [
-            "bottom",
-            "top",
-            "top-left",
-            "top-right",
-            "bottom-left",
-            "bottom-right"
-          ],
-          "required": false,
-          "defaultExpression": "\"bottom-left\"",
-          "documented": true
-        },
-        {
           "name": "itemHeight",
           "description": "Fixed virtual node height",
           "descriptionZh": "虚拟滚动节点高度",
@@ -19253,6 +20317,20 @@
           "documented": true
         },
         {
+          "name": "disabled",
+          "description": "Whether current item is disabled",
+          "descriptionZh": "是否禁用当前项",
+          "descriptionEn": "Whether current item is disabled",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "icon",
           "description": "Custom icon",
           "descriptionZh": "自定义图标",
@@ -19285,20 +20363,6 @@
           "descriptionEn": "Specify the `value` of the selected item, can use `v-model` for two-way binding",
           "type": "TreeSelectValue",
           "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "disabled",
-          "description": "Whether current item is disabled",
-          "descriptionZh": "是否禁用当前项",
-          "descriptionEn": "Whether current item is disabled",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
           "required": false,
           "documented": true
         },
@@ -19687,7 +20751,7 @@
         {
           "title": "异步加载",
           "file": "components/tree-select/demo/sync.vue",
-          "source": "<template>\n  <TreeSelect\n    :tree-data=\"data\"\n    :treeLoadData=\"loadData\"\n    v-model:treeExpandedKeys=\"expandedKeys\"\n    block\n  />\n</template>\n<script setup lang=\"ts\">\nimport type { TreeNode } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst data = ref([\n  { title: \"Expand to load\", key: \"0-0\" },\n  { title: \"Expand to load\", key: \"0-1\" },\n  { title: \"Tree Node\", isLeaf: true, key: \"0-2\" },\n]);\nconst expandedKeys = ref([]);\nconst insertChildren = (nodes: TreeNode[], targetKey: string, childrenData: TreeNode[]) => {\n  for (const node of nodes) {\n    if (node.key === targetKey) {\n      // 找到目标节点，插入数据\n      node.children = childrenData; // for vue 3\n      return true; // 插入成功\n    }\n\n    // 递归查找子节点\n    if (node.children && node.children.length > 0) {\n      if (insertChildren(node.children, targetKey, childrenData)) {\n        return true; // 子树中找到并插入成功\n      }\n    }\n  }\n  return false; // 未找到\n};\n\nlet loadCount = 0;\nconst loadData = (node: TreeNode) => {\n  return new Promise<void>((resolve) => {\n    loadCount += 1;\n    //模拟异步请求\n    setTimeout(() => {\n      let fetchedChildren = [\n        { title: \"Child Node\", isLeaf: loadCount >= 2, key: node.key + \"-0\" },\n        { title: \"Child Node\", isLeaf: loadCount >= 3, key: node.key + \"-1\" },\n      ];\n      insertChildren(data.value, node.key, fetchedChildren);\n      resolve();\n    }, 1000);\n  });\n};\n</script>"
+          "source": "<template>\n  <TreeSelect\n    :tree-data=\"data\"\n    :treeLoadData=\"loadData\"\n    v-model:treeExpandedKeys=\"expandedKeys\"\n    block\n  />\n</template>\n<script setup lang=\"ts\">\nimport type { TreeNode } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst data = ref([\n  { title: \"Expand to load\", key: \"0-0\" },\n  { title: \"Expand to load\", key: \"0-1\" },\n  { title: \"Tree Node\", isLeaf: true, key: \"0-2\" },\n]);\nconst expandedKeys = ref<string[]>([]);\nconst insertChildren = (nodes: TreeNode[], targetKey: string, childrenData: TreeNode[]) => {\n  for (const node of nodes) {\n    if (node.key === targetKey) {\n      // 找到目标节点，插入数据\n      node.children = childrenData; // for vue 3\n      return true; // 插入成功\n    }\n\n    // 递归查找子节点\n    if (node.children && node.children.length > 0) {\n      if (insertChildren(node.children, targetKey, childrenData)) {\n        return true; // 子树中找到并插入成功\n      }\n    }\n  }\n  return false; // 未找到\n};\n\nlet loadCount = 0;\nconst loadData = (node: TreeNode) => {\n  return new Promise<void>((resolve) => {\n    loadCount += 1;\n    //模拟异步请求\n    setTimeout(() => {\n      let fetchedChildren = [\n        { title: \"Child Node\", isLeaf: loadCount >= 2, key: node.key + \"-0\" },\n        { title: \"Child Node\", isLeaf: loadCount >= 3, key: node.key + \"-1\" },\n      ];\n      insertChildren(data.value, node.key, fetchedChildren);\n      resolve();\n    }, 1000);\n  });\n};\n</script>"
         },
         {
           "title": "尺寸",
@@ -19887,6 +20951,16 @@
       "documentation": "https://k-ui.cn/components/row-col",
       "props": [
         {
+          "name": "offset",
+          "description": "Left offset from 0~24",
+          "descriptionZh": "栅格左侧间隔格数，可选值为 0~24",
+          "descriptionEn": "Left offset from 0~24",
+          "type": "number | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "push",
           "description": "Move the column right by 0~24 columns",
           "descriptionZh": "栅格向右移动的格数，可选值为 0~24",
@@ -19961,16 +21035,6 @@
           "description": "Occupied columns from 0~24; `0` hides the column",
           "descriptionZh": "栅格占位格数，可选值为 0~24，`0` 表示隐藏",
           "descriptionEn": "Occupied columns from 0~24; `0` hides the column",
-          "type": "number | undefined",
-          "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "offset",
-          "description": "Left offset from 0~24",
-          "descriptionZh": "栅格左侧间隔格数，可选值为 0~24",
-          "descriptionEn": "Left offset from 0~24",
           "type": "number | undefined",
           "boolean": false,
           "required": false,
@@ -20069,11 +21133,11 @@
           "description": "Vertical alignment in flex layout: `top` `middle` `bottom`",
           "descriptionZh": "flex 布局下的垂直对齐方式：`top` `middle` `bottom`",
           "descriptionEn": "Vertical alignment in flex layout: `top` `middle` `bottom`",
-          "type": "\"bottom\" | \"top\" | \"middle\"",
+          "type": "\"top\" | \"bottom\" | \"middle\"",
           "boolean": false,
           "enumValues": [
-            "bottom",
             "top",
+            "bottom",
             "middle"
           ],
           "required": false,
@@ -20781,6 +21845,17 @@
       "documentation": "https://k-ui.cn/components/watermark",
       "props": [
         {
+          "name": "offset",
+          "description": "The starting offset origin for the watermark grid tiling, formatted as `[x, y]`. Useful for fine-tuning edge whitespace.",
+          "descriptionZh": "水印网格平铺时的起始原点偏移量，格式为 `[x, y]`，用于微调边缘留白。",
+          "descriptionEn": "The starting offset origin for the watermark grid tiling, formatted as `[x, y]`. Useful for fine-tuning edge whitespace.",
+          "type": "number[]",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "() => [20, 20]",
+          "documented": true
+        },
+        {
           "name": "height",
           "description": "Height of a single watermark cell, in `px`.",
           "descriptionZh": "单个水印区域的高度，单位 `px`。",
@@ -20848,17 +21923,6 @@
           "boolean": false,
           "required": false,
           "defaultExpression": "-22",
-          "documented": true
-        },
-        {
-          "name": "offset",
-          "description": "The starting offset origin for the watermark grid tiling, formatted as `[x, y]`. Useful for fine-tuning edge whitespace.",
-          "descriptionZh": "水印网格平铺时的起始原点偏移量，格式为 `[x, y]`，用于微调边缘留白。",
-          "descriptionEn": "The starting offset origin for the watermark grid tiling, formatted as `[x, y]`. Useful for fine-tuning edge whitespace.",
-          "type": "number[]",
-          "boolean": false,
-          "required": false,
-          "defaultExpression": "() => [20, 20]",
           "documented": true
         },
         {

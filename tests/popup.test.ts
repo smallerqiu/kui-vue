@@ -15,6 +15,39 @@ const tick = async () => {
 };
 
 describe("Popup foundation", () => {
+  it("keeps the parent open when a child closes itself during the click", async () => {
+    const onOuterChange = vi.fn();
+    const wrapper = mount(Popup, {
+      attachTo: document.body,
+      props: { defaultOpen: true, onOpenChange: onOuterChange },
+      slots: {
+        default: () => h("button", "Parent"),
+        overlay: () =>
+          h(
+            Popup,
+            { defaultOpen: true },
+            {
+              default: () => h("button", "Child"),
+              overlay: ({ close }: PopupRef) =>
+                h("button", { id: "close-child", onClick: close }, "Close child"),
+            },
+          ),
+      },
+    });
+    wrappers.push(wrapper);
+    await tick();
+    (document.querySelector("#close-child") as HTMLElement).click();
+    await tick();
+    expect(onOuterChange).not.toHaveBeenCalled();
+    expect(wrapper.get("button").attributes("aria-expanded")).toBe("true");
+    document.body.click();
+    await tick();
+    expect(onOuterChange).toHaveBeenCalledWith(
+      false,
+      expect.objectContaining({ reason: "outside" }),
+    );
+  });
+
   it("closes retained child portals when the controlled parent closes", async () => {
     const onChildChange = vi.fn();
     const wrapper = mount(Popup, {

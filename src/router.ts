@@ -48,7 +48,7 @@ const demoGlobs = import.meta.glob("../components/**/index*.md");
 const demoRoutes: RouteRecordRaw[] = [];
 for (const key in demoGlobs) {
   // console.log(key);
-  const name = key.split("/")[2];
+  const name = key.split("/").at(-2)!;
   const route: RouteRecordRaw = {
     path: key.includes("US") ? name + "-en" : name,
     component: () => demoGlobs[key](),

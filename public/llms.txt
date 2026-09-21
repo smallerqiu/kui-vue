@@ -20,6 +20,7 @@ Import `kui-vue/style/index.css`, then import components from `kui-vue` or insta
 ## Components
 
 - [Affix](https://k-ui.cn/components/affix): tags `Affix`, `KAffix`, `k-affix`, `affix`
+- [Popup](https://k-ui.cn/components/popup): tags `Popup`, `KPopup`, `k-popup`, `popup`
 - [Alert](https://k-ui.cn/components/alert): tags `Alert`, `KAlert`, `k-alert`, `alert`
 - [AutoComplete](https://k-ui.cn/components/auto-complete): tags `AutoComplete`, `KAutoComplete`, `k-auto-complete`, `auto-complete`
 - [Anchor](https://k-ui.cn/components/anchor): tags `Anchor`, `KAnchor`, `k-anchor`, `anchor`
@@ -76,7 +77,7 @@ Import `kui-vue/style/index.css`, then import components from `kui-vue` or insta
 - [Footer](https://k-ui.cn/components/footer): tags `Footer`, `KFooter`, `k-footer`, `footer`
 - [Header](https://k-ui.cn/components/header): tags `Header`, `KHeader`, `k-header`, `header`
 - [Layout](https://k-ui.cn/components/layout): tags `Layout`, `KLayout`, `k-layout`, `layout`
-- [Sider](https://k-ui.cn/components/sider): tags `Sider`, `KSider`, `k-sider`, `sider`
+- [Sider](https://k-ui.cn/components/layout): tags `Sider`, `KSider`, `k-sider`, `sider`
 - [Menu](https://k-ui.cn/components/menu): tags `Menu`, `KMenu`, `k-menu`, `menu`
 - [MenuDivider](https://k-ui.cn/components/menu-divider): tags `MenuDivider`, `KMenuDivider`, `k-menu-divider`, `menu-divider`
 - [MenuGroup](https://k-ui.cn/components/menu): tags `MenuGroup`, `KMenuGroup`, `k-menu-group`, `menu-group`
@@ -107,10 +108,10 @@ Import `kui-vue/style/index.css`, then import components from `kui-vue` or insta
 - [Select](https://k-ui.cn/components/select): tags `Select`, `KSelect`, `k-select`, `select`
 - [ConfigProvider](https://k-ui.cn/components/config): tags `ConfigProvider`, `KConfigProvider`, `k-config-provider`, `config-provider`
 - [Skeleton](https://k-ui.cn/components/skeleton): tags `Skeleton`, `KSkeleton`, `k-skeleton`, `skeleton`
-- [SkeletonAvatar](https://k-ui.cn/components/skeleton-avatar): tags `SkeletonAvatar`, `KSkeletonAvatar`, `k-skeleton-avatar`, `skeleton-avatar`
-- [SkeletonButton](https://k-ui.cn/components/skeleton-button): tags `SkeletonButton`, `KSkeletonButton`, `k-skeleton-button`, `skeleton-button`
-- [SkeletonImage](https://k-ui.cn/components/skeleton-image): tags `SkeletonImage`, `KSkeletonImage`, `k-skeleton-image`, `skeleton-image`
-- [SkeletonText](https://k-ui.cn/components/skeleton-text): tags `SkeletonText`, `KSkeletonText`, `k-skeleton-text`, `skeleton-text`
+- [SkeletonAvatar](https://k-ui.cn/components/skeleton): tags `SkeletonAvatar`, `KSkeletonAvatar`, `k-skeleton-avatar`, `skeleton-avatar`
+- [SkeletonButton](https://k-ui.cn/components/skeleton): tags `SkeletonButton`, `KSkeletonButton`, `k-skeleton-button`, `skeleton-button`
+- [SkeletonImage](https://k-ui.cn/components/skeleton): tags `SkeletonImage`, `KSkeletonImage`, `k-skeleton-image`, `skeleton-image`
+- [SkeletonText](https://k-ui.cn/components/skeleton): tags `SkeletonText`, `KSkeletonText`, `k-skeleton-text`, `skeleton-text`
 - [StatCard](https://k-ui.cn/components/stat-card): tags `StatCard`, `KStatCard`, `k-stat-card`, `stat-card`
 - [StatNumber](https://k-ui.cn/components/stat-card): tags `StatNumber`, `KStatNumber`, `k-stat-number`, `stat-number`
 - [Slider](https://k-ui.cn/components/slider): tags `Slider`, `KSlider`, `k-slider`, `slider`

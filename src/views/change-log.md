@@ -15,6 +15,24 @@ vite 好像有缓存, 可手动清除
 rm -rf node_modules/.vite
 ```
 
+## 6.2.0
+
+`2026-9-21`
+
+### 弹层基础能力
+
+- 新增 `Popup` 基础组件及配套类型，统一触发方式、方位、箭头、挂载容器、外部点击关闭、Esc 关闭和嵌套弹层管理。
+- `Dropdown`、`Tooltip`、`Poptip`、`Popconfirm` 及 `Select`、`TreeSelect`、`Cascader`、`AutoComplete`、`Mentions`、`DatePicker`、`ColorPicker` 接入统一弹层基础能力，减少重复定位与事件监听逻辑。
+- 完善嵌套弹层点击判定、关闭联动和弹层定位更新，保留选择器各自的筛选、选择及键盘行为。
+
+### 交互、类型与维护
+
+- 完善组件及子项的 disabled / readonly 交互，修复禁用状态仍响应点击、hover、active 或显示错误鼠标指针的问题。
+- 调整 `Table` 行 hover 背景与内部操作按钮的对比度，统一普通列和固定列的交互背景。
+- 调整 `Tree` directory 模式下节点与复选框的 hover 层次，兼顾浅色和暗色主题；完善 `Cascader` 默认下拉宽度。
+- 补全组件 emits、事件监听属性及相关公共类型导出，复用多选标签渲染与弹层公共逻辑。
+- 增加弹层、选择器、禁用交互及事件类型的回归测试。
+
 ## 6.1.0
 
 `2026-9-19`

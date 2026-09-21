@@ -12,6 +12,38 @@ A generic anchored popup. Dropdown adds menu semantics on top; Popup can display
 </Popup>
 ```
 
+## When to use
+
+Use Popup for anchored custom forms, filters, and compound panels. Use Dropdown for menus, Poptip for titled cards, and Tooltip for brief text hints. Popup handles positioning and visibility, not selection, form validation, or focus trapping. Use Modal or Drawer when a modal interaction is needed.
+
+Use the default slot for the trigger and the scoped overlay slot for content; avoid h() in .vue examples. Bind v-model:open for controlled state.
+
+## Examples
+
+[Basic usage and custom content](./demo/basic.vue)
+
+- Render inputs, buttons, or arbitrary content and call close from inside. Mounted content is retained by default; destroyOnClose unmounts it after the exit animation.
+
+[Trigger modes](./demo/trigger.vue)
+
+- Supports click, hover, focus, and contextmenu. Context menus use the pointer position. Hover supports opening/closing delays; see the controlled example for manual mode.
+
+[Placement and arrows](./demo/placement.vue)
+
+- Choose among 12 placements, toggle arrow, and set offset. Placement may adjust when space is limited.
+
+[Controlled state and instance methods](./demo/controlled.vue)
+
+- Respond to visibility requests when using controlled state. Instances expose open / close / updatePosition; this example displays the latest request reason.
+
+[Custom container](./demo/container.vue)
+
+- getPopupContainer selects the mount node, otherwise ConfigProvider or body is used. Establish a positioning context on custom containers. matchTriggerWidth matches the trigger's minimum width; ancestor overflow may clip the popup.
+
+[Nested popups and selectors](./demo/nested.vue)
+
+- Choosing a Select option keeps the outer popup open. Escape dismisses the topmost popup first; dismissing the parent also closes its nested popups.
+
 ## Popup API
 
 | Property      | Description                   | Type                    | Default |
