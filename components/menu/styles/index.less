@@ -11,6 +11,14 @@
   }
 }
 
+.k-menu-item-disabled:not(.k-menu-item-selected),
+.k-menu-submenu-disabled > .k-menu-submenu-title {
+  &:hover,
+  &:active {
+    background-color: transparent !important;
+  }
+}
+
 .k-menu {
   display: flex;
   flex-direction: column;

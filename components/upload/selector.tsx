@@ -1,5 +1,5 @@
 import { Plus } from "kui-icons";
-import { defineComponent, ref, type ExtractPropTypes, type PropType } from "vue";
+import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType } from "../const/types";
 import Icon from "../icon";
 import type { IconType } from "../icon";
@@ -37,6 +37,12 @@ export default defineComponent({
   },
   setup(props, { emit, slots }) {
     const dragOver = ref(false);
+    watch(
+      () => props.disabled,
+      (disabled) => {
+        if (disabled) dragOver.value = false;
+      },
+    );
     const uploadFileRef = ref<HTMLInputElement | null>(null);
 
     const onDragEnter = (e: DragEvent) => {
@@ -104,14 +110,14 @@ export default defineComponent({
       if (!showSelector) return null;
 
       const addProps = {
-        class: ["k-upload-add", { "k-upload-drag-over": dragOver.value }],
+        class: ["k-upload-add", { "k-upload-drag-over": dragOver.value && !disabled }],
         role: "button",
         tabindex: disabled ? -1 : 0,
         "aria-disabled": disabled || undefined,
         onDragenter: draggable && !disabled ? onDragEnter : undefined,
         onDrop: draggable && !disabled ? onDrop : undefined,
         onDragover: draggable && !disabled ? onDragOver : undefined,
-        onDragleave: draggable && !disabled ? onDragLeave : undefined,
+        onDragleave: draggable ? onDragLeave : undefined,
         onClick: triggerSelect,
         onKeydown: (event: KeyboardEvent) => {
           if (event.key === "Enter" || event.key === " ") {
@@ -141,7 +147,7 @@ export default defineComponent({
             )}
             {draggable && uploadSubText && (
               <span class="k-upload-sub-text">
-                {dragOver.value ? locale?.k.upload.releaseToUpload : uploadSubText}
+                {dragOver.value && !disabled ? locale?.k.upload.releaseToUpload : uploadSubText}
               </span>
             )}
           </div>

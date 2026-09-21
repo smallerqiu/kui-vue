@@ -135,6 +135,7 @@ export default defineComponent({
                       size="small"
                       icon={X}
                       title="Cancel upload"
+                      disabled={props.disabled}
                       onClick={() => emit("abort", item)}
                     />
                   ) : item.status === "error" ? (
@@ -143,6 +144,7 @@ export default defineComponent({
                       size="small"
                       icon={RotateCcw}
                       title="Retry upload"
+                      disabled={props.disabled}
                       onClick={() => emit("retry", item)}
                     />
                   ) : null)}

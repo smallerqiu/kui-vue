@@ -63,6 +63,7 @@ const Tooltip = defineComponent({
     let resizeObserver: ResizeObserver | null = null;
 
     const updateShow = (value: boolean) => {
+      if (value && props.disabled) return;
       visible.value = value;
       emit("update:show", value);
     };
@@ -235,7 +236,7 @@ const Tooltip = defineComponent({
       };
       const panel = rendered.value ? (
         <div
-          v-show={visible.value && anchorVisible.value}
+          v-show={!props.disabled && visible.value && anchorVisible.value}
           {...overlayProps}
           class={[overlayProps.class, { "k-tooltip-panel": props.panelOnly }]}
           style={props.panelOnly ? { width: toCssLength(props.width) } : overlayProps.style}

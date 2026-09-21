@@ -123,6 +123,7 @@ const InputTag = defineComponent({
       addValues(items);
     };
     const focusInput = (event: MouseEvent) => {
+      if (disabled()) return;
       const listener = attrs.onClick;
       if (Array.isArray(listener)) listener.forEach((handler) => handler(event));
       else if (typeof listener === "function") listener(event);
@@ -143,10 +144,12 @@ const InputTag = defineComponent({
       const size = appearance.size.value;
       const shape = appearance.shape.value;
       const theme = appearance.theme.value;
+      const { onClick: _onClick, ...rootAttrs } = attrs;
+      void _onClick;
 
       return (
         <div
-          {...attrs}
+          {...rootAttrs}
           class={[
             "k-input-tag",
             {
@@ -161,7 +164,7 @@ const InputTag = defineComponent({
             },
             attrs.class,
           ]}
-          {...resolveFormControlAttrs(attrs, field)}
+          {...resolveFormControlAttrs(rootAttrs, field)}
           aria-disabled={isDisabled || undefined}
           aria-readonly={isReadonly || undefined}
           onClick={focusInput}

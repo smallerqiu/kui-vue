@@ -3,6 +3,7 @@ import { clamp } from "../utils/share";
 export default defineComponent({
   name: "Hue",
   props: {
+    disabled: Boolean,
     hue: { type: Number, default: 0 },
   },
   emits: {
@@ -36,6 +37,7 @@ export default defineComponent({
     };
 
     const handleMove = (e: MouseEvent) => {
+      if (props.disabled) return;
       const canvas = refPaint.value;
       if (!canvas) return;
       const { width, left } = canvas.getBoundingClientRect();
@@ -51,13 +53,21 @@ export default defineComponent({
     };
 
     const onMouseDown = (e: MouseEvent) => {
+      if (props.disabled) return;
       isMousePressed.value = true;
       handleMove(e);
       document.addEventListener("mousemove", handleMove);
       document.addEventListener("mouseup", onMouseUp);
       e.preventDefault();
     };
+    watch(
+      () => props.disabled,
+      (disabled) => {
+        if (disabled) onMouseUp();
+      },
+    );
     const onKeydown = (event: KeyboardEvent) => {
+      if (props.disabled) return;
       const step = event.shiftKey ? 10 : 1;
       let value = props.hue;
       if (event.key === "ArrowRight" || event.key === "ArrowUp") value += step;
@@ -85,7 +95,8 @@ export default defineComponent({
           height={8}
           ref={refPaint}
           role="slider"
-          tabindex={0}
+          tabindex={props.disabled ? -1 : 0}
+          aria-disabled={props.disabled || undefined}
           aria-label="Hue"
           aria-valuemin={0}
           aria-valuemax={360}

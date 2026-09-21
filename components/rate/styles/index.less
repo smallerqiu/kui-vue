@@ -63,3 +63,14 @@
     font-size: 14px;
   }
 }
+
+.k-rate-disabled,
+.k-rate-readonly {
+  .k-star {
+    cursor: not-allowed;
+  }
+}
+
+.k-rate-readonly:not(.k-rate-disabled) .k-star {
+  cursor: default;
+}

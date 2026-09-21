@@ -26,7 +26,7 @@
   padding: 0 8px;
   outline: var(--kui-focus-ring-width) solid transparent;
   outline-offset: 1px;
-  &:hover {
+  &:not(.k-datepicker-disabled):hover {
     border-color: var(--kui-color-primary);
   }
   &:focus {
@@ -116,7 +116,7 @@
     border-color: transparent;
   }
 }
-.k-datepicker-plain {
+.k-datepicker-plain:not(.k-datepicker-disabled) {
   border-color: transparent;
   background: transparent;
   box-shadow: none;
@@ -175,6 +175,14 @@
   border: 1px solid var(--kui-popup-border);
   -webkit-user-select: none;
   user-select: none;
+}
+
+.k-datepicker-overlay.k-datepicker-disabled {
+  cursor: not-allowed;
+
+  > * {
+    pointer-events: none;
+  }
 }
 .k-datepicker-panel {
   position: relative;
@@ -321,11 +329,11 @@
     margin: 2px;
     box-sizing: border-box;
 
-    &:hover {
+    &:not(.k-picker-day-disabled, .k-picker-time-disabled):hover {
       background: var(--kui-color-item-hover);
     }
 
-    &:active {
+    &:not(.k-picker-day-disabled, .k-picker-time-disabled):active {
       background: var(--kui-color-item-active);
     }
   }
@@ -385,10 +393,10 @@
     justify-content: center;
     border-radius: var(--kui-control-radius);
     cursor: pointer;
-    &:hover {
+    &:not(.k-picker-day-disabled, .k-picker-time-disabled):hover {
       background: var(--kui-color-item-hover);
     }
-    &:active {
+    &:not(.k-picker-day-disabled, .k-picker-time-disabled):active {
       background: var(--kui-color-item-active);
     }
   }
@@ -431,10 +439,10 @@
     cursor: pointer;
     flex: 1;
     color: var(--kui-control-text);
-    &:hover {
+    &:not(.k-picker-day-disabled, .k-picker-time-disabled):hover {
       background: var(--kui-color-item-hover);
     }
-    &:active {
+    &:not(.k-picker-day-disabled, .k-picker-time-disabled):active {
       background: var(--kui-color-item-active);
     }
     &.active {
@@ -483,11 +491,11 @@
     transition:
       background-color 0.2s,
       opacity 0.2s;
-    &:hover {
+    &:not(.k-picker-day-disabled, .k-picker-time-disabled):hover {
       background: var(--kui-color-item-hover);
       opacity: 1;
     }
-    &:active {
+    &:not(.k-picker-day-disabled, .k-picker-time-disabled):active {
       background: var(--kui-color-item-active);
     }
   }

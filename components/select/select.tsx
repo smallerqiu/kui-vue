@@ -296,7 +296,8 @@ const Select = defineComponent({
     };
 
     const onSelect = (item: OptionSelectEvent) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       const { value, label } = { ...item };
       let selected = true;
       if (props.multiple) {
@@ -324,6 +325,8 @@ const Select = defineComponent({
     };
 
     const searchInput = (e: Event) => {
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       const target = e.target as HTMLInputElement;
       queryKey.value = target.value;
       activeIndex.value = -1;
@@ -384,7 +387,8 @@ const Select = defineComponent({
     };
 
     const onClear = (e: Event) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       emit("clear");
       currentValue.value = [];
       emitValue();
@@ -485,7 +489,7 @@ const Select = defineComponent({
       return (
         <Option
           onSelect={onSelect}
-          onMouseenter={() => onMouseenter(index)}
+          onMouseenter={disabled ? undefined : () => onMouseenter(index)}
           key={`${value}-${String(label)}`}
           active={activeIndex.value === index}
           value={value}
@@ -498,6 +502,8 @@ const Select = defineComponent({
     };
 
     const queryKeydown = ({ key }: KeyboardEvent) => {
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       if (key === "Backspace") {
         if (queryKey.value === "" && props.multiple && currentValue.value.length > 0) {
           currentValue.value = currentValue.value.slice(0, -1);
@@ -685,6 +691,7 @@ const Select = defineComponent({
         ref: queryInputRef,
         class: "k-select-search",
         autoComplete: "off",
+        disabled,
         readonly,
         onChange: (e: Event) => e.stopPropagation(),
         onKeydown: queryKeydown,

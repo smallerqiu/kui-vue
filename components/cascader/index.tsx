@@ -258,7 +258,14 @@ const Cascader = defineComponent({
       columnIndex: number,
       isHoverTrigger = false,
     ) => {
-      if (props.readonly || field?.readonly.value || option.disabled) return;
+      if (
+        props.disabled ||
+        field?.disabled.value ||
+        props.readonly ||
+        field?.readonly.value ||
+        option.disabled
+      )
+        return;
 
       // 斩断当前列后面的所有老旧高亮分支，重构高亮路径
       const nextPath = activePath.value.slice(0, columnIndex);
@@ -292,7 +299,8 @@ const Cascader = defineComponent({
     };
 
     const handleClear = (e: Event) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       e.stopPropagation();
       emit("update:modelValue", []);
       if (field?.prop) field.update([]);

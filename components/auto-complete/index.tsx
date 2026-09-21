@@ -166,7 +166,11 @@ const AutoComplete = defineComponent({
       return nextOptions.length > 0;
     };
     const setOpen = (next: boolean) => {
-      if (next && (props.readonly || field?.readonly.value)) return;
+      if (
+        next &&
+        (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+      )
+        return;
       if (next && suppressRemoteOptions.value && !props.loading) return;
       if (next && !props.loading && (!hasOptions.value || !shownOptions.value.length)) return;
       if (next && !(props.open ?? innerOpen.value)) positioned.value = false;
@@ -234,14 +238,22 @@ const AutoComplete = defineComponent({
       window.removeEventListener("resize", updatePosition);
     });
     const update = (next: string) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       inner.value = next;
       emit("update:modelValue", next);
       if (field?.prop) field.update(next);
       emit("change", next);
     };
     const choose = (option: AutoCompleteOption) => {
-      if (props.readonly || field?.readonly.value || option.disabled) return;
+      if (
+        props.disabled ||
+        field?.disabled.value ||
+        props.readonly ||
+        field?.readonly.value ||
+        option.disabled
+      )
+        return;
       update(option.value);
       emit("select", option.value, option);
       setOpen(false);
@@ -268,7 +280,8 @@ const AutoComplete = defineComponent({
       else if (typeof listener === "function") listener(event);
     };
     const keydown = (event: KeyboardEvent) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       if (event.key === "ArrowDown" || event.key === "ArrowUp") {
         if ((!current.value && !props.showOnEmpty) || suppressRemoteOptions.value) return;
         if (!filter(current.value).length) return;
@@ -408,7 +421,14 @@ const AutoComplete = defineComponent({
                               },
                             ]}
                             onMousedown={(event) => event.preventDefault()}
-                            onMouseenter={() => !option.disabled && (active.value = index)}
+                            onMouseenter={() =>
+                              !props.disabled &&
+                              !field?.disabled.value &&
+                              !props.readonly &&
+                              !field?.readonly.value &&
+                              !option.disabled &&
+                              (active.value = index)
+                            }
                             onClick={() => choose(option)}
                           >
                             {option.label ?? option.value}

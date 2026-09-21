@@ -13695,6 +13695,26 @@
           "documented": true
         },
         {
+          "name": "onClick",
+          "description": "Event emitted for click",
+          "descriptionZh": "Event emitted for click",
+          "descriptionEn": "Event emitted for click",
+          "type": "(...args: unknown[]) => void",
+          "eventName": "click",
+          "boolean": false,
+          "documented": false
+        },
+        {
+          "name": "onMouseenter",
+          "description": "Event emitted for mouseenter",
+          "descriptionZh": "Event emitted for mouseenter",
+          "descriptionEn": "Event emitted for mouseenter",
+          "type": "(...args: unknown[]) => void",
+          "eventName": "mouseenter",
+          "boolean": false,
+          "documented": false
+        },
+        {
           "name": "onSelect",
           "description": "Triggered when an item is selected",
           "descriptionZh": "选中一项时触发",
@@ -13706,6 +13726,20 @@
         }
       ],
       "events": [
+        {
+          "name": "click",
+          "type": "(...args: unknown[]) => void",
+          "description": "Event emitted for click",
+          "descriptionZh": "Event emitted for click",
+          "descriptionEn": "Event emitted for click"
+        },
+        {
+          "name": "mouseenter",
+          "type": "(...args: unknown[]) => void",
+          "description": "Event emitted for mouseenter",
+          "descriptionZh": "Event emitted for mouseenter",
+          "descriptionEn": "Event emitted for mouseenter"
+        },
         {
           "name": "select",
           "type": "(...args: unknown[]) => void",
@@ -18630,6 +18664,20 @@
           ],
           "required": false,
           "defaultExpression": "false",
+          "documented": true
+        },
+        {
+          "name": "disabled",
+          "description": "Whether node is disabled",
+          "descriptionZh": "是否禁用节点",
+          "descriptionEn": "Whether node is disabled",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
           "documented": true
         },
         {

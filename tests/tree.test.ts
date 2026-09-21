@@ -149,4 +149,28 @@ describe("Tree", () => {
     expect(wrapper.emitted("update:expandedKeys")).toBeUndefined();
     expect(wrapper.find("[data-tree-key='one']").exists()).toBe(true);
   });
+
+  it("does not expand a disabled node from either the row or arrow", async () => {
+    const wrapper = mount(Tree, {
+      props: {
+        directory: true,
+        data: [
+          {
+            key: "parent",
+            title: "Parent",
+            disabled: true,
+            children: [{ key: "child", title: "Child" }],
+          },
+        ],
+      },
+    });
+    const row = wrapper.get("[data-tree-key='parent']");
+
+    await row.trigger("click");
+    await row.get(".k-tree-arrow").trigger("click");
+
+    expect(wrapper.emitted("update:expandedKeys")).toBeUndefined();
+    expect(wrapper.find("[data-tree-key='child']").exists()).toBe(false);
+    expect(row.classes()).toContain("k-tree-item-disabled");
+  });
 });

@@ -261,6 +261,8 @@ const TreeSelect = defineComponent({
     };
 
     const searchInput = (e: InputEvent) => {
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       const target = e.target as SearchEventTarget;
       queryKey.value = target.value || "";
       nextTick(() => {
@@ -318,7 +320,8 @@ const TreeSelect = defineComponent({
     };
 
     const onClear = (e: Event) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       currentValue.value = [];
       emitValue();
       clearQuery();
@@ -411,6 +414,7 @@ const TreeSelect = defineComponent({
     );
 
     const onExpand = ({ key, expanded, node }: TreeExpandEvent) => {
+      if (props.disabled || field?.disabled.value) return;
       const nextKeys = defaultExpandedKeys.value.slice();
       const index = nextKeys.indexOf(key);
       if (index > -1 && !expanded) {
@@ -424,13 +428,15 @@ const TreeSelect = defineComponent({
     };
 
     const onCheck = (_checkedNode: TreeNode, _checked: boolean, checkedKeys: string[]) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       currentValue.value = checkedKeys.slice();
       emitValue();
     };
 
     const onSelect = (item: TreeNode) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       const value = item.key;
       const label = item.title;
       let selected = true;
@@ -464,6 +470,7 @@ const TreeSelect = defineComponent({
     const renderTree = () => {
       const treePropsData: Record<string, unknown> = {
         checkable: props.treeCheckable,
+        disabled: props.disabled || field?.disabled.value,
         data: props.treeData,
         showLine: props.treeShowLine,
         showIcon: props.treeShowIcon,
@@ -486,6 +493,8 @@ const TreeSelect = defineComponent({
     };
 
     const queryKeydown = ({ key }: KeyboardEvent) => {
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       if (key === "Backspace") {
         if (queryKey.value === "" && props.multiple && currentValue.value.length > 0) {
           currentValue.value = currentValue.value.slice(0, -1);
@@ -587,6 +596,7 @@ const TreeSelect = defineComponent({
         ref: queryInputRef,
         class: "k-tree-select-search",
         autoComplete: "off",
+        disabled,
         readonly,
         onChange: (e: Event) => e.stopPropagation(),
         onKeydown: queryKeydown,

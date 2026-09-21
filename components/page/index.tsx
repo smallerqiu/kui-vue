@@ -158,7 +158,9 @@ const Page = defineComponent({
       if (showPrevMore) {
         const p = {
           class: "k-pager-item k-pager-more",
-          onMouseenter: () => (prevPageGroup.value = true),
+          onMouseenter: () => {
+            if (!props.disabled) prevPageGroup.value = true;
+          },
           onMouseleave: () => (prevPageGroup.value = false),
           role: "button",
           tabindex: props.disabled ? -1 : 0,
@@ -177,7 +179,9 @@ const Page = defineComponent({
       if (showNextMore) {
         const p = {
           class: "k-pager-item k-pager-more",
-          onMouseenter: () => (nextPageGroup.value = true),
+          onMouseenter: () => {
+            if (!props.disabled) nextPageGroup.value = true;
+          },
           onMouseleave: () => (nextPageGroup.value = false),
           role: "button",
           tabindex: props.disabled ? -1 : 0,

@@ -71,8 +71,16 @@
   color: var(--kui-color-text-disabled);
   cursor: not-allowed;
 }
-.k-transfer-item.is-disabled:hover {
+.k-transfer-item.is-disabled:not(.is-selected):hover,
+.k-transfer.is-disabled .k-transfer-item:not(.is-selected):hover {
   background: transparent;
+}
+.k-transfer-item.is-disabled.is-selected:hover,
+.k-transfer.is-disabled .k-transfer-item.is-selected:hover {
+  background: var(--kui-color-item-selected);
+}
+.k-transfer.is-disabled .k-transfer-item {
+  cursor: not-allowed;
 }
 .k-transfer-item-content {
   display: flex;

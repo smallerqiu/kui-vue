@@ -52,7 +52,7 @@ const MenuItem = defineComponent({
         class: [
           `k-${preCls}-item`,
           {
-            [`k-${preCls}-item-active`]: active.value,
+            [`k-${preCls}-item-active`]: active.value && !disabled,
             [`k-${preCls}-item-selected`]: selected,
             [`k-${preCls}-item-disabled`]: disabled,
           },
@@ -69,7 +69,7 @@ const MenuItem = defineComponent({
           if (!disabled) active.value = true;
         },
         onMouseleave: () => {
-          if (!disabled) active.value = false;
+          active.value = false;
         },
         onClick: (event: MouseEvent) => {
           if (disabled) {

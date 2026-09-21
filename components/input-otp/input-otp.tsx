@@ -125,6 +125,7 @@ const InputOTP = defineComponent({
     };
 
     const onKeydown = (event: KeyboardEvent, index: number) => {
+      if (props.disabled || field?.disabled.value) return;
       if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
         event.preventDefault();
         focus(index + (event.key === "ArrowLeft" ? -1 : 1));

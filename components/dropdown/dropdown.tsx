@@ -311,6 +311,7 @@ const Dropdown = defineComponent({
             onMouseleave: mouseLeaveEvent,
             onContextmenu: contextmenuEvent,
             onKeydown: (event: KeyboardEvent) => {
+              if (props.disabled) return;
               if (event.key === "Escape" && visible.value) {
                 event.preventDefault();
                 toggle(false);

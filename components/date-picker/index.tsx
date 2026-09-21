@@ -1081,7 +1081,13 @@ const DatePicker = defineComponent({
       ];
       const dateIcon = props.mode == "time" ? Clock : props.dateIcon || CalendarDays;
       const overlayProps = {
-        class: ["k-datepicker-overlay", { "k-datepicker-panel": props.panelOnly }],
+        class: [
+          "k-datepicker-overlay",
+          {
+            "k-datepicker-panel": props.panelOnly,
+            "k-datepicker-disabled": disabled,
+          },
+        ],
         ref: refPopper,
         style: props.panelOnly
           ? undefined
@@ -1092,6 +1098,17 @@ const DatePicker = defineComponent({
             },
         mode: props.mode,
         role: "dialog",
+        "aria-disabled": disabled || undefined,
+        onClickCapture: (event: MouseEvent) => {
+          if (!disabled) return;
+          event.preventDefault();
+          event.stopPropagation();
+        },
+        onKeydownCapture: (event: KeyboardEvent) => {
+          if (!disabled) return;
+          event.preventDefault();
+          event.stopPropagation();
+        },
       };
       const resolvedOverlayProps = props.panelOnly ? mergeProps(attrs, overlayProps) : overlayProps;
 

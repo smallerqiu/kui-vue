@@ -52,21 +52,21 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-    &:hover {
+    &:not(.k-dropdown-menu-item-disabled):hover {
       background-color: var(--kui-color-item-hover);
     }
 
-    &:active {
+    &:not(.k-dropdown-menu-item-disabled):active {
       background-color: var(--kui-color-item-active);
     }
   }
   .k-dropdown-menu-submenu {
     border-radius: var(--kui-border-radius);
-    &:hover {
+    &:not(.k-dropdown-menu-submenu-disabled):hover {
       background-color: var(--kui-color-item-hover);
     }
 
-    &:active {
+    &:not(.k-dropdown-menu-submenu-disabled):active {
       background-color: var(--kui-color-item-active);
     }
     .k-dropdown-menu-submenu-title {
@@ -109,6 +109,9 @@
 
   .k-dropdown-menu-item-disabled,
   .k-dropdown-menu-submenu-disabled {
+    color: var(--kui-color-text-disabled);
+    cursor: not-allowed;
+
     * {
       color: var(--kui-color-text-disabled);
       cursor: not-allowed;

@@ -246,6 +246,10 @@ const Slider = defineComponent({
       activeUp = null;
     };
 
+    watch([disabled, readonly], ([isDisabled, isReadonly]) => {
+      if (isDisabled || isReadonly) stopDragging();
+    });
+
     const handleThumbDown = (index: number) => {
       if (disabled() || readonly()) return;
       stopDragging();

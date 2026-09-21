@@ -1,4 +1,11 @@
 @import "../../styles/less-css-var.less";
+
+.k-color-picker-dropdown[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+.k-color-picker-body[inert] {
+  pointer-events: none;
+}
 @import "../../styles/motion.less";
 
 .k-color-picker {

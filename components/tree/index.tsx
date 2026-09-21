@@ -34,6 +34,7 @@ const treeProps = {
   expandedKeys: Array as PropType<string[]>,
   checkedKeys: Array as PropType<string[]>,
   directory: Boolean as BooleanType,
+  disabled: Boolean as BooleanType,
   checkable: Boolean as BooleanType,
   draggable: Boolean as BooleanType,
   showLine: Boolean as BooleanType,
@@ -94,6 +95,7 @@ const Tree = defineComponent({
       scrollToIndex: (index: number, align?: "auto" | "start" | "center" | "end") => void;
     }>();
     let visibleNodesCache: TreeNode[] = [];
+    let tabStopKey: string | undefined;
     const focusedKey = ref<string>();
     const loadedKeys = new Set<string>();
     const loadingKeys = new Set<string>();
@@ -123,7 +125,7 @@ const Tree = defineComponent({
           ...raw,
           key: String(raw[names.key] ?? ""),
           title: raw[names.title] as TreeNode["title"],
-          disabled: Boolean(raw[names.disabled]),
+          disabled: props.disabled || Boolean(raw[names.disabled]),
           isLeaf: raw[names.isLeaf] === undefined ? undefined : Boolean(raw[names.isLeaf]),
           children: Array.isArray(children) ? normalizeData(children as TreeNodeData[]) : undefined,
         };
@@ -155,6 +157,7 @@ const Tree = defineComponent({
     };
 
     const handleExpand = (node: TreeNode) => {
+      if (node.disabled) return;
       if (node.isLeaf || node.loading) return;
 
       const key = node.key;
@@ -584,6 +587,7 @@ const Tree = defineComponent({
               size="small"
               type="text"
               loading={item.loading}
+              disabled={item.disabled}
               icon={
                 item.loading
                   ? Loading
@@ -658,7 +662,7 @@ const Tree = defineComponent({
           },
         ],
         role: "treeitem",
-        tabindex: focusedKey.value === item.key ? 0 : -1,
+        tabindex: tabStopKey === item.key ? 0 : -1,
         "data-tree-key": item.key,
         "aria-level": (item.level ?? 0) + 1,
         "aria-selected": item.selected || undefined,
@@ -712,6 +716,7 @@ const Tree = defineComponent({
     );
 
     watch(() => props.loadData, rebuildTree);
+    watch(() => props.disabled, rebuildTree);
 
     watch(
       () => props.checkedKeys,
@@ -779,6 +784,7 @@ const Tree = defineComponent({
     expose(exposed);
 
     const handleKeydown = (event: KeyboardEvent) => {
+      if (focusedKey.value !== undefined && findNode(focusedKey.value)?.disabled) return;
       const nodes = visibleNodesCache.filter((node) => !node.disabled);
       if (!nodes.length) return;
       let index = nodes.findIndex((node) => node.key === focusedKey.value);
@@ -847,6 +853,9 @@ const Tree = defineComponent({
         });
       }
       visibleNodesCache = visibleNodes;
+      tabStopKey =
+        visibleNodes.find((node) => node.key === focusedKey.value && !node.disabled)?.key ??
+        visibleNodes.find((node) => !node.disabled)?.key;
 
       const onProps = getTransitionProp("k-tree-slide");
 

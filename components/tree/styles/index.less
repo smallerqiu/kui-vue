@@ -56,13 +56,16 @@
     text-overflow: ellipsis;
     font-size: 14px;
     min-height: 24px;
-    &:not([disabled="disabled"], .k-tree-title-selected) {
-      &:hover {
-        background-color: var(--kui-color-item-hover);
-      }
-      &:active {
-        background-color: var(--kui-color-item-active);
-      }
+  }
+
+  &:not(.k-tree-directory)
+    .k-tree-item:not(.k-tree-item-disabled)
+    > .k-tree-title:not(.k-tree-title-selected) {
+    &:hover {
+      background-color: var(--kui-color-item-hover);
+    }
+    &:active {
+      background-color: var(--kui-color-item-active);
     }
   }
 
@@ -123,7 +126,10 @@
     }
   }
 
-  .k-tree-item-disabled {
+  .k-tree-item.k-tree-item-disabled {
+    cursor: not-allowed;
+
+    .k-tree-arrow,
     .k-tree-title,
     .k-tree-icon {
       color: var(--kui-color-text-disabled);
@@ -199,7 +205,7 @@
     }
   }
 
-  .k-tree-item:not(.k-tree-item-selected) {
+  .k-tree-item:not(.k-tree-item-selected, .k-tree-item-disabled) {
     &:hover::before {
       background-color: var(--kui-color-row-hover);
     }

@@ -5,6 +5,7 @@ import { clamp } from "../utils/share";
 export default defineComponent({
   name: "Alpha",
   props: {
+    disabled: Boolean,
     modelValue: { type: [String, Object] as PropType<Parameters<typeof Color>[0]>, required: true },
   },
   emits: {
@@ -41,6 +42,7 @@ export default defineComponent({
     };
 
     const handleMove = (e: MouseEvent) => {
+      if (props.disabled) return;
       const canvas = refPaint.value;
       if (!canvas) return;
       const { width, left } = canvas.getBoundingClientRect();
@@ -50,6 +52,7 @@ export default defineComponent({
     };
 
     const onMouseDown = (e: MouseEvent) => {
+      if (props.disabled) return;
       isMousePressed.value = true;
       handleMove(e);
       document.addEventListener("mousemove", handleMove);
@@ -61,7 +64,14 @@ export default defineComponent({
       document.removeEventListener("mousemove", handleMove);
       document.removeEventListener("mouseup", onMouseUp);
     };
+    watch(
+      () => props.disabled,
+      (disabled) => {
+        if (disabled) onMouseUp();
+      },
+    );
     const onKeydown = (event: KeyboardEvent) => {
+      if (props.disabled) return;
       const current = Color(props.modelValue).alpha();
       const step = event.shiftKey ? 0.1 : 0.01;
       let value = current;
@@ -97,7 +107,8 @@ export default defineComponent({
           height={8}
           ref={refPaint}
           role="slider"
-          tabindex={0}
+          tabindex={props.disabled ? -1 : 0}
+          aria-disabled={props.disabled || undefined}
           aria-label="Opacity"
           aria-valuemin={0}
           aria-valuemax={1}

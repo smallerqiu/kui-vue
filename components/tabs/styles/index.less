@@ -76,8 +76,13 @@
         margin-left: 5px;
         color: var(--kui-color-icon);
 
-        &:hover {
+        &:not([aria-disabled="true"]):hover {
           color: var(--kui-color-danger);
+        }
+
+        &[aria-disabled="true"] {
+          color: var(--kui-color-text-disabled);
+          cursor: not-allowed;
         }
       }
 

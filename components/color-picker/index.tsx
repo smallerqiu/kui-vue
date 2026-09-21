@@ -232,8 +232,16 @@ const ColorPicker = defineComponent({
       const text = getColor();
       return props.showText ? <div class="k-color-picker-trigger-text">{text}</div> : null;
     };
+    const interactionBlocked = () =>
+      Boolean(props.disabled || field?.disabled.value || props.readonly || field?.readonly.value);
+    const blockPanelInteraction = (event: Event) => {
+      if (interactionBlocked()) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    };
     const onUpdate = (color: string | ColorInstance) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (interactionBlocked()) return;
       currentColor.value = color;
       const value = getColor();
       emit("update:modelValue", value);
@@ -242,25 +250,25 @@ const ColorPicker = defineComponent({
     };
 
     const onUpdateRGB = ({ r, g, b }: ColorObject) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (interactionBlocked()) return;
       const color = Color({ r, g, b, alpha: currentAlpha.value });
       onUpdate(color.rgb());
     };
     const onUpdateHue = (hue: number) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (interactionBlocked()) return;
       currentHue.value = hue;
       const value = Color(currentColor.value).hue(hue).rgb();
       onUpdate(value);
     };
 
     const onUpdateAlpha = (a: number) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (interactionBlocked()) return;
       currentAlpha.value = a;
       const value = Color(currentColor.value).alpha(a).rgb();
       onUpdate(value);
     };
     const onUpdateMode = (mode: ColorMode) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (interactionBlocked()) return;
       currentMode.value = mode;
       onUpdate(currentColor.value);
       emit("update:mode", mode);
@@ -269,14 +277,14 @@ const ColorPicker = defineComponent({
       }, 0);
     };
     const updateColorValue = (color: ColorInstance) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (interactionBlocked()) return;
       currentAlpha.value = color.alpha();
       currentColor.value = color;
       currentHue.value = color.hue();
       onUpdate(color);
     };
     const updateColor = (color: ColorInstance) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (interactionBlocked()) return;
       currentAlpha.value = color.alpha();
       currentHue.value = color.hue();
       updateColorValue(color.rgb());
@@ -285,6 +293,10 @@ const ColorPicker = defineComponent({
       if (!rendered.value) return props.panelOnly ? null : [];
       const _props = {
         ref: refPopper,
+        "aria-disabled": props.disabled || field?.disabled.value || undefined,
+        onClickCapture: blockPanelInteraction,
+        onMousedownCapture: blockPanelInteraction,
+        onKeydownCapture: blockPanelInteraction,
         "k-placement": currentPlacement.value,
         class: [
           "k-color-picker-dropdown",
@@ -309,8 +321,9 @@ const ColorPicker = defineComponent({
       // let [r, g, b] = hslToRgb(color.H, color.S, color.L);
       const panel = (
         <div v-show={visible.value} {...panelProps}>
-          <div class="k-color-picker-body">
+          <div class="k-color-picker-body" inert={interactionBlocked()}>
             <Paint
+              disabled={interactionBlocked()}
               hue={currentHue.value}
               modelValue={currentColor.value}
               visible={visible.value}
@@ -324,9 +337,17 @@ const ColorPicker = defineComponent({
                 ></div>
               </div>
               <div class="k-color-picker-bar-box">
-                <Hue hue={currentHue.value} onUpdateHue={onUpdateHue} />
+                <Hue
+                  disabled={interactionBlocked()}
+                  hue={currentHue.value}
+                  onUpdateHue={onUpdateHue}
+                />
                 {!props.disabledAlpha ? (
-                  <Alpha modelValue={currentColor.value} onUpdateAlpha={onUpdateAlpha} />
+                  <Alpha
+                    disabled={interactionBlocked()}
+                    modelValue={currentColor.value}
+                    onUpdateAlpha={onUpdateAlpha}
+                  />
                 ) : null}
               </div>
             </div>

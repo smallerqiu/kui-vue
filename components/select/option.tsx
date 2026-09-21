@@ -25,6 +25,8 @@ const Option = defineComponent({
   name: "Option",
   props: optionProps,
   emits: {
+    click: (event: MouseEvent) => event instanceof MouseEvent,
+    mouseenter: (event: MouseEvent) => event instanceof MouseEvent,
     select: (option: { value: string | number; label: VNodeChild }) =>
       ["string", "number"].includes(typeof option?.value) && option.label !== undefined,
   },
@@ -32,9 +34,10 @@ const Option = defineComponent({
     const labelText = computed(() => props.label ?? slots.default?.() ?? props.value);
 
     const checked = computed(() => props.checked);
-    const onSelect = () => {
+    const onSelect = (event: MouseEvent) => {
       if (props.disabled) return;
       emit("select", { value: props.value!, label: labelText.value });
+      emit("click", event);
     };
 
     return () => {
@@ -50,6 +53,9 @@ const Option = defineComponent({
           },
         ],
         onClick: onSelect,
+        onMouseenter: (event: MouseEvent) => {
+          if (!disabled) emit("mouseenter", event);
+        },
         role: "option",
         "aria-selected": checked.value,
         "aria-disabled": disabled,

@@ -46,7 +46,8 @@ const Rate = defineComponent({
     const cleared = ref(false);
 
     const update = (t: "C" | "M", index: number, percent: number) => {
-      if (props.readonly) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       if (t === "M") {
         if (cleared.value) return;
         // mouse move
@@ -88,17 +89,11 @@ const Rate = defineComponent({
       const currentValue = field?.prop
         ? Number(field.value.value ?? 0)
         : (props.modelValue ?? innerValue.value);
-      const tpValue = tempValue.value !== null ? tempValue.value : currentValue;
-      const {
-        count,
-        allowHalf,
-        character,
-        disabled,
-        tooltips = [],
-        icon,
-        showScore,
-        color,
-      } = props;
+      const disabled = props.disabled || field?.disabled.value;
+      const readonly = props.readonly || field?.readonly.value;
+      const tpValue =
+        !disabled && !readonly && tempValue.value !== null ? tempValue.value : currentValue;
+      const { count, allowHalf, character, tooltips = [], icon, showScore, color } = props;
       // FormItem normally forwards the inherited size through a cloned VNode.
       // Rate also reads the Form context because its value update may render
       // before that cloned VNode is refreshed.
@@ -127,7 +122,7 @@ const Rate = defineComponent({
           icon,
           character,
           size: size as number | string,
-          disabled: disabled || props.readonly,
+          disabled: disabled || readonly,
           percent: percent < 100 ? percent : undefined,
           tooltips: tooltips[i - 1],
           index: i,
@@ -144,7 +139,7 @@ const Rate = defineComponent({
       };
 
       const containerProps = {
-        class: ["k-rate", { "k-rate-disabled": disabled, "k-rate-readonly": props.readonly }],
+        class: ["k-rate", { "k-rate-disabled": disabled, "k-rate-readonly": readonly }],
         "aria-readonly": props.readonly || undefined,
         onMouseleave: mouseLeave,
         style: containerStyle,

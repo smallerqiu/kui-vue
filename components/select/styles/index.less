@@ -229,7 +229,7 @@
     border-color: transparent;
   }
 }
-.k-select-plain {
+.k-select-plain:not(.k-select-disabled) {
   border-color: transparent;
   background: transparent;
   box-shadow: none;
@@ -516,6 +516,7 @@
 }
 
 .k-select-disabled {
+  cursor: not-allowed;
   color: var(--kui-color-text-disabled);
   background: var(--kui-control-bg-disabled);
 

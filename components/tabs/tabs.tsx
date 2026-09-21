@@ -234,7 +234,9 @@ const Tabs = defineComponent({
             },
           ],
           onClick: () => tabClick({ disabled, key }, index),
-          onKeydown: (event: KeyboardEvent) => moveTabFocus(event, index),
+          onKeydown: (event: KeyboardEvent) => {
+            if (!disabled) moveTabFocus(event, index);
+          },
           id: `${tabsId}-tab-${key}`,
           role: "tab",
           tabindex: key === defaultActiveKey.value && !disabled ? 0 : -1,
@@ -251,11 +253,18 @@ const Tabs = defineComponent({
                 type={X}
                 class="k-tabs-close"
                 role="button"
-                tabindex={0}
+                tabindex={disabled ? -1 : 0}
                 aria-label="Close"
-                onClick={(e) => closeTab(key, e)}
+                aria-disabled={disabled || undefined}
+                onClick={(e) => {
+                  if (disabled) {
+                    e.stopPropagation();
+                    return;
+                  }
+                  closeTab(key, e);
+                }}
                 onKeydown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
+                  if (!disabled && (e.key === "Enter" || e.key === " ")) {
                     e.preventDefault();
                     closeTab(key, e);
                   }

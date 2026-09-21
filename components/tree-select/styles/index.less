@@ -230,7 +230,7 @@
     border-color: transparent;
   }
 }
-.k-tree-select-plain {
+.k-tree-select-plain:not(.k-tree-select-disabled) {
   border-color: transparent;
   background: transparent;
   box-shadow: none;
@@ -425,6 +425,7 @@
 }
 
 .k-tree-select-disabled {
+  cursor: not-allowed;
   color: var(--kui-color-text-disabled);
   background: var(--kui-control-bg-disabled);
 

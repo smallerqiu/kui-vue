@@ -227,7 +227,8 @@ const Mentions = defineComponent({
       );
     };
     const update = (next: string) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       inner.value = next;
       emit("update:modelValue", next);
       if (field?.prop) field.update(next);
@@ -286,7 +287,15 @@ const Mentions = defineComponent({
     });
     const choose = (option: MentionOption) => {
       const element = getTextarea();
-      if (props.readonly || field?.readonly.value || !query.value || option.disabled || !element)
+      if (
+        props.disabled ||
+        field?.disabled.value ||
+        props.readonly ||
+        field?.readonly.value ||
+        !query.value ||
+        option.disabled ||
+        !element
+      )
         return;
       const state = query.value;
       const caret = element.selectionStart;
@@ -306,7 +315,8 @@ const Mentions = defineComponent({
       if (element) updateQuery(current.value, element.selectionStart);
     };
     const clear = (event: Event) => {
-      if (props.readonly || field?.readonly.value) return;
+      if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
+        return;
       event.stopPropagation();
       update("");
       query.value = undefined;
@@ -457,7 +467,14 @@ const Mentions = defineComponent({
                               },
                             ]}
                             onMousedown={(event) => event.preventDefault()}
-                            onMouseenter={() => !option.disabled && (active.value = index)}
+                            onMouseenter={() =>
+                              !props.disabled &&
+                              !field?.disabled.value &&
+                              !props.readonly &&
+                              !field?.readonly.value &&
+                              !option.disabled &&
+                              (active.value = index)
+                            }
                             onClick={() => choose(option)}
                           >
                             {option.label ?? option.value}

@@ -13,6 +13,7 @@ import { clamp } from "../utils/share";
 export default defineComponent({
   name: "Paint",
   props: {
+    disabled: Boolean,
     hue: { type: Number, default: 0 },
     modelValue: { type: [String, Object] as PropType<Parameters<typeof Color>[0]>, required: true },
     visible: { type: Boolean, default: true },
@@ -58,6 +59,7 @@ export default defineComponent({
     };
 
     const handleMove = (e: MouseEvent) => {
+      if (props.disabled) return;
       const canvas = refPaint.value;
       if (!canvas) return;
       const { width, height, left, top } = canvas.getBoundingClientRect();
@@ -74,6 +76,7 @@ export default defineComponent({
     };
 
     const onMouseDown = (e: MouseEvent) => {
+      if (props.disabled) return;
       dragging = true;
       handleMove(e);
       document.addEventListener("mousemove", handleMove);
@@ -84,7 +87,14 @@ export default defineComponent({
       dragging = false;
       document.removeEventListener("mousemove", handleMove);
     };
+    watch(
+      () => props.disabled,
+      (disabled) => {
+        if (disabled) onMouseUp();
+      },
+    );
     const onKeydown = (event: KeyboardEvent) => {
+      if (props.disabled) return;
       const hsv = Color(props.modelValue).hsv().object();
       const step = event.shiftKey ? 10 : 1;
       if (event.key === "ArrowRight") hsv.s += step;
@@ -130,7 +140,8 @@ export default defineComponent({
           height={136}
           ref={refPaint}
           role="application"
-          tabindex={0}
+          tabindex={props.disabled ? -1 : 0}
+          aria-disabled={props.disabled || undefined}
           aria-label="Saturation and brightness"
           onMousedown={onMouseDown}
           onKeydown={onKeydown}

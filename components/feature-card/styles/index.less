@@ -11,7 +11,7 @@
     border-color 0.2s ease,
     box-shadow 0.2s ease;
 
-  &:hover {
+  &:not(.k-feature-card-disabled):hover {
     transform: translateY(-2px);
     border-color: var(--kui-color-primary);
     box-shadow: 0 10px 30px color-mix(in srgb, var(--kui-color-text) 8%, transparent);
@@ -113,7 +113,6 @@
 .k-feature-card-disabled {
   cursor: not-allowed;
   opacity: var(--kui-disabled-opacity);
-  pointer-events: none;
 }
 
 .k-feature-card-round,
