@@ -8,7 +8,7 @@ import {
   type PropType,
   type Ref,
 } from "vue";
-import Popup, { type PopupRef } from "../base/popup";
+import Popup, { type PopupRef } from "../popup";
 import type { BooleanType, DropPlacementsType, TriggerType } from "../const/types";
 import { DropdownContextKey } from "./dropdown-context";
 

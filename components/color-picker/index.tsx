@@ -1,4 +1,4 @@
-import Popup, { type PopupRef } from "../base/popup";
+import Popup, { type PopupRef } from "../popup";
 import type { ForwardedComponent } from "../utils/vue";
 import Color, { type ColorObject } from "color";
 import {

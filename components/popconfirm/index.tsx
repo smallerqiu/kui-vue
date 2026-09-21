@@ -12,7 +12,7 @@ import {
   type Ref,
   type VNodeChild,
 } from "vue";
-import Popup, { type PopupRef } from "../base/popup";
+import Popup, { type PopupRef } from "../popup";
 import { toCssLength } from "../utils/css";
 import type { BooleanType, PlacementsType } from "../const/types";
 import { CircleQuestionMark } from "kui-icons";

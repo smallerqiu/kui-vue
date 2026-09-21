@@ -1,4 +1,4 @@
-import Popup, { type PopupRef } from "../base/popup";
+import Popup, { type PopupRef } from "../popup";
 import { renderSelectionTags } from "../utils/selection-tags";
 import { ChevronDown, CircleX, Loading } from "kui-icons";
 import {

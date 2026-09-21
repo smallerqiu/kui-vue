@@ -19,12 +19,12 @@ import {
   type SlotsType,
   type VNodeChild,
 } from "vue";
-import type { PlacementsType } from "../../const/types";
-import { usePopupContainer } from "../../config/popup";
-import { usePopupHost } from "../../config/popup-host";
-import { setPlacement } from "../../utils/placement";
-import { createFrameScheduler, isEventOutside } from "../../utils/popup";
-import { getChildren } from "../../utils/vnode";
+import type { PlacementsType } from "../const/types";
+import { usePopupContainer } from "../config/popup";
+import { usePopupHost } from "../config/popup-host";
+import { setPlacement } from "../utils/placement";
+import { createFrameScheduler, isEventOutside } from "../utils/popup";
+import { getChildren } from "../utils/vnode";
 import {
   registerPopupLayer,
   isTopPopupLayer,
@@ -36,7 +36,6 @@ export type { PopupOpenChangeDetail, PopupOpenReason, PopupRef, PopupTrigger } f
 
 export const popupProps = {
   open: { type: Boolean, default: undefined },
-  defaultOpen: Boolean,
   disabled: Boolean,
   placement: { type: String as PropType<PlacementsType>, default: "bottom-left" },
   trigger: { type: String as PropType<PopupTrigger>, default: "click" },
@@ -72,16 +71,29 @@ export type PopupProps = Partial<ExtractPropTypes<typeof popupProps>> & {
 };
 export const PopupArrow = ({ prefixCls }: { prefixCls: string }) => (
   <div class={`${prefixCls}-arrow`} aria-hidden="true">
-    <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
-      <path
-        id="ot"
-        d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
-      />
-      <path
-        id="in"
-        stroke="currentcolor"
-        d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
-      />
+    <svg
+      style={{ fill: "currentcolor" }}
+      viewBox={prefixCls === "k-popup" ? "0 0 24 9" : "0 0 24 8"}
+    >
+      {prefixCls === "k-popup" ? (
+        <>
+          {/* Cover the panel border; only the curved outer edge is stroked. */}
+          <path d="M0 0V1.5C6 1.5 7 8.5 12 8.5S18 1.5 24 1.5V0Z" />
+          <path id="ot" fill="none" d="M0 1.5C6 1.5 7 8.5 12 8.5S18 1.5 24 1.5" />
+        </>
+      ) : (
+        <>
+          <path
+            id="ot"
+            d="m24,0.97087l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+          />
+          <path
+            id="in"
+            stroke="currentcolor"
+            d="m24,0l0,1c-4,0 -5.5,1 -7.5,3c-2,2 -2.5,3 -4.5,3c-2,0 -2.5,-1 -4.5,-3c-2,-2 -3.5,-3 -7.5,-3l0,-1l24,0z"
+          />
+        </>
+      )}
     </svg>
   </div>
 );
@@ -104,8 +116,14 @@ export default defineComponent({
   },
   setup(props, { slots, attrs, emit, expose }) {
     const container = usePopupContainer();
-    const innerOpen = ref(props.defaultOpen);
-    const visible = computed(() => props.open ?? innerOpen.value);
+    const innerOpen = ref(props.open ?? false);
+    const visible = computed(() => innerOpen.value);
+    watch(
+      () => props.open,
+      (open) => {
+        innerOpen.value = open ?? false;
+      },
+    );
     const rendered = ref(visible.value);
     const refSelection = ref<HTMLElement | null>(null);
     const refPopper = ref<HTMLElement | null>(null);
@@ -130,7 +148,7 @@ export default defineComponent({
     const request = (open: boolean, detail: PopupOpenChangeDetail) => {
       clearTimer();
       if (open === visible.value || (open && props.disabled)) return;
-      if (props.open === undefined) innerOpen.value = open;
+      innerOpen.value = open;
       emit("update:open", open);
       emit("openChange", open, detail);
     };
@@ -188,7 +206,7 @@ export default defineComponent({
     );
     watch(() => props.disabled, clearTimer);
     watch(
-      () => [props.placement, props.offset, props.matchTriggerWidth, props.overlay],
+      () => [props.placement, props.offset, props.arrow, props.matchTriggerWidth, props.overlay],
       () => {
         if (visible.value) nextTick(updatePosition);
       },
@@ -298,7 +316,10 @@ export default defineComponent({
                   position: "absolute",
                   left: `${left.value}px`,
                   top: `${top.value}px`,
-                  transformOrigin: transOrigin.value,
+                  transformOrigin:
+                    prefix === "k-popup" && props.arrow
+                      ? "var(--k-popup-arrow-origin)"
+                      : transOrigin.value,
                   minWidth: props.matchTriggerWidth ? `${width.value}px` : style?.minWidth,
                   visibility:
                     ready.value && (!props.hideWhenDetached || anchorVisible.value)

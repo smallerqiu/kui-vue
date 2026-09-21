@@ -1,4 +1,4 @@
-import Popup, { type PopupRef } from "../base/popup";
+import Popup, { type PopupRef } from "../popup";
 import type { ForwardedComponent } from "../utils/vue";
 import dayjs, { Dayjs, type UnitType } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";

@@ -1,0 +1,128 @@
+@import "../styles/motion.less";
+
+.k-popup {
+  position: absolute;
+  z-index: 1001;
+  color: var(--kui-color-text);
+  font-size: 14px;
+  line-height: 1.5;
+  .k-popup-content {
+    padding: 12px;
+    background: var(--kui-popup-bg);
+    border: 1px solid var(--kui-popup-border);
+    border-radius: var(--kui-popup-radius);
+    box-shadow: var(--kui-popup-shadow);
+  }
+  .k-popup-arrow {
+    position: absolute;
+    width: 24px;
+    height: 9px;
+    color: var(--kui-popup-bg);
+    pointer-events: none;
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    #ot {
+      stroke: var(--kui-popup-border);
+      stroke-width: 1px;
+    }
+  }
+  &[k-placement^="top"] .k-popup-arrow {
+    bottom: 0;
+    left: calc(50% - 12px);
+  }
+  &[k-placement^="bottom"] .k-popup-arrow {
+    top: 0;
+    left: calc(50% - 12px);
+    transform: rotate(180deg);
+  }
+  &[k-placement$="-left"] .k-popup-arrow {
+    left: 12px;
+  }
+  &[k-placement$="-right"] .k-popup-arrow {
+    left: auto;
+    right: 12px;
+  }
+  &[k-placement^="left"] .k-popup-arrow {
+    right: -7.5px;
+    top: calc(50% - 4.5px);
+    transform: rotate(-90deg);
+  }
+  &[k-placement^="right"] .k-popup-arrow {
+    left: -7.5px;
+    top: calc(50% - 4.5px);
+    transform: rotate(90deg);
+  }
+  &[k-placement$="-top"] .k-popup-arrow {
+    top: 12px;
+  }
+  &[k-placement$="-bottom"] .k-popup-arrow {
+    top: auto;
+    bottom: 12px;
+  }
+}
+
+// Reserve the arrow inside the measured popup, so offset is always the visible gap.
+.k-popup-has-arrow {
+  &[k-placement^="top"] {
+    padding-bottom: 7px;
+  }
+  &[k-placement^="bottom"] {
+    padding-top: 7px;
+  }
+  &[k-placement^="left"] {
+    padding-right: 7px;
+  }
+  &[k-placement^="right"] {
+    padding-left: 7px;
+  }
+  &[k-placement="top"] {
+    --k-popup-arrow-origin: 50% 100%;
+  }
+  &[k-placement="top-left"] {
+    --k-popup-arrow-origin: 24px 100%;
+  }
+  &[k-placement="top-right"] {
+    --k-popup-arrow-origin: calc(100% - 24px) 100%;
+  }
+  &[k-placement="bottom"] {
+    --k-popup-arrow-origin: 50% 0px;
+  }
+  &[k-placement="bottom-left"] {
+    --k-popup-arrow-origin: 24px 0px;
+  }
+  &[k-placement="bottom-right"] {
+    --k-popup-arrow-origin: calc(100% - 24px) 0px;
+  }
+  &[k-placement="left"] {
+    --k-popup-arrow-origin: 100% 50%;
+  }
+  &[k-placement="left-top"] {
+    --k-popup-arrow-origin: 100% 16.5px;
+  }
+  &[k-placement="left-bottom"] {
+    --k-popup-arrow-origin: 100% calc(100% - 16.5px);
+  }
+  &[k-placement="right"] {
+    --k-popup-arrow-origin: 0px 50%;
+  }
+  &[k-placement="right-top"] {
+    --k-popup-arrow-origin: 0px 16.5px;
+  }
+  &[k-placement="right-bottom"] {
+    --k-popup-arrow-origin: 0px calc(100% - 16.5px);
+  }
+}
+
+.k-popup-panel {
+  position: relative;
+  display: inline-block;
+}
+.k-popup-enter-active {
+  animation: k-motion-scale-in 0.3s;
+}
+.k-popup-leave-active {
+  animation: k-motion-scale-in 0.3s reverse;
+}

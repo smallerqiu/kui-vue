@@ -133,7 +133,7 @@ it("keeps a parent Popup open when choosing a Select option in its portal", asyn
     onChange = vi.fn();
   const wrapper = mount(Popup, {
     attachTo: document.body,
-    props: { defaultOpen: true, onOpenChange },
+    props: { open: true, onOpenChange },
     slots: {
       default: () => h("button", "Parent"),
       overlay: () => h(Select, { options: [{ label: "One", value: "one" }], onChange }),

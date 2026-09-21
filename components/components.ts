@@ -1,6 +1,6 @@
 export { default as Affix } from "./affix";
-export { default as Popup } from "./base/popup";
-export type { PopupProps, PopupRef, PopupTrigger, PopupOpenReason, PopupOpenChangeDetail } from "./base/popup";
+export { default as Popup } from "./popup";
+export type { PopupProps, PopupRef, PopupTrigger, PopupOpenReason, PopupOpenChangeDetail } from "./popup";
 export type { AffixProps } from "./affix";
 
 export { default as Alert } from "./alert";

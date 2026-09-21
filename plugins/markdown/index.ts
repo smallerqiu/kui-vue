@@ -6,7 +6,7 @@ import anchor from "markdown-it-anchor";
 import path from "path";
 import { transform } from "sucrase";
 import { type Plugin } from "vite";
-import { highlightVueSource } from "../../src/components/demo/highlight";
+import { highlightVueSource } from "../../src/components/demo/highlight.ts";
 
 const escapeTemplateInterpolation = (code: string) =>
   code.replace(/{{/g, "&#123;&#123;").replace(/}}/g, "&#125;&#125;");

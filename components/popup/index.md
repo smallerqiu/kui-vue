@@ -34,7 +34,7 @@ default 插槽放触发器，overlay 作用域插槽放弹层内容；.vue 中�
 
 [受控开关与实例方法](./demo/controlled.vue)
 
-- 受控状态需要响应显隐请求。可以从实例调用 open / close / updatePosition；示例展示最近一次请求原因。
+- 组件会自行更新显隐状态，可通过事件同步外部状态。可以从实例调用 open / close / updatePosition；示例展示最近一次请求原因。
 
 [自定义挂载容器](./demo/container.vue)
 
@@ -50,27 +50,26 @@ default 插槽放触发器，overlay 作用域插槽放弹层内容；.vue 中�
 | ------------- | --------------------------- | ----------------------- | ------ |
 | onUpdate:open | v-model:open 的状态更新事件 | (open: boolean) => void | -      |
 
-| 属性                | 说明                                                       | 类型                                                   | 默认值      |
-| ------------------- | ---------------------------------------------------------- | ------------------------------------------------------ | ----------- |
-| open                | 受控显示状态；Vue 支持 v-model:open                        | boolean                                                | -           |
-| defaultOpen         | 非受控初始状态                                             | boolean                                                | false       |
-| disabled            | 禁止交互打开并取消待执行的打开操作，不强制覆盖 open        | boolean                                                | false       |
-| placement           | 弹层方位，支持 12 个方向                                   | PlacementsType                                         | bottom-left |
-| trigger             | 触发方式；manual 仅由 open 或实例方法控制                  | PopupTrigger                                           | click       |
-| arrow               | 显示箭头                                                   | boolean                                                | false       |
-| offset              | 定位间距（像素）                                           | number                                                 | 3           |
-| openDelay           | hover 打开延时（毫秒）                                     | number                                                 | 0           |
-| closeDelay          | hover / focus 关闭延时（毫秒）                             | number                                                 | 300         |
-| closeOnOutsideClick | 外部点击关闭，包含嵌套 Popup 的内容边界                    | boolean                                                | true        |
-| closeOnEscape       | Escape 关闭最上层 Popup 并还原触发器焦点                   | boolean                                                | true        |
-| matchTriggerWidth   | 弹层最小宽度不小于触发器                                   | boolean                                                | false       |
-| getPopupContainer   | 挂载容器，默认使用 Config 配置或 body                      | () => HTMLElement                                      | -           |
-| destroyOnClose      | 退出动画结束后销毁内容；默认保留表单状态                   | boolean                                                | false       |
-| target              | 可选外部定位锚点；不自动绑定事件，配合 manual 和 open 使用 | PopupTarget                                            | -           |
-| overlay             | 弹层内容；Vue 推荐 overlay 插槽                            | PopupContent                                           | -           |
-| onOpenChange        | 请求改变显示状态，参数包含原因和原生事件                   | (open: boolean, detail: PopupOpenChangeDetail) => void | -           |
-| onAfterOpen         | 进入动画结束                                               | () => void                                             | -           |
-| onAfterClose        | 退出动画结束                                               | () => void                                             | -           |
+| 属性                | 说明                                                            | 类型                                                   | 默认值      |
+| ------------------- | --------------------------------------------------------------- | ------------------------------------------------------ | ----------- |
+| open                | 初始显示状态，后续属性变化会同步内部状态；Vue 支持 v-model:open | boolean                                                | -           |
+| disabled            | 禁止交互打开并取消待执行的打开操作，不强制覆盖 open             | boolean                                                | false       |
+| placement           | 弹层方位，支持 12 个方向                                        | PlacementsType                                         | bottom-left |
+| trigger             | 触发方式；manual 仅由 open 或实例方法控制                       | PopupTrigger                                           | click       |
+| arrow               | 显示箭头                                                        | boolean                                                | false       |
+| offset              | 定位间距（像素）                                                | number                                                 | 3           |
+| openDelay           | hover 打开延时（毫秒）                                          | number                                                 | 0           |
+| closeDelay          | hover / focus 关闭延时（毫秒）                                  | number                                                 | 300         |
+| closeOnOutsideClick | 外部点击关闭，包含嵌套 Popup 的内容边界                         | boolean                                                | true        |
+| closeOnEscape       | Escape 关闭最上层 Popup 并还原触发器焦点                        | boolean                                                | true        |
+| matchTriggerWidth   | 弹层最小宽度不小于触发器                                        | boolean                                                | false       |
+| getPopupContainer   | 挂载容器，默认使用 Config 配置或 body                           | () => HTMLElement                                      | -           |
+| destroyOnClose      | 退出动画结束后销毁内容；默认保留表单状态                        | boolean                                                | false       |
+| target              | 可选外部定位锚点；不自动绑定事件，配合 manual 和 open 使用      | PopupTarget                                            | -           |
+| overlay             | 弹层内容；Vue 推荐 overlay 插槽                                 | PopupContent                                           | -           |
+| onOpenChange        | 请求改变显示状态，参数包含原因和原生事件                        | (open: boolean, detail: PopupOpenChangeDetail) => void | -           |
+| onAfterOpen         | 进入动画结束                                                    | () => void                                             | -           |
+| onAfterClose        | 退出动画结束                                                    | () => void                                             | -           |
 
 default 插槽放触发器，overlay 插槽放弹层内容，两者均可访问 PopupRef 方法。update:open 事件输出请求的 boolean 状态。
 
@@ -107,4 +106,4 @@ Select、TreeSelect、Cascader、AutoComplete、Mentions、DatePicker、ColorPic
 - PopupTarget: HTMLElement or Ref<HTMLElement | { $el: HTMLElement } | null>.
 - PopupContent: VNodeChild.
 
-受控使用时需在父组件响应 onOpenChange 更新 open。只有 hover 使用 openDelay。外部 target 仅用于定位。自定义触发器组件须转发属性、事件与 DOM 引用。
+open 同时用于初始化和同步状态；交互会更新内部状态并触发 onOpenChange。只有 hover 使用 openDelay。外部 target 仅用于定位。自定义触发器组件须转发属性、事件与 DOM 引用。

@@ -567,32 +567,32 @@
       "examples": [
         {
           "title": "基础用法与自定义内容",
-          "file": "components/base/popup/demo/basic.vue",
+          "file": "components/popup/demo/basic.vue",
           "source": "<script setup lang=\"ts\">\nimport { Button, Input, Popup, Space } from \"kui-vue\";\n</script>\n<template>\n  <Popup arrow>\n    <Button>Open popup</Button>\n    <template #overlay=\"{ close }\">\n      <Space vertical>\n        <strong>Quick note</strong>\n        <Input aria-label=\"Note\" placeholder=\"Write a note…\" />\n        <Button type=\"primary\" @click=\"close\">Done</Button>\n      </Space>\n    </template>\n  </Popup>\n</template>"
         },
         {
           "title": "触发方式",
-          "file": "components/base/popup/demo/trigger.vue",
+          "file": "components/popup/demo/trigger.vue",
           "source": "<script setup lang=\"ts\">\nimport { Button, Popup, Space } from \"kui-vue\";\nconst triggers = [\"click\", \"hover\", \"focus\", \"contextmenu\"] as const;\n</script>\n<template>\n  <Space wrap>\n    <Popup\n      v-for=\"trigger in triggers\"\n      :key=\"trigger\"\n      :trigger=\"trigger\"\n      arrow\n      :open-delay=\"150\"\n      :close-delay=\"300\"\n    >\n      <Button>{{ trigger }}</Button>\n      <template #overlay>Opened by {{ trigger }}</template>\n    </Popup>\n    <Popup disabled>\n      <Button disabled>Disabled</Button>\n      <template #overlay>Unavailable</template>\n    </Popup>\n  </Space>\n</template>"
         },
         {
           "title": "方位与箭头",
-          "file": "components/base/popup/demo/placement.vue",
+          "file": "components/popup/demo/placement.vue",
           "source": "<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { Button, Checkbox, Popup, Space } from \"kui-vue\";\nconst arrow = ref(true);\nconst placements = [\n  \"top-left\",\n  \"top\",\n  \"top-right\",\n  \"bottom-left\",\n  \"bottom\",\n  \"bottom-right\",\n  \"left-top\",\n  \"left\",\n  \"left-bottom\",\n  \"right-top\",\n  \"right\",\n  \"right-bottom\",\n] as const;\n</script>\n<template>\n  <Space vertical>\n    <Checkbox v-model=\"arrow\">Show arrow</Checkbox>\n    <div\n      style=\"\n        display: grid;\n        grid-template-columns: repeat(3, minmax(0, 1fr));\n        gap: 8px;\n        max-width: 420px;\n      \"\n    >\n      <Popup\n        v-for=\"placement in placements\"\n        :key=\"placement\"\n        :placement=\"placement\"\n        :arrow=\"arrow\"\n        :offset=\"10\"\n      >\n        <Button>{{ placement }}</Button>\n        <template #overlay>{{ placement }}</template>\n      </Popup>\n    </div>\n  </Space>\n</template>"
         },
         {
           "title": "受控开关与实例方法",
-          "file": "components/base/popup/demo/controlled.vue",
+          "file": "components/popup/demo/controlled.vue",
           "source": "<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport {\n  Button,\n  Popup,\n  Space,\n  type PopupOpenReason,\n  type PopupOpenChangeDetail,\n  type PopupRef,\n} from \"kui-vue\";\nconst open = ref(false);\nconst reason = ref<PopupOpenReason>(\"programmatic\");\nconst popup = ref<PopupRef | null>(null);\nconst onOpenChange = (_open: boolean, detail: PopupOpenChangeDetail) => {\n  reason.value = detail.reason;\n};\n</script>\n<template>\n  <Space vertical>\n    <Space>\n      <Button @click.stop=\"popup?.open()\">Open via ref</Button>\n      <Popup ref=\"popup\" v-model:open=\"open\" trigger=\"manual\" @open-change=\"onOpenChange\">\n        <Button @click=\"open = !open\">Toggle controlled popup</Button>\n        <template #overlay=\"{ close }\">\n          <Space vertical>\n            <span>Click outside or press Escape.</span>\n            <Button @click=\"close\">Close from inside</Button>\n          </Space>\n        </template>\n      </Popup>\n    </Space>\n    <span role=\"status\">Open: {{ open }} · Reason: {{ reason }}</span>\n  </Space>\n</template>"
         },
         {
           "title": "自定义挂载容器",
-          "file": "components/base/popup/demo/container.vue",
+          "file": "components/popup/demo/container.vue",
           "source": "<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { Button, Popup } from \"kui-vue\";\nconst container = ref<HTMLDivElement | null>(null);\nconst getContainer = () => container.value;\n</script>\n<template>\n  <div\n    ref=\"container\"\n    style=\"\n      position: relative;\n      min-height: 200px;\n      padding: 24px;\n      border: 1px dashed var(--kui-color-border);\n    \"\n  >\n    <Popup :get-popup-container=\"getContainer\" match-trigger-width>\n      <Button style=\"width: 240px; max-width: 100%\">Custom container</Button>\n      <template #overlay>Mounted inside this container.</template>\n    </Popup>\n  </div>\n</template>"
         },
         {
           "title": "嵌套弹层与选择器",
-          "file": "components/base/popup/demo/nested.vue",
+          "file": "components/popup/demo/nested.vue",
           "source": "<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { Button, Popup, Select, Space } from \"kui-vue\";\nconst value = ref(\"all\");\nconst options = [\n  { label: \"All\", value: \"all\" },\n  { label: \"Active\", value: \"active\" },\n];\n</script>\n<template>\n  <Popup arrow>\n    <Button>Open filters</Button>\n    <template #overlay=\"{ close }\">\n      <Space vertical>\n        <strong>Filter results</strong>\n        <Select v-model=\"value\" style=\"width: 220px\" :clearable=\"false\" :options=\"options\" />\n        <Popup placement=\"right\">\n          <Button>More details</Button>\n          <template #overlay>This is a nested popup.</template>\n        </Popup>\n        <Button type=\"primary\" @click=\"close\">Apply</Button>\n      </Space>\n    </template>\n  </Popup>\n</template>"
         }
       ]

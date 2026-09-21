@@ -1,4 +1,4 @@
-import Popup, { type PopupRef } from "../base/popup";
+import Popup, { type PopupRef } from "../popup";
 import { ChevronDown, ChevronRight, CircleAlert, CircleX, Loading } from "kui-icons";
 import { computed, defineComponent, nextTick, onBeforeUnmount, ref, toRaw, watch } from "vue";
 import Empty from "../empty";

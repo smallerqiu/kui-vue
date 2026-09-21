@@ -19,13 +19,13 @@ describe("Popup foundation", () => {
     const onOuterChange = vi.fn();
     const wrapper = mount(Popup, {
       attachTo: document.body,
-      props: { defaultOpen: true, onOpenChange: onOuterChange },
+      props: { open: true, onOpenChange: onOuterChange },
       slots: {
         default: () => h("button", "Parent"),
         overlay: () =>
           h(
             Popup,
-            { defaultOpen: true },
+            { open: true },
             {
               default: () => h("button", "Child"),
               overlay: ({ close }: PopupRef) =>
@@ -58,7 +58,7 @@ describe("Popup foundation", () => {
         overlay: () =>
           h(
             Popup,
-            { defaultOpen: true, onOpenChange: onChildChange, overlay: "Child content" },
+            { open: true, onOpenChange: onChildChange, overlay: "Child content" },
             { default: () => h("button", "Child") },
           ),
       },
@@ -92,7 +92,7 @@ describe("Popup foundation", () => {
     ]);
   });
 
-  it("emits controlled updates without opening itself", async () => {
+  it("updates visibility and emits changes when open is provided", async () => {
     const wrapper = mount(Popup, {
       props: { open: false, overlay: "Content" },
       slots: { default: () => h("button", "Open") },
@@ -104,7 +104,10 @@ describe("Popup foundation", () => {
       true,
       expect.objectContaining({ reason: "trigger", event: expect.any(Event) }),
     ]);
-    expect(document.querySelector(".k-popup")).toBeNull();
+    expect(wrapper.get("button").attributes("aria-expanded")).toBe("true");
+    await wrapper.setProps({ open: true });
+    await wrapper.setProps({ open: false });
+    expect(wrapper.get("button").attributes("aria-expanded")).toBe("false");
   });
 
   it("exposes an anchored manual trigger", async () => {

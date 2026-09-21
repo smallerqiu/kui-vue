@@ -1,4 +1,4 @@
-import Popup, { type PopupRef } from "../base/popup";
+import Popup, { type PopupRef } from "../popup";
 import { Loading } from "kui-icons";
 import {
   computed,

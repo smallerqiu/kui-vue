@@ -34,7 +34,7 @@ Use the default slot for the trigger and the scoped overlay slot for content; av
 
 [Controlled state and instance methods](./demo/controlled.vue)
 
-- Respond to visibility requests when using controlled state. Instances expose open / close / updatePosition; this example displays the latest request reason.
+- Interactions update internal visibility and emit changes for external synchronization. Instances expose open / close / updatePosition; this example displays the latest request reason.
 
 [Custom container](./demo/container.vue)
 
@@ -50,27 +50,26 @@ Use the default slot for the trigger and the scoped overlay slot for content; av
 | ------------- | ----------------------------- | ----------------------- | ------- |
 | onUpdate:open | Update event for v-model:open | (open: boolean) => void | -       |
 
-| Property            | Description                                                                      | Type                                                   | Default     |
-| ------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------ | ----------- |
-| open                | Controlled visibility; Vue supports v-model:open                                 | boolean                                                | -           |
-| defaultOpen         | Initial uncontrolled visibility                                                  | boolean                                                | false       |
-| disabled            | Prevents opening and cancels delayed opening; does not override open             | boolean                                                | false       |
-| placement           | Popup placement; supports 12 positions                                           | PlacementsType                                         | bottom-left |
-| trigger             | Trigger mode; manual uses open or instance methods                               | PopupTrigger                                           | click       |
-| arrow               | Show arrow                                                                       | boolean                                                | false       |
-| offset              | Position offset in pixels                                                        | number                                                 | 3           |
-| openDelay           | Hover opening delay in milliseconds                                              | number                                                 | 0           |
-| closeDelay          | Hover / focus closing delay in milliseconds                                      | number                                                 | 300         |
-| closeOnOutsideClick | Close on outside click; nested Popup content counts as inside                    | boolean                                                | true        |
-| closeOnEscape       | Escape closes the top Popup and restores trigger focus                           | boolean                                                | true        |
-| matchTriggerWidth   | Use trigger width as the minimum popup width                                     | boolean                                                | false       |
-| getPopupContainer   | Container; falls back to Config or body                                          | () => HTMLElement                                      | -           |
-| destroyOnClose      | Destroy after exit; preserves form state by default                              | boolean                                                | false       |
-| target              | Optional external positioning anchor; no event binding, use with manual and open | PopupTarget                                            | -           |
-| overlay             | Overlay content; prefer the overlay slot in Vue                                  | PopupContent                                           | -           |
-| onOpenChange        | Visibility change request with reason and native event                           | (open: boolean, detail: PopupOpenChangeDetail) => void | -           |
-| onAfterOpen         | Called after entering                                                            | () => void                                             | -           |
-| onAfterClose        | Called after leaving                                                             | () => void                                             | -           |
+| Property            | Description                                                                             | Type                                                   | Default     |
+| ------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------ | ----------- |
+| open                | Initial visibility; subsequent changes synchronize the state; Vue supports v-model:open | boolean                                                | -           |
+| disabled            | Prevents opening and cancels delayed opening; does not override open                    | boolean                                                | false       |
+| placement           | Popup placement; supports 12 positions                                                  | PlacementsType                                         | bottom-left |
+| trigger             | Trigger mode; manual uses open or instance methods                                      | PopupTrigger                                           | click       |
+| arrow               | Show arrow                                                                              | boolean                                                | false       |
+| offset              | Position offset in pixels                                                               | number                                                 | 3           |
+| openDelay           | Hover opening delay in milliseconds                                                     | number                                                 | 0           |
+| closeDelay          | Hover / focus closing delay in milliseconds                                             | number                                                 | 300         |
+| closeOnOutsideClick | Close on outside click; nested Popup content counts as inside                           | boolean                                                | true        |
+| closeOnEscape       | Escape closes the top Popup and restores trigger focus                                  | boolean                                                | true        |
+| matchTriggerWidth   | Use trigger width as the minimum popup width                                            | boolean                                                | false       |
+| getPopupContainer   | Container; falls back to Config or body                                                 | () => HTMLElement                                      | -           |
+| destroyOnClose      | Destroy after exit; preserves form state by default                                     | boolean                                                | false       |
+| target              | Optional external positioning anchor; no event binding, use with manual and open        | PopupTarget                                            | -           |
+| overlay             | Overlay content; prefer the overlay slot in Vue                                         | PopupContent                                           | -           |
+| onOpenChange        | Visibility change request with reason and native event                                  | (open: boolean, detail: PopupOpenChangeDetail) => void | -           |
+| onAfterOpen         | Called after entering                                                                   | () => void                                             | -           |
+| onAfterClose        | Called after leaving                                                                    | () => void                                             | -           |
 
 The default slot renders the trigger; the overlay slot renders popup content. Both receive PopupRef methods. update:open emits the requested boolean state.
 
@@ -107,4 +106,4 @@ Select, TreeSelect, Cascader, AutoComplete, Mentions, DatePicker and ColorPicker
 - PopupTarget: HTMLElement or Ref<HTMLElement | { $el: HTMLElement } | null>.
 - PopupContent: VNodeChild.
 
-Use explicit open state for controlled behavior. A controlled parent must apply onOpenChange updates. Only hover uses openDelay. External target anchors are position-only. Custom trigger components must forward attributes, events, and the DOM ref.
+Use open to initialize and synchronize visibility. Interactions update internal state and emit onOpenChange. Only hover uses openDelay. External target anchors are position-only. Custom trigger components must forward attributes, events, and the DOM ref.

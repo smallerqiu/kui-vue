@@ -8,7 +8,7 @@ import {
   type PropType,
   type VNodeChild,
 } from "vue";
-import Popup from "../base/popup";
+import Popup from "../popup";
 import { toCssLength } from "../utils/css";
 import type { BooleanType, PlacementsType } from "../const/types";
 import { colors } from "../const/var";
