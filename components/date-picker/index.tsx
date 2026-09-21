@@ -1,5 +1,5 @@
+import Popup, { type PopupRef } from "../base/popup";
 import type { ForwardedComponent } from "../utils/vue";
-import { createFrameScheduler, isEventOutside } from "../utils/popup";
 import dayjs, { Dayjs, type UnitType } from "dayjs";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import isBetween from "dayjs/plugin/isBetween";
@@ -22,19 +22,13 @@ import {
   isRef,
   mergeProps,
   nextTick,
-  onMounted,
-  onUnmounted,
   ref,
-  Teleport,
-  Transition,
   watch,
   type ExtractPropTypes,
   type PropType,
   type Ref,
 } from "vue";
 import { Button } from "../button";
-import { usePopupContainer } from "../config/popup";
-import { usePopupHost } from "../config/popup-host";
 import {
   markFormFieldComponent,
   resolveFormControlAttrs,
@@ -48,10 +42,8 @@ import type {
   SizeType,
   ThemeType,
 } from "../const/types";
-import resize from "../directives/resize";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
-import { setPlacement } from "../utils/placement";
 // import dayjsCN from "./dayjs.zh_CN";
 // import "dayjs/locale/zh-cn";
 // 启用插件
@@ -148,9 +140,6 @@ type DatePickerComponent = {
 
 const DatePicker = defineComponent({
   name: "DatePicker",
-  directives: {
-    resize,
-  },
   props: datePickerProps,
   emits: {
     "update:modelValue": (value: DatePickerOutput | DatePickerOutput[]) =>
@@ -173,10 +162,10 @@ const DatePicker = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
-    usePopupHost(() => isVisible.value && openChange(false));
+
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
-    const getPopupContainer = usePopupContainer();
+
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
@@ -191,14 +180,9 @@ const DatePicker = defineComponent({
     // --- 状态定义 ---
     const isVisible = ref(props.opened || props.panelOnly);
     const isFocus = ref(false);
-    const rendered = ref(props.opened || props.panelOnly);
-    const currentPlacement = ref(props.placement);
-    const left = ref(0);
-    const top = ref(0);
-    const transOrigin = ref("bottom");
+
     const refPopper = ref<HTMLElement | null>(null);
     const refSelection = ref<HTMLElement | null>(null);
-    const positionRaf = createFrameScheduler();
 
     // DOM 引用，用于滚动计算
     const timeColRefs = ref<Record<string, HTMLElement | null>>({});
@@ -507,42 +491,28 @@ const DatePicker = defineComponent({
         isVisible.value
       )
         return;
-      if (!rendered.value) {
-        rendered.value = true;
-        nextTick(() => {
-          updatePanelState();
-          nextTick(() => {
-            updatePosition();
-          });
-        });
-      } else {
-        updatePanelState();
-        nextTick(() => {
-          updatePosition();
-        });
-      }
+      updatePanelState();
+      nextTick(updatePosition);
     };
 
-    const handleClickOutside = (e: PointerEvent) => {
-      if (isEventOutside(e, [refSelection.value, refPopper.value])) {
-        if (isRange.value && Array.isArray(innerValue.value)) {
-          // 如果只选了一个值（即半选状态），关闭时重置为 props 传进来的原始状态
-          if (innerValue.value.length === 1 || !innerValue.value[1]) {
-            syncTextFromValue(); // 这会根据 props.modelValue 恢复 textValue
-            // 重新从 props 解析 innerValue
-            const val = propRangeValue();
-            if (val) {
-              innerValue.value = val.map((d) => parsePropValue(d));
-              syncTextFromValue();
-            } else {
-              innerValue.value = null;
-              syncTextFromValue();
-            }
+    const closePopup = () => {
+      if (isRange.value && Array.isArray(innerValue.value)) {
+        // 如果只选了一个值（即半选状态），关闭时重置为 props 传进来的原始状态
+        if (innerValue.value.length === 1 || !innerValue.value[1]) {
+          syncTextFromValue(); // 这会根据 props.modelValue 恢复 textValue
+          // 重新从 props 解析 innerValue
+          const val = propRangeValue();
+          if (val) {
+            innerValue.value = val.map((d) => parsePropValue(d));
+            syncTextFromValue();
+          } else {
+            innerValue.value = null;
+            syncTextFromValue();
           }
         }
-        openChange(false);
-        isFocus.value = false;
       }
+      openChange(false);
+      isFocus.value = false;
     };
     const timeLabelClick = (e: PointerEvent, direction: string) => {
       e.preventDefault();
@@ -982,45 +952,14 @@ const DatePicker = defineComponent({
         );
       }
     };
-    const updatePosition = () => {
-      positionRaf.schedule(() => {
-        if (!isVisible.value) return;
-        setPlacement({
-          refSelection,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
-        });
-      });
-    };
-    onMounted(() => {
-      if (!props.panelOnly) {
-        if (props.opened) updatePosition();
-        document.addEventListener("click", handleClickOutside);
-        document.addEventListener("scroll", updatePosition, true);
-      }
-    });
-    onUnmounted(() => {
-      positionRaf.cancel();
-      document.removeEventListener("click", handleClickOutside);
-      if (!props.panelOnly) document.removeEventListener("scroll", updatePosition, true);
-    });
-
-    watch(
-      () => props.placement,
-      (placement) => {
-        currentPlacement.value = placement;
-        if (isVisible.value) updatePosition();
-      },
-    );
+    const popup = ref<PopupRef>();
+    const updatePosition = () => popup.value?.updatePosition();
 
     watch(
       () => props.opened,
       (opened) => {
         const nextVisible = Boolean(props.panelOnly || opened);
-        if (nextVisible) rendered.value = true;
+
         isVisible.value = nextVisible;
         if (nextVisible && !props.panelOnly) nextTick(updatePosition);
       },
@@ -1089,13 +1028,6 @@ const DatePicker = defineComponent({
           },
         ],
         ref: refPopper,
-        style: props.panelOnly
-          ? undefined
-          : {
-              left: `${left.value}px`,
-              top: `${top.value}px`,
-              transformOrigin: transOrigin.value,
-            },
         mode: props.mode,
         role: "dialog",
         "aria-disabled": disabled || undefined,
@@ -1225,8 +1157,8 @@ const DatePicker = defineComponent({
           <div class="k-picker-extra-footer">{slots.footer({ emit: extraEmit })}</div>
         ) : null;
       };
-      const panel = rendered.value ? (
-        <div v-show={isVisible.value} {...resolvedOverlayProps}>
+      const panel = (
+        <div {...resolvedOverlayProps}>
           {renderPresets()}
           <div class="k-picker-container">
             {renderExtraHeader()}
@@ -1239,17 +1171,26 @@ const DatePicker = defineComponent({
             {renderExtraFooter()}
           </div>
         </div>
-      ) : null;
+      );
 
       if (props.panelOnly) return panel;
 
-      const overlay = rendered.value
-        ? [
-            <Teleport key="overlay" to={getPopupContainer()}>
-              <Transition name="k-date-picker">{panel}</Transition>
-            </Teleport>,
-          ]
-        : [];
+      const overlay = [
+        <Popup
+          ref={popup}
+          raw
+          open={isVisible.value}
+          target={refSelection}
+          trigger="manual"
+          placement={props.placement}
+          prefixCls="k-datepicker-overlay"
+          transitionName="k-date-picker"
+          onOpenChange={(next) => {
+            if (!next) closePopup();
+          }}
+          v-slots={{ overlay: () => panel }}
+        />,
+      ];
 
       const rootProps = mergeProps(attrs, resolveFormControlAttrs(attrs, field), {
         class: classes,

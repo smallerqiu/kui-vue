@@ -1,16 +1,12 @@
+import Popup, { type PopupRef } from "../base/popup";
 import type { ForwardedComponent } from "../utils/vue";
-import { createFrameScheduler, isEventOutside } from "../utils/popup";
 import Color, { type ColorObject } from "color";
-import { usePopupContainer } from "../config/popup";
-import { usePopupHost } from "../config/popup-host";
-import resize from "../directives/resize";
 import {
   markFormFieldComponent,
   resolveFormControlAttrs,
   useFormAppearance,
   useFormField,
 } from "../form/context";
-import { setPlacement } from "../utils/placement";
 import { cloneNodes } from "../utils/vnode";
 import Alpha from "./alpha";
 import Hue from "./hue";
@@ -24,12 +20,8 @@ import {
   h,
   mergeProps,
   nextTick,
-  onBeforeUnmount,
-  onMounted,
   type PropType,
   ref,
-  Teleport,
-  Transition,
   watch,
 } from "vue";
 import type {
@@ -75,9 +67,6 @@ export type ColorPickerProps = ExtractPropTypes<typeof colorPickerProps>;
 
 const ColorPicker = defineComponent({
   name: "ColorPicker",
-  directives: {
-    resize,
-  },
   props: colorPickerProps,
   emits: {
     "update:modelValue": (value: string) => typeof value === "string",
@@ -89,8 +78,7 @@ const ColorPicker = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
-    usePopupHost(() => visible.value && openChange(false));
-    const getPopupContainer = usePopupContainer();
+
     const initialColor =
       (field?.prop ? String(field.value.value ?? "") : props.modelValue) || "#000000ff";
     const initialColorValue = Color(initialColor);
@@ -100,23 +88,9 @@ const ColorPicker = defineComponent({
     const visible = ref(Boolean(props.opened || props.panelOnly));
     const refPopper = ref();
     const refSelection = ref();
-    const left = ref(0);
-    const top = ref(0);
-    const currentPlacement = ref(props.placement);
-    const transOrigin = ref("bottom");
-    const rendered = ref(Boolean(props.opened || props.panelOnly));
+
     const currentAlpha = ref(initialColorValue.alpha());
     const currentHue = ref(initialColorValue.hue());
-    const hideTimer = ref();
-    const positionRaf = createFrameScheduler();
-    let outsideClickListening = false;
-
-    const syncOutsideClickListener = (opened: boolean) => {
-      if (props.panelOnly || outsideClickListening === opened) return;
-      if (opened) document.addEventListener("click", outsideClick);
-      else document.removeEventListener("click", outsideClick);
-      outsideClickListening = opened;
-    };
 
     watch(
       () => (field?.prop ? field.value.value : props.modelValue),
@@ -135,81 +109,26 @@ const ColorPicker = defineComponent({
       },
     );
     watch(
-      () => props.placement,
-      (placement) => {
-        currentPlacement.value = placement;
-        if (visible.value) updatePopPosition();
-      },
-    );
-    watch(
       () => props.opened,
       (opened) => {
         const nextVisible = Boolean(props.panelOnly || opened);
-        if (nextVisible) rendered.value = true;
+
         visible.value = nextVisible;
-        syncOutsideClickListener(nextVisible);
         if (nextVisible && !props.panelOnly) nextTick(updatePopPosition);
       },
     );
-    onMounted(() => {
-      if (!props.panelOnly) {
-        if (props.opened) updatePopPosition();
-        syncOutsideClickListener(visible.value);
-        document.addEventListener("scroll", updatePopPosition, true);
-      }
-    });
-    onBeforeUnmount(() => {
-      positionRaf.cancel();
-      clearTimeout(hideTimer.value);
-      syncOutsideClickListener(false);
-      if (!props.panelOnly) document.removeEventListener("scroll", updatePopPosition, true);
-    });
-    const updatePopPosition = () => {
-      positionRaf.schedule(() => {
-        if (!visible.value) return;
-        setPlacement({
-          refSelection,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
-        });
-      });
-    };
-    const outsideClick = (e: Event) => {
-      if (isEventOutside(e, [refSelection.value, refPopper.value])) {
-        clearTimeout(hideTimer.value);
-        hideTimer.value = setTimeout(() => openChange(false), 200);
-      }
-    };
+    const popup = ref<PopupRef>();
+    const updatePopPosition = () => popup.value?.updatePosition();
     const openChange = (opened: boolean) => {
       visible.value = Boolean(props.panelOnly || opened);
-      syncOutsideClickListener(visible.value);
       emit("openChange", opened);
     };
     const toggle = (open: boolean) => {
       if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value) {
         return false;
       }
-      if (open) {
-        if (!rendered.value) {
-          rendered.value = true;
-          nextTick(() => {
-            openChange(true);
-            nextTick(() => {
-              updatePopPosition();
-            });
-          });
-        } else {
-          openChange(true);
-          nextTick(() => {
-            updatePopPosition();
-          });
-        }
-      } else {
-        openChange(false);
-      }
+      popup.value?.cancelClose();
+      openChange(open);
     };
 
     const getColor = () => {
@@ -269,7 +188,7 @@ const ColorPicker = defineComponent({
       onUpdate(currentColor.value);
       emit("update:mode", mode);
       setTimeout(() => {
-        clearTimeout(hideTimer.value);
+        popup.value?.cancelClose();
       }, 0);
     };
     const updateColorValue = (color: ColorInstance) => {
@@ -286,14 +205,13 @@ const ColorPicker = defineComponent({
       updateColorValue(color.rgb());
     };
     const renderDrop = () => {
-      if (!rendered.value) return props.panelOnly ? null : [];
       const _props = {
         ref: refPopper,
         "aria-disabled": props.disabled || field?.disabled.value || undefined,
         onClickCapture: blockPanelInteraction,
         onMousedownCapture: blockPanelInteraction,
         onKeydownCapture: blockPanelInteraction,
-        "k-placement": currentPlacement.value,
+        "k-placement": props.placement,
         class: [
           "k-color-picker-dropdown",
           {
@@ -301,22 +219,18 @@ const ColorPicker = defineComponent({
             "k-color-picker-panel": props.panelOnly,
           },
         ],
-        style: props.panelOnly
-          ? undefined
-          : {
-              left: `${left.value}px`,
-              top: `${top.value}px`,
-              transformOrigin: transOrigin.value,
-            },
+        onMouseleave: () => {
+          if (props.trigger === "hover") popup.value?.scheduleClose();
+        },
         onMouseenter: () => {
-          clearTimeout(hideTimer.value);
+          popup.value?.cancelClose();
         },
       };
       const panelProps = props.panelOnly ? mergeProps(attrs, _props) : _props;
 
       // let [r, g, b] = hslToRgb(color.H, color.S, color.L);
       const panel = (
-        <div v-show={visible.value} {...panelProps}>
+        <div {...panelProps}>
           <div class="k-color-picker-body" inert={interactionBlocked()}>
             <Paint
               disabled={interactionBlocked()}
@@ -379,9 +293,18 @@ const ColorPicker = defineComponent({
       );
       if (props.panelOnly) return panel;
       return (
-        <Teleport to={getPopupContainer()}>
-          <Transition name="k-color-picker">{panel}</Transition>
-        </Teleport>
+        <Popup
+          ref={popup}
+          raw
+          open={visible.value}
+          target={refSelection}
+          trigger="manual"
+          placement={props.placement}
+          prefixCls="k-color-picker-dropdown"
+          transitionName="k-color-picker"
+          onOpenChange={openChange}
+          v-slots={{ overlay: () => panel }}
+        />
       );
     };
 
@@ -390,9 +313,7 @@ const ColorPicker = defineComponent({
         return;
       }
       if (props.trigger == "hover") {
-        hideTimer.value = setTimeout(() => {
-          toggle(false);
-        }, 300);
+        popup.value?.scheduleClose();
       }
     };
 
@@ -462,7 +383,6 @@ const ColorPicker = defineComponent({
             onKeydown: onTriggerKeydown,
             onFocusout: () => field?.blur(),
           })}
-          v-resize={updatePopPosition}
         >
           <div
             class="k-color-picker-selection"

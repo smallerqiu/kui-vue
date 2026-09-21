@@ -1,23 +1,9 @@
-import { createFrameScheduler, isEventOutside } from "../utils/popup";
+import Popup, { type PopupRef } from "../base/popup";
 import { ChevronDown, ChevronRight, CircleAlert, CircleX, Loading } from "kui-icons";
-import {
-  computed,
-  defineComponent,
-  nextTick,
-  onBeforeUnmount,
-  ref,
-  Teleport,
-  toRaw,
-  Transition,
-  watch,
-  type CSSProperties,
-} from "vue";
-import { usePopupContainer } from "../config/popup";
-import { usePopupHost } from "../config/popup-host";
+import { computed, defineComponent, nextTick, onBeforeUnmount, ref, toRaw, watch } from "vue";
 import Empty from "../empty";
 import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import Icon from "../icon";
-import { setPlacement } from "../utils/placement";
 import { cascaderProps, type CascaderOption, type CascaderValue } from "./types";
 
 const Cascader = defineComponent({
@@ -37,19 +23,12 @@ const Cascader = defineComponent({
         ? (field.value.value as CascaderValue)
         : props.modelValue,
     );
-    usePopupHost(() => visible.value && toggleMenu(false));
-    const getPopupContainer = usePopupContainer();
+
     const visible = ref(false);
-    const rendered = ref(false);
 
     // 基础布局定位变量
     const refSelection = ref<HTMLElement | null>(null);
     const refPopper = ref<HTMLElement | null>(null);
-    const currentPlacement = ref(props.placement);
-    const transOrigin = ref("top");
-    const left = ref(0);
-    const top = ref(0);
-    const minWidth = ref(0);
 
     // 记录当前展开的每一层的 Option 对象路径
     const activePath = ref<CascaderOption[]>([]);
@@ -58,7 +37,7 @@ const Cascader = defineComponent({
     const loadingOptions = ref(new Set<CascaderOption>());
     const failedOptions = ref(new Set<CascaderOption>());
     let unmounted = false;
-    const positionRaf = createFrameScheduler();
+
     const getOptionChildren = (option: CascaderOption) =>
       option.children ?? loadedChildren.value.get(option) ?? [];
     const isExpandable = (option: CascaderOption) =>
@@ -137,10 +116,6 @@ const Cascader = defineComponent({
       },
       { deep: true },
     );
-    watch(
-      () => props.placement,
-      (placement) => (currentPlacement.value = placement),
-    );
 
     // 计算属性：根据当前的选项树和 activePath，生成多列菜单供层级渲染
     const menus = computed(() => {
@@ -180,69 +155,23 @@ const Cascader = defineComponent({
       return props.showAllLevels ? labels.join(props.separator) : labels[labels.length - 1];
     });
 
-    const updatePosition = () => {
-      positionRaf.schedule(() => {
-        if (!visible.value) return;
-        minWidth.value = refSelection.value?.offsetWidth || 0;
-        setPlacement({
-          refSelection,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
-        });
-      });
-    };
+    const popup = ref<PopupRef>();
+    const updatePosition = () => popup.value?.updatePosition();
 
     const toggleMenu = (show: boolean | null = null) => {
       if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
         return;
-
-      const isFirstRender = !rendered.value;
-      if (isFirstRender) {
-        rendered.value = true;
-        document.addEventListener("click", outsideClick);
-        window.addEventListener("resize", updatePosition);
-        window.addEventListener("scroll", updatePosition, true);
-      }
-
-      // 计算下一步的显示状态
-      const nextVisible = show !== null ? show : !visible.value;
-
-      if (nextVisible) {
+      const next = show ?? !visible.value;
+      if (next === visible.value) return;
+      if (next) {
         activeColumn.value = 0;
-        // 首次渲染时，稍微延后变更 visible，让 Teleport 容器和 Transition 体察到 "appear" 状态的临界点
-        if (isFirstRender) {
-          nextTick(() => {
-            visible.value = true;
-            emit("openChange", true);
-            updatePosition();
-          });
-        } else {
-          visible.value = true;
-          emit("openChange", true);
-          updatePosition();
-        }
-      } else {
-        visible.value = false;
-        emit("openChange", false);
       }
-    };
-
-    const outsideClick = (e: MouseEvent) => {
-      if (isEventOutside(e, [refSelection.value, refPopper.value])) {
-        visible.value = false;
-        emit("openChange", false);
-      }
+      visible.value = next;
+      emit("openChange", next);
     };
 
     onBeforeUnmount(() => {
       unmounted = true;
-      positionRaf.cancel();
-      document.removeEventListener("click", outsideClick);
-      window.removeEventListener("resize", updatePosition);
-      window.removeEventListener("scroll", updatePosition, true);
     });
 
     // 处理选项项的点击/悬浮触发
@@ -405,16 +334,9 @@ const Cascader = defineComponent({
     // 渲染动态的多级弹窗列表
     const renderDropdown = () => {
       // 首次未触发时，body 保持绝对干净
-      if (!rendered.value) return [];
 
       const popperProps = {
         ref: refPopper,
-        style: {
-          left: `${left.value}px`,
-          top: `${top.value}px`,
-          minWidth: `${minWidth.value}px`,
-          transformOrigin: transOrigin.value,
-        } as CSSProperties,
         class: [
           "k-cascader-dropdown",
           {
@@ -426,10 +348,23 @@ const Cascader = defineComponent({
       const isEmpty = !props.options || props.options.length === 0;
 
       return [
-        <Teleport key="overlay" to={getPopupContainer()}>
-          {/* 👈 核心修复：加上 appear 属性，强制首次渲染时也触发入场动画 */}
-          <Transition name="k-cascader" appear>
-            {visible.value && (
+        <Popup
+          ref={popup}
+          raw
+          open={visible.value}
+          target={refSelection}
+          trigger="manual"
+          placement={props.placement}
+          prefixCls="k-cascader-dropdown"
+          transitionName="k-cascader"
+          matchTriggerWidth
+          destroyOnClose
+          onOpenChange={(next) => {
+            visible.value = next;
+            emit("openChange", next);
+          }}
+          v-slots={{
+            overlay: () => (
               <div {...popperProps}>
                 {isEmpty ? (
                   <Empty description={props.emptyText} />
@@ -486,9 +421,9 @@ const Cascader = defineComponent({
                   </div>
                 )}
               </div>
-            )}
-          </Transition>
-        </Teleport>,
+            ),
+          }}
+        />,
       ];
     };
 

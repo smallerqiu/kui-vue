@@ -1,4 +1,4 @@
-import { createFrameScheduler, isEventOutside } from "../utils/popup";
+import Popup, { type PopupRef } from "../base/popup";
 import { renderSelectionTags } from "../utils/selection-tags";
 import { ChevronDown, CircleX, LoaderCircle } from "kui-icons";
 import {
@@ -9,11 +9,8 @@ import {
   isRef,
   nextTick,
   onBeforeUnmount,
-  onMounted,
   provide,
   ref,
-  Teleport,
-  Transition,
   watch,
   type CSSProperties,
   type ExtractPropTypes,
@@ -22,8 +19,6 @@ import {
   type Ref,
   type VNodeChild,
 } from "vue";
-import { usePopupContainer } from "../config/popup";
-import { usePopupHost } from "../config/popup-host";
 import type {
   BooleanType,
   DropPlacementsType,
@@ -31,7 +26,6 @@ import type {
   SizeType,
   ThemeType,
 } from "../const/types";
-import resize from "../directives/resize";
 import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
@@ -40,11 +34,8 @@ import Tree, { type TreeExpandEvent } from "../tree";
 import { treeSelectContextKey } from "../tree/context";
 import type { TreeNode } from "../tree/utils";
 import { isEmpty } from "../utils/number";
-import { setPlacement } from "../utils/placement";
 
 export type TreeSelectValue = string | string[] | null | undefined;
-type TreeSelectPlacement =
-  "top" | "top-left" | "top-right" | "bottom" | "bottom-left" | "bottom-right";
 
 interface SearchEventTarget extends EventTarget {
   value?: string;
@@ -117,9 +108,6 @@ type TreeSelectComponent = {
 
 const TreeSelect = defineComponent({
   name: "TreeSelect",
-  directives: {
-    resize,
-  },
   props: treeSelectProps,
   emits: {
     "update:modelValue": (value: TreeSelectValue) =>
@@ -137,17 +125,15 @@ const TreeSelect = defineComponent({
   setup(props, { emit }) {
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
-    usePopupHost(() => visible.value && openChange(false));
+
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
-    const getPopupContainer = usePopupContainer();
 
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
 
     const visible = ref(false);
-    const rendered = ref(false);
     const initialValue = field?.prop ? (field.value.value as TreeSelectValue) : props.modelValue;
     const currentValue = ref<string[]>(
       props.multiple
@@ -159,29 +145,18 @@ const TreeSelect = defineComponent({
     const queryInputVisible = ref(false);
     const queryKey = ref("");
     const queryInputMirrorRef = ref<HTMLElement | null>(null);
-    const minWidth = ref<string | number>("");
+
     const queryInputFocused = ref(false);
     const queryInputRef = ref<HTMLInputElement | null>(null);
     const hasSearchEvent = Boolean(getCurrentInstance()?.vnode.props?.onSearch);
     const refPopper = ref<HTMLElement | null>(null);
-    const transOrigin = ref("bottom");
+
     const refSelection = ref<HTMLElement | null>(null);
-    const left = ref(0);
-    const top = ref(0);
-    const currentPlacement = ref<TreeSelectPlacement>(props.placement);
+
     const queryInputEventTimer = ref<number | undefined>(undefined);
     const clearQueryTimer = ref<number | undefined>(undefined);
-    const positionRaf = createFrameScheduler();
 
     const defaultExpandedKeys = ref<string[]>([...(props.treeExpandedKeys || [])]);
-
-    watch(
-      () => props.placement,
-      (v) => {
-        currentPlacement.value = v;
-        updatePosition();
-      },
-    );
 
     watch(
       () => (field?.prop ? field.value.value : props.modelValue),
@@ -201,44 +176,16 @@ const TreeSelect = defineComponent({
     });
 
     onBeforeUnmount(() => {
-      positionRaf.cancel();
-      document.removeEventListener("click", outsideClick);
-      document.removeEventListener("scroll", updatePosition, true);
       clearTimeout(queryInputEventTimer.value);
       clearTimeout(clearQueryTimer.value);
     });
 
-    const updatePosition = () => {
-      positionRaf.schedule(() => {
-        if (!visible.value) return;
-        minWidth.value = refSelection.value ? refSelection.value.offsetWidth : "";
-        setPlacement({
-          refSelection,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
-        });
-      });
-    };
-
-    onMounted(() => {
-      nextTick(() => {
-        minWidth.value = refSelection.value ? refSelection.value.offsetWidth : "";
-      });
-      document.addEventListener("scroll", updatePosition, true);
-    });
+    const popup = ref<PopupRef>();
+    const updatePosition = () => popup.value?.updatePosition();
 
     const openChange = (opened: boolean) => {
       visible.value = opened;
       emit("openChange", opened);
-    };
-    const outsideClick = (e: Event) => {
-      if (isEventOutside(e, [refSelection.value, refPopper.value])) {
-        openChange(false);
-        clearQuery();
-      }
     };
 
     const clearQuery = () => {
@@ -272,17 +219,7 @@ const TreeSelect = defineComponent({
       if (hasSearchEvent) {
         clearTimeout(queryInputEventTimer.value);
         queryInputEventTimer.value = window.setTimeout(() => {
-          if (!rendered.value) {
-            rendered.value = true;
-            document.addEventListener("click", outsideClick);
-            nextTick(() => {
-              openChange(true);
-              updatePosition();
-            });
-          } else {
-            openChange(true);
-            updatePosition();
-          }
+          openChange(true);
           emit("search", e);
         }, 500);
       }
@@ -334,7 +271,7 @@ const TreeSelect = defineComponent({
       }
     };
 
-    const toggle = (show = false) => {
+    const toggle = (show: boolean | null = null) => {
       if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value) {
         return;
       }
@@ -343,27 +280,10 @@ const TreeSelect = defineComponent({
         return;
       }
 
-      if (!rendered.value) {
-        rendered.value = true;
-        document.addEventListener("click", outsideClick);
-        nextTick(() => {
-          openChange(true);
-          nextTick(() => {
-            updatePosition();
-            showQuery();
-          });
-        });
-      } else {
-        openChange(show || !visible.value);
-        if (visible.value) {
-          nextTick(() => {
-            updatePosition();
-          });
-          showQuery();
-        } else {
-          clearQuery();
-        }
-      }
+      const next = show ?? !visible.value;
+      openChange(next);
+      if (next) showQuery();
+      else clearQuery();
     };
 
     const labelText = computed<string[]>(() => {
@@ -525,17 +445,9 @@ const TreeSelect = defineComponent({
     });
 
     const renderOverlay = () => {
-      if (!rendered.value) return [];
-
       const preCls = "k-tree-select";
       const overlayProps = {
         ref: refPopper,
-        style: {
-          minWidth: String(minWidth.value ? `${minWidth.value}px` : ""),
-          left: `${left.value}px`,
-          top: `${top.value}px`,
-          transformOrigin: transOrigin.value,
-        } as CSSProperties,
         class: [
           "k-tree-select-dropdown",
           "k-scroll",
@@ -555,22 +467,39 @@ const TreeSelect = defineComponent({
       );
 
       return [
-        <Teleport key="overlay" to={getPopupContainer()}>
-          <Transition name={preCls}>
-            <div v-show={visible.value} {...overlayProps}>
-              {props.loading ? (
-                loadingNode
-              ) : hasMatchingNode.value ? (
-                renderTree()
-              ) : (
-                <Empty
-                  onClick={emptyClick}
-                  description={props.emptyText || locale.value?.k?.select?.emptyText}
-                />
-              )}
-            </div>
-          </Transition>
-        </Teleport>,
+        <Popup
+          ref={popup}
+          raw
+          open={visible.value}
+          target={refSelection}
+          trigger="manual"
+          placement={props.placement}
+          prefixCls="k-tree-select-dropdown"
+          transitionName={preCls}
+          matchTriggerWidth
+          onOpenChange={(next) => {
+            if (!next) {
+              openChange(false);
+              clearQuery();
+            }
+          }}
+          v-slots={{
+            overlay: () => (
+              <div {...overlayProps}>
+                {props.loading ? (
+                  loadingNode
+                ) : hasMatchingNode.value ? (
+                  renderTree()
+                ) : (
+                  <Empty
+                    onClick={emptyClick}
+                    description={props.emptyText || locale.value?.k?.select?.emptyText}
+                  />
+                )}
+              </div>
+            ),
+          }}
+        />,
       ];
     };
 
@@ -714,7 +643,7 @@ const TreeSelect = defineComponent({
         ref: refSelection,
       };
       return (
-        <div {...treeProps} v-resize={updatePosition}>
+        <div {...treeProps}>
           {props.icon ? <Icon type={props.icon} class="k-tree-select-icon" /> : null}
           <div class="k-tree-select-selection">{childNode}</div>
           <span class="k-tree-select-suffix">

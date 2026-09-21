@@ -1,23 +1,18 @@
+import Popup, { type PopupRef } from "../base/popup";
 import { CircleX, Loading } from "kui-icons";
 import {
   computed,
   defineComponent,
   getCurrentInstance,
   nextTick,
-  onBeforeUnmount,
-  onMounted,
   ref,
   shallowRef,
-  Teleport,
-  Transition,
   watch,
   type CSSProperties,
   type ExtractPropTypes,
   type PropType,
   type VNodeChild,
 } from "vue";
-import { usePopupContainer } from "../config/popup";
-import { usePopupHost } from "../config/popup-host";
 import type { DropPlacementsType, ShapeType, SizeType, ThemeType } from "../const/types";
 import {
   markFormFieldComponent,
@@ -28,8 +23,6 @@ import {
 import Empty from "../empty";
 import Icon from "../icon";
 import { TextArea } from "../input";
-import { setPlacement } from "../utils/placement";
-import { isEventOutside } from "../utils/popup";
 
 export interface MentionOption {
   value: string;
@@ -73,37 +66,21 @@ const Mentions = defineComponent({
   setup(props, { emit, attrs, slots }) {
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
-    usePopupHost(() => query.value && (query.value = undefined));
-    const getPopupContainer = usePopupContainer();
+
     const instance = getCurrentInstance();
     const listboxId = `k-mentions-listbox-${instance?.uid ?? "default"}`;
     const hasSearchEvent = Boolean(instance?.vnode.props?.onSearch);
     const inner = ref(props.value);
     const query = ref<{ start: number; trigger: string; text: string }>();
-    const rendered = ref(false);
     const active = ref(0);
     const root = ref<HTMLElement | null>(null);
     const dropdown = ref<HTMLElement | null>(null);
     const dropdownStyle = ref<CSSProperties>();
-    const positioned = ref(false);
+
     const composing = ref(false);
     const shownMatches = shallowRef<MentionOption[]>([]);
-    const top = ref(0);
-    const left = ref(0);
-    const transOrigin = ref("left top");
-    const currentPlacement = ref<string>(props.placement);
+
     const textarea = ref<{ $el?: HTMLTextAreaElement } | HTMLTextAreaElement>();
-    let resizeObserver: ResizeObserver | undefined;
-    const closeOutside = (event: MouseEvent) => {
-      if (isEventOutside(event, [root.value, dropdown.value], false)) query.value = undefined;
-    };
-    watch(
-      query,
-      (value) => {
-        if (value) rendered.value = true;
-      },
-      { flush: "sync" },
-    );
     const getTextarea = () =>
       textarea.value instanceof HTMLTextAreaElement ? textarea.value : textarea.value?.$el;
     const getCaretRect = (element: HTMLTextAreaElement) => {
@@ -155,29 +132,14 @@ const Mentions = defineComponent({
       mirror.remove();
       return rect;
     };
-    const updateDropdownPosition = () => {
+    const popup = ref<PopupRef>();
+    const updateDropdownPosition = () => popup.value?.updatePosition();
+    const getAnchorPosition = () => {
       const element = getTextarea();
-      const container = root.value;
-      if (!query.value || !element || !container) return;
-      const caretRect = getCaretRect(element);
-      currentPlacement.value = props.placement;
-      setPlacement({
-        refSelection: root,
-        refPopper: dropdown,
-        currentPlacement,
-        transOrigin,
-        top,
-        left,
-        position: { x: caretRect.left, y: caretRect.bottom },
-        offset: 4,
-      });
-      dropdownStyle.value = {
-        left: `${left.value}px`,
-        top: `${top.value}px`,
-        width: `${Math.min(260, container.offsetWidth || 260)}px`,
-        transformOrigin: transOrigin.value,
-      };
-      positioned.value = true;
+      if (!element) return null;
+      const rect = getCaretRect(element);
+      dropdownStyle.value = { width: `${Math.min(260, root.value?.offsetWidth || 260)}px` };
+      return { x: rect.left, y: rect.bottom };
     };
     watch(
       () => (field?.prop ? field.value.value : props.modelValue),
@@ -250,7 +212,7 @@ const Mentions = defineComponent({
           found = { start, trigger, text: prefix.slice(start + trigger.length) };
         }
       });
-      if (!query.value && found) positioned.value = false;
+
       query.value = found;
       if (found) {
         setMatches(hasSearchEvent && search && found.text ? [] : getMatches(found));
@@ -269,21 +231,6 @@ const Mentions = defineComponent({
       },
       { deep: true },
     );
-    onMounted(() => {
-      window.addEventListener("resize", updateDropdownPosition);
-      window.addEventListener("scroll", updateDropdownPosition, true);
-      document.addEventListener("mousedown", closeOutside);
-      if (typeof ResizeObserver !== "undefined") {
-        resizeObserver = new ResizeObserver(updateDropdownPosition);
-        if (root.value) resizeObserver.observe(root.value);
-      }
-    });
-    onBeforeUnmount(() => {
-      window.removeEventListener("resize", updateDropdownPosition);
-      window.removeEventListener("scroll", updateDropdownPosition, true);
-      document.removeEventListener("mousedown", closeOutside);
-      resizeObserver?.disconnect();
-    });
     const choose = (option: MentionOption) => {
       const element = getTextarea();
       if (
@@ -425,69 +372,79 @@ const Mentions = defineComponent({
               }}
             />
           )}
-        {rendered.value
-          ? [
-              <Teleport key="overlay" to={getPopupContainer()}>
-                <Transition name="k-select" appear>
-                  <div
-                    ref={dropdown}
-                    v-show={!!query.value}
-                    id={listboxId}
-                    style={{
-                      ...dropdownStyle.value,
-                      visibility: positioned.value ? undefined : "hidden",
-                    }}
-                    class={[
-                      "k-select-dropdown",
-                      "k-mentions-dropdown",
-                      { "k-select-dropdown-sm": props.size === "small" },
-                      { "k-select-dropdown-lg": props.size === "large" },
-                    ]}
-                    role="listbox"
-                  >
-                    {props.loading ? (
-                      <div class="k-select-loading k-mentions-loading">
-                        <Icon type={Loading} spin />
-                        {props.loadingText && <span>{props.loadingText || "Loading..."}</span>}
-                      </div>
-                    ) : shownMatches.value.length ? (
-                      <ul>
-                        {shownMatches.value.map((option, index) => (
-                          <li
-                            key={option.value}
-                            id={`${listboxId}-option-${index}`}
-                            role="option"
-                            aria-selected={active.value === index}
-                            class={[
-                              "k-select-item",
-                              {
-                                "k-select-item-active": active.value === index,
-                                "k-select-item-disabled": option.disabled,
-                              },
-                            ]}
-                            onMousedown={(event) => event.preventDefault()}
-                            onMouseenter={() =>
-                              !props.disabled &&
-                              !field?.disabled.value &&
-                              !props.readonly &&
-                              !field?.readonly.value &&
-                              !option.disabled &&
-                              (active.value = index)
-                            }
-                            onClick={() => choose(option)}
-                          >
-                            {option.label ?? option.value}
-                          </li>
-                        ))}
-                      </ul>
-                    ) : (
-                      (slots.empty?.() ?? <Empty description={props.emptyText} />)
-                    )}
-                  </div>
-                </Transition>
-              </Teleport>,
-            ]
-          : []}
+        {[
+          <Popup
+            ref={popup}
+            raw
+            open={!!query.value}
+            target={root}
+            trigger="manual"
+            placement={props.placement}
+            prefixCls="k-mentions-dropdown"
+            transitionName="k-select"
+            offset={4}
+            getAnchorPosition={getAnchorPosition}
+            outsideEvent="mousedown"
+            onOpenChange={(next) => {
+              if (!next) query.value = undefined;
+            }}
+            v-slots={{
+              overlay: () => (
+                <div
+                  ref={dropdown}
+                  id={listboxId}
+                  style={dropdownStyle.value}
+                  class={[
+                    "k-select-dropdown",
+                    "k-mentions-dropdown",
+                    { "k-select-dropdown-sm": props.size === "small" },
+                    { "k-select-dropdown-lg": props.size === "large" },
+                  ]}
+                  role="listbox"
+                >
+                  {props.loading ? (
+                    <div class="k-select-loading k-mentions-loading">
+                      <Icon type={Loading} spin />
+                      {props.loadingText && <span>{props.loadingText || "Loading..."}</span>}
+                    </div>
+                  ) : shownMatches.value.length ? (
+                    <ul>
+                      {shownMatches.value.map((option, index) => (
+                        <li
+                          key={option.value}
+                          id={`${listboxId}-option-${index}`}
+                          role="option"
+                          aria-selected={active.value === index}
+                          class={[
+                            "k-select-item",
+                            {
+                              "k-select-item-active": active.value === index,
+                              "k-select-item-disabled": option.disabled,
+                            },
+                          ]}
+                          onMousedown={(event) => event.preventDefault()}
+                          onMouseenter={() =>
+                            !props.disabled &&
+                            !field?.disabled.value &&
+                            !props.readonly &&
+                            !field?.readonly.value &&
+                            !option.disabled &&
+                            (active.value = index)
+                          }
+                          onClick={() => choose(option)}
+                        >
+                          {option.label ?? option.value}
+                        </li>
+                      ))}
+                    </ul>
+                  ) : (
+                    (slots.empty?.() ?? <Empty description={props.emptyText} />)
+                  )}
+                </div>
+              ),
+            }}
+          />,
+        ]}
       </div>
     );
   },

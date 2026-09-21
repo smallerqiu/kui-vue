@@ -10,6 +10,10 @@ type TypedHandler<T> =
 
 // Every public emit must survive component wrappers and generic constructor casts.
 export type PublicEventContract = [
+  Assert<TypedHandler<InstanceType<typeof Components.Popup>["$props"]["onOpenChange"]>>,
+  Assert<TypedHandler<InstanceType<typeof Components.Popup>["$props"]["onUpdate:open"]>>,
+  Assert<TypedHandler<InstanceType<typeof Components.Popup>["$props"]["onAfterOpen"]>>,
+  Assert<TypedHandler<InstanceType<typeof Components.Popup>["$props"]["onAfterClose"]>>,
   Assert<TypedHandler<InstanceType<typeof Components.Affix>["$props"]["onChange"]>>,
   Assert<TypedHandler<InstanceType<typeof Components.Alert>["$props"]["onClose"]>>,
   Assert<TypedHandler<InstanceType<typeof Components.Anchor>["$props"]["onChange"]>>,

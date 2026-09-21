@@ -1,4 +1,4 @@
-import { createFrameScheduler } from "../utils/popup";
+import Popup, { type PopupRef } from "../base/popup";
 import { Loading } from "kui-icons";
 import {
   computed,
@@ -11,17 +11,12 @@ import {
   onMounted,
   ref,
   shallowRef,
-  Teleport,
-  Transition,
   watch,
-  type CSSProperties,
   type ExtractPropTypes,
   type PropType,
   type Ref,
   type VNodeChild,
 } from "vue";
-import { usePopupContainer } from "../config/popup";
-import { usePopupHost } from "../config/popup-host";
 import type { ShapeType, SizeType, ThemeType } from "../const/types";
 import {
   markFormFieldComponent,
@@ -32,7 +27,6 @@ import {
 import Icon from "../icon";
 import { Input } from "../input";
 import zhCN from "../locale/zh-CN";
-import { setPlacement } from "../utils/placement";
 
 export interface AutoCompleteOption {
   value: string;
@@ -80,23 +74,22 @@ const AutoComplete = defineComponent({
   setup(props, { emit, attrs }) {
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
-    usePopupHost(() => visible.value && setOpen(false));
+
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
     const locale = computed<Locale>(() =>
       isRef(injectedLocale) ? injectedLocale.value : injectedLocale,
     );
-    const getPopupContainer = usePopupContainer();
+
     const instance = getCurrentInstance();
     const listboxId = `k-auto-complete-listbox-${instance?.uid ?? "default"}`;
     const hasSearchEvent = Boolean(instance?.vnode.props?.onSearch);
     const inner = ref(props.value);
     const innerOpen = ref(props.defaultOpen);
-    const rendered = ref(false);
     const active = ref(-1);
     const root = ref<HTMLElement | null>(null);
     const dropdown = ref<HTMLElement | null>(null);
-    const positioned = ref(false);
+
     const composing = ref(false);
     const current = computed(() =>
       field?.prop ? String(field.value.value ?? "") : (props.modelValue ?? inner.value),
@@ -116,13 +109,8 @@ const AutoComplete = defineComponent({
       initiallyOpen && (current.value || props.showOnEmpty) ? filter(current.value) : [],
     );
     const suppressRemoteOptions = ref(false);
-    const top = ref(0);
-    const left = ref(0);
-    const transOrigin = ref("left top");
-    const currentPlacement = ref("bottom-left");
-    const positionRaf = createFrameScheduler();
+
     let blurTimer: ReturnType<typeof setTimeout> | undefined;
-    let resizeObserver: ResizeObserver | undefined;
     watch(
       () => (field?.prop ? field.value.value : props.modelValue),
       (value) => {
@@ -135,28 +123,8 @@ const AutoComplete = defineComponent({
         (props.loading || (!suppressRemoteOptions.value && shownOptions.value.length > 0)) &&
         (props.open ?? innerOpen.value),
     );
-    watch(
-      visible,
-      (value) => {
-        if (value) rendered.value = true;
-      },
-      { immediate: true, flush: "sync" },
-    );
-    const updatePosition = () => {
-      positionRaf.schedule(() => {
-        if (!visible.value) return;
-        setPlacement({
-          refSelection: root,
-          refPopper: dropdown,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
-          offset: 6,
-        });
-        positioned.value = true;
-      });
-    };
+    const popup = ref<PopupRef>();
+    const updatePosition = () => popup.value?.updatePosition();
     const refreshOptions = (value = current.value) => {
       const nextOptions = filter(value);
       if (nextOptions.length) {
@@ -173,7 +141,6 @@ const AutoComplete = defineComponent({
         return;
       if (next && suppressRemoteOptions.value && !props.loading) return;
       if (next && !props.loading && (!hasOptions.value || !shownOptions.value.length)) return;
-      if (next && !(props.open ?? innerOpen.value)) positioned.value = false;
       if (!next) active.value = -1;
       innerOpen.value = next;
       emit("openChange", next);
@@ -222,20 +189,9 @@ const AutoComplete = defineComponent({
         const hasMatches = refreshOptions();
         if (!hasMatches) setOpen(false);
       }
-      document.addEventListener("scroll", updatePosition, true);
-      window.addEventListener("resize", updatePosition);
-      if (typeof ResizeObserver !== "undefined") {
-        resizeObserver = new ResizeObserver(updatePosition);
-        if (root.value) resizeObserver.observe(root.value);
-        if (dropdown.value) resizeObserver.observe(dropdown.value);
-      }
     });
     onBeforeUnmount(() => {
-      positionRaf.cancel();
       clearTimeout(blurTimer);
-      resizeObserver?.disconnect();
-      document.removeEventListener("scroll", updatePosition, true);
-      window.removeEventListener("resize", updatePosition);
     });
     const update = (next: string) => {
       if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
@@ -374,73 +330,74 @@ const AutoComplete = defineComponent({
             if (!event.defaultPrevented) keydown(event);
           }}
         />
-        {rendered.value
-          ? [
-              <Teleport key="overlay" to={getPopupContainer()}>
-                <Transition name="k-select" appear>
-                  <div
-                    ref={dropdown}
-                    id={listboxId}
-                    v-show={visible.value}
-                    style={
-                      {
-                        left: `${left.value}px`,
-                        top: `${top.value}px`,
-                        minWidth: `${root.value?.offsetWidth || 0}px`,
-                        transformOrigin: transOrigin.value,
-                        visibility: positioned.value ? undefined : "hidden",
-                      } as CSSProperties
-                    }
-                    class={[
-                      "k-select-dropdown",
-                      "k-auto-complete-dropdown",
-                      { "k-select-dropdown-sm": props.size === "small" },
-                      { "k-select-dropdown-lg": props.size === "large" },
-                    ]}
-                    role="listbox"
-                  >
-                    {props.loading ? (
-                      <div class="k-select-loading">
-                        <Icon type={Loading} spin />
-                        <span>{props.loadingText || locale.value?.k.select.loading}</span>
-                      </div>
-                    ) : (
-                      <ul>
-                        {shownOptions.value.map((option, index) => (
-                          <li
-                            key={option.value}
-                            id={`${listboxId}-option-${index}`}
-                            role="option"
-                            aria-selected={active.value === index}
-                            aria-disabled={option.disabled || undefined}
-                            class={[
-                              "k-select-item",
-                              {
-                                "k-select-item-active": active.value === index,
-                                "k-select-item-disabled": option.disabled,
-                              },
-                            ]}
-                            onMousedown={(event) => event.preventDefault()}
-                            onMouseenter={() =>
-                              !props.disabled &&
-                              !field?.disabled.value &&
-                              !props.readonly &&
-                              !field?.readonly.value &&
-                              !option.disabled &&
-                              (active.value = index)
-                            }
-                            onClick={() => choose(option)}
-                          >
-                            {option.label ?? option.value}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                </Transition>
-              </Teleport>,
-            ]
-          : []}
+        {[
+          <Popup
+            ref={popup}
+            raw
+            open={visible.value}
+            target={root}
+            trigger="manual"
+            placement={"bottom-left"}
+            prefixCls="k-auto-complete-dropdown"
+            transitionName="k-select"
+            offset={6}
+            matchTriggerWidth
+            onOpenChange={setOpen}
+            v-slots={{
+              overlay: () => (
+                <div
+                  ref={dropdown}
+                  id={listboxId}
+                  class={[
+                    "k-select-dropdown",
+                    "k-auto-complete-dropdown",
+                    { "k-select-dropdown-sm": props.size === "small" },
+                    { "k-select-dropdown-lg": props.size === "large" },
+                  ]}
+                  role="listbox"
+                >
+                  {props.loading ? (
+                    <div class="k-select-loading">
+                      <Icon type={Loading} spin />
+                      <span>{props.loadingText || locale.value?.k.select.loading}</span>
+                    </div>
+                  ) : (
+                    <ul>
+                      {shownOptions.value.map((option, index) => (
+                        <li
+                          key={option.value}
+                          id={`${listboxId}-option-${index}`}
+                          role="option"
+                          aria-selected={active.value === index}
+                          aria-disabled={option.disabled || undefined}
+                          class={[
+                            "k-select-item",
+                            {
+                              "k-select-item-active": active.value === index,
+                              "k-select-item-disabled": option.disabled,
+                            },
+                          ]}
+                          onMousedown={(event) => event.preventDefault()}
+                          onMouseenter={() =>
+                            !props.disabled &&
+                            !field?.disabled.value &&
+                            !props.readonly &&
+                            !field?.readonly.value &&
+                            !option.disabled &&
+                            (active.value = index)
+                          }
+                          onClick={() => choose(option)}
+                        >
+                          {option.label ?? option.value}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              ),
+            }}
+          />,
+        ]}
       </div>
     );
   },

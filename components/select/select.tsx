@@ -1,4 +1,4 @@
-import { createFrameScheduler, isEventOutside } from "../utils/popup";
+import Popup, { type PopupRef } from "../base/popup";
 import { renderSelectionTags } from "../utils/selection-tags";
 import { ChevronDown, CircleX, Loading } from "kui-icons";
 import {
@@ -9,10 +9,7 @@ import {
   isRef,
   nextTick,
   onBeforeUnmount,
-  onMounted,
   ref,
-  Teleport,
-  Transition,
   watch,
   type CSSProperties,
   type ExtractPropTypes,
@@ -22,16 +19,12 @@ import {
   type VNode,
   type VNodeChild,
 } from "vue";
-import { usePopupContainer } from "../config/popup";
-import { usePopupHost } from "../config/popup-host";
-import resize from "../directives/resize";
 import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
 import VirtualList from "../virtual-list";
 import { isEmpty } from "../utils/number";
-import { setPlacement } from "../utils/placement";
 import { getChildren } from "../utils/vnode";
 
 import type {
@@ -107,23 +100,19 @@ const Select = defineComponent({
     openChange: (open: boolean) => typeof open === "boolean",
     clear: () => true,
   },
-  directives: {
-    resize,
-  },
   props: selectProps,
   setup(props, { slots, emit }) {
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
-    usePopupHost(() => closeDropdown());
+
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
-    const getPopupContainer = usePopupContainer();
+
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
 
     const visible = ref(false);
-    const rendered = ref(false);
     const toValueArray = (value: SelectValue | SelectValue[] | undefined): SelectValue[] => {
       if (Array.isArray(value)) return [...value];
       return value === undefined || isEmpty(value) ? [] : [value];
@@ -139,33 +128,22 @@ const Select = defineComponent({
     const queryInputVisible = ref(false);
     const queryKey = ref("");
     const queryInputMirrorRef = ref<HTMLElement | null>(null);
-    const minWidth = ref(0);
+
     const queryInputRef = ref<HTMLInputElement | null>(null);
     const hasSearchEvent = Boolean(getCurrentInstance()?.vnode.props?.onSearch);
     const searchable = computed(
       () => props.filterable || hasSearchEvent || (props.multiple && props.allowCreate),
     );
     const refPopper = ref<HTMLElement | null>(null);
-    const transOrigin = ref("bottom");
+
     const refSelection = ref<HTMLElement | null>(null);
-    const left = ref(0);
-    const top = ref(0);
-    const currentPlacement = ref(props.placement);
+
     const queryInputEventTimer = ref<ReturnType<typeof setTimeout>>();
     const clearQueryTimer = ref<ReturnType<typeof setTimeout>>();
-    const positionRaf = createFrameScheduler();
+
     const activeIndex = ref(-1);
     const virtualListRef = ref<{ scrollToIndex: (index: number, align?: "auto") => void }>();
 
-    watch(
-      () => props.placement,
-      (v) => {
-        currentPlacement.value = v;
-        if (visible.value) {
-          updatePosition();
-        }
-      },
-    );
     watch(
       () => props.options,
       () => {
@@ -207,11 +185,8 @@ const Select = defineComponent({
     };
 
     onBeforeUnmount(() => {
-      positionRaf.cancel();
       clearTimeout(queryInputEventTimer.value);
       clearTimeout(clearQueryTimer.value);
-      document.removeEventListener("click", outsideClick);
-      document.removeEventListener("scroll", updatePosition, true);
     });
 
     const labelText = computed(() => {
@@ -225,36 +200,8 @@ const Select = defineComponent({
       return currentValue.value.map((val) => lookup.get(val) ?? val);
     });
 
-    const updatePosition = () => {
-      positionRaf.schedule(() => {
-        if (!visible.value) return;
-        minWidth.value = refSelection.value?.offsetWidth || 0;
-        setPlacement({
-          refSelection,
-          refPopper,
-          currentPlacement,
-          transOrigin,
-          top,
-          left,
-        });
-      });
-    };
-
-    onMounted(() => {
-      nextTick(() => {
-        minWidth.value = refSelection.value?.offsetWidth || 0;
-      });
-      document.addEventListener("scroll", updatePosition, true);
-    });
-
-    const outsideClick = (e: MouseEvent) => {
-      if (isEventOutside(e, [refSelection.value, refPopper.value])) {
-        const wasVisible = visible.value;
-        visible.value = false;
-        if (wasVisible) emit("openChange", false);
-        clearQuery();
-      }
-    };
+    const popup = ref<PopupRef>();
+    const updatePosition = () => popup.value?.updatePosition();
 
     const isChecked = (value: unknown) => {
       if (typeof value !== "string" && typeof value !== "number") return false;
@@ -334,23 +281,8 @@ const Select = defineComponent({
       if (hasSearchEvent) {
         if (queryInputEventTimer.value) clearTimeout(queryInputEventTimer.value);
         queryInputEventTimer.value = setTimeout(() => {
-          if (!rendered.value) {
-            rendered.value = true;
-            document.addEventListener("click", outsideClick);
-            nextTick(() => {
-              visible.value = true;
-              emit("openChange", true);
-              nextTick(() => {
-                updatePosition();
-              });
-            });
-          } else {
-            visible.value = true;
-            emit("openChange", true);
-            nextTick(() => {
-              updatePosition();
-            });
-          }
+          visible.value = true;
+          emit("openChange", true);
           emit("search", e as InputEvent);
         }, 500);
       }
@@ -407,25 +339,11 @@ const Select = defineComponent({
         return;
       }
 
-      if (!rendered.value) {
-        rendered.value = true;
-        document.addEventListener("click", outsideClick);
-        nextTick(() => {
-          visible.value = true;
-          emit("openChange", true);
-          updatePosition();
-          showQuery();
-        });
-      } else {
-        visible.value = show !== null ? show : !visible.value;
-        emit("openChange", visible.value);
-        if (visible.value) {
-          updatePosition();
-          showQuery();
-        } else {
-          clearQuery();
-        }
-      }
+      const next = show ?? !visible.value;
+      visible.value = next;
+      emit("openChange", next);
+      if (next) showQuery();
+      else clearQuery();
     };
 
     const optionsData = computed(() => {
@@ -606,18 +524,10 @@ const Select = defineComponent({
     });
 
     const renderOverlay = () => {
-      if (!rendered.value) return [];
-
       const options = filterOptions();
       const preCls = "k-select";
       const popperProps = {
         ref: refPopper,
-        style: {
-          minWidth: `${minWidth.value}px`,
-          left: `${left.value}px`,
-          top: `${top.value}px`,
-          transformOrigin: transOrigin.value,
-        } as CSSProperties,
         class: [
           "k-select-dropdown",
           "k-scroll",
@@ -636,37 +546,51 @@ const Select = defineComponent({
         </div>
       );
       return [
-        <Teleport key="overlay" to={getPopupContainer()}>
-          <Transition name={`${preCls}`}>
-            <div v-show={visible.value} {...popperProps}>
-              {props.loading ? (
-                loadingNode
-              ) : options.length ? (
-                props.virtual ? (
-                  <VirtualList
-                    ref={virtualListRef}
-                    data={options}
-                    height={Math.min(200, options.length * props.itemHeight)}
-                    itemHeight={props.itemHeight}
-                    overscan={props.overscan}
-                    itemKey={(item) => (item as SelectOption).value}
-                    v-slots={{
-                      default: ({ item, index }: { item: SelectOption; index: number }) =>
-                        renderOption(item, index),
-                    }}
-                  />
+        <Popup
+          ref={popup}
+          raw
+          open={visible.value}
+          target={refSelection}
+          trigger="manual"
+          placement={props.placement}
+          prefixCls="k-select-dropdown"
+          transitionName={preCls}
+          matchTriggerWidth
+          onOpenChange={(next) => {
+            if (!next) closeDropdown();
+          }}
+          v-slots={{
+            overlay: () => (
+              <div {...popperProps}>
+                {props.loading ? (
+                  loadingNode
+                ) : options.length ? (
+                  props.virtual ? (
+                    <VirtualList
+                      ref={virtualListRef}
+                      data={options}
+                      height={Math.min(200, options.length * props.itemHeight)}
+                      itemHeight={props.itemHeight}
+                      overscan={props.overscan}
+                      itemKey={(item) => (item as SelectOption).value}
+                      v-slots={{
+                        default: ({ item, index }: { item: SelectOption; index: number }) =>
+                          renderOption(item, index),
+                      }}
+                    />
+                  ) : (
+                    <ul>{options.map(renderOption)}</ul>
+                  )
                 ) : (
-                  <ul>{options.map(renderOption)}</ul>
-                )
-              ) : (
-                <Empty
-                  onClick={emptyClick}
-                  description={props.emptyText || locale.value?.k.select.emptyText}
-                />
-              )}
-            </div>
-          </Transition>
-        </Teleport>,
+                  <Empty
+                    onClick={emptyClick}
+                    description={props.emptyText || locale.value?.k.select.emptyText}
+                  />
+                )}
+              </div>
+            ),
+          }}
+        />,
       ];
     };
 
@@ -803,7 +727,7 @@ const Select = defineComponent({
       };
 
       return (
-        <div {...rootProps} v-resize={updatePosition}>
+        <div {...rootProps}>
           {icon ? <Icon type={icon} class="k-select-icon" /> : null}
           <div class="k-select-selection">{childNode}</div>
           <span class="k-select-suffix">
