@@ -4,11 +4,11 @@
   position: relative;
   display: inline-flex;
   width: 100%;
-  color: var(--kui-control-text);
+  color: var(--kui-control-text, var(--kui-color-text));
   align-items: center;
-  border: 1px solid var(--kui-control-border);
-  border-radius: var(--kui-control-radius);
-  background-color: var(--kui-control-bg);
+  border: 1px solid var(--kui-control-border, var(--kui-color-border));
+  border-radius: var(--kui-control-radius, var(--kui-shape-round, var(--kui-border-radius)));
+  background-color: var(--kui-control-bg, var(--kui-color-bg));
   transition: border var(--kui-motion-duration) var(--kui-motion-easing);
   box-sizing: border-box;
   gap: var(--kui-padding-inline);
@@ -51,7 +51,7 @@
   display: flex;
   flex-direction: column;
   color: var(--kui-color-icon);
-  border-left: 1px solid var(--kui-control-border);
+  border-left: 1px solid var(--kui-control-border, var(--kui-color-border));
   font-size: 11px;
   justify-content: center;
   align-items: center;
@@ -90,7 +90,7 @@
   }
 
   &:last-child {
-    border-top: 1px solid var(--kui-control-border);
+    border-top: 1px solid var(--kui-control-border, var(--kui-color-border));
   }
 }
 
@@ -100,7 +100,7 @@
   height: 30px;
   padding: 4px 0;
   font-size: var(--kui-font-size);
-  color: var(--kui-control-text);
+  color: var(--kui-control-text, var(--kui-color-text));
   background-color: transparent;
   background-image: none;
   box-sizing: border-box;
@@ -111,11 +111,15 @@
 }
 .k-input-number-focus {
   outline-offset: 1px;
-  outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+  outline: var(--kui-focus-ring-width) solid
+    var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
 }
 .k-input-number-focus:not(.k-input-number-fill, .k-input-number-disabled) {
   border-color: var(--kui-color-primary);
-  box-shadow: var(--kui-component-shadow);
+  box-shadow: var(
+    --kui-component-shadow,
+    0 0 2px color-mix(in srgb, var(--kui-color-primary) 10%, transparent)
+  );
 }
 
 .k-input-number-icon {
@@ -159,7 +163,7 @@
   display: flex;
 
   &:hover {
-    color: var(--kui-control-text);
+    color: var(--kui-control-text, var(--kui-color-text));
   }
 
   .k-icon {
@@ -243,7 +247,10 @@
 
 .k-input-number-fill {
   border-color: transparent;
-  background-color: var(--kui-theme-fill-bg);
+  background-color: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 
   &:focus,
   &.k-input-number-focus {
@@ -254,7 +261,7 @@
 .k-input-number-disabled {
   cursor: not-allowed;
   color: var(--kui-color-text-disabled);
-  background: var(--kui-control-bg-disabled);
+  background: var(--kui-control-bg-disabled, var(--kui-color-bg-component-disabled));
 
   & * {
     cursor: not-allowed;

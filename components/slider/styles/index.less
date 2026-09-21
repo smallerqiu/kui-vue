@@ -71,7 +71,10 @@
     cursor: pointer;
     height: 4px;
     border-radius: 2px;
-    background: var(--kui-theme-fill-bg);
+    background: var(
+      --kui-theme-fill-bg,
+      var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+    );
     position: absolute;
     width: 100%;
     top: 14px;

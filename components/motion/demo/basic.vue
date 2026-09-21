@@ -42,12 +42,12 @@ const replay = () => animationKey.value++;
   padding: 24px 12px;
   overflow: hidden;
   border: 1px solid var(--kui-color-border);
-  border-radius: var(--kui-card-radius);
+  border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
 }
 .motion-demo-box {
   width: 64px;
   height: 64px;
-  border-radius: var(--kui-shape-round);
+  border-radius: var(--kui-shape-round, var(--kui-border-radius));
   background: var(--kui-color-primary);
 }
 </style>

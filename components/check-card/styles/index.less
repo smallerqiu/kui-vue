@@ -5,8 +5,9 @@
   display: flex;
   min-width: 180px;
   padding: var(--kui-spacing-4);
-  border: 1px solid var(--kui-theme-outline-border);
-  border-radius: var(--kui-card-radius);
+  border: 1px solid
+    var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
+  border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
   background: var(--kui-theme-outline-bg);
   color: var(--kui-color-text);
   cursor: pointer;
@@ -24,7 +25,10 @@
 
   &:not(.is-disabled):not(.is-readonly):focus-visible {
     border-color: var(--kui-color-primary);
-    outline-color: var(--kui-color-outline);
+    outline-color: var(
+      --kui-color-outline,
+      color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
+    );
   }
 
   &.is-checked {
@@ -34,7 +38,7 @@
 
   &.is-disabled {
     border-color: var(--kui-color-border-disabled);
-    background: var(--kui-control-bg-disabled);
+    background: var(--kui-control-bg-disabled, var(--kui-color-bg-component-disabled));
     color: var(--kui-color-text-disabled);
     cursor: not-allowed;
   }
@@ -46,11 +50,17 @@
 
 .k-check-card-fill {
   border-color: var(--kui-theme-fill-border);
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 
   &.is-checked {
     border-color: var(--kui-color-primary);
-    background: var(--kui-color-item-selected);
+    background: var(
+      --kui-color-item-selected,
+      color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
+    );
   }
 }
 
@@ -107,7 +117,7 @@
 
 .k-check-card.is-disabled .k-check-card-indicator {
   border-color: var(--kui-color-border-disabled);
-  background: var(--kui-control-bg-disabled);
+  background: var(--kui-control-bg-disabled, var(--kui-color-bg-component-disabled));
   color: var(--kui-color-text-disabled);
 }
 

@@ -16,7 +16,7 @@ const getTarget = () => container.value ?? null;
 .scroll-container {
   height: 180px;
   overflow: auto;
-  border: 1px solid var(--kui-control-border);
+  border: 1px solid var(--kui-control-border, var(--kui-color-border));
 }
 
 .scroll-content {

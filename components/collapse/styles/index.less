@@ -96,17 +96,20 @@
 
 .k-collapse-round,
 .k-collapse-default {
-  border-radius: var(--kui-shape-round);
+  border-radius: var(--kui-shape-round, var(--kui-border-radius));
 }
 .k-collapse-square {
   border-radius: var(--kui-shape-square);
 }
 .k-collapse-fill {
   border-color: var(--kui-theme-fill-border);
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 }
 .k-collapse-outline {
-  border-color: var(--kui-theme-outline-border);
+  border-color: var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
   background: var(--kui-theme-outline-bg);
 }
 .k-collapse-plain {

@@ -206,24 +206,40 @@
       }
 
       &:hover {
-        background: var(--kui-color-row-hover);
+        background: var(
+          --kui-color-row-hover,
+          color-mix(in srgb, var(--kui-color-bg-component-hover) 40%, var(--kui-color-bg-component))
+        );
 
         .k-table-cell-fix-left,
         .k-table-cell-fix-right {
-          background-color: var(--kui-color-row-hover);
+          background-color: var(
+            --kui-color-row-hover,
+            color-mix(
+              in srgb,
+              var(--kui-color-bg-component-hover) 40%,
+              var(--kui-color-bg-component)
+            )
+          );
         }
       }
     }
 
     .k-table-expand-row {
       &:hover {
-        background: var(--kui-color-row-hover);
+        background: var(
+          --kui-color-row-hover,
+          color-mix(in srgb, var(--kui-color-bg-component-hover) 40%, var(--kui-color-bg-component))
+        );
       }
     }
 
     td table {
       tbody > tr:hover {
-        background: var(--kui-color-row-hover);
+        background: var(
+          --kui-color-row-hover,
+          color-mix(in srgb, var(--kui-color-bg-component-hover) 40%, var(--kui-color-bg-component))
+        );
       }
     }
   }
@@ -525,11 +541,17 @@
   }
 
   tbody tr:hover {
-    background: var(--kui-color-row-hover);
+    background: var(
+      --kui-color-row-hover,
+      color-mix(in srgb, var(--kui-color-bg-component-hover) 40%, var(--kui-color-bg-component))
+    );
 
     .k-table-cell-fix-left,
     .k-table-cell-fix-right {
-      background: var(--kui-color-row-hover);
+      background: var(
+        --kui-color-row-hover,
+        color-mix(in srgb, var(--kui-color-bg-component-hover) 40%, var(--kui-color-bg-component))
+      );
     }
   }
 }
@@ -555,18 +577,24 @@
   }
 
   &.k-table-striped tbody > tr:hover {
-    background: var(--kui-color-row-hover);
+    background: var(
+      --kui-color-row-hover,
+      color-mix(in srgb, var(--kui-color-bg-component-hover) 40%, var(--kui-color-bg-component))
+    );
 
     .k-table-cell-fix-left,
     .k-table-cell-fix-right {
-      background: var(--kui-color-row-hover);
+      background: var(
+        --kui-color-row-hover,
+        color-mix(in srgb, var(--kui-color-bg-component-hover) 40%, var(--kui-color-bg-component))
+      );
     }
   }
 }
 
 .k-table-round,
 .k-table-default {
-  border-radius: var(--kui-shape-round);
+  border-radius: var(--kui-shape-round, var(--kui-border-radius));
 }
 .k-table-square {
   border-radius: var(--kui-shape-square);

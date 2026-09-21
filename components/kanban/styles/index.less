@@ -14,23 +14,32 @@
   flex-direction: column;
   padding: 10px;
   border: 1px solid var(--kui-theme-fill-border);
-  border-radius: var(--kui-card-radius);
-  background: var(--kui-theme-fill-bg);
+  border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
   transition:
     border-color var(--kui-motion-duration-fast),
     background var(--kui-motion-duration-fast);
 }
 .k-kanban-outline .k-kanban-column {
-  border-color: var(--kui-theme-outline-border);
+  border-color: var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
   background: var(--kui-theme-outline-bg);
 }
 .k-kanban-fill .k-kanban-column {
   border-color: var(--kui-theme-fill-border);
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 }
 .k-kanban-column-drag-over {
   border-color: var(--kui-color-primary);
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 }
 .k-kanban-column-header {
   display: flex;

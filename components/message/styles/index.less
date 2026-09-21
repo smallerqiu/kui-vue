@@ -27,11 +27,11 @@
     box-sizing: content-box;
     line-height: 1;
     padding: 10px 12px;
-    border-radius: var(--kui-card-radius);
-    box-shadow: var(--kui-popup-shadow);
+    border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
+    box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow));
 
-    background: var(--kui-popup-bg);
-    border: 1px solid var(--kui-popup-border);
+    background: var(--kui-popup-bg, var(--kui-color-bg-pop));
+    border: 1px solid var(--kui-popup-border, var(--kui-color-pop-border));
     display: inline-flex;
     align-items: center;
     pointer-events: all;

@@ -6,16 +6,16 @@
   height: var(--kui-control-height);
   flex-shrink: 0;
   padding: 0 15px;
-  border: 1px solid var(--kui-control-border);
+  border: 1px solid var(--kui-control-border, var(--kui-color-border));
   font-size: 14px;
-  border-radius: var(--kui-control-radius);
+  border-radius: var(--kui-control-radius, var(--kui-shape-round, var(--kui-border-radius)));
   background: var(--kui-color-bg-component);
   box-sizing: border-box;
   white-space: nowrap;
   vertical-align: middle;
   display: inline-flex;
   align-items: center;
-  color: var(--kui-control-text);
+  color: var(--kui-control-text, var(--kui-color-text));
 
   &.k-tag-circle {
     border-radius: 16px;
@@ -42,80 +42,158 @@
   }
 
   &-pink {
-    color: var(--kui-color-pink-3);
-    border-color: var(--kui-color-pink-6);
-    background-color: var(--kui-color-pink-9);
+    color: var(--kui-color-pink-3, color-mix(in srgb, var(--kui-color-pink) 70%, transparent));
+    border-color: var(
+      --kui-color-pink-6,
+      color-mix(in srgb, var(--kui-color-pink) 40%, transparent)
+    );
+    background-color: var(
+      --kui-color-pink-9,
+      color-mix(in srgb, var(--kui-color-pink) 10%, transparent)
+    );
   }
 
   &-red {
-    color: var(--kui-color-red-3);
-    border-color: var(--kui-color-red-6);
-    background-color: var(--kui-color-red-9);
+    color: var(--kui-color-red-3, color-mix(in srgb, var(--kui-color-red) 70%, transparent));
+    border-color: var(--kui-color-red-6, color-mix(in srgb, var(--kui-color-red) 40%, transparent));
+    background-color: var(
+      --kui-color-red-9,
+      color-mix(in srgb, var(--kui-color-red) 10%, transparent)
+    );
   }
 
   &-yellow {
-    color: var(--kui-color-yellow-3);
-    border-color: var(--kui-color-yellow-6);
-    background-color: var(--kui-color-yellow-9);
+    color: var(--kui-color-yellow-3, color-mix(in srgb, var(--kui-color-yellow) 70%, transparent));
+    border-color: var(
+      --kui-color-yellow-6,
+      color-mix(in srgb, var(--kui-color-yellow) 40%, transparent)
+    );
+    background-color: var(
+      --kui-color-yellow-9,
+      color-mix(in srgb, var(--kui-color-yellow) 10%, transparent)
+    );
   }
 
   &-orange {
-    color: var(--kui-color-orange-3);
-    border-color: var(--kui-color-orange-6);
-    background-color: var(--kui-color-orange-9);
+    color: var(--kui-color-orange-3, color-mix(in srgb, var(--kui-color-orange) 70%, transparent));
+    border-color: var(
+      --kui-color-orange-6,
+      color-mix(in srgb, var(--kui-color-orange) 40%, transparent)
+    );
+    background-color: var(
+      --kui-color-orange-9,
+      color-mix(in srgb, var(--kui-color-orange) 10%, transparent)
+    );
   }
 
   &-cyan {
-    color: var(--kui-color-cyan-3);
-    border-color: var(--kui-color-cyan-6);
-    background-color: var(--kui-color-cyan-9);
+    color: var(--kui-color-cyan-3, color-mix(in srgb, var(--kui-color-cyan) 70%, transparent));
+    border-color: var(
+      --kui-color-cyan-6,
+      color-mix(in srgb, var(--kui-color-cyan) 40%, transparent)
+    );
+    background-color: var(
+      --kui-color-cyan-9,
+      color-mix(in srgb, var(--kui-color-cyan) 10%, transparent)
+    );
   }
 
   &-green {
-    color: var(--kui-color-green-3);
-    border-color: var(--kui-color-green-6);
-    background-color: var(--kui-color-green-9);
+    color: var(--kui-color-green-3, color-mix(in srgb, var(--kui-color-green) 70%, transparent));
+    border-color: var(
+      --kui-color-green-6,
+      color-mix(in srgb, var(--kui-color-green) 40%, transparent)
+    );
+    background-color: var(
+      --kui-color-green-9,
+      color-mix(in srgb, var(--kui-color-green) 10%, transparent)
+    );
   }
 
   &-blue {
-    color: var(--kui-color-blue-3);
-    border-color: var(--kui-color-blue-6);
-    background-color: var(--kui-color-blue-9);
+    color: var(--kui-color-blue-3, color-mix(in srgb, var(--kui-color-blue) 70%, transparent));
+    border-color: var(
+      --kui-color-blue-6,
+      color-mix(in srgb, var(--kui-color-blue) 40%, transparent)
+    );
+    background-color: var(
+      --kui-color-blue-9,
+      color-mix(in srgb, var(--kui-color-blue) 10%, transparent)
+    );
   }
 
   &-purple {
-    color: var(--kui-color-purple-3);
-    border-color: var(--kui-color-purple-6);
-    background-color: var(--kui-color-purple-9);
+    color: var(--kui-color-purple-3, color-mix(in srgb, var(--kui-color-purple) 70%, transparent));
+    border-color: var(
+      --kui-color-purple-6,
+      color-mix(in srgb, var(--kui-color-purple) 40%, transparent)
+    );
+    background-color: var(
+      --kui-color-purple-9,
+      color-mix(in srgb, var(--kui-color-purple) 10%, transparent)
+    );
   }
 
   &-magenta {
-    color: var(--kui-color-magenta-3);
-    border-color: var(--kui-color-magenta-6);
-    background-color: var(--kui-color-magenta-9);
+    color: var(
+      --kui-color-magenta-3,
+      color-mix(in srgb, var(--kui-color-magenta) 70%, transparent)
+    );
+    border-color: var(
+      --kui-color-magenta-6,
+      color-mix(in srgb, var(--kui-color-magenta) 40%, transparent)
+    );
+    background-color: var(
+      --kui-color-magenta-9,
+      color-mix(in srgb, var(--kui-color-magenta) 10%, transparent)
+    );
   }
 
   &-volcano {
-    color: var(--kui-color-volcano-3);
-    border-color: var(--kui-color-volcano-6);
-    background-color: var(--kui-color-volcano-9);
+    color: var(
+      --kui-color-volcano-3,
+      color-mix(in srgb, var(--kui-color-volcano) 70%, transparent)
+    );
+    border-color: var(
+      --kui-color-volcano-6,
+      color-mix(in srgb, var(--kui-color-volcano) 40%, transparent)
+    );
+    background-color: var(
+      --kui-color-volcano-9,
+      color-mix(in srgb, var(--kui-color-volcano) 10%, transparent)
+    );
   }
 
   &-gold {
-    color: var(--kui-color-gold-3);
-    border-color: var(--kui-color-gold-6);
-    background-color: var(--kui-color-gold-9);
+    color: var(--kui-color-gold-3, color-mix(in srgb, var(--kui-color-gold) 70%, transparent));
+    border-color: var(
+      --kui-color-gold-6,
+      color-mix(in srgb, var(--kui-color-gold) 40%, transparent)
+    );
+    background-color: var(
+      --kui-color-gold-9,
+      color-mix(in srgb, var(--kui-color-gold) 10%, transparent)
+    );
   }
 
   &-lime {
-    color: var(--kui-color-lime-3);
-    border-color: var(--kui-color-lime-6);
-    background-color: var(--kui-color-lime-9);
+    color: var(--kui-color-lime-3, color-mix(in srgb, var(--kui-color-lime) 70%, transparent));
+    border-color: var(
+      --kui-color-lime-6,
+      color-mix(in srgb, var(--kui-color-lime) 40%, transparent)
+    );
+    background-color: var(
+      --kui-color-lime-9,
+      color-mix(in srgb, var(--kui-color-lime) 10%, transparent)
+    );
   }
 }
 .k-tag.k-tag-fill {
   border-color: transparent;
-  background-color: var(--kui-theme-fill-bg);
+  background-color: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 }
 .k-tag-has-color {
   color: var(--kui-color-text-on-solid);

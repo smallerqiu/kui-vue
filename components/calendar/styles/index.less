@@ -26,8 +26,12 @@
 .k-calendar-weekdays {
   border: 1px solid var(--kui-color-border);
   border-bottom: 0;
-  border-radius: var(--kui-card-radius) var(--kui-card-radius) 0 0;
-  background: var(--kui-theme-fill-bg);
+  border-radius: var(--kui-card-radius, var(--kui-border-radius-card))
+    var(--kui-card-radius, var(--kui-border-radius-card)) 0 0;
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 }
 .k-calendar-weekdays span {
   padding: 9px;
@@ -38,7 +42,8 @@
 .k-calendar-grid {
   overflow: hidden;
   border: 1px solid var(--kui-color-border);
-  border-radius: 0 0 var(--kui-card-radius) var(--kui-card-radius);
+  border-radius: 0 0 var(--kui-card-radius, var(--kui-border-radius-card))
+    var(--kui-card-radius, var(--kui-border-radius-card));
 }
 .k-calendar-cell {
   min-width: 0;
@@ -57,7 +62,10 @@
 }
 .k-calendar-cell:hover,
 .k-calendar-cell-selected {
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 }
 .k-calendar-cell:focus-visible {
   position: relative;

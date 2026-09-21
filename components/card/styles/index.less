@@ -1,14 +1,14 @@
 @import "../../styles/less-css-var.less";
 
 .k-card {
-  background: var(--kui-card-bg);
+  background: var(--kui-card-bg, var(--kui-color-bg-component));
   position: relative;
-  border-radius: var(--kui-card-radius);
+  border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
   color: var(--kui-color-text);
 
   .k-card-head {
     position: relative;
-    padding: var(--kui-card-padding);
+    padding: var(--kui-card-padding, var(--kui-spacing-4));
     line-height: 1;
     display: flex;
     align-items: center;
@@ -34,7 +34,7 @@
   }
 
   .k-card-body {
-    padding: var(--kui-card-padding);
+    padding: var(--kui-card-padding, var(--kui-spacing-4));
     font-size: 14px;
   }
 
@@ -106,29 +106,34 @@
 }
 
 .k-card-bordered {
-  border: 1px solid var(--kui-theme-outline-border);
+  border: 1px solid
+    var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
   background: var(--kui-theme-outline-bg);
   .k-card-head {
-    border-bottom: 1px solid var(--kui-card-border);
+    border-bottom: 1px solid var(--kui-card-border, var(--kui-color-border));
   }
 }
 
 .k-card-round,
 .k-card-default {
-  border-radius: var(--kui-card-radius);
+  border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
 }
 .k-card-square {
   border-radius: var(--kui-shape-square);
 }
 .k-card-fill {
   border-color: var(--kui-theme-fill-border);
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 }
 .k-card-outline {
-  border: 1px solid var(--kui-theme-outline-border);
+  border: 1px solid
+    var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
   background: var(--kui-theme-outline-bg);
   .k-card-head {
-    border-bottom: 1px solid var(--kui-card-border);
+    border-bottom: 1px solid var(--kui-card-border, var(--kui-color-border));
   }
 }
 .k-card-plain {

@@ -67,6 +67,7 @@
   },
   "packageManager": "pnpm@12.4.2",
   "scripts": {
+    "check:theme": "node --max-old-space-size=512 scripts/check-theme.cjs",
     "start": "pnpm dev",
     "dev": "vite --config vite.config.docs.ts",
     "build": "node scripts/build.mjs",

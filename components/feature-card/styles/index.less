@@ -117,18 +117,22 @@
 
 .k-feature-card-round,
 .k-feature-card-default {
-  border-radius: var(--kui-card-radius);
+  border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
 }
 .k-feature-card-square {
   border-radius: var(--kui-shape-square);
 }
 .k-feature-card-fill {
   border-color: var(--kui-theme-fill-border);
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 }
 .k-feature-card-outline,
 .k-feature-card-bordered {
-  border: 1px solid var(--kui-theme-outline-border);
+  border: 1px solid
+    var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
   background: var(--kui-theme-outline-bg);
 }
 .k-feature-card-plain {

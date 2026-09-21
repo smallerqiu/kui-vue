@@ -20,10 +20,10 @@
     height: var(--kui-control-height-lg);
     padding: 0;
     box-sizing: border-box;
-    border: 1px solid var(--kui-control-border);
-    border-radius: var(--kui-control-radius);
-    color: var(--kui-control-text);
-    background-color: var(--kui-control-bg);
+    border: 1px solid var(--kui-control-border, var(--kui-color-border));
+    border-radius: var(--kui-control-radius, var(--kui-shape-round, var(--kui-border-radius)));
+    color: var(--kui-control-text, var(--kui-color-text));
+    background-color: var(--kui-control-bg, var(--kui-color-bg));
     font-size: 18px;
     line-height: var(--kui-control-height-lg);
     text-align: center;
@@ -35,21 +35,28 @@
     &:focus {
       z-index: 1;
       border-color: var(--kui-color-primary);
-      box-shadow: var(--kui-component-shadow);
-      outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+      box-shadow: var(
+        --kui-component-shadow,
+        0 0 2px color-mix(in srgb, var(--kui-color-primary) 10%, transparent)
+      );
+      outline: var(--kui-focus-ring-width) solid
+        var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
       outline-offset: 1px;
     }
     &:disabled {
       cursor: not-allowed;
       color: var(--kui-color-text-disabled);
-      background: var(--kui-control-bg-disabled);
+      background: var(--kui-control-bg-disabled, var(--kui-color-bg-component-disabled));
     }
   }
 }
 
 .k-input-otp-fill .k-input-otp-item {
   border-color: transparent;
-  background-color: var(--kui-theme-fill-bg);
+  background-color: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 
   &:hover,
   &:focus {

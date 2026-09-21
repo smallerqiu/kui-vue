@@ -85,7 +85,10 @@
   color: var(--kui-color-text);
 }
 .btn-pro {
-  background: var(--kui-color-primary-8);
+  background: var(
+    --kui-color-primary-8,
+    color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
+  );
 }
 .hero-meta {
   display: flex;

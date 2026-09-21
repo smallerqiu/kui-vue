@@ -5,25 +5,29 @@
   display: inline-flex;
   min-width: 160px;
   vertical-align: middle;
-  color: var(--kui-control-text);
+  color: var(--kui-control-text, var(--kui-color-text));
   font-size: var(--kui-font-size);
   position: relative;
   outline: none;
   box-sizing: border-box;
   align-items: center;
-  border-radius: var(--kui-popup-radius);
-  border: 1px solid var(--kui-control-border);
+  border-radius: var(--kui-popup-radius, var(--kui-border-radius));
+  border: 1px solid var(--kui-control-border, var(--kui-color-border));
   padding: 0 8px;
   transition: border var(--kui-motion-duration-slow) var(--kui-motion-easing);
   line-height: var(--kui-line-height);
   position: relative;
   &:not(.k-select-disabled, .k-select-borderless):focus {
-    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+    outline: var(--kui-focus-ring-width) solid
+      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
     outline-offset: 1px;
   }
   &:not(.k-select-disabled, .k-select-fill):hover {
     border-color: var(--kui-color-primary);
-    box-shadow: var(--kui-component-shadow);
+    box-shadow: var(
+      --kui-component-shadow,
+      0 0 2px color-mix(in srgb, var(--kui-color-primary) 10%, transparent)
+    );
   }
 
   &-selection {
@@ -70,7 +74,7 @@
       background: none;
       outline: none;
       font-size: var(--kui-font-size);
-      color: var(--kui-control-text);
+      color: var(--kui-control-text, var(--kui-color-text));
     }
   }
 
@@ -183,7 +187,7 @@
   .k-select-search-mirror,
   .k-select-search {
     font-size: var(--kui-font-size);
-    color: var(--kui-control-text);
+    color: var(--kui-control-text, var(--kui-color-text));
   }
 
   &.k-select-circle {
@@ -216,7 +220,10 @@
 
 .k-select-fill {
   border-color: transparent;
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
   transition: none;
 
   &:hover {
@@ -248,14 +255,14 @@
 .k-select-dropdown {
   -webkit-user-select: none;
   user-select: none;
-  border-radius: var(--kui-control-radius);
+  border-radius: var(--kui-control-radius, var(--kui-shape-round, var(--kui-border-radius)));
   width: auto;
   max-height: 200px;
   overflow: auto;
-  background-color: var(--kui-popup-bg);
-  border: 1px solid var(--kui-popup-border);
+  background-color: var(--kui-popup-bg, var(--kui-color-bg-pop));
+  border: 1px solid var(--kui-popup-border, var(--kui-color-pop-border));
   box-sizing: border-box;
-  box-shadow: var(--kui-popup-shadow);
+  box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow));
 
   position: absolute;
   z-index: 1003;
@@ -272,7 +279,7 @@
   .k-select-loading {
     padding: 10px;
     font-size: var(--kui-font-size);
-    color: var(--kui-control-text);
+    color: var(--kui-control-text, var(--kui-color-text));
     display: flex;
     align-items: center;
 
@@ -290,7 +297,7 @@
     line-height: 1;
     padding: 8px 8px;
     clear: both;
-    color: var(--kui-control-text);
+    color: var(--kui-control-text, var(--kui-color-text));
     font-size: var(--kui-font-size);
     white-space: nowrap;
     list-style: none;
@@ -300,7 +307,7 @@
     text-overflow: ellipsis;
     cursor: pointer;
     position: relative;
-    border-radius: var(--kui-control-radius);
+    border-radius: var(--kui-control-radius, var(--kui-shape-round, var(--kui-border-radius)));
     margin-bottom: 1px;
 
     &:not(.k-select-item-disabled, .k-select-item-selected):hover {
@@ -332,7 +339,10 @@
   }
 
   .k-select-item-selected {
-    background: var(--kui-color-item-selected);
+    background: var(
+      --kui-color-item-selected,
+      color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
+    );
     font-weight: 500;
 
     .k-icon {
@@ -440,7 +450,7 @@
   .k-select-search-mirror,
   .k-select-search {
     font-size: var(--kui-font-size-sm);
-    color: var(--kui-control-text);
+    color: var(--kui-control-text, var(--kui-color-text));
   }
 }
 
@@ -502,7 +512,8 @@
 
 .k-select-opened {
   // border-color: var(--kui-color-primary);
-  outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+  outline: var(--kui-focus-ring-width) solid
+    var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
   outline-offset: 1px;
 
   .k-select-label {
@@ -518,7 +529,7 @@
 .k-select-disabled {
   cursor: not-allowed;
   color: var(--kui-color-text-disabled);
-  background: var(--kui-control-bg-disabled);
+  background: var(--kui-control-bg-disabled, var(--kui-color-bg-component-disabled));
 
   .k-select-label {
     cursor: not-allowed;

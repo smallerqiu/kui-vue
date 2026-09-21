@@ -5,14 +5,14 @@
   display: inline-flex;
   box-sizing: border-box;
   vertical-align: middle;
-  color: var(--kui-control-text);
+  color: var(--kui-control-text, var(--kui-color-text));
   background: none;
   font-size: var(--kui-font-size);
   position: relative;
-  border: 1px solid var(--kui-control-border);
+  border: 1px solid var(--kui-control-border, var(--kui-color-border));
   min-height: var(--kui-control-height);
-  border-radius: var(--kui-control-radius);
-  background-color: var(--kui-control-bg);
+  border-radius: var(--kui-control-radius, var(--kui-shape-round, var(--kui-border-radius)));
+  background-color: var(--kui-control-bg, var(--kui-color-bg));
   cursor: default;
   -webkit-user-select: none;
   user-select: none;
@@ -30,7 +30,8 @@
     border-color: var(--kui-color-primary);
   }
   &:focus {
-    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+    outline: var(--kui-focus-ring-width) solid
+      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
   }
 
   .k-datepicker-selection {
@@ -108,7 +109,10 @@
 
 .k-datepicker-fill {
   border-color: transparent;
-  background-color: var(--kui-theme-fill-bg);
+  background-color: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 
   &:hover,
   &:focus {
@@ -153,26 +157,28 @@
 
 .k-datepicker-opened {
   border-color: var(--kui-color-primary);
-  outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+  outline: var(--kui-focus-ring-width) solid
+    var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
   &.k-datepicker-fill {
     border-color: transparent;
     box-shadow: none;
   }
   &:focus {
-    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+    outline: var(--kui-focus-ring-width) solid
+      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
   }
 }
 
 .k-datepicker-overlay {
   position: absolute;
   z-index: 1003;
-  background: var(--kui-popup-bg);
-  box-shadow: var(--kui-popup-shadow);
-  border-radius: var(--kui-control-radius);
+  background: var(--kui-popup-bg, var(--kui-color-bg-pop));
+  box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow));
+  border-radius: var(--kui-control-radius, var(--kui-shape-round, var(--kui-border-radius)));
   overflow: hidden;
   display: flex;
   flex-direction: row;
-  border: 1px solid var(--kui-popup-border);
+  border: 1px solid var(--kui-popup-border, var(--kui-color-pop-border));
   -webkit-user-select: none;
   user-select: none;
 }
@@ -193,7 +199,7 @@
   flex-direction: column;
   min-width: 90px;
   max-width: 200px;
-  border-right: 1px solid var(--kui-control-border);
+  border-right: 1px solid var(--kui-control-border, var(--kui-color-border));
   padding: 8px;
   box-sizing: border-box;
   overflow: hidden auto;
@@ -241,7 +247,7 @@
 .k-datepicker-disabled {
   color: var(--kui-color-text-disabled);
   cursor: not-allowed;
-  background: var(--kui-control-bg-disabled);
+  background: var(--kui-control-bg-disabled, var(--kui-color-bg-component-disabled));
 }
 .k-datepicker-disabled:not(.k-datepicker-fill) {
   border-color: var(--kui-color-border-disabled);
@@ -270,10 +276,10 @@
     padding: 10px;
   }
   .k-picker-extra-header {
-    border-bottom: 1px solid var(--kui-control-border);
+    border-bottom: 1px solid var(--kui-control-border, var(--kui-color-border));
   }
   .k-picker-extra-footer {
-    border-top: 1px solid var(--kui-control-border);
+    border-top: 1px solid var(--kui-control-border, var(--kui-color-border));
   }
   .k-picker-header {
     text-align: center;
@@ -315,8 +321,8 @@
 
   .k-picker-day {
     cursor: pointer;
-    color: var(--kui-control-text);
-    border-radius: var(--kui-control-radius);
+    color: var(--kui-control-text, var(--kui-color-text));
+    border-radius: var(--kui-control-radius, var(--kui-shape-round, var(--kui-border-radius)));
     position: relative;
     display: block;
     text-align: center;
@@ -344,7 +350,10 @@
   }
 
   .k-picker-day-in {
-    background: var(--kui-color-item-selected);
+    background: var(
+      --kui-color-item-selected,
+      color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
+    );
   }
   .k-picker-is-today {
     color: var(--kui-color-primary);
@@ -363,7 +372,7 @@
   }
   .k-picker-header-label {
     font-size: var(--kui-font-size);
-    color: var(--kui-control-text);
+    color: var(--kui-control-text, var(--kui-color-text));
     cursor: pointer;
     font-weight: bold;
     flex: 1;
@@ -391,7 +400,7 @@
     font-size: var(--kui-font-size);
     align-items: center;
     justify-content: center;
-    border-radius: var(--kui-control-radius);
+    border-radius: var(--kui-control-radius, var(--kui-shape-round, var(--kui-border-radius)));
     cursor: pointer;
     &:not(.k-picker-day-disabled, .k-picker-time-disabled):hover {
       background: var(--kui-color-item-hover);
@@ -416,7 +425,7 @@
   .k-picker-footer {
     box-sizing: border-box;
     font-size: var(--kui-font-size);
-    border-top: 1px solid var(--kui-control-border);
+    border-top: 1px solid var(--kui-control-border, var(--kui-color-border));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -438,7 +447,7 @@
     align-items: center;
     cursor: pointer;
     flex: 1;
-    color: var(--kui-control-text);
+    color: var(--kui-control-text, var(--kui-color-text));
     &:not(.k-picker-day-disabled, .k-picker-time-disabled):hover {
       background: var(--kui-color-item-hover);
     }
@@ -453,7 +462,7 @@
   .k-picker-time-picker {
     display: flex;
     height: var(--kui-picker-panel-height);
-    border-top: 1px solid var(--kui-control-border);
+    border-top: 1px solid var(--kui-control-border, var(--kui-color-border));
   }
   .k-picker-time-col {
     flex: 1;
@@ -477,15 +486,15 @@
       height: calc((100% - var(--kui-control-height)) / 2);
     }
     &:nth-last-child(2) {
-      border-left: 1px solid var(--kui-control-border);
-      border-right: 1px solid var(--kui-control-border);
+      border-left: 1px solid var(--kui-control-border, var(--kui-color-border));
+      border-right: 1px solid var(--kui-control-border, var(--kui-color-border));
     }
   }
   .k-picker-time-item {
     height: var(--kui-control-height);
     line-height: var(--kui-control-height);
     cursor: pointer;
-    color: var(--kui-control-text);
+    color: var(--kui-control-text, var(--kui-color-text));
     font-size: 13px;
     opacity: 0.6;
     transition:

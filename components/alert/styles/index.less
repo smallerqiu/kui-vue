@@ -71,7 +71,10 @@
   }
 
   &-info {
-    background: var(--kui-color-primary-8);
+    background: var(
+      --kui-color-primary-8,
+      color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
+    );
 
     .k-alert-icon {
       color: var(--kui-color-primary);
@@ -79,14 +82,20 @@
   }
 
   &-success {
-    background: var(--kui-color-success-8);
+    background: var(
+      --kui-color-success-8,
+      color-mix(in srgb, var(--kui-color-success) 20%, transparent)
+    );
 
     .k-alert-icon {
       color: var(--kui-color-success);
     }
   }
   &-warning {
-    background: var(--kui-color-warning-8);
+    background: var(
+      --kui-color-warning-8,
+      color-mix(in srgb, var(--kui-color-warning) 20%, transparent)
+    );
 
     .k-alert-icon {
       color: var(--kui-color-warning);
@@ -94,7 +103,10 @@
   }
 
   &-error {
-    background: var(--kui-color-danger-8);
+    background: var(
+      --kui-color-danger-8,
+      color-mix(in srgb, var(--kui-color-danger) 20%, transparent)
+    );
 
     .k-alert-icon {
       color: var(--kui-color-danger);
@@ -102,7 +114,10 @@
   }
 
   &-info {
-    background: var(--kui-color-primary-8);
+    background: var(
+      --kui-color-primary-8,
+      color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
+    );
 
     .k-alert-icon {
       color: var(--kui-color-primary);
@@ -118,24 +133,28 @@
 
 .k-alert-bordered {
   &.k-alert-success {
-    border: 1px solid var(--kui-color-success-8);
+    border: 1px solid
+      var(--kui-color-success-8, color-mix(in srgb, var(--kui-color-success) 20%, transparent));
   }
 
   &.k-alert-error {
-    border: 1px solid var(--kui-color-danger-8);
+    border: 1px solid
+      var(--kui-color-danger-8, color-mix(in srgb, var(--kui-color-danger) 20%, transparent));
   }
 
   &.k-alert-info {
-    border: 1px solid var(--kui-color-primary-8);
+    border: 1px solid
+      var(--kui-color-primary-8, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
   }
   &.k-alert-warning {
-    border: 1px solid var(--kui-color-warning-8);
+    border: 1px solid
+      var(--kui-color-warning-8, color-mix(in srgb, var(--kui-color-warning) 20%, transparent));
   }
 }
 
 .k-alert-shape-round,
 .k-alert-shape-default {
-  border-radius: var(--kui-shape-round);
+  border-radius: var(--kui-shape-round, var(--kui-border-radius));
 }
 .k-alert-shape-circle {
   border-radius: var(--kui-shape-circle);

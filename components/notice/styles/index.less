@@ -25,11 +25,11 @@
     opacity 0.3s ease-in-out,
     transform 0.3s ease-in-out;
   padding: 16px 35px 16px 16px;
-  border-radius: var(--kui-card-radius);
-  box-shadow: var(--kui-popup-shadow);
+  border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
+  box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow));
 
-  background: var(--kui-popup-bg);
-  border: 1px solid var(--kui-popup-border);
+  background: var(--kui-popup-bg, var(--kui-color-bg-pop));
+  border: 1px solid var(--kui-popup-border, var(--kui-color-pop-border));
   line-height: 1.5;
   position: relative;
   margin-bottom: 16px;

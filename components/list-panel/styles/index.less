@@ -27,8 +27,11 @@
 .k-list-panel-toolbar-selection {
   min-height: var(--kui-control-height);
   padding: 0 var(--kui-spacing-3);
-  border-radius: var(--kui-control-radius);
-  background: var(--kui-theme-fill-bg);
+  border-radius: var(--kui-control-radius, var(--kui-shape-round, var(--kui-border-radius)));
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 }
 .k-list-panel.k-card-small .k-list-panel-toolbar-selection {
   min-height: var(--kui-control-height-sm);

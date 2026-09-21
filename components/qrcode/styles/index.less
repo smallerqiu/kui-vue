@@ -2,13 +2,16 @@
   position: relative;
   display: inline-block;
   box-sizing: content-box;
-  border-radius: var(--kui-shape-round);
+  border-radius: var(--kui-shape-round, var(--kui-border-radius));
   padding: 12px;
   border: 1px solid var(--kui-color-border);
 }
 .k-qrcode-fill {
   border-color: transparent;
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 }
 .k-qrcode-plain,
 .k-qrcode-borderless {
@@ -54,7 +57,7 @@
 
 .k-qrcode-round,
 .k-qrcode-default {
-  border-radius: var(--kui-shape-round);
+  border-radius: var(--kui-shape-round, var(--kui-border-radius));
 }
 .k-qrcode-circle {
   border-radius: var(--kui-shape-circle);

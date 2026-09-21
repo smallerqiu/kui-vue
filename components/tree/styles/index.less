@@ -138,7 +138,10 @@
   }
 
   .k-tree-title-selected {
-    background: var(--kui-color-item-selected);
+    background: var(
+      --kui-color-item-selected,
+      color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
+    );
   }
 
   .k-tree-arrow {
@@ -207,7 +210,10 @@
 
   .k-tree-item:not(.k-tree-item-selected, .k-tree-item-disabled) {
     &:hover::before {
-      background-color: var(--kui-color-row-hover);
+      background-color: var(
+        --kui-color-row-hover,
+        color-mix(in srgb, var(--kui-color-bg-component-hover) 40%, var(--kui-color-bg-component))
+      );
     }
     &:active::before {
       background-color: var(--kui-color-item-active);
@@ -223,7 +229,10 @@
 
   .k-tree-item-selected {
     &::before {
-      background-color: var(--kui-color-item-selected);
+      background-color: var(
+        --kui-color-item-selected,
+        color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
+      );
     }
 
     .k-tree-title,

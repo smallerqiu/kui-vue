@@ -118,3 +118,7 @@ Popups with trigger elements, such as Select, DatePicker, and Poptip, will autom
 - Components: `--kui-control-*`, `--kui-card-*`, `--kui-popup-*`
 - Dimensions: `--kui-control-height-*`, `--kui-font-size-*`, `--kui-spacing-*`
 - Motion: `--kui-motion-duration-*`, `--kui-motion-easing`
+
+Derived tokens such as `--kui-control-bg`, `--kui-control-radius`, and `--kui-color-primary-hover` are optional overrides. Components resolve defaults where properties consume them, rather than freezing defaults on the root. Local base colors, radii, and nested light/dark themes therefore remain effective, while explicit component overrides continue to inherit.
+
+When using optional tokens in custom CSS, provide a base-token fallback, for example `background: var(--kui-control-bg, var(--kui-color-bg))`. Prefer base tokens when reading default theme values.

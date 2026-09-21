@@ -1,13 +1,13 @@
 @import "../../styles/less-css-var.less";
 .k-btn {
-  color: var(--kui-control-text);
+  color: var(--kui-control-text, var(--kui-color-text));
   font-size: var(--kui-font-size);
   height: var(--kui-control-height);
   line-height: 1;
   padding: 0 15px;
   box-sizing: border-box;
   flex-shrink: 0;
-  border-radius: var(--kui-control-radius);
+  border-radius: var(--kui-control-radius, var(--kui-shape-round, var(--kui-border-radius)));
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -31,7 +31,8 @@
   outline-offset: 1px;
 
   &:not(.k-btn-link, .k-btn-text):focus {
-    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+    outline: var(--kui-focus-ring-width) solid
+      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
     outline-offset: 1px;
   }
 
@@ -80,7 +81,7 @@
 }
 
 .k-btn-dashed {
-  border-color: var(--kui-control-border);
+  border-color: var(--kui-control-border, var(--kui-color-border));
   border-style: dashed;
 }
 
@@ -103,11 +104,17 @@
   color: var(--kui-color-primary);
   text-decoration: none;
   &:not(:disabled):hover {
-    color: var(--kui-color-primary-hover);
+    color: var(
+      --kui-color-primary-hover,
+      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
+    );
   }
 
   &:not(:disabled):active {
-    color: var(--kui-color-primary-active);
+    color: var(
+      --kui-color-primary-active,
+      color-mix(in srgb, var(--kui-color-primary) 80%, transparent)
+    );
   }
 }
 
@@ -181,7 +188,10 @@
   .k-btn-plain
 ) {
   border: none;
-  background-color: var(--kui-theme-fill-bg);
+  background-color: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
   &:not(:disabled):hover {
     background-color: var(--kui-color-bg-component-hover);
   }
@@ -196,10 +206,16 @@
   background: var(--kui-color-primary);
   border-color: var(--kui-color-primary);
   &:not(:disabled):hover {
-    background-color: var(--kui-color-primary-hover);
+    background-color: var(
+      --kui-color-primary-hover,
+      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
+    );
   }
   &:not(:disabled):active {
-    background-color: var(--kui-color-primary-active);
+    background-color: var(
+      --kui-color-primary-active,
+      color-mix(in srgb, var(--kui-color-primary) 80%, transparent)
+    );
   }
 }
 
@@ -209,10 +225,16 @@
   border-color: var(--kui-color-danger);
   background: var(--kui-color-danger);
   &:not(:disabled):hover {
-    background-color: var(--kui-color-danger-hover);
+    background-color: var(
+      --kui-color-danger-hover,
+      color-mix(in srgb, var(--kui-color-danger) 90%, transparent)
+    );
   }
   &:not(:disabled):active {
-    background-color: var(--kui-color-danger-active);
+    background-color: var(
+      --kui-color-danger-active,
+      color-mix(in srgb, var(--kui-color-danger) 80%, transparent)
+    );
   }
 }
 
@@ -222,10 +244,16 @@
   border-color: var(--kui-color-warning);
   background: var(--kui-color-warning);
   &:not(:disabled):hover {
-    background-color: var(--kui-color-warning-hover);
+    background-color: var(
+      --kui-color-warning-hover,
+      color-mix(in srgb, var(--kui-color-warning) 90%, transparent)
+    );
   }
   &:not(:disabled):active {
-    background-color: var(--kui-color-warning-active);
+    background-color: var(
+      --kui-color-warning-active,
+      color-mix(in srgb, var(--kui-color-warning) 80%, transparent)
+    );
   }
 }
 
@@ -245,68 +273,104 @@
   }
   &.k-btn-primary {
     color: var(--kui-color-primary);
-    border-color: var(--kui-color-primary-6);
+    border-color: var(
+      --kui-color-primary-6,
+      color-mix(in srgb, var(--kui-color-primary) 40%, transparent)
+    );
   }
   &.k-btn-danger {
     color: var(--kui-color-danger);
-    border-color: var(--kui-color-danger-6);
+    border-color: var(
+      --kui-color-danger-6,
+      color-mix(in srgb, var(--kui-color-danger) 40%, transparent)
+    );
   }
   &.k-btn-warning {
     color: var(--kui-color-warning);
-    border-color: var(--kui-color-warning-6);
+    border-color: var(
+      --kui-color-warning-6,
+      color-mix(in srgb, var(--kui-color-warning) 40%, transparent)
+    );
   }
 
   &.k-btn-default {
-    border-color: var(--kui-control-border);
+    border-color: var(--kui-control-border, var(--kui-color-border));
   }
   &.k-btn-pink {
-    color: var(--kui-color-pink-3);
-    border-color: var(--kui-color-pink-6);
+    color: var(--kui-color-pink-3, color-mix(in srgb, var(--kui-color-pink) 70%, transparent));
+    border-color: var(
+      --kui-color-pink-6,
+      color-mix(in srgb, var(--kui-color-pink) 40%, transparent)
+    );
   }
 
   &.k-btn-red {
-    color: var(--kui-color-red-3);
-    border-color: var(--kui-color-red-6);
+    color: var(--kui-color-red-3, color-mix(in srgb, var(--kui-color-red) 70%, transparent));
+    border-color: var(--kui-color-red-6, color-mix(in srgb, var(--kui-color-red) 40%, transparent));
   }
 
   &.k-btn-yellow {
-    color: var(--kui-color-yellow-3);
-    border-color: var(--kui-color-yellow-6);
+    color: var(--kui-color-yellow-3, color-mix(in srgb, var(--kui-color-yellow) 70%, transparent));
+    border-color: var(
+      --kui-color-yellow-6,
+      color-mix(in srgb, var(--kui-color-yellow) 40%, transparent)
+    );
   }
 
   &.k-btn-orange {
-    color: var(--kui-color-orange-3);
-    border-color: var(--kui-color-orange-6);
+    color: var(--kui-color-orange-3, color-mix(in srgb, var(--kui-color-orange) 70%, transparent));
+    border-color: var(
+      --kui-color-orange-6,
+      color-mix(in srgb, var(--kui-color-orange) 40%, transparent)
+    );
   }
 
   &.k-btn-cyan {
-    color: var(--kui-color-cyan-3);
-    border-color: var(--kui-color-cyan-6);
+    color: var(--kui-color-cyan-3, color-mix(in srgb, var(--kui-color-cyan) 70%, transparent));
+    border-color: var(
+      --kui-color-cyan-6,
+      color-mix(in srgb, var(--kui-color-cyan) 40%, transparent)
+    );
   }
 
   &.k-btn-olive {
-    color: var(--kui-color-olive-3);
-    border-color: var(--kui-color-olive-6);
+    color: var(--kui-color-olive-3, color-mix(in srgb, var(--kui-color-olive) 70%, transparent));
+    border-color: var(
+      --kui-color-olive-6,
+      color-mix(in srgb, var(--kui-color-olive) 40%, transparent)
+    );
   }
 
   &.k-btn-brown {
-    color: var(--kui-color-brown-3);
-    border-color: var(--kui-color-brown-6);
+    color: var(--kui-color-brown-3, color-mix(in srgb, var(--kui-color-brown) 70%, transparent));
+    border-color: var(
+      --kui-color-brown-6,
+      color-mix(in srgb, var(--kui-color-brown) 40%, transparent)
+    );
   }
 
   &.k-btn-violet {
-    color: var(--kui-color-violet-3);
-    border-color: var(--kui-color-violet-6);
+    color: var(--kui-color-violet-3, color-mix(in srgb, var(--kui-color-violet) 70%, transparent));
+    border-color: var(
+      --kui-color-violet-6,
+      color-mix(in srgb, var(--kui-color-violet) 40%, transparent)
+    );
   }
 
   &.k-btn-teal {
-    color: var(--kui-color-teal-3);
-    border-color: var(--kui-color-teal-6);
+    color: var(--kui-color-teal-3, color-mix(in srgb, var(--kui-color-teal) 70%, transparent));
+    border-color: var(
+      --kui-color-teal-6,
+      color-mix(in srgb, var(--kui-color-teal) 40%, transparent)
+    );
   }
 
   &.k-btn-green {
-    color: var(--kui-color-green-3);
-    border-color: var(--kui-color-green-6);
+    color: var(--kui-color-green-3, color-mix(in srgb, var(--kui-color-green) 70%, transparent));
+    border-color: var(
+      --kui-color-green-6,
+      color-mix(in srgb, var(--kui-color-green) 40%, transparent)
+    );
   }
 
   &.k-btn-gray {
@@ -315,38 +379,65 @@
   }
 
   &.k-btn-blue {
-    color: var(--kui-color-blue-3);
-    border-color: var(--kui-color-blue-6);
+    color: var(--kui-color-blue-3, color-mix(in srgb, var(--kui-color-blue) 70%, transparent));
+    border-color: var(
+      --kui-color-blue-6,
+      color-mix(in srgb, var(--kui-color-blue) 40%, transparent)
+    );
   }
 
   &.k-btn-purple {
-    color: var(--kui-color-purple-3);
-    border-color: var(--kui-color-purple-6);
+    color: var(--kui-color-purple-3, color-mix(in srgb, var(--kui-color-purple) 70%, transparent));
+    border-color: var(
+      --kui-color-purple-6,
+      color-mix(in srgb, var(--kui-color-purple) 40%, transparent)
+    );
   }
 
   &.k-btn-cyan {
-    color: var(--kui-color-cyan-3);
-    border-color: var(--kui-color-cyan-6);
+    color: var(--kui-color-cyan-3, color-mix(in srgb, var(--kui-color-cyan) 70%, transparent));
+    border-color: var(
+      --kui-color-cyan-6,
+      color-mix(in srgb, var(--kui-color-cyan) 40%, transparent)
+    );
   }
 
   &.k-btn-magenta {
-    color: var(--kui-color-magenta-3);
-    border-color: var(--kui-color-magenta-6);
+    color: var(
+      --kui-color-magenta-3,
+      color-mix(in srgb, var(--kui-color-magenta) 70%, transparent)
+    );
+    border-color: var(
+      --kui-color-magenta-6,
+      color-mix(in srgb, var(--kui-color-magenta) 40%, transparent)
+    );
   }
 
   &.k-btn-volcano {
-    color: var(--kui-color-volcano-3);
-    border-color: var(--kui-color-volcano-6);
+    color: var(
+      --kui-color-volcano-3,
+      color-mix(in srgb, var(--kui-color-volcano) 70%, transparent)
+    );
+    border-color: var(
+      --kui-color-volcano-6,
+      color-mix(in srgb, var(--kui-color-volcano) 40%, transparent)
+    );
   }
 
   &.k-btn-gold {
-    color: var(--kui-color-gold-3);
-    border-color: var(--kui-color-gold-6);
+    color: var(--kui-color-gold-3, color-mix(in srgb, var(--kui-color-gold) 70%, transparent));
+    border-color: var(
+      --kui-color-gold-6,
+      color-mix(in srgb, var(--kui-color-gold) 40%, transparent)
+    );
   }
 
   &.k-btn-lime {
-    color: var(--kui-color-lime-3);
-    border-color: var(--kui-color-lime-6);
+    color: var(--kui-color-lime-3, color-mix(in srgb, var(--kui-color-lime) 70%, transparent));
+    border-color: var(
+      --kui-color-lime-6,
+      color-mix(in srgb, var(--kui-color-lime) 40%, transparent)
+    );
   }
   &:disabled {
     border-color: var(--kui-color-border-disabled);
@@ -380,43 +471,73 @@
   }
 
   &.k-btn-pink::before {
-    background-color: var(--kui-color-pink-3);
+    background-color: var(
+      --kui-color-pink-3,
+      color-mix(in srgb, var(--kui-color-pink) 70%, transparent)
+    );
   }
 
   &.k-btn-red::before {
-    background-color: var(--kui-color-red-3);
+    background-color: var(
+      --kui-color-red-3,
+      color-mix(in srgb, var(--kui-color-red) 70%, transparent)
+    );
   }
 
   &.k-btn-yellow::before {
-    background-color: var(--kui-color-yellow-3);
+    background-color: var(
+      --kui-color-yellow-3,
+      color-mix(in srgb, var(--kui-color-yellow) 70%, transparent)
+    );
   }
 
   &.k-btn-orange::before {
-    background-color: var(--kui-color-orange-3);
+    background-color: var(
+      --kui-color-orange-3,
+      color-mix(in srgb, var(--kui-color-orange) 70%, transparent)
+    );
   }
 
   &.k-btn-cyan::before {
-    background-color: var(--kui-color-cyan-3);
+    background-color: var(
+      --kui-color-cyan-3,
+      color-mix(in srgb, var(--kui-color-cyan) 70%, transparent)
+    );
   }
 
   &.k-btn-olive::before {
-    background-color: var(--kui-color-olive-3);
+    background-color: var(
+      --kui-color-olive-3,
+      color-mix(in srgb, var(--kui-color-olive) 70%, transparent)
+    );
   }
 
   &.k-btn-brown::before {
-    background-color: var(--kui-color-brown-3);
+    background-color: var(
+      --kui-color-brown-3,
+      color-mix(in srgb, var(--kui-color-brown) 70%, transparent)
+    );
   }
 
   &.k-btn-violet::before {
-    background-color: var(--kui-color-violet-3);
+    background-color: var(
+      --kui-color-violet-3,
+      color-mix(in srgb, var(--kui-color-violet) 70%, transparent)
+    );
   }
 
   &.k-btn-teal::before {
-    background-color: var(--kui-color-teal-3);
+    background-color: var(
+      --kui-color-teal-3,
+      color-mix(in srgb, var(--kui-color-teal) 70%, transparent)
+    );
   }
 
   &.k-btn-green::before {
-    background-color: var(--kui-color-green-3);
+    background-color: var(
+      --kui-color-green-3,
+      color-mix(in srgb, var(--kui-color-green) 70%, transparent)
+    );
   }
 
   &.k-btn-gray::before {
@@ -424,42 +545,66 @@
   }
 
   &.k-btn-blue::before {
-    background-color: var(--kui-color-blue-3);
+    background-color: var(
+      --kui-color-blue-3,
+      color-mix(in srgb, var(--kui-color-blue) 70%, transparent)
+    );
   }
 
   &.k-btn-purple::before {
-    background-color: var(--kui-color-purple-3);
+    background-color: var(
+      --kui-color-purple-3,
+      color-mix(in srgb, var(--kui-color-purple) 70%, transparent)
+    );
   }
 
   &.k-btn-cyan::before {
-    background-color: var(--kui-color-cyan-3);
+    background-color: var(
+      --kui-color-cyan-3,
+      color-mix(in srgb, var(--kui-color-cyan) 70%, transparent)
+    );
   }
 
   &.k-btn-magenta::before {
-    background-color: var(--kui-color-magenta-3);
+    background-color: var(
+      --kui-color-magenta-3,
+      color-mix(in srgb, var(--kui-color-magenta) 70%, transparent)
+    );
   }
 
   &.k-btn-volcano::before {
-    background-color: var(--kui-color-volcano-3);
+    background-color: var(
+      --kui-color-volcano-3,
+      color-mix(in srgb, var(--kui-color-volcano) 70%, transparent)
+    );
   }
 
   &.k-btn-gold::before {
-    background-color: var(--kui-color-gold-3);
+    background-color: var(
+      --kui-color-gold-3,
+      color-mix(in srgb, var(--kui-color-gold) 70%, transparent)
+    );
   }
 
   &.k-btn-lime::before {
-    background-color: var(--kui-color-lime-3);
+    background-color: var(
+      --kui-color-lime-3,
+      color-mix(in srgb, var(--kui-color-lime) 70%, transparent)
+    );
   }
   &:disabled {
     background: none;
     &::before {
-      background-color: var(--kui-control-bg-disabled);
+      background-color: var(--kui-control-bg-disabled, var(--kui-color-bg-component-disabled));
     }
   }
 }
 
 .k-btn-fill {
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
   border: none;
   &:hover {
     background-color: var(--kui-color-bg-component-hover);
@@ -478,7 +623,7 @@
   }
 }
 .k-btn:not(.k-btn-link, .k-btn-text, .k-btn-solid, .k-btn-plain):disabled {
-  background-color: var(--kui-control-bg-disabled);
+  background-color: var(--kui-control-bg-disabled, var(--kui-color-bg-component-disabled));
 }
 .k-btn:disabled {
   cursor: not-allowed;
@@ -536,55 +681,61 @@
     color: var(--kui-color-warning);
   }
   &.k-btn-default {
-    color: var(--kui-control-text);
+    color: var(--kui-control-text, var(--kui-color-text));
   }
   &.k-btn-red {
-    color: var(--kui-color-red-3);
+    color: var(--kui-color-red-3, color-mix(in srgb, var(--kui-color-red) 70%, transparent));
   }
   &.k-btn-orange {
-    color: var(--kui-color-orange-3);
+    color: var(--kui-color-orange-3, color-mix(in srgb, var(--kui-color-orange) 70%, transparent));
   }
   &.k-btn-yellow {
-    color: var(--kui-color-yellow-3);
+    color: var(--kui-color-yellow-3, color-mix(in srgb, var(--kui-color-yellow) 70%, transparent));
   }
   &.k-btn-olive {
-    color: var(--kui-color-olive-3);
+    color: var(--kui-color-olive-3, color-mix(in srgb, var(--kui-color-olive) 70%, transparent));
   }
   &.k-btn-green {
-    color: var(--kui-color-green-3);
+    color: var(--kui-color-green-3, color-mix(in srgb, var(--kui-color-green) 70%, transparent));
   }
   &.k-btn-teal {
-    color: var(--kui-color-teal-3);
+    color: var(--kui-color-teal-3, color-mix(in srgb, var(--kui-color-teal) 70%, transparent));
   }
   &.k-btn-blue {
-    color: var(--kui-color-blue-3);
+    color: var(--kui-color-blue-3, color-mix(in srgb, var(--kui-color-blue) 70%, transparent));
   }
   &.k-btn-volcano {
-    color: var(--kui-color-volcano-3);
+    color: var(
+      --kui-color-volcano-3,
+      color-mix(in srgb, var(--kui-color-volcano) 70%, transparent)
+    );
   }
   &.k-btn-violet {
-    color: var(--kui-color-violet-3);
+    color: var(--kui-color-violet-3, color-mix(in srgb, var(--kui-color-violet) 70%, transparent));
   }
   &.k-btn-cyan {
-    color: var(--kui-color-cyan-3);
+    color: var(--kui-color-cyan-3, color-mix(in srgb, var(--kui-color-cyan) 70%, transparent));
   }
   &.k-btn-gold {
-    color: var(--kui-color-gold-3);
+    color: var(--kui-color-gold-3, color-mix(in srgb, var(--kui-color-gold) 70%, transparent));
   }
   &.k-btn-lime {
-    color: var(--kui-color-lime-3);
+    color: var(--kui-color-lime-3, color-mix(in srgb, var(--kui-color-lime) 70%, transparent));
   }
   &.k-btn-magenta {
-    color: var(--kui-color-magenta-3);
+    color: var(
+      --kui-color-magenta-3,
+      color-mix(in srgb, var(--kui-color-magenta) 70%, transparent)
+    );
   }
   &.k-btn-purple {
-    color: var(--kui-color-purple-3);
+    color: var(--kui-color-purple-3, color-mix(in srgb, var(--kui-color-purple) 70%, transparent));
   }
   &.k-btn-pink {
-    color: var(--kui-color-pink-3);
+    color: var(--kui-color-pink-3, color-mix(in srgb, var(--kui-color-pink) 70%, transparent));
   }
   &.k-btn-brown {
-    color: var(--kui-color-brown-3);
+    color: var(--kui-color-brown-3, color-mix(in srgb, var(--kui-color-brown) 70%, transparent));
   }
   &.k-btn-gray {
     color: var(--kui-color-gray-3);

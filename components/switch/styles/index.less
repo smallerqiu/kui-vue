@@ -8,7 +8,10 @@
   border-radius: var(--kui-shape-circle);
   vertical-align: middle;
   border: none;
-  background-color: var(--kui-theme-fill-bg);
+  background-color: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
   font-size: 12px;
   position: relative;
   cursor: pointer;
@@ -29,7 +32,8 @@
   outline: var(--kui-focus-ring-width) solid transparent;
   outline-offset: 1px;
   &:focus {
-    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+    outline: var(--kui-focus-ring-width) solid
+      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
   }
 
   .k-icon {

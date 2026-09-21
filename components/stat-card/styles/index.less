@@ -121,23 +121,28 @@
   line-height: 1;
 }
 .k-stat-card-bordered {
-  border: 1px solid var(--kui-theme-outline-border);
+  border: 1px solid
+    var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
   background: var(--kui-theme-outline-bg);
 }
 
 .k-stat-card-round,
 .k-stat-card-default {
-  border-radius: var(--kui-card-radius);
+  border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
 }
 .k-stat-card-square {
   border-radius: var(--kui-shape-square);
 }
 .k-stat-card-fill {
   border-color: var(--kui-theme-fill-border);
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 }
 .k-stat-card-outline {
-  border: 1px solid var(--kui-theme-outline-border);
+  border: 1px solid
+    var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
   background: var(--kui-theme-outline-bg);
 }
 .k-stat-card-plain {

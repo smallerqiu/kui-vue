@@ -7,13 +7,13 @@
   position: absolute;
   z-index: 1001;
   .k-dropdown-content {
-    background: var(--kui-popup-bg);
-    border-radius: var(--kui-popup-radius);
+    background: var(--kui-popup-bg, var(--kui-color-bg-pop));
+    border-radius: var(--kui-popup-radius, var(--kui-border-radius));
   }
 
   .k-dropdown-menu {
     min-width: 150px;
-    border: 1px solid var(--kui-popup-border);
+    border: 1px solid var(--kui-popup-border, var(--kui-color-pop-border));
   }
 
   .k-dropdown-menu-item-icon {
@@ -22,18 +22,18 @@
 
   #ot {
     stroke-width: 1px;
-    stroke: var(--kui-popup-border);
+    stroke: var(--kui-popup-border, var(--kui-color-pop-border));
   }
 }
 
 .k-dropdown-menu {
-  border: 1px solid var(--kui-popup-border);
+  border: 1px solid var(--kui-popup-border, var(--kui-color-pop-border));
 }
 .k-dropdown-menu,
 .k-dropdown-menu-submenu-sub {
-  box-shadow: var(--kui-popup-shadow);
-  background: var(--kui-popup-bg);
-  border-radius: var(--kui-popup-radius);
+  box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow));
+  background: var(--kui-popup-bg, var(--kui-color-bg-pop));
+  border-radius: var(--kui-popup-radius, var(--kui-border-radius));
   display: flex;
   flex-direction: column;
   gap: 2px;
@@ -121,9 +121,9 @@
 .k-dropdown-menu-submenu-popup {
   position: absolute;
   z-index: 1001;
-  border: 1px solid var(--kui-popup-border);
+  border: 1px solid var(--kui-popup-border, var(--kui-color-pop-border));
   border-radius: var(--kui-border-radius);
-  box-shadow: var(--kui-popup-shadow);
+  box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow));
 
   .k-dropdown-menu-submenu-sub {
     box-shadow: none;
@@ -132,7 +132,7 @@
   .k-menu {
     border: 0;
     padding: 0;
-    background-color: var(--kui-popup-bg);
+    background-color: var(--kui-popup-bg, var(--kui-color-bg-pop));
   }
 }
 .k-dropdown-menu-title-content {
@@ -162,7 +162,7 @@
     display: flex;
     width: 24px;
     height: 9px;
-    color: var(--kui-popup-bg);
+    color: var(--kui-popup-bg, var(--kui-color-bg-pop));
   }
 
   &[k-placement^="top"] {

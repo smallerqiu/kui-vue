@@ -93,7 +93,8 @@
   .k-form-item-error {
     .k-input[data-multiple].k-input-focus {
       border-color: var(--kui-color-danger);
-      box-shadow: 0 0 0 2px var(--kui-color-danger-9);
+      box-shadow: 0 0 0 2px
+        var(--kui-color-danger-9, color-mix(in srgb, var(--kui-color-danger) 10%, transparent));
     }
 
     .k-input,
@@ -106,7 +107,8 @@
       &:hover,
       &:focus {
         border-color: var(--kui-color-danger);
-        box-shadow: 0 0 0 2px var(--kui-color-danger-9);
+        box-shadow: 0 0 0 2px
+          var(--kui-color-danger-9, color-mix(in srgb, var(--kui-color-danger) 10%, transparent));
       }
     }
 
@@ -152,11 +154,13 @@
 
     .k-select-opened .k-select,
     .k-tree-select-opened .k-tree-select {
-      box-shadow: 0 0 0 2px var(--kui-color-danger-9);
+      box-shadow: 0 0 0 2px
+        var(--kui-color-danger-9, color-mix(in srgb, var(--kui-color-danger) 10%, transparent));
     }
 
     .k-datepicker-opened {
-      box-shadow: 0 0 0 2px var(--kui-color-danger-9);
+      box-shadow: 0 0 0 2px
+        var(--kui-color-danger-9, color-mix(in srgb, var(--kui-color-danger) 10%, transparent));
     }
   }
 }

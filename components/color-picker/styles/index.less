@@ -20,7 +20,10 @@
   outline: var(--kui-focus-ring-width) solid transparent;
 
   &:not(.k-color-picker-disabled):hover {
-    border-color: var(--kui-color-primary-hover);
+    border-color: var(
+      --kui-color-primary-hover,
+      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
+    );
   }
 
   &:not(.k-color-picker-disabled):active {
@@ -76,7 +79,8 @@
 
 .k-color-picker-opened {
   border: 1px solid var(--kui-color-primary);
-  box-shadow: 0 0 0 2px var(--kui-color-primary-9);
+  box-shadow: 0 0 0 2px
+    var(--kui-color-primary-9, color-mix(in srgb, var(--kui-color-primary) 10%, transparent));
 
   .k-color-picker-arrow {
     transform: rotate(180deg);
@@ -99,7 +103,10 @@
 
 .k-color-picker-fill {
   border-color: transparent;
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 
   &:not(.k-color-picker-disabled):hover,
   &.k-color-picker-opened {
@@ -368,14 +375,14 @@
     display: flex;
     width: 24px;
     height: 9px;
-    color: var(--kui-popup-bg);
+    color: var(--kui-popup-bg, var(--kui-color-bg-pop));
   }
 
   .k-color-picker-body {
-    box-shadow: var(--kui-popup-shadow);
+    box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow));
     border-radius: var(--kui-border-radius);
-    background: var(--kui-popup-bg);
-    border: 1px solid var(--kui-popup-border);
+    background: var(--kui-popup-bg, var(--kui-color-bg-pop));
+    border: 1px solid var(--kui-popup-border, var(--kui-color-pop-border));
     padding: 10px;
     box-sizing: border-box;
   }
@@ -386,7 +393,7 @@
 
   #ot {
     stroke-width: 1px;
-    stroke: var(--kui-popup-border);
+    stroke: var(--kui-popup-border, var(--kui-color-pop-border));
   }
 
   &[k-placement^="top"] {

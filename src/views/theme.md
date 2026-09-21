@@ -226,3 +226,7 @@ CSS Variables 会向下继承，因此无需创建另一份组件样式。下面
 ```
 
 如果只希望 Card 特殊，而不改变 Input 和弹层，应覆盖 `--kui-card-*`；如果希望整个区域统一变化，则优先覆盖基础语义 Token 或使用 `shape-mode`、`theme-mode`。
+
+派生 Token（例如 `--kui-control-bg`、`--kui-control-radius`、`--kui-color-primary-hover`）作为可选覆盖项使用；默认值在组件属性使用处计算，不在根节点预先固定。这样局部基础颜色、圆角变化和嵌套明暗模式也能生效，显式设置的组件 Token 则继续向下继承。
+
+在自定义 CSS 中直接使用这些可选 Token 时，也应提供基础变量作为回退，例如 `background: var(--kui-control-bg, var(--kui-color-bg))`。读取默认主题颜色时优先使用基础 Token。

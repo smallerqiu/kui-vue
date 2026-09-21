@@ -11,10 +11,10 @@
   min-width: 0;
   min-height: var(--kui-control-height);
   padding: 3px var(--kui-padding-tag-box-inline);
-  color: var(--kui-control-text);
-  border: 1px solid var(--kui-control-border);
-  border-radius: var(--kui-control-radius);
-  background: var(--kui-control-bg);
+  color: var(--kui-control-text, var(--kui-color-text));
+  border: 1px solid var(--kui-control-border, var(--kui-color-border));
+  border-radius: var(--kui-control-radius, var(--kui-shape-round, var(--kui-border-radius)));
+  background: var(--kui-control-bg, var(--kui-color-bg));
   transition:
     border-color var(--kui-motion-duration) var(--kui-motion-easing),
     box-shadow var(--kui-motion-duration) var(--kui-motion-easing);
@@ -25,8 +25,12 @@
 
   &:focus-within {
     border-color: var(--kui-color-primary);
-    box-shadow: var(--kui-component-shadow);
-    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+    box-shadow: var(
+      --kui-component-shadow,
+      0 0 2px color-mix(in srgb, var(--kui-color-primary) 10%, transparent)
+    );
+    outline: var(--kui-focus-ring-width) solid
+      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
     outline-offset: 1px;
   }
 
@@ -36,7 +40,7 @@
     min-width: 80px;
     height: calc(var(--kui-control-height) - 10px);
     padding: 0;
-    color: var(--kui-control-text);
+    color: var(--kui-control-text, var(--kui-color-text));
     border: 0;
     outline: 0;
     background: transparent;
@@ -70,7 +74,8 @@
 
     &:focus-visible {
       opacity: 1;
-      outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+      outline: var(--kui-focus-ring-width) solid
+        var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
       outline-offset: 1px;
     }
   }
@@ -134,7 +139,10 @@
 
 .k-input-tag-fill {
   border-color: transparent;
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 
   &:focus-within {
     border-color: transparent;
@@ -165,7 +173,7 @@
 
 .k-input-tag-disabled {
   color: var(--kui-color-text-disabled);
-  background: var(--kui-control-bg-disabled);
+  background: var(--kui-control-bg-disabled, var(--kui-color-bg-component-disabled));
   cursor: not-allowed;
 
   .k-input-tag-item.k-tag,

@@ -12,13 +12,17 @@
   width: 240px;
   height: 300px;
   overflow: hidden;
-  border: 1px solid var(--kui-theme-outline-border);
-  border-radius: var(--kui-card-radius);
+  border: 1px solid
+    var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
+  border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
   background: var(--kui-theme-outline-bg);
 }
 .k-transfer-fill .k-transfer-list {
   border-color: var(--kui-theme-fill-border);
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 }
 .k-transfer-item-checkbox {
   display: inline-flex;
@@ -60,11 +64,15 @@
   background: var(--kui-color-item-hover);
 }
 .k-transfer-item:focus-visible {
-  outline: var(--kui-focus-ring-width) solid var(--kui-color-outline);
+  outline: var(--kui-focus-ring-width) solid
+    var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
   outline-offset: -2px;
 }
 .k-transfer-item.is-selected {
-  background: var(--kui-color-item-selected);
+  background: var(
+    --kui-color-item-selected,
+    color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
+  );
 }
 .k-transfer-item.is-disabled,
 .k-transfer.is-disabled {
@@ -77,7 +85,10 @@
 }
 .k-transfer-item.is-disabled.is-selected:hover,
 .k-transfer.is-disabled .k-transfer-item.is-selected:hover {
-  background: var(--kui-color-item-selected);
+  background: var(
+    --kui-color-item-selected,
+    color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
+  );
 }
 .k-transfer.is-disabled .k-transfer-item {
   cursor: not-allowed;

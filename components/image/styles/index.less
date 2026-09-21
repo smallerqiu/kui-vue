@@ -84,9 +84,9 @@
 
 .k-image-preview-control {
   position: absolute;
-  background-color: var(--kui-popup-bg);
-  border: 1px solid var(--kui-popup-border);
-  box-shadow: var(--kui-popup-shadow);
+  background-color: var(--kui-popup-bg, var(--kui-color-bg-pop));
+  border: 1px solid var(--kui-popup-border, var(--kui-color-pop-border));
+  box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow));
 
   display: flex;
   padding: 10px;
@@ -314,7 +314,7 @@
 
 .k-image-round,
 .k-image-default {
-  border-radius: var(--kui-shape-round);
+  border-radius: var(--kui-shape-round, var(--kui-border-radius));
 }
 .k-image-circle {
   border-radius: var(--kui-shape-circle);
@@ -324,10 +324,13 @@
 }
 .k-image-fill {
   border-color: var(--kui-theme-fill-border);
-  background: var(--kui-theme-fill-bg);
+  background: var(
+    --kui-theme-fill-bg,
+    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+  );
 }
 .k-image-outline {
-  border-color: var(--kui-theme-outline-border);
+  border-color: var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
   background: var(--kui-theme-outline-bg);
 }
 .k-image-plain {

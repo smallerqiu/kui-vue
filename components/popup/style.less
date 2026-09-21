@@ -8,16 +8,16 @@
   line-height: 1.5;
   .k-popup-content {
     padding: 12px;
-    background: var(--kui-popup-bg);
-    border: 1px solid var(--kui-popup-border);
-    border-radius: var(--kui-popup-radius);
-    box-shadow: var(--kui-popup-shadow);
+    background: var(--kui-popup-bg, var(--kui-color-bg-pop));
+    border: 1px solid var(--kui-popup-border, var(--kui-color-pop-border));
+    border-radius: var(--kui-popup-radius, var(--kui-border-radius));
+    box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow));
   }
   .k-popup-arrow {
     position: absolute;
     width: 24px;
     height: 9px;
-    color: var(--kui-popup-bg);
+    color: var(--kui-popup-bg, var(--kui-color-bg-pop));
     pointer-events: none;
     svg {
       display: block;
@@ -25,7 +25,7 @@
       height: 100%;
     }
     #ot {
-      stroke: var(--kui-popup-border);
+      stroke: var(--kui-popup-border, var(--kui-color-pop-border));
       stroke-width: 1px;
     }
   }

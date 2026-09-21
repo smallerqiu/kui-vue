@@ -20,7 +20,7 @@
 .k-tour-focus {
   position: fixed;
   z-index: 1;
-  border-radius: var(--kui-popup-radius);
+  border-radius: var(--kui-popup-radius, var(--kui-border-radius));
   box-shadow: 0 0 0 9999px var(--kui-color-mask);
   pointer-events: none;
   transition:
@@ -36,11 +36,11 @@
   box-sizing: border-box;
   width: 320px;
   padding: var(--kui-padding-inline-lg);
-  color: var(--kui-control-text);
-  background: var(--kui-popup-bg);
-  border: 1px solid var(--kui-popup-border);
-  border-radius: var(--kui-card-radius);
-  box-shadow: var(--kui-popup-shadow);
+  color: var(--kui-control-text, var(--kui-color-text));
+  background: var(--kui-popup-bg, var(--kui-color-bg-pop));
+  border: 1px solid var(--kui-popup-border, var(--kui-color-pop-border));
+  border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
+  box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow));
   pointer-events: auto;
 }
 .k-tour-arrow {
@@ -49,7 +49,7 @@
   display: flex;
   width: 24px;
   height: 9px;
-  color: var(--kui-popup-bg);
+  color: var(--kui-popup-bg, var(--kui-color-bg-pop));
   pointer-events: none;
 }
 .k-tour-arrow svg {
@@ -58,7 +58,7 @@
   fill: currentcolor;
 }
 .k-tour-arrow-outline {
-  stroke: var(--kui-popup-border);
+  stroke: var(--kui-popup-border, var(--kui-color-pop-border));
   stroke-width: 0.1em;
 }
 .k-tour-arrow-inner {
@@ -106,7 +106,8 @@
   margin: calc(0px - var(--kui-padding-inline-lg)) calc(0px - var(--kui-padding-inline-lg))
     var(--kui-padding-block-lg);
   overflow: hidden;
-  border-radius: var(--kui-popup-radius) var(--kui-popup-radius) 0 0;
+  border-radius: var(--kui-popup-radius, var(--kui-border-radius))
+    var(--kui-popup-radius, var(--kui-border-radius)) 0 0;
 }
 .k-tour-panel footer {
   display: flex;

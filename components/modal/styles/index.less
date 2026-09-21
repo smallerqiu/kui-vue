@@ -29,15 +29,15 @@
 
   .k-modal-inner {
     position: relative;
-    background-color: var(--kui-popup-bg);
-    border: 1px solid var(--kui-popup-border);
+    background-color: var(--kui-popup-bg, var(--kui-color-bg-pop));
+    border: 1px solid var(--kui-popup-border, var(--kui-color-pop-border));
     z-index: 1001;
     outline: 0;
-    border-radius: var(--kui-card-radius);
+    border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
     top: 100px;
     overflow: hidden;
     margin: 0 auto;
-    box-shadow: var(--kui-popup-shadow);
+    box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow));
     min-width: 200px;
     width: 480px;
     box-sizing: border-box;
@@ -170,10 +170,10 @@
 .k-toast {
   .k-modal-inner {
     width: 416px;
-    background: var(--kui-popup-bg);
+    background: var(--kui-popup-bg, var(--kui-color-bg-pop));
     border-radius: var(--kui-border-radius);
     padding: 20px;
-    border-radius: var(--kui-card-radius);
+    border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
     overflow: hidden;
   }
 
