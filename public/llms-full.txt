@@ -258,6 +258,12 @@ Use the default slot for the trigger and the scoped overlay slot for content; av
 
 The default slot renders the trigger; the overlay slot renders popup content. Both receive PopupRef methods. update:open emits the requested boolean state.
 
+## Events
+
+| Event       | Description                                                                                                      | Parameters      |
+| ----------- | ---------------------------------------------------------------------------------------------------------------- | --------------- |
+| update:open | Emitted when an interaction or instance method changes visibility. Use with `v-model:open` to synchronize state. | (open: boolean) |
+
 ## Adapter options
 
 Used by Dropdown, Tooltip, Poptip and Popconfirm to preserve existing appearance.
@@ -3361,18 +3367,20 @@ Assists with page-level overall layout.
 
 ## Layout API
 
-| Property | Description                                                              | Type    | Default |
-| -------- | ------------------------------------------------------------------------ | ------- | ------- |
-| hasSider | Whether the layout contains a sider; detected automatically when omitted | boolean | -       |
+| Property  | Description                                                                  | Type    | Default  |
+| --------- | ---------------------------------------------------------------------------- | ------- | -------- |
+| hasSider  | Whether the layout contains a sider; detected automatically when omitted     | boolean | -        |
+| suffixCls | CSS class suffix, prefixed with `k-`; custom values require matching styles. | string  | 'layout' |
 
 ## Layout.Sider API
 
-| Property       | Description                          | Type             | Default |
-| -------------- | ------------------------------------ | ---------------- | ------- |
-| width          | Expanded width                       | number \| string | 200     |
-| collapsedWidth | Collapsed width                      | number \| string | 80      |
-| collapsible    | Whether collapsed styling is enabled | boolean          | false   |
-| collapsed      | Controlled collapsed state           | boolean          | false   |
+| Property       | Description                                                                  | Type             | Default        |
+| -------------- | ---------------------------------------------------------------------------- | ---------------- | -------------- |
+| width          | Expanded width                                                               | number \| string | 200            |
+| collapsedWidth | Collapsed width                                                              | number \| string | 80             |
+| collapsible    | Whether collapsed styling is enabled                                         | boolean          | false          |
+| collapsed      | Controlled collapsed state                                                   | boolean          | false          |
+| suffixCls      | CSS class suffix, prefixed with `k-`; custom values require matching styles. | string           | 'layout-sider' |
 
 ---
 
@@ -3410,18 +3418,20 @@ Assists with page-level overall layout.
 
 ## Layout API
 
-| Property | Description                                                              | Type    | Default |
-| -------- | ------------------------------------------------------------------------ | ------- | ------- |
-| hasSider | Whether the layout contains a sider; detected automatically when omitted | boolean | -       |
+| Property  | Description                                                                  | Type    | Default  |
+| --------- | ---------------------------------------------------------------------------- | ------- | -------- |
+| hasSider  | Whether the layout contains a sider; detected automatically when omitted     | boolean | -        |
+| suffixCls | CSS class suffix, prefixed with `k-`; custom values require matching styles. | string  | 'layout' |
 
 ## Layout.Sider API
 
-| Property       | Description                          | Type             | Default |
-| -------------- | ------------------------------------ | ---------------- | ------- |
-| width          | Expanded width                       | number \| string | 200     |
-| collapsedWidth | Collapsed width                      | number \| string | 80      |
-| collapsible    | Whether collapsed styling is enabled | boolean          | false   |
-| collapsed      | Controlled collapsed state           | boolean          | false   |
+| Property       | Description                                                                  | Type             | Default        |
+| -------------- | ---------------------------------------------------------------------------- | ---------------- | -------------- |
+| width          | Expanded width                                                               | number \| string | 200            |
+| collapsedWidth | Collapsed width                                                              | number \| string | 80             |
+| collapsible    | Whether collapsed styling is enabled                                         | boolean          | false          |
+| collapsed      | Controlled collapsed state                                                   | boolean          | false          |
+| suffixCls      | CSS class suffix, prefixed with `k-`; custom values require matching styles. | string           | 'layout-sider' |
 
 ---
 

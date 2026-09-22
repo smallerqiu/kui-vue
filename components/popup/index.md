@@ -69,6 +69,12 @@ default 插槽放触发器，overlay 作用域插槽放弹层内容；.vue 中�
 
 default 插槽放触发器，overlay 插槽放弹层内容，两者均可访问 PopupRef 方法。update:open 事件输出请求的 boolean 状态。
 
+## 事件
+
+| 事件        | 说明                                                             | 参数            |
+| ----------- | ---------------------------------------------------------------- | --------------- |
+| update:open | 交互或实例方法改变显隐状态时触发，用于 `v-model:open` 同步状态。 | (open: boolean) |
+
 ## 包装组件选项
 
 供 Dropdown、Tooltip、Poptip、Popconfirm 适配已有样式和交互。

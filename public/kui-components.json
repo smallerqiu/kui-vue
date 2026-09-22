@@ -469,14 +469,14 @@
         },
         {
           "name": "onUpdate:open",
-          "description": "Props for onUpdate:open",
-          "descriptionZh": "Props for onUpdate:open",
-          "descriptionEn": "Props for onUpdate:open",
+          "description": "Emitted when an interaction or instance method changes visibility. Use with `v-model:open` to synchronize state.",
+          "descriptionZh": "交互或实例方法改变显隐状态时触发，用于 `v-model:open` 同步状态。",
+          "descriptionEn": "Emitted when an interaction or instance method changes visibility. Use with `v-model:open` to synchronize state.",
           "type": "((open: boolean) => void) | undefined",
           "eventName": "update:open",
           "boolean": false,
           "required": false,
-          "documented": false
+          "documented": true
         },
         {
           "name": "onOpenChange",
@@ -523,9 +523,9 @@
         {
           "name": "update:open",
           "type": "((open: boolean) => void) | undefined",
-          "description": "Props for onUpdate:open",
-          "descriptionZh": "Props for onUpdate:open",
-          "descriptionEn": "Props for onUpdate:open"
+          "description": "Emitted when an interaction or instance method changes visibility. Use with `v-model:open` to synchronize state.",
+          "descriptionZh": "交互或实例方法改变显隐状态时触发，用于 `v-model:open` 同步状态。",
+          "descriptionEn": "Emitted when an interaction or instance method changes visibility. Use with `v-model:open` to synchronize state."
         },
         {
           "name": "openChange",
@@ -9967,14 +9967,14 @@
       "props": [
         {
           "name": "suffixCls",
-          "description": "Props for suffixCls",
-          "descriptionZh": "Props for suffixCls",
-          "descriptionEn": "Props for suffixCls",
+          "description": "CSS class suffix, prefixed with `k-`; custom values require matching styles.",
+          "descriptionZh": "样式类名后缀，自动添加 `k-` 前缀；自定义值需提供配套样式。",
+          "descriptionEn": "CSS class suffix, prefixed with `k-`; custom values require matching styles.",
           "type": "string",
           "boolean": false,
           "required": false,
           "defaultExpression": "\"layout\"",
-          "documented": false
+          "documented": true
         },
         {
           "name": "hasSider",
@@ -10046,14 +10046,14 @@
         },
         {
           "name": "suffixCls",
-          "description": "Props for suffixCls",
-          "descriptionZh": "Props for suffixCls",
-          "descriptionEn": "Props for suffixCls",
+          "description": "CSS class suffix, prefixed with `k-`; custom values require matching styles.",
+          "descriptionZh": "样式类名后缀，自动添加 `k-` 前缀；自定义值需提供配套样式。",
+          "descriptionEn": "CSS class suffix, prefixed with `k-`; custom values require matching styles.",
           "type": "string",
           "boolean": false,
           "required": false,
           "defaultExpression": "\"layout-sider\"",
-          "documented": false
+          "documented": true
         },
         {
           "name": "collapsedWidth",

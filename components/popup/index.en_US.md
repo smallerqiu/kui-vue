@@ -69,6 +69,12 @@ Use the default slot for the trigger and the scoped overlay slot for content; av
 
 The default slot renders the trigger; the overlay slot renders popup content. Both receive PopupRef methods. update:open emits the requested boolean state.
 
+## Events
+
+| Event       | Description                                                                                                      | Parameters      |
+| ----------- | ---------------------------------------------------------------------------------------------------------------- | --------------- |
+| update:open | Emitted when an interaction or instance method changes visibility. Use with `v-model:open` to synchronize state. | (open: boolean) |
+
 ## Adapter options
 
 Used by Dropdown, Tooltip, Poptip and Popconfirm to preserve existing appearance.

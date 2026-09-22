@@ -32,15 +32,17 @@
 
 ## Layout API
 
-| 属性     | 说明                                   | 类型    | 默认值 |
-| -------- | -------------------------------------- | ------- | ------ |
-| hasSider | 是否包含侧边栏；未设置时自动检测 Sider | boolean | -      |
+| 属性      | 说明                                                       | 类型    | 默认值   |
+| --------- | ---------------------------------------------------------- | ------- | -------- |
+| hasSider  | 是否包含侧边栏；未设置时自动检测 Sider                     | boolean | -        |
+| suffixCls | 样式类名后缀，自动添加 `k-` 前缀；自定义值需提供配套样式。 | string  | 'layout' |
 
 ## Layout.Sider API
 
-| 属性           | 说明             | 类型             | 默认值 |
-| -------------- | ---------------- | ---------------- | ------ |
-| width          | 展开宽度         | number \| string | 200    |
-| collapsedWidth | 收起宽度         | number \| string | 80     |
-| collapsible    | 是否启用收起样式 | boolean          | false  |
-| collapsed      | 受控的收起状态   | boolean          | false  |
+| 属性           | 说明                                                       | 类型             | 默认值         |
+| -------------- | ---------------------------------------------------------- | ---------------- | -------------- |
+| width          | 展开宽度                                                   | number \| string | 200            |
+| collapsedWidth | 收起宽度                                                   | number \| string | 80             |
+| collapsible    | 是否启用收起样式                                           | boolean          | false          |
+| collapsed      | 受控的收起状态                                             | boolean          | false          |
+| suffixCls      | 样式类名后缀，自动添加 `k-` 前缀；自定义值需提供配套样式。 | string           | 'layout-sider' |
