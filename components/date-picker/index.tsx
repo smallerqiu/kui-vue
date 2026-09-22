@@ -332,13 +332,8 @@ const DatePicker = defineComponent({
     const isValueDisabled = (date: Dayjs) =>
       props.disabledDate(date.toDate()) ||
       (props.mode.includes("Time") && props.disabledTime(date.toDate()));
-    const propRangeValue = () => {
-      if (Array.isArray(initialModel.value)) return initialModel.value;
-      if (props.startDate !== null || props.endDate !== null) {
-        return [props.startDate, props.endDate];
-      }
-      return null;
-    };
+    // Preserve the last committed range separately from an incomplete selection.
+    const committedRange = ref<Array<Dayjs | null> | null>(null);
 
     watch(
       [
@@ -353,6 +348,7 @@ const DatePicker = defineComponent({
           (isRange.value && (startDate !== null || endDate !== null) ? [startDate, endDate] : null);
         if (val === null || val === undefined || val === "") {
           innerValue.value = null;
+          committedRange.value = null;
           syncTextFromValue();
           return;
         }
@@ -370,12 +366,14 @@ const DatePicker = defineComponent({
           if (!isFocus.value) syncTextFromValue();
           if (d?.isValid()) panelDate.value = d;
         }
+        committedRange.value = Array.isArray(innerValue.value) ? [...innerValue.value] : null;
       },
-      { immediate: true },
+      { immediate: true, deep: true },
     );
 
     const emitValue = (closePanel = true) => {
       if (!innerValue.value) {
+        committedRange.value = null;
         emit("update:modelValue", null);
         if (field?.prop) field.update(null);
         emit("change", null, "");
@@ -389,6 +387,7 @@ const DatePicker = defineComponent({
         if (start && end) {
           // 自动排序，防止开始时间晚于结束时间
           const dates = [start, end].sort((a, b) => a.valueOf() - b.valueOf());
+          committedRange.value = [...dates];
           const out = dates.map((d) => formatOutputValue(d));
           emit("update:modelValue", out);
           if (field?.prop) field.update(out);
@@ -505,18 +504,10 @@ const DatePicker = defineComponent({
 
     const closePopup = () => {
       if (isRange.value && Array.isArray(innerValue.value)) {
-        // 如果只选了一个值（即半选状态），关闭时重置为 props 传进来的原始状态
+        // Discard a partial selection without losing the latest confirmed range.
         if (innerValue.value.length === 1 || !innerValue.value[1]) {
-          syncTextFromValue(); // 这会根据 initialModel.value 恢复 textValue
-          // 重新从 props 解析 innerValue
-          const val = propRangeValue();
-          if (val) {
-            innerValue.value = val.map((d) => parsePropValue(d));
-            syncTextFromValue();
-          } else {
-            innerValue.value = null;
-            syncTextFromValue();
-          }
+          innerValue.value = committedRange.value ? [...committedRange.value] : null;
+          syncTextFromValue();
         }
       }
       openChange(false);
@@ -977,6 +968,7 @@ const DatePicker = defineComponent({
       if (props.readonly || field?.readonly.value) return;
       e.stopPropagation();
       innerValue.value = null;
+      committedRange.value = null;
       syncTextFromValue();
       emit("update:startDate", null);
       emit("update:endDate", null);

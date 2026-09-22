@@ -130,23 +130,26 @@ const Slider = defineComponent({
     });
 
     watch(
-      () => [
-        field?.prop ? field.value.value : initialModel.value,
-        props.min,
-        props.max,
-        props.step,
-        props.range,
-        props.marks,
-      ],
-      (nv) => {
-        // 只有当不在拖拽状态时，才响应外部变化，防止拖拽时的抖动
+      () => (field?.prop ? field.value.value : initialModel.value),
+      (value) => {
         if (draggingIndex.value === -1) {
           internalValue.value = formatValue(
-            (nv[0] ?? (props.range ? [props.min, props.min] : props.min)) as number | number[],
+            (value ?? (props.range ? [props.min, props.min] : props.min)) as number | number[],
           );
         }
       },
-      { immediate: true },
+      { immediate: true, deep: true },
+    );
+
+    watch(
+      () => [props.min, props.max, props.step, props.range, props.marks],
+      () => {
+        // 只有当不在拖拽状态时，才响应外部变化，防止拖拽时的抖动
+        if (draggingIndex.value === -1) {
+          internalValue.value = formatValue(internalValue.value);
+        }
+      },
+      { deep: true },
     );
 
     const getPercent = (val: number) => {

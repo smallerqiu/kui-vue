@@ -39,7 +39,7 @@ jobs:
         env:
           PUBLISH: ${{ inputs.publish }}
           DIST_TAG: ${{ inputs.dist_tag }}
-        run: node scripts/check-release.mjs
+        run: node --experimental-strip-types scripts/check-release.ts
       - name: Install browser for visual tests
         run: pnpm exec playwright install --with-deps chromium
       - run: pnpm verify

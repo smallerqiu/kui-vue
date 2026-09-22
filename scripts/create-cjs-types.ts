@@ -12,6 +12,6 @@ for (const filename of await readdir(localeDirectory)) {
   if (!filename.endsWith(".d.ts")) continue;
   await copyFile(
     path.join(localeDirectory, filename),
-    path.join(localeDirectory, filename.replace(/\.d\.ts$/, ".d.cts"))
+    path.join(localeDirectory, filename.replace(/\.d\.ts$/, ".d.cts")),
   );
 }

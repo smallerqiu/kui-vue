@@ -1,17 +1,18 @@
-// Run with: node scripts/check-theme.cjs (requires Playwright Chromium).
+// Run with: node --experimental-strip-types scripts/check-theme.ts (requires Playwright Chromium).
 // Set PLAYWRIGHT_CHROMIUM_CHANNEL=chrome to use an installed Chrome.
-const assert = require("node:assert/strict");
-const fs = require("node:fs");
-const path = require("node:path");
-const less = require("less");
-const { chromium } = require("@playwright/test");
-const root = path.resolve(__dirname, "..");
-const assertColor = (actual, expected, message) =>
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+import process from "node:process";
+import less from "less";
+import { chromium } from "@playwright/test";
+const root = path.resolve(import.meta.dirname, "..");
+const assertColor = (actual: number[], expected: readonly number[], message?: string) =>
   assert.ok(
     actual.every((n, i) => Math.abs(n - expected[i]) <= 1),
     `${message || "Color mismatch"}: ${actual} vs ${expected}`,
   );
-const compile = async (entry) => {
+const compile = async (entry: string) => {
   const filename = path.join(root, "components/styles", entry);
   return (await less.render(fs.readFileSync(filename, "utf8"), { filename })).css;
 };
@@ -41,16 +42,17 @@ const compile = async (entry) => {
     <div theme-mode="dark"><button id="dark" class="k-btn">Dark</button><div theme-mode="light"><button id="light" class="k-btn">Light</button></div></div>
     <div class="overrides"><div theme-mode="dark"><div id="control" class="k-input" data-multiple><input /></div><button id="override" class="k-btn k-btn-primary">Override</button><div class="k-popup-panel k-popup"><div id="override-popup" class="k-popup-content">Popup</div></div></div></div>
     <div id="square" shape-mode="square"><button id="square-button" class="k-btn">Square</button></div>`);
-    const style = (id, prop) =>
+    const style = (id: string, prop: string) =>
       page.locator("#" + id).evaluate((el, prop) => {
         el.getAnimations().forEach((a) => a.finish());
         return getComputedStyle(el).getPropertyValue(prop);
       }, prop);
-    const rgba = async (id, prop) =>
+    const rgba = async (id: string, prop: string) =>
       page.locator("#" + id).evaluate((el, prop) => {
         const c = document.createElement("canvas");
         c.width = c.height = 1;
         const ctx = c.getContext("2d");
+        if (!ctx) throw new Error("Canvas 2D context is unavailable");
         ctx.fillStyle = getComputedStyle(el).getPropertyValue(prop);
         ctx.fillRect(0, 0, 1, 1);
         return [...ctx.getImageData(0, 0, 1, 1).data];
@@ -62,7 +64,7 @@ const compile = async (entry) => {
       ["primary", [255, 0, 0, 230]],
       ["danger", [0, 255, 0, 230]],
       ["warning", [0, 0, 255, 230]],
-    ]) {
+    ] as const) {
       await page.locator("#" + id).hover();
       await page.locator("#" + id).evaluate((el) => el.getAnimations().forEach((a) => a.finish()));
       assertColor(
@@ -84,13 +86,13 @@ const compile = async (entry) => {
     for (const [id, expected] of [
       ["dark", "#bfbfbf"],
       ["light", "#8c8c8c"],
-    ])
+    ] as const)
       assert.equal((await style(id, "--kui-color-text-secondary")).trim(), expected);
     assert.equal((await style("light", "--kui-color-bg-elevated")).trim(), "#fff");
     // Runtime updates must affect a component already mounted inside the scope.
     await page
       .locator("#local")
-      .evaluate((el) => el.style.setProperty("--kui-color-primary", "#0000ff"));
+      .evaluate((el: HTMLElement) => el.style.setProperty("--kui-color-primary", "#0000ff"));
     await page.locator("#primary").hover();
     await page.locator("#primary").evaluate((el) => el.getAnimations().forEach((a) => a.finish()));
     assertColor(await rgba("primary", "background-color"), [0, 0, 255, 230]);

@@ -171,6 +171,7 @@ const Select = defineComponent({
           updatePosition();
         }
       },
+      { deep: true },
     );
 
     const scrollOptionIntoView = () => {

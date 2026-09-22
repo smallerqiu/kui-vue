@@ -206,6 +206,9 @@ importers:
       '@types/hash-sum':
         specifier: ^1.0.2
         version: 1.0.2
+      '@types/less':
+        specifier: ^3.0.8
+        version: 3.0.8
       '@types/markdown-it':
         specifier: ^14.2.0
         version: 14.2.0
@@ -766,6 +769,9 @@ packages:
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+
+  '@types/less@3.0.8':
+    resolution: {integrity: sha512-Gjm4+H9noDJgu5EdT3rUw5MhPBag46fiOy27BefvWkNL8mlZnKnCaVVVTLKj6RYXed9b62CPKnPav9govyQDzA==}
 
   '@types/linkify-it@5.0.0':
     resolution: {integrity: sha512-sVDA58zAw4eWAffKOaQH5/5j3XeayukzDk+ewSsnv3p4yJEZHCCzMDiZM8e0OUrRvmpGZ85jf4yDHkHsgBNr9Q==}
@@ -2856,6 +2862,8 @@ snapshots:
       undici-types: 7.29.1
 
   '@types/json-schema@7.0.15': {}
+
+  '@types/less@3.0.8': {}
 
   '@types/linkify-it@5.0.0': {}
 

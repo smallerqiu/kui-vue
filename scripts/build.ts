@@ -2,18 +2,18 @@ import { spawnSync } from "node:child_process";
 import process from "node:process";
 
 // Each stage exits before the next starts, releasing TypeScript and bundler heaps.
-const steps = {
-  ai: ["--experimental-strip-types", "scripts/generate-ai-assets.ts"],
+const steps: Record<string, string[]> = {
+  ai: ["scripts/generate-ai-assets.ts"],
   css: ["node_modules/vite/bin/vite.js", "build", "--config", "vite.config.css.ts"],
   es: ["node_modules/vite/bin/vite.js", "build"],
   lib: ["node_modules/vite/bin/vite.js", "build", "--config", "vite.config.lib.ts"],
   umd: ["node_modules/vite/bin/vite.js", "build", "--config", "vite.config.umd.ts"],
   types: ["node_modules/vue-tsc/bin/vue-tsc.js", "-p", "tsconfig.build-types.json"],
-  editors: ["--experimental-strip-types", "scripts/generate-editor-assets.ts"],
-  compat: ["scripts/create-cjs-types.mjs"],
+  editors: ["scripts/generate-editor-assets.ts"],
+  compat: ["scripts/create-cjs-types.ts"],
   docs: ["node_modules/vite/bin/vite.js", "build", "--config", "vite.config.docs.ts"],
 };
-const profiles = {
+const profiles: Record<string, string[]> = {
   all: ["ai", "css", "lib", "umd", "es", "types", "editors", "compat"],
   local: ["css", "es", "types", "editors"],
   types: ["types", "editors", "compat"],
@@ -28,7 +28,13 @@ for (const stage of stages) {
   console.log(`\n[kui build] ${stage} (Node heap limit ${heap} MB)`);
   const result = spawnSync(
     process.execPath,
-    [`--max-old-space-size=${heap}`, "--import", "./scripts/build-metrics.mjs", ...steps[stage]],
+    [
+      `--max-old-space-size=${heap}`,
+      "--experimental-strip-types",
+      "--import",
+      "./scripts/build-metrics.ts",
+      ...steps[stage],
+    ],
     {
       stdio: "inherit",
       env: { ...process.env, RAYON_NUM_THREADS: "2", UV_THREADPOOL_SIZE: "2" },
