@@ -56,15 +56,16 @@ Use the standalone [Segmented](../segmented/index.en_US.md) component for slider
 
 ## RadioGroup API
 
-| Property   | Description                                                                          | Type                              | Default    |
-| ---------- | ------------------------------------------------------------------------------------ | --------------------------------- | ---------- |
-| modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding data | string \| number                  | -          |
-| disabled   | Disable the entire group                                                             | boolean                           | false      |
-| readonly   | Whether the group is read-only                                                       | boolean                           | false      |
-| size       | Button size                                                                          | SizeType                          | -          |
-| direction  | Layout direction                                                                     | 'horizontal' \| 'vertical'        | horizontal |
-| shape      | Button shape                                                                         | ShapeType                         | -          |
-| theme      | Button theme                                                                         | ThemeType                         | -          |
-| onChange   | Triggered when option state changes, returns currently selected item                 | (value: string \| number) => void | -          |
-| options    | Can specify child `radio` items                                                      | RadioOption[]                     | -          |
-| type       | Use radio or button-style items                                                      | 'radio' \| 'button'               | radio      |
+| Property   | Description                                                                                                                   | Type                              | Default    |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ---------- |
+| modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding data                                          | string \| number                  | -          |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number                  | -          |
+| disabled   | Disable the entire group                                                                                                      | boolean                           | false      |
+| readonly   | Whether the group is read-only                                                                                                | boolean                           | false      |
+| size       | Button size                                                                                                                   | SizeType                          | -          |
+| direction  | Layout direction                                                                                                              | 'horizontal' \| 'vertical'        | horizontal |
+| shape      | Button shape                                                                                                                  | ShapeType                         | -          |
+| theme      | Button theme                                                                                                                  | ThemeType                         | -          |
+| onChange   | Triggered when option state changes, returns currently selected item                                                          | (value: string \| number) => void | -          |
+| options    | Can specify child `radio` items                                                                                               | RadioOption[]                     | -          |
+| type       | Use radio or button-style items                                                                                               | 'radio' \| 'button'               | radio      |

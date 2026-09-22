@@ -46,15 +46,16 @@
 
 ## CheckboxGroup API
 
-| 属性       | 说明                                             | 类型                            | 默认值     |
-| ---------- | ------------------------------------------------ | ------------------------------- | ---------- |
-| modelValue | 用于设置当前选中的值，可使用 `v-model` 双向绑定  | (string \| number \| boolean)[] | []         |
-| disabled   | 是否禁用组件                                     | boolean                         | false      |
-| readonly   | 是否只读                                         | boolean                         | false      |
-| onChange   | 在选项状态发生改变时触发，返回当前选中的项和状态 | (any[])=>void                   | -          |
-| direction  | 布局方向                                         | 'horizontal' \| 'vertical'      | horizontal |
-| options    | 可以指定子项 `checkbox`                          | CheckboxOption[]                | -          |
-| theme      | 组件呈现主题                                     | ThemeType                       | fill       |
-| size       | 设置复选框的大小                                 | SizeType                        | -          |
+| 属性       | 说明                                                                          | 类型                            | 默认值     |
+| ---------- | ----------------------------------------------------------------------------- | ------------------------------- | ---------- |
+| modelValue | 用于设置当前选中的值，可使用 `v-model` 双向绑定                               | (string \| number \| boolean)[] | -          |
+| value      | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | (string \| number \| boolean)[] | []         |
+| disabled   | 是否禁用组件                                                                  | boolean                         | false      |
+| readonly   | 是否只读                                                                      | boolean                         | false      |
+| onChange   | 在选项状态发生改变时触发，返回当前选中的项和状态                              | (any[])=>void                   | -          |
+| direction  | 布局方向                                                                      | 'horizontal' \| 'vertical'      | horizontal |
+| options    | 可以指定子项 `checkbox`                                                       | CheckboxOption[]                | -          |
+| theme      | 组件呈现主题                                                                  | ThemeType                       | fill       |
+| size       | 设置复选框的大小                                                              | SizeType                        | -          |
 
 `options` 中每一项还支持 `disabled` 和 `readonly`。

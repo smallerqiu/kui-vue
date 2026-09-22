@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import Popup, { type PopupRef } from "../popup";
 import { renderSelectionTags } from "../utils/selection-tags";
 import { ChevronDown, CircleX, Loading } from "kui-icons";
@@ -48,6 +49,7 @@ const selectProps = {
   width: Number,
   maxTagCount: Number,
   modelValue: [String, Number, Array] as PropType<SelectValue | SelectValue[]>,
+  value: [String, Number, Array] as PropType<SelectValue | SelectValue[]>,
   clearable: { type: Boolean as BooleanType, default: true },
   filterable: Boolean as BooleanType,
   allowCreate: Boolean as BooleanType,
@@ -72,9 +74,13 @@ const selectProps = {
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>;
 type SelectModelValue = SelectValue | SelectValue[];
-type SelectPublicProps<T extends SelectModelValue> = Omit<Partial<SelectProps>, "modelValue"> &
+type SelectPublicProps<T extends SelectModelValue> = Omit<
+  Partial<SelectProps>,
+  "modelValue" | "value"
+> &
   Omit<HTMLAttributes, "onChange" | "onSelect"> & {
     modelValue?: T;
+    value?: T;
     "onUpdate:modelValue"?: (value: T) => void;
     onChange?: (value: T) => void;
     onSearch?: (event: InputEvent) => void;
@@ -102,6 +108,7 @@ const Select = defineComponent({
   },
   props: selectProps,
   setup(props, { slots, emit }) {
+    const initialModel = useInitialValue(props);
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
 
@@ -121,7 +128,7 @@ const Select = defineComponent({
       toValueArray(
         field?.prop
           ? (field.value.value as SelectValue | SelectValue[] | undefined)
-          : props.modelValue,
+          : initialModel.value,
       ),
     );
     const createdOptions = ref<SelectOption[]>([]);
@@ -155,7 +162,7 @@ const Select = defineComponent({
     );
 
     watch(
-      () => (field?.prop ? field.value.value : props.modelValue),
+      () => (field?.prop ? field.value.value : initialModel.value),
       (v) => {
         currentValue.value = props.multiple
           ? toValueArray(Array.isArray(v) ? (v as SelectValue[]) : [])

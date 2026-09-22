@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import Big from "big.js";
 import { ChevronDown, ChevronUp } from "kui-icons";
 import {
@@ -22,6 +23,7 @@ import { isValidBig, normalize } from "../utils/number";
 
 const inputNumberProps = {
   modelValue: [Number, String] as PropType<number | string>,
+  value: [Number, String] as PropType<number | string>,
   min: { type: Number, default: -Infinity },
   max: { type: Number, default: Infinity },
   step: { type: [Number, String] as PropType<number | string>, default: 1 },
@@ -58,6 +60,7 @@ const InputNumber = defineComponent({
   },
 
   setup(props, { slots, attrs, emit }) {
+    const initialModel = useInitialValue(props);
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
     const parentSize = inject<SizeType | undefined>("size", undefined);
@@ -85,7 +88,7 @@ const InputNumber = defineComponent({
     };
 
     watch(
-      () => (field?.prop ? field.value.value : props.modelValue),
+      () => (field?.prop ? field.value.value : initialModel.value),
       (val) => {
         const next = normalize(val, safePrecision.value);
         if (next !== innerValue.value) {

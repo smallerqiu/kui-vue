@@ -1,10 +1,12 @@
+import { useInitialValue } from "../utils/model-value";
 import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent, onBeforeUnmount, ref, watch } from "vue";
 import type { SizeType, SpinModeType } from "../const/types";
 import { useConfigAppearance } from "../config/context";
 
 const spinProps = {
-  modelValue: { type: Boolean, default: true },
+  modelValue: { type: Boolean, default: undefined },
+  value: { type: Boolean, default: true },
   delay: { type: Number, default: 0 },
   size: {
     type: String as PropType<SizeType>,
@@ -21,11 +23,12 @@ const Spin = defineComponent({
   name: "Spin",
   props: spinProps,
   setup(props, { slots }) {
+    const initialModel = useInitialValue(props);
     const appearance = useConfigAppearance(props);
-    const spinning = ref(props.modelValue);
+    const spinning = ref(initialModel.value);
     let timer: ReturnType<typeof setTimeout> | undefined;
     watch(
-      () => [props.modelValue, props.delay] as const,
+      () => [initialModel.value, props.delay] as const,
       ([nv]) => {
         clearTimeout(timer);
         if (!nv) {

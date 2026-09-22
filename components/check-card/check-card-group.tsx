@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import {
   computed,
   defineComponent,
@@ -15,6 +16,7 @@ import type { CheckCardOption, CheckCardTheme, CheckCardValue } from "./types";
 
 const checkCardGroupProps = {
   modelValue: [String, Number] as PropType<CheckCardValue>,
+  value: [String, Number] as PropType<CheckCardValue>,
   options: Array as PropType<CheckCardOption[]>,
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
@@ -35,14 +37,15 @@ const CheckCardGroup = defineComponent({
     change: (value: CheckCardValue) => typeof value === "string" || typeof value === "number",
   },
   setup(props, { emit, slots }) {
+    const initialModel = useInitialValue(props);
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
     const registry = new Map<CheckCardValue, CheckCardRegistryItem>();
     const localValue = ref(
-      field?.prop ? (field.value.value as CheckCardValue | undefined) : props.modelValue,
+      field?.prop ? (field.value.value as CheckCardValue | undefined) : initialModel.value,
     );
     watch(
-      () => (field?.prop ? field.value.value : props.modelValue),
+      () => (field?.prop ? field.value.value : initialModel.value),
       (value) => {
         localValue.value = value as CheckCardValue | undefined;
       },

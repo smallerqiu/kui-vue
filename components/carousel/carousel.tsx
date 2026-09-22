@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import { ArrowLeft, ArrowRight } from "kui-icons";
 import {
   Fragment,
@@ -20,7 +21,8 @@ import resizeDir from "../directives/resize";
 import Icon from "../icon";
 
 const carouselProps = {
-  modelValue: { type: Number, default: 0 },
+  modelValue: { type: Number, default: undefined },
+  value: { type: Number, default: 0 },
   loop: { type: Boolean as BooleanType, default: true },
   autoplay: Boolean as BooleanType,
   delay: { type: Number, default: 3000 },
@@ -40,8 +42,9 @@ const Carousel = defineComponent({
     change: (value: number) => Number.isFinite(value),
   },
   setup(props, { slots, emit, expose, attrs }) {
-    const currentIndex = ref(props.modelValue);
-    const posIndex = ref(props.loop ? props.modelValue + 1 : props.modelValue);
+    const initialModel = useInitialValue(props);
+    const currentIndex = ref(initialModel.value);
+    const posIndex = ref(props.loop ? initialModel.value + 1 : initialModel.value);
     const autoTimer = ref<ReturnType<typeof setInterval> | null>(null);
     const transitionTimer = ref<ReturnType<typeof setTimeout> | null>(null);
     const width = ref(0);
@@ -70,7 +73,7 @@ const Carousel = defineComponent({
     const itemCount = ref(0);
 
     watch(
-      () => props.modelValue,
+      () => initialModel.value,
       (val) => {
         const len = itemCount.value;
         if (!len) return;

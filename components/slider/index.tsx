@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import {
   defineComponent,
   inject,
@@ -19,7 +20,8 @@ import { getPosition } from "../utils/mouse";
 import { getClosestStep } from "../utils/number";
 
 const sliderProps = {
-  modelValue: { type: [Array, Number] as PropType<number[] | number>, default: 0 },
+  modelValue: { type: [Array, Number] as PropType<number[] | number>, default: undefined },
+  value: { type: [Array, Number] as PropType<number[] | number>, default: 0 },
   min: { type: Number, default: 0 },
   max: { type: Number, default: 100 },
   step: { type: Number as PropType<number | null>, default: 1 },
@@ -38,10 +40,11 @@ const sliderProps = {
 export type SliderProps = ExtractPropTypes<typeof sliderProps>;
 type SliderModelProps<T extends number | number[]> = {
   modelValue?: T | undefined;
+  value?: T | undefined;
   "onUpdate:modelValue"?: (value: T) => void;
   onChange?: (value: T) => void;
 };
-type SliderPublicProps = Omit<Partial<SliderProps>, "modelValue" | "range">;
+type SliderPublicProps = Omit<Partial<SliderProps>, "modelValue" | "value" | "range">;
 type SliderComponent = {
   new (props: SliderPublicProps & { range: true } & SliderModelProps<number[]>): {
     $props: SliderPublicProps & { range: true } & SliderModelProps<number[]>;
@@ -61,6 +64,7 @@ const Slider = defineComponent({
   },
 
   setup(props, { emit, attrs }) {
+    const initialModel = useInitialValue(props);
     const field = useFormField(true);
     const size = inject("size", undefined);
     const disabled = () => Boolean(props.disabled || field?.disabled.value);
@@ -127,7 +131,7 @@ const Slider = defineComponent({
 
     watch(
       () => [
-        field?.prop ? field.value.value : props.modelValue,
+        field?.prop ? field.value.value : initialModel.value,
         props.min,
         props.max,
         props.step,

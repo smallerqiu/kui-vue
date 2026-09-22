@@ -919,27 +919,28 @@ A cascading selection box.
 
 ## API
 
-| Property      | Description                                                                                                         | Type                 | Default           |
-| :------------ | :------------------------------------------------------------------------------------------------------------------ | :------------------- | :---------------- |
-| modelValue    | Array of path values bound through `v-model` (e.g., `['zhejiang', 'hangzhou', 'xihu']`).                            | (string \| number)[] | `[]`              |
-| options       | Tree-structured data source for cascading options.                                                                  | CascaderOption[]     | `[]`              |
-| placeholder   | Fallback placeholder text displayed when no path is selected.                                                       | string               | `"Please select"` |
-| disabled      | Whether to completely disable interaction for the entire component.                                                 | boolean              | `false`           |
-| readonly      | Read-only; prevents opening, clearing and changing.                                                                 | boolean              | `false`           |
-| clearable     | Whether to support clearing the selected path with one click.                                                       | boolean              | `true`            |
-| size          | Size specification of the component. Options: `'large'` \| `'small'` \| `undefined`.                                | string               | `undefined`       |
-| expandTrigger | Interaction mode for expanding the next-level menu. Options: `'click'` or `'hover'`.                                | 'click' \| 'hover'   | `'click'`         |
-| showAllLevels | Whether to display the full selected ancestor path. If `false`, only the final leaf node is shown in the input box. | boolean              | `true`            |
-| separator     | Separator between labels of different levels when `showAllLevels` is enabled.                                       | string               | `" / "`           |
-| bordered      | Whether to display borders                                                                                          | boolean              | true              |
-| theme         | Theme                                                                                                               | string               | fill              |
-| showArrow     | Whether to display the dropdown button                                                                              | boolean              | true              |
-| icon          | Custom Icon                                                                                                         | string               | -                 |
-| shape         | shape='circle' 时呈现圆角                                                                                           | string               | -                 |
-| placement     | Dropdown orientation                                                                                                | string               | -                 |
-| emptyText     | No data available.                                                                                                  | string               | 'No Data'         |
-| loadData      | Loads children asynchronously; return them or update `option.children`                                              | `CascaderLoadData`   | -                 |
-| arrowIcon     | Custom arrow icon                                                                                                   | string               | -                 |
+| Property      | Description                                                                                                                   | Type                 | Default           |
+| :------------ | :---------------------------------------------------------------------------------------------------------------------------- | :------------------- | :---------------- |
+| modelValue    | Array of path values bound through `v-model` (e.g., `['zhejiang', 'hangzhou', 'xihu']`).                                      | (string \| number)[] | -                 |
+| value         | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | (string \| number)[] | `[]`              |
+| options       | Tree-structured data source for cascading options.                                                                            | CascaderOption[]     | `[]`              |
+| placeholder   | Fallback placeholder text displayed when no path is selected.                                                                 | string               | `"Please select"` |
+| disabled      | Whether to completely disable interaction for the entire component.                                                           | boolean              | `false`           |
+| readonly      | Read-only; prevents opening, clearing and changing.                                                                           | boolean              | `false`           |
+| clearable     | Whether to support clearing the selected path with one click.                                                                 | boolean              | `true`            |
+| size          | Size specification of the component. Options: `'large'` \| `'small'` \| `undefined`.                                          | string               | `undefined`       |
+| expandTrigger | Interaction mode for expanding the next-level menu. Options: `'click'` or `'hover'`.                                          | 'click' \| 'hover'   | `'click'`         |
+| showAllLevels | Whether to display the full selected ancestor path. If `false`, only the final leaf node is shown in the input box.           | boolean              | `true`            |
+| separator     | Separator between labels of different levels when `showAllLevels` is enabled.                                                 | string               | `" / "`           |
+| bordered      | Whether to display borders                                                                                                    | boolean              | true              |
+| theme         | Theme                                                                                                                         | string               | fill              |
+| showArrow     | Whether to display the dropdown button                                                                                        | boolean              | true              |
+| icon          | Custom Icon                                                                                                                   | string               | -                 |
+| shape         | shape='circle' 时呈现圆角                                                                                                     | string               | -                 |
+| placement     | Dropdown orientation                                                                                                          | string               | -                 |
+| emptyText     | No data available.                                                                                                            | string               | 'No Data'         |
+| loadData      | Loads children asynchronously; return them or update `option.children`                                                        | `CascaderLoadData`   | -                 |
+| arrowIcon     | Custom arrow icon                                                                                                             | string               | -                 |
 
 ## Events
 
@@ -1097,20 +1098,21 @@ A monthly calendar for dates and events.
 
 ## API
 
-| Property       | Description                                              | Type                  | Default |
-| -------------- | -------------------------------------------------------- | --------------------- | ------- |
-| modelValue     | Selected date in `YYYY-MM-DD` format; supports `v-model` | string                | -       |
-| events         | Calendar events                                          | `CalendarEventData[]` | `[]`    |
-| firstDayOfWeek | First weekday, where 0 is Sunday                         | number                | locale  |
-| maxEvents      | Maximum visible events per day                           | number                | 3       |
-| showToolbar    | Show the calendar toolbar                                | boolean               | true    |
-| todayText      | Today button text                                        | string                | locale  |
-| weekdays       | Labels ordered from Sunday to Saturday                   | `string[]`            | locale  |
-| title          | Custom month title, scoped with `{ year, month }`        | VNodeChild            | -       |
-| extra          | Extra toolbar content                                    | VNodeChild            | -       |
-| dateCell       | Custom date-cell heading, scoped with `CalendarDateCell` | VNodeChild            | -       |
-| event          | Custom event content, scoped with `{ event, cell }`      | VNodeChild            | -       |
-| more           | Custom overflow indicator, scoped with `{ count, cell }` | VNodeChild            | -       |
+| Property       | Description                                                                                                                   | Type                  | Default |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------- | ------- |
+| modelValue     | Selected date in `YYYY-MM-DD` format; supports `v-model`                                                                      | string                | -       |
+| value          | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string                | -       |
+| events         | Calendar events                                                                                                               | `CalendarEventData[]` | `[]`    |
+| firstDayOfWeek | First weekday, where 0 is Sunday                                                                                              | number                | locale  |
+| maxEvents      | Maximum visible events per day                                                                                                | number                | 3       |
+| showToolbar    | Show the calendar toolbar                                                                                                     | boolean               | true    |
+| todayText      | Today button text                                                                                                             | string                | locale  |
+| weekdays       | Labels ordered from Sunday to Saturday                                                                                        | `string[]`            | locale  |
+| title          | Custom month title, scoped with `{ year, month }`                                                                             | VNodeChild            | -       |
+| extra          | Extra toolbar content                                                                                                         | VNodeChild            | -       |
+| dateCell       | Custom date-cell heading, scoped with `CalendarDateCell`                                                                      | VNodeChild            | -       |
+| event          | Custom event content, scoped with `{ event, cell }`                                                                           | VNodeChild            | -       |
+| more           | Custom overflow indicator, scoped with `{ count, cell }`                                                                      | VNodeChild            | -       |
 
 Calendar and DatePicker do not share internal state, but both read the same `ConfigProvider locale`. DatePicker selects dates or times; Calendar presents a month and its events, so they can be used together.
 
@@ -1294,15 +1296,16 @@ A set of rotating/carousel areas.
 
 ## API
 
-| Property   | Description                                                                    | Type    | Default |
-| ---------- | ------------------------------------------------------------------------------ | ------- | ------- |
-| modelValue | The index of the slide, starting from 0. Can use `v-model` for two-way binding | number  | 0       |
-| loop       | Whether to enable loop                                                         | boolean | true    |
-| vertical   | Whether to display in vertical mode                                            | boolean | false   |
-| autoplay   | Whether to auto-switch                                                         | boolean | false   |
-| delay      | The time interval for auto-switching, in milliseconds                          | number  | 3000    |
-| height     | The height of the slide                                                        | number  | 256(px) |
-| dots       | Whether to show the dots at the bottom of the gallery                          | boolean | true    |
+| Property   | Description                                                                                                                   | Type    | Default |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ------- | ------- |
+| modelValue | The index of the slide, starting from 0. Can use `v-model` for two-way binding                                                | number  | -       |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | number  | 0       |
+| loop       | Whether to enable loop                                                                                                        | boolean | true    |
+| vertical   | Whether to display in vertical mode                                                                                           | boolean | false   |
+| autoplay   | Whether to auto-switch                                                                                                        | boolean | false   |
+| delay      | The time interval for auto-switching, in milliseconds                                                                         | number  | 3000    |
+| height     | The height of the slide                                                                                                       | number  | 256(px) |
+| dots       | Whether to show the dots at the bottom of the gallery                                                                         | boolean | true    |
 
 ## Events
 
@@ -1374,16 +1377,17 @@ Checkbox for multiple selections.
 
 ## CheckboxGroup API
 
-| Property   | Description                                                                            | Type                            | Default    |
-| ---------- | -------------------------------------------------------------------------------------- | ------------------------------- | ---------- |
-| modelValue | Selected values; supports `v-model`                                                    | (string \| number \| boolean)[] | []         |
-| disabled   | Whether the component is disabled                                                      | boolean                         | false      |
-| readonly   | Whether the group is read-only                                                         | boolean                         | false      |
-| onChange   | Triggered when the option state changes, returns the currently selected item and state | (any[])=>void                   | -          |
-| direction  | Layout direction                                                                       | 'horizontal' \| 'vertical'      | horizontal |
-| options    | Can specify child `checkbox` items                                                     | CheckboxOption[]                | -          |
-| theme      | Component theme                                                                        | ThemeType                       | fill       |
-| size       | Checkbox size                                                                          | SizeType                        | -          |
+| Property   | Description                                                                                                                   | Type                            | Default    |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ---------- |
+| modelValue | Selected values; supports `v-model`                                                                                           | (string \| number \| boolean)[] | -          |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | (string \| number \| boolean)[] | []         |
+| disabled   | Whether the component is disabled                                                                                             | boolean                         | false      |
+| readonly   | Whether the group is read-only                                                                                                | boolean                         | false      |
+| onChange   | Triggered when the option state changes, returns the currently selected item and state                                        | (any[])=>void                   | -          |
+| direction  | Layout direction                                                                                                              | 'horizontal' \| 'vertical'      | horizontal |
+| options    | Can specify child `checkbox` items                                                                                            | CheckboxOption[]                | -          |
+| theme      | Component theme                                                                                                               | ThemeType                       | fill       |
+| size       | Checkbox size                                                                                                                 | SizeType                        | -          |
 
 Each item in `options` also supports `disabled` and `readonly`.
 
@@ -1437,16 +1441,17 @@ Checkbox for multiple selections.
 
 ## CheckboxGroup API
 
-| Property   | Description                                                                            | Type                            | Default    |
-| ---------- | -------------------------------------------------------------------------------------- | ------------------------------- | ---------- |
-| modelValue | Selected values; supports `v-model`                                                    | (string \| number \| boolean)[] | []         |
-| disabled   | Whether the component is disabled                                                      | boolean                         | false      |
-| readonly   | Whether the group is read-only                                                         | boolean                         | false      |
-| onChange   | Triggered when the option state changes, returns the currently selected item and state | (any[])=>void                   | -          |
-| direction  | Layout direction                                                                       | 'horizontal' \| 'vertical'      | horizontal |
-| options    | Can specify child `checkbox` items                                                     | CheckboxOption[]                | -          |
-| theme      | Component theme                                                                        | ThemeType                       | fill       |
-| size       | Checkbox size                                                                          | SizeType                        | -          |
+| Property   | Description                                                                                                                   | Type                            | Default    |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ---------- |
+| modelValue | Selected values; supports `v-model`                                                                                           | (string \| number \| boolean)[] | -          |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | (string \| number \| boolean)[] | []         |
+| disabled   | Whether the component is disabled                                                                                             | boolean                         | false      |
+| readonly   | Whether the group is read-only                                                                                                | boolean                         | false      |
+| onChange   | Triggered when the option state changes, returns the currently selected item and state                                        | (any[])=>void                   | -          |
+| direction  | Layout direction                                                                                                              | 'horizontal' \| 'vertical'      | horizontal |
+| options    | Can specify child `checkbox` items                                                                                            | CheckboxOption[]                | -          |
+| theme      | Component theme                                                                                                               | ThemeType                       | fill       |
+| size       | Checkbox size                                                                                                                 | SizeType                        | -          |
 
 Each item in `options` also supports `disabled` and `readonly`.
 
@@ -1481,35 +1486,37 @@ Present richer choices with a title, description, and optional symbol.
 
 ## CheckCard API
 
-| Property      | Description                                         | Type                           | Default |
-| ------------- | --------------------------------------------------- | ------------------------------ | ------- |
-| modelValue    | Standalone state, supports `v-model`                | boolean                        | false   |
-| value         | Option value inside a group                         | string \| number               | -       |
-| title         | Title, customizable via the named slot              | string \| number \| VNodeChild | -       |
-| description   | Description, customizable via the named slot        | string \| VNodeChild           | -       |
-| symbol        | Symbol icon, customizable via the named slot        | IconType[] \| VNodeChild       | -       |
-| checkedSymbol | Symbol icon used when checked                       | IconType[]                     | -       |
-| showIndicator | Show the top-right selection indicator              | boolean                        | true    |
-| disabled      | Disable the card                                    | boolean                        | false   |
-| readonly      | Read-only; remains focusable but cannot be selected | boolean                        | false   |
-| theme         | Appearance theme                                    | 'outline' \| 'fill'            | outline |
-| size          | Size                                                | 'small' \| 'medium' \| 'large' | medium  |
-| shape         | Shape                                               | ShapeType                      | round   |
-| change        | Emitted when selection state changes                | (event) => void                | -       |
+| Property      | Description                                                                 | Type                           | Default |
+| ------------- | --------------------------------------------------------------------------- | ------------------------------ | ------- |
+| modelValue    | Standalone state, supports `v-model`                                        | boolean                        | -       |
+| checked       | Initial checked state when used independently; modelValue takes precedence. | boolean                        | false   |
+| value         | Option value inside a group                                                 | string \| number               | -       |
+| title         | Title, customizable via the named slot                                      | string \| number \| VNodeChild | -       |
+| description   | Description, customizable via the named slot                                | string \| VNodeChild           | -       |
+| symbol        | Symbol icon, customizable via the named slot                                | IconType[] \| VNodeChild       | -       |
+| checkedSymbol | Symbol icon used when checked                                               | IconType[]                     | -       |
+| showIndicator | Show the top-right selection indicator                                      | boolean                        | true    |
+| disabled      | Disable the card                                                            | boolean                        | false   |
+| readonly      | Read-only; remains focusable but cannot be selected                         | boolean                        | false   |
+| theme         | Appearance theme                                                            | 'outline' \| 'fill'            | outline |
+| size          | Size                                                                        | 'small' \| 'medium' \| 'large' | medium  |
+| shape         | Shape                                                                       | ShapeType                      | round   |
+| change        | Emitted when selection state changes                                        | (event) => void                | -       |
 
 ## CheckCardGroup API
 
-| Property   | Description                             | Type                           | Default    |
-| ---------- | --------------------------------------- | ------------------------------ | ---------- |
-| modelValue | Selected value, supports `v-model`      | string \| number               | -          |
-| options    | Card options                            | CheckCardOption[]              | -          |
-| disabled   | Disable the group                       | boolean                        | false      |
-| readonly   | Make the group read-only                | boolean                        | false      |
-| direction  | Layout direction                        | 'horizontal' \| 'vertical'     | horizontal |
-| theme      | Card theme                              | 'outline' \| 'fill'            | outline    |
-| size       | Card size                               | 'small' \| 'medium' \| 'large' | medium     |
-| shape      | Card shape                              | ShapeType                      | round      |
-| change     | Emitted when the selected value changes | (value) => void                | -          |
+| Property   | Description                                                                                                                   | Type                           | Default    |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ---------- |
+| modelValue | Selected value, supports `v-model`                                                                                            | string \| number               | -          |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number               | -          |
+| options    | Card options                                                                                                                  | CheckCardOption[]              | -          |
+| disabled   | Disable the group                                                                                                             | boolean                        | false      |
+| readonly   | Make the group read-only                                                                                                      | boolean                        | false      |
+| direction  | Layout direction                                                                                                              | 'horizontal' \| 'vertical'     | horizontal |
+| theme      | Card theme                                                                                                                    | 'outline' \| 'fill'            | outline    |
+| size       | Card size                                                                                                                     | 'small' \| 'medium' \| 'large' | medium     |
+| shape      | Card shape                                                                                                                    | ShapeType                      | round      |
+| change     | Emitted when the selected value changes                                                                                       | (value) => void                | -          |
 
 Each item in `options` also supports `disabled` and `readonly`.
 
@@ -1544,35 +1551,37 @@ Present richer choices with a title, description, and optional symbol.
 
 ## CheckCard API
 
-| Property      | Description                                         | Type                           | Default |
-| ------------- | --------------------------------------------------- | ------------------------------ | ------- |
-| modelValue    | Standalone state, supports `v-model`                | boolean                        | false   |
-| value         | Option value inside a group                         | string \| number               | -       |
-| title         | Title, customizable via the named slot              | string \| number \| VNodeChild | -       |
-| description   | Description, customizable via the named slot        | string \| VNodeChild           | -       |
-| symbol        | Symbol icon, customizable via the named slot        | IconType[] \| VNodeChild       | -       |
-| checkedSymbol | Symbol icon used when checked                       | IconType[]                     | -       |
-| showIndicator | Show the top-right selection indicator              | boolean                        | true    |
-| disabled      | Disable the card                                    | boolean                        | false   |
-| readonly      | Read-only; remains focusable but cannot be selected | boolean                        | false   |
-| theme         | Appearance theme                                    | 'outline' \| 'fill'            | outline |
-| size          | Size                                                | 'small' \| 'medium' \| 'large' | medium  |
-| shape         | Shape                                               | ShapeType                      | round   |
-| change        | Emitted when selection state changes                | (event) => void                | -       |
+| Property      | Description                                                                 | Type                           | Default |
+| ------------- | --------------------------------------------------------------------------- | ------------------------------ | ------- |
+| modelValue    | Standalone state, supports `v-model`                                        | boolean                        | -       |
+| checked       | Initial checked state when used independently; modelValue takes precedence. | boolean                        | false   |
+| value         | Option value inside a group                                                 | string \| number               | -       |
+| title         | Title, customizable via the named slot                                      | string \| number \| VNodeChild | -       |
+| description   | Description, customizable via the named slot                                | string \| VNodeChild           | -       |
+| symbol        | Symbol icon, customizable via the named slot                                | IconType[] \| VNodeChild       | -       |
+| checkedSymbol | Symbol icon used when checked                                               | IconType[]                     | -       |
+| showIndicator | Show the top-right selection indicator                                      | boolean                        | true    |
+| disabled      | Disable the card                                                            | boolean                        | false   |
+| readonly      | Read-only; remains focusable but cannot be selected                         | boolean                        | false   |
+| theme         | Appearance theme                                                            | 'outline' \| 'fill'            | outline |
+| size          | Size                                                                        | 'small' \| 'medium' \| 'large' | medium  |
+| shape         | Shape                                                                       | ShapeType                      | round   |
+| change        | Emitted when selection state changes                                        | (event) => void                | -       |
 
 ## CheckCardGroup API
 
-| Property   | Description                             | Type                           | Default    |
-| ---------- | --------------------------------------- | ------------------------------ | ---------- |
-| modelValue | Selected value, supports `v-model`      | string \| number               | -          |
-| options    | Card options                            | CheckCardOption[]              | -          |
-| disabled   | Disable the group                       | boolean                        | false      |
-| readonly   | Make the group read-only                | boolean                        | false      |
-| direction  | Layout direction                        | 'horizontal' \| 'vertical'     | horizontal |
-| theme      | Card theme                              | 'outline' \| 'fill'            | outline    |
-| size       | Card size                               | 'small' \| 'medium' \| 'large' | medium     |
-| shape      | Card shape                              | ShapeType                      | round      |
-| change     | Emitted when the selected value changes | (value) => void                | -          |
+| Property   | Description                                                                                                                   | Type                           | Default    |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ---------- |
+| modelValue | Selected value, supports `v-model`                                                                                            | string \| number               | -          |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number               | -          |
+| options    | Card options                                                                                                                  | CheckCardOption[]              | -          |
+| disabled   | Disable the group                                                                                                             | boolean                        | false      |
+| readonly   | Make the group read-only                                                                                                      | boolean                        | false      |
+| direction  | Layout direction                                                                                                              | 'horizontal' \| 'vertical'     | horizontal |
+| theme      | Card theme                                                                                                                    | 'outline' \| 'fill'            | outline    |
+| size       | Card size                                                                                                                     | 'small' \| 'medium' \| 'large' | medium     |
+| shape      | Card shape                                                                                                                    | ShapeType                      | round      |
+| change     | Emitted when the selected value changes                                                                                       | (value) => void                | -          |
 
 Each item in `options` also supports `disabled` and `readonly`.
 
@@ -1724,25 +1733,26 @@ Freely output colors.
 
 ## API
 
-| Property      | Description                                                                        | Type                           | Default     |
-| ------------- | ---------------------------------------------------------------------------------- | ------------------------------ | ----------- |
-| modelValue    | Color value, can use `v-model` for two-way binding                                 | string                         | -           |
-| opened        | Whether the color panel is displayed by default                                    | boolean                        | false       |
-| mode          | Color display type, provides 3 modes (`hex` , `rgb` ,`hsl`)                        | string                         | 'hex'       |
-| presets       | Custom color palette                                                               | string[]                       | -           |
-| disabledAlpha | Whether to disable transparency                                                    | boolean                        | false       |
-| disabled      | Is it in an invalid state?                                                         | boolean                        | false       |
-| readonly      | Read-only; prevents opening or changing                                            | boolean                        | false       |
-| trigger       | Pull-down trigger mode                                                             | 'hover' \| 'click'             | click       |
-| showText      | Whether to display colored text                                                    | boolean                        | false       |
-| size          | Size of the color picker                                                           | 'small' \| 'medium' \| 'large' | -           |
-| theme         | Appearance theme: `outline`, `fill`, or `plain`; inherits from Form when available | ThemeType                      | outline     |
-| shape         | Shape: `round`, `circle`, or `square`; inherits from Form when available           | ShapeType                      | -           |
-| placement     | Placement of the color picker                                                      | string                         | bottom-left |
-| onUpdateMode  | Triggered when the color mode is updated                                           | (mode: ColorMode) => void      | -           |
-| onChange      | Triggered when the color value changes, returns the color value                    | (color: string) => void        | -           |
-| onOpenChange  | Triggered when the color picker expands or collapses                               | (opened: boolean) => void      | -           |
-| panelOnly     | Render only the color panel without the trigger input                              | boolean                        | false       |
+| Property      | Description                                                                                                                   | Type                           | Default     |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ----------- |
+| modelValue    | Color value, can use `v-model` for two-way binding                                                                            | string                         | -           |
+| value         | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string                         | -           |
+| opened        | Whether the color panel is displayed by default                                                                               | boolean                        | false       |
+| mode          | Color display type, provides 3 modes (`hex` , `rgb` ,`hsl`)                                                                   | string                         | 'hex'       |
+| presets       | Custom color palette                                                                                                          | string[]                       | -           |
+| disabledAlpha | Whether to disable transparency                                                                                               | boolean                        | false       |
+| disabled      | Is it in an invalid state?                                                                                                    | boolean                        | false       |
+| readonly      | Read-only; prevents opening or changing                                                                                       | boolean                        | false       |
+| trigger       | Pull-down trigger mode                                                                                                        | 'hover' \| 'click'             | click       |
+| showText      | Whether to display colored text                                                                                               | boolean                        | false       |
+| size          | Size of the color picker                                                                                                      | 'small' \| 'medium' \| 'large' | -           |
+| theme         | Appearance theme: `outline`, `fill`, or `plain`; inherits from Form when available                                            | ThemeType                      | outline     |
+| shape         | Shape: `round`, `circle`, or `square`; inherits from Form when available                                                      | ShapeType                      | -           |
+| placement     | Placement of the color picker                                                                                                 | string                         | bottom-left |
+| onUpdateMode  | Triggered when the color mode is updated                                                                                      | (mode: ColorMode) => void      | -           |
+| onChange      | Triggered when the color value changes, returns the color value                                                               | (color: string) => void        | -           |
+| onOpenChange  | Triggered when the color picker expands or collapses                                                                          | (opened: boolean) => void      | -           |
+| panelOnly     | Render only the color panel without the trigger input                                                                         | boolean                        | false       |
 
 ---
 
@@ -1802,7 +1812,8 @@ When the user needs to input a date, they can click the standard input box to po
 
 | Property     | Description                                                                                                                                            | Type                                                                                | Default    |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- | ---------- |
-| modelValue   | Current date or time value                                                                                                                             | DatePickerInput \| DatePickerInput[]                                                | null       |
+| modelValue   | Current date or time value                                                                                                                             | DatePickerInput \| DatePickerInput[]                                                | -          |
+| value        | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.                          | DatePickerInput \| DatePickerInput[]                                                | null       |
 | startDate    | Start value for range selection                                                                                                                        | DatePickerInput                                                                     | null       |
 | endDate      | End value for range selection                                                                                                                          | DatePickerInput                                                                     | null       |
 | mode         | Use the `mode` property to customize the date display type. Options: `year`, `month`, `date`, `time`, `dateTime`, `dateRange`, `dateTimeRange`         | string                                                                              | date       |
@@ -1980,26 +1991,27 @@ A floating panel that slides in from the edge of the screen.
 
 ## API
 
-| Property     | Description                                                                                       | Type                                       | Default             |
-| ------------ | ------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------------- |
-| modelValue   | Whether the dialog is displayed, can use v-model for two-way binding.                             | boolean                                    | false               |
-| escKey       | Whether to support closing with Esc key                                                           | boolean                                    | true                |
-| maskClosable | Whether clicking the mask allows closing                                                          | boolean                                    | true                |
-| title        | Drawer title                                                                                      | string                                     | Title               |
-| width        | Drawer width, used when `placement` is `left` or `right`, supports percentage                     | number \| string                           | 520                 |
-| height       | Drawer height, used when `placement` is `top` or `bottom`, supports percentage                    | number \| string                           | 520                 |
-| placement    | The display direction of the drawer. Provides 4 display methods: `left`, `top`, `right`, `bottom` | string                                     | right               |
-| footer       | Whether to show the footer; the slot with the same name customizes its content                    | boolean, slot                              | true                |
-| closable     | Whether to show the close button                                                                  | boolean                                    | true                |
-| target       | Display container; accepts a native element or component ref                                      | () => HTMLElement, ComponentPublicInstance | () => document.body |
-| okText       | OK button text                                                                                    | string                                     | OK                  |
-| cancelText   | Cancel button text                                                                                | string                                     | Cancel              |
-| mask         | Whether to show the mask                                                                          | boolean                                    | true                |
-| loading      | When set to `true`, the confirm button will be in a loading state                                 | boolean                                    | false               |
-| onOk         | Callback when OK is clicked                                                                       | () => void                                 | -                   |
-| onClose      | Callback when the drawer closes                                                                   | () => void                                 | -                   |
-| onCancel     | Callback when Cancel is clicked                                                                   | () => void                                 | -                   |
-| onOpenChange | Callback for opening or closing the drawer                                                        | (opened:boolean) => void                   | -                   |
+| Property     | Description                                                                                                                   | Type                                       | Default             |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------------- |
+| modelValue   | Whether the dialog is displayed, can use v-model for two-way binding.                                                         | boolean                                    | -                   |
+| value        | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | boolean                                    | false               |
+| escKey       | Whether to support closing with Esc key                                                                                       | boolean                                    | true                |
+| maskClosable | Whether clicking the mask allows closing                                                                                      | boolean                                    | true                |
+| title        | Drawer title                                                                                                                  | string                                     | Title               |
+| width        | Drawer width, used when `placement` is `left` or `right`, supports percentage                                                 | number \| string                           | 520                 |
+| height       | Drawer height, used when `placement` is `top` or `bottom`, supports percentage                                                | number \| string                           | 520                 |
+| placement    | The display direction of the drawer. Provides 4 display methods: `left`, `top`, `right`, `bottom`                             | string                                     | right               |
+| footer       | Whether to show the footer; the slot with the same name customizes its content                                                | boolean, slot                              | true                |
+| closable     | Whether to show the close button                                                                                              | boolean                                    | true                |
+| target       | Display container; accepts a native element or component ref                                                                  | () => HTMLElement, ComponentPublicInstance | () => document.body |
+| okText       | OK button text                                                                                                                | string                                     | OK                  |
+| cancelText   | Cancel button text                                                                                                            | string                                     | Cancel              |
+| mask         | Whether to show the mask                                                                                                      | boolean                                    | true                |
+| loading      | When set to `true`, the confirm button will be in a loading state                                                             | boolean                                    | false               |
+| onOk         | Callback when OK is clicked                                                                                                   | () => void                                 | -                   |
+| onClose      | Callback when the drawer closes                                                                                               | () => void                                 | -                   |
+| onCancel     | Callback when Cancel is clicked                                                                                               | () => void                                 | -                   |
+| onOpenChange | Callback for opening or closing the drawer                                                                                    | (opened:boolean) => void                   | -                   |
 
 ---
 
@@ -3232,24 +3244,25 @@ Used for SMS codes, email codes, and one-time passwords.
 
 ## API
 
-| Property   | Description                                                | Type                                           | Default |
-| ---------- | ---------------------------------------------------------- | ---------------------------------------------- | ------- |
-| modelValue | Bound value, supports `v-model`                            | string \| number                               | -       |
-| length     | Number of characters, normalized to a non-negative integer | number                                         | 6       |
-| type       | Accepted character type                                    | 'number' \| 'text'                             | number  |
-| size       | Component size                                             | SizeType                                       | -       |
-| mask       | Mask the entered value                                     | boolean                                        | false   |
-| disabled   | Disable the inputs                                         | boolean                                        | false   |
-| readonly   | Make the inputs readonly                                   | boolean                                        | false   |
-| autofocus  | Focus the first input automatically                        | boolean                                        | false   |
-| separator  | Content between OTP fields                                 | VNodeChild                                     | -       |
-| validator  | Custom validator for each character                        | (value: string) => boolean                     | -       |
-| theme      | Visual theme                                               | 'fill' \| 'outline' \| 'underlined' \| 'plain' | fill    |
-| shape      | Field shape                                                | ShapeType                                      | -       |
-| complete   | Emitted when all characters exist                          | (value) => void                                | -       |
-| change     | Emitted when the input value changes                       | (value: string) => void                        | -       |
-| focus      | Emitted when an input receives focus                       | (event: FocusEvent) => void                    | -       |
-| blur       | Emitted when an input loses focus                          | (event: FocusEvent) => void                    | -       |
+| Property   | Description                                                                                                                   | Type                                           | Default |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- | ------- |
+| modelValue | Bound value, supports `v-model`                                                                                               | string \| number                               | -       |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number                               | -       |
+| length     | Number of characters, normalized to a non-negative integer                                                                    | number                                         | 6       |
+| type       | Accepted character type                                                                                                       | 'number' \| 'text'                             | number  |
+| size       | Component size                                                                                                                | SizeType                                       | -       |
+| mask       | Mask the entered value                                                                                                        | boolean                                        | false   |
+| disabled   | Disable the inputs                                                                                                            | boolean                                        | false   |
+| readonly   | Make the inputs readonly                                                                                                      | boolean                                        | false   |
+| autofocus  | Focus the first input automatically                                                                                           | boolean                                        | false   |
+| separator  | Content between OTP fields                                                                                                    | VNodeChild                                     | -       |
+| validator  | Custom validator for each character                                                                                           | (value: string) => boolean                     | -       |
+| theme      | Visual theme                                                                                                                  | 'fill' \| 'outline' \| 'underlined' \| 'plain' | fill    |
+| shape      | Field shape                                                                                                                   | ShapeType                                      | -       |
+| complete   | Emitted when all characters exist                                                                                             | (value) => void                                | -       |
+| change     | Emitted when the input value changes                                                                                          | (value: string) => void                        | -       |
+| focus      | Emitted when an input receives focus                                                                                          | (event: FocusEvent) => void                    | -       |
+| blur       | Emitted when an input loses focus                                                                                             | (event: FocusEvent) => void                    | -       |
 
 ---
 
@@ -3281,29 +3294,30 @@ When standard numerical values need to be obtained.
 
 ## InputNumber API
 
-| Property    | Description                                                                 | Type                                 | Default   |
-| ----------- | --------------------------------------------------------------------------- | ------------------------------------ | --------- |
-| min         | Minimum value                                                               | number                               | -Infinity |
-| max         | Maximum value                                                               | number                               | Infinity  |
-| step        | Step value for each change, can be a decimal                                | number \| string                     | 1         |
-| modelValue  | The value of InputNumber(v-model)                                           | number                               | -         |
-| formatter   | Specifies the format of the value displayed in the input box                | (value: string \| number) => string  | -         |
-| parser      | Specifies how to convert back from formatter to number, used with formatter | (value: string) => string \| number  | -         |
-| size        | Input box size                                                              | SizeType                             | -         |
-| disabled    | Disabled                                                                    | boolean                              | false     |
-| readonly    | Whether the input is read-only                                              | boolean                              | false     |
-| precision   | Numerical precision                                                         | number                               | -         |
-| shape       | Component appearance                                                        | ShapeType                            | -         |
-| suffix      | Custom suffix                                                               | string \| slot                       | -         |
-| prefix      | Prefix content                                                              | string \| slot                       | -         |
-| controls    | Whether to show increase/decrease buttons                                   | boolean                              | true      |
-| theme       | Component theme                                                             | ThemeType                            | fill      |
-| icon        | Input icon                                                                  | IconType[]                           | -         |
-| placeholder | Input placeholder                                                           | string                               | -         |
-| keyboard    | Allow keyboard control                                                      | boolean                              | true      |
-| onChange    | Change callback; returns `undefined` when cleared                           | (value: number \| undefined) => void | -         |
-| onBlur      | Called when the input loses focus                                           | (event: FocusEvent) => void          | -         |
-| onKeydown   | Called when a key is pressed in the input                                   | (event: KeyboardEvent) => void       | -         |
+| Property    | Description                                                                                                                   | Type                                 | Default   |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ | --------- |
+| min         | Minimum value                                                                                                                 | number                               | -Infinity |
+| max         | Maximum value                                                                                                                 | number                               | Infinity  |
+| step        | Step value for each change, can be a decimal                                                                                  | number \| string                     | 1         |
+| modelValue  | The value of InputNumber(v-model)                                                                                             | number                               | -         |
+| value       | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | number                               | -         |
+| formatter   | Specifies the format of the value displayed in the input box                                                                  | (value: string \| number) => string  | -         |
+| parser      | Specifies how to convert back from formatter to number, used with formatter                                                   | (value: string) => string \| number  | -         |
+| size        | Input box size                                                                                                                | SizeType                             | -         |
+| disabled    | Disabled                                                                                                                      | boolean                              | false     |
+| readonly    | Whether the input is read-only                                                                                                | boolean                              | false     |
+| precision   | Numerical precision                                                                                                           | number                               | -         |
+| shape       | Component appearance                                                                                                          | ShapeType                            | -         |
+| suffix      | Custom suffix                                                                                                                 | string \| slot                       | -         |
+| prefix      | Prefix content                                                                                                                | string \| slot                       | -         |
+| controls    | Whether to show increase/decrease buttons                                                                                     | boolean                              | true      |
+| theme       | Component theme                                                                                                               | ThemeType                            | fill      |
+| icon        | Input icon                                                                                                                    | IconType[]                           | -         |
+| placeholder | Input placeholder                                                                                                             | string                               | -         |
+| keyboard    | Allow keyboard control                                                                                                        | boolean                              | true      |
+| onChange    | Change callback; returns `undefined` when cleared                                                                             | (value: number \| undefined) => void | -         |
+| onBlur      | Called when the input loses focus                                                                                             | (event: FocusEvent) => void          | -         |
+| onKeydown   | Called when a key is pressed in the input                                                                                     | (event: KeyboardEvent) => void       | -         |
 
 ---
 
@@ -3469,18 +3483,19 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 ### MenuAPI
 
-| Property         | Description                                      | Type                                   | Default    |
-| ---------------- | ------------------------------------------------ | -------------------------------------- | ---------- |
-| modelValue       | Currently selected menu items (v-model)          | string[]                               | []         |
-| theme            | Local theme; inherits global theme when omitted  | `light` \| `dark`                      | -          |
-| items            | Menu data                                        | MenuOptionsProps[]                     | -          |
-| openKeys         | Currently expanded SubMenu menu item key array   | string[]                               | []         |
-| mode             | Menu type                                        | `vertical` \| `horizontal` \| `inline` | `vertical` |
-| onSelect         | Called when MenuItem is clicked                  | (data: MenuSelectEvent) => void        | -          |
-| onOpenChange     | Callback when SubMenu expands/collapses          | (openKeys: string[]) => void           | -          |
-| accordion        | Whether only one menu item can be expanded       | boolean                                | false      |
-| inlineCollapsed  | Whether the menu is collapsed in inline mode     | boolean                                | false      |
-| collapsedTooltip | Whether leaf items show a tooltip when collapsed | boolean                                | true       |
+| Property         | Description                                                                                                                   | Type                                   | Default    |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ---------- |
+| modelValue       | Currently selected menu items (v-model)                                                                                       | string[]                               | -          |
+| value            | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string[]                               | []         |
+| theme            | Local theme; inherits global theme when omitted                                                                               | `light` \| `dark`                      | -          |
+| items            | Menu data                                                                                                                     | MenuOptionsProps[]                     | -          |
+| openKeys         | Currently expanded SubMenu menu item key array                                                                                | string[]                               | []         |
+| mode             | Menu type                                                                                                                     | `vertical` \| `horizontal` \| `inline` | `vertical` |
+| onSelect         | Called when MenuItem is clicked                                                                                               | (data: MenuSelectEvent) => void        | -          |
+| onOpenChange     | Callback when SubMenu expands/collapses                                                                                       | (openKeys: string[]) => void           | -          |
+| accordion        | Whether only one menu item can be expanded                                                                                    | boolean                                | false      |
+| inlineCollapsed  | Whether the menu is collapsed in inline mode                                                                                  | boolean                                | false      |
+| collapsedTooltip | Whether leaf items show a tooltip when collapsed                                                                              | boolean                                | true       |
 
 ### Menu(items)
 
@@ -3494,13 +3509,13 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 ### MenuItem
 
-| Property | Description                       | Type                        | Default |
-| -------- | --------------------------------- | --------------------------- | ------- |
-| icon     | Item icon                         | IconType                    | -       |
-| disabled | Whether disabled                  | boolean                     | false   |
-| key      | Unique identifier for item        | string                      | -       |
-| title    | Menu item content                 | VNodeChild                  | -       |
-| onClick  | Callback fired when item clicked  | (event: MouseEvent) => void | -       |
+| Property | Description                      | Type                        | Default |
+| -------- | -------------------------------- | --------------------------- | ------- |
+| icon     | Item icon                        | IconType                    | -       |
+| disabled | Whether disabled                 | boolean                     | false   |
+| key      | Unique identifier for item       | string                      | -       |
+| title    | Menu item content                | VNodeChild                  | -       |
+| onClick  | Callback fired when item clicked | (event: MouseEvent) => void | -       |
 
 ### SubMenu
 
@@ -3567,18 +3582,19 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 ### MenuAPI
 
-| Property         | Description                                      | Type                                   | Default    |
-| ---------------- | ------------------------------------------------ | -------------------------------------- | ---------- |
-| modelValue       | Currently selected menu items (v-model)          | string[]                               | []         |
-| theme            | Local theme; inherits global theme when omitted  | `light` \| `dark`                      | -          |
-| items            | Menu data                                        | MenuOptionsProps[]                     | -          |
-| openKeys         | Currently expanded SubMenu menu item key array   | string[]                               | []         |
-| mode             | Menu type                                        | `vertical` \| `horizontal` \| `inline` | `vertical` |
-| onSelect         | Called when MenuItem is clicked                  | (data: MenuSelectEvent) => void        | -          |
-| onOpenChange     | Callback when SubMenu expands/collapses          | (openKeys: string[]) => void           | -          |
-| accordion        | Whether only one menu item can be expanded       | boolean                                | false      |
-| inlineCollapsed  | Whether the menu is collapsed in inline mode     | boolean                                | false      |
-| collapsedTooltip | Whether leaf items show a tooltip when collapsed | boolean                                | true       |
+| Property         | Description                                                                                                                   | Type                                   | Default    |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ---------- |
+| modelValue       | Currently selected menu items (v-model)                                                                                       | string[]                               | -          |
+| value            | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string[]                               | []         |
+| theme            | Local theme; inherits global theme when omitted                                                                               | `light` \| `dark`                      | -          |
+| items            | Menu data                                                                                                                     | MenuOptionsProps[]                     | -          |
+| openKeys         | Currently expanded SubMenu menu item key array                                                                                | string[]                               | []         |
+| mode             | Menu type                                                                                                                     | `vertical` \| `horizontal` \| `inline` | `vertical` |
+| onSelect         | Called when MenuItem is clicked                                                                                               | (data: MenuSelectEvent) => void        | -          |
+| onOpenChange     | Callback when SubMenu expands/collapses                                                                                       | (openKeys: string[]) => void           | -          |
+| accordion        | Whether only one menu item can be expanded                                                                                    | boolean                                | false      |
+| inlineCollapsed  | Whether the menu is collapsed in inline mode                                                                                  | boolean                                | false      |
+| collapsedTooltip | Whether leaf items show a tooltip when collapsed                                                                              | boolean                                | true       |
 
 ### Menu(items)
 
@@ -3592,13 +3608,13 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 ### MenuItem
 
-| Property | Description                       | Type                        | Default |
-| -------- | --------------------------------- | --------------------------- | ------- |
-| icon     | Item icon                         | IconType                    | -       |
-| disabled | Whether disabled                  | boolean                     | false   |
-| key      | Unique identifier for item        | string                      | -       |
-| title    | Menu item content                 | VNodeChild                  | -       |
-| onClick  | Callback fired when item clicked  | (event: MouseEvent) => void | -       |
+| Property | Description                      | Type                        | Default |
+| -------- | -------------------------------- | --------------------------- | ------- |
+| icon     | Item icon                        | IconType                    | -       |
+| disabled | Whether disabled                 | boolean                     | false   |
+| key      | Unique identifier for item       | string                      | -       |
+| title    | Menu item content                | VNodeChild                  | -       |
+| onClick  | Callback fired when item clicked | (event: MouseEvent) => void | -       |
 
 ### SubMenu
 
@@ -3659,18 +3675,19 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 ### MenuAPI
 
-| Property         | Description                                      | Type                                   | Default    |
-| ---------------- | ------------------------------------------------ | -------------------------------------- | ---------- |
-| modelValue       | Currently selected menu items (v-model)          | string[]                               | []         |
-| theme            | Local theme; inherits global theme when omitted  | `light` \| `dark`                      | -          |
-| items            | Menu data                                        | MenuOptionsProps[]                     | -          |
-| openKeys         | Currently expanded SubMenu menu item key array   | string[]                               | []         |
-| mode             | Menu type                                        | `vertical` \| `horizontal` \| `inline` | `vertical` |
-| onSelect         | Called when MenuItem is clicked                  | (data: MenuSelectEvent) => void        | -          |
-| onOpenChange     | Callback when SubMenu expands/collapses          | (openKeys: string[]) => void           | -          |
-| accordion        | Whether only one menu item can be expanded       | boolean                                | false      |
-| inlineCollapsed  | Whether the menu is collapsed in inline mode     | boolean                                | false      |
-| collapsedTooltip | Whether leaf items show a tooltip when collapsed | boolean                                | true       |
+| Property         | Description                                                                                                                   | Type                                   | Default    |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ---------- |
+| modelValue       | Currently selected menu items (v-model)                                                                                       | string[]                               | -          |
+| value            | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string[]                               | []         |
+| theme            | Local theme; inherits global theme when omitted                                                                               | `light` \| `dark`                      | -          |
+| items            | Menu data                                                                                                                     | MenuOptionsProps[]                     | -          |
+| openKeys         | Currently expanded SubMenu menu item key array                                                                                | string[]                               | []         |
+| mode             | Menu type                                                                                                                     | `vertical` \| `horizontal` \| `inline` | `vertical` |
+| onSelect         | Called when MenuItem is clicked                                                                                               | (data: MenuSelectEvent) => void        | -          |
+| onOpenChange     | Callback when SubMenu expands/collapses                                                                                       | (openKeys: string[]) => void           | -          |
+| accordion        | Whether only one menu item can be expanded                                                                                    | boolean                                | false      |
+| inlineCollapsed  | Whether the menu is collapsed in inline mode                                                                                  | boolean                                | false      |
+| collapsedTooltip | Whether leaf items show a tooltip when collapsed                                                                              | boolean                                | true       |
 
 ### Menu(items)
 
@@ -3684,13 +3701,13 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 ### MenuItem
 
-| Property | Description                       | Type                        | Default |
-| -------- | --------------------------------- | --------------------------- | ------- |
-| icon     | Item icon                         | IconType                    | -       |
-| disabled | Whether disabled                  | boolean                     | false   |
-| key      | Unique identifier for item        | string                      | -       |
-| title    | Menu item content                 | VNodeChild                  | -       |
-| onClick  | Callback fired when item clicked  | (event: MouseEvent) => void | -       |
+| Property | Description                      | Type                        | Default |
+| -------- | -------------------------------- | --------------------------- | ------- |
+| icon     | Item icon                        | IconType                    | -       |
+| disabled | Whether disabled                 | boolean                     | false   |
+| key      | Unique identifier for item       | string                      | -       |
+| title    | Menu item content                | VNodeChild                  | -       |
+| onClick  | Callback fired when item clicked | (event: MouseEvent) => void | -       |
 
 ### SubMenu
 
@@ -3751,18 +3768,19 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 ### MenuAPI
 
-| Property         | Description                                      | Type                                   | Default    |
-| ---------------- | ------------------------------------------------ | -------------------------------------- | ---------- |
-| modelValue       | Currently selected menu items (v-model)          | string[]                               | []         |
-| theme            | Local theme; inherits global theme when omitted  | `light` \| `dark`                      | -          |
-| items            | Menu data                                        | MenuOptionsProps[]                     | -          |
-| openKeys         | Currently expanded SubMenu menu item key array   | string[]                               | []         |
-| mode             | Menu type                                        | `vertical` \| `horizontal` \| `inline` | `vertical` |
-| onSelect         | Called when MenuItem is clicked                  | (data: MenuSelectEvent) => void        | -          |
-| onOpenChange     | Callback when SubMenu expands/collapses          | (openKeys: string[]) => void           | -          |
-| accordion        | Whether only one menu item can be expanded       | boolean                                | false      |
-| inlineCollapsed  | Whether the menu is collapsed in inline mode     | boolean                                | false      |
-| collapsedTooltip | Whether leaf items show a tooltip when collapsed | boolean                                | true       |
+| Property         | Description                                                                                                                   | Type                                   | Default    |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- | ---------- |
+| modelValue       | Currently selected menu items (v-model)                                                                                       | string[]                               | -          |
+| value            | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string[]                               | []         |
+| theme            | Local theme; inherits global theme when omitted                                                                               | `light` \| `dark`                      | -          |
+| items            | Menu data                                                                                                                     | MenuOptionsProps[]                     | -          |
+| openKeys         | Currently expanded SubMenu menu item key array                                                                                | string[]                               | []         |
+| mode             | Menu type                                                                                                                     | `vertical` \| `horizontal` \| `inline` | `vertical` |
+| onSelect         | Called when MenuItem is clicked                                                                                               | (data: MenuSelectEvent) => void        | -          |
+| onOpenChange     | Callback when SubMenu expands/collapses                                                                                       | (openKeys: string[]) => void           | -          |
+| accordion        | Whether only one menu item can be expanded                                                                                    | boolean                                | false      |
+| inlineCollapsed  | Whether the menu is collapsed in inline mode                                                                                  | boolean                                | false      |
+| collapsedTooltip | Whether leaf items show a tooltip when collapsed                                                                              | boolean                                | true       |
 
 ### Menu(items)
 
@@ -3776,13 +3794,13 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 ### MenuItem
 
-| Property | Description                       | Type                        | Default |
-| -------- | --------------------------------- | --------------------------- | ------- |
-| icon     | Item icon                         | IconType                    | -       |
-| disabled | Whether disabled                  | boolean                     | false   |
-| key      | Unique identifier for item        | string                      | -       |
-| title    | Menu item content                 | VNodeChild                  | -       |
-| onClick  | Callback fired when item clicked  | (event: MouseEvent) => void | -       |
+| Property | Description                      | Type                        | Default |
+| -------- | -------------------------------- | --------------------------- | ------- |
+| icon     | Item icon                        | IconType                    | -       |
+| disabled | Whether disabled                 | boolean                     | false   |
+| key      | Unique identifier for item       | string                      | -       |
+| title    | Menu item content                | VNodeChild                  | -       |
+| onClick  | Callback fired when item clicked | (event: MouseEvent) => void | -       |
 
 ### SubMenu
 
@@ -3918,27 +3936,28 @@ Modal dialog box.
 
 ## API
 
-| Property     | Description                                                                 | Type                     | Default |
-| ------------ | --------------------------------------------------------------------------- | ------------------------ | ------- |
-| modelValue   | Whether the dialog is displayed, can use v-model for two-way binding.       | boolean                  | false   |
-| title        | Dialog title                                                                | string                   | -       |
-| width        | Dialog width                                                                | number \| string         | 520     |
-| okText       | OK button text                                                              | string                   | OK      |
-| cancelText   | Cancel button text                                                          | string                   | Cancel  |
-| draggable    | Whether the modal can be dragged, not available in confirm mode             | boolean                  | false   |
-| centered     | Whether the window can be centered, not available in confirm mode           | boolean                  | false   |
-| maximized    | Whether the modal can be maximized, not available in confirm mode           | boolean                  | false   |
-| maskClosable | Whether clicking the mask closes the modal, if not, Esc key will be invalid | boolean                  | true    |
-| escKey       | Whether to support closing with Esc key                                     | boolean                  | true    |
-| footer       | When `footer=false`, the bottom button is not displayed.                    | boolean, slot            | true    |
-| loading      | When set to `true`, the confirm button will be in a loading state           | boolean                  | false   |
-| top          | Distance from the top of the window                                         | number                   | -       |
-| showClose    | Whether to display the close button                                         | boolean                  | false   |
-| mask         | Whether to show the mask                                                    | boolean                  | true    |
-| onOk         | Callback when OK is clicked, `Note: will not close Modal`                   | () => void               | -       |
-| onCancel     | Callback when Cancel is clicked                                             | () => void               | -       |
-| onClose      | Callback when window closes                                                 | () => void               | -       |
-| onOpenChange | Callback for opening or closing a window                                    | (opened:boolean) => void | -       |
+| Property     | Description                                                                                                                   | Type                     | Default |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ------- |
+| modelValue   | Whether the dialog is displayed, can use v-model for two-way binding.                                                         | boolean                  | -       |
+| value        | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | boolean                  | false   |
+| title        | Dialog title                                                                                                                  | string                   | -       |
+| width        | Dialog width                                                                                                                  | number \| string         | 520     |
+| okText       | OK button text                                                                                                                | string                   | OK      |
+| cancelText   | Cancel button text                                                                                                            | string                   | Cancel  |
+| draggable    | Whether the modal can be dragged, not available in confirm mode                                                               | boolean                  | false   |
+| centered     | Whether the window can be centered, not available in confirm mode                                                             | boolean                  | false   |
+| maximized    | Whether the modal can be maximized, not available in confirm mode                                                             | boolean                  | false   |
+| maskClosable | Whether clicking the mask closes the modal, if not, Esc key will be invalid                                                   | boolean                  | true    |
+| escKey       | Whether to support closing with Esc key                                                                                       | boolean                  | true    |
+| footer       | When `footer=false`, the bottom button is not displayed.                                                                      | boolean, slot            | true    |
+| loading      | When set to `true`, the confirm button will be in a loading state                                                             | boolean                  | false   |
+| top          | Distance from the top of the window                                                                                           | number                   | -       |
+| showClose    | Whether to display the close button                                                                                           | boolean                  | false   |
+| mask         | Whether to show the mask                                                                                                      | boolean                  | true    |
+| onOk         | Callback when OK is clicked, `Note: will not close Modal`                                                                     | () => void               | -       |
+| onCancel     | Callback when Cancel is clicked                                                                                               | () => void               | -       |
+| onClose      | Callback when window closes                                                                                                   | () => void               | -       |
+| onOpenChange | Callback for opening or closing a window                                                                                      | (opened:boolean) => void | -       |
 
 ## Modal.method()
 
@@ -4376,18 +4395,19 @@ Use the standalone [Segmented](../segmented/index.en_US.md) component for slider
 
 ## RadioGroup API
 
-| Property   | Description                                                                          | Type                              | Default    |
-| ---------- | ------------------------------------------------------------------------------------ | --------------------------------- | ---------- |
-| modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding data | string \| number                  | -          |
-| disabled   | Disable the entire group                                                             | boolean                           | false      |
-| readonly   | Whether the group is read-only                                                       | boolean                           | false      |
-| size       | Button size                                                                          | SizeType                          | -          |
-| direction  | Layout direction                                                                     | 'horizontal' \| 'vertical'        | horizontal |
-| shape      | Button shape                                                                         | ShapeType                         | -          |
-| theme      | Button theme                                                                         | ThemeType                         | -          |
-| onChange   | Triggered when option state changes, returns currently selected item                 | (value: string \| number) => void | -          |
-| options    | Can specify child `radio` items                                                      | RadioOption[]                     | -          |
-| type       | Use radio or button-style items                                                      | 'radio' \| 'button'               | radio      |
+| Property   | Description                                                                                                                   | Type                              | Default    |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ---------- |
+| modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding data                                          | string \| number                  | -          |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number                  | -          |
+| disabled   | Disable the entire group                                                                                                      | boolean                           | false      |
+| readonly   | Whether the group is read-only                                                                                                | boolean                           | false      |
+| size       | Button size                                                                                                                   | SizeType                          | -          |
+| direction  | Layout direction                                                                                                              | 'horizontal' \| 'vertical'        | horizontal |
+| shape      | Button shape                                                                                                                  | ShapeType                         | -          |
+| theme      | Button theme                                                                                                                  | ThemeType                         | -          |
+| onChange   | Triggered when option state changes, returns currently selected item                                                          | (value: string \| number) => void | -          |
+| options    | Can specify child `radio` items                                                                                               | RadioOption[]                     | -          |
+| type       | Use radio or button-style items                                                                                               | 'radio' \| 'button'               | radio      |
 
 ---
 
@@ -4449,18 +4469,19 @@ Use the standalone [Segmented](../segmented/index.en_US.md) component for slider
 
 ## RadioGroup API
 
-| Property   | Description                                                                          | Type                              | Default    |
-| ---------- | ------------------------------------------------------------------------------------ | --------------------------------- | ---------- |
-| modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding data | string \| number                  | -          |
-| disabled   | Disable the entire group                                                             | boolean                           | false      |
-| readonly   | Whether the group is read-only                                                       | boolean                           | false      |
-| size       | Button size                                                                          | SizeType                          | -          |
-| direction  | Layout direction                                                                     | 'horizontal' \| 'vertical'        | horizontal |
-| shape      | Button shape                                                                         | ShapeType                         | -          |
-| theme      | Button theme                                                                         | ThemeType                         | -          |
-| onChange   | Triggered when option state changes, returns currently selected item                 | (value: string \| number) => void | -          |
-| options    | Can specify child `radio` items                                                      | RadioOption[]                     | -          |
-| type       | Use radio or button-style items                                                      | 'radio' \| 'button'               | radio      |
+| Property   | Description                                                                                                                   | Type                              | Default    |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ---------- |
+| modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding data                                          | string \| number                  | -          |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number                  | -          |
+| disabled   | Disable the entire group                                                                                                      | boolean                           | false      |
+| readonly   | Whether the group is read-only                                                                                                | boolean                           | false      |
+| size       | Button size                                                                                                                   | SizeType                          | -          |
+| direction  | Layout direction                                                                                                              | 'horizontal' \| 'vertical'        | horizontal |
+| shape      | Button shape                                                                                                                  | ShapeType                         | -          |
+| theme      | Button theme                                                                                                                  | ThemeType                         | -          |
+| onChange   | Triggered when option state changes, returns currently selected item                                                          | (value: string \| number) => void | -          |
+| options    | Can specify child `radio` items                                                                                               | RadioOption[]                     | -          |
+| type       | Use radio or button-style items                                                                                               | 'radio' \| 'button'               | radio      |
 
 ---
 
@@ -4522,18 +4543,19 @@ Use the standalone [Segmented](../segmented/index.en_US.md) component for slider
 
 ## RadioGroup API
 
-| Property   | Description                                                                          | Type                              | Default    |
-| ---------- | ------------------------------------------------------------------------------------ | --------------------------------- | ---------- |
-| modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding data | string \| number                  | -          |
-| disabled   | Disable the entire group                                                             | boolean                           | false      |
-| readonly   | Whether the group is read-only                                                       | boolean                           | false      |
-| size       | Button size                                                                          | SizeType                          | -          |
-| direction  | Layout direction                                                                     | 'horizontal' \| 'vertical'        | horizontal |
-| shape      | Button shape                                                                         | ShapeType                         | -          |
-| theme      | Button theme                                                                         | ThemeType                         | -          |
-| onChange   | Triggered when option state changes, returns currently selected item                 | (value: string \| number) => void | -          |
-| options    | Can specify child `radio` items                                                      | RadioOption[]                     | -          |
-| type       | Use radio or button-style items                                                      | 'radio' \| 'button'               | radio      |
+| Property   | Description                                                                                                                   | Type                              | Default    |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ---------- |
+| modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding data                                          | string \| number                  | -          |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number                  | -          |
+| disabled   | Disable the entire group                                                                                                      | boolean                           | false      |
+| readonly   | Whether the group is read-only                                                                                                | boolean                           | false      |
+| size       | Button size                                                                                                                   | SizeType                          | -          |
+| direction  | Layout direction                                                                                                              | 'horizontal' \| 'vertical'        | horizontal |
+| shape      | Button shape                                                                                                                  | ShapeType                         | -          |
+| theme      | Button theme                                                                                                                  | ThemeType                         | -          |
+| onChange   | Triggered when option state changes, returns currently selected item                                                          | (value: string \| number) => void | -          |
+| options    | Can specify child `radio` items                                                                                               | RadioOption[]                     | -          |
+| type       | Use radio or button-style items                                                                                               | 'radio' \| 'button'               | radio      |
 
 ---
 
@@ -4561,17 +4583,18 @@ Switch quickly between mutually exclusive options.
 
 ## API
 
-| Property   | Description                                       | Type                     | Default    |
-| ---------- | ------------------------------------------------- | ------------------------ | ---------- |
-| modelValue | Selected value                                    | string \| number         | -          |
-| options    | Option data                                       | SegmentedOption[]        | []         |
-| disabled   | Disable all options                               | boolean                  | false      |
-| readonly   | Read-only state                                   | boolean                  | false      |
-| block      | Fill the parent width                             | boolean                  | false      |
-| direction  | Layout direction                                  | `horizontal \| vertical` | horizontal |
-| size       | Size                                              | SizeType                 | medium     |
-| shape      | Shape                                             | ShapeType                | round      |
-| label      | Custom option content with `{ option, selected }` | VNodeChild               | -          |
+| Property   | Description                                                                                                                   | Type                     | Default    |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ---------- |
+| modelValue | Selected value                                                                                                                | string \| number         | -          |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number         | -          |
+| options    | Option data                                                                                                                   | SegmentedOption[]        | []         |
+| disabled   | Disable all options                                                                                                           | boolean                  | false      |
+| readonly   | Read-only state                                                                                                               | boolean                  | false      |
+| block      | Fill the parent width                                                                                                         | boolean                  | false      |
+| direction  | Layout direction                                                                                                              | `horizontal \| vertical` | horizontal |
+| size       | Size                                                                                                                          | SizeType                 | medium     |
+| shape      | Shape                                                                                                                         | ShapeType                | round      |
+| label      | Custom option content with `{ option, selected }`                                                                             | VNodeChild               | -          |
 
 ## Events
 
@@ -4758,40 +4781,41 @@ Dropdown selector.
 
 ## Select API
 
-| Property     | Description                                                                       | Type                                       | Default       |
-| ------------ | --------------------------------------------------------------------------------- | ------------------------------------------ | ------------- |
-| modelValue   | Specifies the `value` of the selected item, can use `v-model` for two-way binding | string \| number                           | -             |
-| width        | Component width                                                                   | string \| number                           | -             |
-| placeholder  | Default text of selector                                                          | string                                     | Please select |
-| disabled     | Whether current item is disabled                                                  | boolean                                    | false         |
-| readonly     | Read-only; prevents opening, clearing and changing                                | boolean                                    | false         |
-| size         | Component size, provides two sizes: `small`, `large`, default is normal           | string                                     | -             |
-| placement    | Dropdown placement                                                                | DropPlacementsType                         | bottom-left   |
-| emptyText    | Prompt displayed when no data                                                     | string                                     | 'No data yet' |
-| maxTagCount  | Maximum visible tags in multiple mode; excess tags are shown in a Tooltip         | number                                     | -             |
-| multiple     | Whether to display in multiple selection mode                                     | boolean                                    | false         |
-| allowCreate  | Whether multiple mode can create missing options from entered text                | boolean                                    | false         |
-| loading      | Whether to show asynchronous loading                                              | boolean                                    | false         |
-| loadingText  | Loading state text                                                                | string                                     | -             |
-| block        | Whether to fill the parent width                                                  | boolean                                    | false         |
-| filterable   | Whether input filtering is enabled                                                | boolean                                    | false         |
-| clearable    | Whether options can be cleared                                                    | boolean                                    | true          |
-| bordered     | Whether to show border                                                            | boolean                                    | true          |
-| extendWidth  | Whether dropdown width matches input width                                        | boolean                                    | true          |
-| showArrow    | Whether to show dropdown button                                                   | boolean                                    | true          |
-| options      | options data, if set, no need to manually construct Option nodes                  | SelectOption[]                             | []            |
-| theme        | The theme of Select                                                               | string                                     | fill          |
-| icon         | Custom icon                                                                       | string                                     | -             |
-| shape        | When shape='circle', displays rounded corners                                     | string                                     | -             |
-| onSelect     | Triggered when an item is selected                                                | (option: SelectOption) => void             | -             |
-| onChange     | Triggered when option state changes, returns selected value                       | (value: string \| number \| any[]) => void | -             |
-| onOpenChange | Triggered when dropdown expands or collapses                                      | (opened: boolean) => void                  | -             |
-| onSearch     | Triggered during search                                                           | (e: InputEvent) => void                    | -             |
-| onClear      | Triggered when the clear button is clicked                                        | () => void                                 | -             |
-| arrowIcon    | Custom arrow icon                                                                 | string                                     | -             |
-| virtual      | Enable virtual scrolling                                                          | boolean                                    | false         |
-| itemHeight   | Fixed virtual option height                                                       | number                                     | 33            |
-| overscan     | Extra virtual options rendered around the viewport                                | number                                     | 5             |
+| Property     | Description                                                                                                                   | Type                                       | Default       |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------- |
+| modelValue   | Specifies the `value` of the selected item, can use `v-model` for two-way binding                                             | string \| number                           | -             |
+| value        | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number                           | -             |
+| width        | Component width                                                                                                               | string \| number                           | -             |
+| placeholder  | Default text of selector                                                                                                      | string                                     | Please select |
+| disabled     | Whether current item is disabled                                                                                              | boolean                                    | false         |
+| readonly     | Read-only; prevents opening, clearing and changing                                                                            | boolean                                    | false         |
+| size         | Component size, provides two sizes: `small`, `large`, default is normal                                                       | string                                     | -             |
+| placement    | Dropdown placement                                                                                                            | DropPlacementsType                         | bottom-left   |
+| emptyText    | Prompt displayed when no data                                                                                                 | string                                     | 'No data yet' |
+| maxTagCount  | Maximum visible tags in multiple mode; excess tags are shown in a Tooltip                                                     | number                                     | -             |
+| multiple     | Whether to display in multiple selection mode                                                                                 | boolean                                    | false         |
+| allowCreate  | Whether multiple mode can create missing options from entered text                                                            | boolean                                    | false         |
+| loading      | Whether to show asynchronous loading                                                                                          | boolean                                    | false         |
+| loadingText  | Loading state text                                                                                                            | string                                     | -             |
+| block        | Whether to fill the parent width                                                                                              | boolean                                    | false         |
+| filterable   | Whether input filtering is enabled                                                                                            | boolean                                    | false         |
+| clearable    | Whether options can be cleared                                                                                                | boolean                                    | true          |
+| bordered     | Whether to show border                                                                                                        | boolean                                    | true          |
+| extendWidth  | Whether dropdown width matches input width                                                                                    | boolean                                    | true          |
+| showArrow    | Whether to show dropdown button                                                                                               | boolean                                    | true          |
+| options      | options data, if set, no need to manually construct Option nodes                                                              | SelectOption[]                             | []            |
+| theme        | The theme of Select                                                                                                           | string                                     | fill          |
+| icon         | Custom icon                                                                                                                   | string                                     | -             |
+| shape        | When shape='circle', displays rounded corners                                                                                 | string                                     | -             |
+| onSelect     | Triggered when an item is selected                                                                                            | (option: SelectOption) => void             | -             |
+| onChange     | Triggered when option state changes, returns selected value                                                                   | (value: string \| number \| any[]) => void | -             |
+| onOpenChange | Triggered when dropdown expands or collapses                                                                                  | (opened: boolean) => void                  | -             |
+| onSearch     | Triggered during search                                                                                                       | (e: InputEvent) => void                    | -             |
+| onClear      | Triggered when the clear button is clicked                                                                                    | () => void                                 | -             |
+| arrowIcon    | Custom arrow icon                                                                                                             | string                                     | -             |
+| virtual      | Enable virtual scrolling                                                                                                      | boolean                                    | false         |
+| itemHeight   | Fixed virtual option height                                                                                                   | number                                     | 33            |
+| overscan     | Extra virtual options rendered around the viewport                                                                            | number                                     | 5             |
 
 ## Option API
 
@@ -4851,40 +4875,41 @@ Dropdown selector.
 
 ## Select API
 
-| Property     | Description                                                                       | Type                                       | Default       |
-| ------------ | --------------------------------------------------------------------------------- | ------------------------------------------ | ------------- |
-| modelValue   | Specifies the `value` of the selected item, can use `v-model` for two-way binding | string \| number                           | -             |
-| width        | Component width                                                                   | string \| number                           | -             |
-| placeholder  | Default text of selector                                                          | string                                     | Please select |
-| disabled     | Whether current item is disabled                                                  | boolean                                    | false         |
-| readonly     | Read-only; prevents opening, clearing and changing                                | boolean                                    | false         |
-| size         | Component size, provides two sizes: `small`, `large`, default is normal           | string                                     | -             |
-| placement    | Dropdown placement                                                                | DropPlacementsType                         | bottom-left   |
-| emptyText    | Prompt displayed when no data                                                     | string                                     | 'No data yet' |
-| maxTagCount  | Maximum visible tags in multiple mode; excess tags are shown in a Tooltip         | number                                     | -             |
-| multiple     | Whether to display in multiple selection mode                                     | boolean                                    | false         |
-| allowCreate  | Whether multiple mode can create missing options from entered text                | boolean                                    | false         |
-| loading      | Whether to show asynchronous loading                                              | boolean                                    | false         |
-| loadingText  | Loading state text                                                                | string                                     | -             |
-| block        | Whether to fill the parent width                                                  | boolean                                    | false         |
-| filterable   | Whether input filtering is enabled                                                | boolean                                    | false         |
-| clearable    | Whether options can be cleared                                                    | boolean                                    | true          |
-| bordered     | Whether to show border                                                            | boolean                                    | true          |
-| extendWidth  | Whether dropdown width matches input width                                        | boolean                                    | true          |
-| showArrow    | Whether to show dropdown button                                                   | boolean                                    | true          |
-| options      | options data, if set, no need to manually construct Option nodes                  | SelectOption[]                             | []            |
-| theme        | The theme of Select                                                               | string                                     | fill          |
-| icon         | Custom icon                                                                       | string                                     | -             |
-| shape        | When shape='circle', displays rounded corners                                     | string                                     | -             |
-| onSelect     | Triggered when an item is selected                                                | (option: SelectOption) => void             | -             |
-| onChange     | Triggered when option state changes, returns selected value                       | (value: string \| number \| any[]) => void | -             |
-| onOpenChange | Triggered when dropdown expands or collapses                                      | (opened: boolean) => void                  | -             |
-| onSearch     | Triggered during search                                                           | (e: InputEvent) => void                    | -             |
-| onClear      | Triggered when the clear button is clicked                                        | () => void                                 | -             |
-| arrowIcon    | Custom arrow icon                                                                 | string                                     | -             |
-| virtual      | Enable virtual scrolling                                                          | boolean                                    | false         |
-| itemHeight   | Fixed virtual option height                                                       | number                                     | 33            |
-| overscan     | Extra virtual options rendered around the viewport                                | number                                     | 5             |
+| Property     | Description                                                                                                                   | Type                                       | Default       |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------- |
+| modelValue   | Specifies the `value` of the selected item, can use `v-model` for two-way binding                                             | string \| number                           | -             |
+| value        | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number                           | -             |
+| width        | Component width                                                                                                               | string \| number                           | -             |
+| placeholder  | Default text of selector                                                                                                      | string                                     | Please select |
+| disabled     | Whether current item is disabled                                                                                              | boolean                                    | false         |
+| readonly     | Read-only; prevents opening, clearing and changing                                                                            | boolean                                    | false         |
+| size         | Component size, provides two sizes: `small`, `large`, default is normal                                                       | string                                     | -             |
+| placement    | Dropdown placement                                                                                                            | DropPlacementsType                         | bottom-left   |
+| emptyText    | Prompt displayed when no data                                                                                                 | string                                     | 'No data yet' |
+| maxTagCount  | Maximum visible tags in multiple mode; excess tags are shown in a Tooltip                                                     | number                                     | -             |
+| multiple     | Whether to display in multiple selection mode                                                                                 | boolean                                    | false         |
+| allowCreate  | Whether multiple mode can create missing options from entered text                                                            | boolean                                    | false         |
+| loading      | Whether to show asynchronous loading                                                                                          | boolean                                    | false         |
+| loadingText  | Loading state text                                                                                                            | string                                     | -             |
+| block        | Whether to fill the parent width                                                                                              | boolean                                    | false         |
+| filterable   | Whether input filtering is enabled                                                                                            | boolean                                    | false         |
+| clearable    | Whether options can be cleared                                                                                                | boolean                                    | true          |
+| bordered     | Whether to show border                                                                                                        | boolean                                    | true          |
+| extendWidth  | Whether dropdown width matches input width                                                                                    | boolean                                    | true          |
+| showArrow    | Whether to show dropdown button                                                                                               | boolean                                    | true          |
+| options      | options data, if set, no need to manually construct Option nodes                                                              | SelectOption[]                             | []            |
+| theme        | The theme of Select                                                                                                           | string                                     | fill          |
+| icon         | Custom icon                                                                                                                   | string                                     | -             |
+| shape        | When shape='circle', displays rounded corners                                                                                 | string                                     | -             |
+| onSelect     | Triggered when an item is selected                                                                                            | (option: SelectOption) => void             | -             |
+| onChange     | Triggered when option state changes, returns selected value                                                                   | (value: string \| number \| any[]) => void | -             |
+| onOpenChange | Triggered when dropdown expands or collapses                                                                                  | (opened: boolean) => void                  | -             |
+| onSearch     | Triggered during search                                                                                                       | (e: InputEvent) => void                    | -             |
+| onClear      | Triggered when the clear button is clicked                                                                                    | () => void                                 | -             |
+| arrowIcon    | Custom arrow icon                                                                                                             | string                                     | -             |
+| virtual      | Enable virtual scrolling                                                                                                      | boolean                                    | false         |
+| itemHeight   | Fixed virtual option height                                                                                                   | number                                     | 33            |
+| overscan     | Extra virtual options rendered around the viewport                                                                            | number                                     | 5             |
 
 ## Option API
 
@@ -5500,17 +5525,18 @@ Use for counters, amounts, and metrics that change over time. For a complete met
 
 ## API
 
-| Property        | Description                                       | Type                  | Default   |
-| --------------- | ------------------------------------------------- | --------------------- | --------- |
-| modelValue      | Numerical value                                   | number                | 0         |
-| duration        | Numerical dynamic display time (seconds)          | number                | 1.2       |
-| prefix          | Prefix content of numerical value                 | string                | -         |
-| suffix          | Suffix content of numerical value                 | string                | -         |
-| precision       | Numerical precision                               | number                | 0         |
-| type            | Numerical change type                             | 'rollup' \| 'countup' | 'countup' |
-| separator       | Separator                                         | string                | -         |
-| autoAnimate     | Trigger animation when target becomes visible     | boolean               | true      |
-| autoAnimateOnce | Run animation only once for auto-animate triggers | boolean               | true      |
+| Property        | Description                                                                                                                   | Type                  | Default   |
+| --------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------- | --------- |
+| modelValue      | Numerical value                                                                                                               | number                | -         |
+| value           | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | number                | 0         |
+| duration        | Numerical dynamic display time (seconds)                                                                                      | number                | 1.2       |
+| prefix          | Prefix content of numerical value                                                                                             | string                | -         |
+| suffix          | Suffix content of numerical value                                                                                             | string                | -         |
+| precision       | Numerical precision                                                                                                           | number                | 0         |
+| type            | Numerical change type                                                                                                         | 'rollup' \| 'countup' | 'countup' |
+| separator       | Separator                                                                                                                     | string                | -         |
+| autoAnimate     | Trigger animation when target becomes visible                                                                                 | boolean               | true      |
+| autoAnimateOnce | Run animation only once for auto-animate triggers                                                                             | boolean               | true      |
 
 ## Slots
 
@@ -5561,23 +5587,24 @@ When users need to select within a numerical range/custom range, it can be conti
 
 ## Slider API
 
-| Property       | Description                                                                                       | Type                                | Default |
-| -------------- | ------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- |
-| modelValue     | Set current value (v-model)                                                                       | number \| number[]                  | 0       |
-| min            | Minimum value                                                                                     | number                              | 0       |
-| max            | Maximum value                                                                                     | number                              | 100     |
-| range          | Whether to support sliding on both sides simultaneously                                           | boolean                             | false   |
-| disabled       | Whether the slider is disabled                                                                    | boolean                             | false   |
-| readonly       | Read-only; remains focusable but cannot be dragged or changed with keys                           | boolean                             | false   |
-| step           | Step size, must be greater than 0 and divisible by (max - min)                                    | number                              | 1       |
-| tipFormatter   | Set Tooltip display format, defaults to current value                                             | (value: number) => string           | number  |
-| vertical       | Whether to set direction to vertical                                                              | boolean                             | false   |
-| marks          | Scale marks, key type must be number and value in closed interval [min, max]                      | Object                              | -       |
-| included       | Effective when marks is not empty object, true means inclusive relationship, false means parallel | boolean                             | true    |
-| tooltipVisible | When true, Tooltip will always display; otherwise never display, even when dragging and hovering  | boolean                             | false   |
-| reverse        | Sort in reverse order                                                                             | boolean                             | false   |
-| size           | The size of Slider                                                                                | string                              | -       |
-| onChange       | Triggered when Slider value changes, passes the changed value as parameter                        | (value: number \| number[]) => void | -       |
+| Property       | Description                                                                                                                   | Type                                | Default |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- |
+| modelValue     | Set current value (v-model)                                                                                                   | number \| number[]                  | -       |
+| value          | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | number \| number[]                  | 0       |
+| min            | Minimum value                                                                                                                 | number                              | 0       |
+| max            | Maximum value                                                                                                                 | number                              | 100     |
+| range          | Whether to support sliding on both sides simultaneously                                                                       | boolean                             | false   |
+| disabled       | Whether the slider is disabled                                                                                                | boolean                             | false   |
+| readonly       | Read-only; remains focusable but cannot be dragged or changed with keys                                                       | boolean                             | false   |
+| step           | Step size, must be greater than 0 and divisible by (max - min)                                                                | number                              | 1       |
+| tipFormatter   | Set Tooltip display format, defaults to current value                                                                         | (value: number) => string           | number  |
+| vertical       | Whether to set direction to vertical                                                                                          | boolean                             | false   |
+| marks          | Scale marks, key type must be number and value in closed interval [min, max]                                                  | Object                              | -       |
+| included       | Effective when marks is not empty object, true means inclusive relationship, false means parallel                             | boolean                             | true    |
+| tooltipVisible | When true, Tooltip will always display; otherwise never display, even when dragging and hovering                              | boolean                             | false   |
+| reverse        | Sort in reverse order                                                                                                         | boolean                             | false   |
+| size           | The size of Slider                                                                                                            | string                              | -       |
+| onChange       | Triggered when Slider value changes, passes the changed value as parameter                                                    | (value: number \| number[]) => void | -       |
 
 ---
 
@@ -5673,12 +5700,13 @@ When part of the page is waiting for asynchronous data or being rendered, approp
 
 ## Spin API
 
-| Property   | Description                                                  | Type                       | Default |
-| ---------- | ------------------------------------------------------------ | -------------------------- | ------- |
-| modelValue | Whether loading state, can use `v-model` for two-way binding | boolean                    | true    |
-| mode       | Loading animation type                                       | bounce\|flip\|rotate\|zoom | rotate  |
-| delay      | Delay before showing to prevent flickering                   | number                     | 0       |
-| size       | Loading indicator size                                       | small\|medium\|large       | medium  |
+| Property   | Description                                                                                                                   | Type                       | Default |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------- | ------- |
+| modelValue | Whether loading state, can use `v-model` for two-way binding                                                                  | boolean                    | -       |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | boolean                    | true    |
+| mode       | Loading animation type                                                                                                        | bounce\|flip\|rotate\|zoom | rotate  |
+| delay      | Delay before showing to prevent flickering                                                                                    | number                     | 0       |
+| size       | Loading indicator size                                                                                                        | small\|medium\|large       | medium  |
 
 ---
 
@@ -6396,18 +6424,19 @@ Gradually introduce features around the actual goals on the page.
 
 ## Tour API
 
-| Property     | Description                                                         | Type       | Default |
-| ------------ | ------------------------------------------------------------------- | ---------- | ------- |
-| modelValue   | Visibility (v-model)                                                | boolean    | false   |
-| open         | Visibility; takes precedence over modelValue, supports v-model:open | boolean    | false   |
-| current      | Current step                                                        | number     | -       |
-| steps        | Tour steps                                                          | TourStep[] | []      |
-| mask         | Show mask                                                           | boolean    | true    |
-| closable     | Show close button                                                   | boolean    | true    |
-| escKey       | Close with Escape                                                   | boolean    | true    |
-| onChange     | Step change                                                         | function   | -       |
-| onOpenChange | Visibility change                                                   | function   | -       |
-| onFinish     | Tour completed                                                      | function   | -       |
+| Property     | Description                                                                                                                   | Type       | Default |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------- | ---------- | ------- |
+| modelValue   | Visibility (v-model)                                                                                                          | boolean    | -       |
+| value        | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | boolean    | false   |
+| open         | Visibility; takes precedence over modelValue, supports v-model:open                                                           | boolean    | false   |
+| current      | Current step                                                                                                                  | number     | -       |
+| steps        | Tour steps                                                                                                                    | TourStep[] | []      |
+| mask         | Show mask                                                                                                                     | boolean    | true    |
+| closable     | Show close button                                                                                                             | boolean    | true    |
+| escKey       | Close with Escape                                                                                                             | boolean    | true    |
+| onChange     | Step change                                                                                                                   | function   | -       |
+| onOpenChange | Visibility change                                                                                                             | function   | -       |
+| onFinish     | Tour completed                                                                                                                | function   | -       |
 
 ---
 
@@ -6447,23 +6476,24 @@ Move and select items between two lists.
 
 ## API
 
-| Property     | Description                                                 | Type                                       | Default              |
-| ------------ | ----------------------------------------------------------- | ------------------------------------------ | -------------------- |
-| modelValue   | Target keys, supports `v-model`                             | TransferKey[]                              | []                   |
-| dataSource   | Data source                                                 | TransferItem[]                             | []                   |
-| titles       | List titles                                                 | [string, string]                           | ['Source', 'Target'] |
-| operations   | Right and left operation labels                             | [string, string]                           | ['', '']             |
-| searchable   | Enable search                                               | boolean                                    | false                |
-| disabled     | Disable the component                                       | boolean                                    | false                |
-| readonly     | Read-only; searchable but items cannot be selected or moved | boolean                                    | false                |
-| theme        | Appearance theme                                            | 'outline' \| 'fill'                        | outline              |
-| filterOption | Custom filter                                               | (keyword, item) => boolean                 | -                    |
-| render       | Custom item renderer                                        | (item) => VNodeChild                       | -                    |
-| item         | Custom item, scoped with `{ item: TransferItem }`           | VNodeChild                                 | -                    |
-| change       | Emitted after moving items                                  | (targetKeys, direction, movedKeys) => void | -                    |
-| search       | Emitted on search                                           | (direction, value) => void                 | -                    |
-| selectChange | Emitted when selection changes                              | (sourceKeys, targetKeys) => void           | -                    |
-| footer       | Custom list footer, scoped with `{ direction }`             | VNodeChild                                 | -                    |
+| Property     | Description                                                                                                                   | Type                                       | Default              |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | -------------------- |
+| modelValue   | Target keys, supports `v-model`                                                                                               | TransferKey[]                              | -                    |
+| value        | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | TransferKey[]                              | []                   |
+| dataSource   | Data source                                                                                                                   | TransferItem[]                             | []                   |
+| titles       | List titles                                                                                                                   | [string, string]                           | ['Source', 'Target'] |
+| operations   | Right and left operation labels                                                                                               | [string, string]                           | ['', '']             |
+| searchable   | Enable search                                                                                                                 | boolean                                    | false                |
+| disabled     | Disable the component                                                                                                         | boolean                                    | false                |
+| readonly     | Read-only; searchable but items cannot be selected or moved                                                                   | boolean                                    | false                |
+| theme        | Appearance theme                                                                                                              | 'outline' \| 'fill'                        | outline              |
+| filterOption | Custom filter                                                                                                                 | (keyword, item) => boolean                 | -                    |
+| render       | Custom item renderer                                                                                                          | (item) => VNodeChild                       | -                    |
+| item         | Custom item, scoped with `{ item: TransferItem }`                                                                             | VNodeChild                                 | -                    |
+| change       | Emitted after moving items                                                                                                    | (targetKeys, direction, movedKeys) => void | -                    |
+| search       | Emitted on search                                                                                                             | (direction, value) => void                 | -                    |
+| selectChange | Emitted when selection changes                                                                                                | (sourceKeys, targetKeys) => void           | -                    |
+| footer       | Custom list footer, scoped with `{ direction }`                                                                               | VNodeChild                                 | -                    |
 
 ### TransferItem
 
@@ -6510,23 +6540,24 @@ Consistent semantics and visual hierarchy for titles, paragraphs and inline text
 
 `Typography`, `TypographyText`, `TypographyParagraph` and `TypographyTitle` share these properties.
 
-| Property   | Description                        | Type                                              | Default |
-| ---------- | ---------------------------------- | ------------------------------------------------- | ------- |
-| modelValue | Text content, supports `v-model`   | string                                            | -       |
-| tag        | HTML tag                           | TypographyTag                                     | -       |
-| type       | Semantic color                     | 'secondary' \| 'success' \| 'warning' \| 'danger' | -       |
-| strong     | Bold text                          | boolean                                           | false   |
-| italic     | Italic text                        | boolean                                           | false   |
-| underline  | Underlined text                    | boolean                                           | false   |
-| delete     | Deleted text                       | boolean                                           | false   |
-| mark       | Marked text                        | boolean                                           | false   |
-| code       | Inline code style                  | boolean                                           | false   |
-| disabled   | Disabled state                     | boolean                                           | false   |
-| copyable   | Enable copy and action tooltips    | boolean \| TypographyCopyableOptions              | false   |
-| editable   | Enable editing and action tooltips | boolean \| TypographyEditableOptions              | false   |
-| ellipsis   | Truncation, tooltip and expansion  | boolean \| number \| TypographyEllipsisOptions    | false   |
-| copy       | Emitted after copying              | (text) => void                                    | -       |
-| change     | Emitted after editing              | (text) => void                                    | -       |
+| Property   | Description                                                                                                                   | Type                                              | Default |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------- |
+| modelValue | Text content, supports `v-model`                                                                                              | string                                            | -       |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string                                            | -       |
+| tag        | HTML tag                                                                                                                      | TypographyTag                                     | -       |
+| type       | Semantic color                                                                                                                | 'secondary' \| 'success' \| 'warning' \| 'danger' | -       |
+| strong     | Bold text                                                                                                                     | boolean                                           | false   |
+| italic     | Italic text                                                                                                                   | boolean                                           | false   |
+| underline  | Underlined text                                                                                                               | boolean                                           | false   |
+| delete     | Deleted text                                                                                                                  | boolean                                           | false   |
+| mark       | Marked text                                                                                                                   | boolean                                           | false   |
+| code       | Inline code style                                                                                                             | boolean                                           | false   |
+| disabled   | Disabled state                                                                                                                | boolean                                           | false   |
+| copyable   | Enable copy and action tooltips                                                                                               | boolean \| TypographyCopyableOptions              | false   |
+| editable   | Enable editing and action tooltips                                                                                            | boolean \| TypographyEditableOptions              | false   |
+| ellipsis   | Truncation, tooltip and expansion                                                                                             | boolean \| number \| TypographyEllipsisOptions    | false   |
+| copy       | Emitted after copying                                                                                                         | (text) => void                                    | -       |
+| change     | Emitted after editing                                                                                                         | (text) => void                                    | -       |
 
 ### TypographyCopyableOptions
 
@@ -6963,41 +6994,42 @@ Similar to the Select selection control, when the selectable data structure is a
 
 ## TreeSelect API
 
-| Property          | Description                                                                     | Type                              | Default       |
-| ----------------- | ------------------------------------------------------------------------------- | --------------------------------- | ------------- |
-| modelValue        | Specify the `value` of the selected item, can use `v-model` for two-way binding | string \| number \| any[]         | -             |
-| width             | Component width                                                                 | string \| number                  | -             |
-| placeholder       | Default text of selector                                                        | string                            | Please select |
-| disabled          | Whether current item is disabled                                                | boolean                           | false         |
-| readonly          | Read-only; prevents opening, clearing and changing                              | boolean                           | false         |
-| size              | Component size, provides two sizes: `small`, `large`, default is normal         | string                            | -             |
-| placement         | Dropdown placement                                                              | string                            | bottom-left   |
-| emptyText         | Prompt displayed when no data                                                   | string                            | 'No data yet' |
-| multiple          | Whether to display in multiple selection mode                                   | boolean                           | false         |
-| block             | Whether to fill the parent width                                                | boolean                           | false         |
-| maxTagCount       | Maximum visible tags in multiple mode; excess tags are shown in a Tooltip       | number                            | -             |
-| filterable        | Whether search filtering is enabled                                             | boolean                           | false         |
-| loading           | Asynchronous loading state                                                      | boolean                           | false         |
-| clearable         | Whether options can be cleared                                                  | boolean                           | true          |
-| bordered          | Whether to show border                                                          | boolean                           | true          |
-| showArrow         | Whether to show dropdown button                                                 | boolean                           | true          |
-| arrowIcon         | Custom dropdown arrow icon                                                      | IconType[]                        | -             |
-| theme             | The theme of TreeSelect                                                         | string                            | fill          |
-| icon              | Custom icon                                                                     | string                            | -             |
-| shape             | When shape='circle', displays rounded corners                                   | string                            | -             |
-| treeLoadData      | Method to asynchronously load data                                              | (node: TreeNode) => Promise<any\> | -             |
-| treeData          | Array of nestable node properties, data to generate `tree`                      | TreeNode[]                        | []            |
-| treeCheckable     | Whether to show checkbox                                                        | boolean                           | false         |
-| treeCheckStrictly | Whether parent and child check states are independent                           | boolean                           | false         |
-| showLine          | Whether to show connecting lines                                                | boolean                           | false         |
-| showIcon          | Whether to show icons                                                           | boolean                           | true          |
-| treeShowIcon      | Whether to show tree node icons                                                 | boolean                           | true          |
-| treeShowLine      | Whether to show tree connection lines                                           | boolean                           | false         |
-| treeExpandedKeys  | Specify expanded nodes                                                          | string[]                          | []            |
-| virtual           | Whether to enable virtual scrolling for tree nodes                              | boolean                           | false         |
-| virtualHeight     | Virtual dropdown viewport height                                                | number \| string                  | 260           |
-| itemHeight        | Fixed virtual node height                                                       | number                            | 28            |
-| overscan          | Number of nodes rendered outside the viewport                                   | number                            | 5             |
+| Property          | Description                                                                                                                   | Type                              | Default       |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ------------- |
+| modelValue        | Specify the `value` of the selected item, can use `v-model` for two-way binding                                               | string \| number \| any[]         | -             |
+| value             | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number \| any[]         | -             |
+| width             | Component width                                                                                                               | string \| number                  | -             |
+| placeholder       | Default text of selector                                                                                                      | string                            | Please select |
+| disabled          | Whether current item is disabled                                                                                              | boolean                           | false         |
+| readonly          | Read-only; prevents opening, clearing and changing                                                                            | boolean                           | false         |
+| size              | Component size, provides two sizes: `small`, `large`, default is normal                                                       | string                            | -             |
+| placement         | Dropdown placement                                                                                                            | string                            | bottom-left   |
+| emptyText         | Prompt displayed when no data                                                                                                 | string                            | 'No data yet' |
+| multiple          | Whether to display in multiple selection mode                                                                                 | boolean                           | false         |
+| block             | Whether to fill the parent width                                                                                              | boolean                           | false         |
+| maxTagCount       | Maximum visible tags in multiple mode; excess tags are shown in a Tooltip                                                     | number                            | -             |
+| filterable        | Whether search filtering is enabled                                                                                           | boolean                           | false         |
+| loading           | Asynchronous loading state                                                                                                    | boolean                           | false         |
+| clearable         | Whether options can be cleared                                                                                                | boolean                           | true          |
+| bordered          | Whether to show border                                                                                                        | boolean                           | true          |
+| showArrow         | Whether to show dropdown button                                                                                               | boolean                           | true          |
+| arrowIcon         | Custom dropdown arrow icon                                                                                                    | IconType[]                        | -             |
+| theme             | The theme of TreeSelect                                                                                                       | string                            | fill          |
+| icon              | Custom icon                                                                                                                   | string                            | -             |
+| shape             | When shape='circle', displays rounded corners                                                                                 | string                            | -             |
+| treeLoadData      | Method to asynchronously load data                                                                                            | (node: TreeNode) => Promise<any\> | -             |
+| treeData          | Array of nestable node properties, data to generate `tree`                                                                    | TreeNode[]                        | []            |
+| treeCheckable     | Whether to show checkbox                                                                                                      | boolean                           | false         |
+| treeCheckStrictly | Whether parent and child check states are independent                                                                         | boolean                           | false         |
+| showLine          | Whether to show connecting lines                                                                                              | boolean                           | false         |
+| showIcon          | Whether to show icons                                                                                                         | boolean                           | true          |
+| treeShowIcon      | Whether to show tree node icons                                                                                               | boolean                           | true          |
+| treeShowLine      | Whether to show tree connection lines                                                                                         | boolean                           | false         |
+| treeExpandedKeys  | Specify expanded nodes                                                                                                        | string[]                          | []            |
+| virtual           | Whether to enable virtual scrolling for tree nodes                                                                            | boolean                           | false         |
+| virtualHeight     | Virtual dropdown viewport height                                                                                              | number \| string                  | 260           |
+| itemHeight        | Fixed virtual node height                                                                                                     | number                            | 28            |
+| overscan          | Number of nodes rendered outside the viewport                                                                                 | number                            | 5             |
 
 ## TreeSelect Events
 

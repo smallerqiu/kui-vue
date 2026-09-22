@@ -46,15 +46,16 @@ Checkbox for multiple selections.
 
 ## CheckboxGroup API
 
-| Property   | Description                                                                            | Type                            | Default    |
-| ---------- | -------------------------------------------------------------------------------------- | ------------------------------- | ---------- |
-| modelValue | Selected values; supports `v-model`                                                    | (string \| number \| boolean)[] | []         |
-| disabled   | Whether the component is disabled                                                      | boolean                         | false      |
-| readonly   | Whether the group is read-only                                                         | boolean                         | false      |
-| onChange   | Triggered when the option state changes, returns the currently selected item and state | (any[])=>void                   | -          |
-| direction  | Layout direction                                                                       | 'horizontal' \| 'vertical'      | horizontal |
-| options    | Can specify child `checkbox` items                                                     | CheckboxOption[]                | -          |
-| theme      | Component theme                                                                        | ThemeType                       | fill       |
-| size       | Checkbox size                                                                          | SizeType                        | -          |
+| Property   | Description                                                                                                                   | Type                            | Default    |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ---------- |
+| modelValue | Selected values; supports `v-model`                                                                                           | (string \| number \| boolean)[] | -          |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | (string \| number \| boolean)[] | []         |
+| disabled   | Whether the component is disabled                                                                                             | boolean                         | false      |
+| readonly   | Whether the group is read-only                                                                                                | boolean                         | false      |
+| onChange   | Triggered when the option state changes, returns the currently selected item and state                                        | (any[])=>void                   | -          |
+| direction  | Layout direction                                                                                                              | 'horizontal' \| 'vertical'      | horizontal |
+| options    | Can specify child `checkbox` items                                                                                            | CheckboxOption[]                | -          |
+| theme      | Component theme                                                                                                               | ThemeType                       | fill       |
+| size       | Checkbox size                                                                                                                 | SizeType                        | -          |
 
 Each item in `options` also supports `disabled` and `readonly`.

@@ -32,23 +32,24 @@
 
 `Typography`、`TypographyText`、`TypographyParagraph` 和 `TypographyTitle` 共享以下属性。
 
-| 属性       | 说明                       | 类型                                              | 默认值 |
-| ---------- | -------------------------- | ------------------------------------------------- | ------ |
-| modelValue | 文本内容，可使用 `v-model` | string                                            | -      |
-| tag        | 渲染的 HTML 标签           | TypographyTag                                     | -      |
-| type       | 语义颜色                   | 'secondary' \| 'success' \| 'warning' \| 'danger' | -      |
-| strong     | 加粗                       | boolean                                           | false  |
-| italic     | 斜体                       | boolean                                           | false  |
-| underline  | 下划线                     | boolean                                           | false  |
-| delete     | 删除线                     | boolean                                           | false  |
-| mark       | 标记样式                   | boolean                                           | false  |
-| code       | 行内代码样式               | boolean                                           | false  |
-| disabled   | 禁用状态                   | boolean                                           | false  |
-| copyable   | 允许复制及配置操作提示     | boolean \| TypographyCopyableOptions              | false  |
-| editable   | 允许编辑及配置操作提示     | boolean \| TypographyEditableOptions              | false  |
-| ellipsis   | 文本省略、提示和展开配置   | boolean \| number \| TypographyEllipsisOptions    | false  |
-| copy       | 复制后触发                 | (text) => void                                    | -      |
-| change     | 编辑完成后触发             | (text) => void                                    | -      |
+| 属性       | 说明                                                                          | 类型                                              | 默认值 |
+| ---------- | ----------------------------------------------------------------------------- | ------------------------------------------------- | ------ |
+| modelValue | 文本内容，可使用 `v-model`                                                    | string                                            | -      |
+| value      | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | string                                            | -      |
+| tag        | 渲染的 HTML 标签                                                              | TypographyTag                                     | -      |
+| type       | 语义颜色                                                                      | 'secondary' \| 'success' \| 'warning' \| 'danger' | -      |
+| strong     | 加粗                                                                          | boolean                                           | false  |
+| italic     | 斜体                                                                          | boolean                                           | false  |
+| underline  | 下划线                                                                        | boolean                                           | false  |
+| delete     | 删除线                                                                        | boolean                                           | false  |
+| mark       | 标记样式                                                                      | boolean                                           | false  |
+| code       | 行内代码样式                                                                  | boolean                                           | false  |
+| disabled   | 禁用状态                                                                      | boolean                                           | false  |
+| copyable   | 允许复制及配置操作提示                                                        | boolean \| TypographyCopyableOptions              | false  |
+| editable   | 允许编辑及配置操作提示                                                        | boolean \| TypographyEditableOptions              | false  |
+| ellipsis   | 文本省略、提示和展开配置                                                      | boolean \| number \| TypographyEllipsisOptions    | false  |
+| copy       | 复制后触发                                                                    | (text) => void                                    | -      |
+| change     | 编辑完成后触发                                                                | (text) => void                                    | -      |
 
 ### TypographyCopyableOptions
 

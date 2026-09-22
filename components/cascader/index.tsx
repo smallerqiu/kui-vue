@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import Popup, { type PopupRef } from "../popup";
 import { ChevronDown, ChevronRight, CircleAlert, CircleX, Loading } from "kui-icons";
 import { computed, defineComponent, nextTick, onBeforeUnmount, ref, toRaw, watch } from "vue";
@@ -16,12 +17,13 @@ const Cascader = defineComponent({
     expandChange: (value: CascaderValue) => Array.isArray(value),
   },
   setup(props, { emit }) {
+    const initialModel = useInitialValue(props);
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
     const modelValue = computed<CascaderValue>(() =>
       field?.prop && Array.isArray(field.value.value)
         ? (field.value.value as CascaderValue)
-        : props.modelValue,
+        : initialModel.value,
     );
 
     const visible = ref(false);
@@ -207,6 +209,7 @@ const Cascader = defineComponent({
       if (!expandable && !isHoverTrigger) {
         // 完成最终选择，抽取路径里所有节点的值
         const finalValue = activePath.value.map((item) => item.value);
+        initialModel.value = finalValue;
         emit("update:modelValue", finalValue);
         if (field?.prop) field.update(finalValue);
         emit("change", finalValue);
@@ -224,6 +227,7 @@ const Cascader = defineComponent({
       if (props.disabled || field?.disabled.value || props.readonly || field?.readonly.value)
         return;
       e.stopPropagation();
+      initialModel.value = [];
       emit("update:modelValue", []);
       if (field?.prop) field.update([]);
       emit("change", []);

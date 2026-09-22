@@ -56,15 +56,16 @@
 
 ## RadioGroup API
 
-| 属性       | 说明                                                  | 类型                              | 默认值     |
-| ---------- | ----------------------------------------------------- | --------------------------------- | ---------- |
-| modelValue | 用于设置当前选中的值。可以使用 `v-model` 双向绑定数据 | string \| number                  | -          |
-| disabled   | 是否禁用整个单选组                                    | boolean                           | false      |
-| readonly   | 是否只读，不可切换                                    | boolean                           | false      |
-| size       | 按钮尺寸                                              | SizeType                          | -          |
-| direction  | 布局方向                                              | 'horizontal' \| 'vertical'        | horizontal |
-| shape      | `button` 的形状                                       | ShapeType                         | -          |
-| theme      | `button` 的主题                                       | ThemeType                         | -          |
-| onChange   | 在选项状态发生改变时触发，返回当前选中的项            | (value: string \| number) => void | -          |
-| options    | 可以指定子项 `radio`                                  | RadioOption[]                     | -          |
-| type       | 使用按钮样式的单选项                                  | 'radio' \| 'button'               | radio      |
+| 属性       | 说明                                                                          | 类型                              | 默认值     |
+| ---------- | ----------------------------------------------------------------------------- | --------------------------------- | ---------- |
+| modelValue | 用于设置当前选中的值。可以使用 `v-model` 双向绑定数据                         | string \| number                  | -          |
+| value      | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | string \| number                  | -          |
+| disabled   | 是否禁用整个单选组                                                            | boolean                           | false      |
+| readonly   | 是否只读，不可切换                                                            | boolean                           | false      |
+| size       | 按钮尺寸                                                                      | SizeType                          | -          |
+| direction  | 布局方向                                                                      | 'horizontal' \| 'vertical'        | horizontal |
+| shape      | `button` 的形状                                                               | ShapeType                         | -          |
+| theme      | `button` 的主题                                                               | ThemeType                         | -          |
+| onChange   | 在选项状态发生改变时触发，返回当前选中的项                                    | (value: string \| number) => void | -          |
+| options    | 可以指定子项 `radio`                                                          | RadioOption[]                     | -          |
+| type       | 使用按钮样式的单选项                                                          | 'radio' \| 'button'               | radio      |

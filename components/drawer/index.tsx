@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import { X } from "kui-icons";
 import {
   computed,
@@ -27,7 +28,8 @@ import { createFocusTrap } from "../utils/focus";
 import { toggleContainerScroll } from "../utils/vnode";
 
 const drawerProps = {
-  modelValue: Boolean,
+  modelValue: { type: Boolean, default: undefined },
+  value: Boolean,
   title: { type: String, default: "Title" },
   width: { type: [Number, String] as PropType<number | string>, default: 520 },
   height: { type: [Number, String] as PropType<number | string>, default: 520 },
@@ -58,6 +60,7 @@ const Drawer = defineComponent({
     close: () => true,
   },
   setup(props, { slots, emit }) {
+    const initialModel = useInitialValue(props);
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
     const getPopupContainer = usePopupContainer();
@@ -65,9 +68,9 @@ const Drawer = defineComponent({
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
 
-    const rendered = ref(props.modelValue);
-    const visible = ref(props.modelValue);
-    const opened = ref(props.modelValue);
+    const rendered = ref(initialModel.value);
+    const visible = ref(initialModel.value);
+    const opened = ref(initialModel.value);
     const closeHostedPopups = providePopupHost();
     const drawerBoxRef = ref<HTMLElement>();
     const focusTrap = createFocusTrap(() => drawerBoxRef.value);
@@ -107,7 +110,7 @@ const Drawer = defineComponent({
     };
 
     watch(
-      () => props.modelValue,
+      () => initialModel.value,
       (nv) => {
         toggle(nv);
       },
@@ -116,7 +119,7 @@ const Drawer = defineComponent({
     onMounted(() => {
       if (props.escKey) document.addEventListener("keydown", escToClose);
       if (rendered.value) ensurePositioningContext(resolveTarget());
-      updateScrollLock(props.modelValue);
+      updateScrollLock(initialModel.value);
     });
 
     onBeforeUnmount(() => {

@@ -34,23 +34,24 @@ Move and select items between two lists.
 
 ## API
 
-| Property     | Description                                                 | Type                                       | Default              |
-| ------------ | ----------------------------------------------------------- | ------------------------------------------ | -------------------- |
-| modelValue   | Target keys, supports `v-model`                             | TransferKey[]                              | []                   |
-| dataSource   | Data source                                                 | TransferItem[]                             | []                   |
-| titles       | List titles                                                 | [string, string]                           | ['Source', 'Target'] |
-| operations   | Right and left operation labels                             | [string, string]                           | ['', '']             |
-| searchable   | Enable search                                               | boolean                                    | false                |
-| disabled     | Disable the component                                       | boolean                                    | false                |
-| readonly     | Read-only; searchable but items cannot be selected or moved | boolean                                    | false                |
-| theme        | Appearance theme                                            | 'outline' \| 'fill'                        | outline              |
-| filterOption | Custom filter                                               | (keyword, item) => boolean                 | -                    |
-| render       | Custom item renderer                                        | (item) => VNodeChild                       | -                    |
-| item         | Custom item, scoped with `{ item: TransferItem }`           | VNodeChild                                 | -                    |
-| change       | Emitted after moving items                                  | (targetKeys, direction, movedKeys) => void | -                    |
-| search       | Emitted on search                                           | (direction, value) => void                 | -                    |
-| selectChange | Emitted when selection changes                              | (sourceKeys, targetKeys) => void           | -                    |
-| footer       | Custom list footer, scoped with `{ direction }`             | VNodeChild                                 | -                    |
+| Property     | Description                                                                                                                   | Type                                       | Default              |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | -------------------- |
+| modelValue   | Target keys, supports `v-model`                                                                                               | TransferKey[]                              | -                    |
+| value        | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | TransferKey[]                              | []                   |
+| dataSource   | Data source                                                                                                                   | TransferItem[]                             | []                   |
+| titles       | List titles                                                                                                                   | [string, string]                           | ['Source', 'Target'] |
+| operations   | Right and left operation labels                                                                                               | [string, string]                           | ['', '']             |
+| searchable   | Enable search                                                                                                                 | boolean                                    | false                |
+| disabled     | Disable the component                                                                                                         | boolean                                    | false                |
+| readonly     | Read-only; searchable but items cannot be selected or moved                                                                   | boolean                                    | false                |
+| theme        | Appearance theme                                                                                                              | 'outline' \| 'fill'                        | outline              |
+| filterOption | Custom filter                                                                                                                 | (keyword, item) => boolean                 | -                    |
+| render       | Custom item renderer                                                                                                          | (item) => VNodeChild                       | -                    |
+| item         | Custom item, scoped with `{ item: TransferItem }`                                                                             | VNodeChild                                 | -                    |
+| change       | Emitted after moving items                                                                                                    | (targetKeys, direction, movedKeys) => void | -                    |
+| search       | Emitted on search                                                                                                             | (direction, value) => void                 | -                    |
+| selectChange | Emitted when selection changes                                                                                                | (sourceKeys, targetKeys) => void           | -                    |
+| footer       | Custom list footer, scoped with `{ direction }`                                                                               | VNodeChild                                 | -                    |
 
 ### TransferItem
 

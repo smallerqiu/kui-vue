@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import { ChevronLeft, ChevronRight, Search } from "kui-icons";
 import {
   computed,
@@ -24,7 +25,8 @@ export interface TransferItem {
 }
 
 const transferProps = {
-  modelValue: { type: Array as PropType<TransferKey[]>, default: () => [] },
+  modelValue: { type: Array as PropType<TransferKey[]>, default: undefined },
+  value: { type: Array as PropType<TransferKey[]>, default: () => [] },
   dataSource: { type: Array as PropType<TransferItem[]>, default: () => [] },
   titles: {
     type: tuplePropType<[string, string]>(),
@@ -66,12 +68,13 @@ const Transfer = defineComponent({
       Array.isArray(sourceKeys) && Array.isArray(targetKeys),
   },
   setup(props, { emit, slots }) {
+    const initialModel = useInitialValue(props);
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
     const modelValue = computed<TransferKey[]>(() =>
       field?.prop && Array.isArray(field.value.value)
         ? (field.value.value as TransferKey[])
-        : props.modelValue,
+        : initialModel.value,
     );
     const sourceSelected = ref<TransferKey[]>([]);
     const targetSelected = ref<TransferKey[]>([]);
@@ -150,6 +153,7 @@ const Transfer = defineComponent({
         direction === "right"
           ? [...new Set([...modelValue.value, ...movedKeys])]
           : modelValue.value.filter((key) => !movedKeys.includes(key));
+      initialModel.value = next;
       emit("update:modelValue", next);
       if (field?.prop) field.update(next);
       emit("change", next, direction, [...movedKeys]);

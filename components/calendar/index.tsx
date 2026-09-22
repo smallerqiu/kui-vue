@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import { ChevronLeft, ChevronRight } from "kui-icons";
 import {
   computed,
@@ -32,6 +33,7 @@ export interface CalendarDateCell {
 
 const calendarProps = {
   modelValue: String,
+  value: String,
   events: { type: Array as PropType<CalendarEventData[]>, default: () => [] },
   firstDayOfWeek: Number,
   maxEvents: { type: Number, default: 3 },
@@ -66,6 +68,7 @@ const Calendar = defineComponent({
     eventClick: (event: CalendarEventData, cell: CalendarDateCell) => Boolean(event && cell),
   },
   setup(props, { attrs, emit, slots }) {
+    const initialModel = useInitialValue(props);
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
     const locale = computed(() => (isRef(injectedLocale) ? injectedLocale.value : injectedLocale));
@@ -108,12 +111,12 @@ const Calendar = defineComponent({
         new Date(viewYear.value, viewMonth.value, 1),
       ),
     );
-    const initial = parseDate(props.modelValue) || new Date();
+    const initial = parseDate(initialModel.value) || new Date();
     const viewYear = ref(initial.getFullYear());
     const viewMonth = ref(initial.getMonth());
     const today = dateKey(new Date());
     watch(
-      () => props.modelValue,
+      () => initialModel.value,
       (value) => {
         if (!value) return;
         const date = parseDate(value);
@@ -159,6 +162,7 @@ const Calendar = defineComponent({
           emit("monthChange", { year: viewYear.value, month: viewMonth.value + 1 });
         }
       }
+      initialModel.value = cell.date;
       emit("update:modelValue", cell.date);
       emit("change", cell.date, cell);
     };
@@ -178,6 +182,7 @@ const Calendar = defineComponent({
         currentMonth: true,
         events: props.events.filter((event) => event.date === today),
       };
+      initialModel.value = today;
       emit("update:modelValue", today);
       emit("change", today, cell);
       emit("monthChange", { year: viewYear.value, month: viewMonth.value + 1 });
@@ -209,7 +214,7 @@ const Calendar = defineComponent({
     return () => {
       const { class: customClass, ...restAttrs } = attrs;
       const focusDate =
-        cells.value.find((cell) => cell.date === props.modelValue)?.date ||
+        cells.value.find((cell) => cell.date === initialModel.value)?.date ||
         cells.value.find((cell) => cell.date === today)?.date ||
         cells.value.find((cell) => cell.currentMonth)?.date;
       return (
@@ -247,11 +252,11 @@ const Calendar = defineComponent({
                       {
                         "k-calendar-cell-outside": !cell.currentMonth,
                         "k-calendar-cell-today": cell.date === today,
-                        "k-calendar-cell-selected": cell.date === props.modelValue,
+                        "k-calendar-cell-selected": cell.date === initialModel.value,
                       },
                     ]}
                     role="gridcell"
-                    aria-selected={cell.date === props.modelValue}
+                    aria-selected={cell.date === initialModel.value}
                     aria-current={cell.date === today ? "date" : undefined}
                     tabindex={cell.date === focusDate ? 0 : -1}
                     onClick={() => select(cell)}

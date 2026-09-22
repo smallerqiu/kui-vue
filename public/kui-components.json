@@ -2401,10 +2401,10 @@
           "documented": true
         },
         {
-          "name": "modelValue",
-          "description": "Array of path values bound through `v-model` (e.g., `['zhejiang', 'hangzhou', 'xihu']`).",
-          "descriptionZh": "选中项的路径值数组（如 `['zhejiang', 'hangzhou', 'xihu']`）。",
-          "descriptionEn": "Array of path values bound through `v-model` (e.g., `['zhejiang', 'hangzhou', 'xihu']`).",
+          "name": "value",
+          "description": "**Required.** Unique identifier for the current node (often corresponds to backend `id` or `code`). When the full path is selected, `v-model` collects an array composed of these values.",
+          "descriptionZh": "**必填。** 当前节点的唯一标识符（常对应后端的 `id` 或 `code`）。全路径选中时，`v-model` 最终收集的就是由该属性组成的数组。",
+          "descriptionEn": "**Required.** Unique identifier for the current node (often corresponds to backend `id` or `code`). When the full path is selected, `v-model` collects an array composed of these values.",
           "type": "CascaderValue",
           "boolean": false,
           "required": false,
@@ -2542,6 +2542,17 @@
             "round"
           ],
           "required": false,
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Array of path values bound through `v-model` (e.g., `['zhejiang', 'hangzhou', 'xihu']`).",
+          "descriptionZh": "选中项的路径值数组（如 `['zhejiang', 'hangzhou', 'xihu']`）。",
+          "descriptionEn": "Array of path values bound through `v-model` (e.g., `['zhejiang', 'hangzhou', 'xihu']`).",
+          "type": "CascaderValue | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -2914,6 +2925,16 @@
           "description": "Selected date in `YYYY-MM-DD` format; supports `v-model`",
           "descriptionZh": "选中日期，格式 `YYYY-MM-DD`，支持 `v-model`",
           "descriptionEn": "Selected date in `YYYY-MM-DD` format; supports `v-model`",
+          "type": "string | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "string | undefined",
           "boolean": false,
           "required": false,
@@ -3636,10 +3657,10 @@
       "documentation": "https://k-ui.cn/components/carousel",
       "props": [
         {
-          "name": "modelValue",
-          "description": "The index of the slide, starting from 0. Can use `v-model` for two-way binding",
-          "descriptionZh": "幻灯片的索引，从 0 开始，可以使用 `v-model` 双向绑定数据",
-          "descriptionEn": "The index of the slide, starting from 0. Can use `v-model` for two-way binding",
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "number",
           "boolean": false,
           "required": false,
@@ -3710,6 +3731,17 @@
           ],
           "required": false,
           "defaultExpression": "true",
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "The index of the slide, starting from 0. Can use `v-model` for two-way binding",
+          "descriptionZh": "幻灯片的索引，从 0 开始，可以使用 `v-model` 双向绑定数据",
+          "descriptionEn": "The index of the slide, starting from 0. Can use `v-model` for two-way binding",
+          "type": "number | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -3907,9 +3939,9 @@
         },
         {
           "name": "value",
-          "description": "The value represented when used in combination",
-          "descriptionZh": "结合使用时表示的值",
-          "descriptionEn": "The value represented when used in combination",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "string | number | boolean | undefined",
           "boolean": false,
           "required": false,
@@ -4095,10 +4127,10 @@
           "documented": true
         },
         {
-          "name": "modelValue",
-          "description": "Selected values; supports `v-model`",
-          "descriptionZh": "用于设置当前选中的值，可使用 `v-model` 双向绑定",
-          "descriptionEn": "Selected values; supports `v-model`",
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "CheckboxValue[]",
           "boolean": false,
           "required": false,
@@ -4133,6 +4165,17 @@
             true
           ],
           "required": false,
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Selected values; supports `v-model`",
+          "descriptionZh": "用于设置当前选中的值，可使用 `v-model` 双向绑定",
+          "descriptionEn": "Selected values; supports `v-model`",
+          "type": "CheckboxValue[] | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -4295,21 +4338,6 @@
           "documented": true
         },
         {
-          "name": "modelValue",
-          "description": "Selected value, supports `v-model`",
-          "descriptionZh": "当前选项值，可用 `v-model`",
-          "descriptionEn": "Selected value, supports `v-model`",
-          "type": "boolean",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
-          "defaultExpression": "false",
-          "documented": true
-        },
-        {
           "name": "size",
           "description": "Card size",
           "descriptionZh": "卡片尺寸",
@@ -4323,6 +4351,21 @@
           ],
           "required": false,
           "defaultExpression": "\"medium\"",
+          "documented": true
+        },
+        {
+          "name": "checked",
+          "description": "Initial checked state when used independently; modelValue takes precedence.",
+          "descriptionZh": "独立使用时的初始选中状态；modelValue 优先。",
+          "descriptionEn": "Initial checked state when used independently; modelValue takes precedence.",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "false",
           "documented": true
         },
         {
@@ -4375,10 +4418,25 @@
           "documented": true
         },
         {
+          "name": "modelValue",
+          "description": "Selected value, supports `v-model`",
+          "descriptionZh": "当前选项值，可用 `v-model`",
+          "descriptionEn": "Selected value, supports `v-model`",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "undefined",
+          "documented": true
+        },
+        {
           "name": "value",
-          "description": "Option value inside a group",
-          "descriptionZh": "在 Group 中使用的选项值",
-          "descriptionEn": "Option value inside a group",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "CheckCardValue | undefined",
           "boolean": false,
           "required": false,
@@ -4585,6 +4643,16 @@
           "description": "Selected value, supports `v-model`",
           "descriptionZh": "当前选项值，可用 `v-model`",
           "descriptionEn": "Selected value, supports `v-model`",
+          "type": "CheckCardValue | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "CheckCardValue | undefined",
           "boolean": false,
           "required": false,
@@ -5100,6 +5168,16 @@
           "documented": true
         },
         {
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "type": "string | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "readonly",
           "description": "Read-only; prevents opening or changing",
           "descriptionZh": "是否只读，不可展开或修改",
@@ -5388,10 +5466,10 @@
           "documented": true
         },
         {
-          "name": "modelValue",
-          "description": "Current date or time value",
-          "descriptionZh": "当前日期或时间值",
-          "descriptionEn": "Current date or time value",
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "DatePickerInput | DatePickerInput[] | null",
           "boolean": false,
           "required": false,
@@ -5573,6 +5651,17 @@
             "round"
           ],
           "required": false,
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Current date or time value",
+          "descriptionZh": "当前日期或时间值",
+          "descriptionEn": "Current date or time value",
+          "type": "DatePickerInput | DatePickerInput[] | null | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -6062,10 +6151,10 @@
           "documented": true
         },
         {
-          "name": "modelValue",
-          "description": "Whether the dialog is displayed, can use v-model for two-way binding.",
-          "descriptionZh": "对话框是否显示，可使用 v-model 双向绑定数据。",
-          "descriptionEn": "Whether the dialog is displayed, can use v-model for two-way binding.",
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "boolean",
           "boolean": true,
           "enumValues": [
@@ -6191,6 +6280,21 @@
           "type": "(() => HTMLElement | ComponentPublicInstance | null | undefined) | undefined",
           "boolean": false,
           "required": false,
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Whether the dialog is displayed, can use v-model for two-way binding.",
+          "descriptionZh": "对话框是否显示，可使用 v-model 双向绑定数据。",
+          "descriptionEn": "Whether the dialog is displayed, can use v-model for two-way binding.",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -9287,10 +9391,10 @@
           "documented": true
         },
         {
-          "name": "modelValue",
-          "description": "Bound value, supports `v-model`",
-          "descriptionZh": "绑定值，可使用 `v-model`",
-          "descriptionEn": "Bound value, supports `v-model`",
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "string | number",
           "boolean": false,
           "required": false,
@@ -9336,6 +9440,17 @@
             "round"
           ],
           "required": false,
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Bound value, supports `v-model`",
+          "descriptionZh": "绑定值，可使用 `v-model`",
+          "descriptionEn": "Bound value, supports `v-model`",
+          "type": "string | number | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -9696,6 +9811,16 @@
           "description": "The value of InputNumber(v-model)",
           "descriptionZh": "InputNumber的值(v-model)",
           "descriptionEn": "The value of InputNumber(v-model)",
+          "type": "string | number | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "string | number | undefined",
           "boolean": false,
           "required": false,
@@ -10154,10 +10279,10 @@
       "documentation": "https://k-ui.cn/components/menu",
       "props": [
         {
-          "name": "modelValue",
-          "description": "Currently selected menu items (v-model)",
-          "descriptionZh": "当前选中的菜单项（v-model）",
-          "descriptionEn": "Currently selected menu items (v-model)",
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "string[]",
           "boolean": false,
           "required": false,
@@ -10218,6 +10343,17 @@
             "dark"
           ],
           "required": false,
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Currently selected menu items (v-model)",
+          "descriptionZh": "当前选中的菜单项（v-model）",
+          "descriptionEn": "Currently selected menu items (v-model)",
+          "type": "string[] | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -11240,6 +11376,21 @@
           "description": "Whether the dialog is displayed, can use v-model for two-way binding.",
           "descriptionZh": "对话框是否显示，可使用 v-model 双向绑定数据。",
           "descriptionEn": "Whether the dialog is displayed, can use v-model for two-way binding.",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "undefined",
+          "documented": true
+        },
+        {
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -12908,9 +13059,9 @@
         },
         {
           "name": "value",
-          "description": "Value when used in combination",
-          "descriptionZh": "组合使用时的值",
-          "descriptionEn": "Value when used in combination",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "string | number | undefined",
           "boolean": false,
           "required": false,
@@ -13165,9 +13316,9 @@
         },
         {
           "name": "value",
-          "description": "Value when used in combination",
-          "descriptionZh": "组合使用时的值",
-          "descriptionEn": "Value when used in combination",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "string | number | undefined",
           "boolean": false,
           "required": false,
@@ -13423,6 +13574,16 @@
           "documented": true
         },
         {
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "type": "string | number | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "options",
           "description": "Can specify child `radio` items",
           "descriptionZh": "可以指定子项 `radio`",
@@ -13626,6 +13787,16 @@
           "description": "Selected value",
           "descriptionZh": "当前选中值",
           "descriptionEn": "Selected value",
+          "type": "SegmentedValue | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "value",
+          "description": "Option value",
+          "descriptionZh": "选项值",
+          "descriptionEn": "Option value",
           "type": "SegmentedValue | undefined",
           "boolean": false,
           "required": false,
@@ -14579,6 +14750,16 @@
           "description": "Specifies the `value` of the selected item, can use `v-model` for two-way binding",
           "descriptionZh": "指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据",
           "descriptionEn": "Specifies the `value` of the selected item, can use `v-model` for two-way binding",
+          "type": "SelectValue | SelectValue[] | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "value",
+          "description": "Option value, used for filtering by default, required",
+          "descriptionZh": "选项值，默认根据此属性值进行筛选，必填",
+          "descriptionEn": "Option value, used for filtering by default, required",
           "type": "SelectValue | SelectValue[] | undefined",
           "boolean": false,
           "required": false,
@@ -15878,10 +16059,10 @@
           "documented": true
         },
         {
-          "name": "modelValue",
-          "description": "Numerical value",
-          "descriptionZh": "数值",
-          "descriptionEn": "Numerical value",
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "number",
           "boolean": false,
           "required": false,
@@ -15938,6 +16119,17 @@
           ],
           "required": false,
           "defaultExpression": "true",
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Numerical value",
+          "descriptionZh": "数值",
+          "descriptionEn": "Numerical value",
+          "type": "number | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -16021,10 +16213,10 @@
       "documentation": "https://k-ui.cn/components/slider",
       "props": [
         {
-          "name": "modelValue",
-          "description": "Set current value (v-model)",
-          "descriptionZh": "设置当前取值(v-model)",
-          "descriptionEn": "Set current value (v-model)",
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "number | number[]",
           "boolean": false,
           "required": false,
@@ -16106,6 +16298,17 @@
             true
           ],
           "required": false,
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Set current value (v-model)",
+          "descriptionZh": "设置当前取值(v-model)",
+          "descriptionEn": "Set current value (v-model)",
+          "type": "number | number[] | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -16456,10 +16659,10 @@
       "documentation": "https://k-ui.cn/components/spin",
       "props": [
         {
-          "name": "modelValue",
-          "description": "Whether loading state, can use `v-model` for two-way binding",
-          "descriptionZh": "是否加载状态，可以使用 `v-model` 双向绑定数据",
-          "descriptionEn": "Whether loading state, can use `v-model` for two-way binding",
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "boolean",
           "boolean": true,
           "enumValues": [
@@ -16496,6 +16699,21 @@
           ],
           "required": false,
           "defaultExpression": "\"rotate\"",
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Whether loading state, can use `v-model` for two-way binding",
+          "descriptionZh": "是否加载状态，可以使用 `v-model` 双向绑定数据",
+          "descriptionEn": "Whether loading state, can use `v-model` for two-way binding",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -18417,6 +18635,21 @@
           "documented": true
         },
         {
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "undefined",
+          "documented": true
+        },
+        {
           "name": "current",
           "description": "Current step",
           "descriptionZh": "当前步骤",
@@ -18589,10 +18822,10 @@
           "documented": true
         },
         {
-          "name": "modelValue",
-          "description": "Target keys, supports `v-model`",
-          "descriptionZh": "目标列表的 key，可使用 `v-model`",
-          "descriptionEn": "Target keys, supports `v-model`",
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "TransferKey[]",
           "boolean": false,
           "required": false,
@@ -18658,6 +18891,17 @@
             true
           ],
           "required": false,
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Target keys, supports `v-model`",
+          "descriptionZh": "目标列表的 key，可使用 `v-model`",
+          "descriptionEn": "Target keys, supports `v-model`",
+          "type": "TransferKey[] | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -18967,6 +19211,16 @@
           "description": "Text content, supports `v-model`",
           "descriptionZh": "文本内容，可使用 `v-model`",
           "descriptionEn": "Text content, supports `v-model`",
+          "type": "string | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "string | undefined",
           "boolean": false,
           "required": false,
@@ -20364,6 +20618,16 @@
           "description": "Specify the `value` of the selected item, can use `v-model` for two-way binding",
           "descriptionZh": "指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据",
           "descriptionEn": "Specify the `value` of the selected item, can use `v-model` for two-way binding",
+          "type": "TreeSelectValue",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "value",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "TreeSelectValue",
           "boolean": false,
           "required": false,

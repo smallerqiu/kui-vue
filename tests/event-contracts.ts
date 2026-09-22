@@ -277,3 +277,32 @@ export type PublicEventContract = [
   Assert<TypedHandler<InstanceType<typeof Components.TypographyParagraph>["$props"]["onChange"]>>,
   Assert<TypedHandler<InstanceType<typeof Components.TypographyParagraph>["$props"]["onCopy"]>>,
 ];
+
+// Initial values remain public even when a component uses a generic constructor.
+export type InitialValueContract = [
+  InstanceType<typeof Components.Select>["$props"]["value"],
+  InstanceType<typeof Components.TreeSelect>["$props"]["value"],
+  InstanceType<typeof Components.Cascader>["$props"]["value"],
+  InstanceType<typeof Components.DatePicker>["$props"]["value"],
+  InstanceType<typeof Components.InputNumber>["$props"]["value"],
+  InstanceType<typeof Components.InputOTP>["$props"]["value"],
+  InstanceType<typeof Components.Calendar>["$props"]["value"],
+  InstanceType<typeof Components.ColorPicker>["$props"]["value"],
+  InstanceType<typeof Components.Segmented>["$props"]["value"],
+  InstanceType<typeof Components.RadioGroup>["$props"]["value"],
+  InstanceType<typeof Components.CheckboxGroup>["$props"]["value"],
+  InstanceType<typeof Components.CheckCardGroup>["$props"]["value"],
+  InstanceType<typeof Components.Slider>["$props"]["value"],
+  InstanceType<typeof Components.Menu>["$props"]["value"],
+  InstanceType<typeof Components.Transfer>["$props"]["value"],
+  InstanceType<typeof Components.Carousel>["$props"]["value"],
+  InstanceType<typeof Components.Spin>["$props"]["value"],
+  InstanceType<typeof Components.Modal>["$props"]["value"],
+  InstanceType<typeof Components.Drawer>["$props"]["value"],
+  InstanceType<typeof Components.Tour>["$props"]["value"],
+  InstanceType<typeof Components.TypographyText>["$props"]["value"],
+  InstanceType<typeof Components.TypographyTitle>["$props"]["value"],
+  InstanceType<typeof Components.TypographyParagraph>["$props"]["value"],
+  InstanceType<typeof Components.StatNumber>["$props"]["value"],
+  InstanceType<typeof Components.CheckCard>["$props"]["checked"],
+];

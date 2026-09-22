@@ -22,9 +22,10 @@ When part of the page is waiting for asynchronous data or being rendered, approp
 
 ## Spin API
 
-| Property   | Description                                                  | Type                       | Default |
-| ---------- | ------------------------------------------------------------ | -------------------------- | ------- |
-| modelValue | Whether loading state, can use `v-model` for two-way binding | boolean                    | true    |
-| mode       | Loading animation type                                       | bounce\|flip\|rotate\|zoom | rotate  |
-| delay      | Delay before showing to prevent flickering                   | number                     | 0       |
-| size       | Loading indicator size                                       | small\|medium\|large       | medium  |
+| Property   | Description                                                                                                                   | Type                       | Default |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------- | ------- |
+| modelValue | Whether loading state, can use `v-model` for two-way binding                                                                  | boolean                    | -       |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | boolean                    | true    |
+| mode       | Loading animation type                                                                                                        | bounce\|flip\|rotate\|zoom | rotate  |
+| delay      | Delay before showing to prevent flickering                                                                                    | number                     | 0       |
+| size       | Loading indicator size                                                                                                        | small\|medium\|large       | medium  |

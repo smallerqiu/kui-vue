@@ -26,26 +26,27 @@
 
 ## InputNumber API
 
-| 属性        | 说明                                                       | 类型                                 | 默认值    |
-| ----------- | ---------------------------------------------------------- | ------------------------------------ | --------- |
-| min         | 最小值                                                     | number                               | -Infinity |
-| max         | 最大值                                                     | number                               | Infinity  |
-| step        | 每次改变步数，可以为小数                                   | number \| string                     | 1         |
-| modelValue  | InputNumber的值(v-model)                                   | number                               | -         |
-| formatter   | 指定输入框展示值的格式                                     | (value: string \| number) => string  | -         |
-| parser      | 指定从 formatter 里转换回数字的方式，和 formatter 搭配使用 | (value: string) => string \| number  | -         |
-| size        | 输入框大小                                                 | SizeType                             | -         |
-| disabled    | 禁用                                                       | boolean                              | false     |
-| readonly    | 是否只读                                                   | boolean                              | false     |
-| precision   | 数值精度                                                   | number                               | -         |
-| shape       | 组件的外观                                                 | ShapeType                            | -         |
-| suffix      | 自定义后缀                                                 | string \| slot                       | -         |
-| prefix      | 前缀内容                                                   | string \| slot                       | -         |
-| controls    | 是否显示增减按钮                                           | boolean                              | true      |
-| theme       | 组件呈现主题                                               | ThemeType                            | fill      |
-| icon        | 输入框图标                                                 | IconType[]                           | -         |
-| placeholder | 输入框占位提示                                             | string                               | -         |
-| keyboard    | 是否允许键盘控制                                           | boolean                              | true      |
-| onChange    | 变化回调，清空时返回 `undefined`                           | (value: number \| undefined) => void | -         |
-| onBlur      | 输入框失焦时触发                                           | (event: FocusEvent) => void          | -         |
-| onKeydown   | 输入框按键时触发                                           | (event: KeyboardEvent) => void       | -         |
+| 属性        | 说明                                                                          | 类型                                 | 默认值    |
+| ----------- | ----------------------------------------------------------------------------- | ------------------------------------ | --------- |
+| min         | 最小值                                                                        | number                               | -Infinity |
+| max         | 最大值                                                                        | number                               | Infinity  |
+| step        | 每次改变步数，可以为小数                                                      | number \| string                     | 1         |
+| modelValue  | InputNumber的值(v-model)                                                      | number                               | -         |
+| value       | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | number                               | -         |
+| formatter   | 指定输入框展示值的格式                                                        | (value: string \| number) => string  | -         |
+| parser      | 指定从 formatter 里转换回数字的方式，和 formatter 搭配使用                    | (value: string) => string \| number  | -         |
+| size        | 输入框大小                                                                    | SizeType                             | -         |
+| disabled    | 禁用                                                                          | boolean                              | false     |
+| readonly    | 是否只读                                                                      | boolean                              | false     |
+| precision   | 数值精度                                                                      | number                               | -         |
+| shape       | 组件的外观                                                                    | ShapeType                            | -         |
+| suffix      | 自定义后缀                                                                    | string \| slot                       | -         |
+| prefix      | 前缀内容                                                                      | string \| slot                       | -         |
+| controls    | 是否显示增减按钮                                                              | boolean                              | true      |
+| theme       | 组件呈现主题                                                                  | ThemeType                            | fill      |
+| icon        | 输入框图标                                                                    | IconType[]                           | -         |
+| placeholder | 输入框占位提示                                                                | string                               | -         |
+| keyboard    | 是否允许键盘控制                                                              | boolean                              | true      |
+| onChange    | 变化回调，清空时返回 `undefined`                                              | (value: number \| undefined) => void | -         |
+| onBlur      | 输入框失焦时触发                                                              | (event: FocusEvent) => void          | -         |
+| onKeydown   | 输入框按键时触发                                                              | (event: KeyboardEvent) => void       | -         |

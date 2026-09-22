@@ -27,34 +27,36 @@ Present richer choices with a title, description, and optional symbol.
 
 ## CheckCard API
 
-| Property      | Description                                         | Type                           | Default |
-| ------------- | --------------------------------------------------- | ------------------------------ | ------- |
-| modelValue    | Standalone state, supports `v-model`                | boolean                        | false   |
-| value         | Option value inside a group                         | string \| number               | -       |
-| title         | Title, customizable via the named slot              | string \| number \| VNodeChild | -       |
-| description   | Description, customizable via the named slot        | string \| VNodeChild           | -       |
-| symbol        | Symbol icon, customizable via the named slot        | IconType[] \| VNodeChild       | -       |
-| checkedSymbol | Symbol icon used when checked                       | IconType[]                     | -       |
-| showIndicator | Show the top-right selection indicator              | boolean                        | true    |
-| disabled      | Disable the card                                    | boolean                        | false   |
-| readonly      | Read-only; remains focusable but cannot be selected | boolean                        | false   |
-| theme         | Appearance theme                                    | 'outline' \| 'fill'            | outline |
-| size          | Size                                                | 'small' \| 'medium' \| 'large' | medium  |
-| shape         | Shape                                               | ShapeType                      | round   |
-| change        | Emitted when selection state changes                | (event) => void                | -       |
+| Property      | Description                                                                 | Type                           | Default |
+| ------------- | --------------------------------------------------------------------------- | ------------------------------ | ------- |
+| modelValue    | Standalone state, supports `v-model`                                        | boolean                        | -       |
+| checked       | Initial checked state when used independently; modelValue takes precedence. | boolean                        | false   |
+| value         | Option value inside a group                                                 | string \| number               | -       |
+| title         | Title, customizable via the named slot                                      | string \| number \| VNodeChild | -       |
+| description   | Description, customizable via the named slot                                | string \| VNodeChild           | -       |
+| symbol        | Symbol icon, customizable via the named slot                                | IconType[] \| VNodeChild       | -       |
+| checkedSymbol | Symbol icon used when checked                                               | IconType[]                     | -       |
+| showIndicator | Show the top-right selection indicator                                      | boolean                        | true    |
+| disabled      | Disable the card                                                            | boolean                        | false   |
+| readonly      | Read-only; remains focusable but cannot be selected                         | boolean                        | false   |
+| theme         | Appearance theme                                                            | 'outline' \| 'fill'            | outline |
+| size          | Size                                                                        | 'small' \| 'medium' \| 'large' | medium  |
+| shape         | Shape                                                                       | ShapeType                      | round   |
+| change        | Emitted when selection state changes                                        | (event) => void                | -       |
 
 ## CheckCardGroup API
 
-| Property   | Description                             | Type                           | Default    |
-| ---------- | --------------------------------------- | ------------------------------ | ---------- |
-| modelValue | Selected value, supports `v-model`      | string \| number               | -          |
-| options    | Card options                            | CheckCardOption[]              | -          |
-| disabled   | Disable the group                       | boolean                        | false      |
-| readonly   | Make the group read-only                | boolean                        | false      |
-| direction  | Layout direction                        | 'horizontal' \| 'vertical'     | horizontal |
-| theme      | Card theme                              | 'outline' \| 'fill'            | outline    |
-| size       | Card size                               | 'small' \| 'medium' \| 'large' | medium     |
-| shape      | Card shape                              | ShapeType                      | round      |
-| change     | Emitted when the selected value changes | (value) => void                | -          |
+| Property   | Description                                                                                                                   | Type                           | Default    |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | ---------- |
+| modelValue | Selected value, supports `v-model`                                                                                            | string \| number               | -          |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number               | -          |
+| options    | Card options                                                                                                                  | CheckCardOption[]              | -          |
+| disabled   | Disable the group                                                                                                             | boolean                        | false      |
+| readonly   | Make the group read-only                                                                                                      | boolean                        | false      |
+| direction  | Layout direction                                                                                                              | 'horizontal' \| 'vertical'     | horizontal |
+| theme      | Card theme                                                                                                                    | 'outline' \| 'fill'            | outline    |
+| size       | Card size                                                                                                                     | 'small' \| 'medium' \| 'large' | medium     |
+| shape      | Card shape                                                                                                                    | ShapeType                      | round      |
+| change     | Emitted when the selected value changes                                                                                       | (value) => void                | -          |
 
 Each item in `options` also supports `disabled` and `readonly`.

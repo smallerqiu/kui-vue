@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import {
   computed,
   defineComponent,
@@ -30,6 +31,7 @@ export interface SegmentedOption {
 
 const segmentedProps = {
   modelValue: [String, Number] as PropType<SegmentedValue>,
+  value: [String, Number] as PropType<SegmentedValue>,
   options: { type: Array as PropType<SegmentedOption[]>, default: () => [] },
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
@@ -42,9 +44,10 @@ const segmentedProps = {
 export type SegmentedProps = ExtractPropTypes<typeof segmentedProps>;
 type SegmentedPublicProps<T extends SegmentedValue> = Omit<
   Partial<SegmentedProps>,
-  "modelValue"
+  "modelValue" | "value"
 > & {
   modelValue?: T;
+  value?: T;
   "onUpdate:modelValue"?: (value: T) => void;
   onChange?: (value: T) => void;
 };
@@ -62,10 +65,11 @@ const Segmented = defineComponent({
     change: (value: SegmentedValue) => ["string", "number"].includes(typeof value),
   },
   setup(props, { attrs, emit, slots }) {
+    const initialModel = useInitialValue(props);
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
     const currentValue = computed(() =>
-      field?.prop ? (field.value.value as SegmentedValue | undefined) : props.modelValue,
+      field?.prop ? (field.value.value as SegmentedValue | undefined) : initialModel.value,
     );
     const rootRef = ref<HTMLElement>();
     const itemRefs = new Map<SegmentedValue, HTMLElement>();
@@ -98,6 +102,7 @@ const Segmented = defineComponent({
         option.value === currentValue.value
       )
         return;
+      initialModel.value = option.value;
       emit("update:modelValue", option.value);
       if (field?.prop) field.update(option.value);
       emit("change", option.value);

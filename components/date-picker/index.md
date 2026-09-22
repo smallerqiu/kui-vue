@@ -48,7 +48,8 @@
 
 | 属性         | 说明                                                                                                                     | 类型                                                                                | 默认值     |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- | ---------- |
-| modelValue   | 当前日期或时间值                                                                                                         | DatePickerInput \| DatePickerInput[]                                                | null       |
+| modelValue   | 当前日期或时间值                                                                                                         | DatePickerInput \| DatePickerInput[]                                                | -          |
+| value        | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。                                            | DatePickerInput \| DatePickerInput[]                                                | null       |
 | startDate    | 范围选择的开始值                                                                                                         | DatePickerInput                                                                     | null       |
 | endDate      | 范围选择的结束值                                                                                                         | DatePickerInput                                                                     | null       |
 | mode         | 使用 `mode` 属性，可以自定义日期显示类型，提供 `year`、`month`、`date`、`time`、`dateTime`、`dateRange`、`dateTimeRange` | string                                                                              | date       |

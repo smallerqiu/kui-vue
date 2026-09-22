@@ -22,17 +22,18 @@ Switch quickly between mutually exclusive options.
 
 ## API
 
-| Property   | Description                                       | Type                     | Default    |
-| ---------- | ------------------------------------------------- | ------------------------ | ---------- |
-| modelValue | Selected value                                    | string \| number         | -          |
-| options    | Option data                                       | SegmentedOption[]        | []         |
-| disabled   | Disable all options                               | boolean                  | false      |
-| readonly   | Read-only state                                   | boolean                  | false      |
-| block      | Fill the parent width                             | boolean                  | false      |
-| direction  | Layout direction                                  | `horizontal \| vertical` | horizontal |
-| size       | Size                                              | SizeType                 | medium     |
-| shape      | Shape                                             | ShapeType                | round      |
-| label      | Custom option content with `{ option, selected }` | VNodeChild               | -          |
+| Property   | Description                                                                                                                   | Type                     | Default    |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ---------- |
+| modelValue | Selected value                                                                                                                | string \| number         | -          |
+| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number         | -          |
+| options    | Option data                                                                                                                   | SegmentedOption[]        | []         |
+| disabled   | Disable all options                                                                                                           | boolean                  | false      |
+| readonly   | Read-only state                                                                                                               | boolean                  | false      |
+| block      | Fill the parent width                                                                                                         | boolean                  | false      |
+| direction  | Layout direction                                                                                                              | `horizontal \| vertical` | horizontal |
+| size       | Size                                                                                                                          | SizeType                 | medium     |
+| shape      | Shape                                                                                                                         | ShapeType                | round      |
+| label      | Custom option content with `{ option, selected }`                                                                             | VNodeChild               | -          |
 
 ## Events
 

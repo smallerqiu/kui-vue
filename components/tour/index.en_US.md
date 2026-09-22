@@ -22,15 +22,16 @@ Gradually introduce features around the actual goals on the page.
 
 ## Tour API
 
-| Property     | Description                                                         | Type       | Default |
-| ------------ | ------------------------------------------------------------------- | ---------- | ------- |
-| modelValue   | Visibility (v-model)                                                | boolean    | false   |
-| open         | Visibility; takes precedence over modelValue, supports v-model:open | boolean    | false   |
-| current      | Current step                                                        | number     | -       |
-| steps        | Tour steps                                                          | TourStep[] | []      |
-| mask         | Show mask                                                           | boolean    | true    |
-| closable     | Show close button                                                   | boolean    | true    |
-| escKey       | Close with Escape                                                   | boolean    | true    |
-| onChange     | Step change                                                         | function   | -       |
-| onOpenChange | Visibility change                                                   | function   | -       |
-| onFinish     | Tour completed                                                      | function   | -       |
+| Property     | Description                                                                                                                   | Type       | Default |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------- | ---------- | ------- |
+| modelValue   | Visibility (v-model)                                                                                                          | boolean    | -       |
+| value        | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | boolean    | false   |
+| open         | Visibility; takes precedence over modelValue, supports v-model:open                                                           | boolean    | false   |
+| current      | Current step                                                                                                                  | number     | -       |
+| steps        | Tour steps                                                                                                                    | TourStep[] | []      |
+| mask         | Show mask                                                                                                                     | boolean    | true    |
+| closable     | Show close button                                                                                                             | boolean    | true    |
+| escKey       | Close with Escape                                                                                                             | boolean    | true    |
+| onChange     | Step change                                                                                                                   | function   | -       |
+| onOpenChange | Visibility change                                                                                                             | function   | -       |
+| onFinish     | Tour completed                                                                                                                | function   | -       |

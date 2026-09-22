@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent } from "vue";
 import type { BooleanType } from "../const/types";
@@ -6,6 +7,10 @@ import CountUp from "./countup";
 
 const statNumberProps = {
   modelValue: {
+    type: [Number],
+    default: undefined,
+  },
+  value: {
     type: [Number],
     default: 0,
   },
@@ -31,6 +36,7 @@ const StatNumber = defineComponent({
   name: "StatNumber",
   props: statNumberProps,
   setup(props, { slots }) {
+    const initialModel = useInitialValue(props);
     return () => {
       const prefixNode = props.prefix ?? getChildren(slots.prefix?.());
       const suffixNode = props.suffix ?? getChildren(slots.suffix?.());
@@ -39,7 +45,7 @@ const StatNumber = defineComponent({
           ? value.length > 0
           : value !== undefined && value !== null && value !== "";
       const items = {
-        modelValue: props.modelValue,
+        modelValue: initialModel.value,
         separator: props.separator,
         duration: props.duration,
         precision: props.precision,

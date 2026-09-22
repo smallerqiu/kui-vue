@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import { cloneVNode, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType, DirectionType, SizeType, ThemeType } from "../const/types";
 import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
@@ -7,6 +8,10 @@ import type { CheckboxChangeEvent, CheckboxOption, CheckboxValue } from "./types
 
 const checkboxGroupProps = {
   modelValue: {
+    type: Array as PropType<CheckboxValue[]>,
+    default: undefined,
+  },
+  value: {
     type: Array as PropType<CheckboxValue[]>,
     default: () => [],
   },
@@ -33,14 +38,15 @@ const CheckboxGroup = defineComponent({
     change: (value: CheckboxValue[]) => Array.isArray(value),
   },
   setup(props, { slots, emit }) {
+    const initialModel = useInitialValue(props);
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
     const currentValue = ref(
-      field?.prop ? (field.value.value as CheckboxValue[]) : props.modelValue,
+      field?.prop ? (field.value.value as CheckboxValue[]) : initialModel.value,
     );
 
     watch(
-      () => (field?.prop ? field.value.value : props.modelValue),
+      () => (field?.prop ? field.value.value : initialModel.value),
       (val) => {
         currentValue.value = Array.isArray(val) ? (val as CheckboxValue[]) : [];
       },

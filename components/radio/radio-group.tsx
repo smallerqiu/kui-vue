@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import {
   cloneVNode,
   defineComponent,
@@ -24,6 +25,7 @@ import type { ChangeEvent, RadioOption } from "./types";
 
 const radioGroupProps = {
   modelValue: [String, Number] as PropType<string | number>,
+  value: [String, Number] as PropType<string | number>,
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
   direction: {
@@ -60,12 +62,13 @@ const RadioGroup = defineComponent({
     change: (value: string | number) => ["string", "number"].includes(typeof value),
   },
   setup(props, { slots, emit }) {
+    const initialModel = useInitialValue(props);
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
     const name = `k-radio-group-${getCurrentInstance()?.uid ?? "default"}`;
     const rootRef = ref<HTMLElement | null>(null);
     const currentValue = ref(
-      field?.prop ? (field.value.value as string | number) : props.modelValue,
+      field?.prop ? (field.value.value as string | number) : initialModel.value,
     );
     const onChange = ({ value }: ChangeEvent) => {
       if (props.readonly || field?.readonly.value || value === undefined) return;
@@ -75,7 +78,7 @@ const RadioGroup = defineComponent({
       emit("change", value);
     };
     watch(
-      () => (field?.prop ? field.value.value : props.modelValue),
+      () => (field?.prop ? field.value.value : initialModel.value),
       (val) => {
         currentValue.value = val as string | number;
       },

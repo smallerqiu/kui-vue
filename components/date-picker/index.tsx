@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import Popup, { type PopupRef } from "../popup";
 import type { ForwardedComponent } from "../utils/vue";
 import dayjs, { Dayjs, type UnitType } from "dayjs";
@@ -65,6 +66,12 @@ export type DatePickerOutput = string | number | Date | null;
 
 const datePickerProps = {
   modelValue: {
+    type: [Date, Object, Array, String, Number] as PropType<
+      DatePickerInput | DatePickerInput[] | null
+    >,
+    default: undefined,
+  },
+  value: {
     type: [Date, Object, Array, String, Number] as PropType<
       DatePickerInput | DatePickerInput[] | null
     >,
@@ -160,6 +167,7 @@ const DatePicker = defineComponent({
   },
 
   setup(props, { attrs, emit, slots }) {
+    const initialModel = useInitialValue(props);
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
 
@@ -325,7 +333,7 @@ const DatePicker = defineComponent({
       props.disabledDate(date.toDate()) ||
       (props.mode.includes("Time") && props.disabledTime(date.toDate()));
     const propRangeValue = () => {
-      if (Array.isArray(props.modelValue)) return props.modelValue;
+      if (Array.isArray(initialModel.value)) return initialModel.value;
       if (props.startDate !== null || props.endDate !== null) {
         return [props.startDate, props.endDate];
       }
@@ -334,7 +342,7 @@ const DatePicker = defineComponent({
 
     watch(
       [
-        () => (field?.prop ? field.value.value : props.modelValue),
+        () => (field?.prop ? field.value.value : initialModel.value),
         () => props.startDate,
         () => props.endDate,
         isRange,
@@ -499,7 +507,7 @@ const DatePicker = defineComponent({
       if (isRange.value && Array.isArray(innerValue.value)) {
         // 如果只选了一个值（即半选状态），关闭时重置为 props 传进来的原始状态
         if (innerValue.value.length === 1 || !innerValue.value[1]) {
-          syncTextFromValue(); // 这会根据 props.modelValue 恢复 textValue
+          syncTextFromValue(); // 这会根据 initialModel.value 恢复 textValue
           // 重新从 props 解析 innerValue
           const val = propRangeValue();
           if (val) {

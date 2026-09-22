@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import { X } from "kui-icons";
 import {
   computed,
@@ -27,6 +28,7 @@ export interface TourStep {
 
 const propsDef = {
   modelValue: { type: Boolean, default: undefined },
+  value: { type: Boolean, default: undefined },
   open: { type: Boolean, default: undefined },
   current: Number,
   steps: { type: Array as PropType<TourStep[]>, default: () => [] },
@@ -47,7 +49,8 @@ export default defineComponent({
     finish: () => true,
   },
   setup(props, { emit }) {
-    const innerOpen = ref(props.open ?? props.modelValue ?? false);
+    const initialModel = useInitialValue(props);
+    const innerOpen = ref(props.modelValue ?? props.open ?? initialModel.value ?? false);
     const innerCurrent = ref(props.current ?? 0);
     const tick = ref(0);
     const visible = computed(() => innerOpen.value);
@@ -63,7 +66,7 @@ export default defineComponent({
       scrollLocked = lock;
     };
     watch(
-      () => props.open ?? props.modelValue,
+      () => props.modelValue ?? props.open ?? initialModel.value,
       (value) => {
         innerOpen.value = value ?? false;
       },

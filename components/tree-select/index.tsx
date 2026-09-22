@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import Popup, { type PopupRef } from "../popup";
 import { renderSelectionTags } from "../utils/selection-tags";
 import { ChevronDown, CircleX, LoaderCircle } from "kui-icons";
@@ -55,6 +56,7 @@ const treeSelectProps = {
   width: Number,
   maxTagCount: Number,
   modelValue: [String, Number, Array] as PropType<TreeSelectValue>,
+  value: [String, Number, Array] as PropType<TreeSelectValue>,
   clearable: { type: Boolean as BooleanType, default: true },
   filterable: Boolean as BooleanType,
   block: Boolean as BooleanType,
@@ -87,10 +89,11 @@ const treeSelectProps = {
 export type TreeSelectProps = ExtractPropTypes<typeof treeSelectProps>;
 type TreeSelectPublicProps<T extends TreeSelectValue> = Omit<
   Partial<TreeSelectProps>,
-  "modelValue"
+  "modelValue" | "value"
 > &
   Omit<HTMLAttributes, "onChange"> & {
     modelValue?: T;
+    value?: T;
     "onUpdate:modelValue"?: (value: T) => void;
     onChange?: (value: T) => void;
     onTreeExpand?: (event: TreeExpandEvent) => void;
@@ -123,6 +126,7 @@ const TreeSelect = defineComponent({
     clear: () => true,
   },
   setup(props, { emit }) {
+    const initialModel = useInitialValue(props);
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
 
@@ -134,7 +138,7 @@ const TreeSelect = defineComponent({
     });
 
     const visible = ref(false);
-    const initialValue = field?.prop ? (field.value.value as TreeSelectValue) : props.modelValue;
+    const initialValue = field?.prop ? (field.value.value as TreeSelectValue) : initialModel.value;
     const currentValue = ref<string[]>(
       props.multiple
         ? [...(Array.isArray(initialValue) ? initialValue : [])]
@@ -159,7 +163,7 @@ const TreeSelect = defineComponent({
     const defaultExpandedKeys = ref<string[]>([...(props.treeExpandedKeys || [])]);
 
     watch(
-      () => (field?.prop ? field.value.value : props.modelValue),
+      () => (field?.prop ? field.value.value : initialModel.value),
       (v) => {
         currentValue.value = props.multiple
           ? [...(Array.isArray(v) ? v : [])]

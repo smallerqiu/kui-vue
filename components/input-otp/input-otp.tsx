@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import {
   computed,
   defineComponent,
@@ -19,7 +20,8 @@ import {
 import type { InputOTPValidator } from "./types";
 
 const inputOTPProps = {
-  modelValue: { type: [String, Number] as PropType<string | number>, default: "" },
+  modelValue: { type: [String, Number] as PropType<string | number>, default: undefined },
+  value: { type: [String, Number] as PropType<string | number>, default: "" },
   length: { type: Number, default: 6 },
   type: { type: String as PropType<"number" | "text">, default: "number" },
   size: String as PropType<SizeType>,
@@ -50,6 +52,7 @@ const InputOTP = defineComponent({
     blur: (event: FocusEvent) => Boolean(event),
   },
   setup(props, { attrs, emit, expose }) {
+    const initialModel = useInitialValue(props);
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
     const inputs = ref<Array<HTMLInputElement | null>>([]);
@@ -65,7 +68,7 @@ const InputOTP = defineComponent({
         .join("")
         .slice(0, otpLength.value);
     };
-    const currentValue = ref(normalize(field?.prop ? field.value.value : props.modelValue));
+    const currentValue = ref(normalize(field?.prop ? field.value.value : initialModel.value));
     const chars = computed(() =>
       Array.from(
         { length: otpLength.value },
@@ -85,7 +88,7 @@ const InputOTP = defineComponent({
     };
 
     watch(
-      () => (field?.prop ? field.value.value : props.modelValue),
+      () => (field?.prop ? field.value.value : initialModel.value),
       (value) => (currentValue.value = normalize(value)),
     );
     watch(

@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import type { ForwardedComponent } from "../utils/vue";
 import { X } from "kui-icons";
 import {
@@ -29,7 +30,8 @@ import { createFocusTrap } from "../utils/focus";
 import { toggleContainerScroll } from "../utils/vnode";
 
 const modalProps = {
-  modelValue: Boolean as BooleanType,
+  modelValue: { type: Boolean as BooleanType, default: undefined },
+  value: Boolean as BooleanType,
   title: String,
   okText: String,
   cancelText: String,
@@ -60,10 +62,11 @@ const Modal = defineComponent({
     close: () => true,
   },
   setup(props, { attrs, slots, emit }) {
+    const initialModel = useInitialValue(props);
     const getPopupContainer = usePopupContainer();
-    const visible = ref<boolean | undefined>(props.panelOnly || props.modelValue);
+    const visible = ref<boolean | undefined>(props.panelOnly || initialModel.value);
     const rendered = ref(props.panelOnly);
-    const showInner = ref(props.panelOnly || props.modelValue);
+    const showInner = ref(props.panelOnly || initialModel.value);
     const left = ref(0);
     const currentTop = ref(props.top);
     const isMousePressed = ref(false);
@@ -94,7 +97,7 @@ const Modal = defineComponent({
       document.addEventListener("mousedown", mousedown);
       if (props.escKey) document.addEventListener("keydown", escToClose);
 
-      if (props.modelValue) {
+      if (initialModel.value) {
         toggle(true);
       }
     });
@@ -106,7 +109,7 @@ const Modal = defineComponent({
       focusTrap.deactivate();
     });
     watch(
-      () => props.modelValue,
+      () => initialModel.value,
       (nv) => {
         toggle(nv);
       },

@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import Popup, { type PopupRef } from "../popup";
 import type { ForwardedComponent } from "../utils/vue";
 import Color, { type ColorObject } from "color";
@@ -35,6 +36,7 @@ import type { ColorMode } from "./types";
 export type { ColorMode } from "./types";
 const colorPickerProps = {
   modelValue: String,
+  value: String,
   opened: Boolean as BooleanType,
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
@@ -76,11 +78,12 @@ const ColorPicker = defineComponent({
   },
 
   setup(props, { attrs, emit, slots }) {
+    const initialModel = useInitialValue(props);
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
 
     const initialColor =
-      (field?.prop ? String(field.value.value ?? "") : props.modelValue) || "#000000ff";
+      (field?.prop ? String(field.value.value ?? "") : initialModel.value) || "#000000ff";
     const initialColorValue = Color(initialColor);
     const currentMode = ref(props.mode);
     type ColorInstance = ReturnType<typeof Color>;
@@ -93,7 +96,7 @@ const ColorPicker = defineComponent({
     const currentHue = ref(initialColorValue.hue());
 
     watch(
-      () => (field?.prop ? field.value.value : props.modelValue),
+      () => (field?.prop ? field.value.value : initialModel.value),
       (v) => {
         const value = String(v || "#000000ff");
         const color = Color(value);

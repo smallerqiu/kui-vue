@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import {
   computed,
   defineComponent,
@@ -23,7 +24,8 @@ import type { MenuOptionsProps, MenuSelectEvent } from "./types";
 const menuProps = {
   theme: String as PropType<"light" | "dark">,
   mode: { type: String as PropType<DirectionType>, default: "vertical" },
-  modelValue: { type: Array as PropType<string[]>, default: () => [] },
+  modelValue: { type: Array as PropType<string[]>, default: undefined },
+  value: { type: Array as PropType<string[]>, default: () => [] },
   accordion: Boolean as BooleanType,
   items: Array as PropType<MenuOptionsProps[]>,
   inlineCollapsed: Boolean as BooleanType,
@@ -46,7 +48,8 @@ const Menu = defineComponent({
     openChange: (keys: string[]) => Array.isArray(keys),
   },
   setup(props, { emit, slots, attrs }) {
-    const defaultSelectedKeys = ref([...(props.modelValue || [])]);
+    const initialModel = useInitialValue(props);
+    const defaultSelectedKeys = ref([...(initialModel.value || [])]);
     const defaultOpenKeys = ref(props.inlineCollapsed ? [] : [...(props.openKeys || [])]);
     const currentMode = ref(props.mode);
     const currentInlineCollapsed = ref(!!props.inlineCollapsed);
@@ -64,7 +67,7 @@ const Menu = defineComponent({
     const dropdownContext = inject<DropdownContext | null>(DropdownContextKey, null);
 
     watch(
-      () => props.modelValue,
+      () => initialModel.value,
       (value) => {
         defaultSelectedKeys.value = [...value];
       },

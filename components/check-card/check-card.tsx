@@ -23,7 +23,8 @@ import { checkCardGroupKey } from "./context";
 import type { CheckCardChangeEvent, CheckCardTheme, CheckCardValue } from "./types";
 
 const checkCardProps = {
-  modelValue: { type: Boolean, default: false },
+  modelValue: { type: Boolean, default: undefined },
+  checked: { type: Boolean, default: false },
   value: [String, Number] as PropType<CheckCardValue>,
   title: [String, Number] as PropType<string | number>,
   description: String,
@@ -52,7 +53,9 @@ const CheckCard = defineComponent({
     const appearance = useFormAppearance(props, field);
     const group = inject(checkCardGroupKey, null);
     const rootRef = ref<HTMLElement>();
-    const localChecked = ref(field?.prop ? Boolean(field.value.value) : props.modelValue);
+    const localChecked = ref(
+      field?.prop ? Boolean(field.value.value) : (props.modelValue ?? props.checked),
+    );
     watch(
       () => (field?.prop ? field.value.value : props.modelValue),
       (value) => {

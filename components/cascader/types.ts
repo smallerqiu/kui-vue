@@ -24,6 +24,10 @@ export type CascaderLoadData = (
 export const cascaderProps = {
   modelValue: {
     type: Array as PropType<CascaderValue>, // [100, 102, 105] 形式的路径数组
+    default: undefined,
+  },
+  value: {
+    type: Array as PropType<CascaderValue>, // [100, 102, 105] 形式的路径数组
     default: () => [],
   },
   options: {

@@ -1,3 +1,4 @@
+import { useInitialValue } from "../utils/model-value";
 import { Check, Copy, Pencil } from "kui-icons";
 import {
   computed,
@@ -44,6 +45,7 @@ export interface TypographyEllipsisOptions {
 
 const typographyProps = {
   modelValue: String,
+  value: String,
   tag: String as PropType<TypographyTag>,
   type: String as PropType<TypographyType>,
   strong: Boolean,
@@ -80,17 +82,18 @@ const createTypography = (name: string, defaultTag: TypographyTag) =>
       copy: (value: string) => typeof value === "string",
     },
     setup(props, { attrs, slots, emit }) {
+      const initialModel = useInitialValue(props);
       const editing = ref(false);
       const copied = ref(false);
       const expanded = ref(false);
       const input = ref<HTMLInputElement>();
-      const draft = ref(props.modelValue || "");
+      const draft = ref(initialModel.value || "");
       let copiedTimer: number | undefined;
       watch(
-        () => props.modelValue,
+        () => initialModel.value,
         (value) => (draft.value = value || ""),
       );
-      const text = computed(() => props.modelValue ?? getVNodeText(slots.default?.() ?? []));
+      const text = computed(() => initialModel.value ?? getVNodeText(slots.default?.() ?? []));
       const startEdit = () => {
         if (props.disabled) return;
         draft.value = text.value;
@@ -100,6 +103,7 @@ const createTypography = (name: string, defaultTag: TypographyTag) =>
       const finishEdit = () => {
         if (!editing.value) return;
         editing.value = false;
+        initialModel.value = draft.value;
         emit("update:modelValue", draft.value);
         emit("change", draft.value);
       };
@@ -151,7 +155,7 @@ const createTypography = (name: string, defaultTag: TypographyTag) =>
             class={["k-typography-content", ellipsisActive && "is-ellipsis"]}
             style={ellipsisActive ? { WebkitLineClamp: lines } : undefined}
           >
-            {props.modelValue ?? slots.default?.()}
+            {initialModel.value ?? slots.default?.()}
           </span>
         );
         const withTooltip = (node: VNodeChild, title?: string) =>

@@ -34,7 +34,8 @@
 
 | 属性          | 说明                                                                                   | 类型                 | 默认值      |
 | :------------ | :------------------------------------------------------------------------------------- | :------------------- | :---------- |
-| modelValue    | 选中项的路径值数组（如 `['zhejiang', 'hangzhou', 'xihu']`）。                          | (string \| number)[] | `[]`        |
+| modelValue    | 选中项的路径值数组（如 `['zhejiang', 'hangzhou', 'xihu']`）。                          | (string \| number)[] | -           |
+| value         | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。          | (string \| number)[] | `[]`        |
 | options       | 可选择的级联数据源树状结构。                                                           | CascaderOption[]     | `[]`        |
 | placeholder   | 当没有任何选择路径时的兜底提示占位文案。                                               | string               | `"请选择"`  |
 | disabled      | 是否完全禁用整个组件交互。                                                             | boolean              | `false`     |
