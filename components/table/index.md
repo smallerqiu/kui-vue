@@ -147,7 +147,7 @@ const columns = [
 | showReset    | 是否显示重置按钮                       | boolean                        | true            |
 | onChange     | 隐藏列变化时触发                       | (hiddenKeys: string[]) => void | -               |
 
-插槽：`default` 可自定义触发元素。事件：`update:hiddenKeys`、`change`，参数均为最新隐藏列 key。
+插槽：`default` 可自定义触发元素。
 
 ## Column API
 

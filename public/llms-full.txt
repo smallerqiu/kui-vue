@@ -256,13 +256,7 @@ Use the default slot for the trigger and the scoped overlay slot for content; av
 | onAfterOpen         | Called after entering                                                                   | () => void                                             | -           |
 | onAfterClose        | Called after leaving                                                                    | () => void                                             | -           |
 
-The default slot renders the trigger; the overlay slot renders popup content. Both receive PopupRef methods. update:open emits the requested boolean state.
-
-## Events
-
-| Event       | Description                                                                                                      | Parameters      |
-| ----------- | ---------------------------------------------------------------------------------------------------------------- | --------------- |
-| update:open | Emitted when an interaction or instance method changes visibility. Use with `v-model:open` to synchronize state. | (open: boolean) |
+The default slot renders the trigger; the overlay slot renders popup content. Both receive PopupRef methods.
 
 ## Adapter options
 
@@ -1105,7 +1099,7 @@ A monthly calendar for dates and events.
 
 | Property       | Description                                              | Type                  | Default |
 | -------------- | -------------------------------------------------------- | --------------------- | ------- |
-| modelValue     | Selected date in `YYYY-MM-DD` format                     | string                | -       |
+| modelValue     | Selected date in `YYYY-MM-DD` format; supports `v-model` | string                | -       |
 | events         | Calendar events                                          | `CalendarEventData[]` | `[]`    |
 | firstDayOfWeek | First weekday, where 0 is Sunday                         | number                | locale  |
 | maxEvents      | Maximum visible events per day                           | number                | 3       |
@@ -1134,12 +1128,11 @@ When a date cell is focused, use the arrow keys to move, `Home` or `End` to move
 
 ## Events
 
-| Event             | Description                                         | Callback                                                     |
-| ----------------- | --------------------------------------------------- | ------------------------------------------------------------ |
-| update:modelValue | Emitted when the selected date changes              | `(date: string) => void`                                     |
-| change            | Emitted when a date or the Today button is selected | `(date: string, cell: CalendarDateCell) => void`             |
-| monthChange       | Emitted when the displayed month changes            | `(value: { year: number; month: number }) => void`           |
-| eventClick        | Emitted when an event is clicked                    | `(event: CalendarEventData, cell: CalendarDateCell) => void` |
+| Event       | Description                                         | Callback                                                     |
+| ----------- | --------------------------------------------------- | ------------------------------------------------------------ |
+| change      | Emitted when a date or the Today button is selected | `(date: string, cell: CalendarDateCell) => void`             |
+| monthChange | Emitted when the displayed month changes            | `(value: { year: number; month: number }) => void`           |
+| eventClick  | Emitted when an event is clicked                    | `(event: CalendarEventData, cell: CalendarDateCell) => void` |
 
 ---
 
@@ -3239,25 +3232,24 @@ Used for SMS codes, email codes, and one-time passwords.
 
 ## API
 
-| Property          | Description                                                | Type                                           | Default |
-| ----------------- | ---------------------------------------------------------- | ---------------------------------------------- | ------- |
-| modelValue        | Bound value, supports `v-model`                            | string \| number                               | -       |
-| length            | Number of characters, normalized to a non-negative integer | number                                         | 6       |
-| type              | Accepted character type                                    | 'number' \| 'text'                             | number  |
-| size              | Component size                                             | SizeType                                       | -       |
-| mask              | Mask the entered value                                     | boolean                                        | false   |
-| disabled          | Disable the inputs                                         | boolean                                        | false   |
-| readonly          | Make the inputs readonly                                   | boolean                                        | false   |
-| autofocus         | Focus the first input automatically                        | boolean                                        | false   |
-| separator         | Content between OTP fields                                 | VNodeChild                                     | -       |
-| validator         | Custom validator for each character                        | (value: string) => boolean                     | -       |
-| theme             | Visual theme                                               | 'fill' \| 'outline' \| 'underlined' \| 'plain' | fill    |
-| shape             | Field shape                                                | ShapeType                                      | -       |
-| complete          | Emitted when all characters exist                          | (value) => void                                | -       |
-| update:modelValue | Emitted when the bound value changes                       | (value: string) => void                        | -       |
-| change            | Emitted when the input value changes                       | (value: string) => void                        | -       |
-| focus             | Emitted when an input receives focus                       | (event: FocusEvent) => void                    | -       |
-| blur              | Emitted when an input loses focus                          | (event: FocusEvent) => void                    | -       |
+| Property   | Description                                                | Type                                           | Default |
+| ---------- | ---------------------------------------------------------- | ---------------------------------------------- | ------- |
+| modelValue | Bound value, supports `v-model`                            | string \| number                               | -       |
+| length     | Number of characters, normalized to a non-negative integer | number                                         | 6       |
+| type       | Accepted character type                                    | 'number' \| 'text'                             | number  |
+| size       | Component size                                             | SizeType                                       | -       |
+| mask       | Mask the entered value                                     | boolean                                        | false   |
+| disabled   | Disable the inputs                                         | boolean                                        | false   |
+| readonly   | Make the inputs readonly                                   | boolean                                        | false   |
+| autofocus  | Focus the first input automatically                        | boolean                                        | false   |
+| separator  | Content between OTP fields                                 | VNodeChild                                     | -       |
+| validator  | Custom validator for each character                        | (value: string) => boolean                     | -       |
+| theme      | Visual theme                                               | 'fill' \| 'outline' \| 'underlined' \| 'plain' | fill    |
+| shape      | Field shape                                                | ShapeType                                      | -       |
+| complete   | Emitted when all characters exist                          | (value) => void                                | -       |
+| change     | Emitted when the input value changes                       | (value: string) => void                        | -       |
+| focus      | Emitted when an input receives focus                       | (event: FocusEvent) => void                    | -       |
+| blur       | Emitted when an input loses focus                          | (event: FocusEvent) => void                    | -       |
 
 ---
 
@@ -6073,7 +6065,7 @@ const columns = [
 | showReset    | Whether to show the reset action                | boolean                        | true            |
 | onChange     | Called when hidden column keys change           | (hiddenKeys: string[]) => void | -               |
 
-Slot: `default` customizes the trigger. Events: `update:hiddenKeys` and `change`, both carrying the latest hidden keys.
+Slot: `default` customizes the trigger.
 
 ## Column API
 
@@ -6246,7 +6238,7 @@ const columns = [
 | showReset    | Whether to show the reset action                | boolean                        | true            |
 | onChange     | Called when hidden column keys change           | (hiddenKeys: string[]) => void | -               |
 
-Slot: `default` customizes the trigger. Events: `update:hiddenKeys` and `change`, both carrying the latest hidden keys.
+Slot: `default` customizes the trigger.
 
 ## Column API
 

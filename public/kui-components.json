@@ -469,14 +469,14 @@
         },
         {
           "name": "onUpdate:open",
-          "description": "Emitted when an interaction or instance method changes visibility. Use with `v-model:open` to synchronize state.",
-          "descriptionZh": "交互或实例方法改变显隐状态时触发，用于 `v-model:open` 同步状态。",
-          "descriptionEn": "Emitted when an interaction or instance method changes visibility. Use with `v-model:open` to synchronize state.",
+          "description": "Props for onUpdate:open",
+          "descriptionZh": "Props for onUpdate:open",
+          "descriptionEn": "Props for onUpdate:open",
           "type": "((open: boolean) => void) | undefined",
           "eventName": "update:open",
           "boolean": false,
           "required": false,
-          "documented": true
+          "documented": false
         },
         {
           "name": "onOpenChange",
@@ -523,9 +523,9 @@
         {
           "name": "update:open",
           "type": "((open: boolean) => void) | undefined",
-          "description": "Emitted when an interaction or instance method changes visibility. Use with `v-model:open` to synchronize state.",
-          "descriptionZh": "交互或实例方法改变显隐状态时触发，用于 `v-model:open` 同步状态。",
-          "descriptionEn": "Emitted when an interaction or instance method changes visibility. Use with `v-model:open` to synchronize state."
+          "description": "Props for onUpdate:open",
+          "descriptionZh": "Props for onUpdate:open",
+          "descriptionEn": "Props for onUpdate:open"
         },
         {
           "name": "openChange",
@@ -2911,9 +2911,9 @@
         },
         {
           "name": "modelValue",
-          "description": "Selected date in `YYYY-MM-DD` format",
-          "descriptionZh": "选中日期，格式 `YYYY-MM-DD`",
-          "descriptionEn": "Selected date in `YYYY-MM-DD` format",
+          "description": "Selected date in `YYYY-MM-DD` format; supports `v-model`",
+          "descriptionZh": "选中日期，格式 `YYYY-MM-DD`，支持 `v-model`",
+          "descriptionEn": "Selected date in `YYYY-MM-DD` format; supports `v-model`",
           "type": "string | undefined",
           "boolean": false,
           "required": false,
@@ -2951,13 +2951,13 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Emitted when the selected date changes",
-          "descriptionZh": "选中日期变化时触发，用于 `v-model`",
-          "descriptionEn": "Emitted when the selected date changes",
+          "description": "Event emitted for update:modelValue",
+          "descriptionZh": "Event emitted for update:modelValue",
+          "descriptionEn": "Event emitted for update:modelValue",
           "type": "(...args: unknown[]) => void",
           "eventName": "update:modelValue",
           "boolean": false,
-          "documented": true
+          "documented": false
         },
         {
           "name": "onChange",
@@ -2994,9 +2994,9 @@
         {
           "name": "update:modelValue",
           "type": "(...args: unknown[]) => void",
-          "description": "Emitted when the selected date changes",
-          "descriptionZh": "选中日期变化时触发，用于 `v-model`",
-          "descriptionEn": "Emitted when the selected date changes"
+          "description": "Event emitted for update:modelValue",
+          "descriptionZh": "Event emitted for update:modelValue",
+          "descriptionEn": "Event emitted for update:modelValue"
         },
         {
           "name": "change",
@@ -9417,13 +9417,13 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Emitted when the bound value changes",
-          "descriptionZh": "绑定值更新时触发",
-          "descriptionEn": "Emitted when the bound value changes",
+          "description": "Event emitted for update:modelValue",
+          "descriptionZh": "Event emitted for update:modelValue",
+          "descriptionEn": "Event emitted for update:modelValue",
           "type": "(...args: unknown[]) => void",
           "eventName": "update:modelValue",
           "boolean": false,
-          "documented": true
+          "documented": false
         },
         {
           "name": "onChange",
@@ -9470,9 +9470,9 @@
         {
           "name": "update:modelValue",
           "type": "(...args: unknown[]) => void",
-          "description": "Emitted when the bound value changes",
-          "descriptionZh": "绑定值更新时触发",
-          "descriptionEn": "Emitted when the bound value changes"
+          "description": "Event emitted for update:modelValue",
+          "descriptionZh": "Event emitted for update:modelValue",
+          "descriptionEn": "Event emitted for update:modelValue"
         },
         {
           "name": "change",

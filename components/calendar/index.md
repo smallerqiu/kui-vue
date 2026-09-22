@@ -20,7 +20,7 @@
 
 | 属性           | 说明                                                  | 类型                  | 默认值   |
 | -------------- | ----------------------------------------------------- | --------------------- | -------- |
-| modelValue     | 选中日期，格式 `YYYY-MM-DD`                           | string                | -        |
+| modelValue     | 选中日期，格式 `YYYY-MM-DD`，支持 `v-model`           | string                | -        |
 | events         | 日程数据                                              | `CalendarEventData[]` | `[]`     |
 | firstDayOfWeek | 每周起始日，0 为周日                                  | number                | 根据语言 |
 | maxEvents      | 单日最多展示的事件数                                  | number                | 3        |
@@ -49,9 +49,8 @@ Calendar 与 DatePicker 不共享内部状态，但会读取同一个 `ConfigPro
 
 ## Events
 
-| 事件名            | 说明                               | 回调参数                                                     |
-| ----------------- | ---------------------------------- | ------------------------------------------------------------ |
-| update:modelValue | 选中日期变化时触发，用于 `v-model` | `(date: string) => void`                                     |
-| change            | 选择日期或点击“今天”时触发         | `(date: string, cell: CalendarDateCell) => void`             |
-| monthChange       | 切换展示月份时触发                 | `(value: { year: number; month: number }) => void`           |
-| eventClick        | 点击日程时触发                     | `(event: CalendarEventData, cell: CalendarDateCell) => void` |
+| 事件名      | 说明                       | 回调参数                                                     |
+| ----------- | -------------------------- | ------------------------------------------------------------ |
+| change      | 选择日期或点击“今天”时触发 | `(date: string, cell: CalendarDateCell) => void`             |
+| monthChange | 切换展示月份时触发         | `(value: { year: number; month: number }) => void`           |
+| eventClick  | 点击日程时触发             | `(event: CalendarEventData, cell: CalendarDateCell) => void` |

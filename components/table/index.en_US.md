@@ -147,7 +147,7 @@ const columns = [
 | showReset    | Whether to show the reset action                | boolean                        | true            |
 | onChange     | Called when hidden column keys change           | (hiddenKeys: string[]) => void | -               |
 
-Slot: `default` customizes the trigger. Events: `update:hiddenKeys` and `change`, both carrying the latest hidden keys.
+Slot: `default` customizes the trigger.
 
 ## Column API
 

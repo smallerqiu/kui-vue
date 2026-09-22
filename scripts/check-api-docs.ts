@@ -41,6 +41,14 @@ getComponentNames().forEach((componentName) => {
     );
 
     props.forEach((prop) => {
+      // v-model update events are documented by their corresponding bound prop.
+      // Keep checking unmatched update events and other business callbacks.
+      const modelProp = prop.name.match(/^(?:onUpdate:|update:)(.+)$/)?.[1];
+      if (
+        modelProp &&
+        props.some((candidate) => candidate.name === modelProp && candidate.documented)
+      )
+        return;
       if (!prop.documented) {
         missingDocs.push({
           component: componentName,
