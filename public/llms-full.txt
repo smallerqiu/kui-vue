@@ -113,7 +113,7 @@ Import `kui-vue/style/index.css`, then import components from `kui-vue` or insta
 - [SkeletonImage](https://k-ui.cn/components/skeleton): tags `SkeletonImage`, `KSkeletonImage`, `k-skeleton-image`, `skeleton-image`
 - [SkeletonText](https://k-ui.cn/components/skeleton): tags `SkeletonText`, `KSkeletonText`, `k-skeleton-text`, `skeleton-text`
 - [StatCard](https://k-ui.cn/components/stat-card): tags `StatCard`, `KStatCard`, `k-stat-card`, `stat-card`
-- [StatNumber](https://k-ui.cn/components/stat-card): tags `StatNumber`, `KStatNumber`, `k-stat-number`, `stat-number`
+- [StatNumber](https://k-ui.cn/components/stat-number): tags `StatNumber`, `KStatNumber`, `k-stat-number`, `stat-number`
 - [Slider](https://k-ui.cn/components/slider): tags `Slider`, `KSlider`, `k-slider`, `slider`
 - [Space](https://k-ui.cn/components/space): tags `Space`, `KSpace`, `k-space`, `space`
 - [Spin](https://k-ui.cn/components/spin): tags `Spin`, `KSpin`, `k-spin`, `spin`
@@ -234,10 +234,6 @@ Use the default slot for the trigger and the scoped overlay slot for content; av
 - Choosing a Select option keeps the outer popup open. Escape dismisses the topmost popup first; dismissing the parent also closes its nested popups.
 
 ## Popup API
-
-| Property      | Description                   | Type                    | Default |
-| ------------- | ----------------------------- | ----------------------- | ------- |
-| onUpdate:open | Update event for v-model:open | (open: boolean) => void | -       |
 
 | Property            | Description                                                                             | Type                                                   | Default     |
 | ------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------ | ----------- |
@@ -720,7 +716,7 @@ Generally appears in the upper right corner of notification icons or avatars, us
 
 [Controlled](./demo/dynamic.vue)
 
-- Dynamic control.
+- Numeric counts roll upward when increasing and downward when decreasing. Text counts and overflow labels such as `99+` update without rolling.
 
 [Status Dot](./demo/status.vue)
 
@@ -5434,10 +5430,6 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 - Use `trend` for supplementary information and `trendStatus` for its status color; cards remain equal-height in a Grid when some items omit the trend.
 
-[Basic Usage](./demo/basic.vue)
-
-- Display Numbers Only
-
 [Combination Display](./demo/with-card.vue)
 
 - Show more custom data combined with the `Card` component
@@ -5474,19 +5466,7 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 | autoAnimate     | Trigger animation when target becomes visible     | boolean                                         | true    |
 | autoAnimateOnce | Run animation only once for auto-animate triggers | boolean                                         | true    |
 
-## StatNumber API
-
-| Property        | Description                                       | Type                  | Default   |
-| --------------- | ------------------------------------------------- | --------------------- | --------- |
-| modelValue      | Numerical value                                   | number                | 0         |
-| duration        | Numerical dynamic display time (seconds)          | number                | 1.2       |
-| prefix          | Prefix content of numerical value                 | string                | -         |
-| suffix          | Suffix content of numerical value                 | string                | -         |
-| precision       | Numerical precision                               | number                | 0         |
-| type            | Numerical change type                             | 'rollup' \| 'countup' | 'countup' |
-| separator       | Separator                                         | string                | -         |
-| autoAnimate     | Trigger animation when target becomes visible     | boolean               | true      |
-| autoAnimateOnce | Run animation only once for auto-animate triggers | boolean               | true      |
+For standalone animated values, formatting, and animation controls, see [StatNumber](/components/stat-number-en).
 
 ### Common appearance
 
@@ -5497,65 +5477,26 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 ---
 
-# StatCard
+# StatNumber
 
-Statistical indicators, can set title, value, description.
+Animate numerical values independently or combine them with cards and dashboards.
 
 ## When to Use
 
-Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
+Use for counters, amounts, and metrics that change over time. For a complete metric card with a title, description, and trend, see [StatCard](/components/stat-card-en).
 
 ## Examples
 
-[Card Display](./demo/card.vue?show=vertical)
+[Animation and Formatting](./demo/basic.vue)
 
-- Used in Dashboard scenarios. Combined with `Grid`, it can adapt well to various devices.
+- Compare the default numerical transition with `type="rollup"`. Try `12,345 → 54,321`, increments, decrements, and random values; examples also cover decimal precision and prefixes/suffixes.
+- In rollup mode, each digit chooses its own direction: increasing digits roll upward, decreasing digits roll downward, and unchanged digits stay still. Digits scroll through intermediate values and settle at staggered times.
 
-[Trend Information](./demo/trend.vue?show=vertical)
+[Animation Duration](./demo/duration.vue)
 
-- Use `trend` for supplementary information and `trendStatus` for its status color; cards remain equal-height in a Grid when some items omit the trend.
-
-[Basic Usage](./demo/basic.vue)
-
-- Display Numbers Only
-
-[Combination Display](./demo/with-card.vue)
-
-- Show more custom data combined with the `Card` component
+- Compare animation durations in seconds. Set `duration` to `0` for an immediate update. Rollup animations also respect the system's reduced-motion preference.
 
 ## API
-
-| Property       | Description                                                  | Type                  | Default   |
-| -------------- | ------------------------------------------------------------ | --------------------- | --------- |
-| title          | Card title, customizable via the named slot                  | VNodeChild            | -         |
-| items          | Data to display                                              | StatNumberItem[]      | []        |
-| precision      | Numerical precision                                          | number                | 0         |
-| statNumberType | Numerical change type                                        | 'rollup' \| 'countup' | 'countup' |
-| separator      | Separator                                                    | string                | -         |
-| reverse        | Whether to reverse number/number description arrangement     | boolean               | false     |
-| bordered       | Show border or not                                           | boolean               | false     |
-| size           | Card size                                                    | SizeType              | medium    |
-| prefix         | Default prefix for all values, scoped with `{ item, index }` | VNodeChild            | -         |
-| suffix         | Default suffix for all values, scoped with `{ item, index }` | VNodeChild            | -         |
-
-### items Options
-
-| Property        | Description                                       | Type                                            | Default |
-| --------------- | ------------------------------------------------- | ----------------------------------------------- | ------- |
-| key             | Unique key used to preserve animation state       | string \| number                                | -       |
-| value           | Numerical value                                   | number                                          | -       |
-| desc            | Numerical description                             | VNodeChild                                      | -       |
-| trend           | Trend or supplementary content                    | VNodeChild                                      | -       |
-| trendStatus     | Trend status                                      | 'default' \| 'success' \| 'danger' \| 'warning' | default |
-| prefix          | Prefix content of numerical value                 | string \| VNode                                 | -       |
-| suffix          | Suffix content of numerical value                 | string \| VNode                                 | -       |
-| precision       | Numerical precision                               | number                                          | 0       |
-| separator       | Separator                                         | string                                          | -       |
-| duration        | Numerical dynamic display time (seconds)          | number                                          | 1.2     |
-| autoAnimate     | Trigger animation when target becomes visible     | boolean                                         | true    |
-| autoAnimateOnce | Run animation only once for auto-animate triggers | boolean                                         | true    |
-
-## StatNumber API
 
 | Property        | Description                                       | Type                  | Default   |
 | --------------- | ------------------------------------------------- | --------------------- | --------- |
@@ -5569,12 +5510,12 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 | autoAnimate     | Trigger animation when target becomes visible     | boolean               | true      |
 | autoAnimateOnce | Run animation only once for auto-animate triggers | boolean               | true      |
 
-### Common appearance
+## Slots
 
-| Property | Description      | Type                       | Default |
-| -------- | ---------------- | -------------------------- | ------- |
-| theme    | Appearance theme | `fill \| outline \| plain` | fill    |
-| shape    | Card shape       | 'round' \| 'square'        | round   |
+| Name   | Description                             |
+| ------ | --------------------------------------- |
+| prefix | Custom prefix content, such as an icon. |
+| suffix | Custom suffix content, such as a unit.  |
 
 ---
 

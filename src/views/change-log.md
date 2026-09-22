@@ -19,6 +19,8 @@ rm -rf node_modules/.vite
 
 `2026-9-21`
 
+- Badge 数字更新时支持滚动动画；Badge 与 StatNumber 的 rollup 模式统一为数值增大向上、减小向下，支持进位、退位，并遵循系统减少动态效果的偏好。
+
 - Alert、Tag 在退出动画结束后移除内容，新增 `afterClose`（React 为 `onAfterClose`）事件，支持在动画结束后更新父级显隐状态或标签列表。
 
 - 统一状态 API：移除 AutoComplete 的 `defaultOpen`、Tour 的 `defaultOpen/defaultCurrent`、Upload 的 `defaultFileList`、Table 的 `defaultExpandedKeys`，改用对应的无 default 前缀属性；Table 的 `defaultExpandAllRows` 改为 `expandAllRows`。状态属性用于初始化及外部变化同步，交互仍可更新内部状态。Tour 新增 `open` / `v-model:open`，保留原有 `v-model`。

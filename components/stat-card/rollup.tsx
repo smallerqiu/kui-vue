@@ -1,71 +1,45 @@
-import { defineComponent, nextTick, onMounted, ref, watch } from "vue";
+import { defineComponent, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { Odometer } from "./utils/odometer";
 
 export default defineComponent({
   name: "RollUp",
   props: {
     modelValue: { type: Number, default: 0 },
-    duration: { type: Number, default: 1.2 },
+    text: String,
+    duration: { type: Number, default: 0.3 },
     precision: { type: Number, default: 0 },
   },
   setup(props) {
-    const displayChars = ref<string[]>([]);
-    const format = (val: number | bigint) => {
-      return new Intl.NumberFormat("en-US", {
+    const element = ref<HTMLSpanElement>();
+    const initialText =
+      props.text ??
+      new Intl.NumberFormat("en-US", {
         minimumFractionDigits: props.precision,
         maximumFractionDigits: props.precision,
-      })
-        .format(val)
-        .split("");
+      }).format(props.modelValue);
+    let odometer: Odometer | undefined;
+    const render = () => {
+      const formatted =
+        props.text ??
+        new Intl.NumberFormat("en-US", {
+          minimumFractionDigits: props.precision,
+          maximumFractionDigits: props.precision,
+        }).format(props.modelValue);
+      if (element.value) odometer?.render(element.value, formatted, props.modelValue);
     };
-    const getOffsetChars = (targetValue: number) => {
-      const finalChars = format(targetValue);
-      return finalChars.map((char) =>
-        /\d/.test(char)
-          ? String(Number(char) > 5 ? Number(char) - 5 : char === "5" ? 8 : Number(char) + 5)
-          : char,
-      );
+    const create = () => {
+      odometer?.destroy();
+      odometer = new Odometer({ duration: props.duration });
+      render();
     };
-
-    displayChars.value = getOffsetChars(props.modelValue);
-
-    onMounted(async () => {
-      await nextTick();
-      displayChars.value = format(props.modelValue);
-    });
-    watch(
-      () => props.modelValue,
-      async (newVal) => {
-        displayChars.value = getOffsetChars(newVal);
-        await nextTick();
-        displayChars.value = format(newVal);
-      },
-      { immediate: false },
-    );
-
-    const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    onMounted(create);
+    watch(() => [props.modelValue, props.text, props.precision], render);
+    watch(() => props.duration, create);
+    onBeforeUnmount(() => odometer?.destroy());
     return () => (
-      <div class="k-stat-roll-number-container">
-        {displayChars.value.map((char, index) => (
-          <div key={index} class="k-stat-roll-number-slot">
-            {/\d/.test(char) ? (
-              <div
-                class="k-stat-roll-number-column"
-                style={{
-                  transition: `transform ${props.duration * 1000}ms cubic-bezier(0.4, 0, 0.2, 1)`,
-                  transform: `translateY(-${Number(char) * 10}%)`,
-                  willChange: "transform",
-                }}
-              >
-                {numbers.map((num) => (
-                  <span key={num}>{num}</span>
-                ))}
-              </div>
-            ) : (
-              <span class="k-stat-roll-number-separator">{char}</span>
-            )}
-          </div>
-        ))}
-      </div>
+      <span class="k-roll-number" ref={element}>
+        {initialText}
+      </span>
     );
   },
 });

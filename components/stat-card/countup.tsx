@@ -33,14 +33,14 @@ const CountUpNumber = defineComponent({
           ? Math.min(100, Math.max(0, Math.floor(props.precision)))
           : 0;
         const options: CountUpOptions = {
-          duration,
+          duration: props.type === "rollup" ? 0 : duration,
           separator: props.separator,
           decimalPlaces: precision,
           autoAnimate: observeVisibility,
           autoAnimateOnce: props.autoAnimateOnce,
         };
         if (props.type === "rollup") {
-          options.plugin = new Odometer({ duration, lastDigitDelay: 0 });
+          options.plugin = new Odometer({ duration, mode: "continuous" });
         }
         countUp = new CountUp(el.value, props.modelValue, options);
         if (!observeVisibility) countUp.start();

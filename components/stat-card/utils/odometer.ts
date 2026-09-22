@@ -1,188 +1,146 @@
-import { type CountUpPlugin } from "./countup";
+import type { CountUpPlugin } from "./countup";
 
 export interface OdometerOptions {
-  duration?: number; // barrel animation in seconds,
-  lastDigitDelay?: number; // delay last digit in animation, in seconds, 0 to deactivate
+  duration?: number;
+  lastDigitDelay?: number;
+  mode?: "step" | "continuous";
 }
 
-interface DigitCell {
-  container: HTMLSpanElement;
-  current?: string | null;
-  position: number;
-  new: boolean;
-  lastTimeAdd: number;
-  lastTimer?: ReturnType<typeof setTimeout>;
-  nextToAdd?: HTMLSpanElement | null;
-  timerClean?: ReturnType<typeof setTimeout> | null;
-}
-
-const rAF = (callback: FrameRequestCallback) => {
-  if (typeof window !== "undefined" && window.requestAnimationFrame) {
-    window.requestAnimationFrame(callback);
-    return;
-  }
-  setTimeout(() => callback(Date.now()), 1000 / 60);
-};
-
+/** Bounded digit tracks shared by statistical numbers and badges. */
 export class Odometer implements CountUpPlugin {
-  version = "1.0";
+  private previous?: { text: string; value: number };
+  private timer?: ReturnType<typeof setTimeout>;
+  private frame?: number;
+  private revision = 0;
 
   private options: OdometerOptions;
-  private defaults: OdometerOptions = {
-    duration: 0.8,
-    lastDigitDelay: 0.25,
-  };
 
-  private cell_digits: DigitCell[] | null = null;
-
-  constructor(options?: OdometerOptions) {
-    this.options = {
-      ...this.defaults,
-      ...options,
-    };
-    this.cell_digits = null;
+  constructor(options: OdometerOptions = {}) {
+    this.options = options;
   }
 
   public destroy(): void {
-    this.cell_digits?.forEach((cell) => {
-      clearTimeout(cell.lastTimer);
-      if (cell.timerClean) clearTimeout(cell.timerClean);
-    });
-    this.cell_digits = null;
+    this.revision++;
+    clearTimeout(this.timer);
+    if (this.frame !== undefined) cancelAnimationFrame(this.frame);
+    this.previous = undefined;
   }
 
-  public render(elem: HTMLElement | HTMLInputElement, formatted: string): void {
-    // render DOM here
-    const options = this.options;
-    let createdNow = false;
-    if (!this.cell_digits) {
-      createdNow = true;
-      // avoid adding more than once
-      if (!document.querySelector("style[odometer]")) {
-        // add styles for odometer numbers
-        const style = document.createElement("style");
-        style.setAttribute("odometer", "odometer");
-        style.innerHTML =
-          ".odometer-numbers{display:inline-flex;line-height:100%;overflow-y:hidden}.odometer-numbers>span{display:flex;flex-direction:column;justify-content:start;align-items:center;height:1em;will-change:transform;transform:translateY(0)}";
-        document.head.appendChild(style);
-      }
-      // create wrapper
-      elem.innerHTML = '<div class="odometer-numbers"></div>';
-      // create array cell_digits information
-      this.cell_digits = [];
+  public render(elem: HTMLElement, text: string, value = Number(text.replaceAll(",", ""))): void {
+    const previous = this.previous;
+    this.previous = { text, value };
+    if (previous?.text === text) return;
+    this.revision++;
+    const revision = this.revision;
+    clearTimeout(this.timer);
+    if (this.frame !== undefined) cancelAnimationFrame(this.frame);
+    const rawDuration = this.options.duration ?? 0.8;
+    const duration = Number.isFinite(rawDuration) ? Math.max(0, rawDuration) : 0;
+    const reducedMotion =
+      typeof matchMedia === "function" && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const direction = previous && value < previous.value ? "down" : "up";
+    const wrapper = document.createElement("span");
+    wrapper.className = "odometer-numbers";
+    wrapper.setAttribute("role", "img");
+    wrapper.setAttribute("aria-label", text);
+    wrapper.style.cssText = "display:inline-flex;line-height:1;vertical-align:middle";
+    const settle = () => {
+      if (revision !== this.revision) return;
+      wrapper.textContent = text;
+      wrapper.removeAttribute("data-direction");
+    };
+    elem.replaceChildren(wrapper);
+    if (
+      !previous ||
+      previous.text === text ||
+      value === previous.value ||
+      duration === 0 ||
+      reducedMotion
+    ) {
+      settle();
+      return;
     }
-
-    //blank space
-    const blank = '<span style="color:transparent">0</span>';
-    const transitionDigit = `transform ${options.duration}s ease-out`;
-
-    // appearing new cell_digits
-    for (let i = this.cell_digits.length; i < formatted.length; i++) {
-      // create a container
-      const container = document.createElement("span");
-      container.style.transition = transitionDigit;
-      // add a first transparent cell
-      container.innerHTML = createdNow ? "" : blank;
-      if (elem.firstChild) elem.firstChild.appendChild(container);
-      // prepare data id cell
-      this.cell_digits.push({
-        container,
-        current: undefined,
-        position: createdNow ? 1 : 0,
-        new: true,
-        lastTimeAdd: Date.now(),
-      });
-    }
-
-    function appendDigit(cell: DigitCell, newDigit: HTMLSpanElement) {
-      cell.position--;
-      cell.container.appendChild(newDigit);
-      cell.lastTimeAdd = +new Date();
-
-      // we need to stablish transition at first number, using timeout
-      if (cell.new) {
-        cell.new = false;
-        rAF(function () {
-          cell.container.style.transform = `translateY(${cell.position}em)`;
-        });
-      } else cell.container.style.transform = `translateY(${cell.position}em)`;
-    }
-
-    function pushDigit(cell: DigitCell, newDigit: HTMLSpanElement) {
-      const { lastDigitDelay = 0.25, duration = 0.8 } = options;
-      // if there was another cell waiting to be added, we add it here
-      if (cell.nextToAdd) {
-        appendDigit(cell, cell.nextToAdd);
-        clearTimeout(cell.lastTimer);
-        cell.nextToAdd = null;
-      }
-
-      const now = +new Date();
-      const delayTime = lastDigitDelay * 1000 - (now - cell.lastTimeAdd);
-
-      // if we are in slow animation, we just add digit
-      if (lastDigitDelay <= 0 || now - cell.lastTimeAdd >= delayTime * 1.05) {
-        appendDigit(cell, newDigit);
-        cell.nextToAdd = null;
+    if (this.options.mode !== "continuous") wrapper.dataset.direction = direction;
+    const length = Math.max(previous.text.length, text.length);
+    const before = previous.text.padStart(length, " ");
+    const after = text.padStart(length, " ");
+    const continuous = this.options.mode === "continuous";
+    const rollingDigits = Array.from(after).filter(
+      (character, index) =>
+        character !== before[index] && (/\d/.test(character) || /\d/.test(before[index])),
+    ).length;
+    let digitOrder = 0;
+    const tracks: {
+      element: HTMLSpanElement;
+      distance: number;
+      duration: number;
+      direction: "up" | "down";
+    }[] = [];
+    for (let index = 0; index < length; index++) {
+      const oldCharacter = before[index];
+      const character = after[index];
+      const slot = document.createElement("span");
+      slot.setAttribute("aria-hidden", "true");
+      slot.style.cssText = "display:inline-block;height:1em;overflow:hidden";
+      const isDigit = /\d/.test(character) || /\d/.test(oldCharacter);
+      const rollContinuously = continuous && character !== oldCharacter && isDigit;
+      if ((!rollContinuously && character === oldCharacter) || !isDigit) {
+        slot.textContent = character === " " ? "" : character;
       } else {
-        // if not, we delay the push
-        cell.nextToAdd = newDigit;
-        cell.lastTimer = setTimeout(() => {
-          if (cell.nextToAdd) appendDigit(cell, cell.nextToAdd);
-          cell.nextToAdd = null;
-        }, duration * 1000);
-      }
-    }
-
-    // we add all sequence cell_digits that are new in formatted number
-    // or remove cells no more exist (we put blank cells)
-    const len = Math.max(formatted.length, this.cell_digits.length);
-    for (let i = 0; i < len; i++) {
-      // cell has changed
-      const ch = i < formatted.length ? formatted.charAt(i) : null;
-      const cell = this.cell_digits[i];
-      if (cell.current != ch) {
-        cell.current = ch;
-
-        const newDigit = document.createElement("span");
-        newDigit.innerHTML = ch === null ? blank : ch;
-
-        // the last delay animation only if there is a minimum of 3 elements
-        if (cell.container.children.length < 4) {
-          appendDigit(cell, newDigit);
-        } else {
-          pushDigit(cell, newDigit);
+        const track = document.createElement("span");
+        track.className = "odometer-track";
+        track.style.cssText = "display:flex;flex-direction:column;transition:none";
+        let characters = [oldCharacter, character];
+        let trackDuration = duration;
+        let trackDirection: "up" | "down" = direction;
+        if (rollContinuously) {
+          const start = /\d/.test(oldCharacter) ? Number(oldCharacter) : 0;
+          const end = /\d/.test(character) ? Number(character) : 0;
+          trackDirection = end < start ? "down" : end > start ? "up" : direction;
+          const step = trackDirection === "up" ? 1 : -1;
+          const distance = (((end - start) * step + 10) % 10) + Math.min(digitOrder, 2) * 10;
+          characters = Array.from({ length: distance + 1 }, (_, offset) =>
+            String((start + ((step * offset) % 10) + 10) % 10),
+          );
+          characters[0] = oldCharacter;
+          characters[characters.length - 1] = character;
+          if (characters.length === 1) characters = [oldCharacter, character];
+          trackDuration =
+            duration * (rollingDigits <= 1 ? 1 : 0.75 + (0.25 * digitOrder) / (rollingDigits - 1));
+          digitOrder++;
         }
-
-        if (cell.timerClean) clearTimeout(cell.timerClean);
-
-        // when animation end, we can remove all extra animated cells
-        cell.timerClean = setTimeout(
-          function () {
-            cell.timerClean = null;
-            if (cell.container.children.length < 3) return;
-            cell.container.style.transition = "none"; // temporally clear animation transition
-            rAF(() => {
-              cell.position = -1;
-              // we remove all child except last
-              while (cell.container.children.length > 1) {
-                const firstChild = cell.container.firstChild;
-                if (firstChild) cell.container.removeChild(firstChild);
-              }
-              //insert blank space (forcing width to avoid weird behaviour in comma)
-              const digitBlank = document.createElement("span");
-              digitBlank.innerHTML = blank;
-              cell.container.insertBefore(digitBlank, cell.container.firstChild);
-              // set scroll to last cell position
-              cell.container.style.transform = `translateY(${cell.position}em)`;
-              rAF(() => {
-                cell.container.style.transition = transitionDigit; // restart animation transition
-              });
-            });
-          },
-          ((options.duration || 0.8) + (options.duration || 0.25)) * 1000 + 2500,
-        ); // 2.5 seconds after last update
+        const distance = characters.length - 1;
+        track.dataset.direction = trackDirection;
+        if (trackDirection === "down") characters.reverse();
+        for (const item of characters) {
+          const digit = document.createElement("span");
+          digit.textContent = item === " " ? "\u00a0" : item;
+          digit.style.cssText = "display:block;flex:none;height:1em;line-height:1";
+          track.appendChild(digit);
+        }
+        track.style.transform =
+          trackDirection === "up" ? "translateY(0)" : `translateY(-${distance}em)`;
+        slot.appendChild(track);
+        tracks.push({
+          element: track,
+          distance,
+          duration: trackDuration,
+          direction: trackDirection,
+        });
       }
+      wrapper.appendChild(slot);
     }
+    // Commit the starting position before enabling the transition.
+    void wrapper.offsetHeight;
+    this.frame = requestAnimationFrame(() => {
+      if (revision !== this.revision) return;
+      this.frame = undefined;
+      for (const track of tracks) {
+        track.element.style.transition = `transform ${track.duration}s cubic-bezier(0.4, 0, 0.2, 1)`;
+        track.element.style.transform =
+          track.direction === "up" ? `translateY(-${track.distance}em)` : "translateY(0)";
+      }
+      this.timer = setTimeout(settle, duration * 1000);
+    });
   }
 }

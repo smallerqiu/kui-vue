@@ -17,6 +17,8 @@ rm -rf node_modules/.vite
 
 `2026-9-21`
 
+- Badge numeric counts now roll when updated. Badge and StatNumber rollup animations move upward for increases and downward for decreases, including digit carry and borrow. Reduced-motion preferences are respected.
+
 - Alert and Tag now remove their content after the exit animation and expose `afterClose` (`onAfterClose` in React). Update parent visibility or tag list data in this callback to unmount components without interrupting the animation.
 
 - Unify state APIs: remove AutoComplete `defaultOpen`, Tour `defaultOpen/defaultCurrent`, Upload `defaultFileList`, and Table `defaultExpandedKeys` in favor of unprefixed props. Rename Table `defaultExpandAllRows` to `expandAllRows`. State props initialize local state, allow interaction, and synchronize external changes. Tour adds `open` / `v-model:open` while retaining `v-model`.

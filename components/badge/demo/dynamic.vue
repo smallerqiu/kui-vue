@@ -9,7 +9,7 @@
     <Badge :dot="show">
       <a href="#">Link</a>
     </Badge>
-    <Switch @change="show = !show" />
+    <Switch v-model="show" />
   </Space>
   <Divider />
   <Space :size="20">
@@ -28,5 +28,5 @@ import { ref } from "vue";
 const show = ref(true);
 const count = ref(5);
 const add = () => count.value++;
-const minus = () => count.value >= 1 && count.value--;
+const minus = () => (count.value = Math.max(0, count.value - 1));
 </script>

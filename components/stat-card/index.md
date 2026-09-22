@@ -16,10 +16,6 @@
 
 - 通过 `trend` 展示趋势或补充信息，使用 `trendStatus` 设置状态颜色；部分数据没有趋势时，卡片在 Grid 中仍保持等高。
 
-[基本用法](./demo/basic.vue)
-
-- 只展示数字
-
 [组合展示](./demo/with-card.vue)
 
 - 结合`Card` 组件展示更多自定义数据
@@ -56,19 +52,7 @@
 | autoAnimate     | 当目标可见时触发动画           | boolean                                         | true    |
 | autoAnimateOnce | 自动动画触发器仅运行一次动画   | boolean                                         | true    |
 
-## StatNumber API
-
-| 属性            | 说明                         | 类型                  | 默认值    |
-| --------------- | ---------------------------- | --------------------- | --------- |
-| modelValue      | 数值                         | number                | 0         |
-| duration        | 数值动态展示时间(秒)         | number                | 1.2       |
-| prefix          | 数值的前置内容               | string                | -         |
-| suffix          | 数值的后置内容               | string                | -         |
-| precision       | 数值精度                     | number                | 0         |
-| type            | 数值变化类型                 | 'rollup' \| 'countup' | 'countup' |
-| separator       | 分隔符                       | string                | -         |
-| autoAnimate     | 当目标可见时触发动画         | boolean               | true      |
-| autoAnimateOnce | 自动动画触发器仅运行一次动画 | boolean               | true      |
+独立数值展示、格式化和动画设置请参阅 [StatNumber](/components/stat-number)。
 
 ### 通用外观
 

@@ -26,7 +26,7 @@ Generally appears in the upper right corner of notification icons or avatars, us
 
 [Controlled](./demo/dynamic.vue)
 
-- Dynamic control.
+- Numeric counts roll upward when increasing and downward when decreasing. Text counts and overflow labels such as `99+` update without rolling.
 
 [Status Dot](./demo/status.vue)
 

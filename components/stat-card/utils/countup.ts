@@ -49,7 +49,7 @@ export interface CountUpOptions {
 }
 
 export declare interface CountUpPlugin {
-  render(elem: HTMLElement, formatted: string): void;
+  render(elem: HTMLElement, formatted: string, value?: number): void;
   destroy?(): void;
 }
 
@@ -348,7 +348,7 @@ export class CountUp {
     if (!this.el) return;
     const result = this.formattingFn(val);
     if (this.options.plugin?.render) {
-      this.options.plugin.render(this.el, result);
+      this.options.plugin.render(this.el, result, val);
       return;
     }
     if (this.el.tagName === "INPUT") {

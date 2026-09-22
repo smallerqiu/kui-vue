@@ -469,14 +469,14 @@
         },
         {
           "name": "onUpdate:open",
-          "description": "Update event for v-model:open",
-          "descriptionZh": "v-model:open 的状态更新事件",
-          "descriptionEn": "Update event for v-model:open",
+          "description": "Props for onUpdate:open",
+          "descriptionZh": "Props for onUpdate:open",
+          "descriptionEn": "Props for onUpdate:open",
           "type": "((open: boolean) => void) | undefined",
           "eventName": "update:open",
           "boolean": false,
           "required": false,
-          "documented": true
+          "documented": false
         },
         {
           "name": "onOpenChange",
@@ -523,9 +523,9 @@
         {
           "name": "update:open",
           "type": "((open: boolean) => void) | undefined",
-          "description": "Update event for v-model:open",
-          "descriptionZh": "v-model:open 的状态更新事件",
-          "descriptionEn": "Update event for v-model:open"
+          "description": "Props for onUpdate:open",
+          "descriptionZh": "Props for onUpdate:open",
+          "descriptionEn": "Props for onUpdate:open"
         },
         {
           "name": "openChange",
@@ -1945,12 +1945,12 @@
         {
           "title": "可控",
           "file": "components/badge/demo/dynamic.vue",
-          "source": "<template>\n  <Space>\n    <Badge :dot=\"show\">\n      <div class=\"badge-box\"></div>\n    </Badge>\n    <Badge :dot=\"show\">\n      <Icon :type=\"Bell\" />\n    </Badge>\n    <Badge :dot=\"show\">\n      <a href=\"#\">Link</a>\n    </Badge>\n    <Switch @change=\"show = !show\" />\n  </Space>\n  <Divider />\n  <Space :size=\"20\">\n    <Badge :count=\"count\" :max-count=\"20\">\n      <div class=\"badge-box\"></div>\n    </Badge>\n    <ButtonGroup>\n      <Button @click=\"minus\">-</Button>\n      <Button @click=\"add\">+</Button>\n    </ButtonGroup>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Bell } from \"kui-icons\";\nimport { ref } from \"vue\";\nconst show = ref(true);\nconst count = ref(5);\nconst add = () => count.value++;\nconst minus = () => count.value >= 1 && count.value--;\n</script>"
+          "source": "<template>\n  <Space>\n    <Badge :dot=\"show\">\n      <div class=\"badge-box\"></div>\n    </Badge>\n    <Badge :dot=\"show\">\n      <Icon :type=\"Bell\" />\n    </Badge>\n    <Badge :dot=\"show\">\n      <a href=\"#\">Link</a>\n    </Badge>\n    <Switch v-model=\"show\" />\n  </Space>\n  <Divider />\n  <Space :size=\"20\">\n    <Badge :count=\"count\" :max-count=\"20\">\n      <div class=\"badge-box\"></div>\n    </Badge>\n    <ButtonGroup>\n      <Button @click=\"minus\">-</Button>\n      <Button @click=\"add\">+</Button>\n    </ButtonGroup>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Bell } from \"kui-icons\";\nimport { ref } from \"vue\";\nconst show = ref(true);\nconst count = ref(5);\nconst add = () => count.value++;\nconst minus = () => (count.value = Math.max(0, count.value - 1));\n</script>"
         },
         {
           "title": "状态点",
           "file": "components/badge/demo/status.vue",
-          "source": "<template>\n  <Space>\n    <Badge status=\"success\" />\n    <Badge status=\"error\" />\n    <Badge status=\"default\" />\n    <Badge status=\"warning\" />\n  </Space>\n  <br />\n  <Space vertical>\n    <Badge status=\"success\" text=\"Success\" />\n    <Badge status=\"error\" text=\"Error\" />\n    <Badge status=\"default\" text=\"Default\" />\n    <Badge status=\"warning\" text=\"warning\" />\n  </Space>\n</template>"
+          "source": "<template>\n  <Space>\n    <Badge status=\"success\" />\n    <Badge status=\"error\" />\n    <Badge status=\"default\" />\n    <Badge status=\"warning\" />\n  </Space>\n  <br />\n  <Space vertical>\n    <Badge status=\"success\" text=\"Success\" />\n    <Badge status=\"error\" text=\"Error\" />\n    <Badge status=\"default\" text=\"Default\" />\n    <Badge status=\"warning\" text=\"Warning\" />\n  </Space>\n</template>"
         },
         {
           "title": "多彩徽标",
@@ -15841,11 +15841,6 @@
           "source": "<template>\n  <Grid :cols=\"{ xs: 1, sm: 2, md: 4 }\" :xGap=\"16\" :yGap=\"16\">\n    <GridItem v-for=\"item in cards\" :key=\"item.title\">\n      <StatCard :title=\"item.title\" :items=\"[item.data]\" reverse bordered />\n    </GridItem>\n  </Grid>\n</template>\n\n<script setup lang=\"ts\">\nimport type { StatNumberItem } from \"kui-vue\";\n\nconst cards: Array<{ title: string; data: StatNumberItem }> = [\n  {\n    title: \"请求数\",\n    data: {\n      value: 12840,\n      separator: \",\",\n      desc: \"本月累计\",\n      trend: \"+18.2% 较上月\",\n      trendStatus: \"success\",\n    },\n  },\n  {\n    title: \"转化率\",\n    data: {\n      value: 8.6,\n      precision: 1,\n      suffix: \"%\",\n      desc: \"本周平均\",\n      trend: \"接近目标值\",\n      trendStatus: \"warning\",\n    },\n  },\n  {\n    title: \"退款率\",\n    data: {\n      value: 2.4,\n      precision: 1,\n      suffix: \"%\",\n      desc: \"近 30 天\",\n      trend: \"+0.6% 需要关注\",\n      trendStatus: \"danger\",\n    },\n  },\n  {\n    title: \"在线用户\",\n    data: {\n      value: 3268,\n      separator: \",\",\n      desc: \"当前数据\",\n    },\n  },\n];\n</script>"
         },
         {
-          "title": "基本用法",
-          "file": "components/stat-card/demo/basic.vue",
-          "source": "<template>\n  <Space vertical>\n    <Button @click=\"change\" size=\"small\">change</Button>\n    <code>default:</code>\n    <StatNumber v-model=\"value\" />\n    <code>type=`rollup`:</code>\n    <StatNumber v-model=\"value\" type=\"rollup\" />\n    <code>precision=`3`:</code>\n    <StatNumber v-model=\"value\" :precision=\"3\" />\n    <StatNumber v-model=\"value\" type=\"rollup\" :precision=\"3\" />\n    <code>prefix & suffix:</code>\n    <StatNumber v-model=\"value\" prefix=\"$\" />\n    <StatNumber v-model=\"value\" type=\"rollup\" suffix=\"元\" />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst value = ref(Math.random() * 100000);\n\nconst change = () => {\n  value.value = Math.random() * 10000000;\n};\n</script>"
-        },
-        {
           "title": "组合展示",
           "file": "components/stat-card/demo/with-card.vue",
           "source": "<template>\n  <Space vertical class=\"demo-view-fill\">\n    <Card>\n      <StatNumber v-model=\"value\" prefix=\"$\" suffix=\"%\" style=\"font-size: 2em\" />\n    </Card>\n    <Card title=\"Today's Trends\">\n      <StatNumber v-model=\"value\" suffix=\"%\" style=\"font-size: 2em; color: green\">\n        <template #prefix><Icon :type=\"ArrowUp\" /></template>\n      </StatNumber>\n    </Card>\n    <Card title=\"Yesterday's Trend\">\n      <StatNumber v-model=\"value\" suffix=\"%\" style=\"font-size: 2em; color: red\" type=\"rollup\">\n        <template #prefix><Icon :type=\"ArrowDown\" /></template>\n      </StatNumber>\n    </Card>\n\n    <Button @click=\"change\">change</Button>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ArrowDown, ArrowUp } from \"kui-icons\";\nimport { ref } from \"vue\";\nconst value = ref(Math.random() * 100000);\nconst change = () => {\n  value.value = Math.random() * 100000;\n};\n</script>"
@@ -15865,7 +15860,7 @@
         "stat-number"
       ],
       "children": [],
-      "documentation": "https://k-ui.cn/components/stat-card",
+      "documentation": "https://k-ui.cn/components/stat-number",
       "props": [
         {
           "name": "type",
@@ -15957,9 +15952,9 @@
         },
         {
           "name": "prefix",
-          "description": "Prefix content of numerical value",
-          "descriptionZh": "数值的前置内容",
-          "descriptionEn": "Prefix content of numerical value",
+          "description": "Custom prefix content, such as an icon.",
+          "descriptionZh": "自定义前置内容，例如图标。",
+          "descriptionEn": "Custom prefix content, such as an icon.",
           "type": "string | undefined",
           "boolean": false,
           "required": false,
@@ -15967,9 +15962,9 @@
         },
         {
           "name": "suffix",
-          "description": "Suffix content of numerical value",
-          "descriptionZh": "数值的后置内容",
-          "descriptionEn": "Suffix content of numerical value",
+          "description": "Custom suffix content, such as a unit.",
+          "descriptionZh": "自定义后置内容，例如单位。",
+          "descriptionEn": "Custom suffix content, such as a unit.",
           "type": "string | undefined",
           "boolean": false,
           "required": false,
@@ -15977,27 +15972,30 @@
         }
       ],
       "events": [],
-      "slots": [],
+      "slots": [
+        {
+          "name": "prefix",
+          "description": "Custom prefix content, such as an icon.",
+          "descriptionZh": "自定义前置内容，例如图标。",
+          "descriptionEn": "Custom prefix content, such as an icon."
+        },
+        {
+          "name": "suffix",
+          "description": "Custom suffix content, such as a unit.",
+          "descriptionZh": "自定义后置内容，例如单位。",
+          "descriptionEn": "Custom suffix content, such as a unit."
+        }
+      ],
       "examples": [
         {
-          "title": "卡片展示",
-          "file": "components/stat-card/demo/card.vue",
-          "source": "<template>\n  <Space vertical block>\n    <Space>\n      <Checkbox v-model=\"showTitle\">Show Title</Checkbox>\n      <Checkbox v-model=\"reverse\">Reverse</Checkbox>\n      <Segmented v-model=\"size\" :options=\"sizes\" />\n      <Segmented v-model=\"theme\" :options=\"themeOptions\" />\n    </Space>\n\n    <Grid :cols=\"{ xs: 1, sm: 2, md: 3 }\" :xGap=\"16\" :yGap=\"16\">\n      <GridItem>\n        <StatCard\n          :title=\"showTitle ? `Today's Orders` : undefined\"\n          :reverse=\"reverse\"\n          :items=\"items\"\n          :theme=\"theme\"\n          :size=\"size\"\n        />\n      </GridItem>\n      <GridItem>\n        <StatCard\n          statNumberType=\"rollup\"\n          :title=\"showTitle ? `Today's income` : undefined\"\n          :items=\"items1\"\n          :theme=\"theme\"\n          :reverse=\"reverse\"\n          :size=\"size\"\n        />\n      </GridItem>\n      <GridItem :span=\"{ xs: 1, sm: 2, md: 1 }\">\n        <StatCard\n          :reverse=\"reverse\"\n          statNumberType=\"rollup\"\n          :title=\"showTitle ? 'Media data' : undefined\"\n          :items=\"items2\"\n          :theme=\"theme\"\n          :size=\"size\"\n        />\n      </GridItem>\n    </Grid>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Heart, Star } from \"kui-icons\";\nimport { Icon, type SizeType, type StatNumberItem } from \"kui-vue\";\nimport { h, ref } from \"vue\";\nconst showTitle = ref(true);\nconst reverse = ref(false);\nconst size = ref<SizeType>(\"medium\");\nconst theme = ref<\"fill\" | \"outline\" | \"plain\">(\"fill\");\nconst sizes = [\"small\", \"medium\", \"large\"].map((value) => ({\n  value,\n  label: value,\n}));\nconst themeOptions = [\"outline\", \"fill\", \"plain\"].map((value) => ({\n  value,\n  label: value,\n}));\nconst items = [\n  { value: 5872, desc: \"Number of orders\" },\n  { value: 9873672, desc: \"Total Order Amount\", prefix: \"￥\" },\n];\n\nconst items1 = [\n  { value: 5872, desc: \"Alipay Revenue\", prefix: \"$\", precision: 2 },\n  { value: 9873672, desc: \"WeChat Revenue\", prefix: \"￥\", precision: 2 },\n];\nconst items2: StatNumberItem[] = [\n  {\n    value: 5872,\n    desc: \"Number of likes\",\n    prefix: h(Icon, { type: Heart }),\n  },\n  {\n    value: 9873672,\n    desc: \"Number of Favorites\",\n    prefix: h(Icon, { type: Star }),\n  },\n];\n</script>"
+          "title": "动画与格式化",
+          "file": "components/stat-number/demo/basic.vue",
+          "source": "<template>\n  <Space vertical>\n    <Space wrap>\n      <Button @click=\"value = 12345\" size=\"small\">12,345</Button>\n      <Button @click=\"value = 54321\" size=\"small\">54,321</Button>\n      <Button @click=\"value -= 100\" size=\"small\">-100</Button>\n      <Button @click=\"value += 100\" size=\"small\">+100</Button>\n      <Button @click=\"change\" size=\"small\">change</Button>\n    </Space>\n    <code>default:</code>\n    <StatNumber v-model=\"value\" />\n    <code>type=`rollup`:</code>\n    <StatNumber v-model=\"value\" type=\"rollup\" />\n    <code>precision=`3`:</code>\n    <StatNumber v-model=\"value\" :precision=\"3\" />\n    <StatNumber v-model=\"value\" type=\"rollup\" :precision=\"3\" />\n    <code>prefix & suffix:</code>\n    <StatNumber v-model=\"value\" prefix=\"$\" />\n    <StatNumber v-model=\"value\" type=\"rollup\" suffix=\"元\" />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst value = ref(12345);\n\nconst change = () => {\n  value.value = Math.random() * 10000000;\n};\n</script>"
         },
         {
-          "title": "趋势信息",
-          "file": "components/stat-card/demo/trend.vue",
-          "source": "<template>\n  <Grid :cols=\"{ xs: 1, sm: 2, md: 4 }\" :xGap=\"16\" :yGap=\"16\">\n    <GridItem v-for=\"item in cards\" :key=\"item.title\">\n      <StatCard :title=\"item.title\" :items=\"[item.data]\" reverse bordered />\n    </GridItem>\n  </Grid>\n</template>\n\n<script setup lang=\"ts\">\nimport type { StatNumberItem } from \"kui-vue\";\n\nconst cards: Array<{ title: string; data: StatNumberItem }> = [\n  {\n    title: \"请求数\",\n    data: {\n      value: 12840,\n      separator: \",\",\n      desc: \"本月累计\",\n      trend: \"+18.2% 较上月\",\n      trendStatus: \"success\",\n    },\n  },\n  {\n    title: \"转化率\",\n    data: {\n      value: 8.6,\n      precision: 1,\n      suffix: \"%\",\n      desc: \"本周平均\",\n      trend: \"接近目标值\",\n      trendStatus: \"warning\",\n    },\n  },\n  {\n    title: \"退款率\",\n    data: {\n      value: 2.4,\n      precision: 1,\n      suffix: \"%\",\n      desc: \"近 30 天\",\n      trend: \"+0.6% 需要关注\",\n      trendStatus: \"danger\",\n    },\n  },\n  {\n    title: \"在线用户\",\n    data: {\n      value: 3268,\n      separator: \",\",\n      desc: \"当前数据\",\n    },\n  },\n];\n</script>"
-        },
-        {
-          "title": "基本用法",
-          "file": "components/stat-card/demo/basic.vue",
-          "source": "<template>\n  <Space vertical>\n    <Button @click=\"change\" size=\"small\">change</Button>\n    <code>default:</code>\n    <StatNumber v-model=\"value\" />\n    <code>type=`rollup`:</code>\n    <StatNumber v-model=\"value\" type=\"rollup\" />\n    <code>precision=`3`:</code>\n    <StatNumber v-model=\"value\" :precision=\"3\" />\n    <StatNumber v-model=\"value\" type=\"rollup\" :precision=\"3\" />\n    <code>prefix & suffix:</code>\n    <StatNumber v-model=\"value\" prefix=\"$\" />\n    <StatNumber v-model=\"value\" type=\"rollup\" suffix=\"元\" />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst value = ref(Math.random() * 100000);\n\nconst change = () => {\n  value.value = Math.random() * 10000000;\n};\n</script>"
-        },
-        {
-          "title": "组合展示",
-          "file": "components/stat-card/demo/with-card.vue",
-          "source": "<template>\n  <Space vertical class=\"demo-view-fill\">\n    <Card>\n      <StatNumber v-model=\"value\" prefix=\"$\" suffix=\"%\" style=\"font-size: 2em\" />\n    </Card>\n    <Card title=\"Today's Trends\">\n      <StatNumber v-model=\"value\" suffix=\"%\" style=\"font-size: 2em; color: green\">\n        <template #prefix><Icon :type=\"ArrowUp\" /></template>\n      </StatNumber>\n    </Card>\n    <Card title=\"Yesterday's Trend\">\n      <StatNumber v-model=\"value\" suffix=\"%\" style=\"font-size: 2em; color: red\" type=\"rollup\">\n        <template #prefix><Icon :type=\"ArrowDown\" /></template>\n      </StatNumber>\n    </Card>\n\n    <Button @click=\"change\">change</Button>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ArrowDown, ArrowUp } from \"kui-icons\";\nimport { ref } from \"vue\";\nconst value = ref(Math.random() * 100000);\nconst change = () => {\n  value.value = Math.random() * 100000;\n};\n</script>"
+          "title": "动画时长",
+          "file": "components/stat-number/demo/duration.vue",
+          "source": "<template>\n  <Space vertical>\n    <Button @click=\"value = value === 12345 ? 54321 : 12345\">12,345 ↔ 54,321</Button>\n    <Space v-for=\"duration in [0, 0.6, 1.2, 2]\" :key=\"duration\">\n      <code>{{ duration }}s</code>\n      <StatNumber :model-value=\"value\" type=\"rollup\" :duration=\"duration\" :auto-animate=\"false\" />\n    </Space>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst value = ref(12345);\n</script>"
         }
       ]
     },

@@ -113,7 +113,7 @@ Import `kui-vue/style/index.css`, then import components from `kui-vue` or insta
 - [SkeletonImage](https://k-ui.cn/components/skeleton): tags `SkeletonImage`, `KSkeletonImage`, `k-skeleton-image`, `skeleton-image`
 - [SkeletonText](https://k-ui.cn/components/skeleton): tags `SkeletonText`, `KSkeletonText`, `k-skeleton-text`, `skeleton-text`
 - [StatCard](https://k-ui.cn/components/stat-card): tags `StatCard`, `KStatCard`, `k-stat-card`, `stat-card`
-- [StatNumber](https://k-ui.cn/components/stat-card): tags `StatNumber`, `KStatNumber`, `k-stat-number`, `stat-number`
+- [StatNumber](https://k-ui.cn/components/stat-number): tags `StatNumber`, `KStatNumber`, `k-stat-number`, `stat-number`
 - [Slider](https://k-ui.cn/components/slider): tags `Slider`, `KSlider`, `k-slider`, `slider`
 - [Space](https://k-ui.cn/components/space): tags `Space`, `KSpace`, `k-space`, `space`
 - [Spin](https://k-ui.cn/components/spin): tags `Spin`, `KSpin`, `k-spin`, `spin`

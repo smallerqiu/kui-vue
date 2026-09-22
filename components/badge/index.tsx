@@ -6,6 +6,7 @@ import {
   type VNode,
 } from "vue";
 import type { BadgeStatusType, BooleanType } from "../const/types";
+import RollUp from "../stat-card/rollup";
 const badgeProps = {
   count: [String, Number],
   dot: Boolean as BooleanType,
@@ -84,7 +85,17 @@ const Badge = defineComponent({
           } as CSSProperties,
         };
 
-        supNode = <sup {...supProps}>{!dot ? displayCount : null}</sup>;
+        supNode = (
+          <sup {...supProps}>
+            {!dot ? (
+              typeof displayCount === "number" && Number.isFinite(displayCount) ? (
+                <RollUp modelValue={displayCount} text={String(displayCount)} />
+              ) : (
+                displayCount
+              )
+            ) : null}
+          </sup>
+        );
       }
 
       const rootProps = {

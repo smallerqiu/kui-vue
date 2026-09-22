@@ -127,7 +127,12 @@ export const getPropsData = (
 
   // 定位组件真实的物理目录并读取 md
   const componentDir = path.dirname(declarations[0].getSourceFile().getFilePath());
-  const mdPath = path.join(componentDir, documentationFileName);
+  const mdPath = path.join(
+    candidates.includes("StatNumberProps")
+      ? path.resolve(componentDir, "../stat-number")
+      : componentDir,
+    documentationFileName,
+  );
   const docMap = getDocDescriptions(mdPath);
 
   const type = aliasedSymbol.getDeclaredType();

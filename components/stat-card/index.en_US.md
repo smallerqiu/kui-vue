@@ -16,10 +16,6 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 - Use `trend` for supplementary information and `trendStatus` for its status color; cards remain equal-height in a Grid when some items omit the trend.
 
-[Basic Usage](./demo/basic.vue)
-
-- Display Numbers Only
-
 [Combination Display](./demo/with-card.vue)
 
 - Show more custom data combined with the `Card` component
@@ -56,19 +52,7 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 | autoAnimate     | Trigger animation when target becomes visible     | boolean                                         | true    |
 | autoAnimateOnce | Run animation only once for auto-animate triggers | boolean                                         | true    |
 
-## StatNumber API
-
-| Property        | Description                                       | Type                  | Default   |
-| --------------- | ------------------------------------------------- | --------------------- | --------- |
-| modelValue      | Numerical value                                   | number                | 0         |
-| duration        | Numerical dynamic display time (seconds)          | number                | 1.2       |
-| prefix          | Prefix content of numerical value                 | string                | -         |
-| suffix          | Suffix content of numerical value                 | string                | -         |
-| precision       | Numerical precision                               | number                | 0         |
-| type            | Numerical change type                             | 'rollup' \| 'countup' | 'countup' |
-| separator       | Separator                                         | string                | -         |
-| autoAnimate     | Trigger animation when target becomes visible     | boolean               | true      |
-| autoAnimateOnce | Run animation only once for auto-animate triggers | boolean               | true      |
+For standalone animated values, formatting, and animation controls, see [StatNumber](/components/stat-number-en).
 
 ### Common appearance
 

@@ -173,6 +173,7 @@ const navData = [
       { title: "头像", sub: "Avatar", name: "avatar", icon: SmilePlus },
       { title: "卡片", sub: "Card", name: "card", icon: CreditCard },
       { title: "功能卡片", sub: "FeatureCard", name: "feature-card", icon: CreditCard },
+      { title: "数字动画", sub: "StatNumber", name: "stat-number", icon: ChartColumnDecreasing },
       { title: "统计卡片", sub: "StatCard", name: "stat-card", icon: ChartColumnDecreasing },
       { title: "日历", sub: "Calendar", name: "calendar", icon: Calendar },
       { title: "看板", sub: "Kanban", name: "kanban", icon: Columns3 },
