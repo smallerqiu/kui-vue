@@ -125,7 +125,7 @@ describe("new components", () => {
         size: "small",
         theme: "plain",
         shape: "circle",
-        defaultOpen: true,
+        open: true,
         showOnEmpty: true,
         options: ["Vue"],
       },

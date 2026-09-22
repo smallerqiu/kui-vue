@@ -76,7 +76,7 @@ describe("Table tree data", () => {
     expect(style).toContain("min-width: 1050px");
   });
 
-  it("supports controlled expansion without mutating the prop", async () => {
+  it("supports local expansion and synchronizes changed props", async () => {
     const data: TableRecord[] = [
       {
         key: "parent",
@@ -93,7 +93,7 @@ describe("Table tree data", () => {
     expect(wrapper.text()).not.toContain("Child row");
     await wrapper.get(".k-table-tree-toggle").trigger("click");
     expect(wrapper.emitted("update:expandedKeys")?.at(-1)).toEqual([["parent"]]);
-    expect(wrapper.text()).not.toContain("Child row");
+    expect(wrapper.text()).toContain("Child row");
 
     await wrapper.setProps({ expandedKeys: ["parent"] });
     expect(wrapper.text()).toContain("Child row");

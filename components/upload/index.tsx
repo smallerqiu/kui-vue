@@ -54,7 +54,6 @@ const uploadProps = {
   showUploadList: { type: Boolean as BooleanType, default: true },
   transformFile: Function as PropType<(file: File) => File | Blob | Promise<File | Blob>>,
   fileList: Array as PropType<UploadFile[]>,
-  defaultFileList: { type: Array as PropType<UploadFile[]>, default: () => [] },
   autoTrigger: { type: Boolean as BooleanType, default: true },
   limit: Number,
   minSize: Number, // KB
@@ -110,7 +109,7 @@ const Upload = defineComponent({
     const innerFileList = ref<UploadFile[]>([
       ...(field?.prop && Array.isArray(field.value.value)
         ? (field.value.value as UploadFile[])
-        : (props.fileList ?? props.defaultFileList)),
+        : (props.fileList ?? [])),
     ]);
     const uploadTemp = reactive<Record<string, File>>({});
     const generatedPreviewUrls = new Set<string>();

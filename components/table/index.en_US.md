@@ -105,35 +105,34 @@ const columns = [
 
 ## Table API
 
-| Property             | Description                                                    | Type                                                                         | Default  |
-| -------------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------- | -------- |
-| bordered             | Whether to display borders                                     | boolean                                                                      | false    |
-| checkable            | Whether to show checkboxes                                     | boolean                                                                      | false    |
-| selectedKeys         | Collection of selected keys                                    | (string \| number)[]                                                         | -        |
-| disabledKeys         | Disabled key set                                               | (string \| number)[]                                                         | -        |
-| size                 | Display compact mode when the value is `small`                 | string                                                                       | -        |
-| emptyText            | Prompt displayed when there is no data                         | string                                                                       | No Data  |
-| loading              | Table asynchronous loading mode                                | boolean                                                                      | false    |
-| data                 | Structured data to be displayed                                | any[]                                                                        | []       |
-| columns              | Configuration description of table columns                     | Column[]                                                                     | []       |
-| hiddenColumnKeys     | Hidden column keys, including grouped columns                  | string[]                                                                     | []       |
-| rowKey               | Basis for selection                                            | string                                                                       | key      |
-| childrenColumnName   | Field containing child records                                 | string                                                                       | children |
-| expandedKeys         | Controlled expanded row keys; supports `v-model:expanded-keys` | (string \| number)[]                                                         | -        |
-| defaultExpandedKeys  | Initially expanded row keys                                    | (string \| number)[]                                                         | []       |
-| defaultExpandAllRows | Expand every tree node initially                               | boolean                                                                      | false    |
-| expandRowByClick     | Toggle expansion by clicking a row                             | boolean                                                                      | false    |
-| indentSize           | Indentation per tree level                                     | number                                                                       | 20       |
-| striped              | Whether to display zebra stripes                               | boolean                                                                      | false    |
-| onRowClick           | Triggered when clicking a row                                  | (record: any, index: number) => void                                         | -        |
-| onSort               | Triggered when clicking to sort                                | (state: SortState) => void                                                   | -        |
-| onSelect             | Triggered when clicking the checkbox                           | (record: any, selected: boolean, selectedKeys: (string \| number)[]) => void | -        |
-| onSelectAll          | Triggered when clicking the header checkbox of the Table       | (selected: boolean, selectedKeys: (string \| number)[]) => void              | -        |
-| onExpand             | Called when a row expands or collapses                         | (expanded: boolean, record: TableRecord) => void                             | -        |
-| onExpandedKeysChange | Called when expanded keys change                               | (expandedKeys: (string \| number)[]) => void                                 | -        |
-| virtual              | Enable virtual scrolling; requires `scroll.y`                  | boolean                                                                      | false    |
-| itemHeight           | Fixed virtual row height                                       | number                                                                       | 44       |
-| overscan             | Extra rows rendered above and below the viewport               | number                                                                       | 5        |
+| Property             | Description                                                                                                 | Type                                                                         | Default  |
+| -------------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | -------- |
+| bordered             | Whether to display borders                                                                                  | boolean                                                                      | false    |
+| checkable            | Whether to show checkboxes                                                                                  | boolean                                                                      | false    |
+| selectedKeys         | Collection of selected keys                                                                                 | (string \| number)[]                                                         | -        |
+| disabledKeys         | Disabled key set                                                                                            | (string \| number)[]                                                         | -        |
+| size                 | Display compact mode when the value is `small`                                                              | string                                                                       | -        |
+| emptyText            | Prompt displayed when there is no data                                                                      | string                                                                       | No Data  |
+| loading              | Table asynchronous loading mode                                                                             | boolean                                                                      | false    |
+| data                 | Structured data to be displayed                                                                             | any[]                                                                        | []       |
+| columns              | Configuration description of table columns                                                                  | Column[]                                                                     | []       |
+| hiddenColumnKeys     | Hidden column keys, including grouped columns                                                               | string[]                                                                     | []       |
+| rowKey               | Basis for selection                                                                                         | string                                                                       | key      |
+| childrenColumnName   | Field containing child records                                                                              | string                                                                       | children |
+| expandedKeys         | expanded row keys; supports `v-model:expanded-keys`                                                         | (string \| number)[]                                                         | -        |
+| expandAllRows        | Expand every tree node on initialization or when this prop changes (explicit expandedKeys takes precedence) | boolean                                                                      | false    |
+| expandRowByClick     | Toggle expansion by clicking a row                                                                          | boolean                                                                      | false    |
+| indentSize           | Indentation per tree level                                                                                  | number                                                                       | 20       |
+| striped              | Whether to display zebra stripes                                                                            | boolean                                                                      | false    |
+| onRowClick           | Triggered when clicking a row                                                                               | (record: any, index: number) => void                                         | -        |
+| onSort               | Triggered when clicking to sort                                                                             | (state: SortState) => void                                                   | -        |
+| onSelect             | Triggered when clicking the checkbox                                                                        | (record: any, selected: boolean, selectedKeys: (string \| number)[]) => void | -        |
+| onSelectAll          | Triggered when clicking the header checkbox of the Table                                                    | (selected: boolean, selectedKeys: (string \| number)[]) => void              | -        |
+| onExpand             | Called when a row expands or collapses                                                                      | (expanded: boolean, record: TableRecord) => void                             | -        |
+| onExpandedKeysChange | Called when expanded keys change                                                                            | (expandedKeys: (string \| number)[]) => void                                 | -        |
+| virtual              | Enable virtual scrolling; requires `scroll.y`                                                               | boolean                                                                      | false    |
+| itemHeight           | Fixed virtual row height                                                                                    | number                                                                       | 44       |
+| overscan             | Extra rows rendered above and below the viewport                                                            | number                                                                       | 5        |
 
 ## TableColumnSetting API
 

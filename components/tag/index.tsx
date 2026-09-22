@@ -1,7 +1,6 @@
 import { X } from "kui-icons";
 import {
   defineComponent,
-  onBeforeUnmount,
   ref,
   Transition,
   type CSSProperties,
@@ -40,24 +39,18 @@ const Tag = defineComponent({
   props: tagProps,
   emits: {
     close: () => true,
+    afterClose: () => true,
   },
   setup(props, { slots, emit, attrs }) {
     const appearance = useConfigAppearance(props);
     const visible = ref(true);
-    const hidden = ref(false);
-    let hideTimer: ReturnType<typeof setTimeout> | undefined;
 
     const closeHandler = (e: MouseEvent) => {
       e.stopPropagation();
-      emit("close");
+      if (!visible.value) return;
       visible.value = false;
-      clearTimeout(hideTimer);
-      hideTimer = setTimeout(() => {
-        hidden.value = true;
-        hideTimer = undefined;
-      }, 300);
+      emit("close");
     };
-    onBeforeUnmount(() => clearTimeout(hideTimer));
 
     return () => {
       const { icon, color, closeable, compact } = props;
@@ -78,7 +71,6 @@ const Tag = defineComponent({
           "k-tag-has-color": isCustomColor,
           "k-tag-closeable": closeable,
           "k-tag-compact": compact,
-          "k-tag-hidden": hidden.value,
           [`k-tag-${appearance.theme.value}`]: !!appearance.theme.value,
         },
       ];
@@ -102,10 +94,8 @@ const Tag = defineComponent({
       };
 
       return (
-        <Transition name="k-tag">
-          <div v-show={visible.value} {...tagProps}>
-            {content}
-          </div>
+        <Transition name="k-tag" duration={200} onAfterLeave={() => emit("afterClose")}>
+          {visible.value && <div {...tagProps}>{content}</div>}
         </Transition>
       );
     };

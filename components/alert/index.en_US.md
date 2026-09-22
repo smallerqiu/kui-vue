@@ -25,17 +25,24 @@ Warning prompts to display information that needs attention.
 
 - Use `showIcon` to control whether the icon is displayed.
 
+## Closing
+
+Clicking the close button triggers `close`. After the exit animation, the content is removed and `afterClose` fires.
+
+To unmount the entire component after closing, update the parent state in `afterClose` and use `v-if`.
+
 ## API
 
-| Property    | Description                                                                      | Type         | Default |
-| ----------- | -------------------------------------------------------------------------------- | ------------ | ------- |
-| type        | Alert type, optional values are `success`, `info`, `warning`, `error` or not set | string       | warning |
-| message     | Alert content                                                                    | string, slot | -       |
-| description | Auxiliary text introduction for the alert                                        | string       | -       |
-| showIcon    | Whether to show the icon                                                         | boolean      | false   |
-| closable    | Whether to show the close button                                                 | boolean      | false   |
-| bordered    | Whether to display the border                                                    | boolean      | false   |
-| onClose     | Callback function triggered when closing                                         | ()=>void     | -       |
-| icon        | Custom icon                                                                      | IconPath[]   | -       |
-| theme       | Appearance: `default`, `fill`, `outline`, or `plain`                             | ThemeType    | default |
-| shape       | Shape: `round`, `circle`, or `square`                                            | ShapeType    | round   |
+| Property     | Description                                                                      | Type                        | Default |
+| ------------ | -------------------------------------------------------------------------------- | --------------------------- | ------- |
+| type         | Alert type, optional values are `success`, `info`, `warning`, `error` or not set | string                      | warning |
+| message      | Alert content                                                                    | string, slot                | -       |
+| description  | Auxiliary text introduction for the alert                                        | string                      | -       |
+| showIcon     | Whether to show the icon                                                         | boolean                     | false   |
+| closable     | Whether to show the close button                                                 | boolean                     | false   |
+| bordered     | Whether to display the border                                                    | boolean                     | false   |
+| onClose      | Triggered when the close button is clicked                                       | (event: MouseEvent) => void | -       |
+| onAfterClose | Triggered after the exit animation                                               | () => void                  | -       |
+| icon         | Custom icon                                                                      | IconPath[]                  | -       |
+| theme        | Appearance: `default`, `fill`, `outline`, or `plain`                             | ThemeType                   | default |
+| shape        | Shape: `round`, `circle`, or `square`                                            | ShapeType                   | round   |

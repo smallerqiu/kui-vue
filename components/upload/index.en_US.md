@@ -88,7 +88,6 @@ Uploading is the process of publishing information (web pages, text, images, vid
 | validateAccept  | Whether to validate file types                                                                              | boolean                                               | true     |
 | maxConcurrent   | Maximum concurrent uploads                                                                                  | number                                                | Infinity |
 | fileList        | Uploaded file list                                                                                          | UploadFile[]                                          | -        |
-| defaultFileList | Initial file list in uncontrolled mode                                                                      | UploadFile[]                                          | []       |
 | name            | File parameter name sent to backend, default `file`                                                         | string                                                | 'file'   |
 | uploadIcon      | Auxiliary icon for upload area                                                                              | IconType                                              | Add      |
 | uploadText      | Auxiliary text for upload area                                                                              | string                                                | -        |

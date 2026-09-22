@@ -30,8 +30,7 @@ const tableProps = {
   rowKey: { type: String, default: "key" },
   childrenColumnName: { type: String, default: "children" },
   expandedKeys: Array as PropType<TableKey[]>,
-  defaultExpandedKeys: { type: Array as PropType<TableKey[]>, default: () => [] },
-  defaultExpandAllRows: Boolean as BooleanType,
+  expandAllRows: Boolean as BooleanType,
   expandRowByClick: Boolean as BooleanType,
   indentSize: { type: Number, default: 20 },
   scroll: {
@@ -86,7 +85,7 @@ const Table = defineComponent({
     const bodyWrapperRef = ref<HTMLElement>();
     const scrollbarWidth = ref(0);
     const innerSelectedKeys = ref(new Set(props.selectedKeys));
-    const innerExpandedKeys = ref(new Set<TableKey>(props.defaultExpandedKeys));
+    const innerExpandedKeys = ref(new Set<TableKey>(props.expandedKeys ?? []));
     const isSplit = computed(() => !!props.scroll.y);
     const sortState = reactive<SortState>({ key: "", order: null });
     const pingLeft = ref(false);
@@ -153,20 +152,25 @@ const Table = defineComponent({
       const key = record[props.rowKey];
       return typeof key === "string" || typeof key === "number" ? key : String(key ?? "");
     };
-    if (props.defaultExpandAllRows) {
-      innerExpandedKeys.value = new Set(
-        flattenTreeData({
-          data: props.data,
-          childrenColumnName: props.childrenColumnName,
-          getKey: getRowKey,
-        })
-          .filter((row) => row.hasChildren)
-          .map((row) => getRowKey(row.record)),
-      );
-    }
-    const currentExpandedKeys = computed(() =>
-      props.expandedKeys ? new Set(props.expandedKeys) : innerExpandedKeys.value,
+    watch(
+      [() => props.expandedKeys, () => props.expandAllRows],
+      ([keys, expandAll]) => {
+        innerExpandedKeys.value = new Set(
+          keys ??
+            (expandAll
+              ? flattenTreeData({
+                  data: props.data,
+                  childrenColumnName: props.childrenColumnName,
+                  getKey: getRowKey,
+                })
+                  .filter((row) => row.hasChildren)
+                  .map((row) => getRowKey(row.record))
+              : []),
+        );
+      },
+      { immediate: true },
     );
+    const currentExpandedKeys = computed(() => innerExpandedKeys.value);
     const sortRecords = (records: TableRecord[]) => {
       const list = [...records];
       if (sortState.key && sortState.order) {
@@ -410,7 +414,7 @@ const Table = defineComponent({
       const expanded = !next.has(key);
       if (expanded) next.add(key);
       else next.delete(key);
-      if (props.expandedKeys === undefined) innerExpandedKeys.value = next;
+      innerExpandedKeys.value = next;
       const keys = [...next];
       emit("update:expandedKeys", keys);
       emit("expandedKeysChange", keys);

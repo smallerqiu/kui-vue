@@ -69,7 +69,7 @@ const enabled = ref(false);
 
 Input change receives a value, not a DOM event. Checkbox change receives an object; Switch change receives a value. With `valueType="number"` or `"string"`, compare against `1` or `"1"` explicitly rather than applying `Boolean("0")`.
 
-Many React value components allow local edits and synchronize changed external values. Do not assume identical controlled-state semantics across the library: `checked` and `open` have their own contracts. Do not add `defaultValue` mechanically, or use `defaultChecked`, `defaultOpen`, or `defaultFileList` for ongoing synchronization. Explicit business state plus update callbacks is a clear migration pattern.
+React state props such as `value`, `checked`, and `open` initialize internal state, allow local interaction, and synchronize external changes. Store business state and handle update callbacks when coordinating components.
 
 Vue `v-model` is not interchangeable with `:value`. Use the declared model name, especially for Upload and Page. Keep numeric and string option values distinct; use `:value="1"` for numeric values in Vue templates.
 

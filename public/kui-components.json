@@ -117,20 +117,6 @@
       "documentation": "https://k-ui.cn/components/popup",
       "props": [
         {
-          "name": "defaultOpen",
-          "description": "Initial uncontrolled visibility",
-          "descriptionZh": "非受控初始状态",
-          "descriptionEn": "Initial uncontrolled visibility",
-          "type": "boolean | undefined",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "disabled",
           "description": "Prevents opening and cancels delayed opening; does not override open",
           "descriptionZh": "禁止交互打开并取消待执行的打开操作，不强制覆盖 open",
@@ -387,9 +373,9 @@
         },
         {
           "name": "open",
-          "description": "Controlled visibility; Vue supports v-model:open",
-          "descriptionZh": "受控显示状态；Vue 支持 v-model:open",
-          "descriptionEn": "Controlled visibility; Vue supports v-model:open",
+          "description": "Initial visibility; subsequent changes synchronize the state; Vue supports v-model:open",
+          "descriptionZh": "初始显示状态，后续属性变化会同步内部状态；Vue 支持 v-model:open",
+          "descriptionEn": "Initial visibility; subsequent changes synchronize the state; Vue supports v-model:open",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -741,11 +727,21 @@
         },
         {
           "name": "onClose",
-          "description": "Callback function triggered when closing",
-          "descriptionZh": "关闭时触发的回调函数",
-          "descriptionEn": "Callback function triggered when closing",
+          "description": "Triggered when the close button is clicked",
+          "descriptionZh": "点击关闭按钮时触发",
+          "descriptionEn": "Triggered when the close button is clicked",
           "type": "(...args: unknown[]) => void",
           "eventName": "close",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "onAfterClose",
+          "description": "Triggered after the exit animation",
+          "descriptionZh": "退出动画结束后触发",
+          "descriptionEn": "Triggered after the exit animation",
+          "type": "(...args: unknown[]) => void",
+          "eventName": "afterClose",
           "boolean": false,
           "documented": true
         }
@@ -754,9 +750,16 @@
         {
           "name": "close",
           "type": "(...args: unknown[]) => void",
-          "description": "Callback function triggered when closing",
-          "descriptionZh": "关闭时触发的回调函数",
-          "descriptionEn": "Callback function triggered when closing"
+          "description": "Triggered when the close button is clicked",
+          "descriptionZh": "点击关闭按钮时触发",
+          "descriptionEn": "Triggered when the close button is clicked"
+        },
+        {
+          "name": "afterClose",
+          "type": "(...args: unknown[]) => void",
+          "description": "Triggered after the exit animation",
+          "descriptionZh": "退出动画结束后触发",
+          "descriptionEn": "Triggered after the exit animation"
         }
       ],
       "slots": [],
@@ -774,7 +777,7 @@
         {
           "title": "可关闭",
           "file": "components/alert/demo/close.vue",
-          "source": "<template>\n  <Space vertical block>\n    <Alert type=\"success\" showIcon closable>Success Text</Alert>\n    <Alert type=\"info\" showIcon closable>Info Text</Alert>\n    <Alert type=\"warning\" showIcon closable>Warning Text</Alert>\n    <Alert type=\"error\" showIcon closable>Error Text</Alert>\n    <Alert\n      type=\"success\"\n      showIcon\n      closable\n      message=\"Success Tip\"\n      description=\"Congratulations, the operation is successful.\"\n    />\n  </Space>\n</template>"
+          "source": "<template>\n  <Space vertical block>\n    <Alert v-if=\"visible\" type=\"success\" showIcon closable @after-close=\"visible = false\">\n      Success Text\n    </Alert>\n    <Button v-else @click=\"visible = true\">Show Alert</Button>\n    <Alert type=\"info\" showIcon closable>Info Text</Alert>\n    <Alert type=\"warning\" showIcon closable>Warning Text</Alert>\n    <Alert type=\"error\" showIcon closable>Error Text</Alert>\n    <Alert\n      type=\"success\"\n      showIcon\n      closable\n      message=\"Success Tip\"\n      description=\"Congratulations, the operation is successful.\"\n    />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst visible = ref(true);\n</script>"
         },
         {
           "title": "自定义图标",
@@ -804,20 +807,6 @@
       "children": [],
       "documentation": "https://k-ui.cn/components/auto-complete",
       "props": [
-        {
-          "name": "defaultOpen",
-          "description": "Initial open state",
-          "descriptionZh": "初始展开状态",
-          "descriptionEn": "Initial open state",
-          "type": "boolean",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
-          "documented": true
-        },
         {
           "name": "disabled",
           "description": "Disabled",
@@ -943,9 +932,9 @@
         },
         {
           "name": "open",
-          "description": "Controlled open state",
-          "descriptionZh": "受控展开状态",
-          "descriptionEn": "Controlled open state",
+          "description": "open state",
+          "descriptionZh": "展开状态",
+          "descriptionEn": "open state",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -1810,7 +1799,7 @@
         {
           "title": "自定义滚动容器",
           "file": "components/back-top/demo/target.vue",
-          "source": "<template>\n  <div ref=\"container\" class=\"scroll-container\">\n    <div class=\"scroll-content\">Scroll this container</div>\n    <BackTop :target=\"getTarget\" :height=\"80\" :right=\"100\" />\n  </div>\n</template>\n\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\n\nconst container = ref<HTMLElement>();\nconst getTarget = () => container.value ?? null;\n</script>\n\n<style scoped>\n.scroll-container {\n  height: 180px;\n  overflow: auto;\n  border: 1px solid var(--kui-control-border);\n}\n\n.scroll-content {\n  height: 600px;\n  padding: 16px;\n}\n</style>"
+          "source": "<template>\n  <div ref=\"container\" class=\"scroll-container\">\n    <div class=\"scroll-content\">Scroll this container</div>\n    <BackTop :target=\"getTarget\" :height=\"80\" :right=\"100\" />\n  </div>\n</template>\n\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\n\nconst container = ref<HTMLElement>();\nconst getTarget = () => container.value ?? null;\n</script>\n\n<style scoped>\n.scroll-container {\n  height: 180px;\n  overflow: auto;\n  border: 1px solid var(--kui-control-border, var(--kui-color-border));\n}\n\n.scroll-content {\n  height: 600px;\n  padding: 16px;\n}\n</style>"
         }
       ]
     },
@@ -3490,12 +3479,12 @@
         {
           "title": "基础用法",
           "file": "components/flame-wrap/demo/basic.vue",
-          "source": "<template>\n  <div style=\"padding: 150px 60px 48px\">\n    <FlameWrap :radius=\"18\">\n      <Card :style=\"{ padding: '20px' }\">\n        <Tag color=\"blue\">WebGL Effect</Tag>\n        <h3 style=\"margin: 18px 0 8px\">Flame wrapped content</h3>\n        <p style=\"margin: 0 0 24px; color: var(--kui-color-text-secondary)\">\n          火焰沿内容轮廓燃烧，内部仍然是真实且可交互的 DOM。\n        </p>\n        <Space>\n          <Button type=\"primary\">Explore</Button>\n          <Button>Details</Button>\n        </Space>\n      </Card>\n    </FlameWrap>\n  </div>\n</template>"
+          "source": "<template>\n  <div style=\"padding: 150px 60px 48px\">\n    <FlameWrap :radius=\"18\">\n      <Card :style=\"{ padding: '20px' }\">\n        <Tag color=\"blue\">WebGL Effect</Tag>\n        <h3 style=\"margin: 18px 0 8px\">Flame wrapped content</h3>\n        <p style=\"margin: 0 0 24px; color: var(--kui-color-text-secondary, var(--kui-color-text-description))\">\n          火焰沿内容轮廓燃烧，内部仍然是真实且可交互的 DOM。\n        </p>\n        <Space>\n          <Button type=\"primary\">Explore</Button>\n          <Button>Details</Button>\n        </Space>\n      </Card>\n    </FlameWrap>\n  </div>\n</template>"
         },
         {
           "title": "自定义火焰",
           "file": "components/flame-wrap/demo/custom.vue",
-          "source": "<template>\n  <div style=\"padding: 130px 60px 48px\">\n    <FlameWrap\n      :color=\"[1, 0.28, 0.08]\"\n      :intensity=\"0.85\"\n      :height=\"120\"\n      :speed=\"0.55\"\n      :sparks=\"2\"\n      :smoke=\"0.6\"\n      :radius=\"18\"\n    >\n      <Card :style=\"{ padding: '20px', height: '120px' }\">\n        <h3 style=\"margin: 0 0 8px\">Warm flame</h3>\n        <p style=\"margin: 0; color: var(--kui-color-text-secondary)\">\n          可以调整颜色、火焰高度、火星、烟雾和燃烧速度。\n        </p>\n      </Card>\n    </FlameWrap>\n  </div>\n</template>"
+          "source": "<template>\n  <div style=\"padding: 130px 60px 48px\">\n    <FlameWrap\n      :color=\"[1, 0.28, 0.08]\"\n      :intensity=\"0.85\"\n      :height=\"120\"\n      :speed=\"0.55\"\n      :sparks=\"2\"\n      :smoke=\"0.6\"\n      :radius=\"18\"\n    >\n      <Card :style=\"{ padding: '20px', height: '120px' }\">\n        <h3 style=\"margin: 0 0 8px\">Warm flame</h3>\n        <p style=\"margin: 0; color: var(--kui-color-text-secondary, var(--kui-color-text-description))\">\n          可以调整颜色、火焰高度、火星、烟雾和燃烧速度。\n        </p>\n      </Card>\n    </FlameWrap>\n  </div>\n</template>"
         }
       ]
     },
@@ -12581,12 +12570,12 @@
         {
           "title": "基础用法",
           "file": "components/ripple/demo/basic.vue",
-          "source": "<template>\n  <Ripple\n    :style=\"{\n      minHeight: '260px',\n      borderRadius: 'var(--kui-card-radius)',\n    }\"\n  >\n    <Card style=\"padding: 32px\">\n      <Tag color=\"blue\">Interactive surface</Tag>\n      <h3 style=\"margin: 18px 0 8px\">点击任意位置，观察水波扩散</h3>\n      <p style=\"margin: 0 0 24px; color: var(--kui-color-text-secondary)\">\n        在支持 HTML-in-Canvas 的浏览器中，水波会折射下方的实时 DOM 内容。\n      </p>\n      <Space>\n        <Button type=\"primary\">Primary</Button>\n        <Button>Default</Button>\n      </Space>\n    </Card>\n  </Ripple>\n</template>"
+          "source": "<template>\n  <Ripple\n    :style=\"{\n      minHeight: '260px',\n      borderRadius: 'var(--kui-card-radius, var(--kui-border-radius-card))',\n    }\"\n  >\n    <Card style=\"padding: 32px\">\n      <Tag color=\"blue\">Interactive surface</Tag>\n      <h3 style=\"margin: 18px 0 8px\">点击任意位置，观察水波扩散</h3>\n      <p style=\"margin: 0 0 24px; color: var(--kui-color-text-secondary, var(--kui-color-text-description))\">\n        在支持 HTML-in-Canvas 的浏览器中，水波会折射下方的实时 DOM 内容。\n      </p>\n      <Space>\n        <Button type=\"primary\">Primary</Button>\n        <Button>Default</Button>\n      </Space>\n    </Card>\n  </Ripple>\n</template>"
         },
         {
           "title": "自定义效果",
           "file": "components/ripple/demo/options.vue",
-          "source": "<template>\n  <Ripple\n    trigger=\"hover\"\n    :amplitude=\"0.8\"\n    :rings=\"4\"\n    :wavelength=\"48\"\n    :refraction=\"72\"\n    :dispersion=\"0.35\"\n    :style=\"{\n      minHeight: '220px',\n    }\"\n  >\n    <Card style=\"padding: 32px; height: 220px\">\n      <h3 style=\"margin: 0 0 8px\">Hover Ripple</h3>\n      <p style=\"margin: 0; color: var(--kui-color-text-secondary)\">\n        移动指针会连续产生较轻的水波轨迹。\n      </p>\n    </Card>\n  </Ripple>\n</template>"
+          "source": "<template>\n  <Ripple\n    trigger=\"hover\"\n    :amplitude=\"0.8\"\n    :rings=\"4\"\n    :wavelength=\"48\"\n    :refraction=\"72\"\n    :dispersion=\"0.35\"\n    :style=\"{\n      minHeight: '220px',\n    }\"\n  >\n    <Card style=\"padding: 32px; height: 220px\">\n      <h3 style=\"margin: 0 0 8px\">Hover Ripple</h3>\n      <p style=\"margin: 0; color: var(--kui-color-text-secondary, var(--kui-color-text-description))\">\n        移动指针会连续产生较轻的水波轨迹。\n      </p>\n    </Card>\n  </Ripple>\n</template>"
         }
       ]
     },
@@ -17386,17 +17375,6 @@
           "documented": true
         },
         {
-          "name": "defaultExpandedKeys",
-          "description": "Initially expanded row keys",
-          "descriptionZh": "默认展开行 key 集合",
-          "descriptionEn": "Initially expanded row keys",
-          "type": "TableKey[]",
-          "boolean": false,
-          "required": false,
-          "defaultExpression": "() => []",
-          "documented": true
-        },
-        {
           "name": "indentSize",
           "description": "Indentation per tree level",
           "descriptionZh": "每级树节点缩进距离",
@@ -17473,19 +17451,19 @@
         },
         {
           "name": "expandedKeys",
-          "description": "Controlled expanded row keys; supports `v-model:expanded-keys`",
-          "descriptionZh": "受控展开行 key 集合，支持 `v-model:expanded-keys`",
-          "descriptionEn": "Controlled expanded row keys; supports `v-model:expanded-keys`",
+          "description": "expanded row keys; supports `v-model:expanded-keys`",
+          "descriptionZh": "展开行 key 集合，支持 `v-model:expanded-keys`",
+          "descriptionEn": "expanded row keys; supports `v-model:expanded-keys`",
           "type": "TableKey[] | undefined",
           "boolean": false,
           "required": false,
           "documented": true
         },
         {
-          "name": "defaultExpandAllRows",
-          "description": "Expand every tree node initially",
-          "descriptionZh": "默认展开所有树节点",
-          "descriptionEn": "Expand every tree node initially",
+          "name": "expandAllRows",
+          "description": "Expand every tree node on initialization or when this prop changes (explicit expandedKeys takes precedence)",
+          "descriptionZh": "初始化及属性变化时展开所有树节点（expandedKeys 优先）",
+          "descriptionEn": "Expand every tree node on initialization or when this prop changes (explicit expandedKeys takes precedence)",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -18203,6 +18181,21 @@
           "documented": true
         },
         {
+          "name": "trigger",
+          "description": "Automatic hover or manual visibility",
+          "descriptionZh": "自动悬停触发或手动控制显隐",
+          "descriptionEn": "Automatic hover or manual visibility",
+          "type": "\"hover\" | \"manual\"",
+          "boolean": false,
+          "enumValues": [
+            "hover",
+            "manual"
+          ],
+          "required": false,
+          "defaultExpression": "\"hover\"",
+          "documented": true
+        },
+        {
           "name": "disabled",
           "description": "Disabled status",
           "descriptionZh": "禁用状态",
@@ -18320,6 +18313,11 @@
       },
       "models": [
         {
+          "prop": "open",
+          "event": "update:open",
+          "directive": "v-model:open"
+        },
+        {
           "prop": "modelValue",
           "event": "update:modelValue",
           "directive": "v-model"
@@ -18334,20 +18332,6 @@
       "children": [],
       "documentation": "https://k-ui.cn/components/tour",
       "props": [
-        {
-          "name": "defaultOpen",
-          "description": "Initial visibility",
-          "descriptionZh": "初始显示状态",
-          "descriptionEn": "Initial visibility",
-          "type": "boolean",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
-          "documented": true
-        },
         {
           "name": "closable",
           "description": "Show close button",
@@ -18394,17 +18378,6 @@
           "documented": true
         },
         {
-          "name": "defaultCurrent",
-          "description": "Initial step",
-          "descriptionZh": "初始步骤",
-          "descriptionEn": "Initial step",
-          "type": "number",
-          "boolean": false,
-          "required": false,
-          "defaultExpression": "0",
-          "documented": true
-        },
-        {
           "name": "steps",
           "description": "Tour steps",
           "descriptionZh": "引导步骤",
@@ -18413,6 +18386,21 @@
           "boolean": false,
           "required": false,
           "defaultExpression": "() => []",
+          "documented": true
+        },
+        {
+          "name": "open",
+          "description": "Visibility; takes precedence over modelValue, supports v-model:open",
+          "descriptionZh": "显示状态，优先于 modelValue，支持 v-model:open",
+          "descriptionEn": "Visibility; takes precedence over modelValue, supports v-model:open",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -18439,6 +18427,16 @@
           "boolean": false,
           "required": false,
           "documented": true
+        },
+        {
+          "name": "onUpdate:open",
+          "description": "Event emitted for update:open",
+          "descriptionZh": "Event emitted for update:open",
+          "descriptionEn": "Event emitted for update:open",
+          "type": "(...args: unknown[]) => void",
+          "eventName": "update:open",
+          "boolean": false,
+          "documented": false
         },
         {
           "name": "onUpdate:modelValue",
@@ -18482,6 +18480,13 @@
         }
       ],
       "events": [
+        {
+          "name": "update:open",
+          "type": "(...args: unknown[]) => void",
+          "description": "Event emitted for update:open",
+          "descriptionZh": "Event emitted for update:open",
+          "descriptionEn": "Event emitted for update:open"
+        },
         {
           "name": "update:modelValue",
           "type": "(...args: unknown[]) => void",
@@ -20887,11 +20892,21 @@
         },
         {
           "name": "onClose",
-          "description": "Callback event when tag is closed",
-          "descriptionZh": "关闭标签的回调事件",
-          "descriptionEn": "Callback event when tag is closed",
+          "description": "Triggered when the close button is clicked",
+          "descriptionZh": "点击关闭按钮时触发",
+          "descriptionEn": "Triggered when the close button is clicked",
           "type": "(...args: unknown[]) => void",
           "eventName": "close",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "onAfterClose",
+          "description": "Triggered after the exit animation",
+          "descriptionZh": "退出动画结束后触发",
+          "descriptionEn": "Triggered after the exit animation",
+          "type": "(...args: unknown[]) => void",
+          "eventName": "afterClose",
           "boolean": false,
           "documented": true
         }
@@ -20900,9 +20915,16 @@
         {
           "name": "close",
           "type": "(...args: unknown[]) => void",
-          "description": "Callback event when tag is closed",
-          "descriptionZh": "关闭标签的回调事件",
-          "descriptionEn": "Callback event when tag is closed"
+          "description": "Triggered when the close button is clicked",
+          "descriptionZh": "点击关闭按钮时触发",
+          "descriptionEn": "Triggered when the close button is clicked"
+        },
+        {
+          "name": "afterClose",
+          "type": "(...args: unknown[]) => void",
+          "description": "Triggered after the exit animation",
+          "descriptionZh": "退出动画结束后触发",
+          "descriptionEn": "Triggered after the exit animation"
         }
       ],
       "slots": [],
@@ -20930,7 +20952,7 @@
         {
           "title": "动态添加和删除",
           "file": "components/tag/demo/dynamic.vue",
-          "source": "<template>\n  <Space wrap>\n    <Tag color=\"blue\" closeable v-for=\"t in tags\" :key=\"t\">{{ t }}</Tag>\n    <Input\n      v-if=\"showInput\"\n      @blur=\"add\"\n      size=\"small\"\n      style=\"width: 81px\"\n      ref=\"inputRef\"\n      :modelValue=\"tag\"\n    />\n    <Button @click=\"show\" size=\"small\" :icon=\"Bookmark\" v-show=\"!showInput\">New Tag</Button>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Bookmark } from \"kui-icons\";\nimport { nextTick, ref } from \"vue\";\nconst showInput = ref(false);\nconst tag = ref(\"\");\nconst tags = [\"Apple\", \"Banana\", \"Cat\", \"Dog\"];\nconst inputRef = ref();\nconst show = () => {\n  showInput.value = true;\n  nextTick(() => {\n    inputRef.value.focus();\n  });\n};\nconst add = (e: FocusEvent) => {\n  let value = (e.target as HTMLInputElement).value.trim();\n  if (value && tags.indexOf(value) === -1) {\n    tags.push(value);\n  }\n  tag.value = \"\";\n  showInput.value = false;\n};\n</script>"
+          "source": "<template>\n  <Space wrap>\n    <Tag color=\"blue\" closeable v-for=\"t in tags\" :key=\"t\" @after-close=\"remove(t)\">{{ t }}</Tag>\n    <Input\n      v-if=\"showInput\"\n      @blur=\"add\"\n      size=\"small\"\n      style=\"width: 81px\"\n      ref=\"inputRef\"\n      :modelValue=\"tag\"\n    />\n    <Button @click=\"show\" size=\"small\" :icon=\"Bookmark\" v-show=\"!showInput\">New Tag</Button>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Bookmark } from \"kui-icons\";\nimport { nextTick, ref } from \"vue\";\nconst showInput = ref(false);\nconst tag = ref(\"\");\nconst tags = ref([\"Apple\", \"Banana\", \"Cat\", \"Dog\"]);\nconst remove = (tag: string) => {\n  tags.value = tags.value.filter((item) => item !== tag);\n};\nconst inputRef = ref();\nconst show = () => {\n  showInput.value = true;\n  nextTick(() => {\n    inputRef.value.focus();\n  });\n};\nconst add = (e: FocusEvent) => {\n  let value = (e.target as HTMLInputElement).value.trim();\n  if (value && !tags.value.includes(value)) {\n    tags.value.push(value);\n  }\n  tag.value = \"\";\n  showInput.value = false;\n};\n</script>"
         }
       ]
     },
@@ -21306,17 +21328,6 @@
           ],
           "required": false,
           "defaultExpression": "true",
-          "documented": true
-        },
-        {
-          "name": "defaultFileList",
-          "description": "Initial file list in uncontrolled mode",
-          "descriptionZh": "非受控模式的初始文件列表",
-          "descriptionEn": "Initial file list in uncontrolled mode",
-          "type": "UploadFile[]",
-          "boolean": false,
-          "required": false,
-          "defaultExpression": "() => []",
           "documented": true
         },
         {

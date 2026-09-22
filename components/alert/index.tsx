@@ -27,12 +27,14 @@ const Alert = defineComponent({
   props: alertProps,
   emits: {
     close: (event: MouseEvent) => event instanceof MouseEvent,
+    afterClose: () => true,
   },
   setup(props, { emit, slots }) {
     const appearance = useConfigAppearance(props);
     const closed = ref(false);
 
     const close = (e: MouseEvent) => {
+      if (closed.value) return;
       closed.value = true;
       emit("close", e);
     };
@@ -80,15 +82,26 @@ const Alert = defineComponent({
       };
 
       return (
-        <Transition {...transitionProps}>
-          <div {...innerProps} v-show={!closed.value}>
-            {iconNode}
-            <div class="k-alert-content">
-              {msgNode}
-              {descriptionNode}
+        <Transition
+          {...transitionProps}
+          duration={300}
+          onAfterLeave={(el) => {
+            const afterLeave = transitionProps.onAfterLeave;
+            if (Array.isArray(afterLeave)) afterLeave.forEach((hook) => hook(el));
+            else afterLeave?.(el);
+            emit("afterClose");
+          }}
+        >
+          {!closed.value && (
+            <div {...innerProps}>
+              {iconNode}
+              <div class="k-alert-content">
+                {msgNode}
+                {descriptionNode}
+              </div>
+              {closeIcon}
             </div>
-            {closeIcon}
-          </div>
+          )}
         </Transition>
       );
     };

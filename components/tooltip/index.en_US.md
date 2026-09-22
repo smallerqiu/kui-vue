@@ -24,6 +24,12 @@ Can be used to replace the system default `title` prompt, providing a text expla
 
 ## API
 
+Use trigger="manual" when visibility is managed by business state (such as Slider dragging). Pointer entry/exit no longer changes visibility automatically; ordinary tooltips keep the default hover behavior.
+
+| Property | Description                          | Type                | Default |
+| -------- | ------------------------------------ | ------------------- | ------- |
+| trigger  | Automatic hover or manual visibility | 'hover' \| 'manual' | hover   |
+
 | Property  | Description                                                                                                                                                                                       | Type             | Default |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ------- |
 | title     | Displayed title                                                                                                                                                                                   | string, slot     | -       |

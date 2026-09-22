@@ -27,9 +27,8 @@ export interface TourStep {
 
 const propsDef = {
   modelValue: { type: Boolean, default: undefined },
-  defaultOpen: Boolean,
+  open: { type: Boolean, default: undefined },
   current: Number,
-  defaultCurrent: { type: Number, default: 0 },
   steps: { type: Array as PropType<TourStep[]>, default: () => [] },
   mask: { type: Boolean, default: true },
   closable: { type: Boolean, default: true },
@@ -41,20 +40,21 @@ export default defineComponent({
   name: "Tour",
   props: propsDef,
   emits: {
+    "update:open": (open: boolean) => typeof open === "boolean",
     "update:modelValue": (open: boolean) => typeof open === "boolean",
     change: (current: number) => Number.isInteger(current),
     openChange: (open: boolean) => typeof open === "boolean",
     finish: () => true,
   },
   setup(props, { emit }) {
-    const innerOpen = ref(props.defaultOpen);
-    const innerCurrent = ref(props.defaultCurrent);
+    const innerOpen = ref(props.open ?? props.modelValue ?? false);
+    const innerCurrent = ref(props.current ?? 0);
     const tick = ref(0);
-    const visible = computed(() => props.modelValue ?? innerOpen.value);
+    const visible = computed(() => innerOpen.value);
     const rendered = ref(visible.value);
     const panelRef = ref<HTMLElement>();
     const focusTrap = createFocusTrap(() => panelRef.value);
-    const index = computed(() => props.current ?? innerCurrent.value);
+    const index = computed(() => innerCurrent.value);
     const refresh = () => (tick.value += 1);
     let scrollLocked = false;
     const updateScrollLock = (lock: boolean) => {
@@ -63,9 +63,15 @@ export default defineComponent({
       scrollLocked = lock;
     };
     watch(
-      () => props.modelValue,
+      () => props.open ?? props.modelValue,
       (value) => {
-        if (value !== undefined) innerOpen.value = value;
+        innerOpen.value = value ?? false;
+      },
+    );
+    watch(
+      () => props.current,
+      (value) => {
+        innerCurrent.value = value ?? 0;
       },
     );
     onMounted(() => {
@@ -91,6 +97,7 @@ export default defineComponent({
     const close = () => {
       innerOpen.value = false;
       emit("update:modelValue", false);
+      emit("update:open", false);
       emit("openChange", false);
     };
     function handleDocumentKeydown(event: KeyboardEvent) {

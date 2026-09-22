@@ -14,6 +14,7 @@ import type { BooleanType, PlacementsType } from "../const/types";
 import { colors } from "../const/var";
 import { isColor } from "../utils/color";
 const tooltipProps = {
+  trigger: { type: String as PropType<"hover" | "manual">, default: "hover" },
   show: Boolean as BooleanType,
   title: [String, Number, Object, Array] as PropType<VNodeChild>,
   color: String,
@@ -50,7 +51,7 @@ const Tooltip = defineComponent({
         <Popup
           open={!props.disabled && visible.value}
           disabled={props.disabled}
-          trigger="hover"
+          trigger={props.trigger}
           placement={props.placement}
           panelOnly={props.panelOnly}
           prefixCls="k-tooltip"

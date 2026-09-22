@@ -73,7 +73,7 @@ const enabled = ref(false);
 
 Input 的 change 参数是值，不是原生 DOM event；Checkbox 的 change 参数是包含 `checked` 的对象；Switch 的 change 参数是值。`valueType` 可以改变 Switch 等组件输出的值类型，使用 `number` / `string` 时不要用 `Boolean("0")` 转换，应明确判断 `1` / `"1"`。
 
-React 的 `value` 组件通常支持内部编辑并同步外部值变化，但这不代表整个库都遵守同一种受控规则：Switch / Checkbox 的 `checked`、Modal 的 `open` 需要按各自 API 处理。不要批量添加 `defaultValue`，也不要把仍存在的 `defaultChecked`、`defaultOpen`、`defaultFileList` 当作持续同步属性。迁移时建议显式保存业务值并接回更新事件。
+React 的 `value`、`checked`、`open` 等状态属性统一用于初始化，并在外部属性变化时同步；用户交互也会更新组件内部状态。需要业务联动时，保存业务状态并接回对应的更新事件。
 
 Vue 的 `v-model` 是组件声明的模型接口，不等同于 `:value`。尤其 Modal、Upload、Page 的绑定名称不同。`Select` 选项的数字 `1` 与字符串 `"1"` 也不同，模板中数字值应使用 `:value="1"`，保持后端数据与选项值类型一致。
 

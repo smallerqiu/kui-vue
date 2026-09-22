@@ -100,6 +100,7 @@ export default defineComponent({
       };
       return (
         <Tooltip
+          trigger="manual"
           title={displayValue}
           disabled={props.disabled || props.tooltipVisible === false}
           show={showTooltip && !props.disabled}

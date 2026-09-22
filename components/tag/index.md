@@ -11,7 +11,7 @@
 
 [基本用法](./demo/basic.vue)
 
-- 通过 `closeable` 显示关闭按钮，点击隐藏标签，触发 `close` 回调
+- 通过 `closeable` 显示关闭按钮，点击关闭标签并触发 `close` 事件
 
 [尺寸和形状](./demo/size.vue)
 
@@ -29,15 +29,22 @@
 
 - 通过 `closeable` 显示关闭按钮
 
+## 关闭
+
+点击关闭按钮时触发 `close`，退出动画结束后移除内容并触发 `afterClose`。
+
+动态列表可在 `afterClose` 中删除数组中的对应项，保留完整的退出动画。
+
 ## Tag API
 
-| 属性      | 说明                                       | 类型                 | 默认值 |
-| --------- | ------------------------------------------ | -------------------- | ------ |
-| closeable | 是否显示关闭按钮                           | boolean              | false  |
-| compact   | 是否使用适合嵌入输入控件的紧凑尺寸         | boolean              | false  |
-| color     | 标签的颜色                                 | string               | -      |
-| icon      | 标签的图标                                 | string               | -      |
-| onClose   | 关闭标签的回调事件                         | () => void           | -      |
-| size      | 按钮尺寸,可选值 `small`、`large`，默认不选 | string               | -      |
-| theme     | 组件呈现主题                               | string               | fill   |
-| shape     | 组件呈现的形状,                            | 'circle' \| 'square' | circle |
+| 属性         | 说明                                       | 类型                 | 默认值 |
+| ------------ | ------------------------------------------ | -------------------- | ------ |
+| closeable    | 是否显示关闭按钮                           | boolean              | false  |
+| compact      | 是否使用适合嵌入输入控件的紧凑尺寸         | boolean              | false  |
+| color        | 标签的颜色                                 | string               | -      |
+| icon         | 标签的图标                                 | string               | -      |
+| onClose      | 点击关闭按钮时触发                         | () => void           | -      |
+| onAfterClose | 退出动画结束后触发                         | () => void           | -      |
+| size         | 按钮尺寸,可选值 `small`、`large`，默认不选 | string               | -      |
+| theme        | 组件呈现主题                               | string               | fill   |
+| shape        | 组件呈现的形状,                            | 'circle' \| 'square' | circle |

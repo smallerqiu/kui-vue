@@ -87,7 +87,6 @@
 | validateAccept  | 是否校验文件类型                                                                                                               | boolean                                               | true     |
 | maxConcurrent   | 最大并发上传数                                                                                                                 | number                                                | Infinity |
 | fileList        | 上传的文件列表                                                                                                                 | UploadFile[]                                          | []       |
-| defaultFileList | 非受控模式的初始文件列表                                                                                                       | UploadFile[]                                          | []       |
 | name            | 发到后台的文件参数名,默认`file`                                                                                                | string                                                | 'file'   |
 | uploadIcon      | 上传域的辅助图标                                                                                                               | IconType                                              | Add      |
 | uploadText      | 上传域的辅助文字                                                                                                               | string                                                | -        |

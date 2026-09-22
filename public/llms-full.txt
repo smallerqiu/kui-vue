@@ -189,7 +189,113 @@ Use this feature cautiously when the visible area of the page is small to avoid 
 
 # Popup
 
-See https://k-ui.cn/components/popup.
+A generic anchored popup. Dropdown adds menu semantics on top; Popup can display forms, pickers, or arbitrary content. It does not supply a menu role, selection logic, or a focus trap.
+
+```vue
+<Popup placement="bottom-left" trigger="click" arrow>
+  <Button>打开</Button>
+  <template #overlay="{ close }">
+    <Input placeholder="任意内容" />
+    <Button @click="close">完成</Button>
+  </template>
+</Popup>
+```
+
+## When to use
+
+Use Popup for anchored custom forms, filters, and compound panels. Use Dropdown for menus, Poptip for titled cards, and Tooltip for brief text hints. Popup handles positioning and visibility, not selection, form validation, or focus trapping. Use Modal or Drawer when a modal interaction is needed.
+
+Use the default slot for the trigger and the scoped overlay slot for content; avoid h() in .vue examples. Bind v-model:open for controlled state.
+
+## Examples
+
+[Basic usage and custom content](./demo/basic.vue)
+
+- Render inputs, buttons, or arbitrary content and call close from inside. Mounted content is retained by default; destroyOnClose unmounts it after the exit animation.
+
+[Trigger modes](./demo/trigger.vue)
+
+- Supports click, hover, focus, and contextmenu. Context menus use the pointer position. Hover supports opening/closing delays; see the controlled example for manual mode.
+
+[Placement and arrows](./demo/placement.vue)
+
+- Choose among 12 placements, toggle arrow, and set offset. Placement may adjust when space is limited.
+
+[Controlled state and instance methods](./demo/controlled.vue)
+
+- Interactions update internal visibility and emit changes for external synchronization. Instances expose open / close / updatePosition; this example displays the latest request reason.
+
+[Custom container](./demo/container.vue)
+
+- getPopupContainer selects the mount node, otherwise ConfigProvider or body is used. Establish a positioning context on custom containers. matchTriggerWidth matches the trigger's minimum width; ancestor overflow may clip the popup.
+
+[Nested popups and selectors](./demo/nested.vue)
+
+- Choosing a Select option keeps the outer popup open. Escape dismisses the topmost popup first; dismissing the parent also closes its nested popups.
+
+## Popup API
+
+| Property      | Description                   | Type                    | Default |
+| ------------- | ----------------------------- | ----------------------- | ------- |
+| onUpdate:open | Update event for v-model:open | (open: boolean) => void | -       |
+
+| Property            | Description                                                                             | Type                                                   | Default     |
+| ------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------ | ----------- |
+| open                | Initial visibility; subsequent changes synchronize the state; Vue supports v-model:open | boolean                                                | -           |
+| disabled            | Prevents opening and cancels delayed opening; does not override open                    | boolean                                                | false       |
+| placement           | Popup placement; supports 12 positions                                                  | PlacementsType                                         | bottom-left |
+| trigger             | Trigger mode; manual uses open or instance methods                                      | PopupTrigger                                           | click       |
+| arrow               | Show arrow                                                                              | boolean                                                | false       |
+| offset              | Position offset in pixels                                                               | number                                                 | 3           |
+| openDelay           | Hover opening delay in milliseconds                                                     | number                                                 | 0           |
+| closeDelay          | Hover / focus closing delay in milliseconds                                             | number                                                 | 300         |
+| closeOnOutsideClick | Close on outside click; nested Popup content counts as inside                           | boolean                                                | true        |
+| closeOnEscape       | Escape closes the top Popup and restores trigger focus                                  | boolean                                                | true        |
+| matchTriggerWidth   | Use trigger width as the minimum popup width                                            | boolean                                                | false       |
+| getPopupContainer   | Container; falls back to Config or body                                                 | () => HTMLElement                                      | -           |
+| destroyOnClose      | Destroy after exit; preserves form state by default                                     | boolean                                                | false       |
+| target              | Optional external positioning anchor; no event binding, use with manual and open        | PopupTarget                                            | -           |
+| overlay             | Overlay content; prefer the overlay slot in Vue                                         | PopupContent                                           | -           |
+| onOpenChange        | Visibility change request with reason and native event                                  | (open: boolean, detail: PopupOpenChangeDetail) => void | -           |
+| onAfterOpen         | Called after entering                                                                   | () => void                                             | -           |
+| onAfterClose        | Called after leaving                                                                    | () => void                                             | -           |
+
+The default slot renders the trigger; the overlay slot renders popup content. Both receive PopupRef methods. update:open emits the requested boolean state.
+
+## Adapter options
+
+Used by Dropdown, Tooltip, Poptip and Popconfirm to preserve existing appearance.
+
+| Property                | Description                                                          | Type                                            | Default   |
+| ----------------------- | -------------------------------------------------------------------- | ----------------------------------------------- | --------- |
+| prefixCls               | Root CSS prefix                                                      | string                                          | k-popup   |
+| transitionName          | Transition CSS prefix                                                | string                                          | prefixCls |
+| panelOnly               | Inline content only; no positioning, trigger, or global listeners    | boolean                                         | false     |
+| respectDefaultPrevented | Honor preventDefault on trigger click                                | boolean                                         | true      |
+| contentStyle            | Content container styles                                             | CSSProperties                                   | -         |
+| hideWhenDetached        | Hide when the anchor is outside the viewport                         | boolean                                         | false     |
+| triggerAttrs            | Attributes forwarded to the trigger                                  | Record<string, unknown>                         | -         |
+| onTriggerKeydown        | Business keyboard handler; preventDefault cancels the default action | (event: KeyboardEvent, popup: PopupRef) => void | -         |
+
+## Types and instance methods
+
+| Property           | Description                                                              | Type                                   | Default      |
+| ------------------ | ------------------------------------------------------------------------ | -------------------------------------- | ------------ |
+| raw                | Reuse the single overlay root and preserve its DOM ref; no extra wrapper | boolean                                | false        |
+| outsideEvent       | Outside pointer event used by legacy selector adapters                   | `click` \| `mousedown`                 | click        |
+| transitionDuration | Transition duration in milliseconds                                      | number                                 | CSS duration |
+| getAnchorPosition  | Optional viewport point resolver, for caret-anchored Mentions            | () => { x: number; y: number } \| null | -            |
+
+Select, TreeSelect, Cascader, AutoComplete, Mentions, DatePicker and ColorPicker share this positioning and lifecycle implementation. Their selection, search and keyboard logic remains inside the business components.
+
+- PopupTrigger: hover / click / focus / contextmenu / manual.
+- PopupOpenChangeDetail: { reason: PopupOpenReason; event?: Event }.
+- PopupOpenReason: trigger / hover / focus / contextmenu / outside / escape / programmatic / host.
+- PopupRef: open(), close(), updatePosition(), cancelClose(), scheduleClose(), getTriggerElement(), getPopupElement().
+- PopupTarget: HTMLElement or Ref<HTMLElement | { $el: HTMLElement } | null>.
+- PopupContent: VNodeChild.
+
+Use open to initialize and synchronize visibility. Interactions update internal state and emit onOpenChange. Only hover uses openDelay. External target anchors are position-only. Custom trigger components must forward attributes, events, and the DOM ref.
 
 ---
 
@@ -220,20 +326,27 @@ Warning prompts to display information that needs attention.
 
 - Use `showIcon` to control whether the icon is displayed.
 
+## Closing
+
+Clicking the close button triggers `close`. After the exit animation, the content is removed and `afterClose` fires.
+
+To unmount the entire component after closing, update the parent state in `afterClose` and use `v-if`.
+
 ## API
 
-| Property    | Description                                                                      | Type         | Default |
-| ----------- | -------------------------------------------------------------------------------- | ------------ | ------- |
-| type        | Alert type, optional values are `success`, `info`, `warning`, `error` or not set | string       | warning |
-| message     | Alert content                                                                    | string, slot | -       |
-| description | Auxiliary text introduction for the alert                                        | string       | -       |
-| showIcon    | Whether to show the icon                                                         | boolean      | false   |
-| closable    | Whether to show the close button                                                 | boolean      | false   |
-| bordered    | Whether to display the border                                                    | boolean      | false   |
-| onClose     | Callback function triggered when closing                                         | ()=>void     | -       |
-| icon        | Custom icon                                                                      | IconPath[]   | -       |
-| theme       | Appearance: `default`, `fill`, `outline`, or `plain`                             | ThemeType    | default |
-| shape       | Shape: `round`, `circle`, or `square`                                            | ShapeType    | round   |
+| Property     | Description                                                                      | Type                        | Default |
+| ------------ | -------------------------------------------------------------------------------- | --------------------------- | ------- |
+| type         | Alert type, optional values are `success`, `info`, `warning`, `error` or not set | string                      | warning |
+| message      | Alert content                                                                    | string, slot                | -       |
+| description  | Auxiliary text introduction for the alert                                        | string                      | -       |
+| showIcon     | Whether to show the icon                                                         | boolean                     | false   |
+| closable     | Whether to show the close button                                                 | boolean                     | false   |
+| bordered     | Whether to display the border                                                    | boolean                     | false   |
+| onClose      | Triggered when the close button is clicked                                       | (event: MouseEvent) => void | -       |
+| onAfterClose | Triggered after the exit animation                                               | () => void                  | -       |
+| icon         | Custom icon                                                                      | IconPath[]                  | -       |
+| theme        | Appearance: `default`, `fill`, `outline`, or `plain`                             | ThemeType                   | default |
+| shape        | Shape: `round`, `circle`, or `square`                                            | ShapeType                   | round   |
 
 ---
 
@@ -274,8 +387,7 @@ Provide candidates based on the input while retaining the ability for free text 
 | modelValue   | Value (v-model)                                    | string                                       | -       |
 | value        | Initial value                                      | string                                       | ''      |
 | options      | Suggestions                                        | (string \| AutoCompleteOption)[]             | []      |
-| open         | Controlled open state                              | boolean                                      | -       |
-| defaultOpen  | Initial open state                                 | boolean                                      | false   |
+| open         | open state                                         | boolean                                      | -       |
 | showOnEmpty  | Show suggestions when an empty input is focused    | boolean                                      | false   |
 | clearable    | Show the clear button on hover when a value exists | boolean                                      | false   |
 | disabled     | Disabled                                           | boolean                                      | false   |
@@ -5968,35 +6080,34 @@ const columns = [
 
 ## Table API
 
-| Property             | Description                                                    | Type                                                                         | Default  |
-| -------------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------- | -------- |
-| bordered             | Whether to display borders                                     | boolean                                                                      | false    |
-| checkable            | Whether to show checkboxes                                     | boolean                                                                      | false    |
-| selectedKeys         | Collection of selected keys                                    | (string \| number)[]                                                         | -        |
-| disabledKeys         | Disabled key set                                               | (string \| number)[]                                                         | -        |
-| size                 | Display compact mode when the value is `small`                 | string                                                                       | -        |
-| emptyText            | Prompt displayed when there is no data                         | string                                                                       | No Data  |
-| loading              | Table asynchronous loading mode                                | boolean                                                                      | false    |
-| data                 | Structured data to be displayed                                | any[]                                                                        | []       |
-| columns              | Configuration description of table columns                     | Column[]                                                                     | []       |
-| hiddenColumnKeys     | Hidden column keys, including grouped columns                  | string[]                                                                     | []       |
-| rowKey               | Basis for selection                                            | string                                                                       | key      |
-| childrenColumnName   | Field containing child records                                 | string                                                                       | children |
-| expandedKeys         | Controlled expanded row keys; supports `v-model:expanded-keys` | (string \| number)[]                                                         | -        |
-| defaultExpandedKeys  | Initially expanded row keys                                    | (string \| number)[]                                                         | []       |
-| defaultExpandAllRows | Expand every tree node initially                               | boolean                                                                      | false    |
-| expandRowByClick     | Toggle expansion by clicking a row                             | boolean                                                                      | false    |
-| indentSize           | Indentation per tree level                                     | number                                                                       | 20       |
-| striped              | Whether to display zebra stripes                               | boolean                                                                      | false    |
-| onRowClick           | Triggered when clicking a row                                  | (record: any, index: number) => void                                         | -        |
-| onSort               | Triggered when clicking to sort                                | (state: SortState) => void                                                   | -        |
-| onSelect             | Triggered when clicking the checkbox                           | (record: any, selected: boolean, selectedKeys: (string \| number)[]) => void | -        |
-| onSelectAll          | Triggered when clicking the header checkbox of the Table       | (selected: boolean, selectedKeys: (string \| number)[]) => void              | -        |
-| onExpand             | Called when a row expands or collapses                         | (expanded: boolean, record: TableRecord) => void                             | -        |
-| onExpandedKeysChange | Called when expanded keys change                               | (expandedKeys: (string \| number)[]) => void                                 | -        |
-| virtual              | Enable virtual scrolling; requires `scroll.y`                  | boolean                                                                      | false    |
-| itemHeight           | Fixed virtual row height                                       | number                                                                       | 44       |
-| overscan             | Extra rows rendered above and below the viewport               | number                                                                       | 5        |
+| Property             | Description                                                                                                 | Type                                                                         | Default  |
+| -------------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | -------- |
+| bordered             | Whether to display borders                                                                                  | boolean                                                                      | false    |
+| checkable            | Whether to show checkboxes                                                                                  | boolean                                                                      | false    |
+| selectedKeys         | Collection of selected keys                                                                                 | (string \| number)[]                                                         | -        |
+| disabledKeys         | Disabled key set                                                                                            | (string \| number)[]                                                         | -        |
+| size                 | Display compact mode when the value is `small`                                                              | string                                                                       | -        |
+| emptyText            | Prompt displayed when there is no data                                                                      | string                                                                       | No Data  |
+| loading              | Table asynchronous loading mode                                                                             | boolean                                                                      | false    |
+| data                 | Structured data to be displayed                                                                             | any[]                                                                        | []       |
+| columns              | Configuration description of table columns                                                                  | Column[]                                                                     | []       |
+| hiddenColumnKeys     | Hidden column keys, including grouped columns                                                               | string[]                                                                     | []       |
+| rowKey               | Basis for selection                                                                                         | string                                                                       | key      |
+| childrenColumnName   | Field containing child records                                                                              | string                                                                       | children |
+| expandedKeys         | expanded row keys; supports `v-model:expanded-keys`                                                         | (string \| number)[]                                                         | -        |
+| expandAllRows        | Expand every tree node on initialization or when this prop changes (explicit expandedKeys takes precedence) | boolean                                                                      | false    |
+| expandRowByClick     | Toggle expansion by clicking a row                                                                          | boolean                                                                      | false    |
+| indentSize           | Indentation per tree level                                                                                  | number                                                                       | 20       |
+| striped              | Whether to display zebra stripes                                                                            | boolean                                                                      | false    |
+| onRowClick           | Triggered when clicking a row                                                                               | (record: any, index: number) => void                                         | -        |
+| onSort               | Triggered when clicking to sort                                                                             | (state: SortState) => void                                                   | -        |
+| onSelect             | Triggered when clicking the checkbox                                                                        | (record: any, selected: boolean, selectedKeys: (string \| number)[]) => void | -        |
+| onSelectAll          | Triggered when clicking the header checkbox of the Table                                                    | (selected: boolean, selectedKeys: (string \| number)[]) => void              | -        |
+| onExpand             | Called when a row expands or collapses                                                                      | (expanded: boolean, record: TableRecord) => void                             | -        |
+| onExpandedKeysChange | Called when expanded keys change                                                                            | (expandedKeys: (string \| number)[]) => void                                 | -        |
+| virtual              | Enable virtual scrolling; requires `scroll.y`                                                               | boolean                                                                      | false    |
+| itemHeight           | Fixed virtual row height                                                                                    | number                                                                       | 44       |
+| overscan             | Extra rows rendered above and below the viewport                                                            | number                                                                       | 5        |
 
 ## TableColumnSetting API
 
@@ -6142,35 +6253,34 @@ const columns = [
 
 ## Table API
 
-| Property             | Description                                                    | Type                                                                         | Default  |
-| -------------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------- | -------- |
-| bordered             | Whether to display borders                                     | boolean                                                                      | false    |
-| checkable            | Whether to show checkboxes                                     | boolean                                                                      | false    |
-| selectedKeys         | Collection of selected keys                                    | (string \| number)[]                                                         | -        |
-| disabledKeys         | Disabled key set                                               | (string \| number)[]                                                         | -        |
-| size                 | Display compact mode when the value is `small`                 | string                                                                       | -        |
-| emptyText            | Prompt displayed when there is no data                         | string                                                                       | No Data  |
-| loading              | Table asynchronous loading mode                                | boolean                                                                      | false    |
-| data                 | Structured data to be displayed                                | any[]                                                                        | []       |
-| columns              | Configuration description of table columns                     | Column[]                                                                     | []       |
-| hiddenColumnKeys     | Hidden column keys, including grouped columns                  | string[]                                                                     | []       |
-| rowKey               | Basis for selection                                            | string                                                                       | key      |
-| childrenColumnName   | Field containing child records                                 | string                                                                       | children |
-| expandedKeys         | Controlled expanded row keys; supports `v-model:expanded-keys` | (string \| number)[]                                                         | -        |
-| defaultExpandedKeys  | Initially expanded row keys                                    | (string \| number)[]                                                         | []       |
-| defaultExpandAllRows | Expand every tree node initially                               | boolean                                                                      | false    |
-| expandRowByClick     | Toggle expansion by clicking a row                             | boolean                                                                      | false    |
-| indentSize           | Indentation per tree level                                     | number                                                                       | 20       |
-| striped              | Whether to display zebra stripes                               | boolean                                                                      | false    |
-| onRowClick           | Triggered when clicking a row                                  | (record: any, index: number) => void                                         | -        |
-| onSort               | Triggered when clicking to sort                                | (state: SortState) => void                                                   | -        |
-| onSelect             | Triggered when clicking the checkbox                           | (record: any, selected: boolean, selectedKeys: (string \| number)[]) => void | -        |
-| onSelectAll          | Triggered when clicking the header checkbox of the Table       | (selected: boolean, selectedKeys: (string \| number)[]) => void              | -        |
-| onExpand             | Called when a row expands or collapses                         | (expanded: boolean, record: TableRecord) => void                             | -        |
-| onExpandedKeysChange | Called when expanded keys change                               | (expandedKeys: (string \| number)[]) => void                                 | -        |
-| virtual              | Enable virtual scrolling; requires `scroll.y`                  | boolean                                                                      | false    |
-| itemHeight           | Fixed virtual row height                                       | number                                                                       | 44       |
-| overscan             | Extra rows rendered above and below the viewport               | number                                                                       | 5        |
+| Property             | Description                                                                                                 | Type                                                                         | Default  |
+| -------------------- | ----------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | -------- |
+| bordered             | Whether to display borders                                                                                  | boolean                                                                      | false    |
+| checkable            | Whether to show checkboxes                                                                                  | boolean                                                                      | false    |
+| selectedKeys         | Collection of selected keys                                                                                 | (string \| number)[]                                                         | -        |
+| disabledKeys         | Disabled key set                                                                                            | (string \| number)[]                                                         | -        |
+| size                 | Display compact mode when the value is `small`                                                              | string                                                                       | -        |
+| emptyText            | Prompt displayed when there is no data                                                                      | string                                                                       | No Data  |
+| loading              | Table asynchronous loading mode                                                                             | boolean                                                                      | false    |
+| data                 | Structured data to be displayed                                                                             | any[]                                                                        | []       |
+| columns              | Configuration description of table columns                                                                  | Column[]                                                                     | []       |
+| hiddenColumnKeys     | Hidden column keys, including grouped columns                                                               | string[]                                                                     | []       |
+| rowKey               | Basis for selection                                                                                         | string                                                                       | key      |
+| childrenColumnName   | Field containing child records                                                                              | string                                                                       | children |
+| expandedKeys         | expanded row keys; supports `v-model:expanded-keys`                                                         | (string \| number)[]                                                         | -        |
+| expandAllRows        | Expand every tree node on initialization or when this prop changes (explicit expandedKeys takes precedence) | boolean                                                                      | false    |
+| expandRowByClick     | Toggle expansion by clicking a row                                                                          | boolean                                                                      | false    |
+| indentSize           | Indentation per tree level                                                                                  | number                                                                       | 20       |
+| striped              | Whether to display zebra stripes                                                                            | boolean                                                                      | false    |
+| onRowClick           | Triggered when clicking a row                                                                               | (record: any, index: number) => void                                         | -        |
+| onSort               | Triggered when clicking to sort                                                                             | (state: SortState) => void                                                   | -        |
+| onSelect             | Triggered when clicking the checkbox                                                                        | (record: any, selected: boolean, selectedKeys: (string \| number)[]) => void | -        |
+| onSelectAll          | Triggered when clicking the header checkbox of the Table                                                    | (selected: boolean, selectedKeys: (string \| number)[]) => void              | -        |
+| onExpand             | Called when a row expands or collapses                                                                      | (expanded: boolean, record: TableRecord) => void                             | -        |
+| onExpandedKeysChange | Called when expanded keys change                                                                            | (expandedKeys: (string \| number)[]) => void                                 | -        |
+| virtual              | Enable virtual scrolling; requires `scroll.y`                                                               | boolean                                                                      | false    |
+| itemHeight           | Fixed virtual row height                                                                                    | number                                                                       | 44       |
+| overscan             | Extra rows rendered above and below the viewport                                                            | number                                                                       | 5        |
 
 ## TableColumnSetting API
 
@@ -6301,6 +6411,12 @@ Can be used to replace the system default `title` prompt, providing a text expla
 
 ## API
 
+Use trigger="manual" when visibility is managed by business state (such as Slider dragging). Pointer entry/exit no longer changes visibility automatically; ordinary tooltips keep the default hover behavior.
+
+| Property | Description                          | Type                | Default |
+| -------- | ------------------------------------ | ------------------- | ------- |
+| trigger  | Automatic hover or manual visibility | 'hover' \| 'manual' | hover   |
+
 | Property  | Description                                                                                                                                                                                       | Type             | Default |
 | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ------- |
 | title     | Displayed title                                                                                                                                                                                   | string, slot     | -       |
@@ -6337,19 +6453,18 @@ Gradually introduce features around the actual goals on the page.
 
 ## Tour API
 
-| Property       | Description          | Type       | Default |
-| -------------- | -------------------- | ---------- | ------- |
-| modelValue     | Visibility (v-model) | boolean    | false   |
-| defaultOpen    | Initial visibility   | boolean    | false   |
-| current        | Current step         | number     | -       |
-| defaultCurrent | Initial step         | number     | 0       |
-| steps          | Tour steps           | TourStep[] | []      |
-| mask           | Show mask            | boolean    | true    |
-| closable       | Show close button    | boolean    | true    |
-| escKey         | Close with Escape    | boolean    | true    |
-| onChange       | Step change          | function   | -       |
-| onOpenChange   | Visibility change    | function   | -       |
-| onFinish       | Tour completed       | function   | -       |
+| Property     | Description                                                         | Type       | Default |
+| ------------ | ------------------------------------------------------------------- | ---------- | ------- |
+| modelValue   | Visibility (v-model)                                                | boolean    | false   |
+| open         | Visibility; takes precedence over modelValue, supports v-model:open | boolean    | false   |
+| current      | Current step                                                        | number     | -       |
+| steps        | Tour steps                                                          | TourStep[] | []      |
+| mask         | Show mask                                                           | boolean    | true    |
+| closable     | Show close button                                                   | boolean    | true    |
+| escKey       | Close with Escape                                                   | boolean    | true    |
+| onChange     | Step change                                                         | function   | -       |
+| onOpenChange | Visibility change                                                   | function   | -       |
+| onFinish     | Tour completed                                                      | function   | -       |
 
 ---
 
@@ -6967,7 +7082,7 @@ Small labels for marking and categorization.
 
 [Basic Usage](./demo/basic.vue)
 
-- Use `closeable` to show a close button. Clicking hides the tag and triggers the `close` callback.
+- Use `closeable` to show a close button. Clicking closes the tag and triggers `close`.
 
 [Size and Shape](./demo/size.vue)
 
@@ -6985,18 +7100,25 @@ Small labels for marking and categorization.
 
 - Use `closeable` to show a close button.
 
+## Closing
+
+Clicking the close button triggers `close`. After the exit animation, the content is removed and `afterClose` fires.
+
+For dynamic lists, remove the corresponding item from the array in `afterClose` to preserve the exit animation.
+
 ## Tag API
 
-| Property  | Description                                                         | Type                 | Default |
-| --------- | ------------------------------------------------------------------- | -------------------- | ------- |
-| closeable | Whether to show close button                                        | boolean              | false   |
-| compact   | Whether to use the compact size for embedding in input controls     | boolean              | false   |
-| color     | Tag color                                                           | string               | -       |
-| icon      | Tag icon                                                            | string               | -       |
-| onClose   | Callback event when tag is closed                                   | () => void           | -       |
-| size      | Button size, optional values `small`, `large`, default not selected | string               | -       |
-| theme     | The component renders the theme                                     | string               | fill    |
-| shape     | The shape in which the component is presented                       | 'circle' \| 'square' | circle  |
+| Property     | Description                                                         | Type                 | Default |
+| ------------ | ------------------------------------------------------------------- | -------------------- | ------- |
+| closeable    | Whether to show close button                                        | boolean              | false   |
+| compact      | Whether to use the compact size for embedding in input controls     | boolean              | false   |
+| color        | Tag color                                                           | string               | -       |
+| icon         | Tag icon                                                            | string               | -       |
+| onClose      | Triggered when the close button is clicked                          | () => void           | -       |
+| onAfterClose | Triggered after the exit animation                                  | () => void           | -       |
+| size         | Button size, optional values `small`, `large`, default not selected | string               | -       |
+| theme        | The component renders the theme                                     | string               | fill    |
+| shape        | The shape in which the component is presented                       | 'circle' \| 'square' | circle  |
 
 ---
 
@@ -7250,7 +7372,6 @@ Uploading is the process of publishing information (web pages, text, images, vid
 | validateAccept  | Whether to validate file types                                                                              | boolean                                               | true     |
 | maxConcurrent   | Maximum concurrent uploads                                                                                  | number                                                | Infinity |
 | fileList        | Uploaded file list                                                                                          | UploadFile[]                                          | -        |
-| defaultFileList | Initial file list in uncontrolled mode                                                                      | UploadFile[]                                          | []       |
 | name            | File parameter name sent to backend, default `file`                                                         | string                                                | 'file'   |
 | uploadIcon      | Auxiliary icon for upload area                                                                              | IconType                                              | Add      |
 | uploadText      | Auxiliary text for upload area                                                                              | string                                                | -        |

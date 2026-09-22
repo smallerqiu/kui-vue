@@ -26,7 +26,12 @@
   padding: 0 8px;
   outline: var(--kui-focus-ring-width) solid transparent;
   outline-offset: 1px;
-  &:not(.k-datepicker-disabled):hover {
+  &:not(
+      .k-datepicker-disabled,
+      .k-datepicker-fill,
+      .k-datepicker-plain,
+      .k-datepicker-borderless
+    ):hover {
     border-color: var(--kui-color-primary);
   }
   &:focus {
@@ -335,11 +340,11 @@
     margin: 2px;
     box-sizing: border-box;
 
-    &:not(.k-picker-day-disabled, .k-picker-time-disabled):hover {
+    &:not(.k-picker-day-disabled, .k-picker-time-disabled, .k-picker-day-selected):hover {
       background: var(--kui-color-item-hover);
     }
 
-    &:not(.k-picker-day-disabled, .k-picker-time-disabled):active {
+    &:not(.k-picker-day-disabled, .k-picker-time-disabled, .k-picker-day-selected):active {
       background: var(--kui-color-item-active);
     }
   }
@@ -402,10 +407,20 @@
     justify-content: center;
     border-radius: var(--kui-control-radius, var(--kui-shape-round, var(--kui-border-radius)));
     cursor: pointer;
-    &:not(.k-picker-day-disabled, .k-picker-time-disabled):hover {
+    &:not(
+        .k-picker-day-disabled,
+        .k-picker-time-disabled,
+        .k-picker-month-selected,
+        .k-picker-year-selected
+      ):hover {
       background: var(--kui-color-item-hover);
     }
-    &:not(.k-picker-day-disabled, .k-picker-time-disabled):active {
+    &:not(
+        .k-picker-day-disabled,
+        .k-picker-time-disabled,
+        .k-picker-month-selected,
+        .k-picker-year-selected
+      ):active {
       background: var(--kui-color-item-active);
     }
   }
@@ -500,11 +515,11 @@
     transition:
       background-color 0.2s,
       opacity 0.2s;
-    &:not(.k-picker-day-disabled, .k-picker-time-disabled):hover {
+    &:not(.k-picker-day-disabled, .k-picker-time-disabled, .active):hover {
       background: var(--kui-color-item-hover);
       opacity: 1;
     }
-    &:not(.k-picker-day-disabled, .k-picker-time-disabled):active {
+    &:not(.k-picker-day-disabled, .k-picker-time-disabled, .active):active {
       background: var(--kui-color-item-active);
     }
   }

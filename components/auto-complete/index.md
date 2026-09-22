@@ -35,8 +35,7 @@
 | modelValue   | 输入值（v-model）          | string                                       | -       |
 | value        | 初始值                     | string                                       | ''      |
 | options      | 候选项                     | (string \| AutoCompleteOption)[]             | []      |
-| open         | 受控展开状态               | boolean                                      | -       |
-| defaultOpen  | 初始展开状态               | boolean                                      | false   |
+| open         | 展开状态                   | boolean                                      | -       |
 | showOnEmpty  | 空输入聚焦时展示建议       | boolean                                      | false   |
 | clearable    | 有值且悬停时显示清除按钮   | boolean                                      | false   |
 | disabled     | 禁用                       | boolean                                      | false   |

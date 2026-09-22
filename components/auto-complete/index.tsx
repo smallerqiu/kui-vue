@@ -38,7 +38,6 @@ const propsDef = {
   value: { type: String, default: "" },
   options: { type: Array as PropType<Array<string | AutoCompleteOption>>, default: () => [] },
   open: { type: Boolean, default: undefined },
-  defaultOpen: Boolean,
   showOnEmpty: Boolean,
   clearable: Boolean,
   disabled: Boolean,
@@ -85,7 +84,19 @@ const AutoComplete = defineComponent({
     const listboxId = `k-auto-complete-listbox-${instance?.uid ?? "default"}`;
     const hasSearchEvent = Boolean(instance?.vnode.props?.onSearch);
     const inner = ref(props.value);
-    const innerOpen = ref(props.defaultOpen);
+    const innerOpen = ref(props.open ?? false);
+    watch(
+      () => props.open,
+      (value) => {
+        innerOpen.value = value ?? false;
+        if (value) {
+          shownOptions.value = current.value || props.showOnEmpty ? filter(current.value) : [];
+          suppressRemoteOptions.value = false;
+        } else {
+          active.value = -1;
+        }
+      },
+    );
     const active = ref(-1);
     const root = ref<HTMLElement | null>(null);
     const dropdown = ref<HTMLElement | null>(null);
@@ -104,7 +115,7 @@ const AutoComplete = defineComponent({
           : !props.filterOption ||
             option.value.toLocaleLowerCase().includes(value.toLocaleLowerCase()),
       );
-    const initiallyOpen = props.open ?? props.defaultOpen;
+    const initiallyOpen = props.open ?? false;
     const shownOptions = shallowRef<AutoCompleteOption[]>(
       initiallyOpen && (current.value || props.showOnEmpty) ? filter(current.value) : [],
     );
@@ -121,7 +132,7 @@ const AutoComplete = defineComponent({
     const visible = computed(
       () =>
         (props.loading || (!suppressRemoteOptions.value && shownOptions.value.length > 0)) &&
-        (props.open ?? innerOpen.value),
+        innerOpen.value,
     );
     const popup = ref<PopupRef>();
     const updatePosition = () => popup.value?.updatePosition();
@@ -153,7 +164,7 @@ const AutoComplete = defineComponent({
       () => {
         if (props.loading) return;
         if (hasSearchEvent && suppressRemoteOptions.value) return;
-        if (!(props.open ?? innerOpen.value)) return;
+        if (!innerOpen.value) return;
         if (!current.value && !props.showOnEmpty) {
           setOpen(false);
           return;
@@ -181,11 +192,7 @@ const AutoComplete = defineComponent({
       },
     );
     onMounted(() => {
-      if (
-        (props.open ?? innerOpen.value) &&
-        (current.value || props.showOnEmpty) &&
-        !props.loading
-      ) {
+      if (innerOpen.value && (current.value || props.showOnEmpty) && !props.loading) {
         const hasMatches = refreshOptions();
         if (!hasMatches) setOpen(false);
       }

@@ -46,10 +46,6 @@ Use the default slot for the trigger and the scoped overlay slot for content; av
 
 ## Popup API
 
-| Property      | Description                   | Type                    | Default |
-| ------------- | ----------------------------- | ----------------------- | ------- |
-| onUpdate:open | Update event for v-model:open | (open: boolean) => void | -       |
-
 | Property            | Description                                                                             | Type                                                   | Default     |
 | ------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------ | ----------- |
 | open                | Initial visibility; subsequent changes synchronize the state; Vue supports v-model:open | boolean                                                | -           |

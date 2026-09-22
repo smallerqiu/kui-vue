@@ -35,8 +35,7 @@ Provide candidates based on the input while retaining the ability for free text 
 | modelValue   | Value (v-model)                                    | string                                       | -       |
 | value        | Initial value                                      | string                                       | ''      |
 | options      | Suggestions                                        | (string \| AutoCompleteOption)[]             | []      |
-| open         | Controlled open state                              | boolean                                      | -       |
-| defaultOpen  | Initial open state                                 | boolean                                      | false   |
+| open         | open state                                         | boolean                                      | -       |
 | showOnEmpty  | Show suggestions when an empty input is focused    | boolean                                      | false   |
 | clearable    | Show the clear button on hover when a value exists | boolean                                      | false   |
 | disabled     | Disabled                                           | boolean                                      | false   |
