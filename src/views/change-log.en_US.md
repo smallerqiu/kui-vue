@@ -15,9 +15,19 @@ rm -rf node_modules/.vite
 
 ## 6.2.0
 
-`2026-9-21`
+`2026-9-23`
 
-- Badge numeric counts now roll when updated. Badge and StatNumber rollup animations move upward for increases and downward for decreases, including digit carry and borrow. Reduced-motion preferences are respected.
+- `Badge` numeric counts now roll upward for increases and downward for decreases, including carry and borrow; corrected vertical alignment of the count.
+- `StatNumber` rollup animations now determine direction independently for each digit: increasing digits move upward, decreasing digits move downward, and unchanged digits stay still. Improved transitions across large value changes and respect for reduced-motion preferences.
+- Added a dedicated `StatNumber` documentation page with formatting, animation duration, and dynamic-value examples, separate from `StatCard`.
+- Fixed `Slider` tooltips disappearing when the pointer leaves the thumb during an active drag.
+- Improved light-theme selected-date hover contrast in `DatePicker` and removed unintended interaction borders from fill-style controls.
+- Improved scoped theme colors and radii, nested light/dark themes, and explicit CSS variable overrides; added browser-based theme regression checks.
+- Added initial `value` support to model-bound components. `modelValue` / `v-model` takes precedence when supplied; later changes to the initial `value` do not overwrite user input. Checkable items retain option `value` semantics and use `checked` for initial selection.
+- Fixed `Select` multiple-value updates made with array mutations, `Slider` constraint changes resetting the current value, and `DatePicker` incomplete ranges failing to restore the last committed selection.
+- Fixed Node tooling type checks requiring generated package declarations before a clean build; added a regression test that excludes build artifacts.
+- Completed public API and event documentation, including callback parameters and examples.
+- Migrated repository build and validation scripts to TypeScript and added Node-script type checking. Contributor tooling requires Node.js 24 or later; published ESM/CommonJS entry points remain supported.
 
 - Alert and Tag now remove their content after the exit animation and expose `afterClose` (`onAfterClose` in React). Update parent visibility or tag list data in this callback to unmount components without interrupting the animation.
 
@@ -50,6 +60,12 @@ rm -rf node_modules/.vite
 - `Input`: Fixed prop/slot precedence for prefixes and suffixes and prevented empty content from occupying decoration space.
 - `Tree`: Fixed checkbox interactions also triggering row interactions, keeping checking and row clicks independent.
 - `ColorPicker`: Refined `outline`, `fill`, and `plain` themes and `round`, `circle`, and `square` shapes.
+
+### Documentation and tooling
+
+- Expanded AI component-usage evaluations and asset consistency checks, and improved static validation of Vue examples.
+- Split builds into stages with Node child-process memory limits to reduce peak build memory.
+- Improved small-size visual fixtures and regression coverage for menus, uploads, and image previews.
 
 ## 6.0.0
 
@@ -190,16 +206,21 @@ rm -rf node_modules/.vite
 
 - Added component `Ripple`.
 - Added component `FlameWrap`.
-- Menu component extended and optimized.
-- Avatar component extended and optimized.
-- Table component now supports Tree data.
-- Badge animation optimized.
+- `Menu` moves overflowing horizontal items into a submenu, retaining access to the menu hierarchy and selection.
+- Improved `AvatarGroup` composition, layout, and examples.
+- `Table` now supports tree data with expandable and collapsible child rows.
+- Added `Badge`'s `active` prop and improved its animations.
 - Grid: added `flow` property to support row dense auto-fill; fixed issues where responsive styles and external class/style were not updating.
 - Row and Col: added xl, sm and other attributes to support responsiveness.
 - Notice: added `grouping` property; with the same grouping, only one notification message is shown.
-- Some Pop components now support display in Panel form.
+- Improved custom content rendering in `Tooltip`, `Poptip`, and `Popconfirm`; added panel-style presentation to selected popup components.
 - Theme switching default behavior optimized.
 - ColorPicker: fixed color dragging selection in the panel.
+
+### Documentation and development experience
+
+- Integrated CodeJar into the online example editor to improve syntax highlighting and code editing.
+- Expanded theme customization guidance, responsive grid examples, component prop descriptions, and public type documentation.
 
 ## 5.5.1
 
