@@ -93,4 +93,6 @@ jobs:
       - name: Publish verified tarball with npm trusted publishing
         env:
           DIST_TAG: ${{ inputs.dist_tag }}
-        run: npm publish artifacts/kui-vue.tgz --access public --provenance --tag "$DIST_TAG"
+        run: |
+          test -f ./artifacts/kui-vue.tgz
+          npm publish ./artifacts/kui-vue.tgz --access public --provenance --tag "$DIST_TAG"
