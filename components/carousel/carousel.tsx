@@ -2,6 +2,8 @@ import { useInitialValue } from "../utils/model-value";
 import { ArrowLeft, ArrowRight } from "kui-icons";
 import {
   Fragment,
+  Comment,
+  Text,
   cloneVNode,
   computed,
   defineComponent,
@@ -70,7 +72,10 @@ const Carousel = defineComponent({
       nodes.forEach((vnode) => {
         if (vnode.type === Fragment && Array.isArray(vnode.children)) {
           result.push(...flatten(vnode.children as VNode[]));
-        } else {
+        } else if (
+          vnode.type !== Comment &&
+          !(vnode.type === Text && !String(vnode.children ?? "").trim())
+        ) {
           result.push(vnode);
         }
       });
@@ -216,9 +221,26 @@ const Carousel = defineComponent({
     watch([() => props.autoplay, () => props.delay, itemCount], autoToPlay);
 
     watch(
+      () => props.loop,
+      () => {
+        if (transitionTimer.value) clearTimeout(transitionTimer.value);
+        transitionTimer.value = null;
+        playing.value = false;
+        settleDuration.value = null;
+        animate.value = false;
+        posIndex.value = props.loop ? currentIndex.value + 1 : currentIndex.value;
+        nextTick(() => {
+          carouselRef.value?.querySelector(".k-carousel-wrapper")?.getBoundingClientRect();
+          animate.value = true;
+        });
+      },
+    );
+
+    watch(
       carouselRef,
       (root, _, onCleanup) => {
         if (!root) return;
+        resize();
         const dispose = bindCarouselDrag(root, {
           options: () => ({
             swipeable: props.swipeable,
@@ -270,7 +292,6 @@ const Carousel = defineComponent({
 
     onMounted(() => {
       nextTick(() => {
-        resize();
         autoToPlay();
       });
     });
