@@ -1964,7 +1964,7 @@
       "behavior": {
         "rules": [
           "type controls semantic appearance; htmlType controls native submit/reset/button behavior. Do not use type=submit.",
-          "icon takes an icon definition imported from kui-icons."
+          "Button.icon takes IconType[] data imported from kui-icons: import { Search } from 'kui-icons'; use <Button :icon=\"Search\" /> in Vue templates or <Button icon={Search} /> in TSX. Never pass h(Icon, ...), a VNode, a component function, or an icon-name string to icon. Custom rendered content belongs in the default slot. Input prefix/suffix slots are not the Button.icon API."
         ]
       },
       "models": [],
@@ -2069,9 +2069,9 @@
         },
         {
           "name": "icon",
-          "description": "Button icon",
-          "descriptionZh": "按钮的图标",
-          "descriptionEn": "Button icon",
+          "description": "Icon definition imported from kui-icons (e.g. Search), not a string or rendered Icon element",
+          "descriptionZh": "从 kui-icons 导入的图标定义（如 Search），不是字符串或已渲染的 Icon 元素",
+          "descriptionEn": "Icon definition imported from kui-icons (e.g. Search), not a string or rendered Icon element",
           "type": "IconType[] | undefined",
           "boolean": false,
           "required": false,

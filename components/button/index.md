@@ -1,5 +1,7 @@
 # Button 按钮
 
+`icon` 接收从 `kui-icons` 导入的图标数据，不是字符串或渲染后的 `Icon` 元素。使用 `:icon="Search"`，不要写 `icon="Search"` 或 `:icon="h(Icon, ...)"`；自定义组件放在默认插槽中。
+
 按钮用于开始一个即时操作。
 
 ## 何时使用
@@ -62,7 +64,7 @@ Vue.use(Button);
 | color    | 预设语义颜色                                          | ColorType                                             | -      |
 | shape    | 按钮的外观                                            | 'circle' \| 'square'                                  | -      |
 | theme    | 按钮主题                                              | 'solid' \| 'fill' \| 'outline' \| 'dashed' \| 'plain' | -      |
-| icon     | 按钮的图标                                            | string                                                | -      |
+| icon | 从 kui-icons 导入的图标定义（如 Search），不是字符串或已渲染的 Icon 元素 | IconType[] | - |
 | loading  | 按钮是否进入加载模式                                  | boolean                                               | false  |
 | href     | 点击跳转的地址，指定此属性 button 的行为和 a 链接一致 | string                                                | -      |
 | target   | 相当于 a 链接的 target 属性，href 存在时生效          | string                                                | -      |

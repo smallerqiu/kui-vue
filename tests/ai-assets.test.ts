@@ -25,6 +25,14 @@ afterEach(() => {
 });
 
 describe("AI distribution assets", () => {
+  it("documents Button icon definitions rather than rendered nodes", () => {
+    const button = metadata.components.find((component) => component.name === "Button");
+    const icon = button?.props.find((prop) => prop.name === "icon");
+    expect(icon?.descriptionEn).toContain("not a string");
+    expect(icon?.descriptionZh).toContain("图标定义");
+    const contracts = JSON.parse(fs.readFileSync(path.join(root, "ai/behaviors.json"), "utf8"));
+    expect(contracts.Button.rules.join(" ")).toContain("Never pass h(Icon");
+  });
   it("publishes component APIs and examples", () => {
     expect(metadata.library).toBe("kui-vue");
     const select = metadata.components.find((component) => component.name === "Select");

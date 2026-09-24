@@ -1,5 +1,7 @@
 # Kui Vue AI integration
 
+Icon prop contract: Button.icon takes IconType[] data imported from kui-icons: import { Search } from 'kui-icons'; use <Button :icon="Search" /> in Vue templates or <Button icon={Search} /> in TSX. Never pass h(Icon, ...), a VNode, a component function, or an icon-name string to icon. Custom rendered content belongs in the default slot. Input prefix/suffix slots are not the Button.icon API.
+
 Each Kui Vue npm release includes version-matched component metadata, a JSON Schema, an Agent Skill, an MCP server, and evaluation cases. This lets AI clients query the installed public API instead of guessing props.
 
 ## Initialize a project

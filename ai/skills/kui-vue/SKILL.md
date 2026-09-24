@@ -5,6 +5,8 @@ description: Build Vue 3 interfaces with Kui Vue components and APIs. Use when c
 
 # Kui Vue
 
+Icon prop contract: Button.icon takes IconType[] data imported from kui-icons: import { Search } from 'kui-icons'; use <Button :icon="Search" /> in Vue templates or <Button icon={Search} /> in TSX. Never pass h(Icon, ...), a VNode, a component function, or an icon-name string to icon. Custom rendered content belongs in the default slot. Input prefix/suffix slots are not the Button.icon API.
+
 ## Instructions
 
 1. Confirm the project uses Vue 3 and install `kui-vue` plus `kui-icons` when missing.

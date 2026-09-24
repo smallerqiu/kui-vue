@@ -1,5 +1,7 @@
 # Kui Vue AI 开发接入
 
+图标属性注意：`Button.icon` 接收从 `kui-icons` 导入的 `IconType[]` 图标数据。例如 `import { Search } from 'kui-icons'` 后，在模板中使用 `<Button :icon="Search" />`，在 TSX 中使用 `<Button icon={Search} />`。不要传 `h(Icon, ...)`、VNode、组件函数或图标名称字符串；自定义内容使用默认插槽。Input 的 prefix/suffix 插槽与 Button.icon 不是同一种接口。
+
 Kui Vue 随 npm 版本一起发布组件元数据、JSON Schema、Agent Skill、MCP Server 和评测用例。AI 工具因此可以查询当前安装版本的真实 API，而不是猜测属性。
 
 ## 项目初始化

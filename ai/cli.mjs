@@ -11,6 +11,7 @@ const instructions = `${marker}
 - Import components from \`kui-vue\` and icons from \`kui-icons\`; import \`kui-vue/style/index.css\` once.
 - Read the installed \`kui-vue/metadata\` before using unfamiliar props, events, or slots. Do not invent component APIs.
 - Keep \`theme\`, \`size\`, and \`shape\` consistent and run typecheck/lint after edits.
+- Button.icon takes IconType[] data imported from kui-icons: import { Search } from 'kui-icons'; use <Button :icon="Search" /> in Vue templates or <Button icon={Search} /> in TSX. Never pass h(Icon, ...), a VNode, a component function, or an icon-name string to icon. Custom rendered content belongs in the default slot. Input prefix/suffix slots are not the Button.icon API.
 `;
 
 if (command === "init") {

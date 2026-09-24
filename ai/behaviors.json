@@ -24,7 +24,7 @@
   "Button": {
     "rules": [
       "type controls semantic appearance; htmlType controls native submit/reset/button behavior. Do not use type=submit.",
-      "icon takes an icon definition imported from kui-icons."
+      "Button.icon takes IconType[] data imported from kui-icons: import { Search } from 'kui-icons'; use <Button :icon=\"Search\" /> in Vue templates or <Button icon={Search} /> in TSX. Never pass h(Icon, ...), a VNode, a component function, or an icon-name string to icon. Custom rendered content belongs in the default slot. Input prefix/suffix slots are not the Button.icon API."
     ]
   },
   "Modal": {
