@@ -80,6 +80,7 @@ const getDocDescriptions = (mdPath: string): Record<string, string> => {
 const project = new Project({
   compilerOptions: {
     skipLibCheck: true,
+    strictNullChecks: true,
     jsx: JsxEmit.Preserve,
     moduleResolution: 2, // Node 模式
     allowJs: true,
@@ -152,7 +153,7 @@ export const getPropsData = (
 
     // 提取真实 TS 类型字符串
     const type = prop.getTypeAtLocation(declarations[0]);
-    const propType = type.getText(undefined, TypeFormatFlags.UseAliasDefinedOutsideCurrentScope);
+    const propType = type.getText(declarations[0], TypeFormatFlags.UseAliasDefinedOutsideCurrentScope | TypeFormatFlags.NoTruncation);
 
     const eventName = /^on[A-Z]/.test(name)
       ? `${name.charAt(2).toLowerCase()}${name.slice(3)}`
@@ -214,6 +215,7 @@ export const getPropsData = (
 
   const implementationFile = declarations[0].getSourceFile();
   const emittedEvents = new Set<string>();
+  const emittedTypes = new Map<string, string>();
   implementationFile.getDescendants().forEach((node) => {
     if (!Node.isPropertyAssignment(node) || node.getName() !== "emits") return;
     const initializer = node.getInitializer();
@@ -224,7 +226,17 @@ export const getPropsData = (
     } else if (Node.isObjectLiteralExpression(initializer)) {
       initializer.getProperties().forEach((property) => {
         if (Node.isPropertyAssignment(property) || Node.isMethodDeclaration(property)) {
-          emittedEvents.add(property.getName().replace(/^['"]|['"]$/g, ""));
+          const eventName = property.getName().replace(/^['"]|['"]$/g, "");
+          emittedEvents.add(eventName);
+          const signature = property.getType().getCallSignatures()[0];
+          if (signature) {
+            const parameters = signature.getParameters().map((parameter) => {
+              const declaration = parameter.getDeclarations()[0];
+              const rest = declaration && Node.isParameterDeclaration(declaration) && declaration.isRestParameter();
+              return `${rest ? "..." : ""}${parameter.getName()}${parameter.isOptional() ? "?" : ""}: ${parameter.getTypeAtLocation(property).getText(property, TypeFormatFlags.NoTruncation)}`;
+            });
+            emittedTypes.set(eventName, `(${parameters.join(", ")}) => void`);
+          }
         }
       });
     }
@@ -241,7 +253,7 @@ export const getPropsData = (
     props.push({
       name,
       description: documentedDescription || `Event emitted for ${eventName}`,
-      type: "(...args: unknown[]) => void",
+      type: emittedTypes.get(eventName) || "(...args: unknown[]) => void",
       eventName,
       boolean: false,
       documented: Boolean(documentedDescription),

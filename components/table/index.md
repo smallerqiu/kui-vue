@@ -105,47 +105,47 @@ const columns = [
 
 ## Table API
 
-| 属性                 | 说明                                                  | 类型                                                                         | 默认值   |
-| -------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------- | -------- |
-| bordered             | 是否显示边框                                          | boolean                                                                      | false    |
-| checkable            | 是否显示勾选框                                        | boolean                                                                      | false    |
-| selectedKeys         | 勾选的key集合                                         | (string \| number)[]                                                         | -        |
-| disabledKeys         | 禁用的key集合                                         | (string \| number)[]                                                         | -        |
-| size                 | 值为`small`时展示紧凑模式                             | string                                                                       | -        |
-| emptyText            | 没有数据时展示的提示                                  | string                                                                       | 暂无数据 |
-| loading              | 表格异步加载模式                                      | boolean                                                                      | false    |
-| data                 | 显示的结构化数据                                      | any[]                                                                        | []       |
-| columns              | 表格列的配置描述，                                    | Column[]                                                                     | []       |
-| hiddenColumnKeys     | 隐藏的列 key 集合，支持分组列                         | string[]                                                                     | []       |
-| rowKey               | 勾选时的依据                                          | string                                                                       | key      |
-| childrenColumnName   | 子节点字段名                                          | string                                                                       | children |
-| expandedKeys         | 展开行 key 集合，支持 `v-model:expanded-keys`         | (string \| number)[]                                                         | -        |
-| expandAllRows        | 初始化及属性变化时展开所有树节点（expandedKeys 优先） | boolean                                                                      | false    |
-| expandRowByClick     | 点击行时展开或收起                                    | boolean                                                                      | false    |
-| indentSize           | 每级树节点缩进距离                                    | number                                                                       | 20       |
-| striped              | 是否展示斑马条纹                                      | boolean                                                                      | false    |
-| onRowClick           | 单击某一行时触发                                      | (record: any, index: number) => void                                         | -        |
-| onSort               | 点击排序时触发                                        | (state: SortState) => void                                                   | -        |
-| onSelect             | 点击复选框时触发                                      | (record: any, selected: boolean, selectedKeys: (string \| number)[]) => void | -        |
-| onSelectAll          | 点击Table头部复选框时触发                             | (selected: boolean, selectedKeys: (string \| number)[]) => void              | -        |
-| onExpand             | 展开状态变化时触发                                    | (expanded: boolean, record: TableRecord) => void                             | -        |
-| onExpandedKeysChange | 展开 key 集合变化时触发                               | (expandedKeys: (string \| number)[]) => void                                 | -        |
-| virtual              | 是否启用虚拟滚动，需设置 `scroll.y`                   | boolean                                                                      | false    |
-| itemHeight           | 虚拟滚动行的固定高度                                  | number                                                                       | 44       |
-| overscan             | 视口上下额外渲染的行数                                | number                                                                       | 5        |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| bordered | 是否显示边框 | `boolean` | false |
+| checkable | 是否显示勾选框 | `boolean` | false |
+| selectedKeys | 勾选的key集合 | `TableKey[]` | - |
+| disabledKeys | 禁用的key集合 | `TableKey[]` | - |
+| size | 值为`small`时展示紧凑模式 | `"small" \| "medium" \| "large"` | - |
+| emptyText | 没有数据时展示的提示 | `string` | 暂无数据 |
+| loading | 表格异步加载模式 | `boolean` | false |
+| data | 显示的结构化数据 | `TableRecord[]` | [] |
+| columns | 表格列的配置描述， | `Column[]` | [] |
+| hiddenColumnKeys | 隐藏的列 key 集合，支持分组列 | `string[]` | [] |
+| rowKey | 勾选时的依据 | `string` | key |
+| childrenColumnName | 子节点字段名 | `string` | children |
+| expandedKeys | 展开行 key 集合，支持 `v-model:expanded-keys` | `TableKey[]` | - |
+| expandAllRows | 初始化及属性变化时展开所有树节点（expandedKeys 优先） | `boolean` | false |
+| expandRowByClick | 点击行时展开或收起 | `boolean` | false |
+| indentSize | 每级树节点缩进距离 | `number` | 20 |
+| striped | 是否展示斑马条纹 | `boolean` | false |
+| onRowClick | 单击某一行时触发 | `(record: TableRecord, index: number) => void` | - |
+| onSort | 点击排序时触发 | `(state: SortState) => void` | - |
+| onSelect | 点击复选框时触发 | `(record: TableRecord, selected: boolean, keys: TableKey[]) => void` | - |
+| onSelectAll | 点击Table头部复选框时触发 | `(selected: boolean, keys: TableKey[]) => void` | - |
+| onExpand | 展开状态变化时触发 | `(expanded: boolean, record: TableRecord) => void` | - |
+| onExpandedKeysChange | 展开 key 集合变化时触发 | `(keys: TableKey[]) => void` | - |
+| virtual | 是否启用虚拟滚动，需设置 `scroll.y` | `boolean` | false |
+| itemHeight | 虚拟滚动行的固定高度 | `number` | 44 |
+| overscan | 视口上下额外渲染的行数 | `number` | 5 |
 
 ## TableColumnSetting API
 
-| 属性         | 说明                                   | 类型                           | 默认值          |
-| ------------ | -------------------------------------- | ------------------------------ | --------------- |
-| columns      | 与 Table 共用的列配置                  | Column[]                       | []              |
-| hiddenKeys   | 隐藏列 key，支持 `v-model:hidden-keys` | string[]                       | []              |
-| disabledKeys | 不允许在设置面板中切换的关键列         | string[]                       | []              |
-| title        | 面板标题及默认触发按钮文字             | string                         | Column settings |
-| resetText    | 重置按钮文字                           | string                         | Reset           |
-| size         | 触发按钮和选择项尺寸                   | SizeType                       | -               |
-| showReset    | 是否显示重置按钮                       | boolean                        | true            |
-| onChange     | 隐藏列变化时触发                       | (hiddenKeys: string[]) => void | -               |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| columns | 与 Table 共用的列配置 | `Column[]` | [] |
+| hiddenKeys | 隐藏列 key，支持 `v-model:hidden-keys` | `string[]` | [] |
+| disabledKeys | 不允许在设置面板中切换的关键列 | `string[]` | [] |
+| title | 面板标题及默认触发按钮文字 | `string` | Column settings |
+| resetText | 重置按钮文字 | `string` | Reset |
+| size | 触发按钮和选择项尺寸 | `"small" \| "medium" \| "large"` | - |
+| showReset | 是否显示重置按钮 | `boolean` | true |
+| onChange | 隐藏列变化时触发 | `(keys: string[]) => void` | - |
 
 插槽：`default` 可自定义触发元素。
 
@@ -165,6 +165,6 @@ const columns = [
 
 ### 通用外观
 
-| 属性  | 说明     | 类型                | 默认值 |
-| ----- | -------- | ------------------- | ------ |
-| shape | 表格形状 | 'round' \| 'square' | round  |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| shape | 表格形状 | `"square" \| "round"` | round |

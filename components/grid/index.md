@@ -61,28 +61,28 @@ Layout 及其子组件（Header, Sider, Content, Footer）属于页面骨架级�
 
 ## Grid API
 
-| 属性         | 说明                                                              | 类型                          | 默认值 |
-| ------------ | ----------------------------------------------------------------- | ----------------------------- | ------ |
-| cols         | 设置网格的列数。支持数字（平分）或字符串（如 1fr 2fr）            | number \| string \| object    | 24     |
-| rows         | 设置网格的行数或高度。默认为 auto                                 | number \| string \| object    | auto   |
-| autoRows     | 隐式网格行高。在 Bento 布局中用于设定基准高度。                   | string                        | auto   |
-| flow         | CSS Grid 自动放置方向                                             | CSSProperties['gridAutoFlow'] | row    |
-| xGap         | 水格间距（水平方向）。数字类型会自动补充 px 单位。                | number \| string \| object    | 0      |
-| yGap         | 行间距（垂直方向）。数字类型会自动补充 px 单位。                  | number \| string \| object    | 0      |
-| itemMinWidth | 自动填充模式。设置子项最小宽度，Grid 将根据容器宽度自动计算列数。 | number \| string              | -      |
-| align        | 子项在网格单元格内的垂直对齐方式                                  | CSSProperties['alignItems']   | -      |
-| justify      | 子项在网格单元格内的水平对齐方式                                  | CSSProperties['justifyItems'] | -      |
-| debug        | 调试模式。开启后会显示红色透明背景列，方便开发者校对布局。        | boolean                       | false  |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| cols | 设置网格的列数。支持数字（平分）或字符串（如 1fr 2fr） | `GridResponsive<string \| number>` | 24 |
+| rows | 设置网格的行数或高度。默认为 auto | `GridResponsive<string \| number>` | auto |
+| autoRows | 隐式网格行高。在 Bento 布局中用于设定基准高度。 | `string` | auto |
+| flow | CSS Grid 自动放置方向 | `Property.GridAutoFlow` | row |
+| xGap | 水格间距（水平方向）。数字类型会自动补充 px 单位。 | `GridResponsive<string \| number>` | 0 |
+| yGap | 行间距（垂直方向）。数字类型会自动补充 px 单位。 | `GridResponsive<string \| number>` | 0 |
+| itemMinWidth | 自动填充模式。设置子项最小宽度，Grid 将根据容器宽度自动计算列数。 | `string \| number` | - |
+| align | 子项在网格单元格内的垂直对齐方式 | `Property.AlignItems` | - |
+| justify | 子项在网格单元格内的水平对齐方式 | `Property.JustifyItems` | - |
+| debug | 调试模式。开启后会显示红色透明背景列，方便开发者校对布局。 | `boolean` | false |
 
 ## GridItem API
 
-| 属性        | 说明                                         | 类型             | 默认值 |
-| ----------- | -------------------------------------------- | ---------------- | ------ |
-| span        | 占据的列数。设为 0 时会在该断点下隐藏        | number \| object | 1      |
-| rowSpan     | 占据的行数。配合 `autoRows` 可实现非对称布局 | number \| object | 1      |
-| columnStart | 明确指定开始列线                             | number \| object | -      |
-| rowStart    | 明确指定开始行线                             | number \| object | -      |
-| suffix      | 将该项放到当前显式网格的末尾                 | boolean          | false  |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| span | 占据的列数。设为 0 时会在该断点下隐藏 | `GridResponsive<number>` | 1 |
+| rowSpan | 占据的行数。配合 `autoRows` 可实现非对称布局 | `GridResponsive<number>` | 1 |
+| columnStart | 明确指定开始列线 | `GridResponsive<number>` | - |
+| rowStart | 明确指定开始行线 | `GridResponsive<number>` | - |
+| suffix | 将该项放到当前显式网格的末尾 | `boolean` | false |
 
 ## Breakpoints
 

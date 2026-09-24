@@ -27,31 +27,31 @@
 
 ## Image API
 
-| 属性        | 说明                       | 类型                    | 默认值 |
-| ----------- | -------------------------- | ----------------------- | ------ |
-| width       | 组件的宽度                 | string \| number        | -      |
-| height      | 组件的高度                 | string \| number        | -      |
-| src         | 图片默认展示的地址         | string                  | -      |
-| alt         | 图片无法显示时的替代文本   | string                  | -      |
-| type        | Preview 内容类型           | `'img'` \| `'media'`    | `img`  |
-| origin      | 点击图片展示的大图         | string                  | -      |
-| placeholder | 图片加载失败时展示的占位符 | string                  | -      |
-| imgStyle    | 图片的 style               | Object                  | -      |
-| showPanel   | 默认是否展示扩展面板       | boolean                 | false  |
-| onClose     | 关闭触发事件               | () => void              | -      |
-| switch      | 多图切换触发事件           | (index: number) => void | -      |
-| tool        | 自定义工具栏按钮           | slot                    | -      |
-| panel       | 自定义扩展面板             | slot                    | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| width | 组件的宽度 | `string \| number` | - |
+| height | 组件的高度 | `string \| number` | - |
+| src | 图片默认展示的地址 | `string` | - |
+| alt | 图片无法显示时的替代文本 | `string` | - |
+| type | Preview 内容类型 | `"img" \| "media"` | `img` |
+| origin | 点击图片展示的大图 | `string` | - |
+| placeholder | 图片加载失败时展示的占位符 | `string` | - |
+| imgStyle | 图片的 style | `CSSProperties` | - |
+| showPanel | 默认是否展示扩展面板 | `boolean` | false |
+| onClose | 关闭触发事件 | `() => void` | - |
+| switch | 多图切换触发事件 | `(index: number) => void` | - |
+| tool | 自定义工具栏按钮 | slot | - |
+| panel | 自定义扩展面板 | slot | - |
 
 ## ImageGroup API
 
-| 属性 | 说明     | 类型     | 默认值 |
-| ---- | -------- | -------- | ------ |
-| data | 图片数据 | string[] | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| data | 图片数据 | `string[]` | - |
 
 ### 通用外观
 
-| 属性  | 说明     | 类型      | 默认值  |
-| ----- | -------- | --------- | ------- |
-| theme | 外观主题 | ThemeType | default |
-| shape | 图片形状 | ShapeType | round   |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| theme | 外观主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | default |
+| shape | 图片形状 | `"default" \| "circle" \| "square" \| "round"` | round |

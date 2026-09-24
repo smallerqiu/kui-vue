@@ -46,31 +46,31 @@ When the user needs to input a date, they can click the standard input box to po
 
 ## API
 
-| Property     | Description                                                                                                                                            | Type                                                                                | Default    |
-| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- | ---------- |
-| modelValue   | Current date or time value                                                                                                                             | DatePickerInput \| DatePickerInput[]                                                | -          |
-| value        | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.                          | DatePickerInput \| DatePickerInput[]                                                | null       |
-| startDate    | Start value for range selection                                                                                                                        | DatePickerInput                                                                     | null       |
-| endDate      | End value for range selection                                                                                                                          | DatePickerInput                                                                     | null       |
-| mode         | Use the `mode` property to customize the date display type. Options: `year`, `month`, `date`, `time`, `dateTime`, `dateRange`, `dateTimeRange`         | string                                                                              | date       |
-| disabled     | Whether the component is disabled                                                                                                                      | boolean                                                                             | false      |
-| readonly     | Read-only; prevents opening, clearing and changing                                                                                                     | boolean                                                                             | false      |
-| size         | Button size, optional values `small`, `large`                                                                                                          | string                                                                              | -          |
-| clearable    | Whether to show the clear icon                                                                                                                         | boolean                                                                             | true       |
-| editable     | Whether it is editable                                                                                                                                 | boolean                                                                             | true       |
-| placeholder  | Placeholder text                                                                                                                                       | string \| string[]                                                                  | -          |
-| disabledDate | Disabled dates                                                                                                                                         | (date: Date) => boolean                                                             | -          |
-| disabledTime | Disabled times                                                                                                                                         | (date: Date) => boolean                                                             | -          |
-| format       | Set the date format. When an array, supports multiple format matches, displayed according to the first one. Configuration reference http://day.js.org/ | string                                                                              | YYYY-MM-DD |
-| theme        | When theme='fill', presents a fill theme                                                                                                               | string                                                                              | -          |
-| dateIcon     | Custom icon                                                                                                                                            | string                                                                              | -          |
-| shape        | The form in which the component is presented                                                                                                           | 'circle' \| 'square'                                                                | -          |
-| bordered     | Whether to display the border                                                                                                                          | boolean                                                                             | true       |
-| placement    | Direction displayed when pulled down                                                                                                                   | string                                                                              | -          |
-| valueType    | Output value type                                                                                                                                      | `date \| timestamp \| unix \| string`                                               | string     |
-| presets      | Preset dates                                                                                                                                           | DatePickerPreset[]                                                                  | -          |
-| onChange     | Callback after the value changes                                                                                                                       | (date: DatePickerOutput \| DatePickerOutput[], dateStr: string \| string[]) => void | -          |
-| onOpenChange | Triggered when the dropdown box expands or collapses                                                                                                   | (opened: boolean) => void                                                           | -          |
-| onClear      | Triggered when the clear button is clicked                                                                                                             | () => void                                                                          | -          |
-| opened       | Whether the dropdown box is displayed by default                                                                                                       | boolean                                                                             | false      |
-| panelOnly    | Render only the date panel without the trigger input                                                                                                   | boolean                                                                             | false      |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| modelValue | Current date or time value | `DatePickerInput \| DatePickerInput[] \| null` | - |
+| value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `DatePickerInput \| DatePickerInput[] \| null` | null |
+| startDate | Start value for range selection | `DatePickerInput \| null` | null |
+| endDate | End value for range selection | `DatePickerInput \| null` | null |
+| mode | Use the `mode` property to customize the date display type. Options: `year`, `month`, `date`, `time`, `dateTime`, `dateRange`, `dateTimeRange` | `"time" \| "date" \| "year" \| "month" \| "dateTime" \| "dateRange" \| "dateTimeRange"` | date |
+| disabled | Whether the component is disabled | `boolean` | false |
+| readonly | Read-only; prevents opening, clearing and changing | `boolean` | false |
+| size | Button size, optional values `small`, `large` | `"small" \| "medium" \| "large"` | - |
+| clearable | Whether to show the clear icon | `boolean` | true |
+| editable | Whether it is editable | `boolean` | true |
+| placeholder | Placeholder text | `string \| string[]` | - |
+| disabledDate | Disabled dates | `(date: Date) => boolean` | - |
+| disabledTime | Disabled times | `(date: Date) => boolean` | - |
+| format | Set the date format. When an array, supports multiple format matches, displayed according to the first one. Configuration reference http://day.js.org/ | `string` | YYYY-MM-DD |
+| theme | When theme='fill', presents a fill theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| dateIcon | Custom icon | `IconType[]` | - |
+| shape | The form in which the component is presented | `"default" \| "circle" \| "square" \| "round"` | - |
+| bordered | Whether to display the border | `boolean` | true |
+| placement | Direction displayed when pulled down | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | - |
+| valueType | Output value type | `"string" \| "date" \| "timestamp" \| "unix"` | string |
+| presets | Preset dates | `DatePickerPreset[]` | - |
+| onChange | Callback after the value changes | `(value: DatePickerOutput \| DatePickerOutput[], text: string \| string[]) => void` | - |
+| onOpenChange | Triggered when the dropdown box expands or collapses | `(open: boolean) => void` | - |
+| onClear | Triggered when the clear button is clicked | `() => void` | - |
+| opened | Whether the dropdown box is displayed by default | `boolean` | false |
+| panelOnly | Render only the date panel without the trigger input | `boolean` | false |

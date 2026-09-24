@@ -38,9 +38,9 @@ Presents the outcome of an operation or task.
 
 ## API
 
-| Property | Description   | Type                                                                   | Default |
-| -------- | ------------- | ---------------------------------------------------------------------- | ------- |
-| status   | Result status | 'success' \| 'error' \| 'info' \| 'warning' \| '403' \| '404' \| '500' | info    |
-| title    | Title         | VNodeChild                                                             | -       |
-| subTitle | Subtitle      | VNodeChild                                                             | -       |
-| icon     | Custom icon   | IconType                                                               | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| status | Result status | `"info" \| "success" \| "warning" \| "error" \| "403" \| "404" \| "500"` | info |
+| title | Title | `VNodeChild` | - |
+| subTitle | Subtitle | `VNodeChild` | - |
+| icon | Custom icon | `IconType[]` | - |

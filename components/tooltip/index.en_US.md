@@ -26,16 +26,16 @@ Can be used to replace the system default `title` prompt, providing a text expla
 
 Use trigger="manual" when visibility is managed by business state (such as Slider dragging). Pointer entry/exit no longer changes visibility automatically; ordinary tooltips keep the default hover behavior.
 
-| Property | Description                          | Type                | Default |
-| -------- | ------------------------------------ | ------------------- | ------- |
-| trigger  | Automatic hover or manual visibility | 'hover' \| 'manual' | hover   |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| trigger | Automatic hover or manual visibility | `"hover" \| "manual"` | hover |
 
-| Property  | Description                                                                                                                                                                                       | Type             | Default |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ------- |
-| title     | Displayed title                                                                                                                                                                                   | string, slot     | -       |
-| color     | Background color                                                                                                                                                                                  | string           | -       |
-| placement | Position where tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom` | string           | top     |
-| width     | Display width; numbers and numeric strings use px                                                                                                                                                 | string \| number | -       |
-| disabled  | Disabled status                                                                                                                                                                                   | boolean          | false   |
-| show      | Whether to display during initialization                                                                                                                                                          | boolean          | false   |
-| panelOnly | Render only the tooltip panel without a trigger                                                                                                                                                   | boolean          | false   |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| title | Displayed title | `VNodeChild` | - |
+| color | Background color | `string` | - |
+| placement | Position where tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom` | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right" \| "left" \| "left-bottom" \| "left-top" \| "right" \| "right-top" \| "right-bottom"` | top |
+| width | Display width; numbers and numeric strings use px | `string \| number` | - |
+| disabled | Disabled status | `boolean` | false |
+| show | Whether to display during initialization | `boolean` | false |
+| panelOnly | Render only the tooltip panel without a trigger | `boolean` | false |

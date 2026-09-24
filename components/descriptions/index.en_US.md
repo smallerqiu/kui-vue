@@ -34,14 +34,14 @@ Commonly seen in detail page information display.
 
 ## API
 
-| Property | Description                                                                     | Type                                              | Default    |
-| -------- | ------------------------------------------------------------------------------- | ------------------------------------------------- | ---------- |
-| bordered | Whether to show the border                                                      | boolean                                           | false      |
-| column   | Items per row; supports responsive configuration                                | number \| Partial\<Record\<Breakpoint, number\>\> | 3          |
-| extra    | The operation area of the description list, displayed in the upper right corner | string \| Slot                                    | -          |
-| layout   | Description layout                                                              | `'horizontal'` \| `'vertical'`                    | horizontal |
-| size     | List size                                                                       | `'large'` \| `'medium'` \| `'small'`              | large      |
-| title    | The title of the description list, displayed at the very top                    | string \| Slot                                    | -          |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| bordered | Whether to show the border | `boolean` | false |
+| column | Items per row; supports responsive configuration | `DescriptionsColumn` | 3 |
+| extra | The operation area of the description list, displayed in the upper right corner | `string` | - |
+| layout | Description layout | `"horizontal" \| "vertical" \| "inline"` | horizontal |
+| size | List size | `"small" \| "medium" \| "large"` | large |
+| title | The title of the description list, displayed at the very top | `string` | - |
 
 ## Item props
 
@@ -52,6 +52,6 @@ Commonly seen in detail page information display.
 
 ### Common appearance
 
-| Property | Description            | Type                | Default |
-| -------- | ---------------------- | ------------------- | ------- |
-| shape    | Description list shape | 'round' \| 'square' | round   |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| shape | Description list shape | `"square" \| "round"` | round |

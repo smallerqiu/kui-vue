@@ -30,23 +30,23 @@ Convert continuous input into an addable and removable tag collection.
 
 ## InputTag API
 
-| Property        | Description                                           | Type                                         | Default |
-| --------------- | ----------------------------------------------------- | -------------------------------------------- | ------- |
-| modelValue      | Tags (v-model)                                        | string[]                                     | -       |
-| value           | Initial tags                                          | string[]                                     | []      |
-| placeholder     | Placeholder                                           | string                                       | -       |
-| size            | Size                                                  | 'small' \| 'medium' \| 'large'               | medium  |
-| theme           | Theme                                                 | 'fill' \| 'outline' \| 'plain'               | fill    |
-| shape           | Shape                                                 | 'circle' \| 'square' \| 'round' \| 'default' | default |
-| disabled        | Disabled                                              | boolean                                      | false   |
-| readonly        | Read-only; prevents adding, removing or clearing tags | boolean                                      | false   |
-| clearable       | Whether to show the clear button                      | boolean                                      | true    |
-| block           | Fill the parent width                                 | boolean                                      | false   |
-| allowDuplicates | Allow duplicates                                      | boolean                                      | false   |
-| max             | Maximum count                                         | number                                       | -       |
-| maxTagCount     | Maximum visible tags; the remainder is shown as +N    | number                                       | -       |
-| separators      | Commit keys                                           | string[]                                     | [',']   |
-| onChange        | Tags change                                           | function                                     | -       |
-| onAdd           | Tag added                                             | function                                     | -       |
-| onRemove        | Tag removed                                           | function                                     | -       |
-| onClear         | Tags cleared                                          | function                                     | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| modelValue | Tags (v-model) | `string[]` | - |
+| value | Initial tags | `string[]` | [] |
+| placeholder | Placeholder | `string` | - |
+| size | Size | `"small" \| "medium" \| "large"` | medium |
+| theme | Theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| shape | Shape | `"default" \| "circle" \| "square" \| "round"` | default |
+| disabled | Disabled | `boolean` | false |
+| readonly | Read-only; prevents adding, removing or clearing tags | `boolean` | false |
+| clearable | Whether to show the clear button | `boolean` | true |
+| block | Fill the parent width | `boolean` | false |
+| allowDuplicates | Allow duplicates | `boolean` | false |
+| max | Maximum count | `number` | - |
+| maxTagCount | Maximum visible tags; the remainder is shown as +N | `number` | - |
+| separators | Commit keys | `string[]` | [','] |
+| onChange | Tags change | `(value: string[]) => void` | - |
+| onAdd | Tag added | `(value: string) => void` | - |
+| onRemove | Tag removed | `(value: string, index: number) => void` | - |
+| onClear | Tags cleared | `() => void` | - |

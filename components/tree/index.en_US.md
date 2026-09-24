@@ -46,28 +46,28 @@ Tree supports focus management and Arrow, Home, End, Enter, and Space keyboard o
 
 ## Tree API
 
-| Property      | Description                                                                                                       | Type                                 | Default |
-| ------------- | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------ | ------- |
-| data          | Array of nestable node properties, data to generate `tree`                                                        | TreeNode[]                           | []      |
-| checkable     | Whether to show checkbox                                                                                          | boolean                              | false   |
-| draggable     | Whether it can be dragged                                                                                         | boolean                              | false   |
-| showLine      | Whether to show connecting lines                                                                                  | boolean                              | false   |
-| showIcon      | Whether to show icons                                                                                             | boolean                              | true    |
-| extra         | Extension element                                                                                                 | slot(node)                           | -       |
-| showExtra     | Whether to show extension elements by default                                                                     | boolean                              | false   |
-| checkStrictly | In checkable state, node selection is completely controlled (parent-child node selection state no longer related) | boolean                              | false   |
-| checkedKeys   | Tree nodes with checked checkboxes                                                                                | string[]                             | []      |
-| expandedKeys  | Specify expanded nodes                                                                                            | string[]                             | []      |
-| selectedKeys  | Selected nodes                                                                                                    | string[]                             | []      |
-| multiple      | Whether to support multiple selection                                                                             | boolean                              | false   |
-| loading       | Asynchronous loading state                                                                                        | boolean                              | false   |
-| loadData      | Loads children asynchronously; a successful node is not loaded repeatedly                                         | (node: TreeNode) => Promise\<unknown\> | -       |
-| fieldNames    | Custom node field names                                                                                           | TreeFieldNames                       | -       |
-| directory     | Whether to display a directory tree                                                                               | boolean                              | false   |
-| virtual       | Whether to enable virtual scrolling                                                                               | boolean                              | false   |
-| height        | Virtual viewport height                                                                                           | number \| string                     | 300     |
-| itemHeight    | Fixed virtual node height                                                                                         | number                               | 28      |
-| overscan      | Number of nodes rendered outside the viewport                                                                     | number                               | 5       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| data | Array of nestable node properties, data to generate `tree` | `TreeNodeData[]` | [] |
+| checkable | Whether to show checkbox | `boolean` | false |
+| draggable | Whether it can be dragged | `boolean` | false |
+| showLine | Whether to show connecting lines | `boolean` | false |
+| showIcon | Whether to show icons | `boolean` | true |
+| extra | Extension element | slot(node) | - |
+| showExtra | Whether to show extension elements by default | `boolean` | false |
+| checkStrictly | In checkable state, node selection is completely controlled (parent-child node selection state no longer related) | `boolean` | false |
+| checkedKeys | Tree nodes with checked checkboxes | `string[]` | [] |
+| expandedKeys | Specify expanded nodes | `string[]` | [] |
+| selectedKeys | Selected nodes | `string[]` | [] |
+| multiple | Whether to support multiple selection | `boolean` | false |
+| loading | Asynchronous loading state | `boolean` | false |
+| loadData | Loads children asynchronously; a successful node is not loaded repeatedly | `((node: TreeNode) => Promise<unknown>)` | - |
+| fieldNames | Custom node field names | `TreeFieldNames` | - |
+| directory | Whether to display a directory tree | `boolean` | false |
+| virtual | Whether to enable virtual scrolling | `boolean` | false |
+| height | Virtual viewport height | `string \| number` | 300 |
+| itemHeight | Fixed virtual node height | `number` | 28 |
+| overscan | Number of nodes rendered outside the viewport | `number` | 5 |
 
 ## TreeNode API
 
@@ -81,17 +81,17 @@ Tree supports focus management and Arrow, Home, End, Enter, and Space keyboard o
 
 ### Events
 
-| Property    | Description                                | Callback Parameters                                                          |
-| ----------- | ------------------------------------------ | ---------------------------------------------------------------------------- |
-| onSelect    | Triggered when a tree node is clicked      | (node: TreeNode) => void                                                     |
-| onCheck     | Triggered when a checkbox is clicked       | (node: TreeNode, checked: boolean, checkedKeys: string[]) => void            |
-| onExpand    | Triggered when a node expands or collapses | (result: TreeExpandEvent) => void                                            |
-| onDragStart | Triggered when dragging starts             | (node: TreeNode, event: DragEvent) => void                                   |
-| onDragEnd   | Triggered when dragging ends               | (node: TreeNode, event: DragEvent) => void                                   |
-| onDragEnter | Triggered when a dragged node enters       | (node: TreeNode, event: DragEvent) => void                                   |
-| onDragLeave | Triggered when a dragged node leaves       | (node: TreeNode, event: DragEvent) => void                                   |
-| onDrop      | Triggered when a node is dropped           | (node: { dragNode: TreeNode; dropNode: TreeNode }, event: DragEvent) => void |
-| onLoadError | Triggered when asynchronous loading fails  | (error: unknown, node: TreeNode) => void                                     |
+| Property | Description | Type |
+| --- | --- | --- |
+| onSelect | Triggered when a tree node is clicked | `(node: TreeNode) => void` |
+| onCheck | Triggered when a checkbox is clicked | `(node: TreeNode, checked: boolean, keys: string[]) => void` |
+| onExpand | Triggered when a node expands or collapses | `(result: TreeExpandEvent) => void` |
+| onDragStart | Triggered when dragging starts | `(node: TreeNode, event: DragEvent) => void` |
+| onDragEnd | Triggered when dragging ends | `(node: TreeNode, event: DragEvent) => void` |
+| onDragEnter | Triggered when a dragged node enters | `(node: TreeNode, event: DragEvent) => void` |
+| onDragLeave | Triggered when a dragged node leaves | `(node: TreeNode, event: DragEvent) => void` |
+| onDrop | Triggered when a node is dropped | `(nodes: TreeDropEvent, event: DragEvent) => void` |
+| onLoadError | Triggered when asynchronous loading fails | `(_error: unknown, node: TreeNode) => void` |
 
 The first `onDrop` argument also contains `dropPosition: 'before' | 'inside' | 'after'`.
 

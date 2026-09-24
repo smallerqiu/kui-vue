@@ -14,12 +14,12 @@ Embeds status, supporting information, and next steps within page content.
 
 ## API
 
-| Property    | Description        | Type                                               | Default |
-| ----------- | ------------------ | -------------------------------------------------- | ------- |
-| kind        | Feedback kind      | 'positive' \| 'neutral' \| 'caution' \| 'negative' | neutral |
-| heading     | Primary message    | VNodeChild                                         | -       |
-| description | Supporting message | VNodeChild                                         | -       |
-| symbol      | Custom marker      | IconType                                           | -       |
-| compact     | Compact layout     | boolean                                            | false   |
-| theme       | Appearance theme   | ThemeType                                          | default |
-| shape       | Panel shape        | 'round' \| 'square'                                | round   |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| kind | Feedback kind | `"positive" \| "negative" \| "caution" \| "neutral"` | neutral |
+| heading | Primary message | `VNodeChild` | - |
+| description | Supporting message | `VNodeChild` | - |
+| symbol | Custom marker | `IconType[]` | - |
+| compact | Compact layout | `boolean` | false |
+| theme | Appearance theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | default |
+| shape | Panel shape | `"square" \| "round"` | round |

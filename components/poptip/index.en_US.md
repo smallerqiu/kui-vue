@@ -28,14 +28,14 @@ The difference from `Tooltip` is that users can operate on elements in the float
 
 ## API
 
-| Property  | Description                                     | Type                                                                                                                                                                   | Default |
-| --------- | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| trigger   | Trigger method: `hover`, `click`, or `focus`    | string                                                                                                                                                                 | hover   |
-| title     | Displayed title                                 | string, slot                                                                                                                                                           | -       |
-| content   | Displayed main content                          | string, slot                                                                                                                                                           | -       |
-| placement | Position where the tooltip appears              | 'top' \| 'top-left' \| 'top-right' \| 'bottom' \| 'bottom-left' \| 'bottom-right' \| 'left' \| 'left-top' \| 'left-bottom' \| 'right' \| 'right-top' \| 'right-bottom' | top     |
-| width     | Display width, defaults to content area size    | string \| number                                                                                                                                                       | -       |
-| show      | Whether to display                              | boolean                                                                                                                                                                | false   |
-| dark      | Use dark theme                                  | boolean                                                                                                                                                                | false   |
-| onClose   | Callback when closed                            | () => void                                                                                                                                                             | -       |
-| panelOnly | Render only the popover panel without a trigger | boolean                                                                                                                                                                | false   |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| trigger | Trigger method: `hover`, `click`, or `focus` | `"hover" \| "click" \| "focus"` | hover |
+| title | Displayed title | `VNodeChild` | - |
+| content | Displayed main content | `string` | - |
+| placement | Position where the tooltip appears | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right" \| "left" \| "left-bottom" \| "left-top" \| "right" \| "right-top" \| "right-bottom"` | top |
+| width | Display width, defaults to content area size | `string \| number` | - |
+| show | Whether to display | `boolean` | false |
+| dark | Use dark theme | `boolean` | false |
+| onClose | Callback when closed | `() => void` | - |
+| panelOnly | Render only the popover panel without a trigger | `boolean` | false |

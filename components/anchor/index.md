@@ -18,18 +18,18 @@
 
 ## Anchor API
 
-| 属性      | 说明                                 | 类型                            | 默认值 |
-| --------- | ------------------------------------ | ------------------------------- | ------ |
-| affix     | 是否使用 sticky 固定模式             | boolean                         | true   |
-| offsetTop | 固定位置及锚点判定距离容器顶部的偏移 | number                          | 0      |
-| bounds    | 锚点激活区域边界                     | number                          | 5      |
-| container | 指定滚动容器                         | string \| HTMLElement \| Window | window |
-| change    | 当前激活锚点改变时触发               | (link: string) => void          | -      |
-| click     | 点击锚点时触发                       | (link: string) => void          | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| affix | 是否使用 sticky 固定模式 | `boolean` | true |
+| offsetTop | 固定位置及锚点判定距离容器顶部的偏移 | `number` | 0 |
+| bounds | 锚点激活区域边界 | `number` | 5 |
+| container | 指定滚动容器 | `string \| Window \| HTMLElement` | window |
+| change | 当前激活锚点改变时触发 | `(activeLink: string) => void` | - |
+| click | 点击锚点时触发 | `(link: string) => void` | - |
 
 ## AnchorLink API
 
-| 属性  | 说明                             | 类型                 | 默认值 |
-| ----- | -------------------------------- | -------------------- | ------ |
-| href  | 锚点链接                         | string               | -      |
-| title | 文字内容，也可通过同名插槽自定义 | string \| VNodeChild | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| href | 锚点链接 | `string` | - |
+| title | 文字内容，也可通过同名插槽自定义 | `string` | - |

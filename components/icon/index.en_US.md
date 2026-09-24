@@ -28,18 +28,18 @@ Use
 
 ## API
 
-| Property      | Description                                                          | Type                       | Default |
-| ------------- | -------------------------------------------------------------------- | -------------------------- | ------- |
-| type          | Icon type. Follows the icon naming convention                        | IconPath[]                 | -       |
-| size          | The size of the icon, unit is px                                     | string \| number           | -       |
-| color         | The color of the icon                                                | string                     | -       |
-| spin          | Whether to have rotation animation                                   | boolean                    | false   |
-| strokeWidth   | The line thickness of the icon                                       | number                     | 2       |
-| onClick       | Click event                                                          | (e:Event) => void          | -       |
-| reverseFill   | Icon borders and inverted fills are only supported for closed icons. | boolean                    | false   |
-| role          | Accessibility role                                                   | string                     | -       |
-| tabindex      | Keyboard focus order                                                 | number                     | -       |
-| aria-label    | Accessible label                                                     | string                     | -       |
-| onPointerdown | Called when a pointer is pressed                                     | (e: PointerEvent) => void  | -       |
-| onKeydown     | Called when a key is pressed                                         | (e: KeyboardEvent) => void | -       |
-| onPointerup   | Called when a pointer is released                                    | (e: PointerEvent) => void  | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| type | Icon type. Follows the icon naming convention | `IconType[]` | - |
+| size | The size of the icon, unit is px | `string \| number` | - |
+| color | The color of the icon | `string` | - |
+| spin | Whether to have rotation animation | `boolean` | false |
+| strokeWidth | The line thickness of the icon | `string \| number` | 2 |
+| onClick | Click event | `(event: MouseEvent) => void` | - |
+| reverseFill | Icon borders and inverted fills are only supported for closed icons. | `boolean` | false |
+| role | Accessibility role | `string` | - |
+| tabindex | Keyboard focus order | `number` | - |
+| aria-label | Accessible label | `string` | - |
+| onPointerdown | Called when a pointer is pressed | `((event: PointerEvent) => void)` | - |
+| onKeydown | Called when a key is pressed | `((event: KeyboardEvent) => void)` | - |
+| onPointerup | Called when a pointer is released | `((event: PointerEvent) => void)` | - |

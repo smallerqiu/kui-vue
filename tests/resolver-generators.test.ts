@@ -34,6 +34,7 @@ describe("resolver generators", () => {
     expect(props.map((prop) => prop.name)).toContain("type");
     expect(props.map((prop) => prop.name)).not.toContain("onDrag");
     expect(props.length).toBeLessThan(20);
+    expect(props.find((prop) => prop.name === "icon")?.type).toBe("IconType[] | undefined");
   }, 15_000);
 
   it("distinguishes events and boolean props", () => {
@@ -42,6 +43,8 @@ describe("resolver generators", () => {
     const target = props.find((prop) => prop.name === "target");
 
     expect(change?.eventName).toBe("change");
+    expect(change?.type).toContain("boolean");
+    expect(change?.type).not.toContain("unknown[]");
     expect(change?.boolean).toBe(false);
     expect(target?.boolean).toBe(false);
   });

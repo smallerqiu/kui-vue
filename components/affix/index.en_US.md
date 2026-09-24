@@ -27,9 +27,9 @@ Use this feature cautiously when the visible area of the page is small to avoid 
 
 ## API
 
-| Property     | Description                                                                                       | Type                                | Default |
-| ------------ | ------------------------------------------------------------------------------------------------- | ----------------------------------- | ------- |
-| offsetTop    | Affix after reaching the specified offset from the target top                                     | number                              | 0       |
-| offsetBottom | Affix after reaching the specified offset from the target bottom; takes priority over `offsetTop` | number                              | -       |
-| target       | Scroll target observed by Affix                                                                   | () => Window \| HTMLElement \| null | window  |
-| change       | Emitted when the affixed state changes                                                            | (affixed: boolean) => void          | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| offsetTop | Affix after reaching the specified offset from the target top | `number` | 0 |
+| offsetBottom | Affix after reaching the specified offset from the target bottom; takes priority over `offsetTop` | `number` | - |
+| target | Scroll target observed by Affix | `() => Window \| HTMLElement \| null` | window |
+| change | Emitted when the affixed state changes | `(affixed: boolean) => void` | - |

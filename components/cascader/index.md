@@ -32,36 +32,36 @@
 
 ## API
 
-| 属性          | 说明                                                                                   | 类型                 | 默认值      |
-| :------------ | :------------------------------------------------------------------------------------- | :------------------- | :---------- |
-| modelValue    | 选中项的路径值数组（如 `['zhejiang', 'hangzhou', 'xihu']`）。                          | (string \| number)[] | -           |
-| value         | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。          | (string \| number)[] | `[]`        |
-| options       | 可选择的级联数据源树状结构。                                                           | CascaderOption[]     | `[]`        |
-| placeholder   | 当没有任何选择路径时的兜底提示占位文案。                                               | string               | `"请选择"`  |
-| disabled      | 是否完全禁用整个组件交互。                                                             | boolean              | `false`     |
-| readonly      | 是否只读，不可展开、清空或修改。                                                       | boolean              | `false`     |
-| clearable     | 是否支持一键清空所选路径。                                                             | boolean              | `true`      |
-| size          | 组件的大小尺寸规格。可选值：`'large'` \| `'small'` \| `undefined`。                    | string               | `undefined` |
-| expandTrigger | 下一级菜单的展开交互触发方式。可选值：`'click'` (点击) 或 `'hover'` (鼠标悬浮即展开)。 | 'click' \| 'hover'   | `'click'`   |
-| showAllLevels | 是否展示完整选中的祖先路径。若为 `false` 则仅在输入框内显示最终的末端叶子节点。        | boolean              | `true`      |
-| separator     | 当 `showAllLevels` 开启时，各层级标签之间的多级分隔符。                                | string               | `" / "`     |
-| bordered      | 是否显示边框                                                                           | boolean              | true        |
-| theme         | 主题                                                                                   | string               | fill        |
-| showArrow     | 是否显示下拉按钮                                                                       | boolean              | true        |
-| icon          | 自定义图标                                                                             | string               | -           |
-| shape         | shape='circle' 时呈现圆角                                                              | string               | -           |
-| placement     | 下拉展示的方位                                                                         | string               | -           |
-| emptyText     | 没有数据时展示的提示                                                                   | string               | '暂无数据'  |
-| loadData      | 异步加载子节点；返回子节点数组，或自行更新 `option.children`                           | `CascaderLoadData`   | -           |
-| arrowIcon     | 自定义箭头图标                                                                         | string               | -           |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| modelValue | 选中项的路径值数组（如 `['zhejiang', 'hangzhou', 'xihu']`）。 | `CascaderValue` | - |
+| value | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | `CascaderValue` | `[]` |
+| options | 可选择的级联数据源树状结构。 | `CascaderOption[]` | `[]` |
+| placeholder | 当没有任何选择路径时的兜底提示占位文案。 | `string` | `"请选择"` |
+| disabled | 是否完全禁用整个组件交互。 | `boolean` | `false` |
+| readonly | 是否只读，不可展开、清空或修改。 | `boolean` | `false` |
+| clearable | 是否支持一键清空所选路径。 | `boolean` | `true` |
+| size | 组件的大小尺寸规格。可选值：`'large'` \| `'small'` \| `undefined`。 | `"small" \| "medium" \| "large"` | `undefined` |
+| expandTrigger | 下一级菜单的展开交互触发方式。可选值：`'click'` (点击) 或 `'hover'` (鼠标悬浮即展开)。 | `"hover" \| "click"` | `'click'` |
+| showAllLevels | 是否展示完整选中的祖先路径。若为 `false` 则仅在输入框内显示最终的末端叶子节点。 | `boolean` | `true` |
+| separator | 当 `showAllLevels` 开启时，各层级标签之间的多级分隔符。 | `string` | `" / "` |
+| bordered | 是否显示边框 | `boolean` | true |
+| theme | 主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| showArrow | 是否显示下拉按钮 | `boolean` | true |
+| icon | 自定义图标 | `IconType[]` | - |
+| shape | shape='circle' 时呈现圆角 | `"default" \| "circle" \| "square" \| "round"` | - |
+| placement | 下拉展示的方位 | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | - |
+| emptyText | 没有数据时展示的提示 | `string` | '暂无数据' |
+| loadData | 异步加载子节点；返回子节点数组，或自行更新 `option.children` | `CascaderLoadData` | - |
+| arrowIcon | 自定义箭头图标 | `IconType[]` | - |
 
 ## 事件
 
-| 事件         | 说明                     | 参数                             |
-| ------------ | ------------------------ | -------------------------------- |
-| change       | 选中路径或清空时触发     | `(value: CascaderValue) => void` |
+| 事件 | 说明 | 类型 |
+| --- | --- | --- |
+| change | 选中路径或清空时触发 | `(value: CascaderValue) => void` |
 | expandChange | 展开的级联路径变化时触发 | `(value: CascaderValue) => void` |
-| openChange   | 下拉框显示状态变化时触发 | `(open: boolean) => void`        |
+| openChange | 下拉框显示状态变化时触发 | `(open: boolean) => void` |
 
 ## CascaderOption
 

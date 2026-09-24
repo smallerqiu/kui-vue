@@ -64,38 +64,38 @@
 
 ## Upload API
 
-| 属性            | 说明                                                                                                                           | 类型                                                  | 默认值   |
-| --------------- | ------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------- | -------- |
-| accept          | 接受上传的文件类型, 详见 [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) | string                                                | -        |
-| action          | 上传的地址                                                                                                                     | string                                                | -        |
-| method          | 上传请求的 http method                                                                                                         | string                                                | post     |
-| data            | 上传可能所需的其它参数                                                                                                         | Record<string, string \| number \| boolean \| Blob>   | {}       |
-| disabled        | 是否禁用                                                                                                                       | boolean                                               | false    |
-| readonly        | 是否只读，仅展示文件，不可选择、上传或删除                                                                                     | boolean                                               | false    |
-| headers         | 设置上传的请求头部                                                                                                             | Object                                                | -        |
-| withCredentials | 跨域请求是否携带凭证                                                                                                           | boolean                                               | false    |
-| timeout         | 请求超时时间（毫秒），`0` 表示不限制                                                                                           | number                                                | 0        |
-| customRequest   | 自定义上传请求                                                                                                                 | UploadCustomRequest                                   | -        |
-| parseResponse   | 自定义 XHR 响应解析                                                                                                            | (xhr: XMLHttpRequest) => unknown                      | -        |
-| multiple        | 是否支持多选文件                                                                                                               | boolean                                               | false    |
-| directory       | 是否支持上传目录                                                                                                               | boolean                                               | false    |
-| showUploadList  | 是否显示上传列表                                                                                                               | boolean                                               | true     |
-| autoTrigger     | 是否自动上传                                                                                                                   | boolean                                               | true     |
-| draggable       | 是否支持拖拽上传                                                                                                               | boolean                                               | false    |
-| sortable        | 照片墙是否支持拖动排序                                                                                                         | boolean                                               | false    |
-| preview         | 点击照片是否打开图片预览                                                                                                       | boolean                                               | true     |
-| validateAccept  | 是否校验文件类型                                                                                                               | boolean                                               | true     |
-| maxConcurrent   | 最大并发上传数                                                                                                                 | number                                                | Infinity |
-| fileList        | 上传的文件列表                                                                                                                 | UploadFile[]                                          | []       |
-| name            | 发到后台的文件参数名,默认`file`                                                                                                | string                                                | 'file'   |
-| uploadIcon      | 上传域的辅助图标                                                                                                               | IconType                                              | Add      |
-| uploadText      | 上传域的辅助文字                                                                                                               | string                                                | -        |
-| uploadSubText   | 上传域的二级辅助文字                                                                                                           | string                                                | -        |
-| limit           | 最多允许上传文件个数                                                                                                           | number                                                | -        |
-| minSize         | 上传文件最小单位(KB)                                                                                                           | number                                                | -        |
-| maxSize         | 上传文件最大单位(KB)                                                                                                           | number                                                | -        |
-| transformFile   | 在上传之前转换文件                                                                                                             | (file: File) => File \| Blob \| Promise<File \| Blob> | -        |
-| type            | 选择上传文件之后所呈现的形式                                                                                                   | `picture \| list`                                     | list     |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| accept | 接受上传的文件类型, 详见 [input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept) | `string` | - |
+| action | 上传的地址 | `string` | - |
+| method | 上传请求的 http method | `string` | post |
+| data | 上传可能所需的其它参数 | `Record<string, string \| number \| boolean \| Blob>` | {} |
+| disabled | 是否禁用 | `boolean` | false |
+| readonly | 是否只读，仅展示文件，不可选择、上传或删除 | `boolean` | false |
+| headers | 设置上传的请求头部 | `Record<string, string>` | - |
+| withCredentials | 跨域请求是否携带凭证 | `boolean` | false |
+| timeout | 请求超时时间（毫秒），`0` 表示不限制 | `number` | 0 |
+| customRequest | 自定义上传请求 | `UploadCustomRequest` | - |
+| parseResponse | 自定义 XHR 响应解析 | `((xhr: XMLHttpRequest) => unknown)` | - |
+| multiple | 是否支持多选文件 | `boolean` | false |
+| directory | 是否支持上传目录 | `boolean` | false |
+| showUploadList | 是否显示上传列表 | `boolean` | true |
+| autoTrigger | 是否自动上传 | `boolean` | true |
+| draggable | 是否支持拖拽上传 | `boolean` | false |
+| sortable | 照片墙是否支持拖动排序 | `boolean` | false |
+| preview | 点击照片是否打开图片预览 | `boolean` | true |
+| validateAccept | 是否校验文件类型 | `boolean` | true |
+| maxConcurrent | 最大并发上传数 | `number` | Infinity |
+| fileList | 上传的文件列表 | `UploadFile[]` | [] |
+| name | 发到后台的文件参数名,默认`file` | `string` | 'file' |
+| uploadIcon | 上传域的辅助图标 | `IconType[]` | Add |
+| uploadText | 上传域的辅助文字 | `string` | - |
+| uploadSubText | 上传域的二级辅助文字 | `string` | - |
+| limit | 最多允许上传文件个数 | `number` | - |
+| minSize | 上传文件最小单位(KB) | `number` | - |
+| maxSize | 上传文件最大单位(KB) | `number` | - |
+| transformFile | 在上传之前转换文件 | `((file: File) => File \| Blob \| Promise<File \| Blob>)` | - |
+| type | 选择上传文件之后所呈现的形式 | `"picture" \| "list"` | list |
 
 ## Event API
 

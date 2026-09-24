@@ -22,20 +22,20 @@ Displays items grouped by status and supports drag-and-drop transitions.
 
 ## API
 
-| Property       | Description                                                | Type               | Default |
-| -------------- | ---------------------------------------------------------- | ------------------ | ------- |
-| columns        | Column definitions                                         | KanbanColumnData[] | []      |
-| data           | Kanban items                                               | KanbanItemData[]   | []      |
-| rowKey         | Unique item key field                                      | string             | id      |
-| statusKey      | Item status field                                          | string             | status  |
-| draggable      | Enable drag and drop                                       | boolean            | true    |
-| emptyText      | Empty column description; defaults to the global locale    | string             | -       |
-| minColumnWidth | Minimum column width                                       | number \| string   | 250     |
-| theme          | Column appearance                                          | `fill \| outline`  | fill    |
-| columnTitle    | Custom column heading, scoped with `{ column, items }`     | VNodeChild         | -       |
-| item           | Custom card content, scoped with `{ item, column, index }` | VNodeChild         | -       |
-| empty          | Custom empty-column content, scoped with `{ column }`      | VNodeChild         | -       |
-| footer         | Custom column footer, scoped with `{ column, items }`      | VNodeChild         | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| columns | Column definitions | `KanbanColumnData[]` | [] |
+| data | Kanban items | `KanbanItemData[]` | [] |
+| rowKey | Unique item key field | `string` | id |
+| statusKey | Item status field | `string` | status |
+| draggable | Enable drag and drop | `boolean` | true |
+| emptyText | Empty column description; defaults to the global locale | `string` | - |
+| minColumnWidth | Minimum column width | `string \| number` | 250 |
+| theme | Column appearance | `"fill" \| "outline"` | fill |
+| columnTitle | Custom column heading, scoped with `{ column, items }` | VNodeChild | - |
+| item | Custom card content, scoped with `{ item, column, index }` | VNodeChild | - |
+| empty | Custom empty-column content, scoped with `{ column }` | VNodeChild | - |
+| footer | Custom column footer, scoped with `{ column, items }` | VNodeChild | - |
 
 ### KanbanColumnData
 

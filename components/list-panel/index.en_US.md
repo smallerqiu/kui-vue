@@ -22,15 +22,15 @@ Provides a consistent layout for filters, result summaries, list content and pag
 
 ## API
 
-| Property      | Description                                       | Type                           | Default |
-| ------------- | ------------------------------------------------- | ------------------------------ | ------- |
-| summary       | Result summary, customizable via the named slot   | string \| number \| VNodeChild | -       |
-| bordered      | Show border                                       | boolean                        | true    |
-| theme         | Panel theme                                       | `fill \| outline \| plain`     | outline |
-| shape         | Panel shape                                       | 'round' \| 'square'            | round   |
-| size          | Panel size                                        | SizeType                       | medium  |
-| selectedCount | Current selection count used to show bulk actions | number                         | 0       |
-| filters       | Query controls                                    | VNodeChild                     | -       |
-| actions       | Toolbar actions                                   | VNodeChild                     | -       |
-| selection     | Bulk action toolbar, scoped with `{ count }`      | VNodeChild                     | -       |
-| footer        | Pagination or footer actions                      | VNodeChild                     | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| summary | Result summary, customizable via the named slot | `VNodeChild` | - |
+| bordered | Show border | `boolean` | true |
+| theme | Panel theme | `"fill" \| "outline" \| "plain"` | outline |
+| shape | Panel shape | `"square" \| "round"` | round |
+| size | Panel size | `"small" \| "medium" \| "large"` | medium |
+| selectedCount | Current selection count used to show bulk actions | `number` | 0 |
+| filters | Query controls | VNodeChild | - |
+| actions | Toolbar actions | VNodeChild | - |
+| selection | Bulk action toolbar, scoped with `{ count }` | VNodeChild | - |
+| footer | Pagination or footer actions | VNodeChild | - |

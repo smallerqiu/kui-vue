@@ -18,10 +18,10 @@
 
 ## API
 
-| 属性        | 说明                             | 类型                 | 默认值 |
-| ----------- | -------------------------------- | -------------------- | ------ |
-| title       | 页面标题，也可通过同名插槽自定义 | string \| VNodeChild | -      |
-| description | 页面说明，也可通过同名插槽自定义 | string \| VNodeChild | -      |
-| breadcrumb  | 面包屑区域                       | VNodeChild           | -      |
-| back        | 返回区域                         | VNodeChild           | -      |
-| actions     | 页面操作区域                     | VNodeChild           | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| title | 页面标题，也可通过同名插槽自定义 | `string` | - |
+| description | 页面说明，也可通过同名插槽自定义 | `string` | - |
+| breadcrumb | 面包屑区域 | VNodeChild | - |
+| back | 返回区域 | VNodeChild | - |
+| actions | 页面操作区域 | VNodeChild | - |

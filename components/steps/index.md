@@ -30,20 +30,20 @@
 
 ## Steps API
 
-| 属性      | 说明     | 类型                       | 默认值       |
-| --------- | -------- | -------------------------- | ------------ |
-| current   | 当前步骤 | number                     | 0            |
-| direction | 排列方向 | `horizontal` \| `vertical` | `horizontal` |
-| status    | 当前状态 | `process` \| `error`       | `process`    |
-| items     | 步骤数据 | StepItem[]                 | -            |
-| onChange  | 点击步骤 | (current: number) => void  | -            |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| current | 当前步骤 | `number` | 0 |
+| direction | 排列方向 | `"horizontal" \| "vertical"` | `horizontal` |
+| status | 当前状态 | `"error" \| "process"` | `process` |
+| items | 步骤数据 | `StepItem[]` | - |
+| onChange | 点击步骤 | `(current: number) => void` | - |
 
 ## Step API
 
-| 属性        | 说明       | 类型       | 默认值 |
-| ----------- | ---------- | ---------- | ------ |
-| title       | 标题       | VNodeChild | -      |
-| description | 描述       | VNodeChild | -      |
-| icon        | 自定义节点 | VNodeChild | -      |
-| status      | 单步状态   | StepStatus | -      |
-| disabled    | 禁止点击   | boolean    | false  |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| title | 标题 | `VNodeChild` | - |
+| description | 描述 | `VNodeChild` | - |
+| icon | 自定义节点 | `VNodeChild` | - |
+| status | 单步状态 | `"error" \| "wait" \| "process" \| "finish"` | - |
+| disabled | 禁止点击 | `boolean` | false |

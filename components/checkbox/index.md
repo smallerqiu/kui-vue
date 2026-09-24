@@ -31,31 +31,31 @@
 
 ## API
 
-| 属性          | 说明                                        | 类型                              | 默认值  |
-| ------------- | ------------------------------------------- | --------------------------------- | ------- |
-| checked       | 是否选中，可使用 `v-model:checked` 双向绑定 | boolean                           | false   |
-| label         | 显示的文字                                  | string \| number                  | -       |
-| value         | 结合使用时表示的值                          | string \| number                  | -       |
-| disabled      | 是否禁用当前项                              | boolean                           | false   |
-| readonly      | 是否只读，保持可聚焦但不可切换              | boolean                           | false   |
-| indeterminate | 组合辅助选项控制半选状态                    | boolean                           | false   |
-| modelValue    | 独立使用时通过 `v-model` 绑定的状态值       | string \| number \| boolean       | -       |
-| theme         | 组件呈现主题                                | ThemeType                         | fill    |
-| valueType     | 单位选项的输出值的类型                      | 'string' \| 'number' \| 'boolean' | boolean |
-| onChange      | 在选项状态发生改变时回调                    | (e:ChangeEvent)=>void             | -       |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| checked | 是否选中，可使用 `v-model:checked` 双向绑定 | `boolean` | false |
+| label | 显示的文字 | `string \| number` | - |
+| value | 结合使用时表示的值 | `string \| number \| boolean` | - |
+| disabled | 是否禁用当前项 | `boolean` | false |
+| readonly | 是否只读，保持可聚焦但不可切换 | `boolean` | false |
+| indeterminate | 组合辅助选项控制半选状态 | `boolean` | false |
+| modelValue | 独立使用时通过 `v-model` 绑定的状态值 | `string \| number \| boolean` | - |
+| theme | 组件呈现主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| valueType | 单位选项的输出值的类型 | `"string" \| "number" \| "boolean"` | boolean |
+| onChange | 在选项状态发生改变时回调 | `(event: CheckboxChangeEvent) => void` | - |
 
 ## CheckboxGroup API
 
-| 属性       | 说明                                                                          | 类型                            | 默认值     |
-| ---------- | ----------------------------------------------------------------------------- | ------------------------------- | ---------- |
-| modelValue | 用于设置当前选中的值，可使用 `v-model` 双向绑定                               | (string \| number \| boolean)[] | -          |
-| value      | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | (string \| number \| boolean)[] | []         |
-| disabled   | 是否禁用组件                                                                  | boolean                         | false      |
-| readonly   | 是否只读                                                                      | boolean                         | false      |
-| onChange   | 在选项状态发生改变时触发，返回当前选中的项和状态                              | (any[])=>void                   | -          |
-| direction  | 布局方向                                                                      | 'horizontal' \| 'vertical'      | horizontal |
-| options    | 可以指定子项 `checkbox`                                                       | CheckboxOption[]                | -          |
-| theme      | 组件呈现主题                                                                  | ThemeType                       | fill       |
-| size       | 设置复选框的大小                                                              | SizeType                        | -          |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| modelValue | 用于设置当前选中的值，可使用 `v-model` 双向绑定 | `CheckboxValue[]` | - |
+| value | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | `CheckboxValue[]` | [] |
+| disabled | 是否禁用组件 | `boolean` | false |
+| readonly | 是否只读 | `boolean` | false |
+| onChange | 在选项状态发生改变时触发，返回当前选中的项和状态 | `(value: CheckboxValue[]) => void` | - |
+| direction | 布局方向 | `"horizontal" \| "vertical" \| "inline"` | horizontal |
+| options | 可以指定子项 `checkbox` | `CheckboxOption[]` | - |
+| theme | 组件呈现主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| size | 设置复选框的大小 | `"small" \| "medium" \| "large"` | - |
 
 `options` 中每一项还支持 `disabled` 和 `readonly`。

@@ -32,28 +32,28 @@ A cascading selection box.
 
 ## API
 
-| Property      | Description                                                                                                                   | Type                 | Default           |
-| :------------ | :---------------------------------------------------------------------------------------------------------------------------- | :------------------- | :---------------- |
-| modelValue    | Array of path values bound through `v-model` (e.g., `['zhejiang', 'hangzhou', 'xihu']`).                                      | (string \| number)[] | -                 |
-| value         | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | (string \| number)[] | `[]`              |
-| options       | Tree-structured data source for cascading options.                                                                            | CascaderOption[]     | `[]`              |
-| placeholder   | Fallback placeholder text displayed when no path is selected.                                                                 | string               | `"Please select"` |
-| disabled      | Whether to completely disable interaction for the entire component.                                                           | boolean              | `false`           |
-| readonly      | Read-only; prevents opening, clearing and changing.                                                                           | boolean              | `false`           |
-| clearable     | Whether to support clearing the selected path with one click.                                                                 | boolean              | `true`            |
-| size          | Size specification of the component. Options: `'large'` \| `'small'` \| `undefined`.                                          | string               | `undefined`       |
-| expandTrigger | Interaction mode for expanding the next-level menu. Options: `'click'` or `'hover'`.                                          | 'click' \| 'hover'   | `'click'`         |
-| showAllLevels | Whether to display the full selected ancestor path. If `false`, only the final leaf node is shown in the input box.           | boolean              | `true`            |
-| separator     | Separator between labels of different levels when `showAllLevels` is enabled.                                                 | string               | `" / "`           |
-| bordered      | Whether to display borders                                                                                                    | boolean              | true              |
-| theme         | Theme                                                                                                                         | string               | fill              |
-| showArrow     | Whether to display the dropdown button                                                                                        | boolean              | true              |
-| icon          | Custom Icon                                                                                                                   | string               | -                 |
-| shape         | shape='circle' 时呈现圆角                                                                                                     | string               | -                 |
-| placement     | Dropdown orientation                                                                                                          | string               | -                 |
-| emptyText     | No data available.                                                                                                            | string               | 'No Data'         |
-| loadData      | Loads children asynchronously; return them or update `option.children`                                                        | `CascaderLoadData`   | -                 |
-| arrowIcon     | Custom arrow icon                                                                                                             | string               | -                 |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| modelValue | Array of path values bound through `v-model` (e.g., `['zhejiang', 'hangzhou', 'xihu']`). | `CascaderValue` | - |
+| value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `CascaderValue` | `[]` |
+| options | Tree-structured data source for cascading options. | `CascaderOption[]` | `[]` |
+| placeholder | Fallback placeholder text displayed when no path is selected. | `string` | `"Please select"` |
+| disabled | Whether to completely disable interaction for the entire component. | `boolean` | `false` |
+| readonly | Read-only; prevents opening, clearing and changing. | `boolean` | `false` |
+| clearable | Whether to support clearing the selected path with one click. | `boolean` | `true` |
+| size | Size specification of the component. Options: `'large'` \| `'small'` \| `undefined`. | `"small" \| "medium" \| "large"` | `undefined` |
+| expandTrigger | Interaction mode for expanding the next-level menu. Options: `'click'` or `'hover'`. | `"hover" \| "click"` | `'click'` |
+| showAllLevels | Whether to display the full selected ancestor path. If `false`, only the final leaf node is shown in the input box. | `boolean` | `true` |
+| separator | Separator between labels of different levels when `showAllLevels` is enabled. | `string` | `" / "` |
+| bordered | Whether to display borders | `boolean` | true |
+| theme | Theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| showArrow | Whether to display the dropdown button | `boolean` | true |
+| icon | Custom Icon | `IconType[]` | - |
+| shape | shape='circle' 时呈现圆角 | `"default" \| "circle" \| "square" \| "round"` | - |
+| placement | Dropdown orientation | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | - |
+| emptyText | No data available. | `string` | 'No Data' |
+| loadData | Loads children asynchronously; return them or update `option.children` | `CascaderLoadData` | - |
+| arrowIcon | Custom arrow icon | `IconType[]` | - |
 
 ## Events
 

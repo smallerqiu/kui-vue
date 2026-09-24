@@ -69,23 +69,23 @@ export default {
 
 ## Form API
 
-| 属性       | 说明                                                            | 类型                                     | 默认值     |
-| ---------- | --------------------------------------------------------------- | ---------------------------------------- | ---------- |
-| model      | 表单数据对象                                                    | Object                                   | -          |
-| rules      | 表单验证规则                                                    | FormRules                                | -          |
-| name       | 表单名称，会作为表单字段 id 前缀使用                            | string                                   | -          |
-| labelCol   | label 标签布局，同 `<Col>` 的 span、offset；inline 布局下不生效 | {span:number,offset:number}              | -          |
-| wrapperCol | 控件标签布局，同 `<Col>` 的 span、offset；inline 布局下不生效   | {span:number,offset:number}              | -          |
-| theme      | 组件呈现主题                                                    | string                                   | -          |
-| size       | 子组件的尺寸                                                    | string                                   | -          |
-| layout     | 表单布局                                                        | 'horizontal' \| 'vertical' \| 'inline'   | horizontal |
-| shape      | 子组件的形状                                                    | ShapeType                                | -          |
-| disabled   | 是否禁用表单                                                    | boolean                                  | false      |
-| readonly   | 是否将表单内支持只读的控件统一设为只读                          | boolean                                  | false      |
-| colon      | 是否在标签后显示冒号                                            | boolean                                  | true       |
-| onChange   | 表单字段值变化时触发，返回当前表单数据                          | (model: Record<string, unknown>) => void | -          |
-| onReset    | 表单重置后的回调                                                | ()=> void                                | -          |
-| onSubmit   | 提交并完成校验后触发，返回校验结果                              | (result: { valid: boolean }) => void     | -          |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| model | 表单数据对象 | `Record<string, unknown>` | - |
+| rules | 表单验证规则 | `FormRules` | - |
+| name | 表单名称，会作为表单字段 id 前缀使用 | `string` | - |
+| labelCol | label 标签布局，同 `<Col>` 的 span、offset；inline 布局下不生效 | `ColProps` | - |
+| wrapperCol | 控件标签布局，同 `<Col>` 的 span、offset；inline 布局下不生效 | `ColProps` | - |
+| theme | 组件呈现主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| size | 子组件的尺寸 | `"small" \| "medium" \| "large"` | - |
+| layout | 表单布局 | `"horizontal" \| "vertical" \| "inline"` | horizontal |
+| shape | 子组件的形状 | `"default" \| "circle" \| "square" \| "round"` | - |
+| disabled | 是否禁用表单 | `boolean` | false |
+| readonly | 是否将表单内支持只读的控件统一设为只读 | `boolean` | false |
+| colon | 是否在标签后显示冒号 | `boolean` | true |
+| onChange | 表单字段值变化时触发，返回当前表单数据 | `(model: Record<string, unknown>) => void` | - |
+| onReset | 表单重置后的回调 | `() => void` | - |
+| onSubmit | 提交并完成校验后触发，返回校验结果 | `(result: FormSubmitEvent) => void` | - |
 
 ## Form Expose API
 
@@ -98,12 +98,12 @@ export default {
 
 ## FormItem API
 
-| 属性  | 说明                                           | 类型       | 默认值 |
-| ----- | ---------------------------------------------- | ---------- | ------ |
-| prop  | 对应表单域 model 里的字段，表单验证必须字段    | string     | -      |
-| label | 标签文本                                       | string     | -      |
-| rules | 表单验证规则                                   | FormRule[] | -      |
-| colon | 是否在标签后显示冒号；未设置时继承 Form 的配置 | boolean    | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| prop | 对应表单域 model 里的字段，表单验证必须字段 | `string` | - |
+| label | 标签文本 | `string` | - |
+| rules | 表单验证规则 | `FormRule \| FormRule[]` | - |
+| colon | 是否在标签后显示冒号；未设置时继承 Form 的配置 | `boolean` | - |
 
 ## rules API
 

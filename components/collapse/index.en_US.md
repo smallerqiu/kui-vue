@@ -31,14 +31,14 @@ Content area that can be collapsed/expanded.
 
 ## API
 
-| Property  | Description                                                                                 | Type                            | Default |
-| --------- | ------------------------------------------------------------------------------------------- | ------------------------------- | ------- |
-| openKeys  | Keys of expanded panels. Supports two-way binding with `v-model:openKeys`                   | (string \| number)[]            | []      |
-| accordion | Whether to enable accordion mode. When enabled, at most one panel can be expanded at a time | boolean                         | false   |
-| sample    | Whether to enable simple mode                                                               | boolean                         | false   |
-| onChange  | Callback triggered when switching panels, returns the `name` of the current tab             | (key: string \| number) => void | -       |
-| theme     | Appearance theme                                                                            | ThemeType                       | outline |
-| shape     | Panel shape                                                                                 | 'round' \| 'square'             | round   |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| openKeys | Keys of expanded panels. Supports two-way binding with `v-model:openKeys` | `(string \| number)[]` | [] |
+| accordion | Whether to enable accordion mode. When enabled, at most one panel can be expanded at a time | `boolean` | false |
+| sample | Whether to enable simple mode | `boolean` | false |
+| onChange | Callback triggered when switching panels, returns the `name` of the current tab | `(key: CollapseKey) => void` | - |
+| theme | Appearance theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| shape | Panel shape | `"square" \| "round"` | round |
 
 ## Panel
 

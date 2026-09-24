@@ -23,12 +23,12 @@
 
 ## API
 
-| 属性            | 说明                                        | 类型                        | 默认值              |
-| --------------- | ------------------------------------------- | --------------------------- | ------------------- |
-| height          | 页面滚动高度达到该值时才显示 `BackTop` 组件 | number                      | 100                 |
-| bottom          | 组件距离底部的距离                          | string \| number            | 50                  |
-| right           | 组件距离右部的距离                          | string \| number            | 50                  |
-| behavior        | 滚动行为                                    | 'smooth' \| 'auto'          | smooth              |
-| onClick         | 点击按钮时触发                              | (event: MouseEvent) => void | -                   |
-| onVisibleChange | 显示状态变化时触发                          | (visible: boolean) => void  | -                   |
-| target          | 需要回顶部的容器                            | () => HTMLElement \| null   | () => document.body |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| height | 页面滚动高度达到该值时才显示 `BackTop` 组件 | `number` | 100 |
+| bottom | 组件距离底部的距离 | `string \| number` | 50 |
+| right | 组件距离右部的距离 | `string \| number` | 50 |
+| behavior | 滚动行为 | `"auto" \| "instant" \| "smooth"` | smooth |
+| onClick | 点击按钮时触发 | `(event: MouseEvent) => void` | - |
+| onVisibleChange | 显示状态变化时触发 | `(visible: boolean) => void` | - |
+| target | 需要回顶部的容器 | `() => HTMLElement \| null` | () => document.body |

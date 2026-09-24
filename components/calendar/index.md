@@ -18,21 +18,21 @@
 
 ## API
 
-| 属性           | 说明                                                                          | 类型                  | 默认值   |
-| -------------- | ----------------------------------------------------------------------------- | --------------------- | -------- |
-| modelValue     | 选中日期，格式 `YYYY-MM-DD`，支持 `v-model`                                   | string                | -        |
-| value          | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | string                | -        |
-| events         | 日程数据                                                                      | `CalendarEventData[]` | `[]`     |
-| firstDayOfWeek | 每周起始日，0 为周日                                                          | number                | 根据语言 |
-| maxEvents      | 单日最多展示的事件数                                                          | number                | 3        |
-| showToolbar    | 是否展示工具栏                                                                | boolean               | true     |
-| todayText      | 今日按钮文字                                                                  | string                | 根据语言 |
-| weekdays       | 星期名称，按周日至周六排列                                                    | `string[]`            | 根据语言 |
-| title          | 自定义月份标题，作用域参数为 `{ year, month }`                                | VNodeChild            | -        |
-| extra          | 工具栏右侧扩展内容                                                            | VNodeChild            | -        |
-| dateCell       | 自定义日期单元格标题，作用域参数为 `CalendarDateCell`                         | VNodeChild            | -        |
-| event          | 自定义日程内容，作用域参数为 `{ event, cell }`                                | VNodeChild            | -        |
-| more           | 自定义超出数量提示，作用域参数为 `{ count, cell }`                            | VNodeChild            | -        |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| modelValue | 选中日期，格式 `YYYY-MM-DD`，支持 `v-model` | `string` | - |
+| value | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | `string` | - |
+| events | 日程数据 | `CalendarEventData[]` | `[]` |
+| firstDayOfWeek | 每周起始日，0 为周日 | `number` | 根据语言 |
+| maxEvents | 单日最多展示的事件数 | `number` | 3 |
+| showToolbar | 是否展示工具栏 | `boolean` | true |
+| todayText | 今日按钮文字 | `string` | 根据语言 |
+| weekdays | 星期名称，按周日至周六排列 | `string[]` | 根据语言 |
+| title | 自定义月份标题，作用域参数为 `{ year, month }` | VNodeChild | - |
+| extra | 工具栏右侧扩展内容 | VNodeChild | - |
+| dateCell | 自定义日期单元格标题，作用域参数为 `CalendarDateCell` | VNodeChild | - |
+| event | 自定义日程内容，作用域参数为 `{ event, cell }` | VNodeChild | - |
+| more | 自定义超出数量提示，作用域参数为 `{ count, cell }` | VNodeChild | - |
 
 Calendar 与 DatePicker 不共享内部状态，但会读取同一个 `ConfigProvider locale`。DatePicker 负责选择日期或时间，Calendar 负责按月展示日期与日程，二者可以组合使用。
 
@@ -50,8 +50,8 @@ Calendar 与 DatePicker 不共享内部状态，但会读取同一个 `ConfigPro
 
 ## Events
 
-| 事件名      | 说明                       | 回调参数                                                     |
-| ----------- | -------------------------- | ------------------------------------------------------------ |
-| change      | 选择日期或点击“今天”时触发 | `(date: string, cell: CalendarDateCell) => void`             |
-| monthChange | 切换展示月份时触发         | `(value: { year: number; month: number }) => void`           |
-| eventClick  | 点击日程时触发             | `(event: CalendarEventData, cell: CalendarDateCell) => void` |
+| 事件名 | 说明 | 类型 |
+| --- | --- | --- |
+| change | 选择日期或点击“今天”时触发 | `(date: string, cell: CalendarDateCell) => void` |
+| monthChange | 切换展示月份时触发 | `(value: { year: number; month: number; }) => void` |
+| eventClick | 点击日程时触发 | `(event: CalendarEventData, cell: CalendarDateCell) => void` |

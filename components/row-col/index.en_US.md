@@ -43,28 +43,28 @@ Two concepts: row `row` and column `col`. Specific usage is as follows:
 
 ## Row API
 
-| Property | Description                                                                                                            | Type               | Default |
-| -------- | ---------------------------------------------------------------------------------------------------------------------- | ------------------ | ------- |
-| align    | Vertical alignment in flex layout: `top` `middle` `bottom`                                                             | string             | `top`   |
-| justify  | Horizontal arrangement in flex layout: `start` `end` `center` `space-around` `space-between`                           | string             | `start` |
-| gutter   | Grid spacing in px. Use `[horizontal, vertical]` to set both directions                                                 | number \| [number, number] | - |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| align | Vertical alignment in flex layout: `top` `middle` `bottom` | `"top" \| "bottom" \| "middle"` | `top` |
+| justify | Horizontal arrangement in flex layout: `start` `end` `center` `space-around` `space-between` | `"center" \| "start" \| "end" \| "space-between" \| "space-around"` | `start` |
+| gutter | Grid spacing in px. Use `[horizontal, vertical]` to set both directions | `number \| [number, number]` | - |
 
 ## Col API
 
-| Property | Description                                             | Type              | Default |
-| -------- | ------------------------------------------------------- | ----------------- | ------- |
-| span     | Occupied columns from 0~24; `0` hides the column        | number            | -       |
-| offset   | Left offset from 0~24                                   | number            | -       |
-| order    | Column order from 0~24                                  | number            | -       |
-| push     | Move the column right by 0~24 columns                   | number            | -       |
-| pull     | Move the column left by 0~24 columns                    | number            | -       |
-| flex     | Flex fill, such as `1`, `auto`, `100px`, or `1 1 200px` | number \| string  | -       |
-| xs       | `<576px`; accepts a span number or a responsive object  | number \| ColSize | -       |
-| sm       | `≥576px`                                                | number \| ColSize | -       |
-| md       | `≥768px`                                                | number \| ColSize | -       |
-| lg       | `≥992px`                                                | number \| ColSize | -       |
-| xl       | `≥1200px`                                               | number \| ColSize | -       |
-| xxl      | `≥1600px`                                               | number \| ColSize | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| span | Occupied columns from 0~24; `0` hides the column | `number` | - |
+| offset | Left offset from 0~24 | `number` | - |
+| order | Column order from 0~24 | `number` | - |
+| push | Move the column right by 0~24 columns | `number` | - |
+| pull | Move the column left by 0~24 columns | `number` | - |
+| flex | Flex fill, such as `1`, `auto`, `100px`, or `1 1 200px` | `string \| number` | - |
+| xs | `<576px`; accepts a span number or a responsive object | `ColResponsiveSize` | - |
+| sm | `≥576px` | `ColResponsiveSize` | - |
+| md | `≥768px` | `ColResponsiveSize` | - |
+| lg | `≥992px` | `ColResponsiveSize` | - |
+| xl | `≥1200px` | `ColResponsiveSize` | - |
+| xxl | `≥1600px` | `ColResponsiveSize` | - |
 
 ```ts
 interface ColSize {

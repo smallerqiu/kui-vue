@@ -43,48 +43,48 @@
 
 ## Input API
 
-| 属性                | 说明                                       | 类型                             | 默认值 |
-| ------------------- | ------------------------------------------ | -------------------------------- | ------ |
-| modelValue          | 绑定的值，可使用 `v-model` 双向绑定        | string \| number                 | -      |
-| value               | 非受控输入框的初始值                       | unknown                          | -      |
-| type                | 原生输入类型                               | 'text' \| 'password' \| 'hidden' | text   |
-| inputType           | 内部输入元素类型，通常保持为 input         | string                           | input  |
-| disabled            | 是否禁用输入框                             | boolean                          | false  |
-| readonly            | 是否只读，可聚焦和复制但不可修改           | boolean                          | false  |
-| shape               | 输入框形状                                 | ShapeType                        | -      |
-| size                | 按钮尺寸,可选值 `small`、`large`，默认不选 | string                           | -      |
-| icon                | 输入框图标                                 | string                           | -      |
-| suffix              | 输入框内部后缀，复杂内容可使用同名插槽     | string \| VNodeChild             | -      |
-| prefix              | 输入框内部前缀，复杂内容可使用同名插槽     | string \| VNodeChild             | -      |
-| addonBefore         | 输入框外部前置附件，复杂内容可使用同名插槽 | string \| number \| VNodeChild   | -      |
-| addonAfter          | 输入框外部后置附件，复杂内容可使用同名插槽 | string \| number \| VNodeChild   | -      |
-| theme               | 主题                                       | string                           | fill   |
-| clearable           | 有值且悬停时显示清除按钮                   | boolean                          | true   |
-| visiblePasswordIcon | 是否显示切换按钮或者控制密码显隐           | boolean                          | true   |
-| onSearch            | 搜索事件的回调                             | (value: string) => void          | -      |
-| onIconClick         | 图标点击事件的回调                         | (e: Event) => void               | -      |
-| onClear             | 按下清除按钮的回调                         | () => void                       | -      |
-| onChange            | 输入框内容变化时的回调                     | (value: string) => void          | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| modelValue | 绑定的值，可使用 `v-model` 双向绑定 | `unknown` | - |
+| value | 非受控输入框的初始值 | `any` | - |
+| type | 原生输入类型 | `InputTypeHTMLAttribute` | text |
+| inputType | 内部输入元素类型，通常保持为 input | `string` | input |
+| disabled | 是否禁用输入框 | `boolean` | false |
+| readonly | 是否只读，可聚焦和复制但不可修改 | `boolean` | false |
+| shape | 输入框形状 | `"default" \| "circle" \| "square" \| "round"` | - |
+| size | 按钮尺寸,可选值 `small`、`large`，默认不选 | `"small" \| "medium" \| "large"` | - |
+| icon | 输入框图标 | `IconType[]` | - |
+| suffix | 输入框内部后缀，复杂内容可使用同名插槽 | `VNodeChild` | - |
+| prefix | 输入框内部前缀，复杂内容可使用同名插槽 | `VNodeChild` | - |
+| addonBefore | 输入框外部前置附件，复杂内容可使用同名插槽 | `VNodeChild` | - |
+| addonAfter | 输入框外部后置附件，复杂内容可使用同名插槽 | `VNodeChild` | - |
+| theme | 主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| clearable | 有值且悬停时显示清除按钮 | `boolean` | true |
+| visiblePasswordIcon | 是否显示切换按钮或者控制密码显隐 | `boolean` | true |
+| onSearch | 搜索事件的回调 | `((value: string) => void)` | - |
+| onIconClick | 图标点击事件的回调 | `((event: MouseEvent) => void)` | - |
+| onClear | 按下清除按钮的回调 | `(() => void)` | - |
+| onChange | 输入框内容变化时的回调 | `((value: string) => void)` | - |
 
 ## TextArea API
 
-| 属性        | 说明                                | 类型                         | 默认值 |
-| ----------- | ----------------------------------- | ---------------------------- | ------ |
-| modelValue  | 绑定的值，可使用 `v-model` 双向绑定 | string \| number \| string[] | -      |
-| value       | 非受控文本域的初始值                | string \| number \| string[] | -      |
-| rows        | 文本域可见行数                      | number                       | 2      |
-| placeholder | 输入提示文字                        | string                       | -      |
-| disabled    | 是否禁用文本域                      | boolean                      | false  |
-| readonly    | 是否只读                            | boolean                      | false  |
-| theme       | 文本域主题                          | ThemeType                    | fill   |
-| size        | 文本域尺寸                          | SizeType                     | -      |
-| shape       | 文本域形状                          | ShapeType                    | -      |
-| onChange    | 内容变化时触发                      | (value: string) => void      | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| modelValue | 绑定的值，可使用 `v-model` 双向绑定 | `string \| number \| readonly string[] \| null` | - |
+| value | 非受控文本域的初始值 | `string \| number \| readonly string[] \| null` | - |
+| rows | 文本域可见行数 | `number` | 2 |
+| placeholder | 输入提示文字 | `string` | - |
+| disabled | 是否禁用文本域 | `boolean` | false |
+| readonly | 是否只读 | `boolean` | false |
+| theme | 文本域主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| size | 文本域尺寸 | `"small" \| "medium" \| "large"` | - |
+| shape | 文本域形状 | `"default" \| "circle" \| "square" \| "round"` | - |
+| onChange | 内容变化时触发 | `((value: string) => void)` | - |
 
 ## Input Group API
 
-| 属性    | 说明                                           | 类型    | 默认值 |
-| ------- | ---------------------------------------------- | ------- | ------ |
-| block   | 是否继承父集宽度                               | boolean | false  |
-| compact | 是否使用紧凑模式                               | boolean | true   |
-| size    | 子组件的间距,可选值 `small`、`large`，默认不选 | string  | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| block | 是否继承父集宽度 | boolean | false |
+| compact | 是否使用紧凑模式 | boolean | true |
+| size | 子组件的间距,可选值 `small`、`large`，默认不选 | `"small" \| "medium" \| "large"` | - |

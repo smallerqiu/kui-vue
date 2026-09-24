@@ -24,16 +24,16 @@ Displays the current page's position in the system hierarchy and allows navigati
 
 ## Breadcrumb API
 
-| Property  | Description      | Type                 | Default |
-| --------- | ---------------- | -------------------- | ------- |
-| separator | Custom separator | string \| VNodeChild | `/`     |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| separator | Custom separator | `string \| number \| boolean \| void \| VNode<RendererNode, RendererElement, { [key: string]: any; }> \| VNodeArrayChildren \| null` | `/` |
 
 ## BreadcrumbItem API
 
-| Property | Description                     | Type                        | Default |
-| -------- | ------------------------------- | --------------------------- | ------- |
-| href     | Link URL                        | string                      | -       |
-| target   | Link browsing context           | string                      | -       |
-| rel      | Link relationship               | string                      | -       |
-| icon     | Item icon                       | IconType[]                  | -       |
-| onClick  | Called when the item is clicked | (event: MouseEvent) => void | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| href | Link URL | `string` | - |
+| target | Link browsing context | `string` | - |
+| rel | Link relationship | `string` | - |
+| icon | Item icon | `IconType[]` | - |
+| onClick | Called when the item is clicked | `(event: MouseEvent) => void` | - |

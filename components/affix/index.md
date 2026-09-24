@@ -27,9 +27,9 @@
 
 ## API
 
-| 属性         | 说明                                                       | 类型                                | 默认值 |
-| ------------ | ---------------------------------------------------------- | ----------------------------------- | ------ |
-| offsetTop    | 距离目标顶部达到指定偏移量后触发                           | number                              | 0      |
-| offsetBottom | 距离目标底部达到指定偏移量后触发；设置后优先于 `offsetTop` | number                              | -      |
-| target       | 设置 Affix 监听的滚动目标                                  | () => Window \| HTMLElement \| null | window |
-| change       | 固定状态改变时触发                                         | (affixed: boolean) => void          | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| offsetTop | 距离目标顶部达到指定偏移量后触发 | `number` | 0 |
+| offsetBottom | 距离目标底部达到指定偏移量后触发；设置后优先于 `offsetTop` | `number` | - |
+| target | 设置 Affix 监听的滚动目标 | `() => Window \| HTMLElement \| null` | window |
+| change | 固定状态改变时触发 | `(affixed: boolean) => void` | - |

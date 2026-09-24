@@ -31,20 +31,20 @@
 
 ## API
 
-| 属性       | 说明                                                                                          | 类型                                      | 默认值     |
-| :--------- | :-------------------------------------------------------------------------------------------- | :---------------------------------------- | :--------- |
-| content    | 水印的文本内容。支持传入字符串，或者数组以支持多行。传入对象数组时，可独立控制每行样式。      | string \| string[] \| WatermarkTextItem[] | `""`       |
-| image      | 图片水印的源地址（Base64 或 URL）。开启后优先渲染图片水印。                                   | string                                    | `""`       |
-| width      | 单个水印区域的宽度，单位 `px`。                                                               | number                                    | `240`      |
-| height     | 单个水印区域的高度，单位 `px`。                                                               | number                                    | `189`      |
-| rotate     | 水印的倾斜旋转角度。                                                                          | number                                    | `-22`      |
-| zIndex     | 水印挂载节点的层级，在 Modal/Drawer 等高级别弹窗中使用时建议调大。                            | number                                    | `999`      |
-| fullscreen | 是否为全屏水印。若为 `true`，则会直接挂载到 `body` 上。                                       | boolean                                   | `false`    |
-| antiTamper | 是否开启高防篡改守护（通过 `MutationObserver` 监听 DOM 节点的删除与属性修改）。               | boolean                                   | `true`     |
-| font       | 全局水印文本的默认兜底样式（包含颜色、字号、粗细、字体族及字形）。                            | WatermarkProps['font']                    | -          |
-| gap        | 水印格子之间的横向与纵向间距，格式为 `[x, y]`。                                               | [number, number]                          | `[40, 40]` |
-| offset     | 水印网格平铺时的起始原点偏移量，格式为 `[x, y]`，用于微调边缘留白。                           | [number, number]                          | `[20, 20]` |
-| layout     | 水印的排列布局模式。可选值：`'grid'` (传统正交网格) 或 `'stagger'` (高级奇偶行交错错落网格)。 | 'grid' \| 'stagger'                       | `'grid'`   |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| content | 水印的文本内容。支持传入字符串，或者数组以支持多行。传入对象数组时，可独立控制每行样式。 | `string \| string[] \| WatermarkTextItem[]` | `""` |
+| image | 图片水印的源地址（Base64 或 URL）。开启后优先渲染图片水印。 | `string` | `""` |
+| width | 单个水印区域的宽度，单位 `px`。 | `number` | `240` |
+| height | 单个水印区域的高度，单位 `px`。 | `number` | `189` |
+| rotate | 水印的倾斜旋转角度。 | `number` | `-22` |
+| zIndex | 水印挂载节点的层级，在 Modal/Drawer 等高级别弹窗中使用时建议调大。 | `number` | `999` |
+| fullscreen | 是否为全屏水印。若为 `true`，则会直接挂载到 `body` 上。 | `boolean` | `false` |
+| antiTamper | 是否开启高防篡改守护（通过 `MutationObserver` 监听 DOM 节点的删除与属性修改）。 | `boolean` | `true` |
+| font | 全局水印文本的默认兜底样式（包含颜色、字号、粗细、字体族及字形）。 | `WatermarkFont` | - |
+| gap | 水印格子之间的横向与纵向间距，格式为 `[x, y]`。 | `number[]` | `[40, 40]` |
+| offset | 水印网格平铺时的起始原点偏移量，格式为 `[x, y]`，用于微调边缘留白。 | `number[]` | `[20, 20]` |
+| layout | 水印的排列布局模式。可选值：`'grid'` (传统正交网格) 或 `'stagger'` (高级奇偶行交错错落网格)。 | `"stagger" \| "grid"` | `'grid'` |
 
 ### WatermarkTextItem
 

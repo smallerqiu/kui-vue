@@ -22,10 +22,10 @@
 
 ## Spin API
 
-| 属性       | 说明                                                                          | 类型                       | 默认值 |
-| ---------- | ----------------------------------------------------------------------------- | -------------------------- | ------ |
-| modelValue | 是否加载状态，可以使用 `v-model` 双向绑定数据                                 | boolean                    | -      |
-| value      | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | boolean                    | true   |
-| mode       | 加载动画类型                                                                  | bounce\|flip\|rotate\|zoom | rotate |
-| delay      | 延迟显示加载效果的时间（防止闪烁）                                            | number                     | 0      |
-| size       | 加载效果的尺寸                                                                | small\|medium\|large       | medium |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| modelValue | 是否加载状态，可以使用 `v-model` 双向绑定数据 | `boolean` | - |
+| value | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | `boolean` | true |
+| mode | 加载动画类型 | `"bounce" \| "flip" \| "rotate" \| "zoom"` | rotate |
+| delay | 延迟显示加载效果的时间（防止闪烁） | `number` | 0 |
+| size | 加载效果的尺寸 | `"small" \| "medium" \| "large"` | medium |

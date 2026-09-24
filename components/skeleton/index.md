@@ -41,15 +41,15 @@
 
 ## API
 
-| 属性       | 说明                                         | 类型                                              | 默认值 |
-| ---------- | -------------------------------------------- | ------------------------------------------------- | ------ |
-| animated   | 是否展示动画效果                             | boolean                                           | false  |
-| avatar     | 是否显示头像占位图                           | boolean \| { size?: SizeType; shape?: ShapeType } | false  |
-| loading    | 为 true 时，显示占位图。反之则直接展示子组件 | boolean                                           | false  |
-| rows       | 设置段落占位图的行数                         | number                                            | 3      |
-| delay      | 延迟显示骨架，避免快速加载时闪烁，单位毫秒   | number                                            | 500    |
-| titleWidth | 标题占位图宽度，取值范围 0-100               | number                                            | 35     |
-| title      | 已废弃，请使用 `titleWidth`                  | number                                            | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| animated | 是否展示动画效果 | `boolean` | false |
+| avatar | 是否显示头像占位图 | `boolean \| { size?: SizeType; shape?: ShapeType; }` | false |
+| loading | 为 true 时，显示占位图。反之则直接展示子组件 | `boolean` | false |
+| rows | 设置段落占位图的行数 | `number` | 3 |
+| delay | 延迟显示骨架，避免快速加载时闪烁，单位毫秒 | `number` | 500 |
+| titleWidth | 标题占位图宽度，取值范围 0-100 | `number` | 35 |
+| title | 已废弃，请使用 `titleWidth` | `number` | - |
 
 ## Avatar Props
 

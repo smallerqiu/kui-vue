@@ -18,10 +18,10 @@ Provides a consistent layout for page titles, descriptions and actions.
 
 ## API
 
-| Property    | Description                                       | Type                 | Default |
-| ----------- | ------------------------------------------------- | -------------------- | ------- |
-| title       | Page title, customizable via the named slot       | string \| VNodeChild | -       |
-| description | Page description, customizable via the named slot | string \| VNodeChild | -       |
-| breadcrumb  | Breadcrumb area                                   | VNodeChild           | -       |
-| back        | Back action area                                  | VNodeChild           | -       |
-| actions     | Page actions                                      | VNodeChild           | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| title | Page title, customizable via the named slot | `string` | - |
+| description | Page description, customizable via the named slot | `string` | - |
+| breadcrumb | Breadcrumb area | VNodeChild | - |
+| back | Back action area | VNodeChild | - |
+| actions | Page actions | VNodeChild | - |

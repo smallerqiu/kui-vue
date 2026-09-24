@@ -22,24 +22,24 @@ Switch quickly between mutually exclusive options.
 
 ## API
 
-| Property   | Description                                                                                                                   | Type                     | Default    |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------ | ---------- |
-| modelValue | Selected value                                                                                                                | string \| number         | -          |
-| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number         | -          |
-| options    | Option data                                                                                                                   | SegmentedOption[]        | []         |
-| disabled   | Disable all options                                                                                                           | boolean                  | false      |
-| readonly   | Read-only state                                                                                                               | boolean                  | false      |
-| block      | Fill the parent width                                                                                                         | boolean                  | false      |
-| direction  | Layout direction                                                                                                              | `horizontal \| vertical` | horizontal |
-| size       | Size                                                                                                                          | SizeType                 | medium     |
-| shape      | Shape                                                                                                                         | ShapeType                | round      |
-| label      | Custom option content with `{ option, selected }`                                                                             | VNodeChild               | -          |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| modelValue | Selected value | `SegmentedValue` | - |
+| value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `SegmentedValue` | - |
+| options | Option data | `SegmentedOption[]` | [] |
+| disabled | Disable all options | `boolean` | false |
+| readonly | Read-only state | `boolean` | false |
+| block | Fill the parent width | `boolean` | false |
+| direction | Layout direction | `"horizontal" \| "vertical"` | horizontal |
+| size | Size | `"small" \| "medium" \| "large"` | medium |
+| shape | Shape | `"default" \| "circle" \| "square" \| "round"` | round |
+| label | Custom option content with `{ option, selected }` | VNodeChild | - |
 
 ## Events
 
-| Event  | Description                      | Parameters                          |
-| ------ | -------------------------------- | ----------------------------------- |
-| change | Triggered when selection changes | `(value: string \| number) => void` |
+| Event | Description | Type |
+| --- | --- | --- |
+| change | Triggered when selection changes | `(value: SegmentedValue) => void` |
 
 ### SegmentedOption
 

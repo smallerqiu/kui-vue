@@ -22,18 +22,18 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 ## API
 
-| Property       | Description                                                  | Type                  | Default   |
-| -------------- | ------------------------------------------------------------ | --------------------- | --------- |
-| title          | Card title, customizable via the named slot                  | VNodeChild            | -         |
-| items          | Data to display                                              | StatNumberItem[]      | []        |
-| precision      | Numerical precision                                          | number                | 0         |
-| statNumberType | Numerical change type                                        | 'rollup' \| 'countup' | 'countup' |
-| separator      | Separator                                                    | string                | -         |
-| reverse        | Whether to reverse number/number description arrangement     | boolean               | false     |
-| bordered       | Show border or not                                           | boolean               | false     |
-| size           | Card size                                                    | SizeType              | medium    |
-| prefix         | Default prefix for all values, scoped with `{ item, index }` | VNodeChild            | -         |
-| suffix         | Default suffix for all values, scoped with `{ item, index }` | VNodeChild            | -         |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| title | Card title, customizable via the named slot | `VNodeChild` | - |
+| items | Data to display | `StatNumberItem[]` | [] |
+| precision | Numerical precision | `number` | 0 |
+| statNumberType | Numerical change type | `"rollup" \| "countup"` | 'countup' |
+| separator | Separator | `string` | - |
+| reverse | Whether to reverse number/number description arrangement | `boolean` | false |
+| bordered | Show border or not | `boolean` | false |
+| size | Card size | `"small" \| "medium" \| "large"` | medium |
+| prefix | Default prefix for all values, scoped with `{ item, index }` | VNodeChild | - |
+| suffix | Default suffix for all values, scoped with `{ item, index }` | VNodeChild | - |
 
 ### items Options
 
@@ -56,7 +56,7 @@ For standalone animated values, formatting, and animation controls, see [StatNum
 
 ### Common appearance
 
-| Property | Description      | Type                       | Default |
-| -------- | ---------------- | -------------------------- | ------- |
-| theme    | Appearance theme | `fill \| outline \| plain` | fill    |
-| shape    | Card shape       | 'round' \| 'square'        | round   |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain"` | fill |
+| shape | Card shape | `"square" \| "round"` | round |

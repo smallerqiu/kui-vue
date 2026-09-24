@@ -34,14 +34,14 @@
 
 ## API
 
-| 属性     | 说明                             | 类型                                              | 默认值     |
-| -------- | -------------------------------- | ------------------------------------------------- | ---------- |
-| bordered | 是否展示边框                     | boolean                                           | false      |
-| column   | 每行项目数，支持响应式配置       | number \| Partial\<Record\<Breakpoint, number\>\> | 3          |
-| extra    | 描述列表的操作区域，显示在右上方 | string \| Slot                                    | -          |
-| layout   | 描述布局                         | `'horizontal'` \| `'vertical'`                    | horizontal |
-| size     | 设置列表大小                     | `'large'` \| `'medium'` \| `'small'`              | large      |
-| title    | 描述列表的标题，显示在最顶部     | string \| Slot                                    | -          |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| bordered | 是否展示边框 | `boolean` | false |
+| column | 每行项目数，支持响应式配置 | `DescriptionsColumn` | 3 |
+| extra | 描述列表的操作区域，显示在右上方 | `string` | - |
+| layout | 描述布局 | `"horizontal" \| "vertical" \| "inline"` | horizontal |
+| size | 设置列表大小 | `"small" \| "medium" \| "large"` | large |
+| title | 描述列表的标题，显示在最顶部 | `string` | - |
 
 ## Item props
 
@@ -52,6 +52,6 @@
 
 ### 通用外观
 
-| 属性  | 说明         | 类型                | 默认值 |
-| ----- | ------------ | ------------------- | ------ |
-| shape | 描述列表形状 | 'round' \| 'square' | round  |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| shape | 描述列表形状 | `"square" \| "round"` | round |

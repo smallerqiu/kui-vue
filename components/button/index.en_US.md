@@ -55,17 +55,17 @@ Vue.use(Button);
 
 ## API
 
-| Property | Description                                                                                          | Type                                                  | Default |
-| -------- | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ------- |
-| type     | Set the button type                                                                                  | 'primary' \| 'link' \| 'dashed' \| 'danger'           | -       |
-| htmlType | Set the native type value of the button                                                              | string                                                | button  |
-| disabled | Disabled state of the button                                                                         | boolean                                               | false   |
-| size     | Button size,                                                                                         | 'small' \| 'large'                                    | -       |
-| color    | Preset semantic color                                                                                | ColorType                                             | -       |
-| shape    | When shape=circle, presents a circular button                                                        | boolean                                               | false   |
-| theme    | Button theme                                                                                         | 'solid' \| 'fill' \| 'outline' \| 'dashed' \| 'plain' | -       |
-| icon | Icon definition imported from kui-icons (e.g. Search), not a string or rendered Icon element | IconType[] | - |
-| loading  | Whether the button is in loading mode                                                                | boolean                                               | false   |
-| href     | The address to jump to when clicked. Specifying this property makes the button behave like an a link | string                                                | -       |
-| target   | Equivalent to the target attribute of an a link, takes effect when href exists                       | string                                                | -       |
-| block    | Option to fit button width to its parent width                                                       | boolean                                               | false   |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| type | Set the button type | `"default" \| "link" \| "warning" \| "text" \| "primary" \| "danger"` | - |
+| htmlType | Set the native type value of the button | `"button" \| "submit" \| "reset"` | button |
+| disabled | Disabled state of the button | `boolean` | false |
+| size | Button size, | `"small" \| "medium" \| "large"` | - |
+| color | Preset semantic color | `"default" \| "red" \| "orange" \| "yellow" \| "olive" \| "green" \| "teal" \| "blue" \| "volcano" \| "violet" \| "cyan" \| "gold" \| "lime" \| "magenta" \| "purple" \| "pink" \| "brown" \| "gray"` | - |
+| shape | When shape=circle, presents a circular button | `"default" \| "circle" \| "square" \| "round"` | false |
+| theme | Button theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| icon | Icon definition imported from kui-icons (e.g. Search), not a string or rendered Icon element | `IconType[]` | - |
+| loading | Whether the button is in loading mode | `boolean` | false |
+| href | The address to jump to when clicked. Specifying this property makes the button behave like an a link | `string` | - |
+| target | Equivalent to the target attribute of an a link, takes effect when href exists | `string` | - |
+| block | Option to fit button width to its parent width | `boolean` | false |

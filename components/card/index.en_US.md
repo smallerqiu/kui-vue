@@ -34,21 +34,21 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 
 ## API
 
-| Property | Description                                | Type                                        | Default |
-| -------- | ------------------------------------------ | ------------------------------------------- | ------- |
-| title    | Card title                                 | string, slot                                | -       |
-| icon     | Icon for the card title                    | string                                      | -       |
-| bordered | Whether the card displays a border         | boolean                                     | true    |
-| theme    | Surface theme                              | 'default' \| 'fill' \| 'outline' \| 'plain' | fill    |
-| shape    | Surface shape                              | 'round' \| 'square'                         | round   |
-| size     | Card size                                  | 'small' \| 'medium' \| 'large'              | medium  |
-| extra    | Card title extension                       | slot                                        | -       |
-| cover    | Card cover; hides the card header when set | VNodeChild                                  | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| title | Card title | `string` | - |
+| icon | Icon for the card title | `IconType[]` | - |
+| bordered | Whether the card displays a border | `boolean` | true |
+| theme | Surface theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| shape | Surface shape | `"square" \| "round"` | round |
+| size | Card size | `"small" \| "medium" \| "large"` | medium |
+| extra | Card title extension | slot | - |
+| cover | Card cover; hides the card header when set | `VNodeChild` | - |
 
 ## CardMeta API
 
-| Property    | Description | Type       | Default |
-| ----------- | ----------- | ---------- | ------- |
-| avatar      | Avatar      | VNodeChild | -       |
-| title       | Title       | VNodeChild | -       |
-| description | Description | VNodeChild | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| avatar | Avatar | `VNodeChild` | - |
+| title | Title | `VNodeChild` | - |
+| description | Description | `VNodeChild` | - |

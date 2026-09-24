@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { syncDocumentation } from "./api-docs.ts";
 import path from "node:path";
 import { getComponentNames } from "../plugins/resolver/index.ts";
 import {
@@ -211,6 +212,10 @@ const components = getComponentNames().map((name) => {
   };
 });
 
+if (process.argv.includes("--docs") || process.argv.includes("--check-docs")) {
+  syncDocumentation(root, components, process.argv.includes("--check-docs"));
+  process.exit(0);
+}
 const metadata = {
   $schema: "https://k-ui.cn/schema/kui-components.schema.json",
   library: "kui-vue",

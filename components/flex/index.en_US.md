@@ -30,10 +30,10 @@
 
 ## Flex API
 
-| Property | Description                                        | Type                                                                                          | Default                                     |
-| -------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| align    | Cross-axis alignment                               | `start` \| `flex-start` \| `end` \| `flex-end` \| `center` \| `baseline`                      | `center` horizontally; `stretch` vertically |
-| justify  | Main-axis alignment                                | `flex-start` \| `center` \| `flex-end` \| `space-between` \| `space-around` \| `space-evenly` | `flex-start`                                |
-| vertical | Whether to display vertically                      | boolean                                                                                       | false                                       |
-| size     | Gap size; array format is `[horizontal, vertical]` | `small` \| `medium` \| `large` \| number \| Array<string \| number>                           | -                                           |
-| wrap     | Whether to wrap                                    | boolean                                                                                       | false                                       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| align | Cross-axis alignment | `"center" \| "start" \| "flex-start" \| "end" \| "flex-end" \| "baseline"` | `center` horizontally; `stretch` vertically |
+| justify | Main-axis alignment | `"center" \| "flex-start" \| "flex-end" \| "space-between" \| "space-around" \| "space-evenly"` | `flex-start` |
+| vertical | Whether to display vertically | `boolean` | false |
+| size | Gap size; array format is `[horizontal, vertical]` | `FlexSizeType` | - |
+| wrap | Whether to wrap | `boolean` | false |

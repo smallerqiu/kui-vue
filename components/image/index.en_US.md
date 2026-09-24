@@ -27,31 +27,31 @@ Previewable images.
 
 ## Image API
 
-| Property    | Description                                            | Type                    | Default |
-| ----------- | ------------------------------------------------------ | ----------------------- | ------- |
-| width       | The width of the component                             | string \| number        | -       |
-| height      | The height of the component                            | string \| number        | -       |
-| src         | The default address of the image to display            | string                  | -       |
-| alt         | Alternative text when the image cannot be displayed    | string                  | -       |
-| type        | Preview content type                                   | `'img'` \| `'media'`    | `img`   |
-| origin      | The large image displayed when clicking the image      | string                  | -       |
-| placeholder | The placeholder displayed when the image fails to load | string                  | -       |
-| imgStyle    | The style of the image                                 | Object                  | -       |
-| showPanel   | Whether to display the extension panel by default      | boolean                 | false   |
-| onClose     | Close trigger event                                    | () => void              | -       |
-| switch      | Multi-image switch trigger event                       | (index: number) => void | -       |
-| tool        | Custom toolbar buttons                                 | slot                    | -       |
-| panel       | Custom extension panel                                 | slot                    | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| width | The width of the component | `string \| number` | - |
+| height | The height of the component | `string \| number` | - |
+| src | The default address of the image to display | `string` | - |
+| alt | Alternative text when the image cannot be displayed | `string` | - |
+| type | Preview content type | `"img" \| "media"` | `img` |
+| origin | The large image displayed when clicking the image | `string` | - |
+| placeholder | The placeholder displayed when the image fails to load | `string` | - |
+| imgStyle | The style of the image | `CSSProperties` | - |
+| showPanel | Whether to display the extension panel by default | `boolean` | false |
+| onClose | Close trigger event | `() => void` | - |
+| switch | Multi-image switch trigger event | `(index: number) => void` | - |
+| tool | Custom toolbar buttons | slot | - |
+| panel | Custom extension panel | slot | - |
 
 ## ImageGroup API
 
-| Property | Description | Type     | Default |
-| -------- | ----------- | -------- | ------- |
-| data     | Image data  | string[] | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| data | Image data | `string[]` | - |
 
 ### Common appearance
 
-| Property | Description      | Type      | Default |
-| -------- | ---------------- | --------- | ------- |
-| theme    | Appearance theme | ThemeType | default |
-| shape    | Image shape      | ShapeType | round   |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| theme | Appearance theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | default |
+| shape | Image shape | `"default" \| "circle" \| "square" \| "round"` | round |

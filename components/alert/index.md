@@ -33,16 +33,16 @@
 
 ## API
 
-| 属性         | 说明                                                                | 类型                        | 默认值  |
-| ------------ | ------------------------------------------------------------------- | --------------------------- | ------- |
-| type         | 按钮类型，可选值为 `success`、`info`、`warning`、`error` 或者不设置 | string                      | warning |
-| message      | 警告提示内容                                                        | string, slot                | -       |
-| description  | 警告提示的辅助性文字介绍                                            | string                      | -       |
-| showIcon     | 是否显示图标                                                        | boolean                     | false   |
-| bordered     | 是否展示边框                                                        | boolean                     | false   |
-| closable     | 是否显示关闭按钮                                                    | boolean                     | false   |
-| onClose      | 点击关闭按钮时触发                                                  | (event: MouseEvent) => void | -       |
-| onAfterClose | 退出动画结束后触发                                                  | () => void                  | -       |
-| icon         | 自定义的图标                                                        | IconPath[]                  | -       |
-| theme        | 外观主题，可选 `default`、`fill`、`outline`、`plain`                | ThemeType                   | default |
-| shape        | 形状，可选 `round`、`circle`、`square`                              | ShapeType                   | round   |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| type | 按钮类型，可选值为 `success`、`info`、`warning`、`error` 或者不设置 | `"info" \| "success" \| "warning" \| "error"` | warning |
+| message | 警告提示内容 | `string` | - |
+| description | 警告提示的辅助性文字介绍 | `string` | - |
+| showIcon | 是否显示图标 | `boolean` | false |
+| bordered | 是否展示边框 | `boolean` | false |
+| closable | 是否显示关闭按钮 | `boolean` | false |
+| onClose | 点击关闭按钮时触发 | `(event: MouseEvent) => void` | - |
+| onAfterClose | 退出动画结束后触发 | `() => void` | - |
+| icon | 自定义的图标 | `IconType[]` | - |
+| theme | 外观主题，可选 `default`、`fill`、`outline`、`plain` | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | default |
+| shape | 形状，可选 `round`、`circle`、`square` | `"default" \| "circle" \| "square" \| "round"` | round |

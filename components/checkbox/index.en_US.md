@@ -31,31 +31,31 @@ Checkbox for multiple selections.
 
 ## API
 
-| Property      | Description                                                | Type                              | Default |
-| ------------- | ---------------------------------------------------------- | --------------------------------- | ------- |
-| checked       | Checked state; supports `v-model:checked`                  | boolean                           | false   |
-| label         | The text to display                                        | string \| number                  | -       |
-| value         | The value represented when used in combination             | String \| number                  | -       |
-| disabled      | Whether the current item is disabled                       | boolean                           | false   |
-| readonly      | Read-only; remains focusable but cannot be toggled         | boolean                           | false   |
-| indeterminate | Combined auxiliary option controls the indeterminate state | boolean                           | false   |
-| modelValue    | Standalone state bound through `v-model`                   | string \| number \| boolean       | -       |
-| theme         | Component theme                                            | ThemeType                         | fill    |
-| valueType     | The type of output value for the unit option               | 'string' \| 'number' \| 'boolean' | boolean |
-| onChange      | Callback when the option state changes                     | (e:ChangeEvent)=>void             | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| checked | Checked state; supports `v-model:checked` | `boolean` | false |
+| label | The text to display | `string \| number` | - |
+| value | The value represented when used in combination | `string \| number \| boolean` | - |
+| disabled | Whether the current item is disabled | `boolean` | false |
+| readonly | Read-only; remains focusable but cannot be toggled | `boolean` | false |
+| indeterminate | Combined auxiliary option controls the indeterminate state | `boolean` | false |
+| modelValue | Standalone state bound through `v-model` | `string \| number \| boolean` | - |
+| theme | Component theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| valueType | The type of output value for the unit option | `"string" \| "number" \| "boolean"` | boolean |
+| onChange | Callback when the option state changes | `(event: CheckboxChangeEvent) => void` | - |
 
 ## CheckboxGroup API
 
-| Property   | Description                                                                                                                   | Type                            | Default    |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------- | ---------- |
-| modelValue | Selected values; supports `v-model`                                                                                           | (string \| number \| boolean)[] | -          |
-| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | (string \| number \| boolean)[] | []         |
-| disabled   | Whether the component is disabled                                                                                             | boolean                         | false      |
-| readonly   | Whether the group is read-only                                                                                                | boolean                         | false      |
-| onChange   | Triggered when the option state changes, returns the currently selected item and state                                        | (any[])=>void                   | -          |
-| direction  | Layout direction                                                                                                              | 'horizontal' \| 'vertical'      | horizontal |
-| options    | Can specify child `checkbox` items                                                                                            | CheckboxOption[]                | -          |
-| theme      | Component theme                                                                                                               | ThemeType                       | fill       |
-| size       | Checkbox size                                                                                                                 | SizeType                        | -          |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| modelValue | Selected values; supports `v-model` | `CheckboxValue[]` | - |
+| value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `CheckboxValue[]` | [] |
+| disabled | Whether the component is disabled | `boolean` | false |
+| readonly | Whether the group is read-only | `boolean` | false |
+| onChange | Triggered when the option state changes, returns the currently selected item and state | `(value: CheckboxValue[]) => void` | - |
+| direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
+| options | Can specify child `checkbox` items | `CheckboxOption[]` | - |
+| theme | Component theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| size | Checkbox size | `"small" \| "medium" \| "large"` | - |
 
 Each item in `options` also supports `disabled` and `readonly`.

@@ -20,17 +20,17 @@
 
 ## Splitter
 
-| Property    | Description                      | Type                       | Default    |
-| ----------- | -------------------------------- | -------------------------- | ---------- |
-| direction   | Layout direction                 | 'horizontal' \| 'vertical' | horizontal |
-| resize      | Emitted while panel sizes change | (sizes: number[]) => void  | -          |
-| resizeStart | Emitted when resizing starts     | (sizes: number[]) => void  | -          |
-| resizeEnd   | Emitted when resizing ends       | (sizes: number[]) => void  | -          |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
+| resize | Emitted while panel sizes change | `(sizes: number[]) => void` | - |
+| resizeStart | Emitted when resizing starts | `(sizes: number[]) => void` | - |
+| resizeEnd | Emitted when resizing ends | `(sizes: number[]) => void` | - |
 
 ## SplitterPanel
 
-| Attribute | Description                                                     | Type             | Default |
-| --------- | --------------------------------------------------------------- | ---------------- | ------- |
-| size      | Initial size; numbers are px, strings support px or percentages | number \| string | -       |
-| min       | Minimum size; numbers are px, strings support px or percentages | number \| string | 0       |
-| max       | Maximum size; numbers are px, strings support px or percentages | number \| string | -       |
+| Attribute | Description | Type | Default |
+| --- | --- | --- | --- |
+| size | Initial size; numbers are px, strings support px or percentages | `string \| number` | - |
+| min | Minimum size; numbers are px, strings support px or percentages | `string \| number` | 0 |
+| max | Maximum size; numbers are px, strings support px or percentages | `string \| number` | - |

@@ -24,15 +24,15 @@
 
 ## API
 
-| 属性       | 说明                                                                                                                                                                       | 类型             | 默认值 |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ------ |
-| title      | 显示的标题                                                                                                                                                                 | string, slot     | -      |
-| placement  | 提示框出现的位置，可选值为`top`、`top-left`、`top-right`、`bottom`、`bottom-left`、`bottom-right`、`left`、`left-top`、`left-bottom`、`right`、`right-top`、`right-bottom` | string           | top    |
-| width      | 展示的宽度，数字及纯数字字符串按 px 处理                                                                                                                                   | string \| number | -      |
-| okText     | 确定按钮的文字，                                                                                                                                                           | string           | 确定   |
-| show       | 默认是否展示                                                                                                                                                               | boolean          | false  |
-| dark       | 是否展示暗色主题                                                                                                                                                           | boolean          | false  |
-| cancelText | 取消按钮的文字，                                                                                                                                                           | string           | 取消   |
-| onCancel   | 点击取消的回调，                                                                                                                                                           | () => void       | -      |
-| onOk       | 点击确定的回调，                                                                                                                                                           | () => void       | -      |
-| panelOnly  | 仅渲染确认面板，不需要触发元素                                                                                                                                             | boolean          | false  |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| title | 显示的标题 | `VNodeChild` | - |
+| placement | 提示框出现的位置，可选值为`top`、`top-left`、`top-right`、`bottom`、`bottom-left`、`bottom-right`、`left`、`left-top`、`left-bottom`、`right`、`right-top`、`right-bottom` | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right" \| "left" \| "left-bottom" \| "left-top" \| "right" \| "right-top" \| "right-bottom"` | top |
+| width | 展示的宽度，数字及纯数字字符串按 px 处理 | `string \| number` | - |
+| okText | 确定按钮的文字， | `string` | 确定 |
+| show | 默认是否展示 | `boolean` | false |
+| dark | 是否展示暗色主题 | `boolean` | false |
+| cancelText | 取消按钮的文字， | `string` | 取消 |
+| onCancel | 点击取消的回调， | `() => void` | - |
+| onOk | 点击确定的回调， | `() => void` | - |
+| panelOnly | 仅渲染确认面板，不需要触发元素 | `boolean` | false |

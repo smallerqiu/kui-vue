@@ -61,28 +61,28 @@ Responsive breakpoints use the Grid container width, not the viewport width. Res
 
 ## Grid API
 
-| Property     | Description                                                                                                          | Type                          | Default |
-| ------------ | -------------------------------------------------------------------------------------------------------------------- | ----------------------------- | ------- |
-| cols         | Set the number of grid columns. Supports numbers (equal division) or strings (e.g., 1fr 2fr)                         | number \| string \| object    | 24      |
-| rows         | Set the number of grid rows or height. Default is auto                                                               | number \| string \| object    | auto    |
-| autoRows     | Implicit grid row height used to establish the base unit of a Bento layout.                                          | string                        | auto    |
-| flow         | CSS Grid auto-placement direction                                                                                    | CSSProperties['gridAutoFlow'] | row     |
-| xGap         | Grid spacing (horizontal direction). Numeric type will automatically add px unit.                                    | number \| string \| object    | 0       |
-| yGap         | Row spacing (vertical direction). Numeric type will automatically add px unit.                                       | number \| string \| object    | 0       |
-| itemMinWidth | Auto-fill mode. Grid calculates the number of columns from the minimum item width.                                   | number \| string              | -       |
-| align        | Vertical alignment of child items within grid cells                                                                  | CSSProperties['alignItems']   | -       |
-| justify      | Horizontal alignment of child items within grid cells                                                                | CSSProperties['justifyItems'] | -       |
-| debug        | Debug mode. When enabled, red transparent background columns are displayed to facilitate developer layout alignment. | boolean                       | false   |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| cols | Set the number of grid columns. Supports numbers (equal division) or strings (e.g., 1fr 2fr) | `GridResponsive<string \| number>` | 24 |
+| rows | Set the number of grid rows or height. Default is auto | `GridResponsive<string \| number>` | auto |
+| autoRows | Implicit grid row height used to establish the base unit of a Bento layout. | `string` | auto |
+| flow | CSS Grid auto-placement direction | `Property.GridAutoFlow` | row |
+| xGap | Grid spacing (horizontal direction). Numeric type will automatically add px unit. | `GridResponsive<string \| number>` | 0 |
+| yGap | Row spacing (vertical direction). Numeric type will automatically add px unit. | `GridResponsive<string \| number>` | 0 |
+| itemMinWidth | Auto-fill mode. Grid calculates the number of columns from the minimum item width. | `string \| number` | - |
+| align | Vertical alignment of child items within grid cells | `Property.AlignItems` | - |
+| justify | Horizontal alignment of child items within grid cells | `Property.JustifyItems` | - |
+| debug | Debug mode. When enabled, red transparent background columns are displayed to facilitate developer layout alignment. | `boolean` | false |
 
 ## GridItem API
 
-| Property    | Description                                                       | Type             | Default |
-| ----------- | ----------------------------------------------------------------- | ---------------- | ------- |
-| span        | Number of columns occupied. `0` hides the item at that breakpoint | number \| object | 1       |
-| rowSpan     | Number of rows occupied                                           | number \| object | 1       |
-| columnStart | Explicit starting column line                                     | number \| object | -       |
-| rowStart    | Explicit starting row line                                        | number \| object | -       |
-| suffix      | Place the item at the end of the explicit grid                    | boolean          | false   |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| span | Number of columns occupied. `0` hides the item at that breakpoint | `GridResponsive<number>` | 1 |
+| rowSpan | Number of rows occupied | `GridResponsive<number>` | 1 |
+| columnStart | Explicit starting column line | `GridResponsive<number>` | - |
+| rowStart | Explicit starting row line | `GridResponsive<number>` | - |
+| suffix | Place the item at the end of the explicit grid | `boolean` | false |
 
 ## Breakpoints
 

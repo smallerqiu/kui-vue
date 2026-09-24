@@ -27,18 +27,18 @@
 
 ## API
 
-| 属性         | 说明                        | 类型                                     | 默认值           |
-| ------------ | --------------------------- | ---------------------------------------- | ---------------- |
-| page         | 当前页码 (v-model:page)     | number                                   | 1                |
-| disabled     | 禁用状态                    | boolean                                  | false            |
-| total        | 数据总数                    | number                                   | 0                |
-| pageSize     | 每页条数 (v-model:pageSize) | number                                   | 10               |
-| showSizer    | 是否显示每页条数选择器      | boolean                                  | false            |
-| showTotal    | 是否显示总数                | boolean                                  | true             |
-| showElevator | 是否显示页码阶梯            | boolean                                  | false            |
-| simple       | 是否使用简洁分页            | boolean                                  | false            |
-| sizeData     | 自定义页码组数据            | number[]                                 | [10,15,20,30,40] |
-| size         | 尺寸                        | SizeType                                 | `medium`         |
-| theme        | 主题                        | ThemeType                                | `fill`           |
-| onChange     | 页码、每页条数改变时的回调  | (page: number, pageSize: number) => void | -                |
-| shape        | 分页项形状                  | ShapeType                                | round            |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| page | 当前页码 (v-model:page) | `number` | 1 |
+| disabled | 禁用状态 | `boolean` | false |
+| total | 数据总数 | `number` | 0 |
+| pageSize | 每页条数 (v-model:pageSize) | `number` | 10 |
+| showSizer | 是否显示每页条数选择器 | `boolean` | false |
+| showTotal | 是否显示总数 | `boolean` | true |
+| showElevator | 是否显示页码阶梯 | `boolean` | false |
+| simple | 是否使用简洁分页 | `boolean` | false |
+| sizeData | 自定义页码组数据 | `number[]` | [10,15,20,30,40] |
+| size | 尺寸 | `"small" \| "medium" \| "large"` | `medium` |
+| theme | 主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | `fill` |
+| onChange | 页码、每页条数改变时的回调 | `(page: number, pageSize: number) => void` | - |
+| shape | 分页项形状 | `"default" \| "circle" \| "square" \| "round"` | round |

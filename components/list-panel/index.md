@@ -22,15 +22,15 @@
 
 ## API
 
-| 属性          | 说明                                 | 类型                           | 默认值  |
-| ------------- | ------------------------------------ | ------------------------------ | ------- |
-| summary       | 结果摘要，也可通过同名插槽自定义     | string \| number \| VNodeChild | -       |
-| bordered      | 是否显示边框                         | boolean                        | true    |
-| theme         | 面板外观                             | `fill \| outline \| plain`     | outline |
-| shape         | 面板形状                             | 'round' \| 'square'            | round   |
-| size          | 面板尺寸                             | SizeType                       | medium  |
-| selectedCount | 当前选中数量，用于切换批量操作栏     | number                         | 0       |
-| filters       | 查询条件区域                         | VNodeChild                     | -       |
-| actions       | 查询栏右侧操作                       | VNodeChild                     | -       |
-| selection     | 批量操作栏，作用域参数为 `{ count }` | VNodeChild                     | -       |
-| footer        | 分页或列表底部操作                   | VNodeChild                     | -       |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| summary | 结果摘要，也可通过同名插槽自定义 | `VNodeChild` | - |
+| bordered | 是否显示边框 | `boolean` | true |
+| theme | 面板外观 | `"fill" \| "outline" \| "plain"` | outline |
+| shape | 面板形状 | `"square" \| "round"` | round |
+| size | 面板尺寸 | `"small" \| "medium" \| "large"` | medium |
+| selectedCount | 当前选中数量，用于切换批量操作栏 | `number` | 0 |
+| filters | 查询条件区域 | VNodeChild | - |
+| actions | 查询栏右侧操作 | VNodeChild | - |
+| selection | 批量操作栏，作用域参数为 `{ count }` | VNodeChild | - |
+| footer | 分页或列表底部操作 | VNodeChild | - |

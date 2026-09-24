@@ -22,20 +22,20 @@
 
 ## API
 
-| 属性           | 说明                                                   | 类型               | 默认值 |
-| -------------- | ------------------------------------------------------ | ------------------ | ------ |
-| columns        | 看板列配置                                             | KanbanColumnData[] | []     |
-| data           | 看板数据                                               | KanbanItemData[]   | []     |
-| rowKey         | 数据唯一键字段                                         | string             | id     |
-| statusKey      | 状态字段                                               | string             | status |
-| draggable      | 是否允许拖拽                                           | boolean            | true   |
-| emptyText      | 空列提示，默认使用全局语言配置                         | string             | -      |
-| minColumnWidth | 列最小宽度                                             | number \| string   | 250    |
-| theme          | 看板列外观                                             | `fill \| outline`  | fill   |
-| columnTitle    | 自定义列头，作用域参数为 `{ column, items }`           | VNodeChild         | -      |
-| item           | 自定义卡片内容，作用域参数为 `{ item, column, index }` | VNodeChild         | -      |
-| empty          | 自定义空列内容，作用域参数为 `{ column }`              | VNodeChild         | -      |
-| footer         | 自定义列底部内容，作用域参数为 `{ column, items }`     | VNodeChild         | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| columns | 看板列配置 | `KanbanColumnData[]` | [] |
+| data | 看板数据 | `KanbanItemData[]` | [] |
+| rowKey | 数据唯一键字段 | `string` | id |
+| statusKey | 状态字段 | `string` | status |
+| draggable | 是否允许拖拽 | `boolean` | true |
+| emptyText | 空列提示，默认使用全局语言配置 | `string` | - |
+| minColumnWidth | 列最小宽度 | `string \| number` | 250 |
+| theme | 看板列外观 | `"fill" \| "outline"` | fill |
+| columnTitle | 自定义列头，作用域参数为 `{ column, items }` | VNodeChild | - |
+| item | 自定义卡片内容，作用域参数为 `{ item, column, index }` | VNodeChild | - |
+| empty | 自定义空列内容，作用域参数为 `{ column }` | VNodeChild | - |
+| footer | 自定义列底部内容，作用域参数为 `{ column, items }` | VNodeChild | - |
 
 ### KanbanColumnData
 
@@ -47,10 +47,10 @@
 
 ## Events
 
-| 事件名    | 说明                                         | 回调参数                                                   |
-| --------- | -------------------------------------------- | ---------------------------------------------------------- |
-| move      | 卡片拖入其他列时触发；组件不会直接修改原数据 | `(event: KanbanMoveEvent) => void`                         |
-| itemClick | 点击卡片时触发                               | `(item: KanbanItemData, column: KanbanColumnData) => void` |
+| 事件名 | 说明 | 类型 |
+| --- | --- | --- |
+| move | 卡片拖入其他列时触发；组件不会直接修改原数据 | `(event: KanbanMoveEvent) => void` |
+| itemClick | 点击卡片时触发 | `(item: KanbanItemData, column: KanbanColumnData) => void` |
 
 `KanbanMoveEvent` 包含 `item`、原列标识 `from` 和目标列标识 `to`。
 

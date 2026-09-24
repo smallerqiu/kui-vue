@@ -41,15 +41,15 @@ Provide a placeholder graphic combination at positions where content needs to be
 
 ## API
 
-| Property   | Description                                                              | Type                                              | Default |
-| ---------- | ------------------------------------------------------------------------ | ------------------------------------------------- | ------- |
-| animated   | Whether to show animation effect                                         | boolean                                           | false   |
-| avatar     | Whether to show avatar placeholder                                       | boolean \| { size?: SizeType; shape?: ShapeType } | false   |
-| loading    | When true, show placeholder. Otherwise directly display child components | boolean                                           | false   |
-| rows       | Set the number of paragraph placeholder lines                            | number                                            | 3       |
-| delay      | Delay showing the skeleton to avoid flickering, in milliseconds          | number                                            | 500     |
-| titleWidth | Title placeholder width, from 0 to 100                                   | number                                            | 35      |
-| title      | Deprecated. Use `titleWidth` instead                                     | number                                            | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| animated | Whether to show animation effect | `boolean` | false |
+| avatar | Whether to show avatar placeholder | `boolean \| { size?: SizeType; shape?: ShapeType; }` | false |
+| loading | When true, show placeholder. Otherwise directly display child components | `boolean` | false |
+| rows | Set the number of paragraph placeholder lines | `number` | 3 |
+| delay | Delay showing the skeleton to avoid flickering, in milliseconds | `number` | 500 |
+| titleWidth | Title placeholder width, from 0 to 100 | `number` | 35 |
+| title | Deprecated. Use `titleWidth` instead | `number` | - |
 
 ## Avatar Props
 

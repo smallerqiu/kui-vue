@@ -37,14 +37,14 @@
 
 ## Tag API
 
-| 属性         | 说明                                       | 类型                 | 默认值 |
-| ------------ | ------------------------------------------ | -------------------- | ------ |
-| closeable    | 是否显示关闭按钮                           | boolean              | false  |
-| compact      | 是否使用适合嵌入输入控件的紧凑尺寸         | boolean              | false  |
-| color        | 标签的颜色                                 | string               | -      |
-| icon         | 标签的图标                                 | string               | -      |
-| onClose      | 点击关闭按钮时触发                         | () => void           | -      |
-| onAfterClose | 退出动画结束后触发                         | () => void           | -      |
-| size         | 按钮尺寸,可选值 `small`、`large`，默认不选 | string               | -      |
-| theme        | 组件呈现主题                               | string               | fill   |
-| shape        | 组件呈现的形状,                            | 'circle' \| 'square' | circle |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| closeable | 是否显示关闭按钮 | `boolean` | false |
+| compact | 是否使用适合嵌入输入控件的紧凑尺寸 | `boolean` | false |
+| color | 标签的颜色 | `string` | - |
+| icon | 标签的图标 | `IconType[]` | - |
+| onClose | 点击关闭按钮时触发 | `() => void` | - |
+| onAfterClose | 退出动画结束后触发 | `() => void` | - |
+| size | 按钮尺寸,可选值 `small`、`large`，默认不选 | `"small" \| "medium" \| "large"` | - |
+| theme | 组件呈现主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| shape | 组件呈现的形状, | `"default" \| "circle" \| "square" \| "round"` | circle |

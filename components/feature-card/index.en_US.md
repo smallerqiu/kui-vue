@@ -22,21 +22,21 @@ Used to present product features, navigation entries, or capability descriptions
 
 ## API
 
-| Property       | Description                                                  | Type                     | Default    |
-| -------------- | ------------------------------------------------------------ | ------------------------ | ---------- |
-| icon           | Icon, customizable via the named slot                        | IconType \| VNodeChild   | -          |
-| title          | Title, customizable via the named slot                       | string \| VNodeChild     | -          |
-| desc           | Description, customizable via the named slot                 | string \| VNodeChild     | -          |
-| bordered       | Whether to show border                                       | boolean                  | false      |
-| theme          | Appearance theme                                             | ThemeType                | fill       |
-| shape          | Card shape                                                   | 'round' \| 'square'      | round      |
-| size           | Card size                                                    | SizeType                 | medium     |
-| direction      | Content direction                                            | `horizontal \| vertical` | horizontal |
-| clickable      | Enable interaction and keyboard semantics                    | boolean                  | false      |
-| disabled       | Disable interaction                                          | boolean                  | false      |
-| color          | Icon accent color                                            | string                   | primary    |
-| iconBackground | Icon container background; derived from `color` when omitted | string                   | auto       |
-| extra          | Trailing content                                             | VNodeChild               | -          |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| icon | Icon, customizable via the named slot | `IconType[]` | - |
+| title | Title, customizable via the named slot | `string` | - |
+| desc | Description, customizable via the named slot | `string` | - |
+| bordered | Whether to show border | `boolean` | false |
+| theme | Appearance theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| shape | Card shape | `"square" \| "round"` | round |
+| size | Card size | `"small" \| "medium" \| "large"` | medium |
+| direction | Content direction | `"horizontal" \| "vertical"` | horizontal |
+| clickable | Enable interaction and keyboard semantics | `boolean` | false |
+| disabled | Disable interaction | `boolean` | false |
+| color | Icon accent color | `string` | primary |
+| iconBackground | Icon container background; derived from `color` when omitted | `string` | auto |
+| extra | Trailing content | VNodeChild | - |
 
 ## Events
 

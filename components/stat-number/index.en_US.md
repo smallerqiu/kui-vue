@@ -19,18 +19,18 @@ Use for counters, amounts, and metrics that change over time. For a complete met
 
 ## API
 
-| Property        | Description                                                                                                                   | Type                  | Default   |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------- | --------- |
-| modelValue      | Numerical value                                                                                                               | number                | -         |
-| value           | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | number                | 0         |
-| duration        | Numerical dynamic display time (seconds)                                                                                      | number                | 1.2       |
-| prefix          | Prefix content of numerical value                                                                                             | string                | -         |
-| suffix          | Suffix content of numerical value                                                                                             | string                | -         |
-| precision       | Numerical precision                                                                                                           | number                | 0         |
-| type            | Numerical change type                                                                                                         | 'rollup' \| 'countup' | 'countup' |
-| separator       | Separator                                                                                                                     | string                | -         |
-| autoAnimate     | Trigger animation when target becomes visible                                                                                 | boolean               | true      |
-| autoAnimateOnce | Run animation only once for auto-animate triggers                                                                             | boolean               | true      |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| modelValue | Numerical value | `number` | - |
+| value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `number` | 0 |
+| duration | Numerical dynamic display time (seconds) | `number` | 1.2 |
+| prefix | Prefix content of numerical value | `string` | - |
+| suffix | Suffix content of numerical value | `string` | - |
+| precision | Numerical precision | `number` | 0 |
+| type | Numerical change type | `"rollup" \| "countup"` | 'countup' |
+| separator | Separator | `string` | - |
+| autoAnimate | Trigger animation when target becomes visible | `boolean` | true |
+| autoAnimateOnce | Run animation only once for auto-animate triggers | `boolean` | true |
 
 ## Slots
 

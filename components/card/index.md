@@ -34,21 +34,21 @@
 
 ## API
 
-| 属性     | 说明                           | 类型                                        | 默认值 |
-| -------- | ------------------------------ | ------------------------------------------- | ------ |
-| title    | 卡片的标题                     | string, slot                                | -      |
-| icon     | 卡片标题的图标                 | string                                      | -      |
-| bordered | 卡片是否显示边框               | boolean                                     | true   |
-| theme    | 外观主题                       | 'default' \| 'fill' \| 'outline' \| 'plain' | fill   |
-| shape    | 外框形状                       | 'round' \| 'square'                         | round  |
-| size     | 卡片尺寸                       | 'small' \| 'medium' \| 'large'              | medium |
-| extra    | 卡片标题扩展                   | slot                                        | -      |
-| cover    | 卡片封面，设置后不显示卡片头部 | VNodeChild                                  | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| title | 卡片的标题 | `string` | - |
+| icon | 卡片标题的图标 | `IconType[]` | - |
+| bordered | 卡片是否显示边框 | `boolean` | true |
+| theme | 外观主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| shape | 外框形状 | `"square" \| "round"` | round |
+| size | 卡片尺寸 | `"small" \| "medium" \| "large"` | medium |
+| extra | 卡片标题扩展 | slot | - |
+| cover | 卡片封面，设置后不显示卡片头部 | `VNodeChild` | - |
 
 ## CardMeta API
 
-| 属性        | 说明     | 类型       | 默认值 |
-| ----------- | -------- | ---------- | ------ |
-| avatar      | 头像     | VNodeChild | -      |
-| title       | 标题     | VNodeChild | -      |
-| description | 描述内容 | VNodeChild | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| avatar | 头像 | `VNodeChild` | - |
+| title | 标题 | `VNodeChild` | - |
+| description | 描述内容 | `VNodeChild` | - |

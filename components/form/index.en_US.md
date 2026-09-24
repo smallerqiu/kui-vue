@@ -69,23 +69,23 @@ export default {
 
 ## Form API
 
-| Property   | Description                                                                          | Type                                     | Default    |
-| ---------- | ------------------------------------------------------------------------------------ | ---------------------------------------- | ---------- |
-| model      | Form data object                                                                     | Object                                   | -          |
-| rules      | Form validation rules                                                                | FormRules                                | -          |
-| name       | Form name, will be used as the id prefix for form fields                             | string                                   | -          |
-| labelCol   | Label layout using `<Col>` span and offset; ignored in inline layout                 | {span:number,offset:number}              | -          |
-| wrapperCol | Control layout using `<Col>` span and offset; ignored in inline layout               | {span:number,offset:number}              | -          |
-| theme      | The component renders the theme                                                      | string                                   | -          |
-| size       | Sub component size                                                                   | string                                   | -          |
-| layout     | Form layout                                                                          | 'horizontal' \| 'vertical' \| 'inline'   | horizontal |
-| shape      | Child component shape                                                                | ShapeType                                | -          |
-| disabled   | Whether the form is disabled                                                         | boolean                                  | false      |
-| readonly   | Make supported controls in the form read-only                                        | boolean                                  | false      |
-| colon      | Whether to display a colon after labels                                              | boolean                                  | true       |
-| onChange   | Called when a field value changes with the current form model                        | (model: Record<string, unknown>) => void | -          |
-| onReset    | Reset the entire form, reset all field values to empty and remove validation results | ()=> void                                | -          |
-| onSubmit   | Called after submission validation with the validation result                        | (result: { valid: boolean }) => void     | -          |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| model | Form data object | `Record<string, unknown>` | - |
+| rules | Form validation rules | `FormRules` | - |
+| name | Form name, will be used as the id prefix for form fields | `string` | - |
+| labelCol | Label layout using `<Col>` span and offset; ignored in inline layout | `ColProps` | - |
+| wrapperCol | Control layout using `<Col>` span and offset; ignored in inline layout | `ColProps` | - |
+| theme | The component renders the theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| size | Sub component size | `"small" \| "medium" \| "large"` | - |
+| layout | Form layout | `"horizontal" \| "vertical" \| "inline"` | horizontal |
+| shape | Child component shape | `"default" \| "circle" \| "square" \| "round"` | - |
+| disabled | Whether the form is disabled | `boolean` | false |
+| readonly | Make supported controls in the form read-only | `boolean` | false |
+| colon | Whether to display a colon after labels | `boolean` | true |
+| onChange | Called when a field value changes with the current form model | `(model: Record<string, unknown>) => void` | - |
+| onReset | Reset the entire form, reset all field values to empty and remove validation results | `() => void` | - |
+| onSubmit | Called after submission validation with the validation result | `(result: FormSubmitEvent) => void` | - |
 
 ## Form Expose API
 
@@ -98,12 +98,12 @@ export default {
 
 ## FormItem API
 
-| Property | Description                                                                      | Type       | Default |
-| -------- | -------------------------------------------------------------------------------- | ---------- | ------- |
-| prop     | Corresponds to the field in the form domain model. Required for form validation  | string     | -       |
-| label    | Label text                                                                       | string     | -       |
-| rules    | Form validation rules                                                            | FormRule[] | -       |
-| colon    | Whether to display a colon after the label; inherits the Form setting when unset | boolean    | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| prop | Corresponds to the field in the form domain model. Required for form validation | `string` | - |
+| label | Label text | `string` | - |
+| rules | Form validation rules | `FormRule \| FormRule[]` | - |
+| colon | Whether to display a colon after the label; inherits the Form setting when unset | `boolean` | - |
 
 ## rules API
 

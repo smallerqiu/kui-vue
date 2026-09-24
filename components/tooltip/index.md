@@ -26,16 +26,16 @@
 
 当显隐由业务状态管理（例如 Slider 拖动）时使用 trigger="manual"，鼠标移入/移出不再自动改变显隐；普通 Tooltip 仍默认使用 hover。
 
-| 属性    | 说明                       | 类型                | 默认值 |
-| ------- | -------------------------- | ------------------- | ------ |
-| trigger | 自动悬停触发或手动控制显隐 | 'hover' \| 'manual' | hover  |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| trigger | 自动悬停触发或手动控制显隐 | `"hover" \| "manual"` | hover |
 
-| 属性      | 说明                                                                                                                                                                       | 类型             | 默认值 |
-| --------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- | ------ |
-| title     | 显示的标题                                                                                                                                                                 | string, slot     | -      |
-| color     | 背景颜色                                                                                                                                                                   | string           | -      |
-| placement | 提示框出现的位置，可选值为`top`、`top-left`、`top-right`、`bottom`、`bottom-left`、`bottom-right`、`left`、`left-top`、`left-bottom`、`right`、`right-top`、`right-bottom` | string           | top    |
-| width     | 展示的宽度，数字及纯数字字符串按 px 处理                                                                                                                                   | string \| number | -      |
-| disabled  | 禁用状态                                                                                                                                                                   | boolean          | false  |
-| show      | 初始化时是否展示                                                                                                                                                           | boolean          | false  |
-| panelOnly | 仅渲染提示面板，不需要触发元素                                                                                                                                             | boolean          | false  |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| title | 显示的标题 | `VNodeChild` | - |
+| color | 背景颜色 | `string` | - |
+| placement | 提示框出现的位置，可选值为`top`、`top-left`、`top-right`、`bottom`、`bottom-left`、`bottom-right`、`left`、`left-top`、`left-bottom`、`right`、`right-top`、`right-bottom` | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right" \| "left" \| "left-bottom" \| "left-top" \| "right" \| "right-top" \| "right-bottom"` | top |
+| width | 展示的宽度，数字及纯数字字符串按 px 处理 | `string \| number` | - |
+| disabled | 禁用状态 | `boolean` | false |
+| show | 初始化时是否展示 | `boolean` | false |
+| panelOnly | 仅渲染提示面板，不需要触发元素 | `boolean` | false |

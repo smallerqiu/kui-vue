@@ -32,24 +32,24 @@ Consistent semantics and visual hierarchy for titles, paragraphs and inline text
 
 `Typography`, `TypographyText`, `TypographyParagraph` and `TypographyTitle` share these properties.
 
-| Property   | Description                                                                                                                   | Type                                              | Default |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------- | ------- |
-| modelValue | Text content, supports `v-model`                                                                                              | string                                            | -       |
-| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string                                            | -       |
-| tag        | HTML tag                                                                                                                      | TypographyTag                                     | -       |
-| type       | Semantic color                                                                                                                | 'secondary' \| 'success' \| 'warning' \| 'danger' | -       |
-| strong     | Bold text                                                                                                                     | boolean                                           | false   |
-| italic     | Italic text                                                                                                                   | boolean                                           | false   |
-| underline  | Underlined text                                                                                                               | boolean                                           | false   |
-| delete     | Deleted text                                                                                                                  | boolean                                           | false   |
-| mark       | Marked text                                                                                                                   | boolean                                           | false   |
-| code       | Inline code style                                                                                                             | boolean                                           | false   |
-| disabled   | Disabled state                                                                                                                | boolean                                           | false   |
-| copyable   | Enable copy and action tooltips                                                                                               | boolean \| TypographyCopyableOptions              | false   |
-| editable   | Enable editing and action tooltips                                                                                            | boolean \| TypographyEditableOptions              | false   |
-| ellipsis   | Truncation, tooltip and expansion                                                                                             | boolean \| number \| TypographyEllipsisOptions    | false   |
-| copy       | Emitted after copying                                                                                                         | (text) => void                                    | -       |
-| change     | Emitted after editing                                                                                                         | (text) => void                                    | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| modelValue | Text content, supports `v-model` | `string` | - |
+| value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `string` | - |
+| tag | HTML tag | `"span" \| "div" \| "h1" \| "h2" \| "h3" \| "h4" \| "h5" \| "h6" \| "p"` | - |
+| type | Semantic color | `"success" \| "warning" \| "danger" \| "secondary"` | - |
+| strong | Bold text | `boolean` | false |
+| italic | Italic text | `boolean` | false |
+| underline | Underlined text | `boolean` | false |
+| delete | Deleted text | `boolean` | false |
+| mark | Marked text | `boolean` | false |
+| code | Inline code style | `boolean` | false |
+| disabled | Disabled state | `boolean` | false |
+| copyable | Enable copy and action tooltips | `boolean \| TypographyCopyableOptions` | false |
+| editable | Enable editing and action tooltips | `boolean \| TypographyEditableOptions` | false |
+| ellipsis | Truncation, tooltip and expansion | `number \| boolean \| TypographyEllipsisOptions` | false |
+| copy | Emitted after copying | `(value: string) => void` | - |
+| change | Emitted after editing | `(value: string) => void` | - |
 
 ### TypographyCopyableOptions
 

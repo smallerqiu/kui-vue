@@ -38,9 +38,9 @@
 
 ## API
 
-| 属性     | 说明       | 类型                                                                   | 默认值 |
-| -------- | ---------- | ---------------------------------------------------------------------- | ------ |
-| status   | 结果状态   | 'success' \| 'error' \| 'info' \| 'warning' \| '403' \| '404' \| '500' | info   |
-| title    | 标题       | VNodeChild                                                             | -      |
-| subTitle | 副标题     | VNodeChild                                                             | -      |
-| icon     | 自定义图标 | IconType                                                               | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| status | 结果状态 | `"info" \| "success" \| "warning" \| "error" \| "403" \| "404" \| "500"` | info |
+| title | 标题 | `VNodeChild` | - |
+| subTitle | 副标题 | `VNodeChild` | - |
+| icon | 自定义图标 | `IconType[]` | - |

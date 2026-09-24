@@ -38,26 +38,26 @@ When there are too many operation commands on the page, this component can be us
 
 ## Dropdown API
 
-| Property     | Description                                     | Type                                        | Default       |
-| ------------ | ----------------------------------------------- | ------------------------------------------- | ------------- |
-| show         | Whether the dropdown is visible (v-model)       | boolean                                     | false         |
-| trigger      | Trigger method                                  | `hover` \| `click` \| `contextmenu`         | `hover`       |
-| placement    | Dropdown placement                              | DropPlacementsType                          | `bottom-left` |
-| arrow        | Whether to display the arrow                    | boolean                                     | false         |
-| target       | Ref of an external trigger element or component | Ref<HTMLElement \| ComponentPublicInstance> | -             |
-| disabled     | Whether triggering is disabled                  | boolean                                     | false         |
-| onOpenChange | Called when the dropdown opens or closes        | (opened: boolean) => void                   | -             |
-| overlay slot | Dropdown overlay content                        | VNodeChild                                  | -             |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| show | Whether the dropdown is visible (v-model) | `boolean` | false |
+| trigger | Trigger method | `"hover" \| "click" \| "contextmenu"` | `hover` |
+| placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | `bottom-left` |
+| arrow | Whether to display the arrow | `boolean` | false |
+| target | Ref of an external trigger element or component | `Ref<HTMLElement \| ComponentPublicInstance \| null, HTMLElement \| ComponentPublicInstance \| null>` | - |
+| disabled | Whether triggering is disabled | `boolean` | false |
+| onOpenChange | Called when the dropdown opens or closes | `(open: boolean) => void` | - |
+| overlay slot | Dropdown overlay content | VNodeChild | - |
 
 ### DropdownButton API
 
-| Property  | Description                               | Type                    | Default        |
-| --------- | ----------------------------------------- | ----------------------- | -------------- |
-| size      | Button size                               | SizeType                | -              |
-| shape     | Button shape                              | ShapeType               | -              |
-| disabled  | Whether the button is disabled            | boolean                 | false          |
-| icon      | Custom dropdown trigger icon              | IconType[]              | Ellipsis       |
-| theme     | Button theme                              | ThemeType               | -              |
-| arrow     | Whether to display the dropdown arrow     | boolean                 | false          |
-| placement | Dropdown placement                        | DropPlacementsType      | `bottom-right` |
-| onClick   | Triggered when the main button is clicked | (e: MouseEvent) => void | -              |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| size | Button size | `"small" \| "medium" \| "large"` | - |
+| shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
+| disabled | Whether the button is disabled | `boolean` | false |
+| icon | Custom dropdown trigger icon | `IconType[]` | Ellipsis |
+| theme | Button theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| arrow | Whether to display the dropdown arrow | `boolean` | false |
+| placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | `bottom-right` |
+| onClick | Triggered when the main button is clicked | `(event: MouseEvent) => void` | - |

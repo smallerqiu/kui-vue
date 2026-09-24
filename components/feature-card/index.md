@@ -22,24 +22,24 @@
 
 ## API
 
-| 属性           | 说明                                        | 类型                     | 默认值     |
-| -------------- | ------------------------------------------- | ------------------------ | ---------- |
-| icon           | 图标，也可通过同名插槽自定义                | IconType \| VNodeChild   | -          |
-| title          | 标题，也可通过同名插槽自定义                | string \| VNodeChild     | -          |
-| desc           | 描述内容，也可通过同名插槽自定义            | string \| VNodeChild     | -          |
-| bordered       | 是否显示边框                                | boolean                  | false      |
-| theme          | 外观主题                                    | ThemeType                | fill       |
-| shape          | 卡片形状                                    | 'round' \| 'square'      | round      |
-| size           | 卡片尺寸                                    | SizeType                 | medium     |
-| direction      | 内容排列方向                                | `horizontal \| vertical` | horizontal |
-| clickable      | 是否可交互；启用键盘及按钮语义              | boolean                  | false      |
-| disabled       | 是否禁用交互                                | boolean                  | false      |
-| color          | 图标强调色                                  | string                   | primary    |
-| iconBackground | 图标容器背景；未设置时根据 `color` 自动生成 | string                   | 自动       |
-| extra          | 右侧扩展区域                                | VNodeChild               | -          |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| icon | 图标，也可通过同名插槽自定义 | `IconType[]` | - |
+| title | 标题，也可通过同名插槽自定义 | `string` | - |
+| desc | 描述内容，也可通过同名插槽自定义 | `string` | - |
+| bordered | 是否显示边框 | `boolean` | false |
+| theme | 外观主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| shape | 卡片形状 | `"square" \| "round"` | round |
+| size | 卡片尺寸 | `"small" \| "medium" \| "large"` | medium |
+| direction | 内容排列方向 | `"horizontal" \| "vertical"` | horizontal |
+| clickable | 是否可交互；启用键盘及按钮语义 | `boolean` | false |
+| disabled | 是否禁用交互 | `boolean` | false |
+| color | 图标强调色 | `string` | primary |
+| iconBackground | 图标容器背景；未设置时根据 `color` 自动生成 | `string` | 自动 |
+| extra | 右侧扩展区域 | VNodeChild | - |
 
 ## Events
 
-| 事件名 | 说明       | 回调参数                      |
-| ------ | ---------- | ----------------------------- |
-| click  | 点击时触发 | `(event: MouseEvent) => void` |
+| 事件名 | 说明 | 类型 |
+| --- | --- | --- |
+| click | 点击时触发 | `(event: MouseEvent) => void` |

@@ -31,24 +31,24 @@ Radio button.
 
 ## Radio API
 
-| Property   | Description                        | Type                     | Default |
-| ---------- | ---------------------------------- | ------------------------ | ------- |
-| modelValue | Whether selected (v-model)         | boolean                  | false   |
-| checked    | Whether selected                   | boolean                  | false   |
-| label      | Text prompt                        | string                   | -       |
-| value      | Value when used in combination     | string \| number         | -       |
-| name       | Native radio group name            | string                   | -       |
-| disabled   | Whether current item is disabled   | boolean                  | false   |
-| readonly   | Read-only; cannot be toggled       | boolean                  | false   |
-| onChange   | Callback when option state changes | (e: ChangeEvent) => void | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| modelValue | Whether selected (v-model) | `boolean` | false |
+| checked | Whether selected | `boolean` | false |
+| label | Text prompt | `string` | - |
+| value | Value when used in combination | `string \| number` | - |
+| name | Native radio group name | `string` | - |
+| disabled | Whether current item is disabled | `boolean` | false |
+| readonly | Read-only; cannot be toggled | `boolean` | false |
+| onChange | Callback when option state changes | `(event: ChangeEvent) => void` | - |
 
 ### RadioButton API
 
 `RadioButton` supports Radio properties and adds:
 
-| Property | Description | Type       | Default |
-| -------- | ----------- | ---------- | ------- |
-| icon     | Button icon | IconType[] | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| icon | Button icon | `IconType[]` | - |
 
 Use `RadioButton` through `RadioGroup type="button"`.
 
@@ -56,16 +56,16 @@ Use the standalone [Segmented](../segmented/index.en_US.md) component for slider
 
 ## RadioGroup API
 
-| Property   | Description                                                                                                                   | Type                              | Default    |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | --------------------------------- | ---------- |
-| modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding data                                          | string \| number                  | -          |
-| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number                  | -          |
-| disabled   | Disable the entire group                                                                                                      | boolean                           | false      |
-| readonly   | Whether the group is read-only                                                                                                | boolean                           | false      |
-| size       | Button size                                                                                                                   | SizeType                          | -          |
-| direction  | Layout direction                                                                                                              | 'horizontal' \| 'vertical'        | horizontal |
-| shape      | Button shape                                                                                                                  | ShapeType                         | -          |
-| theme      | Button theme                                                                                                                  | ThemeType                         | -          |
-| onChange   | Triggered when option state changes, returns currently selected item                                                          | (value: string \| number) => void | -          |
-| options    | Can specify child `radio` items                                                                                               | RadioOption[]                     | -          |
-| type       | Use radio or button-style items                                                                                               | 'radio' \| 'button'               | radio      |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| modelValue | Used to set the currently selected value. Can use `v-model` for two-way binding data | `string \| number` | - |
+| value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `string \| number` | - |
+| disabled | Disable the entire group | `boolean` | false |
+| readonly | Whether the group is read-only | `boolean` | false |
+| size | Button size | `"small" \| "medium" \| "large"` | - |
+| direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
+| shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
+| theme | Button theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| onChange | Triggered when option state changes, returns currently selected item | `(value: string \| number) => void` | - |
+| options | Can specify child `radio` items | `RadioOption[]` | - |
+| type | Use radio or button-style items | `"button" \| "radio"` | radio |

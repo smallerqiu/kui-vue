@@ -43,49 +43,49 @@ Dropdown selector.
 
 ## Select API
 
-| Property     | Description                                                                                                                   | Type                                       | Default       |
-| ------------ | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------- |
-| modelValue   | Specifies the `value` of the selected item, can use `v-model` for two-way binding                                             | string \| number                           | -             |
-| value        | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | string \| number                           | -             |
-| width        | Component width                                                                                                               | string \| number                           | -             |
-| placeholder  | Default text of selector                                                                                                      | string                                     | Please select |
-| disabled     | Whether current item is disabled                                                                                              | boolean                                    | false         |
-| readonly     | Read-only; prevents opening, clearing and changing                                                                            | boolean                                    | false         |
-| size         | Component size, provides two sizes: `small`, `large`, default is normal                                                       | string                                     | -             |
-| placement    | Dropdown placement                                                                                                            | DropPlacementsType                         | bottom-left   |
-| emptyText    | Prompt displayed when no data                                                                                                 | string                                     | 'No data yet' |
-| maxTagCount  | Maximum visible tags in multiple mode; excess tags are shown in a Tooltip                                                     | number                                     | -             |
-| multiple     | Whether to display in multiple selection mode                                                                                 | boolean                                    | false         |
-| allowCreate  | Whether multiple mode can create missing options from entered text                                                            | boolean                                    | false         |
-| loading      | Whether to show asynchronous loading                                                                                          | boolean                                    | false         |
-| loadingText  | Loading state text                                                                                                            | string                                     | -             |
-| block        | Whether to fill the parent width                                                                                              | boolean                                    | false         |
-| filterable   | Whether input filtering is enabled                                                                                            | boolean                                    | false         |
-| clearable    | Whether options can be cleared                                                                                                | boolean                                    | true          |
-| bordered     | Whether to show border                                                                                                        | boolean                                    | true          |
-| extendWidth  | Whether dropdown width matches input width                                                                                    | boolean                                    | true          |
-| showArrow    | Whether to show dropdown button                                                                                               | boolean                                    | true          |
-| options      | options data, if set, no need to manually construct Option nodes                                                              | SelectOption[]                             | []            |
-| theme        | The theme of Select                                                                                                           | string                                     | fill          |
-| icon         | Custom icon                                                                                                                   | string                                     | -             |
-| shape        | When shape='circle', displays rounded corners                                                                                 | string                                     | -             |
-| onSelect     | Triggered when an item is selected                                                                                            | (option: SelectOption) => void             | -             |
-| onChange     | Triggered when option state changes, returns selected value                                                                   | (value: string \| number \| any[]) => void | -             |
-| onOpenChange | Triggered when dropdown expands or collapses                                                                                  | (opened: boolean) => void                  | -             |
-| onSearch     | Triggered during search                                                                                                       | (e: InputEvent) => void                    | -             |
-| onClear      | Triggered when the clear button is clicked                                                                                    | () => void                                 | -             |
-| arrowIcon    | Custom arrow icon                                                                                                             | string                                     | -             |
-| virtual      | Enable virtual scrolling                                                                                                      | boolean                                    | false         |
-| itemHeight   | Fixed virtual option height                                                                                                   | number                                     | 33            |
-| overscan     | Extra virtual options rendered around the viewport                                                                            | number                                     | 5             |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| modelValue | Specifies the `value` of the selected item, can use `v-model` for two-way binding | `SelectValue \| SelectValue[]` | - |
+| value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `SelectValue \| SelectValue[]` | - |
+| width | Component width | `number` | - |
+| placeholder | Default text of selector | `string` | Please select |
+| disabled | Whether current item is disabled | `boolean` | false |
+| readonly | Read-only; prevents opening, clearing and changing | `boolean` | false |
+| size | Component size, provides two sizes: `small`, `large`, default is normal | `"small" \| "medium" \| "large"` | - |
+| placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
+| emptyText | Prompt displayed when no data | `string` | 'No data yet' |
+| maxTagCount | Maximum visible tags in multiple mode; excess tags are shown in a Tooltip | `number` | - |
+| multiple | Whether to display in multiple selection mode | `boolean` | false |
+| allowCreate | Whether multiple mode can create missing options from entered text | `boolean` | false |
+| loading | Whether to show asynchronous loading | `boolean` | false |
+| loadingText | Loading state text | `string` | - |
+| block | Whether to fill the parent width | `boolean` | false |
+| filterable | Whether input filtering is enabled | `boolean` | false |
+| clearable | Whether options can be cleared | `boolean` | true |
+| bordered | Whether to show border | `boolean` | true |
+| extendWidth | Whether dropdown width matches input width | boolean | true |
+| showArrow | Whether to show dropdown button | `boolean` | true |
+| options | options data, if set, no need to manually construct Option nodes | `SelectOption[]` | [] |
+| theme | The theme of Select | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| icon | Custom icon | `IconType[]` | - |
+| shape | When shape='circle', displays rounded corners | `"default" \| "circle" \| "square" \| "round"` | - |
+| onSelect | Triggered when an item is selected | `(option: OptionSelectEvent) => void` | - |
+| onChange | Triggered when option state changes, returns selected value | `(value: SelectValue \| SelectValue[]) => void` | - |
+| onOpenChange | Triggered when dropdown expands or collapses | `(open: boolean) => void` | - |
+| onSearch | Triggered during search | `(event: InputEvent) => void` | - |
+| onClear | Triggered when the clear button is clicked | `() => void` | - |
+| arrowIcon | Custom arrow icon | `IconType[]` | - |
+| virtual | Enable virtual scrolling | `boolean` | false |
+| itemHeight | Fixed virtual option height | `number` | 33 |
+| overscan | Extra virtual options rendered around the viewport | `number` | 5 |
 
 ## Option API
 
-| Property | Description                                                                                                                    | Type             | Default |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------ | ---------------- | ------- |
-| key      | Same meaning as value. If Vue requires this setting, this value should be the same as value, then value setting can be omitted | string \| number | -       |
-| value    | Option value, used for filtering by default, required                                                                          | string \| number | -       |
-| label    | Option display content                                                                                                         | string \| number | -       |
-| disabled | Whether current item is disabled                                                                                               | boolean          | false   |
-| active   | Whether this is the current keyboard-focused option                                                                            | boolean          | false   |
-| checked  | Whether the option is selected                                                                                                 | boolean          | false   |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| key | Same meaning as value. If Vue requires this setting, this value should be the same as value, then value setting can be omitted | string \| number | - |
+| value | Option value, used for filtering by default, required | `string \| number` | - |
+| label | Option display content | `VNodeChild` | - |
+| disabled | Whether current item is disabled | `boolean` | false |
+| active | Whether this is the current keyboard-focused option | `boolean` | false |
+| checked | Whether the option is selected | `boolean` | false |

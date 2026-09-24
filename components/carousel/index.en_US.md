@@ -24,22 +24,22 @@ A set of rotating/carousel areas.
 
 ## API
 
-| Property   | Description                                                                                                                   | Type    | Default |
-| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ------- | ------- |
-| modelValue | The index of the slide, starting from 0. Can use `v-model` for two-way binding                                                | number  | -       |
-| value      | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | number  | 0       |
-| loop       | Whether to enable loop                                                                                                        | boolean | true    |
-| vertical   | Whether to display in vertical mode                                                                                           | boolean | false   |
-| autoplay   | Whether to auto-switch                                                                                                        | boolean | false   |
-| delay      | The time interval for auto-switching, in milliseconds                                                                         | number  | 3000    |
-| height     | The height of the slide                                                                                                       | number  | 256(px) |
-| dots       | Whether to show the dots at the bottom of the gallery                                                                         | boolean | true    |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| modelValue | The index of the slide, starting from 0. Can use `v-model` for two-way binding | `number` | - |
+| value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `number` | 0 |
+| loop | Whether to enable loop | `boolean` | true |
+| vertical | Whether to display in vertical mode | `boolean` | false |
+| autoplay | Whether to auto-switch | `boolean` | false |
+| delay | The time interval for auto-switching, in milliseconds | `number` | 3000 |
+| height | The height of the slide | `number` | 256(px) |
+| dots | Whether to show the dots at the bottom of the gallery | `boolean` | true |
 
 ## Events
 
-| Event  | Description                           | Parameters      |
-| ------ | ------------------------------------- | --------------- |
-| change | Emitted when the active slide changes | (index: number) |
+| Event | Description | Type |
+| --- | --- | --- |
+| change | Emitted when the active slide changes | `(value: number) => void` |
 
 ## Expose
 

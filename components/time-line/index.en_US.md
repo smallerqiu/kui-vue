@@ -25,16 +25,16 @@ When an operation takes a long time to complete, display the current progress an
 
 ## TimeLine API
 
-| Property | Description                                       | Type                                           | Default  |
-| -------- | ------------------------------------------------- | ---------------------------------------------- | -------- |
-| mode     | Relative position of the timeline and its content | `'left' \| 'right' \| 'center' \| 'alternate'` | `'left'` |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| mode | Relative position of the timeline and its content | `"left" \| "right" \| "center" \| "alternate"` | `'left'` |
 
 ## TimeLineItem API
 
-| Property | Description                                        | Type         | Default |
-| -------- | -------------------------------------------------- | ------------ | ------- |
-| icon     | Timeline node icon                                 | `IconType[]` | -       |
-| color    | Timeline node color                                | `string`     | -       |
-| time     | Time content                                       | `VNodeChild` | -       |
-| extra    | Auxiliary content, customizable via the named slot | `VNodeChild` | -       |
-| dot      | Custom timeline node                               | `VNodeChild` | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| icon | Timeline node icon | `IconType[]` | - |
+| color | Timeline node color | `string` | - |
+| time | Time content | `VNodeChild` | - |
+| extra | Auxiliary content, customizable via the named slot | `VNodeChild` | - |
+| dot | Custom timeline node | `VNodeChild` | - |

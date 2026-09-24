@@ -20,17 +20,17 @@
 
 ## Splitter
 
-| 属性        | 说明               | 类型                       | 默认值     |
-| ----------- | ------------------ | -------------------------- | ---------- |
-| direction   | 布局方向           | 'horizontal' \| 'vertical' | horizontal |
-| resize      | 面板大小变化时触发 | (sizes: number[]) => void  | -          |
-| resizeStart | 开始调整大小时触发 | (sizes: number[]) => void  | -          |
-| resizeEnd   | 调整大小结束时触发 | (sizes: number[]) => void  | -          |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| direction | 布局方向 | `"horizontal" \| "vertical" \| "inline"` | horizontal |
+| resize | 面板大小变化时触发 | `(sizes: number[]) => void` | - |
+| resizeStart | 开始调整大小时触发 | `(sizes: number[]) => void` | - |
+| resizeEnd | 调整大小结束时触发 | `(sizes: number[]) => void` | - |
 
 ## SplitterPanel
 
-| 属性 | 说明                                        | 类型             | 默认值 |
-| ---- | ------------------------------------------- | ---------------- | ------ |
-| size | 初始尺寸；数字为 px，字符串支持 px 或百分比 | number \| string | -      |
-| min  | 最小尺寸；数字为 px，字符串支持 px 或百分比 | number \| string | 0      |
-| max  | 最大尺寸；数字为 px，字符串支持 px 或百分比 | number \| string | -      |
+| 属性 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| size | 初始尺寸；数字为 px，字符串支持 px 或百分比 | `string \| number` | - |
+| min | 最小尺寸；数字为 px，字符串支持 px 或百分比 | `string \| number` | 0 |
+| max | 最大尺寸；数字为 px，字符串支持 px 或百分比 | `string \| number` | - |

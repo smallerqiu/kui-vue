@@ -30,20 +30,20 @@ Displays progress through a task or workflow.
 
 ## Steps API
 
-| Property  | Description    | Type                       | Default      |
-| --------- | -------------- | -------------------------- | ------------ |
-| current   | Current step   | number                     | 0            |
-| direction | Direction      | `horizontal` \| `vertical` | `horizontal` |
-| status    | Current status | `process` \| `error`       | `process`    |
-| items     | Step data      | StepItem[]                 | -            |
-| onChange  | Step click     | (current: number) => void  | -            |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| current | Current step | `number` | 0 |
+| direction | Direction | `"horizontal" \| "vertical"` | `horizontal` |
+| status | Current status | `"error" \| "process"` | `process` |
+| items | Step data | `StepItem[]` | - |
+| onChange | Step click | `(current: number) => void` | - |
 
 ## Step API
 
-| Property    | Description      | Type       | Default |
-| ----------- | ---------------- | ---------- | ------- |
-| title       | Title            | VNodeChild | -       |
-| description | Description      | VNodeChild | -       |
-| icon        | Custom marker    | VNodeChild | -       |
-| status      | Step status      | StepStatus | -       |
-| disabled    | Disable clicking | boolean    | false   |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| title | Title | `VNodeChild` | - |
+| description | Description | `VNodeChild` | - |
+| icon | Custom marker | `VNodeChild` | - |
+| status | Step status | `"error" \| "wait" \| "process" \| "finish"` | - |
+| disabled | Disable clicking | `boolean` | false |

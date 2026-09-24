@@ -32,17 +32,17 @@ Assists with page-level overall layout.
 
 ## Layout API
 
-| Property  | Description                                                                  | Type    | Default  |
-| --------- | ---------------------------------------------------------------------------- | ------- | -------- |
-| hasSider  | Whether the layout contains a sider; detected automatically when omitted     | boolean | -        |
-| suffixCls | CSS class suffix, prefixed with `k-`; custom values require matching styles. | string  | 'layout' |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| hasSider | Whether the layout contains a sider; detected automatically when omitted | `boolean` | - |
+| suffixCls | CSS class suffix, prefixed with `k-`; custom values require matching styles. | `string` | 'layout' |
 
 ## Layout.Sider API
 
-| Property       | Description                                                                  | Type             | Default        |
-| -------------- | ---------------------------------------------------------------------------- | ---------------- | -------------- |
-| width          | Expanded width                                                               | number \| string | 200            |
-| collapsedWidth | Collapsed width                                                              | number \| string | 80             |
-| collapsible    | Whether collapsed styling is enabled                                         | boolean          | false          |
-| collapsed      | Controlled collapsed state                                                   | boolean          | false          |
-| suffixCls      | CSS class suffix, prefixed with `k-`; custom values require matching styles. | string           | 'layout-sider' |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| width | Expanded width | number \| string | 200 |
+| collapsedWidth | Collapsed width | number \| string | 80 |
+| collapsible | Whether collapsed styling is enabled | boolean | false |
+| collapsed | Controlled collapsed state | boolean | false |
+| suffixCls | CSS class suffix, prefixed with `k-`; custom values require matching styles. | `string` | 'layout-sider' |

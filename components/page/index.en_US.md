@@ -27,18 +27,18 @@ Separate long lists using pagination, loading only one page at a time.
 
 ## API
 
-| Property     | Description                                 | Type                                     | Default          |
-| ------------ | ------------------------------------------- | ---------------------------------------- | ---------------- |
-| page         | Current page number(v-model)                | number                                   | 1                |
-| disabled     | Disabled status                             | boolean                                  | false            |
-| total        | Total data count                            | number                                   | 0                |
-| pageSize     | Number of items per page (v-model:pageSize) | number                                   | 10               |
-| showSizer    | Whether to show page size selector          | boolean                                  | false            |
-| showTotal    | Whether to show total count                 | boolean                                  | true             |
-| showElevator | Whether to show page elevator               | boolean                                  | false            |
-| simple       | Use compact pagination                      | boolean                                  | false            |
-| sizeData     | Custom page size data                       | number[]                                 | [10,15,20,30,40] |
-| size         | Size                                        | SizeType                                 | `medium`         |
-| theme        | Theme                                       | ThemeType                                | `fill`           |
-| onChange     | Called when the page or page size changes   | (page: number, pageSize: number) => void | -                |
-| shape        | Pagination item shape                       | ShapeType                                | round            |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| page | Current page number(v-model) | `number` | 1 |
+| disabled | Disabled status | `boolean` | false |
+| total | Total data count | `number` | 0 |
+| pageSize | Number of items per page (v-model:pageSize) | `number` | 10 |
+| showSizer | Whether to show page size selector | `boolean` | false |
+| showTotal | Whether to show total count | `boolean` | true |
+| showElevator | Whether to show page elevator | `boolean` | false |
+| simple | Use compact pagination | `boolean` | false |
+| sizeData | Custom page size data | `number[]` | [10,15,20,30,40] |
+| size | Size | `"small" \| "medium" \| "large"` | `medium` |
+| theme | Theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | `fill` |
+| onChange | Called when the page or page size changes | `(page: number, pageSize: number) => void` | - |
+| shape | Pagination item shape | `"default" \| "circle" \| "square" \| "round"` | round |

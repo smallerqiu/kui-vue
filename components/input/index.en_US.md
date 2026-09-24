@@ -43,48 +43,48 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 
 ## Input API
 
-| Property            | Description                                                         | Type                             | Default |
-| ------------------- | ------------------------------------------------------------------- | -------------------------------- | ------- |
-| modelValue          | Bound value, can use `v-model` for two-way binding                  | string \| number                 | -       |
-| value               | Initial value for uncontrolled usage                                | unknown                          | -       |
-| type                | Native input type                                                   | 'text' \| 'password' \| 'hidden' | text    |
-| inputType           | Internal input element type, normally left as input                 | string                           | input   |
-| disabled            | Whether the input is disabled                                       | boolean                          | false   |
-| readonly            | Read-only; focusable and copyable but not editable                  | boolean                          | false   |
-| shape               | Input shape                                                         | ShapeType                        | -       |
-| size                | Button size, optional values `small`, `large`, default not selected | string                           | -       |
-| icon                | Input box icon                                                      | string                           | -       |
-| suffix              | Suffix inside the input; complex content can use the named slot     | string \| VNodeChild             | -       |
-| prefix              | Prefix inside the input; complex content can use the named slot     | string \| VNodeChild             | -       |
-| addonBefore         | Addon before the input; complex content can use the named slot      | string \| number \| VNodeChild   | -       |
-| addonAfter          | Addon after the input; complex content can use the named slot       | string \| number \| VNodeChild   | -       |
-| theme               | The theme of Input                                                  | string                           | fill    |
-| clearable           | Show the clear button on hover when a value exists                  | boolean                          | true    |
-| visiblePasswordIcon | Whether to show the toggle button or control password visibility    | boolean                          | true    |
-| onSearch            | Search event callback                                               | (value: string) => void          | -       |
-| onIconClick         | Callback for icon click event                                       | (e: Event) => void               | -       |
-| onClear             | Callback for pressing the clear button                              | () => void                       | -       |
-| onChange            | Callback when the input box content changes                         | (value: string) => void          | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| modelValue | Bound value, can use `v-model` for two-way binding | `unknown` | - |
+| value | Initial value for uncontrolled usage | `any` | - |
+| type | Native input type | `InputTypeHTMLAttribute` | text |
+| inputType | Internal input element type, normally left as input | `string` | input |
+| disabled | Whether the input is disabled | `boolean` | false |
+| readonly | Read-only; focusable and copyable but not editable | `boolean` | false |
+| shape | Input shape | `"default" \| "circle" \| "square" \| "round"` | - |
+| size | Button size, optional values `small`, `large`, default not selected | `"small" \| "medium" \| "large"` | - |
+| icon | Input box icon | `IconType[]` | - |
+| suffix | Suffix inside the input; complex content can use the named slot | `VNodeChild` | - |
+| prefix | Prefix inside the input; complex content can use the named slot | `VNodeChild` | - |
+| addonBefore | Addon before the input; complex content can use the named slot | `VNodeChild` | - |
+| addonAfter | Addon after the input; complex content can use the named slot | `VNodeChild` | - |
+| theme | The theme of Input | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| clearable | Show the clear button on hover when a value exists | `boolean` | true |
+| visiblePasswordIcon | Whether to show the toggle button or control password visibility | `boolean` | true |
+| onSearch | Search event callback | `((value: string) => void)` | - |
+| onIconClick | Callback for icon click event | `((event: MouseEvent) => void)` | - |
+| onClear | Callback for pressing the clear button | `(() => void)` | - |
+| onChange | Callback when the input box content changes | `((value: string) => void)` | - |
 
 ## TextArea API
 
-| Property    | Description                        | Type                         | Default |
-| ----------- | ---------------------------------- | ---------------------------- | ------- |
-| modelValue  | Bound value, supports `v-model`    | string \| number \| string[] | -       |
-| value       | Initial value for uncontrolled use | string \| number \| string[] | -       |
-| rows        | Number of visible text rows        | number                       | 2       |
-| placeholder | Input placeholder                  | string                       | -       |
-| disabled    | Whether the textarea is disabled   | boolean                      | false   |
-| readonly    | Whether the textarea is read-only  | boolean                      | false   |
-| theme       | Textarea theme                     | ThemeType                    | fill    |
-| size        | Textarea size                      | SizeType                     | -       |
-| shape       | Textarea shape                     | ShapeType                    | -       |
-| onChange    | Triggered when the content changes | (value: string) => void      | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| modelValue | Bound value, supports `v-model` | `string \| number \| readonly string[] \| null` | - |
+| value | Initial value for uncontrolled use | `string \| number \| readonly string[] \| null` | - |
+| rows | Number of visible text rows | `number` | 2 |
+| placeholder | Input placeholder | `string` | - |
+| disabled | Whether the textarea is disabled | `boolean` | false |
+| readonly | Whether the textarea is read-only | `boolean` | false |
+| theme | Textarea theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| size | Textarea size | `"small" \| "medium" \| "large"` | - |
+| shape | Textarea shape | `"default" \| "circle" \| "square" \| "round"` | - |
+| onChange | Triggered when the content changes | `((value: string) => void)` | - |
 
 ## Input Group API
 
-| Property | Description                                                                         | Type    | Default |
-| -------- | ----------------------------------------------------------------------------------- | ------- | ------- |
-| block    | Whether to inherit the parent width                                                 | boolean | false   |
-| compact  | Whether to use compact mode                                                         | boolean | true    |
-| size     | Spacing of child components, optional values `small`, `large`, default not selected | string  | -       |
+| Property | Description | Type | Default |
+| --- | --- | --- | --- |
+| block | Whether to inherit the parent width | boolean | false |
+| compact | Whether to use compact mode | boolean | true |
+| size | Spacing of child components, optional values `small`, `large`, default not selected | `"small" \| "medium" \| "large"` | - |
