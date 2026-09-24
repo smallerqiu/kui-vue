@@ -98,6 +98,13 @@ router.afterEach((to) => {
   loading.finish();
 });
 
+router.onError((err) => {
+  // If an update is released and the chunk files are deleted, the main page needs to be reloaded.
+  if (err.message.includes("Failed to fetch dynamically imported module")) {
+    location.reload();
+  }
+});
+
 // console.log(router.getRoutes());
 
 export default router;
