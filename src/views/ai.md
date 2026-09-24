@@ -13,20 +13,32 @@ pnpm exec kui-vue-ai init
 
 ## 连接 MCP Server
 
-在支持 stdio MCP 的客户端中添加：
+先确认项目已安装提供 MCP 命令的 `kui-vue` 版本，并在终端查询 Node 可执行文件的绝对路径：
+
+```bash
+node -p "process.execPath"
+```
+
+下面适用于支持 `mcpServers` JSON 格式的 stdio MCP 客户端：
 
 ```json
 {
   "mcpServers": {
     "kui-vue": {
-      "command": "pnpm",
-      "args": ["exec", "kui-vue-mcp"]
+      "command": "/absolute/path/to/node",
+      "args": ["/absolute/path/to/project/node_modules/kui-vue/ai/mcp.mjs"]
     }
   }
 }
 ```
 
-配置文件的位置取决于客户端和版本，请通过客户端当前的 MCP 设置页面添加。服务提供以下能力：
+将 `command` 替换为查询到的 Node 路径，将 `args` 中的脚本路径替换为你项目中的绝对路径。路径含空格也保持为一个字符串；Windows 路径可使用正斜杠，例如 `C:/Program Files/nodejs/node.exe`。这种方式不依赖客户端的启动目录，也不要求使用 pnpm。如果客户端能找到 Node，也可以将 `command` 写成 `node`。
+
+只有在客户端能找到 Node 和 pnpm，且工作目录明确设为已安装该包的应用目录时，才使用 `"command": "pnpm"` 和 `"args": ["exec", "kui-vue-mcp"]`。
+
+配置文件的位置和格式取决于客户端；不支持 `mcpServers` 格式的客户端，请在 MCP 设置中填写相同的启动命令和参数。保存后重新连接，确认工具列表包含 `search_components` 和 `get_component_api`。服务通过标准输入/输出通信，不会打开网页；在终端启动后等待输入是正常状态。
+
+服务提供以下能力：
 
 - 搜索组件和查询完整 API
 - 根据界面需求推荐组件

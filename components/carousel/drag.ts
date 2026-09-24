@@ -1,6 +1,5 @@
 interface DragOptions {
   swipeable: boolean;
-  draggable: boolean;
   vertical: boolean;
   size: number;
   count: number;
@@ -38,7 +37,6 @@ export function bindCarouselDrag(root: HTMLElement, callbacks: DragCallbacks) {
         started: number;
         samples: { time: number; delta: number }[];
         options: DragOptions;
-        mouse: boolean;
       }
     | undefined;
   let suppressClickUntil = 0;
@@ -49,7 +47,7 @@ export function bindCarouselDrag(root: HTMLElement, callbacks: DragCallbacks) {
     active.options.count !== options.count ||
     active.options.index !== options.index ||
     active.options.loop !== options.loop ||
-    (active.mouse ? !options.draggable : !options.swipeable);
+    !options.swipeable;
   const finish = (cancel = false) => {
     const active = gesture;
     if (!active) return;
@@ -106,7 +104,7 @@ export function bindCarouselDrag(root: HTMLElement, callbacks: DragCallbacks) {
       options.size <= 0 ||
       event.isPrimary === false ||
       event.button !== 0 ||
-      (event.pointerType === "mouse" ? !options.draggable : !options.swipeable)
+      !options.swipeable
     )
       return;
     suppressClickUntil = 0;
@@ -124,7 +122,6 @@ export function bindCarouselDrag(root: HTMLElement, callbacks: DragCallbacks) {
       started: now,
       samples: [{ time: now, delta: 0 }],
       options: { ...options },
-      mouse: event.pointerType === "mouse",
     };
     gesture.base = callbacks.start() ?? 0;
     callbacks.offset(gesture.base);

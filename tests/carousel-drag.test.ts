@@ -15,7 +15,6 @@ function setup(overrides = {}) {
   document.body.append(root);
   const options = {
     swipeable: true,
-    draggable: false,
     vertical: false,
     size: 300,
     count: 3,
@@ -251,12 +250,12 @@ describe("carousel pointer gestures", () => {
     pointer("pointerup", 0, 200);
     expect(callbacks.finish).toHaveBeenLastCalledWith(-1);
   });
-  it("requires draggable for mouse and respects swipeable=false for touch", () => {
+  it("uses swipeable to control both mouse and touch", () => {
     const { pointer, callbacks, options } = setup({ swipeable: false });
     pointer("pointerdown", 100);
     pointer("pointerdown", 100, 0, "mouse");
     expect(callbacks.start).not.toHaveBeenCalled();
-    options.draggable = true;
+    options.swipeable = true;
     pointer("pointerdown", 100, 0, "mouse");
     pointer("pointermove", 0, 0, "mouse");
     pointer("pointerup", 0, 0, "mouse");

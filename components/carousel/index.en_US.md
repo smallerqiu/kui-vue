@@ -24,8 +24,7 @@ A set of rotating/carousel areas.
 
 ## API
 
-Touch swiping and mouse dragging are enabled by default; disable them independently
-with `swipeable` and `draggable`. Both horizontal and `vertical` modes follow the pointer.
+Touch swiping and mouse dragging are enabled by default; set `swipeable` to `false` to disable both. Both horizontal and `vertical` modes follow the pointer.
 Movement below 5px is ignored. Short swipes within 300ms advance in the gesture direction;
 longer gestures advance when their own travel reaches half a slide or their release
 velocity reaches 0.5px/ms in the drag direction. Unfinished animation travel is not
@@ -40,8 +39,7 @@ vertical carousels preserve horizontal scrolling. Inputs and buttons do not init
 | modelValue | The index of the slide, starting from 0. Can use `v-model` for two-way binding | `number` | - |
 | value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `number` | 0 |
 | loop | Whether to enable loop | `boolean` | true |
-| swipeable | Enable touch swiping with pointer-following movement | `boolean` | true |
-| draggable | Enable mouse dragging with pointer-following movement | `boolean` | true |
+| swipeable | Enable touch swiping and mouse dragging with pointer-following movement | `boolean` | true |
 | vertical | Whether to display in vertical mode | `boolean` | false |
 | autoplay | Whether to auto-switch | `boolean` | false |
 | delay | The time interval for auto-switching, in milliseconds | `number` | 3000 |

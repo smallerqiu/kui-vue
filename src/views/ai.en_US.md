@@ -13,20 +13,32 @@ The initializer adds Kui Vue guidance to `AGENTS.md` and is safe to run repeated
 
 ## Connect the MCP server
 
-Add this server to any client that supports stdio MCP:
+Confirm that the project has a version of `kui-vue` that includes the MCP server. Find the absolute path to Node:
+
+```bash
+node -p "process.execPath"
+```
+
+For stdio MCP clients that support the `mcpServers` JSON format:
 
 ```json
 {
   "mcpServers": {
     "kui-vue": {
-      "command": "pnpm",
-      "args": ["exec", "kui-vue-mcp"]
+      "command": "/absolute/path/to/node",
+      "args": ["/absolute/path/to/project/node_modules/kui-vue/ai/mcp.mjs"]
     }
   }
 }
 ```
 
-Configuration locations vary by client and version, so add the command through the client's current MCP settings. The server provides:
+Replace `command` with the Node path returned above and the script argument with its absolute path in your project. Keep paths containing spaces as single strings. Windows paths can use forward slashes, such as `C:/Program Files/nodejs/node.exe`. This configuration does not depend on the client's working directory or require pnpm. If the client can find Node, `command` can also be `node`.
+
+Use `"command": "pnpm"` with `"args": ["exec", "kui-vue-mcp"]` only when the client can find Node and pnpm and its working directory is explicitly set to the application directory where the package is installed.
+
+Configuration locations and formats vary by client. For clients without `mcpServers` support, enter the same command and arguments in their MCP settings. Reconnect after saving and confirm that `search_components` and `get_component_api` appear in the tool list. The server communicates over standard input/output and does not open a web page; waiting for input when launched in a terminal is normal.
+
+The server provides:
 
 - Component search and exact API lookup
 - Component recommendations for UI requirements

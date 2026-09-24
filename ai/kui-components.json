@@ -3682,21 +3682,6 @@
           "documented": true
         },
         {
-          "name": "draggable",
-          "description": "Enable mouse dragging with pointer-following movement",
-          "descriptionZh": "是否开启鼠标跟手拖拽",
-          "descriptionEn": "Enable mouse dragging with pointer-following movement",
-          "type": "boolean",
-          "boolean": true,
-          "enumValues": [
-            false,
-            true
-          ],
-          "required": false,
-          "defaultExpression": "true",
-          "documented": true
-        },
-        {
           "name": "vertical",
           "description": "Whether to display in vertical mode",
           "descriptionZh": "是否垂直模式显示",
@@ -3753,9 +3738,9 @@
         },
         {
           "name": "swipeable",
-          "description": "Enable touch swiping with pointer-following movement",
-          "descriptionZh": "是否开启触摸跟手滑动",
-          "descriptionEn": "Enable touch swiping with pointer-following movement",
+          "description": "Enable touch swiping and mouse dragging with pointer-following movement",
+          "descriptionZh": "是否开启触摸滑动和鼠标跟手拖拽",
+          "descriptionEn": "Enable touch swiping and mouse dragging with pointer-following movement",
           "type": "boolean",
           "boolean": true,
           "enumValues": [

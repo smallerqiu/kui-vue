@@ -33,7 +33,6 @@ const carouselProps = {
   vertical: Boolean,
   dots: { type: Boolean as BooleanType, default: true },
   swipeable: { type: Boolean as BooleanType, default: true },
-  draggable: { type: Boolean as BooleanType, default: true },
 };
 
 export type CarouselProps = ExtractPropTypes<typeof carouselProps>;
@@ -244,7 +243,6 @@ const Carousel = defineComponent({
         const dispose = bindCarouselDrag(root, {
           options: () => ({
             swipeable: props.swipeable,
-            draggable: props.draggable,
             vertical: props.vertical,
             size: props.vertical ? props.height : width.value,
             count: itemCount.value,

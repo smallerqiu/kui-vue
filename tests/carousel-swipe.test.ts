@@ -140,11 +140,11 @@ describe("Carousel swipe integration", () => {
       expect(parseFloat(track.style.transitionDuration)).toBeGreaterThanOrEqual(140);
     },
   );
-  it("allows disabling default mouse dragging", async () => {
-    const { wrapper, track } = await setup({ draggable: false });
-    await pointer(track, "pointerdown", 200, 0, "mouse");
-    await pointer(window, "pointermove", 100, 0, "mouse");
-    await pointer(window, "pointerup", 100, 0, "mouse");
+  it.each(["mouse", "touch"])("disables %s gestures with swipeable=false", async (kind) => {
+    const { wrapper, track } = await setup({ swipeable: false });
+    await pointer(track, "pointerdown", 200, 0, kind);
+    await pointer(window, "pointermove", 100, 0, kind);
+    await pointer(window, "pointerup", 100, 0, kind);
     expect(wrapper.emitted("change")).toBeUndefined();
   });
   it("keeps the looping clone transition when the parent synchronizes the model", async () => {
