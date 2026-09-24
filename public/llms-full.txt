@@ -2924,7 +2924,6 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | modelValue | Bound value, can use `v-model` for two-way binding | `unknown` | - |
 | value | Initial value for uncontrolled usage | `any` | - |
 | type | Native input type | `InputTypeHTMLAttribute` | text |
-| inputType | Internal input element type, normally left as input | `string` | input |
 | disabled | Whether the input is disabled | `boolean` | false |
 | readonly | Read-only; focusable and copyable but not editable | `boolean` | false |
 | shape | Input shape | `"default" \| "circle" \| "square" \| "round"` | - |
@@ -3017,7 +3016,6 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | modelValue | Bound value, can use `v-model` for two-way binding | `unknown` | - |
 | value | Initial value for uncontrolled usage | `any` | - |
 | type | Native input type | `InputTypeHTMLAttribute` | text |
-| inputType | Internal input element type, normally left as input | `string` | input |
 | disabled | Whether the input is disabled | `boolean` | false |
 | readonly | Read-only; focusable and copyable but not editable | `boolean` | false |
 | shape | Input shape | `"default" \| "circle" \| "square" \| "round"` | - |
@@ -3110,7 +3108,6 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | modelValue | Bound value, can use `v-model` for two-way binding | `unknown` | - |
 | value | Initial value for uncontrolled usage | `any` | - |
 | type | Native input type | `InputTypeHTMLAttribute` | text |
-| inputType | Internal input element type, normally left as input | `string` | input |
 | disabled | Whether the input is disabled | `boolean` | false |
 | readonly | Read-only; focusable and copyable but not editable | `boolean` | false |
 | shape | Input shape | `"default" \| "circle" \| "square" \| "round"` | - |

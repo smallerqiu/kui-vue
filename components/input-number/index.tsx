@@ -18,7 +18,7 @@ import {
   useFormField,
 } from "../form/context";
 import Icon, { type IconType } from "../icon";
-import { Input } from "../input";
+import InputBase from "../input/input-base";
 import { isValidBig, normalize } from "../utils/number";
 
 const inputNumberProps = {
@@ -185,7 +185,6 @@ const InputNumber = defineComponent({
         icon: props.icon,
         shape: appearance.shape.value,
         theme: appearance.theme.value,
-        inputType: "input-number",
         role: "spinbutton",
         inputmode: "decimal" as const,
         "aria-valuemin": props.min === -Infinity ? undefined : props.min,
@@ -235,8 +234,9 @@ const InputNumber = defineComponent({
         ) : null;
 
       return (
-        <Input
+        <InputBase
           {...inputProps}
+          stylePrefix="input-number"
           v-slots={{
             suffix: () => slots.suffix?.(),
             prefix: () => slots.prefix?.(),

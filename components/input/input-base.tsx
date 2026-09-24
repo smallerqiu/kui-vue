@@ -1,0 +1,405 @@
+import { CircleX, Eye, EyeOff, Search } from "kui-icons";
+import {
+  computed,
+  defineComponent,
+  getCurrentInstance,
+  inject,
+  nextTick,
+  provide,
+  ref,
+  type CSSProperties,
+  type ExtractPropTypes,
+  type InputHTMLAttributes,
+  type PropType,
+  type VNodeChild,
+} from "vue";
+import { type BooleanType, type ShapeType, type SizeType, type ThemeType } from "../const/types";
+import { resolveFormControlAttrs, useFormAppearance, useFormField } from "../form/context";
+import Icon, { type IconType } from "../icon";
+import { isEmpty } from "../utils/number";
+import { getChildren } from "../utils/vnode";
+import InputBox from "./input-box";
+import InputGroup from "./input-group";
+
+export const inputProps = {
+  clearable: { type: Boolean as BooleanType, default: true },
+  visiblePasswordIcon: { type: Boolean as BooleanType, default: true },
+  size: { type: String as PropType<SizeType> },
+  value: { type: [String, Number, Array, Object] as PropType<unknown> },
+  modelValue: { type: [String, Number, Array, Object] as PropType<unknown> },
+  disabled: Boolean as BooleanType,
+  readonly: Boolean as BooleanType,
+  type: {
+    type: String as PropType<InputHTMLAttributes["type"]>,
+    default: "text",
+  },
+  icon: [Array] as PropType<IconType[]>,
+  suffix: { type: [String, Object] as PropType<VNodeChild> },
+  prefix: { type: [String, Object] as PropType<VNodeChild> },
+  addonBefore: { type: [String, Number, Object] as PropType<VNodeChild> },
+  addonAfter: { type: [String, Number, Object] as PropType<VNodeChild> },
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  shape: String as PropType<ShapeType>,
+  //maxlength: Number,
+  // "onUpdate:modelValue": Function as PropType<(value: string) => void>,
+};
+
+export interface InputEvents {
+  "onUpdate:modelValue"?: (value: string) => void;
+  onChange?: (value: string) => void;
+  onSearch?: (value: string) => void;
+  onIconClick?: (event: MouseEvent) => void;
+  onClear?: () => void;
+  onFocus?: (event: FocusEvent) => void;
+  onBlur?: (event: FocusEvent) => void;
+}
+export interface InputRef {
+  focus: () => void;
+  blur: () => void;
+}
+export type InputProps = Partial<ExtractPropTypes<typeof inputProps>> &
+  Omit<InputHTMLAttributes, keyof InputEvents | "prefix"> &
+  InputEvents;
+
+export const inputEmits = {
+  "update:modelValue": (value: string) => typeof value === "string",
+  search: (value: string) => typeof value === "string",
+  iconClick: (event: MouseEvent) => typeof event?.type === "string",
+  clear: () => true,
+  change: (value: string) => typeof value === "string",
+  focus: (event: FocusEvent) => typeof event?.type === "string",
+  blur: (event: FocusEvent) => typeof event?.type === "string",
+};
+
+/** Shared implementation. Deliberately absent from the public component barrel. */
+const InputBase = defineComponent({
+  inheritAttrs: false,
+  name: "InputBase",
+  props: {
+    ...inputProps,
+    stylePrefix: { type: String as PropType<"input" | "input-number">, default: "input" },
+  },
+  emits: inputEmits,
+  setup(props, { slots, emit, attrs, expose }) {
+    const field = useFormField(true);
+    const appearance = useFormAppearance(props, field);
+    const instance = getCurrentInstance();
+    const hasListener = (name: string) => Boolean(instance?.vnode.props?.[`on${name}`]);
+    const innerValue = ref(props.value);
+    const currentValue = computed(() =>
+      field?.prop
+        ? field.value.value
+        : props.modelValue !== undefined
+          ? props.modelValue
+          : innerValue.value,
+    );
+    const focused = ref(false);
+    const showPassword = ref(false);
+    const inputRef = ref<HTMLInputElement | HTMLTextAreaElement>();
+    const parentSize = inject<SizeType | undefined>("size", undefined);
+
+    provide("size", props.size || parentSize);
+
+    const focus = () => inputRef.value?.focus();
+    const blur = () => inputRef.value?.blur();
+
+    expose({ focus, blur });
+
+    const clear = () => {
+      if (props.disabled || props.readonly) return;
+      if (props.modelValue === undefined) innerValue.value = "";
+      emit("update:modelValue", "");
+      if (field?.prop) field.update("");
+      emit("clear");
+      emit("change", "");
+      nextTick(() => focus());
+    };
+
+    const togglePassword = () => {
+      if (props.disabled || props.readonly) return;
+      showPassword.value = !showPassword.value;
+    };
+
+    const getSuffix = (slotSuffix: VNodeChild[]) => {
+      const { suffix, visiblePasswordIcon, type } = props;
+      if (type === "password" && visiblePasswordIcon) {
+        return (
+          <Icon
+            class="k-input-password-icon"
+            type={!showPassword.value ? Eye : EyeOff}
+            role="button"
+            tabindex={props.disabled || props.readonly ? undefined : 0}
+            aria-label={showPassword.value ? "Hide password" : "Show password"}
+            onClick={togglePassword}
+            onKeydown={(event: KeyboardEvent) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                togglePassword();
+              }
+            }}
+          />
+        );
+      } else if (hasListener("Search")) {
+        return (
+          <Icon
+            type={Search}
+            class="k-input-search-icon"
+            role="button"
+            tabindex={props.disabled || props.readonly ? undefined : 0}
+            aria-label="Search"
+            onClick={() =>
+              !props.disabled && !props.readonly && emit("search", String(currentValue.value ?? ""))
+            }
+            onKeydown={(event: KeyboardEvent) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                if (!props.disabled && !props.readonly)
+                  emit("search", String(currentValue.value ?? ""));
+              }
+            }}
+          />
+        );
+      }
+      const suffixContent = slotSuffix.length > 0 ? slotSuffix : suffix;
+      return suffixContent ? <div class="k-input-suffix">{suffixContent}</div> : null;
+    };
+
+    return () => {
+      const {
+        icon,
+        size = appearance.size.value || parentSize || undefined,
+        type,
+        clearable,
+        suffix,
+        addonBefore,
+        addonAfter,
+        theme,
+        prefix,
+        shape,
+      } = props;
+      const disabled = props.disabled || field?.disabled.value;
+      const readonly = props.readonly || field?.readonly.value;
+      const effectiveTheme = appearance.theme.value ?? theme;
+      const effectiveShape = appearance.shape.value ?? shape;
+
+      const slotSuffix = getChildren(slots.suffix?.());
+      const slotPrefix = getChildren(slots.prefix?.());
+      const slotAddonBefore = getChildren(slots.addonBefore?.());
+      const slotAddonAfter = getChildren(slots.addonAfter?.());
+      const inputType = props.stylePrefix;
+      const slotControls = getChildren(slots.controls?.());
+      const grouped =
+        slotAddonBefore.length > 0 ||
+        slotAddonAfter.length > 0 ||
+        addonBefore !== undefined ||
+        addonAfter !== undefined;
+
+      const multiple =
+        (icon ||
+          hasListener("Search") ||
+          slotSuffix.length > 0 ||
+          suffix ||
+          slotPrefix.length > 0 ||
+          prefix ||
+          type === "password" ||
+          clearable ||
+          grouped ||
+          slotControls.length > 0) &&
+        type !== "hidden";
+
+      const inputBoxProps: Record<string, unknown> = {
+        // htmlAttrs: { ...attrs },
+        ...attrs,
+        ...resolveFormControlAttrs(attrs, field),
+        disabled,
+        readonly,
+        multiple,
+        // size,
+        type,
+        theme: effectiveTheme,
+        shape: effectiveShape,
+        inputRef: inputRef,
+        inputType,
+        value: currentValue.value,
+        showPassword: showPassword.value,
+        onInput: (e: Event) => {
+          const v = (e.target as HTMLInputElement).value;
+          if (props.modelValue === undefined) innerValue.value = v;
+          emit("update:modelValue", v);
+          if (field?.prop) field.update(v);
+          emit("change", v);
+        },
+        onFocus: (e: FocusEvent) => {
+          focused.value = true;
+          emit("focus", e);
+        },
+        onBlur: (e: FocusEvent) => {
+          focused.value = false;
+          emit("blur", e);
+          if (field?.prop) field.blur();
+        },
+        class: multiple ? undefined : attrs.class,
+        style: multiple ? undefined : attrs.style,
+      };
+
+      if (typeof size === "string") {
+        inputBoxProps.size = size;
+      }
+
+      const textInput = <InputBox {...inputBoxProps} />;
+      if (!multiple) return textInput;
+
+      const clearableShow =
+        clearable && !isEmpty(currentValue.value) && type !== "password" && !disabled && !readonly;
+
+      const rootProps = {
+        class: [
+          {
+            [`k-${inputType}`]: true,
+            [`k-${inputType}-focus`]: focused.value,
+            [`k-${inputType}-disabled`]: disabled,
+            [`k-${inputType}-readonly`]: readonly,
+            [`k-${inputType}-has-clear`]: clearableShow,
+            [`k-${inputType}-sm`]: size === "small",
+            [`k-${inputType}-lg`]: size === "large",
+            [`k-${inputType}-${effectiveTheme}`]: effectiveTheme && effectiveTheme !== "outline",
+            [`k-${inputType}-circle`]: effectiveShape === "circle",
+            [`k-${inputType}-square`]: effectiveShape === "square",
+          },
+          !grouped && attrs.class,
+        ],
+        "data-multiple": "",
+        style: !grouped ? (attrs.style as CSSProperties) : undefined,
+      };
+
+      if (grouped) {
+        const beforeContent = slotAddonBefore.length
+          ? slotAddonBefore
+          : addonBefore !== undefined
+            ? addonBefore
+            : undefined;
+        const afterContent = slotAddonAfter.length
+          ? slotAddonAfter
+          : addonAfter !== undefined
+            ? addonAfter
+            : undefined;
+        const preChildren = beforeContent ? (
+          <div class="k-input-group-prefix">{beforeContent}</div>
+        ) : null;
+        const innerChildren: VNodeChild[] = [];
+        if (icon)
+          innerChildren.push(
+            <Icon
+              type={icon}
+              class={`k-${inputType}-icon`}
+              role={hasListener("IconClick") ? "button" : undefined}
+              tabindex={hasListener("IconClick") && !disabled && !readonly ? 0 : undefined}
+              onClick={(e) => !disabled && !readonly && emit("iconClick", e)}
+              onKeydown={(event: KeyboardEvent) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  (event.currentTarget as HTMLElement).click();
+                }
+              }}
+            />,
+          );
+        const prefixContent = slotPrefix.length ? slotPrefix : prefix;
+        if (prefixContent)
+          innerChildren.push(<div class={`k-${inputType}-prefix`}>{prefixContent}</div>);
+        innerChildren.push(textInput);
+        if (clearable) {
+          innerChildren.push(
+            <Icon
+              type={CircleX}
+              class={[
+                `k-${inputType}-clearable`,
+                { [`k-${inputType}-clearable-hidden`]: !clearableShow },
+              ]}
+              role="button"
+              tabindex={clearableShow ? 0 : undefined}
+              aria-label="Clear"
+              onPointerdown={(event: PointerEvent) => event.preventDefault()}
+              onClick={clear}
+              onKeydown={(event: KeyboardEvent) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  clear();
+                }
+              }}
+            />,
+          );
+        }
+        const suffixNode = getSuffix(slotSuffix);
+        if (suffixNode) innerChildren.push(suffixNode);
+        if (slotControls.length) innerChildren.push(slotControls);
+        const sufChildren = afterContent ? (
+          <div class="k-input-group-suffix">{afterContent}</div>
+        ) : null;
+
+        return (
+          <InputGroup
+            size={size}
+            theme={theme}
+            class={attrs.class}
+            style={attrs.style as CSSProperties}
+          >
+            {preChildren}
+            <div {...rootProps}>{innerChildren}</div>
+            {sufChildren}
+          </InputGroup>
+        );
+      } else {
+        const suffixNode = getSuffix(slotSuffix);
+        const children: VNodeChild[] = [];
+        if (icon)
+          children.push(
+            <Icon
+              type={icon}
+              class={`k-${inputType}-icon`}
+              role={hasListener("IconClick") ? "button" : undefined}
+              tabindex={hasListener("IconClick") && !disabled && !readonly ? 0 : undefined}
+              onClick={(event) => !disabled && !readonly && emit("iconClick", event)}
+              onKeydown={(event: KeyboardEvent) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  (event.currentTarget as HTMLElement).click();
+                }
+              }}
+            />,
+          );
+        const prefixContent = slotPrefix.length ? slotPrefix : prefix;
+        if (prefixContent)
+          children.push(<div class={`k-${inputType}-prefix`}>{prefixContent}</div>);
+        children.push(textInput);
+        if (clearable) {
+          children.push(
+            <Icon
+              type={CircleX}
+              class={[
+                `k-${inputType}-clearable`,
+                { [`k-${inputType}-clearable-hidden`]: !clearableShow },
+              ]}
+              role="button"
+              tabindex={clearableShow ? 0 : undefined}
+              aria-label="Clear"
+              onPointerdown={(event: PointerEvent) => event.preventDefault()}
+              onClick={clear}
+              onKeydown={(event: KeyboardEvent) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  clear();
+                }
+              }}
+            />,
+          );
+        }
+        if (suffixNode) children.push(suffixNode);
+        if (slotControls.length) children.push(slotControls);
+
+        return <div {...rootProps}>{children}</div>;
+      }
+    };
+  },
+});
+
+export default InputBase;

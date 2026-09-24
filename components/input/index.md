@@ -48,7 +48,6 @@
 | modelValue | 绑定的值，可使用 `v-model` 双向绑定 | `unknown` | - |
 | value | 非受控输入框的初始值 | `any` | - |
 | type | 原生输入类型 | `InputTypeHTMLAttribute` | text |
-| inputType | 内部输入元素类型，通常保持为 input | `string` | input |
 | disabled | 是否禁用输入框 | `boolean` | false |
 | readonly | 是否只读，可聚焦和复制但不可修改 | `boolean` | false |
 | shape | 输入框形状 | `"default" \| "circle" \| "square" \| "round"` | - |

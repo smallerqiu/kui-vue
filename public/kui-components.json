@@ -8331,17 +8331,6 @@
           "documented": true
         },
         {
-          "name": "inputType",
-          "description": "Internal input element type, normally left as input",
-          "descriptionZh": "内部输入元素类型，通常保持为 input",
-          "descriptionEn": "Internal input element type, normally left as input",
-          "type": "string | undefined",
-          "boolean": false,
-          "required": false,
-          "defaultExpression": "\"input\"",
-          "documented": true
-        },
-        {
           "name": "disabled",
           "description": "Whether the textarea is disabled",
           "descriptionZh": "是否禁用文本域",

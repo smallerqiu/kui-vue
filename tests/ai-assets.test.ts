@@ -25,6 +25,38 @@ afterEach(() => {
 });
 
 describe("AI distribution assets", () => {
+  it("keeps type references portable across source and package layouts", () => {
+    const asset: {
+      components: Array<{ name: string; props: Array<{ name: string; type: string }> }>;
+    } = JSON.parse(fs.readFileSync(path.join(root, "ai/kui-components.json"), "utf8"));
+    const input = asset.components.find((component) => component.name === "Input");
+    // Vue's ExtractPropTypes expands this alias to its literal union.
+    expect(input?.props.find((prop) => prop.name === "size")?.type).toBe(
+      '"small" | "medium" | "large" | undefined',
+    );
+    expect(input?.props.find((prop) => prop.name === "icon")?.type).toBe("IconType[] | undefined");
+    const visit = (value: unknown): void => {
+      if (!value || typeof value !== "object") return;
+      for (const [key, entry] of Object.entries(value)) {
+        if (key === "type" && typeof entry === "string") {
+          expect(entry).not.toMatch(/\.pnpm|node_modules|import\(["'](?:\.|\/|[A-Za-z]:)/);
+        } else {
+          visit(entry);
+        }
+      }
+    };
+    visit(asset);
+  });
+  it("does not publish internal InputBase controls or style prefixes", () => {
+    const components: Array<{ name: string; props: Array<{ name: string }> }> = metadata.components;
+    expect(components.some((component) => component.name === "InputBase")).toBe(false);
+    const input = components.find((component) => component.name === "Input");
+    expect(input).toBeDefined();
+    const names = input!.props.map((prop) => prop.name);
+    expect(names).not.toContain("controls");
+    expect(names).not.toContain("stylePrefix");
+    expect(names).not.toContain("inputType");
+  });
   it("documents Button icon definitions rather than rendered nodes", () => {
     const button = metadata.components.find((component) => component.name === "Button");
     const icon = button?.props.find((prop) => prop.name === "icon");
