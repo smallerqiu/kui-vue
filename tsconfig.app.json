@@ -51,7 +51,8 @@
     "tests/visual/**/*.vue",
     "playwright.config.ts",
     "vite.config*.ts",
-    "scripts/build-entries.ts"
+    "scripts/build-entries.ts",
+    "scripts/component-documentation.ts"
   ],
   "exclude": ["node_modules", "dist", "lib", "es", "types"]
 }

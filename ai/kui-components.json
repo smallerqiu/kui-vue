@@ -3682,6 +3682,21 @@
           "documented": true
         },
         {
+          "name": "draggable",
+          "description": "Enable mouse dragging with pointer-following movement",
+          "descriptionZh": "是否开启鼠标跟手拖拽",
+          "descriptionEn": "Enable mouse dragging with pointer-following movement",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
           "name": "vertical",
           "description": "Whether to display in vertical mode",
           "descriptionZh": "是否垂直模式显示",
@@ -3726,6 +3741,21 @@
           "description": "Whether to show the dots at the bottom of the gallery",
           "descriptionZh": "是否在图库底部显示圆点",
           "descriptionEn": "Whether to show the dots at the bottom of the gallery",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
+          "name": "swipeable",
+          "description": "Enable touch swiping with pointer-following movement",
+          "descriptionZh": "是否开启触摸跟手滑动",
+          "descriptionEn": "Enable touch swiping with pointer-following movement",
           "type": "boolean",
           "boolean": true,
           "enumValues": [
@@ -3803,7 +3833,7 @@
         {
           "title": "基本用法",
           "file": "components/carousel/demo/basic.vue",
-          "source": "<template>\n  <Carousel :modelValue=\"2\" :loop=\"true\" autoplay :height=\"300\">\n    <CarouselItem v-for=\"x in 3\" class=\"item\" :key=\"x\">{{ x }}</CarouselItem>\n  </Carousel>\n</template>\n\n<style lang=\"less\" scoped>\n.item {\n  color: #fff;\n  background: var(--kui-color-primary);\n  justify-content: center;\n  align-items: center;\n  font-size: 30px;\n  font-weight: 700;\n  display: flex;\n}\n</style>"
+          "source": "<template>\n  <Carousel :value=\"2\" loop :height=\"300\">\n    <CarouselItem v-for=\"x in 3\" class=\"item\" :key=\"x\">{{ x }}</CarouselItem>\n  </Carousel>\n</template>\n\n<style lang=\"less\" scoped>\n.item {\n  color: #fff;\n  background: var(--kui-color-primary);\n  justify-content: center;\n  align-items: center;\n  font-size: 30px;\n  font-weight: 700;\n  display: flex;\n}\n</style>"
         },
         {
           "title": "垂直",
