@@ -98,7 +98,10 @@
     {
       "name": "Popup",
       "behavior": {
-        "rules": []
+        "rules": [
+          "The default slot provides the trigger and overlay provides popup content. Use v-model:open when two-way visibility synchronization is desired.",
+          "The shared Popup manages nested layers; avoid a second document-click closer around nested selector popups."
+        ]
       },
       "models": [
         {
@@ -469,9 +472,9 @@
         },
         {
           "name": "onUpdate:open",
-          "description": "Props for onUpdate:open",
-          "descriptionZh": "Props for onUpdate:open",
-          "descriptionEn": "Props for onUpdate:open",
+          "description": "Requests a new open value (Initial visibility; subsequent changes synchronize the state; Vue supports v-model:open); the payload is the new value. With v-model:open, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 open（初始显示状态，后续属性变化会同步内部状态；Vue 支持 v-model:open），参数为更新后的值。使用 v-model:open 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new open value (Initial visibility; subsequent changes synchronize the state; Vue supports v-model:open); the payload is the new value. With v-model:open, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "((open: boolean) => void) | undefined",
           "eventName": "update:open",
           "boolean": false,
@@ -523,9 +526,9 @@
         {
           "name": "update:open",
           "type": "((open: boolean) => void) | undefined",
-          "description": "Props for onUpdate:open",
-          "descriptionZh": "Props for onUpdate:open",
-          "descriptionEn": "Props for onUpdate:open"
+          "description": "Requests a new open value (Initial visibility; subsequent changes synchronize the state; Vue supports v-model:open); the payload is the new value. With v-model:open, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 open（初始显示状态，后续属性变化会同步内部状态；Vue 支持 v-model:open），参数为更新后的值。使用 v-model:open 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new open value (Initial visibility; subsequent changes synchronize the state; Vue supports v-model:open); the payload is the new value. With v-model:open, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "openChange",
@@ -1008,9 +1011,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Value (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（输入值（v-model）），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Value (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: string) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -1071,9 +1074,9 @@
         {
           "name": "update:modelValue",
           "type": "(value: string) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Value (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（输入值（v-model）），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Value (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -1340,9 +1343,9 @@
       "props": [
         {
           "name": "shape",
-          "description": "Sets the shape of all child avatars",
-          "descriptionZh": "统一子头像形状",
-          "descriptionEn": "Sets the shape of all child avatars",
+          "description": "Avatar shape",
+          "descriptionZh": "指定头像形状",
+          "descriptionEn": "Avatar shape",
           "type": "AvatarShape",
           "boolean": false,
           "enumValues": [
@@ -1356,9 +1359,9 @@
         },
         {
           "name": "size",
-          "description": "Sets child size and adjusts their overlap proportionally",
-          "descriptionZh": "统一子头像尺寸，并按尺寸自动调整头像重叠距离",
-          "descriptionEn": "Sets child size and adjusts their overlap proportionally",
+          "description": "Avatar size",
+          "descriptionZh": "设置头像大小",
+          "descriptionEn": "Avatar size",
           "type": "AvatarSize",
           "boolean": false,
           "required": false,
@@ -2716,9 +2719,9 @@
         },
         {
           "name": "title",
-          "description": "Title",
-          "descriptionZh": "标题",
-          "descriptionEn": "Title",
+          "description": "Card title",
+          "descriptionZh": "卡片的标题",
+          "descriptionEn": "Card title",
           "type": "string | undefined",
           "boolean": false,
           "required": false,
@@ -2972,9 +2975,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Selected date in `YYYY-MM-DD` format; supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（选中日期，格式 `YYYY-MM-DD`，支持 `v-model`），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Selected date in `YYYY-MM-DD` format; supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(date: string) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -3015,9 +3018,9 @@
         {
           "name": "update:modelValue",
           "type": "(date: string) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Selected date in `YYYY-MM-DD` format; supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（选中日期，格式 `YYYY-MM-DD`，支持 `v-model`），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Selected date in `YYYY-MM-DD` format; supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -3760,9 +3763,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (The index of the slide, starting from 0. Can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（幻灯片的索引，从 0 开始，可以使用 `v-model` 双向绑定数据），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (The index of the slide, starting from 0. Can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: number) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -3783,9 +3786,9 @@
         {
           "name": "update:modelValue",
           "type": "(value: number) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (The index of the slide, starting from 0. Can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（幻灯片的索引，从 0 开始，可以使用 `v-model` 双向绑定数据），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (The index of the slide, starting from 0. Can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -3837,7 +3840,9 @@
     {
       "name": "Checkbox",
       "behavior": {
-        "rules": []
+        "rules": [
+          "checked controls check state and value identifies a grouped item; do not conflate value, label and checked. Read the emitted event type before migrating to React."
+        ]
       },
       "models": [
         {
@@ -3914,9 +3919,9 @@
         },
         {
           "name": "disabled",
-          "description": "Whether the component is disabled",
-          "descriptionZh": "是否禁用组件",
-          "descriptionEn": "Whether the component is disabled",
+          "description": "Whether the current item is disabled",
+          "descriptionZh": "是否禁用当前项",
+          "descriptionEn": "Whether the current item is disabled",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -3938,9 +3943,9 @@
         },
         {
           "name": "modelValue",
-          "description": "Selected values; supports `v-model`",
-          "descriptionZh": "用于设置当前选中的值，可使用 `v-model` 双向绑定",
-          "descriptionEn": "Selected values; supports `v-model`",
+          "description": "Standalone state bound through `v-model`",
+          "descriptionZh": "独立使用时通过 `v-model` 绑定的状态值",
+          "descriptionEn": "Standalone state bound through `v-model`",
           "type": "string | number | boolean | undefined",
           "boolean": false,
           "required": false,
@@ -3949,9 +3954,9 @@
         },
         {
           "name": "value",
-          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
-          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
-          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "description": "The value represented when used in combination",
+          "descriptionZh": "结合使用时表示的值",
+          "descriptionEn": "The value represented when used in combination",
           "type": "string | number | boolean | undefined",
           "boolean": false,
           "required": false,
@@ -3959,9 +3964,9 @@
         },
         {
           "name": "readonly",
-          "description": "Whether the group is read-only",
-          "descriptionZh": "是否只读",
-          "descriptionEn": "Whether the group is read-only",
+          "description": "Read-only; remains focusable but cannot be toggled",
+          "descriptionZh": "是否只读，保持可聚焦但不可切换",
+          "descriptionEn": "Read-only; remains focusable but cannot be toggled",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -4002,9 +4007,9 @@
         },
         {
           "name": "onChange",
-          "description": "Triggered when the option state changes, returns the currently selected item and state",
-          "descriptionZh": "在选项状态发生改变时触发，返回当前选中的项和状态",
-          "descriptionEn": "Triggered when the option state changes, returns the currently selected item and state",
+          "description": "Callback when the option state changes",
+          "descriptionZh": "在选项状态发生改变时回调",
+          "descriptionEn": "Callback when the option state changes",
           "type": "(event: CheckboxChangeEvent) => void",
           "eventName": "change",
           "boolean": false,
@@ -4012,9 +4017,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Standalone state bound through `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（独立使用时通过 `v-model` 绑定的状态值），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Standalone state bound through `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: string | number | boolean) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -4022,9 +4027,9 @@
         },
         {
           "name": "onUpdate:checked",
-          "description": "Event emitted for update:checked",
-          "descriptionZh": "Event emitted for update:checked",
-          "descriptionEn": "Event emitted for update:checked",
+          "description": "Requests a new checked value (Checked state; supports `v-model:checked`); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 checked（是否选中，可使用 `v-model:checked` 双向绑定），参数为更新后的值。使用 v-model:checked 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new checked value (Checked state; supports `v-model:checked`); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: boolean) => void",
           "eventName": "update:checked",
           "boolean": false,
@@ -4035,23 +4040,23 @@
         {
           "name": "change",
           "type": "(event: CheckboxChangeEvent) => void",
-          "description": "Triggered when the option state changes, returns the currently selected item and state",
-          "descriptionZh": "在选项状态发生改变时触发，返回当前选中的项和状态",
-          "descriptionEn": "Triggered when the option state changes, returns the currently selected item and state"
+          "description": "Callback when the option state changes",
+          "descriptionZh": "在选项状态发生改变时回调",
+          "descriptionEn": "Callback when the option state changes"
         },
         {
           "name": "update:modelValue",
           "type": "(value: string | number | boolean) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Standalone state bound through `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（独立使用时通过 `v-model` 绑定的状态值），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Standalone state bound through `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "update:checked",
           "type": "(value: boolean) => void",
-          "description": "Event emitted for update:checked",
-          "descriptionZh": "Event emitted for update:checked",
-          "descriptionEn": "Event emitted for update:checked"
+          "description": "Requests a new checked value (Checked state; supports `v-model:checked`); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 checked（是否选中，可使用 `v-model:checked` 双向绑定），参数为更新后的值。使用 v-model:checked 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new checked value (Checked state; supports `v-model:checked`); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed."
         }
       ],
       "slots": [],
@@ -4219,9 +4224,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Selected values; supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（用于设置当前选中的值，可使用 `v-model` 双向绑定），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Selected values; supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: CheckboxValue[]) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -4242,9 +4247,9 @@
         {
           "name": "update:modelValue",
           "type": "(value: CheckboxValue[]) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Selected values; supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（用于设置当前选中的值，可使用 `v-model` 双向绑定），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Selected values; supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -4307,9 +4312,9 @@
       "props": [
         {
           "name": "theme",
-          "description": "Card theme",
-          "descriptionZh": "卡片主题",
-          "descriptionEn": "Card theme",
+          "description": "Appearance theme",
+          "descriptionZh": "外观主题",
+          "descriptionEn": "Appearance theme",
           "type": "CheckCardTheme",
           "boolean": false,
           "enumValues": [
@@ -4322,9 +4327,9 @@
         },
         {
           "name": "shape",
-          "description": "Card shape",
-          "descriptionZh": "卡片形状",
-          "descriptionEn": "Card shape",
+          "description": "Shape",
+          "descriptionZh": "形状",
+          "descriptionEn": "Shape",
           "type": "ShapeType",
           "boolean": false,
           "enumValues": [
@@ -4339,9 +4344,9 @@
         },
         {
           "name": "size",
-          "description": "Card size",
-          "descriptionZh": "卡片尺寸",
-          "descriptionEn": "Card size",
+          "description": "Size",
+          "descriptionZh": "尺寸",
+          "descriptionEn": "Size",
           "type": "SizeType",
           "boolean": false,
           "enumValues": [
@@ -4395,9 +4400,9 @@
         },
         {
           "name": "disabled",
-          "description": "Disable the group",
-          "descriptionZh": "是否禁用整个卡片组",
-          "descriptionEn": "Disable the group",
+          "description": "Disable the card",
+          "descriptionZh": "是否禁用",
+          "descriptionEn": "Disable the card",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -4429,9 +4434,9 @@
         },
         {
           "name": "modelValue",
-          "description": "Selected value, supports `v-model`",
-          "descriptionZh": "当前选项值，可用 `v-model`",
-          "descriptionEn": "Selected value, supports `v-model`",
+          "description": "Standalone state, supports `v-model`",
+          "descriptionZh": "独立使用时的选中状态，可用 `v-model`",
+          "descriptionEn": "Standalone state, supports `v-model`",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -4444,9 +4449,9 @@
         },
         {
           "name": "value",
-          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
-          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
-          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "description": "Option value inside a group",
+          "descriptionZh": "在 Group 中使用的选项值",
+          "descriptionEn": "Option value inside a group",
           "type": "CheckCardValue | undefined",
           "boolean": false,
           "required": false,
@@ -4454,9 +4459,9 @@
         },
         {
           "name": "readonly",
-          "description": "Make the group read-only",
-          "descriptionZh": "是否只读整个卡片组",
-          "descriptionEn": "Make the group read-only",
+          "description": "Read-only; remains focusable but cannot be selected",
+          "descriptionZh": "是否只读，保持可聚焦但不可选择",
+          "descriptionEn": "Read-only; remains focusable but cannot be selected",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -4478,9 +4483,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Standalone state, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（独立使用时的选中状态，可用 `v-model`），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Standalone state, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(checked: boolean) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -4488,9 +4493,9 @@
         },
         {
           "name": "onChange",
-          "description": "Emitted when the selected value changes",
-          "descriptionZh": "当前选择变化时触发",
-          "descriptionEn": "Emitted when the selected value changes",
+          "description": "Emitted when selection state changes",
+          "descriptionZh": "选择状态变化时触发",
+          "descriptionEn": "Emitted when selection state changes",
           "type": "(event: CheckCardChangeEvent) => void",
           "eventName": "change",
           "boolean": false,
@@ -4501,16 +4506,16 @@
         {
           "name": "update:modelValue",
           "type": "(checked: boolean) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Standalone state, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（独立使用时的选中状态，可用 `v-model`），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Standalone state, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
           "type": "(event: CheckCardChangeEvent) => void",
-          "description": "Emitted when the selected value changes",
-          "descriptionZh": "当前选择变化时触发",
-          "descriptionEn": "Emitted when the selected value changes"
+          "description": "Emitted when selection state changes",
+          "descriptionZh": "选择状态变化时触发",
+          "descriptionEn": "Emitted when selection state changes"
         }
       ],
       "slots": [],
@@ -4684,9 +4689,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Selected value, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（当前选项值，可用 `v-model`），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Selected value, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: CheckCardValue) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -4707,9 +4712,9 @@
         {
           "name": "update:modelValue",
           "type": "(value: CheckCardValue) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Selected value, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（当前选项值，可用 `v-model`），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Selected value, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -4852,9 +4857,9 @@
         },
         {
           "name": "onUpdate:openKeys",
-          "description": "Event emitted for update:openKeys",
-          "descriptionZh": "Event emitted for update:openKeys",
-          "descriptionEn": "Event emitted for update:openKeys",
+          "description": "Requests a new openKeys value (Keys of expanded panels. Supports two-way binding with `v-model:openKeys`); the payload is the new value. With v-model:openKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 openKeys（当前展开面板的 key，可以使用 `v-model:openKeys` 双向绑定），参数为更新后的值。使用 v-model:openKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new openKeys value (Keys of expanded panels. Supports two-way binding with `v-model:openKeys`); the payload is the new value. With v-model:openKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(keys: CollapseKey[]) => void",
           "eventName": "update:openKeys",
           "boolean": false,
@@ -4872,9 +4877,9 @@
         {
           "name": "update:openKeys",
           "type": "(keys: CollapseKey[]) => void",
-          "description": "Event emitted for update:openKeys",
-          "descriptionZh": "Event emitted for update:openKeys",
-          "descriptionEn": "Event emitted for update:openKeys"
+          "description": "Requests a new openKeys value (Keys of expanded panels. Supports two-way binding with `v-model:openKeys`); the payload is the new value. With v-model:openKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 openKeys（当前展开面板的 key，可以使用 `v-model:openKeys` 双向绑定），参数为更新后的值。使用 v-model:openKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new openKeys value (Keys of expanded panels. Supports two-way binding with `v-model:openKeys`); the payload is the new value. With v-model:openKeys, Vue synchronizes the binding automatically; no additional update handler is needed."
         }
       ],
       "slots": [],
@@ -5260,9 +5265,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Color value, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（颜色值,可以使用 `v-model` 双向绑定），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Color value, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: string) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -5270,9 +5275,9 @@
         },
         {
           "name": "onUpdate:mode",
-          "description": "Event emitted for update:mode",
-          "descriptionZh": "Event emitted for update:mode",
-          "descriptionEn": "Event emitted for update:mode",
+          "description": "Requests a new mode value (Color display type, provides 3 modes (`hex` , `rgb` ,`hsl`)); the payload is the new value. With v-model:mode, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 mode（颜色展示类型,提供 3 种模式(`hex` 、 `rgb` 、`hsl`)），参数为更新后的值。使用 v-model:mode 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new mode value (Color display type, provides 3 modes (`hex` , `rgb` ,`hsl`)); the payload is the new value. With v-model:mode, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(mode: ColorMode) => void",
           "eventName": "update:mode",
           "boolean": false,
@@ -5303,16 +5308,16 @@
         {
           "name": "update:modelValue",
           "type": "(value: string) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Color value, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（颜色值,可以使用 `v-model` 双向绑定），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Color value, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "update:mode",
           "type": "(mode: ColorMode) => void",
-          "description": "Event emitted for update:mode",
-          "descriptionZh": "Event emitted for update:mode",
-          "descriptionEn": "Event emitted for update:mode"
+          "description": "Requests a new mode value (Color display type, provides 3 modes (`hex` , `rgb` ,`hsl`)); the payload is the new value. With v-model:mode, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 mode（颜色展示类型,提供 3 种模式(`hex` 、 `rgb` 、`hsl`)），参数为更新后的值。使用 v-model:mode 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new mode value (Color display type, provides 3 modes (`hex` , `rgb` ,`hsl`)); the payload is the new value. With v-model:mode, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -5381,7 +5386,10 @@
     {
       "name": "DatePicker",
       "behavior": {
-        "rules": []
+        "rules": [
+          "Default v-model binds the selected value; range modes support a range array. startDate/endDate bindings are an alternative. Do not assume one generic binding shape across all modes.",
+          "The change event reports the selected date value and formatted text. Check valueType and mode and handle clearing explicitly."
+        ]
       },
       "models": [
         {
@@ -5729,9 +5737,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Current date or time value); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（当前日期或时间值），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Current date or time value); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: DatePickerOutput | DatePickerOutput[]) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -5739,9 +5747,9 @@
         },
         {
           "name": "onUpdate:startDate",
-          "description": "Event emitted for update:startDate",
-          "descriptionZh": "Event emitted for update:startDate",
-          "descriptionEn": "Event emitted for update:startDate",
+          "description": "Requests a new startDate value (Start value for range selection); the payload is the new value. With v-model:startDate, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 startDate（范围选择的开始值），参数为更新后的值。使用 v-model:startDate 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new startDate value (Start value for range selection); the payload is the new value. With v-model:startDate, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: DatePickerOutput) => void",
           "eventName": "update:startDate",
           "boolean": false,
@@ -5749,9 +5757,9 @@
         },
         {
           "name": "onUpdate:endDate",
-          "description": "Event emitted for update:endDate",
-          "descriptionZh": "Event emitted for update:endDate",
-          "descriptionEn": "Event emitted for update:endDate",
+          "description": "Requests a new endDate value (End value for range selection); the payload is the new value. With v-model:endDate, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 endDate（范围选择的结束值），参数为更新后的值。使用 v-model:endDate 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new endDate value (End value for range selection); the payload is the new value. With v-model:endDate, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: DatePickerOutput) => void",
           "eventName": "update:endDate",
           "boolean": false,
@@ -5792,23 +5800,23 @@
         {
           "name": "update:modelValue",
           "type": "(value: DatePickerOutput | DatePickerOutput[]) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Current date or time value); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（当前日期或时间值），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Current date or time value); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "update:startDate",
           "type": "(value: DatePickerOutput) => void",
-          "description": "Event emitted for update:startDate",
-          "descriptionZh": "Event emitted for update:startDate",
-          "descriptionEn": "Event emitted for update:startDate"
+          "description": "Requests a new startDate value (Start value for range selection); the payload is the new value. With v-model:startDate, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 startDate（范围选择的开始值），参数为更新后的值。使用 v-model:startDate 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new startDate value (Start value for range selection); the payload is the new value. With v-model:startDate, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "update:endDate",
           "type": "(value: DatePickerOutput) => void",
-          "description": "Event emitted for update:endDate",
-          "descriptionZh": "Event emitted for update:endDate",
-          "descriptionEn": "Event emitted for update:endDate"
+          "description": "Requests a new endDate value (End value for range selection); the payload is the new value. With v-model:endDate, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 endDate（范围选择的结束值），参数为更新后的值。使用 v-model:endDate 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new endDate value (End value for range selection); the payload is the new value. With v-model:endDate, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -6319,9 +6327,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Whether the dialog is displayed, can use v-model for two-way binding.); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（对话框是否显示，可使用 v-model 双向绑定数据。），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Whether the dialog is displayed, can use v-model for two-way binding.); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(visible: boolean) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -6372,9 +6380,9 @@
         {
           "name": "update:modelValue",
           "type": "(visible: boolean) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Whether the dialog is displayed, can use v-model for two-way binding.); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（对话框是否显示，可使用 v-model 双向绑定数据。），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Whether the dialog is displayed, can use v-model for two-way binding.); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "openChange",
@@ -6432,7 +6440,9 @@
     {
       "name": "Dropdown",
       "behavior": {
-        "rules": []
+        "rules": [
+          "The default slot contains the trigger; the overlay slot contains popup content. React uses children and the overlay prop for these roles."
+        ]
       },
       "models": [
         {
@@ -6487,9 +6497,9 @@
         },
         {
           "name": "arrow",
-          "description": "Whether to display the dropdown arrow",
-          "descriptionZh": "是否显示下拉箭头",
-          "descriptionEn": "Whether to display the dropdown arrow",
+          "description": "Whether to display the arrow",
+          "descriptionZh": "是否显示箭头",
+          "descriptionEn": "Whether to display the arrow",
           "type": "boolean",
           "boolean": true,
           "enumValues": [
@@ -6512,9 +6522,9 @@
         },
         {
           "name": "disabled",
-          "description": "Whether the button is disabled",
-          "descriptionZh": "是否禁用",
-          "descriptionEn": "Whether the button is disabled",
+          "description": "Whether triggering is disabled",
+          "descriptionZh": "是否禁用触发",
+          "descriptionEn": "Whether triggering is disabled",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -6540,9 +6550,9 @@
         },
         {
           "name": "onUpdate:show",
-          "description": "Event emitted for update:show",
-          "descriptionZh": "Event emitted for update:show",
-          "descriptionEn": "Event emitted for update:show",
+          "description": "Requests a new show value (Whether the dropdown is visible (v-model)); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 show（是否显示下拉层（v-model）），参数为更新后的值。使用 v-model:show 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new show value (Whether the dropdown is visible (v-model)); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(show: boolean) => void",
           "eventName": "update:show",
           "boolean": false,
@@ -6563,9 +6573,9 @@
         {
           "name": "update:show",
           "type": "(show: boolean) => void",
-          "description": "Event emitted for update:show",
-          "descriptionZh": "Event emitted for update:show",
-          "descriptionEn": "Event emitted for update:show"
+          "description": "Requests a new show value (Whether the dropdown is visible (v-model)); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 show（是否显示下拉层（v-model）），参数为更新后的值。使用 v-model:show 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new show value (Whether the dropdown is visible (v-model)); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "openChange",
@@ -7008,9 +7018,9 @@
         },
         {
           "name": "colon",
-          "description": "Whether to display a colon after the label; inherits the Form setting when unset",
-          "descriptionZh": "是否在标签后显示冒号；未设置时继承 Form 的配置",
-          "descriptionEn": "Whether to display a colon after the label; inherits the Form setting when unset",
+          "description": "Whether to display a colon after labels",
+          "descriptionZh": "是否在标签后显示冒号",
+          "descriptionEn": "Whether to display a colon after labels",
           "type": "boolean",
           "boolean": true,
           "enumValues": [
@@ -8282,9 +8292,9 @@
         },
         {
           "name": "theme",
-          "description": "Textarea theme",
-          "descriptionZh": "文本域主题",
-          "descriptionEn": "Textarea theme",
+          "description": "The theme of Input",
+          "descriptionZh": "主题",
+          "descriptionEn": "The theme of Input",
           "type": "ThemeType | undefined",
           "boolean": false,
           "enumValues": [
@@ -8332,9 +8342,9 @@
         },
         {
           "name": "disabled",
-          "description": "Whether the textarea is disabled",
-          "descriptionZh": "是否禁用文本域",
-          "descriptionEn": "Whether the textarea is disabled",
+          "description": "Whether the input is disabled",
+          "descriptionZh": "是否禁用输入框",
+          "descriptionEn": "Whether the input is disabled",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -8356,9 +8366,9 @@
         },
         {
           "name": "shape",
-          "description": "Textarea shape",
-          "descriptionZh": "文本域形状",
-          "descriptionEn": "Textarea shape",
+          "description": "Input shape",
+          "descriptionZh": "输入框形状",
+          "descriptionEn": "Input shape",
           "type": "ShapeType | undefined",
           "boolean": false,
           "enumValues": [
@@ -8372,9 +8382,9 @@
         },
         {
           "name": "modelValue",
-          "description": "Bound value, supports `v-model`",
+          "description": "Bound value, can use `v-model` for two-way binding",
           "descriptionZh": "绑定的值，可使用 `v-model` 双向绑定",
-          "descriptionEn": "Bound value, supports `v-model`",
+          "descriptionEn": "Bound value, can use `v-model` for two-way binding",
           "type": "unknown",
           "boolean": false,
           "required": false,
@@ -8382,9 +8392,9 @@
         },
         {
           "name": "value",
-          "description": "Initial value for uncontrolled use",
-          "descriptionZh": "非受控文本域的初始值",
-          "descriptionEn": "Initial value for uncontrolled use",
+          "description": "Initial value for uncontrolled usage",
+          "descriptionZh": "非受控输入框的初始值",
+          "descriptionEn": "Initial value for uncontrolled usage",
           "type": "any",
           "boolean": false,
           "required": false,
@@ -8392,9 +8402,9 @@
         },
         {
           "name": "readonly",
-          "description": "Whether the textarea is read-only",
-          "descriptionZh": "是否只读",
-          "descriptionEn": "Whether the textarea is read-only",
+          "description": "Read-only; focusable and copyable but not editable",
+          "descriptionZh": "是否只读，可聚焦和复制但不可修改",
+          "descriptionEn": "Read-only; focusable and copyable but not editable",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -8461,9 +8471,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Props for onUpdate:modelValue",
-          "descriptionZh": "Props for onUpdate:modelValue",
-          "descriptionEn": "Props for onUpdate:modelValue",
+          "description": "Requests a new modelValue value (Bound value, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（绑定的值，可使用 `v-model` 双向绑定），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Bound value, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "((value: string) => void) | undefined",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -8472,9 +8482,9 @@
         },
         {
           "name": "onChange",
-          "description": "Triggered when the content changes",
-          "descriptionZh": "内容变化时触发",
-          "descriptionEn": "Triggered when the content changes",
+          "description": "Callback when the input box content changes",
+          "descriptionZh": "输入框内容变化时的回调",
+          "descriptionEn": "Callback when the input box content changes",
           "type": "((value: string) => void) | undefined",
           "eventName": "change",
           "boolean": false,
@@ -8516,9 +8526,9 @@
         },
         {
           "name": "onFocus",
-          "description": "Props for onFocus",
-          "descriptionZh": "Props for onFocus",
-          "descriptionEn": "Props for onFocus",
+          "description": "Emitted with the native FocusEvent when the input element receives focus.",
+          "descriptionZh": "输入元素获得焦点时触发，接收原生 FocusEvent。",
+          "descriptionEn": "Emitted with the native FocusEvent when the input element receives focus.",
           "type": "((event: FocusEvent) => void) | undefined",
           "eventName": "focus",
           "boolean": false,
@@ -8527,9 +8537,9 @@
         },
         {
           "name": "onBlur",
-          "description": "Props for onBlur",
-          "descriptionZh": "Props for onBlur",
-          "descriptionEn": "Props for onBlur",
+          "description": "Emitted with the native FocusEvent when the input loses focus; the form context also processes blur validation.",
+          "descriptionZh": "输入元素失去焦点时触发，接收原生 FocusEvent；表单上下文同时处理失焦校验。",
+          "descriptionEn": "Emitted with the native FocusEvent when the input loses focus; the form context also processes blur validation.",
           "type": "((event: FocusEvent) => void) | undefined",
           "eventName": "blur",
           "boolean": false,
@@ -8541,16 +8551,16 @@
         {
           "name": "update:modelValue",
           "type": "((value: string) => void) | undefined",
-          "description": "Props for onUpdate:modelValue",
-          "descriptionZh": "Props for onUpdate:modelValue",
-          "descriptionEn": "Props for onUpdate:modelValue"
+          "description": "Requests a new modelValue value (Bound value, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（绑定的值，可使用 `v-model` 双向绑定），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Bound value, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
           "type": "((value: string) => void) | undefined",
-          "description": "Triggered when the content changes",
-          "descriptionZh": "内容变化时触发",
-          "descriptionEn": "Triggered when the content changes"
+          "description": "Callback when the input box content changes",
+          "descriptionZh": "输入框内容变化时的回调",
+          "descriptionEn": "Callback when the input box content changes"
         },
         {
           "name": "search",
@@ -8576,16 +8586,16 @@
         {
           "name": "focus",
           "type": "((event: FocusEvent) => void) | undefined",
-          "description": "Props for onFocus",
-          "descriptionZh": "Props for onFocus",
-          "descriptionEn": "Props for onFocus"
+          "description": "Emitted with the native FocusEvent when the input element receives focus.",
+          "descriptionZh": "输入元素获得焦点时触发，接收原生 FocusEvent。",
+          "descriptionEn": "Emitted with the native FocusEvent when the input element receives focus."
         },
         {
           "name": "blur",
           "type": "((event: FocusEvent) => void) | undefined",
-          "description": "Props for onBlur",
-          "descriptionZh": "Props for onBlur",
-          "descriptionEn": "Props for onBlur"
+          "description": "Emitted with the native FocusEvent when the input loses focus; the form context also processes blur validation.",
+          "descriptionZh": "输入元素失去焦点时触发，接收原生 FocusEvent；表单上下文同时处理失焦校验。",
+          "descriptionEn": "Emitted with the native FocusEvent when the input loses focus; the form context also processes blur validation."
         }
       ],
       "slots": [],
@@ -8881,9 +8891,9 @@
         },
         {
           "name": "size",
-          "description": "Spacing of child components, optional values `small`, `large`, default not selected",
-          "descriptionZh": "子组件的间距,可选值 `small`、`large`，默认不选",
-          "descriptionEn": "Spacing of child components, optional values `small`, `large`, default not selected",
+          "description": "Textarea size",
+          "descriptionZh": "文本域尺寸",
+          "descriptionEn": "Textarea size",
           "type": "SizeType | undefined",
           "boolean": false,
           "enumValues": [
@@ -8896,9 +8906,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Props for onUpdate:modelValue",
-          "descriptionZh": "Props for onUpdate:modelValue",
-          "descriptionEn": "Props for onUpdate:modelValue",
+          "description": "Requests a new modelValue value (Bound value, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（绑定的值，可使用 `v-model` 双向绑定），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Bound value, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "((value: string) => void) | undefined",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -8918,9 +8928,9 @@
         },
         {
           "name": "onInput",
-          "description": "Props for onInput",
-          "descriptionZh": "Props for onInput",
-          "descriptionEn": "Props for onInput",
+          "description": "Emitted with the native Event on text input; change and the v-model update event provide the new string value.",
+          "descriptionZh": "原生文本输入时触发，接收 Event；新字符串值由 change 和 v-model 更新事件提供。",
+          "descriptionEn": "Emitted with the native Event on text input; change and the v-model update event provide the new string value.",
           "type": "((event: Event) => void) | undefined",
           "eventName": "input",
           "boolean": false,
@@ -8932,9 +8942,9 @@
         {
           "name": "update:modelValue",
           "type": "((value: string) => void) | undefined",
-          "description": "Props for onUpdate:modelValue",
-          "descriptionZh": "Props for onUpdate:modelValue",
-          "descriptionEn": "Props for onUpdate:modelValue"
+          "description": "Requests a new modelValue value (Bound value, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（绑定的值，可使用 `v-model` 双向绑定），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Bound value, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -8946,9 +8956,9 @@
         {
           "name": "input",
           "type": "((event: Event) => void) | undefined",
-          "description": "Props for onInput",
-          "descriptionZh": "Props for onInput",
-          "descriptionEn": "Props for onInput"
+          "description": "Emitted with the native Event on text input; change and the v-model update event provide the new string value.",
+          "descriptionZh": "原生文本输入时触发，接收 Event；新字符串值由 change 和 v-model 更新事件提供。",
+          "descriptionEn": "Emitted with the native Event on text input; change and the v-model update event provide the new string value."
         }
       ],
       "slots": [],
@@ -9203,9 +9213,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Tags (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（标签值（v-model）），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Tags (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: string[]) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -9256,9 +9266,9 @@
         {
           "name": "update:modelValue",
           "type": "(value: string[]) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Tags (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（标签值（v-model）），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Tags (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -9521,9 +9531,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Bound value, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（绑定值，可使用 `v-model`），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Bound value, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: string) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -9574,9 +9584,9 @@
         {
           "name": "update:modelValue",
           "type": "(value: string) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Bound value, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（绑定值，可使用 `v-model`），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Bound value, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -9906,9 +9916,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (The value of InputNumber(v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（InputNumber的值(v-model)），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (The value of InputNumber(v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: number | undefined) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -9949,9 +9959,9 @@
         {
           "name": "update:modelValue",
           "type": "(value: number | undefined) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (The value of InputNumber(v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（InputNumber的值(v-model)），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (The value of InputNumber(v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -10385,9 +10395,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Currently selected menu items (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（当前选中的菜单项（v-model）），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Currently selected menu items (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(keys: string[]) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -10395,9 +10405,9 @@
         },
         {
           "name": "onUpdate:openKeys",
-          "description": "Event emitted for update:openKeys",
-          "descriptionZh": "Event emitted for update:openKeys",
-          "descriptionEn": "Event emitted for update:openKeys",
+          "description": "Requests a new openKeys value (Currently expanded SubMenu menu item key array); the payload is the new value. With v-model:openKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 openKeys（当前展开的 SubMenu 菜单项 key 数组），参数为更新后的值。使用 v-model:openKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new openKeys value (Currently expanded SubMenu menu item key array); the payload is the new value. With v-model:openKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(keys: string[]) => void",
           "eventName": "update:openKeys",
           "boolean": false,
@@ -10428,16 +10438,16 @@
         {
           "name": "update:modelValue",
           "type": "(keys: string[]) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Currently selected menu items (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（当前选中的菜单项（v-model）），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Currently selected menu items (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "update:openKeys",
           "type": "(keys: string[]) => void",
-          "description": "Event emitted for update:openKeys",
-          "descriptionZh": "Event emitted for update:openKeys",
-          "descriptionEn": "Event emitted for update:openKeys"
+          "description": "Requests a new openKeys value (Currently expanded SubMenu menu item key array); the payload is the new value. With v-model:openKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 openKeys（当前展开的 SubMenu 菜单项 key 数组），参数为更新后的值。使用 v-model:openKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new openKeys value (Currently expanded SubMenu menu item key array); the payload is the new value. With v-model:openKeys, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "select",
@@ -11024,9 +11034,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Text (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（文本值（v-model）），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Text (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: string) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -11077,9 +11087,9 @@
         {
           "name": "update:modelValue",
           "type": "(value: string) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Text (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（文本值（v-model）），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Text (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -11477,9 +11487,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Whether the dialog is displayed, can use v-model for two-way binding.); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（对话框是否显示，可使用 v-model 双向绑定数据。），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Whether the dialog is displayed, can use v-model for two-way binding.); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(visible: boolean) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -11530,9 +11540,9 @@
         {
           "name": "update:modelValue",
           "type": "(visible: boolean) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Whether the dialog is displayed, can use v-model for two-way binding.); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（对话框是否显示，可使用 v-model 双向绑定数据。），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Whether the dialog is displayed, can use v-model for two-way binding.); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "openChange",
@@ -11808,9 +11818,9 @@
         },
         {
           "name": "onUpdate:page",
-          "description": "Event emitted for update:page",
-          "descriptionZh": "Event emitted for update:page",
-          "descriptionEn": "Event emitted for update:page",
+          "description": "Requests a new page value (Current page number(v-model)); the payload is the new value. With v-model:page, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 page（当前页码 (v-model:page)），参数为更新后的值。使用 v-model:page 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new page value (Current page number(v-model)); the payload is the new value. With v-model:page, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(page: number) => void",
           "eventName": "update:page",
           "boolean": false,
@@ -11818,9 +11828,9 @@
         },
         {
           "name": "onUpdate:pageSize",
-          "description": "Event emitted for update:pageSize",
-          "descriptionZh": "Event emitted for update:pageSize",
-          "descriptionEn": "Event emitted for update:pageSize",
+          "description": "Requests a new pageSize value (Number of items per page (v-model:pageSize)); the payload is the new value. With v-model:pageSize, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 pageSize（每页条数 (v-model:pageSize)），参数为更新后的值。使用 v-model:pageSize 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new pageSize value (Number of items per page (v-model:pageSize)); the payload is the new value. With v-model:pageSize, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(pageSize: number) => void",
           "eventName": "update:pageSize",
           "boolean": false,
@@ -11841,16 +11851,16 @@
         {
           "name": "update:page",
           "type": "(page: number) => void",
-          "description": "Event emitted for update:page",
-          "descriptionZh": "Event emitted for update:page",
-          "descriptionEn": "Event emitted for update:page"
+          "description": "Requests a new page value (Current page number(v-model)); the payload is the new value. With v-model:page, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 page（当前页码 (v-model:page)），参数为更新后的值。使用 v-model:page 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new page value (Current page number(v-model)); the payload is the new value. With v-model:page, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "update:pageSize",
           "type": "(pageSize: number) => void",
-          "description": "Event emitted for update:pageSize",
-          "descriptionZh": "Event emitted for update:pageSize",
-          "descriptionEn": "Event emitted for update:pageSize"
+          "description": "Requests a new pageSize value (Number of items per page (v-model:pageSize)); the payload is the new value. With v-model:pageSize, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 pageSize（每页条数 (v-model:pageSize)），参数为更新后的值。使用 v-model:pageSize 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new pageSize value (Number of items per page (v-model:pageSize)); the payload is the new value. With v-model:pageSize, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -12098,9 +12108,9 @@
         },
         {
           "name": "onUpdate:show",
-          "description": "Event emitted for update:show",
-          "descriptionZh": "Event emitted for update:show",
-          "descriptionEn": "Event emitted for update:show",
+          "description": "Requests a new show value (Whether to display); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 show（默认是否展示），参数为更新后的值。使用 v-model:show 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new show value (Whether to display); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(show: boolean) => void",
           "eventName": "update:show",
           "boolean": false,
@@ -12121,9 +12131,9 @@
         {
           "name": "update:show",
           "type": "(show: boolean) => void",
-          "description": "Event emitted for update:show",
-          "descriptionZh": "Event emitted for update:show",
-          "descriptionEn": "Event emitted for update:show"
+          "description": "Requests a new show value (Whether to display); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 show（默认是否展示），参数为更新后的值。使用 v-model:show 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new show value (Whether to display); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "close",
@@ -12309,9 +12319,9 @@
         },
         {
           "name": "onUpdate:show",
-          "description": "Event emitted for update:show",
-          "descriptionZh": "Event emitted for update:show",
-          "descriptionEn": "Event emitted for update:show",
+          "description": "Requests a new show value (Whether to display by default); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 show（默认是否展示），参数为更新后的值。使用 v-model:show 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new show value (Whether to display by default); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(show: boolean) => void",
           "eventName": "update:show",
           "boolean": false,
@@ -12342,9 +12352,9 @@
         {
           "name": "update:show",
           "type": "(show: boolean) => void",
-          "description": "Event emitted for update:show",
-          "descriptionZh": "Event emitted for update:show",
-          "descriptionEn": "Event emitted for update:show"
+          "description": "Requests a new show value (Whether to display by default); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 show（默认是否展示），参数为更新后的值。使用 v-model:show 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new show value (Whether to display by default); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "ok",
@@ -13029,9 +13039,9 @@
         },
         {
           "name": "disabled",
-          "description": "Disable the entire group",
-          "descriptionZh": "是否禁用整个单选组",
-          "descriptionEn": "Disable the entire group",
+          "description": "Whether current item is disabled",
+          "descriptionZh": "是否禁用当前项",
+          "descriptionEn": "Whether current item is disabled",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -13053,9 +13063,9 @@
         },
         {
           "name": "modelValue",
-          "description": "Used to set the currently selected value. Can use `v-model` for two-way binding data",
-          "descriptionZh": "用于设置当前选中的值。可以使用 `v-model` 双向绑定数据",
-          "descriptionEn": "Used to set the currently selected value. Can use `v-model` for two-way binding data",
+          "description": "Whether selected (v-model)",
+          "descriptionZh": "是否选中状态(v-model)",
+          "descriptionEn": "Whether selected (v-model)",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -13068,9 +13078,9 @@
         },
         {
           "name": "value",
-          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
-          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
-          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "description": "Value when used in combination",
+          "descriptionZh": "组合使用时的值",
+          "descriptionEn": "Value when used in combination",
           "type": "string | number | undefined",
           "boolean": false,
           "required": false,
@@ -13078,9 +13088,9 @@
         },
         {
           "name": "readonly",
-          "description": "Whether the group is read-only",
+          "description": "Read-only; cannot be toggled",
           "descriptionZh": "是否只读，不可切换",
-          "descriptionEn": "Whether the group is read-only",
+          "descriptionEn": "Read-only; cannot be toggled",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -13121,9 +13131,9 @@
         },
         {
           "name": "onChange",
-          "description": "Triggered when option state changes, returns currently selected item",
-          "descriptionZh": "在选项状态发生改变时触发，返回当前选中的项",
-          "descriptionEn": "Triggered when option state changes, returns currently selected item",
+          "description": "Callback when option state changes",
+          "descriptionZh": "在选项状态发生改变时回调",
+          "descriptionEn": "Callback when option state changes",
           "type": "(event: ChangeEvent) => void",
           "eventName": "change",
           "boolean": false,
@@ -13131,9 +13141,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Whether selected (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（是否选中状态(v-model)），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Whether selected (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: boolean) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -13141,9 +13151,9 @@
         },
         {
           "name": "onUpdate:checked",
-          "description": "Event emitted for update:checked",
-          "descriptionZh": "Event emitted for update:checked",
-          "descriptionEn": "Event emitted for update:checked",
+          "description": "Requests a new checked value (Whether selected); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 checked（是否选中状态），参数为更新后的值。使用 v-model:checked 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new checked value (Whether selected); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: boolean) => void",
           "eventName": "update:checked",
           "boolean": false,
@@ -13154,23 +13164,23 @@
         {
           "name": "change",
           "type": "(event: ChangeEvent) => void",
-          "description": "Triggered when option state changes, returns currently selected item",
-          "descriptionZh": "在选项状态发生改变时触发，返回当前选中的项",
-          "descriptionEn": "Triggered when option state changes, returns currently selected item"
+          "description": "Callback when option state changes",
+          "descriptionZh": "在选项状态发生改变时回调",
+          "descriptionEn": "Callback when option state changes"
         },
         {
           "name": "update:modelValue",
           "type": "(value: boolean) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Whether selected (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（是否选中状态(v-model)），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Whether selected (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "update:checked",
           "type": "(value: boolean) => void",
-          "description": "Event emitted for update:checked",
-          "descriptionZh": "Event emitted for update:checked",
-          "descriptionEn": "Event emitted for update:checked"
+          "description": "Requests a new checked value (Whether selected); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 checked（是否选中状态），参数为更新后的值。使用 v-model:checked 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new checked value (Whether selected); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed."
         }
       ],
       "slots": [],
@@ -13378,9 +13388,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Used to set the currently selected value. Can use `v-model` for two-way binding data); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（用于设置当前选中的值。可以使用 `v-model` 双向绑定数据），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Used to set the currently selected value. Can use `v-model` for two-way binding data); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: boolean) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -13388,9 +13398,9 @@
         },
         {
           "name": "onUpdate:checked",
-          "description": "Event emitted for update:checked",
-          "descriptionZh": "Event emitted for update:checked",
-          "descriptionEn": "Event emitted for update:checked",
+          "description": "Requests a new checked value (Whether selected); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 checked（是否选中状态），参数为更新后的值。使用 v-model:checked 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new checked value (Whether selected); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: boolean) => void",
           "eventName": "update:checked",
           "boolean": false,
@@ -13408,16 +13418,16 @@
         {
           "name": "update:modelValue",
           "type": "(value: boolean) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Used to set the currently selected value. Can use `v-model` for two-way binding data); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（用于设置当前选中的值。可以使用 `v-model` 双向绑定数据），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Used to set the currently selected value. Can use `v-model` for two-way binding data); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "update:checked",
           "type": "(value: boolean) => void",
-          "description": "Event emitted for update:checked",
-          "descriptionZh": "Event emitted for update:checked",
-          "descriptionEn": "Event emitted for update:checked"
+          "description": "Requests a new checked value (Whether selected); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 checked（是否选中状态），参数为更新后的值。使用 v-model:checked 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new checked value (Whether selected); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed."
         }
       ],
       "slots": [],
@@ -13613,9 +13623,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Used to set the currently selected value. Can use `v-model` for two-way binding data); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（用于设置当前选中的值。可以使用 `v-model` 双向绑定数据），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Used to set the currently selected value. Can use `v-model` for two-way binding data); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: string | number) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -13636,9 +13646,9 @@
         {
           "name": "update:modelValue",
           "type": "(value: string | number) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Used to set the currently selected value. Can use `v-model` for two-way binding data); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（用于设置当前选中的值。可以使用 `v-model` 双向绑定数据），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Used to set the currently selected value. Can use `v-model` for two-way binding data); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -13821,9 +13831,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Selected value); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（当前选中值），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Selected value); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: SegmentedValue) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -13844,9 +13854,9 @@
         {
           "name": "update:modelValue",
           "type": "(value: SegmentedValue) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Selected value); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（当前选中值），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Selected value); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -14081,9 +14091,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Current controlled value, used with `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（当前受控值，配合 `v-model` 使用），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Current controlled value, used with `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: number) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -14104,9 +14114,9 @@
         {
           "name": "update:modelValue",
           "type": "(value: number) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Current controlled value, used with `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（当前受控值，配合 `v-model` 使用），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Current controlled value, used with `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -14467,9 +14477,9 @@
         },
         {
           "name": "onClick",
-          "description": "Event emitted for click",
-          "descriptionZh": "Event emitted for click",
-          "descriptionEn": "Event emitted for click",
+          "description": "Emitted with the native MouseEvent after select on an enabled option click; disabled options do not trigger it.",
+          "descriptionZh": "可用选项被点击并发出 select 后触发，接收原生 MouseEvent；禁用项不触发。",
+          "descriptionEn": "Emitted with the native MouseEvent after select on an enabled option click; disabled options do not trigger it.",
           "type": "(event: MouseEvent) => void",
           "eventName": "click",
           "boolean": false,
@@ -14477,9 +14487,9 @@
         },
         {
           "name": "onMouseenter",
-          "description": "Event emitted for mouseenter",
-          "descriptionZh": "Event emitted for mouseenter",
-          "descriptionEn": "Event emitted for mouseenter",
+          "description": "Emitted with the native MouseEvent when the pointer enters an enabled option; disabled options do not trigger it.",
+          "descriptionZh": "鼠标进入可用选项时触发，接收原生 MouseEvent；禁用项不触发。",
+          "descriptionEn": "Emitted with the native MouseEvent when the pointer enters an enabled option; disabled options do not trigger it.",
           "type": "(event: MouseEvent) => void",
           "eventName": "mouseenter",
           "boolean": false,
@@ -14500,16 +14510,16 @@
         {
           "name": "click",
           "type": "(event: MouseEvent) => void",
-          "description": "Event emitted for click",
-          "descriptionZh": "Event emitted for click",
-          "descriptionEn": "Event emitted for click"
+          "description": "Emitted with the native MouseEvent after select on an enabled option click; disabled options do not trigger it.",
+          "descriptionZh": "可用选项被点击并发出 select 后触发，接收原生 MouseEvent；禁用项不触发。",
+          "descriptionEn": "Emitted with the native MouseEvent after select on an enabled option click; disabled options do not trigger it."
         },
         {
           "name": "mouseenter",
           "type": "(event: MouseEvent) => void",
-          "description": "Event emitted for mouseenter",
-          "descriptionZh": "Event emitted for mouseenter",
-          "descriptionEn": "Event emitted for mouseenter"
+          "description": "Emitted with the native MouseEvent when the pointer enters an enabled option; disabled options do not trigger it.",
+          "descriptionZh": "鼠标进入可用选项时触发，接收原生 MouseEvent；禁用项不触发。",
+          "descriptionEn": "Emitted with the native MouseEvent when the pointer enters an enabled option; disabled options do not trigger it."
         },
         {
           "name": "select",
@@ -14746,9 +14756,9 @@
         },
         {
           "name": "value",
-          "description": "Option value, used for filtering by default, required",
-          "descriptionZh": "选项值，默认根据此属性值进行筛选，必填",
-          "descriptionEn": "Option value, used for filtering by default, required",
+          "description": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided.",
           "type": "SelectValue | SelectValue[] | undefined",
           "boolean": false,
           "required": false,
@@ -14939,9 +14949,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Specifies the `value` of the selected item, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Specifies the `value` of the selected item, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: SelectValue | SelectValue[]) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -15002,9 +15012,9 @@
         {
           "name": "update:modelValue",
           "type": "(value: SelectValue | SelectValue[]) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Specifies the `value` of the selected item, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Specifies the `value` of the selected item, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "search",
@@ -15207,9 +15217,9 @@
       "props": [
         {
           "name": "delay",
-          "description": "Delay showing the skeleton, in milliseconds",
-          "descriptionZh": "延迟显示骨架，单位毫秒",
-          "descriptionEn": "Delay showing the skeleton, in milliseconds",
+          "description": "Delay showing the skeleton to avoid flickering, in milliseconds",
+          "descriptionZh": "延迟显示骨架，避免快速加载时闪烁，单位毫秒",
+          "descriptionEn": "Delay showing the skeleton to avoid flickering, in milliseconds",
           "type": "number",
           "boolean": false,
           "required": false,
@@ -16388,9 +16398,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Set current value (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（设置当前取值(v-model)），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Set current value (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: number | number[]) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -16411,9 +16421,9 @@
         {
           "name": "update:modelValue",
           "type": "(value: number | number[]) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Set current value (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（设置当前取值(v-model)），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Set current value (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -16890,9 +16900,9 @@
       "props": [
         {
           "name": "status",
-          "description": "Step status",
-          "descriptionZh": "单步状态",
-          "descriptionEn": "Step status",
+          "description": "Current status",
+          "descriptionZh": "当前状态",
+          "descriptionEn": "Current status",
           "type": "\"error\" | \"process\"",
           "boolean": false,
           "enumValues": [
@@ -17178,9 +17188,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Value bound through `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（`v-model` 绑定值），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Value bound through `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: string | number | boolean) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -17188,9 +17198,9 @@
         },
         {
           "name": "onUpdate:checked",
-          "description": "Event emitted for update:checked",
-          "descriptionZh": "Event emitted for update:checked",
-          "descriptionEn": "Event emitted for update:checked",
+          "description": "Requests a new checked value (Boolean checked state; supports two-way binding with `v-model:checked`); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 checked（指定布尔选中状态，可使用 `v-model:checked` 双向绑定），参数为更新后的值。使用 v-model:checked 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new checked value (Boolean checked state; supports two-way binding with `v-model:checked`); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(checked: boolean) => void",
           "eventName": "update:checked",
           "boolean": false,
@@ -17211,16 +17221,16 @@
         {
           "name": "update:modelValue",
           "type": "(value: string | number | boolean) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Value bound through `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（`v-model` 绑定值），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Value bound through `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "update:checked",
           "type": "(checked: boolean) => void",
-          "description": "Event emitted for update:checked",
-          "descriptionZh": "Event emitted for update:checked",
-          "descriptionEn": "Event emitted for update:checked"
+          "description": "Requests a new checked value (Boolean checked state; supports two-way binding with `v-model:checked`); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 checked（指定布尔选中状态，可使用 `v-model:checked` 双向绑定），参数为更新后的值。使用 v-model:checked 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new checked value (Boolean checked state; supports two-way binding with `v-model:checked`); the payload is the new value. With v-model:checked, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -17515,9 +17525,9 @@
         },
         {
           "name": "columns",
-          "description": "Column definitions shared with Table",
-          "descriptionZh": "与 Table 共用的列配置",
-          "descriptionEn": "Column definitions shared with Table",
+          "description": "Configuration description of table columns",
+          "descriptionZh": "表格列的配置描述，",
+          "descriptionEn": "Configuration description of table columns",
           "type": "Column[]",
           "boolean": false,
           "required": false,
@@ -17548,9 +17558,9 @@
         },
         {
           "name": "disabledKeys",
-          "description": "Essential columns excluded from the settings UI",
-          "descriptionZh": "不允许在设置面板中切换的关键列",
-          "descriptionEn": "Essential columns excluded from the settings UI",
+          "description": "Disabled key set",
+          "descriptionZh": "禁用的key集合",
+          "descriptionEn": "Disabled key set",
           "type": "TableKey[]",
           "boolean": false,
           "required": false,
@@ -17617,9 +17627,9 @@
         },
         {
           "name": "size",
-          "description": "Trigger and checkbox size",
-          "descriptionZh": "触发按钮和选择项尺寸",
-          "descriptionEn": "Trigger and checkbox size",
+          "description": "Display compact mode when the value is `small`",
+          "descriptionZh": "值为`small`时展示紧凑模式",
+          "descriptionEn": "Display compact mode when the value is `small`",
           "type": "SizeType | undefined",
           "boolean": false,
           "enumValues": [
@@ -17722,9 +17732,9 @@
         },
         {
           "name": "onUpdate:selectedKeys",
-          "description": "Event emitted for update:selectedKeys",
-          "descriptionZh": "Event emitted for update:selectedKeys",
-          "descriptionEn": "Event emitted for update:selectedKeys",
+          "description": "Requests a new selectedKeys value (Collection of selected keys); the payload is the new value. With v-model:selectedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 selectedKeys（勾选的key集合），参数为更新后的值。使用 v-model:selectedKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new selectedKeys value (Collection of selected keys); the payload is the new value. With v-model:selectedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(keys: TableKey[]) => void",
           "eventName": "update:selectedKeys",
           "boolean": false,
@@ -17732,9 +17742,9 @@
         },
         {
           "name": "onUpdate:expandedKeys",
-          "description": "Event emitted for update:expandedKeys",
-          "descriptionZh": "Event emitted for update:expandedKeys",
-          "descriptionEn": "Event emitted for update:expandedKeys",
+          "description": "Requests a new expandedKeys value (expanded row keys; supports `v-model:expanded-keys`); the payload is the new value. With v-model:expandedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 expandedKeys（展开行 key 集合，支持 `v-model:expanded-keys`），参数为更新后的值。使用 v-model:expandedKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new expandedKeys value (expanded row keys; supports `v-model:expanded-keys`); the payload is the new value. With v-model:expandedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(keys: TableKey[]) => void",
           "eventName": "update:expandedKeys",
           "boolean": false,
@@ -17805,16 +17815,16 @@
         {
           "name": "update:selectedKeys",
           "type": "(keys: TableKey[]) => void",
-          "description": "Event emitted for update:selectedKeys",
-          "descriptionZh": "Event emitted for update:selectedKeys",
-          "descriptionEn": "Event emitted for update:selectedKeys"
+          "description": "Requests a new selectedKeys value (Collection of selected keys); the payload is the new value. With v-model:selectedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 selectedKeys（勾选的key集合），参数为更新后的值。使用 v-model:selectedKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new selectedKeys value (Collection of selected keys); the payload is the new value. With v-model:selectedKeys, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "update:expandedKeys",
           "type": "(keys: TableKey[]) => void",
-          "description": "Event emitted for update:expandedKeys",
-          "descriptionZh": "Event emitted for update:expandedKeys",
-          "descriptionEn": "Event emitted for update:expandedKeys"
+          "description": "Requests a new expandedKeys value (expanded row keys; supports `v-model:expanded-keys`); the payload is the new value. With v-model:expandedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 expandedKeys（展开行 key 集合，支持 `v-model:expanded-keys`），参数为更新后的值。使用 v-model:expandedKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new expandedKeys value (expanded row keys; supports `v-model:expanded-keys`); the payload is the new value. With v-model:expandedKeys, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "sort",
@@ -18004,9 +18014,9 @@
         },
         {
           "name": "title",
-          "description": "Header display text",
-          "descriptionZh": "列头显示文字",
-          "descriptionEn": "Header display text",
+          "description": "Panel title and default trigger label",
+          "descriptionZh": "面板标题及默认触发按钮文字",
+          "descriptionEn": "Panel title and default trigger label",
           "type": "string | undefined",
           "boolean": false,
           "required": false,
@@ -18039,9 +18049,9 @@
         },
         {
           "name": "onUpdate:hiddenKeys",
-          "description": "Event emitted for update:hiddenKeys",
-          "descriptionZh": "Event emitted for update:hiddenKeys",
-          "descriptionEn": "Event emitted for update:hiddenKeys",
+          "description": "Requests a new hiddenKeys value (Hidden keys; supports `v-model:hidden-keys`); the payload is the new value. With v-model:hiddenKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 hiddenKeys（隐藏列 key，支持 `v-model:hidden-keys`），参数为更新后的值。使用 v-model:hiddenKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new hiddenKeys value (Hidden keys; supports `v-model:hidden-keys`); the payload is the new value. With v-model:hiddenKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(keys: string[]) => void",
           "eventName": "update:hiddenKeys",
           "boolean": false,
@@ -18062,9 +18072,9 @@
         {
           "name": "update:hiddenKeys",
           "type": "(keys: string[]) => void",
-          "description": "Event emitted for update:hiddenKeys",
-          "descriptionZh": "Event emitted for update:hiddenKeys",
-          "descriptionEn": "Event emitted for update:hiddenKeys"
+          "description": "Requests a new hiddenKeys value (Hidden keys; supports `v-model:hidden-keys`); the payload is the new value. With v-model:hiddenKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 hiddenKeys（隐藏列 key，支持 `v-model:hidden-keys`），参数为更新后的值。使用 v-model:hiddenKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new hiddenKeys value (Hidden keys; supports `v-model:hidden-keys`); the payload is the new value. With v-model:hiddenKeys, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -18474,9 +18484,9 @@
         },
         {
           "name": "onUpdate:show",
-          "description": "Event emitted for update:show",
-          "descriptionZh": "Event emitted for update:show",
-          "descriptionEn": "Event emitted for update:show",
+          "description": "Requests a new show value (Whether to display during initialization); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 show（初始化时是否展示），参数为更新后的值。使用 v-model:show 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new show value (Whether to display during initialization); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(show: boolean) => void",
           "eventName": "update:show",
           "boolean": false,
@@ -18487,9 +18497,9 @@
         {
           "name": "update:show",
           "type": "(show: boolean) => void",
-          "description": "Event emitted for update:show",
-          "descriptionZh": "Event emitted for update:show",
-          "descriptionEn": "Event emitted for update:show"
+          "description": "Requests a new show value (Whether to display during initialization); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 show（初始化时是否展示），参数为更新后的值。使用 v-model:show 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new show value (Whether to display during initialization); the payload is the new value. With v-model:show, Vue synchronizes the binding automatically; no additional update handler is needed."
         }
       ],
       "slots": [],
@@ -18650,9 +18660,9 @@
         },
         {
           "name": "onUpdate:open",
-          "description": "Event emitted for update:open",
-          "descriptionZh": "Event emitted for update:open",
-          "descriptionEn": "Event emitted for update:open",
+          "description": "Requests a new open value (Visibility; takes precedence over modelValue, supports v-model:open); the payload is the new value. With v-model:open, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 open（显示状态，优先于 modelValue，支持 v-model:open），参数为更新后的值。使用 v-model:open 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new open value (Visibility; takes precedence over modelValue, supports v-model:open); the payload is the new value. With v-model:open, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(open: boolean) => void",
           "eventName": "update:open",
           "boolean": false,
@@ -18660,9 +18670,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Visibility (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（显示状态（v-model）），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Visibility (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(open: boolean) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -18703,16 +18713,16 @@
         {
           "name": "update:open",
           "type": "(open: boolean) => void",
-          "description": "Event emitted for update:open",
-          "descriptionZh": "Event emitted for update:open",
-          "descriptionEn": "Event emitted for update:open"
+          "description": "Requests a new open value (Visibility; takes precedence over modelValue, supports v-model:open); the payload is the new value. With v-model:open, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 open（显示状态，优先于 modelValue，支持 v-model:open），参数为更新后的值。使用 v-model:open 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new open value (Visibility; takes precedence over modelValue, supports v-model:open); the payload is the new value. With v-model:open, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "update:modelValue",
           "type": "(open: boolean) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Visibility (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（显示状态（v-model）），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Visibility (v-model)); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -18915,9 +18925,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Target keys, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（目标列表的 key，可使用 `v-model`），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Target keys, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(keys: TransferKey[]) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -18958,9 +18968,9 @@
         {
           "name": "update:modelValue",
           "type": "(keys: TransferKey[]) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Target keys, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（目标列表的 key，可使用 `v-model`），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Target keys, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -19238,9 +19248,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Text content, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（文本内容，可使用 `v-model`），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Text content, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: string) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -19271,9 +19281,9 @@
         {
           "name": "update:modelValue",
           "type": "(value: string) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Text content, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（文本内容，可使用 `v-model`），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Text content, supports `v-model`); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -19617,9 +19627,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Currently active tab panel's key); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（当前激活 tab 面板的 key（v-model）），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Currently active tab panel's key); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(name: string) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -19660,9 +19670,9 @@
         {
           "name": "update:modelValue",
           "type": "(name: string) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Currently active tab panel's key); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（当前激活 tab 面板的 key（v-model）），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Currently active tab panel's key); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "tabClick",
@@ -20150,9 +20160,9 @@
         },
         {
           "name": "onUpdate:expandedKeys",
-          "description": "Event emitted for update:expandedKeys",
-          "descriptionZh": "Event emitted for update:expandedKeys",
-          "descriptionEn": "Event emitted for update:expandedKeys",
+          "description": "Requests a new expandedKeys value (Specify expanded nodes); the payload is the new value. With v-model:expandedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 expandedKeys（指定展开的节点），参数为更新后的值。使用 v-model:expandedKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new expandedKeys value (Specify expanded nodes); the payload is the new value. With v-model:expandedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(keys: string[]) => void",
           "eventName": "update:expandedKeys",
           "boolean": false,
@@ -20160,9 +20170,9 @@
         },
         {
           "name": "onUpdate:checkedKeys",
-          "description": "Event emitted for update:checkedKeys",
-          "descriptionZh": "Event emitted for update:checkedKeys",
-          "descriptionEn": "Event emitted for update:checkedKeys",
+          "description": "Requests a new checkedKeys value (Tree nodes with checked checkboxes); the payload is the new value. With v-model:checkedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 checkedKeys（选中复选框的树节点），参数为更新后的值。使用 v-model:checkedKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new checkedKeys value (Tree nodes with checked checkboxes); the payload is the new value. With v-model:checkedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(keys: string[]) => void",
           "eventName": "update:checkedKeys",
           "boolean": false,
@@ -20170,9 +20180,9 @@
         },
         {
           "name": "onUpdate:selectedKeys",
-          "description": "Event emitted for update:selectedKeys",
-          "descriptionZh": "Event emitted for update:selectedKeys",
-          "descriptionEn": "Event emitted for update:selectedKeys",
+          "description": "Requests a new selectedKeys value (Selected nodes); the payload is the new value. With v-model:selectedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 selectedKeys（选中的节点），参数为更新后的值。使用 v-model:selectedKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new selectedKeys value (Selected nodes); the payload is the new value. With v-model:selectedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(keys: string[]) => void",
           "eventName": "update:selectedKeys",
           "boolean": false,
@@ -20273,23 +20283,23 @@
         {
           "name": "update:expandedKeys",
           "type": "(keys: string[]) => void",
-          "description": "Event emitted for update:expandedKeys",
-          "descriptionZh": "Event emitted for update:expandedKeys",
-          "descriptionEn": "Event emitted for update:expandedKeys"
+          "description": "Requests a new expandedKeys value (Specify expanded nodes); the payload is the new value. With v-model:expandedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 expandedKeys（指定展开的节点），参数为更新后的值。使用 v-model:expandedKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new expandedKeys value (Specify expanded nodes); the payload is the new value. With v-model:expandedKeys, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "update:checkedKeys",
           "type": "(keys: string[]) => void",
-          "description": "Event emitted for update:checkedKeys",
-          "descriptionZh": "Event emitted for update:checkedKeys",
-          "descriptionEn": "Event emitted for update:checkedKeys"
+          "description": "Requests a new checkedKeys value (Tree nodes with checked checkboxes); the payload is the new value. With v-model:checkedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 checkedKeys（选中复选框的树节点），参数为更新后的值。使用 v-model:checkedKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new checkedKeys value (Tree nodes with checked checkboxes); the payload is the new value. With v-model:checkedKeys, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "update:selectedKeys",
           "type": "(keys: string[]) => void",
-          "description": "Event emitted for update:selectedKeys",
-          "descriptionZh": "Event emitted for update:selectedKeys",
-          "descriptionEn": "Event emitted for update:selectedKeys"
+          "description": "Requests a new selectedKeys value (Selected nodes); the payload is the new value. With v-model:selectedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 selectedKeys（选中的节点），参数为更新后的值。使用 v-model:selectedKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new selectedKeys value (Selected nodes); the payload is the new value. With v-model:selectedKeys, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "expand",
@@ -20845,9 +20855,9 @@
         },
         {
           "name": "onUpdate:modelValue",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue",
+          "description": "Requests a new modelValue value (Specify the `value` of the selected item, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Specify the `value` of the selected item, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(value: TreeSelectValue) => void",
           "eventName": "update:modelValue",
           "boolean": false,
@@ -20855,9 +20865,9 @@
         },
         {
           "name": "onUpdate:treeExpandedKeys",
-          "description": "Event emitted for update:treeExpandedKeys",
-          "descriptionZh": "Event emitted for update:treeExpandedKeys",
-          "descriptionEn": "Event emitted for update:treeExpandedKeys",
+          "description": "Requests a new treeExpandedKeys value (Specify expanded nodes); the payload is the new value. With v-model:treeExpandedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 treeExpandedKeys（指定展开的节点），参数为更新后的值。使用 v-model:treeExpandedKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new treeExpandedKeys value (Specify expanded nodes); the payload is the new value. With v-model:treeExpandedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(keys: string[]) => void",
           "eventName": "update:treeExpandedKeys",
           "boolean": false,
@@ -20928,16 +20938,16 @@
         {
           "name": "update:modelValue",
           "type": "(value: TreeSelectValue) => void",
-          "description": "Event emitted for update:modelValue",
-          "descriptionZh": "Event emitted for update:modelValue",
-          "descriptionEn": "Event emitted for update:modelValue"
+          "description": "Requests a new modelValue value (Specify the `value` of the selected item, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Specify the `value` of the selected item, can use `v-model` for two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "update:treeExpandedKeys",
           "type": "(keys: string[]) => void",
-          "description": "Event emitted for update:treeExpandedKeys",
-          "descriptionZh": "Event emitted for update:treeExpandedKeys",
-          "descriptionEn": "Event emitted for update:treeExpandedKeys"
+          "description": "Requests a new treeExpandedKeys value (Specify expanded nodes); the payload is the new value. With v-model:treeExpandedKeys, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 treeExpandedKeys（指定展开的节点），参数为更新后的值。使用 v-model:treeExpandedKeys 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new treeExpandedKeys value (Specify expanded nodes); the payload is the new value. With v-model:treeExpandedKeys, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",
@@ -21878,9 +21888,9 @@
         },
         {
           "name": "onUpdate:fileList",
-          "description": "Event emitted for update:fileList",
-          "descriptionZh": "Event emitted for update:fileList",
-          "descriptionEn": "Event emitted for update:fileList",
+          "description": "Requests a new fileList value (Uploaded file list); the payload is the new value. With v-model:fileList, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 fileList（上传的文件列表），参数为更新后的值。使用 v-model:fileList 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new fileList value (Uploaded file list); the payload is the new value. With v-model:fileList, Vue synchronizes the binding automatically; no additional update handler is needed.",
           "type": "(files: UploadFile[]) => void",
           "eventName": "update:fileList",
           "boolean": false,
@@ -21968,9 +21978,9 @@
         {
           "name": "update:fileList",
           "type": "(files: UploadFile[]) => void",
-          "description": "Event emitted for update:fileList",
-          "descriptionZh": "Event emitted for update:fileList",
-          "descriptionEn": "Event emitted for update:fileList"
+          "description": "Requests a new fileList value (Uploaded file list); the payload is the new value. With v-model:fileList, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 fileList（上传的文件列表），参数为更新后的值。使用 v-model:fileList 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new fileList value (Uploaded file list); the payload is the new value. With v-model:fileList, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "change",

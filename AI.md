@@ -15,20 +15,53 @@ pnpm exec kui-vue-ai init
 
 ## MCP Server
 
-在支持 stdio MCP 的客户端中添加下面的服务：
+先在应用项目中安装 `kui-vue` 及其依赖（见上面的安装命令），并确认安装版本包含
+`node_modules/kui-vue/ai/mcp.mjs`。不要只复制这个脚本，它还需要同包的元数据和依赖。
+
+在项目终端中运行以下命令，取得 Node 的绝对路径：
+
+```bash
+node -p "process.execPath"
+```
+
+在支持 stdio MCP 的客户端中配置服务。下面是支持 `mcpServers` 格式的客户端示例；
+其他客户端请通过 MCP 设置填写相同的 command 和 args，不要直接照搬整个 JSON：
 
 ```json
 {
   "mcpServers": {
     "kui-vue": {
-      "command": "pnpm",
-      "args": ["exec", "kui-vue-mcp"]
+      "command": "/absolute/path/to/node",
+      "args": ["/absolute/path/to/project/node_modules/kui-vue/ai/mcp.mjs"]
     }
   }
 }
 ```
 
-不同客户端的配置文件位置会随版本变化，请在客户端的 MCP 设置页面中添加该命令。服务提供：
+将 command 替换为上面输出的 Node 路径，将 args 替换为你项目中脚本的绝对路径。
+路径含空格也仍是一个字符串参数。Windows JSON 路径使用正斜杠或转义反斜杠，例如
+`C:/Program Files/nodejs/node.exe`。该方式不依赖客户端的启动工作目录，也不要求使用 pnpm。
+
+如果客户端能找到 Node，也可以使用 `"command": "node"`。
+只有在客户端能找到 pnpm、且明确将工作目录设为已安装该包的项目目录时，
+才使用 `"command": "pnpm"` 和 `"args": ["exec", "kui-vue-mcp"]`。
+
+### 验证与排错
+
+1. 先在终端用上述 Node 和脚本路径启动服务。它通过标准输入/输出通信，
+   不会打开网页，也不会主动打印“启动成功”；等待输入是正常状态，按 Ctrl+C 退出。
+2. 保存客户端配置并重新连接服务。确认初始化成功、工具列表包含
+   `search_components` 和 `get_component_api`。
+3. 查询 `get_component_api({ "name": "Button" })`，确认能返回组件 API。
+   这验证连接和资源读取，不代表所有组件交互都已验证。
+
+若提示找不到 node/pnpm，请检查 command 的绝对路径及客户端环境；
+找不到脚本，请检查项目路径、依赖安装和包版本；
+脚本缺少依赖或元数据，请用项目的包管理器恢复完整安装，不要单独搬运脚本。
+终端可运行但客户端失败时，查看客户端日志中的启动命令和握手错误。
+项目路径或 Node 安装路径变更后也需要更新配置。
+
+服务提供：
 
 - 组件搜索和完整 API 查询
 - 根据需求推荐组件
@@ -95,3 +128,34 @@ pnpm check:ai-evals
 - 单阶段排查：`pnpm build:css`、`pnpm build:es`、`pnpm build:types`、`pnpm build:lib`、`pnpm build:umd`。
 
 ES 构建不再同时生成类型，需要类型时使用 `build:types` 或 `build:local`。确需提高堆上限，可设置 `KUI_BUILD_HEAP_MB=2560 pnpm build`。堆上限不是整个进程或整台机器的内存上限；在 8 GB 机器上避免同时运行构建、全量测试和多个开发服务器。
+
+## 不配置 MCP 也可以查询
+
+`kui-vue/metadata` 和 `kui-vue/skill` 是 npm 包的导出路径，**不是目录**。
+可以运行 `node -p "require.resolve('kui-vue/metadata')"` 定位文件，也可以使用
+下面的 `paths` 命令。开始实现前先阅读返回路径中的 Skill。
+
+```bash
+pnpm exec kui-vue-ai paths
+pnpm exec kui-vue-ai search Input --limit 5
+pnpm exec kui-vue-ai api Input --section props
+pnpm exec kui-vue-ai api Input --section behavior
+pnpm exec kui-vue-ai examples Input
+pnpm exec kui-vue-ai templates
+pnpm exec kui-vue-ai migration vue-to-react
+pnpm exec kui-vue-ai migration react-to-vue
+pnpm exec kui-vue-ai validate src/App.vue
+```
+
+从 examples 结果取得 ID 后，用 `example Input <id>` 读取单个示例；
+用 `template <id>` 读取业务模板。`query <工具名> '<JSON>'` 与 MCP 共用查询逻辑
+和参数校验，无需启动 MCP。结果为 JSON；参数错误或校验不通过返回非零退出码。
+`validate -` 可以读取标准输入，仍不能替代类型检查和交互测试。
+
+升级依赖后重新执行 `init`，会更新 AGENTS.md 中带标记的托管区域，保留区域外的
+项目规则。旧版没有标记的段落仅迁移能精确识别的生成行；修改过的自定义文本保留，
+需要自行检查是否过时。项目规则应放在托管区域外，标记损坏时命令报错且不写入。
+
+组件元数据不覆盖所有工具导出，例如 theme 还需查安装版本的声明。
+迁移前按方向运行 `migration vue-to-react` 或 `migration react-to-vue` 阅读差异指南，核对绑定、回调、插槽与交互，
+不要把类型检查通过当作迁移验收。

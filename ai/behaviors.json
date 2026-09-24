@@ -78,5 +78,27 @@
     "rules": [
       "compact joins adjacent controls. Vertical compact layout supports Button groups; it is not a general-purpose vertical form layout."
     ]
+  },
+  "Dropdown": {
+    "rules": [
+      "The default slot contains the trigger; the overlay slot contains popup content. React uses children and the overlay prop for these roles."
+    ]
+  },
+  "DatePicker": {
+    "rules": [
+      "Default v-model binds the selected value; range modes support a range array. startDate/endDate bindings are an alternative. Do not assume one generic binding shape across all modes.",
+      "The change event reports the selected date value and formatted text. Check valueType and mode and handle clearing explicitly."
+    ]
+  },
+  "Checkbox": {
+    "rules": [
+      "checked controls check state and value identifies a grouped item; do not conflate value, label and checked. Read the emitted event type before migrating to React."
+    ]
+  },
+  "Popup": {
+    "rules": [
+      "The default slot provides the trigger and overlay provides popup content. Use v-model:open when two-way visibility synchronization is desired.",
+      "The shared Popup manages nested layers; avoid a second document-click closer around nested selector popups."
+    ]
   }
 }

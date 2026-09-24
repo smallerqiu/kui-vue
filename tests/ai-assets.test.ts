@@ -25,6 +25,36 @@ afterEach(() => {
 });
 
 describe("AI distribution assets", () => {
+  it("explains model synchronization without requiring duplicate user handlers", () => {
+    const popup = metadata.components.find((component) => component.name === "Popup");
+    const update = popup?.props.find((prop) => prop.name === "onUpdate:open");
+    expect(update?.descriptionEn).toContain("v-model:open");
+    expect(update?.descriptionEn).toContain("no additional update handler");
+    const input = metadata.components.find((component) => component.name === "TextArea");
+    expect(input?.props.find((prop) => prop.name === "onInput")?.descriptionEn).toContain("native");
+  });
+  it("has bilingual explanations rather than empty or generated placeholders for every prop", () => {
+    for (const component of metadata.components) {
+      for (const prop of component.props) {
+        for (const description of [prop.descriptionZh, prop.descriptionEn]) {
+          expect(description?.trim(), `${component.name}.${prop.name}`).toBeTruthy();
+          expect(description).not.toMatch(/^(Props for |Event emitted|Supported .* slot)/);
+        }
+      }
+    }
+  });
+  it("keeps parent descriptions separate from same-named child props", () => {
+    const components: Array<{
+      name: string;
+      props: Array<{ name: string; descriptionZh: string }>;
+    }> = metadata.components;
+    const description = (name: string) =>
+      components.find((c) => c.name === name)?.props.find((p) => p.name === "value")?.descriptionZh;
+    expect(description("Select")).toBeTruthy();
+    expect(description("Select")).not.toBe(description("Option"));
+    expect(description("Select")).not.toContain("必填");
+    expect(description("Option")).toContain("选项值");
+  });
   it("keeps type references portable across source and package layouts", () => {
     const asset: {
       components: Array<{ name: string; props: Array<{ name: string; type: string }> }>;
@@ -117,7 +147,7 @@ describe("AI distribution assets", () => {
     expect(first.status).toBe(0);
     expect(second.status).toBe(0);
     expect(instructions.match(/## Kui Vue/g)).toHaveLength(1);
-    expect(second.stdout).toContain("already exists");
+    expect(JSON.parse(second.stdout).updated).toBe(false);
   });
 
   it("serves tools, resources, and prompts through MCP stdio", async () => {

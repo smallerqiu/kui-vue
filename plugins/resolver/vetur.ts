@@ -1,4 +1,5 @@
 import fs from "fs";
+import { componentDocumentation } from "../../scripts/component-documentation.ts";
 import path from "path";
 import { Node, Project, Type, TypeFormatFlags } from "ts-morph";
 import { JsxEmit } from "typescript";
@@ -42,11 +43,13 @@ export const getPropsNameCandidates = (componentName: string): string[] => {
  * 解析 Markdown 表格提取属性和描述
  * @param mdPath Markdown 文件路径
  */
-const getDocDescriptions = (mdPath: string): Record<string, string> => {
+const getDocDescriptions = (mdPath: string, component: string): Record<string, string> => {
   const descriptions: Record<string, string> = {};
   if (!fs.existsSync(mdPath)) return descriptions;
 
-  const content = fs.readFileSync(mdPath, "utf-8");
+  const shared = fs.readFileSync(mdPath, "utf-8");
+  // Shared rows remain fallbacks; component-specific sections take precedence.
+  const content = shared + "\n" + componentDocumentation(shared, component, path.basename(path.dirname(mdPath)));
   const lines = content.split("\n"); // 按行处理
 
   lines.forEach((line) => {
@@ -134,7 +137,7 @@ export const getPropsData = (
       : componentDir,
     documentationFileName,
   );
-  const docMap = getDocDescriptions(mdPath);
+  const docMap = getDocDescriptions(mdPath, targetSymbol.getName().replace(/Props$/, ""));
 
   const type = aliasedSymbol.getDeclaredType();
   const properties = type.getApparentProperties(); // 获取包含继承的所有属性

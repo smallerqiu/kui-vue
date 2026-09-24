@@ -1,0 +1,28 @@
+{
+  "Input": {
+    "onFocus": {
+      "zh": "输入元素获得焦点时触发，接收原生 FocusEvent。",
+      "en": "Emitted with the native FocusEvent when the input element receives focus."
+    },
+    "onBlur": {
+      "zh": "输入元素失去焦点时触发，接收原生 FocusEvent；表单上下文同时处理失焦校验。",
+      "en": "Emitted with the native FocusEvent when the input loses focus; the form context also processes blur validation."
+    }
+  },
+  "TextArea": {
+    "onInput": {
+      "zh": "原生文本输入时触发，接收 Event；新字符串值由 change 和 v-model 更新事件提供。",
+      "en": "Emitted with the native Event on text input; change and the v-model update event provide the new string value."
+    }
+  },
+  "Option": {
+    "onClick": {
+      "zh": "可用选项被点击并发出 select 后触发，接收原生 MouseEvent；禁用项不触发。",
+      "en": "Emitted with the native MouseEvent after select on an enabled option click; disabled options do not trigger it."
+    },
+    "onMouseenter": {
+      "zh": "鼠标进入可用选项时触发，接收原生 MouseEvent；禁用项不触发。",
+      "en": "Emitted with the native MouseEvent when the pointer enters an enabled option; disabled options do not trigger it."
+    }
+  }
+}

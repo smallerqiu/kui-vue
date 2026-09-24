@@ -109,6 +109,9 @@ const behaviors = JSON.parse(
   string,
   { rules: string[]; methods?: string[]; slots?: string[]; slotsComplete?: boolean }
 >;
+const descriptions = JSON.parse(
+  fs.readFileSync(path.join(root, "ai/descriptions.json"), "utf8"),
+) as Record<string, Record<string, { zh: string; en: string }>>;
 const components = getComponentNames().map((name) => {
   const props = getPropsData(componentEntry, getPropsNameCandidates(name), "index.md", true);
   const englishProps = getPropsData(
@@ -118,6 +121,25 @@ const components = getComponentNames().map((name) => {
     true,
   );
   const englishByName = new Map(englishProps.map((prop) => [prop.name, prop]));
+  for (const [entries, language] of [
+    [props, "zh"],
+    [englishProps, "en"],
+  ] as const) {
+    for (const prop of entries) {
+      const note = descriptions[name]?.[prop.name]?.[language];
+      if (note) prop.description = note;
+      if (prop.eventName?.startsWith("update:")) {
+        const model = prop.eventName.slice(7);
+        const target = entries.find((entry) => entry.name === model);
+        const binding = model === "modelValue" ? "v-model" : `v-model:${model}`;
+        if (!target) throw new Error(`Missing model prop: ${name}.${model}`);
+        prop.description =
+          language === "zh"
+            ? `请求更新 ${model}（${target.description}），参数为更新后的值。使用 ${binding} 时由 Vue 自动同步绑定值，无需另写更新处理器。`
+            : `Requests a new ${model} value (${target.description}); the payload is the new value. With ${binding}, Vue synchronizes the binding automatically; no additional update handler is needed.`;
+      }
+    }
+  }
   const documentationPath = findDocumentation(name, props);
   const englishDocumentationPath = documentationPath
     ? path.join(path.dirname(documentationPath), "index.en_US.md")
@@ -173,7 +195,7 @@ const components = getComponentNames().map((name) => {
         const english = englishByName.get(name);
         return {
           name,
-          description: english?.documented ? english.description : description,
+          description: english?.description || description,
           descriptionZh: description,
           descriptionEn: english?.description || description,
           type,
@@ -193,7 +215,7 @@ const components = getComponentNames().map((name) => {
         return {
           name: prop.eventName!,
           type: prop.type,
-          description: english?.documented ? english.description : prop.description,
+          description: english?.description || prop.description,
           descriptionZh: prop.description,
           descriptionEn: english?.description || prop.description,
         };
@@ -212,6 +234,13 @@ const components = getComponentNames().map((name) => {
   };
 });
 
+for (const [component, fields] of Object.entries(descriptions)) {
+  const target = components.find((entry) => entry.name === component);
+  for (const [field, note] of Object.entries(fields)) {
+    if (!target?.props.some((prop) => prop.name === field) || !note.zh?.trim() || !note.en?.trim())
+      throw new Error(`Invalid description supplement: ${component}.${field}`);
+  }
+}
 if (process.argv.includes("--docs") || process.argv.includes("--check-docs")) {
   syncDocumentation(root, components, process.argv.includes("--check-docs"));
   process.exit(0);

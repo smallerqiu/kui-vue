@@ -15,20 +15,52 @@ The command adds Kui Vue guidance to `AGENTS.md` and is safe to run repeatedly.
 
 ## MCP server
 
-Add this server to any client that supports stdio MCP:
+Install `kui-vue` and its dependencies in the consuming project first.
+Confirm that the installed version includes `node_modules/kui-vue/ai/mcp.mjs`.
+Do not copy the script alone: it needs the package's metadata and dependencies.
+
+Run `node -p "process.execPath"` in the project terminal to obtain the Node
+executable's absolute path. For clients using the mcpServers JSON format:
 
 ```json
 {
   "mcpServers": {
     "kui-vue": {
-      "command": "pnpm",
-      "args": ["exec", "kui-vue-mcp"]
+      "command": "/absolute/path/to/node",
+      "args": ["/absolute/path/to/project/node_modules/kui-vue/ai/mcp.mjs"]
     }
   }
 }
 ```
 
-Configuration locations vary by client version, so add the command through the client's current MCP settings. The server exposes component search, exact API lookup, component recommendations, template usage validation, component resources, and reusable prompts.
+Replace both placeholders with real absolute paths. A path containing spaces
+remains one string argument. On Windows use forward slashes or escaped
+backslashes in JSON, for example `C:/Program Files/nodejs/node.exe`.
+Other clients may use another configuration format; enter the same command and
+args through their MCP settings instead of copying this JSON unchanged.
+
+This configuration does not depend on the client's working directory or pnpm.
+Use `"command": "node"` only if the client can find Node.
+The alternative command `pnpm` with args `["exec", "kui-vue-mcp"]` requires
+pnpm on the client's PATH and an explicit working directory pointing to the
+consuming project with the package installed.
+
+### Verify and troubleshoot
+
+1. Launch the absolute Node/script paths in a terminal first. This is a stdio
+   service, not a web server. It normally waits silently for input; press Ctrl+C
+   to stop. Silence alone does not prove a successful MCP connection.
+2. Save the client configuration and reconnect. Check successful initialization
+   and a tool list containing search_components and get_component_api.
+3. Call `get_component_api({ "name": "Button" })` and confirm an API response.
+   This tests connectivity and resources, not all component interactions.
+
+If Node/pnpm cannot be found, check the executable path and client environment.
+If the script cannot be found, check the project path, installation and package
+version. Missing dependencies/metadata require restoring the complete package
+installation with the project's package manager, not copying individual files.
+If terminal startup works but the client fails, inspect client startup and
+handshake logs. Update configuration after moving the project or Node installation.
 
 ## Client guidance
 
@@ -73,3 +105,37 @@ Run `pnpm check:ai-templates` for template type checks and interaction tests.
 `pnpm build` still produces all release artifacts. Each build stage runs in a separate sequential Node process with a default 2048 MB old-space limit. Terser uses one worker; Less runs on the main thread. Type generation no longer runs inside the ESM bundler.
 
 For development, use `pnpm dev`. `pnpm build:local` generates CSS, ESM, declarations and editor metadata only; it is not a release build. `pnpm build:es` now emits JavaScript only; use `pnpm build:types` for declarations. Individual CSS/CJS/UMD stages remain available. Set `KUI_BUILD_HEAP_MB=2560` only when a stage needs a larger heap. A heap limit is not a total process/system memory limit; avoid simultaneous builds and large test runs on 8 GB machines.
+
+## Installed resources and command-line queries (without MCP)
+
+`kui-vue/metadata` and `kui-vue/skill` are package export specifiers, not
+directories. Resolve them with `node -p "require.resolve('kui-vue/metadata')"`
+or run `pnpm exec kui-vue-ai paths`. Read the Skill at the returned path before
+implementing unfamiliar APIs.
+
+```bash
+pnpm exec kui-vue-ai paths
+pnpm exec kui-vue-ai search Input --limit 5
+pnpm exec kui-vue-ai api Input --section props
+pnpm exec kui-vue-ai api Input --section behavior
+pnpm exec kui-vue-ai examples Input
+pnpm exec kui-vue-ai templates
+pnpm exec kui-vue-ai migration vue-to-react
+pnpm exec kui-vue-ai migration react-to-vue
+pnpm exec kui-vue-ai validate src/App.vue
+```
+
+Use `example Input <id>` with an ID from examples; use `template <id>` to read
+one business template. `query <tool-name> '<JSON>'` uses the same engine and
+argument validation as MCP. Results are JSON; invalid usage and errors exit
+nonzero. Source can be piped into `validate -`. Validation remains partial.
+
+Run `init` again after upgrading. It refreshes a marked managed block and
+preserves text outside it. For pre-marker guidance, only exact known generated
+lines are migrated; customized wording remains for review. Put project-specific
+rules outside managed markers. Malformed markers cause an error without writes.
+
+Metadata describes components, not every package export. For utilities such as
+theme, inspect the installed declarations too. Before migrating, read
+`migration vue-to-react` or `migration react-to-vue`, then compare callbacks, state synchronization,
+slots/render props and interaction behavior—not just typecheck results.
