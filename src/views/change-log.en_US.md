@@ -15,7 +15,7 @@ rm -rf node_modules/.vite
 
 ## 6.2.1
 
-`2026-09-24`
+`2026-09-25`
 
 - `Carousel`: Added horizontal and vertical mouse/touch gestures with release settling, controlled by `swipeable`; fixed display and state synchronization issues with dynamic slides and consecutive navigation.
 - `Page`: Added container-responsive pagination that reduces page numbers, then switches to Simple while retaining the page-size selector. The full layout returns when space is available; set `responsive` to `false` to opt out.

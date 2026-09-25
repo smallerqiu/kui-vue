@@ -4,8 +4,9 @@
     if (mode === "light" || mode === "dark") {
       document.documentElement.setAttribute("theme-mode", mode);
     }
-  } catch (_) {
+  } catch (error) {
     // Storage may be unavailable in privacy mode; keep the default theme.
+    console.error(error);
   }
   const root = document.documentElement;
   const themeColor = document.querySelector('meta[name="theme-color"]');
