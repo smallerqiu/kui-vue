@@ -13,6 +13,15 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 6.2.1
+
+`2026-09-24`
+
+- `Carousel`: Added horizontal and vertical mouse/touch gestures with release settling, controlled by `swipeable`; fixed display and state synchronization issues with dynamic slides and consecutive navigation.
+- `Page`: Added container-responsive pagination that reduces page numbers, then switches to Simple while retaining the page-size selector. The full layout returns when space is available; set `responsive` to `false` to opt out.
+- `Input` / `InputNumber`: Refactored shared internals to separate styling and controls; removed the previously exposed internal `inputType` and `controls` interfaces.
+- AI assistance: Added CLI queries for component APIs, examples, and templates, source validation, and updates to project AI guidance.
+
 ## 6.2.0
 
 `2026-9-23`
@@ -28,9 +37,7 @@ rm -rf node_modules/.vite
 - Fixed Node tooling type checks requiring generated package declarations before a clean build; added a regression test that excludes build artifacts.
 - Completed public API and event documentation, including callback parameters and examples.
 - Migrated repository build and validation scripts to TypeScript and added Node-script type checking. Contributor tooling requires Node.js 24 or later; published ESM/CommonJS entry points remain supported.
-
 - Alert and Tag now remove their content after the exit animation and expose `afterClose` (`onAfterClose` in React). Update parent visibility or tag list data in this callback to unmount components without interrupting the animation.
-
 - Unify state APIs: remove AutoComplete `defaultOpen`, Tour `defaultOpen/defaultCurrent`, Upload `defaultFileList`, and Table `defaultExpandedKeys` in favor of unprefixed props. Rename Table `defaultExpandAllRows` to `expandAllRows`. State props initialize local state, allow interaction, and synchronize external changes. Tour adds `open` / `v-model:open` while retaining `v-model`.
 
 ### Shared popup infrastructure

@@ -25,6 +25,10 @@
 
 - 只显示上一页、当前页数和下一页；配合 `showElevator` 时可直接编辑当前页码。
 
+[自适应分页](./demo/responsive.vue?show=vertical)
+
+- 拖动容器右下角调整宽度。空间不足时先减少页码，再切换为简洁模式；每页条数选择器保留并允许换行。容器变宽后自动恢复，不改变当前页或触发 change 事件。设置 `responsive` 为 `false` 可关闭自适应，`simple` 始终强制使用简洁模式。
+
 ## API
 
 | 属性 | 说明 | 类型 | 默认值 |
@@ -37,6 +41,7 @@
 | showTotal | 是否显示总数 | `boolean` | true |
 | showElevator | 是否显示页码阶梯 | `boolean` | false |
 | simple | 是否使用简洁分页 | `boolean` | false |
+| responsive | 是否根据容器可用宽度自动调整分页布局 | `boolean` | true |
 | sizeData | 自定义页码组数据 | `number[]` | [10,15,20,30,40] |
 | size | 尺寸 | `"small" \| "medium" \| "large"` | `medium` |
 | theme | 主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | `fill` |

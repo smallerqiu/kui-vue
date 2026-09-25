@@ -15,6 +15,15 @@ vite 好像有缓存, 可手动清除
 rm -rf node_modules/.vite
 ```
 
+## 6.2.1
+
+`2026-09-24`
+
+- `Carousel` 新增鼠标拖动和触屏滑动，支持横向、纵向及松手归位，通过 `swipeable` 统一控制；修复动态内容和连续切换时的显示与状态同步问题。
+- `Page` 新增容器自适应布局：空间不足时减少页码并自动切换简洁模式，保留每页条数选择器，变宽后自动恢复；可通过 `responsive` 关闭。
+- `Input` / `InputNumber` 优化内部实现，分离样式和控制区域；移除原供内部使用的 `inputType`、`controls` 接口。
+- AI 辅助增强：支持命令行查询组件 API、示例和模板，以及源码校验；支持更新项目中的 AI 使用约定。
+
 ## 6.2.0
 
 `2026-9-23`
@@ -30,9 +39,7 @@ rm -rf node_modules/.vite
 - 修复干净检出时 Node 工具类型检查依赖尚未生成的包声明文件的问题，并增加不依赖构建产物的回归测试。
 - 补充公共 API 与事件文档，完善回调参数说明和使用示例。
 - 仓库构建及校验脚本统一为 TypeScript，增加 Node 脚本类型检查；贡献者运行工具链需使用 Node.js 24 或更高版本，发布包继续支持 ESM / CommonJS。
-
 - Alert、Tag 在退出动画结束后移除内容，新增 `afterClose`（React 为 `onAfterClose`）事件，支持在动画结束后更新父级显隐状态或标签列表。
-
 - 统一状态 API：移除 AutoComplete 的 `defaultOpen`、Tour 的 `defaultOpen/defaultCurrent`、Upload 的 `defaultFileList`、Table 的 `defaultExpandedKeys`，改用对应的无 default 前缀属性；Table 的 `defaultExpandAllRows` 改为 `expandAllRows`。状态属性用于初始化及外部变化同步，交互仍可更新内部状态。Tour 新增 `open` / `v-model:open`，保留原有 `v-model`。
 
 ### 弹层基础能力

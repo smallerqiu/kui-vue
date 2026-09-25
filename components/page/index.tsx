@@ -1,6 +1,8 @@
 import { ChevronsLeft, ChevronsRight, ChevronUp, Ellipsis } from "kui-icons";
 import {
   computed,
+  onMounted,
+  onBeforeUnmount,
   defineComponent,
   inject,
   isRef,
@@ -14,6 +16,7 @@ import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types
 import { useConfigAppearance } from "../config/context";
 import Icon from "../icon";
 import InputNumber from "../input-number";
+import { bindResponsivePage } from "./responsive";
 import zhCN from "../locale/zh-CN";
 import { Select } from "../select";
 
@@ -23,6 +26,7 @@ const pageProps = {
   showTotal: { type: Boolean as BooleanType, default: true },
   showElevator: Boolean as BooleanType,
   simple: Boolean as BooleanType,
+  responsive: { type: Boolean as BooleanType, default: true },
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
   sizeData: { type: Array as PropType<number[]>, default: () => [10, 15, 20, 30, 40] },
@@ -46,6 +50,17 @@ const Page = defineComponent({
   },
   setup(props, { emit, attrs }) {
     const appearance = useConfigAppearance(props);
+    const rootRef = ref<HTMLElement>();
+    let disposeResponsive: (() => void) | undefined;
+    const setupResponsive = () => {
+      disposeResponsive?.();
+      disposeResponsive = undefined;
+      if (rootRef.value && props.responsive && !props.simple)
+        disposeResponsive = bindResponsivePage(rootRef.value);
+    };
+    onMounted(setupResponsive);
+    watch([() => props.responsive, () => props.simple], setupResponsive, { flush: "post" });
+    onBeforeUnmount(() => disposeResponsive?.());
     const nextPageGroup = ref(false);
     const prevPageGroup = ref(false);
     const normalizePageSize = (value: number) => (Number.isFinite(value) && value > 0 ? value : 10);
@@ -103,7 +118,7 @@ const Page = defineComponent({
         emit("update:page", normalizedPage);
       }
     };
-    const renderPage = () => {
+    const renderPage = (compact = false) => {
       const groupCount = 7,
         page = Number(defaultPage.value),
         pCount = Number(pageCount.value);
@@ -136,6 +151,13 @@ const Page = defineComponent({
         for (let i = 2; i < pCount; i++) {
           array.push(i);
         }
+      }
+      if (compact && pCount > 5) {
+        array.length = 0;
+        const middle = Math.min(pCount - 1, Math.max(2, page));
+        array.push(middle);
+        showPrevMore = middle > 2;
+        showNextMore = middle < pCount - 1;
       }
       const child = array.map((p, i) => {
         const prop = {
@@ -347,6 +369,7 @@ const Page = defineComponent({
             "k-page-plain": appearance.theme.value == "plain",
             "k-page-disabled": props.disabled,
             "k-page-simple": props.simple,
+            "k-page-responsive": props.responsive && !props.simple,
           },
         ],
         preNode = (
@@ -417,13 +440,23 @@ const Page = defineComponent({
         </li>
       );
       return (
-        <nav {...attrs} class={[classes, attrs.class]} aria-label="Pagination">
+        <nav {...attrs} class={[classes, attrs.class]} aria-label="Pagination" ref={rootRef}>
           {totalNode}
-          <ul class="k-pager">
+          <ul class="k-pager" data-page-pager="full">
             {props.simple
               ? [preNode, simpleNode, nextNode]
               : [preNode, firstNode, pagerNode, lastNode, nextNode]}
           </ul>
+          {props.responsive && !props.simple && (
+            <>
+              <ul class="k-pager" data-page-pager="compact" hidden>
+                {[preNode, renderFirst(), renderPage(true), renderLast(), nextNode]}
+              </ul>
+              <ul class="k-pager" data-page-pager="simple" hidden>
+                {[preNode, simpleNode, nextNode]}
+              </ul>
+            </>
+          )}
           {!props.simple && [sizeNode, elevatorNode]}
         </nav>
       );

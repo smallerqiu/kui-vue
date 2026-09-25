@@ -33,7 +33,7 @@ Avoid components sticking together, create uniform space.
 
 [Set Wrapping](./demo/wrap.vue)
 
-- When the spacing is horizontal, you can use `wrap` to set whether to wrap automatically. The default is false.
+- Wrapping is disabled by default. Set `wrap` explicitly to enable automatic wrapping.
 
 [Divider](./demo/split.vue)
 

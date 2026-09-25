@@ -73,6 +73,6 @@ describe("Page", () => {
     });
 
     expect(wrapper.find(".k-pager-item-active").text()).toBe("1");
-    expect(wrapper.findAll(".k-pager-item")).toHaveLength(7);
+    expect(wrapper.findAll(".k-pager:not([hidden]) .k-pager-item")).toHaveLength(7);
   });
 });

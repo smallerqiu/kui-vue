@@ -47,17 +47,15 @@
   }
 
   .k-code-actions {
-    border-top: 1px dashed var(--kui-color-border);
-    text-align: center;
     font-size: 20px;
     display: flex;
     align-items: center;
-    border-radius: 0 0 12px 12px;
-    background-color: var(--kui-color-bg-container);
-    overflow: hidden;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
     .k-btn {
-      flex: 1;
-      border-radius: 0;
+      background-color: var(--kui-color-bg);
     }
   }
 
@@ -65,6 +63,7 @@
     transition: all 0.3s ease;
     position: relative;
     outline: none;
+    flex-direction: column;
     // background-color: var(--kui-color-bg-container);
     .k-code-pre {
       height: 100%;
@@ -100,10 +99,6 @@
     cursor: pointer;
   }
   .k-code-tools {
-    box-shadow: -4px 4px 9px 2px #00000024;
-    position: absolute;
-    right: 0;
-    top: 0;
     padding: 5px 20px 5px 10px;
     background: #eeeeee1e;
     display: flex;
@@ -111,13 +106,14 @@
     gap: 8px;
     -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(3px);
-    border-radius: 0 0 0 12px;
+    justify-content: center;
+    border-top: 1px solid var(--kui-color-border);
+    border-bottom: 1px solid var(--kui-color-border);
   }
 }
 .k-demo-expanded {
   .k-code-actions {
-    position: sticky;
-    bottom: 0;
+    display: none;
   }
 }
 .k-demo-horizontal {
@@ -127,7 +123,7 @@
     flex-shrink: 0;
   }
   .k-code-tools {
-    border-radius: 0 12px 0 12px;
+    border-top-color: transparent;
   }
   pre {
     border-radius: 0 0 12px 12px;
@@ -149,9 +145,9 @@
       display: block;
       flex: 1;
       overflow: auto;
-      border-radius: 0 12px 12px 0;
+      border-radius: 0 0 12px 0;
       pre {
-        border-radius: 0 12px 12px 0;
+        border-radius: 0 0 12px 0;
         flex: 1;
         box-sizing: border-box;
         background-color: transparent;
@@ -179,8 +175,12 @@
 }
 
 .k-demo-vertical {
-  .k-code-box {
+  .k-code {
+    max-height: 80px;
     position: relative;
+    border-radius: 0 0 13px 13px;
+    overflow: hidden;
+    transition: max-height 0.3s;
     &::before {
       content: "";
       position: absolute;
@@ -190,12 +190,35 @@
       height: 100%;
       background-image: linear-gradient(to bottom, transparent, var(--kui-color-bg));
     }
-    .k-code {
-      max-height: 650px;
-      overflow: auto;
+  }
+  .k-content {
+    overflow: auto;
+  }
+  .k-code-tools {
+    flex-wrap: wrap;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+.k-demo-expanded {
+  .k-code {
+    max-height: 580px;
+    overflow-y: auto;
+    &::before {
+      display: none;
     }
   }
 }
-.k-demo-expanded .k-code-box::before {
-  display: none;
+
+// Keep long source lines and fixed-width examples inside the Demo container.
+.k-demo-container {
+  min-width: 0;
+  max-width: 100%;
+}
+.k-demo {
+  min-width: 0;
+  .k-demo-view,
+  .k-code-box {
+    min-width: 0;
+  }
 }

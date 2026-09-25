@@ -273,7 +273,8 @@
   }
 }
 
-.k-page-simple {
+.k-page-simple,
+.k-page-responsive[data-page-layout="simple"] {
   .k-pager-item {
     margin: 0;
   }
@@ -314,4 +315,45 @@
 }
 .k-page-square .k-pager-item {
   border-radius: var(--kui-shape-square);
+}
+
+// The pager adapts to its own container, including flex and grid layouts.
+.k-page .k-pager[hidden] {
+  display: none;
+}
+
+.k-page-responsive {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  flex-shrink: 1;
+
+  > .k-pager,
+  > .k-page-number,
+  > .k-page-options,
+  > .k-page-sizer {
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  &[data-page-layout="simple"] {
+    flex-wrap: wrap;
+    gap: 8px;
+
+    > .k-page-number,
+    > .k-page-options {
+      display: none;
+    }
+
+    > .k-pager {
+      min-width: 0;
+      max-width: 100%;
+      overflow-x: auto;
+    }
+
+    > .k-page-sizer {
+      min-width: 0;
+      max-width: 100%;
+    }
+  }
 }

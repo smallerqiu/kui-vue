@@ -1,5 +1,5 @@
 import { CodeJar, type CodeJar as CodeJarInstance } from "codejar";
-import { Copy, ListChevronsDownUp, ListChevronsUpDown, Play, Undo2 } from "kui-icons";
+import { Copy, Play, Undo2 } from "kui-icons";
 import { Badge, Button, message, RadioGroup, Tooltip, type BadgeStatusType } from "kui-vue";
 import {
   defineComponent,
@@ -11,14 +11,13 @@ import {
   onUpdated,
   reactive,
   ref,
-  Transition,
   type PropType,
 } from "vue";
 import { useRouter } from "vue-router";
-import { getTransitionProp } from "../../../components/base/transition";
 import { copyToClipboard } from "../../../components/utils/share";
 import { highlightVueSource } from "./highlight";
 import { CodePen, CodeSandbox, Stackblitz } from "./icons";
+import { observeDemoWidth } from "./responsive";
 import { openCodePen, openCodeSandbox, openStackBlitz } from "./utils";
 
 const readHighlightedSource = (editor: HTMLElement) => {
@@ -58,7 +57,16 @@ const Demo = defineComponent({
     const $t = inject<(key: string) => string>("$t", (key: string) => key);
     const router = useRouter();
 
-    const expanded = ref(props.direction != "vertical");
+    const expanded = ref(false);
+    const containerRef = ref<HTMLElement>();
+    const narrow = ref(false);
+    let stopObserving: (() => void) | undefined;
+    onMounted(() => {
+      if (containerRef.value)
+        stopObserving = observeDemoWidth(containerRef.value, (value) => (narrow.value = value));
+    });
+    onBeforeUnmount(() => stopObserving?.());
+
     const codeRefs = {
       ts: ref<HTMLElement>(),
       js: ref<HTMLElement>(),
@@ -129,7 +137,7 @@ const Demo = defineComponent({
           ts: codeJars.ts?.toString() || codeOrigins.ts || "",
           js: codeJars.js?.toString() || codeOrigins.js || "",
           language: codeLanguage.value,
-        })
+        }),
       );
       router.push("/playground");
     };
@@ -150,10 +158,13 @@ const Demo = defineComponent({
           (element) => {
             element.innerHTML = highlightVueSource(element.textContent || "");
           },
-          { tab: "  ", spellcheck: false }
+          { tab: "  ", spellcheck: false },
         );
         jar.updateCode(source, false);
         jar.onUpdate(renderCode);
+        Object.assign(editor.style, {
+          overflowY: "",
+        });
         codeJars[language] = jar;
       });
       if (props.autoCompile) void reload();
@@ -198,11 +209,12 @@ const Demo = defineComponent({
     });
 
     return () => {
-      const transitionProps = getTransitionProp("");
-      const horizontal = props.direction === "horizontal";
+      const horizontal = props.direction !== "vertical" && !narrow.value;
+      const effectiveDirection = horizontal ? "horizontal" : "vertical";
+      const displayExpanded = horizontal || expanded.value;
       const classes = [
         "k-demo",
-        { [`k-demo-${props.direction}`]: props.direction, "k-demo-expanded": expanded.value },
+        { [`k-demo-${effectiveDirection}`]: true, "k-demo-expanded": displayExpanded },
       ];
       const descNode = (
         <div class="k-desc">
@@ -220,109 +232,109 @@ const Demo = defineComponent({
         [scopeIdAttr]: "",
       };
       return (
-        <div class={["markdown-body", "k-demo-container", { "k-demo-expanded": expanded.value }]}>
+        <div
+          ref={containerRef}
+          class={["markdown-body", "k-demo-container", { "k-demo-expanded": displayExpanded }]}
+        >
           {descNode}
           <div class={classes}>
             <div class={`k-demo-view`}>
               <div {...refProps}>{slots.component?.()}</div>
             </div>
-            <Transition {...transitionProps}>
-              <div class="k-code-box" style={`height: ${!expanded.value ? "80px" : undefined}`}>
-                <div class="k-code-tools">
-                  <Badge status={buildState.state} text={buildState.text} />
-                  {props.toolbar !== "status" && (
-                    <>
-                      {props.filename.endsWith(".vue") && (
-                        <Tooltip title="Open in Playground">
-                          <Button type="text" size="small" icon={Play} onClick={openPlayground} />
-                        </Tooltip>
-                      )}
-                      <Tooltip title="Open in StackBlitz">
+
+            <div class="k-code-box">
+              <div class="k-code-tools">
+                <Badge status={buildState.state} text={buildState.text} />
+                {props.toolbar !== "status" && (
+                  <>
+                    {props.filename.endsWith(".vue") && (
+                      <Tooltip title="Open in Playground">
+                        <Button type="text" size="small" icon={Play} onClick={openPlayground} />
+                      </Tooltip>
+                    )}
+                    <Tooltip title="Open in StackBlitz">
+                      <Button
+                        type="text"
+                        size="small"
+                        icon={Stackblitz}
+                        onClick={() =>
+                          openStackBlitz(currentCodeJar()?.toString() || "", props.filename)
+                        }
+                      />
+                    </Tooltip>
+                    {props.filename.endsWith(".vue") && (
+                      <Tooltip title="Open in CodeSandbox">
                         <Button
                           type="text"
                           size="small"
-                          icon={Stackblitz}
+                          icon={CodeSandbox}
                           onClick={() =>
-                            openStackBlitz(currentCodeJar()?.toString() || "", props.filename)
+                            openCodeSandbox(
+                              currentCodeJar()?.toString() || "",
+                              props.filename,
+                            ).catch((error: unknown) =>
+                              message.error(
+                                error instanceof Error
+                                  ? error.message
+                                  : "Unable to open CodeSandbox",
+                              ),
+                            )
                           }
                         />
                       </Tooltip>
-                      {props.filename.endsWith(".vue") && (
-                        <Tooltip title="Open in CodeSandbox">
-                          <Button
-                            type="text"
-                            size="small"
-                            icon={CodeSandbox}
-                            onClick={() =>
-                              openCodeSandbox(
-                                currentCodeJar()?.toString() || "",
-                                props.filename
-                              ).catch((error: unknown) =>
-                                message.error(
-                                  error instanceof Error
-                                    ? error.message
-                                    : "Unable to open CodeSandbox"
-                                )
-                              )
-                            }
-                          />
-                        </Tooltip>
-                      )}
-                      {props.filename.endsWith(".vue") && (
-                        <Tooltip title="Open in CodePen">
-                          <Button
-                            type="text"
-                            size="small"
-                            icon={CodePen}
-                            onClick={() => openCodePen(currentCodeJar()?.toString() || "")}
-                          />
-                        </Tooltip>
-                      )}
-                      <RadioGroup
-                        options={codeLangOptions}
-                        onChange={(value) => {
-                          if (value === "ts" || value === "js") switchCodeLanguage(value);
-                        }}
-                        type="button"
-                        size="small"
-                        v-model={codeLanguage.value}
-                      />
-                      <Tooltip title={$t("text.copy_code")}>
-                        <Button type="text" size="small" icon={Copy} onClick={copyCode} />
+                    )}
+                    {props.filename.endsWith(".vue") && (
+                      <Tooltip title="Open in CodePen">
+                        <Button
+                          type="text"
+                          size="small"
+                          icon={CodePen}
+                          onClick={() => openCodePen(currentCodeJar()?.toString() || "")}
+                        />
                       </Tooltip>
-                      <Tooltip title={$t("text.restore_code")}>
-                        <Button type="text" size="small" icon={Undo2} onClick={restoreCode} />
-                      </Tooltip>
-                    </>
-                  )}
-                </div>
-                <div
-                  v-show={codeLanguage.value === "ts"}
-                  ref={codeRefs.ts}
-                  class="k-code k-scroll hljs"
-                >
-                  {slots["code-ts"]?.()}
-                </div>
-                <div
-                  v-show={codeLanguage.value === "js"}
-                  ref={codeRefs.js}
-                  class="k-code k-scroll hljs"
-                >
-                  {slots["code-js"]?.()}
-                </div>
+                    )}
+                    <RadioGroup
+                      options={codeLangOptions}
+                      onChange={(value) => {
+                        if (value === "ts" || value === "js") switchCodeLanguage(value);
+                      }}
+                      type="button"
+                      size="small"
+                      v-model={codeLanguage.value}
+                    />
+                    <Tooltip title={$t("text.copy_code")}>
+                      <Button type="text" size="small" icon={Copy} onClick={copyCode} />
+                    </Tooltip>
+                    <Tooltip title={$t("text.restore_code")}>
+                      <Button type="text" size="small" icon={Undo2} onClick={restoreCode} />
+                    </Tooltip>
+                  </>
+                )}
               </div>
-            </Transition>
+              <div
+                v-show={codeLanguage.value === "ts"}
+                ref={codeRefs.ts}
+                class="k-code k-scroll hljs"
+              >
+                {slots["code-ts"]?.()}
+              </div>
+              <div
+                v-show={codeLanguage.value === "js"}
+                ref={codeRefs.js}
+                class="k-code k-scroll hljs"
+              >
+                {slots["code-js"]?.()}
+              </div>
+            </div>
             {!horizontal && (
               <div class="k-code-actions">
-                <Tooltip title={expanded.value ? $t("text.collapse_code") : $t("text.expand_code")}>
-                  <Button
-                    block
-                    size="large"
-                    type="text"
-                    icon={expanded.value ? ListChevronsDownUp : ListChevronsUpDown}
-                    onClick={() => (expanded.value = !expanded.value)}
-                  ></Button>
-                </Tooltip>
+                <Button
+                  theme="outline"
+                  shape="circle"
+                  onClick={() => (expanded.value = !expanded.value)}
+                >
+                  View Source
+                </Button>
               </div>
             )}
           </div>

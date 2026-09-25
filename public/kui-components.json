@@ -1,7 +1,7 @@
 {
   "$schema": "https://k-ui.cn/schema/kui-components.schema.json",
   "library": "kui-vue",
-  "version": "6.2.0",
+  "version": "6.2.1",
   "homepage": "https://k-ui.cn",
   "components": [
     {
@@ -11717,6 +11717,21 @@
           "documented": true
         },
         {
+          "name": "responsive",
+          "description": "Adapt pagination to the available container width",
+          "descriptionZh": "是否根据容器可用宽度自动调整分页布局",
+          "descriptionEn": "Adapt pagination to the available container width",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
           "name": "sizeData",
           "description": "Custom page size data",
           "descriptionZh": "自定义页码组数据",
@@ -11906,6 +11921,11 @@
           "title": "简洁分页",
           "file": "components/page/demo/simple.vue",
           "source": "<template>\n  <Space vertical>\n    <Page v-model:page=\"page\" simple :total=\"80\" :page-size=\"10\" />\n    <Page v-model:page=\"page\" simple show-elevator :total=\"1000\" :page-size=\"10\" />\n    <Page v-model:page=\"page\" simple size=\"small\" theme=\"outline\" :total=\"80\" :page-size=\"10\" />\n    <Page simple disabled :page=\"3\" :total=\"80\" :page-size=\"10\" />\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\n\nconst page = ref(2);\n</script>"
+        },
+        {
+          "title": "自适应分页",
+          "file": "components/page/demo/responsive.vue",
+          "source": "<template>\n  <div\n    :style=\"{\n      width: '720px',\n      maxWidth: '100%',\n      minWidth: '180px',\n      resize: 'horizontal',\n      overflow: 'auto',\n      padding: '16px',\n      boxSizing: 'border-box',\n      border: '1px solid var(--kui-color-border)',\n    }\"\n  >\n    <Page :total=\"10000\" :page=\"50\" show-sizer show-elevator />\n  </div>\n</template>"
         }
       ]
     },

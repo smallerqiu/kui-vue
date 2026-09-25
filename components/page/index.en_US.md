@@ -25,6 +25,10 @@ Separate long lists using pagination, loading only one page at a time.
 
 - Only shows previous, current/total pages, and next controls; with `showElevator`, the current page becomes editable.
 
+[Responsive pagination](./demo/responsive.vue?show=vertical)
+
+- Drag the bottom-right corner to resize the container. Pagination first reduces page numbers, then switches to Simple when space is limited. The page-size selector remains available and may wrap. Widening the container restores the full layout without changing the page or emitting change events. Set `responsive` to `false` to disable adaptation; `simple` always forces Simple mode.
+
 ## API
 
 | Property | Description | Type | Default |
@@ -37,6 +41,7 @@ Separate long lists using pagination, loading only one page at a time.
 | showTotal | Whether to show total count | `boolean` | true |
 | showElevator | Whether to show page elevator | `boolean` | false |
 | simple | Use compact pagination | `boolean` | false |
+| responsive | Adapt pagination to the available container width | `boolean` | true |
 | sizeData | Custom page size data | `number[]` | [10,15,20,30,40] |
 | size | Size | `"small" \| "medium" \| "large"` | `medium` |
 | theme | Theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | `fill` |
