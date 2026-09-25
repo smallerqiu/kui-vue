@@ -74,7 +74,13 @@ const Demo = defineComponent({
     const codeLanguage = ref<"ts" | "js">(props.defaultLanguage);
     const codeOrigins: Partial<Record<"ts" | "js", string>> = {};
     const codeJars: Partial<Record<"ts" | "js", CodeJarInstance>> = {};
-    const pendingEditorState: Partial<Record<"ts" | "js", { code: string; dirty: boolean }>> = {};
+    const pendingEditorState: Partial<Record<"ts" | "js", {
+      code: string;
+      dirty: boolean;
+      position?: ReturnType<CodeJarInstance["save"]>;
+      scrollTop: number;
+      scrollLeft: number;
+    }>> = {};
     const currentCodeJar = () => codeJars[codeLanguage.value];
     const viewRef = ref(null);
     const timer = ref<ReturnType<typeof setTimeout>>();
@@ -139,7 +145,7 @@ const Demo = defineComponent({
           language: codeLanguage.value,
         }),
       );
-      router.push("/playground");
+      router.push({ path: "/playground", state: { playgroundFrom: router.currentRoute.value.fullPath } });
     };
     const switchCodeLanguage = async (language: "ts" | "js") => {
       if (codeLanguage.value === language) return;
@@ -171,11 +177,19 @@ const Demo = defineComponent({
     });
     onBeforeUpdate(() => {
       (["ts", "js"] as const).forEach((language) => {
-        const code = codeJars[language]?.toString();
-        if (code === undefined) return;
+        const jar = codeJars[language];
+        const editor = codeRefs[language].value;
+        if (!jar || !editor) return;
+        const code = jar.toString();
+        const selection = window.getSelection();
         pendingEditorState[language] = {
           code,
           dirty: code !== codeOrigins[language],
+          position: document.activeElement === editor &&
+            editor.contains(selection?.anchorNode ?? null) &&
+            editor.contains(selection?.focusNode ?? null) ? jar.save() : undefined,
+          scrollTop: editor.scrollTop,
+          scrollLeft: editor.scrollLeft,
         };
       });
     });
@@ -188,8 +202,15 @@ const Demo = defineComponent({
         const previous = pendingEditorState[language];
         const source = readHighlightedSource(editor);
         if (previous?.dirty) {
-          if (source !== previous.code) codeOrigins[language] = source;
-          jar.updateCode(previous.code, false);
+          if (source !== previous.code) {
+            codeOrigins[language] = source;
+            jar.updateCode(previous.code, false);
+            if (previous.position && document.activeElement === editor) {
+              jar.restore(previous.position);
+            }
+            editor.scrollTop = previous.scrollTop;
+            editor.scrollLeft = previous.scrollLeft;
+          }
           return;
         }
 

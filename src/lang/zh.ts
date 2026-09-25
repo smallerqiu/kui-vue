@@ -17,6 +17,7 @@ export default {
     explore_all: "浏览全部组件",
   },
   text: {
+    back_to_docs: "返回文档",
     components: "组件",
     components_desc: "为 Web 应用提供了丰富的基础 UI 组件",
     build_tip: "可实时编辑",

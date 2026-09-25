@@ -1,6 +1,7 @@
 <template>
   <Header class="header">
     <div class="header-inner">
+      <slot name="leading">
       <div class="logo" @click="$router.push('/')">
         <img src="/favicon.svg" class="face" />
         <span class="wrap-name">
@@ -8,6 +9,7 @@
           <span class="ver">v {{ version }}</span>
         </span>
       </div>
+      </slot>
       <Divider type="vertical" />
       <div class="search-component">
         <Select

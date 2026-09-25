@@ -20,6 +20,7 @@ export default {
     explore_all: "View all components",
   },
   text: {
+    back_to_docs: "Back to docs",
     components: "Components",
     components_desc: "provides plenty of UI components to enrich your web applications",
     build_tip: "Editable in real-time",
