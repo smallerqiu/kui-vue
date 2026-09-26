@@ -197,15 +197,17 @@ const Select = defineComponent({
       clearTimeout(clearQueryTimer.value);
     });
 
+    // Search results are transient. Retain labels only for values that remain selected.
+    const selectedLabels = computed<Map<SelectValue, string | number>>((previous) => {
+      const source = props.loading && props.options ? props.options : optionsData.value;
+      const lookup = new Map(source.map((item) => [item.value, item.label]));
+      return new Map(
+        currentValue.value.map((val) => [val, lookup.get(val) ?? previous?.get(val) ?? val]),
+      );
+    });
     const labelText = computed(() => {
-      if (!optionsData.value || optionsData.value.length == 0) {
-        return [];
-      }
-      const lookup = new Map<string | number, string | number>();
-      optionsData.value.forEach((item) => {
-        lookup.set(item.value, item.label);
-      });
-      return currentValue.value.map((val) => lookup.get(val) ?? val);
+      const labels = selectedLabels.value;
+      return currentValue.value.map((val) => labels.get(val)!);
     });
 
     const popup = ref<PopupRef>();

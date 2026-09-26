@@ -1,7 +1,7 @@
 {
   "$schema": "https://k-ui.cn/schema/kui-components.schema.json",
   "library": "kui-vue",
-  "version": "6.2.1",
+  "version": "6.2.2",
   "homepage": "https://k-ui.cn",
   "components": [
     {
