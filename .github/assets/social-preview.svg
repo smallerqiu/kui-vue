@@ -1,41 +1,48 @@
-
+<?xml version="1.0" encoding="UTF-8"?>
 <svg width="1280px" height="640px" viewBox="0 0 1280 640" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>social-preview</title>
     <defs>
-        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-ge4h3tnkb0-1">
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-1">
             <stop stop-color="#0B1220" offset="0%"></stop>
             <stop stop-color="#101827" offset="55%"></stop>
             <stop stop-color="#18243A" offset="100%"></stop>
         </linearGradient>
-        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="50%" id="radialGradient-ge4h3tnkb0-2">
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="50%" id="radialGradient-2">
             <stop stop-color="#5B9CFF" stop-opacity="0.28" offset="0%"></stop>
             <stop stop-color="#5B9CFF" stop-opacity="0" offset="100%"></stop>
         </radialGradient>
-        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-ge4h3tnkb0-3">
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-3">
             <stop stop-color="#4CC491" offset="0%"></stop>
             <stop stop-color="#169C14" offset="100%"></stop>
         </linearGradient>
-        <linearGradient x1="0%" y1="-1.06053672e-14%" x2="100%" y2="100%" id="linearGradient-ge4h3tnkb0-4">
+        <linearGradient x1="0%" y1="5.55111512e-15%" x2="100%" y2="100%" id="linearGradient-4">
             <stop stop-color="#72B1FF" offset="0%"></stop>
             <stop stop-color="#4E87F5" offset="100%"></stop>
         </linearGradient>
-        <linearGradient x1="0%" y1="-9.15981429e-16%" x2="100%" y2="100%" id="linearGradient-ge4h3tnkb0-5">
+        <linearGradient x1="0%" y1="0%" x2="100%" y2="100%" id="linearGradient-5">
             <stop stop-color="#72B1FF" offset="0%"></stop>
             <stop stop-color="#4E87F5" offset="100%"></stop>
         </linearGradient>
+        <rect id="path-6" x="285.915885" y="-7.78778027" width="31" height="24" rx="12"></rect>
+        <filter x="-45.2%" y="-41.7%" width="190.3%" height="216.7%" filterUnits="objectBoundingBox" id="filter-7">
+            <feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.367378715 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
     </defs>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="social-preview" stroke="none" fill="none" fill-rule="evenodd" stroke-width="1">
         <g id="编组">
-            <rect id="矩形" fill="url(#linearGradient-ge4h3tnkb0-1)" x="0" y="0" width="1280" height="640"></rect>
-            <circle id="椭圆形" fill="url(#radialGradient-ge4h3tnkb0-2)" cx="1030" cy="250" r="430"></circle>
+            <rect id="矩形" fill="url(#linearGradient-1)" x="0" y="0" width="1280" height="640"></rect>
+            <circle id="椭圆形" fill="url(#radialGradient-2)" cx="1030" cy="250" r="430"></circle>
             <path d="M0,520 C260,440 410,660 690,545 C970,430 1080,520 1280,449 L1280,640 L0,640 L0,520 Z" id="路径" fill="#5B9CFF" opacity="0.035"></path>
             <path d="M0,555 C250,478 420,653 675,574 C932,494 1073,551 1280,486" id="路径" stroke-opacity="0.09" stroke="#73ADFF" stroke-width="2"></path>
             <g transform="translate(78, 143)">
-                <rect id="矩形" fill="url(#linearGradient-ge4h3tnkb0-3)" x="3" y="3" width="63" height="63" rx="31.5"></rect>
+                <rect id="矩形" fill="url(#linearGradient-3)" x="3" y="3" width="63" height="63" rx="31.5"></rect>
                 <path d="M25,22 L25,46.8888889 M25.7777778,36.7777778 L44.4444444,22 M31.2222222,32.8888889 L46,46.8888889" id="形状" stroke="#FFFFFF" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"></path>
             </g>
             <g transform="translate(78, 198)">
-                <text id="KUI-Vue" fill="#F8FBFF" fill-rule="nonzero" font-family="Kefa-Regular, Kefa" font-size="72" font-weight="normal">
-                    <tspan x="80" y="0">KUI Vue</tspan>
+                <text id="KUI-Vue" fill="#F8FBFF" fill-rule="nonzero" font-family="ToppanBunkyuGothicPr6N-DB, Toppan Bunkyu Gothic" font-size="72" font-weight="500">
+                    <tspan x="80" y="2">KUI Vue</tspan>
                 </text>
                 <text id="A-modern-UI-component-library-for-Vue-3" fill="#AEBDD3" fill-rule="nonzero" font-family="Helvetica" font-size="26" font-weight="normal">
                     <tspan x="0" y="61">A modern UI component library for Vue 3</tspan>
@@ -126,15 +133,18 @@
                                 <tspan x="45" y="61">Vue 3 + TypeScript</tspan>
                             </text>
                             <polyline id="路径" stroke="#8FA2BC" stroke-width="2" stroke-linecap="round" points="246 51 252 58 258 51"></polyline>
-                            <rect id="矩形" fill="url(#linearGradient-ge4h3tnkb0-4)" x="290" y="30" width="142" height="50" rx="13"></rect>
+                            <rect id="矩形" fill="url(#linearGradient-4)" x="290" y="30" width="142" height="50" rx="13"></rect>
                             <text id="Get-started" fill="#FFFFFF" fill-rule="nonzero" font-family="Helvetica" font-size="15" font-weight="normal">
                                 <tspan x="321" y="61">Get started</tspan>
                             </text>
                         </g>
-                        <g transform="translate(0, 375)">
-                            <rect id="矩形" fill="#29374A" x="0" y="0" width="432" height="8" rx="4"></rect>
-                            <rect id="矩形" fill="url(#linearGradient-ge4h3tnkb0-5)" x="0" y="0" width="301" height="8" rx="4"></rect>
-                            <circle id="椭圆形" stroke="#5B9CFF" stroke-width="4" fill="#EEF5FF" cx="301" cy="4" r="10"></circle>
+                        <g transform="translate(0, 375)" id="矩形">
+                            <rect fill="#29374A" x="0" y="0" width="432" height="8" rx="4"></rect>
+                            <rect fill="url(#linearGradient-5)" x="0" y="0" width="301" height="8" rx="4"></rect>
+                            <g transform="translate(301.4159, 4.2122) scale(-1, 1) translate(-301.4159, -4.2122)">
+                                <use fill="black" fill-opacity="1" filter="url(#filter-7)" xlink:href="#path-6"></use>
+                                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-6"></use>
+                            </g>
                         </g>
                     </g>
                 </g>
