@@ -36,6 +36,10 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 
 - Inline menus can be collapsed/expanded.
 
+[Groups and Dividers](./demo/group.vue?show=vertical)
+
+- Use `MenuGroup` to classify menu items and `MenuDivider` to insert a separator.
+
 ## API
 
 ### MenuAPI
@@ -88,3 +92,19 @@ The navigation menu is the soul of a website. Users rely on navigation to jump b
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
 | title | Group title | `VNodeChild` | - |
+
+### MenuDivider
+
+Has no properties. Rendered as a child of `Menu` or `SubMenu`, it draws a separator line.
+
+## Conventions
+
+- The `items` data structure can only express nested menus; it cannot express groups or separators. Use the children form (see "Groups and Dividers") when you need `MenuGroup` or `MenuDivider`.
+- `openKeys` is the set of currently expanded SubMenus and applies to every `mode`: in `inline` it controls the embedded expansion, in `horizontal`/`vertical` it controls whether the matching popup is shown. Switching `mode` never rewrites the expanded state and never emits an extra `openChange`.
+- `inlineCollapsed` only applies when `mode="inline"`; passing it in other modes does not change the presentation. Collapsing temporarily hides the inline expansion and expanding restores it; popup expansions opened while collapsed are kept internally and close when an item is selected.
+- While the menu is collapsed, an `openKeys` value coming from the parent is written into the expansion memory and takes effect once the menu widens. Values this component reports itself and receives back as props — the collapsed popup path, and the closure after selecting an item — never overwrite that memory. Restoring the expansion reports it once.
+- `modelValue` follows the library-wide controlled convention; `value` is only read on mount, and `modelValue` wins when both are provided.
+- Selecting an item puts "ancestor SubMenu keys + the item key" into `modelValue`, so parent menus stay highlighted. Clicking an already selected item does not deselect it.
+- Popups render under the container returned by `usePopupContainer` (default `body`) and are linked to their trigger through `aria-controls` / `aria-labelledby`.
+- The root of a `mode="horizontal"` menu is `role="menubar"` (arrow keys move sideways between siblings) while `vertical`/`inline` use `role="menu"` (arrow keys move up/down). Submenu lists always declare `aria-orientation="vertical"`, and the wrapper `li` is `role="none"` so it carries no semantics.
+- Opening submenus with the keyboard: `ArrowDown` on a submenu item of a `menubar` (the `horizontal` root) and `ArrowRight` on one inside a `vertical`/`inline` list expands it and moves focus straight to the first usable item of the child list; while closed, `Enter`/`Space` behave like a click and also expand. Inside an open list `Escape` unwinds exactly that level and returns focus to its trigger, so the parent stays open. Disabled items are skipped both when choosing the first item and when walking siblings.

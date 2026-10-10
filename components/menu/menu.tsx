@@ -50,10 +50,14 @@ const Menu = defineComponent({
   setup(props, { emit, slots, attrs }) {
     const initialModel = useInitialValue(props);
     const defaultSelectedKeys = ref([...(initialModel.value || [])]);
-    const defaultOpenKeys = ref(props.inlineCollapsed ? [] : [...(props.openKeys || [])]);
     const currentMode = ref(props.mode);
-    const currentInlineCollapsed = ref(!!props.inlineCollapsed);
-    const popupInlineCollapsed = ref(!!props.inlineCollapsed);
+    // `inlineCollapsed` 只描述 inline 菜单的收起外观；其它模式下弹出行为本就由 mode 决定，
+    // 折叠记忆与收起动画也必须跟着 mode 走，否则 vertical/horizontal 菜单会被打上折叠类。
+    const collapsedInline = computed(
+      () => currentMode.value === "inline" && !!props.inlineCollapsed,
+    );
+    const defaultOpenKeys = ref(collapsedInline.value ? [] : [...(props.openKeys || [])]);
+    const popupInlineCollapsed = ref(collapsedInline.value);
     const inlineTransition = ref(false);
     const tempOpenKeys = ref([...(props.openKeys || [])]);
     const collapseTimer = ref<ReturnType<typeof setTimeout>>();
@@ -77,35 +81,45 @@ const Menu = defineComponent({
       () => props.mode,
       (value) => {
         currentMode.value = value;
-        if (value === "vertical") {
-          collapseOpenKeys();
-        } else if (!props.inlineCollapsed) {
-          restoreOpenKeys();
-        }
+        // 切换 mode 不改写展开状态：`openKeys` 始终表示"当前展开的 SubMenu"，
+        // 既不会因为切到 vertical 被清空，也不会因为切回 inline/horizontal 被记忆值覆盖。
+        // 水平模式需要重新测量溢出，其它模式恢复完整列表。
+        itemWidths = [];
+        visibleCount.value = Number.POSITIVE_INFINITY;
+        observeOverflow();
+        nextTick(updateOverflow);
       },
     );
 
     watch(
       () => props.openKeys,
       (value) => {
-        if (props.inlineCollapsed) {
-          tempOpenKeys.value = [...value];
-        } else {
-          defaultOpenKeys.value = [...value];
+        const keys = [...(value ?? [])];
+        if (!collapsedInline.value) {
+          defaultOpenKeys.value = keys;
+          return;
         }
+        // 折叠期间的弹出展开由组件自己上报，父组件把同一个值回写过来时它只是瞬态的
+        // hover 路径，不是新的展开意图，不能覆盖收起时记下的 inline 记忆。
+        const remembered = defaultOpenKeys.value;
+        const popupEcho =
+          keys.length === remembered.length &&
+          keys.every((itemKey, index) => itemKey === remembered[index]);
+        if (!popupEcho) tempOpenKeys.value = keys;
       },
     );
 
     watch(
       () => props.inlineCollapsed,
       (collapsed) => {
+        // 非 inline 模式下这个 prop 没有意义，不要启动收起编排、动画计时器或记忆改写。
+        if (currentMode.value !== "inline") return;
         clearTimeout(collapseTimer.value);
         cancelAnimationFrame(collapseFrame.value);
         if (collapsed) {
           if (!inlineTransition.value) tempOpenKeys.value = [...defaultOpenKeys.value];
           inlineTransition.value = true;
           // 先提交折叠外观，下一帧再收起子菜单，避免宽度与高度测量挤在同一帧。
-          currentInlineCollapsed.value = true;
           collapseFrame.value = requestAnimationFrame(collapseOpenKeys);
           collapseTimer.value = setTimeout(() => {
             popupInlineCollapsed.value = true;
@@ -116,7 +130,6 @@ const Menu = defineComponent({
           // 先把关闭状态的子树移回 inline 位置，下一帧再恢复展开项。
           // 避免 Teleport 搬移与多级高度动画在同一帧发生。
           popupInlineCollapsed.value = false;
-          currentInlineCollapsed.value = false;
           collapseFrame.value = requestAnimationFrame(restoreOpenKeys);
           collapseTimer.value = setTimeout(() => {
             inlineTransition.value = false;
@@ -170,12 +183,20 @@ const Menu = defineComponent({
       visibleCount.value = count;
     };
 
+    // 与 react 版一致：只有 horizontal 菜单需要跟随容器宽度重新测量溢出，
+    // 其它模式或空菜单不创建 ResizeObserver，避免无谓回调。
+    const observeOverflow = () => {
+      resizeObserver?.disconnect();
+      resizeObserver = undefined;
+      const menu = menuRef.value;
+      if (!menu || currentMode.value !== "horizontal" || totalItemCount.value === 0) return;
+      resizeObserver = new ResizeObserver(updateOverflow);
+      resizeObserver.observe(menu);
+    };
+
     onMounted(() => {
       nextTick(updateOverflow);
-      if (menuRef.value) {
-        resizeObserver = new ResizeObserver(updateOverflow);
-        resizeObserver.observe(menuRef.value);
-      }
+      observeOverflow();
     });
 
     const collapseOpenKeys = () => {
@@ -185,7 +206,11 @@ const Menu = defineComponent({
       defaultOpenKeys.value = [];
     };
     const restoreOpenKeys = () => {
+      if (tempOpenKeys.value.length === 0) return;
       defaultOpenKeys.value = [...tempOpenKeys.value];
+      // 展开回来是真实的展开变化，和 react 版一样上报，父组件的 openKeys 才不会与界面脱节。
+      emit("update:openKeys", defaultOpenKeys.value);
+      emit("openChange", defaultOpenKeys.value);
     };
 
     const selectedKeysChange = (key: string, selected: boolean, keyPath: string[]) => {
@@ -198,15 +223,15 @@ const Menu = defineComponent({
       emit("update:modelValue", defaultSelectedKeys.value);
       emit("select", { key, keyPath });
 
+      // 弹出型菜单里选中会关掉所有 popup，但只有真的关掉过展开项才上报，
+      // 否则监听方会收到与本次点击无关的空事件。折叠记忆不由选中改写。
       if (
-        currentMode.value == "horizontal" ||
-        currentMode.value == "vertical" ||
-        currentInlineCollapsed.value
+        (currentMode.value !== "inline" || collapsedInline.value) &&
+        defaultOpenKeys.value.length > 0
       ) {
-        if (defaultOpenKeys.value.length > 0) {
-          tempOpenKeys.value = [...defaultOpenKeys.value];
-        }
         defaultOpenKeys.value = [];
+        emit("update:openKeys", []);
+        emit("openChange", []);
       }
       dropdownContext?.menuSelected?.({ key, keyPath });
     };
@@ -233,9 +258,10 @@ const Menu = defineComponent({
       openKeys: defaultOpenKeys,
       selectedKeys: defaultSelectedKeys,
       mode: currentMode,
-      inlineCollapsed: currentInlineCollapsed,
+      // 与 react 版一致：上下文中暴露原始 prop，子项自行结合 mode 判断是否处于折叠呈现。
+      inlineCollapsed: computed(() => !!props.inlineCollapsed),
       collapsedTooltip: computed(() => props.collapsedTooltip),
-      popupInlineCollapsed,
+      popupInlineCollapsed: computed(() => collapsedInline.value && popupInlineCollapsed.value),
       inlineTransition,
       inlineOpenKeys: tempOpenKeys,
       dropdown: dropdownContext != null,
@@ -256,19 +282,23 @@ const Menu = defineComponent({
         totalItemCount.value = allChildren.length;
         itemWidths = [];
         visibleCount.value = Number.POSITIVE_INFINITY;
+        // 条目数变化会影响是否需要观察溢出（例如空 → 有内容的 horizontal 菜单）。
+        observeOverflow();
         nextTick(updateOverflow);
       }
       const horizontal = currentMode.value === "horizontal";
       const count = horizontal ? visibleCount.value : allChildren.length;
       const visibleChildren = allChildren.slice(0, count);
       const overflowChildren = allChildren.slice(count);
-      const showOverflowMeasure = horizontal && !Number.isFinite(visibleCount.value);
+      // 空菜单没有任何可溢出的条目，不能为它渲染测量用的 ... 触发器。
+      const showOverflowMeasure =
+        horizontal && totalItemCount.value > 0 && !Number.isFinite(visibleCount.value);
       const cls = [
         `k-${preCls}`,
         `k-${preCls}-${currentMode.value}`,
         {
           "k-scroll": menuState.dropdown,
-          [`k-${preCls}-inline-collapsed`]: currentInlineCollapsed.value,
+          [`k-${preCls}-inline-collapsed`]: collapsedInline.value,
         },
       ];
       return (
@@ -277,7 +307,9 @@ const Menu = defineComponent({
           ref={menuRef}
           class={[cls, attrs.class]}
           theme-mode={props.theme}
-          role="menu"
+          // 横向菜单栏用 left/right 在同级项之间移动（见 menu-keyboard 的 menubar 语义），
+          // 纵向/内嵌菜单才符合 role="menu" 的上下方向约定。
+          role={horizontal ? "menubar" : "menu"}
           aria-orientation={horizontal ? "horizontal" : "vertical"}
         >
           {visibleChildren}

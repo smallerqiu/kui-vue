@@ -14,6 +14,13 @@ test("inline menu keeps its anchor and restores nested height smoothly", async (
       let previousHeight = Number.NaN;
       const started = performance.now();
       document.querySelector<HTMLButtonElement>("#toggle")!.click();
+      // Vue 在微任务里才把 class 写进 DOM，先等一次微任务，再强制一次布局/样式重算。
+      // 这样淡出过渡必定已经创建，不必指望 rAF 恰好采到中间帧。
+      await Promise.resolve();
+      title.getBoundingClientRect();
+      const opacityTransition = title
+        .getAnimations()
+        .some((animation) => (animation as CSSTransition).transitionProperty === "opacity");
       // Wall time alone is not an animation clock: under load the first frame can
       // arrive after 450ms. Require the target state and several settled frames.
       while (performance.now() - started < 3000) {
@@ -45,7 +52,7 @@ test("inline menu keeps its anchor and restores nested height smoothly", async (
         previousHeight = height;
         if (performance.now() - started >= 450 && settledFrames >= 8) break;
       }
-      return { rows, settledFrames };
+      return { rows, settledFrames, opacityTransition };
     });
   await expect(page.locator(".k-menu-inline").first()).toBeVisible();
   const initialHeight = await page
@@ -59,7 +66,13 @@ test("inline menu keeps its anchor and restores nested height smoothly", async (
   ).toBeGreaterThanOrEqual(8);
   const collapse = collapsedSample.rows;
   expect(collapse.every((row) => row.same)).toBe(true);
-  expect(collapse.some((row) => row.opacity > 0 && row.opacity < 1)).toBe(true);
+  // 淡出过渡在点击后立刻可测，比"某一帧的 opacity 落在 0 和 1 之间"稳定：
+  // 后者依赖 rAF 是否恰好命中中间帧，冷启动或高负载时会误报。
+  expect(
+    collapsedSample.opacityTransition,
+    "collapse must start an opacity transition on the item title",
+  ).toBe(true);
+  expect(collapse.at(-1)!.opacity).toBeLessThan(0.001);
   expect(
     Math.max(...collapse.map((row) => row.x)) - Math.min(...collapse.map((row) => row.x)),
   ).toBeLessThan(12);

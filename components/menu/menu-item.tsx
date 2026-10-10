@@ -40,10 +40,6 @@ const MenuItem = defineComponent({
     const menuContext = inject<MenuContext | null>(MenuContextKey, null);
     const subMenuContext = inject<SubMenuContext | null>(SubMenuContextKey, null);
     const active = ref(false);
-    // onMounted(() => {
-    //   // const selected = selectedKeys.indexOf(key as string) >= 0;
-    //   // if (selected) selectedKeys = [...keyPah, key as string];
-    // });
     return () => {
       const { icon, disabled, title } = props;
       const preCls = menuContext?.dropdown ? "dropdown-menu" : "menu";

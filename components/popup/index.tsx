@@ -368,6 +368,11 @@ export default defineComponent({
         children.length === 1 && typeof children[0].type !== "symbol"
           ? children[0]
           : h("span", children);
+      // 菜单项自己没有子面板时（例如折叠 inline 下由 Tooltip 包裹的 MenuItem），
+      // 不应被弹层报成"可展开"：role=menuitem 且未声明 aria-haspopup 就跳过 aria-expanded。
+      const candidateProps = candidate.props as Record<string, unknown> | null;
+      const hidesExpansionAria =
+        candidateProps?.role === "menuitem" && !candidateProps["aria-haspopup"];
       const triggerNode = props.target
         ? candidate
         : cloneVNode(
@@ -375,7 +380,7 @@ export default defineComponent({
             {
               ...props.triggerAttrs,
               ref: refSelection,
-              "aria-expanded": visible.value,
+              ...(hidesExpansionAria ? {} : { "aria-expanded": visible.value }),
               onTouchstart: (event: TouchEvent) => {
                 if (props.trigger === "hover") request(true, { reason: "hover", event });
               },

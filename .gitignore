@@ -34,3 +34,6 @@ pnpm-debug.log*
 # AI evaluation scratch files and generated reports
 /.ai-eval-*/
 /.ai-eval-results/
+
+# Playwright run artifacts (failure screenshots, traces, last-run status)
+/test-results/

@@ -1,6 +1,7 @@
 import { type DropdownContext, DropdownContextKey } from "../dropdown/dropdown-context";
 import {
   type CSSProperties,
+  computed,
   defineComponent,
   type ExtractPropTypes,
   getCurrentInstance,
@@ -28,7 +29,12 @@ import {
   type SubMenuContext,
   SubMenuContextKey,
 } from "./menu-context";
-import { handleMenuItemKeydown } from "./menu-keyboard";
+import {
+  firstMenuItemOf,
+  handleMenuItemKeydown,
+  handleSubMenuListKeydown,
+  handleSubMenuTitleKeydown,
+} from "./menu-keyboard";
 
 const submenuProps = {
   disabled: Boolean as BooleanType,
@@ -43,12 +49,17 @@ const SubMenu = defineComponent({
   props: submenuProps,
   setup(props, { slots }) {
     const getPopupContainer = usePopupContainer();
+    // 标题节点：popup 模式下用于定位，任何模式下都用于把焦点还给触发项。
     const refSelection = ref<HTMLElement | null>(null);
     const refPopper = ref<HTMLElement | null>(null);
     const top = ref(0);
     const left = ref(0);
     const minWidth = ref("");
     const popupPositioned = ref(false);
+    // 键盘展开子菜单时记下"要把焦点送进列表首项"。它不是渲染输入，故意不用 ref：
+    // 标志位一变就触发 watcher 会在 openKeys 还没更新前误判成"已关闭"而丢掉请求。
+    let pendingFocusFirst = false;
+    const listRef = ref<HTMLUListElement | null>(null);
     const instance = getCurrentInstance();
     const key = instance?.vnode.key as string;
 
@@ -65,6 +76,11 @@ const SubMenu = defineComponent({
     const transOrigin = ref("bottom left");
     const popTimer = ref();
     const preCls = menuContext?.dropdown ? "dropdown-menu-submenu" : "menu-submenu";
+    // 标题与子菜单互相引用，屏幕阅读器才能报出"展开的菜单项"。
+    // key 可能带有非法字符，缺失时退回实例 uid，保证 id 唯一且合法。
+    const idSeed = String(key ?? instance?.uid ?? "").replace(/[^a-zA-Z0-9_-]/g, "");
+    const triggerId = `k-menu-submenu-title-${idSeed}`;
+    const popupId = `k-menu-submenu-popup-${idSeed}`;
 
     // inline 模式先在原位置渲染；切换为折叠模式后由 Teleport 移动同一棵子树。
     // popup 在首次展开时创建，包括由 openKeys 控制的展开。
@@ -133,6 +149,65 @@ const SubMenu = defineComponent({
       menuContext?.mode === "vertical" ||
       menuContext?.popupInlineCollapsed;
 
+    const openedNow = computed(() => !!menuContext?.openKeys.includes(key));
+    // 横向菜单栏（role="menubar"）里根级子菜单用 ArrowDown 打开浮层；
+    // 纵向/内嵌列表里展开分支的键是 ArrowRight，ArrowDown 留给走同级项。
+    const isMenubarItem = computed(
+      () => menuContext?.mode === "horizontal" && !(subMenuContext?.keyPath.length ?? 0),
+    );
+
+    const focusFirstItem = () => {
+      const first = firstMenuItemOf(listRef.value);
+      if (!first) return false;
+      first.focus({ preventScroll: true });
+      return true;
+    };
+
+    const activateTitle = () => {
+      if (props.disabled) return;
+      if (menuContext?.mode === "inline" && !menuContext.inlineCollapsed) {
+        menuContext.openKeysChange?.(key, !openedNow.value, subMenuContext?.keyPath || []);
+        return;
+      }
+      if (openedNow.value) {
+        menuContext?.openKeysChange?.(key, false, subMenuContext?.keyPath || []);
+      } else {
+        showPopper();
+      }
+    };
+
+    const expandAndFocusFirst = () => {
+      if (!openedNow.value) {
+        pendingFocusFirst = true;
+        activateTitle();
+        return;
+      }
+      // 已经展开：列表通常就绪；浮层还没定位完时交给下面的 watcher 重试。
+      if ((usePopup() && !popupPositioned.value) || !focusFirstItem()) {
+        pendingFocusFirst = true;
+      }
+    };
+
+    const closeAndRefocusTrigger = () => {
+      menuContext?.openKeysChange?.(key as string, false, subMenuContext?.keyPath || []);
+      refSelection.value?.focus({ preventScroll: true });
+    };
+
+    // 键盘展开时列表可能还没挂载或还没定位完，等这些渲染输入就绪后再把焦点送进首项。
+    watch(
+      () => [openedNow.value, popupPositioned.value, listRef.value],
+      ([opened, positioned, list]) => {
+        if (!pendingFocusFirst) return;
+        if (!opened) return;
+        // 浮层必须完成定位，否则首项还不可见、测量也不可靠。
+        if (usePopup() && !positioned) return;
+        if (!list) return;
+        pendingFocusFirst = false;
+        focusFirstItem();
+      },
+      { flush: "post" },
+    );
+
     watch(
       () => !!menuContext?.openKeys.includes(key) && !!usePopup(),
       (opened) => {
@@ -191,11 +266,18 @@ const SubMenu = defineComponent({
             <div {...containerProps} v-show={opened}>
               <div class={popup ? `k-${preCls}-sub` : undefined}>
                 <ul
+                  id={popupId}
+                  ref={listRef}
+                  aria-labelledby={triggerId}
                   class={`k-menu k-menu-${popup ? "vertical" : menuContext?.mode}`}
                   role="menu"
-                  aria-orientation={
-                    popup || menuContext?.mode !== "horizontal" ? "vertical" : "horizontal"
-                  }
+                  // 子菜单列表永远是纵向堆叠的：horizontal 下它必然以浮层形式出现，
+                  // 原来按 mode 推导会给出一个不可能命中的 "horizontal" 分支。
+                  aria-orientation="vertical"
+                  onKeydown={(event: KeyboardEvent) => {
+                    // Escape 只退一层：最内层的列表处理并阻止冒泡，焦点回到这一层的标题。
+                    handleSubMenuListKeydown(event, closeAndRefocusTrigger);
+                  }}
                 >
                   {slots.default?.()}
                 </ul>
@@ -217,30 +299,34 @@ const SubMenu = defineComponent({
       const selected = menuContext?.selectedKeys.includes(key) && !menuContext?.dropdown;
       const opened = menuContext?.openKeys.includes(key);
       const titleProps: Record<string, unknown> & { style: CSSProperties } = {
+        id: triggerId,
         class: `k-${preCls}-title`,
         style: {} as CSSProperties,
         role: "menuitem",
         tabindex: props.disabled ? -1 : 0,
         "aria-disabled": props.disabled || undefined,
-        "aria-haspopup": true,
+        "aria-haspopup": "menu",
         "aria-expanded": opened,
-      };
-      const activateTitle = () => {
-        if (props.disabled) return;
-        if (menuContext?.mode === "inline" && !menuContext.inlineCollapsed) {
-          menuContext.openKeysChange?.(key, !opened, subMenuContext?.keyPath || []);
-          return;
-        }
-        if (opened) {
-          menuContext?.openKeysChange?.(key, false, subMenuContext?.keyPath || []);
-        } else {
-          showPopper();
-        }
+        // 关闭时不要留下指向不存在节点的 aria-controls。
+        "aria-controls": opened ? popupId : undefined,
+        // 标题节点在每种模式下都要能被引用到：popup 用它定位，Escape 关闭时用它接回焦点。
+        ref: refSelection,
       };
       titleProps.onKeydown = (event: KeyboardEvent) => {
         if (event.key === "Escape" && opened) {
           event.preventDefault();
+          // 焦点在标题上时也要只关掉这一层。
+          event.stopPropagation();
           menuContext?.openKeysChange?.(key, false, subMenuContext?.keyPath || []);
+          return;
+        }
+        if (
+          handleSubMenuTitleKeydown(
+            event,
+            { isMenubarItem: isMenubarItem.value, opened: !!opened },
+            { expandAndFocusFirst },
+          )
+        ) {
           return;
         }
         handleMenuItemKeydown(event, activateTitle);
@@ -256,7 +342,6 @@ const SubMenu = defineComponent({
         menuContext?.inlineCollapsed
       ) {
         // popper
-        titleProps.ref = refSelection;
         titleProps.onMouseenter = () => {
           if (props.disabled) return;
           clearCurrentPopTimer();
@@ -299,7 +384,8 @@ const SubMenu = defineComponent({
       ];
       const children = renderChildren();
       return (
-        <li class={classes}>
+        // 包装用的 li 没有自己的语义，去掉隐式 listitem，让标题 div[menuitem] 成为菜单项。
+        <li class={classes} role="none">
           {titleNode}
           {children}
         </li>

@@ -1,6 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { beforeAll, describe, expect, it, vi } from "vitest";
-import { h, nextTick } from "vue";
+import { defineComponent, h, nextTick, ref } from "vue";
 import { Menu, MenuItem, SubMenu } from "../components/menu";
 
 beforeAll(() => {
@@ -82,5 +82,87 @@ describe("Menu inline collapse", () => {
     expect(popup).not.toBeNull();
     expect(popup?.style.visibility).toBe("hidden");
     wrapper.unmount();
+  });
+
+  it("writes an external openKeys update made while collapsed into the expansion memory", async () => {
+    vi.useFakeTimers();
+    const wrapper = mount(Menu, {
+      props: { mode: "inline", inlineCollapsed: true, openKeys: ["root"] },
+      slots: {
+        default: () =>
+          h(SubMenu, { key: "root", title: "Root" }, () =>
+            h(SubMenu, { key: "nested", title: "Nested" }, () =>
+              h(MenuItem, { key: "leaf" }, () => "Leaf"),
+            ),
+          ),
+      },
+    });
+    try {
+      await vi.advanceTimersByTimeAsync(250);
+      await wrapper.setProps({ openKeys: ["root", "nested"] });
+      await vi.advanceTimersByTimeAsync(250);
+      // Nothing is expanded while collapsed: the popup path is transient hover state.
+      expect(wrapper.findAll('.k-menu-submenu-title[aria-expanded="true"]')).toHaveLength(0);
+      await wrapper.setProps({ inlineCollapsed: false });
+      await vi.advanceTimersByTimeAsync(400);
+      expect(wrapper.findAll('.k-menu-submenu-title[aria-expanded="true"]')).toHaveLength(2);
+    } finally {
+      wrapper.unmount();
+      vi.useRealTimers();
+    }
+  });
+
+  it("does not let a collapsed popup's own report overwrite the inline memory", async () => {
+    vi.useFakeTimers();
+    const openKeys = ref(["root", "nested"]);
+    const collapsed = ref(false);
+    const Host = defineComponent({
+      setup() {
+        return () =>
+          h(
+            Menu,
+            {
+              mode: "inline",
+              openKeys: openKeys.value,
+              inlineCollapsed: collapsed.value,
+              "onUpdate:openKeys": (keys: string[]) => {
+                openKeys.value = [...keys];
+              },
+            },
+            () =>
+              h(SubMenu, { key: "root", title: "Root" }, () =>
+                h(SubMenu, { key: "nested", title: "Nested" }, () =>
+                  h(MenuItem, { key: "leaf" }, () => "Leaf"),
+                ),
+              ),
+          );
+      },
+    });
+    const wrapper = mount(Host, { attachTo: document.body });
+    try {
+      await nextTick();
+      const expanded = () =>
+        document.querySelectorAll('.k-menu-submenu-title[aria-expanded="true"]').length;
+      expect(expanded()).toBe(2);
+      collapsed.value = true;
+      await nextTick();
+      await vi.advanceTimersByTimeAsync(250);
+      expect(expanded()).toBe(0);
+      document
+        .querySelector(".k-menu-submenu-title")!
+        .dispatchEvent(new MouseEvent("mouseenter", { bubbles: false }));
+      await nextTick();
+      await vi.advanceTimersByTimeAsync(100);
+      // The hover report comes back as an openKeys prop update; it must not replace memory.
+      expect(openKeys.value).toEqual(["root"]);
+      collapsed.value = false;
+      await nextTick();
+      await vi.advanceTimersByTimeAsync(400);
+      expect(expanded()).toBe(2);
+      expect(openKeys.value).toEqual(["root", "nested"]);
+    } finally {
+      wrapper.unmount();
+      vi.useRealTimers();
+    }
   });
 });
