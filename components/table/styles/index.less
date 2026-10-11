@@ -22,18 +22,60 @@
   color: var(--kui-color-text);
   font-size: 14px;
   overflow: hidden;
-  &-thead-sticky {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-    z-index: 3;
-  }
 
   .k-table-cell-fix-left,
   .k-table-cell-fix-right {
     position: sticky;
     box-sizing: border-box;
     z-index: 2;
+  }
+
+  // 分栏表头（scroll.y）：表头和表体是两张 table，表体自己纵向滚，表头靠 JS 同步 `scrollLeft` 横向跟。
+  // 表头容器要比表体窄一条纵向滚动条的宽度（`--k-table-scrollbar-width` 由 `components/table/index.tsx`
+  // 的 `measureScrollbarWidth` 实测后写进根节点），两个滚动口的内容盒宽度才相等——
+  // `auto` 列宽的分配和固定列 sticky 偏移都按内容盒算，宽度一致两张 table 才能逐像素对齐，
+  // 不需要补丁 `col` 或补丁格那种多出来的列。
+  &.k-table-split-header {
+    .k-table-thead {
+      box-sizing: border-box;
+      background-color: var(--kui-color-bg-component);
+      // 槽位用 **end padding** 腾出来，不用透明 border：border 画不出外框的右边线，
+      // 也带不出圆角——透明 border 会把框线挤到内侧（背景渐变层定位区同样是 padding box），
+      // 右上角就凭空少一段框线，看着像被裁掉了。padding 区照样铺容器自己的表头底色，
+      // 而内容盒宽度 = 容器宽 - 两条 1px 边框 - 槽位宽 = 表体的 clientWidth，对齐不变。
+      padding-inline-end: var(--k-table-scrollbar-width, 0px);
+      // 分栏后最上面一格是表头容器，上圆角归它（`inherit` 取根节点算好的形状值），
+      // bordered 的框线才能跟着圆角弯过去，而不是被根节点的 overflow 切成直角。
+      border-top-left-radius: inherit;
+      border-top-right-radius: inherit;
+
+      // 裁剪只能放在**内层**：`overflow: hidden` 的裁剪边界在 padding box 上，用 end padding 让出来的
+      // 那条槽位仍然在裁剪区里，溢出的表头内容会一路画进槽位（固定列的 `sticky` 也以 padding box 为
+      // 基准，`fixed: "right"` 那一格正好贴到容器最外侧），看起来就是"表头让出的滚动条位置被穿透"。
+      // 内层没有 padding 和 border，它的裁剪盒就是外层的内容盒，槽位这才真的空出来；
+      // 外层的实线边框、上圆角和表头底色一律不受影响，`scrollLeft` 的同步目标一起换成内层。
+      > .k-table-thead-inner {
+        overflow: hidden;
+      }
+    }
+
+    // 表体此时不在最上面了，上圆角交出去。
+    .k-table-body {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    // 顶部 `header` 插槽和表体之间隔了表头容器，下面的 `.k-table-header + .k-table-body` 选不中，
+    // 补一份同口径的：上圆角归插槽，表头容器既不自己圆、里面的格也不再圆。
+    .k-table-header + .k-table-thead {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      table,
+      table tr th:first-child,
+      table tr th:last-child {
+        border-radius: 0;
+      }
+    }
   }
 
   .k-spin {
@@ -51,13 +93,6 @@
     }
   }
 
-  .k-table-container {
-    width: 100%;
-    border-radius: var(--kui-border-radius);
-  }
-  .k-table-header-bar {
-    background: var(--kui-color-bg-component);
-  }
   .k-table-header,
   .k-table-footer {
     background-color: var(--kui-color-bg-component);
@@ -72,10 +107,6 @@
 
     thead {
       border-bottom: 1px solid var(--kui-color-border);
-    }
-
-    .k-table {
-      margin: -10px -10px -11px -10px;
     }
 
     tr > th,
@@ -108,11 +139,6 @@
       max-width: 100%;
       font-weight: 600;
       align-items: center;
-      .k-table-header-title {
-        display: flex;
-        align-items: center;
-        line-height: 1;
-      }
     }
 
     th.k-table-cell-sorter {
@@ -123,13 +149,6 @@
       .k-table-header-col {
         display: flex;
         flex-direction: row;
-        align-items: center;
-        line-height: 1;
-      }
-
-      .k-table-header-title {
-        flex: 1;
-        display: flex;
         align-items: center;
         line-height: 1;
       }
@@ -165,40 +184,6 @@
         }
       }
     }
-    .k-table-scrollbar-patch {
-      position: sticky;
-      right: 0;
-      padding: 0;
-      z-index: 5;
-      top: 0;
-      border-radius: 0 var(--kui-border-radius) 0 0;
-    }
-    .k-table-cell-ellipsis {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-
-      .k-table-header-title {
-        display: inline-block;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-    }
-
-    th.k-table-cell-selection {
-      text-align: center;
-      padding: 0;
-      left: 0;
-      .k-table-header-col {
-        justify-content: center;
-      }
-
-      .k-table-header-title {
-        align-items: center;
-      }
-    }
-
     tbody > tr {
       .k-table-cell-fix-left,
       .k-table-cell-fix-right {
@@ -225,15 +210,6 @@
       }
     }
 
-    .k-table-expand-row {
-      &:hover {
-        background: var(
-          --kui-color-row-hover,
-          color-mix(in srgb, var(--kui-color-bg-component-hover) 40%, var(--kui-color-bg-component))
-        );
-      }
-    }
-
     td table {
       tbody > tr:hover {
         background: var(
@@ -242,16 +218,6 @@
         );
       }
     }
-  }
-
-  .k-table-thead {
-    border-top-left-radius: var(--kui-border-radius);
-    border-top-right-radius: var(--kui-border-radius);
-    background: var(--kui-color-bg-component);
-  }
-
-  &-thead {
-    overflow: auto;
   }
 
   &-footer {
@@ -276,12 +242,6 @@
     min-height: 160px;
   }
 
-  &-fixed {
-    table {
-      table-layout: fixed;
-    }
-  }
-
   &-header {
     word-break: break-all;
   }
@@ -295,18 +255,6 @@
       width: 30px;
       top: 0;
       pointer-events: none;
-    }
-  }
-
-  &-ping-middle {
-    .k-table-cell-fix-right-first::after {
-      box-shadow: inset -6px 0 6px -4px var(--kui-color-shadow);
-      left: -30px;
-    }
-
-    .k-table-cell-fix-left-last::after {
-      box-shadow: inset 6px 0 6px -4px var(--kui-color-shadow);
-      right: -30px;
     }
   }
 
@@ -361,10 +309,6 @@
     background: var(--kui-color-bg);
     will-change: scroll-position;
   }
-  .k-table-thead + .k-table-body {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
   .k-table-header + .k-table-body {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -379,10 +323,6 @@
   & {
     border-top-left-radius: var(--kui-border-radius);
     border-top-right-radius: var(--kui-border-radius);
-    .k-table-thead {
-      border-top-left-radius: var(--kui-border-radius);
-      border-top-right-radius: var(--kui-border-radius);
-    }
     .k-table-body {
       border-radius: inherit;
     }
@@ -400,10 +340,16 @@
     border-bottom-right-radius: 0;
   }
   &-bordered {
-    .k-table-thead {
-      border-top: 1px solid var(--kui-color-border);
-      border-left: 1px solid var(--kui-color-border);
-    }
+    // 外框的右下角不能只靠滚动容器自己的边框：`.k-table-body` 本身就是滚动口，Chrome 把
+    // `::-webkit-scrollbar-corner` 那块 8×8 按**方角**铺满内边距盒的右下角，正好压在它自己
+    // `border-bottom-right-radius` 那一段弧上（滚动口的裁剪不作用于滚动条角落），于是框线在角上
+    // 凭空少一段，圆角看着"不饱满"。边框画在会滚的容器里就一定会被它自己的滚动条吃掉，
+    // 所以改由不参与滚动的根节点在最外侧重描一条同色同粗的环：
+    // `outline-offset: -1px` 让描边正好落在边框盒最外 1px 上，和下面那些容器边框逐像素重合（只是重描一遍），
+    // 而 `outline` 跟着 `border-radius` 弯，形状仍然完全由 `shape` 决定——不改任何半径、不切直角。
+    outline: 1px solid var(--kui-color-border);
+    outline-offset: -1px;
+
     .k-table-body {
       border-right: 1px solid var(--kui-color-border);
       border-bottom: 1px solid var(--kui-color-border);
@@ -425,8 +371,10 @@
       &::-webkit-scrollbar {
         background-color: var(--kui-color-bg);
       }
+      // 角落只铺底色，**不画边框**：这块 8×8 的左边缘在容器内部，和外面那条框线（现在由根节点的
+      // `outline` 描在最外侧）根本不在一条线上，画出来就是一截悬空的小竖条，暗黑模式下尤其明显。
+      // 这条 `border-left` 是早先"外框由滚动容器自己画"时的产物，那时它接的是容器的右边框。
       &::-webkit-scrollbar-corner {
-        border-left: 1px solid var(--kui-color-border);
         background-color: var(--kui-color-bg);
       }
     }
@@ -447,47 +395,30 @@
     td {
       border-right: 1px solid var(--kui-color-border);
     }
-    tr td:last-child {
+    // 只有真正盖到最后一列的单元格才让出右边框，外侧那条由滚动容器自己的边框补齐。
+    // 这里不能用 `:last-child`：分组表头每一行的格数不同，行末那一格往往并不是最后一列
+    // （`Company` 分组下的 `Company Name`、`Block` 分组下的 `Door No.`），按行末抹掉会把
+    // 中间列的分隔线一起删掉；固定列横向滚动时盖在下面，看起来就像"边框没了"。
+    // 分栏时表头在另一个容器里，选择器得把它一起带上。
+    .k-table-body tr td.k-table-cell-last-column,
+    .k-table-body tr th.k-table-cell-last-column,
+    .k-table-thead tr th.k-table-cell-last-column {
       border-right: 0;
     }
-    .k-table-body tr th:last-child {
-      border-right: 0;
-    }
 
-    .k-table-fixed-right {
-      border-left: 1px solid var(--kui-color-border);
-    }
+    // 分栏 + bordered：外框的左、上、右三条此时都归表头容器（表体的上边框会和表头底边叠成双线，下面关掉）。
+    // 右边这条是真正的 1px 实线，画在容器最外侧，并跟着 `border-top-right-radius` 弯进圆角；
+    // 槽位由上一条的 end padding 让出来，所以这里不再需要 `calc(槽位 + 1px)` 的透明边框，
+    // 也不用背景渐变层补线——那条线的定位区是 padding box，只会画到内侧去。
+    &.k-table-split-header {
+      .k-table-thead {
+        border-top: 1px solid var(--kui-color-border);
+        border-left: 1px solid var(--kui-color-border);
+        border-right: 1px solid var(--kui-color-border);
+      }
 
-    & .k-table {
-      margin: -11px -10px -11px -11px;
-      border-right: none;
-    }
-    .k-table-thead + .k-table-body {
-      border-top: 0;
-    }
-  }
-
-  &-cell-selection {
-    text-align: center;
-  }
-
-  &-selection-col {
-    width: 50px;
-  }
-
-  &-expand-icon-col {
-    width: 50px;
-    min-width: 50px;
-  }
-
-  &-row-expand-icon-cell {
-    text-align: center;
-
-    .k-icon {
-      cursor: pointer;
-
-      &:hover {
-        color: var(--kui-color-primary);
+      .k-table-body {
+        border-top: 0;
       }
     }
   }

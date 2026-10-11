@@ -14,13 +14,8 @@ export interface Column {
   width?: number;
   fixed?: "left" | "right";
   sorter?: boolean | ((state: SortState) => void);
-  render?: (
-    h: typeof import("vue").h,
-    record: TableRecord,
-    colIndex: number,
-    rowIndex: number,
-    col: Column,
-  ) => VNodeChild;
+  /** 参数顺序与 kui-react 版 `Column.render` 一致：value, record, rowIndex, column。 */
+  render?: (value: unknown, record: TableRecord, rowIndex: number, col: Column) => VNodeChild;
   colSpan?: number | ((record: TableRecord, index: number) => number);
   rowSpan?: number | ((record: TableRecord, index: number) => number);
   children?: Column[];

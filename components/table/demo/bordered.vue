@@ -4,7 +4,7 @@
       <a>{{ value }}</a>
     </template>
     <template #price="{ value }">
-      <span :class="{ 'test-table-price': value > 20000 }">￥{{ value }}/㎡</span>
+      <span :style='{ color: value > 20000 ? "red" : undefined }'>￥{{ value }}/㎡</span>
     </template>
     <template #header>Header</template>
     <template #footer>Footer</template>

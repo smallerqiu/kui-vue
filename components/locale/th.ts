@@ -52,6 +52,10 @@ export default {
       emptyText: "ไม่พบข้อมูล",
       columnSettings: "การตั้งค่าคอลัมน์",
       resetColumns: "รีเซ็ต",
+      expandRow: "ขยายแถว",
+      collapseRow: "ย่อแถว",
+      selectRow: "เลือกแถว",
+      selectAllRows: "เลือกทั้งหมด",
     },
     upload: {
       successful: "สำเร็จแล้ว",

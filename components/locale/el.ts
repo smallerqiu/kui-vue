@@ -52,6 +52,10 @@ export default {
       emptyText: "Χωρίς δεδομένα",
       columnSettings: "Ρυθμίσεις στηλών",
       resetColumns: "Επαναφορά",
+      expandRow: "Ανάπτυξη γραμμής",
+      collapseRow: "Σύλληψη γραμμής",
+      selectRow: "Επιλογή γραμμής",
+      selectAllRows: "Επιλογή όλων",
     },
     upload: {
       successful: "επιτυχία",

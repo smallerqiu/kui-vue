@@ -52,6 +52,10 @@ export default {
       emptyText: "データなし",
       columnSettings: "列の設定",
       resetColumns: "リセット",
+      expandRow: "行を展開",
+      collapseRow: "行を折りたたむ",
+      selectRow: "行を選択",
+      selectAllRows: "すべて選択",
     },
     upload: {
       successful: "成功",

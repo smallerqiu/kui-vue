@@ -29,7 +29,8 @@ describe("unified state props", () => {
       },
     });
     expect(wrapper.text()).toContain("Child");
-    await wrapper.get('[aria-label="Collapse row"]').trigger("click");
+    // 展开按钮的可访问名归语言包管（见 tests/table-locale.test.ts），行为用例按类名取
+    await wrapper.get(".k-table-tree-toggle").trigger("click");
     expect(wrapper.text()).not.toContain("Child");
     await wrapper.setProps({ expandedKeys });
     expect(wrapper.text()).not.toContain("Child");

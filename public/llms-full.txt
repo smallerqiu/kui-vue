@@ -6112,7 +6112,7 @@ const columns = [
 
 [Sorting](./demo/table-sorter.vue?show=vertical)
 
-- `sorter=true` sorts existing data. When set to a `function`, you can define custom sorting rules.
+- `sorter=true` sorts existing data. When set to a `function`, you can define custom sorting rules. Sortable headers are focusable (`tabindex=0`), and `Enter` or `Space` works the same as clicking. The direction is exposed through `aria-sort` (`none`/`ascending`/`descending`), and each activation cycles ascending -> descending -> unsorted.
 
 [Table Row/Column Span](./demo/col-row-span.vue?show=vertical)
 
@@ -6124,7 +6124,7 @@ const columns = [
 
 [Fixed Header/Columns](./demo/fixed-col-header.vue?show=vertical)
 
-- For data with many columns, fix leading or trailing columns and scroll horizontally. `scroll.x` sets the minimum content width, while `scroll.y` sets the vertical viewport height.
+- For data with many columns, fix leading or trailing columns and scroll horizontally. `scroll.x` sets the minimum content width, while `scroll.y` sets the vertical viewport height **of the body**, so the whole table is the header plus that height. With `scroll.y` the header is split into its own `table` next to the body: the header wrapper is narrowed by the measured vertical scrollbar width, so the two scrollports have the same content width and both the `auto` column widths and the sticky offsets line up on their own. Clipping lives on the layer inside the wrapper: the wrapper itself only reserves the scrollbar gutter with end padding, and `overflow: hidden` cannot clip past its own padding box, so clipping there would let the header paint through the gutter. That inner layer takes its `scrollLeft` from the body, and wheel events over the header are forwarded to the body.
 
 [Header Grouping](./demo/header-span.vue?show=vertical)
 
@@ -6132,7 +6132,12 @@ const columns = [
 
 [Checkbox Selection](./demo/table-check.vue?show=vertical)
 
-- Set `checkable=true` to automatically enable multi-selection. > Note: The default selection dependency is `key`. You can customize it via the `rowKey` attribute, e.g., `rowKey="ID"`.
+- Set `checkable=true` to automatically enable multi-selection. > Note: The default selection dependency is `key`. You can customize it via the `rowKey` attribute, e.g., `rowKey="ID"`. If a row yields no `string`/`number` for `rowKey`, the component falls back to a stable key generated per record object and warns once in the console; providing a `rowKey` for every row is still recommended.
+- Column `key`, `rowKey` and `childrenColumnName` share one value reader: it looks the whole name up first, and only when that misses and the name contains `.` does it walk segment by segment, so `{ user: { name: "Ann" } }` works with `key="user.name"` and `{ tags: ["x", "y"] }` with `key="tags.1"`. Hitting `null` or a non-object while walking yields an empty value instead of throwing; `__proto__`, `constructor` and `prototype` never resolve. A whole name always wins, so `{ "a.b": 1 }` with `key="a.b"` reads that literal field (kui-react behaves the same). Note for vue: the column `key` doubles as the slot name, so dotted keys need a dynamic slot (`v-slot:[...]`).
+
+[Nested Values](./demo/nested-value.vue?show=vertical)
+
+- Dotted `a.b` names work for column keys, `rowKey` and `childrenColumnName`; a missing link renders as an empty cell, so the data does not need flattening first.
 
 [Dynamically Control Table Properties](./demo/control.vue?show=vertical)
 
@@ -6140,11 +6145,21 @@ const columns = [
 
 [Virtual scrolling](./demo/virtual.vue?show=vertical)
 
-- Virtualizes large fixed-height data sets with `scroll.y`; do not combine virtual mode with merged cells.
+- Virtualizes large fixed-height data sets with `scroll.y`. Same-row `colSpan` keeps working in virtual mode; cross-row `rowSpan` does not — when the window starts inside a span its anchor row is not rendered, so that row is missing one cell and shifts left by a column (kui-react behaves identically, and both repos have a test pinning this down).
 
 [Column settings](./demo/column-setting.vue?show=vertical)
 
 - `TableColumnSetting` generates a visibility panel from the same column definitions used by Table. Use it with `hiddenColumnKeys`; `disabledKeys` keeps essential columns fixed.
+
+- All Table texts come from the `k.table` locale keys: `emptyText` for the empty state, `columnSettings`/`resetColumns` for the column panel, `expandRow`/`collapseRow` for the tree toggle's accessible name and `selectRow`/`selectAllRows` for the row and header checkboxes. An explicit `emptyText`, `title` or `resetText` prop takes precedence over the locale.
+
+- Fixed columns need a definite width: a fixed column without `width` falls back to 150, and the selection column is 50. Any column that declares `width` — fixed or not — gets that exact value on its `<col>`; only width-less non-fixed columns use `auto` to absorb the remaining width. Writing `auto` for a column that declared a width would squeeze it to 0 px under `table-layout: fixed`, which also destroys the horizontal scroll range and makes the fixed columns look inert. The `<col>` width, the sticky offset of the next fixed cell and the selection cell width all derive from that single basis.
+
+- With `scroll.y` the header is a separate table: a grouped multi-row header stays whole inside its own wrapper and only the body scrolls, so no per-row sticky offset is computed. Body cells then have no structural relation to their header cell, so every header cell gets an `id` and the cells in the same column point back at it with `aria-labelledby` — screen readers still announce the column name. Without `scroll.y` the header is part of the body's `table` and no ids are emitted.
+
+- A grouped parent column can carry `fixed` too: the direction is inherited by every leaf column under it (a leaf's own explicit `fixed` wins), and the group header cell derives its sticky offset from the leaf range it spans — it only participates in fixing when that whole range shares one direction.
+
+- With `expandAllRows` and no controlled `expandedKeys`, a `data` change only expands the parent rows that are new to the data; rows the user expanded or collapsed by hand stay as they were. A parent row that left the data and comes back counts as new and is expanded again (neither kui-react nor kui-vue remembers that it had been collapsed).
 
 ## Table API
 
@@ -6160,10 +6175,10 @@ const columns = [
 | data | Structured data to be displayed | `TableRecord[]` | [] |
 | columns | Configuration description of table columns | `Column[]` | [] |
 | hiddenColumnKeys | Hidden column keys, including grouped columns | `string[]` | [] |
-| rowKey | Basis for selection | `string` | key |
+| rowKey | Unique row identity used by selection and expansion; a field name or an accessor function reading the key from a record | `string \| ((record: TableRecord) => TableKey)` | key |
 | childrenColumnName | Field containing child records | `string` | children |
 | expandedKeys | expanded row keys; supports `v-model:expanded-keys` | `TableKey[]` | - |
-| expandAllRows | Expand every tree node on initialization or when this prop changes (explicit expandedKeys takes precedence) | `boolean` | false |
+| expandAllRows | Expand every tree node on initialization; when `data` changes later only newly arrived parent rows are expanded, while rows the user expanded or collapsed by hand are kept (explicit expandedKeys takes precedence) | `boolean` | false |
 | expandRowByClick | Toggle expansion by clicking a row | `boolean` | false |
 | indentSize | Indentation per tree level | `number` | 20 |
 | striped | Whether to display zebra stripes | `boolean` | false |
@@ -6173,6 +6188,7 @@ const columns = [
 | onSelectAll | Triggered when clicking the header checkbox of the Table | `(selected: boolean, keys: TableKey[]) => void` | - |
 | onExpand | Called when a row expands or collapses | `(expanded: boolean, record: TableRecord) => void` | - |
 | onExpandedKeysChange | Called when expanded keys change | `(keys: TableKey[]) => void` | - |
+| scroll | Scroll configuration; `x` is the minimum content width and `y` is the vertical viewport height of the body | `{ x?: number \| string; y?: number \| string; }` | {} |
 | virtual | Enable virtual scrolling; requires `scroll.y` | `boolean` | false |
 | itemHeight | Fixed virtual row height | `number` | 44 |
 | overscan | Extra rows rendered above and below the viewport | `number` | 5 |
@@ -6194,17 +6210,25 @@ Slot: `default` customizes the trigger.
 
 ## Column API
 
-| Property | Description                                                                                    | Type                                               | Default |
-| -------- | ---------------------------------------------------------------------------------------------- | -------------------------------------------------- | ------- |
-| title    | Header display text                                                                            | string                                             | -       |
-| key      | Corresponding column field name                                                                | string                                             | -       |
-| fixed    | Column fixed direction                                                                         | 'left' \| 'right'                                  | -       |
-| sorter   | Sorting, when `true`, local sorting is enabled                                                 | boolean \| (state: SortState) => void              | -       |
-| width    | Column width                                                                                   | number                                             | -       |
-| rowSpan  | Row merge unit, when 0, the current row will not be rendered                                   | number                                             | -       |
-| colSpan  | Column merge unit, when 0, the current column will not be rendered                             | number                                             | -       |
-| render   | Custom rendering                                                                               | (h, record, colIndex, rowIndex, col) => VNodeChild | -       |
-| scroll   | Scroll configuration; `x` is the minimum content width and `y` is the vertical viewport height | `{ x?: number \| string; y?: number \| string }`   | -       |
+| Property | Description                                                        | Type                                                       | Default |
+| -------- | ------------------------------------------------------------------ | ---------------------------------------------------------- | ------- |
+| title    | Header display text                                                | string                                                     | -       |
+| key      | Corresponding column field name                                    | string                                                     | -       |
+| fixed    | Column fixed direction                                             | 'left' \| 'right'                                          | -       |
+| sorter   | Sorting, when `true`, local sorting is enabled                     | boolean \| (state: SortState) => void                      | -       |
+| width    | Column width                                                       | number                                                     | -       |
+| rowSpan  | Row merge unit, when 0, the current row will not be rendered       | number \| ((record: TableRecord, index: number) => number) | -       |
+| colSpan  | Column merge unit, when 0, the current column will not be rendered | number \| ((record: TableRecord, index: number) => number) | -       |
+| render   | Custom rendering; the first argument is the cell value             | (value, record, rowIndex, col) => VNodeChild               | -       |
+| children | Nested columns of a grouped header                                 | Column[]                                                   | -       |
+
+### Slots
+
+- `header` / `footer`: custom regions rendered above / below the table.
+- `<template #columnKey="scope">`: customizes that column's cells; `scope` exposes `value`, `record`, `rowIndex`, `colIndex` and `col`. Precedence is slot > `render` > raw value.
+- `<template #header-columnKey="scope">`: customizes that column's header; `scope` exposes `value` (i.e. `col.title`), `col` and `index`.
+
+Slot names are built straight from the column `key`, so the `key` must also be a valid slot name: `default`, `header` and `footer` belong to the component itself (using them as a column key renders table chrome inside the cells); field names containing `.`, spaces or similar characters can only be reached with a dynamic slot name (`v-slot:[expr]`). These names are concatenated at runtime, so there is no type checking or IDE completion — prefer `render` when the code needs to port across frameworks (its signature matches kui-react).
 
 ### Common appearance
 
@@ -6285,7 +6309,7 @@ const columns = [
 
 [Sorting](./demo/table-sorter.vue?show=vertical)
 
-- `sorter=true` sorts existing data. When set to a `function`, you can define custom sorting rules.
+- `sorter=true` sorts existing data. When set to a `function`, you can define custom sorting rules. Sortable headers are focusable (`tabindex=0`), and `Enter` or `Space` works the same as clicking. The direction is exposed through `aria-sort` (`none`/`ascending`/`descending`), and each activation cycles ascending -> descending -> unsorted.
 
 [Table Row/Column Span](./demo/col-row-span.vue?show=vertical)
 
@@ -6297,7 +6321,7 @@ const columns = [
 
 [Fixed Header/Columns](./demo/fixed-col-header.vue?show=vertical)
 
-- For data with many columns, fix leading or trailing columns and scroll horizontally. `scroll.x` sets the minimum content width, while `scroll.y` sets the vertical viewport height.
+- For data with many columns, fix leading or trailing columns and scroll horizontally. `scroll.x` sets the minimum content width, while `scroll.y` sets the vertical viewport height **of the body**, so the whole table is the header plus that height. With `scroll.y` the header is split into its own `table` next to the body: the header wrapper is narrowed by the measured vertical scrollbar width, so the two scrollports have the same content width and both the `auto` column widths and the sticky offsets line up on their own. Clipping lives on the layer inside the wrapper: the wrapper itself only reserves the scrollbar gutter with end padding, and `overflow: hidden` cannot clip past its own padding box, so clipping there would let the header paint through the gutter. That inner layer takes its `scrollLeft` from the body, and wheel events over the header are forwarded to the body.
 
 [Header Grouping](./demo/header-span.vue?show=vertical)
 
@@ -6305,7 +6329,12 @@ const columns = [
 
 [Checkbox Selection](./demo/table-check.vue?show=vertical)
 
-- Set `checkable=true` to automatically enable multi-selection. > Note: The default selection dependency is `key`. You can customize it via the `rowKey` attribute, e.g., `rowKey="ID"`.
+- Set `checkable=true` to automatically enable multi-selection. > Note: The default selection dependency is `key`. You can customize it via the `rowKey` attribute, e.g., `rowKey="ID"`. If a row yields no `string`/`number` for `rowKey`, the component falls back to a stable key generated per record object and warns once in the console; providing a `rowKey` for every row is still recommended.
+- Column `key`, `rowKey` and `childrenColumnName` share one value reader: it looks the whole name up first, and only when that misses and the name contains `.` does it walk segment by segment, so `{ user: { name: "Ann" } }` works with `key="user.name"` and `{ tags: ["x", "y"] }` with `key="tags.1"`. Hitting `null` or a non-object while walking yields an empty value instead of throwing; `__proto__`, `constructor` and `prototype` never resolve. A whole name always wins, so `{ "a.b": 1 }` with `key="a.b"` reads that literal field (kui-react behaves the same). Note for vue: the column `key` doubles as the slot name, so dotted keys need a dynamic slot (`v-slot:[...]`).
+
+[Nested Values](./demo/nested-value.vue?show=vertical)
+
+- Dotted `a.b` names work for column keys, `rowKey` and `childrenColumnName`; a missing link renders as an empty cell, so the data does not need flattening first.
 
 [Dynamically Control Table Properties](./demo/control.vue?show=vertical)
 
@@ -6313,11 +6342,21 @@ const columns = [
 
 [Virtual scrolling](./demo/virtual.vue?show=vertical)
 
-- Virtualizes large fixed-height data sets with `scroll.y`; do not combine virtual mode with merged cells.
+- Virtualizes large fixed-height data sets with `scroll.y`. Same-row `colSpan` keeps working in virtual mode; cross-row `rowSpan` does not — when the window starts inside a span its anchor row is not rendered, so that row is missing one cell and shifts left by a column (kui-react behaves identically, and both repos have a test pinning this down).
 
 [Column settings](./demo/column-setting.vue?show=vertical)
 
 - `TableColumnSetting` generates a visibility panel from the same column definitions used by Table. Use it with `hiddenColumnKeys`; `disabledKeys` keeps essential columns fixed.
+
+- All Table texts come from the `k.table` locale keys: `emptyText` for the empty state, `columnSettings`/`resetColumns` for the column panel, `expandRow`/`collapseRow` for the tree toggle's accessible name and `selectRow`/`selectAllRows` for the row and header checkboxes. An explicit `emptyText`, `title` or `resetText` prop takes precedence over the locale.
+
+- Fixed columns need a definite width: a fixed column without `width` falls back to 150, and the selection column is 50. Any column that declares `width` — fixed or not — gets that exact value on its `<col>`; only width-less non-fixed columns use `auto` to absorb the remaining width. Writing `auto` for a column that declared a width would squeeze it to 0 px under `table-layout: fixed`, which also destroys the horizontal scroll range and makes the fixed columns look inert. The `<col>` width, the sticky offset of the next fixed cell and the selection cell width all derive from that single basis.
+
+- With `scroll.y` the header is a separate table: a grouped multi-row header stays whole inside its own wrapper and only the body scrolls, so no per-row sticky offset is computed. Body cells then have no structural relation to their header cell, so every header cell gets an `id` and the cells in the same column point back at it with `aria-labelledby` — screen readers still announce the column name. Without `scroll.y` the header is part of the body's `table` and no ids are emitted.
+
+- A grouped parent column can carry `fixed` too: the direction is inherited by every leaf column under it (a leaf's own explicit `fixed` wins), and the group header cell derives its sticky offset from the leaf range it spans — it only participates in fixing when that whole range shares one direction.
+
+- With `expandAllRows` and no controlled `expandedKeys`, a `data` change only expands the parent rows that are new to the data; rows the user expanded or collapsed by hand stay as they were. A parent row that left the data and comes back counts as new and is expanded again (neither kui-react nor kui-vue remembers that it had been collapsed).
 
 ## Table API
 
@@ -6333,10 +6372,10 @@ const columns = [
 | data | Structured data to be displayed | `TableRecord[]` | [] |
 | columns | Configuration description of table columns | `Column[]` | [] |
 | hiddenColumnKeys | Hidden column keys, including grouped columns | `string[]` | [] |
-| rowKey | Basis for selection | `string` | key |
+| rowKey | Unique row identity used by selection and expansion; a field name or an accessor function reading the key from a record | `string \| ((record: TableRecord) => TableKey)` | key |
 | childrenColumnName | Field containing child records | `string` | children |
 | expandedKeys | expanded row keys; supports `v-model:expanded-keys` | `TableKey[]` | - |
-| expandAllRows | Expand every tree node on initialization or when this prop changes (explicit expandedKeys takes precedence) | `boolean` | false |
+| expandAllRows | Expand every tree node on initialization; when `data` changes later only newly arrived parent rows are expanded, while rows the user expanded or collapsed by hand are kept (explicit expandedKeys takes precedence) | `boolean` | false |
 | expandRowByClick | Toggle expansion by clicking a row | `boolean` | false |
 | indentSize | Indentation per tree level | `number` | 20 |
 | striped | Whether to display zebra stripes | `boolean` | false |
@@ -6346,6 +6385,7 @@ const columns = [
 | onSelectAll | Triggered when clicking the header checkbox of the Table | `(selected: boolean, keys: TableKey[]) => void` | - |
 | onExpand | Called when a row expands or collapses | `(expanded: boolean, record: TableRecord) => void` | - |
 | onExpandedKeysChange | Called when expanded keys change | `(keys: TableKey[]) => void` | - |
+| scroll | Scroll configuration; `x` is the minimum content width and `y` is the vertical viewport height of the body | `{ x?: number \| string; y?: number \| string; }` | {} |
 | virtual | Enable virtual scrolling; requires `scroll.y` | `boolean` | false |
 | itemHeight | Fixed virtual row height | `number` | 44 |
 | overscan | Extra rows rendered above and below the viewport | `number` | 5 |
@@ -6367,17 +6407,25 @@ Slot: `default` customizes the trigger.
 
 ## Column API
 
-| Property | Description                                                                                    | Type                                               | Default |
-| -------- | ---------------------------------------------------------------------------------------------- | -------------------------------------------------- | ------- |
-| title    | Header display text                                                                            | string                                             | -       |
-| key      | Corresponding column field name                                                                | string                                             | -       |
-| fixed    | Column fixed direction                                                                         | 'left' \| 'right'                                  | -       |
-| sorter   | Sorting, when `true`, local sorting is enabled                                                 | boolean \| (state: SortState) => void              | -       |
-| width    | Column width                                                                                   | number                                             | -       |
-| rowSpan  | Row merge unit, when 0, the current row will not be rendered                                   | number                                             | -       |
-| colSpan  | Column merge unit, when 0, the current column will not be rendered                             | number                                             | -       |
-| render   | Custom rendering                                                                               | (h, record, colIndex, rowIndex, col) => VNodeChild | -       |
-| scroll   | Scroll configuration; `x` is the minimum content width and `y` is the vertical viewport height | `{ x?: number \| string; y?: number \| string }`   | -       |
+| Property | Description                                                        | Type                                                       | Default |
+| -------- | ------------------------------------------------------------------ | ---------------------------------------------------------- | ------- |
+| title    | Header display text                                                | string                                                     | -       |
+| key      | Corresponding column field name                                    | string                                                     | -       |
+| fixed    | Column fixed direction                                             | 'left' \| 'right'                                          | -       |
+| sorter   | Sorting, when `true`, local sorting is enabled                     | boolean \| (state: SortState) => void                      | -       |
+| width    | Column width                                                       | number                                                     | -       |
+| rowSpan  | Row merge unit, when 0, the current row will not be rendered       | number \| ((record: TableRecord, index: number) => number) | -       |
+| colSpan  | Column merge unit, when 0, the current column will not be rendered | number \| ((record: TableRecord, index: number) => number) | -       |
+| render   | Custom rendering; the first argument is the cell value             | (value, record, rowIndex, col) => VNodeChild               | -       |
+| children | Nested columns of a grouped header                                 | Column[]                                                   | -       |
+
+### Slots
+
+- `header` / `footer`: custom regions rendered above / below the table.
+- `<template #columnKey="scope">`: customizes that column's cells; `scope` exposes `value`, `record`, `rowIndex`, `colIndex` and `col`. Precedence is slot > `render` > raw value.
+- `<template #header-columnKey="scope">`: customizes that column's header; `scope` exposes `value` (i.e. `col.title`), `col` and `index`.
+
+Slot names are built straight from the column `key`, so the `key` must also be a valid slot name: `default`, `header` and `footer` belong to the component itself (using them as a column key renders table chrome inside the cells); field names containing `.`, spaces or similar characters can only be reached with a dynamic slot name (`v-slot:[expr]`). These names are concatenated at runtime, so there is no type checking or IDE completion — prefer `render` when the code needs to port across frameworks (its signature matches kui-react).
 
 ### Common appearance
 

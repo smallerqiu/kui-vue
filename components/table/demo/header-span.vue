@@ -1,5 +1,13 @@
 <template>
-  <Table :data="data" :columns="columns" bordered :scroll="{ y: 300 }"></Table>
+  <!-- `scroll.x` 按叶子列宽度之和给（120+100+140+120+120+200+200+100 = 1_100）。
+       不给的话这些窄列会被挤到十几个像素，表头文字竖排换行，四层表头能长到 400 多 px，
+       比 `scroll.y` 的可视高度还高，等于把表体整个顶出可视区。与 kui-react 同一份配置。 -->
+  <Table
+    :data="data"
+    :columns="columns"
+    bordered
+    :scroll="{ x: 1100, y: 300 }"
+  ></Table>
 </template>
 <script setup lang="ts">
 import type { Column } from "kui-vue";
@@ -32,6 +40,7 @@ const columns: Column[] = [
       {
         title: "Age",
         key: "age",
+        width: 100,
         sorter: true,
       },
       {
@@ -41,6 +50,7 @@ const columns: Column[] = [
           {
             title: "Street",
             key: "street",
+            width: 140,
           },
           {
             title: "Block",
@@ -49,10 +59,12 @@ const columns: Column[] = [
               {
                 title: "Building",
                 key: "building",
+                width: 120,
               },
               {
                 title: "Door No.",
                 key: "number",
+                width: 120,
               },
             ],
           },
@@ -62,7 +74,7 @@ const columns: Column[] = [
   },
   {
     title: "Company",
-    key: "Company",
+    key: "company",
     children: [
       {
         title: "Company Address",

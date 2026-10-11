@@ -52,6 +52,10 @@ export default {
       emptyText: "No Data",
       columnSettings: "Column settings",
       resetColumns: "Reset",
+      expandRow: "Expand row",
+      collapseRow: "Collapse row",
+      selectRow: "Select row",
+      selectAllRows: "Select all",
     },
     upload: {
       successful: "Successful",

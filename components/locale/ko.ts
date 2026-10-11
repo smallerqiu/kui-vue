@@ -52,6 +52,10 @@ export default {
       emptyText: "데이터 없음",
       columnSettings: "열 설정",
       resetColumns: "초기화",
+      expandRow: "행 펼치기",
+      collapseRow: "행 접기",
+      selectRow: "행 선택",
+      selectAllRows: "전체 선택",
     },
     upload: {
       successful: "성취",

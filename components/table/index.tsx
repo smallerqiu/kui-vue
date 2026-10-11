@@ -1,9 +1,10 @@
 import { ChevronDown, ChevronRight, Triangle } from "kui-icons";
-import type { CSSProperties, ExtractPropTypes, PropType, VNodeChild } from "vue";
+import type { CSSProperties, ExtractPropTypes, PropType, Ref, VNodeChild } from "vue";
 import {
   computed,
   defineComponent,
-  h,
+  getCurrentInstance,
+  inject,
   nextTick,
   onBeforeUnmount,
   onMounted,
@@ -16,10 +17,60 @@ import { useConfigAppearance } from "../config/context";
 import type { BooleanType, SizeType, SurfaceShapeType } from "../const/types";
 import Empty from "../empty";
 import Icon from "../icon";
+import zhCN from "../locale/zh-CN";
 import Spin from "../spin";
 import { getVirtualRange } from "../virtual-list";
 import type { Column, SortState, TableKey, TableRecord } from "./types";
-import { countColumnLeaves, flattenColumns, flattenTreeData } from "./utils";
+import {
+  compareSortValues,
+  countColumnLeaves,
+  flattenColumns,
+  flattenTreeData,
+  getRecordValue,
+  inheritColumnFixed,
+  mergeExpandAllRows,
+  resolveRowKey,
+} from "./utils";
+
+/**
+ * 固定列的宽度基准，与 kui-react `components/table/index.tsx` 的同名常量保持一致。
+ *
+ * 规矩只有一条：**算 sticky 偏移用的宽度，必须等于 colgroup 落地的那个数**。
+ * 写了 `width` 的列（固定与否都一样）照原值写进 colgroup，偏移也按原值累加；
+ * 没写 `width` 的固定列按 150 落地，没写 `width` 的普通列才留 `auto` 去吸收容器
+ * 撑出来的多余宽度。反过来把带宽度的普通列也写成 `auto` 是不行的——`table-layout: fixed`
+ * 下它们会被固定列的确切宽度挤到 0 宽，横向能滚的距离也一并消失，固定列就"看着没生效"。
+ */
+const DEFAULT_FIXED_COLUMN_WIDTH = 150;
+/** 勾选列宽度：colgroup、行内单元格样式和固定列的左偏移三处共用 */
+const SELECTION_COLUMN_WIDTH = 50;
+const fixedWidthOf = (column: Column) => column.width ?? DEFAULT_FIXED_COLUMN_WIDTH;
+/** colgroup 落地的宽度：有 `width` 照写，缺宽度的固定列按 150，缺宽度的普通列交给 `auto`。 */
+const colgroupWidthOf = (column: Column): string => {
+  const width = column.width ?? (column.fixed ? DEFAULT_FIXED_COLUMN_WIDTH : undefined);
+  return width === undefined ? "auto" : `${width}px`;
+};
+
+/**
+ * 分栏表头要按真实滚动条宽度给表头容器让出一条槽位（见 `styles/index.less` 的 `k-table-split-header`），
+ * 这个值只能量、不能写死：新内核走 `.k-scroll` 的 `::-webkit-scrollbar { width }` 拿到 8px，
+ * Firefox 走 `scrollbar-width`（不认长度值的旧版退回 `thin` 的约 11px），更老的 Safari/Windows 是 15/17px。
+ * 探针必须带 `k-scroll` 类——量裸 `div` 得到的是浏览器默认滚动条宽度，不是库自己那套。
+ * 顺带一提 `overflow: scroll` 让两条轴都出滚动条，`offsetWidth - clientWidth` 才是纵向那一条的宽度。
+ *
+ * kui-react 与 kui-vue 的 `components/table/index.tsx` 里是逐字节相同的副本，改一边必须同步另一边。
+ */
+const measureScrollbarWidth = (): number => {
+  if (typeof document === "undefined") return 0;
+  const probe = document.createElement("div");
+  probe.className = "k-scroll";
+  probe.style.cssText =
+    "position:absolute;top:-9999px;left:-9999px;width:100px;height:100px;overflow:scroll";
+  document.body.appendChild(probe);
+  const width = probe.offsetWidth - probe.clientWidth;
+  probe.remove();
+  return width;
+};
 
 const tableProps = {
   data: { type: Array as PropType<TableRecord[]>, default: () => [] },
@@ -27,7 +78,10 @@ const tableProps = {
   hiddenColumnKeys: { type: Array as PropType<string[]>, default: () => [] },
   selectedKeys: { type: Array as PropType<TableKey[]>, default: () => [] },
   disabledKeys: { type: Array as PropType<TableKey[]>, default: () => [] },
-  rowKey: { type: String, default: "key" },
+  rowKey: {
+    type: [String, Function] as PropType<string | ((record: TableRecord) => TableKey)>,
+    default: "key",
+  },
   childrenColumnName: { type: String, default: "children" },
   expandedKeys: Array as PropType<TableKey[]>,
   expandAllRows: Boolean as BooleanType,
@@ -57,6 +111,18 @@ interface Matrix {
   show: boolean;
 }
 
+/**
+ * 表头单元格 = 列配置 + 这一格在表头网格里占的位置。
+ * `leafCount` 与渲染用的 `colSpan` 是同一个数，配合 `leafStart` 得到区间
+ * `[leafStart, leafStart + leafCount)`，sticky 偏移和固定类都由这个区间算出。
+ */
+interface HeaderCell extends Column {
+  leafStart: number;
+  leafCount: number;
+  /** 区间内叶子列方向不一致时为 `undefined`，这一格就不参与 sticky */
+  headerFixed?: "left" | "right";
+}
+
 export type TableProps = ExtractPropTypes<typeof tableProps>;
 
 const Table = defineComponent({
@@ -81,12 +147,25 @@ const Table = defineComponent({
   },
   setup(props, { emit, slots }) {
     const appearance = useConfigAppearance(props);
-    const headerWrapperRef = ref<HTMLElement>();
+    // 与 table/column-setting.tsx 同一套取法：ConfigProvider 提供的是 ref，
+    // 直接读会把 ref 当成语言包对象。
+    type Locale = typeof zhCN;
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const tableLocale = computed(() => {
+      const resolved =
+        injectedLocale && "value" in injectedLocale ? injectedLocale.value : injectedLocale;
+      return resolved?.k?.table;
+    });
     const bodyWrapperRef = ref<HTMLElement>();
-    const scrollbarWidth = ref(0);
+    const rootRef = ref<HTMLElement>();
+    const headerWrapperRef = ref<HTMLElement>();
+    /** 分栏表头里真正承担裁剪与横向同步的是内层（见 `styles/index.less` 的 `.k-table-thead-inner`）。 */
+    const headerScrollRef = ref<HTMLElement>();
     const innerSelectedKeys = ref(new Set(props.selectedKeys));
     const innerExpandedKeys = ref(new Set<TableKey>(props.expandedKeys ?? []));
-    const isSplit = computed(() => !!props.scroll.y);
+    // `scroll.y` 一旦给出就把表头拆成另一张 table：表体自己纵向滚，表头靠同步 `scrollLeft` 横向跟。
+    // 两仓同名，react 侧是 `splitHeader`。
+    const splitHeader = computed(() => props.scroll.y != null);
     const sortState = reactive<SortState>({ key: "", order: null });
     const pingLeft = ref(false);
     const pingRight = ref(false);
@@ -109,10 +188,31 @@ const Table = defineComponent({
         });
       return filter(props.columns);
     });
-    const flattedColumns = computed(() => flattenColumns(visibleColumns.value));
+    // 分组父列上的 `fixed` 先向下继承，之后 `flattedColumns` 与 `headerRows` 只需认叶子列上的方向。
+    const inheritedColumns = computed(() => inheritColumnFixed(visibleColumns.value));
+    const flattedColumns = computed(() => flattenColumns(inheritedColumns.value));
+
+    // 分栏后表头和表体是两张 table，表体单元格与表头之间不再有任何结构关系可读，
+    // 屏幕阅读器只会念"单元格 张三"。这里给每个表头格生成 id，表体格用 `aria-labelledby` 指回去，
+    // 把列名还给单元格。只在分栏时生成：单 table 的 DOM 本来就带这层关系，多发 id 只是加噪音。
+    // 前缀用实例 uid（react 侧是洗过字符的 `useId()`），后缀用遍历序号而不是列 key，
+    // key 里可能有 `.`、`:` 这类要被替换的字符，洗完两列可能撞成同一个 id。
+    const instance = getCurrentInstance();
+    const headCellIds = computed(() => {
+      const ids = new Map<TableKey, string>();
+      if (!splitHeader.value) return ids;
+      const prefix = `k-table-${instance?.uid ?? 0}-`;
+      const visit = (items: Column[]) =>
+        items.forEach((item) => {
+          ids.set(item.key, `${prefix}${ids.size}`);
+          if (item.children?.length) visit(item.children);
+        });
+      visit(inheritedColumns.value);
+      return ids;
+    });
 
     const headerRows = computed(() => {
-      const rows: Column[][] = [];
+      const rows: HeaderCell[][] = [];
       let maxDepth = 0;
 
       const getDepth = (cols: Column[], depth = 0) => {
@@ -124,51 +224,82 @@ const Table = defineComponent({
           }
         });
       };
-      getDepth(visibleColumns.value);
+      getDepth(inheritedColumns.value);
 
-      const traverse = (cols: Column[], depth: number) => {
+      // 一个表头格覆盖 `leafCount` 个叶子列，`leafStart` 记下它从哪个叶子列开始。
+      // 只有整段区间固定方向一致，这一格才跟着 sticky：偏移是按叶子列累加的，
+      // 跨了非固定列的分组格一浮动就会盖住本该滚走的内容。
+      const fixedDirectionOf = (leafStart: number, leafCount: number) => {
+        const direction = flattedColumns.value[leafStart]?.fixed;
+        if (!direction) return undefined;
+        for (let index = leafStart + 1; index < leafStart + leafCount; index += 1) {
+          if (flattedColumns.value[index]?.fixed !== direction) return undefined;
+        }
+        return direction;
+      };
+
+      const traverse = (cols: Column[], depth: number, startAt: number) => {
         if (!rows[depth]) rows[depth] = [];
+        let cursor = startAt;
         cols.forEach((col) => {
-          const cell: Column = { ...col };
-          // 计算 colSpan (叶子节点总数)
-          cell.colSpan = countColumnLeaves(col);
+          const leafCount = countColumnLeaves(col);
+          const cell: HeaderCell = { ...col, leafStart: cursor, leafCount };
+          // colSpan（渲染用的那一格宽度跨度）就是它覆盖的叶子列总数
+          cell.colSpan = leafCount;
 
           // 计算 rowSpan
           if (col.children && col.children.length > 0) {
             cell.rowSpan = 1;
-            traverse(col.children, depth + 1);
+            traverse(col.children, depth + 1, cursor);
           } else {
             cell.rowSpan = maxDepth - depth;
           }
+          cell.headerFixed = fixedDirectionOf(cursor, leafCount);
           rows[depth].push(cell);
+          cursor += leafCount;
         });
       };
-      traverse(visibleColumns.value, 0);
+      traverse(inheritedColumns.value, 0, 0);
       return { rows, maxDepth };
     });
 
     const isDisabled = (key: TableKey) => props.disabledKeys.includes(key);
-    const getRowKey = (record: TableRecord): TableKey => {
-      const key = record[props.rowKey];
-      return typeof key === "string" || typeof key === "number" ? key : String(key ?? "");
-    };
+    const getRowKey = (record: TableRecord): TableKey => resolveRowKey(record, props.rowKey);
+    const parentKeysOf = (records: TableRecord[]) =>
+      new Set(
+        flattenTreeData({
+          data: records,
+          childrenColumnName: props.childrenColumnName,
+          getKey: getRowKey,
+        })
+          .filter((row) => row.hasChildren)
+          .map((row) => getRowKey(row.record)),
+      );
+    // 上一次数据里的父行 key，用来区分“异步新到达的父行”和“用户已手动处理过的行”
+    let knownParentKeys = new Set<TableKey>();
     watch(
       [() => props.expandedKeys, () => props.expandAllRows],
       ([keys, expandAll]) => {
-        innerExpandedKeys.value = new Set(
-          keys ??
-            (expandAll
-              ? flattenTreeData({
-                  data: props.data,
-                  childrenColumnName: props.childrenColumnName,
-                  getKey: getRowKey,
-                })
-                  .filter((row) => row.hasChildren)
-                  .map((row) => getRowKey(row.record))
-              : []),
-        );
+        // 受控值或 expandAllRows 本身变化：整份替换，关掉 expandAllRows 仍然会全部折叠
+        // 父行 key 只在「非受控 + expandAllRows」时才用得上（数据增量合并），
+        // 其它情况没必要为一次展开点击把整棵树再走一遍。
+        const needParentKeys = expandAll && keys === undefined;
+        const nextParentKeys = needParentKeys ? parentKeysOf(props.data) : new Set<TableKey>();
+        innerExpandedKeys.value = new Set(keys ?? (needParentKeys ? nextParentKeys : []));
+        knownParentKeys = nextParentKeys;
       },
       { immediate: true },
+    );
+    watch(
+      () => props.data,
+      () => {
+        // 与 kui-react 一致：只有数据在变时补上新增的父行，其余保持用户的选择
+        if (props.expandedKeys !== undefined || !props.expandAllRows) return;
+        const nextParentKeys = parentKeysOf(props.data);
+        const merged = mergeExpandAllRows(knownParentKeys, nextParentKeys, innerExpandedKeys.value);
+        knownParentKeys = nextParentKeys;
+        if (merged.changed) innerExpandedKeys.value = merged.keys;
+      },
     );
     const currentExpandedKeys = computed(() => innerExpandedKeys.value);
     const sortRecords = (records: TableRecord[]) => {
@@ -177,13 +308,9 @@ const Table = defineComponent({
         const col = flattedColumns.value.find((item) => item.key === sortState.key);
         if (col?.sorter === true) {
           list.sort((first, second) => {
-            const firstValue = first[sortState.key];
-            const secondValue = second[sortState.key];
-            if (firstValue === secondValue) return 0;
-            const comparison = String(firstValue ?? "").localeCompare(
-              String(secondValue ?? ""),
-              undefined,
-              { numeric: true },
+            const comparison = compareSortValues(
+              getRecordValue(first, sortState.key),
+              getRecordValue(second, sortState.key),
             );
             return sortState.order === "asc" ? comparison : -comparison;
           });
@@ -208,7 +335,7 @@ const Table = defineComponent({
       }),
     );
     const treeEnabled = computed(() => allTreeRows.value.some((row) => row.hasChildren));
-    const virtualEnabled = computed(() => props.virtual && Boolean(props.scroll.y));
+    const virtualEnabled = computed(() => props.virtual && splitHeader.value);
     const virtualRange = computed(() =>
       getVirtualRange({
         count: visibleTreeRows.value.length,
@@ -247,44 +374,57 @@ const Table = defineComponent({
     const fixedInfo = computed(() => {
       const headerStyles: Record<string, CSSProperties> = {};
       const bodyStyles: Record<string, CSSProperties> = {};
-      let leftOffset = props.checkable ? 50 : 0;
+      // 每个叶子列左右两侧已经排开的固定宽度。叶子格按自己那一格取，
+      // 分组表头格按它覆盖的区间端点取，两处共用同一份基准才不会露缝。
+      const leftBefore: number[] = [];
+      const rightAfter: number[] = [];
+      let leftOffset = props.checkable ? SELECTION_COLUMN_WIDTH : 0;
 
-      // 使用 flattedColumns
-      flattedColumns.value.forEach((col) => {
+      flattedColumns.value.forEach((col, index) => {
+        leftBefore[index] = leftOffset;
         if (col.fixed === "left") {
-          const style: CSSProperties = {
+          bodyStyles[col.key] = {
             position: "sticky",
             left: `${leftOffset}px`,
           };
-          headerStyles[col.key] = style;
-          bodyStyles[col.key] = style;
-          leftOffset += col.width || 150;
+          leftOffset += fixedWidthOf(col);
         }
       });
 
-      let rightOffset = 0; // + scrollbarWidth.value;
+      let rightOffset = 0;
       for (let i = flattedColumns.value.length - 1; i >= 0; i--) {
+        rightAfter[i] = rightOffset;
         const col = flattedColumns.value[i];
         if (col.fixed === "right") {
           bodyStyles[col.key] = {
             position: "sticky",
             right: `${rightOffset}px`,
           };
-
-          const headerRight = isSplit.value ? rightOffset + scrollbarWidth.value : rightOffset;
-
-          headerStyles[col.key] = {
-            position: "sticky",
-            right: `${headerRight}px`,
-          };
-
-          rightOffset += col.width || 150;
+          rightOffset += fixedWidthOf(col);
         }
       }
+
+      headerRows.value.rows.forEach((row) => {
+        row.forEach((cell) => {
+          const lastLeaf = cell.leafStart + cell.leafCount - 1;
+          if (cell.headerFixed === "left") {
+            headerStyles[cell.key] = {
+              position: "sticky",
+              left: `${leftBefore[cell.leafStart] ?? 0}px`,
+            };
+          } else if (cell.headerFixed === "right") {
+            headerStyles[cell.key] = {
+              position: "sticky",
+              right: `${rightAfter[lastLeaf] ?? 0}px`,
+            };
+          }
+        });
+      });
       return { header: headerStyles, body: bodyStyles };
     });
 
-    const getFixedClass = (col: Column, index: number) => {
+    // `colSpan` 是合并单元格的横向跨度，末列判定要按区间末尾算，不然合并行的行末格会被当成中间格。
+    const getFixedClass = (col: Column, index: number, colSpan = 1) => {
       const cls = [];
       if (col.fixed === "left") {
         cls.push("k-table-cell-fix-left");
@@ -297,6 +437,32 @@ const Table = defineComponent({
           cls.push("k-table-cell-fix-right-first");
       }
       if (col.sorter) cls.push("k-table-cell-sorter");
+      if (index + colSpan === flattedColumns.value.length) cls.push("k-table-cell-last-column");
+      return cls;
+    };
+
+    /**
+     * 表头格的固定类按它覆盖的叶子区间判断。`*-last`/`*-first` 决定横向滚动时 ping 阴影画在哪一格的
+     * 边沿上，分组表头若改用叶子下标去查会拿到 `-1`，把不该画阴影的父格标成最后一列固定格。
+     *
+     * `k-table-cell-last-column` 同理必须按区间末尾算：bordered 时只有真的盖到最后一列的格子才让出
+     * 右边框。表头每一行的格数不一样（分组格占 `colSpan`），行末那一格往往并不是最后一列。
+     */
+    const getHeaderFixedClass = (cell: HeaderCell) => {
+      const cls = [];
+      if (cell.headerFixed === "left") {
+        cls.push("k-table-cell-fix-left");
+        if (flattedColumns.value[cell.leafStart + cell.leafCount]?.fixed !== "left")
+          cls.push("k-table-cell-fix-left-last");
+      }
+      if (cell.headerFixed === "right") {
+        cls.push("k-table-cell-fix-right");
+        if (flattedColumns.value[cell.leafStart - 1]?.fixed !== "right")
+          cls.push("k-table-cell-fix-right-first");
+      }
+      if (cell.sorter) cls.push("k-table-cell-sorter");
+      if (cell.leafStart + cell.leafCount === flattedColumns.value.length)
+        cls.push("k-table-cell-last-column");
       return cls;
     };
 
@@ -305,13 +471,18 @@ const Table = defineComponent({
     const handleBodyScroll = (target: HTMLElement) => {
       // const target = e?.target;
       if (!target) return;
-      bodyScrollTop.value = target.scrollTop;
+      // 只有虚拟滚动才读 scrollTop。非虚拟表格每个滚动事件都写一次，等于把 virtualRange
+      // 白白弄脏一轮；与 kui-react 里 `if (virtualEnabled) setScrollTop(...)` 同一口径。
+      if (virtualEnabled.value) bodyScrollTop.value = target.scrollTop;
+      // 表头是另一张 table，横向必须跟着表体走。同步要放在下面的 rAF 节流**之前**：
+      // 节流一帧半帧的，表头就会比表体慢一拍，拖动滚动条时肉眼能看到错位。
+      // 同步的是内层那一圈裁剪盒（`.k-table-thead-inner`），外层只负责边框、圆角和让出槽位。
+      if (splitHeader.value && headerScrollRef.value) {
+        headerScrollRef.value.scrollLeft = target.scrollLeft;
+      }
       if (scrollRafId) cancelAnimationFrame(scrollRafId);
       scrollRafId = requestAnimationFrame(() => {
         const { scrollLeft, scrollWidth, clientWidth } = target;
-        if (isSplit.value && headerWrapperRef.value) {
-          headerWrapperRef.value.scrollLeft = scrollLeft;
-        }
 
         // 优化边界检测，避免亚像素抖动
         const maxScrollLeft = Math.max(0, scrollWidth - clientWidth);
@@ -323,36 +494,66 @@ const Table = defineComponent({
       });
     };
 
-    const measureScrollbar = () => {
+    const measureBody = () => {
       if (bodyWrapperRef.value) {
         bodyViewportHeight.value = bodyWrapperRef.value.clientHeight;
-        const width = Math.max(
-          0,
-          bodyWrapperRef.value.offsetWidth -
-            bodyWrapperRef.value.clientWidth -
-            (props.bordered ? 1 : 0),
-        );
-        if (scrollbarWidth.value !== width) scrollbarWidth.value = width;
       }
     };
 
+    // 分栏表头要按真实滚动条宽度给表头容器让出一条槽位，这个值只能实测（见 `measureScrollbarWidth`）。
+    // 直接写 CSS 变量而不是 ref：它只影响一条样式，用响应式状态会把整张表（含上千行）重新渲染一遍。
+    // `scroll.y` 撤掉时把变量清空，免得表头容器还白让一条槽位。
+    const applyScrollbarWidth = () => {
+      const root = rootRef.value;
+      if (!root) return;
+      root.style.setProperty(
+        "--k-table-scrollbar-width",
+        splitHeader.value ? `${measureScrollbarWidth()}px` : "",
+      );
+    };
+
+    // 滚轮停在表头上时不该什么都不动：表头外层压根不是滚动口（内层 `overflow: hidden`，也滚不动），
+    // 得把滚动量转交给表体。react 侧那边必须用原生监听器（根上的 `onWheel` 是 passive 的），
+    // 这里 Vue 是直接给元素 `addEventListener`，默认就不是 passive，所以照常写在模板上。
+    const forwardWheelToBody = (event: WheelEvent) => {
+      const body = bodyWrapperRef.value;
+      if (!body) return;
+      // `deltaMode` 1 = 行、2 = 页，直接当像素用会滚得只剩一点点或一下翻一页。
+      const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? body.clientHeight : 1;
+      const maxTop = Math.max(0, body.scrollHeight - body.clientHeight);
+      const maxLeft = Math.max(0, body.scrollWidth - body.clientWidth);
+      const nextTop = Math.min(maxTop, Math.max(0, body.scrollTop + event.deltaY * unit));
+      const nextLeft = Math.min(maxLeft, Math.max(0, body.scrollLeft + event.deltaX * unit));
+      // 一点都滚不动（已经到底）时别吃掉浏览器自己的滚动
+      if (nextTop === body.scrollTop && nextLeft === body.scrollLeft) return;
+      event.preventDefault();
+      body.scrollTo({ top: nextTop, left: nextLeft });
+      // 表体的 scroll 事件会照常触发 `handleBodyScroll`，表头的横向偏移由那里同步。
+    };
+
     onMounted(() => {
+      applyScrollbarWidth();
       if (bodyWrapperRef.value) {
-        measureScrollbar();
+        measureBody();
         handleBodyScroll(bodyWrapperRef.value);
         if (typeof ResizeObserver !== "undefined") {
           resizeObserver = new ResizeObserver(() => {
-            measureScrollbar();
+            measureBody();
             if (bodyWrapperRef.value) handleBodyScroll(bodyWrapperRef.value);
           });
+          // 观察滚动容器自己：容器宽度变化会改列宽、换行和表头高度，虚拟窗口和 ping 状态都按它算。
+          // 顺带记一笔坑：`thead`/`tr`/`th` 是 table 内部盒（`display: table-header-group` 等），
+          // Chrome 的 ResizeObserver 对它们不上报尺寸变化——实测 observe(thead) 在表头长高 56px
+          // 之后一次都没触发，挂在表头上等于没挂。
           resizeObserver.observe(bodyWrapperRef.value);
         }
       }
     });
 
-    watch(isSplit, async () => {
+    watch(splitHeader, async () => {
+      applyScrollbarWidth();
       await nextTick();
-      measureScrollbar();
+      measureBody();
       if (bodyWrapperRef.value) handleBodyScroll(bodyWrapperRef.value);
     });
 
@@ -421,26 +622,13 @@ const Table = defineComponent({
       emit("expand", expanded, record);
     };
 
-    const renderColGroup = (isHeader = false) => (
+    const renderColGroup = () => (
       <colgroup>
-        {props.checkable && <col style={{ width: "50px", left: 0 }} />}
+        {props.checkable && <col style={{ width: `${SELECTION_COLUMN_WIDTH}px` }} />}
         {flattedColumns.value.map((col) => (
-          <col
-            key={col.key}
-            style={{
-              width: col.width ? `${col.width}px` : "auto",
-              minWidth: col.width ? `${col.width}px` : "150px",
-            }}
-          />
+          // 宽度基准与 sticky 偏移共用同一个函数：写了 width 就照写，别用 auto 挤掉它。
+          <col key={col.key} style={{ width: colgroupWidthOf(col) }} />
         ))}
-        {isHeader && isSplit.value && (
-          <col
-            style={{
-              width: `${scrollbarWidth.value}px`,
-              minWidth: `${scrollbarWidth.value}px`,
-            }}
-          />
-        )}
       </colgroup>
     );
 
@@ -455,31 +643,38 @@ const Table = defineComponent({
               {props.checkable && rowIndex === 0 && (
                 <th
                   rowspan={maxDepth}
-                  class={["k-table-cell-fix-left", pingLeft.value && "k-table-cell-fix-left-last"]}
-                  style={{ left: 0, zIndex: 3 }} // 提高层级
+                  class={[
+                    "k-table-cell-fix-left",
+                    pingLeft.value && "k-table-cell-fix-left-last",
+                    // 叶子列全被隐藏时，勾选格就是这一行的最后一格，边框口径要跟着走
+                    !flattedColumns.value.length && "k-table-cell-last-column",
+                  ]}
+                  style={{ left: 0 }}
                 >
                   <Checkbox
                     checked={selectionState.value.all}
                     indeterminate={selectionState.value.indeterminate}
                     onChange={toggleAll}
                     disabled={selectionState.value.disabled}
+                    // 表头全选格没有文字，可访问名必须走 locale（与 kui-react 同一份 key）
+                    aria-label={tableLocale.value?.selectAllRows || "Select all"}
                   />
                 </th>
               )}
 
-              {row.map((col: Column, idx: number) => {
+              {row.map((col, idx: number) => {
                 const headerContent = slots[`header-${col.key}`]?.({
                   value: col.title,
                   col,
                   index: idx,
                 });
-                const leafIndex = flattedColumns.value.findIndex((item) => item.key === col.key);
                 return (
                   <th
                     key={col.key || idx}
+                    id={splitHeader.value ? headCellIds.value.get(col.key) : undefined}
                     colspan={col.colSpan as number}
                     rowspan={col.rowSpan as number}
-                    class={getFixedClass(col, leafIndex)}
+                    class={getHeaderFixedClass(col)}
                     style={fixedInfo.value.header[col.key]}
                     tabindex={col.sorter ? 0 : undefined}
                     aria-sort={
@@ -528,17 +723,6 @@ const Table = defineComponent({
                   </th>
                 );
               })}
-              {isSplit.value && rowIndex === 0 && (
-                <th
-                  rowspan={maxDepth}
-                  class="k-table-scrollbar-patch"
-                  style={{
-                    // padding: 0,
-                    // border: 0,
-                    width: `${scrollbarWidth.value}px`,
-                  }}
-                />
-              )}
             </tr>
           ))}
         </thead>
@@ -620,6 +804,7 @@ const Table = defineComponent({
           aria-hidden="true"
         >
           <td
+            class="k-table-cell-last-column"
             colspan={flattedColumns.value.length + (props.checkable ? 1 : 0)}
             style={{ height: `${height}px` }}
           />
@@ -645,13 +830,19 @@ const Table = defineComponent({
             >
               {props.checkable && (
                 <td
-                  class={["k-table-cell-fix-left", pingLeft.value && "k-table-cell-fix-left-last"]}
-                  style={{ width: "50px", left: 0 }}
+                  class={[
+                    "k-table-cell-fix-left",
+                    pingLeft.value && "k-table-cell-fix-left-last",
+                    !flattedColumns.value.length && "k-table-cell-last-column",
+                  ]}
+                  style={{ width: `${SELECTION_COLUMN_WIDTH}px`, left: 0 }}
                 >
                   <Checkbox
                     checked={innerSelectedKeys.value.has(rowId)}
                     disabled={isDisabled(rowId)}
                     onChange={(e) => toggleOne(e, record, rowId)}
+                    // 行首选择框同样只有控件本身能被读，名字得由 locale 提供
+                    aria-label={tableLocale.value?.selectRow || "Select row"}
                   />
                 </td>
               )}
@@ -667,22 +858,25 @@ const Table = defineComponent({
                 const attrs: Record<string, number> = {};
                 if (cellState.rowSpan > 1) attrs.rowspan = cellState.rowSpan;
                 if (cellState.colSpan > 1) attrs.colspan = cellState.colSpan;
+                const value = getRecordValue(record, col.key);
                 const slotContent = slots[col.key]?.({
                   record,
                   col,
                   colIndex,
                   rowIndex,
-                  value: record[col.key],
+                  value,
                 });
                 const cellContent =
                   slotContent ??
-                  col.render?.(h, record, colIndex, rowIndex, col) ??
-                  (record[col.key] as VNodeChild);
+                  col.render?.(value, record, rowIndex, col) ??
+                  (value as VNodeChild);
                 return (
                   <td
                     key={col.key}
                     {...attrs}
-                    class={getFixedClass(col, colIndex)}
+                    // 分栏后这一格和表头不在同一张 table 里，列名只能靠 id 关联回去（见 `headCellIds`）
+                    aria-labelledby={splitHeader.value ? headCellIds.value.get(col.key) : undefined}
+                    class={getFixedClass(col, colIndex, cellState.colSpan)}
                     style={fixedInfo.value.body[col.key]}
                   >
                     {treeEnabled.value && colIndex === 0 ? (
@@ -695,7 +889,9 @@ const Table = defineComponent({
                             type="button"
                             class="k-table-tree-toggle"
                             aria-label={
-                              currentExpandedKeys.value.has(rowId) ? "Collapse row" : "Expand row"
+                              currentExpandedKeys.value.has(rowId)
+                                ? tableLocale.value?.collapseRow || "Collapse row"
+                                : tableLocale.value?.expandRow || "Expand row"
                             }
                             aria-expanded={currentExpandedKeys.value.has(rowId)}
                             onClick={() => toggleExpand(record)}
@@ -730,21 +926,45 @@ const Table = defineComponent({
       </tbody>
     );
 
-    const renderTable = (isHeader: boolean, isBody: boolean) => {
+    // 宽度基准两仓一致：`scroll.x` 给数字时按 px 落地，`table-layout: fixed` 让 colgroup 说话算数。
+    const tableStyle = computed<CSSProperties>(() => {
       const scrollX = typeof props.scroll.x === "number" ? `${props.scroll.x}px` : props.scroll.x;
-      const tableStyle: CSSProperties = {
+      return {
         width: "100%",
         minWidth: scrollX || "100%",
         tableLayout: "fixed",
       };
-      return (
-        <table style={tableStyle}>
-          {renderColGroup(isHeader)}
-          {isHeader && renderThead()}
-          {isBody && renderTbody()}
-        </table>
-      );
-    };
+    });
+
+    const renderTable = () => (
+      <table style={tableStyle.value}>
+        {renderColGroup()}
+        {!splitHeader.value && renderThead()}
+        {renderTbody()}
+      </table>
+    );
+
+    /**
+     * 分栏表头：表头单独一张 table，和表体共用同一份 `colgroup`，列宽与固定列偏移天然对齐；
+     * 横向滚动靠 `handleBodyScroll` 同步 `scrollLeft`，纵向靠右边那条槽位让开表体的滚动条
+     * （见 `styles/index.less` 的 `k-table-split-header`）。
+     *
+     * 槽位由外层 `padding-inline-end` 让出，裁剪和同步放在内层 `.k-table-thead-inner`：
+     * `overflow: hidden` 只裁到 padding box，裁不出外层那条槽位，表头内容会一路画进去（见 LESS 注释）。
+     *
+     * 滚轮要转交回表体：这里写在元素上就够，Vue 给元素 `addEventListener` 默认不是 passive，
+     * `preventDefault()` 有效；react 那边根节点上的 `onWheel` 是 passive 委托，只能改用原生监听器。
+     */
+    const renderHeaderTable = () => (
+      <div class="k-table-thead" ref={headerWrapperRef} onWheel={forwardWheelToBody}>
+        <div class="k-table-thead-inner" ref={headerScrollRef}>
+          <table style={tableStyle.value}>
+            {renderColGroup()}
+            {renderThead()}
+          </table>
+        </div>
+      </div>
+    );
 
     return () => {
       const tableCls = [
@@ -756,26 +976,13 @@ const Table = defineComponent({
           [`k-table-${appearance.surfaceShape.value}`]: appearance.surfaceShape.value,
           "k-table-bordered": props.bordered,
           "k-table-has-footer": !!slots.footer,
+          "k-table-split-header": splitHeader.value,
           "k-table-ping-left": pingLeft.value,
           "k-table-ping-right": pingRight.value,
           "k-table-virtual": virtualEnabled.value,
         },
       ];
       const isEmpty = !visibleTreeRows.value.length || !visibleColumns.value.length;
-
-      // 拆分模式下的 Header
-      const splitHeader = isSplit.value && (
-        <div
-          class="k-table-thead"
-          ref={headerWrapperRef}
-          style={{
-            overflow: "hidden",
-            // paddingRight: `${scrollbarWidth.value}px`,
-          }}
-        >
-          {renderTable(true, false)}
-        </div>
-      );
 
       // Body 容器
       const bodyContent = (
@@ -791,21 +998,26 @@ const Table = defineComponent({
                 : props.scroll.y
               : undefined,
           }}
-          onScroll={(e) => handleBodyScroll(e.target as HTMLDivElement)}
+          // 必须用 currentTarget：单元格里可滚动的内容（代码块、下拉面板）也会把 scroll 事件冒泡上来，
+          // 用 e.target 会把那些元素的滚动量当成表格自身的，从而挪错虚拟窗口和 ping 状态。
+          onScroll={(e) => handleBodyScroll(e.currentTarget as HTMLDivElement)}
         >
-          {renderTable(!isSplit.value, true)}
+          {renderTable()}
           {isEmpty && props.loading && (
             <div class="k-table-loading-placeholder" aria-hidden="true" />
           )}
-          {isEmpty && !props.loading && <Empty description={props.emptyText} />}
+          {isEmpty && !props.loading && (
+            <Empty description={props.emptyText || tableLocale.value?.emptyText} />
+          )}
         </div>
       );
 
       return (
-        <div class={tableCls}>
+        <div class={tableCls} ref={rootRef}>
           {slots.header && <div class="k-table-header">{slots.header()}</div>}
 
-          {splitHeader}
+          {splitHeader.value && renderHeaderTable()}
+
           {bodyContent}
 
           {slots.footer && <div class="k-table-footer">{slots.footer()}</div>}

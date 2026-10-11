@@ -21,13 +21,13 @@ const data = Array.from({ length: 10000 }, (_, index) => ({
 }));
 const columns: Column[] = [
   { title: "ID", key: "key", width: 100 },
-  { title: "Name", key: "name" },
+  { title: "Name", key: "name", width: 200 },
   { title: "Email", key: "email", width: 200 },
-  { title: "Email1", key: "email1" },
-  { title: "Email2", key: "email2" },
-  { title: "Email3", key: "email3" },
-  { title: "Email4", key: "email4" },
-  { title: "Email5", key: "email5" },
+  { title: "Email1", key: "email1", width: 100 },
+  { title: "Email2", key: "email2", width: 100 },
+  { title: "Email3", key: "email3", width: 100 },
+  { title: "Email4", key: "email4", width: 100 },
+  { title: "Email5", key: "email5", width: 100 },
   { title: "Status", key: "status", width: 140, fixed: "right" },
 ];
 </script>

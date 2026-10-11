@@ -52,6 +52,10 @@ export default {
       emptyText: "暂无数据",
       columnSettings: "列设置",
       resetColumns: "重置",
+      expandRow: "展开行",
+      collapseRow: "收起行",
+      selectRow: "选择该行",
+      selectAllRows: "全选",
     },
     upload: {
       successful: "上传成功",

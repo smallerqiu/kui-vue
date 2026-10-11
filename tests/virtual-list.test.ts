@@ -30,6 +30,40 @@ describe("VirtualList", () => {
     ).toEqual({ start: 0, end: 0, offset: 0, total: 0 });
   });
 
+  it("clamps the window to the last full page when scrolled past the content", () => {
+    // scrollTop 越过内容高度（数据变少、滚动越界）时不能算出 start > end 的空窗口
+    expect(
+      getVirtualRange({
+        count: 1000,
+        scrollTop: 1_000_000,
+        viewportHeight: 200,
+        itemHeight: 20,
+        overscan: 2,
+      }),
+    ).toEqual({ start: 990, end: 1000, offset: 19800, total: 20000 });
+
+    // 行数不足一屏时窗口仍然是整份数据
+    expect(
+      getVirtualRange({
+        count: 3,
+        scrollTop: 5000,
+        viewportHeight: 200,
+        itemHeight: 20,
+        overscan: 5,
+      }),
+    ).toEqual({ start: 0, end: 3, offset: 0, total: 60 });
+
+    expect(
+      getVirtualRange({
+        count: 0,
+        scrollTop: 500,
+        viewportHeight: 200,
+        itemHeight: 20,
+        overscan: 2,
+      }),
+    ).toEqual({ start: 0, end: 0, offset: 0, total: 0 });
+  });
+
   it("renders only the visible range and scrolls to an index", async () => {
     const data = Array.from({ length: 1000 }, (_, index) => ({
       id: index,

@@ -2,6 +2,7 @@
   <Table :data="data" :columns="columns" />
 </template>
 <script setup lang="ts">
+import { h } from "vue";
 import { Moon, Sun } from "kui-icons";
 import { Button, Icon, modal, Space, Tag, type Column } from "kui-vue";
 const data = [
@@ -44,10 +45,11 @@ const columns: Column[] = [
   {
     title: "Gender",
     key: "gender",
-    render: (h, { gender }) => {
+    render: (value) => {
+      const isSun = Number(value) === 1;
       return h(Icon, {
-        type: gender == 1 ? Sun : Moon,
-        color: gender == 1 ? "blue" : "#f50cff",
+        type: isSun ? Sun : Moon,
+        color: isSun ? "blue" : "#f50cff",
         size: 15,
       });
     },
@@ -56,9 +58,9 @@ const columns: Column[] = [
   {
     title: "Tags",
     key: "tags",
-    render: (h, record) => {
-      const tags = Array.isArray(record.tags)
-        ? record.tags.filter((tag): tag is string => typeof tag === "string")
+    render: (value) => {
+      const tags = Array.isArray(value)
+        ? value.filter((tag): tag is string => typeof tag === "string")
         : [];
       return h(
         Space,
@@ -81,7 +83,7 @@ const columns: Column[] = [
   {
     title: "Operate",
     key: "action",
-    render: (h, record) => {
+    render: (_value, record) => {
       return h(
         Button,
         {

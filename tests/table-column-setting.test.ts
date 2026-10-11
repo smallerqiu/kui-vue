@@ -29,4 +29,39 @@ describe("TableColumnSetting", () => {
       { label: "Status", value: "status" },
     ]);
   });
+
+  it("lists leaf columns nested under a grouped header", () => {
+    const wrapper = mount(TableColumnSetting, {
+      props: {
+        columns: [
+          { title: "Name", key: "name" },
+          {
+            title: "Profile",
+            key: "profile",
+            children: [
+              { title: "Age", key: "age" },
+              { title: "City", key: "city" },
+            ],
+          },
+        ],
+        disabledKeys: ["name"],
+        hiddenKeys: ["city"],
+      },
+      global: {
+        stubs: {
+          Poptip: { template: "<div><slot /><slot name='content' /></div>" },
+        },
+      },
+    });
+
+    // 分组表头本身不可勾选，但它下面的叶子列必须出现在面板里（与 kui-react 一致）
+    expect(wrapper.findComponent(CheckboxGroup).props("options")).toEqual([
+      { label: "Age", value: "age" },
+      { label: "City", value: "city" },
+    ]);
+    expect(wrapper.findComponent(CheckboxGroup).props("modelValue")).toEqual(["age"]);
+
+    wrapper.findComponent(CheckboxGroup).vm.$emit("change", ["age"]);
+    expect(wrapper.emitted("update:hiddenKeys")?.[0]).toEqual([["city"]]);
+  });
 });

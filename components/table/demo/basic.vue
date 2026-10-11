@@ -65,7 +65,7 @@ const columns: Column[] = [
   { title: "Gender", key: "gender" },
   { title: "Address", key: "address" },
   { title: "Tags", key: "tags" },
-  { title: "Operate", key: "action" },
+  { title: "Operate", key: "action", width: 200 },
 ];
 const moveUp = (rowIndex: number) => {
   if (rowIndex > 0) [data[rowIndex], data[rowIndex - 1]] = [data[rowIndex - 1], data[rowIndex]];
