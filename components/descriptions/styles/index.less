@@ -21,6 +21,9 @@
     width: 100%;
     border-radius: 2px;
     overflow-x: auto;
+    // bordered 与否都是这一个元素在滚（根节点同时带 `k-descriptions` 和 `k-descriptions-bordered`），
+    // 所以横向滚动条只需要在这里挂一次。
+    .kui-scrollbar();
 
     table {
       width: 100%;

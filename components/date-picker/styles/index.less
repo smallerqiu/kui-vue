@@ -483,6 +483,7 @@
     flex: 1;
     height: 100%;
     overflow-y: auto;
+    .kui-scrollbar();
     text-align: center;
     padding: 0;
     margin: 0;
@@ -494,6 +495,11 @@
     &::-webkit-scrollbar {
       display: none;
     }
+    // 这一列本来就"能滚但不露滚动条"：上面那条只在 WebKit 生效，Firefox 根本不认
+    // `::-webkit-scrollbar`。`scrollbar-color`/`scrollbar-width` 是标准属性，写在这里
+    // 补上另一半——`none` 让 Firefox 也把条收起来，而不是退化成一条细滚动条。
+    // 顺序要放在 `.kui-scrollbar()` 之后：它会写 `scrollbar-width: thin`/`<length>`。
+    scrollbar-width: none;
     &::before,
     &::after {
       content: "";

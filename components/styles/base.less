@@ -1,3 +1,7 @@
+// `base.css` 是独立入口（vite 直接编译本文件），所以要自己把变量与 mixin 那一份带进来。
+// 这个文件只有变量和 mixin 定义，不产出任何选择器，带进来不会让 `base.css` 多一行规则。
+@import "./less-var.less";
+
 html {
   scrollbar-gutter: stable;
 }
@@ -43,31 +47,12 @@ body.k-scroll-locked .k-scroll-lock-fixed-full {
   padding-inline-end: var(--kui-scrollbar-width, 0px);
 }
 
+// 滚动条那套样式（以及"WebKit 伪元素与标准属性只能二选一"的来龙去脉）在 `less-var.less`
+// 的 `.kui-scrollbar()` 里。这里只负责把它挂到 `.k-scroll` 上；组件里那些没有类可挂的滚动容器
+// （drawer 体、modal 体/遮罩、Transfer 列表、Tabs 折叠弹层、时间选择列、几个横向滚动的容器）
+// 直接调用同一个 mixin，两处永远取同一份粗细与配色。
 .k-scroll {
-  scrollbar-color: var(--kui-color-scrollbar-thumb) transparent;
-  scrollbar-width: thin;
-
-  &::-webkit-scrollbar,
-  &::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    min-width: 55px;
-    min-height: 55px;
-    border-radius: 4px;
-    background-color: var(--kui-color-scrollbar-thumb);
-    cursor: default;
-
-    &:hover {
-      background-color: var(--kui-color-scrollbar-thumb-hover);
-    }
-  }
-
-  &::-webkit-scrollbar-corner,
-  &::-webkit-resizer {
-    background-color: transparent;
-  }
+  .kui-scrollbar();
 }
 
 ::selection {

@@ -80,6 +80,8 @@
     overflow: auto;
     box-sizing: border-box;
     color: var(--kui-color-text);
+    // 抽屉体是内容超长时唯一的滚动源，滚动条要和 Table/Select 那套取同一个粗细（见 `less-var.less`）。
+    .kui-scrollbar();
   }
 
   .k-drawer-footer {

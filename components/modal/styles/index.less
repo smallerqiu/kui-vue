@@ -13,6 +13,8 @@
     z-index: 1001;
     overflow: auto;
     outline: 0;
+    // 弹窗的两个滚动源（整窗滚的遮罩层、限高后自己滚的 body）都和 `.k-scroll` 取同一套粗细。
+    .kui-scrollbar();
   }
 
   .k-modal-mask {
@@ -89,6 +91,7 @@
       line-height: 1.5;
       overflow: auto;
       box-sizing: border-box;
+      .kui-scrollbar();
     }
 
     .k-modal-footer {

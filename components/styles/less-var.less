@@ -299,9 +299,68 @@
 @spin-mask-color: rgba(255, 255, 255, 0.9);
 @dark-spin-mask-color: rgba(22, 22, 22, 0.837);
 
-// 滚动条颜色
+// 滚动条颜色。hover 一律要比常态**更显眼**：亮色下加深，暗色下提亮。
+// 以前两档 hover 都写成 `rgba(0, 0, 0, 0.1)`，那是"两套滚动条样式并存、webkit 规则全被忽略"时代
+// 留下的死值——它从来没被渲染过。`.kui-scrollbar()` 让 webkit 伪元素真的生效之后，问题才露出来：
+// 暗色下常态 thumb 是 `rgba(117, 117, 117, .465)`，hover 换成 10% 黑，在 `#141414` 的背景上直接
+// 和背景融为一体；亮色下同理是 hover 反而变浅，方向是反的。
 @scrollbar-thumb-color: rgba(30, 30, 30, 0.202);
-@scrollbar-thumb-color-hover: rgba(0, 0, 0, 0.1);
+@scrollbar-thumb-color-hover: rgba(30, 30, 30, 0.35);
 
 @dark-scrollbar-thumb-color: rgba(117, 117, 117, 0.465);
-@dark-scrollbar-thumb-color-hover: rgba(0, 0, 0, 0.1);
+@dark-scrollbar-thumb-color-hover: rgba(160, 160, 160, 0.62);
+
+// 滚动条粗细：横竖两条轴取同一个值，看起来才不会"宽度和高度不一样"。
+@scrollbar-size: 8px;
+
+// 一套滚动条样式，一个元素上只有一种能生效：Chrome 121+ 和 Firefox 只要看到非初始值的
+// `scrollbar-color` 或 `scrollbar-width`，就整段忽略该元素上的 `::-webkit-scrollbar*`（页面内 A/B 实测：
+// 给同一容器加上 `scrollbar-color` 后，`::-webkit-scrollbar { width: 40px }` 立刻失效、退回默认 15px）。
+// 以前两套并写，赢的总是标准那套，webkit 的粗细/轨道/圆角从来没生效过。现在明确二选一：
+// WebKit 内核（Chrome/Edge/Safari）走伪元素，尺寸、轨道、圆角、hover 全可控；
+// Firefox 不认 `::-webkit-scrollbar`，`@supports selector()` 判假，落到下面那两条标准属性。
+//
+// 定义成 mixin 而不是只写 `.k-scroll`：库里还有一批只声明 `overflow: auto`、渲染输出上没有类可挂的
+// 滚动容器（drawer 体、modal 体与遮罩、Transfer 列表、Tabs 折叠弹层、时间选择列，以及 Page/Calendar/
+// Descriptions/Kanban 的横向滚动）。它们都 `@import` 了本文件，写一句 `.kui-scrollbar();` 就能和
+// `.k-scroll` 取同一份样式，不必为了一个类名去改两仓的渲染代码。
+.kui-scrollbar() {
+  scrollbar-color: var(--kui-color-scrollbar-thumb) transparent;
+  // 先 `thin` 再 `<length>`：不认长度值的旧 Firefox 忽略后一条，退回约 11px 的细滚动条，
+  // 支持的则和 WebKit 那套取同一个步长。
+  scrollbar-width: thin;
+  scrollbar-width: @scrollbar-size;
+
+  @supports selector(::-webkit-scrollbar) {
+    // 必须把上面的标准属性退回初始值：只要它们是非初始值，WebKit 内核就不渲染伪元素样式。
+    scrollbar-color: auto;
+    scrollbar-width: auto;
+
+    &::-webkit-scrollbar,
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar {
+      width: @scrollbar-size;
+      height: @scrollbar-size;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      min-width: 55px;
+      min-height: 55px;
+      border-radius: 4px;
+      background-color: var(--kui-color-scrollbar-thumb);
+      cursor: default;
+
+      &:hover {
+        background-color: var(--kui-color-scrollbar-thumb-hover);
+      }
+    }
+
+    &::-webkit-scrollbar-corner,
+    &::-webkit-resizer {
+      background-color: transparent;
+    }
+  }
+}
