@@ -1,6 +1,13 @@
 @import "../../styles/less-css-var.less";
 @import "../../styles/motion.less";
 
+// Height/opacity duration of an inline submenu expansion.
+// Two places must agree on it: the `-active` rules at the bottom of this file, and the
+// transition `timeout` passed in `menu/sub-menu.tsx`. That timeout is when the transition
+// library drops `-enter-active`, so a longer one strands a fixed height plus
+// `overflow: hidden`, and a shorter one cuts the animation off mid-flight.
+@menu-submenu-duration: 0.2s;
+
 .k-menu-item,
 .k-menu-submenu-title,
 .k-dropdown-menu-item,
@@ -237,9 +244,10 @@
   }
 
   .k-menu-submenu-sub {
-    transition:
-      height 0.3s cubic-bezier(0.215, 0.61, 0.355, 1),
-      opacity 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
+    // Deliberately no `transition` on this selector: `.k-menu-inline .k-menu-submenu-sub`
+    // (0,2,0) outranks the single-class `.k-menu-slide-*-active` rules, so a duration here
+    // would silently win over the animated one while the JS timeout still counted the other —
+    // the expansion would run on one clock and be torn down on another.
     overflow: hidden;
     position: static;
   }
@@ -594,10 +602,10 @@
   }
 }
 
-.k-collapse-slide-enter-active,
-.k-collapse-slide-leave-active {
+.k-menu-slide-enter-active,
+.k-menu-slide-leave-active {
   overflow: hidden;
   transition:
-    height 0.2s ease-in-out,
-    opacity 0.2s ease-in-out;
+    height @menu-submenu-duration ease-in-out,
+    opacity @menu-submenu-duration ease-in-out;
 }

@@ -251,11 +251,16 @@ const SubMenu = defineComponent({
         },
       };
 
+      // 展开/收起走 Menu 自己的 `k-menu-slide`，不能借 Collapse 的 `k-collapse-slide`：那个类带着
+      // `animation: k-motion-scale-y-in`（scaleY 0→1，见 `components/collapse/styles/index.less`），
+      // 会叠在同一个元素的高度过渡上——盒子按 height 先撑开，内容还被压成 0，看上去就是
+      // "外层先展开、里面的再伸缩下来"。Vue 的时长由这条 CSS 规则自己决定，
+      // `@menu-submenu-duration` 必须和 react `menu/sub-menu.tsx` 里的 `timeout` 一致。
       const transitionProps = popup
         ? { name: `k-${preCls}-popup` }
         : restoreNested
           ? { css: false }
-          : getTransitionProp("k-collapse-slide");
+          : getTransitionProp("k-menu-slide");
       const containerProps = popup
         ? { class: `k-${preCls}-popup`, ...popperPros }
         : { class: `k-${preCls}-sub` };
