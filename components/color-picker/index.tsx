@@ -46,6 +46,8 @@ const colorPickerProps = {
     type: String as PropType<DropPlacementsType>,
     default: "bottom-left",
   },
+  /** 关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内的表单状态，代价是每个打开过的实例留一份隐藏 DOM。 */
+  destroyOnClose: { type: Boolean as BooleanType, default: true },
   trigger: {
     type: String as PropType<"hover" | "click">,
     default: "click",
@@ -304,6 +306,7 @@ const ColorPicker = defineComponent({
           trigger="manual"
           placement={props.placement}
           prefixCls="k-color-picker-dropdown"
+          destroyOnClose={props.destroyOnClose}
           transitionName="k-color-picker"
           onOpenChange={openChange}
           v-slots={{ overlay: () => panel }}

@@ -24,6 +24,8 @@ const tooltipProps = {
     type: String as PropType<PlacementsType>,
     default: "top",
   },
+  /** 关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内的表单状态，代价是每个打开过的实例留一份隐藏 DOM。 */
+  destroyOnClose: { type: Boolean as BooleanType, default: true },
   panelOnly: Boolean as BooleanType,
 };
 export type TooltipProps = ExtractPropTypes<typeof tooltipProps>;
@@ -55,6 +57,7 @@ const Tooltip = defineComponent({
           placement={props.placement}
           panelOnly={props.panelOnly}
           prefixCls="k-tooltip"
+          destroyOnClose={props.destroyOnClose}
           arrow
           hideWhenDetached
           closeOnOutsideClick={false}

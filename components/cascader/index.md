@@ -51,6 +51,7 @@
 | icon | 自定义图标 | `IconType[]` | - |
 | shape | shape='circle' 时呈现圆角 | `"default" \| "circle" \| "square" \| "round"` | - |
 | placement | 下拉展示的方位 | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | - |
+| destroyOnClose | 关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM | `boolean` | true |
 | emptyText | 没有数据时展示的提示 | `string` | '暂无数据' |
 | loadData | 异步加载子节点；返回子节点数组，或自行更新 `option.children` | `CascaderLoadData` | - |
 | arrowIcon | 自定义箭头图标 | `IconType[]` | - |

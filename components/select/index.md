@@ -53,6 +53,7 @@
 | readonly | 是否只读，不可展开、清空或修改 | `boolean` | false |
 | size | 组件尺寸大小,提供`small`、`large`两种尺寸，默认为正常 | `"small" \| "medium" \| "large"` | - |
 | placement | 下拉菜单弹出位置 | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
+| destroyOnClose | 关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM | `boolean` | true |
 | emptyText | 没有数据时展示的提示 | `string` | '暂无数据' |
 | maxTagCount | 多选时最多展示的标签数，超出部分通过 Tooltip 展示 | `number` | - |
 | multiple | 是否呈现多选模式 | `boolean` | false |

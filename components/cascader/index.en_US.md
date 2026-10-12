@@ -51,6 +51,7 @@ A cascading selection box.
 | icon | Custom Icon | `IconType[]` | - |
 | shape | shape='circle' 时呈现圆角 | `"default" \| "circle" \| "square" \| "round"` | - |
 | placement | Dropdown orientation | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | - |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | emptyText | No data available. | `string` | 'No Data' |
 | loadData | Loads children asynchronously; return them or update `option.children` | `CascaderLoadData` | - |
 | arrowIcon | Custom arrow icon | `IconType[]` | - |

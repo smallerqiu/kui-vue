@@ -28,6 +28,7 @@ Compared to the full-screen centered modal dialog box popped up by 'confirm', th
 | --- | --- | --- | --- |
 | title | Displayed title | `VNodeChild` | - |
 | placement | Position where the tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom` | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right" \| "left" \| "left-bottom" \| "left-top" \| "right" \| "right-top" \| "right-bottom"` | top |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | width | Display width; numbers and numeric strings use px | `string \| number` | - |
 | okText | OK button text | `string` | OK |
 | cancelText | Cancel button text | `string` | Cancel |

@@ -46,6 +46,7 @@ Freely output colors.
 | theme | Appearance theme: `outline`, `fill`, or `plain`; inherits from Form when available | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
 | shape | Shape: `round`, `circle`, or `square`; inherits from Form when available | `"default" \| "circle" \| "square" \| "round"` | - |
 | placement | Placement of the color picker | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | onUpdateMode | Triggered when the color mode is updated | (mode: ColorMode) => void | - |
 | onChange | Triggered when the color value changes, returns the color value | `(value: string) => void` | - |
 | onOpenChange | Triggered when the color picker expands or collapses | `(open: boolean) => void` | - |

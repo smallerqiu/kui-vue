@@ -47,6 +47,7 @@
 | theme | 主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | 形状 | `"default" \| "circle" \| "square" \| "round"` | default |
 | filterOption | 是否过滤或自定义过滤 | `boolean \| ((input: string, option: AutoCompleteOption) => boolean)` | true |
+| destroyOnClose | 关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM | `boolean` | true |
 | onChange | 输入变化 | `(value: string) => void` | - |
 | onClear | 点击清除按钮 | `() => void` | - |
 | onSearch | 搜索时触发 | `(value: string) => void` | - |

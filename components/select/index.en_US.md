@@ -53,6 +53,7 @@ Dropdown selector.
 | readonly | Read-only; prevents opening, clearing and changing | `boolean` | false |
 | size | Component size, provides two sizes: `small`, `large`, default is normal | `"small" \| "medium" \| "large"` | - |
 | placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | emptyText | Prompt displayed when no data | `string` | 'No data yet' |
 | maxTagCount | Maximum visible tags in multiple mode; excess tags are shown in a Tooltip | `number` | - |
 | multiple | Whether to display in multiple selection mode | `boolean` | false |

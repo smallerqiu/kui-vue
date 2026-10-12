@@ -34,6 +34,7 @@
 | title | 显示的标题 | `VNodeChild` | - |
 | content | 显示的正文内容 | `string` | - |
 | placement | 提示框出现的位置，可选值为`top`、`top-left`、`top-right`、`bottom`、`bottom-left`、`bottom-right`、`left`、`left-top`、`left-bottom`、`right`、`right-top`、`right-bottom` | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right" \| "left" \| "left-bottom" \| "left-top" \| "right" \| "right-top" \| "right-bottom"` | top |
+| destroyOnClose | 关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM | `boolean` | true |
 | width | 展示的宽度,默认为内容区域的大小 | `string \| number` | - |
 | show | 默认是否展示 | `boolean` | false |
 | dark | 是否使用暗色主题 | `boolean` | false |

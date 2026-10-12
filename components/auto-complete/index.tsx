@@ -54,6 +54,8 @@ const propsDef = {
     >,
     default: true,
   },
+  /** 关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内的表单状态，代价是每个打开过的实例留一份隐藏 DOM。 */
+  destroyOnClose: { type: Boolean, default: true },
 };
 export type AutoCompleteProps = ExtractPropTypes<typeof propsDef>;
 
@@ -346,6 +348,7 @@ const AutoComplete = defineComponent({
             trigger="manual"
             placement={"bottom-left"}
             prefixCls="k-auto-complete-dropdown"
+            destroyOnClose={props.destroyOnClose}
             transitionName="k-select"
             offset={6}
             matchTriggerWidth

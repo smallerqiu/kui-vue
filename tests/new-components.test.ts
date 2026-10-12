@@ -12,6 +12,12 @@ afterEach(() => {
   document.body.innerHTML = "";
 });
 
+/** 关闭动画后的 DOM 落地要两拍才稳 */
+const settle = async () => {
+  await nextTick();
+  await nextTick();
+};
+
 describe("new components", () => {
   it("selects an AutoComplete option with the keyboard", async () => {
     const wrapper = mount(AutoComplete, { props: { options: ["Vue", "React"] } });
@@ -77,9 +83,11 @@ describe("new components", () => {
     await wrapper.setProps({ options: ["Vue", "React"] });
     await nextTick();
     expect(input.attributes("aria-expanded")).toBe("false");
-    expect(document.querySelector<HTMLElement>(".k-auto-complete-dropdown")?.style.display).toBe(
-      "none",
-    );
+    // destroyOnClose 默认 true：收起后面板直接销毁，不再留一份 display:none 的 DOM
+    expect(document.querySelector(".k-auto-complete-dropdown")).toBeNull();
+    // 之前"隐藏时列表仍是 2 项"要防的是关闭动画里被过滤空；销毁语义下改成复查重开
+    await input.setValue("");
+    await nextTick();
     expect(document.querySelectorAll(".k-auto-complete-dropdown .k-select-item")).toHaveLength(2);
   });
 
@@ -115,8 +123,7 @@ describe("new components", () => {
     await wrapper.setProps({ loading: false });
     await nextTick();
 
-    const dropdown = document.querySelector<HTMLElement>(".k-auto-complete-dropdown");
-    expect(dropdown?.style.display).toBe("none");
+    expect(document.querySelector(".k-auto-complete-dropdown")).toBeNull();
   });
 
   it("applies theme and size to input components and dropdowns", () => {
@@ -187,7 +194,7 @@ describe("new components", () => {
     wrapper.unmount();
   });
 
-  it("keeps dropdown options stable while selection closes", async () => {
+  it("destroys the dropdown panel once a selection closes it", async () => {
     const autoComplete = mount(AutoComplete, {
       attachTo: document.body,
       props: { options: ["Vue", "React", "Angular"], showOnEmpty: true },
@@ -197,8 +204,9 @@ describe("new components", () => {
     const autoOptions = document.querySelectorAll(".k-auto-complete-dropdown .k-select-item");
     expect(autoOptions).toHaveLength(3);
     (autoOptions[1] as HTMLElement).click();
-    await nextTick();
-    expect(document.querySelectorAll(".k-auto-complete-dropdown .k-select-item")).toHaveLength(3);
+    await settle();
+    // 选完收起：destroyOnClose 默认 true，面板整体销毁，不会出现"空面板闪一下"
+    expect(document.querySelector(".k-auto-complete-dropdown")).toBeNull();
     autoComplete.unmount();
 
     const mentions = mount(Mentions, {
@@ -213,8 +221,8 @@ describe("new components", () => {
     const mentionOptions = document.querySelectorAll(".k-mentions-dropdown .k-select-item");
     expect(mentionOptions).toHaveLength(3);
     (mentionOptions[0] as HTMLElement).click();
-    await nextTick();
-    expect(document.querySelectorAll(".k-mentions-dropdown .k-select-item")).toHaveLength(3);
+    await settle();
+    expect(document.querySelector(".k-mentions-dropdown")).toBeNull();
     mentions.unmount();
   });
 

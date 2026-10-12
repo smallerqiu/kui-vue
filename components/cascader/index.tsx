@@ -362,7 +362,7 @@ const Cascader = defineComponent({
           prefixCls="k-cascader-dropdown"
           transitionName="k-cascader"
           matchTriggerWidth
-          destroyOnClose
+          destroyOnClose={props.destroyOnClose}
           onOpenChange={(next) => {
             visible.value = next;
             emit("openChange", next);

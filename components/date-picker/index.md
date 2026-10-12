@@ -67,6 +67,7 @@
 | shape | 组件呈现的形式 | `"default" \| "circle" \| "square" \| "round"` | - |
 | bordered | 是否展示边框 | `boolean` | true |
 | placement | 下拉展示的方位 | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | - |
+| destroyOnClose | 关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM | `boolean` | true |
 | valueType | 输出值类型 | `"string" \| "date" \| "timestamp" \| "unix"` | string |
 | presets | 预设日期 | `DatePickerPreset[]` | - |
 | onChange | 值改变后的回调 | `(value: DatePickerOutput \| DatePickerOutput[], text: string \| string[]) => void` | - |

@@ -30,6 +30,8 @@ const popconfirmProps = {
     type: String as PropType<PlacementsType>,
     default: "top",
   },
+  /** 关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内的表单状态，代价是每个打开过的实例留一份隐藏 DOM。 */
+  destroyOnClose: { type: Boolean as BooleanType, default: true },
   panelOnly: Boolean as BooleanType,
 };
 export type PopconfirmProps = ExtractPropTypes<typeof popconfirmProps>;
@@ -61,6 +63,7 @@ const Popconfirm = defineComponent({
         arrow
         respectDefaultPrevented={false}
         prefixCls="k-popconfirm"
+        destroyOnClose={props.destroyOnClose}
         class={{ "k-popconfirm-dark": props.dark }}
         style={{ width: toCssLength(props.width) }}
         triggerAttrs={attrs}

@@ -47,6 +47,7 @@ Provide candidates based on the input while retaining the ability for free text 
 | theme | Theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | Shape | `"default" \| "circle" \| "square" \| "round"` | default |
 | filterOption | Filter strategy | `boolean \| ((input: string, option: AutoCompleteOption) => boolean)` | true |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | onChange | Value change | `(value: string) => void` | - |
 | onClear | Clear callback | `() => void` | - |
 | onSearch | Search callback | `(value: string) => void` | - |
