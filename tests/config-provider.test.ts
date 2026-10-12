@@ -9,6 +9,7 @@ import { getAppContext } from "../components/config/context";
 import en from "../components/locale/en";
 import zhCN from "../components/locale/zh-CN";
 import { Select } from "../components/select";
+import StatCard from "../components/stat-card/stat-card";
 import Table from "../components/table";
 import Tag from "../components/tag";
 
@@ -97,6 +98,22 @@ describe("ConfigProvider appearance", () => {
     );
     expect(wrapper.get(".reactive-table").classes()).toContain("k-table-round");
     expect(wrapper.get(".reactive-table").classes()).not.toContain("k-table-circle");
+    wrapper.unmount();
+  });
+
+  it("normalizes circle to round for the stat card surface", () => {
+    const wrapper = mount(ConfigProvider, {
+      props: { shape: "circle" },
+      slots: {
+        default: () =>
+          h(StatCard, {
+            class: "stat-card",
+            items: [{ value: 1, duration: 0, autoAnimate: false }],
+          }),
+      },
+    });
+    expect(wrapper.get(".stat-card").classes()).toContain("k-stat-card-round");
+    expect(wrapper.get(".stat-card").classes()).not.toContain("k-stat-card-circle");
     wrapper.unmount();
   });
 });
