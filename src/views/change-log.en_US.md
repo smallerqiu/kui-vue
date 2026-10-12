@@ -36,6 +36,17 @@ rm -rf node_modules/.vite
 - `StatCard`: `title` / `desc` / `trend` and the `StatNumber` `prefix` / `suffix` no longer render an empty placeholder when given `false` or an empty string, while `0` still shows.
 - `StatCard`: Fixed `items[].key` colliding with an item's array index, which moved a number animation onto the wrong entry.
 - `StatNumber`: The `countup` mode now honours the system's reduced-motion preference and jumps straight to the target value.
+- `Table`: Columns without `width` now use 150 as their sizing baseline and the table takes a `min-width` from the summed leaf columns (50 for the selection column), so a narrowing container scrolls horizontally instead of crushing columns and wrapping header text vertically.
+- `Table`: Fixed the flicker where a fixed-column shadow and the horizontal scrollbar kept triggering each other at a borderline window width — the neutral shadow box no longer invents scrollable distance, and a shadow is only drawn while that side can still scroll.
+- `Tree`: Asynchronous `loadData` now requests a given node once; virtual scrolling restores the `k-tree-virtual-list` class so row heights match the React build.
+- `Tree`: Nodes without a `key` now fall back to a path-based key using the same rule as the React build; the previous visible-index fallback made a node's key drift whenever the tree collapsed or filtered.
+- `Tree`: Dropping a node onto its own descendant no longer advertises a valid target that does nothing on release.
+- `Tree`: The `select` event gained its second argument (the current list of selected keys) to match the React signature, and the child-list DOM nesting now matches the React build.
+- `Tree`: The expand-arrow button is removed from the tab order (`tabIndex={-1}`) so the tree keeps its roving tabindex and arrow keys no longer strand focus on an arrow.
+- `Tree`: Five unreferenced rules were removed from the LESS.
+- `DropdownButton`: Fixed the split button's ellipsis trigger not opening the menu — click, right-click and the arrow keys all drive it now, the trigger carries `aria-haspopup="menu"` and `aria-expanded`, and `trigger` selects `hover` / `click` / `contextmenu`.
+- Popup components gained a public `destroyOnClose` (`Select`, `Cascader`, `TreeSelect`, `AutoComplete`, `Mentions`, `DatePicker`, `ColorPicker`, `Dropdown`, `DropdownButton`, `Tooltip`, `Poptip`, `Popconfirm`), defaulting to `true` so the panel is destroyed once the exit animation ends. The property was not exposed before, so consumers could not override it; set it to `false` to keep unsubmitted form state inside the panel at the cost of one hidden DOM node per opened instance.
+- **Behaviour change**: these popups used to leave a `display: none` panel node in the DOM after closing (only `Cascader` destroyed it). They now match the React build and destroy the panel after the exit animation by default. Keep unsubmitted form state by setting `:destroy-on-close="false"` explicitly; conversely, pages with many `Tooltip` instances no longer accumulate hidden DOM.
 
 ## 6.2.2
 

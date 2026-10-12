@@ -825,6 +825,21 @@
           "documented": true
         },
         {
+          "name": "destroyOnClose",
+          "description": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "descriptionZh": "关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM",
+          "descriptionEn": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
           "name": "theme",
           "description": "Theme",
           "descriptionZh": "主题",
@@ -2366,6 +2381,21 @@
           ],
           "required": false,
           "defaultExpression": "\"bottom-left\"",
+          "documented": true
+        },
+        {
+          "name": "destroyOnClose",
+          "description": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "descriptionZh": "关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM",
+          "descriptionEn": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
           "documented": true
         },
         {
@@ -5098,6 +5128,21 @@
           "documented": true
         },
         {
+          "name": "destroyOnClose",
+          "description": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "descriptionZh": "关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM",
+          "descriptionEn": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
           "name": "mode",
           "description": "Color display type, provides 3 modes (`hex` , `rgb` ,`hsl`)",
           "descriptionZh": "颜色展示类型,提供 3 种模式(`hex` 、 `rgb` 、`hsl`)",
@@ -5451,6 +5496,21 @@
           ],
           "required": false,
           "defaultExpression": "\"bottom-left\"",
+          "documented": true
+        },
+        {
+          "name": "destroyOnClose",
+          "description": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "descriptionZh": "关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM",
+          "descriptionEn": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
           "documented": true
         },
         {
@@ -6526,6 +6586,21 @@
           "documented": true
         },
         {
+          "name": "destroyOnClose",
+          "description": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "descriptionZh": "关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM",
+          "descriptionEn": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
           "name": "target",
           "description": "Ref of an external trigger element or component",
           "descriptionZh": "外部触发元素或组件的引用",
@@ -6674,6 +6749,21 @@
           "documented": true
         },
         {
+          "name": "destroyOnClose",
+          "description": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "descriptionZh": "关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM",
+          "descriptionEn": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
           "name": "disabled",
           "description": "Whether the button is disabled",
           "descriptionZh": "是否禁用",
@@ -6683,6 +6773,21 @@
           "enumValues": [
             false,
             true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "trigger",
+          "description": "Trigger mode",
+          "descriptionZh": "触发方式",
+          "descriptionEn": "Trigger mode",
+          "type": "TriggerType | undefined",
+          "boolean": false,
+          "enumValues": [
+            "hover",
+            "click",
+            "contextmenu"
           ],
           "required": false,
           "documented": true
@@ -10880,6 +10985,21 @@
           "documented": true
         },
         {
+          "name": "destroyOnClose",
+          "description": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "descriptionZh": "关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM",
+          "descriptionEn": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
           "name": "theme",
           "description": "Theme",
           "descriptionZh": "主题",
@@ -12090,6 +12210,21 @@
           "documented": true
         },
         {
+          "name": "destroyOnClose",
+          "description": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "descriptionZh": "关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM",
+          "descriptionEn": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
           "name": "show",
           "description": "Whether to display",
           "descriptionZh": "默认是否展示",
@@ -12288,6 +12423,21 @@
           ],
           "required": false,
           "defaultExpression": "\"top\"",
+          "documented": true
+        },
+        {
+          "name": "destroyOnClose",
+          "description": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "descriptionZh": "关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM",
+          "descriptionEn": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
           "documented": true
         },
         {
@@ -14670,6 +14820,21 @@
           ],
           "required": false,
           "defaultExpression": "\"bottom-left\"",
+          "documented": true
+        },
+        {
+          "name": "destroyOnClose",
+          "description": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "descriptionZh": "关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM",
+          "descriptionEn": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
           "documented": true
         },
         {
@@ -18536,6 +18701,21 @@
           "documented": true
         },
         {
+          "name": "destroyOnClose",
+          "description": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "descriptionZh": "关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM",
+          "descriptionEn": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
           "name": "disabled",
           "description": "Disabled status",
           "descriptionZh": "禁用状态",
@@ -20338,7 +20518,7 @@
           "description": "Triggered when a tree node is clicked",
           "descriptionZh": "点击树节点时触发",
           "descriptionEn": "Triggered when a tree node is clicked",
-          "type": "(node: TreeNode) => void",
+          "type": "(node: TreeNode, keys: string[]) => void",
           "eventName": "select",
           "boolean": false,
           "documented": true
@@ -20442,7 +20622,7 @@
         },
         {
           "name": "select",
-          "type": "(node: TreeNode) => void",
+          "type": "(node: TreeNode, keys: string[]) => void",
           "description": "Triggered when a tree node is clicked",
           "descriptionZh": "点击树节点时触发",
           "descriptionEn": "Triggered when a tree node is clicked"
@@ -20582,6 +20762,21 @@
           ],
           "required": false,
           "defaultExpression": "\"bottom-left\"",
+          "documented": true
+        },
+        {
+          "name": "destroyOnClose",
+          "description": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "descriptionZh": "关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM",
+          "descriptionEn": "Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
           "documented": true
         },
         {

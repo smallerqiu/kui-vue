@@ -395,6 +395,7 @@ Provide candidates based on the input while retaining the ability for free text 
 | theme | Theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | Shape | `"default" \| "circle" \| "square" \| "round"` | default |
 | filterOption | Filter strategy | `boolean \| ((input: string, option: AutoCompleteOption) => boolean)` | true |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | onChange | Value change | `(value: string) => void` | - |
 | onClear | Clear callback | `() => void` | - |
 | onSearch | Search callback | `(value: string) => void` | - |
@@ -942,6 +943,7 @@ A cascading selection box.
 | icon | Custom Icon | `IconType[]` | - |
 | shape | shape='circle' 时呈现圆角 | `"default" \| "circle" \| "square" \| "round"` | - |
 | placement | Dropdown orientation | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | - |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | emptyText | No data available. | `string` | 'No Data' |
 | loadData | Loads children asynchronously; return them or update `option.children` | `CascaderLoadData` | - |
 | arrowIcon | Custom arrow icon | `IconType[]` | - |
@@ -1764,6 +1766,7 @@ Freely output colors.
 | theme | Appearance theme: `outline`, `fill`, or `plain`; inherits from Form when available | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
 | shape | Shape: `round`, `circle`, or `square`; inherits from Form when available | `"default" \| "circle" \| "square" \| "round"` | - |
 | placement | Placement of the color picker | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | onUpdateMode | Triggered when the color mode is updated | (mode: ColorMode) => void | - |
 | onChange | Triggered when the color value changes, returns the color value | `(value: string) => void` | - |
 | onOpenChange | Triggered when the color picker expands or collapses | `(open: boolean) => void` | - |
@@ -1846,6 +1849,7 @@ When the user needs to input a date, they can click the standard input box to po
 | shape | The form in which the component is presented | `"default" \| "circle" \| "square" \| "round"` | - |
 | bordered | Whether to display the border | `boolean` | true |
 | placement | Direction displayed when pulled down | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | - |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | valueType | Output value type | `"string" \| "date" \| "timestamp" \| "unix"` | string |
 | presets | Preset dates | `DatePickerPreset[]` | - |
 | onChange | Callback after the value changes | `(value: DatePickerOutput \| DatePickerOutput[], text: string \| string[]) => void` | - |
@@ -2075,6 +2079,7 @@ When there are too many operation commands on the page, this component can be us
 | show | Whether the dropdown is visible (v-model) | `boolean` | false |
 | trigger | Trigger method | `"hover" \| "click" \| "contextmenu"` | `hover` |
 | placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | `bottom-left` |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | arrow | Whether to display the arrow | `boolean` | false |
 | target | Ref of an external trigger element or component | `Ref<HTMLElement \| ComponentPublicInstance \| null, HTMLElement \| ComponentPublicInstance \| null>` | - |
 | disabled | Whether triggering is disabled | `boolean` | false |
@@ -2091,7 +2096,9 @@ When there are too many operation commands on the page, this component can be us
 | icon | Custom dropdown trigger icon | `IconType[]` | Ellipsis |
 | theme | Button theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | arrow | Whether to display the dropdown arrow | `boolean` | false |
+| trigger | Trigger mode | `"hover" \| "click" \| "contextmenu"` | `hover` |
 | placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | `bottom-right` |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | onClick | Triggered when the main button is clicked | `(event: MouseEvent) => void` | - |
 
 ---
@@ -2141,6 +2148,7 @@ When there are too many operation commands on the page, this component can be us
 | show | Whether the dropdown is visible (v-model) | `boolean` | false |
 | trigger | Trigger method | `"hover" \| "click" \| "contextmenu"` | `hover` |
 | placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | `bottom-left` |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | arrow | Whether to display the arrow | `boolean` | false |
 | target | Ref of an external trigger element or component | `Ref<HTMLElement \| ComponentPublicInstance \| null, HTMLElement \| ComponentPublicInstance \| null>` | - |
 | disabled | Whether triggering is disabled | `boolean` | false |
@@ -2157,7 +2165,9 @@ When there are too many operation commands on the page, this component can be us
 | icon | Custom dropdown trigger icon | `IconType[]` | Ellipsis |
 | theme | Button theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | arrow | Whether to display the dropdown arrow | `boolean` | false |
+| trigger | Trigger mode | `"hover" \| "click" \| "contextmenu"` | `hover` |
 | placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | `bottom-right` |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | onClick | Triggered when the main button is clicked | `(event: MouseEvent) => void` | - |
 
 ---
@@ -3965,6 +3975,7 @@ Has no properties. Rendered as a child of `Menu` or `SubMenu`, it draws a separa
 | loadingText | Loading text | `string` | - |
 | rows | Textarea rows | `number` | 1 |
 | placement | Preferred dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | size | Size | `"small" \| "medium" \| "large"` | medium |
 | theme | Theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | Shape | `"default" \| "circle" \| "square" \| "round"` | default |
@@ -4219,6 +4230,7 @@ The difference from `Tooltip` is that users can operate on elements in the float
 | title | Displayed title | `VNodeChild` | - |
 | content | Displayed main content | `string` | - |
 | placement | Position where the tooltip appears | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right" \| "left" \| "left-bottom" \| "left-top" \| "right" \| "right-top" \| "right-bottom"` | top |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | width | Display width, defaults to content area size | `string \| number` | - |
 | show | Whether to display | `boolean` | false |
 | dark | Use dark theme | `boolean` | false |
@@ -4263,6 +4275,7 @@ Compared to the full-screen centered modal dialog box popped up by 'confirm', th
 | --- | --- | --- | --- |
 | title | Displayed title | `VNodeChild` | - |
 | placement | Position where the tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom` | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right" \| "left" \| "left-bottom" \| "left-top" \| "right" \| "right-top" \| "right-bottom"` | top |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | width | Display width; numbers and numeric strings use px | `string \| number` | - |
 | okText | OK button text | `string` | OK |
 | cancelText | Cancel button text | `string` | Cancel |
@@ -4888,6 +4901,7 @@ Dropdown selector.
 | readonly | Read-only; prevents opening, clearing and changing | `boolean` | false |
 | size | Component size, provides two sizes: `small`, `large`, default is normal | `"small" \| "medium" \| "large"` | - |
 | placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | emptyText | Prompt displayed when no data | `string` | 'No data yet' |
 | maxTagCount | Maximum visible tags in multiple mode; excess tags are shown in a Tooltip | `number` | - |
 | multiple | Whether to display in multiple selection mode | `boolean` | false |
@@ -4982,6 +4996,7 @@ Dropdown selector.
 | readonly | Read-only; prevents opening, clearing and changing | `boolean` | false |
 | size | Component size, provides two sizes: `small`, `large`, default is normal | `"small" \| "medium" \| "large"` | - |
 | placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | emptyText | Prompt displayed when no data | `string` | 'No data yet' |
 | maxTagCount | Maximum visible tags in multiple mode; excess tags are shown in a Tooltip | `number` | - |
 | multiple | Whether to display in multiple selection mode | `boolean` | false |
@@ -6550,6 +6565,7 @@ Use trigger="manual" when visibility is managed by business state (such as Slide
 | title | Displayed title | `VNodeChild` | - |
 | color | Background color | `string` | - |
 | placement | Position where tooltip appears, optional values: `top`, `top-left`, `top-right`, `bottom`, `bottom-left`, `bottom-right`, `left`, `left-top`, `left-bottom`, `right`, `right-top`, `right-bottom` | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right" \| "left" \| "left-bottom" \| "left-top" \| "right" \| "right-top" \| "right-bottom"` | top |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | width | Display width; numbers and numeric strings use px | `string \| number` | - |
 | disabled | Disabled status | `boolean` | false |
 | show | Whether to display during initialization | `boolean` | false |
@@ -7082,7 +7098,7 @@ Tree supports focus management and Arrow, Home, End, Enter, and Space keyboard o
 
 | Property | Description | Type |
 | --- | --- | --- |
-| onSelect | Triggered when a tree node is clicked | `(node: TreeNode) => void` |
+| onSelect | Triggered when a tree node is clicked | `(node: TreeNode, keys: string[]) => void` |
 | onCheck | Triggered when a checkbox is clicked | `(node: TreeNode, checked: boolean, keys: string[]) => void` |
 | onExpand | Triggered when a node expands or collapses | `(result: TreeExpandEvent) => void` |
 | onDragStart | Triggered when dragging starts | `(node: TreeNode, event: DragEvent) => void` |
@@ -7161,6 +7177,7 @@ Similar to the Select selection control, when the selectable data structure is a
 | readonly | Read-only; prevents opening, clearing and changing | `boolean` | false |
 | size | Component size, provides two sizes: `small`, `large`, default is normal | `"small" \| "medium" \| "large"` | - |
 | placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | emptyText | Prompt displayed when no data | `string` | 'No data yet' |
 | multiple | Whether to display in multiple selection mode | `boolean` | false |
 | block | Whether to fill the parent width | `boolean` | false |

@@ -37,7 +37,18 @@ rm -rf node_modules/.vite
 - `StatCard` 新增 `prefix` / `suffix` 属性，与 React 版对齐；此前只有同名插槽可用，传属性会落到根节点并报 DOM 属性错误。
 - `StatCard` 的 `title` / `desc` / `trend` 与 `StatNumber` 的 `prefix` / `suffix` 在传 `false` 或空字符串时不再渲染占位的空节点，`0` 仍按内容显示。
 - `StatCard` 修复 `items[].key` 与数组下标撞 key、数字动画状态串到别的数据项的问题。
-- `StatNumber` 的 `countup` 模式同样遵循系统的"减少动态效果"偏好，命中时直接显示目标值。
+- `StatNumber` 的 `countup` 模式同样遵循系统的“减少动态效果”偏好，命中时直接显示目标值。
+- `Table` 未设 `width` 的列按 150 取宽度基准，整表用叶子列合计（含选择列 50）设 `min-width`；容器变窄时改为横向滚动，不再把列压瘪、表头文字竖排换行。
+- `Table` 修复窗口卡在临界宽度时固定列阴影与横向滚动条反复抖动：中性态的阴影盒不再凭空撑出一段可滚距离，只在真的还能往那一侧滚时才生成阴影。
+- `Tree` 异步 `loadData` 对同一节点只请求一次；虚拟滚动补回 `k-tree-virtual-list`，与 React 版的行高一致。
+- `Tree` 缺 `key` 的节点改用与 React 同规则的树路径兜底 key；此前按可见下标兜底，折叠或过滤时同一个节点的键会漂移。
+- `Tree` 拖到自身后代节点时不再提示可放置、松手却无效。
+- `Tree` 的 `select` 事件补上第二个参数（当前选中的 key 列表），与 React 版签名一致；子节点列表的 DOM 层级同步与 React 对齐。
+- `Tree` 展开箭头按钮不再参与 Tab（`tabIndex={-1}`），保住整棵树的 roving tabindex，方向键不会把焦点丢在箭头上。
+- `Tree` 清理 LESS 中五条无人引用的规则。
+- `DropdownButton` 修复右侧“三点”按钮点不开菜单：点击、右键与方向键都能驱动开合，触发按钮带 `aria-haspopup="menu"` 和 `aria-expanded`，并可用 `trigger` 指定 `hover` / `click` / `contextmenu`。
+- 弹层组件新增公开的 `destroyOnClose`（`Select`、`Cascader`、`TreeSelect`、`AutoComplete`、`Mentions`、`DatePicker`、`ColorPicker`、`Dropdown`、`DropdownButton`、`Tooltip`、`Poptip`、`Popconfirm`），默认 `true`，即关闭动画结束后销毁面板；此前这个属性没有开放，用户无法覆盖。设为 `false` 可保留面板内未提交的表单状态，代价是每个打开过的实例留一份隐藏 DOM。
+- **行为变更**：上述弹层此前在关闭后会留一份 `display: none` 的面板节点（只有 `Cascader` 会销毁），现在与 React 版一致，默认在退场动画结束后销毁。面板里放了没提交完的表单时请显式写 `:destroy-on-close="false"`；反过来，页面里有大量 `Tooltip` 时不再堆积隐藏 DOM。
 
 ## 6.2.2
 
