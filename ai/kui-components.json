@@ -16029,9 +16029,9 @@
         },
         {
           "name": "title",
-          "description": "Card title, customizable via the named slot",
-          "descriptionZh": "卡片标题，也可通过同名插槽自定义",
-          "descriptionEn": "Card title, customizable via the named slot",
+          "description": "Custom card title; falls back to the `title` prop when the slot renders nothing.",
+          "descriptionZh": "自定义卡片标题；插槽内容为空时回退到 `title` 属性。",
+          "descriptionEn": "Custom card title; falls back to the `title` prop when the slot renders nothing.",
           "type": "VNodeChild",
           "boolean": false,
           "required": false,
@@ -16043,6 +16043,26 @@
           "descriptionZh": "分隔符",
           "descriptionEn": "Separator",
           "type": "string | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "prefix",
+          "description": "Default prefix for all values, scoped with `{ item, index }` and lowest in priority.",
+          "descriptionZh": "所有数值的默认前置内容，作用域参数为 `{ item, index }`，优先级最低。",
+          "descriptionEn": "Default prefix for all values, scoped with `{ item, index }` and lowest in priority.",
+          "type": "VNodeChild",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "suffix",
+          "description": "Default suffix for all values, scoped with `{ item, index }` and lowest in priority.",
+          "descriptionZh": "所有数值的默认后置内容，作用域参数为 `{ item, index }`，优先级最低。",
+          "descriptionEn": "Default suffix for all values, scoped with `{ item, index }` and lowest in priority.",
+          "type": "VNodeChild",
           "boolean": false,
           "required": false,
           "documented": true
@@ -16063,7 +16083,47 @@
         }
       ],
       "events": [],
-      "slots": [],
+      "slots": [
+        {
+          "name": "title",
+          "description": "Custom card title; falls back to the `title` prop when the slot renders nothing.",
+          "descriptionZh": "自定义卡片标题；插槽内容为空时回退到 `title` 属性。",
+          "descriptionEn": "Custom card title; falls back to the `title` prop when the slot renders nothing."
+        },
+        {
+          "name": "prefix",
+          "description": "Default prefix for all values, scoped with `{ item, index }` and lowest in priority.",
+          "descriptionZh": "所有数值的默认前置内容，作用域参数为 `{ item, index }`，优先级最低。",
+          "descriptionEn": "Default prefix for all values, scoped with `{ item, index }` and lowest in priority."
+        },
+        {
+          "name": "suffix",
+          "description": "Default suffix for all values, scoped with `{ item, index }` and lowest in priority.",
+          "descriptionZh": "所有数值的默认后置内容，作用域参数为 `{ item, index }`，优先级最低。",
+          "descriptionEn": "Default suffix for all values, scoped with `{ item, index }` and lowest in priority."
+        },
+        {
+          "name": "属性",
+          "description": "说明",
+          "descriptionZh": "说明",
+          "descriptionEn": "说明",
+          "scope": "类型"
+        },
+        {
+          "name": "theme",
+          "description": "Appearance theme",
+          "descriptionZh": "外观主题",
+          "descriptionEn": "Appearance theme",
+          "scope": "\"fill\" \\"
+        },
+        {
+          "name": "shape",
+          "description": "Card shape",
+          "descriptionZh": "卡片形状",
+          "descriptionEn": "Card shape",
+          "scope": "\"square\" \\"
+        }
+      ],
       "examples": [
         {
           "title": "卡片展示",

@@ -24,7 +24,7 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| title | Card title, customizable via the named slot | `VNodeChild` | - |
+| title | Card title, or the slot of the same name; empty content such as `false` or an empty string renders no title row | `VNodeChild` | - |
 | items | Data to display | `StatNumberItem[]` | [] |
 | precision | Numerical precision | `number` | 0 |
 | statNumberType | Numerical change type | `"rollup" \| "countup"` | 'countup' |
@@ -32,8 +32,8 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 | reverse | Whether to reverse number/number description arrangement | `boolean` | false |
 | bordered | Show border or not | `boolean` | false |
 | size | Card size | `"small" \| "medium" \| "large"` | medium |
-| prefix | Default prefix for all values, scoped with `{ item, index }` | VNodeChild | - |
-| suffix | Default suffix for all values, scoped with `{ item, index }` | VNodeChild | - |
+| prefix | Default prefix for all values, overridden by `items[].prefix` | `VNodeChild` | - |
+| suffix | Default suffix for all values, overridden by `items[].suffix` | `VNodeChild` | - |
 
 ### items Options
 
@@ -51,6 +51,14 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 | duration        | Numerical dynamic display time (seconds)          | number                                          | 1.2     |
 | autoAnimate     | Trigger animation when target becomes visible     | boolean                                         | true    |
 | autoAnimateOnce | Run animation only once for auto-animate triggers | boolean                                         | true    |
+
+## Slots
+
+| Name   | Description                                                                              |
+| ------ | ---------------------------------------------------------------------------------------- |
+| title  | Custom card title; falls back to the `title` prop when the slot renders nothing.         |
+| prefix | Default prefix for all values, scoped with `{ item, index }` and lowest in priority.     |
+| suffix | Default suffix for all values, scoped with `{ item, index }` and lowest in priority.     |
 
 For standalone animated values, formatting, and animation controls, see [StatNumber](/components/stat-number-en).
 

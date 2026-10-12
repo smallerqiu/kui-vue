@@ -34,7 +34,10 @@ rm -rf node_modules/.vite
 - `Ripple` 适配 Chrome 156 的 `content="drawable"`，Edge 与更早的 Chromium 保持原有路径。
 - `Ripple` 降级波纹叠层改为波峰提亮、波谷压暗，浅色与深色页面都清晰可见。
 - `FlameWrap` 修复 Chrome 155 中包裹内容点击无响应的问题，并适配 Chrome 156 的 `content="drawable"`。
-- `StatCard` `title` 为 `false` 时不再渲染标题。
+- `StatCard` 新增 `prefix` / `suffix` 属性，与 React 版对齐；此前只有同名插槽可用，传属性会落到根节点并报 DOM 属性错误。
+- `StatCard` 的 `title` / `desc` / `trend` 与 `StatNumber` 的 `prefix` / `suffix` 在传 `false` 或空字符串时不再渲染占位的空节点，`0` 仍按内容显示。
+- `StatCard` 修复 `items[].key` 与数组下标撞 key、数字动画状态串到别的数据项的问题。
+- `StatNumber` 的 `countup` 模式同样遵循系统的"减少动态效果"偏好，命中时直接显示目标值。
 
 ## 6.2.2
 

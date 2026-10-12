@@ -2,7 +2,7 @@ import { useInitialValue } from "../utils/model-value";
 import type { ExtractPropTypes, PropType } from "vue";
 import { defineComponent } from "vue";
 import type { BooleanType } from "../const/types";
-import { getChildren } from "../utils/vnode";
+import { getChildren, hasRenderableContent } from "../utils/vnode";
 import CountUp from "./countup";
 
 const statNumberProps = {
@@ -40,10 +40,6 @@ const StatNumber = defineComponent({
     return () => {
       const prefixNode = props.prefix ?? getChildren(slots.prefix?.());
       const suffixNode = props.suffix ?? getChildren(slots.suffix?.());
-      const hasContent = (value: unknown) =>
-        Array.isArray(value)
-          ? value.length > 0
-          : value !== undefined && value !== null && value !== "";
       const items = {
         modelValue: initialModel.value,
         separator: props.separator,
@@ -56,9 +52,13 @@ const StatNumber = defineComponent({
 
       return (
         <div class="k-stat-number">
-          {hasContent(prefixNode) && <span class="k-stat-number-prefix">{prefixNode}</span>}
+          {hasRenderableContent(prefixNode) && (
+            <span class="k-stat-number-prefix">{prefixNode}</span>
+          )}
           <CountUp {...items} />
-          {hasContent(suffixNode) && <span class="k-stat-number-suffix">{suffixNode}</span>}
+          {hasRenderableContent(suffixNode) && (
+            <span class="k-stat-number-suffix">{suffixNode}</span>
+          )}
         </div>
       );
     };

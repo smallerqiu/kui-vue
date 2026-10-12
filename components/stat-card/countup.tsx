@@ -28,7 +28,14 @@ const CountUpNumber = defineComponent({
       if (el.value) {
         countUp?.onDestroy();
         const observeVisibility = props.autoAnimate && typeof IntersectionObserver !== "undefined";
-        const duration = Number.isFinite(props.duration) ? Math.max(0, props.duration) : 0;
+        // The digit-roll plugin already refuses to move when the user asked for less
+        // motion; the counting path has to make the same call, otherwise the default
+        // `type` still animates for those visitors.
+        const reducedMotion =
+          typeof matchMedia === "function" &&
+          matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const duration =
+          reducedMotion || !Number.isFinite(props.duration) ? 0 : Math.max(0, props.duration);
         const precision = Number.isFinite(props.precision)
           ? Math.min(100, Math.max(0, Math.floor(props.precision)))
           : 0;

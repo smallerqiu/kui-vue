@@ -30,7 +30,7 @@ export interface CountUpOptions {
   /** Numeral glyph substitution */
   numerals?: string[];
   /** Callback called when animation completes */
-  onCompleteCallback?: (() => void) | null;
+  onCompleteCallback?: ((args?: unknown) => void) | null;
   /** Callback called when animation starts */
   onStartCallback?: (() => void) | null;
   /** Plugin for alternate animations */
@@ -81,7 +81,7 @@ export class CountUp {
     autoAnimateDelay: 200,
     autoAnimateOnce: false,
   };
-  private rAF = 0;
+  private rAF?: number;
   private autoAnimateTimeout?: ReturnType<typeof setTimeout>;
   private startTime: number | null = null;
   private remaining: number = 0;
@@ -187,7 +187,7 @@ export class CountUp {
   /** Teardown: cancel animation, disconnect observer, clear callbacks. */
   onDestroy(): void {
     clearTimeout(this.autoAnimateTimeout);
-    cancelAnimationFrame(this.rAF);
+    if (this.rAF !== undefined) cancelAnimationFrame(this.rAF);
     this.paused = true;
     this.unobserve();
     this.options.plugin?.destroy?.();
@@ -226,7 +226,7 @@ export class CountUp {
   }
 
   /** Start the animation. Optionally pass a callback that fires on completion. */
-  start(callback?: () => void): void {
+  start(callback?: (args?: unknown) => void): void {
     if (this.error) {
       return;
     }
@@ -248,7 +248,7 @@ export class CountUp {
   /** Toggle pause/resume on the animation. */
   pauseResume(): void {
     if (!this.paused) {
-      cancelAnimationFrame(this.rAF);
+      if (this.rAF !== undefined) cancelAnimationFrame(this.rAF);
     } else {
       this.startTime = null;
       this.duration = this.remaining;
@@ -262,7 +262,7 @@ export class CountUp {
   /** Reset to startVal so the animation can be run again. */
   reset(): void {
     clearTimeout(this.autoAnimateTimeout);
-    cancelAnimationFrame(this.rAF);
+    if (this.rAF !== undefined) cancelAnimationFrame(this.rAF);
     this.paused = true;
     this.once = false;
     this.resetDuration();
@@ -273,7 +273,7 @@ export class CountUp {
 
   /** Pass a new endVal and start the animation. */
   update(newEndVal: string | number): void {
-    cancelAnimationFrame(this.rAF);
+    if (this.rAF !== undefined) cancelAnimationFrame(this.rAF);
     this.startTime = null;
     this.endVal = this.validateValue(newEndVal);
     if (this.endVal === this.frameVal) {

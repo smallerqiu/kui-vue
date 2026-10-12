@@ -15,7 +15,7 @@ Use for counters, amounts, and metrics that change over time. For a complete met
 
 [Animation Duration](./demo/duration.vue)
 
-- Compare animation durations in seconds. Set `duration` to `0` for an immediate update. Rollup animations also respect the system's reduced-motion preference.
+- Compare animation durations in seconds. Set `duration` to `0` for an immediate update. Both modes respect the system's reduced-motion preference and jump straight to the target value.
 
 ## API
 
