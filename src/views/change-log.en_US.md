@@ -32,6 +32,7 @@ rm -rf node_modules/.vite
 - `Ripple`: Added the Chrome 156 `content="drawable"` attribute while Edge and earlier Chromium keep the previous path.
 - `Ripple`: The WebGL overlay now brightens crests and darkens troughs, so it stays visible over light and dark pages.
 - `FlameWrap`: Fixed wrapped content that could not be clicked in Chrome 155, and added the Chrome 156 `content="drawable"` attribute.
+- `StatCard`: `title` set to `false` no longer renders the title element.
 
 ## 6.2.2
 

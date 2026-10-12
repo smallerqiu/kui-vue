@@ -37,4 +37,13 @@ describe("StatCard", () => {
     expect(wrapper.find(".k-stat-card-item-desc").exists()).toBe(false);
     expect(wrapper.classes()).toContain("k-stat-card-small");
   });
+
+  it("hides the title row when the title is switched off", async () => {
+    const titled = mount(StatCard, { props: { title: "Revenue" } });
+    expect(titled.find(".k-stat-card-title").text()).toBe("Revenue");
+
+    // `false` opt out of the title, so it must not leave an empty row taking space.
+    const hidden = mount(StatCard, { props: { title: false } });
+    expect(hidden.find(".k-stat-card-title").exists()).toBe(false);
+  });
 });

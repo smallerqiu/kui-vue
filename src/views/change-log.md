@@ -34,6 +34,7 @@ rm -rf node_modules/.vite
 - `Ripple` 适配 Chrome 156 的 `content="drawable"`，Edge 与更早的 Chromium 保持原有路径。
 - `Ripple` 降级波纹叠层改为波峰提亮、波谷压暗，浅色与深色页面都清晰可见。
 - `FlameWrap` 修复 Chrome 155 中包裹内容点击无响应的问题，并适配 Chrome 156 的 `content="drawable"`。
+- `StatCard` `title` 为 `false` 时不再渲染标题。
 
 ## 6.2.2
 
