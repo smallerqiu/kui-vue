@@ -246,10 +246,19 @@
     word-break: break-all;
   }
 
+  // 固定列的滚动阴影。中性态（没挂 `k-table-ping-*`）必须是 `content: none`，也就是**根本不生成这个盒子**：
+  // 绝对定位的后代要算进滚动容器的可滚区间，而这个盒子没写 `left`/`right` 时按静态位置摆放——从格子的
+  // 内容起点开始往外铺 30px，铺出内容区的那一截就是**凭空多出来的可滚距离**（实测：最右固定列 20px 时
+  // `scrollWidth` 由 1162 涨到 1180，多 18px；固定列宽到能装下这 30px 的量不出来，文档站的 demo 就是这样，
+  // 所以这条藏了很久）。这一截让"要不要出横向滚动条"（`scrollWidth > clientWidth`）和"要不要画阴影"
+  // （ping 类）互相触发：没阴影 → 多 18px → 出滚动条、判成还能滚、挂上 ping → 阴影规则把盒子挪回格子内侧
+  // → 18px 没了 → 滚动条和阴影一起撤 → 再进一轮。窗口宽度正好卡在临界点上时就是肉眼看到的"阴影和滚动条
+  // 不停闪"；继续变窄之后真实溢出远大于这一截，两个状态一致，闪烁自己就停了。修法是把内容的有无一起交给
+  // ping 规则开关：公共属性（形状、定位、`pointer-events`）留在这里，`content` 只在要画的时候给。
   .k-table-cell-fix-left-last,
   .k-table-cell-fix-right-first {
     &::after {
-      content: "";
+      content: none;
       position: absolute;
       height: calc(100% + 1px);
       width: 30px;
@@ -260,6 +269,7 @@
 
   &-ping-left {
     .k-table-cell-fix-left-last::after {
+      content: "";
       box-shadow: inset 6px 0 6px -4px var(--kui-color-shadow);
       right: -30px;
     }
@@ -267,6 +277,7 @@
 
   &-ping-right {
     .k-table-cell-fix-right-first::after {
+      content: "";
       box-shadow: inset -6px 0 6px -4px var(--kui-color-shadow);
       left: -30px;
     }
