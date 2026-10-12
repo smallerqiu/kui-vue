@@ -75,7 +75,8 @@ const Tree = defineComponent({
       node !== null &&
       typeof checked === "boolean" &&
       Array.isArray(keys),
-    select: (node: TreeNode) => typeof node === "object" && node !== null,
+    select: (node: TreeNode, keys: string[]) =>
+      typeof node === "object" && node !== null && Array.isArray(keys),
     dragstart: (node: TreeNode, event: DragEvent) =>
       typeof node === "object" && node !== null && typeof event?.type === "string",
     dragenter: (node: TreeNode, event: DragEvent) =>
@@ -117,17 +118,25 @@ const Tree = defineComponent({
       isLeaf: props.fieldNames?.isLeaf ?? "isLeaf",
     });
 
-    const normalizeData = (nodes: TreeNodeData[]): TreeNode[] => {
+    const normalizeData = (nodes: TreeNodeData[], path = "kui-tree"): TreeNode[] => {
       const names = fields();
-      return nodes.map((raw) => {
+      return nodes.map((raw, index) => {
         const children = raw[names.children];
+        // 缺 `key` 的节点按所在**路径**合成兜底 key（`kui-tree-0`、`kui-tree-0-1`），
+        // 与 react 版同一条规则。留空串会让所有缺 key 的节点共用一个键，展开、勾选
+        // 会连带命中别的节点；用渲染下标兜底（原来的 `n_ + i`）则在折叠或过滤时
+        // 同一个节点的键会漂移。
+        const key = String(raw[names.key] ?? "") || `${path}-${index}`;
+        const list = Array.isArray(children)
+          ? normalizeData(children as TreeNodeData[], key)
+          : undefined;
         return {
           ...raw,
-          key: String(raw[names.key] ?? ""),
+          key,
           title: raw[names.title] as TreeNode["title"],
           disabled: props.disabled || Boolean(raw[names.disabled]),
           isLeaf: raw[names.isLeaf] === undefined ? undefined : Boolean(raw[names.isLeaf]),
-          children: Array.isArray(children) ? normalizeData(children as TreeNodeData[]) : undefined,
+          children: list,
         };
       });
     };
@@ -152,8 +161,22 @@ const Tree = defineComponent({
       });
     };
 
+    // `findNode` 在勾选、拖拽、键盘导航的循环里被反复调用，线性扫全表在大树上会卡。
+    // 按 `defaultData` 的数组身份缓存一份索引；`rebuildTree` 换了数组就自动重建，
+    // 同一份数组上的状态改动（checked/expanded）不影响索引，所以缓存是安全的。
+    // 重复 key 保留第一次命中的那个，和原来的 `Array.prototype.find` 语义一致。
+    let nodeIndex: Map<string, TreeNode> | null = null;
+    let nodeIndexSource: TreeNode[] | null = null;
     const findNode = (key: string): TreeNode | undefined => {
-      return defaultData.value.find((item: TreeNode) => item.key === key);
+      const source = defaultData.value;
+      if (!nodeIndex || nodeIndexSource !== source) {
+        nodeIndex = new Map();
+        source.forEach((node) => {
+          if (!nodeIndex!.has(node.key)) nodeIndex!.set(node.key, node);
+        });
+        nodeIndexSource = source;
+      }
+      return nodeIndex.get(key);
     };
 
     const handleExpand = (node: TreeNode) => {
@@ -179,7 +202,12 @@ const Tree = defineComponent({
               const newNode = findNode(key);
               const targetNode = newNode || node;
               targetNode.loading = false;
-              if (!targetNode.children?.length) targetNode.isLeaf = true;
+              // 空结果当作叶子节点，否则这个节点会永远挂着一个空展开；但
+              // `isLeaf: false` 是文档写明的“强制作为父节点”，不能被一次空结果推翻
+              // （与 react 版一致）。
+              if (targetNode.isLeaf !== false && !targetNode.children?.length) {
+                targetNode.isLeaf = true;
+              }
               targetNode.expanded = true;
 
               const expandedKeys = defaultExpandedKeys.value.slice();
@@ -463,7 +491,9 @@ const Tree = defineComponent({
 
       defaultSelectedKeys.value = selectedKeys;
       emit("update:selectedKeys", selectedKeys);
-      emit("select", item);
+      // react 版的 `onSelect` 一直是 `(node, selectedKeys)`；这里补上第二个参数，
+      // 让同一份业务代码在两个框架下拿到的事件签名一致（多出的参数对老用法无害）。
+      emit("select", item, selectedKeys);
     };
 
     const handleDragStart = (e: DragEvent, node: TreeNode) => {
@@ -483,6 +513,25 @@ const Tree = defineComponent({
       emit("dragstart", node, e);
     };
 
+    // 与 react 版同一条守卫：拖到自身后代、拖到自己、拖到禁用节点上都算不上合法目标。
+    // 之前只在 `moveNode` 里静默拒绝，于是这些位置照样画可放置指示线，松手却什么都没发生。
+    const canDropOn = (node: TreeNode) => {
+      const dragKey = dragNode.key;
+      if (!props.draggable || !dragKey || node.disabled || node.key === dragKey) return false;
+      let current: TreeNode | undefined = node;
+      while (current?.parentKey) {
+        if (current.parentKey === dragKey) return false;
+        current = findNode(current.parentKey);
+      }
+      return true;
+    };
+
+    const clearDropping = () => {
+      defaultData.value.forEach((item) => {
+        if (item.dropping) item.dropping = false;
+      });
+    };
+
     const updateDropPosition = (e: DragEvent, node: TreeNode) => {
       const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
       const offset = e.clientY - rect.top;
@@ -494,7 +543,10 @@ const Tree = defineComponent({
     };
 
     const handleDragOver = (e: DragEvent, node: TreeNode) => {
-      if (!props.draggable || node.disabled || node.key === dragNode.key) return;
+      if (!canDropOn(node)) {
+        clearDropping();
+        return;
+      }
 
       e.preventDefault();
       updateDropPosition(e, node);
@@ -504,7 +556,10 @@ const Tree = defineComponent({
     };
 
     const handleDragEnter = (e: DragEvent, node: TreeNode) => {
-      if (!props.draggable || node.disabled || node.key === dragNode.key) return;
+      if (!canDropOn(node)) {
+        clearDropping();
+        return;
+      }
 
       e.preventDefault();
       updateDropPosition(e, node);
@@ -521,16 +576,16 @@ const Tree = defineComponent({
     };
 
     const handleDrop = (e: DragEvent, dropNode: TreeNode) => {
-      if (!props.draggable || !dragNode.key || dropNode.disabled || dropNode.key === dragNode.key) {
-        return;
-      }
+      // `canDropOn` 已经保证 `dragNode.key` 有值，这里再取一次是为了让 TS 收窄掉 null。
+      const dragKey = dragNode.key;
+      if (!dragKey || !canDropOn(dropNode)) return;
 
       e.preventDefault();
       dropNode.dropping = false;
 
       const currentDragNode = dragNode.data;
       const position = dropPosition.value;
-      const moved = updateCheckState.moveNode(dragNode.key, dropNode.key, position);
+      const moved = updateCheckState.moveNode(dragKey, dropNode.key, position);
 
       dragNode.key = null;
       dragNode.data = null;
@@ -556,13 +611,7 @@ const Tree = defineComponent({
       emit("dragend", node, e);
     };
 
-    const renderTreeNode = (item: TreeNode, i: number) => {
-      let key = item.key;
-      if (key == null || key === "") {
-        key = "n_" + i;
-        item.key = key;
-      }
-
+    const renderTreeNode = (item: TreeNode) => {
       const arrowCommentNode: VNodeChild[] = [];
 
       if (item.visiblePrefixes && item.visiblePrefixes.length > 0) {
@@ -586,6 +635,10 @@ const Tree = defineComponent({
             <Button
               size="small"
               type="text"
+              // 树用 roving tabindex：整棵树只留一个可 Tab 命中的 treeitem，展开动作
+              // 交给它的 ArrowLeft/ArrowRight。箭头是原生 `<button>`，留着它每个非叶子
+              // 节点都多一个 Tab 停靠点，焦点走进去后方向键也回不到树上（与 react 版一致）。
+              tabindex={-1}
               loading={item.loading}
               disabled={item.disabled}
               icon={
@@ -884,14 +937,16 @@ const Tree = defineComponent({
               overscan={props.overscan}
               itemKey="key"
               v-slots={{
-                default: ({ item, index }: { item: unknown; index: number }) =>
-                  renderTreeNode(item as TreeNode, index),
+                default: ({ item }: { item: unknown }) => renderTreeNode(item as TreeNode),
               }}
             />
           ) : (
+            // 节点列表容器就是 `div.k-tree-node-list`，`TransitionGroup` 不写 `tag`
+            // 时只渲染 Fragment，不会再落一层匿名 div——与 react 版
+            // `component={null}` 的 DOM 形状一致。
             <div class="k-tree-node-list">
-              <TransitionGroup {...onProps} tag="div">
-                {visibleNodes.map((item: TreeNode, index: number) => renderTreeNode(item, index))}
+              <TransitionGroup {...onProps}>
+                {visibleNodes.map((item: TreeNode) => renderTreeNode(item))}
               </TransitionGroup>
             </div>
           )}

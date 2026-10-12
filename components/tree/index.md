@@ -83,7 +83,7 @@ Tree 支持焦点管理以及上下、左右、Home、End、Enter 和 Space 键�
 
 | 属性 | 说明 | 类型 |
 | --- | --- | --- |
-| onSelect | 点击树节点时触发 | `(node: TreeNode) => void` |
+| onSelect | 点击树节点时触发 | `(node: TreeNode, keys: string[]) => void` |
 | onCheck | 点击复选框时触发 | `(node: TreeNode, checked: boolean, keys: string[]) => void` |
 | onExpand | 展开和收起子节点时触发 | `(result: TreeExpandEvent) => void` |
 | onDragstart | 开始拖拽时调用 | `(node: TreeNode, event: DragEvent) => void` |

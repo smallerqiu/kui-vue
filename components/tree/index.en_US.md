@@ -83,7 +83,7 @@ Tree supports focus management and Arrow, Home, End, Enter, and Space keyboard o
 
 | Property | Description | Type |
 | --- | --- | --- |
-| onSelect | Triggered when a tree node is clicked | `(node: TreeNode) => void` |
+| onSelect | Triggered when a tree node is clicked | `(node: TreeNode, keys: string[]) => void` |
 | onCheck | Triggered when a checkbox is clicked | `(node: TreeNode, checked: boolean, keys: string[]) => void` |
 | onExpand | Triggered when a node expands or collapses | `(result: TreeExpandEvent) => void` |
 | onDragStart | Triggered when dragging starts | `(node: TreeNode, event: DragEvent) => void` |

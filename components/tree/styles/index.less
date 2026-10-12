@@ -27,14 +27,6 @@
     }
   }
 
-  .k-tree-comment,
-  .k-tree-comment-line {
-    display: inline-block;
-    width: 24px;
-    position: relative;
-    height: 24px;
-  }
-
   .k-tree-icon {
     margin-right: 5px;
     vertical-align: middle;
@@ -161,13 +153,6 @@
   .k-tree-arrow-open .k-icon {
     transform: rotate(90deg);
   }
-
-  .tree-nodata {
-    padding: 8px 10px;
-    display: block;
-    color: var(--kui-color-text-disabled);
-    font-size: 12px;
-  }
 }
 
 .k-tree-virtual-list {
@@ -269,48 +254,6 @@
 
     .k-icon {
       font-size: 16px;
-    }
-  }
-
-  .k-tree-item-children {
-    position: relative;
-  }
-
-  .k-tree-line {
-    border-left: 1px solid var(--kui-color-border);
-    position: absolute;
-    height: 100%;
-    z-index: 1;
-  }
-  .k-tree-comment-line {
-    &::before {
-      content: "";
-      position: absolute;
-      height: 24px;
-      background-color: var(--kui-color-border);
-      width: 1px;
-      left: 12px;
-    }
-  }
-  .k-tree-comment {
-    &::before {
-      content: "";
-      position: absolute;
-      left: 12px;
-      top: 0;
-      width: 1px;
-      height: 24px;
-      background-color: var(--kui-color-border);
-    }
-
-    &::after {
-      content: "";
-      position: absolute;
-      left: 12px;
-      top: 12px;
-      width: 12px;
-      height: 1px;
-      background-color: var(--kui-color-border);
     }
   }
 }

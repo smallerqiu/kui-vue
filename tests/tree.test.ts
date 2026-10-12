@@ -40,8 +40,12 @@ describe("Tree", () => {
     await items[0].trigger("focus");
     await wrapper.get("[role='tree']").trigger("keydown", { key: "ArrowDown" });
     expect(document.activeElement?.getAttribute("data-tree-key")).toBe("one");
+    // 事件签名与 react 版对齐：`(node, selectedKeys)`。
     await wrapper.get("[role='tree']").trigger("keydown", { key: "Enter" });
-    expect(onSelect).toHaveBeenCalledWith(expect.objectContaining({ key: "one" }));
+    expect(onSelect).toHaveBeenCalledWith(
+      expect.objectContaining({ key: "one" }),
+      expect.arrayContaining(["one"]),
+    );
     wrapper.unmount();
   });
 
