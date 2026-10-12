@@ -15,6 +15,26 @@ vite 好像有缓存, 可手动清除
 rm -rf node_modules/.vite
 ```
 
+## 6.3.0
+
+`2026-10-12`
+
+- `Menu` 补齐方向键 / Enter / Esc 键盘导航，`Escape` 只收回当前一层。
+- `Menu` 弹出浮层通过 `aria-controls` / `aria-labelledby` 与触发项关联，`horizontal` 根节点声明 `role="menubar"`，与 React 版语义一致。
+- `Menu` 折叠逻辑按 `mode` 区分，切换 `mode` 不再改写 `openKeys`，也不再额外触发 `openChange`；溢出测量只在 `horizontal` 下进行。
+- `Menu` 新增分组与分割线示例，文档补充 `MenuGroup` / `MenuDivider` 的使用约定。
+- `Menu` 修复纵向子菜单展开时外层先开、内容后伸缩的错位。
+- `Table` 与 React 版对齐：修复分组表头与固定列、`scroll.y`、`bordered` 同时使用时表头边框丢失、吸顶行间露缝、圆角不饱满和右下角空白块的问题，固定列宽度与 sticky 偏移基准一致。
+- `Table` 分组表头改为按列分栏，补充 `aria-labelledby` 关联。
+- `Table` `rowKey` 取不到值时使用稳定兜底 key；`dataIndex` 支持 `a.b.c` 点路径嵌套取值。
+- `Table` 修复 `expandAllRows` 在异步数据下重复展开父行、虚拟滚动窗口起点越界的问题。
+- `Table` 空数据、筛选等内置文案接入语言包；文档补充插槽命名与 `virtual` / `rowSpan` 说明。
+- 统一库内滚动条样式，横向与纵向粗细一致；修复暗色主题下 hover 滑块与背景融为一体。
+- `Ripple` 修复 Chrome 155 中包裹内容点击无响应且不产生涟漪的问题。
+- `Ripple` 适配 Chrome 156 的 `content="drawable"`，Edge 与更早的 Chromium 保持原有路径。
+- `Ripple` 降级波纹叠层改为波峰提亮、波谷压暗，浅色与深色页面都清晰可见。
+- `FlameWrap` 修复 Chrome 155 中包裹内容点击无响应的问题，并适配 Chrome 156 的 `content="drawable"`。
+
 ## 6.2.2
 
 `2026-09-26`
