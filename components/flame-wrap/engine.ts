@@ -89,13 +89,45 @@ const DEFAULTS: Required<FlameWrapOptions> = {
 };
 
 type PaintableCanvas = HTMLCanvasElement & {
+  /** Chrome keeps the paint signal on this property; `paint` is its event name. */
   onpaint?: (() => void) | null;
   requestPaint?: () => void;
+  /** Present from Chrome 155. Required for the subtree to receive input. */
+  updateElementGeometry?: (element: Element, options?: { canvasTransform?: DOMMatrix }) => void;
 };
 
 type ElementImageContext = CanvasRenderingContext2D & {
-  drawElementImage?: (element: Element, x: number, y: number) => DOMMatrix | undefined;
+  /**
+   * Chrome up to 155 hands back the matrix the DOM has to be aligned with;
+   * the standardized build draws it internally and returns nothing.
+   */
+  drawElementImage?: (element: Element, x: number, y: number) => DOMMatrix | void;
 };
+
+/**
+ * Attributes that turn a canvas into an HTML-in-Canvas host, and the matching
+ * opt-in for the element that gets drawn.
+ */
+export interface HtmlInCanvasMarkup {
+  canvas: Record<string, string>;
+  element: Record<string, string>;
+}
+
+/**
+ * Chrome 156 renames the experimental boolean `layoutsubtree` to the
+ * standardized `content="drawable"`, and the element handed to
+ * `drawElementImage()` now declares itself with its own `drawable` attribute
+ * (WICG html-in-canvas issue #169). Browsers advertise the new spelling with a
+ * reflected `content` IDL attribute, so the shape is read off the prototype
+ * rather than sniffed from a version string: every release only ever sees the
+ * attribute it understands.
+ */
+export function htmlInCanvasMarkup(): HtmlInCanvasMarkup {
+  const legacy: HtmlInCanvasMarkup = { canvas: { layoutsubtree: "true" }, element: {} };
+  if (typeof document === "undefined") return legacy;
+  if (!("content" in HTMLCanvasElement.prototype)) return legacy;
+  return { canvas: { content: "drawable" }, element: { drawable: "" } };
+}
 
 const VERT = `#version 300 es
 precision highp float;
@@ -442,19 +474,63 @@ export function createFlameWrap(
 
   let contentDirty = false;
   let wake = () => {};
+  let usesPaintEvent = false;
+
+  /**
+   * Keep the live DOM copy lined up with the pixels drawn from it, so pointer
+   * input, focus rings and screen reader bounds land where the user sees them.
+   * Which half of that job the browser does changed twice, so the branch keys
+   * off what the draw call actually hands back instead of a version number.
+   */
+  function syncGeometry(transform: DOMMatrix | void) {
+    if (transform && typeof transform.toString === "function") {
+      if (paintable.updateElementGeometry) {
+        // Chrome 155 stopped making a drawn subtree input-reachable: until the
+        // element geometry is registered, the canvas itself is the hit test
+        // target for everything inside it.
+        paintable.updateElementGeometry(content, { canvasTransform: transform });
+      } else {
+        // Earlier Chromium and Edge register the subtree implicitly and only hand
+        // back the matrix. Apply it so the live DOM and its painted copy stay in
+        // the same position when the canvas moves or the page scrolls.
+        content.style.transform = transform.toString();
+      }
+      return;
+    }
+    // Chrome 156 draws the 2D case and synchronizes the geometry on its own.
+    // Any transform left over from an older frame would shift the live DOM
+    // away from the picture the browser just aligned for us.
+    if (content.style.transform) content.style.transform = "";
+  }
+
+  function onPaint() {
+    try {
+      sourceCtx!.reset();
+      const transform = sourceCtx!.drawElementImage!(content, 0, 0);
+      contentDirty = true;
+      // A failed sync must not cost the frame that was already drawn: a
+      // slightly misaligned burn is recoverable, a canvas that never republishes
+      // its content leaves the wrapped subtree unusable.
+      try {
+        syncGeometry(transform);
+      } catch (error) {
+        console.error("FlameWrap failed to align its HTML content:", error);
+      }
+      wake();
+    } catch (error) {
+      console.error("FlameWrap failed to capture its HTML content:", error);
+    }
+  }
 
   if (htmlInCanvas) {
-    paintable.onpaint = () => {
-      try {
-        sourceCtx!.reset();
-        const transform = sourceCtx!.drawElementImage!(content, 0, 0);
-        if (transform) content.style.transform = transform.toString();
-        contentDirty = true;
-        wake();
-      } catch (error) {
-        console.error("FlameWrap failed to capture its HTML content:", error);
-      }
-    };
+    // The paint signal started life as the `onpaint` property and is becoming a
+    // dispatchable `paint` event. Bind whichever the browser exposes.
+    if ("onpaint" in paintable) {
+      paintable.onpaint = onPaint;
+    } else {
+      usesPaintEvent = true;
+      source.addEventListener("paint", onPaint);
+    }
   }
 
   function compile(type: number, text: string): WebGLShader {
@@ -674,7 +750,8 @@ export function createFlameWrap(
       gl!.deleteShader(fragmentShader);
       gl!.deleteBuffer(quad);
       if (htmlInCanvas) {
-        paintable.onpaint = null;
+        if (usesPaintEvent) source.removeEventListener("paint", onPaint);
+        else paintable.onpaint = null;
         content.style.removeProperty("transform");
       }
     },
