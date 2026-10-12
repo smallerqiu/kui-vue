@@ -9,6 +9,7 @@ import {
   type ShapeType,
   type SizeType,
   type ThemeType,
+  type TriggerType,
 } from "../const/types";
 import { type IconType } from "../icon";
 import Dropdown from "./dropdown";
@@ -21,7 +22,10 @@ const dropdownButtonProps = {
   icon: Array as PropType<IconType[]>,
   theme: String as PropType<ThemeType>,
   arrow: Boolean as BooleanType,
+  trigger: String as PropType<TriggerType>,
   placement: { type: String as PropType<DropPlacementsType>, default: "bottom-right" },
+  /** 关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内的表单状态，代价是每个打开过的实例留一份隐藏 DOM。 */
+  destroyOnClose: { type: Boolean as BooleanType, default: true },
 };
 export type DropdownButtonProps = ExtractPropTypes<typeof dropdownButtonProps>;
 
@@ -37,7 +41,9 @@ const DropdownButton = defineComponent({
       return (
         <Dropdown
           arrow={props.arrow}
+          trigger={props.trigger}
           placement={props.placement}
+          destroyOnClose={props.destroyOnClose}
           target={refTrigger}
           disabled={props.disabled}
           v-slots={{

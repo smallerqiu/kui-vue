@@ -43,6 +43,7 @@
 | show | 是否显示下拉层（v-model） | `boolean` | false |
 | trigger | 触发方式 | `"hover" \| "click" \| "contextmenu"` | `hover` |
 | placement | 下拉层位置 | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | `bottom-left` |
+| destroyOnClose | 关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM | `boolean` | true |
 | arrow | 是否显示箭头 | `boolean` | false |
 | target | 外部触发元素或组件的引用 | `Ref<HTMLElement \| ComponentPublicInstance \| null, HTMLElement \| ComponentPublicInstance \| null>` | - |
 | disabled | 是否禁用触发 | `boolean` | false |
@@ -59,5 +60,7 @@
 | icon | 自定义下拉按钮图标 | `IconType[]` | Ellipsis |
 | theme | 按钮主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | arrow | 是否显示下拉箭头 | `boolean` | false |
+| trigger | 触发方式 | `"hover" \| "click" \| "contextmenu"` | `hover` |
 | placement | 下拉层位置 | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | `bottom-right` |
+| destroyOnClose | 关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM | `boolean` | true |
 | onClick | 点击主按钮时触发 | `(event: MouseEvent) => void` | - |

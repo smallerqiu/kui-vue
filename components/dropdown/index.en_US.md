@@ -43,6 +43,7 @@ When there are too many operation commands on the page, this component can be us
 | show | Whether the dropdown is visible (v-model) | `boolean` | false |
 | trigger | Trigger method | `"hover" \| "click" \| "contextmenu"` | `hover` |
 | placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | `bottom-left` |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | arrow | Whether to display the arrow | `boolean` | false |
 | target | Ref of an external trigger element or component | `Ref<HTMLElement \| ComponentPublicInstance \| null, HTMLElement \| ComponentPublicInstance \| null>` | - |
 | disabled | Whether triggering is disabled | `boolean` | false |
@@ -59,5 +60,7 @@ When there are too many operation commands on the page, this component can be us
 | icon | Custom dropdown trigger icon | `IconType[]` | Ellipsis |
 | theme | Button theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | arrow | Whether to display the dropdown arrow | `boolean` | false |
+| trigger | Trigger mode | `"hover" \| "click" \| "contextmenu"` | `hover` |
 | placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | `bottom-right` |
+| destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | onClick | Triggered when the main button is clicked | `(event: MouseEvent) => void` | - |
