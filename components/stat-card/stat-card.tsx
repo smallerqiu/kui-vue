@@ -1,7 +1,7 @@
 import type { ExtractPropTypes, PropType, VNodeChild } from "vue";
 import { defineComponent } from "vue";
-import type { BooleanType, SizeType, SurfaceShapeType } from "../const/types";
 import { useConfigAppearance } from "../config/context";
+import type { BooleanType, SizeType, SurfaceShapeType } from "../const/types";
 import StatNumber from "./stat-number";
 import type { StatNumberItem } from "./types";
 
@@ -41,7 +41,7 @@ const StatCard = defineComponent({
             },
           ]}
         >
-          {(props.title != null || slots.title) && (
+          {((props.title != null && props.title != false) || slots.title) && (
             <div class="k-stat-card-title">{slots.title?.() || props.title}</div>
           )}
           <div class="k-stat-card-items">
