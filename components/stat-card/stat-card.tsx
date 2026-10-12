@@ -4,6 +4,7 @@ import { useConfigAppearance } from "../config/context";
 import type { BooleanType, SizeType, SurfaceShapeType } from "../const/types";
 import { getChildren, hasRenderableContent } from "../utils/vnode";
 import StatNumber from "./stat-number";
+import { statItemKey } from "./utils/stat-item-key";
 import type { StatNumberItem } from "./types";
 
 const statCardProps = {
@@ -25,18 +26,6 @@ const statCardProps = {
 };
 
 export type StatCardProps = ExtractPropTypes<typeof statCardProps>;
-
-/**
- * Identity of one `items` entry across renders.
- *
- * The `kui-item-` prefix keeps a keyless item's position out of the namespace of
- * caller-supplied keys: `[{key: 1}, {}]` used to hand two different metrics the
- * same key, which let the diffing move a CountUp instance from one item to the
- * other. Same rule and same strings as the React build.
- */
-export function statItemKey(item: StatNumberItem, index: number): string {
-  return String(item.key ?? `kui-item-${index}`);
-}
 
 const StatCard = defineComponent({
   name: "StatCard",

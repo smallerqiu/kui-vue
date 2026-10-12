@@ -1,8 +1,9 @@
 import { mount } from "@vue/test-utils";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { nextTick } from "vue";
-import StatCard, { statItemKey } from "../components/stat-card/stat-card";
+import StatCard from "../components/stat-card/stat-card";
 import StatNumber from "../components/stat-card/stat-number";
+import { statItemKey } from "../components/stat-card/utils/stat-item-key";
 
 afterEach(() => {
   vi.unstubAllGlobals();
@@ -104,9 +105,9 @@ describe("StatCard", () => {
   it("keeps a caller-supplied key out of the positional fallback", () => {
     // Vue does not warn about duplicate keys on mount, so the generator is tested
     // directly: `[{key: 1}, {}]` used to hand both items `number:1`.
-    expect(statItemKey({ key: 1, value: 1 }, 0)).not.toBe(statItemKey({ value: 2 }, 1));
-    expect(statItemKey({ value: 2 }, 1)).toBe("kui-item-1");
-    expect(statItemKey({ key: 1, value: 1 }, 0)).toBe("1");
+    expect(statItemKey({ key: 1 }, 0)).not.toBe(statItemKey({}, 1));
+    expect(statItemKey({}, 1)).toBe("kui-item-1");
+    expect(statItemKey({ key: 1 }, 0)).toBe("1");
   });
 
   it("jumps straight to the target when motion is reduced", async () => {
