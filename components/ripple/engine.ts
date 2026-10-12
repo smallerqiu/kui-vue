@@ -65,13 +65,45 @@ const MAX_RIPPLES = 12;
 const BASE_SPEED = 340;
 
 type PaintableCanvas = HTMLCanvasElement & {
+  /** Chrome keeps the paint signal on this property; `paint` is its event name. */
   onpaint?: (() => void) | null;
   requestPaint?: () => void;
+  /** Present from Chrome 155. Required for the subtree to receive input. */
+  updateElementGeometry?: (element: Element, options?: { canvasTransform?: DOMMatrix }) => void;
 };
 
 type ElementImageContext = CanvasRenderingContext2D & {
-  drawElementImage?: (element: Element, x: number, y: number) => DOMMatrix | undefined;
+  /**
+   * Chrome up to 155 hands back the matrix the DOM has to be aligned with;
+   * the standardized build draws it internally and returns nothing.
+   */
+  drawElementImage?: (element: Element, x: number, y: number) => DOMMatrix | void;
 };
+
+/**
+ * Attributes that turn a canvas into an HTML-in-Canvas host, and the matching
+ * opt-in for the element that gets drawn.
+ */
+export interface HtmlInCanvasMarkup {
+  canvas: Record<string, string>;
+  element: Record<string, string>;
+}
+
+/**
+ * Chrome 156 renames the experimental boolean `layoutsubtree` to the
+ * standardized `content="drawable"`, and the element handed to
+ * `drawElementImage()` now declares itself with its own `drawable` attribute
+ * (WICG html-in-canvas issue #169). Browsers advertise the new spelling with a
+ * reflected `content` IDL attribute, so the shape is read off the prototype
+ * rather than sniffed from a version string: every release only ever sees the
+ * attribute it understands.
+ */
+export function htmlInCanvasMarkup(): HtmlInCanvasMarkup {
+  const legacy: HtmlInCanvasMarkup = { canvas: { layoutsubtree: "true" }, element: {} };
+  if (typeof document === "undefined") return legacy;
+  if (!("content" in HTMLCanvasElement.prototype)) return legacy;
+  return { canvas: { content: "drawable" }, element: { drawable: "" } };
+}
 
 const VERT = `#version 300 es
 precision highp float;
@@ -134,8 +166,15 @@ void main () {
   float shade = pow(clamp(-g * 1.6, 0.0, 1.0), 2.0) * uShine * 0.3;
 
   if (uHasContent < 0.5) {
-    float a = clamp(glint * 0.9 + shade * 0.5, 0.0, 0.85);
-    outColor = vec4(vec3(glint * 0.9), a);
+    // Degraded overlay: the page behind the canvas cannot be sampled here, so
+    // the wave has to paint itself. White on the lit flank alone vanishes over
+    // light content and black on the shadow flank alone vanishes over dark
+    // content, so each ring half takes the tone its slope points at and the
+    // ripple stays legible whatever the host page is coloured like.
+    float dark = pow(clamp(-g * 1.6, 0.0, 1.0), 2.0) * uShine;
+    float a = clamp((glint + dark) * 0.8, 0.0, 0.5);
+    vec3 tone = glint > dark ? vec3(1.0) : vec3(0.0);
+    outColor = vec4(tone * a, a);
     return;
   }
 
@@ -210,26 +249,69 @@ export function createRipple(
   let wake = () => {};
   let appearanceFrame = 0;
   let appearanceObserver: MutationObserver | null = null;
+  let usesPaintEvent = false;
+
+  /**
+   * Keep the live DOM copy lined up with the pixels drawn from it, so pointer
+   * input, focus rings and screen reader bounds land where the user sees them.
+   * Which half of that job the browser does changed twice, so the branch keys
+   * off what the draw call actually hands back instead of a version number.
+   */
+  function syncGeometry(transform: DOMMatrix | void) {
+    if (transform && typeof transform.toString === "function") {
+      if (paintable.updateElementGeometry) {
+        // Chrome 155 stopped making a drawn subtree input-reachable: until the
+        // element geometry is registered, the canvas itself is the hit test
+        // target for everything inside it. The pointer listeners further down
+        // live on `content`, so without this call no ripple is ever spawned and
+        // the wrapped content cannot be clicked at all.
+        paintable.updateElementGeometry(content, { canvasTransform: transform });
+      } else {
+        // Earlier Chromium and Edge register the subtree implicitly and only hand
+        // back the matrix. Apply it so the live DOM and its painted copy stay in
+        // the same position when the canvas moves or the page scrolls.
+        content.style.transform = transform.toString();
+      }
+      return;
+    }
+    // Chrome 156 draws the 2D case and synchronizes the geometry on its own.
+    // Any transform left over from an older frame would shift the live DOM
+    // away from the picture the browser just aligned for us.
+    if (content.style.transform) content.style.transform = "";
+  }
+
+  function onPaint() {
+    try {
+      sourceCtx!.reset();
+      for (const background of getBackgroundStack(content)) {
+        sourceCtx!.fillStyle = background;
+        sourceCtx!.fillRect(0, 0, source.width, source.height);
+      }
+      const transform = sourceCtx!.drawElementImage!(content, 0, 0);
+      contentDirty = true;
+      // A failed sync must not cost the frame that was already drawn: a
+      // slightly misaligned ripple is recoverable, a canvas that never
+      // republishes its content leaves the wrapped subtree unusable.
+      try {
+        syncGeometry(transform);
+      } catch (error) {
+        console.error("Ripple failed to align its HTML content:", error);
+      }
+      wake();
+    } catch (error) {
+      console.error("Ripple failed to capture its HTML content:", error);
+    }
+  }
 
   if (htmlInCanvas) {
-    paintable.onpaint = () => {
-      try {
-        sourceCtx!.reset();
-        for (const background of getBackgroundStack(content)) {
-          sourceCtx!.fillStyle = background;
-          sourceCtx!.fillRect(0, 0, source.width, source.height);
-        }
-        const transform = sourceCtx!.drawElementImage!(content, 0, 0);
-        // HTML-in-Canvas keeps the interactive DOM subtree separate from the
-        // pixels drawn into the canvas. Apply the returned matrix so both stay
-        // in the same position when the canvas moves or the page scrolls.
-        if (transform) content.style.transform = transform.toString();
-        contentDirty = true;
-        wake();
-      } catch (error) {
-        console.error("Ripple failed to capture its HTML content:", error);
-      }
-    };
+    // The paint signal started life as the `onpaint` property and is becoming a
+    // dispatchable `paint` event. Bind whichever the browser exposes.
+    if ("onpaint" in paintable) {
+      paintable.onpaint = onPaint;
+    } else {
+      usesPaintEvent = true;
+      source.addEventListener("paint", onPaint);
+    }
 
     // HTML-in-Canvas keeps a pixel snapshot of the subtree. Changes to theme
     // attributes on an ancestor do not reliably emit a paint event in current
@@ -539,7 +621,8 @@ export function createRipple(
       gl!.deleteShader(fragmentShader);
       gl!.deleteBuffer(quad);
       if (htmlInCanvas) {
-        paintable.onpaint = null;
+        if (usesPaintEvent) source.removeEventListener("paint", onPaint);
+        else paintable.onpaint = null;
         content.style.removeProperty("transform");
       }
     },

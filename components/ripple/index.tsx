@@ -11,6 +11,7 @@ import {
 } from "vue";
 import {
   createRipple,
+  htmlInCanvasMarkup,
   supportsHtmlInCanvas,
   type RippleInstance,
   type RippleOptions,
@@ -113,11 +114,20 @@ const Ripple = defineComponent({
 
     return () => {
       const native = isNative();
+      // Chrome 156 renamed the experimental canvas attribute, so the markup is
+      // taken from what this browser advertises rather than hardcoded.
+      const markup = htmlInCanvasMarkup();
       const { class: customClass, style: customStyle, ...restAttrs } = attrs;
-      const content = () =>
+      // Only the copy inside the canvas is drawn, so only that one declares
+      // itself drawable; the fallback copy is ordinary page content.
+      const content = (drawn: Record<string, string>) =>
         h(
           "div",
-          { ref: contentRef, style: { position: "relative", width: "100%", overflow: "visible" } },
+          {
+            ref: contentRef,
+            ...drawn,
+            style: { position: "relative", width: "100%", overflow: "visible" },
+          },
           slots.default?.(),
         );
       return h(
@@ -135,14 +145,14 @@ const Ripple = defineComponent({
             "canvas",
             {
               ref: sourceRef,
-              layoutsubtree: "true",
+              ...markup.canvas,
               style: native
                 ? { position: "absolute", inset: 0, width: "100%", height: "100%" }
                 : { display: "none" },
             },
-            native ? [content()] : [],
+            native ? [content(markup.element)] : [],
           ),
-          native ? null : content(),
+          native ? null : content({}),
           h("canvas", {
             ref: outputRef,
             "aria-hidden": "true",

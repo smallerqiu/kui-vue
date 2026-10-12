@@ -4,7 +4,7 @@
 
 ## 浏览器支持
 
-完整折射依赖实验性的 HTML-in-Canvas API。目前可在 Chrome Canary 149+ 开启 `chrome://flags/#canvas-draw-element` 后体验；生产环境需要参加 HTML-in-Canvas Origin Trial。其他浏览器会自动降级为 WebGL 波纹叠层。
+完整折射依赖实验性的 HTML-in-Canvas API。目前可在 Chrome Canary 149+ 开启 `chrome://flags/#canvas-draw-element` 后体验；生产环境需要参加 HTML-in-Canvas Origin Trial。这个 API 在不同版本之间形态不同：Chrome 155 起，仅把内容绘制进 canvas 不再让内容保持可点击，必须另外注册元素几何；更早的 Chromium 与 Edge 则只需应用绘制返回的矩阵；Chrome 156 起 canvas 上的 `layoutsubtree` 改名为 `content="drawable"`，被绘制的元素需自行声明 `drawable`，2D 绘制不再返回矩阵而由浏览器自动同步位置。组件按浏览器实际提供的属性与方法分流，三种实验实现下内容与交互都正常。其他浏览器会自动降级为 WebGL 波纹叠层：波峰提亮、波谷压暗，浅色与深色页面上都清晰可见。
 
 [基础用法](./demo/basic.vue?show=vertical)
 
