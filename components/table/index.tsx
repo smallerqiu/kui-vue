@@ -33,21 +33,23 @@ import {
 } from "./utils";
 
 /**
- * 固定列的宽度基准，与 kui-react `components/table/index.tsx` 的同名常量保持一致。
+ * 列宽基准，与 kui-react `components/table/index.tsx` 的同名常量保持一致。
  *
- * 规矩只有一条：**算 sticky 偏移用的宽度，必须等于 colgroup 落地的那个数**。
- * 写了 `width` 的列（固定与否都一样）照原值写进 colgroup，偏移也按原值累加；
- * 没写 `width` 的固定列按 150 落地，没写 `width` 的普通列才留 `auto` 去吸收容器
- * 撑出来的多余宽度。反过来把带宽度的普通列也写成 `auto` 是不行的——`table-layout: fixed`
+ * 规矩只有一条：**`<col>` 落地的宽度、算 sticky 偏移的宽度、表格内容的最小宽度，三处都从同一个
+ * `width ?? 150` 出发**。写了 `width` 的列（固定与否都一样）照原值写进 colgroup，偏移也按原值累加；
+ * 没写 `width` 的固定列按 150 落地；没写 `width` 的普通列在 colgroup 上留 `auto` 去吸收容器撑出来的
+ * 多余宽度，但在最小宽度里按 150 计——容器比这份下限还窄时先出横向滚动条，而不是把 `auto` 列一路压到
+ * 表头一个字一行。反过来把带宽度的普通列也写成 `auto` 是不行的——`table-layout: fixed`
  * 下它们会被固定列的确切宽度挤到 0 宽，横向能滚的距离也一并消失，固定列就"看着没生效"。
  */
-const DEFAULT_FIXED_COLUMN_WIDTH = 150;
+const DEFAULT_COLUMN_WIDTH = 150;
 /** 勾选列宽度：colgroup、行内单元格样式和固定列的左偏移三处共用 */
 const SELECTION_COLUMN_WIDTH = 50;
-const fixedWidthOf = (column: Column) => column.width ?? DEFAULT_FIXED_COLUMN_WIDTH;
+/** 一列的宽度基准：写了 `width` 照原值，没写按 150。sticky 偏移和表格最小宽度都走它。 */
+const widthBasisOf = (column: Column) => column.width ?? DEFAULT_COLUMN_WIDTH;
 /** colgroup 落地的宽度：有 `width` 照写，缺宽度的固定列按 150，缺宽度的普通列交给 `auto`。 */
 const colgroupWidthOf = (column: Column): string => {
-  const width = column.width ?? (column.fixed ? DEFAULT_FIXED_COLUMN_WIDTH : undefined);
+  const width = column.width ?? (column.fixed ? DEFAULT_COLUMN_WIDTH : undefined);
   return width === undefined ? "auto" : `${width}px`;
 };
 
@@ -191,6 +193,15 @@ const Table = defineComponent({
     // 分组父列上的 `fixed` 先向下继承，之后 `flattedColumns` 与 `headerRows` 只需认叶子列上的方向。
     const inheritedColumns = computed(() => inheritColumnFixed(visibleColumns.value));
     const flattedColumns = computed(() => flattenColumns(inheritedColumns.value));
+
+    // 表格内容的最小宽度：每列的宽度基准之和（没写 `width` 的普通列按 150 计），再加勾选列的 50。
+    // `<col>` 上它们仍是 `auto`，宽容器里照旧平摊多余空间；这一份只是下限，容器比它还窄就出横向
+    // 滚动条。`scroll.x` 显式给了则照旧以 `scroll.x` 为准。
+    const contentMinWidth = computed(
+      () =>
+        flattedColumns.value.reduce((sum, column) => sum + widthBasisOf(column), 0) +
+        (props.checkable ? SELECTION_COLUMN_WIDTH : 0),
+    );
 
     // 分栏后表头和表体是两张 table，表体单元格与表头之间不再有任何结构关系可读，
     // 屏幕阅读器只会念"单元格 张三"。这里给每个表头格生成 id，表体格用 `aria-labelledby` 指回去，
@@ -387,7 +398,7 @@ const Table = defineComponent({
             position: "sticky",
             left: `${leftOffset}px`,
           };
-          leftOffset += fixedWidthOf(col);
+          leftOffset += widthBasisOf(col);
         }
       });
 
@@ -400,7 +411,7 @@ const Table = defineComponent({
             position: "sticky",
             right: `${rightOffset}px`,
           };
-          rightOffset += fixedWidthOf(col);
+          rightOffset += widthBasisOf(col);
         }
       }
 
@@ -931,7 +942,9 @@ const Table = defineComponent({
       const scrollX = typeof props.scroll.x === "number" ? `${props.scroll.x}px` : props.scroll.x;
       return {
         width: "100%",
-        minWidth: scrollX || "100%",
+        // `scroll.x` 是调用方显式给的内容最小宽度，优先；没写时用上面那份下限，
+        // 于是窄容器是"横向滚动"而不是"把列压瘪到表头竖排换行"。
+        minWidth: scrollX || (contentMinWidth.value ? `${contentMinWidth.value}px` : "100%"),
         tableLayout: "fixed",
       };
     });
