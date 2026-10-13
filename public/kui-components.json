@@ -17975,6 +17975,17 @@
           "documented": true
         },
         {
+          "name": "ellipsis",
+          "description": "Turn on the ellipsis for every column at once, so you do not have to write `ellipsis` on each one; `true` is a single line, a number or `rows` clamps to several lines, and `tooltip` customizes the hover tip. A column that must show its full content opts out with `ellipsis: false`.",
+          "descriptionZh": "一次给所有列打开省略号，省得一列列写 `ellipsis`；`true` 单行，数字或 `rows` 是多行，`tooltip` 定制悬停提示。某一列想显示完整内容，就在那列写 `ellipsis: false` 单独关掉。",
+          "descriptionEn": "Turn on the ellipsis for every column at once, so you do not have to write `ellipsis` on each one; `true` is a single line, a number or `rows` clamps to several lines, and `tooltip` customizes the hover tip. A column that must show its full content opts out with `ellipsis: false`.",
+          "type": "number | boolean | TableEllipsisOptions | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "undefined",
+          "documented": true
+        },
+        {
           "name": "expandedKeys",
           "description": "expanded row keys; supports `v-model:expanded-keys`",
           "descriptionZh": "展开行 key 集合，支持 `v-model:expanded-keys`",
@@ -18255,6 +18266,11 @@
           "title": "列设置",
           "file": "components/table/demo/column-setting.vue",
           "source": "<template>\n  <Space vertical block>\n    <TableColumnSetting\n      v-model:hidden-keys=\"hiddenKeys\"\n      :columns=\"columns\"\n      :disabled-keys=\"['name']\"\n      title=\"显示列\"\n      reset-text=\"重置\"\n    />\n    <Table :data=\"data\" :columns=\"columns\" :hidden-column-keys=\"hiddenKeys\" />\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\nimport { ref } from \"vue\";\n\nconst hiddenKeys = ref<string[]>([]);\nconst columns: Column[] = [\n  { title: \"姓名\", key: \"name\" },\n  { title: \"部门\", key: \"department\" },\n  { title: \"状态\", key: \"status\" },\n];\nconst data = [{ key: 1, name: \"林晓\", department: \"产品中心\", status: \"正常\" }];\n</script>"
+        },
+        {
+          "title": "省略号",
+          "file": "components/table/demo/ellipsis.vue",
+          "source": "<template>\n  <Space vertical>\n    <Space>\n      <Switch v-model=\"global\" />\n      <span>表格级 ellipsis</span>\n    </Space>\n    <!-- 容器压到 480px，列宽不够才看得到省略号。 -->\n    <div style=\"max-width: 480px\">\n      <Table :data=\"data\" :columns=\"columns\" :ellipsis=\"global\" row-key=\"key\" />\n    </div>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\nimport { ref } from \"vue\";\n\n/**\n * 单元格内容超出列宽时截断成省略号：表格级 `ellipsis` 一次管所有列，列上的 `ellipsis` 覆盖它，\n * 那一列想留完整内容就写 `ellipsis: false`（kui-react 行为相同）。\n *\n * 悬停提示默认就有，但只在真的被截断时才弹（没截断的格子不会多出气泡），内容默认是截断的那段文本。\n */\nconst data = [\n  {\n    key: \"1\",\n    title: \"把双仓的表格样式对齐到同一份 LESS\",\n    owner: \"Qiu\",\n    note: \"固定列的宽度基准、相邻固定列的 sticky 偏移、滚动条槽位的占位三处必须用同一份数据，少同步一处就会在临界宽度上露馅，横向能滚的距离也会跟着变。\",\n  },\n  {\n    key: \"2\",\n    title: \"分组表头 + 固定列 + scroll.y\",\n    owner: \"Ann\",\n    note: \"分组表头配上固定列和纵向滚动时，边框、圆角和右下角的空白块最容易出问题，表头分栏之后每格的裁剪范围不同，得逐个组合回归。\",\n  },\n  {\n    key: \"3\",\n    title: \"虚拟滚动窗口\",\n    owner: \"Bob\",\n    note: \"虚拟滚动的窗口起点要按总行数钳上界，否则滚过头会渲染出一段空窗口，保留区高度也会算错，滚动条跟着突然抖动一下。\",\n  },\n];\n\nconst columns: Column[] = [\n  // 没有 `ellipsis`：跟着表格级走，单行截断。\n  { title: \"任务\", key: \"title\", width: 160 },\n  // 这一列单独关掉：负责人一般很短，被截断反而难看。\n  { title: \"负责人\", key: \"owner\", width: 100, ellipsis: false },\n  // 说明截到三行，提示换成指定内容。\n  {\n    title: \"说明\",\n    key: \"note\",\n    width: 200,\n    ellipsis: { rows: 3, tooltip: \"完整说明请进需求单\" },\n  },\n];\n\nconst global = ref(true);\n</script>"
         }
       ]
     },
@@ -18475,6 +18491,11 @@
           "title": "列设置",
           "file": "components/table/demo/column-setting.vue",
           "source": "<template>\n  <Space vertical block>\n    <TableColumnSetting\n      v-model:hidden-keys=\"hiddenKeys\"\n      :columns=\"columns\"\n      :disabled-keys=\"['name']\"\n      title=\"显示列\"\n      reset-text=\"重置\"\n    />\n    <Table :data=\"data\" :columns=\"columns\" :hidden-column-keys=\"hiddenKeys\" />\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\nimport { ref } from \"vue\";\n\nconst hiddenKeys = ref<string[]>([]);\nconst columns: Column[] = [\n  { title: \"姓名\", key: \"name\" },\n  { title: \"部门\", key: \"department\" },\n  { title: \"状态\", key: \"status\" },\n];\nconst data = [{ key: 1, name: \"林晓\", department: \"产品中心\", status: \"正常\" }];\n</script>"
+        },
+        {
+          "title": "省略号",
+          "file": "components/table/demo/ellipsis.vue",
+          "source": "<template>\n  <Space vertical>\n    <Space>\n      <Switch v-model=\"global\" />\n      <span>表格级 ellipsis</span>\n    </Space>\n    <!-- 容器压到 480px，列宽不够才看得到省略号。 -->\n    <div style=\"max-width: 480px\">\n      <Table :data=\"data\" :columns=\"columns\" :ellipsis=\"global\" row-key=\"key\" />\n    </div>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { Column } from \"kui-vue\";\nimport { ref } from \"vue\";\n\n/**\n * 单元格内容超出列宽时截断成省略号：表格级 `ellipsis` 一次管所有列，列上的 `ellipsis` 覆盖它，\n * 那一列想留完整内容就写 `ellipsis: false`（kui-react 行为相同）。\n *\n * 悬停提示默认就有，但只在真的被截断时才弹（没截断的格子不会多出气泡），内容默认是截断的那段文本。\n */\nconst data = [\n  {\n    key: \"1\",\n    title: \"把双仓的表格样式对齐到同一份 LESS\",\n    owner: \"Qiu\",\n    note: \"固定列的宽度基准、相邻固定列的 sticky 偏移、滚动条槽位的占位三处必须用同一份数据，少同步一处就会在临界宽度上露馅，横向能滚的距离也会跟着变。\",\n  },\n  {\n    key: \"2\",\n    title: \"分组表头 + 固定列 + scroll.y\",\n    owner: \"Ann\",\n    note: \"分组表头配上固定列和纵向滚动时，边框、圆角和右下角的空白块最容易出问题，表头分栏之后每格的裁剪范围不同，得逐个组合回归。\",\n  },\n  {\n    key: \"3\",\n    title: \"虚拟滚动窗口\",\n    owner: \"Bob\",\n    note: \"虚拟滚动的窗口起点要按总行数钳上界，否则滚过头会渲染出一段空窗口，保留区高度也会算错，滚动条跟着突然抖动一下。\",\n  },\n];\n\nconst columns: Column[] = [\n  // 没有 `ellipsis`：跟着表格级走，单行截断。\n  { title: \"任务\", key: \"title\", width: 160 },\n  // 这一列单独关掉：负责人一般很短，被截断反而难看。\n  { title: \"负责人\", key: \"owner\", width: 100, ellipsis: false },\n  // 说明截到三行，提示换成指定内容。\n  {\n    title: \"说明\",\n    key: \"note\",\n    width: 200,\n    ellipsis: { rows: 3, tooltip: \"完整说明请进需求单\" },\n  },\n];\n\nconst global = ref(true);\n</script>"
         }
       ]
     },
@@ -19461,6 +19482,17 @@
           "documented": true
         },
         {
+          "name": "ellipsis",
+          "description": "Truncation, tooltip and expansion",
+          "descriptionZh": "文本省略、提示和展开配置",
+          "descriptionEn": "Truncation, tooltip and expansion",
+          "type": "number | boolean | TypographyEllipsisOptions",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "false",
+          "documented": true
+        },
+        {
           "name": "italic",
           "description": "Italic text",
           "descriptionZh": "斜体",
@@ -19508,17 +19540,6 @@
           "descriptionZh": "允许复制及配置操作提示",
           "descriptionEn": "Enable copy and action tooltips",
           "type": "boolean | TypographyCopyableOptions",
-          "boolean": false,
-          "required": false,
-          "defaultExpression": "false",
-          "documented": true
-        },
-        {
-          "name": "ellipsis",
-          "description": "Truncation, tooltip and expansion",
-          "descriptionZh": "文本省略、提示和展开配置",
-          "descriptionEn": "Truncation, tooltip and expansion",
-          "type": "number | boolean | TypographyEllipsisOptions",
           "boolean": false,
           "required": false,
           "defaultExpression": "false",

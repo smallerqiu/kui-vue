@@ -108,6 +108,10 @@ const columns = [
 
 - `TableColumnSetting` 根据同一份列配置生成显隐面板，配合 `hiddenColumnKeys` 使用；`disabledKeys` 可保留不允许隐藏的关键列。
 
+[省略号](./demo/ellipsis.vue?show=vertical)
+
+- 单元格内容超出列宽时收成省略号：列上写 `ellipsis`，或用 Table 的 `ellipsis` 一次管住所有列（插槽与 `render` 出来的内容同样管），某一列想留完整内容就在那列写 `ellipsis: false`。默认单行，`rows` 可以多行；悬停提示默认打开，且只在格子真的被截断时才弹（kui-react 行为相同）。
+
 - 表格文案统一取自语言包 `k.table`：`emptyText` 空态提示，`columnSettings`/`resetColumns` 列设置面板，`expandRow`/`collapseRow` 是树形展开按钮的可访问名，`selectRow`/`selectAllRows` 是行内与表头勾选框的可访问名；显式传入的 `emptyText`、`title`、`resetText` 优先于语言包。
 
 - 固定列必须有确定宽度：没传 `width` 的固定列按 150 处理，勾选列固定为 50。写了 `width` 的列（固定与否都一样）照原值落到 `<col>` 上，只有没写宽度的普通列才是 `auto`，由它分摊被撑开的剩余宽度；把带宽度的普通列也写成 `auto` 会让它们在 `table-layout: fixed` 下被固定列挤成 0 宽，横向能滚的距离一起消失，固定列就“看着没生效”。 `<col>` 宽度、相邻固定列的 sticky 偏移、勾选列单元格宽度三处共用同一份基准。
@@ -133,6 +137,7 @@ const columns = [
 | loading | 表格异步加载模式 | `boolean` | false |
 | data | 显示的结构化数据 | `TableRecord[]` | [] |
 | columns | 表格列的配置描述， | `Column[]` | [] |
+| ellipsis | 一次给所有列打开省略号，省得一列列写 `ellipsis`；`true` 单行，数字或 `rows` 是多行，`tooltip` 定制悬停提示。某一列想显示完整内容，就在那列写 `ellipsis: false` 单独关掉。 | `number \| boolean \| TableEllipsisOptions` | - |
 | hiddenColumnKeys | 隐藏的列 key 集合，支持分组列 | `string[]` | [] |
 | rowKey | 行的唯一标识，勾选与展开都以它为准；可传字段名，或传函数从记录中取值 | `string \| ((record: TableRecord) => TableKey)` | key |
 | childrenColumnName | 子节点字段名 | `string` | children |
@@ -175,6 +180,7 @@ const columns = [
 | key      | 对应列内容的字段名                   | string                                                     | -      |
 | fixed    | 列固定的方向                         | 'left' \| 'right'                                          | -      |
 | sorter   | 排序,为`true`时,本地排序             | boolean \| (state: SortState) => void                      | -      |
+| ellipsis | 内容超出列宽时收成省略号             | boolean \| number \| TableEllipsisOptions                  | -      |
 | width    | 列宽                                 | number                                                     | -      |
 | rowSpan  | 行合并单位,为 0 时将不渲染当前行     | number \| ((record: TableRecord, index: number) => number) | -      |
 | colSpan  | 列合并单位,为 0 时将不渲染当前列     | number \| ((record: TableRecord, index: number) => number) | -      |
@@ -194,3 +200,10 @@ const columns = [
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | shape | 表格形状 | `"square" \| "round"` | round |
+
+## TableEllipsisOptions
+
+| 属性    | 说明                                                                         | 类型                 | 默认值 |
+| ------- | ---------------------------------------------------------------------------- | -------------------- | ------ |
+| rows    | 截断到第几行，超出部分收成省略号                                             | number               | 1      |
+| tooltip | 悬停提示；省略或 `true` 用被截断的那段文本，传内容换成指定提示，`false` 关掉 | boolean \| VNodeChild | -      |

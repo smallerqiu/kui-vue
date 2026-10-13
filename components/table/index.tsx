@@ -10,6 +10,7 @@ import {
   onMounted,
   reactive,
   ref,
+  shallowRef,
   watch,
 } from "vue";
 import { Checkbox, type ChangeEvent } from "../checkbox";
@@ -19,8 +20,9 @@ import Empty from "../empty";
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
 import Spin from "../spin";
+import Tooltip from "../tooltip";
 import { getVirtualRange } from "../virtual-list";
-import type { Column, SortState, TableKey, TableRecord } from "./types";
+import type { Column, SortState, TableEllipsisOptions, TableKey, TableRecord } from "./types";
 import {
   compareSortValues,
   countColumnLeaves,
@@ -29,6 +31,7 @@ import {
   getRecordValue,
   inheritColumnFixed,
   mergeExpandAllRows,
+  resolveCellEllipsis,
   resolveRowKey,
 } from "./utils";
 
@@ -74,9 +77,82 @@ const measureScrollbarWidth = (): number => {
   return width;
 };
 
+/**
+ * 单元格省略号（`ellipsis`，写在列上或表格级），与 kui-react `components/table/index.tsx` 里的
+ * `EllipsisCell` 同一套语义：`rows` 是截断行数，`tooltip` 决定悬停提示——省略或 `true` 用被截断的
+ * 那段文本，传内容则换成指定的提示，`false` 关掉。
+ *
+ * 提示只在**真的被截断**时才弹——判定放在 hover 那一刻量 `scrollWidth` / `scrollHeight`，
+ * 于是既不用给每格挂观察器，也不会给没截断的格子凭空多出一个气泡。
+ * `Tooltip` 在关闭时不产出任何 DOM，所以整表开启时每格挂一份也不吃亏。
+ */
+const EllipsisCell = defineComponent({
+  name: "TableEllipsisCell",
+  props: {
+    rows: { type: Number, required: true },
+    tooltip: {
+      type: [Boolean, String, Number, Object, Array] as PropType<VNodeChild | false>,
+      default: undefined,
+    },
+    /** 树形首列要保住自己的 `k-table-tree-content`，所以把额外的类名递进来一起挂 */
+    extraClass: String,
+  },
+  setup(props, { slots }) {
+    const innerRef = ref<HTMLElement | null>(null);
+    // `VNodeChild` 是递归联合类型，`ref` 的深层 `UnwrapRef` 会在这里爆掉，改用 `shallowRef`。
+    const tip = shallowRef<VNodeChild | null>(null);
+    const multiRows = computed(() => props.rows > 1);
+    const enter = () => {
+      const element = innerRef.value;
+      if (!element || props.tooltip === false) return;
+      // 留 1px 余量：浏览器把小数宽度取整后，没截断的格子也可能差出 1。
+      const clipped = multiRows.value
+        ? element.scrollHeight > element.clientHeight + 1
+        : element.scrollWidth > element.clientWidth + 1;
+      if (!clipped) return;
+      if (props.tooltip === undefined || props.tooltip === true) {
+        tip.value = element.textContent?.replace(/\s+/g, " ").trim() || null;
+        return;
+      }
+      tip.value = props.tooltip;
+    };
+    // Vue 的 style 绑定不会给数字补单位，行数一律写成字符串。
+    return () => {
+      const node = (
+        <span
+          ref={innerRef}
+          class={[
+            "k-table-cell-ellipsis",
+            multiRows.value && "k-table-cell-ellipsis-rows",
+            props.extraClass,
+          ]}
+          style={multiRows.value ? { WebkitLineClamp: `${props.rows}` } : undefined}
+          onMouseenter={enter}
+          onMouseleave={() => {
+            tip.value = null;
+          }}
+        >
+          {slots.default?.()}
+        </span>
+      );
+      if (props.tooltip === false) return node;
+      return (
+        <Tooltip trigger="manual" show={Boolean(tip.value)} title={tip.value}>
+          {node}
+        </Tooltip>
+      );
+    };
+  },
+});
+
 const tableProps = {
   data: { type: Array as PropType<TableRecord[]>, default: () => [] },
   columns: { type: Array as PropType<Column[]>, default: () => [] },
+  /** 一次给所有列打开省略号；列上的 `ellipsis` 优先，写 `false` 可以把这一列单独关掉 */
+  ellipsis: {
+    type: [Boolean, Number, Object] as PropType<boolean | number | TableEllipsisOptions>,
+    default: undefined,
+  },
   hiddenColumnKeys: { type: Array as PropType<string[]>, default: () => [] },
   selectedKeys: { type: Array as PropType<TableKey[]>, default: () => [] },
   disabledKeys: { type: Array as PropType<TableKey[]>, default: () => [] },
@@ -202,6 +278,17 @@ const Table = defineComponent({
         flattedColumns.value.reduce((sum, column) => sum + widthBasisOf(column), 0) +
         (props.checkable ? SELECTION_COLUMN_WIDTH : 0),
     );
+
+    // 省略号按叶子列归一一次：列上写了 `ellipsis` 就以列为准，否则跟着表格级 `ellipsis` 走，
+    // 所以表格级全开时某一列还能用 `ellipsis: false` 单独关掉。
+    // 归一放在这里而不是单元格里面，免得每渲染一格就归一一次、再新建一个对象。
+    const cellEllipsis = computed(() => {
+      const map = new Map<TableKey, { rows: number; tooltip?: VNodeChild | false } | null>();
+      flattedColumns.value.forEach((column) =>
+        map.set(column.key, resolveCellEllipsis(column.ellipsis, props.ellipsis)),
+      );
+      return map;
+    });
 
     // 分栏后表头和表体是两张 table，表体单元格与表头之间不再有任何结构关系可读，
     // 屏幕阅读器只会念"单元格 张三"。这里给每个表头格生成 id，表体格用 `aria-labelledby` 指回去，
@@ -881,6 +968,7 @@ const Table = defineComponent({
                   slotContent ??
                   col.render?.(value, record, rowIndex, col) ??
                   (value as VNodeChild);
+                const ellipsis = cellEllipsis.value.get(col.key);
                 return (
                   <td
                     key={col.key}
@@ -916,8 +1004,22 @@ const Table = defineComponent({
                         ) : (
                           <span class="k-table-tree-indent" />
                         )}
-                        <span class="k-table-tree-content">{cellContent}</span>
+                        {ellipsis ? (
+                          <EllipsisCell
+                            rows={ellipsis.rows}
+                            tooltip={ellipsis.tooltip}
+                            extraClass="k-table-tree-content"
+                          >
+                            {cellContent}
+                          </EllipsisCell>
+                        ) : (
+                          <span class="k-table-tree-content">{cellContent}</span>
+                        )}
                       </div>
+                    ) : ellipsis ? (
+                      <EllipsisCell rows={ellipsis.rows} tooltip={ellipsis.tooltip}>
+                        {cellContent}
+                      </EllipsisCell>
                     ) : (
                       cellContent
                     )}

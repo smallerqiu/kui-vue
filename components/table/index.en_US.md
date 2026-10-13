@@ -108,6 +108,10 @@ const columns = [
 
 - `TableColumnSetting` generates a visibility panel from the same column definitions used by Table. Use it with `hiddenColumnKeys`; `disabledKeys` keeps essential columns fixed.
 
+[Ellipsis](./demo/ellipsis.vue?show=vertical)
+
+- A cell whose content is wider than the column is cut with an ellipsis: set `ellipsis` on the column, or on the Table to cover every column at once (slot and `render` content included) and opt a column back out with `ellipsis: false`. One line by default, `rows` for several; the hover tip is on by default and only shows when the cell really got clipped (kui-react behaves identically).
+
 - All Table texts come from the `k.table` locale keys: `emptyText` for the empty state, `columnSettings`/`resetColumns` for the column panel, `expandRow`/`collapseRow` for the tree toggle's accessible name and `selectRow`/`selectAllRows` for the row and header checkboxes. An explicit `emptyText`, `title` or `resetText` prop takes precedence over the locale.
 
 - Fixed columns need a definite width: a fixed column without `width` falls back to 150, and the selection column is 50. Any column that declares `width` — fixed or not — gets that exact value on its `<col>`; only width-less non-fixed columns use `auto` to absorb the remaining width. Writing `auto` for a column that declared a width would squeeze it to 0 px under `table-layout: fixed`, which also destroys the horizontal scroll range and makes the fixed columns look inert. The `<col>` width, the sticky offset of the next fixed cell and the selection cell width all derive from that single basis.
@@ -133,6 +137,7 @@ const columns = [
 | loading | Table asynchronous loading mode | `boolean` | false |
 | data | Structured data to be displayed | `TableRecord[]` | [] |
 | columns | Configuration description of table columns | `Column[]` | [] |
+| ellipsis | Turn on the ellipsis for every column at once, so you do not have to write `ellipsis` on each one; `true` is a single line, a number or `rows` clamps to several lines, and `tooltip` customizes the hover tip. A column that must show its full content opts out with `ellipsis: false`. | `number \| boolean \| TableEllipsisOptions` | - |
 | hiddenColumnKeys | Hidden column keys, including grouped columns | `string[]` | [] |
 | rowKey | Unique row identity used by selection and expansion; a field name or an accessor function reading the key from a record | `string \| ((record: TableRecord) => TableKey)` | key |
 | childrenColumnName | Field containing child records | `string` | children |
@@ -175,6 +180,7 @@ Slot: `default` customizes the trigger.
 | key      | Corresponding column field name                                    | string                                                     | -       |
 | fixed    | Column fixed direction                                             | 'left' \| 'right'                                          | -       |
 | sorter   | Sorting, when `true`, local sorting is enabled                     | boolean \| (state: SortState) => void                      | -       |
+| ellipsis | Cell content overflows into an ellipsis                            | boolean \| number \| TableEllipsisOptions                  | -       |
 | width    | Column width                                                       | number                                                     | -       |
 | rowSpan  | Row merge unit, when 0, the current row will not be rendered       | number \| ((record: TableRecord, index: number) => number) | -       |
 | colSpan  | Column merge unit, when 0, the current column will not be rendered | number \| ((record: TableRecord, index: number) => number) | -       |
@@ -194,3 +200,10 @@ Slot names are built straight from the column `key`, so the `key` must also be a
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
 | shape | Table shape | `"square" \| "round"` | round |
+
+## TableEllipsisOptions
+
+| Property | Description                                                                              | Type                 | Default |
+| -------- | ---------------------------------------------------------------------------------------- | -------------------- | ------- |
+| rows     | How many lines to keep before the ellipsis                                                | number               | 1       |
+| tooltip  | Hover tip; omitted or `true` uses the clipped text, a value replaces it, `false` turns it off | boolean \| VNodeChild | -       |

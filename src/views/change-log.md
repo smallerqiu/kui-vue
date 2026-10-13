@@ -57,6 +57,7 @@ rm -rf node_modules/.vite
 - 命令式弹窗（`modal.confirm()` 等）的 `title` / `content` 不再限字符串、可以省略，弹窗实例统一提供 `show` / `hide` / `destroy`，并沿用调用处的全局组件、指令与 `ConfigProvider` 设置。
 - `Modal` 内容区贴边的控件（如 `Input`）聚焦时，那圈焦点高亮不再被裁掉一半；内容宽度、位置与页脚间距都没有变化。
 - `Tooltip` 气泡和箭头指示器补回 1px 描边，深色背景上也能看清边界。
+- `Table` 新增 `ellipsis`：单元格内容超出列宽时收成省略号，行为与 React 版一致。写在列上只管那一列，写在 `Table` 上一次管住所有列（插槽或 `render` 出来的内容同样管），某一列想显示完整内容就在列上写 `ellipsis: false` 单独关掉。默认只截一行，`rows` 可以截到多行；悬停提示默认打开，且只在格子真的被截断时才出现，`tooltip` 能换成指定内容或设 `false` 关掉。
 
 ## 6.2.2
 

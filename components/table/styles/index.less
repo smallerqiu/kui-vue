@@ -434,6 +434,22 @@
     }
   }
 
+  // 单元格省略号（`ellipsis`，列上或表格级）套在内容外面的那一层。
+  // 单行走 `text-overflow`；`rows > 1` 时换 `-webkit-line-clamp`，行数由渲染写在行内样式上，
+  // 所以这条要排在上面那条后面（两个类同权重，靠顺序覆盖 `display` 和 `white-space`）。
+  .k-table-cell-ellipsis {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .k-table-cell-ellipsis-rows {
+    display: -webkit-box;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+  }
+
   .k-table-tree-cell {
     display: flex;
     align-items: center;

@@ -187,3 +187,21 @@ export const mergeExpandAllRows = (
   });
   return { keys, changed };
 };
+
+/**
+ * 单元格省略号配置的归一：列上写了 `ellipsis` 就以列为准，没写才跟着表格级的 `ellipsis` 走，
+ * 所以表格级全开时某一列还能用 `ellipsis: false` 单独关掉。`true` 是单行，数字是行数，
+ * 对象可以另给 `rows` 与 `tooltip`。返回 `null` 表示这一列不截断。
+ * `tooltip` 在这里只当不透明值传下去，节点类型由各自的框架决定，因此两仓的
+ * `components/table/utils.ts` 里这一段是逐字节相同的副本，改一边必须同步另一边。
+ */
+export const resolveCellEllipsis = <TooltipValue>(
+  columnValue: boolean | number | { rows?: number; tooltip?: TooltipValue | false } | undefined,
+  tableValue: boolean | number | { rows?: number; tooltip?: TooltipValue | false } | undefined,
+): { rows: number; tooltip?: TooltipValue | false } | null => {
+  const value = columnValue === undefined ? tableValue : columnValue;
+  if (value === undefined || value === false) return null;
+  const options = typeof value === "object" ? value : {};
+  const rows = Math.max(1, Math.floor(typeof value === "number" ? value : (options.rows ?? 1)));
+  return { rows, tooltip: options.tooltip };
+};
