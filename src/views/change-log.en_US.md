@@ -57,7 +57,7 @@ rm -rf node_modules/.vite
 - Imperative dialogs (`modal.confirm()` and friends) accept nodes instead of strings for `title` / `content`, both of which are now optional, every instance exposes `show` / `hide` / `destroy`, and they inherit the surrounding application context (global components, directives and `ConfigProvider` settings).
 - `Modal` / `Drawer` docs now list the real defaults (`maskClosable`: `false` for dialogs and `true` for drawers, mask clicks only — `Esc` is gated by `escKey`) and explain that `onCancel` and `onClose` are two separate channels: the footer Cancel button fires only `onCancel`, while the mask, `Esc` and the close icon fire only `onClose`. To keep a controlled `v-model` in sync, listening to `openChange` alone is enough — no need to update the value in both callbacks.
 - Controls placed against the edge of a `Modal` body no longer have half of their focus outline clipped; content width, position and the footer gap are unchanged.
-- `Tooltip` bubbles got their 1px border back, so the edge stays readable on dark backgrounds.
+- `Tooltip` bubbles and their arrow indicator got their 1px border back, so the edge stays readable on dark backgrounds.
 
 ## 6.2.2
 

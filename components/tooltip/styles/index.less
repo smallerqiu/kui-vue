@@ -15,13 +15,21 @@
     background: @dark-pop-color;
     // 弹层表面都带一圈 1px 描边（见 `components/popup/style.less` 的 `.k-popup-content`），
     // tooltip 走自己的 `.k-tooltip-content`，不吃那条规则：没了这圈边，深色气泡贴在
-    // 深色背景上就只剩一层阴影，边界看不出来。箭头离面板有 6px 间隙，不需要跟着描边。
+    // 深色背景上就只剩一层阴影，边界看不出来。
     border: 1px solid var(--kui-popup-border, var(--kui-color-pop-border));
     box-shadow: 0 2px 8px @shadow-color;
     color: var(--kui-color-text-on-solid);
     border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
     position: relative;
     min-width: 36px;
+
+    // 箭头也接上这圈边，做法与 `.k-poptip-content #ot` 相同：只描外沿，
+    // 粗细跟着字号走（0.1em ≈ 1.2px），比面板的 1px 略宽一点才不会露出接缝。
+    // 不描的话，气泡的边到箭头根部就断了，深色箭头压在浅色描边上像边上凹了个洞。
+    #ot {
+      stroke-width: 0.1em;
+      stroke: var(--kui-popup-border, var(--kui-color-pop-border));
+    }
   }
 
   .k-tooltip-title {
@@ -36,6 +44,12 @@
     width: 24px;
     height: 7px;
     color: @dark-pop-color;
+
+    // 描边那条路径（`#ot`）的尖端落在 viewBox 外半像素，
+    // 不放开的话 svg 默认会把它裁掉，箭头的边就在尖上断了一截。
+    svg {
+      overflow: visible;
+    }
   }
 
   &[k-placement^="top"] {

@@ -79,6 +79,16 @@ const Tooltip = defineComponent({
               <div class="k-tooltip-arrow">
                 <svg style={{ fill: bgColor || "currentcolor" }} viewBox="0 0 24 7">
                   <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z" />
+                  {/* 与 poptip 同一套路（`#ot`）：只描外沿那一圈，把面板的 1px 边接过来。
+                      上面那条闭合路径负责填色，这条开放路径的肩线落在面板描边的中线上
+                      （箭头盒顶比面板外沿高 2px，描边带占 y 1~2，所以中线是 1.5），
+                      整条曲线再往外挪半像素，看着就是描边顺着箭头绕一圈。
+                      箭头尖端因此落到 viewBox 外半像素，靠 `overflow: visible` 不裁掉。 */}
+                  <path
+                    id="ot"
+                    fill="none"
+                    d="M24 1.5C20 1.5 18.5 2.5 16.5 4.5C14.5 6.5 14 7.5 12 7.5C10 7.5 9.5 6.5 7.5 4.5C5.5 2.5 4 1.5 0 1.5"
+                  />
                 </svg>
               </div>
             ),
