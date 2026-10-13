@@ -34,7 +34,15 @@
       <p>Yes , I'm fine !</p>
     </Modal>
 
-    <Modal title="Submit forms" v-model="visible4" :loading="loading" @ok="submit" @close="close">
+    <!-- 开合走 `v-model`，关掉那一刻的收尾挂在 `openChange` 上：
+         点「取消」不会触发 `close`，只挂 `close` 的话取消关掉时 loading 收不掉。 -->
+    <Modal
+      title="Submit forms"
+      v-model="visible4"
+      :loading="loading"
+      @ok="submit"
+      @open-change="close"
+    >
       <p>
         Name：
         <Input placeholder="Please input your name" style="width: 200px" />
