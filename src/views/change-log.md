@@ -24,6 +24,7 @@ rm -rf node_modules/.vite
 - `Menu` 折叠逻辑按 `mode` 区分，切换 `mode` 不再改写 `openKeys`，也不再额外触发 `openChange`；溢出测量只在 `horizontal` 下进行。
 - `Menu` 新增分组与分割线示例，文档补充 `MenuGroup` / `MenuDivider` 的使用约定。
 - `Menu` 修复纵向子菜单展开时外层先开、内容后伸缩的错位。
+- **行为变更**：`Menu` 子菜单面板收起后即从页面中移除（悬浮面板与 `inline` 子面板都是如此），再次展开时重新渲染，与 React 版一致。之前展开过的面板会一直留在页面里，子菜单较多时是一份无谓的常驻开销。哪些面板算展开仍由 `openKeys` 决定，不受这条影响。
 - `Table` 与 React 版对齐：修复分组表头与固定列、`scroll.y`、`bordered` 同时使用时表头边框丢失、吸顶行间露缝、圆角不饱满和右下角空白块的问题，固定列宽度与 sticky 偏移基准一致。
 - `Table` 分组表头改为按列分栏，补充 `aria-labelledby` 关联。
 - `Table` `rowKey` 取不到值时使用稳定兜底 key；`dataIndex` 支持 `a.b.c` 点路径嵌套取值。
@@ -38,8 +39,8 @@ rm -rf node_modules/.vite
 - `StatCard` 的 `title` / `desc` / `trend` 与 `StatNumber` 的 `prefix` / `suffix` 在传 `false` 或空字符串时不再渲染占位的空节点，`0` 仍按内容显示。
 - `StatCard` 修复 `items[].key` 与数组下标撞 key、数字动画状态串到别的数据项的问题。
 - `StatNumber` 的 `countup` 模式同样遵循系统的“减少动态效果”偏好，命中时直接显示目标值。
-- `Table` 未设 `width` 的列按 150 取宽度基准，整表用叶子列合计（含选择列 50）设 `min-width`；容器变窄时改为横向滚动，不再把列压瘪、表头文字竖排换行。
-- `Table` 修复窗口卡在临界宽度时固定列阴影与横向滚动条反复抖动：中性态的阴影盒不再凭空撑出一段可滚距离，只在真的还能往那一侧滚时才生成阴影。
+- `Table` 未设 `width` 的列按 150 作为宽度基准，整表按各列宽度合计设最小宽度；容器变窄时改为横向滚动，不再把列压瘪、让表头文字竖排换行。
+- `Table` 修复窗口宽度卡在临界值时，固定列阴影和横向滚动条来回闪现的问题：只有真的还能往那一侧滚动，才会出现阴影。
 - `Tree` 异步 `loadData` 对同一节点只请求一次；虚拟滚动补回 `k-tree-virtual-list`，与 React 版的行高一致。
 - `Tree` 缺 `key` 的节点改用与 React 同规则的树路径兜底 key；此前按可见下标兜底，折叠或过滤时同一个节点的键会漂移。
 - `Tree` 拖到自身后代节点时不再提示可放置、松手却无效。
@@ -47,8 +48,18 @@ rm -rf node_modules/.vite
 - `Tree` 展开箭头按钮不再参与 Tab（`tabIndex={-1}`），保住整棵树的 roving tabindex，方向键不会把焦点丢在箭头上。
 - `Tree` 清理 LESS 中五条无人引用的规则。
 - `DropdownButton` 修复右侧“三点”按钮点不开菜单：点击、右键与方向键都能驱动开合，触发按钮带 `aria-haspopup="menu"` 和 `aria-expanded`，并可用 `trigger` 指定 `hover` / `click` / `contextmenu`。
-- 弹层组件新增公开的 `destroyOnClose`（`Select`、`Cascader`、`TreeSelect`、`AutoComplete`、`Mentions`、`DatePicker`、`ColorPicker`、`Dropdown`、`DropdownButton`、`Tooltip`、`Poptip`、`Popconfirm`），默认 `true`，即关闭动画结束后销毁面板；此前这个属性没有开放，用户无法覆盖。设为 `false` 可保留面板内未提交的表单状态，代价是每个打开过的实例留一份隐藏 DOM。
+- 弹层组件开放 `destroyOnClose`（`Select`、`Cascader`、`TreeSelect`、`AutoComplete`、`Mentions`、`DatePicker`、`ColorPicker`、`Dropdown`、`DropdownButton`、`Tooltip`、`Poptip`、`Popconfirm`），默认 `true`，即关闭后销毁面板内容。之前这个属性没有开放、无法覆盖；设为 `false` 就能留住面板里没提交完的表单，代价是每个打开过的实例留一份隐藏内容。
 - **行为变更**：上述弹层此前在关闭后会留一份 `display: none` 的面板节点（只有 `Cascader` 会销毁），现在与 React 版一致，默认在退场动画结束后销毁。面板里放了没提交完的表单时请显式写 `:destroy-on-close="false"`；反过来，页面里有大量 `Tooltip` 时不再堆积隐藏 DOM。
+- `Modal` / `Drawer` 叠着开时，`Escape` 只关最上面那一层；下拉菜单开在窗口之上时，第一下 `Escape` 先收下拉，不会把整个窗口一起关掉。`escKey` 在按键时才读取，运行中改这个属性立刻生效。
+- `Modal` / `Drawer` 支持 `destroyOnClose`（默认 `true`）：关闭后销毁面板内容，下次打开是干净的。设为 `false` 可以留住填了一半的表单，代价是页面里留一份隐藏内容。常开面板（`panelOnly`）不受这个开关影响。
+- 确认弹窗的 `onOk` 返回 Promise 时，关闭时机交给组件：保存成功才关窗，失败只结束按钮的 loading 状态并把窗口留着，用户改完可以直接重试。之前失败会让按钮一直转圈。
+- 关闭动画还没播完就重新打开时，窗口不会再过一会儿自己消失；组件销毁时把页面滚动和遮罩层级一并归还。
+- `Modal` 修复 `centered` 设置了却不居中、`width` 传字符串时单位丢失、没传 `title` 却多出一条空标题栏的问题。
+- `Modal` 新增 `title` 插槽，标题区可以放图标、说明等富内容；插槽没渲染出内容时回落到 `title` 属性，两者都不给就不显示标题栏。
+- 命令式弹窗（`modal.confirm()` 等）的 `title` / `content` 不再限字符串、可以省略，弹窗实例统一提供 `show` / `hide` / `destroy`，并沿用调用处的全局组件、指令与 `ConfigProvider` 设置。
+- `Modal` / `Drawer` 文档订正了真实默认值（`maskClosable`：弹窗 `false`、抽屉 `true`，且只管点击遮罩，`Esc` 由 `escKey` 控制），并说明 `onCancel` 与 `onClose` 是分开的两路：点底部「取消」只触发 `onCancel`，点遮罩、按 `Esc`、点右上角只触发 `onClose`。受控用法要同步 `v-model` 的开合状态，只挂 `openChange` 就够，不用在两个回调里各写一次。
+- `Modal` 内容区贴边的控件（如 `Input`）聚焦时，那圈焦点高亮不再被裁掉一半；内容宽度、位置与页脚间距都没有变化。
+- `Tooltip` 气泡补回 1px 描边，深色背景上也能看清边界。
 
 ## 6.2.2
 

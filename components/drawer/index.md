@@ -33,7 +33,8 @@
 | modelValue | 对话框是否显示，可使用 v-model 双向绑定数据。 | `boolean` | - |
 | value | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | `boolean` | false |
 | escKey | 是否支持按 Esc 关闭 | `boolean` | true |
-| maskClosable | 是否允许点击遮罩关闭抽屉 | `boolean` | true |
+| destroyOnClose | 关闭后是否销毁抽屉内容。默认销毁（重开时重新挂载）；设为 false 可保留抽屉内已填写的表单状态，代价是打开过的抽屉留一份隐藏 DOM | `boolean` | true |
+| maskClosable | 是否点击遮罩关闭抽屉（只管遮罩，Esc 由 `escKey` 控制） | `boolean` | true |
 | title | 抽屉标题 | `string` | Title |
 | width | 抽屉宽度 `placement`为 `left` 或 `right` 时使用,支持百分比 | `string \| number` | 520 |
 | height | 抽屉高度 `placement`为 `top` 或 `bottom` 时使用,支持百分比 | `string \| number` | 520 |
@@ -41,7 +42,6 @@
 | footer | 是否显示页脚，也可通过同名插槽自定义页脚内容 | `boolean` | true |
 | closable | 是否显示关闭按钮 | `boolean` | true |
 | target | 展示的父元素，支持原生元素或组件引用 | `(() => HTMLElement \| ComponentPublicInstance \| null \| undefined)` | () => document.body |
-| maskClosable | 点击蒙层是否允许关闭 | `boolean` | true |
 | okText | 确定按钮文字 | `string` | 确定 |
 | cancelText | 取消按钮文字 | `string` | 取消 |
 | mask | 是否展示蒙层 | `boolean` | true |
@@ -50,3 +50,14 @@
 | onCancel | 点击取消的回调 | `() => void` | - |
 | onClose | 抽屉关闭的回调 | `() => void` | - |
 | onOpenChange | 打开或抽屉关闭的回调 | `(visible: boolean) => void` | - |
+
+### onCancel 与 onClose 的分工
+
+关闭这个动作分成两条互不重叠的通道，挂了其中一个，另一个不会跟着响：
+
+- 底部「取消」按钮：只触发 `onCancel`，抽屉照样收起，但不走 `onClose`。
+- 点遮罩、按 Esc、点右上角关闭按钮：只触发 `onClose`。
+
+想在任何关闭方式下都收到通知，就两个回调都挂；要区分「用户明确取消」和「其他方式关闭」，各挂各的。
+`onOk` 不负责关闭，它只挂在确定按钮上，需要关抽屉请自己在回调里收。
+同步开合状态请只挂 `onOpenChange`（或直接用 `v-model`）：取消、遮罩、Esc、右上角这四种关法都会发一次 `update:modelValue` 与 `openChange`，`onCancel` / `onClose` 只告诉你这次是哪条通道关的，不承担状态同步。

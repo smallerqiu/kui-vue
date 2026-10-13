@@ -39,7 +39,11 @@ describe("modal API", () => {
   it("destroys itself after closing with Escape", async () => {
     vi.useFakeTimers();
     modal.success({ title: "Done", content: "Saved" });
+    // 这层的 visible 和遮罩层入队都在 nextTick 里，没开起来之前 Escape 本来就该被忽略
     await nextTick();
+    await nextTick();
+    await nextTick();
+    expect(document.body.classList.contains("k-scroll-locked")).toBe(true);
 
     document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
     await nextTick();

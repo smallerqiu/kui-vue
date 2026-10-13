@@ -1,4 +1,4 @@
-import { createVNode, getCurrentInstance, render } from "vue";
+import { createVNode, getCurrentInstance, render, type VNodeChild } from "vue";
 import { getAppContext, recordMousePoint } from "../config/context";
 import type { IconType } from "../icon";
 import Modal, { ModalPanel } from "./modal";
@@ -47,10 +47,15 @@ const showModal = (props: ModalApiProps) => {
   return instance;
 };
 export interface ModalApiProps {
-  title: string;
+  /**
+   * 标题：字符串之外还能给 VNode / 渲染函数产出的任意内容（VNodeChild）。
+   * react 侧同一字段是 ReactNode（见 kui-react/components/modal/api.tsx），两边到这里对齐。
+   */
+  title?: VNodeChild;
   okText?: string;
   cancelText?: string;
-  content: string;
+  /** 正文，同 title：不再限定字符串 */
+  content?: VNodeChild;
   color?: string;
   icon?: IconType[];
   onOk?: () => void | PromiseLike<unknown>;

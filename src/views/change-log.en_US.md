@@ -22,6 +22,7 @@ rm -rf node_modules/.vite
 - `Menu`: Collapse handling follows `mode`, so switching `mode` no longer rewrites `openKeys` or emits an extra `openChange`; overflow measurement only runs for `horizontal` menus.
 - `Menu`: Added the group and divider example, plus the usage rules for `MenuGroup` / `MenuDivider`.
 - `Menu`: Fixed the vertical sub-menu animation where the outer panel opened first and the content followed.
+- **Behaviour change**: `Menu` sub-menu panels are removed from the page once they collapse (both hover popups and `inline` sub-panels) and rendered again when reopened, matching the React build. Panels that had been opened used to stay in the page permanently, which adds up on menus with many sub-menus. Which panels are open is still driven by `openKeys`.
 - `Table`: Aligned with the React build — fixed missing header borders, sticky-row gaps, incomplete rounded corners and the blank block in the bottom-right corner when grouped headers are combined with fixed columns, `scroll.y` and `bordered`, and matched fixed-column widths and sticky offsets.
 - `Table`: Grouped headers are rendered as per-column cells with `aria-labelledby` relations.
 - `Table`: `rowKey` falls back to a stable key when the configured value is missing; `dataIndex` supports `a.b.c` nested paths.
@@ -36,8 +37,8 @@ rm -rf node_modules/.vite
 - `StatCard`: `title` / `desc` / `trend` and the `StatNumber` `prefix` / `suffix` no longer render an empty placeholder when given `false` or an empty string, while `0` still shows.
 - `StatCard`: Fixed `items[].key` colliding with an item's array index, which moved a number animation onto the wrong entry.
 - `StatNumber`: The `countup` mode now honours the system's reduced-motion preference and jumps straight to the target value.
-- `Table`: Columns without `width` now use 150 as their sizing baseline and the table takes a `min-width` from the summed leaf columns (50 for the selection column), so a narrowing container scrolls horizontally instead of crushing columns and wrapping header text vertically.
-- `Table`: Fixed the flicker where a fixed-column shadow and the horizontal scrollbar kept triggering each other at a borderline window width — the neutral shadow box no longer invents scrollable distance, and a shadow is only drawn while that side can still scroll.
+- `Table`: Columns without `width` now use 150 as their sizing baseline and the table takes a minimum width from the total of its columns (50 for the selection column), so a narrowing container scrolls horizontally instead of crushing columns and stacking header text vertically.
+- `Table`: Fixed the flicker at a borderline window width where a fixed-column shadow and the horizontal scrollbar kept triggering each other — a shadow is now drawn only while that side can still scroll.
 - `Tree`: Asynchronous `loadData` now requests a given node once; virtual scrolling restores the `k-tree-virtual-list` class so row heights match the React build.
 - `Tree`: Nodes without a `key` now fall back to a path-based key using the same rule as the React build; the previous visible-index fallback made a node's key drift whenever the tree collapsed or filtered.
 - `Tree`: Dropping a node onto its own descendant no longer advertises a valid target that does nothing on release.
@@ -45,8 +46,18 @@ rm -rf node_modules/.vite
 - `Tree`: The expand-arrow button is removed from the tab order (`tabIndex={-1}`) so the tree keeps its roving tabindex and arrow keys no longer strand focus on an arrow.
 - `Tree`: Five unreferenced rules were removed from the LESS.
 - `DropdownButton`: Fixed the split button's ellipsis trigger not opening the menu — click, right-click and the arrow keys all drive it now, the trigger carries `aria-haspopup="menu"` and `aria-expanded`, and `trigger` selects `hover` / `click` / `contextmenu`.
-- Popup components gained a public `destroyOnClose` (`Select`, `Cascader`, `TreeSelect`, `AutoComplete`, `Mentions`, `DatePicker`, `ColorPicker`, `Dropdown`, `DropdownButton`, `Tooltip`, `Poptip`, `Popconfirm`), defaulting to `true` so the panel is destroyed once the exit animation ends. The property was not exposed before, so consumers could not override it; set it to `false` to keep unsubmitted form state inside the panel at the cost of one hidden DOM node per opened instance.
+- Popup components accept `destroyOnClose` (`Select`, `Cascader`, `TreeSelect`, `AutoComplete`, `Mentions`, `DatePicker`, `ColorPicker`, `Dropdown`, `DropdownButton`, `Tooltip`, `Poptip`, `Popconfirm`), defaulting to `true` so the panel content is discarded once the popup closes. The property was not exposed before, so it could not be overridden; set it to `false` to keep unsubmitted form state inside the panel, at the cost of one hidden block per opened instance.
 - **Behaviour change**: these popups used to leave a `display: none` panel node in the DOM after closing (only `Cascader` destroyed it). They now match the React build and destroy the panel after the exit animation by default. Keep unsubmitted form state by setting `:destroy-on-close="false"` explicitly; conversely, pages with many `Tooltip` instances no longer accumulate hidden DOM.
+- Stacked `Modal` / `Drawer` windows route `Escape` to the topmost layer only; a dropdown open above a dialog takes the first `Escape` instead of dismissing the whole window. `escKey` is read at keypress time, so changing it at runtime takes effect immediately.
+- `Modal` and `Drawer` accept `destroyOnClose` (default `true`), which discards the panel content after the window closes so the next opening starts fresh. Set it to `false` to keep a half-filled form, at the cost of one hidden block left in the page. Always-open panels (`panelOnly`) are not affected.
+- When the `onOk` of a confirm dialog returns a Promise, the component decides when to close: the window closes on success, while a failure only ends the button's loading state and keeps the dialog open so the user can fix the input and retry. A rejected `onOk` used to leave the button spinning forever.
+- Reopening a window before its close animation finishes no longer makes it disappear on its own a moment later; destroying a window also gives back the page scroll lock and its overlay slot.
+- `Modal`: fixed `centered` having no effect, unit loss when `width` is passed as a string, and an empty title bar rendered when no `title` was passed.
+- `Modal` has a `title` slot for richer headers such as an icon or a subtitle; it falls back to the `title` prop when the slot renders nothing, and the title bar is omitted when neither is provided.
+- Imperative dialogs (`modal.confirm()` and friends) accept nodes instead of strings for `title` / `content`, both of which are now optional, every instance exposes `show` / `hide` / `destroy`, and they inherit the surrounding application context (global components, directives and `ConfigProvider` settings).
+- `Modal` / `Drawer` docs now list the real defaults (`maskClosable`: `false` for dialogs and `true` for drawers, mask clicks only — `Esc` is gated by `escKey`) and explain that `onCancel` and `onClose` are two separate channels: the footer Cancel button fires only `onCancel`, while the mask, `Esc` and the close icon fire only `onClose`. To keep a controlled `v-model` in sync, listening to `openChange` alone is enough — no need to update the value in both callbacks.
+- Controls placed against the edge of a `Modal` body no longer have half of their focus outline clipped; content width, position and the footer gap are unchanged.
+- `Tooltip` bubbles got their 1px border back, so the edge stays readable on dark backgrounds.
 
 ## 6.2.2
 

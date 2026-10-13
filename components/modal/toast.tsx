@@ -1,17 +1,28 @@
 import { CircleAlert, CircleCheck, CircleQuestionMark, CircleX, Info } from "kui-icons";
-import { computed, defineComponent, inject, isRef, ref, type PropType, type Ref } from "vue";
+import {
+  computed,
+  defineComponent,
+  inject,
+  isRef,
+  ref,
+  type PropType,
+  type Ref,
+  type VNodeChild,
+} from "vue";
 import { Button } from "../button";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
+import { isPromiseLike } from "../utils/promise";
 import Modal from "./modal";
 import type { ModalApiProps } from "./index";
 export default defineComponent({
   name: "Toast",
   props: {
-    title: String,
+    // title / content 不再限字符串：命令式 API 要能塞 VNode（react 侧是 ReactNode）
+    title: [String, Number, Object, Array] as PropType<VNodeChild>,
     okText: String,
     cancelText: String,
-    content: String,
+    content: [String, Number, Object, Array] as PropType<VNodeChild>,
     color: String,
     icon: Array as PropType<IconType[]>,
     onOk: Function as PropType<NonNullable<ModalApiProps["onOk"]>>,
@@ -33,14 +44,6 @@ export default defineComponent({
     const loading = ref(false);
     const visible = ref(false);
     let destroyRequested = false;
-    const isPromise = (obj: unknown): obj is PromiseLike<unknown> => {
-      return (
-        typeof obj === "object" &&
-        obj !== null &&
-        "then" in obj &&
-        typeof (obj as { then?: unknown }).then === "function"
-      );
-    };
     const show = () => {
       visible.value = true;
     };
@@ -59,18 +62,23 @@ export default defineComponent({
       hide,
     });
     const ok = () => {
-      const { onOk } = ps;
-      const fun = onOk ? onOk() : {};
-      if (isPromise(fun)) {
-        loading.value = true;
-        Promise.resolve(fun)
-          .then(() => {
-            hide();
-          })
-          .catch(() => {});
-      } else {
+      const result = ps.onOk?.();
+      if (!isPromiseLike(result)) {
         hide();
+        return;
       }
+      // onOk 返 Promise 时由这层接管：成功才关窗，失败只停 loading、窗口留着让用户改完再试。
+      // （以前失败分支什么都不做，按钮一直转圈，等于告诉用户还在忙。）
+      loading.value = true;
+      Promise.resolve(result).then(
+        () => {
+          loading.value = false;
+          hide();
+        },
+        () => {
+          loading.value = false;
+        },
+      );
     };
     const cancel = () => {
       const { onCancel } = ps;
