@@ -86,11 +86,21 @@
     }
 
     .k-modal-body {
-      margin-bottom: 20px;
       font-size: 14px;
       line-height: 1.5;
       overflow: auto;
       box-sizing: border-box;
+      // 焦点环是画在控件盒子外面的（outline 2px + outline-offset），库里最宽的一圈是 Steps 的
+      // 2px + 3px offset = 5px。而 `overflow: auto` 把 body 变成了裁剪源：贴到 body 边缘的
+      // 控件，环的左右（以及第一条/最后一条的上下）会被削成一条直线——这就是
+      // "input 放进 Modal 里焦点环显示不全"的根因，`.k-modal-inner` 的圆角裁剪（离内容还有
+      // 20px）并不是。给滚动容器留出比最宽焦点环还多 1px 的内边距（小数 dpr 下最外一圈会被
+      // 舍掉），再用等量负 margin 抵掉：内容位置、宽度、body 与页脚那 20px 间距都和改前一致，
+      // 只是裁剪框往外扩 6px。
+      --kui-modal-focus-ring-space: calc(var(--kui-focus-ring-width) + 4px);
+      padding: var(--kui-modal-focus-ring-space);
+      margin: calc(-1 * var(--kui-modal-focus-ring-space));
+      margin-bottom: calc(20px - var(--kui-modal-focus-ring-space));
       .kui-scrollbar();
     }
 

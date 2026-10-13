@@ -25,6 +25,7 @@ import type { DrawerPlacementsType } from "../const/types";
 import zhCN from "../locale/zh-CN";
 import { toCssLength } from "../utils/css";
 import { createFocusTrap } from "../utils/focus";
+import { pushOverlay, type OverlayHandle } from "../utils/overlay-stack";
 import { toggleContainerScroll } from "../utils/vnode";
 
 const drawerProps = {
@@ -45,6 +46,7 @@ const drawerProps = {
   mask: { type: Boolean, default: true },
   loading: { type: Boolean, default: false },
   escKey: { type: Boolean, default: true },
+  destroyOnClose: { type: Boolean, default: true },
 };
 
 export type DrawerProps = ExtractPropTypes<typeof drawerProps>;
@@ -109,6 +111,25 @@ const Drawer = defineComponent({
       if (!lock) scrollTarget = null;
     };
 
+    // 退场倒计时：300ms 后收起面板并按 destroyOnClose 决定是否销毁 DOM。
+    // 期间重开必须把它取消掉，否则面板刚亮起来就被上一次关闭摘走。
+    let hideTimer: ReturnType<typeof setTimeout> | null = null;
+    const cancelHide = () => {
+      if (hideTimer === null) return;
+      clearTimeout(hideTimer);
+      hideTimer = null;
+    };
+    // 遮罩层队列：叠在 Drawer 上的 Modal 开着时，Escape 归 Modal。
+    let overlay: OverlayHandle | null = null;
+    const updateOverlay = (open: boolean) => {
+      if (open) {
+        overlay ??= pushOverlay();
+        return;
+      }
+      overlay?.release();
+      overlay = null;
+    };
+
     watch(
       () => initialModel.value,
       (nv) => {
@@ -117,13 +138,16 @@ const Drawer = defineComponent({
     );
 
     onMounted(() => {
-      if (props.escKey) document.addEventListener("keydown", escToClose);
+      document.addEventListener("keydown", escToClose);
       if (rendered.value) ensurePositioningContext(resolveTarget());
       updateScrollLock(initialModel.value);
+      if (initialModel.value) updateOverlay(true);
     });
 
     onBeforeUnmount(() => {
-      if (props.escKey) document.removeEventListener("keydown", escToClose);
+      document.removeEventListener("keydown", escToClose);
+      cancelHide();
+      updateOverlay(false);
       updateScrollLock(false);
       restorePositioningContext();
       focusTrap.deactivate();
@@ -143,22 +167,33 @@ const Drawer = defineComponent({
         toggle(true);
       } else {
         if (value) {
+          cancelHide();
           ensurePositioningContext(resolveTarget());
           updateScrollLock(true);
           nextTick(() => {
             visible.value = value;
             opened.value = value;
+            updateOverlay(true);
             emit("update:modelValue", true);
             emit("openChange", true);
             focusTrap.activate();
           });
         } else {
+          // 与 Modal 同款：受控用法下父组件的回写会把关闭喂回来第二次
+          // （点取消 → emit update:modelValue → v-model 翻成 false → watcher 再调一次
+          // toggle(false)），第二趟只会把 openChange 重复发一遍、把退场倒计时重启一遍。
+          if (!visible.value) return;
           closeHostedPopups();
           focusTrap.deactivate();
+          updateOverlay(false);
           updateScrollLock(false);
           visible.value = false;
-          setTimeout(() => {
+          cancelHide();
+          hideTimer = setTimeout(() => {
+            hideTimer = null;
             opened.value = false;
+            // 与 Modal 同款：退场动画跑完再摘 DOM，默认关一次就销毁面板内容，重开时重新挂载。
+            if (props.destroyOnClose) rendered.value = false;
           }, 300);
           emit("update:modelValue", false);
           emit("openChange", false);
@@ -167,9 +202,13 @@ const Drawer = defineComponent({
     };
 
     const escToClose = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        close();
-      }
+      if (event.key !== "Escape" || event.defaultPrevented) return;
+      // escKey 在按键时读，挂载时读一次的话改 prop 不会生效。
+      if (!props.escKey) return;
+      // 已经关着的窗口不该响应 Escape，也不该在被别的层压在下面时抢走这次按键。
+      if (!visible.value) return;
+      if (!overlay?.isTop()) return;
+      close();
     };
 
     const clickMaskToClose = () => {

@@ -71,7 +71,13 @@ describe("Menu controlled popups", () => {
       expect(wrapper.get(".k-menu-submenu-title").attributes("aria-expanded")).toBe("true");
       await wrapper.setProps({ openKeys: [] });
       expect(wrapper.get(".k-menu-submenu-title").attributes("aria-expanded")).toBe("false");
-      expect(popup?.style.display).toBe("none");
+      // 关闭即卸载（向 react 的 <Transition unmountOnExit> 对齐）：退场动画跑完后面板不留残骸，
+      // 再展开时重新创建一份。
+      await new Promise((resolve) => setTimeout(resolve, 320));
+      expect(document.body.querySelector(".k-menu-submenu-popup")).toBeNull();
+      await wrapper.setProps({ openKeys: ["group"] });
+      await settle();
+      expect(document.body.querySelector(".k-menu-submenu-popup")?.textContent).toContain("Leaf");
       expect(wrapper.emitted("update:openKeys")).toBeUndefined();
     },
   );

@@ -13,6 +13,10 @@
 
   .k-tooltip-content {
     background: @dark-pop-color;
+    // 弹层表面都带一圈 1px 描边（见 `components/popup/style.less` 的 `.k-popup-content`），
+    // tooltip 走自己的 `.k-tooltip-content`，不吃那条规则：没了这圈边，深色气泡贴在
+    // 深色背景上就只剩一层阴影，边界看不出来。箭头离面板有 6px 间隙，不需要跟着描边。
+    border: 1px solid var(--kui-popup-border, var(--kui-color-pop-border));
     box-shadow: 0 2px 8px @shadow-color;
     color: var(--kui-color-text-on-solid);
     border-radius: var(--kui-card-radius, var(--kui-border-radius-card));

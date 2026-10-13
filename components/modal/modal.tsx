@@ -27,7 +27,8 @@ import type { BooleanType } from "../const/types";
 import zhCN from "../locale/zh-CN";
 import { toCssLength } from "../utils/css";
 import { createFocusTrap } from "../utils/focus";
-import { toggleContainerScroll } from "../utils/vnode";
+import { pushOverlay, type OverlayHandle } from "../utils/overlay-stack";
+import { hasRenderableContent, toggleContainerScroll } from "../utils/vnode";
 
 const modalProps = {
   modelValue: { type: Boolean as BooleanType, default: undefined },
@@ -47,6 +48,7 @@ const modalProps = {
   footer: { type: Boolean as BooleanType, default: true },
   escKey: { type: Boolean as BooleanType, default: true },
   panelOnly: Boolean as BooleanType,
+  destroyOnClose: { type: Boolean as BooleanType, default: true },
 };
 export type ModalProps = ExtractPropTypes<typeof modalProps>;
 
@@ -82,20 +84,43 @@ const Modal = defineComponent({
       toggleContainerScroll(typeof document === "undefined" ? null : document.body, lock);
       scrollLocked = lock;
     };
+    // 退场倒计时：300ms 后收起内容并按 destroyOnClose 决定是否销毁 DOM。
+    // 期间重开必须把它取消掉，否则窗口刚亮起来就被上一次关闭摘走。
+    let hideTimer: ReturnType<typeof setTimeout> | null = null;
+    const cancelHide = () => {
+      if (hideTimer === null) return;
+      clearTimeout(hideTimer);
+      hideTimer = null;
+    };
+    // 遮罩层队列：叠着开时 Escape 只该关掉最上面那一层，panelOnly 是别人的面板，不进队。
+    let overlay: OverlayHandle | null = null;
+    const updateOverlay = (open: boolean) => {
+      if (props.panelOnly) return;
+      if (open) {
+        overlay ??= pushOverlay();
+        return;
+      }
+      overlay?.release();
+      overlay = null;
+    };
     type Locale = typeof zhCN;
     const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
     const escToClose = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        close();
-      }
+      if (event.key !== "Escape" || event.defaultPrevented) return;
+      // escKey / panelOnly 都要在按键时读，挂载时读一次的话改 prop 不会生效。
+      if (!props.escKey || props.panelOnly) return;
+      // 已经关着的窗口不该响应 Escape，也不该在被别的层压在下面时抢走这次按键。
+      if (!visible.value) return;
+      if (!overlay?.isTop()) return;
+      close();
     };
 
     onMounted(() => {
       document.addEventListener("mousedown", mousedown);
-      if (props.escKey) document.addEventListener("keydown", escToClose);
+      document.addEventListener("keydown", escToClose);
 
       if (initialModel.value) {
         toggle(true);
@@ -103,8 +128,10 @@ const Modal = defineComponent({
     });
     onBeforeUnmount(() => {
       mouseup();
+      cancelHide();
       document.removeEventListener("mousedown", mousedown);
       document.removeEventListener("keydown", escToClose);
+      updateOverlay(false);
       updateScrollLock(false);
       focusTrap.deactivate();
     });
@@ -129,10 +156,12 @@ const Modal = defineComponent({
         toggle(true);
       } else {
         if (value) {
+          cancelHide();
           updateScrollLock(true);
           nextTick(() => {
             visible.value = value;
             showInner.value = value;
+            updateOverlay(true);
             emit("update:modelValue", true);
             emit("openChange", true);
             nextTick(() => {
@@ -145,12 +174,24 @@ const Modal = defineComponent({
             });
           });
         } else {
+          // 已经是关闭态就别再走一遍：受控用法下父组件的回写会把它喂回来第二次
+          // （点取消 → emit update:modelValue → v-model 把 modelValue 翻成 false →
+          // watcher 又调一次 toggle(false)）。第二趟除了把 update:modelValue / openChange
+          // 重复发一遍、把退场倒计时重启一遍没有别的作用，
+          // 所以同步开合状态的人只该收到一次通知。
+          if (!visible.value) return;
           closeHostedPopups();
           focusTrap.deactivate();
+          updateOverlay(false);
           updateScrollLock(false);
           visible.value = false;
-          setTimeout(() => {
+          cancelHide();
+          hideTimer = setTimeout(() => {
+            hideTimer = null;
             showInner.value = false;
+            // 退场动画跑完再摘 DOM：默认关一次就销毁面板内容，重开时重新挂载。
+            // panelOnly 是宿主浮层里的面板，摘掉等于把别人的内容一起清了，所以不销毁。
+            if (props.destroyOnClose && !props.panelOnly) rendered.value = false;
           }, 300);
           emit("update:modelValue", false);
           emit("openChange", false);
@@ -255,10 +296,16 @@ const Modal = defineComponent({
             ></Button>,
           );
         }
-        if (props.title !== null) {
+        // 与 react 的 `title: ReactNode` 对齐：vue 侧富内容走 `title` 插槽（属性仍只接字符串）。
+        // 插槽渲染出内容才算数——`<template #title>{{ false }}</template>` 这类空产物回落到
+        // `title` 属性，别把标题吞掉。两者都没有就不渲染 header（null 同样当"没有"，
+        // 空标题也会撑出一条带边框的横条）。
+        const titleSlot = slots.title?.();
+        const title = hasRenderableContent(titleSlot) ? titleSlot : props.title;
+        if (title != null) {
           contents.push(
             <div class="k-modal-header" ref={refHeader}>
-              <div class="k-modal-header-inner">{props.title}</div>
+              <div class="k-modal-header-inner">{title}</div>
             </div>,
           );
         }
@@ -290,8 +337,10 @@ const Modal = defineComponent({
         ? null
         : {
             width: toCssLength(width),
+            // 居中靠 `.k-modal-centered .k-modal-inner { top: 0 }`，这里再写内联 top 就把它压掉了；
+            // left 只有拖动时才有意义，写个 left: 0px 纯属噪音。
             top: props.centered ? undefined : `${currentTop.value}px`,
-            left: props.centered ? undefined : `${left.value}px`,
+            left: props.draggable && !props.centered ? `${left.value}px` : undefined,
           };
       const classes = [
         "k-modal",
@@ -299,7 +348,7 @@ const Modal = defineComponent({
           "k-modal-draggable": draggable,
           "k-modal-maximized": props.maximized,
           "k-modal-centered": props.centered,
-          "k-modal-has-footer": props.footer !== null,
+          "k-modal-has-footer": props.footer,
           "k-modal-panel": props.panelOnly,
         },
         attrs.class,
@@ -313,7 +362,8 @@ const Modal = defineComponent({
             class="k-modal-wrap"
             tabindex="-1"
             role="dialog"
-            aria-modal={props.mask || undefined}
+            // panelOnly 是被别的浮层包着用的面板，再声明 aria-modal 就变成嵌套对话框了
+            aria-modal={!props.panelOnly && props.mask ? true : undefined}
             v-show={showInner.value}
             onClick={clickMaskToClose}
           >

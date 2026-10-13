@@ -65,7 +65,7 @@ describe("Menu inline collapse", () => {
   it("keeps a teleported submenu hidden until popup positioning is ready", async () => {
     const wrapper = mount(Menu, {
       attachTo: document.body,
-      props: { mode: "inline", openKeys: ["group"], inlineCollapsed: false },
+      props: { mode: "inline", inlineCollapsed: true },
       slots: {
         default: () =>
           h(SubMenu, { key: "group", title: "Group" }, () =>
@@ -74,13 +74,49 @@ describe("Menu inline collapse", () => {
       },
     });
 
-    await wrapper.setProps({ inlineCollapsed: true });
-    await new Promise((resolve) => setTimeout(resolve, 230));
+    // 折叠态下没有常驻面板（关闭即卸载），所以面板只在 hover 展开时才挂出来：
+    // 它一出现就该是 visibility: hidden，等定位算完才亮，免得在旧坐标上闪一下。
+    document
+      .querySelector(".k-menu-submenu-title")!
+      .dispatchEvent(new MouseEvent("mouseenter", { bubbles: false }));
+    await nextTick();
     await nextTick();
 
     const popup = document.body.querySelector<HTMLElement>(".k-menu-submenu-popup");
     expect(popup).not.toBeNull();
     expect(popup?.style.visibility).toBe("hidden");
+
+    await new Promise((resolve) => setTimeout(resolve, 20));
+    expect(document.body.querySelector<HTMLElement>(".k-menu-submenu-popup")?.style.visibility).toBe(
+      "",
+    );
+    wrapper.unmount();
+  });
+
+  it("unmounts the submenu panel once the inline menu collapses", async () => {
+    const wrapper = mount(Menu, {
+      attachTo: document.body,
+      props: { mode: "inline", openKeys: ["group"], inlineCollapsed: false },
+      slots: {
+        default: () =>
+          h(SubMenu, { key: "group", title: "Group" }, () =>
+            h(MenuItem, { key: "item" }, () => "Item"),
+          ),
+      },
+    });
+    await nextTick();
+    expect(document.querySelector(".k-menu-submenu-sub")).not.toBeNull();
+
+    await wrapper.setProps({ inlineCollapsed: true });
+    await new Promise((resolve) => setTimeout(resolve, 320));
+    // 收起即卸载：向 react 的 <Transition unmountOnExit>（默认 true）对齐，
+    // 折叠记忆留在状态里，DOM 里不留隐藏的子面板。
+    expect(document.querySelector(".k-menu-submenu-sub")).toBeNull();
+    expect(document.body.querySelector(".k-menu-submenu-popup")).toBeNull();
+
+    await wrapper.setProps({ inlineCollapsed: false });
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    expect(document.querySelector(".k-menu-submenu-sub")).not.toBeNull();
     wrapper.unmount();
   });
 

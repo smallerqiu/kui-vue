@@ -267,27 +267,33 @@ const SubMenu = defineComponent({
 
       return (
         <Teleport to={getPopupContainer()} disabled={!popup}>
+          {/* 关闭即卸载，向 react 的 <Transition unmountOnExit>（默认 true）对齐：
+              之前用 v-show，浮层面板一旦展开过就永远留在 body 里（每个 hover 过的子菜单
+              一份隐藏 DOM），纵向/折叠菜单项多时是白白的常驻开销；inline 的子面板同理，
+              收起后还占着整棵子树。退场动画（@menu-submenu-duration）跑完再摘节点。 */}
           <Transition {...transitionProps}>
-            <div {...containerProps} v-show={opened}>
-              <div class={popup ? `k-${preCls}-sub` : undefined}>
-                <ul
-                  id={popupId}
-                  ref={listRef}
-                  aria-labelledby={triggerId}
-                  class={`k-menu k-menu-${popup ? "vertical" : menuContext?.mode}`}
-                  role="menu"
-                  // 子菜单列表永远是纵向堆叠的：horizontal 下它必然以浮层形式出现，
-                  // 原来按 mode 推导会给出一个不可能命中的 "horizontal" 分支。
-                  aria-orientation="vertical"
-                  onKeydown={(event: KeyboardEvent) => {
-                    // Escape 只退一层：最内层的列表处理并阻止冒泡，焦点回到这一层的标题。
-                    handleSubMenuListKeydown(event, closeAndRefocusTrigger);
-                  }}
-                >
-                  {slots.default?.()}
-                </ul>
+            {opened ? (
+              <div {...containerProps}>
+                <div class={popup ? `k-${preCls}-sub` : undefined}>
+                  <ul
+                    id={popupId}
+                    ref={listRef}
+                    aria-labelledby={triggerId}
+                    class={`k-menu k-menu-${popup ? "vertical" : menuContext?.mode}`}
+                    role="menu"
+                    // 子菜单列表永远是纵向堆叠的：horizontal 下它必然以浮层形式出现，
+                    // 原来按 mode 推导会给出一个不可能命中的 "horizontal" 分支。
+                    aria-orientation="vertical"
+                    onKeydown={(event: KeyboardEvent) => {
+                      // Escape 只退一层：最内层的列表处理并阻止冒泡，焦点回到这一层的标题。
+                      handleSubMenuListKeydown(event, closeAndRefocusTrigger);
+                    }}
+                  >
+                    {slots.default?.()}
+                  </ul>
+                </div>
               </div>
-            </div>
+            ) : null}
           </Transition>
         </Teleport>
       );
