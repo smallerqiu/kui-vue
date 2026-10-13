@@ -20,14 +20,13 @@ rm -rf node_modules/.vite
 - `Menu`: Added arrow-key / Enter / Esc navigation; `Escape` closes only the current level.
 - `Menu`: Popup lists are linked to their trigger through `aria-controls` / `aria-labelledby` and a `horizontal` root declares `role="menubar"`, matching the React build.
 - `Menu`: Collapse handling follows `mode`, so switching `mode` no longer rewrites `openKeys` or emits an extra `openChange`; overflow measurement only runs for `horizontal` menus.
-- `Menu`: Added the group and divider example, plus the usage rules for `MenuGroup` / `MenuDivider`.
 - `Menu`: Fixed the vertical sub-menu animation where the outer panel opened first and the content followed.
 - **Behaviour change**: `Menu` sub-menu panels are removed from the page once they collapse (both hover popups and `inline` sub-panels) and rendered again when reopened, matching the React build. Panels that had been opened used to stay in the page permanently, which adds up on menus with many sub-menus. Which panels are open is still driven by `openKeys`.
 - `Table`: Aligned with the React build — fixed missing header borders, sticky-row gaps, incomplete rounded corners and the blank block in the bottom-right corner when grouped headers are combined with fixed columns, `scroll.y` and `bordered`, and matched fixed-column widths and sticky offsets.
 - `Table`: Grouped headers are rendered as per-column cells with `aria-labelledby` relations.
 - `Table`: `rowKey` falls back to a stable key when the configured value is missing; `dataIndex` supports `a.b.c` nested paths.
 - `Table`: Fixed `expandAllRows` re-expanding parents for asynchronous data and the virtual window start exceeding the row count.
-- `Table`: Built-in empty and filter strings now come from the locale bundle; documented slot naming and the `virtual` / `rowSpan` behaviour.
+- `Table`: Built-in empty and filter strings now come from the locale bundle.
 - Unified scrollbar styling so horizontal and vertical bars match; the dark-theme hover thumb no longer blends into the background.
 - `Ripple`: Fixed wrapped content that could not be clicked and produced no ripple in Chrome 155.
 - `Ripple`: Added the Chrome 156 `content="drawable"` attribute while Edge and earlier Chromium keep the previous path.
@@ -39,12 +38,11 @@ rm -rf node_modules/.vite
 - `StatNumber`: The `countup` mode now honours the system's reduced-motion preference and jumps straight to the target value.
 - `Table`: Columns without `width` now use 150 as their sizing baseline and the table takes a minimum width from the total of its columns (50 for the selection column), so a narrowing container scrolls horizontally instead of crushing columns and stacking header text vertically.
 - `Table`: Fixed the flicker at a borderline window width where a fixed-column shadow and the horizontal scrollbar kept triggering each other — a shadow is now drawn only while that side can still scroll.
-- `Tree`: Asynchronous `loadData` now requests a given node once; virtual scrolling restores the `k-tree-virtual-list` class so row heights match the React build.
+- `Tree`: Asynchronous `loadData` now requests a given node once; virtual scrolling no longer breaks the row height, so it matches the React build again.
 - `Tree`: Nodes without a `key` now fall back to a path-based key using the same rule as the React build; the previous visible-index fallback made a node's key drift whenever the tree collapsed or filtered.
 - `Tree`: Dropping a node onto its own descendant no longer advertises a valid target that does nothing on release.
-- `Tree`: The `select` event gained its second argument (the current list of selected keys) to match the React signature, and the child-list DOM nesting now matches the React build.
+- `Tree`: The `select` event gained its second argument (the current list of selected keys) to match the React signature.
 - `Tree`: The expand-arrow button is removed from the tab order (`tabIndex={-1}`) so the tree keeps its roving tabindex and arrow keys no longer strand focus on an arrow.
-- `Tree`: Five unreferenced rules were removed from the LESS.
 - `DropdownButton`: Fixed the split button's ellipsis trigger not opening the menu — click, right-click and the arrow keys all drive it now, the trigger carries `aria-haspopup="menu"` and `aria-expanded`, and `trigger` selects `hover` / `click` / `contextmenu`.
 - Popup components accept `destroyOnClose` (`Select`, `Cascader`, `TreeSelect`, `AutoComplete`, `Mentions`, `DatePicker`, `ColorPicker`, `Dropdown`, `DropdownButton`, `Tooltip`, `Poptip`, `Popconfirm`), defaulting to `true` so the panel content is discarded once the popup closes. The property was not exposed before, so it could not be overridden; set it to `false` to keep unsubmitted form state inside the panel, at the cost of one hidden block per opened instance.
 - **Behaviour change**: these popups used to leave a `display: none` panel node in the DOM after closing (only `Cascader` destroyed it). They now match the React build and destroy the panel after the exit animation by default. Keep unsubmitted form state by setting `:destroy-on-close="false"` explicitly; conversely, pages with many `Tooltip` instances no longer accumulate hidden DOM.
@@ -55,7 +53,6 @@ rm -rf node_modules/.vite
 - `Modal`: fixed `centered` having no effect, unit loss when `width` is passed as a string, and an empty title bar rendered when no `title` was passed.
 - `Modal` has a `title` slot for richer headers such as an icon or a subtitle; it falls back to the `title` prop when the slot renders nothing, and the title bar is omitted when neither is provided.
 - Imperative dialogs (`modal.confirm()` and friends) accept nodes instead of strings for `title` / `content`, both of which are now optional, every instance exposes `show` / `hide` / `destroy`, and they inherit the surrounding application context (global components, directives and `ConfigProvider` settings).
-- `Modal` / `Drawer` docs now list the real defaults (`maskClosable`: `false` for dialogs and `true` for drawers, mask clicks only — `Esc` is gated by `escKey`) and explain that `onCancel` and `onClose` are two separate channels: the footer Cancel button fires only `onCancel`, while the mask, `Esc` and the close icon fire only `onClose`. To keep a controlled `v-model` in sync, listening to `openChange` alone is enough — no need to update the value in both callbacks.
 - Controls placed against the edge of a `Modal` body no longer have half of their focus outline clipped; content width, position and the footer gap are unchanged.
 - `Tooltip` bubbles and their arrow indicator got their 1px border back, so the edge stays readable on dark backgrounds.
 
