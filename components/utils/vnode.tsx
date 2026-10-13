@@ -53,6 +53,8 @@ export function hasRenderableContent(value: unknown): boolean {
   return true;
 }
 
+// 两个仓库这段实现逐字符相同（vue 在 utils/vnode.tsx，react 在 utils/react-node.tsx）：
+// 弹层可以叠着开，锁必须引用计数，否则先关的那一层会把还开着的层的滚动锁一起解掉。
 interface ScrollLockState {
   count: number;
   overflow: string;
