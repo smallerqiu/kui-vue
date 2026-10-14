@@ -232,6 +232,39 @@ describe("DatePicker calendar grid", () => {
     wrapper.unmount();
   });
 
+  // 与 react 同一条口径：时间列也是区间的一条通道，缺另一头时不能把半截区间当结果发出去，
+  // 但这个时间要留在输入框里。
+  it("keeps a half range out of the change event when the time is picked before the second end", async () => {
+    const originalScrollTo = HTMLElement.prototype.scrollTo;
+    HTMLElement.prototype.scrollTo = () => {};
+    try {
+      const wrapper = mount(DatePicker, {
+        attachTo: document.body,
+        props: { mode: "dateTimeRange", opened: true },
+      });
+      await wrapper.vm.$nextTick();
+      const panel = () => latestPanel()!;
+      panel().querySelector<HTMLElement>(".k-picker-day:not(.k-picker-day-disabled)")!.click();
+      await wrapper.vm.$nextTick();
+      expect(wrapper.emitted("change")).toBeUndefined();
+
+      panel().querySelector<HTMLElement>(".k-picker-footer-time")!.click();
+      await wrapper.vm.$nextTick();
+      const items = panel().querySelectorAll<HTMLElement>(".k-picker-time-item");
+      expect(items.length).toBeGreaterThan(0);
+      items[5].click();
+      await wrapper.vm.$nextTick();
+
+      expect(wrapper.emitted("change")).toBeUndefined();
+      const boxes = wrapper.findAll<HTMLInputElement>(".k-datepicker-input");
+      expect(boxes[0].element.value).toMatch(/ 05:00:00$/);
+      expect(boxes[1].element.value).toBe("");
+      wrapper.unmount();
+    } finally {
+      HTMLElement.prototype.scrollTo = originalScrollTo;
+    }
+  });
+
   // 规则 D：opened 是双向的。历史上 emits 里只有 openChange，
   // 而 watch(props.opened) 直接写 isVisible——于是 v-model:opened 静默失效，
   // 外部关掉也绕开了 closePopup 的半截回滚。

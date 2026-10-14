@@ -675,7 +675,10 @@ const DatePicker = defineComponent({
         const newArr = [...((innerValue.value as (Dayjs | null)[]) || [null, null])];
         newArr[idx] = nextDate;
         innerValue.value = newArr;
-        emitValue(false);
+        // 首尾凑齐才谈得上"选上"：只有一头时 emitValue 本来就不会通知，
+        // 但这个时间得写进输入框，不然选了等于没选（和 react 的时间列同一条口径）。
+        if (!newArr[0] || !newArr[1]) syncTextFromValue();
+        else emitValue(false);
       } else {
         innerValue.value = nextDate;
         emitValue(false);
