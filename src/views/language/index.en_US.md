@@ -1,12 +1,12 @@
 # Multilingual
 
-KUI does not depend on a third-party i18n package. `ConfigProvider` supplies locale data to KUI components, which use Simplified Chinese by default.
+KUI does not depend on a third-party i18n package. `ConfigProvider` supplies locale data to KUI components, which use English by default.
 
 Locale is normally configured at the root of the application. For example:
 
 ```html
 <template>
-  <ConfigProvider :locale="en">
+  <ConfigProvider :locale="zh">
     <Transition name="fade" mode="out-in">
       <RouterView />
     </Transition>
@@ -14,7 +14,7 @@ Locale is normally configured at the root of the application. For example:
 </template>
 
 <script setup lang="ts">
-  import en from "kui-vue/locale/en";
+  import zh from "kui-vue/locale/zh-CN";
 </script>
 ```
 
@@ -34,7 +34,7 @@ Currently, KUI has the following languages built-in:
 - Traditional Chinese (zh-TW)
 - German (de)
 - Greek (el)
-- English (en)
+- English (en, default)
 - French (fr)
 - Italian (it)
 - Japanese (ja)

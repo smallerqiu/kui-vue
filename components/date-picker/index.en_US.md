@@ -71,7 +71,7 @@ When the user needs to input a date, they can click the standard input box to po
 | placeholder | Placeholder text | `string \| string[]` | - |
 | disabledDate | Disabled dates | `(date: Date) => boolean` | - |
 | disabledTime | Disabled times | `(date: Date) => boolean` | - |
-| format | Set the date format. When an array, supports multiple format matches, displayed according to the first one. Configuration reference http://day.js.org/ | `string` | YYYY-MM-DD |
+| format | Set the date format. A single format only: it drives both parsing and display, array format matching is not supported. Configuration reference http://day.js.org/ | `string` | By `mode`: `year` `YYYY`, `month` `YYYY-MM`, `date` / `dateRange` `YYYY-MM-DD`, `time` `HH:mm:ss`, `dateTime` / `dateTimeRange` `YYYY-MM-DD HH:mm:ss` |
 | theme | When theme='fill', presents a fill theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | dateIcon | Custom icon | `IconType[]` | - |
 | shape | The form in which the component is presented | `"default" \| "circle" \| "square" \| "round"` | - |

@@ -260,7 +260,7 @@ const DatePicker = defineComponent({
       }
     };
     const getFormat = (): string => {
-      if (props.format) return Array.isArray(props.format) ? props.format[0] : props.format;
+      if (props.format) return props.format;
       const map = {
         date: "YYYY-MM-DD",
         dateTime: "YYYY-MM-DD HH:mm:ss",

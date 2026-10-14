@@ -74,6 +74,8 @@ rm -rf node_modules/.vite
 - `DatePicker` 年 / 月面板的高亮改为跟着当前值走：翻年、翻月只改浏览位置，选中样式不再跑到正看着的那一格上。
 - `DatePicker` 年 / 月格子可以用键盘选了：`Tab` 到格子按 `Enter` 或空格即可，头部的年份、月份标签同样能用键盘切面板。
 - `DatePicker` 修复 `panelOnly` 常驻面板在 `mode="year"` / `mode="month"` 下仍显示日期格的问题：面板档位现在跟着 `mode` 起，与 React 版一致。
+- **不兼容变更**：组件内置文案的默认语言从简体中文改为英语。没有挂 `ConfigProvider` 时，`DatePicker`、`Select`、`Table`、`Modal`、`Page` 等组件的内置文案现在显示英文；需要简体中文请在应用根部挂 `ConfigProvider` 并传入 `locale`（`import zhCN from "kui-vue/locale/zh-CN"`）。
+- `DatePicker` 的 `format` 只接受单个格式，与 React 版一致：之前传数组只是拿第一个格式展示，现在不再接受数组。默认格式按 `mode` 取（`year` 为 `YYYY`、`month` 为 `YYYY-MM`、`time` 为 `HH:mm:ss`、`dateTime` / `dateTimeRange` 为 `YYYY-MM-DD HH:mm:ss`），文档里原先统一写成 `YYYY-MM-DD`。
 
 ## 6.2.2
 

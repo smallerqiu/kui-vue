@@ -1,12 +1,12 @@
 # 多语言
 
-KUI 不依赖第三方 i18n 包，通过 `ConfigProvider` 为组件提供语言配置。KUI 组件默认使用简体中文。
+KUI 不依赖第三方 i18n 包，通过 `ConfigProvider` 为组件提供语言配置。组件内置文案默认使用英语。
 
-通常应在应用根部配置语言。以英文为例：
+通常应在应用根部配置语言。以中文为例：
 
 ```html
 <template>
-  <ConfigProvider :locale="en">
+  <ConfigProvider :locale="zh">
     <Transition name="fade" mode="out-in">
       <RouterView />
     </Transition>
@@ -14,7 +14,7 @@ KUI 不依赖第三方 i18n 包，通过 `ConfigProvider` 为组件提供语言�
 </template>
 
 <script setup lang="ts">
-  import en from "kui-vue/locale/en";
+  import zh from "kui-vue/locale/zh-CN";
 </script>
 ```
 
@@ -34,7 +34,7 @@ KUI 不依赖第三方 i18n 包，通过 `ConfigProvider` 为组件提供语言�
 - 繁体中文(zh-TW)
 - 德语(de)
 - 希腊语(el)
-- 英语(en)
+- 英语(en，默认)
 - 法语(fr)
 - 意大利语(it)
 - 日语(ja)

@@ -72,6 +72,8 @@ rm -rf node_modules/.vite
 - `DatePicker`: The year and month highlight now follows the current value instead of wherever you happen to be browsing.
 - `DatePicker`: Year and month cells can be picked with the keyboard (`Tab` to a cell, then `Enter` or Space), and the year / month labels in the header switch panels with the same keys.
 - `DatePicker`: A `panelOnly` picker in `mode="year"` or `mode="month"` no longer renders the day calendar; the panel now starts on the year / month view like the React version.
+- **Breaking change**: Built-in component text now defaults to English instead of Simplified Chinese. Without a `ConfigProvider`, strings in `DatePicker`, `Select`, `Table`, `Modal`, `Page` and friends render in English; pass a Chinese locale (`import zhCN from "kui-vue/locale/zh-CN"`) at the application root to keep Simplified Chinese.
+- `DatePicker`: `format` accepts a single format only, matching the React build — an array used to display with its first entry and is no longer accepted. The default format now follows `mode` (`year` `YYYY`, `month` `YYYY-MM`, `time` `HH:mm:ss`, `dateTime` / `dateTimeRange` `YYYY-MM-DD HH:mm:ss`) instead of being documented as `YYYY-MM-DD` for every mode.
 
 ## 6.2.2
 
