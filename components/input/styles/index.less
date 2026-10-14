@@ -392,11 +392,7 @@
 .k-input-fill[data-multiple],
 .k-input-fill[data-single],
 .k-textarea-fill {
-  border-color: transparent;
-  background-color: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  .kui-theme-value(fill);
 
   &:focus,
   &:hover,
@@ -549,8 +545,7 @@
 .k-input.k-input-plain[data-single],
 .k-input.k-input-plain[data-multiple],
 .k-textarea.k-textarea-plain {
-  border-color: transparent;
-  background: transparent;
+  .kui-theme-value(plain);
   box-shadow: none;
 
   &:hover,

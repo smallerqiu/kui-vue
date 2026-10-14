@@ -91,6 +91,89 @@
   --kui-theme-plain-border: transparent;
 }
 
+/* Theme variants — one place that says what each `theme` value paints.
+
+   A component that accepts `theme` emits `k-<component>-<theme>`; its LESS calls the
+   matching `.kui-theme-value(@value)` arm below and adds only what is specific to that
+   component. Every value is a (background, border, text) triple, so `theme="outline"`
+   cannot mean four different things in four components again:
+     fill        shallow fill, no visible border — the current control default
+     outline     transparent, 1px solid border   — the clearest boundary
+     plain       transparent, no border          — content only
+     solid       primary fill, inverted text     — emphasis block
+     dashed      outline drawn with a dashed line — placeholder / drop zones
+     underlined  bottom border only              — underline-style inputs (controls only)
+   `default` deliberately has no arm: it means "listen to the component", so a component
+   that emits `k-<component>-default` writes its own rule (Card's is the border radius).
+   A call with no matching arm compiles to nothing rather than to an error — LESS drops the
+   empty rule — which is exactly the "the class ships, nothing paints" bug this file exists
+   to end. `tests/theme-variants.test.ts` is the guard: it compiles every arm and fails if
+   one stops emitting its declarations.
+
+   Constant defaults live in `.component-theme-vars()` above; the ones whose default
+   depends on other inherited tokens (`fill-bg`, `outline-border`, `solid-*`) stay
+   undefined on :root and resolve in the chains below, at the point of use. Defining them
+   on :root would freeze them before inheritance — `scripts/check-theme.ts` asserts that a
+   local `--kui-control-*` / `--kui-theme-*` override still reaches the component. */
+@kui-theme-fill-bg: var(
+  --kui-theme-fill-bg,
+  var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
+);
+@kui-theme-fill-border: var(--kui-theme-fill-border);
+@kui-theme-outline-bg: var(--kui-theme-outline-bg);
+@kui-theme-outline-border: var(
+  --kui-theme-outline-border,
+  var(--kui-control-border, var(--kui-color-border))
+);
+@kui-theme-plain-bg: var(--kui-theme-plain-bg);
+@kui-theme-plain-border: var(--kui-theme-plain-border);
+@kui-theme-solid-bg: var(--kui-theme-solid-bg, var(--kui-color-primary));
+@kui-theme-solid-border: var(--kui-theme-solid-border, @kui-theme-solid-bg);
+@kui-theme-solid-text: var(--kui-theme-solid-text, var(--kui-color-text-on-solid));
+@kui-theme-dashed-border: var(--kui-theme-dashed-border, @kui-theme-outline-border);
+
+.kui-theme-value(@theme) when (@theme = fill) {
+  border-color: @kui-theme-fill-border;
+  background: @kui-theme-fill-bg;
+}
+
+.kui-theme-value(@theme) when (@theme = outline) {
+  border: 1px solid @kui-theme-outline-border;
+  background: @kui-theme-outline-bg;
+}
+
+.kui-theme-value(@theme) when (@theme = plain) {
+  border-color: @kui-theme-plain-border;
+  background: @kui-theme-plain-bg;
+}
+
+.kui-theme-value(@theme) when (@theme = solid) {
+  border-color: @kui-theme-solid-border;
+  background: @kui-theme-solid-bg;
+  color: @kui-theme-solid-text;
+}
+
+.kui-theme-value(@theme) when (@theme = dashed) {
+  border: 1px dashed @kui-theme-dashed-border;
+  background: @kui-theme-outline-bg;
+}
+
+// Only controls get this one: on a surface "keep the bottom border" is the same as
+// deleting three of its sides, which is not an appearance preset.
+.kui-theme-value(@theme) when (@theme = underlined) {
+  border-style: solid;
+  border-width: 0 0 1px;
+  border-color: @kui-theme-outline-border;
+  border-radius: 0;
+  background: @kui-theme-plain-bg;
+  box-shadow: none;
+
+  &:focus,
+  &:focus-within {
+    border-color: transparent transparent var(--kui-color-primary);
+  }
+}
+
 .theme-light-vars() {
   color-scheme: light;
   /* 文字色体系 */

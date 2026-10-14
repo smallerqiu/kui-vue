@@ -31,6 +31,8 @@ const compile = async (entry: string) => {
     await page.setContent(`<style>${css}
       .local {--kui-color-primary:#ff0000;--kui-border-radius:20px;--kui-color-danger:#00ff00;--kui-color-warning:#0000ff;--kui-color-success:#ff0000}
       .overrides {--kui-control-bg:#ff00ff;--kui-popup-bg:#ffff00;--kui-control-radius:13px;--kui-color-primary-hover:#00ffff}
+      .theme-hooks {--kui-theme-fill-bg:#ff0000;--kui-theme-outline-border:#00ff00;--kui-theme-plain-border:#0000ff;--kui-theme-plain-bg:#ffff00}
+      .control-chain {--kui-control-border:#00ff00;--kui-control-bg-fill:#0000ff}
     </style>
     <div class="local" id="local">
       <button id="primary" class="k-btn k-btn-primary">Primary</button>
@@ -41,7 +43,21 @@ const compile = async (entry: string) => {
     </div>
     <div theme-mode="dark"><button id="dark" class="k-btn">Dark</button><div theme-mode="light"><button id="light" class="k-btn">Light</button></div></div>
     <div class="overrides"><div theme-mode="dark"><div id="control" class="k-input" data-multiple><input /></div><button id="override" class="k-btn k-btn-primary">Override</button><div class="k-popup-panel k-popup"><div id="override-popup" class="k-popup-content">Popup</div></div></div></div>
-    <div id="square" shape-mode="square"><button id="square-button" class="k-btn">Square</button></div>`);
+    <div id="square" shape-mode="square"><button id="square-button" class="k-btn">Square</button></div>
+    <div class="theme-hooks"><div id="hook-card-fill" class="k-card k-card-fill">Card</div><div id="hook-card-outline" class="k-card k-card-outline">Card</div><div id="hook-card-plain" class="k-card k-card-plain">Card</div><div id="hook-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="hook-input-plain" class="k-input k-input-plain" data-multiple><input /></div></div>
+    <div class="control-chain"><div id="chain-card-outline" class="k-card k-card-outline">Card</div><div id="chain-card-fill" class="k-card k-card-fill">Card</div><div id="chain-input-fill" class="k-input k-input-fill" data-multiple><input /></div></div>
+    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div></div>`);
+    // Serialises a token the way the browser does, so a computed value can be compared to the
+    // token it is supposed to fall back to instead of to a hand-copied colour.
+    const resolve = (id: string, value: string) =>
+      page.locator("#" + id).evaluate((el, value) => {
+        const probe = document.createElement("span");
+        probe.style.color = value;
+        el.append(probe);
+        const computed = getComputedStyle(probe).color;
+        probe.remove();
+        return computed;
+      }, value);
     const style = (id: string, prop: string) =>
       page.locator("#" + id).evaluate((el, prop) => {
         el.getAnimations().forEach((a) => a.finish());
@@ -89,6 +105,44 @@ const compile = async (entry: string) => {
     ] as const)
       assert.equal((await style(id, "--kui-color-text-secondary")).trim(), expected);
     assert.equal((await style("light", "--kui-color-bg-elevated")).trim(), "#fff");
+    // Theme variants all come from one declaration source, so a single `--kui-theme-*` hook
+    // has to paint a surface (Card) and a control (Input) the same way.
+    assert.equal(await style("hook-card-fill", "background-color"), "rgb(255, 0, 0)");
+    assert.equal(await style("hook-input-fill", "background-color"), "rgb(255, 0, 0)");
+    assert.equal(await style("hook-card-outline", "border-top-color"), "rgb(0, 255, 0)");
+    assert.equal(await style("hook-card-plain", "border-top-color"), "rgb(0, 0, 255)");
+    assert.equal(await style("hook-input-plain", "background-color"), "rgb(255, 255, 0)");
+    // Undefined hooks fall through the documented chain instead of painting nothing.
+    assert.equal(await style("chain-card-outline", "border-top-color"), "rgb(0, 255, 0)");
+    assert.equal(await style("chain-card-fill", "background-color"), "rgb(0, 0, 255)");
+    assert.equal(await style("chain-input-fill", "background-color"), "rgb(0, 0, 255)");
+    // `bordered` is the same triple as `theme="outline"`, falling through to the base border.
+    assert.equal(
+      await style("default-card-bordered", "border-top-color"),
+      await resolve("default-card-bordered", "var(--kui-color-border)"),
+    );
+    // With no override at all both land on the library default: no visible border, overlay
+    // background. Compared through `resolve` because a colour that arrives via var() is
+    // serialised as rgba(0, 0, 0, 0) while the bare `transparent` keyword stays itself.
+    for (const id of ["default-card-fill", "default-input-fill"]) {
+      assert.equal(
+        await style(id, "border-top-color"),
+        await resolve(id, "transparent"),
+        id + " fill must not paint a border",
+      );
+      assert.equal(
+        await style(id, "background-color"),
+        await resolve(id, "var(--kui-color-bg-component-overlay)"),
+        id + " fill must fall back to the overlay background",
+      );
+    }
+    // `plain` is "no border and no background", both through the plain tokens.
+    for (const prop of ["border-top-color", "background-color"])
+      assert.equal(
+        await style("default-input-plain", prop),
+        await resolve("default-input-plain", "transparent"),
+        "plain input " + prop + " must be transparent",
+      );
     // Runtime updates must affect a component already mounted inside the scope.
     await page
       .locator("#local")
@@ -97,7 +151,7 @@ const compile = async (entry: string) => {
     await page.locator("#primary").evaluate((el) => el.getAnimations().forEach((a) => a.finish()));
     assertColor(await rgba("primary", "background-color"), [0, 0, 255, 230]);
     console.log(
-      "Theme regression checks passed: local colors/radii, runtime updates, nested themes, explicit overrides, aliases and split CSS entry.",
+      "Theme regression checks passed: local colors/radii, runtime updates, nested themes, explicit overrides, theme variants and their fallback chains, aliases and split CSS entry.",
     );
   } finally {
     await browser.close();

@@ -106,9 +106,7 @@
 }
 
 .k-card-bordered {
-  border: 1px solid
-    var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
-  background: var(--kui-theme-outline-bg);
+  .kui-theme-value(outline);
   .k-card-head {
     border-bottom: 1px solid var(--kui-card-border, var(--kui-color-border));
   }
@@ -116,28 +114,22 @@
 
 .k-card-round,
 .k-card-default {
+  // `theme="default"` means "listen to the card", and the card's own look is a rounded box.
   border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
 }
 .k-card-square {
   border-radius: var(--kui-shape-square);
 }
 .k-card-fill {
-  border-color: var(--kui-theme-fill-border);
-  background: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  .kui-theme-value(fill);
 }
 .k-card-outline {
-  border: 1px solid
-    var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
-  background: var(--kui-theme-outline-bg);
+  .kui-theme-value(outline);
   .k-card-head {
     border-bottom: 1px solid var(--kui-card-border, var(--kui-color-border));
   }
 }
 .k-card-plain {
-  border-color: var(--kui-theme-plain-border);
-  background: var(--kui-theme-plain-bg);
+  .kui-theme-value(plain);
   box-shadow: none;
 }
