@@ -214,6 +214,9 @@ const DatePicker = defineComponent({
     // Range 模式下，当前时间面板编辑的是哪一端: 'start' | 'end'
     const timeEditSide = ref("start");
     const isRange = computed(() => props.mode.includes("Range"));
+    // `mode` 的取值是 `time` / `dateTime` / `dateTimeRange`：小写的 `time` 不含大写 `Time`，
+    // 只 `includes("Time")` 会让 `mode="time"` 落进"没有时间"那一档，`disabledTime` 直接失效。
+    const hasTime = computed(() => props.mode === "time" || props.mode.includes("Time"));
 
     watch(localeName, () => {
       syncTextFromValue();
@@ -332,8 +335,7 @@ const DatePicker = defineComponent({
       return d.isValid() ? d.locale(localeName.value) : null;
     };
     const isValueDisabled = (date: Dayjs) =>
-      props.disabledDate(date.toDate()) ||
-      (props.mode.includes("Time") && props.disabledTime(date.toDate()));
+      props.disabledDate(date.toDate()) || (hasTime.value && props.disabledTime(date.toDate()));
     // Preserve the last committed range separately from an incomplete selection.
     const committedRange = ref<Array<Dayjs | null> | null>(null);
 
@@ -506,8 +508,12 @@ const DatePicker = defineComponent({
 
     const closePopup = () => {
       if (isRange.value && Array.isArray(innerValue.value)) {
-        // Discard a partial selection without losing the latest confirmed range.
-        if (innerValue.value.length === 1 || !innerValue.value[1]) {
+        const [start, end] = innerValue.value;
+        // 首尾没凑齐就是半截选区，回到上次提交的那份。判据只能是"首尾是否都在"：
+        // 日历只点一下是 `[d, null]`，手输只填结束框是 `[null, d]`，
+        // 后者的长度是 2 且 `[1]` 有值，按长度或只看尾部都判不出来——
+        // 于是框里显示着一个日期，`modelValue` 却是空的，也没有 `change`。
+        if (!start || !end) {
           innerValue.value = committedRange.value ? [...committedRange.value] : null;
           syncTextFromValue();
         }
@@ -909,7 +915,9 @@ const DatePicker = defineComponent({
     };
 
     const renderFooter = () => {
-      if (!props.mode.includes("Time")) return null;
+      // 那一栏是"日期 ↔ 时间"来回切的开关，`mode="time"` 只有时间、没得切，所以不渲染
+      // （与 react 的 `hasTime && mode !== "time"` 同一条口径）。
+      if (!hasTime.value || props.mode === "time") return null;
       if (props.mode === "dateTimeRange") {
         const [s, e] = ((innerValue.value as (Dayjs | null)[]) || [null, null]).map((d) =>
           d ? d.format("HH:mm:ss") : "--:--:--",
@@ -1206,8 +1214,9 @@ const DatePicker = defineComponent({
         onKeydown: (event: KeyboardEvent) => {
           if (event.key === "Escape" && isVisible.value) {
             event.stopPropagation();
-            openChange(false);
-            isFocus.value = false;
+            // 和点外面同一条关闭路径：半截区间要在关闭时清掉，
+            // 这里直接 openChange(false) 会让 Esc 关完下次打开还留着上一次的半成品。
+            closePopup();
           } else if ((event.key === "Enter" || event.key === " ") && !isVisible.value) {
             event.preventDefault();
             togglePanel();
