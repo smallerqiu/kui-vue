@@ -60,6 +60,7 @@ rm -rf node_modules/.vite
 - `Drawer`'s `title` no longer defaults to "Title" — omit it and there is no title text. The header still makes room for the close button and only disappears when `closable: false` is set with no title.
 - `Drawer` gained a `title` slot, and its `title` prop now also accepts a node, for icons, captions and other rich content.
 - `Modal`'s `title` prop accepts a node as well as a string, like the `title` slot it already had.
+- **Behavior change**: `Modal` / `Drawer` no longer announce opening. Mounting with the panel already open, or setting `modelValue` to true, used to send back an extra `update:modelValue` and `openChange` — feeding you the value you had just written. Only closing is announced now, matching React. If you initialized something from an `openChange(true)`, watch that value instead; it is the same moment.
 
 ## 6.2.2
 

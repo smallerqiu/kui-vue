@@ -62,6 +62,7 @@ rm -rf node_modules/.vite
 - `Drawer` 的 `title` 不再有默认的 "Title"，不写就没有标题文本。标题栏仍会给右上角关闭按钮留着位置，只有 `closable: false` 且没有标题时才整条不显示。
 - `Drawer` 新增 `title` 插槽，`title` 属性也可以传节点，用来放图标、说明这类富内容。
 - `Modal` 的 `title` 属性除字符串之外还可以传节点，和已有的 `title` 插槽一样能放富内容。
+- **行为变更**：`Modal` / `Drawer` 打开时不再往外发通知。之前组件挂载时已经是打开状态、或把 `modelValue` 翻成 true，都会额外收到一次 `update:modelValue` 和 `openChange`，等于把自己刚写的值又喂回去一遍；现在只有关闭才通知，与 React 版一致。原先靠 `openChange` 收到 true 来做初始化的，改成监听自己那个值就行，时机是一样的。
 
 ## 6.2.2
 

@@ -6427,9 +6427,9 @@
         },
         {
           "name": "onOpenChange",
-          "description": "Callback for opening or closing the drawer",
-          "descriptionZh": "打开或抽屉关闭的回调",
-          "descriptionEn": "Callback for opening or closing the drawer",
+          "description": "Fires when the drawer closes; opening is your own `v-model`, so it is never echoed back",
+          "descriptionZh": "抽屉关闭时的回调；打开由 `v-model` 决定，不会回写一次",
+          "descriptionEn": "Fires when the drawer closes; opening is your own `v-model`, so it is never echoed back",
           "type": "(visible: boolean) => void",
           "eventName": "openChange",
           "boolean": false,
@@ -6477,9 +6477,9 @@
         {
           "name": "openChange",
           "type": "(visible: boolean) => void",
-          "description": "Callback for opening or closing the drawer",
-          "descriptionZh": "打开或抽屉关闭的回调",
-          "descriptionEn": "Callback for opening or closing the drawer"
+          "description": "Fires when the drawer closes; opening is your own `v-model`, so it is never echoed back",
+          "descriptionZh": "抽屉关闭时的回调；打开由 `v-model` 决定，不会回写一次",
+          "descriptionEn": "Fires when the drawer closes; opening is your own `v-model`, so it is never echoed back"
         },
         {
           "name": "ok",
@@ -11683,9 +11683,9 @@
         },
         {
           "name": "onOpenChange",
-          "description": "Callback for opening or closing a window",
-          "descriptionZh": "打开或者窗口关闭的回调",
-          "descriptionEn": "Callback for opening or closing a window",
+          "description": "Fires when the window closes; opening is your own `v-model`, so it is never echoed back",
+          "descriptionZh": "窗口关闭时的回调；打开由 `v-model` 决定，不会回写一次",
+          "descriptionEn": "Fires when the window closes; opening is your own `v-model`, so it is never echoed back",
           "type": "(visible: boolean) => void",
           "eventName": "openChange",
           "boolean": false,
@@ -11733,9 +11733,9 @@
         {
           "name": "openChange",
           "type": "(visible: boolean) => void",
-          "description": "Callback for opening or closing a window",
-          "descriptionZh": "打开或者窗口关闭的回调",
-          "descriptionEn": "Callback for opening or closing a window"
+          "description": "Fires when the window closes; opening is your own `v-model`, so it is never echoed back",
+          "descriptionZh": "窗口关闭时的回调；打开由 `v-model` 决定，不会回写一次",
+          "descriptionEn": "Fires when the window closes; opening is your own `v-model`, so it is never echoed back"
         },
         {
           "name": "ok",
