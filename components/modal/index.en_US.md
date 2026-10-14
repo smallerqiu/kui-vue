@@ -35,7 +35,7 @@ Modal dialog box.
 | --- | --- | --- | --- |
 | modelValue | Whether the dialog is displayed, can use v-model for two-way binding. | `boolean` | - |
 | value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `boolean` | false |
-| title | Dialog title (a plain string). Use the `title` slot for rich content | `string` | - |
+| title | Dialog title; accepts a VNode as well as text, and rich content can go through the `title` slot | `VNodeChild` | - |
 | width | Dialog width | `string \| number` | 520 |
 | okText | OK button text | `string` | OK |
 | cancelText | Cancel button text | `string` | Cancel |
@@ -72,6 +72,7 @@ Closing splits into two channels that never fire together:
 Listen to both if you need one "it closed" hook; keep them separate if you need to tell an explicit cancel apart from every other way of closing.
 `onOk` never closes the dialog — it only sits on the OK button, so close it yourself inside that callback when you need to.
 Keep the open state in sync through `onOpenChange` alone (or `v-model`): all four ways of closing — cancel, mask, Esc, the close icon — emit `update:modelValue` and `openChange`, while `onCancel` / `onClose` only tell you which channel closed it.
+The order is unified across all four (Modal / Drawer × React / Vue): `update:modelValue` and `openChange` land first and settle the state, then `onCancel` / `onClose` say which channel closed it. So the `modelValue` you read inside those callbacks is already settled.
 
 ## Modal.method()
 

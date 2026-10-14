@@ -35,7 +35,7 @@
 | --- | --- | --- | --- |
 | modelValue | 对话框是否显示，可使用 v-model 双向绑定数据。 | `boolean` | - |
 | value | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | `boolean` | false |
-| title | 对话框标题（字符串）。要放富内容请用 `title` 插槽 | `string` | - |
+| title | 对话框标题，字符串之外可给 VNode；富内容也可以走 `title` 插槽 | `VNodeChild` | - |
 | width | 对话框宽度 | `string \| number` | 520 |
 | okText | 确定按钮文字 | `string` | 确定 |
 | cancelText | 取消按钮文字 | `string` | 取消 |
@@ -72,6 +72,7 @@
 想在任何关闭方式下都收到通知，就两个回调都挂；要区分「用户明确取消」和「其他方式关闭」，各挂各的。
 `onOk` 不负责关闭，它只挂在确定按钮上，需要关窗请自己在回调里收。
 同步开合状态请只挂 `onOpenChange`（或直接用 `v-model`）：取消、遮罩、Esc、右上角这四种关法都会发一次 `update:modelValue` 与 `openChange`，`onCancel` / `onClose` 只告诉你这次是哪条通道关的，不承担状态同步。
+四处（Modal / Drawer × React / Vue）统一的顺序：先 `update:modelValue` 与 `openChange` 把开合状态结掉，再 `onCancel` / `onClose` 说这次是哪条通道关的。所以在 `onCancel`、`onClose` 里读到的 `modelValue` 已经是结算后的。
 
 ## Modal.method()
 

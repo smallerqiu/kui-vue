@@ -62,7 +62,15 @@ describe("Modal header and footer predicates", () => {
     expect(document.querySelector(".k-modal-header")).toBeNull();
   });
 
-  // title 插槽是 vue 侧对 react `title: ReactNode` 的表达方式：富内容靠它，不是靠字符串。
+  // 标题的富内容两条路都能走：`title` 属性收 VNode（对齐 react 的 `title: ReactNode`），
+  // 或者用 `title` 插槽——插槽给出内容时优先于属性。
+  it("renders a VNode passed through the title prop", async () => {
+    open({ title: h("em", "节点标题") });
+    await settle();
+
+    expect(document.querySelector(".k-modal-header-inner em")?.textContent).toBe("节点标题");
+  });
+
   it("prefers the title slot over the title prop", async () => {
     open({ title: "标题" }, { title: () => h("em", "富标题") });
     await settle();

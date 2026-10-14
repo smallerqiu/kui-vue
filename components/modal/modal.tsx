@@ -33,7 +33,8 @@ import { hasRenderableContent, toggleContainerScroll } from "../utils/vnode";
 const modalProps = {
   modelValue: { type: Boolean as BooleanType, default: undefined },
   value: Boolean as BooleanType,
-  title: String,
+  // 与 react 的 `title: React.ReactNode` 同形：除字符串之外还收 VNode，富内容也可以走 `title` 插槽。
+  title: { type: [String, Object] as PropType<string | VNodeChild>, default: undefined },
   okText: String,
   cancelText: String,
   width: { type: [Number, String] as PropType<number | string>, default: 520 },
@@ -296,16 +297,16 @@ const Modal = defineComponent({
             ></Button>,
           );
         }
-        // 与 react 的 `title: ReactNode` 对齐：vue 侧富内容走 `title` 插槽（属性仍只接字符串）。
-        // 插槽渲染出内容才算数——`<template #title>{{ false }}</template>` 这类空产物回落到
-        // `title` 属性，别把标题吞掉。两者都没有就不渲染 header（null 同样当"没有"，
+        // 与 react 的 `title: ReactNode` 对齐：属性除字符串之外还收 VNode，富内容也可以走
+        // `title` 插槽。插槽渲染出内容才算数——`<template #title>{{ false }}</template>` 这类
+        // 空产物回落到 `title` 属性，别把标题吞掉。两者都没有就不渲染 header（null 同样当"没有"，
         // 空标题也会撑出一条带边框的横条）。
         const titleSlot = slots.title?.();
-        const title = hasRenderableContent(titleSlot) ? titleSlot : props.title;
-        if (title != null) {
+        const titleContent = hasRenderableContent(titleSlot) ? titleSlot : props.title;
+        if (titleContent != null) {
           contents.push(
             <div class="k-modal-header" ref={refHeader}>
-              <div class="k-modal-header-inner">{title}</div>
+              <div class="k-modal-header-inner">{titleContent}</div>
             </div>,
           );
         }
