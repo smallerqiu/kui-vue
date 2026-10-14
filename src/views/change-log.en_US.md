@@ -56,6 +56,10 @@ rm -rf node_modules/.vite
 - Controls placed against the edge of a `Modal` body no longer have half of their focus outline clipped; content width, position and the footer gap are unchanged.
 - `Tooltip` bubbles and their arrow indicator got their 1px border back, so the edge stays readable on dark backgrounds.
 - `Table`: Added `ellipsis` to clip cell content that overflows the column width, matching the React build. Set it on a column to affect that column only, or on `Table` to cover every column at once (including slot and `render` content); a column keeps its full text with `ellipsis: false`. One line by default, `rows` clips to several. The hover tip is on by default and only appears when the cell really is clipped; `tooltip` replaces its text or turns it off with `false`.
+- `Modal` / `Drawer` close in one consistent callback order: `update:modelValue` and `openChange` settle the open state first, then `onCancel` / `onClose` say which channel closed it. The state read inside those callbacks is already settled, so there is no need to close it again yourself.
+- `Drawer`'s `title` no longer defaults to "Title" — omit it and there is no title text. The header still makes room for the close button and only disappears when `closable: false` is set with no title.
+- `Drawer` gained a `title` slot, and its `title` prop now also accepts a node, for icons, captions and other rich content.
+- `Modal`'s `title` prop accepts a node as well as a string, like the `title` slot it already had.
 
 ## 6.2.2
 

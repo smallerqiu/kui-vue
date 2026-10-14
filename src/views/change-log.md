@@ -58,6 +58,10 @@ rm -rf node_modules/.vite
 - `Modal` 内容区贴边的控件（如 `Input`）聚焦时，那圈焦点高亮不再被裁掉一半；内容宽度、位置与页脚间距都没有变化。
 - `Tooltip` 气泡和箭头指示器补回 1px 描边，深色背景上也能看清边界。
 - `Table` 新增 `ellipsis`：单元格内容超出列宽时收成省略号，行为与 React 版一致。写在列上只管那一列，写在 `Table` 上一次管住所有列（插槽或 `render` 出来的内容同样管），某一列想显示完整内容就在列上写 `ellipsis: false` 单独关掉。默认只截一行，`rows` 可以截到多行；悬停提示默认打开，且只在格子真的被截断时才出现，`tooltip` 能换成指定内容或设 `false` 关掉。
+- `Modal` / `Drawer` 统一了关闭时的回调顺序：先 `update:modelValue` 与 `openChange` 把开合状态结掉，再 `onCancel` / `onClose` 说这次是哪条通道关的。在这两个回调里读到的开合值已经是结算后的，不用再自己补一次关闭。
+- `Drawer` 的 `title` 不再有默认的 "Title"，不写就没有标题文本。标题栏仍会给右上角关闭按钮留着位置，只有 `closable: false` 且没有标题时才整条不显示。
+- `Drawer` 新增 `title` 插槽，`title` 属性也可以传节点，用来放图标、说明这类富内容。
+- `Modal` 的 `title` 属性除字符串之外还可以传节点，和已有的 `title` 插槽一样能放富内容。
 
 ## 6.2.2
 

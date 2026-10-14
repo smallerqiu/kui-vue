@@ -6249,17 +6249,6 @@
           "documented": true
         },
         {
-          "name": "title",
-          "description": "Drawer title",
-          "descriptionZh": "抽屉标题",
-          "descriptionEn": "Drawer title",
-          "type": "string",
-          "boolean": false,
-          "required": false,
-          "defaultExpression": "\"Title\"",
-          "documented": true
-        },
-        {
           "name": "closable",
           "description": "Whether to show the close button",
           "descriptionZh": "是否显示关闭按钮",
@@ -6378,6 +6367,17 @@
           "type": "(() => HTMLElement | ComponentPublicInstance | null | undefined) | undefined",
           "boolean": false,
           "required": false,
+          "documented": true
+        },
+        {
+          "name": "title",
+          "description": "Drawer title; accepts a VNode as well as text, and rich content can go through the `title` slot. With no title text the header bar stays (the top-right close button lives in it); it is only dropped when `closable` is also off",
+          "descriptionZh": "抽屉标题，字符串之外可给 VNode；富内容也可以走 `title` 插槽。没有标题文本时标题栏仍在（右上角关闭按钮住在里面），`closable: false` 且没有标题才整条不收",
+          "descriptionEn": "Drawer title; accepts a VNode as well as text, and rich content can go through the `title` slot. With no title text the header bar stays (the top-right close button lives in it); it is only dropped when `closable` is also off",
+          "type": "VNodeChild",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
@@ -11560,9 +11560,10 @@
           "description": "Dialog title, accepts VNodes as well as text",
           "descriptionZh": "对话框标题，字符串之外可给 VNode",
           "descriptionEn": "Dialog title, accepts VNodes as well as text",
-          "type": "string | undefined",
+          "type": "VNodeChild",
           "boolean": false,
           "required": false,
+          "defaultExpression": "undefined",
           "documented": true
         },
         {
