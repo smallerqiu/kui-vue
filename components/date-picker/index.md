@@ -11,6 +11,8 @@
 [基本用法](./demo/basic.vue)
 
 - 选择或者手动输入日期,通过 `v-model` 进行数据双向绑定
+- 面板开着时外部改了值，输入框文本会跟着走；只有正在敲字的那个框不动。
+- 重复点已经选中的日期、重复提交同一个值，不会再触发一次 `change`。
 
 [输出类型](./demo/value-type.vue)
 
@@ -19,7 +21,8 @@
 [时间区域](./demo/range.vue)
 
 - 支持时间日期区间选择。取值建议用 `startDate` , `endDate`
-- 区间只凑齐一头不算选上：按 `Esc` 或点面板外面关掉时，输入框退回上次提交的那段区间，半截值不会发给 `onChange`。
+- 区间只凑齐一头不算选上：按 `Esc` 或点面板外面关掉时，输入框退回上次提交的那段区间，半截值不会发给 `change`。
+- 范围只受控单边（只传 `startDate` 或只传 `endDate`）时，面板认已有的那头，下一次点选只补空出来的那一头，不会把父级给掉的那一头覆盖掉。
 
 [不可选择日期和时间](./demo/disabled-date.vue)
 
@@ -74,5 +77,5 @@
 | onChange | 值改变后的回调 | `(value: DatePickerOutput \| DatePickerOutput[], text: string \| string[]) => void` | - |
 | onOpenChange | 下拉框展开或收起时触发 | `(open: boolean) => void` | - |
 | onClear | 点击清除按钮时触发 | `() => void` | - |
-| opened | 默认是否展示下拉框 | `boolean` | false |
+| opened | 下拉框是否展示，支持 `v-model:opened` | `boolean` | false |
 | panelOnly | 仅渲染日期选择面板，不显示触发输入框 | `boolean` | false |

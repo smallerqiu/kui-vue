@@ -5466,6 +5466,11 @@
           "prop": "endDate",
           "event": "update:endDate",
           "directive": "v-model:endDate"
+        },
+        {
+          "prop": "opened",
+          "event": "update:opened",
+          "directive": "v-model:opened"
         }
       ],
       "tags": [
@@ -5778,9 +5783,9 @@
         },
         {
           "name": "opened",
-          "description": "Whether the dropdown box is displayed by default",
-          "descriptionZh": "默认是否展示下拉框",
-          "descriptionEn": "Whether the dropdown box is displayed by default",
+          "description": "Whether the dropdown box is shown, supports `v-model:opened`",
+          "descriptionZh": "下拉框是否展示，支持 `v-model:opened`",
+          "descriptionEn": "Whether the dropdown box is shown, supports `v-model:opened`",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -5861,6 +5866,16 @@
           "documented": true
         },
         {
+          "name": "onUpdate:opened",
+          "description": "Requests a new opened value (Whether the dropdown box is shown, supports `v-model:opened`); the payload is the new value. With v-model:opened, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 opened（下拉框是否展示，支持 `v-model:opened`），参数为更新后的值。使用 v-model:opened 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new opened value (Whether the dropdown box is shown, supports `v-model:opened`); the payload is the new value. With v-model:opened, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "type": "(open: boolean) => void",
+          "eventName": "update:opened",
+          "boolean": false,
+          "documented": false
+        },
+        {
           "name": "onClear",
           "description": "Triggered when the clear button is clicked",
           "descriptionZh": "点击清除按钮时触发",
@@ -5906,6 +5921,13 @@
           "description": "Triggered when the dropdown box expands or collapses",
           "descriptionZh": "下拉框展开或收起时触发",
           "descriptionEn": "Triggered when the dropdown box expands or collapses"
+        },
+        {
+          "name": "update:opened",
+          "type": "(open: boolean) => void",
+          "description": "Requests a new opened value (Whether the dropdown box is shown, supports `v-model:opened`); the payload is the new value. With v-model:opened, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 opened（下拉框是否展示，支持 `v-model:opened`），参数为更新后的值。使用 v-model:opened 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new opened value (Whether the dropdown box is shown, supports `v-model:opened`); the payload is the new value. With v-model:opened, Vue synchronizes the binding automatically; no additional update handler is needed."
         },
         {
           "name": "clear",
