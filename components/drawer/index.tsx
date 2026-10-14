@@ -17,6 +17,7 @@ import {
   type ExtractPropTypes,
   type PropType,
   type Ref,
+  type VNodeChild,
 } from "vue";
 import { Button } from "../button";
 import { usePopupContainer } from "../config/popup";
@@ -26,12 +27,14 @@ import zhCN from "../locale/zh-CN";
 import { toCssLength } from "../utils/css";
 import { createFocusTrap } from "../utils/focus";
 import { pushOverlay, type OverlayHandle } from "../utils/overlay-stack";
-import { toggleContainerScroll } from "../utils/vnode";
+import { hasRenderableContent, toggleContainerScroll } from "../utils/vnode";
 
 const drawerProps = {
   modelValue: { type: Boolean, default: undefined },
   value: Boolean,
-  title: { type: String, default: "Title" },
+  // 与 Modal 的 `title` 同形：除字符串之外还收 VNode，富内容也可以走 `title` 插槽；
+  // 两者都不给就没有标题文本，不再拿写死的 "Title" 兜底。
+  title: { type: [String, Object] as PropType<string | VNodeChild>, default: undefined },
   width: { type: [Number, String] as PropType<number | string>, default: 520 },
   height: { type: [Number, String] as PropType<number | string>, default: 520 },
   okText: String,
@@ -217,14 +220,16 @@ const Drawer = defineComponent({
       }
     };
 
+    // 与 Modal 同一条口径：先把开合状态同步出去（update:modelValue + openChange），再通知这次
+    // 动作（cancel / close），这样在语义回调里读到的开合值已经是结算后的。
     const cancel = () => {
-      emit("cancel");
       toggle(false);
+      emit("cancel");
     };
 
     const close = () => {
-      emit("close");
       toggle(false);
+      emit("close");
     };
 
     const ok = () => {
@@ -232,8 +237,11 @@ const Drawer = defineComponent({
     };
 
     return () => {
-      const { title, cancelText, okText, placement, width, height, closable, loading } = props;
+      const { cancelText, okText, placement, width, height, closable, loading } = props;
       const hasFooter = props.footer || slots.footer;
+      // 与 Modal 同款优先级：`title` 插槽渲染出内容才算数，空产物回落到 `title` 属性。
+      const titleSlot = slots.title?.();
+      const titleContent = hasRenderableContent(titleSlot) ? titleSlot : props.title;
 
       const cancelBtn = (
         <Button onClick={cancel}>{cancelText || locale.value?.k?.common?.cancel}</Button>
@@ -299,10 +307,14 @@ const Drawer = defineComponent({
               <Transition name={transitionName}>
                 <div v-show={visible.value} {...drawerProps}>
                   <div class="k-drawer-content">
-                    <div class="k-drawer-header">
-                      {closeNode}
-                      <div class="k-drawer-header-inner">{title}</div>
-                    </div>
+                    {/* 与 react 同一条口径：没有标题内容就不该有 header，但关闭按钮住在
+                        header 里，所以 `closable` 也要给它留位置。 */}
+                    {(titleContent != null || closable) && (
+                      <div class="k-drawer-header">
+                        {closeNode}
+                        <div class="k-drawer-header-inner">{titleContent}</div>
+                      </div>
+                    )}
                     <div class="k-drawer-body">{slots.default?.()}</div>
                     {footNode}
                   </div>

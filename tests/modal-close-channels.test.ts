@@ -25,7 +25,7 @@ const gone = async (selector: string) => {
   expect(document.querySelector(selector)).toBeNull();
 };
 
-type Channels = { cancel: number; close: number; openChanges: boolean[] };
+type Channels = { cancel: number; close: number; openChanges: boolean[]; log: string[] };
 
 const wrappers: VueWrapper[] = [];
 
@@ -33,7 +33,7 @@ const harness = (
   Component: typeof Modal | typeof Drawer,
   props: Record<string, unknown> = {},
 ): Channels => {
-  const channels: Channels = { cancel: 0, close: 0, openChanges: [] };
+  const channels: Channels = { cancel: 0, close: 0, openChanges: [], log: [] };
   const visible = ref(true);
   wrappers.push(
     mount(
@@ -46,16 +46,20 @@ const harness = (
               title: "标题",
               maskClosable: true,
               "onUpdate:modelValue": (next: boolean) => {
+                channels.log.push(`model:${next}`);
                 visible.value = next;
               },
               onCancel: () => {
                 channels.cancel += 1;
+                channels.log.push("cancel");
               },
               onClose: () => {
                 channels.close += 1;
+                channels.log.push("close");
               },
               onOpenChange: (next: boolean) => {
                 channels.openChanges.push(next);
+                channels.log.push(`open:${next}`);
               },
               ...props,
             },
@@ -101,6 +105,14 @@ describe.each(targets)("%s close channels", (_name, Component, root, maskSelecto
       );
       expect(channels.openChanges.filter((next) => next === false)).toHaveLength(1);
       expect(channels.openChanges.at(-1)).toBe(false);
+      // 四处（react/vue × Modal/Drawer）统一的顺序：先结开合状态（update:modelValue → openChange），
+      // 再发语义回调。反过来的话 onCancel/onClose 里读到的 modelValue 还是 true。
+      // 只看这段尾序：vue 挂载时会把已有的打开态回写一次（model:true / open:true），react 不会。
+      expect(channels.log.slice(-3)).toEqual([
+        "model:false",
+        "open:false",
+        channel === "cancel" ? "cancel" : "close",
+      ]);
 
       await gone(root);
     });

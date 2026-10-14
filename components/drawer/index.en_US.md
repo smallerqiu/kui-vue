@@ -35,7 +35,7 @@ A floating panel that slides in from the edge of the screen.
 | escKey | Whether to support closing with Esc key | `boolean` | true |
 | destroyOnClose | Whether to destroy drawer content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened drawer | `boolean` | true |
 | maskClosable | Whether clicking the mask closes the drawer (mask only; Esc is gated by `escKey`) | `boolean` | true |
-| title | Drawer title | `string` | Title |
+| title | Drawer title; accepts a VNode as well as text, and rich content can go through the `title` slot. With no title text the header bar stays (the top-right close button lives in it); it is only dropped when `closable` is also off | `VNodeChild` | - |
 | width | Drawer width, used when `placement` is `left` or `right`, supports percentage | `string \| number` | 520 |
 | height | Drawer height, used when `placement` is `top` or `bottom`, supports percentage | `string \| number` | 520 |
 | placement | The display direction of the drawer. Provides 4 display methods: `left`, `top`, `right`, `bottom` | `"top" \| "bottom" \| "left" \| "right"` | right |
@@ -51,6 +51,10 @@ A floating panel that slides in from the edge of the screen.
 | onCancel | Callback when Cancel is clicked | `() => void` | - |
 | onOpenChange | Callback for opening or closing the drawer | `(visible: boolean) => void` | - |
 
+### Slots
+
+- `title`: Custom title area. Rendered slot content takes precedence over the `title` property; if neither is given there is no title text, but the header bar still holds the top-right close button and is only dropped when `closable` is off as well.
+
 ### onCancel vs onClose
 
 Closing splits into two channels that never fire together:
@@ -61,3 +65,4 @@ Closing splits into two channels that never fire together:
 Listen to both if you need one "it closed" hook; keep them separate if you need to tell an explicit cancel apart from every other way of closing.
 `onOk` never closes the drawer — it only sits on the OK button, so close it yourself inside that callback when you need to.
 Keep the open state in sync through `onOpenChange` alone (or `v-model`): all four ways of closing — cancel, mask, Esc, the close icon — emit `update:modelValue` and `openChange`, while `onCancel` / `onClose` only tell you which channel closed it.
+The order is unified across all four (Modal / Drawer × React / Vue): `update:modelValue` and `openChange` land first and settle the state, then `onCancel` / `onClose` say which channel closed it. So the `modelValue` you read inside those callbacks is already settled.
