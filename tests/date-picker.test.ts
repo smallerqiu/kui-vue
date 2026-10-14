@@ -178,4 +178,91 @@ describe("DatePicker calendar grid", () => {
     expect(wrapper.find("input").element.value).toBe("");
     wrapper.unmount();
   });
+
+  // 规则 B：只有"用户正在那个框里敲字"才允许挡住外部值写回文本，面板打开不算编辑中。
+  // 历史上这道门用的是 isFocus——它只在打开面板时置真、没有任何输入焦点事件维护，
+  // 于是面板一开着外部改值就只有高亮动、文本不动。
+  it("follows an external value change while the panel is open", async () => {
+    const wrapper = mount(DatePicker, {
+      attachTo: document.body,
+      props: { mode: "dateRange", startDate: "2026-08-01", endDate: "2026-08-05" },
+    });
+    await wrapper.find(".k-datepicker-selection").trigger("click");
+    await wrapper.vm.$nextTick();
+
+    await wrapper.setProps({ startDate: "2026-09-01", endDate: "2026-09-03" });
+    const inputs = wrapper.findAll("input");
+    expect(inputs[0].element.value).toBe("2026-09-01");
+    expect(inputs[1].element.value).toBe("2026-09-03");
+    wrapper.unmount();
+  });
+
+  // 同一条规则的另一半：正在敲字的那个框不能被外部值盖掉，否则手输到一半就没了。
+  it("leaves the box being typed in alone when the value changes elsewhere", async () => {
+    const wrapper = mount(DatePicker, {
+      attachTo: document.body,
+      props: { mode: "dateRange", startDate: "2026-08-01", endDate: "2026-08-05" },
+    });
+    await wrapper.find(".k-datepicker-selection").trigger("click");
+    const start = wrapper.findAll("input")[0];
+    await start.trigger("focus");
+    await start.setValue("2026-09-");
+
+    await wrapper.setProps({ startDate: "2026-10-01" });
+    expect(wrapper.findAll("input")[0].element.value).toBe("2026-09-");
+    wrapper.unmount();
+  });
+
+  // 规则 C：值没变就不再通知。react 的 commit 同一条口径，见 kui-react/tests/date-picker.test.tsx。
+  it("does not re-emit when the already selected date is picked again", async () => {
+    const wrapper = mount(DatePicker, { props: { panelOnly: true, modelValue: "2026-08-21" } });
+    await wrapper.find(".k-picker-day-selected").trigger("click");
+
+    expect(wrapper.emitted("update:modelValue")).toBeUndefined();
+    expect(wrapper.emitted("change")).toBeUndefined();
+    wrapper.unmount();
+  });
+
+  it("does not re-emit when the same value is typed again", async () => {
+    const wrapper = mount(DatePicker, { props: { modelValue: "2026-08-21" } });
+    await wrapper.find("input").setValue("2026-08-21");
+
+    expect(wrapper.emitted("update:modelValue")).toBeUndefined();
+    expect(wrapper.emitted("change")).toBeUndefined();
+    wrapper.unmount();
+  });
+
+  // 规则 D：opened 是双向的。历史上 emits 里只有 openChange，
+  // 而 watch(props.opened) 直接写 isVisible——于是 v-model:opened 静默失效，
+  // 外部关掉也绕开了 closePopup 的半截回滚。
+  it("announces the opening it drives through the panel", async () => {
+    const wrapper = mount(DatePicker, { attachTo: document.body, props: { opened: false } });
+    await wrapper.find(".k-datepicker-selection").trigger("click");
+
+    expect(wrapper.emitted("openChange")).toEqual([[true]]);
+    expect(wrapper.emitted("update:opened")).toEqual([[true]]);
+    // 父级 v-model 把同一个值写回来时不要再通知一遍。
+    await wrapper.setProps({ opened: true });
+    expect(wrapper.emitted("openChange")).toHaveLength(1);
+    expect(wrapper.emitted("update:opened")).toHaveLength(1);
+    wrapper.unmount();
+  });
+
+  it("rolls back a half range when the parent closes the panel", async () => {
+    const wrapper = mount(DatePicker, {
+      attachTo: document.body,
+      props: { mode: "dateRange", startDate: "2026-08-01", endDate: "2026-08-05", opened: true },
+    });
+    await wrapper.vm.$nextTick();
+    document.body.querySelector<HTMLElement>(".k-picker-day:not(.k-picker-day-disabled)")!.click();
+    await wrapper.vm.$nextTick();
+
+    await wrapper.setProps({ opened: false });
+    const inputs = wrapper.findAll("input");
+    expect(inputs[0].element.value).toBe("2026-08-01");
+    expect(inputs[1].element.value).toBe("2026-08-05");
+    expect(wrapper.emitted("openChange")?.at(-1)).toEqual([false]);
+    expect(wrapper.emitted("update:opened")?.at(-1)).toEqual([false]);
+    wrapper.unmount();
+  });
 });
