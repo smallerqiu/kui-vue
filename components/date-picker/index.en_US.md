@@ -22,6 +22,7 @@ When the user needs to input a date, they can click the standard input box to po
 
 - Supports date and time range selection. It's recommended to use `startDate` and `endDate` for values.
 - A range with only one end filled in is not a selection: closing the panel with `Escape` or a click outside puts the last committed range back, and the half value is never emitted.
+- While the other end is still empty, a time picked in the time columns only writes into the box; it is never emitted as a result.
 - When a range controls only one end (`startDate` or `endDate`), the panel keeps that end and the next pick only fills the empty one, so it never overwrites what the parent passed in.
 
 [Disabled Dates and Times](./demo/disabled-date.vue)

@@ -67,6 +67,7 @@ rm -rf node_modules/.vite
 - `DatePicker`: When the value changes from outside while the panel is open, the input text now follows it; only the box being typed in is left alone.
 - `DatePicker`: `opened` supports `v-model:opened`. Closing the panel from the parent also rolls back a half-finished range, and the openings the component drives itself are no longer echoed back twice.
 - `DatePicker`: Picking the already selected date, or submitting the same value again, no longer fires a redundant `change`.
+- `DatePicker`: Picking a time in the time columns while only one end of the range is chosen no longer emits that half range; the time stays in the box until the other end is filled in.
 
 ## 6.2.2
 
