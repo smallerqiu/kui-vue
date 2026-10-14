@@ -68,6 +68,10 @@ rm -rf node_modules/.vite
 - `DatePicker`: `opened` supports `v-model:opened`. Closing the panel from the parent also rolls back a half-finished range, and the openings the component drives itself are no longer echoed back twice.
 - `DatePicker`: Picking the already selected date, or submitting the same value again, no longer fires a redundant `change`.
 - `DatePicker`: Picking a time in the time columns while only one end of the range is chosen no longer emits that half range; the time stays in the box until the other end is filled in.
+- `DatePicker`: The year and month panels now honour `disabledDate` — a year or month with no pickable day at all is greyed out, refuses clicks, and is skipped by `Tab`, while one that still has a pickable day remains clickable.
+- `DatePicker`: The year and month highlight now follows the current value instead of wherever you happen to be browsing.
+- `DatePicker`: Year and month cells can be picked with the keyboard (`Tab` to a cell, then `Enter` or Space), and the year / month labels in the header switch panels with the same keys.
+- `DatePicker`: A `panelOnly` picker in `mode="year"` or `mode="month"` no longer renders the day calendar; the panel now starts on the year / month view like the React version.
 
 ## 6.2.2
 

@@ -70,6 +70,10 @@ rm -rf node_modules/.vite
 - `DatePicker` 的 `opened` 支持 `v-model:opened`：父级收起面板同样会退回上一次选好的区间，组件自己发出去的开合也不会再回灌一遍。
 - `DatePicker` 重复点已经选中的日期、重复提交同一个值，不再多触发一次 `change`。
 - `DatePicker` 修复区间只选了一头、就在时间列上挑时间：那个时间不再被当成结果发给 `change`，而是留在输入框里，等另一头补齐。
+- `DatePicker` 修复年 / 月面板不认 `disabledDate`：一整年或一整月里一天都选不出来时，那一格置灰、点不进去，`Tab` 也会跳过它；格里还能选出一天的，照常能点。
+- `DatePicker` 年 / 月面板的高亮改为跟着当前值走：翻年、翻月只改浏览位置，选中样式不再跑到正看着的那一格上。
+- `DatePicker` 年 / 月格子可以用键盘选了：`Tab` 到格子按 `Enter` 或空格即可，头部的年份、月份标签同样能用键盘切面板。
+- `DatePicker` 修复 `panelOnly` 常驻面板在 `mode="year"` / `mode="month"` 下仍显示日期格的问题：面板档位现在跟着 `mode` 起，与 React 版一致。
 
 ## 6.2.2
 
