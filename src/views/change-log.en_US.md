@@ -61,6 +61,9 @@ rm -rf node_modules/.vite
 - `Drawer` gained a `title` slot, and its `title` prop now also accepts a node, for icons, captions and other rich content.
 - `Modal`'s `title` prop accepts a node as well as a string, like the `title` slot it already had.
 - **Behavior change**: `Modal` / `Drawer` no longer announce opening. Mounting with the panel already open, or setting `modelValue` to true, used to send back an extra `update:modelValue` and `openChange` — feeding you the value you had just written. Only closing is announced now, matching React. If you initialized something from an `openChange(true)`, watch that value instead; it is the same moment.
+- `DatePicker`: Closing the panel with `Escape` after picking only one end of a range no longer leaves the half date in the box; it now falls back to the last committed range, the same as clicking outside.
+- `DatePicker`: Typing a date into only the end box no longer shows a value that `change` never received. A range with one end missing is not a selection, and closing the panel clears it.
+- `DatePicker`: `disabledTime` now applies in `mode="time"` as well — previously, typed values and presets could submit times that should have been blocked.
 
 ## 6.2.2
 

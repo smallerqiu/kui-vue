@@ -19,10 +19,11 @@
 [时间区域](./demo/range.vue)
 
 - 支持时间日期区间选择。取值建议用 `startDate` , `endDate`
+- 区间只凑齐一头不算选上：按 `Esc` 或点面板外面关掉时，输入框退回上次提交的那段区间，半截值不会发给 `onChange`。
 
 [不可选择日期和时间](./demo/disabled-date.vue)
 
-- 可用 `disabledDate` 和 `disabledTime` 分别禁止选择部分日期和时间.
+- 可用 `disabledDate` 和 `disabledTime` 分别禁止选择部分日期和时间；两者对点选、手输和预设都生效，`disabledTime` 在 `time` / `dateTime` / `dateTimeRange` 三种档下都参与判断。
 
 [禁用和不可编辑](./demo/disabled.vue)
 
