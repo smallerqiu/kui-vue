@@ -8,6 +8,15 @@ import {
   type InjectionKey,
 } from "vue";
 import type { ShapeType, SizeType, ThemeType } from "../const/types";
+import enUS from "../locale/en";
+
+/**
+ * 没有 ConfigProvider 兜底时用的语言。
+ * 以前 17 处 inject 的兜底各写各的，全是 zhCN，文档却写着"默认英语"
+ *（dayjs 的中文语言包也从没注册过，月份和星期本来就是英文），代码和文档正好相反。默认值收到这里，
+ * 以后改默认只改这一处。
+ */
+export const DEFAULT_LOCALE = enUS;
 
 export interface ConfigProviderContext {
   size: ComputedRef<SizeType | undefined>;

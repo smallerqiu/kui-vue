@@ -100,7 +100,8 @@ describe("Upload", () => {
     xhr.onreadystatechange?.();
     await flushPromises();
 
-    expect(wrapper.find(".k-upload-file-status-text").text()).toContain("上传失败: 500");
+    // 这里没挂 ConfigProvider，读的是库级默认语言（英文）。
+    expect(wrapper.find(".k-upload-file-status-text").text()).toContain("Failed: 500");
     vi.unstubAllGlobals();
   });
 
@@ -117,7 +118,7 @@ describe("Upload", () => {
     const file = lastChangeEvent(wrapper);
     expect(file?.status).toBe("error");
     expect(file?.errorText).toBeTruthy();
-    expect(wrapper.find(".k-upload-file-status-text").text()).toContain("上传失败");
+    expect(wrapper.find(".k-upload-file-status-text").text()).toContain("Failed");
     vi.unstubAllGlobals();
   });
 

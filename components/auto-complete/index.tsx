@@ -27,6 +27,7 @@ import {
 import Icon from "../icon";
 import { Input } from "../input";
 import zhCN from "../locale/zh-CN";
+import { DEFAULT_LOCALE } from "../config/context";
 
 export interface AutoCompleteOption {
   value: string;
@@ -77,7 +78,7 @@ const AutoComplete = defineComponent({
     const appearance = useFormAppearance(props, field);
 
     type Locale = typeof zhCN;
-    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", DEFAULT_LOCALE);
     const locale = computed<Locale>(() =>
       isRef(injectedLocale) ? injectedLocale.value : injectedLocale,
     );

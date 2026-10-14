@@ -15,6 +15,7 @@ import type { BooleanType } from "../const/types";
 import { markFormFieldComponent, useFormField } from "../form/context";
 import { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
+import { DEFAULT_LOCALE } from "../config/context";
 import FileList from "./file-list";
 import Selector from "./selector";
 import type {
@@ -101,7 +102,7 @@ const Upload = defineComponent({
   setup(props, { emit, slots, expose }) {
     const field = useFormField(true);
     type Locale = typeof zhCN;
-    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", DEFAULT_LOCALE);
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });

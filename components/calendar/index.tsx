@@ -14,6 +14,7 @@ import {
 } from "vue";
 import { Button, ButtonGroup } from "../button";
 import zhCN from "../locale/zh-CN";
+import { DEFAULT_LOCALE } from "../config/context";
 
 export interface CalendarEventData {
   key: string | number;
@@ -70,9 +71,9 @@ const Calendar = defineComponent({
   setup(props, { attrs, emit, slots }) {
     const initialModel = useInitialValue(props);
     type Locale = typeof zhCN;
-    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", DEFAULT_LOCALE);
     const locale = computed(() => (isRef(injectedLocale) ? injectedLocale.value : injectedLocale));
-    const localeName = computed(() => locale.value.name || "zh-cn");
+    const localeName = computed(() => locale.value.name || "en");
     const resolvedFirstDay = computed(() => {
       if (props.firstDayOfWeek !== undefined)
         return Number.isFinite(props.firstDayOfWeek)

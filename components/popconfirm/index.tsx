@@ -19,6 +19,7 @@ import { CircleQuestionMark } from "kui-icons";
 import { Button } from "../button";
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
+import { DEFAULT_LOCALE } from "../config/context";
 const popconfirmProps = {
   dark: Boolean as BooleanType,
   show: Boolean as BooleanType,
@@ -52,7 +53,7 @@ const Popconfirm = defineComponent({
         visible.value = !!value;
       },
     );
-    const injectedLocale = inject<typeof zhCN | Ref<typeof zhCN>>("locale", zhCN);
+    const injectedLocale = inject<typeof zhCN | Ref<typeof zhCN>>("locale", DEFAULT_LOCALE);
     const locale = computed(() => (isRef(injectedLocale) ? injectedLocale.value : injectedLocale));
     return () => (
       <Popup

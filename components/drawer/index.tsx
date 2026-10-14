@@ -24,6 +24,7 @@ import { usePopupContainer } from "../config/popup";
 import { providePopupHost } from "../config/popup-host";
 import type { DrawerPlacementsType } from "../const/types";
 import zhCN from "../locale/zh-CN";
+import { DEFAULT_LOCALE } from "../config/context";
 import { toCssLength } from "../utils/css";
 import { createFocusTrap } from "../utils/focus";
 import { pushOverlay, type OverlayHandle } from "../utils/overlay-stack";
@@ -67,7 +68,7 @@ const Drawer = defineComponent({
   setup(props, { slots, emit }) {
     const initialModel = useInitialValue(props);
     type Locale = typeof zhCN;
-    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", DEFAULT_LOCALE);
     const getPopupContainer = usePopupContainer();
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;

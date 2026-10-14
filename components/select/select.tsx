@@ -24,6 +24,7 @@ import { markFormFieldComponent, useFormAppearance, useFormField } from "../form
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
+import { DEFAULT_LOCALE } from "../config/context";
 import VirtualList from "../virtual-list";
 import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
@@ -115,7 +116,7 @@ const Select = defineComponent({
     const appearance = useFormAppearance(props, field);
 
     type Locale = typeof zhCN;
-    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", DEFAULT_LOCALE);
 
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;

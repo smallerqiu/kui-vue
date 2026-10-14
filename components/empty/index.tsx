@@ -13,6 +13,7 @@ import {
 } from "vue";
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
+import { DEFAULT_LOCALE } from "../config/context";
 const emptyProps = {
   description: { type: [String, Boolean], default: null },
   image: String,
@@ -26,7 +27,7 @@ const Empty = defineComponent({
   props: emptyProps,
   setup(props, { slots, attrs }) {
     type Locale = typeof zhCN;
-    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", DEFAULT_LOCALE);
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });

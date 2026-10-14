@@ -18,6 +18,7 @@ import {
   type Ref,
 } from "vue";
 import zhCN from "../locale/zh-CN";
+import { DEFAULT_LOCALE } from "../config/context";
 import { Col, Row } from "../row-col";
 import { getChildren } from "../utils/vnode";
 
@@ -89,7 +90,7 @@ const FormItem = defineComponent({
   props: formItemProps,
   setup(props, { slots }) {
     type Locale = typeof zhCN;
-    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", DEFAULT_LOCALE);
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });

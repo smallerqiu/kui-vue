@@ -12,8 +12,7 @@ import {
   type PropType,
 } from "vue";
 import type { ShapeType, SizeType, ThemeType } from "../const/types";
-import zhCN from "../locale/zh-CN";
-import { CONFIG_PROVIDER_INJECTION_KEY, registerAppContext } from "./context";
+import { CONFIG_PROVIDER_INJECTION_KEY, DEFAULT_LOCALE, registerAppContext } from "./context";
 import { popupContainerKey, type PopupContainerGetter } from "./popup";
 const configProviderProps = {
   locale: {
@@ -38,7 +37,7 @@ const ConfigProvider = defineComponent({
       theme: computed(() => props.theme ?? parentConfig?.theme.value),
       shape: computed(() => props.shape ?? parentConfig?.shape.value),
     });
-    const inheritedLocale = inject("locale", zhCN);
+    const inheritedLocale = inject("locale", DEFAULT_LOCALE);
     const getInheritedLocale = () =>
       isRef(inheritedLocale) ? inheritedLocale.value : inheritedLocale;
     const locale = ref(props.locale || getInheritedLocale());

@@ -12,6 +12,7 @@ import type { CheckboxValue } from "../checkbox/types";
 import Poptip from "../poptip";
 import type { BooleanType, SizeType } from "../const/types";
 import zhCN from "../locale/zh-CN";
+import { DEFAULT_LOCALE } from "../config/context";
 import type { Column } from "./types";
 
 const tableColumnSettingProps = {
@@ -35,7 +36,7 @@ const TableColumnSetting = defineComponent({
   },
   setup(props, { emit, slots }) {
     type Locale = typeof zhCN;
-    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", DEFAULT_LOCALE);
     const locale = computed(() =>
       "value" in injectedLocale ? injectedLocale.value : injectedLocale,
     );

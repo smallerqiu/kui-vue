@@ -45,6 +45,7 @@ import type {
 } from "../const/types";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
+import { DEFAULT_LOCALE } from "../config/context";
 // import dayjsCN from "./dayjs.zh_CN";
 // import "dayjs/locale/zh-cn";
 // 启用插件
@@ -175,7 +176,7 @@ const DatePicker = defineComponent({
     const appearance = useFormAppearance(props, field);
 
     type Locale = typeof zhCN;
-    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", DEFAULT_LOCALE);
 
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
@@ -185,7 +186,7 @@ const DatePicker = defineComponent({
     };
 
     const localeName = computed(() => {
-      return locale.value.name || "zh-cn";
+      return locale.value.name || "en";
     });
 
     // --- 状态定义 ---

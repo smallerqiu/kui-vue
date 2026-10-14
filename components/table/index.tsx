@@ -19,6 +19,7 @@ import type { BooleanType, SizeType, SurfaceShapeType } from "../const/types";
 import Empty from "../empty";
 import Icon from "../icon";
 import zhCN from "../locale/zh-CN";
+import { DEFAULT_LOCALE } from "../config/context";
 import Spin from "../spin";
 import Tooltip from "../tooltip";
 import { getVirtualRange } from "../virtual-list";
@@ -228,7 +229,7 @@ const Table = defineComponent({
     // 与 table/column-setting.tsx 同一套取法：ConfigProvider 提供的是 ref，
     // 直接读会把 ref 当成语言包对象。
     type Locale = typeof zhCN;
-    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", DEFAULT_LOCALE);
     const tableLocale = computed(() => {
       const resolved =
         injectedLocale && "value" in injectedLocale ? injectedLocale.value : injectedLocale;

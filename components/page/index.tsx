@@ -18,6 +18,7 @@ import Icon from "../icon";
 import InputNumber from "../input-number";
 import { bindResponsivePage } from "./responsive";
 import zhCN from "../locale/zh-CN";
+import { DEFAULT_LOCALE } from "../config/context";
 import { Select } from "../select";
 
 const pageProps = {
@@ -72,7 +73,7 @@ const Page = defineComponent({
     const pageCount = ref(calculatePageCount(props.total, defaultPageSize.value));
     const defaultPage = ref(normalizePage(props.page, pageCount.value));
     type Locale = typeof zhCN;
-    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", DEFAULT_LOCALE);
 
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;

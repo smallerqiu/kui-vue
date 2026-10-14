@@ -23,6 +23,7 @@ import type {
   ThemeType,
 } from "../const/types";
 import zhCN from "../locale/zh-CN";
+import { DEFAULT_LOCALE } from "../config/context";
 import Spin from "../spin";
 const qrCodeProps = {
   value: { type: String, required: true },
@@ -66,7 +67,7 @@ const QRCode = defineComponent({
       Number.isFinite(props.margin) ? Math.max(0, Math.floor(props.margin)) : 0,
     );
     type Locale = typeof zhCN;
-    const injectedLocale = inject<Locale | Ref<Locale>>("locale", zhCN);
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", DEFAULT_LOCALE);
     const locale = computed<Locale>(() => {
       return isRef(injectedLocale) ? injectedLocale.value : injectedLocale;
     });
