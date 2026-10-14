@@ -298,4 +298,153 @@ describe("DatePicker calendar grid", () => {
     expect(wrapper.emitted("update:opened")?.at(-1)).toEqual([false]);
     wrapper.unmount();
   });
+
+  // 年 / 月面板（②）：格子只在 mode 就是"选这一年 / 这一月"时才认 disabledDate，
+  // 判据是"整格里一天都挑不出来"；浏览态不拦——拦死了连"翻过去看看"都做不到。
+  it("refuses a fully disabled year and lands on an open day inside a partly disabled one", async () => {
+    const wrapper = mount(DatePicker, {
+      props: {
+        panelOnly: true,
+        mode: "year",
+        modelValue: "2026-01-01",
+        format: "YYYY-MM-DD",
+        disabledDate: (date: Date) =>
+          date.getFullYear() === 2027 ||
+          (date.getFullYear() === 2028 && date.getMonth() === 0 && date.getDate() === 1),
+      },
+    });
+    const cellOf = (year: number) =>
+      wrapper.findAll(".k-picker-year-item").find((cell) => cell.text() === String(year))!;
+    const blocked = cellOf(2027);
+
+    expect(blocked.classes()).toContain("k-picker-year-disabled");
+    expect(blocked.attributes("aria-disabled")).toBe("true");
+    expect(blocked.attributes("tabindex")).toBe("-1");
+    await blocked.trigger("click");
+    await blocked.trigger("keydown", { key: "Enter" });
+    expect(wrapper.emitted("change"), "整年被禁时点击和键盘都不该落值").toBeUndefined();
+
+    // 格子能点就得真落值：浏览位置那天恰好被禁时，落到这一格里往后第一个能选的日子，
+    // 而不是"看着能点、点了没反应"。
+    await cellOf(2028).trigger("click");
+    expect(wrapper.emitted("change")?.at(-1)?.[1]).toBe("2028-01-02");
+
+    expect(cellOf(2029).attributes("role")).toBe("gridcell");
+    expect(cellOf(2029).attributes("tabindex")).toBe("0");
+    await cellOf(2029).trigger("keydown", { key: " " });
+    expect(wrapper.emitted("change")?.at(-1)?.[1]).toBe("2029-01-01");
+    wrapper.unmount();
+  });
+
+  it("refuses a fully disabled month and lands on an open day inside a partly disabled one", async () => {
+    const wrapper = mount(DatePicker, {
+      props: {
+        panelOnly: true,
+        mode: "month",
+        modelValue: "2026-05-10",
+        format: "YYYY-MM-DD",
+        disabledDate: (date: Date) =>
+          (date.getFullYear() === 2026 && date.getMonth() === 1) ||
+          (date.getFullYear() === 2026 && date.getMonth() === 2 && date.getDate() === 10),
+      },
+    });
+    // 月格子按 localeData 的顺序排，12 格恒定，下标 1 就是二月（标签文案跟语言走，不断言）。
+    const cells = () => wrapper.findAll(".k-picker-month-item");
+    const blocked = cells()[1];
+
+    expect(blocked.classes()).toContain("k-picker-month-disabled");
+    expect(blocked.attributes("aria-disabled")).toBe("true");
+    expect(blocked.attributes("tabindex")).toBe("-1");
+    await blocked.trigger("click");
+    await blocked.trigger("keydown", { key: " " });
+    expect(wrapper.emitted("change"), "整月被禁时点击和键盘都不该落值").toBeUndefined();
+
+    // 没被禁的那一格保留浏览位置（10 号），别自作主张改成 1 号。
+    await cells()[3].trigger("click");
+    expect(wrapper.emitted("change")?.at(-1)?.[1]).toBe("2026-04-10");
+    await cells()[2].trigger("click");
+    expect(wrapper.emitted("change")?.at(-1)?.[1]).toBe("2026-03-01");
+    wrapper.unmount();
+  });
+
+  it("keeps Feb 29 inside February when the year panel jumps a whole year", async () => {
+    const wrapper = mount(DatePicker, {
+      props: { panelOnly: true, mode: "year", modelValue: "2024-02-29", format: "YYYY-MM-DD" },
+    });
+    // 2027 年没有 2 月 29 日：落在 2 月 28 日，而不是溢出成 3 月 1 日。
+    await wrapper
+      .findAll(".k-picker-year-item")
+      .find((cell) => cell.text() === "2027")!
+      .trigger("click");
+    expect(wrapper.emitted("change")?.at(-1)?.[1]).toBe("2027-02-28");
+    wrapper.unmount();
+  });
+
+  it("opens the year and month panels from the keyboard", async () => {
+    const wrapper = mount(DatePicker, {
+      props: { panelOnly: true, modelValue: "2026-08-21" },
+    });
+    const yearLabel = () =>
+      wrapper.findAll(".k-picker-header-label span").find((label) => /^\d{4}/.test(label.text()))!;
+    const monthLabel = () => wrapper.find(".k-picker-header-month-btn");
+
+    expect(yearLabel().attributes("tabindex")).toBe("0");
+    await yearLabel().trigger("keydown", { key: "Enter" });
+    expect(wrapper.find(".k-picker-year-body").exists()).toBe(true);
+    await monthLabel().trigger("keydown", { key: " " });
+    expect(wrapper.find(".k-picker-month-body").exists()).toBe(true);
+    wrapper.unmount();
+  });
+
+  it("keeps the year and month highlight on the value, not the browsing position", async () => {
+    const wrapper = mount(DatePicker, {
+      props: {
+        panelOnly: true,
+        mode: "month",
+        modelValue: "2026-08-15",
+        format: "YYYY-MM-DD",
+      },
+    });
+    const monthCells = () => wrapper.findAll(".k-picker-month-item");
+    const yearCells = () => wrapper.findAll(".k-picker-year-item");
+    const yearLabel = () =>
+      wrapper.findAll(".k-picker-header-label span").find((label) => /^\d{4}/.test(label.text()))!;
+
+    expect(monthCells()[7].classes()).toContain("k-picker-month-selected");
+    expect(monthCells()[7].attributes("aria-selected")).toBe("true");
+
+    // 翻到 7 月：浏览位置变了，选中态得留在值所在的那个 8 月。
+    await wrapper.findAll(".k-picker-header button")[1].trigger("click");
+    expect(monthCells()[6].classes(), "翻月不该把选中态带到浏览位置上").not.toContain(
+      "k-picker-month-selected",
+    );
+    expect(monthCells()[7].classes()).toContain("k-picker-month-selected");
+
+    // 月面板里点年份只是翻浏览位置，翻到 2027 再回年面板，选中格还得是 2026。
+    await yearLabel().trigger("click");
+    await yearCells()
+      .find((cell) => cell.text() === "2027")!
+      .trigger("click");
+    await new Promise((resolve) => setTimeout(resolve, 0));
+    await yearLabel().trigger("click");
+    expect(
+      yearCells()
+        .filter((cell) => cell.classes().includes("k-picker-year-selected"))
+        .map((cell) => cell.text()),
+    ).toEqual(["2026"]);
+    wrapper.unmount();
+  });
+
+  // panelOnly 一进来就是可见的，`updatePanelState` 那句 `if (isVisible.value) return`
+  // 把"档位跟着 mode 起"也一起挡掉了——于是 mode="year" 的常驻面板渲染的是日期格。
+  it("shows the year and month panels for a panel-only picker in that mode", async () => {
+    const year = mount(DatePicker, { props: { panelOnly: true, mode: "year" } });
+    expect(year.findAll(".k-picker-year-item")).toHaveLength(12);
+    expect(year.find(".k-picker-date-grid").exists()).toBe(false);
+    year.unmount();
+
+    const month = mount(DatePicker, { props: { panelOnly: true, mode: "month" } });
+    expect(month.findAll(".k-picker-month-item")).toHaveLength(12);
+    month.unmount();
+  });
 });
