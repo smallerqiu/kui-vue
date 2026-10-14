@@ -214,7 +214,18 @@ const DatePicker = defineComponent({
     const hoverDate = ref<Dayjs | null>(null);
 
     // 视图模式: 'date' | 'month' | 'year' | 'time'
-    const currentView = ref("date");
+    // 档位得跟着 mode 起：原来只有 `updatePanelState`（打开面板时）会设 currentView，
+    // 而 `panelOnly` 一进来就是可见的，那次设值被 `if (isVisible.value) return` 挡掉——
+    // 于是 `panelOnly + mode="year"` 渲染的是日期格（react 那条是从 mode 初始化的）。
+    const viewForMode = () =>
+      props.mode === "year"
+        ? "year"
+        : props.mode === "month"
+          ? "month"
+          : props.mode === "time"
+            ? "time"
+            : "date";
+    const currentView = ref(viewForMode());
 
     // Range 模式下，当前时间面板编辑的是哪一端: 'start' | 'end'
     const timeEditSide = ref("start");
@@ -616,11 +627,55 @@ const DatePicker = defineComponent({
       }
     };
 
+    // 当前值拉平成 Dayjs 数组：年 / 月格子的选中态取的是"当前这份值"，不跟浏览位置跑
+    //（原来高亮挂在 panelDate 上，已有值时翻几年，选中样式就跑到别的年份 / 月份上了）。
+    const valueList = (): Dayjs[] => {
+      const raw = innerValue.value;
+      if (Array.isArray(raw)) return raw.filter((item): item is Dayjs => !!item);
+      return raw ? [raw] : [];
+    };
+    // 年 / 月格子只在"这一枪就是落值"时（mode="year" / "month"）才认 disabledDate：
+    // 浏览态把格子拦死，用户连"翻到那年看看有没有能选的"都做不到，
+    // 而翻过去以后日期格那道 disabledDate 本来就兜着。
+    // 判据是"这一整格里一天都挑不出来"，不是"格子对准的那一天被禁"——
+    // disabledDate 只禁了 3 月 5 号时，3 月这格照样得点得进去。
+    // 返回 null 表示整格禁用；能落值时优先用浏览位置的那一天（和原来一致），
+    // 那天被禁就往后找这一格里第一个能选的日子，免得"格子看着能点、点了没反应"。
+    const unitPick = (base: Dayjs, unit: "year" | "month"): Dayjs | null => {
+      if (!props.disabledDate(base.toDate())) return base;
+      const first = base
+        .startOf(unit)
+        .hour(base.hour())
+        .minute(base.minute())
+        .second(base.second());
+      const end = base.endOf(unit);
+      for (let day = first; day.isBefore(end); day = day.add(1, "day")) {
+        if (!props.disabledDate(day.toDate())) return day;
+      }
+      return null;
+    };
+    // 整年 / 整月平移不用自己钳位：dayjs 的 `.year()` 和 `.month()` 都会钳
+    //（2024-02-29 的 `.year(2027)` 是 2027-02-28，不会溢出成 3 月 1 日）。
+    const yearCellState = (y: number) => {
+      const browsing = panelDate.value.year(y);
+      const selects = props.mode === "year";
+      const candidate = selects ? unitPick(browsing, "year") : browsing;
+      return { browsing, candidate, off: selects && !candidate };
+    };
+    const monthCellState = (m: number) => {
+      const browsing = panelDate.value.month(m);
+      const selects = props.mode === "month";
+      const candidate = selects ? unitPick(browsing, "month") : browsing;
+      return { browsing, candidate, off: selects && !candidate };
+    };
+
     const pickYear = (y: number) => {
       if (props.readonly || field?.readonly.value) return;
-      panelDate.value = panelDate.value.year(y);
+      const { browsing, candidate, off } = yearCellState(y);
+      if (off || !candidate) return;
+      panelDate.value = browsing;
       if (props.mode === "year") {
-        innerValue.value = panelDate.value;
+        innerValue.value = candidate;
         emitValue(true);
       } else {
         setTimeout(() => {
@@ -631,9 +686,11 @@ const DatePicker = defineComponent({
 
     const pickMonth = (m: number) => {
       if (props.readonly || field?.readonly.value) return;
-      panelDate.value = panelDate.value.month(m);
+      const { browsing, candidate, off } = monthCellState(m);
+      if (off || !candidate) return;
+      panelDate.value = browsing;
       if (props.mode === "month") {
-        innerValue.value = panelDate.value;
+        innerValue.value = candidate;
         emitValue(true);
       } else {
         setTimeout(() => {
@@ -698,14 +755,29 @@ const DatePicker = defineComponent({
       const yearSuffix = locale.value.k.datePicker.year || "";
       const yearLabel = `${year}${yearSuffix}`;
 
-      const yearNode = <span onClick={() => (currentView.value = "year")}>{yearLabel}</span>;
+      // 切进年 / 月面板的那两个标签原来只有 onClick。格子做得再可达也没用——
+      // 键盘用户根本进不了年/月面板，所以这里一并补成能 Tab 到、Enter/空格能按的按钮。
+      const switchLabel = (target: "year" | "month", label: string, extraClass?: string) => (
+        <span
+          class={extraClass}
+          role="button"
+          tabindex={0}
+          onClick={() => (currentView.value = target)}
+          onKeydown={(event: KeyboardEvent) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              currentView.value = target;
+            }
+          }}
+        >
+          {label}
+        </span>
+      );
+
+      const yearNode = switchLabel("year", yearLabel);
 
       const monthNode =
-        props.mode !== "year" ? (
-          <span class="k-picker-header-month-btn" onClick={() => (currentView.value = "month")}>
-            {monthName}
-          </span>
-        ) : null;
+        props.mode !== "year" ? switchLabel("month", monthName, "k-picker-header-month-btn") : null;
 
       return (
         <div class="k-picker-header">
@@ -747,19 +819,34 @@ const DatePicker = defineComponent({
       const years = Array.from({ length: 12 }, (_, i) => startY - 1 + i);
       return (
         <div class="k-picker-body">
-          <div class="k-picker-year-body">
-            {years.map((y) => (
-              <div
-                key={y}
-                class={[
-                  "k-picker-year-item",
-                  y === panelDate.value.year() ? "k-picker-year-selected" : "",
-                ]}
-                onClick={() => pickYear(y)}
-              >
-                {y}
-              </div>
-            ))}
+          <div class="k-picker-year-body" role="grid">
+            {years.map((y) => {
+              const { off } = yearCellState(y);
+              const selected = valueList().some((item) => item.year() === y);
+              return (
+                <div
+                  key={y}
+                  class={[
+                    "k-picker-year-item",
+                    selected ? "k-picker-year-selected" : "",
+                    off ? "k-picker-year-disabled" : "",
+                  ]}
+                  role="gridcell"
+                  tabindex={off ? -1 : 0}
+                  aria-selected={selected || undefined}
+                  aria-disabled={off || undefined}
+                  onClick={() => pickYear(y)}
+                  onKeydown={(event: KeyboardEvent) => {
+                    if (!off && (event.key === "Enter" || event.key === " ")) {
+                      event.preventDefault();
+                      pickYear(y);
+                    }
+                  }}
+                >
+                  {y}
+                </div>
+              );
+            })}
           </div>
         </div>
       );
@@ -767,21 +854,39 @@ const DatePicker = defineComponent({
 
     const renderMonthTable = () => {
       const months = local().monthsShort();
+      const browsedYear = panelDate.value.year();
       return (
         <div class="k-picker-body">
-          <div class="k-picker-month-body">
-            {months.map((m, i) => (
-              <div
-                key={i}
-                class={[
-                  "k-picker-month-item",
-                  i === panelDate.value.month() ? "k-picker-month-selected" : "",
-                ]}
-                onClick={() => pickMonth(i)}
-              >
-                {m}
-              </div>
-            ))}
+          <div class="k-picker-month-body" role="grid">
+            {months.map((m, i) => {
+              const { off } = monthCellState(i);
+              const selected = valueList().some(
+                (item) => item.year() === browsedYear && item.month() === i,
+              );
+              return (
+                <div
+                  key={i}
+                  class={[
+                    "k-picker-month-item",
+                    selected ? "k-picker-month-selected" : "",
+                    off ? "k-picker-month-disabled" : "",
+                  ]}
+                  role="gridcell"
+                  tabindex={off ? -1 : 0}
+                  aria-selected={selected || undefined}
+                  aria-disabled={off || undefined}
+                  onClick={() => pickMonth(i)}
+                  onKeydown={(event: KeyboardEvent) => {
+                    if (!off && (event.key === "Enter" || event.key === " ")) {
+                      event.preventDefault();
+                      pickMonth(i);
+                    }
+                  }}
+                >
+                  {m}
+                </div>
+              );
+            })}
           </div>
         </div>
       );

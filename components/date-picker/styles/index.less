@@ -410,6 +410,8 @@
     &:not(
         .k-picker-day-disabled,
         .k-picker-time-disabled,
+        .k-picker-year-disabled,
+        .k-picker-month-disabled,
         .k-picker-month-selected,
         .k-picker-year-selected
       ):hover {
@@ -418,6 +420,8 @@
     &:not(
         .k-picker-day-disabled,
         .k-picker-time-disabled,
+        .k-picker-year-disabled,
+        .k-picker-month-disabled,
         .k-picker-month-selected,
         .k-picker-year-selected
       ):active {
@@ -537,7 +541,9 @@
     transform: scale(1.1);
   }
   .k-picker-day-disabled,
-  .k-picker-time-disabled {
+  .k-picker-time-disabled,
+  .k-picker-year-disabled,
+  .k-picker-month-disabled {
     color: var(--kui-color-text-disabled);
     opacity: var(--kui-disabled-opacity);
     cursor: not-allowed;
