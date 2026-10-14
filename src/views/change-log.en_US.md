@@ -64,6 +64,9 @@ rm -rf node_modules/.vite
 - `DatePicker`: Closing the panel with `Escape` after picking only one end of a range no longer leaves the half date in the box; it now falls back to the last committed range, the same as clicking outside.
 - `DatePicker`: Typing a date into only the end box no longer shows a value that `change` never received. A range with one end missing is not a selection, and closing the panel clears it.
 - `DatePicker`: `disabledTime` now applies in `mode="time"` as well — previously, typed values and presets could submit times that should have been blocked.
+- `DatePicker`: When the value changes from outside while the panel is open, the input text now follows it; only the box being typed in is left alone.
+- `DatePicker`: `opened` supports `v-model:opened`. Closing the panel from the parent also rolls back a half-finished range, and the openings the component drives itself are no longer echoed back twice.
+- `DatePicker`: Picking the already selected date, or submitting the same value again, no longer fires a redundant `change`.
 
 ## 6.2.2
 
