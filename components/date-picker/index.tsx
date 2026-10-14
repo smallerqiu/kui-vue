@@ -165,6 +165,7 @@ const DatePicker = defineComponent({
         ["string", "number", "object"].includes(typeof value)) &&
       (typeof text === "string" || Array.isArray(text)),
     openChange: (open: boolean) => typeof open === "boolean",
+    "update:opened": (open: boolean) => typeof open === "boolean",
     clear: () => true,
   },
 
@@ -189,7 +190,11 @@ const DatePicker = defineComponent({
 
     // --- 状态定义 ---
     const isVisible = ref(props.opened || props.panelOnly);
+    // isVisible 的伴生状态：面板是否因"点在输入框上"而打开，参与 k-datepicker-opened 类名
     const isFocus = ref(false);
+    // 用户是否正在某个输入框里敲字。只有这个状态才允许挡住外部值写回文本——
+    // 面板打开不等于正在编辑，以前用 isFocus 当门，于是面板一开着外部改值就只有高亮动、文本不动。
+    const isEditing = ref(false);
 
     const refPopper = ref<HTMLElement | null>(null);
     const refSelection = ref<HTMLElement | null>(null);
@@ -258,8 +263,13 @@ const DatePicker = defineComponent({
 
     const openChange = (opened: boolean) => {
       isVisible.value = props.panelOnly || opened;
-      if (!opened) isFocus.value = false;
+      if (!opened) {
+        isFocus.value = false;
+        // 面板关了就不存在"正在编辑"，外部改值要能立刻写回输入框。
+        isEditing.value = false;
+      }
       emit("openChange", opened);
+      emit("update:opened", opened);
     };
 
     const centerTimeItem = (type: UnitType, index: number, behavior: ScrollBehavior = "auto") => {
@@ -338,6 +348,17 @@ const DatePicker = defineComponent({
       props.disabledDate(date.toDate()) || (hasTime.value && props.disabledTime(date.toDate()));
     // Preserve the last committed range separately from an incomplete selection.
     const committedRange = ref<Array<Dayjs | null> | null>(null);
+    // 规则 C 的基准：最近一次通知出去的那份值的指纹。
+    // 基准只能记"发出去的"，不能直接拿 innerValue 比——半截草稿本来就没发出去过。
+    // 指纹取的是显示出来的文本，不是毫秒时间戳：格子每渲染一拨就重算一个 Dayjs，
+    // 同一天可能带着不同的时分秒落进来，比时间戳会把"同一天"误判成变了。
+    const fingerprint = (value: (Dayjs | null)[] | Dayjs | null) => {
+      const fmt = getFormat();
+      return (Array.isArray(value) ? value : value ? [value] : [])
+        .map((item) => (item ? item.locale(localeName.value).format(fmt) : "null"))
+        .join(",");
+    };
+    const emitted = ref("");
 
     watch(
       [
@@ -353,6 +374,7 @@ const DatePicker = defineComponent({
         if (val === null || val === undefined || val === "") {
           innerValue.value = null;
           committedRange.value = null;
+          emitted.value = "";
           syncTextFromValue();
           return;
         }
@@ -361,16 +383,19 @@ const DatePicker = defineComponent({
             const parsed = parsePropValue(d);
             return parsed?.isValid() ? parsed : null;
           });
-          if (!isFocus.value) syncTextFromValue();
+          if (!isEditing.value) syncTextFromValue();
           // 设置面板基准时间
           if (innerValue.value[0]) panelDate.value = innerValue.value[0];
         } else if (!Array.isArray(val)) {
           const d = parsePropValue(val as DatePickerInput);
           innerValue.value = d;
-          if (!isFocus.value) syncTextFromValue();
+          if (!isEditing.value) syncTextFromValue();
           if (d?.isValid()) panelDate.value = d;
         }
         committedRange.value = Array.isArray(innerValue.value) ? [...innerValue.value] : null;
+        // 外部把值改成什么，最近通知出去的就是什么——基准跟着 props 走，
+        // 之后用户再选同一个值才算"没变"。
+        emitted.value = fingerprint(innerValue.value);
       },
       { immediate: true, deep: true },
     );
@@ -378,9 +403,13 @@ const DatePicker = defineComponent({
     const emitValue = (closePanel = true) => {
       if (!innerValue.value) {
         committedRange.value = null;
-        emit("update:modelValue", null);
-        if (field?.prop) field.update(null);
-        emit("change", null, "");
+        // 已经是空值就不要再发一遍"清空"。
+        if (emitted.value !== "") {
+          emitted.value = "";
+          emit("update:modelValue", null);
+          if (field?.prop) field.update(null);
+          emit("change", null, "");
+        }
         return;
       }
       const fmt = getFormat();
@@ -393,15 +422,21 @@ const DatePicker = defineComponent({
           const dates = [start, end].sort((a, b) => a.valueOf() - b.valueOf());
           committedRange.value = [...dates];
           const out = dates.map((d) => formatOutputValue(d));
-          emit("update:modelValue", out);
-          if (field?.prop) field.update(out);
-          emit("update:startDate", out[0]);
-          emit("update:endDate", out[1]);
-          emit(
-            "change",
-            out,
-            dates.map((d) => getStr(d)),
-          );
+          // 规则 C：值没变就不再通知。重复点已经选中的日期、重复点已经对准的时/分/秒，
+          // 原来都会原样再发一次 update:modelValue + change；父级在 change 里发请求的话，
+          // 这一趟是白跑的。
+          if (fingerprint(dates) !== emitted.value) {
+            emitted.value = fingerprint(dates);
+            emit("update:modelValue", out);
+            if (field?.prop) field.update(out);
+            emit("update:startDate", out[0]);
+            emit("update:endDate", out[1]);
+            emit(
+              "change",
+              out,
+              dates.map((d) => getStr(d)),
+            );
+          }
 
           innerValue.value = dates;
           syncTextFromValue();
@@ -413,9 +448,13 @@ const DatePicker = defineComponent({
         }
       } else {
         const output = formatOutputValue(innerValue.value);
-        emit("update:modelValue", output);
-        if (field?.prop) field.update(output);
-        emit("change", output, getStr(innerValue.value));
+        const fp = fingerprint(innerValue.value);
+        if (fp !== emitted.value) {
+          emitted.value = fp;
+          emit("update:modelValue", output);
+          if (field?.prop) field.update(output);
+          emit("change", output, getStr(innerValue.value));
+        }
         syncTextFromValue();
         if (closePanel && !props.panelOnly) {
           openChange(false);
@@ -968,9 +1007,15 @@ const DatePicker = defineComponent({
       () => props.opened,
       (opened) => {
         const nextVisible = Boolean(props.panelOnly || opened);
-
-        isVisible.value = nextVisible;
-        if (nextVisible && !props.panelOnly) nextTick(updatePosition);
+        // 已经是这个状态就不要再通知一遍：v-model:opened 时这条变化是我们自己 emit 上去的，
+        // 再发一次父级会收到两次同样的开合。
+        if (nextVisible === isVisible.value) return;
+        // 外部改 opened 也走内部同一条路径：打开要通知、关闭要回滚半截选区。
+        // 以前这里直接写 isVisible，既不发 openChange，也不走 closePopup 的回滚。
+        if (nextVisible) {
+          openChange(true);
+          if (!props.panelOnly) nextTick(updatePosition);
+        } else closePopup();
       },
     );
 
@@ -1070,6 +1115,12 @@ const DatePicker = defineComponent({
               class="k-datepicker-input"
               value={textValueStart.value}
               onInput={(e) => handleInput(e, 0)}
+              onFocus={() => {
+                isEditing.value = true;
+              }}
+              onBlur={() => {
+                isEditing.value = false;
+              }}
               placeholder={placeholders[0] || localPlaceholders.startDate}
               disabled={disabled}
               readonly={readonly || !props.editable}
@@ -1088,6 +1139,12 @@ const DatePicker = defineComponent({
               class="k-datepicker-input"
               value={textValueEnd.value}
               onInput={(e) => handleInput(e, 1)}
+              onFocus={() => {
+                isEditing.value = true;
+              }}
+              onBlur={() => {
+                isEditing.value = false;
+              }}
               placeholder={placeholders[1] || localPlaceholders.endDate}
               disabled={disabled}
               onClick={() => {
@@ -1105,6 +1162,12 @@ const DatePicker = defineComponent({
               class="k-datepicker-input"
               value={textValue.value}
               onInput={(e) => handleInput(e)}
+              onFocus={() => {
+                isEditing.value = true;
+              }}
+              onBlur={() => {
+                isEditing.value = false;
+              }}
               placeholder={(props.placeholder as string) || localPlaceholders[props.mode]}
               disabled={disabled}
             />
