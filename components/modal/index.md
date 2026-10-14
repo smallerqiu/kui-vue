@@ -53,7 +53,7 @@
 | onOk | 点击确定的回调，`注意：不会关闭 Modal` | `() => void` | - |
 | onCancel | 点击取消的回调 | `() => void` | - |
 | onClose | 窗口关闭的回调 | `() => void` | - |
-| onOpenChange | 打开或者窗口关闭的回调 | `(visible: boolean) => void` | - |
+| onOpenChange | 窗口关闭时的回调；打开由 `v-model` 决定，不会回写一次 | `(visible: boolean) => void` | - |
 
 ### 插槽
 
@@ -73,6 +73,7 @@
 `onOk` 不负责关闭，它只挂在确定按钮上，需要关窗请自己在回调里收。
 同步开合状态请只挂 `onOpenChange`（或直接用 `v-model`）：取消、遮罩、Esc、右上角这四种关法都会发一次 `update:modelValue` 与 `openChange`，`onCancel` / `onClose` 只告诉你这次是哪条通道关的，不承担状态同步。
 四处（Modal / Drawer × React / Vue）统一的顺序：先 `update:modelValue` 与 `openChange` 把开合状态结掉，再 `onCancel` / `onClose` 说这次是哪条通道关的。所以在 `onCancel`、`onClose` 里读到的 `modelValue` 已经是结算后的。
+通知只在关闭时发：`modelValue` 翻成 true 时不会回写 `update:modelValue`、也不发 `openChange(true)`——打开本来就是你自己翻的。想在打开时做点什么，watch 那个值。（更早的版本挂载时和翻 true 时各会多回写一次，已去掉，与 React 一致。）
 
 ## Modal.method()
 

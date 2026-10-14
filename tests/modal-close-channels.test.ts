@@ -8,6 +8,7 @@ import Modal from "../components/modal";
  * 关闭动作的通道契约：底部「取消」只发 cancel，遮罩 / Esc / 右上角只发 close，两条互不重叠；
  * 而 update:modelValue + openChange 四种关法都会发一次——这正是"同步开合状态只挂 openChange
  * （或直接用 v-model）就够，不必在 onCancel 和 onClose 里各收一次"的依据。
+ * 通知只在关闭时发：打开是父组件自己的决定，组件不回写。
  * 宿主这里只按 openChange 翻 modelValue，用例最后等到 DOM 摘掉，
  * 证明除了这条通道没有别的路径能把窗口关掉。
  * 两个仓库断言同一件事，见 kui-react/tests/modal-close-channels.test.tsx。
@@ -107,8 +108,8 @@ describe.each(targets)("%s close channels", (_name, Component, root, maskSelecto
       expect(channels.openChanges.at(-1)).toBe(false);
       // 四处（react/vue × Modal/Drawer）统一的顺序：先结开合状态（update:modelValue → openChange），
       // 再发语义回调。反过来的话 onCancel/onClose 里读到的 modelValue 还是 true。
-      // 只看这段尾序：vue 挂载时会把已有的打开态回写一次（model:true / open:true），react 不会。
-      expect(channels.log.slice(-3)).toEqual([
+      // 打开方向一个字都不发（见下面那组用例），所以整段日志就只有这三条。
+      expect(channels.log).toEqual([
         "model:false",
         "open:false",
         channel === "cancel" ? "cancel" : "close",
@@ -116,6 +117,53 @@ describe.each(targets)("%s close channels", (_name, Component, root, maskSelecto
 
       await gone(root);
     });
+  });
+});
+
+/**
+ * 打开方向不回写：能走到"打开"的只有父组件把 modelValue 翻成 true 这一条路（挂载时读到的初始值
+ * 也算），再发一次 `update:modelValue(true)` 是把人家刚写的值喂回去，`openChange(true)` 是同一个
+ * 动作的重复通知。react 侧 `requestOpen` 全库只被 `false` 调用过，两边同口径。
+ */
+describe.each(targets)("%s opening echoes nothing", (_name, Component, root) => {
+  it.each([
+    ["already open at mount", true],
+    ["opened later by the parent", false],
+  ])("%s", async (_label, openAtMount) => {
+    const log: string[] = [];
+    const visible = ref(openAtMount);
+    wrappers.push(
+      mount(
+        defineComponent({
+          render: () =>
+            h(
+              Component,
+              {
+                modelValue: visible.value,
+                title: "标题",
+                "onUpdate:modelValue": (next: boolean) => {
+                  log.push(`model:${next}`);
+                  visible.value = next;
+                },
+                onOpenChange: (next: boolean) => {
+                  log.push(`open:${next}`);
+                },
+              },
+              { default: () => h("span", "内容") },
+            ),
+        }),
+        { attachTo: document.body },
+      ),
+    );
+    await settle();
+
+    if (!openAtMount) {
+      visible.value = true;
+      await settle();
+    }
+
+    expect(document.querySelector(root), "面板确实打开了").not.toBeNull();
+    expect(log, "打开既不回写 modelValue，也不发 openChange").toEqual([]);
   });
 });
 

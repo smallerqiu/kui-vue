@@ -177,8 +177,9 @@ const Drawer = defineComponent({
             visible.value = value;
             opened.value = value;
             updateOverlay(true);
-            emit("update:modelValue", true);
-            emit("openChange", true);
+            // 打开方向不往外发，与 Modal / react 同一条口径：这里的 `value: true` 只可能来自
+            // 父组件自己把 `modelValue` 翻成 true（挂载时读到的初始值也算），
+            // 再回写一次 `update:modelValue` 是把人家刚写的值喂回去，`openChange(true)` 也是重复通知。
             focusTrap.activate();
           });
         } else {

@@ -163,8 +163,11 @@ const Modal = defineComponent({
             visible.value = value;
             showInner.value = value;
             updateOverlay(true);
-            emit("update:modelValue", true);
-            emit("openChange", true);
+            // 打开方向不往外发：能走到这里的只有"父组件把 modelValue 翻成 true"这一条路
+            // （挂载时读到的初始值也算），回写 `update:modelValue` 是把人家刚写的值再喂回去一次，
+            // `openChange(true)` 也是同一件事的重复通知。与 react 对齐——那边 `requestOpen`
+            // 全库只被 `false` 调用过，`onOpenChange` 只在关闭时响。
+            // 想在打开时做点什么的，watch `modelValue` 就是同一个时机，且不会漏掉受控写法。
             nextTick(() => {
               if (props.draggable) {
                 const modal = refModal.value;

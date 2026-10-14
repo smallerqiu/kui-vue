@@ -49,7 +49,7 @@ A floating panel that slides in from the edge of the screen.
 | onOk | Callback when OK is clicked | `() => void` | - |
 | onClose | Callback when the drawer closes | `() => void` | - |
 | onCancel | Callback when Cancel is clicked | `() => void` | - |
-| onOpenChange | Callback for opening or closing the drawer | `(visible: boolean) => void` | - |
+| onOpenChange | Fires when the drawer closes; opening is your own `v-model`, so it is never echoed back | `(visible: boolean) => void` | - |
 
 ### Slots
 
@@ -66,3 +66,4 @@ Listen to both if you need one "it closed" hook; keep them separate if you need 
 `onOk` never closes the drawer — it only sits on the OK button, so close it yourself inside that callback when you need to.
 Keep the open state in sync through `onOpenChange` alone (or `v-model`): all four ways of closing — cancel, mask, Esc, the close icon — emit `update:modelValue` and `openChange`, while `onCancel` / `onClose` only tell you which channel closed it.
 The order is unified across all four (Modal / Drawer × React / Vue): `update:modelValue` and `openChange` land first and settle the state, then `onCancel` / `onClose` say which channel closed it. So the `modelValue` you read inside those callbacks is already settled.
+Only closing is announced: setting `modelValue` to true no longer writes `update:modelValue` back or fires `openChange(true)` — you flipped it yourself. Watch that value if you need to react to opening. (Earlier builds echoed it once on mount and once on every flip; that is gone now, matching React.)
