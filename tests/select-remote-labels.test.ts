@@ -34,3 +34,28 @@ it.each([false, true])(
     wrapper.unmount();
   },
 );
+
+// 与 kui-react 的 `tests/select-remote-labels.test.tsx` 同语义：`Number(rawId)` 解析失败会把 NaN
+// 送进 value 或 label。react 侧曾因 render 阶段用 `!==` 比较缓存标签而无限重渲染，vue 的 computed
+// 版本不会循环，但两边都必须把 NaN 当普通数字渲染成 "NaN"，不许崩、也不许显示成空。
+it.each([false, true])("renders a NaN selection as text (multiple=%s)", (multiple) => {
+  const wrapper = mount(Select, {
+    props: {
+      multiple,
+      modelValue: multiple ? [Number.NaN, 0] : Number.NaN,
+      options: [{ value: 0, label: "Zero" }],
+    },
+  });
+  const label = wrapper.find(multiple ? ".k-select-labels" : ".k-select-label").text();
+  expect(label).toContain("NaN");
+  if (multiple) expect(label).toContain("Zero");
+  wrapper.unmount();
+});
+
+it("renders a NaN option label as text", () => {
+  const wrapper = mount(Select, {
+    props: { modelValue: 1, options: [{ value: 1, label: Number.NaN }] },
+  });
+  expect(wrapper.find(".k-select-label").text()).toContain("NaN");
+  wrapper.unmount();
+});
