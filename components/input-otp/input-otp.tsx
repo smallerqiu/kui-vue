@@ -17,6 +17,7 @@ import {
   useFormAppearance,
   useFormField,
 } from "../form/context";
+import { resolveTheme } from "../config/context";
 import type { InputOTPValidator } from "./types";
 
 const inputOTPProps = {
@@ -147,6 +148,10 @@ const InputOTP = defineComponent({
       }
     };
 
+    // 3b-乙2: the group carries the tier class and every cell paints it, so the tier has to be
+    // resolved before it reaches the class list — `theme="default"` means the control's own default.
+    const theme = computed(() => resolveTheme(appearance.theme.value, "fill"));
+
     const onPaste = (event: ClipboardEvent, index: number) => {
       event.preventDefault();
       insert(event.clipboardData?.getData("text") || "", index);
@@ -162,7 +167,7 @@ const InputOTP = defineComponent({
             "k-input-otp-lg": appearance.size.value === "large",
             "k-input-otp-disabled": props.disabled || field?.disabled.value,
             "k-input-otp-readonly": props.readonly || field?.readonly.value,
-            [`k-input-otp-${appearance.theme.value}`]: appearance.theme.value,
+            [`k-input-otp-${theme.value}`]: true,
             [`k-input-otp-${appearance.shape.value}`]: appearance.shape.value,
           },
           attrs.class,

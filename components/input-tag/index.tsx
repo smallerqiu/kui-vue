@@ -1,4 +1,5 @@
 import { renderSelectionTags } from "../utils/selection-tags";
+import { resolveTheme } from "../config/context";
 import { CircleX } from "kui-icons";
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { ShapeType, SizeType, ThemeType } from "../const/types";
@@ -133,7 +134,9 @@ const InputTag = defineComponent({
       const isReadonly = readonly();
       const size = appearance.size.value;
       const shape = appearance.shape.value;
-      const theme = appearance.theme.value;
+      // `theme="default"` means "listen to the component", which for a control is `fill`; the class
+      // has to be resolved, not forwarded, or it names a tier no LESS can answer.
+      const theme = resolveTheme(appearance.theme.value, "fill");
       const { onClick: _onClick, ...rootAttrs } = attrs;
       void _onClick;
 
@@ -150,7 +153,7 @@ const InputTag = defineComponent({
               "k-input-tag-block": props.block,
               "k-input-tag-lg": size === "large",
               [`k-input-tag-${shape}`]: shape,
-              [`k-input-tag-${theme}`]: theme,
+              [`k-input-tag-${theme}`]: true,
             },
             attrs.class,
           ]}

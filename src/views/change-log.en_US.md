@@ -83,6 +83,10 @@ rm -rf node_modules/.vite
 - `Input` / `Textarea` / `InputNumber`: `theme` now supports `outline`, `solid`, `dashed` and `underlined` — a 1px outlined box, a primary-filled block whose typed text, placeholder and inline icons invert, a dashed frame, and a single bottom rule that turns primary on hover and focus.
 - `Input` / `Textarea` / `InputNumber`: `theme="default"` now looks exactly like omitting `theme` — both land on the component's own default appearance.
 - `Input` / `Textarea` / `InputNumber`: a `theme="plain"` field no longer grows a border when you hover it and still reads as disabled; `plain` and `underlined` drop the focus ring, matching the select-family controls.
+- `InputTag` / `InputOTP`: `theme` now supports `outline`, `solid`, `dashed` and `underlined` — a 1px outlined box, a primary-filled block, a dashed frame, and a single bottom rule that turns primary on hover and focus.
+- `InputTag`: on `theme="solid"` the added tags, the typed text, the placeholder and the clear icon all invert. `InputOTP`: every cell follows `theme`, its character inverts on the solid surface, and a disabled OTP still reads as disabled.
+- `InputTag` / `InputOTP`: `theme="default"` now looks exactly like omitting `theme` — both land on the component's own default appearance.
+- `InputTag` / `InputOTP`: a `theme="plain"` box no longer grows a border when you hover it; `plain` and `underlined` drop the focus ring, matching the select-family controls.
 
 ## 6.2.2
 

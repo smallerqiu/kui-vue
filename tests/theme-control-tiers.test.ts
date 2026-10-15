@@ -12,6 +12,8 @@ import Cascader from "../components/cascader";
 import DatePicker from "../components/date-picker";
 import Input from "../components/input/input";
 import InputNumber from "../components/input-number";
+import InputOTP from "../components/input-otp";
+import InputTag from "../components/input-tag";
 import Select from "../components/select/select";
 import TextArea from "../components/input/textarea";
 import TreeSelect from "../components/tree-select";
@@ -71,6 +73,11 @@ const CASES: {
     component: InputNumber,
     props: {},
   },
+  // 3b-乙2: these two carry the tier on their own root. A tag box paints it on that wrapper, an OTP
+  // group paints it on every cell inside, so the emission contract is the same even though the
+  // element the paint lands on is not (`tests/theme-variants.test.ts` reads the compiled rules).
+  { name: "k-input-tag", tag: "DIV", component: InputTag, props: {} },
+  { name: "k-input-otp", tag: "DIV", component: InputOTP, props: {} },
 ];
 
 // The control is the root for these components, but read it by class so a wrapper element around
@@ -101,6 +108,16 @@ describe("every theme tier reaches the control root", () => {
       const tiers = (extra: Record<string, unknown>) =>
         rootClasses(mounted(case_, extra), name).filter((cls) => cls.startsWith(`${name}-`));
       expect(tiers({ theme: "default" })).toEqual(tiers({}));
+      // Two renders that both land on a dead class agree with each other just as well, so the tier
+      // `default` resolves to is named here: the control's own `fill`, never a `k-*-default` no LESS
+      // can answer (`.kui-theme-value()` has no `default` arm on purpose).
+      const emitted = tiers({ theme: "default" });
+      expect(emitted, `${label} ships a tier class nothing paints`).not.toContain(
+        `${name}-default`,
+      );
+      expect(emitted, `${label} default does not land on its own fill tier`).toContain(
+        `${name}-fill`,
+      );
     });
 
     // The tier has to reach the element the LESS block targets, so which of the box shapes is being

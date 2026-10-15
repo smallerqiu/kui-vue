@@ -19,7 +19,15 @@
     border-color var(--kui-motion-duration) var(--kui-motion-easing),
     box-shadow var(--kui-motion-duration) var(--kui-motion-easing);
 
-  &:not(.k-input-tag-disabled, .k-input-tag-fill, .k-input-tag-plain):hover {
+  // `fill` has no border to light up, and `solid` / `underlined` repaint their own surface, so the
+  // base border repaint must skip them — `plain` too, so a borderless box never grows one.
+  &:not(
+      .k-input-tag-disabled,
+      .k-input-tag-fill,
+      .k-input-tag-plain,
+      .k-input-tag-solid,
+      .k-input-tag-underlined
+    ):hover {
     border-color: var(--kui-color-primary);
   }
 
@@ -138,21 +146,93 @@
 }
 
 .k-input-tag-fill {
-  border-color: transparent;
-  background: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  .kui-theme-value(fill);
 
+  &:hover,
   &:focus-within {
     border-color: transparent;
     box-shadow: none;
   }
 }
 
+// 3b-乙2: `outline` and `dashed` are the same box with a token-driven border, so they take the
+// shared declarations and keep the base interaction rules — the border is meant to light up to
+// primary on hover and the focus ring stays. `dashed` has no colour of its own; it follows
+// `--kui-theme-outline-border` unless the app sets `--kui-theme-dashed-border`.
+.k-input-tag-outline {
+  .kui-theme-value(outline);
+}
+.k-input-tag-dashed {
+  .kui-theme-value(dashed);
+}
+
+// `solid` is the emphasis surface: primary fill and inverted text. A tag box keeps its caret in a
+// nested `<input>` and its values in `.k-tag` chips, so both have to be drawn from the inverted text
+// token — otherwise the typed text and the chips go unreadable on a primary background. It repaints
+// its own surface on hover the way Button does, which is why it is kept out of the base border
+// repaint above.
+.k-input-tag-solid:not(.k-input-tag-disabled) {
+  .kui-theme-value(solid);
+
+  &:hover {
+    border-color: var(
+      --kui-color-primary-hover,
+      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
+    );
+    background-color: var(
+      --kui-color-primary-hover,
+      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
+    );
+    box-shadow: none;
+  }
+
+  // The base ring is primary on a primary surface, i.e. invisible: it is redrawn in the inverted
+  // text colour rather than dropped, so a keyboard user still sees where the caret is.
+  &:focus-within {
+    outline-color: color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent);
+    box-shadow: none;
+  }
+
+  .k-input-tag-input {
+    color: var(--kui-color-text-on-solid);
+
+    &::placeholder {
+      color: color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent);
+    }
+  }
+
+  .k-input-tag-clearable {
+    color: color-mix(in srgb, var(--kui-color-text-on-solid) 85%, transparent);
+  }
+
+  .k-input-tag-item.k-tag {
+    color: var(--kui-color-text-on-solid);
+    background-color: color-mix(in srgb, var(--kui-color-text-on-solid) 18%, transparent);
+
+    .k-tag-close {
+      color: inherit;
+    }
+  }
+}
+
+// `underlined`: the bottom edge is the whole affordance — flat, no ring, no glow. Same contract as
+// the box path and the select family, so hover and focus both light that one edge and nothing else.
+.k-input-tag-underlined:not(.k-input-tag-disabled) {
+  .kui-theme-value(underlined);
+
+  &:hover,
+  &:focus-within {
+    border-color: transparent transparent var(--kui-color-primary);
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+// `plain` is no border and no surface. Like `underlined` it opts out of the focus ring, because that
+// ring is drawn where its border used to be, and it steps aside for the disabled rules below so a
+// disabled plain box still reads as disabled.
 .k-input-tag-plain:not(.k-input-tag-disabled) {
-  border-color: transparent;
-  background: transparent;
+  .kui-theme-value(plain);
   box-shadow: none;
 
   &:hover,
@@ -160,6 +240,7 @@
     border-color: transparent;
     background: transparent;
     box-shadow: none;
+    outline: none;
   }
 }
 

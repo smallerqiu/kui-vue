@@ -121,6 +121,8 @@ it("draws the migrated components from the shared mixin rather than re-copying t
     "card/styles/index.less",
     "input/styles/index.less",
     "input-number/styles/index.less",
+    "input-tag/styles/index.less",
+    "input-otp/styles/index.less",
   ]) {
     const source = (await fs.readFile(path.join(root, "components", entry), "utf8")).replace(
       /\/\/[^\n]*/g,
@@ -289,7 +291,23 @@ it("paints `plain` on the controls, guarded so a disabled box stays disabled", a
 // elements (the decorated wrapper `[data-multiple]`, the bare `<input>` `[data-single]`, and
 // `<textarea>`), and `InputNumber` builds its box through `InputBase`, so the contract is checked
 // per shape instead of per component.
-const BOX_PATHS = [
+// 3b-乙2 adds the two composite controls: a tag box is one decorated box whose field is
+// `.k-input-tag-input`, while an OTP group carries the tier class on the group and paints it on every
+// `.k-input-otp-item` cell, so a shape can name the element the arm has to reach (`cell`) and the
+// element the typed text lives on (`textClass`).
+type BoxShape = {
+  prefix: string;
+  marker: string;
+  // Does the box hold a separate typed element that has to invert inside a `solid` box?
+  text: boolean;
+  textClass?: string;
+  // The descendant a tier paints on when it is not the element carrying the tier class.
+  cell?: string;
+  // An OTP cell never shows a placeholder; a box that does has to invert it inside `solid`.
+  placeholder?: boolean;
+  chrome: string[];
+};
+const BOX_PATHS: { entry: string; shapes: BoxShape[] }[] = [
   {
     entry: "components/input/styles/index.less",
     shapes: [
@@ -316,7 +334,34 @@ const BOX_PATHS = [
       },
     ],
   },
-] as const;
+  {
+    entry: "components/input-tag/styles/index.less",
+    shapes: [
+      {
+        prefix: "k-input-tag",
+        marker: "",
+        // The field of a tag box is `.k-input-tag-input`, not the `.k-input-text` the name derives.
+        text: true,
+        textClass: ".k-input-tag-input",
+        chrome: ["clearable"],
+      },
+    ],
+  },
+  {
+    entry: "components/input-otp/styles/index.less",
+    shapes: [
+      {
+        // Every tier is drawn on the cells, so the group class alone would paint nothing.
+        prefix: "k-input-otp",
+        marker: "",
+        cell: ".k-input-otp-item",
+        text: false,
+        placeholder: false,
+        chrome: [],
+      },
+    ],
+  },
+];
 
 // The shared arm decides what a tier paints, so each component rule is compared against
 // `.kui-theme-value()` itself rather than against a declaration string copied out of this file.
@@ -357,15 +402,18 @@ const selectors = (key: string) => {
   return parts;
 };
 
-const paints = (key: string, prefix: string, tier: string, marker: string) =>
+// A shape can paint on an element other than the one carrying the tier class (`cell`), so the
+// selector has to name both before it counts as painting that tier on that shape.
+const paints = (key: string, prefix: string, tier: string, marker: string, cell?: string) =>
   new RegExp(`\\.${prefix}-${tier}(?![\\w-])`).test(withoutGuards(key)) &&
-  (marker === "" || key.includes(marker));
+  (marker === "" || key.includes(marker)) &&
+  (cell === undefined || key.includes(cell));
 
 // Does one of the rules for this tier on this shape — optionally the one that reaches into a
 // sub-selector such as `.k-input-text` or `::placeholder` — end up painting `property: value`?
 const painting = (
   compiled: Map<string, string>,
-  { prefix, marker }: { prefix: string; marker: string },
+  { prefix, marker, cell }: BoxShape,
   tier: string,
   property: string,
   value: string,
@@ -373,7 +421,7 @@ const painting = (
 ) =>
   [...compiled].some(
     ([key, body]) =>
-      paints(key, prefix, tier, marker) &&
+      paints(key, prefix, tier, marker, cell) &&
       (token === undefined || key.includes(token)) &&
       declarations(body, key).get(property) === value,
   );
@@ -383,11 +431,11 @@ it("paints every theme tier on every shape of the box path", async () => {
   for (const { entry, shapes } of BOX_PATHS) {
     const compiled = await fileRules(entry);
     for (const shape of shapes) {
-      const box = `${shape.prefix}${shape.marker}`;
+      const box = `${shape.prefix}${shape.marker}${shape.cell ?? ""}`;
       for (const tier of VALUES) {
         const painted = [...compiled].filter(
           ([key, body]) =>
-            paints(key, shape.prefix, tier, shape.marker) &&
+            paints(key, shape.prefix, tier, shape.marker, shape.cell) &&
             covers(declarations(body, key), arm.get(tier)!),
         );
         expect(
@@ -401,7 +449,7 @@ it("paints every theme tier on every shape of the box path", async () => {
         if (["solid", "plain", "underlined"].includes(tier))
           for (const [key] of painted)
             for (const selector of selectors(key).filter((entry) =>
-              paints(entry, shape.prefix, tier, shape.marker),
+              paints(entry, shape.prefix, tier, shape.marker, shape.cell),
             ))
               expect(selector, `${box} ${tier} repaints a disabled box: ${selector}`).toContain(
                 "disabled",
@@ -420,20 +468,28 @@ it("inverts the chrome inside a solid box and redraws its focus ring", async () 
       // wrapper adds are all drawn from the inverted text token instead of left to go unreadable.
       if (shape.text)
         expect(
-          painting(compiled, shape, "solid", "color", onSolid, `.${shape.prefix}-text`),
+          painting(
+            compiled,
+            shape,
+            "solid",
+            "color",
+            onSolid,
+            shape.textClass ?? `.${shape.prefix}-text`,
+          ),
           `${shape.prefix} solid leaves the typed text dark`,
         ).toBe(true);
-      expect(
-        painting(
-          compiled,
-          shape,
-          "solid",
-          "color",
-          "color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent)",
-          "::placeholder",
-        ),
-        `${shape.prefix}${shape.marker} solid leaves the placeholder unreadable`,
-      ).toBe(true);
+      if (shape.placeholder !== false)
+        expect(
+          painting(
+            compiled,
+            shape,
+            "solid",
+            "color",
+            "color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent)",
+            "::placeholder",
+          ),
+          `${shape.prefix}${shape.marker} solid leaves the placeholder unreadable`,
+        ).toBe(true);
       for (const part of shape.chrome)
         expect(
           painting(
@@ -512,8 +568,11 @@ const baseRepaints = (compiled: Map<string, string>, prefix: string) =>
         .split(",")
         .some((member) => {
           const head = member.trim();
+          // The base repaint can hang on the box itself (`.k-input[data-multiple]:hover`) or reach a
+          // descendant through it (`.k-input-otp:not(…) .k-input-otp-item:hover`), so either a
+          // pseudo-class or a combinator may follow the box selector.
           return (
-            new RegExp(`^\\.${prefix}(-focus)?(\\[[^\\]]*\\])?:`).test(head) &&
+            new RegExp(`^\\.${prefix}(-focus)?(\\[[^\\]]*\\])?[:\\s]`).test(head) &&
             !new RegExp(`\\.${prefix}-(?:${VALUES.join("|")})(?![\\w-])`).test(head)
           );
         }),

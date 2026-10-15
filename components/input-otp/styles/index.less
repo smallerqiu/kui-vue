@@ -11,7 +11,18 @@
     color: var(--kui-color-text-description);
   }
 
-  &:not(.k-input-otp-disabled, .k-input-otp-readonly, .k-input-otp-fill) .k-input-otp-item:hover {
+  // The tiers that own their interaction states have to be named here or the base cell repaint
+  // out-specifies them: `fill` has no border to light up, and `plain` / `solid` / `underlined`
+  // repaint their own surface. `outline` and `dashed` deliberately keep this hover.
+  &:not(
+      .k-input-otp-disabled,
+      .k-input-otp-readonly,
+      .k-input-otp-fill,
+      .k-input-otp-plain,
+      .k-input-otp-solid,
+      .k-input-otp-underlined
+    )
+    .k-input-otp-item:hover {
     border-color: var(--kui-color-primary);
   }
 
@@ -52,27 +63,79 @@
 }
 
 .k-input-otp-fill .k-input-otp-item {
-  border-color: transparent;
-  background-color: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  .kui-theme-value(fill);
 
   &:hover,
   &:focus {
     border-color: transparent;
+    box-shadow: none;
   }
 }
 
-.k-input-otp-underlined .k-input-otp-item {
-  border-width: 0 0 1px;
-  border-radius: 0;
-  background-color: transparent;
-  box-shadow: none;
-  &:focus {
-    border-color: var(--kui-color-primary);
-    outline-color: transparent;
+// 3b-乙2: an OTP cell is a box of its own, so every tier paints on `.k-input-otp-item` instead of on
+// the group. `outline` and `dashed` are the same cell with a token-driven border: they take the
+// shared declarations and keep the base hover lighting and the focus ring. `dashed` has no colour of
+// its own; it follows `--kui-theme-outline-border` unless the app sets `--kui-theme-dashed-border`.
+.k-input-otp-outline .k-input-otp-item {
+  .kui-theme-value(outline);
+}
+.k-input-otp-dashed .k-input-otp-item {
+  .kui-theme-value(dashed);
+}
+
+// `solid` is the emphasis surface: primary fill and inverted text — the cell is the `<input>`, so the
+// shared arm's inverted `color` lands on the typed character directly. It repaints its own surface on
+// hover the way Button does, which is why it is kept out of the base cell repaint above.
+.k-input-otp-solid:not(.k-input-otp-disabled) .k-input-otp-item {
+  .kui-theme-value(solid);
+
+  &:hover {
+    border-color: var(
+      --kui-color-primary-hover,
+      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
+    );
+    background-color: var(
+      --kui-color-primary-hover,
+      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
+    );
     box-shadow: none;
+  }
+
+  // The base ring is primary on a primary surface, i.e. invisible: it is redrawn in the inverted text
+  // colour rather than dropped, so a keyboard user still sees which cell has the caret.
+  &:focus {
+    outline-color: color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent);
+    box-shadow: none;
+  }
+}
+
+// `plain` is no border and no surface, and `underlined` keeps one bottom edge: both are flat, so both
+// opt out of the focus ring, and neither may have a border or a glow brought back under the pointer or
+// by the caret. The group is guarded so a disabled OTP still reads as disabled.
+.k-input-otp-plain:not(.k-input-otp-disabled) .k-input-otp-item {
+  .kui-theme-value(plain);
+  box-shadow: none;
+  outline: none;
+
+  &:hover,
+  &:focus {
+    border-color: transparent;
+    background-color: transparent;
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+// Same contract as the box path and the select family: the edge is the whole affordance, so hover and
+// focus light that edge and nothing else.
+.k-input-otp-underlined:not(.k-input-otp-disabled) .k-input-otp-item {
+  .kui-theme-value(underlined);
+
+  &:hover,
+  &:focus {
+    border-color: transparent transparent var(--kui-color-primary);
+    box-shadow: none;
+    outline: none;
   }
 }
 
@@ -107,10 +170,4 @@
     font-size: 22px;
     line-height: calc(var(--kui-control-height-lg) + 8px);
   }
-}
-
-.k-input-otp-plain .k-input-otp-item {
-  border-color: var(--kui-theme-plain-border);
-  background: var(--kui-theme-plain-bg);
-  box-shadow: none;
 }
