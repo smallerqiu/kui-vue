@@ -78,6 +78,8 @@ rm -rf node_modules/.vite
 - `DatePicker` 的 `format` 只接受单个格式，与 React 版一致：之前传数组只是拿第一个格式展示，现在不再接受数组。默认格式按 `mode` 取（`year` 为 `YYYY`、`month` 为 `YYYY-MM`、`time` 为 `HH:mm:ss`、`dateTime` / `dateTimeRange` 为 `YYYY-MM-DD HH:mm:ss`），文档里原先统一写成 `YYYY-MM-DD`。
 - `DatePicker` / `Select` / `Cascader` / `TreeSelect` 的 `theme="plain"` 与 `:bordered="false"` 各管各的：`plain` 是无边框也没有底色，`:bordered="false"` 只去掉边框，两者可以同时使用；控件禁用时 `plain` 照样显示禁用态。
 - `Select` / `Cascader` / `TreeSelect` 去掉边框后，鼠标悬停不再突然描出一圈主色边框和光晕。
+- `Select` / `Cascader` / `TreeSelect` / `DatePicker` 的 `theme` 补齐 `outline` / `solid` / `dashed` / `underlined` 四档：描边框、主色实底（文字与图标跟着反白）、虚线描边、只留一条下划线（聚焦时下划线变主色）。
+- `Cascader` 用 `theme="fill"` 时，鼠标悬停不再突然描出一圈边框。
 
 ## 6.2.2
 

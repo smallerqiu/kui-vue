@@ -130,15 +130,126 @@ it("draws the migrated components from the shared mixin rather than re-copying t
 // left their hand-written `.k-<component>-plain` rules as selectors nothing could ever match.
 // `bordered={false}` (no border) and `plain` (no border *and* no surface) are separate asks, so
 // each now has its own class — the DOM half of that is asserted by tests/theme-plain-emission.
+// `ring` records what the base focus rule does with a borderless box: DatePicker keeps the ring for
+// every tier, the other three already drop it. This batch logs the difference instead of unifying
+// it — taking a control's only focus signal away (or adding one) is a behaviour call, not a pixel.
 const PLAIN_CONTROLS = [
-  { entry: "components/date-picker/styles/index.less", name: "k-datepicker", selection: false },
-  { entry: "components/select/styles/index.less", name: "k-select", selection: true },
-  { entry: "components/cascader/styles/index.less", name: "k-cascader", selection: true },
-  { entry: "components/tree-select/styles/index.less", name: "k-tree-select", selection: true },
+  {
+    entry: "components/date-picker/styles/index.less",
+    name: "k-datepicker",
+    selection: false,
+    ring: "keeps",
+  },
+  { entry: "components/select/styles/index.less", name: "k-select", selection: true, ring: "drops" },
+  {
+    entry: "components/cascader/styles/index.less",
+    name: "k-cascader",
+    selection: true,
+    ring: "drops",
+  },
+  {
+    entry: "components/tree-select/styles/index.less",
+    name: "k-tree-select",
+    selection: true,
+    ring: "drops",
+  },
 ] as const;
 
+// 3b: these four controls typed six presets but painted two. `outline` / `solid` / `dashed` /
+// `underlined` were dropped before the class list *and* had no rule, so `theme="outline"` was
+// invisible twice over. Each now draws from the shared arm, and the tiers that own their interaction
+// states are kept out of the base repaint — `solid` because it repaints its own surface, `underlined`
+// because its bottom edge is the whole affordance.
+const declarations = (body: string | undefined, label: string) => {
+  expect(body, `${label} paints nothing`).toBeDefined();
+  return new Map(
+    body!
+      .split(";")
+      .filter(Boolean)
+      .map((entry) => {
+        const [property, ...rest] = entry.split(":");
+        return [property.trim(), rest.join(":").trim()] as const;
+      }),
+  );
+};
+
+it("paints the four tiers the controls used to swallow", async () => {
+  for (const { entry, name } of PLAIN_CONTROLS) {
+    const compiled = await fileRules(entry);
+
+    // `fill` was hand-copied here too; it now resolves through the same chain every control uses.
+    expect(
+      declarations(compiled.get(`.${name}-fill`), `${name} fill`).get("border-color"),
+      `${name} still hand-writes the fill border`,
+    ).toBe("var(--kui-theme-fill-border)");
+
+    const outline = declarations(compiled.get(`.${name}-outline`), `${name} outline`);
+    expect(outline.get("border")).toBe(
+      "1px solid var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)))",
+    );
+    expect(outline.get("background")).toBe("var(--kui-theme-outline-bg)");
+
+    const dashed = declarations(compiled.get(`.${name}-dashed`), `${name} dashed`);
+    expect(dashed.get("border")).toBe(
+      "1px dashed var(--kui-theme-dashed-border, var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border))))",
+    );
+
+    const solid = `.${name}-solid:not(.${name}-disabled)`;
+    const solidBody = declarations(compiled.get(solid), `${name} solid`);
+    expect(solidBody.get("background")).toBe("var(--kui-theme-solid-bg, var(--kui-color-primary))");
+    expect(solidBody.get("color")).toBe(
+      "var(--kui-theme-solid-text, var(--kui-color-text-on-solid))",
+    );
+    const solidHover = declarations(
+      compiled.get(`${solid}:hover, ${solid}.${name}-opened`),
+      `${name} solid hover`,
+    );
+    expect(solidHover.get("background-color")).toBe(
+      "var(--kui-color-primary-hover, color-mix(in srgb, var(--kui-color-primary) 90%, transparent))",
+    );
+    expect(solidHover.get("box-shadow")).toBe("none");
+    // The base ring is primary on a primary surface, i.e. invisible; it is redrawn inverted rather
+    // than dropped, so a keyboard user still sees focus.
+    expect(
+      declarations(compiled.get(`${solid}:focus, ${solid}.${name}-opened`), `${name} solid focus`).get(
+        "outline-color",
+      ),
+    ).toBe("color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent)");
+
+    const underlined = `.${name}-underlined:not(.${name}-disabled)`;
+    const underlinedBody = declarations(compiled.get(underlined), `${name} underlined`);
+    expect(underlinedBody.get("border-width")).toBe("0 0 1px");
+    expect(underlinedBody.get("border-radius")).toBe("0");
+    expect(underlinedBody.get("box-shadow")).toBe("none");
+    expect(
+      declarations(
+        compiled.get(`${underlined}:focus, ${underlined}:focus-within`),
+        `${name} underlined focus`,
+      ).get("border-color"),
+    ).toBe("transparent transparent var(--kui-color-primary)");
+
+    // A rule the base control still matches wins on specificity, so the tiers that own their
+    // interaction states have to be named inside its `:not()` too: `solid` repaints its own surface,
+    // `underlined` lights only its bottom edge, and neither may be given the base border and glow.
+    for (const [state, extra] of [
+      ["hover", ["fill", "solid", "underlined"]],
+      ["focus", ["underlined"]],
+    ] as const) {
+      const painted = [...compiled.keys()].filter(
+        (key) => key.startsWith(`.${name}:not(`) && key.endsWith(`:${state}`),
+      );
+      expect(painted.length, `${name} lost its base ${state} rule`).toBeGreaterThan(0);
+      for (const key of painted)
+        for (const modifier of extra)
+          expect(key, `${name} ${state} still repaints ${modifier}: ${key}`).toContain(
+            `.${name}-${modifier}`,
+          );
+    }
+  }
+});
+
 it("paints `plain` on the controls, guarded so a disabled box stays disabled", async () => {
-  for (const { entry, name, selection } of PLAIN_CONTROLS) {
+  for (const { entry, name, selection, ring } of PLAIN_CONTROLS) {
     const compiled = await fileRules(entry);
     const plain = `.${name}-plain:not(.${name}-disabled)`;
     // The values come from the shared `plain` arm, not from a re-copied `transparent`.
@@ -158,16 +269,18 @@ it("paints `plain` on the controls, guarded so a disabled box stays disabled", a
         `${name} leaves the inner box of a plain control painted`,
       ).toBe("box-shadow: none; border-color: transparent; background-color: transparent");
 
-    // The base control rule repaints the border on hover / focus and out-specifies the blocks
-    // above, which is how a borderless or plain box grew a primary border under the pointer.
-    // Every such rule has to name both modifiers inside its `:not()`. A control whose focus ring
-    // is theme-independent (`DatePicker`) has no `:not()` focus rule, so there is nothing to add.
+    // The base control rule repaints the border on hover and out-specifies the blocks above, which
+    // is how a borderless or plain box grew a primary border under the pointer — so it has to name
+    // both inside its `:not()`. The focus ring is a different ask: `DatePicker` keeps it for every
+    // tier (`ring: "keeps"`), while the three select-family controls already hide it on a borderless
+    // box, and this batch only adds `underlined` to that list. Unifying the two would take away (or
+    // hand out) a focus signal, which is a behaviour call, not a pixel.
     for (const state of ["hover", "focus"]) {
       const repaint = [...compiled.keys()].filter(
         (key) => key.startsWith(`.${name}:not(`) && key.endsWith(`:${state}`),
       );
       for (const key of repaint)
-        for (const modifier of ["borderless", "plain"])
+        for (const modifier of state === "hover" || ring === "drops" ? ["borderless", "plain"] : [])
           expect(key, `${name} ${state} must not match ${modifier}: ${key}`).toContain(
             `.${name}-${modifier}`,
           );

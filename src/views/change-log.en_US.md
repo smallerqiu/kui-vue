@@ -76,6 +76,8 @@ rm -rf node_modules/.vite
 - `DatePicker`: `format` accepts a single format only, matching the React build — an array used to display with its first entry and is no longer accepted. The default format now follows `mode` (`year` `YYYY`, `month` `YYYY-MM`, `time` `HH:mm:ss`, `dateTime` / `dateTimeRange` `YYYY-MM-DD HH:mm:ss`) instead of being documented as `YYYY-MM-DD` for every mode.
 - `DatePicker` / `Select` / `Cascader` / `TreeSelect`: `theme="plain"` and `bordered={false}` now mean separate things — `plain` drops both the border and the surface, `bordered={false}` drops only the border, and the two can be combined; a disabled control under `plain` still reads as disabled.
 - `Select` / `Cascader` / `TreeSelect`: a control with its border removed no longer grows a primary-colored border and a glow when the pointer moves over it.
+- `Select` / `Cascader` / `TreeSelect` / `DatePicker`: `theme` now supports `outline`, `solid`, `dashed` and `underlined` — a 1px outlined box, a primary-filled block whose text and icons invert, a dashed frame, and a single bottom rule that turns primary on focus.
+- `Cascader`: a `theme="fill"` field no longer grows a border when you hover it.
 
 ## 6.2.2
 

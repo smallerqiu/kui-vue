@@ -30,11 +30,13 @@
       .k-datepicker-disabled,
       .k-datepicker-fill,
       .k-datepicker-plain,
-      .k-datepicker-borderless
+      .k-datepicker-borderless,
+      .k-datepicker-solid,
+      .k-datepicker-underlined
     ):hover {
     border-color: var(--kui-color-primary);
   }
-  &:focus {
+  &:not(.k-datepicker-underlined):focus {
     outline: var(--kui-focus-ring-width) solid
       var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
   }
@@ -113,11 +115,7 @@
 }
 
 .k-datepicker-fill {
-  border-color: transparent;
-  background-color: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  .kui-theme-value(fill);
 
   &:hover,
   &:focus {
@@ -134,6 +132,61 @@
   &.k-datepicker-opened {
     .kui-theme-value(plain);
     box-shadow: none;
+  }
+}
+
+// 3b: the four tiers a control promises but this component never painted. `outline` / `dashed`
+// keep the base interaction rules (their border is meant to light up to primary, the ring stays).
+.k-datepicker-outline {
+  .kui-theme-value(outline);
+}
+.k-datepicker-dashed {
+  .kui-theme-value(dashed);
+}
+
+// `solid` repaints its own surface on hover the way Button does, so it is out of the base
+// `:hover` rule; the primary-tinted focus ring would be invisible on a primary surface, so the
+// same ring is drawn in the inverted text colour instead of dropped.
+.k-datepicker-solid:not(.k-datepicker-disabled) {
+  .kui-theme-value(solid);
+
+  &:hover,
+  &.k-datepicker-opened {
+    border-color: var(
+      --kui-color-primary-hover,
+      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
+    );
+    background-color: var(
+      --kui-color-primary-hover,
+      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
+    );
+    box-shadow: none;
+  }
+
+  &:focus,
+  &.k-datepicker-opened {
+    outline-color: color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent);
+  }
+
+  .k-datepicker-placeholder {
+    color: color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent);
+  }
+  .k-icon-calendar,
+  .k-icon-clean {
+    color: color-mix(in srgb, var(--kui-color-text-on-solid) 85%, transparent);
+  }
+}
+
+// `underlined`: the bottom edge is the whole affordance - flat, no ring, no glow. Same contract as
+// `.k-input-otp-underlined`, and the base `:focus` rule above leaves it out for that reason.
+.k-datepicker-underlined:not(.k-datepicker-disabled) {
+  .kui-theme-value(underlined);
+
+  &:hover,
+  &.k-datepicker-opened {
+    border-color: transparent transparent var(--kui-color-primary);
+    box-shadow: none;
+    outline: none;
   }
 }
 

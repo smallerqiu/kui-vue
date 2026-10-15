@@ -33,6 +33,9 @@ const compile = async (entry: string) => {
       .overrides {--kui-control-bg:#ff00ff;--kui-popup-bg:#ffff00;--kui-control-radius:13px;--kui-color-primary-hover:#00ffff}
       .theme-hooks {--kui-theme-fill-bg:#ff0000;--kui-theme-outline-border:#00ff00;--kui-theme-plain-border:#0000ff;--kui-theme-plain-bg:#ffff00}
       .control-chain {--kui-control-border:#00ff00;--kui-control-bg-fill:#0000ff}
+      /* solid fills with the primary, so this scope declares its own; the hover stop stays
+         undefined, which is what proves the 90% mix is computed at the point of use. */
+      .solid-scope {--kui-color-primary:#ff0000}
     </style>
     <div class="local" id="local">
       <button id="primary" class="k-btn k-btn-primary">Primary</button>
@@ -44,9 +47,11 @@ const compile = async (entry: string) => {
     <div theme-mode="dark"><button id="dark" class="k-btn">Dark</button><div theme-mode="light"><button id="light" class="k-btn">Light</button></div></div>
     <div class="overrides"><div theme-mode="dark"><div id="control" class="k-input" data-multiple><input /></div><button id="override" class="k-btn k-btn-primary">Override</button><div class="k-popup-panel k-popup"><div id="override-popup" class="k-popup-content">Popup</div></div></div></div>
     <div id="square" shape-mode="square"><button id="square-button" class="k-btn">Square</button></div>
-    <div class="theme-hooks"><div id="hook-card-fill" class="k-card k-card-fill">Card</div><div id="hook-card-outline" class="k-card k-card-outline">Card</div><div id="hook-card-plain" class="k-card k-card-plain">Card</div><div id="hook-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="hook-input-plain" class="k-input k-input-plain" data-multiple><input /></div></div>
+    <div class="theme-hooks"><div id="hook-card-fill" class="k-card k-card-fill">Card</div><div id="hook-card-outline" class="k-card k-card-outline">Card</div><div id="hook-card-plain" class="k-card k-card-plain">Card</div><div id="hook-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="hook-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="hook-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="hook-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div></div>
     <div class="control-chain"><div id="chain-card-outline" class="k-card k-card-outline">Card</div><div id="chain-card-fill" class="k-card k-card-fill">Card</div><div id="chain-input-fill" class="k-input k-input-fill" data-multiple><input /></div></div>
-    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="default-select-plain" class="k-select k-select-plain" tabindex="0"><div id="plain-selection" class="k-select-selection">Plain</div></div><div id="default-select-borderless" class="k-select k-select-borderless" tabindex="0"><div id="borderless-selection" class="k-select-selection">Borderless</div></div></div>`);
+    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="default-select-plain" class="k-select k-select-plain" tabindex="0"><div id="plain-selection" class="k-select-selection">Plain</div></div><div id="default-select-borderless" class="k-select k-select-borderless" tabindex="0"><div id="borderless-selection" class="k-select-selection">Borderless</div></div><div id="default-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="default-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="default-select-underlined" class="k-select k-select-underlined" tabindex="0"><div class="k-select-selection">Underlined</div></div></div>
+    <div class="solid-scope"><div id="default-select-solid" class="k-select k-select-solid" tabindex="0"><div class="k-select-selection"><div id="solid-placeholder" class="k-select-placeholder">Pick</div></div></div></div>
+    <div class="control-chain"><div id="chain-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection"><div id="outline-placeholder" class="k-select-placeholder">Pick</div></div></div></div>`);
     // Serialises a token the way the browser does, so a computed value can be compared to the
     // token it is supposed to fall back to instead of to a hand-copied colour.
     const resolve = (id: string, value: string) =>
@@ -168,6 +173,110 @@ const compile = async (entry: string) => {
         await resolve(id, "transparent"),
         id + " must stay borderless",
       );
+    // The four tiers this control family used to swallow (batch 3b). Each has to reach the pixel,
+    // and the tiers have to stay distinguishable from each other, not only from `fill`.
+    // `outline` is a bare frame: 1px solid on the documented border token, no surface.
+    assert.equal(
+      await style("default-select-outline", "border-top-color"),
+      await resolve("default-select-outline", "var(--kui-color-border)"),
+      "outline select must fall through to the base border",
+    );
+    assert.equal(await style("default-select-outline", "border-top-style"), "solid");
+    assert.equal(
+      await style("default-select-outline", "background-color"),
+      await resolve("default-select-outline", "transparent"),
+      "outline select must stay transparent",
+    );
+    // `dashed` borrows the outline colour and changes only the line style.
+    assert.equal(await style("default-select-dashed", "border-top-style"), "dashed");
+    assert.equal(
+      await style("default-select-dashed", "border-top-color"),
+      await resolve("default-select-dashed", "var(--kui-color-border)"),
+      "dashed select must fall through to the outline border",
+    );
+    // A control that keeps its border also keeps the base hover lighting, which is what separates
+    // outline/dashed from the tiers that opt out above.
+    await page.locator("#default-select-outline").hover();
+    await page
+      .locator("#default-select-outline")
+      .evaluate((el) => el.getAnimations().forEach((a) => a.finish()));
+    assert.equal(
+      await style("default-select-outline", "border-top-color"),
+      await resolve("default-select-outline", "var(--kui-color-primary)"),
+      "outline select must light its border under the pointer",
+    );
+    // `solid` is the emphasis block: primary surface, same-colour border, inverted text. Hover
+    // deepens the same red through the mixed default, so a local primary moves both states.
+    assertColor(
+      await rgba("default-select-solid", "background-color"),
+      [255, 0, 0, 255],
+      "solid select must fill with the local primary",
+    );
+    assert.equal(await style("default-select-solid", "border-top-color"), "rgb(255, 0, 0)");
+    assert.equal(await style("default-select-solid", "color"), "rgb(255, 255, 255)");
+    // The inner pieces invert with the block - a placeholder that stays the ordinary text colour
+    // on a primary fill reads as a defect - and the inversion is scoped to `solid`, so an outlined
+    // control keeps its own colour.
+    assert.equal(
+      await style("solid-placeholder", "color"),
+      await resolve(
+        "solid-placeholder",
+        "color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent)",
+      ),
+      "a solid control must invert its placeholder",
+    );
+    assert.notEqual(
+      await style("outline-placeholder", "color"),
+      await resolve(
+        "outline-placeholder",
+        "color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent)",
+      ),
+      "the solid colour rules must not leak into other tiers",
+    );
+    await page.locator("#default-select-solid").hover();
+    await page
+      .locator("#default-select-solid")
+      .evaluate((el) => el.getAnimations().forEach((a) => a.finish()));
+    assertColor(
+      await rgba("default-select-solid", "background-color"),
+      [255, 0, 0, 230],
+      "solid select hover must follow the local primary",
+    );
+    assert.equal(
+      await style("default-select-solid", "box-shadow"),
+      "none",
+      "solid select must not add a ring over its own fill",
+    );
+    // `underlined` keeps one edge: the other three sides lose their width, the radius goes, and
+    // focus moves only that bottom edge instead of drawing a ring around the box (InputOTP shape).
+    assert.equal(await style("default-select-underlined", "border-top-width"), "0px");
+    assert.equal(await style("default-select-underlined", "border-bottom-width"), "1px");
+    assert.equal(await style("default-select-underlined", "border-radius"), "0px");
+    await page.locator("#default-select-underlined").focus();
+    await page
+      .locator("#default-select-underlined")
+      .evaluate((el) => el.getAnimations().forEach((a) => a.finish()));
+    assert.equal(
+      await style("default-select-underlined", "border-bottom-color"),
+      await resolve("default-select-underlined", "var(--kui-color-primary)"),
+      "a focused underlined select must light its bottom edge",
+    );
+    assert.equal(
+      await style("default-select-underlined", "outline-style"),
+      "none",
+      "underlined select must not carry the base focus ring",
+    );
+    // One hook paints a surface and a control the same way, and the tiers share the chains:
+    // `--kui-theme-outline-border` moves `dashed` too because dashed has no colour of its own, and
+    // the control-level `--kui-control-border` reaches `outline` the way it already reaches Card.
+    assert.equal(await style("hook-select-outline", "border-top-color"), "rgb(0, 255, 0)");
+    assert.equal(await style("hook-select-dashed", "border-top-color"), "rgb(0, 255, 0)");
+    assert.equal(await style("hook-select-dashed", "border-top-style"), "dashed");
+    assert.equal(
+      await style("chain-select-outline", "border-top-color"),
+      "rgb(0, 255, 0)",
+      "--kui-control-border must reach an outlined control",
+    );
     // Runtime updates must affect a component already mounted inside the scope.
     await page
       .locator("#local")
