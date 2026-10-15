@@ -46,7 +46,7 @@ const compile = async (entry: string) => {
     <div id="square" shape-mode="square"><button id="square-button" class="k-btn">Square</button></div>
     <div class="theme-hooks"><div id="hook-card-fill" class="k-card k-card-fill">Card</div><div id="hook-card-outline" class="k-card k-card-outline">Card</div><div id="hook-card-plain" class="k-card k-card-plain">Card</div><div id="hook-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="hook-input-plain" class="k-input k-input-plain" data-multiple><input /></div></div>
     <div class="control-chain"><div id="chain-card-outline" class="k-card k-card-outline">Card</div><div id="chain-card-fill" class="k-card k-card-fill">Card</div><div id="chain-input-fill" class="k-input k-input-fill" data-multiple><input /></div></div>
-    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div></div>`);
+    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="default-select-plain" class="k-select k-select-plain" tabindex="0"><div id="plain-selection" class="k-select-selection">Plain</div></div><div id="default-select-borderless" class="k-select k-select-borderless" tabindex="0"><div id="borderless-selection" class="k-select-selection">Borderless</div></div></div>`);
     // Serialises a token the way the browser does, so a computed value can be compared to the
     // token it is supposed to fall back to instead of to a hand-copied colour.
     const resolve = (id: string, value: string) =>
@@ -142,6 +142,31 @@ const compile = async (entry: string) => {
         await style("default-input-plain", prop),
         await resolve("default-input-plain", "transparent"),
         "plain input " + prop + " must be transparent",
+      );
+    // `plain` and `borderless` are separate asks (audit ⑪): `theme="plain"` no longer borrows the
+    // borderless class. Neither may have its border repainted under the pointer. `plain` wins that
+    // fight by being written after the base rule; `borderless` only wins because the base rule
+    // names it inside `:not()` — before that, a borderless control grew a primary border and a
+    // glow the moment the pointer reached it, exactly what its own block says must not happen.
+    for (const id of ["default-select-plain", "default-select-borderless"]) {
+      await page.locator("#" + id).hover();
+      // The border transition must land before the reading, or a repaint during hover would be
+      // measured at its start value and pass for the wrong reason.
+      await page.locator("#" + id).evaluate((el) => el.getAnimations().forEach((a) => a.finish()));
+      assert.equal(
+        await style(id, "border-top-color"),
+        await resolve(id, "transparent"),
+        id + " must not get a hover border",
+      );
+      assert.equal(await style(id, "box-shadow"), "none", id + " must not get a hover shadow");
+    }
+    // The inner box of a plain control is suppressed too, which is what the borderless class used
+    // to be doing for it while `k-<component>-plain` could never be matched.
+    for (const id of ["plain-selection", "borderless-selection"])
+      assert.equal(
+        await style(id, "border-top-color"),
+        await resolve(id, "transparent"),
+        id + " must stay borderless",
       );
     // Runtime updates must affect a component already mounted inside the scope.
     await page

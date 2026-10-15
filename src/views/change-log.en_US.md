@@ -74,6 +74,8 @@ rm -rf node_modules/.vite
 - `DatePicker`: A `panelOnly` picker in `mode="year"` or `mode="month"` no longer renders the day calendar; the panel now starts on the year / month view like the React version.
 - **Breaking change**: Built-in component text now defaults to English instead of Simplified Chinese. Without a `ConfigProvider`, strings in `DatePicker`, `Select`, `Table`, `Modal`, `Page` and friends render in English; pass a Chinese locale (`import zhCN from "kui-vue/locale/zh-CN"`) at the application root to keep Simplified Chinese.
 - `DatePicker`: `format` accepts a single format only, matching the React build — an array used to display with its first entry and is no longer accepted. The default format now follows `mode` (`year` `YYYY`, `month` `YYYY-MM`, `time` `HH:mm:ss`, `dateTime` / `dateTimeRange` `YYYY-MM-DD HH:mm:ss`) instead of being documented as `YYYY-MM-DD` for every mode.
+- `DatePicker` / `Select` / `Cascader` / `TreeSelect`: `theme="plain"` and `bordered={false}` now mean separate things — `plain` drops both the border and the surface, `bordered={false}` drops only the border, and the two can be combined; a disabled control under `plain` still reads as disabled.
+- `Select` / `Cascader` / `TreeSelect`: a control with its border removed no longer grows a primary-colored border and a glow when the pointer moves over it.
 
 ## 6.2.2
 

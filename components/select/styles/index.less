@@ -17,12 +17,12 @@
   transition: border var(--kui-motion-duration-slow) var(--kui-motion-easing);
   line-height: var(--kui-line-height);
   position: relative;
-  &:not(.k-select-disabled, .k-select-borderless):focus {
+  &:not(.k-select-disabled, .k-select-borderless, .k-select-plain):focus {
     outline: var(--kui-focus-ring-width) solid
       var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
     outline-offset: 1px;
   }
-  &:not(.k-select-disabled, .k-select-fill):hover {
+  &:not(.k-select-disabled, .k-select-fill, .k-select-borderless, .k-select-plain):hover {
     border-color: var(--kui-color-primary);
     box-shadow: var(
       --kui-component-shadow,
@@ -237,16 +237,20 @@
   }
 }
 .k-select-plain:not(.k-select-disabled) {
-  border-color: transparent;
-  background: transparent;
+  .kui-theme-value(plain);
   box-shadow: none;
 
   &:hover,
   &:focus,
   &.k-select-opened {
-    border-color: transparent;
-    background: transparent;
+    .kui-theme-value(plain);
     box-shadow: none;
+  }
+
+  .k-select-selection {
+    box-shadow: none;
+    border-color: transparent;
+    background-color: transparent;
   }
 }
 .k-select-block {

@@ -18,12 +18,12 @@
   transition: border var(--kui-motion-duration-slow) var(--kui-motion-easing);
   line-height: var(--kui-line-height);
   position: relative;
-  &:not(.k-tree-select-disabled, .k-tree-select-borderless):focus {
+  &:not(.k-tree-select-disabled, .k-tree-select-borderless, .k-tree-select-plain):focus {
     outline: var(--kui-focus-ring-width) solid
       var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
     outline-offset: 1px;
   }
-  &:not(.k-tree-select-disabled, .k-tree-select-fill):hover {
+  &:not(.k-tree-select-disabled, .k-tree-select-fill, .k-tree-select-borderless, .k-tree-select-plain):hover {
     border-color: var(--kui-color-primary);
     box-shadow: var(
       --kui-component-shadow,
@@ -238,16 +238,20 @@
   }
 }
 .k-tree-select-plain:not(.k-tree-select-disabled) {
-  border-color: transparent;
-  background: transparent;
+  .kui-theme-value(plain);
   box-shadow: none;
 
   &:hover,
   &:focus,
   &.k-tree-select-opened {
-    border-color: transparent;
-    background: transparent;
+    .kui-theme-value(plain);
     box-shadow: none;
+  }
+
+  .k-tree-select-selection {
+    box-shadow: none;
+    border-color: transparent;
+    background-color: transparent;
   }
 }
 .k-tree-select-block {

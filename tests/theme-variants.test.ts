@@ -16,10 +16,9 @@ const compile = async (source: string) => {
   return (await less.render(source, { filename })).css;
 };
 
-// Flatten the compiled CSS into `selector -> declarations`, whitespace-normalised.
-const rules = async (source: string) => {
-  const css = await compile(source);
-  return new Map(
+// Flatten compiled CSS into `selector -> declarations`, whitespace-normalised.
+const flatten = (css: string) =>
+  new Map(
     [...css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/([^{}]+)\{([^{}]*)\}/g)]
       // The text before `{` still carries the previous rule's closing brace and comments.
       .map((match) => [
@@ -27,6 +26,13 @@ const rules = async (source: string) => {
         match[2].replace(/\s+/g, " ").trim().replace(/;$/, ""),
       ]),
   );
+
+const rules = async (source: string) => flatten(await compile(source));
+
+// Compile one component's own LESS so a rule can be checked where it is written.
+const fileRules = async (entry: string) => {
+  const filename = path.join(root, entry);
+  return flatten((await less.render(await fs.readFile(filename, "utf8"), { filename })).css);
 };
 
 const probe = async () =>
@@ -117,5 +123,56 @@ it("draws the migrated components from the shared mixin rather than re-copying t
     // Hand-copying `var(--kui-theme-*-bg, …)` is how the presets drifted apart per component.
     for (const token of ["--kui-theme-fill-bg", "--kui-theme-outline-border"])
       expect(source, `${entry} must not hand-write the ${token} chain`).not.toContain(token);
+  }
+});
+
+// Audit ⑪: these four controls answered `theme="plain"` by emitting the `borderless` class, which
+// left their hand-written `.k-<component>-plain` rules as selectors nothing could ever match.
+// `bordered={false}` (no border) and `plain` (no border *and* no surface) are separate asks, so
+// each now has its own class — the DOM half of that is asserted by tests/theme-plain-emission.
+const PLAIN_CONTROLS = [
+  { entry: "components/date-picker/styles/index.less", name: "k-datepicker", selection: false },
+  { entry: "components/select/styles/index.less", name: "k-select", selection: true },
+  { entry: "components/cascader/styles/index.less", name: "k-cascader", selection: true },
+  { entry: "components/tree-select/styles/index.less", name: "k-tree-select", selection: true },
+] as const;
+
+it("paints `plain` on the controls, guarded so a disabled box stays disabled", async () => {
+  for (const { entry, name, selection } of PLAIN_CONTROLS) {
+    const compiled = await fileRules(entry);
+    const plain = `.${name}-plain:not(.${name}-disabled)`;
+    // The values come from the shared `plain` arm, not from a re-copied `transparent`.
+    expect(compiled.get(plain), `${name} paints no plain box`).toBe(
+      "border-color: var(--kui-theme-plain-border); background: var(--kui-theme-plain-bg); box-shadow: none",
+    );
+    // Hover, focus and an open panel must not bring a border or a surface back.
+    expect(
+      compiled.get(`${plain}:hover, ${plain}:focus, ${plain}.${name}-opened`),
+      `${name} lets plain repaint on hover / focus / opened`,
+    ).toBe(
+      "border-color: var(--kui-theme-plain-border); background: var(--kui-theme-plain-bg); box-shadow: none",
+    );
+    if (selection)
+      expect(
+        compiled.get(`${plain} .${name}-selection`),
+        `${name} leaves the inner box of a plain control painted`,
+      ).toBe("box-shadow: none; border-color: transparent; background-color: transparent");
+
+    // The base control rule repaints the border on hover / focus and out-specifies the blocks
+    // above, which is how a borderless or plain box grew a primary border under the pointer.
+    // Every such rule has to name both modifiers inside its `:not()`. A control whose focus ring
+    // is theme-independent (`DatePicker`) has no `:not()` focus rule, so there is nothing to add.
+    for (const state of ["hover", "focus"]) {
+      const repaint = [...compiled.keys()].filter(
+        (key) => key.startsWith(`.${name}:not(`) && key.endsWith(`:${state}`),
+      );
+      for (const key of repaint)
+        for (const modifier of ["borderless", "plain"])
+          expect(key, `${name} ${state} must not match ${modifier}: ${key}`).toContain(
+            `.${name}-${modifier}`,
+          );
+      if (state === "hover")
+        expect(repaint.length, `${name} lost its base hover rule`).toBeGreaterThan(0);
+    }
   }
 });

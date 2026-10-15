@@ -76,6 +76,8 @@ rm -rf node_modules/.vite
 - `DatePicker` 修复 `panelOnly` 常驻面板在 `mode="year"` / `mode="month"` 下仍显示日期格的问题：面板档位现在跟着 `mode` 起，与 React 版一致。
 - **不兼容变更**：组件内置文案的默认语言从简体中文改为英语。没有挂 `ConfigProvider` 时，`DatePicker`、`Select`、`Table`、`Modal`、`Page` 等组件的内置文案现在显示英文；需要简体中文请在应用根部挂 `ConfigProvider` 并传入 `locale`（`import zhCN from "kui-vue/locale/zh-CN"`）。
 - `DatePicker` 的 `format` 只接受单个格式，与 React 版一致：之前传数组只是拿第一个格式展示，现在不再接受数组。默认格式按 `mode` 取（`year` 为 `YYYY`、`month` 为 `YYYY-MM`、`time` 为 `HH:mm:ss`、`dateTime` / `dateTimeRange` 为 `YYYY-MM-DD HH:mm:ss`），文档里原先统一写成 `YYYY-MM-DD`。
+- `DatePicker` / `Select` / `Cascader` / `TreeSelect` 的 `theme="plain"` 与 `:bordered="false"` 各管各的：`plain` 是无边框也没有底色，`:bordered="false"` 只去掉边框，两者可以同时使用；控件禁用时 `plain` 照样显示禁用态。
+- `Select` / `Cascader` / `TreeSelect` 去掉边框后，鼠标悬停不再突然描出一圈主色边框和光晕。
 
 ## 6.2.2
 
