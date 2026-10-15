@@ -8,6 +8,7 @@
 import { enableAutoUnmount, mount } from "@vue/test-utils";
 import { afterEach, describe, expect, it } from "vitest";
 import type { Component } from "vue";
+import AutoComplete from "../components/auto-complete";
 import Cascader from "../components/cascader";
 import ColorPicker from "../components/color-picker";
 import DatePicker from "../components/date-picker";
@@ -15,6 +16,7 @@ import Input from "../components/input/input";
 import InputNumber from "../components/input-number";
 import InputOTP from "../components/input-otp";
 import InputTag from "../components/input-tag";
+import Mentions from "../components/mentions";
 import Select from "../components/select/select";
 import TextArea from "../components/input/textarea";
 import TreeSelect from "../components/tree-select";
@@ -131,5 +133,56 @@ describe("every theme tier reaches the control root", () => {
         expect(element?.tagName).toBe(tag);
         if (attribute) expect(element?.hasAttribute(attribute)).toBe(true);
       });
+  }
+});
+
+// 3b-乙3 mirror of kui-react: `AutoComplete` and `Mentions` have no theme surface of their own. LESS
+// holds no `.k-auto-complete-<tier>` / `.k-mentions-<tier>` rule at all — the box a tier paints is the
+// `Input` / `TextArea` each of them renders, and the wrapper only sizes and positions it. So the
+// contract for these two is the delegation itself: the tier has to arrive on the inner control, and
+// the wrapper must not start shipping a class no stylesheet can answer.
+const DELEGATED: {
+  name: string;
+  // The control class the tier actually lands on.
+  host: string;
+  component: Component;
+}[] = [
+  { name: "k-auto-complete", host: "k-input", component: AutoComplete },
+  { name: "k-mentions", host: "k-textarea", component: Mentions },
+];
+
+describe("the tier reaches the control these components delegate to", () => {
+  for (const { name, host, component } of DELEGATED) {
+    const rendered = (extra: Record<string, unknown>) =>
+      mount(component, { attachTo: document.body, props: { ...extra } });
+    const classes = (wrapper: ReturnType<typeof rendered>) =>
+      Array.from(wrapper.element.classList);
+
+    for (const tier of TIERS) {
+      it(`${name} forwards ${host}-${tier} for theme="${tier}"`, () => {
+        const wrapper = rendered({ theme: tier });
+        expect(
+          wrapper.element.querySelector("." + host + "-" + tier),
+          `${name} dropped the theme on the floor`,
+        ).toBeTruthy();
+        expect(classes(wrapper), `${name} emits a tier class LESS never paints`).not.toContain(
+          `${name}-${tier}`,
+        );
+      });
+    }
+
+    it(`${name} forwards the resolved tier for theme="default"`, () => {
+      // "Listen to the component" is answered by the inner control, so `default` must arrive there as
+      // its own `fill` and never as a `k-*-default` that no LESS rule can answer.
+      const wrapper = rendered({ theme: "default" });
+      expect(
+        wrapper.element.querySelector("." + host + "-fill"),
+        `${name} default does not land on the fill tier`,
+      ).toBeTruthy();
+      expect(
+        wrapper.element.querySelector(`.${host}-default, .${name}-default`),
+        `${name} forwards a tier class nothing paints`,
+      ).toBeNull();
+    });
   }
 });

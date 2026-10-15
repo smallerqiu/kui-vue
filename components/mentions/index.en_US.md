@@ -54,7 +54,7 @@
 | placement | Preferred dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
 | destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | size | Size | `"small" \| "medium" \| "large"` | medium |
-| theme | Theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme, painted on the inner text area; supports the same tiers as TextArea | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | Shape | `"default" \| "circle" \| "square" \| "round"` | default |
 | emptyText | Empty-state text | `string` | No data |
 | filterOption | Custom filter | `((query: string, option: MentionOption) => boolean)` | - |
