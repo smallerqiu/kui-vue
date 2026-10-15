@@ -13,6 +13,7 @@ import {
   useFormAppearance,
   useFormField,
 } from "../form/context";
+import { resolveTheme } from "../config/context";
 
 const textAreaProps = {
   value: [String, Number, Array] as PropType<string | number | readonly string[] | null>,
@@ -69,7 +70,7 @@ const TextArea = defineComponent({
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
       const size = appearance.size.value;
-      const effectiveTheme = appearance.theme.value ?? theme;
+      const effectiveTheme = resolveTheme(appearance.theme.value ?? theme, "fill");
       const effectiveShape = appearance.shape.value ?? shape;
       const rootProps = {
         ...attrs,
@@ -79,7 +80,7 @@ const TextArea = defineComponent({
         class: [
           "k-textarea",
           {
-            [`k-textarea-${effectiveTheme}`]: !!effectiveTheme && effectiveTheme !== "outline",
+            [`k-textarea-${effectiveTheme}`]: true,
             "k-textarea-sm": size === "small",
             "k-textarea-square": effectiveShape === "square",
             "k-textarea-circle": effectiveShape === "circle",

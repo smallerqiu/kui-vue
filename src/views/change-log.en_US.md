@@ -80,6 +80,9 @@ rm -rf node_modules/.vite
 - `Cascader`: a `theme="fill"` field no longer grows a border when you hover it.
 - `Select` / `Cascader` / `TreeSelect` / `DatePicker`: `theme="default"` now looks exactly like omitting `theme` — both land on the control's own default appearance.
 - `DatePicker`: focusing a field that has no border no longer draws a focus ring, matching the select-family controls.
+- `Input` / `Textarea` / `InputNumber`: `theme` now supports `outline`, `solid`, `dashed` and `underlined` — a 1px outlined box, a primary-filled block whose typed text, placeholder and inline icons invert, a dashed frame, and a single bottom rule that turns primary on hover and focus.
+- `Input` / `Textarea` / `InputNumber`: `theme="default"` now looks exactly like omitting `theme` — both land on the component's own default appearance.
+- `Input` / `Textarea` / `InputNumber`: a `theme="plain"` field no longer grows a border when you hover it and still reads as disabled; `plain` and `underlined` drop the focus ring, matching the select-family controls.
 
 ## 6.2.2
 

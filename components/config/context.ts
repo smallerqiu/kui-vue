@@ -52,6 +52,21 @@ export const useConfigAppearance = <
     }),
   };
 };
+/**
+ * `theme="default"` means "listen to the component", so it has to resolve to the component's own
+ * default tier — the same class it reaches when no `theme` is written at all. Every component that
+ * paints theme classes resolves its value here instead of copying the comparison, because
+ * `k-<component>-default` is a class no LESS rule can ever answer (the shared mixin has no
+ * `default` arm on purpose) and shipping one is the silent bug this contract exists to end.
+ */
+export function resolveTheme(
+  theme: ThemeType | undefined,
+  fallback: Exclude<ThemeType, "default">,
+): Exclude<ThemeType, "default"> {
+  const value = theme ?? fallback;
+  return value === "default" ? fallback : value;
+}
+
 const appContexts: AppContext[] = [];
 let __mouse__point: Point | null = null;
 interface Point {

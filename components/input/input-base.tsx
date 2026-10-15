@@ -15,6 +15,7 @@ import {
 } from "vue";
 import { type BooleanType, type ShapeType, type SizeType, type ThemeType } from "../const/types";
 import { resolveFormControlAttrs, useFormAppearance, useFormField } from "../form/context";
+import { resolveTheme } from "../config/context";
 import Icon, { type IconType } from "../icon";
 import { isEmpty } from "../utils/number";
 import { getChildren } from "../utils/vnode";
@@ -179,7 +180,7 @@ const InputBase = defineComponent({
       } = props;
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
-      const effectiveTheme = appearance.theme.value ?? theme;
+      const effectiveTheme = resolveTheme(appearance.theme.value ?? theme, "fill");
       const effectiveShape = appearance.shape.value ?? shape;
 
       const slotSuffix = getChildren(slots.suffix?.());
@@ -262,7 +263,7 @@ const InputBase = defineComponent({
             [`k-${inputType}-has-clear`]: clearableShow,
             [`k-${inputType}-sm`]: size === "small",
             [`k-${inputType}-lg`]: size === "large",
-            [`k-${inputType}-${effectiveTheme}`]: effectiveTheme && effectiveTheme !== "outline",
+            [`k-${inputType}-${effectiveTheme}`]: true,
             [`k-${inputType}-circle`]: effectiveShape === "circle",
             [`k-${inputType}-square`]: effectiveShape === "square",
           },

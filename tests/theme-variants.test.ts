@@ -117,10 +117,18 @@ it("leaves `default` to the component instead of painting an empty preset", asyn
 });
 
 it("draws the migrated components from the shared mixin rather than re-copying the chains", async () => {
-  for (const entry of ["card/styles/index.less", "input/styles/index.less"]) {
-    const source = await fs.readFile(path.join(root, "components", entry), "utf8");
+  for (const entry of [
+    "card/styles/index.less",
+    "input/styles/index.less",
+    "input-number/styles/index.less",
+  ]) {
+    const source = (await fs.readFile(path.join(root, "components", entry), "utf8")).replace(
+      /\/\/[^\n]*/g,
+      "",
+    );
     expect(source, `${entry} must call the shared theme mixin`).toContain(".kui-theme-value(");
     // Hand-copying `var(--kui-theme-*-bg, …)` is how the presets drifted apart per component.
+    // Comments are stripped first: naming a token in prose is not the same as re-copying its chain.
     for (const token of ["--kui-theme-fill-bg", "--kui-theme-outline-border"])
       expect(source, `${entry} must not hand-write the ${token} chain`).not.toContain(token);
   }
@@ -271,6 +279,262 @@ it("paints `plain` on the controls, guarded so a disabled box stays disabled", a
           );
       if (state === "hover")
         expect(repaint.length, `${name} lost its base hover rule`).toBeGreaterThan(0);
+    }
+  }
+});
+
+// 3b-乙: the box path types six presets and used to paint two — `theme="outline"` was dropped by
+// `input-base` before the class list and `theme="solid"` by `input-box`, while the LESS had no rule
+// for either, so both were invisible twice over. The same tier class reaches three different
+// elements (the decorated wrapper `[data-multiple]`, the bare `<input>` `[data-single]`, and
+// `<textarea>`), and `InputNumber` builds its box through `InputBase`, so the contract is checked
+// per shape instead of per component.
+const BOX_PATHS = [
+  {
+    entry: "components/input/styles/index.less",
+    shapes: [
+      {
+        prefix: "k-input",
+        marker: "[data-multiple]",
+        text: true,
+        chrome: ["icon", "prefix", "suffix", "clearable", "password-icon"],
+      },
+      { prefix: "k-input", marker: "[data-single]", text: true, chrome: [] },
+      // A `<textarea>` is its own typed surface: no inner `-text` element, no chrome.
+      { prefix: "k-textarea", marker: "", text: false, chrome: [] },
+    ],
+  },
+  {
+    entry: "components/input-number/styles/index.less",
+    // The tier sits on the same element in both shapes, so no attribute tells them apart.
+    shapes: [
+      {
+        prefix: "k-input-number",
+        marker: "",
+        text: true,
+        chrome: ["icon", "prefix", "suffix", "clearable", "controls"],
+      },
+    ],
+  },
+] as const;
+
+// The shared arm decides what a tier paints, so each component rule is compared against
+// `.kui-theme-value()` itself rather than against a declaration string copied out of this file.
+const arms = async () => {
+  const compiled = await probe();
+  return new Map(
+    VALUES.map((value) => [
+      value,
+      declarations(compiled.get(`.probe-${value}`), `theme arm ${value}`),
+    ]),
+  );
+};
+
+const covers = (body: Map<string, string>, arm: Map<string, string>) =>
+  [...arm].every(([property, value]) => body.get(property) === value);
+
+// A compiled key is a comma group, and its `:not()` arguments name tiers without painting them, so
+// both have to be settled before a rule says anything about a tier.
+const withoutGuards = (key: string) => key.replace(/:not\([^)]*\)/g, "");
+
+// A comma separates selectors, not `:not()` arguments, so the group is split on parenthesis depth:
+// an exclusion list is one selector, and a guard can only be checked where it actually sits.
+const selectors = (key: string) => {
+  const parts: string[] = [];
+  let depth = 0;
+  let current = "";
+  for (const char of key) {
+    if (char === "(") depth += 1;
+    if (char === ")") depth -= 1;
+    if (char === "," && depth === 0) {
+      parts.push(current.trim());
+      current = "";
+      continue;
+    }
+    current += char;
+  }
+  parts.push(current.trim());
+  return parts;
+};
+
+const paints = (key: string, prefix: string, tier: string, marker: string) =>
+  new RegExp(`\\.${prefix}-${tier}(?![\\w-])`).test(withoutGuards(key)) &&
+  (marker === "" || key.includes(marker));
+
+// Does one of the rules for this tier on this shape — optionally the one that reaches into a
+// sub-selector such as `.k-input-text` or `::placeholder` — end up painting `property: value`?
+const painting = (
+  compiled: Map<string, string>,
+  { prefix, marker }: { prefix: string; marker: string },
+  tier: string,
+  property: string,
+  value: string,
+  token?: string,
+) =>
+  [...compiled].some(
+    ([key, body]) =>
+      paints(key, prefix, tier, marker) &&
+      (token === undefined || key.includes(token)) &&
+      declarations(body, key).get(property) === value,
+  );
+
+it("paints every theme tier on every shape of the box path", async () => {
+  const arm = await arms();
+  for (const { entry, shapes } of BOX_PATHS) {
+    const compiled = await fileRules(entry);
+    for (const shape of shapes) {
+      const box = `${shape.prefix}${shape.marker}`;
+      for (const tier of VALUES) {
+        const painted = [...compiled].filter(
+          ([key, body]) =>
+            paints(key, shape.prefix, tier, shape.marker) &&
+            covers(declarations(body, key), arm.get(tier)!),
+        );
+        expect(
+          painted.length,
+          `${box} paints nothing for theme="${tier}": the shared arm never reaches it`,
+        ).toBeGreaterThan(0);
+
+        // A disabled box has to keep showing that it is disabled, and only the three tiers that
+        // paint a whole surface or a bottom edge can cover it up. The guard is looked for on the
+        // selector of *this* shape: a sibling in the same comma group proves nothing.
+        if (["solid", "plain", "underlined"].includes(tier))
+          for (const [key] of painted)
+            for (const selector of selectors(key).filter((entry) =>
+              paints(entry, shape.prefix, tier, shape.marker),
+            ))
+              expect(selector, `${box} ${tier} repaints a disabled box: ${selector}`).toContain(
+                "disabled",
+              );
+      }
+    }
+  }
+});
+
+it("inverts the chrome inside a solid box and redraws its focus ring", async () => {
+  const onSolid = "var(--kui-color-text-on-solid)";
+  for (const { entry, shapes } of BOX_PATHS) {
+    const compiled = await fileRules(entry);
+    for (const shape of shapes) {
+      // Primary surface, primary text: the typed value, its placeholder and whatever chrome the
+      // wrapper adds are all drawn from the inverted text token instead of left to go unreadable.
+      if (shape.text)
+        expect(
+          painting(compiled, shape, "solid", "color", onSolid, `.${shape.prefix}-text`),
+          `${shape.prefix} solid leaves the typed text dark`,
+        ).toBe(true);
+      expect(
+        painting(
+          compiled,
+          shape,
+          "solid",
+          "color",
+          "color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent)",
+          "::placeholder",
+        ),
+        `${shape.prefix}${shape.marker} solid leaves the placeholder unreadable`,
+      ).toBe(true);
+      for (const part of shape.chrome)
+        expect(
+          painting(
+            compiled,
+            shape,
+            "solid",
+            "color",
+            "color-mix(in srgb, var(--kui-color-text-on-solid) 85%, transparent)",
+            `.${shape.prefix}-${part}`,
+          ),
+          `${shape.prefix} solid leaves .${shape.prefix}-${part} dark`,
+        ).toBe(true);
+
+      // The base ring is primary on a primary surface, i.e. nothing: it is redrawn in the inverted
+      // colour rather than dropped, so a keyboard user still sees where the caret is.
+      expect(
+        painting(
+          compiled,
+          shape,
+          "solid",
+          "outline-color",
+          "color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent)",
+          "focus",
+        ),
+        `${shape.prefix}${shape.marker} solid loses its focus ring`,
+      ).toBe(true);
+    }
+  }
+});
+
+it("spends the focus affordance on the edge a tier actually has", async () => {
+  const underline = "transparent transparent var(--kui-color-primary)";
+  for (const { entry, shapes } of BOX_PATHS) {
+    const compiled = await fileRules(entry);
+    for (const shape of shapes) {
+      // `underlined` is a bottom edge: no ring, no glow, and hover / focus only light that edge.
+      expect(
+        painting(compiled, shape, "underlined", "outline", "none", ":focus"),
+        `${shape.prefix}${shape.marker} underlined keeps a ring it cannot show`,
+      ).toBe(true);
+      expect(
+        painting(compiled, shape, "underlined", "border-color", underline, ":hover"),
+        `${shape.prefix}${shape.marker} underlined does not light its edge on hover`,
+      ).toBe(true);
+
+      // `plain` was asked for no border and no surface, so hover and focus must not bring either
+      // back — the same call the select family makes, now shared by the box path.
+      expect(
+        painting(compiled, shape, "plain", "border-color", "transparent", ":hover"),
+        `${shape.prefix}${shape.marker} plain grows a border on hover`,
+      ).toBe(true);
+      expect(
+        painting(compiled, shape, "plain", "outline", "none", "focus"),
+        `${shape.prefix}${shape.marker} plain keeps a focus ring`,
+      ).toBe(true);
+    }
+  }
+});
+
+// `:not()` counts its most specific argument, not the sum, so a base rule that repaints the border
+// out-specifies a tier block unless the tier is named inside that list. `fill` is already there;
+// `outline` and `dashed` deliberately are not — their border is what is meant to light up.
+const OWNS_ITS_STATES = ["fill", "plain", "solid", "underlined"] as const;
+const KEEPS_BASE_INTERACTION = ["outline", "dashed"] as const;
+
+const baseRepaints = (compiled: Map<string, string>, prefix: string) =>
+  [...compiled].filter(
+    ([key, body]) =>
+      // Only the rules that repaint the border are a risk: a tier cannot own an interaction the
+      // base no longer draws. A `:not()` argument belongs to the selector in front of it, so the
+      // comma group is split once those lists are gone — otherwise one exclusion reads as a
+      // selector.
+      declarations(body, key).has("border-color") &&
+      key.includes(":not(") &&
+      withoutGuards(key)
+        .split(",")
+        .some((member) => {
+          const head = member.trim();
+          return (
+            new RegExp(`^\\.${prefix}(-focus)?(\\[[^\\]]*\\])?:`).test(head) &&
+            !new RegExp(`\\.${prefix}-(?:${VALUES.join("|")})(?![\\w-])`).test(head)
+          );
+        }),
+  );
+
+it("keeps the tiers that own their states out of the base repaint", async () => {
+  for (const { entry, shapes } of BOX_PATHS) {
+    const compiled = await fileRules(entry);
+    for (const prefix of new Set(shapes.map((shape) => shape.prefix))) {
+      const base = baseRepaints(compiled, prefix);
+      expect(base.length, `${prefix} lost its base border repaint`).toBeGreaterThan(0);
+      for (const [key] of base) {
+        for (const tier of OWNS_ITS_STATES)
+          expect(key, `${prefix} base repaint still matches ${tier}: ${key}`).toContain(
+            `.${prefix}-${tier}`,
+          );
+        for (const tier of KEEPS_BASE_INTERACTION)
+          expect(key, `${prefix} base repaint drops ${tier}'s interaction: ${key}`).not.toContain(
+            `.${prefix}-${tier}`,
+          );
+      }
     }
   }
 });

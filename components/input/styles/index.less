@@ -20,7 +20,15 @@
   overflow: hidden;
   line-height: var(--kui-line-height);
 
-  &:not(.k-input-disabled, .k-input-fill):hover {
+  // `fill` has no border to light up, and `solid` / `underlined` repaint their own surface, so the
+  // base border repaint must skip them — `plain` too, so a borderless box never grows one.
+  &:not(
+      .k-input-disabled,
+      .k-input-fill,
+      .k-input-plain,
+      .k-input-solid,
+      .k-input-underlined
+    ):hover {
     border-color: var(--kui-color-primary);
   }
 
@@ -151,7 +159,19 @@
       var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
   }
 
-  &:not(:disabled, .k-input-fill, .k-textarea-fill):hover {
+  // Same contract as the `[data-multiple]` rule above: a bare `<input>` and a `<textarea>` paint
+  // their own states for the tiers that own them.
+  &:not(
+      :disabled,
+      .k-input-fill,
+      .k-textarea-fill,
+      .k-input-plain,
+      .k-textarea-plain,
+      .k-input-solid,
+      .k-textarea-solid,
+      .k-input-underlined,
+      .k-textarea-underlined
+    ):hover {
     border-color: var(--kui-color-primary);
   }
 
@@ -402,6 +422,84 @@
   }
 }
 
+// 3b-乙: `outline` and `dashed` are the same box with a token-driven border, so they take the
+// shared declarations and keep the base interaction rules — their border is meant to light up to
+// primary on hover and the focus ring stays. `dashed` has no colour of its own; it follows
+// `--kui-theme-outline-border` unless the app sets `--kui-theme-dashed-border`.
+.k-input-outline[data-multiple],
+.k-input-outline[data-single],
+.k-textarea-outline {
+  .kui-theme-value(outline);
+}
+.k-input-dashed[data-multiple],
+.k-input-dashed[data-single],
+.k-textarea-dashed {
+  .kui-theme-value(dashed);
+}
+
+// `solid` is the emphasis surface: primary fill and inverted text. A text control keeps its text in
+// a nested `<input>` whenever it carries an icon, an addon or a clear button, so the inversion has
+// to reach that element and the placeholder as well — otherwise the typed value stays dark on a
+// primary background. It paints its own surface on hover the way Button does, which is why it is
+// kept out of the base border repaint above.
+.k-input-solid[data-multiple]:not(.k-input-disabled),
+.k-input-solid[data-single]:not(:disabled),
+.k-textarea-solid:not(:disabled) {
+  .kui-theme-value(solid);
+
+  &:hover {
+    border-color: var(
+      --kui-color-primary-hover,
+      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
+    );
+    background-color: var(
+      --kui-color-primary-hover,
+      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
+    );
+    box-shadow: none;
+  }
+
+  // The base ring is primary on a primary surface, i.e. invisible. Keep the affordance and draw it
+  // in the inverted text colour instead of dropping it.
+  &:focus,
+  &.k-input-focus {
+    outline-color: color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent);
+  }
+
+  &::placeholder,
+  .k-input-text::placeholder {
+    color: color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent);
+  }
+
+  .k-input-text {
+    color: var(--kui-color-text-on-solid);
+  }
+  .k-input-icon,
+  .k-input-password-icon,
+  .k-input-clearable,
+  .k-input-prefix,
+  .k-input-suffix {
+    color: color-mix(in srgb, var(--kui-color-text-on-solid) 85%, transparent);
+  }
+}
+
+// `underlined`: the bottom edge is the whole affordance — flat, no ring, no glow. Same contract as
+// `.k-input-otp-underlined` and the select family, so hover and focus both light that one edge and
+// nothing else.
+.k-input-underlined[data-multiple]:not(.k-input-disabled),
+.k-input-underlined[data-single]:not(:disabled),
+.k-textarea-underlined:not(:disabled) {
+  .kui-theme-value(underlined);
+
+  &:hover,
+  &:focus,
+  &.k-input-focus {
+    border-color: transparent transparent var(--kui-color-primary);
+    box-shadow: none;
+    outline: none;
+  }
+}
+
 .k-input-circle[data-single] {
   border-radius: var(--kui-shape-circle);
 }
@@ -542,9 +640,12 @@
   }
 }
 
-.k-input.k-input-plain[data-single],
-.k-input.k-input-plain[data-multiple],
-.k-textarea.k-textarea-plain {
+// `plain` is no border and no surface. Like `underlined` it opts out of the focus ring, because
+// that ring is drawn where its border used to be, and it steps aside for the disabled rules above
+// so a disabled plain box still reads as disabled.
+.k-input.k-input-plain[data-single]:not(.k-input-disabled),
+.k-input.k-input-plain[data-multiple]:not(.k-input-disabled),
+.k-textarea.k-textarea-plain:not(:disabled) {
   .kui-theme-value(plain);
   box-shadow: none;
 
@@ -554,5 +655,6 @@
     border-color: transparent;
     background: transparent;
     box-shadow: none;
+    outline: none;
   }
 }

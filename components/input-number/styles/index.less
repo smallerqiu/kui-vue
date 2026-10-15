@@ -16,7 +16,13 @@
   overflow: hidden;
   font-size: var(--kui-font-size);
   outline: var(--kui-focus-ring-width) solid transparent;
-  &:not(.k-input-number-fill, .k-input-number-disabled):hover {
+  &:not(
+      .k-input-number-fill,
+      .k-input-number-disabled,
+      .k-input-number-plain,
+      .k-input-number-solid,
+      .k-input-number-underlined
+    ):hover {
     border-color: var(--kui-color-primary);
   }
   &:not(.k-input-number-disabled):hover {
@@ -114,7 +120,13 @@
   outline: var(--kui-focus-ring-width) solid
     var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
 }
-.k-input-number-focus:not(.k-input-number-fill, .k-input-number-disabled) {
+.k-input-number-focus:not(
+  .k-input-number-fill,
+  .k-input-number-disabled,
+  .k-input-number-plain,
+  .k-input-number-solid,
+  .k-input-number-underlined
+) {
   border-color: var(--kui-color-primary);
   box-shadow: var(
     --kui-component-shadow,
@@ -132,7 +144,13 @@
   width: auto;
   padding-right: var(--kui-padding-inline);
 
-  &:not(.k-input-number-fill, .k-input-number-disabled):hover {
+  &:not(
+      .k-input-number-fill,
+      .k-input-number-disabled,
+      .k-input-number-plain,
+      .k-input-number-solid,
+      .k-input-number-underlined
+    ):hover {
     border-color: var(--kui-color-primary);
   }
 }
@@ -246,11 +264,7 @@
 }
 
 .k-input-number-fill {
-  border-color: transparent;
-  background-color: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  .kui-theme-value(fill);
 
   &:focus,
   &.k-input-number-focus {
@@ -273,16 +287,75 @@
   }
 }
 
-.k-input-number-plain {
-  border-color: transparent;
-  background: transparent;
+// `plain` is no border and no surface, and like `underlined` it opts out of the focus ring, which
+// is drawn where its border used to be. A disabled plain box still reads as disabled.
+.k-input-number-plain:not(.k-input-number-disabled) {
+  .kui-theme-value(plain);
   box-shadow: none;
 
   &:hover,
   &:focus,
-  &.k-input-focus {
+  &.k-input-number-focus {
     border-color: transparent;
     background: transparent;
     box-shadow: none;
+    outline: none;
+  }
+}
+
+// 3b-乙: `outline` / `dashed` take the shared box and keep the base interaction rules. `solid` is the
+// emphasis surface with its text, placeholder and chrome inverted, because the number itself is
+// typed into a nested `<input>` and the steppers are drawn in the icon colour.
+.k-input-number-outline {
+  .kui-theme-value(outline);
+}
+.k-input-number-dashed {
+  .kui-theme-value(dashed);
+}
+.k-input-number-solid:not(.k-input-number-disabled) {
+  .kui-theme-value(solid);
+
+  &:hover,
+  &.k-input-number-focus {
+    border-color: var(
+      --kui-color-primary-hover,
+      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
+    );
+    background-color: var(
+      --kui-color-primary-hover,
+      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
+    );
+    box-shadow: none;
+  }
+
+  // The base ring is primary on a primary surface, i.e. invisible: keep it, draw it inverted.
+  &.k-input-number-focus {
+    outline-color: color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent);
+  }
+
+  .k-input-number-text {
+    color: var(--kui-color-text-on-solid);
+  }
+  &::placeholder,
+  .k-input-number-text::placeholder {
+    color: color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent);
+  }
+  .k-input-number-icon,
+  .k-input-number-prefix,
+  .k-input-number-suffix,
+  .k-input-number-clearable,
+  .k-input-number-controls {
+    color: color-mix(in srgb, var(--kui-color-text-on-solid) 85%, transparent);
+  }
+}
+.k-input-number-underlined:not(.k-input-number-disabled) {
+  .kui-theme-value(underlined);
+
+  &:hover,
+  &:focus,
+  &.k-input-number-focus {
+    border-color: transparent transparent var(--kui-color-primary);
+    box-shadow: none;
+    outline: none;
   }
 }

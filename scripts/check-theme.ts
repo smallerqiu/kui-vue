@@ -47,10 +47,11 @@ const compile = async (entry: string) => {
     <div theme-mode="dark"><button id="dark" class="k-btn">Dark</button><div theme-mode="light"><button id="light" class="k-btn">Light</button></div></div>
     <div class="overrides"><div theme-mode="dark"><div id="control" class="k-input" data-multiple><input /></div><button id="override" class="k-btn k-btn-primary">Override</button><div class="k-popup-panel k-popup"><div id="override-popup" class="k-popup-content">Popup</div></div></div></div>
     <div id="square" shape-mode="square"><button id="square-button" class="k-btn">Square</button></div>
-    <div class="theme-hooks"><div id="hook-card-fill" class="k-card k-card-fill">Card</div><div id="hook-card-outline" class="k-card k-card-outline">Card</div><div id="hook-card-plain" class="k-card k-card-plain">Card</div><div id="hook-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="hook-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="hook-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="hook-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div></div>
+    <div class="theme-hooks"><div id="hook-card-fill" class="k-card k-card-fill">Card</div><div id="hook-card-outline" class="k-card k-card-outline">Card</div><div id="hook-card-plain" class="k-card k-card-plain">Card</div><div id="hook-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="hook-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="hook-input-outline" class="k-input k-input-outline" data-multiple><input class="k-input-text" /></div><div id="hook-input-dashed" class="k-input k-input-dashed" data-multiple><input class="k-input-text" /></div><div id="hook-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="hook-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div></div>
     <div class="control-chain"><div id="chain-card-outline" class="k-card k-card-outline">Card</div><div id="chain-card-fill" class="k-card k-card-fill">Card</div><div id="chain-input-fill" class="k-input k-input-fill" data-multiple><input /></div></div>
-    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="default-select-plain" class="k-select k-select-plain" tabindex="0"><div class="k-select-selection">Plain</div></div><div id="default-select-borderless" class="k-select k-select-borderless" tabindex="0"><div class="k-select-selection">Borderless</div></div><div id="default-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="default-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="default-select-underlined" class="k-select k-select-underlined" tabindex="0"><div class="k-select-selection">Underlined</div></div><div id="default-datepicker-fill" class="k-datepicker k-datepicker-fill" tabindex="0">Fill</div><div id="default-datepicker-plain" class="k-datepicker k-datepicker-plain" tabindex="0">Plain</div><div id="default-datepicker-borderless" class="k-datepicker k-datepicker-borderless" tabindex="0">Borderless</div></div>
-    <div class="solid-scope"><div id="default-select-solid" class="k-select k-select-solid" tabindex="0"><div class="k-select-selection"><div id="solid-placeholder" class="k-select-placeholder">Pick</div></div></div></div>
+    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="default-select-plain" class="k-select k-select-plain" tabindex="0"><div class="k-select-selection">Plain</div></div><div id="default-select-borderless" class="k-select k-select-borderless" tabindex="0"><div class="k-select-selection">Borderless</div></div><div id="default-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="default-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="default-select-underlined" class="k-select k-select-underlined" tabindex="0"><div class="k-select-selection">Underlined</div></div><div id="default-datepicker-fill" class="k-datepicker k-datepicker-fill" tabindex="0">Fill</div><div id="default-datepicker-plain" class="k-datepicker k-datepicker-plain" tabindex="0">Plain</div><div id="default-datepicker-borderless" class="k-datepicker k-datepicker-borderless" tabindex="0">Borderless</div><div id="default-input-outline" class="k-input k-input-outline" data-multiple><input id="outline-input-text" class="k-input-text" placeholder="Pick" /></div><input id="default-input-outline-single" class="k-input k-input-outline" data-single placeholder="Pick" /><div id="default-input-dashed" class="k-input k-input-dashed" data-multiple><input class="k-input-text" /></div><div id="default-input-underlined" class="k-input k-input-underlined" data-multiple><input class="k-input-text" /></div></div>
+    <div class="solid-scope"><div id="default-select-solid" class="k-select k-select-solid" tabindex="0"><div class="k-select-selection"><div id="solid-placeholder" class="k-select-placeholder">Pick</div></div></div><div id="default-input-solid" class="k-input k-input-solid" data-multiple><span id="solid-input-chrome" class="k-input-prefix">$</span><input id="solid-input-text" class="k-input-text" placeholder="Pick" /></div><input id="default-input-solid-single" class="k-input k-input-solid" data-single placeholder="Pick" /><textarea id="default-textarea-solid" class="k-textarea k-textarea-solid" placeholder="Notes"></textarea><div id="default-input-number-solid" class="k-input-number k-input-number-solid" data-multiple><input id="solid-number-text" class="k-input-number-text" placeholder="Pick" /><div id="solid-number-controls" class="k-input-number-controls">+</div></div></div>
+    <div class="control-chain"><div class="control-chain" id="chain-box"><div id="chain-input-outline" class="k-input k-input-outline" data-multiple><input class="k-input-text" /></div></div>
     <div class="control-chain"><div id="chain-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection"><div id="outline-placeholder" class="k-select-placeholder">Pick</div></div></div></div>`);
     // Serialises a token the way the browser does, so a computed value can be compared to the
     // token it is supposed to fall back to instead of to a hand-copied colour.
@@ -58,7 +59,12 @@ const compile = async (entry: string) => {
       page.locator("#" + id).evaluate((el, value) => {
         const probe = document.createElement("span");
         probe.style.color = value;
-        el.append(probe);
+        // `<input>` and `<textarea>` paint no children, so the probe reads the tokens from the
+        // element that wraps them; the tokens inherit from the same scope either way.
+        (el.tagName === "INPUT" || el.tagName === "TEXTAREA"
+          ? (el.parentElement ?? el)
+          : el
+        ).append(probe);
         const computed = getComputedStyle(probe).color;
         probe.remove();
         return computed;
@@ -295,6 +301,159 @@ const compile = async (entry: string) => {
       await resolve("default-datepicker-fill", "transparent"),
       "a bordered date-picker must still show its focus ring",
     );
+    // 3b-乙: the box path. A tier class lands on one of three elements — the wrapper that replaces
+    // the field once anything decorates it (`[data-multiple]`), the bare `<input>` (`[data-single]`),
+    // or a `<textarea>` — and `outline` / `solid` used to reach none of them: the source dropped both
+    // values before the class list and LESS had no rule for either.
+    for (const id of ["default-input-outline", "default-input-outline-single"]) {
+      assert.equal(
+        await style(id, "border-top-color"),
+        await resolve(id, "var(--kui-color-border)"),
+        id + " outline must fall through to the base border",
+      );
+      assert.equal(await style(id, "border-top-style"), "solid");
+      assert.equal(
+        await style(id, "background-color"),
+        await resolve(id, "transparent"),
+        id + " outline must stay transparent",
+      );
+    }
+    // `dashed` changes only the line style and has no colour of its own.
+    assert.equal(await style("default-input-dashed", "border-top-style"), "dashed");
+    assert.equal(
+      await style("default-input-dashed", "border-top-color"),
+      await resolve("default-input-dashed", "var(--kui-color-border)"),
+      "dashed input must follow the outline border",
+    );
+    // A box that keeps its border keeps the base hover lighting, which is what separates `outline`
+    // and `dashed` from the tiers that opt out of it below.
+    await page.locator("#default-input-outline").hover();
+    assert.equal(
+      await style("default-input-outline", "border-top-color"),
+      await resolve("default-input-outline", "var(--kui-color-primary)"),
+      "outline input must light its border under the pointer",
+    );
+    // The documented hooks reach the box path the way they reach Card, through the same chains:
+    // `--kui-theme-outline-border` moves `dashed` too, and the control-level token still applies.
+    assert.equal(await style("hook-input-outline", "border-top-color"), "rgb(0, 255, 0)");
+    assert.equal(await style("hook-input-dashed", "border-top-color"), "rgb(0, 255, 0)");
+    assert.equal(await style("chain-input-outline", "border-top-color"), "rgb(0, 255, 0)");
+    // `solid` fills with the local primary and inverts the box from its typed value out to the
+    // chrome the wrapper adds. The same reads on an outlined box must say otherwise, or these
+    // assertions would pass on a rule that paints every tier.
+    assertColor(
+      await rgba("default-input-solid", "background-color"),
+      [255, 0, 0, 255],
+      "solid input must fill with the local primary",
+    );
+    assert.equal(await style("default-input-solid", "border-top-color"), "rgb(255, 0, 0)");
+    assert.equal(
+      await style("solid-input-text", "color"),
+      await resolve("solid-input-text", "var(--kui-color-text-on-solid)"),
+      "a solid box must invert the typed text",
+    );
+    assert.notEqual(
+      await style("outline-input-text", "color"),
+      await resolve("outline-input-text", "var(--kui-color-text-on-solid)"),
+      "the solid colour rules must not leak into other tiers",
+    );
+    assert.equal(
+      await style("solid-input-chrome", "color"),
+      await resolve(
+        "solid-input-chrome",
+        "color-mix(in srgb, var(--kui-color-text-on-solid) 85%, transparent)",
+      ),
+      "a solid box must invert the chrome around its field",
+    );
+    // `::placeholder` is only readable through a pseudo-element style.
+    const placeholder = (id: string) =>
+      page.locator("#" + id).evaluate((el) => getComputedStyle(el, "::placeholder").color);
+    assert.equal(
+      await placeholder("default-input-solid-single"),
+      await resolve(
+        "default-input-solid-single",
+        "color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent)",
+      ),
+      "a solid box must invert its placeholder",
+    );
+    await page.locator("#default-input-solid").hover();
+    assertColor(
+      await rgba("default-input-solid", "background-color"),
+      [255, 0, 0, 230],
+      "solid input hover must follow the local primary",
+    );
+    assert.equal(
+      await style("default-input-solid", "box-shadow"),
+      "none",
+      "solid input must not add a ring over its own fill",
+    );
+    // The base ring is primary on a primary surface, i.e. invisible, so it is redrawn in the
+    // inverted colour rather than dropped — and only for `solid`.
+    await page.locator("#default-input-solid-single").focus();
+    assert.equal(
+      await style("default-input-solid-single", "outline-color"),
+      await resolve(
+        "default-input-solid-single",
+        "color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent)",
+      ),
+      "a focused solid box must show an inverted ring",
+    );
+    await page.locator("#default-input-outline-single").focus();
+    assert.notEqual(
+      await style("default-input-outline-single", "outline-color"),
+      await resolve(
+        "default-input-outline-single",
+        "color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent)",
+      ),
+      "the inverted ring must stay scoped to solid",
+    );
+    // A `<textarea>` and an `InputNumber` carry the same tier on their own element, and everything
+    // the number builds inside the box inverts with it.
+    assertColor(
+      await rgba("default-textarea-solid", "background-color"),
+      [255, 0, 0, 255],
+      "solid textarea must fill with the local primary",
+    );
+    assert.equal(await style("default-textarea-solid", "color"), "rgb(255, 255, 255)");
+    assertColor(
+      await rgba("default-input-number-solid", "background-color"),
+      [255, 0, 0, 255],
+      "solid input-number must fill with the local primary",
+    );
+    assert.equal(
+      await style("solid-number-text", "color"),
+      await resolve("solid-number-text", "var(--kui-color-text-on-solid)"),
+      "a solid number box must invert its field",
+    );
+    assert.equal(
+      await style("solid-number-controls", "color"),
+      await resolve(
+        "solid-number-controls",
+        "color-mix(in srgb, var(--kui-color-text-on-solid) 85%, transparent)",
+      ),
+      "a solid number box must invert its step controls",
+    );
+    // `underlined` is one edge: the other three lose their width, the radius goes, and focus lights
+    // that edge instead of drawing a ring. `plain` was asked for no border and no surface, so it
+    // drops the ring too — the ruling the select family already follows. Both classes below are the
+    // ones the component puts on the wrapper while its field has the caret.
+    assert.equal(await style("default-input-underlined", "border-top-width"), "0px");
+    assert.equal(await style("default-input-underlined", "border-bottom-width"), "1px");
+    assert.equal(await style("default-input-underlined", "border-radius"), "0px");
+    for (const [id, prop, expected] of [
+      ["default-input-underlined", "border-bottom-color", "var(--kui-color-primary)"],
+      ["default-input-underlined", "outline-style", "none"],
+      ["default-input-plain", "outline-style", "none"],
+      // The box that kept its border keeps the ring the base rule draws.
+      ["default-input-outline", "outline-style", "solid"],
+    ] as const) {
+      await page.locator("#" + id).evaluate((el, cls) => el.classList.add(cls), "k-input-focus");
+      assert.equal(
+        await style(id, prop),
+        prop.endsWith("color") ? await resolve(id, expected) : expected,
+        `${id} focused must not fall back to the base border and ring`,
+      );
+    }
     // Runtime updates must affect a component already mounted inside the scope.
     await page
       .locator("#local")

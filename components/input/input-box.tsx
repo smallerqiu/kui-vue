@@ -53,7 +53,7 @@ export default defineComponent({
             [`k-${inputType}-disabled`]: disabled,
             [`k-${inputType}-sm`]: size === "small" && !multiple,
             [`k-${inputType}-lg`]: size === "large" && !multiple,
-            [`k-${inputType}-${theme}`]: theme !== "solid" && !multiple && theme,
+            [`k-${inputType}-${theme}`]: !multiple,
             [`k-${inputType}-circle`]: shape === "circle" && !multiple,
             [`k-${inputType}-square`]: shape === "square" && !multiple,
           },

@@ -9,6 +9,7 @@ import {
 } from "vue";
 import { type BooleanType, type SizeType, type ThemeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
+import { resolveTheme } from "../config/context";
 
 const inputGroupProps = {
   block: { type: Boolean as PropType<boolean | undefined>, default: false },
@@ -30,7 +31,8 @@ const InputGroup = defineComponent({
     provide("size", props.size || parentSize);
 
     return () => {
-      const { size, compact, block, theme } = props;
+      const { size, compact, block, theme: themeProp } = props;
+      const theme = resolveTheme(themeProp, "fill");
       const styles: CSSProperties = {};
 
       const rootProps = {

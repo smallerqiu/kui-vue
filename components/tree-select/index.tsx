@@ -31,7 +31,7 @@ import { markFormFieldComponent, useFormAppearance, useFormField } from "../form
 import Empty from "../empty";
 import Icon, { type IconType } from "../icon";
 import zhCN from "../locale/zh-CN";
-import { DEFAULT_LOCALE } from "../config/context";
+import { DEFAULT_LOCALE, resolveTheme } from "../config/context";
 import Tree, { type TreeExpandEvent } from "../tree";
 import { treeSelectContextKey } from "../tree/context";
 import type { TreeNode } from "../tree/utils";
@@ -515,10 +515,7 @@ const TreeSelect = defineComponent({
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
       const size = appearance.size.value;
-      // `default` means "listen to the component", and a control's own default is `fill`, so
-      // `theme="default"` reaches the same class as never writing `theme` at all.
-      const themeValue = appearance.theme.value;
-      const theme = themeValue === "default" ? "fill" : themeValue;
+      const theme = resolveTheme(appearance.theme.value, "fill");
       const shape = appearance.shape.value;
       let arrowIcon = props.arrowIcon;
       if (arrowIcon === undefined) {
