@@ -515,7 +515,10 @@ const TreeSelect = defineComponent({
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
       const size = appearance.size.value;
-      const theme = appearance.theme.value;
+      // `default` means "listen to the component", and a control's own default is `fill`, so
+      // `theme="default"` reaches the same class as never writing `theme` at all.
+      const themeValue = appearance.theme.value;
+      const theme = themeValue === "default" ? "fill" : themeValue;
       const shape = appearance.shape.value;
       let arrowIcon = props.arrowIcon;
       if (arrowIcon === undefined) {
@@ -604,7 +607,7 @@ const TreeSelect = defineComponent({
           "k-tree-select-block": props.block,
           "k-tree-select-opened": visible.value,
           "k-tree-select-borderless": props.bordered === false,
-          [`k-tree-select-${theme}`]: theme !== "default",
+          [`k-tree-select-${theme}`]: true,
           "k-tree-select-lg": size === "large",
           "k-tree-select-sm": size === "small",
           "k-tree-select-has-icon": !!props.icon,

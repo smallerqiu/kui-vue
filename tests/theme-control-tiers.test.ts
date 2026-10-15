@@ -1,6 +1,7 @@
 // 3b mirror of kui-react's tests/theme-control-tiers.test.tsx: these four controls typed `theme` as
 // seven values but emitted a class for two of them, so `theme="outline"` reached neither the DOM nor
-// a LESS rule. Every supported tier now reaches the root, and `default` reaches no tier class.
+// a LESS rule. Every supported tier now reaches the root, and `theme="default"` lands on the
+// control's own default (`fill`) instead of reaching no tier class.
 import { enableAutoUnmount, mount } from "@vue/test-utils";
 import { afterEach, describe, expect, it } from "vitest";
 import Cascader from "../components/cascader";
@@ -51,13 +52,15 @@ describe("every theme tier reaches the control root", () => {
       });
     }
 
-    it(`${name} paints no preset class for theme="default"`, () => {
-      const wrapper = mount(component, { attachTo: document.body, props: { ...props, theme: "default" } });
-      const classes = rootClasses(wrapper, name);
-      for (const tier of TIERS)
-        expect(classes, `${name} must leave default to the component`).not.toContain(
-          `${name}-${tier}`,
-        );
+    it(`${name} lands on its own default tier for theme="default"`, () => {
+      // "Listen to the component" for a control means `fill`, so `theme="default"` has to reach the
+      // same classes as never writing `theme` — not the bordered base a class-less root rendered.
+      const tiers = (extra: Record<string, unknown>) =>
+        rootClasses(
+          mount(component, { attachTo: document.body, props: { ...props, ...extra } }),
+          name,
+        ).filter((cls) => cls.startsWith(`${name}-`));
+      expect(tiers({ theme: "default" })).toEqual(tiers({}));
     });
   }
 });

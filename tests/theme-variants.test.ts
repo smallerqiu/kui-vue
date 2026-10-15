@@ -130,29 +130,13 @@ it("draws the migrated components from the shared mixin rather than re-copying t
 // left their hand-written `.k-<component>-plain` rules as selectors nothing could ever match.
 // `bordered={false}` (no border) and `plain` (no border *and* no surface) are separate asks, so
 // each now has its own class — the DOM half of that is asserted by tests/theme-plain-emission.
-// `ring` records what the base focus rule does with a borderless box: DatePicker keeps the ring for
-// every tier, the other three already drop it. This batch logs the difference instead of unifying
-// it — taking a control's only focus signal away (or adding one) is a behaviour call, not a pixel.
+// Both classes also opt out of the base focus ring: a control that was asked to drop its border
+// drops the ring too (the author's call, and `DatePicker` used to be the one exception).
 const PLAIN_CONTROLS = [
-  {
-    entry: "components/date-picker/styles/index.less",
-    name: "k-datepicker",
-    selection: false,
-    ring: "keeps",
-  },
-  { entry: "components/select/styles/index.less", name: "k-select", selection: true, ring: "drops" },
-  {
-    entry: "components/cascader/styles/index.less",
-    name: "k-cascader",
-    selection: true,
-    ring: "drops",
-  },
-  {
-    entry: "components/tree-select/styles/index.less",
-    name: "k-tree-select",
-    selection: true,
-    ring: "drops",
-  },
+  { entry: "components/date-picker/styles/index.less", name: "k-datepicker", selection: false },
+  { entry: "components/select/styles/index.less", name: "k-select", selection: true },
+  { entry: "components/cascader/styles/index.less", name: "k-cascader", selection: true },
+  { entry: "components/tree-select/styles/index.less", name: "k-tree-select", selection: true },
 ] as const;
 
 // 3b: these four controls typed six presets but painted two. `outline` / `solid` / `dashed` /
@@ -211,9 +195,10 @@ it("paints the four tiers the controls used to swallow", async () => {
     // The base ring is primary on a primary surface, i.e. invisible; it is redrawn inverted rather
     // than dropped, so a keyboard user still sees focus.
     expect(
-      declarations(compiled.get(`${solid}:focus, ${solid}.${name}-opened`), `${name} solid focus`).get(
-        "outline-color",
-      ),
+      declarations(
+        compiled.get(`${solid}:focus, ${solid}.${name}-opened`),
+        `${name} solid focus`,
+      ).get("outline-color"),
     ).toBe("color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent)");
 
     const underlined = `.${name}-underlined:not(.${name}-disabled)`;
@@ -249,7 +234,7 @@ it("paints the four tiers the controls used to swallow", async () => {
 });
 
 it("paints `plain` on the controls, guarded so a disabled box stays disabled", async () => {
-  for (const { entry, name, selection, ring } of PLAIN_CONTROLS) {
+  for (const { entry, name, selection } of PLAIN_CONTROLS) {
     const compiled = await fileRules(entry);
     const plain = `.${name}-plain:not(.${name}-disabled)`;
     // The values come from the shared `plain` arm, not from a re-copied `transparent`.
@@ -271,16 +256,16 @@ it("paints `plain` on the controls, guarded so a disabled box stays disabled", a
 
     // The base control rule repaints the border on hover and out-specifies the blocks above, which
     // is how a borderless or plain box grew a primary border under the pointer — so it has to name
-    // both inside its `:not()`. The focus ring is a different ask: `DatePicker` keeps it for every
-    // tier (`ring: "keeps"`), while the three select-family controls already hide it on a borderless
-    // box, and this batch only adds `underlined` to that list. Unifying the two would take away (or
-    // hand out) a focus signal, which is a behaviour call, not a pixel.
+    // both inside its `:not()`. The focus rule names them for the same reason by the author's call:
+    // a control that was asked to drop its border drops the ring too. `DatePicker` used to be the
+    // exception (`Select` / `Cascader` / `TreeSelect` already excluded both), and it is now the
+    // fourth of a kind, so this loop has no per-component ring policy left to encode.
     for (const state of ["hover", "focus"]) {
       const repaint = [...compiled.keys()].filter(
         (key) => key.startsWith(`.${name}:not(`) && key.endsWith(`:${state}`),
       );
       for (const key of repaint)
-        for (const modifier of state === "hover" || ring === "drops" ? ["borderless", "plain"] : [])
+        for (const modifier of ["borderless", "plain"])
           expect(key, `${name} ${state} must not match ${modifier}: ${key}`).toContain(
             `.${name}-${modifier}`,
           );

@@ -49,7 +49,7 @@ const compile = async (entry: string) => {
     <div id="square" shape-mode="square"><button id="square-button" class="k-btn">Square</button></div>
     <div class="theme-hooks"><div id="hook-card-fill" class="k-card k-card-fill">Card</div><div id="hook-card-outline" class="k-card k-card-outline">Card</div><div id="hook-card-plain" class="k-card k-card-plain">Card</div><div id="hook-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="hook-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="hook-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="hook-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div></div>
     <div class="control-chain"><div id="chain-card-outline" class="k-card k-card-outline">Card</div><div id="chain-card-fill" class="k-card k-card-fill">Card</div><div id="chain-input-fill" class="k-input k-input-fill" data-multiple><input /></div></div>
-    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="default-select-plain" class="k-select k-select-plain" tabindex="0"><div id="plain-selection" class="k-select-selection">Plain</div></div><div id="default-select-borderless" class="k-select k-select-borderless" tabindex="0"><div id="borderless-selection" class="k-select-selection">Borderless</div></div><div id="default-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="default-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="default-select-underlined" class="k-select k-select-underlined" tabindex="0"><div class="k-select-selection">Underlined</div></div></div>
+    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="default-select-plain" class="k-select k-select-plain" tabindex="0"><div class="k-select-selection">Plain</div></div><div id="default-select-borderless" class="k-select k-select-borderless" tabindex="0"><div class="k-select-selection">Borderless</div></div><div id="default-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="default-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="default-select-underlined" class="k-select k-select-underlined" tabindex="0"><div class="k-select-selection">Underlined</div></div><div id="default-datepicker-fill" class="k-datepicker k-datepicker-fill" tabindex="0">Fill</div><div id="default-datepicker-plain" class="k-datepicker k-datepicker-plain" tabindex="0">Plain</div><div id="default-datepicker-borderless" class="k-datepicker k-datepicker-borderless" tabindex="0">Borderless</div></div>
     <div class="solid-scope"><div id="default-select-solid" class="k-select k-select-solid" tabindex="0"><div class="k-select-selection"><div id="solid-placeholder" class="k-select-placeholder">Pick</div></div></div></div>
     <div class="control-chain"><div id="chain-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection"><div id="outline-placeholder" class="k-select-placeholder">Pick</div></div></div></div>`);
     // Serialises a token the way the browser does, so a computed value can be compared to the
@@ -165,14 +165,9 @@ const compile = async (entry: string) => {
       );
       assert.equal(await style(id, "box-shadow"), "none", id + " must not get a hover shadow");
     }
-    // The inner box of a plain control is suppressed too, which is what the borderless class used
-    // to be doing for it while `k-<component>-plain` could never be matched.
-    for (const id of ["plain-selection", "borderless-selection"])
-      assert.equal(
-        await style(id, "border-top-color"),
-        await resolve(id, "transparent"),
-        id + " must stay borderless",
-      );
+    // No inner-box guard here on purpose: nothing in the library paints a border, a shadow or a
+    // background on `.k-<component>-selection`, so a pixel assertion about it can never fail. The
+    // suppressions those classes still carry are logged as dead CSS to sweep (theme-口径 第六节).
     // The four tiers this control family used to swallow (batch 3b). Each has to reach the pixel,
     // and the tiers have to stay distinguishable from each other, not only from `fill`.
     // `outline` is a bare frame: 1px solid on the documented border token, no surface.
@@ -276,6 +271,29 @@ const compile = async (entry: string) => {
       await style("chain-select-outline", "border-top-color"),
       "rgb(0, 255, 0)",
       "--kui-control-border must reach an outlined control",
+    );
+    // `DatePicker` used to be the odd one out: `Select` / `Cascader` / `TreeSelect` hid the focus
+    // ring on a borderless or plain box while `DatePicker` kept drawing it. A control that was asked
+    // to drop its border drops the ring too, so all four now agree — and the ring is still there for
+    // a control that kept its border, which is what stops the exclusion above from being a wide-open
+    // assertion about a rule that no longer exists.
+    for (const id of ["default-datepicker-plain", "default-datepicker-borderless"]) {
+      await page.locator("#" + id).focus();
+      await page.locator("#" + id).evaluate((el) => el.getAnimations().forEach((a) => a.finish()));
+      assert.equal(
+        await style(id, "outline-color"),
+        await resolve(id, "transparent"),
+        id + " must not keep a focus ring without a border",
+      );
+    }
+    await page.locator("#default-datepicker-fill").focus();
+    await page
+      .locator("#default-datepicker-fill")
+      .evaluate((el) => el.getAnimations().forEach((a) => a.finish()));
+    assert.notEqual(
+      await style("default-datepicker-fill", "outline-color"),
+      await resolve("default-datepicker-fill", "transparent"),
+      "a bordered date-picker must still show its focus ring",
     );
     // Runtime updates must affect a component already mounted inside the scope.
     await page

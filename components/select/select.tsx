@@ -613,7 +613,10 @@ const Select = defineComponent({
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
       const size = appearance.size.value;
-      const theme = appearance.theme.value;
+      // `default` means "listen to the component", and a control's own default is `fill`, so
+      // `theme="default"` reaches the same class as never writing `theme` at all.
+      const themeValue = appearance.theme.value;
+      const theme = themeValue === "default" ? "fill" : themeValue;
       const shape = appearance.shape.value;
       const childNode: VNodeChild[] = [];
       const finalArrowIcon = arrowIcon || ChevronDown;
@@ -693,7 +696,7 @@ const Select = defineComponent({
           "k-select-block": props.block,
           "k-select-opened": visible.value,
           "k-select-borderless": bordered === false,
-          [`k-select-${theme}`]: theme !== "default",
+          [`k-select-${theme}`]: true,
           "k-select-lg": size === "large",
           "k-select-sm": size === "small",
           "k-select-has-icon": !!icon,

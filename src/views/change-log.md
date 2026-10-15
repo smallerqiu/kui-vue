@@ -80,6 +80,8 @@ rm -rf node_modules/.vite
 - `Select` / `Cascader` / `TreeSelect` 去掉边框后，鼠标悬停不再突然描出一圈主色边框和光晕。
 - `Select` / `Cascader` / `TreeSelect` / `DatePicker` 的 `theme` 补齐 `outline` / `solid` / `dashed` / `underlined` 四档：描边框、主色实底（文字与图标跟着反白）、虚线描边、只留一条下划线（聚焦时下划线变主色）。
 - `Cascader` 用 `theme="fill"` 时，鼠标悬停不再突然描出一圈边框。
+- `Select` / `Cascader` / `TreeSelect` / `DatePicker` 写 `theme="default"` 与不写 `theme` 效果完全一致，都落在组件自己的默认外观上。
+- `DatePicker` 去掉边框（`:bordered="false"` 或 `theme="plain"`）后聚焦不再出现一圈焦点环，与 `Select` 系列一致。
 
 ## 6.2.2
 

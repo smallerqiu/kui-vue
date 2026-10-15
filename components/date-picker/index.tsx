@@ -1146,7 +1146,10 @@ const DatePicker = defineComponent({
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
       const size = appearance.size.value;
-      const theme = appearance.theme.value;
+      // `default` means "listen to the component", and a control's own default is `fill`, so
+      // `theme="default"` reaches the same class as never writing `theme` at all.
+      const themeValue = appearance.theme.value;
+      const theme = themeValue === "default" ? "fill" : themeValue;
       const shape = appearance.shape.value;
       const localPlaceholders: Record<string, string> = {
         year: locale?.value.k.datePicker.selectYear,
@@ -1162,7 +1165,7 @@ const DatePicker = defineComponent({
         { "k-datepicker-opened": isVisible.value || isFocus.value },
         //   { 'k-datepicker-range': isRange },
         { "k-datepicker-borderless": props.bordered === false },
-        { [`k-datepicker-${theme}`]: theme !== "default" },
+        { [`k-datepicker-${theme}`]: true },
         { "k-datepicker-sm": size == "small" },
         { "k-datepicker-lg": size == "large" },
         //   { 'k-datepicker-with-time': withTime },

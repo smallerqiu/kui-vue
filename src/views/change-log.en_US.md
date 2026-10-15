@@ -78,6 +78,8 @@ rm -rf node_modules/.vite
 - `Select` / `Cascader` / `TreeSelect`: a control with its border removed no longer grows a primary-colored border and a glow when the pointer moves over it.
 - `Select` / `Cascader` / `TreeSelect` / `DatePicker`: `theme` now supports `outline`, `solid`, `dashed` and `underlined` — a 1px outlined box, a primary-filled block whose text and icons invert, a dashed frame, and a single bottom rule that turns primary on focus.
 - `Cascader`: a `theme="fill"` field no longer grows a border when you hover it.
+- `Select` / `Cascader` / `TreeSelect` / `DatePicker`: `theme="default"` now looks exactly like omitting `theme` — both land on the control's own default appearance.
+- `DatePicker`: focusing a field that has no border no longer draws a focus ring, matching the select-family controls.
 
 ## 6.2.2
 

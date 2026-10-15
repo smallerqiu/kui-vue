@@ -436,7 +436,10 @@ const Cascader = defineComponent({
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
       const size = appearance.size.value;
-      const theme = appearance.theme.value;
+      // `default` means "listen to the component", and a control's own default is `fill`, so
+      // `theme="default"` reaches the same class as never writing `theme` at all.
+      const themeValue = appearance.theme.value;
+      const theme = themeValue === "default" ? "fill" : themeValue;
       const shape = appearance.shape.value;
       const hasValue = modelValue.value.length > 0;
       const showClear = clearable && !disabled && !readonly && hasValue;
@@ -448,7 +451,7 @@ const Cascader = defineComponent({
           "k-cascader-readonly": readonly,
           "k-cascader-opened": visible.value,
           "k-cascader-borderless": bordered === false,
-          [`k-cascader-${theme}`]: theme !== "default",
+          [`k-cascader-${theme}`]: true,
           "k-cascader-circle": shape === "circle",
           "k-cascader-square": shape === "square",
           "k-cascader-lg": size === "large",
