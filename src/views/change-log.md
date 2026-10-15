@@ -89,6 +89,10 @@ rm -rf node_modules/.vite
 - `InputTag` 用 `theme="solid"` 时，已添加的标签、输入的文字、占位提示和清除图标一起反白；`InputOTP` 的每一格都跟着 `theme` 走，实底时格子里的字也反白，禁用时仍显示禁用态。
 - `InputTag` / `InputOTP` 写 `theme="default"` 与不写 `theme` 效果完全一致，都落在组件自己的默认外观上。
 - `InputTag` / `InputOTP` 的 `theme="plain"` 悬停时不再突然描出一圈边框；`plain` 与 `underlined` 聚焦时不再出现焦点环，与 `Select` 系列一致。
+- `ColorPicker` 的 `theme` 补齐 `outline` / `solid` / `dashed` / `underlined` 四档：描边框、主色实底、虚线描边、只留一条下划线（悬停、打开面板时下划线变主色）。
+- `ColorPicker` 用 `theme="solid"` 时，色块旁边的颜色文字一起反白，悬停、打开面板时底色加深；色块本身仍显示当前颜色。
+- `ColorPicker` 写 `theme="default"` 与不写 `theme` 效果完全一致，都落在组件自己的默认外观上。
+- `ColorPicker` 用 `theme="fill"` 或 `theme="plain"` 且禁用时，仍显示禁用态的背景与描边。
 
 ## 6.2.2
 

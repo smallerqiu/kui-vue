@@ -123,6 +123,7 @@ it("draws the migrated components from the shared mixin rather than re-copying t
     "input-number/styles/index.less",
     "input-tag/styles/index.less",
     "input-otp/styles/index.less",
+    "color-picker/styles/index.less",
   ]) {
     const source = (await fs.readFile(path.join(root, "components", entry), "utf8")).replace(
       /\/\/[^\n]*/g,
@@ -283,6 +284,84 @@ it("paints `plain` on the controls, guarded so a disabled box stays disabled", a
         expect(repaint.length, `${name} lost its base hover rule`).toBeGreaterThan(0);
     }
   }
+});
+
+// 3b-乙2b: the color picker's trigger is a third box shape — the tier paints the box itself, and its
+// "active" state is the `k-color-picker-opened` class rather than a pseudo-class, so every tier that
+// owns its states has to name the open panel the way the select family names `:focus`. The base
+// opened rule is compound (`.k-color-picker.k-color-picker-opened`) so it still out-specifies the
+// tiers that keep a border of their own.
+it("paints the four tiers on the color picker trigger", async () => {
+  const compiled = await fileRules("components/color-picker/styles/index.less");
+  const name = "k-color-picker";
+  const fill = `.${name}-fill:not(.${name}-disabled)`;
+  const solid = `.${name}-solid:not(.${name}-disabled)`;
+  const underlined = `.${name}-underlined:not(.${name}-disabled)`;
+  const plain = `.${name}-plain:not(.${name}-disabled)`;
+
+  // `fill` was hand-copied and unguarded, so a disabled box painted the fill surface instead of its
+  // disabled state.
+  const fillBody = declarations(compiled.get(fill), "color picker fill");
+  expect(fillBody.get("border-color"), "color picker still hand-writes the fill border").toBe(
+    "var(--kui-theme-fill-border)",
+  );
+  expect(
+    declarations(
+      compiled.get(`${fill}:hover, ${fill}.${name}-opened`),
+      "color picker fill interaction",
+    ).get("box-shadow"),
+    "an open fill box keeps a glow drawn where its border used to be",
+  ).toBe("none");
+
+  expect(
+    declarations(compiled.get(`.${name}-outline`), "color picker outline").get("border"),
+    "color picker outline does not draw from the shared arm",
+  ).toBe(
+    "1px solid var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)))",
+  );
+  expect(
+    declarations(compiled.get(`.${name}-dashed`), "color picker dashed").get("border"),
+    "color picker dashed does not draw from the shared arm",
+  ).toBe(
+    "1px dashed var(--kui-theme-dashed-border, var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border))))",
+  );
+
+  const solidBody = declarations(compiled.get(solid), "color picker solid");
+  expect(solidBody.get("background")).toBe("var(--kui-theme-solid-bg, var(--kui-color-primary))");
+  expect(solidBody.get("color")).toBe(
+    "var(--kui-theme-solid-text, var(--kui-color-text-on-solid))",
+  );
+  const solidOpened = declarations(
+    compiled.get(`${solid}:hover, ${solid}.${name}-opened`),
+    "color picker solid interaction",
+  );
+  expect(solidOpened.get("background-color")).toBe(
+    "var(--kui-color-primary-hover, color-mix(in srgb, var(--kui-color-primary) 90%, transparent))",
+  );
+  expect(solidOpened.get("box-shadow"), "an open solid box keeps the base glow").toBe("none");
+
+  const underlinedBody = declarations(compiled.get(underlined), "color picker underlined");
+  expect(underlinedBody.get("border-width"), "underlined keeps three edges").toBe("0 0 1px");
+  expect(underlinedBody.get("border-radius")).toBe("0");
+  expect(
+    declarations(
+      compiled.get(`${underlined}:hover, ${underlined}.${name}-opened`),
+      "color picker underlined interaction",
+    ).get("border-color"),
+    "an open underlined box does not light its edge",
+  ).toBe("transparent transparent var(--kui-color-primary)");
+
+  expect(compiled.get(plain), "color picker paints no plain box").toBe(
+    "border-color: var(--kui-theme-plain-border); background: var(--kui-theme-plain-bg); box-shadow: none",
+  );
+  expect(
+    compiled.get(`${plain}:hover, ${plain}.${name}-opened`),
+    "an open plain box brings a border or a surface back",
+  ).toBe(
+    "border-color: var(--kui-theme-plain-border); background: var(--kui-theme-plain-bg); box-shadow: none",
+  );
+  // Which tiers the base hover repaint actually reaches is a cascade question, so it is read as
+  // pixels in scripts/check-theme.ts instead of asserted from this file's selector text.
 });
 
 // 3b-乙: the box path types six presets and used to paint two — `theme="outline"` was dropped by

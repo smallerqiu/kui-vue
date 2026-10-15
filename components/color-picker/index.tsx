@@ -8,6 +8,7 @@ import {
   useFormAppearance,
   useFormField,
 } from "../form/context";
+import { resolveTheme } from "../config/context";
 import { cloneNodes } from "../utils/vnode";
 import Alpha from "./alpha";
 import Hue from "./hue";
@@ -329,7 +330,9 @@ const ColorPicker = defineComponent({
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
       const size = appearance.size.value;
-      const theme = appearance.theme.value;
+      // 3b-乙2b: 档位类名挂在触发框上，`default` 得在进类名列表之前归一到组件自己的默认档，
+      // 否则发出去的是一个没人画的 `k-color-picker-default`。
+      const theme = resolveTheme(appearance.theme.value, "fill");
       const shape = appearance.shape.value;
       const style = [
         "k-color-picker",
@@ -339,7 +342,7 @@ const ColorPicker = defineComponent({
           "k-color-picker-readonly": readonly,
           "k-color-picker-sm": size == "small",
           "k-color-picker-lg": size == "large",
-          [`k-color-picker-${theme}`]: theme && theme !== "outline",
+          [`k-color-picker-${theme}`]: true,
           [`k-color-picker-${shape}`]: shape,
         },
       ];

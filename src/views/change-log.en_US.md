@@ -87,6 +87,10 @@ rm -rf node_modules/.vite
 - `InputTag`: on `theme="solid"` the added tags, the typed text, the placeholder and the clear icon all invert. `InputOTP`: every cell follows `theme`, its character inverts on the solid surface, and a disabled OTP still reads as disabled.
 - `InputTag` / `InputOTP`: `theme="default"` now looks exactly like omitting `theme` — both land on the component's own default appearance.
 - `InputTag` / `InputOTP`: a `theme="plain"` box no longer grows a border when you hover it; `plain` and `underlined` drop the focus ring, matching the select-family controls.
+- `ColorPicker`: `theme` now supports `outline`, `solid`, `dashed` and `underlined` — a 1px outlined box, a primary-filled block, a dashed frame, and a single bottom rule that turns primary on hover and while the panel is open.
+- `ColorPicker`: on `theme="solid"` the colour text next to the swatch inverts and the surface deepens on hover and while the panel is open; the swatch itself still shows the picked colour.
+- `ColorPicker`: `theme="default"` now looks exactly like omitting `theme` — both land on the component's own default appearance.
+- `ColorPicker`: with `theme="fill"` or `theme="plain"`, a disabled picker keeps its disabled background and border.
 
 ## 6.2.2
 

@@ -5160,9 +5160,9 @@
         },
         {
           "name": "theme",
-          "description": "Appearance theme: `outline`, `fill`, or `plain`; inherits from Form when available",
-          "descriptionZh": "外观主题，支持 `outline`、`fill`、`plain`，未设置时可继承 Form",
-          "descriptionEn": "Appearance theme: `outline`, `fill`, or `plain`; inherits from Form when available",
+          "description": "Theme; inherits from Form when unset",
+          "descriptionZh": "主题，未设置时可继承 Form",
+          "descriptionEn": "Theme; inherits from Form when unset",
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [

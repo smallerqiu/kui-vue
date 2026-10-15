@@ -9,6 +9,7 @@ import { enableAutoUnmount, mount } from "@vue/test-utils";
 import { afterEach, describe, expect, it } from "vitest";
 import type { Component } from "vue";
 import Cascader from "../components/cascader";
+import ColorPicker from "../components/color-picker";
 import DatePicker from "../components/date-picker";
 import Input from "../components/input/input";
 import InputNumber from "../components/input-number";
@@ -78,6 +79,8 @@ const CASES: {
   // element the paint lands on is not (`tests/theme-variants.test.ts` reads the compiled rules).
   { name: "k-input-tag", tag: "DIV", component: InputTag, props: {} },
   { name: "k-input-otp", tag: "DIV", component: InputOTP, props: {} },
+  // 3b-乙2b: the color picker's box is its root too, and its "open" state is a sibling class.
+  { name: "k-color-picker", tag: "DIV", component: ColorPicker, props: {} },
 ];
 
 // The control is the root for these components, but read it by class so a wrapper element around
