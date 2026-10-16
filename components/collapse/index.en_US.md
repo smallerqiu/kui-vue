@@ -49,3 +49,9 @@ Content area that can be collapsed/expanded.
 | disabled | Whether the panel is disabled                 | boolean                         | false   |
 | extra    | Extra title content                           | Slots                           | -       |
 | onExpand | Called when the panel expansion state changes | (key: string \| number) => void | -       |
+
+## Theme
+
+`theme` supports five looks — `fill`, `outline`, `plain`, `solid`, `dashed` — and is `outline` when you write nothing. `underlined` belongs to a control you type into, so a panel falls back to `outline`.
+
+`solid` fills the whole panel with the primary colour, inverting its titles and its row dividers while a disabled panel stays disabled; `dashed` only turns the outer frame into a dashed line and leaves the row dividers solid. In `sample` mode the container draws nothing, so `solid` puts the primary surface on each panel instead.

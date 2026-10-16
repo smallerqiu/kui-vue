@@ -1,8 +1,12 @@
 import { CircleCheck, CircleX, Info, TriangleAlert } from "kui-icons";
 import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
 import type { FeedbackPanelKind, SurfaceShapeType, ThemeType } from "../const/types";
-import { useConfigAppearance } from "../config/context";
+import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import Icon, { type IconType } from "../icon";
+
+// A feedback panel paints a whole box, so it answers the four surface tiers plus `fill` and never
+// `underlined`. Its own default is `outline`, which is what the fallback means.
+const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 
 const feedbackPanelProps = {
   kind: { type: String as PropType<FeedbackPanelKind>, default: "neutral" },
@@ -30,6 +34,7 @@ const FeedbackPanel = defineComponent({
   setup(props, { attrs, slots }) {
     const appearance = useConfigAppearance(props);
     return () => {
+      const theme = resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "outline";
       const { class: customClass, ...restAttrs } = attrs;
       const heading = slots.heading?.() || props.heading;
       const description = slots.description?.() || props.description;
@@ -42,7 +47,7 @@ const FeedbackPanel = defineComponent({
           class={[
             "k-feedback-panel",
             `k-feedback-panel-${props.kind}`,
-            `k-feedback-panel-theme-${appearance.theme.value}`,
+            `k-feedback-panel-${theme}`,
             `k-feedback-panel-shape-${appearance.surfaceShape.value}`,
             { "k-feedback-panel-compact": props.compact },
             customClass,

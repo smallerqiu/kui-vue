@@ -684,46 +684,77 @@ const PAINTED_CONTRACTS = [
     name: "Button",
     prefix: "k-btn",
     entry: "components/button/styles/index.less",
-    source: "components/button/button.tsx",
+    sources: ["components/button/button.tsx"],
   },
   {
     name: "Tag",
     prefix: "k-tag",
     entry: "components/tag/styles/index.less",
-    source: "components/tag/index.tsx",
+    sources: ["components/tag/index.tsx"],
   },
   {
     name: "Checkbox",
     prefix: "k-checkbox",
     entry: "components/checkbox/styles/index.less",
-    source: "components/checkbox/checkbox.tsx",
+    sources: ["components/checkbox/checkbox.tsx"],
   },
   {
     name: "Radio",
     prefix: "k-radio",
     entry: "components/radio/styles/index.less",
-    source: "components/radio/radio.tsx",
+    sources: ["components/radio/radio.tsx"],
   },
   // 3c-丙a: the surface family resolves the same way, and all three name their set in their own source.
   {
     name: "Card",
     prefix: "k-card",
     entry: "components/card/styles/index.less",
-    source: "components/card/index.tsx",
+    sources: ["components/card/index.tsx"],
   },
   {
     name: "FeatureCard",
     prefix: "k-feature-card",
     entry: "components/feature-card/styles/index.less",
-    source: "components/feature-card/index.tsx",
+    sources: ["components/feature-card/index.tsx"],
   },
   {
     name: "StatCard",
     prefix: "k-stat-card",
     entry: "components/stat-card/styles/index.less",
-    source: "components/stat-card/stat-card.tsx",
+    sources: ["components/stat-card/stat-card.tsx"],
+  },
+  // 3c-丙b: a panel and a feedback panel paint the same five tiers. `FeedbackPanel` is spelled
+  // `index.tsx` in the React build and after itself in the Vue build, so the source side is looked for
+  // in both spellings — this file is byte-identical in the two repos.
+  {
+    name: "Collapse",
+    prefix: "k-collapse",
+    entry: "components/collapse/styles/index.less",
+    sources: ["components/collapse/collapse.tsx"],
+  },
+  {
+    name: "FeedbackPanel",
+    prefix: "k-feedback-panel",
+    entry: "components/feedback-panel/styles/index.less",
+    sources: [
+      "components/feedback-panel/index.tsx",
+      "components/feedback-panel/feedback-panel.tsx",
+    ],
   },
 ] as const;
+
+// Read the first spelling that exists, so one shared file can point at a component whose filename
+// differs between the two repositories.
+const readSource = async (candidates: readonly string[]) => {
+  for (const candidate of candidates) {
+    try {
+      return await fs.readFile(path.join(root, candidate), "utf8");
+    } catch {
+      // Try the other spelling of this component's file.
+    }
+  }
+  throw new Error(`none of these files exists: ${candidates.join(", ")}`);
+};
 
 for (const contract of PAINTED_CONTRACTS) {
   it(`emits exactly the tiers ${contract.name}'s own stylesheet paints`, async () => {
@@ -746,10 +777,7 @@ for (const contract of PAINTED_CONTRACTS) {
     });
     // Comments stripped first: the support set explains why `default` and `underlined` are absent, and
     // naming them in prose must not read as if the stylesheet painted them.
-    const source = (await fs.readFile(path.join(root, contract.source), "utf8")).replace(
-      /\/\/[^\n]*/g,
-      "",
-    );
+    const source = (await readSource(contract.sources)).replace(/\/\/[^\n]*/g, "");
     const support = source.match(/const PAINTED_THEMES = \[([^\]]*)\]/);
     expect(support, `${contract.name} must name the tiers it paints`).toBeTruthy();
     const emitted = (support![1].match(/"([^"]+)"/g) ?? []).map((name) => name.replace(/"/g, ""));
@@ -840,6 +868,39 @@ const SURFACES = [
       ".k-stat-card-item-trend-danger",
       ".k-stat-card-item-trend-warning",
     ],
+  },
+  // 3c-丙b: a collapse paints its header row and its dividers from dark tokens, so the tier has to
+  // reach through the child path it actually writes — including the `:not()` that steps aside for the
+  // base disabled rule, which sits at the same specificity earlier in the file. A feedback panel
+  // paints four parts of its own: heading, description, details plate, mark chip. The panel's 4px
+  // severity stripe is the one thing a tier must not repaint: `theme` describes the surface, the
+  // stripe is the message, which is the same split Tag makes between `theme` and `color`.
+  {
+    name: "Collapse",
+    prefix: "k-collapse",
+    entry: "components/collapse/styles/index.less",
+    inverted: [
+      ["> .k-collapse-item:not(.k-collapse-item-disabled) > .k-collapse-header", "color"],
+      [
+        "> .k-collapse-item:not(.k-collapse-item-disabled) > .k-collapse-header",
+        "border-top-color",
+      ],
+    ],
+    keeps: [],
+  },
+  {
+    name: "FeedbackPanel",
+    prefix: "k-feedback-panel",
+    entry: "components/feedback-panel/styles/index.less",
+    inverted: [
+      [".k-feedback-panel-heading", "color"],
+      [".k-feedback-panel-description", "color"],
+      [".k-feedback-panel-details", "color"],
+      [".k-feedback-panel-details", "background"],
+      [".k-feedback-panel-mark-inner", "color"],
+      [".k-feedback-panel-mark-inner", "background"],
+    ],
+    keeps: [],
   },
 ] as const;
 

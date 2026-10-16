@@ -100,15 +100,49 @@
 .k-feedback-panel-shape-square {
   border-radius: var(--kui-shape-square);
 }
-.k-feedback-panel-theme-fill {
-  border-color: var(--kui-theme-fill-border);
-  background: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+// A tier describes the surface; the 4px stripe is what this component *means* — its severity — so every
+// block re-asserts it. `outline` and `dashed` read the shared arm's `border` shorthand, which would
+// otherwise flatten the stripe to 1px in the frame colour, and `fill` / `plain` read its
+// `border-color`, which would otherwise paint the stripe transparent.
+.k-feedback-panel-fill {
+  .kui-theme-value(fill);
+  border-left: 4px solid var(--k-feedback-panel-color);
 }
-.k-feedback-panel-theme-plain {
-  border-color: var(--kui-theme-plain-border);
-  background: var(--kui-theme-plain-bg);
-  box-shadow: none;
+// `outline` is the panel's own default: the frame the base block draws is already 1px solid on the
+// border token, so reading the shared arm only changes who can recolour it.
+.k-feedback-panel-outline {
+  .kui-theme-value(outline);
+  border-left: 4px solid var(--k-feedback-panel-color);
+}
+.k-feedback-panel-plain {
+  .kui-theme-value(plain);
+  border-left: 4px solid var(--k-feedback-panel-color);
+}
+// `solid` puts the whole panel on the primary surface, so everything this component paints dark comes
+// with it: the heading, the description and the details plate. The mark chip inverts too, because a
+// neutral panel's icon *is* the primary colour and would vanish into the surface — while the stripe
+// keeps its severity colour, because that is the data and not the chrome.
+.k-feedback-panel-solid {
+  .kui-theme-value(solid);
+  border-left: 4px solid var(--k-feedback-panel-color);
+
+  .k-feedback-panel-heading {
+    color: @kui-theme-solid-text;
+  }
+  .k-feedback-panel-description {
+    color: color-mix(in srgb, @kui-theme-solid-text 80%, transparent);
+  }
+  .k-feedback-panel-details {
+    color: @kui-theme-solid-text;
+    background: color-mix(in srgb, @kui-theme-solid-text 18%, transparent);
+  }
+  .k-feedback-panel-mark-inner {
+    color: @kui-theme-solid-text;
+    background: color-mix(in srgb, @kui-theme-solid-text 18%, transparent);
+  }
+}
+// A dashed frame keeps the outlined surface; only the line style of the box changes.
+.k-feedback-panel-dashed {
+  .kui-theme-value(dashed);
+  border-left: 4px solid var(--k-feedback-panel-color);
 }

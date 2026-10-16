@@ -102,18 +102,47 @@
   border-radius: var(--kui-shape-square);
 }
 .k-collapse-fill {
-  border-color: var(--kui-theme-fill-border);
-  background: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  .kui-theme-value(fill);
 }
+// `outline` is this component's own default look: the frame the base block draws already is 1px solid
+// on the border token, so reading the shared arm only changes who can recolour it —
+// `--kui-theme-outline-border` used to reach an input but not a panel.
 .k-collapse-outline {
-  border-color: var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
-  background: var(--kui-theme-outline-bg);
+  .kui-theme-value(outline);
 }
 .k-collapse-plain {
-  border-color: var(--kui-theme-plain-border);
-  background: var(--kui-theme-plain-bg);
-  box-shadow: none;
+  .kui-theme-value(plain);
+}
+// `solid` puts the panel on the primary surface. The header row paints its own title colour and its
+// own dividers, and the tier has to name them — but the base disabled rule sits earlier in the file
+// at the same specificity, so the tier has to step aside for it by name: without the guard a
+// disabled row would read as enabled on the primary surface.
+.k-collapse-solid {
+  .kui-theme-value(solid);
+
+  & > .k-collapse-item:not(.k-collapse-item-disabled) > .k-collapse-header {
+    color: @kui-theme-solid-text;
+    border-top-color: color-mix(in srgb, @kui-theme-solid-text 30%, transparent);
+    border-bottom-color: color-mix(in srgb, @kui-theme-solid-text 30%, transparent);
+  }
+}
+// A dashed frame keeps the outlined surface; only the line style of the box changes.
+.k-collapse-dashed {
+  .kui-theme-value(dashed);
+}
+// `sample` is documented as the frame-less spelling: the container paints nothing and every row is its
+// own chip. It sits after the tiers so it can out-order them — `outline` and `dashed` would otherwise
+// re-grow the frame the mode deletes, and `solid` would put back the plate. Under `solid` the surface
+// moves to the chips this mode actually shows: each row becomes the primary box, and the header rule
+// above already inverts its text, so nothing here has to name the header again.
+.k-collapse-sample.k-collapse-outline,
+.k-collapse-sample.k-collapse-dashed {
+  border-width: 0;
+}
+.k-collapse-sample.k-collapse-solid {
+  border-width: 0;
+  background: none;
+  .k-collapse-item {
+    background: @kui-theme-solid-bg;
+  }
 }

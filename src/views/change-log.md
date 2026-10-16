@@ -98,6 +98,9 @@ rm -rf node_modules/.vite
 - `CheckboxGroup` / `RadioGroup` 的 `theme` 会传到组内每一个方框和圆点上，从 `ConfigProvider` 继承的 `theme` 走同一条路；`type="button"` 的按钮组只有 `fill` 一档改用一条分隔线拼接按钮，其余档位保持按钮自身相邻边框的排布。此前按钮组的这条布局只认写在组件上的 `theme`，`ConfigProvider theme="fill"` 下按钮填了色却仍留着相邻边框的重排间距，现在继承的 `fill` 同样生效。选中与禁用状态始终优先于 `theme`。
 - `Card` / `FeatureCard` / `StatCard` 的 `theme` 补齐 `solid` / `dashed` 两档：`solid` 是主色实底，标题、描述、图标和头部那条分割线一起反白，`StatCard` 里带 `success` / `danger` / `warning` 状态的趋势项仍保留自己的颜色；`dashed` 是虚线描边。`StatCard` 的 `theme` 也补到和另两张卡片一样，不再只认 `fill` / `outline` / `plain` 三档。
 - 卡片上写 `theme="underlined"`（包括 `ConfigProvider` 传下来的）不再让卡片既没有底色也没有边框：下划线只属于能输入的控件，卡片碰到它按自己的 `fill` 外观呈现。
+- `Collapse` / `FeedbackPanel` 的 `theme` 补齐 `solid` / `dashed` 两档：`solid` 是主色实底，面板标题、描述、详情块和图标一起反白，`Collapse` 里禁用的面板仍保持禁用态；`dashed` 是虚线描边，内部的行分割线仍是实线。`FeedbackPanel` 左边那条状态色带不受 `theme` 影响。
+- `Collapse` 的简洁模式（`sample`）配上 `theme="solid"` 时，主色落在每一块面板自己身上，外层不再铺一整块底色。
+- `FeedbackPanel` 的 `theme="outline"` 不再自带一层页面底色：面板放进卡片或带底色的容器里时，露出的是容器自己的背景，与其它描边表面一致。
 
 ## 6.2.2
 

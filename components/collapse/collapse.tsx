@@ -1,7 +1,13 @@
 import { defineComponent, provide, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import type { BooleanType, SurfaceShapeType, ThemeType } from "../const/types";
-import { useConfigAppearance } from "../config/context";
+import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import { collapseContextKey, type CollapseKey } from "./context";
+
+// A collapse paints a whole box, so it answers the four surface tiers plus `fill` and never
+// `underlined` — "keep only the bottom border" on a panel deletes three sides of its frame. Its own
+// default is `outline`, so an unsupported tier falls back to that instead of shipping a class the
+// stylesheet cannot answer.
+const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 
 const collapseProps = {
   openKeys: {
@@ -55,12 +61,13 @@ const Collapse = defineComponent({
     });
 
     return () => {
+      const theme = resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "outline";
       const rootProps = {
         class: [
           "k-collapse",
           {
             "k-collapse-sample": props.sample,
-            [`k-collapse-${appearance.theme.value}`]: appearance.theme.value,
+            [`k-collapse-${theme}`]: true,
             [`k-collapse-${appearance.surfaceShape.value}`]: appearance.surfaceShape.value,
           },
         ],

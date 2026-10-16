@@ -23,3 +23,9 @@ Embeds status, supporting information, and next steps within page content.
 | compact | Compact layout | `boolean` | false |
 | theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
 | shape | Panel shape | `"square" \| "round"` | round |
+
+## Theme
+
+`theme` supports five looks — `fill`, `outline`, `plain`, `solid`, `dashed` — and is `outline` when you write nothing. `underlined` belongs to a control you type into, so a feedback panel falls back to `outline`.
+
+`solid` fills the whole panel with the primary colour and inverts its heading, description, detail plate and icon chip; the 4px stripe beside it reports the `kind`, so it is content rather than chrome and none of the five looks repaints it.

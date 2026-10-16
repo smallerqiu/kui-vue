@@ -49,3 +49,9 @@
 | disabled | 是否禁用               | boolean                         | false  |
 | extra    | 标题右侧扩展内容       | Slots                           | -      |
 | onExpand | 面板切换展开状态时触发 | (key: string \| number) => void | -      |
+
+## 主题
+
+`theme` 支持 `fill`、`outline`、`plain`、`solid`、`dashed` 五种外观，不写 `theme` 时就是 `outline`；`underlined` 是给可输入的控件用的，折叠面板会按 `outline` 呈现。
+
+`solid` 用主色铺满整个面板，标题和行间分割线一起反白，禁用的面板仍保持禁用样式；`dashed` 只把外框换成虚线，行分割线仍是实线。简洁模式（`sample`）不画外框也不画底板，`solid` 时主色落在每一块面板自己身上。

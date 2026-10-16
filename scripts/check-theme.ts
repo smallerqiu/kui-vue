@@ -50,11 +50,11 @@ const compile = async (entry: string) => {
     <div theme-mode="dark"><button id="dark" class="k-btn">Dark</button><div theme-mode="light"><button id="light" class="k-btn">Light</button></div></div>
     <div class="overrides"><div theme-mode="dark"><div id="control" class="k-input" data-multiple><input /></div><button id="override" class="k-btn k-btn-primary">Override</button><div class="k-popup-panel k-popup"><div id="override-popup" class="k-popup-content">Popup</div></div></div></div>
     <div id="square" shape-mode="square"><button id="square-button" class="k-btn">Square</button></div>
-    <div class="theme-hooks"><div id="hook-card-fill" class="k-card k-card-fill">Card</div><div id="hook-card-outline" class="k-card k-card-outline">Card</div><div id="hook-card-plain" class="k-card k-card-plain">Card</div><div id="hook-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="hook-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="hook-input-outline" class="k-input k-input-outline" data-multiple><input class="k-input-text" /></div><div id="hook-input-dashed" class="k-input k-input-dashed" data-multiple><input class="k-input-text" /></div><div id="hook-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="hook-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="hook-tag-outline" class="k-input-tag k-input-tag-outline"><input class="k-input-tag-input" /></div><div id="hook-tag-dashed" class="k-input-tag k-input-tag-dashed"><input class="k-input-tag-input" /></div><div id="hook-otp-outline" class="k-input-otp k-input-otp-outline"><input id="hook-otp-outline-cell" class="k-input-otp-item" /></div><div id="hook-picker-fill" class="k-color-picker k-color-picker-fill">Fill</div><div id="hook-picker-outline" class="k-color-picker k-color-picker-outline">Outline</div><div id="hook-picker-dashed" class="k-color-picker k-color-picker-dashed">Dashed</div><div id="hook-mark-fill" class="k-tag k-tag-fill">Fill</div><div id="hook-mark-outline" class="k-tag k-tag-outline">Outline</div><div id="hook-mark-plain" class="k-tag k-tag-plain">Plain</div><div id="hook-mark-dashed" class="k-tag k-tag-dashed">Dashed</div><div class="k-checkbox k-checkbox-fill"><span id="hook-checkbox-fill" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline"><span id="hook-checkbox-outline" class="k-checkbox-symbol"></span></div><div class="k-radio k-radio-outline"><span id="hook-radio-outline" class="k-radio-symbol"></span></div><div id="hook-card-dashed" class="k-card k-card-dashed">Card</div></div>
+    <div class="theme-hooks"><div id="hook-card-fill" class="k-card k-card-fill">Card</div><div id="hook-card-outline" class="k-card k-card-outline">Card</div><div id="hook-card-plain" class="k-card k-card-plain">Card</div><div id="hook-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="hook-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="hook-input-outline" class="k-input k-input-outline" data-multiple><input class="k-input-text" /></div><div id="hook-input-dashed" class="k-input k-input-dashed" data-multiple><input class="k-input-text" /></div><div id="hook-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="hook-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="hook-tag-outline" class="k-input-tag k-input-tag-outline"><input class="k-input-tag-input" /></div><div id="hook-tag-dashed" class="k-input-tag k-input-tag-dashed"><input class="k-input-tag-input" /></div><div id="hook-otp-outline" class="k-input-otp k-input-otp-outline"><input id="hook-otp-outline-cell" class="k-input-otp-item" /></div><div id="hook-picker-fill" class="k-color-picker k-color-picker-fill">Fill</div><div id="hook-picker-outline" class="k-color-picker k-color-picker-outline">Outline</div><div id="hook-picker-dashed" class="k-color-picker k-color-picker-dashed">Dashed</div><div id="hook-mark-fill" class="k-tag k-tag-fill">Fill</div><div id="hook-mark-outline" class="k-tag k-tag-outline">Outline</div><div id="hook-mark-plain" class="k-tag k-tag-plain">Plain</div><div id="hook-mark-dashed" class="k-tag k-tag-dashed">Dashed</div><div class="k-checkbox k-checkbox-fill"><span id="hook-checkbox-fill" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline"><span id="hook-checkbox-outline" class="k-checkbox-symbol"></span></div><div class="k-radio k-radio-outline"><span id="hook-radio-outline" class="k-radio-symbol"></span></div><div id="hook-card-dashed" class="k-card k-card-dashed">Card</div><div id="hook-collapse-outline" class="k-collapse k-collapse-outline">Collapse</div><div id="hook-collapse-dashed" class="k-collapse k-collapse-dashed">Collapse</div><div id="hook-collapse-fill" class="k-collapse k-collapse-fill">Collapse</div><div id="hook-feedback-outline" class="k-feedback-panel k-feedback-panel-outline">Panel</div><div id="hook-feedback-dashed" class="k-feedback-panel k-feedback-panel-dashed">Panel</div><div id="hook-feedback-plain" class="k-feedback-panel k-feedback-panel-plain">Panel</div></div>
     <div class="control-chain"><div id="chain-card-outline" class="k-card k-card-outline">Card</div><div id="chain-card-fill" class="k-card k-card-fill">Card</div><div id="chain-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div class="k-checkbox k-checkbox-outline"><span id="chain-checkbox-outline" class="k-checkbox-symbol"></span></div></div>
     <div class="mark-hooks"><div class="k-checkbox k-checkbox-fill"><span id="hook-checkbox-fill-border" class="k-checkbox-symbol"></span></div><div class="k-radio k-radio-fill"><span id="hook-radio-fill-border" class="k-radio-symbol"></span></div></div>
-    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="default-select-plain" class="k-select k-select-plain" tabindex="0"><div class="k-select-selection">Plain</div></div><div id="default-select-borderless" class="k-select k-select-borderless" tabindex="0"><div class="k-select-selection">Borderless</div></div><div id="default-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="default-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="default-select-underlined" class="k-select k-select-underlined" tabindex="0"><div class="k-select-selection">Underlined</div></div><div id="default-datepicker-fill" class="k-datepicker k-datepicker-fill" tabindex="0">Fill</div><div id="default-datepicker-plain" class="k-datepicker k-datepicker-plain" tabindex="0">Plain</div><div id="default-datepicker-borderless" class="k-datepicker k-datepicker-borderless" tabindex="0">Borderless</div><div id="default-input-outline" class="k-input k-input-outline" data-multiple><input id="outline-input-text" class="k-input-text" placeholder="Pick" /></div><input id="default-input-outline-single" class="k-input k-input-outline" data-single placeholder="Pick" /><div id="default-input-dashed" class="k-input k-input-dashed" data-multiple><input class="k-input-text" /></div><div id="default-input-underlined" class="k-input k-input-underlined" data-multiple><input class="k-input-text" /></div><div id="default-tag-outline" class="k-input-tag k-input-tag-outline"><input class="k-input-tag-input" /></div><div id="default-tag-dashed" class="k-input-tag k-input-tag-dashed"><input class="k-input-tag-input" /></div><div id="default-tag-plain" class="k-input-tag k-input-tag-plain"><input id="plain-tag-input" class="k-input-tag-input" /></div><div id="default-tag-underlined" class="k-input-tag k-input-tag-underlined"><input id="underlined-tag-input" class="k-input-tag-input" /></div><div id="default-otp-outline" class="k-input-otp k-input-otp-outline"><input id="outline-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-dashed" class="k-input-otp k-input-otp-dashed"><input id="dashed-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-plain" class="k-input-otp k-input-otp-plain"><input id="plain-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-underlined" class="k-input-otp k-input-otp-underlined"><input id="underlined-otp-cell" class="k-input-otp-item" /></div><div id="default-picker-outline" class="k-color-picker k-color-picker-outline">Outline</div><div id="default-picker-dashed" class="k-color-picker k-color-picker-dashed">Dashed</div><div id="default-picker-opened-outline" class="k-color-picker k-color-picker-outline k-color-picker-opened">Outline</div><div id="default-picker-fill" class="k-color-picker k-color-picker-fill">Fill</div><div id="default-picker-opened-fill" class="k-color-picker k-color-picker-fill k-color-picker-opened">Fill</div><div id="default-picker-plain" class="k-color-picker k-color-picker-plain">Plain</div><div id="default-picker-opened-plain" class="k-color-picker k-color-picker-plain k-color-picker-opened">Plain</div><div id="default-picker-underlined" class="k-color-picker k-color-picker-underlined">Underlined</div><div id="default-picker-opened-underlined" class="k-color-picker k-color-picker-underlined k-color-picker-opened">Underlined</div><div id="disabled-picker-outline" class="k-color-picker k-color-picker-outline k-color-picker-disabled">Disabled</div><div id="disabled-picker-fill" class="k-color-picker k-color-picker-fill k-color-picker-disabled">Disabled</div><div id="default-mark-fill" class="k-tag k-tag-fill">Fill</div><div id="default-mark-outline" class="k-tag k-tag-outline">Outline</div><div id="default-mark-plain" class="k-tag k-tag-plain">Plain</div><div id="default-mark-dashed" class="k-tag k-tag-dashed">Dashed</div><div class="k-checkbox k-checkbox-fill"><span id="default-checkbox-fill" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline"><span id="default-checkbox-outline" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline k-checkbox-checked"><span id="checked-outline-box" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-fill k-checkbox-checked"><span id="checked-fill-box" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline k-checkbox-disabled"><span id="disabled-outline-box" class="k-checkbox-symbol"></span></div><div class="k-radio k-radio-outline"><span id="default-radio-outline" class="k-radio-symbol"></span></div><div class="k-radio k-radio-outline k-radio-checked"><span id="checked-radio-outline" class="k-radio-symbol"></span></div><div class="k-radio k-radio-fill k-radio-disabled"><span id="disabled-radio-fill" class="k-radio-symbol"></span></div><div id="default-card-dashed" class="k-card k-card-dashed"><div id="default-card-dashed-head" class="k-card-head"><span class="k-card-title">标题</span></div><div class="k-card-body">内容</div></div><div id="default-feature-card-dashed" class="k-feature-card k-feature-card-dashed"><span class="k-feature-card-icon">i</span></div><div id="default-stat-card-dashed" class="k-stat-card k-stat-card-dashed"><div class="k-stat-card-item"><div class="k-stat-card-item-desc">今日</div></div></div><div id="default-stat-card-outline" class="k-stat-card k-stat-card-outline">Stat</div><div id="default-stat-card-bordered" class="k-stat-card k-stat-card-bordered">Stat</div></div>
-    <div class="solid-scope"><div id="default-select-solid" class="k-select k-select-solid" tabindex="0"><div class="k-select-selection"><div id="solid-placeholder" class="k-select-placeholder">Pick</div></div></div><div id="default-input-solid" class="k-input k-input-solid" data-multiple><span id="solid-input-chrome" class="k-input-prefix">$</span><input id="solid-input-text" class="k-input-text" placeholder="Pick" /></div><input id="default-input-solid-single" class="k-input k-input-solid" data-single placeholder="Pick" /><textarea id="default-textarea-solid" class="k-textarea k-textarea-solid" placeholder="Notes"></textarea><div id="default-input-number-solid" class="k-input-number k-input-number-solid" data-multiple><input id="solid-number-text" class="k-input-number-text" placeholder="Pick" /><div id="solid-number-controls" class="k-input-number-controls">+</div></div><div id="default-tag-solid" class="k-input-tag k-input-tag-solid"><span id="solid-tag-chrome" class="k-input-tag-clearable">x</span><input id="solid-tag-input" class="k-input-tag-input" placeholder="Pick" /><span id="solid-tag-chip" class="k-input-tag-item k-tag">Tag</span></div><div id="default-otp-solid" class="k-input-otp k-input-otp-solid"><input id="solid-otp-cell" class="k-input-otp-item" /></div><div class="k-input-otp k-input-otp-solid k-input-otp-disabled"><input id="disabled-otp-solid-cell" class="k-input-otp-item" disabled /></div><div id="default-picker-solid" class="k-color-picker k-color-picker-solid"><div class="k-color-picker-selection"><div class="k-color-picker-color"></div><div id="solid-picker-text" class="k-color-picker-trigger-text">#123456</div></div></div><div id="default-picker-solid-opened" class="k-color-picker k-color-picker-solid k-color-picker-opened"><div id="solid-picker-opened-text" class="k-color-picker-trigger-text">#123456</div></div><div id="disabled-picker-solid" class="k-color-picker k-color-picker-solid k-color-picker-disabled">Disabled</div><div id="mark-solid" class="k-tag k-tag-solid">Solid<span id="mark-solid-close" class="k-tag-close">x</span></div><div id="mark-red" class="k-tag k-tag-red k-tag-solid">Red</div><div id="mark-custom" class="k-tag k-tag-has-color k-tag-outline" style="background-color: #123456">Custom</div><div class="k-select k-select-solid"><span id="pin-select-solid-chip" class="k-tag k-tag-solid">Tag</span></div><div class="k-select k-select-dashed"><span id="pin-select-dashed-chip" class="k-tag k-tag-dashed">Tag</span></div><div class="k-tree-select k-tree-select-solid"><span id="pin-tree-solid-chip" class="k-tag k-tag-solid">Tag</span></div><div class="k-tree-select k-tree-select-dashed"><span id="pin-tree-dashed-chip" class="k-tag k-tag-dashed">Tag</span></div><div id="solid-card" class="k-card k-card-solid"><div id="solid-card-head" class="k-card-head"><span id="solid-card-title" class="k-card-title">标题</span></div><div class="k-card-body"><div class="k-card-meta"><div id="solid-card-meta-title" class="k-card-meta-title">名字</div><div id="solid-card-meta-desc" class="k-card-meta-description">描述</div></div></div></div><div id="solid-feature-card" class="k-feature-card k-feature-card-solid"><span id="solid-feature-icon" class="k-feature-card-icon">i</span><div class="k-feature-card-content"><div id="solid-feature-title" class="k-feature-card-title">标题</div><div id="solid-feature-desc" class="k-feature-card-desc">描述</div></div></div><div id="outline-feature-card" class="k-feature-card k-feature-card-outline"><span id="outline-feature-icon" class="k-feature-card-icon">i</span><div class="k-feature-card-content"><div id="outline-feature-desc" class="k-feature-card-desc">描述</div></div></div><div id="solid-stat-card" class="k-stat-card k-stat-card-solid"><div id="solid-stat-title" class="k-stat-card-title">统计</div><div class="k-stat-card-items"><div class="k-stat-card-item"><div id="solid-stat-value" class="k-stat-card-item-value">128</div><div id="solid-stat-desc" class="k-stat-card-item-desc">今日</div><div id="solid-stat-trend" class="k-stat-card-item-trend k-stat-card-item-trend-default">+2%</div><div id="solid-stat-trend-success" class="k-stat-card-item-trend k-stat-card-item-trend-success">+2%</div></div></div></div></div>
+    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="default-select-plain" class="k-select k-select-plain" tabindex="0"><div class="k-select-selection">Plain</div></div><div id="default-select-borderless" class="k-select k-select-borderless" tabindex="0"><div class="k-select-selection">Borderless</div></div><div id="default-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="default-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="default-select-underlined" class="k-select k-select-underlined" tabindex="0"><div class="k-select-selection">Underlined</div></div><div id="default-datepicker-fill" class="k-datepicker k-datepicker-fill" tabindex="0">Fill</div><div id="default-datepicker-plain" class="k-datepicker k-datepicker-plain" tabindex="0">Plain</div><div id="default-datepicker-borderless" class="k-datepicker k-datepicker-borderless" tabindex="0">Borderless</div><div id="default-input-outline" class="k-input k-input-outline" data-multiple><input id="outline-input-text" class="k-input-text" placeholder="Pick" /></div><input id="default-input-outline-single" class="k-input k-input-outline" data-single placeholder="Pick" /><div id="default-input-dashed" class="k-input k-input-dashed" data-multiple><input class="k-input-text" /></div><div id="default-input-underlined" class="k-input k-input-underlined" data-multiple><input class="k-input-text" /></div><div id="default-tag-outline" class="k-input-tag k-input-tag-outline"><input class="k-input-tag-input" /></div><div id="default-tag-dashed" class="k-input-tag k-input-tag-dashed"><input class="k-input-tag-input" /></div><div id="default-tag-plain" class="k-input-tag k-input-tag-plain"><input id="plain-tag-input" class="k-input-tag-input" /></div><div id="default-tag-underlined" class="k-input-tag k-input-tag-underlined"><input id="underlined-tag-input" class="k-input-tag-input" /></div><div id="default-otp-outline" class="k-input-otp k-input-otp-outline"><input id="outline-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-dashed" class="k-input-otp k-input-otp-dashed"><input id="dashed-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-plain" class="k-input-otp k-input-otp-plain"><input id="plain-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-underlined" class="k-input-otp k-input-otp-underlined"><input id="underlined-otp-cell" class="k-input-otp-item" /></div><div id="default-picker-outline" class="k-color-picker k-color-picker-outline">Outline</div><div id="default-picker-dashed" class="k-color-picker k-color-picker-dashed">Dashed</div><div id="default-picker-opened-outline" class="k-color-picker k-color-picker-outline k-color-picker-opened">Outline</div><div id="default-picker-fill" class="k-color-picker k-color-picker-fill">Fill</div><div id="default-picker-opened-fill" class="k-color-picker k-color-picker-fill k-color-picker-opened">Fill</div><div id="default-picker-plain" class="k-color-picker k-color-picker-plain">Plain</div><div id="default-picker-opened-plain" class="k-color-picker k-color-picker-plain k-color-picker-opened">Plain</div><div id="default-picker-underlined" class="k-color-picker k-color-picker-underlined">Underlined</div><div id="default-picker-opened-underlined" class="k-color-picker k-color-picker-underlined k-color-picker-opened">Underlined</div><div id="disabled-picker-outline" class="k-color-picker k-color-picker-outline k-color-picker-disabled">Disabled</div><div id="disabled-picker-fill" class="k-color-picker k-color-picker-fill k-color-picker-disabled">Disabled</div><div id="default-mark-fill" class="k-tag k-tag-fill">Fill</div><div id="default-mark-outline" class="k-tag k-tag-outline">Outline</div><div id="default-mark-plain" class="k-tag k-tag-plain">Plain</div><div id="default-mark-dashed" class="k-tag k-tag-dashed">Dashed</div><div class="k-checkbox k-checkbox-fill"><span id="default-checkbox-fill" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline"><span id="default-checkbox-outline" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline k-checkbox-checked"><span id="checked-outline-box" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-fill k-checkbox-checked"><span id="checked-fill-box" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline k-checkbox-disabled"><span id="disabled-outline-box" class="k-checkbox-symbol"></span></div><div class="k-radio k-radio-outline"><span id="default-radio-outline" class="k-radio-symbol"></span></div><div class="k-radio k-radio-outline k-radio-checked"><span id="checked-radio-outline" class="k-radio-symbol"></span></div><div class="k-radio k-radio-fill k-radio-disabled"><span id="disabled-radio-fill" class="k-radio-symbol"></span></div><div id="default-card-dashed" class="k-card k-card-dashed"><div id="default-card-dashed-head" class="k-card-head"><span class="k-card-title">标题</span></div><div class="k-card-body">内容</div></div><div id="default-feature-card-dashed" class="k-feature-card k-feature-card-dashed"><span class="k-feature-card-icon">i</span></div><div id="default-stat-card-dashed" class="k-stat-card k-stat-card-dashed"><div class="k-stat-card-item"><div class="k-stat-card-item-desc">今日</div></div></div><div id="default-stat-card-outline" class="k-stat-card k-stat-card-outline">Stat</div><div id="default-stat-card-bordered" class="k-stat-card k-stat-card-bordered">Stat</div><div id="default-collapse-dashed" class="k-collapse k-collapse-dashed"><div class="k-collapse-item"><div id="default-collapse-dashed-header" class="k-collapse-header">标题</div></div></div><div id="sample-collapse-outline" class="k-collapse k-collapse-sample k-collapse-outline"><div class="k-collapse-item"><div class="k-collapse-header">标题</div></div></div><div id="sample-collapse-dashed" class="k-collapse k-collapse-sample k-collapse-dashed"><div class="k-collapse-item"><div class="k-collapse-header">标题</div></div></div><div id="sample-collapse-solid" class="k-collapse k-collapse-sample k-collapse-solid"><div id="sample-collapse-solid-item" class="k-collapse-item"><div id="sample-collapse-solid-header" class="k-collapse-header">标题</div></div></div><div id="default-feedback-fill" class="k-feedback-panel k-feedback-panel-fill">Panel</div><div id="default-feedback-plain" class="k-feedback-panel k-feedback-panel-plain">Panel</div><div id="default-feedback-outline" class="k-feedback-panel k-feedback-panel-outline">Panel</div><div id="default-feedback-dashed" class="k-feedback-panel k-feedback-panel-dashed">Panel</div></div>
+    <div class="solid-scope"><div id="default-select-solid" class="k-select k-select-solid" tabindex="0"><div class="k-select-selection"><div id="solid-placeholder" class="k-select-placeholder">Pick</div></div></div><div id="default-input-solid" class="k-input k-input-solid" data-multiple><span id="solid-input-chrome" class="k-input-prefix">$</span><input id="solid-input-text" class="k-input-text" placeholder="Pick" /></div><input id="default-input-solid-single" class="k-input k-input-solid" data-single placeholder="Pick" /><textarea id="default-textarea-solid" class="k-textarea k-textarea-solid" placeholder="Notes"></textarea><div id="default-input-number-solid" class="k-input-number k-input-number-solid" data-multiple><input id="solid-number-text" class="k-input-number-text" placeholder="Pick" /><div id="solid-number-controls" class="k-input-number-controls">+</div></div><div id="default-tag-solid" class="k-input-tag k-input-tag-solid"><span id="solid-tag-chrome" class="k-input-tag-clearable">x</span><input id="solid-tag-input" class="k-input-tag-input" placeholder="Pick" /><span id="solid-tag-chip" class="k-input-tag-item k-tag">Tag</span></div><div id="default-otp-solid" class="k-input-otp k-input-otp-solid"><input id="solid-otp-cell" class="k-input-otp-item" /></div><div class="k-input-otp k-input-otp-solid k-input-otp-disabled"><input id="disabled-otp-solid-cell" class="k-input-otp-item" disabled /></div><div id="default-picker-solid" class="k-color-picker k-color-picker-solid"><div class="k-color-picker-selection"><div class="k-color-picker-color"></div><div id="solid-picker-text" class="k-color-picker-trigger-text">#123456</div></div></div><div id="default-picker-solid-opened" class="k-color-picker k-color-picker-solid k-color-picker-opened"><div id="solid-picker-opened-text" class="k-color-picker-trigger-text">#123456</div></div><div id="disabled-picker-solid" class="k-color-picker k-color-picker-solid k-color-picker-disabled">Disabled</div><div id="mark-solid" class="k-tag k-tag-solid">Solid<span id="mark-solid-close" class="k-tag-close">x</span></div><div id="mark-red" class="k-tag k-tag-red k-tag-solid">Red</div><div id="mark-custom" class="k-tag k-tag-has-color k-tag-outline" style="background-color: #123456">Custom</div><div class="k-select k-select-solid"><span id="pin-select-solid-chip" class="k-tag k-tag-solid">Tag</span></div><div class="k-select k-select-dashed"><span id="pin-select-dashed-chip" class="k-tag k-tag-dashed">Tag</span></div><div class="k-tree-select k-tree-select-solid"><span id="pin-tree-solid-chip" class="k-tag k-tag-solid">Tag</span></div><div class="k-tree-select k-tree-select-dashed"><span id="pin-tree-dashed-chip" class="k-tag k-tag-dashed">Tag</span></div><div id="solid-card" class="k-card k-card-solid"><div id="solid-card-head" class="k-card-head"><span id="solid-card-title" class="k-card-title">标题</span></div><div class="k-card-body"><div class="k-card-meta"><div id="solid-card-meta-title" class="k-card-meta-title">名字</div><div id="solid-card-meta-desc" class="k-card-meta-description">描述</div></div></div></div><div id="solid-feature-card" class="k-feature-card k-feature-card-solid"><span id="solid-feature-icon" class="k-feature-card-icon">i</span><div class="k-feature-card-content"><div id="solid-feature-title" class="k-feature-card-title">标题</div><div id="solid-feature-desc" class="k-feature-card-desc">描述</div></div></div><div id="outline-feature-card" class="k-feature-card k-feature-card-outline"><span id="outline-feature-icon" class="k-feature-card-icon">i</span><div class="k-feature-card-content"><div id="outline-feature-desc" class="k-feature-card-desc">描述</div></div></div><div id="solid-stat-card" class="k-stat-card k-stat-card-solid"><div id="solid-stat-title" class="k-stat-card-title">统计</div><div class="k-stat-card-items"><div class="k-stat-card-item"><div id="solid-stat-value" class="k-stat-card-item-value">128</div><div id="solid-stat-desc" class="k-stat-card-item-desc">今日</div><div id="solid-stat-trend" class="k-stat-card-item-trend k-stat-card-item-trend-default">+2%</div><div id="solid-stat-trend-success" class="k-stat-card-item-trend k-stat-card-item-trend-success">+2%</div></div></div></div><div id="solid-collapse" class="k-collapse k-collapse-solid"><div id="solid-collapse-item" class="k-collapse-item"><div id="solid-collapse-header" class="k-collapse-header">标题</div><div class="k-collapse-content"><div id="solid-collapse-box" class="k-collapse-content-box">内容</div></div></div><div class="k-collapse-item k-collapse-item-disabled"><div id="solid-collapse-disabled-header" class="k-collapse-header">禁用</div></div></div><div id="solid-feedback" class="k-feedback-panel k-feedback-panel-solid k-feedback-panel-positive"><div class="k-feedback-panel-mark"><span id="solid-feedback-mark" class="k-feedback-panel-mark-inner">i</span></div><div class="k-feedback-panel-main"><div id="solid-feedback-heading" class="k-feedback-panel-heading">标题</div><div id="solid-feedback-desc" class="k-feedback-panel-description">描述</div><div id="solid-feedback-details" class="k-feedback-panel-details">细节</div></div></div><div id="outline-feedback" class="k-feedback-panel k-feedback-panel-outline"><div id="outline-feedback-heading" class="k-feedback-panel-heading">标题</div></div></div>
     <div class="control-chain"><div class="control-chain" id="chain-box"><div id="chain-input-outline" class="k-input k-input-outline" data-multiple><input class="k-input-text" /></div></div>
     <div class="control-chain"><div id="chain-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection"><div id="outline-placeholder" class="k-select-placeholder">Pick</div></div></div></div>`);
     // Serialises a token the way the browser does, so a computed value can be compared to the
@@ -1162,6 +1162,221 @@ const compile = async (entry: string) => {
         await style("default-stat-card-outline", prop),
         'a bordered stat card must read exactly like theme="outline": ' + prop,
       );
+    // 3c-丙b: `Collapse` and `FeedbackPanel` resolve every tier through the shared mixin now, so the
+    // same `--kui-theme-*` hooks that repaint a Card have to reach them — `--kui-theme-outline-border`
+    // used to colour an input while a panel kept a hand-written border nothing could recolour.
+    assert.equal(
+      await style("hook-collapse-outline", "border-top-color"),
+      "rgb(0, 255, 0)",
+      "--kui-theme-outline-border must reach a collapsed panel",
+    );
+    assert.equal(
+      await style("hook-collapse-fill", "background-color"),
+      "rgb(255, 0, 0)",
+      "--kui-theme-fill-bg must reach a collapsed panel",
+    );
+    assert.equal(
+      await style("hook-feedback-outline", "border-top-color"),
+      "rgb(0, 255, 0)",
+      "--kui-theme-outline-border must reach a feedback panel",
+    );
+    for (const id of ["hook-collapse-dashed", "hook-feedback-dashed"]) {
+      assert.equal(await style(id, "border-top-style"), "dashed", id + " must draw a dashed frame");
+      assert.equal(
+        await style(id, "border-top-color"),
+        "rgb(0, 255, 0)",
+        id + " dashed must borrow the outlined hook",
+      );
+    }
+    // `plain` was the one tier a panel painted by hand, on tokens nothing else in the library reads.
+    assert.equal(
+      await style("hook-feedback-plain", "border-top-color"),
+      "rgb(0, 0, 255)",
+      "--kui-theme-plain-border must reach a feedback panel",
+    );
+    assert.equal(
+      await style("hook-feedback-plain", "background-color"),
+      "rgb(255, 255, 0)",
+      "--kui-theme-plain-bg must reach a feedback panel",
+    );
+    // The 4px stripe is what a feedback panel *means* — its severity — so every tier re-asserts it:
+    // `outline` and `dashed` read the arm's `border` shorthand, which would otherwise flatten the
+    // stripe to 1px in the frame colour, and `fill` and `plain` read only `border-color`, which would
+    // otherwise paint it with the tier's border instead of the kind.
+    for (const id of [
+      "default-feedback-fill",
+      "default-feedback-plain",
+      "default-feedback-outline",
+      "default-feedback-dashed",
+      "solid-feedback",
+    ]) {
+      assert.equal(await style(id, "border-left-width"), "4px", id + " must keep its 4px stripe");
+      assert.equal(
+        await style(id, "border-left-style"),
+        "solid",
+        id + " stripe must not take the frame line style",
+      );
+      assert.equal(
+        await style(id, "border-left-color"),
+        await resolve(id, "var(--k-feedback-panel-color)"),
+        id + " stripe must stay on the kind colour",
+      );
+    }
+    // The tier owns the surface, so an outlined panel now lands on the shared arm's plate — transparent
+    // until `--kui-theme-outline-bg` is set — instead of the page colour the base block used to pin.
+    for (const id of ["default-feedback-outline", "default-feedback-dashed"])
+      assertColor(
+        await rgba(id, "background-color"),
+        [0, 0, 0, 0],
+        id + " must take the shared outlined surface",
+      );
+    // A dashed panel changes the line style of its own box and nothing inside it: the row dividers
+    // stay solid on the base border, the way a dashed card keeps its head divider.
+    assert.equal(
+      await style("default-collapse-dashed", "border-top-color"),
+      await resolve("default-collapse-dashed", "var(--kui-color-border)"),
+      "a dashed panel must fall through to the base border",
+    );
+    assert.equal(
+      await style("default-collapse-dashed-header", "border-bottom-style"),
+      "solid",
+      "a dashed panel must not dash its row dividers",
+    );
+    assert.equal(
+      await style("default-collapse-dashed-header", "border-bottom-color"),
+      await resolve("default-collapse-dashed-header", "var(--kui-color-border)"),
+      "a dashed panel must keep its row dividers on the base border",
+    );
+    // `solid` puts a panel on the primary surface. It carries the 1px frame the base block already
+    // draws, so the tier recolours it with its own surface, and because the header row paints its own
+    // title colour and its own dividers the tier has to name those too. A disabled row answers to none
+    // of it: the base disabled rule sits earlier in the file at the same specificity, so the tier
+    // steps aside by name and the guard is what keeps that row reading as disabled.
+    assertColor(
+      await rgba("solid-collapse", "background-color"),
+      [255, 0, 0, 255],
+      "a solid panel must fill with the local primary",
+    );
+    assert.equal(
+      await style("solid-collapse", "border-top-width"),
+      "1px",
+      "a solid panel must keep the frame it already carries",
+    );
+    assert.equal(
+      await style("solid-collapse", "border-top-color"),
+      await resolve("solid-collapse", "var(--kui-color-primary)"),
+      "a solid panel must border with its own surface",
+    );
+    assert.equal(
+      await style("solid-collapse-header", "color"),
+      await resolve("solid-collapse-header", "var(--kui-color-text-on-solid)"),
+      "a solid panel must invert its header text",
+    );
+    for (const prop of ["border-top-color", "border-bottom-color"])
+      assert.equal(
+        await style("solid-collapse-header", prop),
+        await resolve(
+          "solid-collapse-header",
+          "color-mix(in srgb, var(--kui-color-text-on-solid) 30%, transparent)",
+        ),
+        "a solid panel must invert its header divider: " + prop,
+      );
+    assert.equal(
+      await style("solid-collapse-box", "color"),
+      await resolve("solid-collapse-box", "var(--kui-color-text-on-solid)"),
+      "a solid panel must invert the body text that carries no rule of its own",
+    );
+    assert.equal(
+      await style("solid-collapse-disabled-header", "color"),
+      await resolve("solid-collapse-disabled-header", "var(--kui-color-text-disabled)"),
+      "a disabled row must stay disabled on a solid panel",
+    );
+    for (const prop of ["border-top-color", "border-bottom-color"])
+      assert.equal(
+        await style("solid-collapse-disabled-header", prop),
+        await resolve("solid-collapse-disabled-header", "var(--kui-color-border)"),
+        "a disabled row must keep its own dividers on a solid panel: " + prop,
+      );
+    // `sample` is the frame-less spelling of a panel — every row is its own chip — and it is
+    // documented as having no border, so a framed tier must not re-grow one; these suppressions sit
+    // above the tiers for exactly that.
+    for (const id of ["sample-collapse-outline", "sample-collapse-dashed", "sample-collapse-solid"])
+      assert.equal(
+        await style(id, "border-top-width"),
+        "0px",
+        id + " must keep the frame-less sample look",
+      );
+    // A solid sample keeps the plate-less look this mode promises and moves the surface onto the chips
+    // it actually shows, so the mode still reads as separate boxes instead of one plate with seams.
+    assertColor(
+      await rgba("sample-collapse-solid", "background-color"),
+      [0, 0, 0, 0],
+      "a solid sample must keep the container plate-less",
+    );
+    assert.equal(
+      await style("sample-collapse-solid-item", "background-color"),
+      await resolve("sample-collapse-solid-item", "var(--kui-color-primary)"),
+      "a solid sample must put its surface on the chips it shows",
+    );
+    assert.equal(
+      await style("sample-collapse-solid-header", "color"),
+      await resolve("sample-collapse-solid-header", "var(--kui-color-text-on-solid)"),
+      "a solid sample must invert its chip text",
+    );
+    // A panel colours four parts of its own, so the tier names all four — and the mark chip inverts
+    // even though its colour is the kind's, because on a neutral panel the icon *is* the primary the
+    // surface was just painted with. The severity stripe stays data, not chrome.
+    assertColor(
+      await rgba("solid-feedback", "background-color"),
+      [255, 0, 0, 255],
+      "a solid feedback panel must fill with the local primary",
+    );
+    assert.equal(
+      await style("solid-feedback", "color"),
+      await resolve("solid-feedback", "var(--kui-color-text-on-solid)"),
+      "a solid feedback panel must invert the text it owns",
+    );
+    assert.equal(
+      await style("solid-feedback-heading", "color"),
+      await resolve("solid-feedback-heading", "var(--kui-color-text-on-solid)"),
+      "a solid panel must invert its heading",
+    );
+    assert.equal(
+      await style("solid-feedback-desc", "color"),
+      await resolve(
+        "solid-feedback-desc",
+        "color-mix(in srgb, var(--kui-color-text-on-solid) 80%, transparent)",
+      ),
+      "a solid panel must dim its description instead of flattening it",
+    );
+    assert.equal(
+      await style("solid-feedback-details", "color"),
+      await resolve("solid-feedback-details", "var(--kui-color-text-on-solid)"),
+      "a solid panel must invert its details plate",
+    );
+    assert.equal(
+      await style("solid-feedback-mark", "color"),
+      await resolve("solid-feedback-mark", "var(--kui-color-text-on-solid)"),
+      "a solid panel must invert its mark",
+    );
+    for (const id of ["solid-feedback-details", "solid-feedback-mark"])
+      assert.equal(
+        await style(id, "background-color"),
+        await resolve(id, "color-mix(in srgb, var(--kui-color-text-on-solid) 18%, transparent)"),
+        id + " must tint its plate from the inverted text",
+      );
+    assert.equal(
+      await style("solid-feedback", "border-left-color"),
+      await resolve("solid-feedback", "var(--kui-color-success)"),
+      "a solid panel must not flatten the severity it is reporting",
+    );
+    // The inversion is scoped to `solid`: an outlined panel sitting in the same primary scope keeps its
+    // dark heading, so none of the rules above may reach another tier.
+    assert.equal(
+      await style("outline-feedback-heading", "color"),
+      await resolve("outline-feedback-heading", "var(--kui-color-text-title)"),
+      "the solid colour rules must not leak into the outlined tier",
+    );
     // Runtime updates must affect a component already mounted inside the scope.
     await page
       .locator("#local")
