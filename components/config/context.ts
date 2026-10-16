@@ -53,18 +53,14 @@ export const useConfigAppearance = <
   };
 };
 /**
- * `theme="default"` means "listen to the component", so it has to resolve to the component's own
- * default tier — the same class it reaches when no `theme` is written at all. Every component that
- * paints theme classes resolves its value here instead of copying the comparison, because
- * `k-<component>-default` is a class no LESS rule can ever answer (the shared mixin has no
- * `default` arm on purpose) and shipping one is the silent bug this contract exists to end.
+ * Every component that paints tier classes resolves its value here instead of copying the comparison.
+ * Writing no `theme` at all is how a caller says "listen to the component", and this returns the tier
+ * that component was built to look like — the same class it reaches with no `theme`, so the two can
+ * never drift. A component's own default differs (input-family is `fill`, `collapse` is `outline`,
+ * `image` is `plain`), which is why the fallback is a parameter rather than a constant.
  */
-export function resolveTheme(
-  theme: ThemeType | undefined,
-  fallback: Exclude<ThemeType, "default">,
-): Exclude<ThemeType, "default"> {
-  const value = theme ?? fallback;
-  return value === "default" ? fallback : value;
+export function resolveTheme(theme: ThemeType | undefined, fallback: ThemeType): ThemeType {
+  return theme ?? fallback;
 }
 
 /**

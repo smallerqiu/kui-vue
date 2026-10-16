@@ -173,11 +173,11 @@
 
 // `outline` is the bordered dot: the edge the base `.k-radio-symbol` already draws, read from the tier
 // hook so `--kui-theme-outline-border` / `--kui-control-border` reaches it. Same shape as
-// `.k-checkbox-outline` — the tier used to ship no class, so the look came from the base and
-// `theme="default"` landed on it by accident instead of on `fill`. It sits before the checked /
-// disabled blocks: `.k-radio-checked .k-radio-symbol` is the same (0,2,0) but written later, and
-// `.k-radio-disabled.k-radio .k-radio-symbol` is (0,3,0), so a checked or disabled dot keeps its own
-// colours. The base hover inside `.k-radio` is (0,5,0), so hovering still lights the edge in primary.
+// `.k-checkbox-outline` — the tier used to ship no class, so the look came from the base. It sits
+// before the checked / disabled blocks: `.k-radio-checked .k-radio-symbol` is the same (0,2,0) but
+// written later, and `.k-radio-disabled.k-radio .k-radio-symbol` is (0,3,0), so a checked or disabled
+// dot keeps its own colours. The base hover inside `.k-radio` is (0,5,0), so hovering still lights the
+// edge in primary.
 .k-radio-outline {
   .k-radio-symbol {
     .kui-theme-value(outline);

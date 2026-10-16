@@ -28,7 +28,7 @@
 | title | 标题，也可通过同名插槽自定义 | `string` | - |
 | desc | 描述内容，也可通过同名插槽自定义 | `string` | - |
 | bordered | 是否显示边框 | `boolean` | false |
-| theme | 外观主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | 卡片形状 | `"square" \| "round"` | round |
 | size | 卡片尺寸 | `"small" \| "medium" \| "large"` | medium |
 | direction | 内容排列方向 | `"horizontal" \| "vertical"` | horizontal |

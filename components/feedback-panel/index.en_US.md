@@ -21,5 +21,5 @@ Embeds status, supporting information, and next steps within page content.
 | description | Supporting message | `VNodeChild` | - |
 | symbol | Custom marker | `IconType[]` | - |
 | compact | Compact layout | `boolean` | false |
-| theme | Appearance theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | default |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
 | shape | Panel shape | `"square" \| "round"` | round |

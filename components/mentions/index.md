@@ -58,7 +58,7 @@
 | placement | 下拉菜单优先位置 | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
 | destroyOnClose | 关闭后是否销毁面板内容。默认销毁（重开时重新挂载）；设为 false 可保留面板内已填写的表单状态，代价是每个打开过的实例留一份隐藏 DOM | `boolean` | true |
 | size | 尺寸 | `"small" \| "medium" \| "large"` | medium |
-| theme | 主题，画在内部文本域上，可用档位与 TextArea 一致 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 主题，画在内部文本域上，可用档位与 TextArea 一致 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | 形状 | `"default" \| "circle" \| "square" \| "round"` | default |
 | emptyText | 空状态说明 | `string` | 暂无数据 |
 | filterOption | 自定义过滤 | `((query: string, option: MentionOption) => boolean)` | - |

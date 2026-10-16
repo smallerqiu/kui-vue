@@ -72,7 +72,7 @@
 | disabledDate | 不可选择的日期 | `(date: Date) => boolean` | - |
 | disabledTime | 不可选择的时间 | `(date: Date) => boolean` | - |
 | format | 设置日期格式，只接受单个格式（解析和展示都用它），不支持数组多格式匹配。配置参考 [dayjs](http://day.js.org/) | `string` | 按 `mode` 取：`year` 为 `YYYY`、`month` 为 `YYYY-MM`、`date` / `dateRange` 为 `YYYY-MM-DD`、`time` 为 `HH:mm:ss`、`dateTime` / `dateTimeRange` 为 `YYYY-MM-DD HH:mm:ss` |
-| theme | theme='fill' 时呈现浅色主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | theme='fill' 时呈现浅色主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | dateIcon | 自定义图标 | `IconType[]` | - |
 | shape | 组件呈现的形式 | `"default" \| "circle" \| "square" \| "round"` | - |
 | bordered | 是否展示边框 | `boolean` | true |

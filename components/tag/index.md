@@ -32,7 +32,7 @@
 
 ## 主题
 
-`theme` 支持 `fill`、`outline`、`plain`、`solid`、`dashed` 五种外观，不写或写 `default` 都是 `fill`；`underlined` 是给可输入的控件用的，标签会按 `fill` 呈现。
+`theme` 支持 `fill`、`outline`、`plain`、`solid`、`dashed` 五种外观，不写 `theme` 时就是 `fill`；`underlined` 是给可输入的控件用的，标签会按 `fill` 呈现。
 
 多选控件（`Select`、`TreeSelect`、`InputTag`）会把自身的 `theme` 传给里面的标签，标签跟随控件。
 
@@ -53,5 +53,5 @@
 | onClose | 点击关闭按钮时触发 | `() => void` | - |
 | onAfterClose | 退出动画结束后触发 | `() => void` | - |
 | size | 按钮尺寸,可选值 `small`、`large`，默认不选 | `"small" \| "medium" \| "large"` | - |
-| theme | 组件呈现主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 组件呈现主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | 组件呈现的形状, | `"default" \| "circle" \| "square" \| "round"` | circle |

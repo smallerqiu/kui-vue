@@ -134,8 +134,8 @@ const InputTag = defineComponent({
       const isReadonly = readonly();
       const size = appearance.size.value;
       const shape = appearance.shape.value;
-      // `theme="default"` means "listen to the component", which for a control is `fill`; the class
-      // has to be resolved, not forwarded, or it names a tier no LESS can answer.
+      // Writing no `theme` means "the control's own default", which for this control is `fill`; the
+      // class has to be resolved, not forwarded, or it names a tier no LESS can answer.
       const theme = resolveTheme(appearance.theme.value, "fill");
       const { onClick: _onClick, ...rootAttrs } = attrs;
       void _onClick;

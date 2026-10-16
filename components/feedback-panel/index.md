@@ -21,5 +21,5 @@
 | description | 辅助说明 | `VNodeChild` | - |
 | symbol | 自定义标记 | `IconType[]` | - |
 | compact | 紧凑显示 | `boolean` | false |
-| theme | 外观主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | default |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
 | shape | 面板形状 | `"square" \| "round"` | round |

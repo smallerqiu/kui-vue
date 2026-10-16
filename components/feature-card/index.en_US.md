@@ -28,7 +28,7 @@ Used to present product features, navigation entries, or capability descriptions
 | title | Title, customizable via the named slot | `string` | - |
 | desc | Description, customizable via the named slot | `string` | - |
 | bordered | Whether to show border | `boolean` | false |
-| theme | Appearance theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | Card shape | `"square" \| "round"` | round |
 | size | Card size | `"small" \| "medium" \| "large"` | medium |
 | direction | Content direction | `"horizontal" \| "vertical"` | horizontal |

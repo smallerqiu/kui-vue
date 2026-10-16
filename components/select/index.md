@@ -67,7 +67,7 @@
 | extendWidth | 下拉框的宽度是否与input一致 | boolean | true |
 | showArrow | 是否显示下拉按钮 | `boolean` | true |
 | options | options 数据，如果设置则不需要手动构造 Option 节点 | `SelectOption[]` | [] |
-| theme | 主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | icon | 自定义图标 | `IconType[]` | - |
 | shape | shape='circle' 时呈现圆角 | `"default" \| "circle" \| "square" \| "round"` | - |
 | onSelect | 选中一项时触发 | `(option: OptionSelectEvent) => void` | - |

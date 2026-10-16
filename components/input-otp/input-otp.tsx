@@ -149,7 +149,7 @@ const InputOTP = defineComponent({
     };
 
     // 3b-乙2: the group carries the tier class and every cell paints it, so the tier has to be
-    // resolved before it reaches the class list — `theme="default"` means the control's own default.
+    // resolved before it reaches the class list — no `theme` written means the control's own default.
     const theme = computed(() => resolveTheme(appearance.theme.value, "fill"));
 
     const onPaste = (event: ClipboardEvent, index: number) => {

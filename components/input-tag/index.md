@@ -36,7 +36,7 @@
 | value | 初始标签 | `string[]` | [] |
 | placeholder | 占位文本 | `string` | - |
 | size | 尺寸 | `"small" \| "medium" \| "large"` | medium |
-| theme | 主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | 形状 | `"default" \| "circle" \| "square" \| "round"` | default |
 | disabled | 禁用 | `boolean` | false |
 | readonly | 只读，不可新增、删除或清空标签 | `boolean` | false |

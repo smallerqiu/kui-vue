@@ -46,7 +46,7 @@
 | showAllLevels | 是否展示完整选中的祖先路径。若为 `false` 则仅在输入框内显示最终的末端叶子节点。 | `boolean` | `true` |
 | separator | 当 `showAllLevels` 开启时，各层级标签之间的多级分隔符。 | `string` | `" / "` |
 | bordered | 是否显示边框 | `boolean` | true |
-| theme | 主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | showArrow | 是否显示下拉按钮 | `boolean` | true |
 | icon | 自定义图标 | `IconType[]` | - |
 | shape | shape='circle' 时呈现圆角 | `"default" \| "circle" \| "square" \| "round"` | - |

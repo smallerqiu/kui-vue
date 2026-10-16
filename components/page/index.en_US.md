@@ -44,6 +44,6 @@ Separate long lists using pagination, loading only one page at a time.
 | responsive | Adapt pagination to the available container width | `boolean` | true |
 | sizeData | Custom page size data | `number[]` | [10,15,20,30,40] |
 | size | Size | `"small" \| "medium" \| "large"` | `medium` |
-| theme | Theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | `fill` |
+| theme | Theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | `fill` |
 | onChange | Called when the page or page size changes | `(page: number, pageSize: number) => void` | - |
 | shape | Pagination item shape | `"default" \| "circle" \| "square" \| "round"` | round |

@@ -31,7 +31,7 @@
 
 ## 主题
 
-`theme` 只有 `fill`（浅底填充方框）和 `outline`（描边方框）两种外观；不写或写 `default` 都是 `fill`，其余档位同样按 `fill` 呈现。`outline` 的描边跟随 `--kui-theme-outline-border`，未设置时依次退回 `--kui-control-border`、`--kui-color-border`。
+`theme` 只有 `fill`（浅底填充方框）和 `outline`（描边方框）两种外观；不写 `theme` 时就是 `fill`，其余档位同样按 `fill` 呈现。`outline` 的描边跟随 `--kui-theme-outline-border`，未设置时依次退回 `--kui-control-border`、`--kui-color-border`。
 
 多选框组会把自身的 `theme` 传给组内每一项，独立使用时也可以从 `ConfigProvider` 继承；选中与禁用状态始终优先于档位。
 
@@ -46,7 +46,7 @@
 | readonly | 是否只读，保持可聚焦但不可切换 | `boolean` | false |
 | indeterminate | 组合辅助选项控制半选状态 | `boolean` | false |
 | modelValue | 独立使用时通过 `v-model` 绑定的状态值 | `string \| number \| boolean` | - |
-| theme | 组件呈现主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 组件呈现主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | valueType | 单位选项的输出值的类型 | `"string" \| "number" \| "boolean"` | boolean |
 | onChange | 在选项状态发生改变时回调 | `(event: CheckboxChangeEvent) => void` | - |
 
@@ -61,7 +61,7 @@
 | onChange | 在选项状态发生改变时触发，返回当前选中的项和状态 | `(value: CheckboxValue[]) => void` | - |
 | direction | 布局方向 | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | options | 可以指定子项 `checkbox` | `CheckboxOption[]` | - |
-| theme | 组件呈现主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 组件呈现主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | size | 设置复选框的大小 | `"small" \| "medium" \| "large"` | - |
 
 `options` 中每一项还支持 `disabled` 和 `readonly`。

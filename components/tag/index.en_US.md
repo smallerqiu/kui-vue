@@ -32,7 +32,7 @@ Small labels for marking and categorization.
 
 ## Theme
 
-`theme` supports `fill`, `outline`, `plain`, `solid` and `dashed`. Leaving it empty or writing `default` both mean `fill`; `underlined` belongs to controls you type into, so a tag renders as `fill`.
+`theme` supports `fill`, `outline`, `plain`, `solid` and `dashed`. Leaving it unset means `fill`; `underlined` belongs to controls you type into, so a tag renders as `fill`.
 
 Multi-select controls (`Select`, `TreeSelect`, `InputTag`) pass their own `theme` down to the tags they render, so a chip follows its control.
 
@@ -53,5 +53,5 @@ For dynamic lists, remove the corresponding item from the array in `afterClose` 
 | onClose | Triggered when the close button is clicked | `() => void` | - |
 | onAfterClose | Triggered after the exit animation | `() => void` | - |
 | size | Button size, optional values `small`, `large`, default not selected | `"small" \| "medium" \| "large"` | - |
-| theme | The component renders the theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | The component renders the theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | The shape in which the component is presented | `"default" \| "circle" \| "square" \| "round"` | circle |

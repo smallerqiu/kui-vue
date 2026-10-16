@@ -18,5 +18,5 @@ Provides locale, popup-container, and component appearance configuration to desc
 | locale | Component locale | `Record<string, any>` | global locale |
 | getPopupContainer | Returns the popup mount container | `PopupContainerGetter` | document.body |
 | size | Default size for compatible components | `"small" \| "medium" \| "large"` | - |
-| theme | Default theme for compatible components | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | Default theme for compatible components | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | shape | Default shape for compatible components | `"default" \| "circle" \| "square" \| "round"` | - |

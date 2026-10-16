@@ -635,13 +635,12 @@
         },
         {
           "name": "theme",
-          "description": "Appearance: `default`, `fill`, `outline`, or `plain`",
-          "descriptionZh": "外观主题，可选 `default`、`fill`、`outline`、`plain`",
-          "descriptionEn": "Appearance: `default`, `fill`, `outline`, or `plain`",
+          "description": "Appearance: `fill`, `outline`, or `plain`",
+          "descriptionZh": "外观主题，可选 `fill`、`outline`、`plain`",
+          "descriptionEn": "Appearance: `fill`, `outline`, or `plain`",
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -847,7 +846,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -2097,13 +2095,12 @@
         },
         {
           "name": "theme",
-          "description": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn, `default` is the button's own look and `underlined` is handled as `default`",
-          "descriptionZh": "按钮主题，可用 `fill` / `outline` / `plain` / `solid` / `dashed`；`default` 就是按钮自身外观，`underlined` 按 `default` 处理",
-          "descriptionEn": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn, `default` is the button's own look and `underlined` is handled as `default`",
+          "description": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline",
+          "descriptionZh": "按钮主题，可用 `fill` / `outline` / `plain` / `solid` / `dashed`；不写 `theme` 就是按钮自身的外观，`underlined` 是给可输入的控件用的，按钮不会画下划线",
+          "descriptionEn": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline",
           "type": "ThemeType | undefined",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -2421,7 +2418,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -2704,7 +2700,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -2809,7 +2804,7 @@
         {
           "title": "外观与形状",
           "file": "components/card/demo/appearance.vue",
-          "source": "<template>\n  <Space vertical block>\n    <Space>\n      <Card v-for=\"shape in shapes\" :key=\"shape\" :shape=\"shape\" style=\"width: 180px\">\n        shape: {{ shape }}\n      </Card>\n    </Space>\n    <Space>\n      <Card v-for=\"theme in themes\" :key=\"theme\" :theme=\"theme\" shape=\"square\" style=\"width: 180px\">\n        theme: {{ theme }}\n      </Card>\n    </Space>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { CardShape, ThemeType } from \"kui-vue\";\n\nconst shapes: CardShape[] = [\"round\", \"square\"];\nconst themes: ThemeType[] = [\"default\", \"fill\", \"outline\", \"plain\"];\n</script>"
+          "source": "<template>\n  <Space vertical block>\n    <Space>\n      <Card v-for=\"shape in shapes\" :key=\"shape\" :shape=\"shape\" style=\"width: 180px\">\n        shape: {{ shape }}\n      </Card>\n    </Space>\n    <Space>\n      <Card v-for=\"theme in themes\" :key=\"theme\" :theme=\"theme\" shape=\"square\" style=\"width: 180px\">\n        theme: {{ theme }}\n      </Card>\n    </Space>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { CardShape, ThemeType } from \"kui-vue\";\n\nconst shapes: CardShape[] = [\"round\", \"square\"];\nconst themes: ThemeType[] = [\"fill\", \"outline\", \"plain\"];\n</script>"
         }
       ]
     },
@@ -2891,7 +2886,7 @@
         {
           "title": "外观与形状",
           "file": "components/card/demo/appearance.vue",
-          "source": "<template>\n  <Space vertical block>\n    <Space>\n      <Card v-for=\"shape in shapes\" :key=\"shape\" :shape=\"shape\" style=\"width: 180px\">\n        shape: {{ shape }}\n      </Card>\n    </Space>\n    <Space>\n      <Card v-for=\"theme in themes\" :key=\"theme\" :theme=\"theme\" shape=\"square\" style=\"width: 180px\">\n        theme: {{ theme }}\n      </Card>\n    </Space>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { CardShape, ThemeType } from \"kui-vue\";\n\nconst shapes: CardShape[] = [\"round\", \"square\"];\nconst themes: ThemeType[] = [\"default\", \"fill\", \"outline\", \"plain\"];\n</script>"
+          "source": "<template>\n  <Space vertical block>\n    <Space>\n      <Card v-for=\"shape in shapes\" :key=\"shape\" :shape=\"shape\" style=\"width: 180px\">\n        shape: {{ shape }}\n      </Card>\n    </Space>\n    <Space>\n      <Card v-for=\"theme in themes\" :key=\"theme\" :theme=\"theme\" shape=\"square\" style=\"width: 180px\">\n        theme: {{ theme }}\n      </Card>\n    </Space>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { CardShape, ThemeType } from \"kui-vue\";\n\nconst shapes: CardShape[] = [\"round\", \"square\"];\nconst themes: ThemeType[] = [\"fill\", \"outline\", \"plain\"];\n</script>"
         }
       ]
     },
@@ -3131,7 +3126,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -3919,7 +3913,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -4164,7 +4157,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -4824,7 +4816,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -5166,7 +5157,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -5561,7 +5551,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -6855,13 +6844,12 @@
         },
         {
           "name": "theme",
-          "description": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn, `default` is the button's own look and `underlined` is handled as `default`",
-          "descriptionZh": "按钮主题，可用 `fill` / `outline` / `plain` / `solid` / `dashed`；`default` 就是按钮自身外观，`underlined` 按 `default` 处理",
-          "descriptionEn": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn, `default` is the button's own look and `underlined` is handled as `default`",
+          "description": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline",
+          "descriptionZh": "按钮主题，可用 `fill` / `outline` / `plain` / `solid` / `dashed`；不写 `theme` 就是按钮自身的外观，`underlined` 是给可输入的控件用的，按钮不会画下划线",
+          "descriptionEn": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline",
           "type": "ThemeType | undefined",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -7220,7 +7208,6 @@
           "type": "ThemeType | undefined",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -7960,7 +7947,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -8455,7 +8441,6 @@
           "type": "ThemeType | undefined",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -8822,7 +8807,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -8949,7 +8933,6 @@
           "type": "ThemeType | undefined",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -9205,7 +9188,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -9545,7 +9527,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -9847,7 +9828,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -11044,7 +11024,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -11865,7 +11844,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -13025,7 +13003,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -13273,7 +13250,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -13466,7 +13442,7 @@
         {
           "title": "组合Button使用",
           "file": "components/radio/demo/radio-buttons.vue",
-          "source": "<template>\n  <Space vertical>\n    <Space>\n      <code>Shape :</code>\n      <RadioGroup v-model=\"shape\" size=\"small\" type=\"button\">\n        <RadioButton value=\"round\" label=\"Round\" />\n        <RadioButton value=\"circle\" label=\"Circle\" />\n        <RadioButton value=\"square\" label=\"Square\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Theme :</code>\n      <RadioGroup v-model=\"theme\" size=\"small\" type=\"button\">\n        <RadioButton value=\"default\">Default</RadioButton>\n        <RadioButton value=\"fill\" label=\"Fill\" />\n        <RadioButton value=\"outline\" label=\"Outline\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Size :</code>\n      <RadioGroup v-model=\"size\" type=\"button\" size=\"small\" :options=\"sizes\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Direction :</code>\n      <RadioGroup v-model=\"direction\" type=\"button\" size=\"small\" :options=\"directions\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Type :</code>\n      <RadioGroup v-model=\"type\" type=\"button\" size=\"small\" :options=\"types\"></RadioGroup>\n    </Space>\n    <br />\n    <RadioGroup\n      v-model=\"value\"\n      :size=\"size\"\n      :theme=\"theme\"\n      :shape=\"shape\"\n      :options=\"dates\"\n      :direction=\"direction\"\n      :type=\"type\"\n    ></RadioGroup>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { LogoApple } from \"kui-icons\";\nimport type { DirectionType, RadioType, ShapeType, SizeType, ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<ThemeType>(\"default\");\nconst direction = ref<DirectionType>(\"horizontal\");\nconst type = ref<RadioType>(\"button\");\nconst value = ref(0);\nconst dates = [\n  { label: \"1 week\", value: 0 },\n  { label: \"1 month\", value: 1 },\n  { label: \"Q1\", value: 2 },\n  { label: \"1 year\", value: 3 },\n  { label: \"5 years\", value: 4, disabled: true },\n];\nconst directions = [\n  { label: \"Horizontal\", value: \"horizontal\" },\n  { label: \"Vertical\", value: \"vertical\" },\n];\nconst types = [\n  { label: \"Radio\", value: \"radio\" },\n  { label: \"Button\", value: \"button\" },\n];\nconst sizes = [\n  { label: \"Large\", value: \"large\", icon: LogoApple },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n];\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <Space>\n      <code>Shape :</code>\n      <RadioGroup v-model=\"shape\" size=\"small\" type=\"button\">\n        <RadioButton value=\"round\" label=\"Round\" />\n        <RadioButton value=\"circle\" label=\"Circle\" />\n        <RadioButton value=\"square\" label=\"Square\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Theme :</code>\n      <RadioGroup v-model=\"theme\" size=\"small\" type=\"button\">\n        <RadioButton value=\"fill\" label=\"Fill\" />\n        <RadioButton value=\"outline\" label=\"Outline\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Size :</code>\n      <RadioGroup v-model=\"size\" type=\"button\" size=\"small\" :options=\"sizes\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Direction :</code>\n      <RadioGroup v-model=\"direction\" type=\"button\" size=\"small\" :options=\"directions\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Type :</code>\n      <RadioGroup v-model=\"type\" type=\"button\" size=\"small\" :options=\"types\"></RadioGroup>\n    </Space>\n    <br />\n    <RadioGroup\n      v-model=\"value\"\n      :size=\"size\"\n      :theme=\"theme\"\n      :shape=\"shape\"\n      :options=\"dates\"\n      :direction=\"direction\"\n      :type=\"type\"\n    ></RadioGroup>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { LogoApple } from \"kui-icons\";\nimport type { DirectionType, RadioType, ShapeType, SizeType, ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<ThemeType>(\"fill\");\nconst direction = ref<DirectionType>(\"horizontal\");\nconst type = ref<RadioType>(\"button\");\nconst value = ref(0);\nconst dates = [\n  { label: \"1 week\", value: 0 },\n  { label: \"1 month\", value: 1 },\n  { label: \"Q1\", value: 2 },\n  { label: \"1 year\", value: 3 },\n  { label: \"5 years\", value: 4, disabled: true },\n];\nconst directions = [\n  { label: \"Horizontal\", value: \"horizontal\" },\n  { label: \"Vertical\", value: \"vertical\" },\n];\nconst types = [\n  { label: \"Radio\", value: \"radio\" },\n  { label: \"Button\", value: \"button\" },\n];\nconst sizes = [\n  { label: \"Large\", value: \"large\", icon: LogoApple },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n];\n</script>"
         }
       ]
     },
@@ -13539,7 +13515,6 @@
           "type": "ThemeType | undefined",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -13713,7 +13688,7 @@
         {
           "title": "组合Button使用",
           "file": "components/radio/demo/radio-buttons.vue",
-          "source": "<template>\n  <Space vertical>\n    <Space>\n      <code>Shape :</code>\n      <RadioGroup v-model=\"shape\" size=\"small\" type=\"button\">\n        <RadioButton value=\"round\" label=\"Round\" />\n        <RadioButton value=\"circle\" label=\"Circle\" />\n        <RadioButton value=\"square\" label=\"Square\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Theme :</code>\n      <RadioGroup v-model=\"theme\" size=\"small\" type=\"button\">\n        <RadioButton value=\"default\">Default</RadioButton>\n        <RadioButton value=\"fill\" label=\"Fill\" />\n        <RadioButton value=\"outline\" label=\"Outline\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Size :</code>\n      <RadioGroup v-model=\"size\" type=\"button\" size=\"small\" :options=\"sizes\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Direction :</code>\n      <RadioGroup v-model=\"direction\" type=\"button\" size=\"small\" :options=\"directions\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Type :</code>\n      <RadioGroup v-model=\"type\" type=\"button\" size=\"small\" :options=\"types\"></RadioGroup>\n    </Space>\n    <br />\n    <RadioGroup\n      v-model=\"value\"\n      :size=\"size\"\n      :theme=\"theme\"\n      :shape=\"shape\"\n      :options=\"dates\"\n      :direction=\"direction\"\n      :type=\"type\"\n    ></RadioGroup>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { LogoApple } from \"kui-icons\";\nimport type { DirectionType, RadioType, ShapeType, SizeType, ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<ThemeType>(\"default\");\nconst direction = ref<DirectionType>(\"horizontal\");\nconst type = ref<RadioType>(\"button\");\nconst value = ref(0);\nconst dates = [\n  { label: \"1 week\", value: 0 },\n  { label: \"1 month\", value: 1 },\n  { label: \"Q1\", value: 2 },\n  { label: \"1 year\", value: 3 },\n  { label: \"5 years\", value: 4, disabled: true },\n];\nconst directions = [\n  { label: \"Horizontal\", value: \"horizontal\" },\n  { label: \"Vertical\", value: \"vertical\" },\n];\nconst types = [\n  { label: \"Radio\", value: \"radio\" },\n  { label: \"Button\", value: \"button\" },\n];\nconst sizes = [\n  { label: \"Large\", value: \"large\", icon: LogoApple },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n];\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <Space>\n      <code>Shape :</code>\n      <RadioGroup v-model=\"shape\" size=\"small\" type=\"button\">\n        <RadioButton value=\"round\" label=\"Round\" />\n        <RadioButton value=\"circle\" label=\"Circle\" />\n        <RadioButton value=\"square\" label=\"Square\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Theme :</code>\n      <RadioGroup v-model=\"theme\" size=\"small\" type=\"button\">\n        <RadioButton value=\"fill\" label=\"Fill\" />\n        <RadioButton value=\"outline\" label=\"Outline\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Size :</code>\n      <RadioGroup v-model=\"size\" type=\"button\" size=\"small\" :options=\"sizes\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Direction :</code>\n      <RadioGroup v-model=\"direction\" type=\"button\" size=\"small\" :options=\"directions\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Type :</code>\n      <RadioGroup v-model=\"type\" type=\"button\" size=\"small\" :options=\"types\"></RadioGroup>\n    </Space>\n    <br />\n    <RadioGroup\n      v-model=\"value\"\n      :size=\"size\"\n      :theme=\"theme\"\n      :shape=\"shape\"\n      :options=\"dates\"\n      :direction=\"direction\"\n      :type=\"type\"\n    ></RadioGroup>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { LogoApple } from \"kui-icons\";\nimport type { DirectionType, RadioType, ShapeType, SizeType, ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<ThemeType>(\"fill\");\nconst direction = ref<DirectionType>(\"horizontal\");\nconst type = ref<RadioType>(\"button\");\nconst value = ref(0);\nconst dates = [\n  { label: \"1 week\", value: 0 },\n  { label: \"1 month\", value: 1 },\n  { label: \"Q1\", value: 2 },\n  { label: \"1 year\", value: 3 },\n  { label: \"5 years\", value: 4, disabled: true },\n];\nconst directions = [\n  { label: \"Horizontal\", value: \"horizontal\" },\n  { label: \"Vertical\", value: \"vertical\" },\n];\nconst types = [\n  { label: \"Radio\", value: \"radio\" },\n  { label: \"Button\", value: \"button\" },\n];\nconst sizes = [\n  { label: \"Large\", value: \"large\", icon: LogoApple },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n];\n</script>"
         }
       ]
     },
@@ -13793,7 +13768,6 @@
           "type": "ThemeType | undefined",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -13941,7 +13915,7 @@
         {
           "title": "组合Button使用",
           "file": "components/radio/demo/radio-buttons.vue",
-          "source": "<template>\n  <Space vertical>\n    <Space>\n      <code>Shape :</code>\n      <RadioGroup v-model=\"shape\" size=\"small\" type=\"button\">\n        <RadioButton value=\"round\" label=\"Round\" />\n        <RadioButton value=\"circle\" label=\"Circle\" />\n        <RadioButton value=\"square\" label=\"Square\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Theme :</code>\n      <RadioGroup v-model=\"theme\" size=\"small\" type=\"button\">\n        <RadioButton value=\"default\">Default</RadioButton>\n        <RadioButton value=\"fill\" label=\"Fill\" />\n        <RadioButton value=\"outline\" label=\"Outline\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Size :</code>\n      <RadioGroup v-model=\"size\" type=\"button\" size=\"small\" :options=\"sizes\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Direction :</code>\n      <RadioGroup v-model=\"direction\" type=\"button\" size=\"small\" :options=\"directions\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Type :</code>\n      <RadioGroup v-model=\"type\" type=\"button\" size=\"small\" :options=\"types\"></RadioGroup>\n    </Space>\n    <br />\n    <RadioGroup\n      v-model=\"value\"\n      :size=\"size\"\n      :theme=\"theme\"\n      :shape=\"shape\"\n      :options=\"dates\"\n      :direction=\"direction\"\n      :type=\"type\"\n    ></RadioGroup>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { LogoApple } from \"kui-icons\";\nimport type { DirectionType, RadioType, ShapeType, SizeType, ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<ThemeType>(\"default\");\nconst direction = ref<DirectionType>(\"horizontal\");\nconst type = ref<RadioType>(\"button\");\nconst value = ref(0);\nconst dates = [\n  { label: \"1 week\", value: 0 },\n  { label: \"1 month\", value: 1 },\n  { label: \"Q1\", value: 2 },\n  { label: \"1 year\", value: 3 },\n  { label: \"5 years\", value: 4, disabled: true },\n];\nconst directions = [\n  { label: \"Horizontal\", value: \"horizontal\" },\n  { label: \"Vertical\", value: \"vertical\" },\n];\nconst types = [\n  { label: \"Radio\", value: \"radio\" },\n  { label: \"Button\", value: \"button\" },\n];\nconst sizes = [\n  { label: \"Large\", value: \"large\", icon: LogoApple },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n];\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <Space>\n      <code>Shape :</code>\n      <RadioGroup v-model=\"shape\" size=\"small\" type=\"button\">\n        <RadioButton value=\"round\" label=\"Round\" />\n        <RadioButton value=\"circle\" label=\"Circle\" />\n        <RadioButton value=\"square\" label=\"Square\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Theme :</code>\n      <RadioGroup v-model=\"theme\" size=\"small\" type=\"button\">\n        <RadioButton value=\"fill\" label=\"Fill\" />\n        <RadioButton value=\"outline\" label=\"Outline\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Size :</code>\n      <RadioGroup v-model=\"size\" type=\"button\" size=\"small\" :options=\"sizes\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Direction :</code>\n      <RadioGroup v-model=\"direction\" type=\"button\" size=\"small\" :options=\"directions\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Type :</code>\n      <RadioGroup v-model=\"type\" type=\"button\" size=\"small\" :options=\"types\"></RadioGroup>\n    </Space>\n    <br />\n    <RadioGroup\n      v-model=\"value\"\n      :size=\"size\"\n      :theme=\"theme\"\n      :shape=\"shape\"\n      :options=\"dates\"\n      :direction=\"direction\"\n      :type=\"type\"\n    ></RadioGroup>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { LogoApple } from \"kui-icons\";\nimport type { DirectionType, RadioType, ShapeType, SizeType, ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<ThemeType>(\"fill\");\nconst direction = ref<DirectionType>(\"horizontal\");\nconst type = ref<RadioType>(\"button\");\nconst value = ref(0);\nconst dates = [\n  { label: \"1 week\", value: 0 },\n  { label: \"1 month\", value: 1 },\n  { label: \"Q1\", value: 2 },\n  { label: \"1 year\", value: 3 },\n  { label: \"5 years\", value: 4, disabled: true },\n];\nconst directions = [\n  { label: \"Horizontal\", value: \"horizontal\" },\n  { label: \"Vertical\", value: \"vertical\" },\n];\nconst types = [\n  { label: \"Radio\", value: \"radio\" },\n  { label: \"Button\", value: \"button\" },\n];\nconst sizes = [\n  { label: \"Large\", value: \"large\", icon: LogoApple },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n];\n</script>"
         }
       ]
     },
@@ -14537,7 +14511,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -14913,7 +14886,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -15415,7 +15387,6 @@
           "type": "ThemeType | undefined",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -20876,7 +20847,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -21453,7 +21423,6 @@
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
-            "default",
             "fill",
             "outline",
             "plain",
@@ -21592,7 +21561,7 @@
         {
           "title": "尺寸和形状",
           "file": "components/tag/demo/size.vue",
-          "source": "<template>\n  <Space vertical>\n    <RadioGroup v-model=\"size\" type=\"button\" :options=\"sizes\" />\n    <RadioGroup v-model=\"shape\" type=\"button\" :options=\"shapes\" />\n    <RadioGroup v-model=\"theme\" type=\"button\" :options=\"themes\" />\n    <Tag v-for=\"x in 3\" :key=\"x\" :size=\"size\" :shape=\"shape\" :theme=\"theme\">Tag{{ x }}</Tag>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport type { ShapeType, SizeType, ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"small\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<ThemeType>(\"default\");\nconst sizes = [\n  { label: \"Large\", value: \"large\" },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"small\", value: \"small\" },\n];\nconst shapes = [\n  { label: \"Circle\", value: \"circle\" },\n  { label: \"Square\", value: \"square\" },\n];\nconst themes = [\n  { label: \"Fill\", value: \"fill\" },\n  { label: \"Outline\", value: \"outline\" },\n];\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <RadioGroup v-model=\"size\" type=\"button\" :options=\"sizes\" />\n    <RadioGroup v-model=\"shape\" type=\"button\" :options=\"shapes\" />\n    <RadioGroup v-model=\"theme\" type=\"button\" :options=\"themes\" />\n    <Tag v-for=\"x in 3\" :key=\"x\" :size=\"size\" :shape=\"shape\" :theme=\"theme\">Tag{{ x }}</Tag>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport type { ShapeType, SizeType, ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"small\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<ThemeType>(\"fill\");\nconst sizes = [\n  { label: \"Large\", value: \"large\" },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"small\", value: \"small\" },\n];\nconst shapes = [\n  { label: \"Circle\", value: \"circle\" },\n  { label: \"Square\", value: \"square\" },\n];\nconst themes = [\n  { label: \"Fill\", value: \"fill\" },\n  { label: \"Outline\", value: \"outline\" },\n];\n</script>"
         },
         {
           "title": "图标",

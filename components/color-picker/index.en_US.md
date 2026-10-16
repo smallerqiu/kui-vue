@@ -43,7 +43,7 @@ Freely output colors.
 | trigger | Pull-down trigger mode | `"hover" \| "click"` | click |
 | showText | Whether to display colored text | `boolean` | false |
 | size | Size of the color picker | `"small" \| "medium" \| "large"` | - |
-| theme | Theme; inherits from Form when unset | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme; inherits from Form when unset | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | Shape: `round`, `circle`, or `square`; inherits from Form when available | `"default" \| "circle" \| "square" \| "round"` | - |
 | placement | Placement of the color picker | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
 | destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |

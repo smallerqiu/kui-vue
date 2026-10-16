@@ -1,7 +1,7 @@
 @import "../../styles/less-css-var.less";
 
 // The five tiers a tag paints, and the only five the source can hand the class name for
-// (`components/tag/index.tsx` resolves anything else — `default`, or `underlined` on a chip that has
+// (`components/tag/index.tsx` resolves anything it cannot paint — `underlined` on a chip that has
 // nothing to underline — onto `fill`). They are written as `.k-tag.k-tag-<tier>` (0,2,0) so they out-rank
 // the base `.k-tag` surface, and they sit *above* the colour blocks below: a preset colour (now
 // `.k-tag.k-tag-<colour>`, the same 0,2,0) and `.k-tag.k-tag-has-color` are both declared later, so an

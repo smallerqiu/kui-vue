@@ -46,7 +46,7 @@ A cascading selection box.
 | showAllLevels | Whether to display the full selected ancestor path. If `false`, only the final leaf node is shown in the input box. | `boolean` | `true` |
 | separator | Separator between labels of different levels when `showAllLevels` is enabled. | `string` | `" / "` |
 | bordered | Whether to display borders | `boolean` | true |
-| theme | Theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | showArrow | Whether to display the dropdown button | `boolean` | true |
 | icon | Custom Icon | `IconType[]` | - |
 | shape | shape='circle' 时呈现圆角 | `"default" \| "circle" \| "square" \| "round"` | - |

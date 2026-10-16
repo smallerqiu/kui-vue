@@ -64,5 +64,5 @@
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| theme | 二维码外观 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | 二维码外观 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
 | shape | 二维码形状 | `"default" \| "circle" \| "square" \| "round"` | round |

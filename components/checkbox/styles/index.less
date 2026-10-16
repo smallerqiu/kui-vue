@@ -136,10 +136,9 @@
 // `outline` is the bordered box: the same edge the base `.k-checkbox-symbol` already draws, but read
 // from the tier hook so a `--kui-theme-outline-border` (or `--kui-control-border`) override actually
 // reaches a check box. Before this the tier shipped no class at all, so the look came from the base and
-// the hook was unreachable — and `theme="default"` landed on that same base border by accident instead
-// of on `fill`. Written before the checked / disabled blocks below: those are (0,3,0) and a later
-// (0,2,0), which is what keeps a checked box primary and a disabled one readable whatever the tier
-// says. The base `:hover` is (0,5,0) inside `.k-checkbox`, so hovering still lights the edge in
+// the hook was unreachable. Written before the checked / disabled blocks below: those are (0,3,0) and a
+// later (0,2,0), which is what keeps a checked box primary and a disabled one readable whatever the
+// tier says. The base `:hover` is (0,5,0) inside `.k-checkbox`, so hovering still lights the edge in
 // primary — `outline` keeps the family's base interactions, unlike `fill`, which paints its own hover.
 .k-checkbox-outline {
   .k-checkbox-symbol {

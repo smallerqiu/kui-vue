@@ -76,7 +76,7 @@ export default {
 | name | Form name, will be used as the id prefix for form fields | `string` | - |
 | labelCol | Label layout using `<Col>` span and offset; ignored in inline layout | `ColProps` | - |
 | wrapperCol | Control layout using `<Col>` span and offset; ignored in inline layout | `ColProps` | - |
-| theme | The component renders the theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | The component renders the theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | size | Sub component size | `"small" \| "medium" \| "large"` | - |
 | layout | Form layout | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | shape | Child component shape | `"default" \| "circle" \| "square" \| "round"` | - |

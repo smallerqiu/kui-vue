@@ -51,7 +51,7 @@
 | autofocus | 是否自动聚焦第一项 | `boolean` | false |
 | separator | OTP 字段之间的分隔符 | `VNodeChild` | - |
 | validator | 自定义单个字符验证函数 | `InputOTPValidator` | - |
-| theme | 主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | 外观形状 | `"default" \| "circle" \| "square" \| "round"` | - |
 | complete | 输入达到指定长度时触发 | `(value: string) => void` | - |
 | change | 输入值变化时触发 | `(value: string) => void` | - |

@@ -103,8 +103,8 @@
      solid       primary fill, inverted text     — emphasis block
      dashed      outline drawn with a dashed line — placeholder / drop zones
      underlined  bottom border only              — underline-style inputs (controls only)
-   `default` deliberately has no arm: it means "listen to the component", so a component
-   that emits `k-<component>-default` writes its own rule (Card's is the border radius).
+   There is no `default` arm because there is no `default` tier: a caller asks for the component's
+   own look by writing no `theme`, and the component resolves that to one of the six arms above.
    A call with no matching arm compiles to nothing rather than to an error — LESS drops the
    empty rule — which is exactly the "the class ships, nothing paints" bug this file exists
    to end. `tests/theme-variants.test.ts` is the guard: it compiles every arm and fails if

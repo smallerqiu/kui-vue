@@ -43,7 +43,7 @@
 | suffix | 自定义后缀 | `string` | - |
 | prefix | 前缀内容 | `string` | - |
 | controls | 是否显示增减按钮 | `boolean` | true |
-| theme | 组件呈现主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 组件呈现主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | icon | 输入框图标 | `IconType[]` | - |
 | placeholder | 输入框占位提示 | `string` | - |
 | keyboard | 是否允许键盘控制 | `boolean` | true |

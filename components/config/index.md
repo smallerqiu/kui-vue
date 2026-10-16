@@ -18,5 +18,5 @@
 | locale | 组件语言包 | `Record<string, any>` | 当前全局语言 |
 | getPopupContainer | 指定弹层挂载容器 | `PopupContainerGetter` | document.body |
 | size | 兼容组件的默认尺寸 | `"small" \| "medium" \| "large"` | - |
-| theme | 兼容组件的默认主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | 兼容组件的默认主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | shape | 兼容组件的默认形状 | `"default" \| "circle" \| "square" \| "round"` | - |

@@ -21,11 +21,11 @@ import { getValueWithType } from "../utils/checked";
 import type { CheckboxChangeEvent } from "./types";
 
 // The two looks a check box has: a shallow filled square and a bordered one. `fill` is also what the
-// component reaches when nothing is written, so `theme="default"` resolves here rather than shipping
-// `k-checkbox-default`, a class no LESS rule can answer. The four tiers left out — `plain` (a box with
-// no edge is not a check box), `solid` / `dashed` (containers and drop zones) and `underlined` (only
-// means something on a field you type into) — land on `fill` too, the same ruling `Tag` follows with
-// five tiers instead of two (theme 口径 §五.1).
+// component reaches when nothing is written, so an unsupported value resolves here rather than
+// shipping `k-checkbox-<tier>`, a class no LESS rule can answer. The four tiers left out — `plain` (a
+// box with no edge is not a check box), `solid` / `dashed` (containers and drop zones) and
+// `underlined` (only means something on a field you type into) — land on `fill` too, the same ruling
+// `Tag` follows with five tiers instead of two (theme 口径 §五.1).
 const PAINTED_THEMES = ["fill", "outline"] as const;
 
 const checkboxProps = {

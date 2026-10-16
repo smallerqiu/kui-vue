@@ -18,8 +18,9 @@ import { colors } from "../const/var";
 import Icon, { type IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
 
-// The tiers `button/styles/index.less` actually paints. `default` is absent on purpose: Button's own
-// default look is the type-driven base, and `k-btn-default` already means `type="default"`.
+// The tiers `button/styles/index.less` actually paints. `default` is not a theme value any more —
+// asking for the button's own look means writing no `theme`, and that look is type-driven, so the
+// class `k-btn-default` belongs to `type="default"` and no tier may collide with it.
 // `underlined` is absent too — an underline is a surface tier, and a button has nothing to underline.
 const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 

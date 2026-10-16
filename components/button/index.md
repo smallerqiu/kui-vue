@@ -63,7 +63,7 @@ Vue.use(Button);
 | size | 按钮尺寸, | `"small" \| "medium" \| "large"` | - |
 | color | 预设语义颜色 | `"default" \| "red" \| "orange" \| "yellow" \| "olive" \| "green" \| "teal" \| "blue" \| "volcano" \| "violet" \| "cyan" \| "gold" \| "lime" \| "magenta" \| "purple" \| "pink" \| "brown" \| "gray"` | - |
 | shape | 按钮的外观 | `"default" \| "circle" \| "square" \| "round"` | - |
-| theme | 按钮主题，可用 `fill` / `outline` / `plain` / `solid` / `dashed`；`default` 就是按钮自身外观，`underlined` 按 `default` 处理 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | 按钮主题，可用 `fill` / `outline` / `plain` / `solid` / `dashed`；不写 `theme` 就是按钮自身的外观，`underlined` 是给可输入的控件用的，按钮不会画下划线 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | icon | 从 kui-icons 导入的图标定义（如 Search），不是字符串或已渲染的 Icon 元素 | `IconType[]` | - |
 | loading | 按钮是否进入加载模式 | `boolean` | false |
 | href | 点击跳转的地址，指定此属性 button 的行为和 a 链接一致 | `string` | - |

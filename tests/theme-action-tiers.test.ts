@@ -1,10 +1,9 @@
 // 3c-甲 mirror of kui-react's tests/theme-action-tiers.test.tsx: Button is the family whose own default
-// look is not a tier class. The source emitted `k-btn-${theme}` for whatever value it was handed, so
-// `theme="default"` reached the DOM as `k-btn-default` — a class that already means `type="default"`
-// and, at (0,2,0), outranks `.k-btn-link` — which is how a `type="link"` button ended up painted with
-// the fill background. `theme="underlined"` shipped `k-btn-underlined`, a class no LESS rule answers,
-// because an underline only means something on a control you type into (theme 口径 §五.1). An
-// unsupported tier now emits no class at all, which is the same DOM as never writing `theme`.
+// look is not a tier class. That look is driven by `type`, and its class, `k-btn-default`, is a type
+// class at (0,2,0). The source emitted `k-btn-${theme}` for whatever value it was handed, so
+// `theme="underlined"` shipped `k-btn-underlined`, a class no LESS rule answers, because an underline
+// only means something on a control you type into (theme 口径 §五.1). An unsupported tier now emits no
+// class at all, which is the same DOM as never writing `theme`.
 // `DropdownButton` / `TriggerButton` forward their tier to `Button` and hold no tier class of their own.
 // The style half — the five tiers Button does paint — is in tests/theme-variants.test.ts.
 import { mount } from "@vue/test-utils";
@@ -18,19 +17,19 @@ afterEach(() => {
   document.body.innerHTML = "";
 });
 
-// The seven values `theme` is typed as, and the five of them `button/styles/index.less` paints.
-const TIERS = ["default", "fill", "outline", "plain", "solid", "dashed", "underlined"] as const;
-const PAINTED = TIERS.filter((tier) => tier !== "default" && tier !== "underlined");
-const UNSUPPORTED = ["default", "underlined"] as const;
+// The six values `theme` is typed as, and the five of them `button/styles/index.less` paints.
+const TIERS = ["fill", "outline", "plain", "solid", "dashed", "underlined"] as const;
+const PAINTED = TIERS.filter((tier) => tier !== "underlined");
+const UNSUPPORTED = ["underlined"] as const;
 
 const TYPES = ["default", "primary", "link", "text"] as const;
 
 const buttonClasses = (props: Record<string, unknown>) =>
   Array.from(mount(Button, { attachTo: document.body, props }).classes());
 
-// Only the seven tier spellings count here: `k-btn-sm` and `k-btn-circle` are size and shape, and
-// `k-btn-primary` is a type class that happens to share the prefix. `k-btn-default` is a type class
-// too, so tier accounting only runs on a type whose class cannot be mistaken for a tier.
+// Only the six tier spellings count here: `k-btn-sm` and `k-btn-circle` are size and shape, and
+// `k-btn-primary` / `k-btn-default` are type classes that share the prefix. `default` left the tier
+// vocabulary for exactly that reason — a tier that collides with a type class cannot be accounted for.
 const tierClasses = (classes: string[]) =>
   classes.filter((cls) => TIERS.some((tier) => cls === `k-btn-${tier}`));
 
@@ -54,8 +53,9 @@ describe("Button ships only the tiers its own LESS paints", () => {
     });
   }
 
-  // The reason this was a bug and not a cosmetic slip: `k-btn-default` is the *type* class, so a stray
-  // tier-`default` emission did not render "the default look" on another type, it repainted it.
+  // Why an unsupported tier has to emit nothing rather than "the base tier": a tier class that collides
+  // with a type class — `k-btn-default` is the case in point — does not render the type's own look on
+  // another type, it repaints it.
   for (const type of TYPES) {
     it(`type="${type}" with an unsupported tier keeps the type look`, () => {
       for (const tier of UNSUPPORTED)

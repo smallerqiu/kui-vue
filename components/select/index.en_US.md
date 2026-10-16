@@ -67,7 +67,7 @@ Dropdown selector.
 | extendWidth | Whether dropdown width matches input width | boolean | true |
 | showArrow | Whether to show dropdown button | `boolean` | true |
 | options | options data, if set, no need to manually construct Option nodes | `SelectOption[]` | [] |
-| theme | The theme of Select | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | The theme of Select | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | icon | Custom icon | `IconType[]` | - |
 | shape | When shape='circle', displays rounded corners | `"default" \| "circle" \| "square" \| "round"` | - |
 | onSelect | Triggered when an item is selected | `(option: OptionSelectEvent) => void` | - |

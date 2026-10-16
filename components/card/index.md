@@ -39,7 +39,7 @@
 | title | 卡片的标题 | `string` | - |
 | icon | 卡片标题的图标 | `IconType[]` | - |
 | bordered | 卡片是否显示边框 | `boolean` | true |
-| theme | 外观主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | 外框形状 | `"square" \| "round"` | round |
 | size | 卡片尺寸 | `"small" \| "medium" \| "large"` | medium |
 | extra | 卡片标题扩展 | slot | - |

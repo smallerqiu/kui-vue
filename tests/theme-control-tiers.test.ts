@@ -1,7 +1,7 @@
-// 3b mirror of kui-react's tests/theme-control-tiers.test.tsx: these controls typed `theme` as seven
-// values but emitted a class for two of them, so `theme="outline"` reached neither the DOM nor a LESS
-// rule. Every supported tier now reaches the root, and `theme="default"` lands on the control's own
-// default (`fill`) instead of reaching no tier class.
+// 3b mirror of kui-react's tests/theme-control-tiers.test.tsx: these controls typed `theme` as more
+// values than they emitted — a class only reached the DOM for `fill` and `plain`, so
+// `theme="outline"` reached neither the DOM nor a LESS rule. Every tier the type allows now reaches the
+// root, and a control written with no `theme` lands on its own default (`fill`).
 // The input family is the same contract on the three elements a tier class can land on: the bare
 // `<input>`, the wrapper that replaces it once anything decorates the field, and `<textarea>`.
 // The style half is in tests/theme-variants.test.ts.
@@ -107,22 +107,14 @@ describe("every theme tier reaches the control root", () => {
       });
     }
 
-    it(`${label} lands on its own default tier for theme="default"`, () => {
-      // "Listen to the component" for a control means `fill`, so `theme="default"` has to reach the
-      // same classes as never writing `theme` — not the bordered base a class-less root rendered.
+    it(`${label} lands on its own default tier with no theme written`, () => {
+      // Writing no `theme` is the only spelling of "listen to the component", and for a control that
+      // means `fill` — not the bordered base a class-less root used to render. The tier is named here
+      // rather than compared between two renders, because two renders that both land on a class no
+      // LESS paints still agree with each other.
       const tiers = (extra: Record<string, unknown>) =>
         rootClasses(mounted(case_, extra), name).filter((cls) => cls.startsWith(`${name}-`));
-      expect(tiers({ theme: "default" })).toEqual(tiers({}));
-      // Two renders that both land on a dead class agree with each other just as well, so the tier
-      // `default` resolves to is named here: the control's own `fill`, never a `k-*-default` no LESS
-      // can answer (`.kui-theme-value()` has no `default` arm on purpose).
-      const emitted = tiers({ theme: "default" });
-      expect(emitted, `${label} ships a tier class nothing paints`).not.toContain(
-        `${name}-default`,
-      );
-      expect(emitted, `${label} default does not land on its own fill tier`).toContain(
-        `${name}-fill`,
-      );
+      expect(tiers({}), `${label} has no default tier of its own`).toContain(`${name}-fill`);
     });
 
     // The tier has to reach the element the LESS block targets, so which of the box shapes is being
@@ -171,18 +163,18 @@ describe("the tier reaches the control these components delegate to", () => {
       });
     }
 
-    it(`${name} forwards the resolved tier for theme="default"`, () => {
-      // "Listen to the component" is answered by the inner control, so `default` must arrive there as
-      // its own `fill` and never as a `k-*-default` that no LESS rule can answer.
-      const wrapper = rendered({ theme: "default" });
+    it(`${name} leaves its own root unthemed when nothing is written`, () => {
+      // The inner control answers "listen to the component" with its own `fill`; the wrapper, which
+      // has no surface of its own, must not start shipping a tier class no stylesheet can answer.
+      const wrapper = rendered({});
       expect(
         wrapper.element.querySelector("." + host + "-fill"),
-        `${name} default does not land on the fill tier`,
+        `${name} leaves the inner control with no tier`,
       ).toBeTruthy();
       expect(
-        wrapper.element.querySelector(`.${host}-default, .${name}-default`),
-        `${name} forwards a tier class nothing paints`,
-      ).toBeNull();
+        classes(wrapper).filter((cls) => TIERS.some((tier) => cls === `${name}-${tier}`)),
+        `${name} emits a tier class of its own`,
+      ).toEqual([]);
     });
   }
 });

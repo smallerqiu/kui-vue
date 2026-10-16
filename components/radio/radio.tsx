@@ -9,8 +9,9 @@ import {
 } from "../form/context";
 import type { ChangeEvent } from "./types";
 // The same two looks as `Checkbox` — a shallow filled dot and a bordered one — and the same guard:
-// `default` resolves to the component's own `fill`, the other four tiers have no meaning on a round
-// dot you cannot type into, and a `k-radio-<tier>` no LESS paints is the bug this file exists to end.
+// an unsupported tier resolves to the component's own `fill`, the other four have no meaning on a
+// round dot you cannot type into, and a `k-radio-<tier>` no LESS paints is the bug this file exists
+// to end.
 const PAINTED_THEMES = ["fill", "outline"] as const;
 
 const radioProps = {

@@ -63,7 +63,7 @@ Vue.use(Button);
 | size | Button size, | `"small" \| "medium" \| "large"` | - |
 | color | Preset semantic color | `"default" \| "red" \| "orange" \| "yellow" \| "olive" \| "green" \| "teal" \| "blue" \| "volcano" \| "violet" \| "cyan" \| "gold" \| "lime" \| "magenta" \| "purple" \| "pink" \| "brown" \| "gray"` | - |
 | shape | When shape=circle, presents a circular button | `"default" \| "circle" \| "square" \| "round"` | false |
-| theme | Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn, `default` is the button's own look and `underlined` is handled as `default` | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | icon | Icon definition imported from kui-icons (e.g. Search), not a string or rendered Icon element | `IconType[]` | - |
 | loading | Whether the button is in loading mode | `boolean` | false |
 | href | The address to jump to when clicked. Specifying this property makes the button behave like an a link | `string` | - |

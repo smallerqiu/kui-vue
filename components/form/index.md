@@ -76,7 +76,7 @@ export default {
 | name | 表单名称，会作为表单字段 id 前缀使用 | `string` | - |
 | labelCol | label 标签布局，同 `<Col>` 的 span、offset；inline 布局下不生效 | `ColProps` | - |
 | wrapperCol | 控件标签布局，同 `<Col>` 的 span、offset；inline 布局下不生效 | `ColProps` | - |
-| theme | 组件呈现主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | 组件呈现主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | size | 子组件的尺寸 | `"small" \| "medium" \| "large"` | - |
 | layout | 表单布局 | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | shape | 子组件的形状 | `"default" \| "circle" \| "square" \| "round"` | - |

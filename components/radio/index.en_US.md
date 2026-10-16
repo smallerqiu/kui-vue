@@ -31,9 +31,9 @@ Radio button.
 
 ## Theme
 
-A radio has two looks: `fill` (a shallow filled dot) and `outline` (a bordered one). Leaving `theme` unset or writing `default` gives `fill`, and every other value falls back to `fill` too. The `outline` edge follows `--kui-theme-outline-border`, then `--kui-control-border`, then `--kui-color-border`.
+A radio has two looks: `fill` (a shallow filled dot) and `outline` (a bordered one). Leaving `theme` unset gives `fill`, and every value a radio does not paint falls back to `fill` too. The `outline` edge follows `--kui-theme-outline-border`, then `--kui-control-border`, then `--kui-color-border`.
 
-A `RadioGroup` passes its own `theme` down to every option it renders. In the `type="button"` style only `fill` switches to the joined layout with one divider between buttons; `outline` and `default` keep the buttons' own adjacent borders.
+A `RadioGroup` passes its own `theme` down to every option it renders. In the `type="button"` style only `fill` switches to the joined layout with one divider between buttons; every other tier keeps the buttons' own adjacent borders.
 
 ## Radio API
 
@@ -71,7 +71,7 @@ Use the standalone [Segmented](../segmented/index.en_US.md) component for slider
 | size | Button size | `"small" \| "medium" \| "large"` | - |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
-| theme | Button theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | Button theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | onChange | Triggered when option state changes, returns currently selected item | `(value: string \| number) => void` | - |
 | options | Can specify child `radio` items | `RadioOption[]` | - |
 | type | Use radio or button-style items | `"button" \| "radio"` | radio |

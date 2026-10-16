@@ -57,7 +57,7 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | prefix | Prefix inside the input; complex content can use the named slot | `VNodeChild` | - |
 | addonBefore | Addon before the input; complex content can use the named slot | `VNodeChild` | - |
 | addonAfter | Addon after the input; complex content can use the named slot | `VNodeChild` | - |
-| theme | The theme of Input | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | The theme of Input | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | clearable | Show the clear button on hover when a value exists | `boolean` | true |
 | visiblePasswordIcon | Whether to show the toggle button or control password visibility | `boolean` | true |
 | onSearch | Search event callback | `((value: string) => void)` | - |
@@ -75,7 +75,7 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | placeholder | Input placeholder | `string` | - |
 | disabled | Whether the textarea is disabled | `boolean` | false |
 | readonly | Whether the textarea is read-only | `boolean` | false |
-| theme | Textarea theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Textarea theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | size | Textarea size | `"small" \| "medium" \| "large"` | - |
 | shape | Textarea shape | `"default" \| "circle" \| "square" \| "round"` | - |
 | onChange | Triggered when the content changes | `((value: string) => void)` | - |

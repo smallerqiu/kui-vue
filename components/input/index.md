@@ -57,7 +57,7 @@
 | prefix | 输入框内部前缀，复杂内容可使用同名插槽 | `VNodeChild` | - |
 | addonBefore | 输入框外部前置附件，复杂内容可使用同名插槽 | `VNodeChild` | - |
 | addonAfter | 输入框外部后置附件，复杂内容可使用同名插槽 | `VNodeChild` | - |
-| theme | 主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | clearable | 有值且悬停时显示清除按钮 | `boolean` | true |
 | visiblePasswordIcon | 是否显示切换按钮或者控制密码显隐 | `boolean` | true |
 | onSearch | 搜索事件的回调 | `((value: string) => void)` | - |
@@ -75,7 +75,7 @@
 | placeholder | 输入提示文字 | `string` | - |
 | disabled | 是否禁用文本域 | `boolean` | false |
 | readonly | 是否只读 | `boolean` | false |
-| theme | 文本域主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 文本域主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | size | 文本域尺寸 | `"small" \| "medium" \| "large"` | - |
 | shape | 文本域形状 | `"default" \| "circle" \| "square" \| "round"` | - |
 | onChange | 内容变化时触发 | `((value: string) => void)` | - |

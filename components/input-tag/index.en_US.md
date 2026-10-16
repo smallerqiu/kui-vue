@@ -36,7 +36,7 @@ Convert continuous input into an addable and removable tag collection.
 | value | Initial tags | `string[]` | [] |
 | placeholder | Placeholder | `string` | - |
 | size | Size | `"small" \| "medium" \| "large"` | medium |
-| theme | Theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | Shape | `"default" \| "circle" \| "square" \| "round"` | default |
 | disabled | Disabled | `boolean` | false |
 | readonly | Read-only; prevents adding, removing or clearing tags | `boolean` | false |

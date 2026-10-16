@@ -11,7 +11,6 @@
     <Space>
       <code>Theme :</code>
       <RadioGroup v-model="theme" size="small" type="button">
-        <RadioButton value="default">Default</RadioButton>
         <RadioButton value="fill" label="Fill" />
         <RadioButton value="outline" label="Outline" />
       </RadioGroup>
@@ -46,7 +45,7 @@ import type { DirectionType, RadioType, ShapeType, SizeType, ThemeType } from "k
 import { ref } from "vue";
 const size = ref<SizeType>("medium");
 const shape = ref<ShapeType>("round");
-const theme = ref<ThemeType>("default");
+const theme = ref<ThemeType>("fill");
 const direction = ref<DirectionType>("horizontal");
 const type = ref<RadioType>("button");
 const value = ref(0);

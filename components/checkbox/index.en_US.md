@@ -31,7 +31,7 @@ Checkbox for multiple selections.
 
 ## Theme
 
-A check box has two looks: `fill` (a shallow filled square) and `outline` (a bordered one). Leaving `theme` unset or writing `default` gives `fill`, and every other value falls back to `fill` too. The `outline` edge follows `--kui-theme-outline-border`, then `--kui-control-border`, then `--kui-color-border`.
+A check box has two looks: `fill` (a shallow filled square) and `outline` (a bordered one). Leaving `theme` unset gives `fill`, and every value a check box does not paint falls back to `fill` too. The `outline` edge follows `--kui-theme-outline-border`, then `--kui-control-border`, then `--kui-color-border`.
 
 A `CheckboxGroup` passes its own `theme` down to every box it renders, and a stand-alone box inherits from `ConfigProvider`; the checked and disabled states always win over the tier.
 
@@ -46,7 +46,7 @@ A `CheckboxGroup` passes its own `theme` down to every box it renders, and a sta
 | readonly | Read-only; remains focusable but cannot be toggled | `boolean` | false |
 | indeterminate | Combined auxiliary option controls the indeterminate state | `boolean` | false |
 | modelValue | Standalone state bound through `v-model` | `string \| number \| boolean` | - |
-| theme | Component theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Component theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | valueType | The type of output value for the unit option | `"string" \| "number" \| "boolean"` | boolean |
 | onChange | Callback when the option state changes | `(event: CheckboxChangeEvent) => void` | - |
 
@@ -61,7 +61,7 @@ A `CheckboxGroup` passes its own `theme` down to every box it renders, and a sta
 | onChange | Triggered when the option state changes, returns the currently selected item and state | `(value: CheckboxValue[]) => void` | - |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | options | Can specify child `checkbox` items | `CheckboxOption[]` | - |
-| theme | Component theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Component theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | size | Checkbox size | `"small" \| "medium" \| "large"` | - |
 
 Each item in `options` also supports `disabled` and `readonly`.

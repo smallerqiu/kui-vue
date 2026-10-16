@@ -17,5 +17,5 @@
 import type { CardShape, ThemeType } from "kui-vue";
 
 const shapes: CardShape[] = ["round", "square"];
-const themes: ThemeType[] = ["default", "fill", "outline", "plain"];
+const themes: ThemeType[] = ["fill", "outline", "plain"];
 </script>

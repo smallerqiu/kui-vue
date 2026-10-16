@@ -19,10 +19,10 @@
   padding: 3px;
   outline: var(--kui-focus-ring-width) solid transparent;
 
-  // The base border repaint is what `outline` and `dashed` light up with, and the nameless default
-  // look. The tiers that repaint their own surface are not listed here: each of their state rules
-  // below carries `:not(.k-color-picker-disabled)` and comes later at the same specificity, so they
-  // already win, and naming them would be a declaration no test could break.
+  // The base border repaint is what `outline` and `dashed` light up with, and the look a box gets
+  // when it carries no tier class. The tiers that repaint their own surface are not listed here: each
+  // of their state rules below carries `:not(.k-color-picker-disabled)` and comes later at the same
+  // specificity, so they already win, and naming them would be a declaration no test could break.
   &:not(.k-color-picker-disabled):hover {
     border-color: var(
       --kui-color-primary-hover,

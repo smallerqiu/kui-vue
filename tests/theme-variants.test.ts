@@ -39,7 +39,7 @@ const probe = async () =>
   rules(
     `@import "less-css-var.less";\n${VALUES.map(
       (value) => `.probe-${value} { .kui-theme-value(${value}); }`,
-    ).join("\n")}\n.probe-default { .kui-theme-value(default); }`,
+    ).join("\n")}`,
   );
 
 it("paints every supported theme value through its own override hook", async () => {
@@ -106,14 +106,6 @@ it("keeps the underline focus rule and the surface values free of it", async () 
   // The others must not grow a focus rule of their own from the shared mixin.
   for (const value of ["fill", "outline", "plain", "solid", "dashed"])
     expect(compiled.has(`.probe-${value}:focus`), `${value} must not add a focus rule`).toBe(false);
-});
-
-it("leaves `default` to the component instead of painting an empty preset", async () => {
-  const compiled = await probe();
-  // `theme="default"` means "listen to the component", so the shared mixin deliberately has no
-  // arm for it. A component that emits `k-<component>-default` writes its own rule (Card's is
-  // the border radius) — an empty preset here would be the dead class this contract exists to end.
-  expect(compiled.has(".probe-default"), "`default` must not emit declarations").toBe(false);
 });
 
 it("draws the migrated components from the shared mixin rather than re-copying the chains", async () => {

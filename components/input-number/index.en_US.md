@@ -43,7 +43,7 @@ When standard numerical values need to be obtained.
 | suffix | Custom suffix | `string` | - |
 | prefix | Prefix content | `string` | - |
 | controls | Whether to show increase/decrease buttons | `boolean` | true |
-| theme | Component theme | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Component theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | icon | Input icon | `IconType[]` | - |
 | placeholder | Input placeholder | `string` | - |
 | keyboard | Allow keyboard control | `boolean` | true |

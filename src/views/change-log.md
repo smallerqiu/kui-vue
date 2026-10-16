@@ -75,31 +75,27 @@ rm -rf node_modules/.vite
 - `DatePicker` 年 / 月格子可以用键盘选了：`Tab` 到格子按 `Enter` 或空格即可，头部的年份、月份标签同样能用键盘切面板。
 - `DatePicker` 修复 `panelOnly` 常驻面板在 `mode="year"` / `mode="month"` 下仍显示日期格的问题：面板档位现在跟着 `mode` 起，与 React 版一致。
 - **不兼容变更**：组件内置文案的默认语言从简体中文改为英语。没有挂 `ConfigProvider` 时，`DatePicker`、`Select`、`Table`、`Modal`、`Page` 等组件的内置文案现在显示英文；需要简体中文请在应用根部挂 `ConfigProvider` 并传入 `locale`（`import zhCN from "kui-vue/locale/zh-CN"`）。
+- **不兼容变更**：`theme` 不再接受 `default`。想要组件自己的默认外观就不要写 `theme`，`ConfigProvider` 也不再传这个值；可选的是 `fill` / `outline` / `plain` / `solid` / `dashed` / `underlined` 六档。此前 `Button` 上写 `theme="default"` 会被认成 `type="default"` 的那种外观，让 `type="link"` / `type="text"` 的按钮凭空多出一块底色。
 - `DatePicker` 的 `format` 只接受单个格式，与 React 版一致：之前传数组只是拿第一个格式展示，现在不再接受数组。默认格式按 `mode` 取（`year` 为 `YYYY`、`month` 为 `YYYY-MM`、`time` 为 `HH:mm:ss`、`dateTime` / `dateTimeRange` 为 `YYYY-MM-DD HH:mm:ss`），文档里原先统一写成 `YYYY-MM-DD`。
 - `DatePicker` / `Select` / `Cascader` / `TreeSelect` 的 `theme="plain"` 与 `:bordered="false"` 各管各的：`plain` 是无边框也没有底色，`:bordered="false"` 只去掉边框，两者可以同时使用；控件禁用时 `plain` 照样显示禁用态。
 - `Select` / `Cascader` / `TreeSelect` 去掉边框后，鼠标悬停不再突然描出一圈主色边框和光晕。
 - `Select` / `Cascader` / `TreeSelect` / `DatePicker` 的 `theme` 补齐 `outline` / `solid` / `dashed` / `underlined` 四档：描边框、主色实底（文字与图标跟着反白）、虚线描边、只留一条下划线（聚焦时下划线变主色）。
 - `Cascader` 用 `theme="fill"` 时，鼠标悬停不再突然描出一圈边框。
-- `Select` / `Cascader` / `TreeSelect` / `DatePicker` 写 `theme="default"` 与不写 `theme` 效果完全一致，都落在组件自己的默认外观上。
 - `DatePicker` 去掉边框（`:bordered="false"` 或 `theme="plain"`）后聚焦不再出现一圈焦点环，与 `Select` 系列一致。
 - `Input` / `Textarea` / `InputNumber` 的 `theme` 补齐 `outline` / `solid` / `dashed` / `underlined` 四档：描边框、主色实底（输入的文字、占位提示与前后缀图标一起反白）、虚线描边、只留一条下划线（悬停、聚焦时变主色）。
-- `Input` / `Textarea` / `InputNumber` 写 `theme="default"` 与不写 `theme` 效果完全一致，都落在组件自己的默认外观上。
 - `Input` / `Textarea` / `InputNumber` 的 `theme="plain"` 悬停时不再突然描出一圈边框，禁用时仍显示禁用态；`plain` 与 `underlined` 聚焦时不再出现焦点环，与 `Select` 系列一致。
 - `InputTag` / `InputOTP` 的 `theme` 补齐 `outline` / `solid` / `dashed` / `underlined` 四档：描边框、主色实底、虚线描边、只留一条下划线（悬停、聚焦时下划线变主色）。
 - `InputTag` 用 `theme="solid"` 时，已添加的标签、输入的文字、占位提示和清除图标一起反白；`InputOTP` 的每一格都跟着 `theme` 走，实底时格子里的字也反白，禁用时仍显示禁用态。
-- `InputTag` / `InputOTP` 写 `theme="default"` 与不写 `theme` 效果完全一致，都落在组件自己的默认外观上。
 - `InputTag` / `InputOTP` 的 `theme="plain"` 悬停时不再突然描出一圈边框；`plain` 与 `underlined` 聚焦时不再出现焦点环，与 `Select` 系列一致。
 - `ColorPicker` 的 `theme` 补齐 `outline` / `solid` / `dashed` / `underlined` 四档：描边框、主色实底、虚线描边、只留一条下划线（悬停、打开面板时下划线变主色）。
 - `ColorPicker` 用 `theme="solid"` 时，色块旁边的颜色文字一起反白，悬停、打开面板时底色加深；色块本身仍显示当前颜色。
-- `ColorPicker` 写 `theme="default"` 与不写 `theme` 效果完全一致，都落在组件自己的默认外观上。
 - `ColorPicker` 用 `theme="fill"` 或 `theme="plain"` 且禁用时，仍显示禁用态的背景与描边。
-- `Button` / `DropdownButton` 写 `theme="default"` 与不写 `theme` 效果完全一致，都落在按钮自己的外观上；此前这个值会被认成 `type="default"` 的那种外观，让 `type="link"` / `type="text"` 的按钮凭空多出一块底色。
-- `Tag` 的 `theme` 补齐 `outline` / `solid` / `dashed` 三档：描边框、主色实底（文字和关闭图标一起反白）、虚线描边；写 `theme="default"` 与不写 `theme` 效果完全一致，都落在标签自己的 `fill` 外观上，`theme="underlined"` 同样按 `fill` 呈现。
+- `Tag` 的 `theme` 补齐 `outline` / `solid` / `dashed` 三档：描边框、主色实底（文字和关闭图标一起反白）、虚线描边；不写 `theme` 就是标签自己的 `fill` 外观，`theme="underlined"` 对它没有意义，同样按 `fill` 呈现。
 - `Tag` 设置了 `color` 时以颜色为准：预设色值和自定义色值都保留自己的边框与文字颜色，不再被 `theme` 的底色盖掉。此前带预设色值的标签会被默认外观铺上一层灰底，色值只剩文字还在。
 - `Select` / `TreeSelect` 用 `theme="solid"` 时，框里已选的标签改为半透明反白底，不再和控件一样填成主色；用 `theme="dashed"` 时标签仍是实线描边，不会跟控件一起变虚线。`InputTag` 早就是这个做法，现在三处一致。
 - `Checkbox` / `Radio` 的方框和圆点只有 `fill`（浅底填充）与 `outline`（描边）两种外观。`outline` 现在真的会把边框描出来，颜色可以和其它描边控件一样用 `--kui-theme-outline-border` 改；`fill` 的边框色也能用 `--kui-theme-fill-border` 覆盖，此前这两个变量在复选框、单选框上都不生效。
-- `Checkbox` / `Radio` 写 `theme="default"` 与不写 `theme` 效果完全一致，都落在浅底的 `fill` 上；此前它会落到描边的基础外观，等于换了个 `theme`。`solid` / `plain` / `dashed` / `underlined` 对一个不能输入的方框或圆点没有意义，同样按 `fill` 呈现。
-- `CheckboxGroup` / `RadioGroup` 的 `theme` 会传到组内每一个方框和圆点上，从 `ConfigProvider` 继承的 `theme` 走同一条路；`type="button"` 的按钮组只有 `fill` 一档改用一条分隔线拼接按钮，`outline` 与 `default` 保持按钮自身相邻边框的排布。此前按钮组的这条布局只认写在组件上的 `theme`，`ConfigProvider theme="fill"` 下按钮填了色却仍留着相邻边框的重排间距，现在继承的 `fill` 同样生效。选中与禁用状态始终优先于 `theme`。
+- `Checkbox` / `Radio` 不写 `theme` 就是浅底的 `fill`；此前写了 `default` 反而会落到描边的基础外观，等于换了个 `theme`。`solid` / `plain` / `dashed` / `underlined` 对一个不能输入的方框或圆点没有意义，同样按 `fill` 呈现。
+- `CheckboxGroup` / `RadioGroup` 的 `theme` 会传到组内每一个方框和圆点上，从 `ConfigProvider` 继承的 `theme` 走同一条路；`type="button"` 的按钮组只有 `fill` 一档改用一条分隔线拼接按钮，其余档位保持按钮自身相邻边框的排布。此前按钮组的这条布局只认写在组件上的 `theme`，`ConfigProvider theme="fill"` 下按钮填了色却仍留着相邻边框的重排间距，现在继承的 `fill` 同样生效。选中与禁用状态始终优先于 `theme`。
 
 ## 6.2.2
 
