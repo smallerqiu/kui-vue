@@ -155,13 +155,12 @@
     text-overflow: ellipsis;
   }
 }
+// Both tiers resolve through the shared arms: `fill` used to hand-copy the `--kui-theme-fill-bg`
+// chain and hard-code a `transparent` edge, so a `--kui-theme-fill-border` override never reached a
+// radio the way it reaches an input.
 .k-radio-fill {
   .k-radio-symbol {
-    background-color: var(
-      --kui-theme-fill-bg,
-      var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-    );
-    border-color: transparent;
+    .kui-theme-value(fill);
   }
 
   &:not(.k-radio-checked, .k-radio-disabled, .k-radio-readonly):hover {
@@ -169,6 +168,19 @@
       background-color: var(--kui-color-item-hover);
       border-color: transparent;
     }
+  }
+}
+
+// `outline` is the bordered dot: the edge the base `.k-radio-symbol` already draws, read from the tier
+// hook so `--kui-theme-outline-border` / `--kui-control-border` reaches it. Same shape as
+// `.k-checkbox-outline` — the tier used to ship no class, so the look came from the base and
+// `theme="default"` landed on it by accident instead of on `fill`. It sits before the checked /
+// disabled blocks: `.k-radio-checked .k-radio-symbol` is the same (0,2,0) but written later, and
+// `.k-radio-disabled.k-radio .k-radio-symbol` is (0,3,0), so a checked or disabled dot keeps its own
+// colours. The base hover inside `.k-radio` is (0,5,0), so hovering still lights the edge in primary.
+.k-radio-outline {
+  .k-radio-symbol {
+    .kui-theme-value(outline);
   }
 }
 

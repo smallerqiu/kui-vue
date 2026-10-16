@@ -9,6 +9,7 @@ import {
   type VNodeProps,
 } from "vue";
 import type { BooleanType, SizeType, ThemeType, ValueType } from "../const/types";
+import { resolvePaintedTheme } from "../config/context";
 import {
   markFormFieldComponent,
   resolveFormControlAttrs,
@@ -18,6 +19,14 @@ import {
 import Icon from "../icon";
 import { getValueWithType } from "../utils/checked";
 import type { CheckboxChangeEvent } from "./types";
+
+// The two looks a check box has: a shallow filled square and a bordered one. `fill` is also what the
+// component reaches when nothing is written, so `theme="default"` resolves here rather than shipping
+// `k-checkbox-default`, a class no LESS rule can answer. The four tiers left out — `plain` (a box with
+// no edge is not a check box), `solid` / `dashed` (containers and drop zones) and `underlined` (only
+// means something on a field you type into) — land on `fill` too, the same ruling `Tag` follows with
+// five tiers instead of two (theme 口径 §五.1).
+const PAINTED_THEMES = ["fill", "outline"] as const;
 
 const checkboxProps = {
   checked: {
@@ -124,7 +133,9 @@ const Checkbox = defineComponent({
 
     return () => {
       const { indeterminate, label } = props;
-      const theme = appearance.theme.value;
+      // Guarded on the resolved appearance, not on `props.theme`, so a `ConfigProvider` or a form that
+      // hands down an unsupported tier lands on `fill` the same way a written one does.
+      const theme = resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "fill";
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
       const size = appearance.size.value;
@@ -134,7 +145,8 @@ const Checkbox = defineComponent({
         class: [
           "k-checkbox",
           {
-            "k-checkbox-fill": theme === "fill",
+            // Always exactly one tier: `theme` resolves to a painted value or to `fill`.
+            [`k-checkbox-${theme}`]: true,
             "k-checkbox-disabled": disabled,
             "k-checkbox-readonly": readonly,
             "k-checkbox-checked": isChecked.value && !indeterminate,

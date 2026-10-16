@@ -29,6 +29,12 @@
 
 - 结合 `RadioGroup`,`RadioButton` 可以组合使用
 
+## 主题
+
+`theme` 只有 `fill`（浅底填充圆点）和 `outline`（描边圆点）两种外观；不写或写 `default` 都是 `fill`，其余档位同样按 `fill` 呈现。`outline` 的描边跟随 `--kui-theme-outline-border`，未设置时依次退回 `--kui-control-border`、`--kui-color-border`。
+
+单选框组会把自身的 `theme` 传给组内每一项；`type="button"` 的按钮组只有 `fill` 一档改用分隔线拼接的布局，`outline` 与 `default` 保持按钮自身相邻边框的排布。
+
 ## Radio API
 
 | 属性 | 说明 | 类型 | 默认值 |

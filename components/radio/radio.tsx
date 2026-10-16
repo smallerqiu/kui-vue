@@ -1,5 +1,6 @@
 import { defineComponent, type ExtractPropTypes, type PropType, ref, watch } from "vue";
 import type { BooleanType, SizeType, ThemeType } from "../const/types";
+import { resolvePaintedTheme } from "../config/context";
 import {
   markFormFieldComponent,
   resolveFormControlAttrs,
@@ -7,6 +8,11 @@ import {
   useFormField,
 } from "../form/context";
 import type { ChangeEvent } from "./types";
+// The same two looks as `Checkbox` — a shallow filled dot and a bordered one — and the same guard:
+// `default` resolves to the component's own `fill`, the other four tiers have no meaning on a round
+// dot you cannot type into, and a `k-radio-<tier>` no LESS paints is the bug this file exists to end.
+const PAINTED_THEMES = ["fill", "outline"] as const;
+
 const radioProps = {
   modelValue: { type: Boolean, default: undefined },
   value: { type: [String, Number] },
@@ -84,11 +90,14 @@ const Radio = defineComponent({
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
       const size = appearance.size.value;
-      const theme = appearance.theme.value;
+      // Guarded on the resolved appearance, not on `props.theme`, so a `ConfigProvider` or a form that
+      // hands down an unsupported tier lands on `fill` the same way a written one does.
+      const theme = resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "fill";
       const classes = [
         "k-radio",
         {
-          ["k-radio-fill"]: theme == "fill",
+          // Always exactly one tier: `theme` resolves to a painted value or to `fill`.
+          [`k-radio-${theme}`]: true,
           ["k-radio-disabled"]: disabled,
           ["k-radio-readonly"]: readonly,
           ["k-radio-checked"]: isChecked.value,

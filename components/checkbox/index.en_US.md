@@ -29,6 +29,12 @@ Checkbox for multiple selections.
 
 - Select-all combination.
 
+## Theme
+
+A check box has two looks: `fill` (a shallow filled square) and `outline` (a bordered one). Leaving `theme` unset or writing `default` gives `fill`, and every other value falls back to `fill` too. The `outline` edge follows `--kui-theme-outline-border`, then `--kui-control-border`, then `--kui-color-border`.
+
+A `CheckboxGroup` passes its own `theme` down to every box it renders, and a stand-alone box inherits from `ConfigProvider`; the checked and disabled states always win over the tier.
+
 ## API
 
 | Property | Description | Type | Default |

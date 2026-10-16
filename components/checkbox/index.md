@@ -29,6 +29,12 @@
 
 - 全选组合
 
+## 主题
+
+`theme` 只有 `fill`（浅底填充方框）和 `outline`（描边方框）两种外观；不写或写 `default` 都是 `fill`，其余档位同样按 `fill` 呈现。`outline` 的描边跟随 `--kui-theme-outline-border`，未设置时依次退回 `--kui-control-border`、`--kui-color-border`。
+
+多选框组会把自身的 `theme` 传给组内每一项，独立使用时也可以从 `ConfigProvider` 继承；选中与禁用状态始终优先于档位。
+
 ## API
 
 | 属性 | 说明 | 类型 | 默认值 |

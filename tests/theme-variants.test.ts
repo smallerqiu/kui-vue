@@ -125,6 +125,8 @@ it("draws the migrated components from the shared mixin rather than re-copying t
     "input-otp/styles/index.less",
     "color-picker/styles/index.less",
     "tag/styles/index.less",
+    "checkbox/styles/index.less",
+    "radio/styles/index.less",
   ]) {
     const source = (await fs.readFile(path.join(root, "components", entry), "utf8")).replace(
       /\/\/[^\n]*/g,
@@ -696,6 +698,18 @@ const PAINTED_CONTRACTS = [
     entry: "components/tag/styles/index.less",
     source: "components/tag/index.tsx",
   },
+  {
+    name: "Checkbox",
+    prefix: "k-checkbox",
+    entry: "components/checkbox/styles/index.less",
+    source: "components/checkbox/checkbox.tsx",
+  },
+  {
+    name: "Radio",
+    prefix: "k-radio",
+    entry: "components/radio/styles/index.less",
+    source: "components/radio/radio.tsx",
+  },
 ] as const;
 
 for (const contract of PAINTED_CONTRACTS) {
@@ -728,4 +742,43 @@ for (const contract of PAINTED_CONTRACTS) {
     const emitted = (support![1].match(/"([^"]+)"/g) ?? []).map((name) => name.replace(/"/g, ""));
     expect(emitted, `${contract.name}'s support set and its stylesheet disagree`).toEqual(painted);
   });
+}
+
+// 3c-乙b: a check box and a radio have no surface of their own — the tier *is* the box, so a tier's
+// declarations have to land on `.k-<mark>-symbol`, the element the eye reads as the control. `fill`
+// used to hand-copy the background chain here and hard-code `border-color: transparent`, which is why
+// `--kui-theme-fill-border` reached an input but not a check box, and `outline` shipped no class at all,
+// so the box's edge could never be recoloured. Both now read the shared arms, and the arm itself decides
+// what a tier paints — a declaration string copied into this file would not notice a drift.
+const MARK_BOXES = [
+  {
+    name: "Checkbox",
+    prefix: "k-checkbox",
+    entry: "components/checkbox/styles/index.less",
+    box: ".k-checkbox-symbol",
+  },
+  {
+    name: "Radio",
+    prefix: "k-radio",
+    entry: "components/radio/styles/index.less",
+    box: ".k-radio-symbol",
+  },
+] as const;
+
+// The two tiers a mark paints, spelled as the shared `Tier` union so the arm lookup type-checks.
+const MARK_TIERS = ["fill", "outline"] as const;
+
+for (const mark of MARK_BOXES) {
+  for (const tier of MARK_TIERS)
+    it(`paints ${mark.name}'s ${tier} tier on the box through the shared arm`, async () => {
+      const [compiled, everyArm] = await Promise.all([fileRules(mark.entry), arms()]);
+      const body = declarations(
+        compiled.get(`.${mark.prefix}-${tier} ${mark.box}`),
+        `${mark.name} ${tier} on ${mark.box}`,
+      );
+      expect(
+        covers(body, everyArm.get(tier)!),
+        `${mark.name} ${tier} no longer paints ${mark.box} from .kui-theme-value(${tier})`,
+      ).toBe(true);
+    });
 }

@@ -125,7 +125,12 @@ const RadioGroup = defineComponent({
         {
           "k-radio-button-group": isButton,
           "k-radio-group-circle": props.shape === "circle",
-          "k-radio-group-fill": props.theme === "fill" && isButton,
+          // The children below receive `appearance.theme.value`, so the joined-button layout has to read
+          // the same resolved value: with `ConfigProvider theme="fill"` the buttons were painted filled
+          // while the group kept the overlapped-border spacing. Still a literal `fill` comparison —
+          // `default` means "listen to the button", and a button's own look is the bordered one, which is
+          // exactly the spacing the base `.k-radio-group` rules give.
+          "k-radio-group-fill": appearance.theme.value === "fill" && isButton,
           "k-radio-group-vertical": props.direction === "vertical",
         },
       ];

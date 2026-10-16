@@ -7,9 +7,11 @@
 // `underlined`, which only means something on a box you type into (theme 口径 §五.1) — lands on `fill`.
 // The style half is in tests/theme-variants.test.ts and scripts/check-theme.ts.
 import { enableAutoUnmount, mount } from "@vue/test-utils";
-import { h } from "vue";
+import { h, type Component } from "vue";
 import { afterEach, describe, expect, it } from "vitest";
 import ConfigProvider from "../components/config";
+import { Checkbox, CheckboxGroup } from "../components/checkbox";
+import { Radio, RadioButton, RadioGroup } from "../components/radio";
 import Select from "../components/select/select";
 import Tag from "../components/tag";
 
@@ -169,5 +171,235 @@ describe("a multiple control hands its tier to the chips it renders", () => {
       for (const [index, classes] of chips.entries())
         expect(ordered(classes), `chip ${index} of a ${tier} select`).toEqual(ordered(bare[index]));
     }
+  });
+});
+
+// 3c-乙b mirror: the other two marks. A check box and a radio have two looks, not five — a shallow
+// filled box and a bordered one — and their default is `fill`, so they take the same guard as `Tag`
+// with a shorter painted list (`components/checkbox/checkbox.tsx`, `components/radio/radio.tsx`). The
+// bug this locks is the one the source used to have: `theme="outline"` shipped no class at all, so the
+// box fell back to the base border with no way for `--kui-theme-outline-border` to reach it, and
+// `theme="default"` shipped nothing either and landed on that same base border instead of on `fill`.
+// The style half is `tests/theme-variants.test.ts` and `scripts/check-theme.ts`.
+const MARK_PAINTED = ["fill", "outline"] as const;
+const MARK_UNPAINTED = ["default", "plain", "solid", "dashed", "underlined"] as const;
+
+// The element the LESS tier block paints is not the root: the root is the `<label>`. Read it by class,
+// because a mark's own root carries that class and `find` is not relied on to match the root itself.
+const MARKS: {
+  name: string;
+  symbol: string;
+  component: Component;
+  props: Record<string, unknown>;
+}[] = [
+  { name: "k-checkbox", symbol: "k-checkbox-symbol", component: Checkbox, props: {} },
+  {
+    name: "k-radio",
+    symbol: "k-radio-symbol",
+    component: Radio,
+    props: { value: "apple", label: "Apple" },
+  },
+];
+
+// A mark's own root carries the component class, so the element is read either from the root or from
+// the first match — the shape of a `VueWrapper`, written as a named alias because prettier cannot parse
+// an object type in that position of a parameter list.
+type MarkWrapper = { element: Element; find: (selector: string) => { element: Element } };
+
+const markRoot = (wrapper: MarkWrapper, name: string) =>
+  wrapper.element.classList.contains(name)
+    ? wrapper.element
+    : (wrapper.find("." + name).element as Element);
+
+const markClasses = (component: Component, props: Record<string, unknown>, name: string) =>
+  Array.from(markRoot(mount(component, { attachTo: document.body, props }), name).classList);
+
+// Only the tier spellings count: `k-checkbox-sm`, `k-checkbox-checked` and `k-checkbox-disabled` are
+// size and state, and `k-checkbox-group` is the wrapper's own class.
+const markTiers = (classes: string[], name: string) =>
+  classes.filter((cls) => [...MARK_PAINTED, ...MARK_UNPAINTED].some((t) => cls === `${name}-${t}`));
+
+describe("a check box and a radio carry one of the two tiers they paint", () => {
+  for (const { name, symbol, component, props } of MARKS) {
+    for (const tier of MARK_PAINTED) {
+      it(`${name} emits ${name}-${tier} for theme="${tier}"`, () => {
+        expect(markTiers(markClasses(component, { ...props, theme: tier }, name), name)).toEqual([
+          `${name}-${tier}`,
+        ]);
+      });
+    }
+
+    for (const tier of MARK_UNPAINTED) {
+      it(`${name} lands on fill for theme="${tier}"`, () => {
+        // The dead `k-checkbox-default` used to be the whole story: written `default` shipped nothing
+        // and the box read as the bordered base, so it looked like a different tier than no `theme` at
+        // all. Both halves named, because two renders that both land on a class no LESS paints still
+        // agree with each other.
+        const classes = markClasses(component, { ...props, theme: tier }, name);
+        expect(ordered(classes), `theme="${tier}" is not the look of a bare ${name}`).toEqual(
+          ordered(markClasses(component, props, name)),
+        );
+        expect(markTiers(classes, name), `${name} ships a tier class nothing paints`).toEqual([
+          `${name}-fill`,
+        ]);
+      });
+    }
+
+    it(`${name} puts its tier on the label the symbol block expects`, () => {
+      const root = markRoot(
+        mount(component, {
+          attachTo: document.body,
+          props: { ...props, theme: "outline" },
+        }),
+        name,
+      ) as HTMLElement;
+      expect(root.tagName).toBe("LABEL");
+      expect(
+        root.querySelector("." + symbol),
+        `${symbol} is the element the ${name}-outline rule paints`,
+      ).toBeTruthy();
+    });
+
+    it(`${name} keeps one tier next to a checked and a disabled state`, () => {
+      for (const tier of MARK_PAINTED)
+        expect(
+          markTiers(
+            markClasses(component, { ...props, theme: tier, checked: true, disabled: true }, name),
+            name,
+          ),
+        ).toEqual([`${name}-${tier}`]);
+    });
+  }
+});
+
+// The tier can also arrive from a group, and the guard sits after that inheritance: a group forwards
+// its resolved value to every box it renders, so a `CheckboxGroup theme="solid"` has to reach the same
+// boxes as one that asks for nothing.
+describe("a group hands its tier to the boxes it renders", () => {
+  const groups = [
+    {
+      name: "k-checkbox",
+      group: CheckboxGroup,
+      children: () => [
+        h(Checkbox, { value: "a", label: "A" }),
+        h(Checkbox, { value: "b", label: "B" }),
+      ],
+    },
+    {
+      name: "k-radio",
+      group: RadioGroup,
+      children: () => [h(Radio, { value: "a", label: "A" }), h(Radio, { value: "b", label: "B" })],
+    },
+  ] as const;
+
+  for (const { name, group, children } of groups) {
+    const boxes = (props: Record<string, unknown>) =>
+      mount(group, { attachTo: document.body, props, slots: { default: children } })
+        .findAll("." + name)
+        .map((node) => Array.from(node.element.classList));
+
+    for (const tier of MARK_PAINTED) {
+      it(`${name} group theme="${tier}" reaches every box`, () => {
+        const list = boxes({ theme: tier });
+        expect(list.length, "a group must render its boxes").toBeGreaterThan(0);
+        for (const classes of list) expect(classes).toContain(`${name}-${tier}`);
+      });
+    }
+
+    it(`${name} group lands an unpainted tier on fill, the same as a bare group`, () => {
+      const bare = boxes({});
+      for (const tier of MARK_UNPAINTED) {
+        const list = boxes({ theme: tier });
+        expect(list.length, `a ${tier} ${name} group must render the same boxes`).toBe(bare.length);
+        for (const [index, classes] of list.entries())
+          expect(ordered(classes), `box ${index} of a ${tier} ${name} group`).toEqual(
+            ordered(bare[index]),
+          );
+      }
+    });
+  }
+});
+
+describe("an inherited tier goes through the mark guard too", () => {
+  const inherited = (tier?: (typeof TIERS)[number]) =>
+    mount(ConfigProvider, {
+      attachTo: document.body,
+      props: { theme: tier },
+      slots: {
+        default: () => [
+          h(Checkbox, { class: "target" }),
+          h(Radio, { class: "target", value: "apple" }),
+        ],
+      },
+    })
+      .findAll(".target")
+      .map((node) => Array.from(node.element.classList));
+
+  for (const tier of MARK_UNPAINTED) {
+    it(`ConfigProvider theme="${tier}" leaves both boxes on fill`, () => {
+      expect(inherited(tier)).toEqual(inherited());
+      for (const classes of inherited(tier))
+        expect(classes.some((cls) => /-(checkbox|radio)-fill$/.test(cls))).toBe(true);
+    });
+  }
+
+  it('ConfigProvider theme="outline" reaches both boxes', () => {
+    for (const classes of inherited("outline"))
+      expect(classes.some((cls) => /-(checkbox|radio)-outline$/.test(cls))).toBe(true);
+  });
+
+  it("an explicit prop still beats the provider", () => {
+    const classes = mount(ConfigProvider, {
+      attachTo: document.body,
+      props: { theme: "outline" },
+      slots: { default: () => h(Checkbox, { class: "target", theme: "fill" }) },
+    })
+      .find(".target")
+      .classes();
+    expect(classes).toContain("k-checkbox-fill");
+    expect(classes).not.toContain("k-checkbox-outline");
+  });
+});
+
+// The button-style radio group's own layout class is the one place a tier reaches something other than a
+// box: the joined-button spacing only exists for the filled look, and it has to follow the value the
+// buttons are actually painted with. `default` is not that value — a button's own look is the bordered
+// one, which is what the base spacing already draws — so this condition stays a literal `fill`
+// comparison while still reading the inherited value. `components/radio/radio-group.tsx` used to read
+// `props.theme`, so a provider that asked for `fill` painted filled buttons inside un-joined spacing.
+describe("the button-style radio group joins its buttons for the filled tier only", () => {
+  const buttons = () => [
+    h(RadioButton, { value: "a" }, () => "A"),
+    h(RadioButton, { value: "b" }, () => "B"),
+  ];
+
+  const buttonGroup = (props: Record<string, unknown>) =>
+    mount(RadioGroup, {
+      attachTo: document.body,
+      props: { type: "button", ...props },
+      slots: { default: buttons },
+    }).element.classList;
+
+  it('theme="fill" draws the joined layout', () => {
+    expect(Array.from(buttonGroup({ theme: "fill" }))).toContain("k-radio-group-fill");
+  });
+
+  for (const tier of ["default", "outline"] as const)
+    it(`theme="${tier}" keeps the base spacing`, () => {
+      expect(Array.from(buttonGroup({ theme: tier }))).not.toContain("k-radio-group-fill");
+    });
+
+  it('a provider that asks for "fill" still joins them', () => {
+    expect(
+      mount(ConfigProvider, {
+        attachTo: document.body,
+        props: { theme: "fill" },
+        slots: {
+          default: () => h(RadioGroup, { type: "button" }, buttons),
+        },
+      })
+        .find(".k-radio-group")
+        .classes(),
+    ).toContain("k-radio-group-fill");
   });
 });

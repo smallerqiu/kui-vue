@@ -97,6 +97,9 @@ rm -rf node_modules/.vite
 - `Tag` 的 `theme` 补齐 `outline` / `solid` / `dashed` 三档：描边框、主色实底（文字和关闭图标一起反白）、虚线描边；写 `theme="default"` 与不写 `theme` 效果完全一致，都落在标签自己的 `fill` 外观上，`theme="underlined"` 同样按 `fill` 呈现。
 - `Tag` 设置了 `color` 时以颜色为准：预设色值和自定义色值都保留自己的边框与文字颜色，不再被 `theme` 的底色盖掉。此前带预设色值的标签会被默认外观铺上一层灰底，色值只剩文字还在。
 - `Select` / `TreeSelect` 用 `theme="solid"` 时，框里已选的标签改为半透明反白底，不再和控件一样填成主色；用 `theme="dashed"` 时标签仍是实线描边，不会跟控件一起变虚线。`InputTag` 早就是这个做法，现在三处一致。
+- `Checkbox` / `Radio` 的方框和圆点只有 `fill`（浅底填充）与 `outline`（描边）两种外观。`outline` 现在真的会把边框描出来，颜色可以和其它描边控件一样用 `--kui-theme-outline-border` 改；`fill` 的边框色也能用 `--kui-theme-fill-border` 覆盖，此前这两个变量在复选框、单选框上都不生效。
+- `Checkbox` / `Radio` 写 `theme="default"` 与不写 `theme` 效果完全一致，都落在浅底的 `fill` 上；此前它会落到描边的基础外观，等于换了个 `theme`。`solid` / `plain` / `dashed` / `underlined` 对一个不能输入的方框或圆点没有意义，同样按 `fill` 呈现。
+- `CheckboxGroup` / `RadioGroup` 的 `theme` 会传到组内每一个方框和圆点上，从 `ConfigProvider` 继承的 `theme` 走同一条路；`type="button"` 的按钮组只有 `fill` 一档改用一条分隔线拼接按钮，`outline` 与 `default` 保持按钮自身相邻边框的排布。此前按钮组的这条布局只认写在组件上的 `theme`，`ConfigProvider theme="fill"` 下按钮填了色却仍留着相邻边框的重排间距，现在继承的 `fill` 同样生效。选中与禁用状态始终优先于 `theme`。
 
 ## 6.2.2
 
