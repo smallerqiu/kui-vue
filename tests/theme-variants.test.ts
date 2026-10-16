@@ -741,6 +741,16 @@ const PAINTED_CONTRACTS = [
       "components/feedback-panel/feedback-panel.tsx",
     ],
   },
+  // 3c-丙c: `CheckCard` carried a private two-value `CheckCardTheme` while its own default frame was a
+  // hand-copied `outline` arm, so the type said two looks, the stylesheet drew one of them by hand, and
+  // a tier the card cannot draw could still arrive from `ConfigProvider`. The set now lives at the emit
+  // point like every other surface.
+  {
+    name: "CheckCard",
+    prefix: "k-check-card",
+    entry: "components/check-card/styles/index.less",
+    sources: ["components/check-card/check-card.tsx"],
+  },
 ] as const;
 
 // Read the first spelling that exists, so one shared file can point at a component whose filename
@@ -899,6 +909,22 @@ const SURFACES = [
       [".k-feedback-panel-details", "background"],
       [".k-feedback-panel-mark-inner", "color"],
       [".k-feedback-panel-mark-inner", "background"],
+    ],
+    keeps: [],
+  },
+  // 3c-丙c: a check card colours four things of its own — title, description, the leading symbol and the
+  // indicator ring — and none of them inherit, so the tier has to reach each by name. The checked ring
+  // and the checked indicator disc are the state this component exists to show: under `solid` they turn
+  // light rather than staying primary, because a primary ring on a primary plate is nothing to look at.
+  {
+    name: "CheckCard",
+    prefix: "k-check-card",
+    entry: "components/check-card/styles/index.less",
+    inverted: [
+      [".k-check-card-title", "color"],
+      [".k-check-card-description", "color"],
+      [".k-check-card-symbol", "color"],
+      [".k-check-card-indicator", "border-color"],
     ],
     keeps: [],
   },

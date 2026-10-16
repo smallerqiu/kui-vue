@@ -5,10 +5,11 @@
   display: flex;
   min-width: 180px;
   padding: var(--kui-spacing-4);
-  border: 1px solid
-    var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
+  // The box of the frame lives here — every tier either recolours it or names its own line style — while
+  // its colour and its surface come from `.kui-theme-value(...)`. Keeping the width on the base is what
+  // stops a tier change from moving the card's content by a pixel.
+  border: 1px solid transparent;
   border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
-  background: var(--kui-theme-outline-bg);
   color: var(--kui-color-text);
   cursor: pointer;
   gap: var(--kui-spacing-3);
@@ -48,12 +49,10 @@
   }
 }
 
+// `fill` is a shallow plate: the frame goes transparent and the selected background is the only thing
+// that still names the primary colour, so it stays declared here rather than coming from the arm.
 .k-check-card-fill {
-  border-color: var(--kui-theme-fill-border);
-  background: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  .kui-theme-value(fill);
 
   &.is-checked {
     border-color: var(--kui-color-primary);
@@ -62,6 +61,63 @@
       color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
     );
   }
+}
+// `outline` is this component's own look. The base block sizes the frame; this names its colour and its
+// surface through the shared arm, which is what lets `--kui-theme-outline-border` reach a card the same
+// way it reaches an input.
+.k-check-card-outline {
+  .kui-theme-value(outline);
+}
+// `plain` keeps the box but paints nothing — frame and surface both transparent — so the checked ring
+// and the indicator stay the only chrome, which is what a borderless option list wants.
+.k-check-card-plain {
+  .kui-theme-value(plain);
+}
+// `solid` puts the card on the primary plate, so every part this component colours for itself has to come
+// with it: title, description, symbol and the indicator's ring each read a dark token of their own, and
+// an inherited `color` reaches none of them. The checked marks are the state this component exists to
+// show, so under `solid` they invert instead of vanishing — a primary ring on a primary plate is nothing
+// to look at. Those two rules name `:not(.is-disabled)` because the disabled block below reaches the same
+// parts at the same weight; stepping aside by name is the only way a disabled card stays disabled.
+.k-check-card-solid {
+  .kui-theme-value(solid);
+
+  .k-check-card-title {
+    color: @kui-theme-solid-text;
+  }
+  .k-check-card-description {
+    color: color-mix(in srgb, @kui-theme-solid-text 80%, transparent);
+  }
+  .k-check-card-symbol {
+    color: @kui-theme-solid-text;
+  }
+  .k-check-card-indicator {
+    border-color: color-mix(in srgb, @kui-theme-solid-text 45%, transparent);
+  }
+
+  &:not(.is-disabled):not(.is-readonly):hover {
+    border-color: color-mix(in srgb, @kui-theme-solid-text 45%, transparent);
+  }
+
+  &.is-checked:not(.is-disabled) {
+    border-color: @kui-theme-solid-text;
+    box-shadow: 0 0 0 1px @kui-theme-solid-text;
+
+    .k-check-card-symbol {
+      color: @kui-theme-solid-text;
+    }
+    // The disc turns light and the mark inside it turns plate-coloured, so the check still reads as a
+    // check: swapping the two tones is the only pairing that stays legible on a primary surface.
+    .k-check-card-indicator {
+      border-color: @kui-theme-solid-text;
+      background: @kui-theme-solid-text;
+      color: @kui-theme-solid-bg;
+    }
+  }
+}
+// A dashed frame keeps the outlined surface and every state above; only the line style changes.
+.k-check-card-dashed {
+  .kui-theme-value(dashed);
 }
 
 .k-check-card-content {
@@ -119,6 +175,18 @@
   border-color: var(--kui-color-border-disabled);
   background: var(--kui-control-bg-disabled, var(--kui-color-bg-component-disabled));
   color: var(--kui-color-text-disabled);
+}
+// `is-disabled` has to name the parts this component colours for itself. The root's disabled `color`
+// never reached them — title, description and symbol each carry a rule of their own, and inheritance
+// loses to any declaration — so a disabled card kept painting an enabled-looking title, and under
+// `solid` the same gap turned into white text on the disabled plate. Naming them at (0,3,0) settles the
+// tier's layering too: disabled wins by specificity, not by the order the two blocks happen to sit in.
+.k-check-card.is-disabled {
+  .k-check-card-title,
+  .k-check-card-description,
+  .k-check-card-symbol {
+    color: var(--kui-color-text-disabled);
+  }
 }
 
 .k-check-card-small {

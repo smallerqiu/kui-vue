@@ -11,12 +11,18 @@
 // way but their own look is `outline`, not `fill`, and `FeedbackPanel` used to spell its tier class
 // `k-feedback-panel-theme-<tier>` while also shipping `k-feedback-panel-solid` / `-dashed` as classes no
 // rule answered.
+// 3c-丙c adds the last surface of this family, `CheckCard`, which typed its tier as a private
+// `"outline" | "fill"` union while a `ConfigProvider` could still hand it any of the six. In Vue the
+// same narrowing sat in two more places: the prop carried `default: "outline"`, and the group answered
+// any tier outside its own two with that default instead of forwarding it — so a `theme="solid"` above
+// a group never reached the cards inside it.
 // The style half — what each tier actually draws — is in tests/theme-variants.test.ts and the pixels in
 // scripts/check-theme.ts.
 import { mount } from "@vue/test-utils";
 import { h } from "vue";
 import { describe, expect, it } from "vitest";
 import Card from "../components/card";
+import { CheckCard, CheckCardGroup } from "../components/check-card";
 import Collapse, { CollapsePanel } from "../components/collapse";
 import ConfigProvider from "../components/config";
 import FeatureCard from "../components/feature-card";
@@ -56,6 +62,14 @@ const SURFACES = [
     fallback: "outline",
     component: FeedbackPanel,
     props: {},
+  },
+  // 3c-丙c: a check card resolves the same way, and its own look is the outlined frame too.
+  {
+    name: "CheckCard",
+    prefix: "k-check-card",
+    fallback: "outline",
+    component: CheckCard,
+    props: { title: "选项", description: "描述" },
   },
 ] as const;
 
@@ -261,5 +275,83 @@ describe("a tier lands beside the flags of a Collapse", () => {
     expect(classes).toContain("k-collapse-solid");
     expect(classes).toContain("k-collapse-sample");
     expect(classes).toContain("k-collapse-square");
+  });
+});
+
+// 3c-丙c: a check card is the one surface of this family that a group can render for the caller, so its
+// tier has to survive three asks — the card's own attribute, the group it sits in, and the provider
+// above the group. The group owns no tier class, so it forwards and never answers.
+describe("a check card takes its tier from whoever asks for it", () => {
+  const card = SURFACES.find((surface) => surface.name === "CheckCard")!;
+  const options = [
+    { value: "a", title: "选项一" },
+    { value: "b", title: "选项二" },
+  ];
+
+  const tiersInsideGroup = (props: Record<string, unknown>) =>
+    mount(CheckCardGroup, { attachTo: document.body, props: { modelValue: "a", options, ...props } })
+      .findAll(".k-check-card")
+      .map((node) => tierClasses(card, Array.from(node.element.classList)));
+
+  it("a group forwards its tier to every card it renders", () => {
+    expect(tiersInsideGroup({ theme: "solid" })).toEqual([
+      [`${card.prefix}-solid`],
+      [`${card.prefix}-solid`],
+    ]);
+  });
+
+  // An unsupported tier is answered by the card's own fallback, and the group root must not grow a tier
+  // class of its own on the way — before this, the group answered it with `props.theme` instead.
+  it("a group hands an unpainted tier down to the card's fallback", () => {
+    const wrapper = mount(CheckCardGroup, {
+      attachTo: document.body,
+      props: { modelValue: "a", theme: "underlined", options },
+    });
+    expect(
+      wrapper
+        .findAll(".k-check-card")
+        .map((node) => tierClasses(card, Array.from(node.element.classList))),
+    ).toEqual([
+      [`${card.prefix}-outline`],
+      [`${card.prefix}-outline`],
+    ]);
+    expect(
+      tierClasses(card, Array.from(wrapper.find(".k-check-card-group").element.classList)),
+    ).toEqual([]);
+  });
+
+  // Written on the card is the stronger spelling: the group's value only fills in what the card left
+  // out, which is the order Vue could not read while the prop carried its own default.
+  it("a theme written on the card beats the group", () => {
+    const wrapper = mount(CheckCardGroup, {
+      attachTo: document.body,
+      props: { modelValue: "a", theme: "fill" },
+      slots: { default: () => h(CheckCard, { value: "a", theme: "solid", title: "选项一" }) },
+    });
+    expect(
+      tierClasses(card, Array.from(wrapper.find(".k-check-card").element.classList)),
+    ).toEqual([`${card.prefix}-solid`]);
+  });
+
+  // The checked marks are the state this component exists to show, so `solid` has to keep them legible
+  // instead of painting them the plate's own colour; both classes share the root to do it.
+  it("keeps the checked state beside a solid tier", () => {
+    const wrapper = mount(CheckCard, {
+      attachTo: document.body,
+      props: { theme: "solid", checked: true, title: "选项", description: "描述" },
+    });
+    const classes = Array.from(wrapper.classes());
+    expect(classes).toContain(`${card.prefix}-solid`);
+    expect(classes).toContain("is-checked");
+    expect(wrapper.find(".k-check-card-indicator").exists()).toBe(true);
+    expect(wrapper.find(".k-check-card-title").text()).toBe("选项");
+    expect(wrapper.find(".k-check-card-description").text()).toBe("描述");
+  });
+
+  it("lands beside the size and shape flags of a card", () => {
+    const classes = rootClasses(card, { theme: "dashed", size: "small", shape: "square" });
+    expect(classes).toContain(`${card.prefix}-dashed`);
+    expect(classes).toContain(`${card.prefix}-small`);
+    expect(classes).toContain(`${card.prefix}-square`);
   });
 });

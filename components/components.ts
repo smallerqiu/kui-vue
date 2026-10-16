@@ -69,7 +69,6 @@ export type {
   CheckCardGroupProps,
   CheckCardOption,
   CheckCardProps,
-  CheckCardTheme,
   CheckCardValue,
 } from "./check-card";
 

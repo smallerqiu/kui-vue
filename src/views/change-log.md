@@ -101,6 +101,10 @@ rm -rf node_modules/.vite
 - `Collapse` / `FeedbackPanel` 的 `theme` 补齐 `solid` / `dashed` 两档：`solid` 是主色实底，面板标题、描述、详情块和图标一起反白，`Collapse` 里禁用的面板仍保持禁用态；`dashed` 是虚线描边，内部的行分割线仍是实线。`FeedbackPanel` 左边那条状态色带不受 `theme` 影响。
 - `Collapse` 的简洁模式（`sample`）配上 `theme="solid"` 时，主色落在每一块面板自己身上，外层不再铺一整块底色。
 - `FeedbackPanel` 的 `theme="outline"` 不再自带一层页面底色：面板放进卡片或带底色的容器里时，露出的是容器自己的背景，与其它描边表面一致。
+- `CheckCard` / `CheckCardGroup` 的 `theme` 补齐 `solid` / `dashed` 两档，`CheckCard` 也不再只认 `fill` / `outline`：`solid` 是主色实底，标题、描述、左侧图标和右上角的选中标记一起反白，选中时圆点转成浅色、勾用主色；`dashed` 是虚线描边。卡片上写 `theme="underlined"` 按 `outline` 呈现。
+- `CheckCardGroup` 的 `theme` 会传给组内每一张卡片，从 `ConfigProvider`、`Form` 继承的 `theme` 也同样传下去；卡片自己写了的 `theme` 优先。此前组上写 `solid` 会被换成 `outline`。
+- `CheckCard` 禁用时，标题、描述和图标一起变灰，不再只把外框和选中标记变灰。
+- **不兼容变更**：不再导出 `CheckCardTheme`，`theme` 一律使用库统一的 `ThemeType`。
 
 ## 6.2.2
 

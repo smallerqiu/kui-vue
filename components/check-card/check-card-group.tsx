@@ -8,11 +8,11 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import type { BooleanType, DirectionType, ShapeType, SizeType } from "../const/types";
+import type { BooleanType, DirectionType, ShapeType, SizeType, ThemeType } from "../const/types";
 import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import CheckCard from "./check-card";
 import { checkCardGroupKey, type CheckCardRegistryItem } from "./context";
-import type { CheckCardOption, CheckCardTheme, CheckCardValue } from "./types";
+import type { CheckCardOption, CheckCardValue } from "./types";
 
 const checkCardGroupProps = {
   modelValue: [String, Number] as PropType<CheckCardValue>,
@@ -21,7 +21,10 @@ const checkCardGroupProps = {
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
   direction: { type: String as PropType<DirectionType>, default: "horizontal" },
-  theme: { type: String as PropType<CheckCardTheme>, default: "outline" },
+  // The group paints no surface of its own, so there is no tier class here to guard — it forwards the
+  // tier it was asked for and the cards inside resolve it. That is also why this prop has no default:
+  // `outline` is what a *card* looks like by default, not something the group should answer for.
+  theme: { type: String as PropType<ThemeType> },
   size: { type: String as PropType<SizeType>, default: "medium" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
 };
@@ -79,10 +82,9 @@ const CheckCardGroup = defineComponent({
       modelValue: computed(() => localValue.value),
       disabled: computed(() => Boolean(props.disabled || field?.disabled.value)),
       readonly: computed(() => Boolean(props.readonly || field?.readonly.value)),
-      theme: computed(() => {
-        const theme = appearance.theme.value;
-        return theme === "outline" || theme === "fill" ? theme : props.theme;
-      }),
+      // Forwarded untouched. This used to answer `props.theme` for any tier outside its own two, which
+      // is how a `ConfigProvider theme="solid"` above a group silently became `outline` inside it.
+      theme: computed(() => appearance.theme.value),
       size: computed(() => appearance.size.value ?? props.size),
       shape: computed(() => appearance.shape.value ?? props.shape),
       select,

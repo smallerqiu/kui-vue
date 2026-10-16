@@ -39,7 +39,7 @@
 | showIndicator | 是否显示右上角选中标记 | `boolean` | true |
 | disabled | 是否禁用 | `boolean` | false |
 | readonly | 是否只读，保持可聚焦但不可选择 | `boolean` | false |
-| theme | 外观主题 | `"fill" \| "outline"` | outline |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
 | size | 尺寸 | `"small" \| "medium" \| "large"` | medium |
 | shape | 形状 | `"default" \| "circle" \| "square" \| "round"` | round |
 | change | 选择状态变化时触发 | `(event: CheckCardChangeEvent) => void` | - |
@@ -54,9 +54,15 @@
 | disabled | 是否禁用整个卡片组 | `boolean` | false |
 | readonly | 是否只读整个卡片组 | `boolean` | false |
 | direction | 排列方向 | `"horizontal" \| "vertical" \| "inline"` | horizontal |
-| theme | 卡片主题 | `"fill" \| "outline"` | outline |
+| theme | 卡片主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
 | size | 卡片尺寸 | `"small" \| "medium" \| "large"` | medium |
 | shape | 卡片形状 | `"default" \| "circle" \| "square" \| "round"` | round |
 | change | 当前选择变化时触发 | `(value: CheckCardValue) => void` | - |
 
 `options` 中每一项还支持 `disabled` 和 `readonly`。
+
+## 主题
+
+`theme` 支持 `fill`、`outline`、`plain`、`solid`、`dashed` 五种外观，不写 `theme` 时就是 `outline`；`underlined` 是给可输入的控件用的，选择卡片会按 `outline` 呈现。
+
+`solid` 用主色铺满整张卡片，标题、描述、左侧图标和右上角的选中标记一起反白：选中时圆点转成浅色、勾用主色，禁用时仍保持禁用样式。`dashed` 只把外框换成虚线，内部图标与文字不动。`CheckCardGroup` 上的 `theme` 会传给组内每一张卡片，卡片自己写了的 `theme` 更优先。

@@ -4348,21 +4348,6 @@
       "documentation": "https://k-ui.cn/components/check-card",
       "props": [
         {
-          "name": "theme",
-          "description": "Appearance theme",
-          "descriptionZh": "外观主题",
-          "descriptionEn": "Appearance theme",
-          "type": "CheckCardTheme",
-          "boolean": false,
-          "enumValues": [
-            "fill",
-            "outline"
-          ],
-          "required": false,
-          "defaultExpression": "\"outline\"",
-          "documented": true
-        },
-        {
           "name": "shape",
           "description": "Shape",
           "descriptionZh": "形状",
@@ -4466,6 +4451,24 @@
           "descriptionEn": "Description, customizable via the named slot",
           "type": "string | undefined",
           "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "theme",
+          "description": "Appearance theme",
+          "descriptionZh": "外观主题",
+          "descriptionEn": "Appearance theme",
+          "type": "ThemeType | undefined",
+          "boolean": false,
+          "enumValues": [
+            "fill",
+            "outline",
+            "plain",
+            "solid",
+            "dashed",
+            "underlined"
+          ],
           "required": false,
           "documented": true
         },
@@ -4603,21 +4606,6 @@
       "documentation": "https://k-ui.cn/components/check-card",
       "props": [
         {
-          "name": "theme",
-          "description": "Card theme",
-          "descriptionZh": "卡片主题",
-          "descriptionEn": "Card theme",
-          "type": "CheckCardTheme",
-          "boolean": false,
-          "enumValues": [
-            "fill",
-            "outline"
-          ],
-          "required": false,
-          "defaultExpression": "\"outline\"",
-          "documented": true
-        },
-        {
           "name": "shape",
           "description": "Card shape",
           "descriptionZh": "卡片形状",
@@ -4676,6 +4664,24 @@
           "enumValues": [
             false,
             true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "theme",
+          "description": "Card theme",
+          "descriptionZh": "卡片主题",
+          "descriptionEn": "Card theme",
+          "type": "ThemeType | undefined",
+          "boolean": false,
+          "enumValues": [
+            "fill",
+            "outline",
+            "plain",
+            "solid",
+            "dashed",
+            "underlined"
           ],
           "required": false,
           "documented": true

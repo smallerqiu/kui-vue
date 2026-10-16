@@ -11,7 +11,8 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import type { BooleanType, ShapeType, SizeType } from "../const/types";
+import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
+import { resolvePaintedTheme } from "../config/context";
 import {
   markFormFieldComponent,
   resolveFormControlAttrs,
@@ -20,7 +21,14 @@ import {
 } from "../form/context";
 import Icon, { type IconType } from "../icon";
 import { checkCardGroupKey } from "./context";
-import type { CheckCardChangeEvent, CheckCardTheme, CheckCardValue } from "./types";
+import type { CheckCardChangeEvent, CheckCardValue } from "./types";
+
+// A check card paints a whole box, so it answers the five surface tiers and never `underlined` —
+// "keep only the bottom border" on a card deletes three of its sides. Its own look is the outlined
+// frame the base block used to hand-copy, so an unsupported tier falls back to `outline` rather than
+// shipping `k-check-card-<tier>` with nothing behind it. The group forwards its value untouched: it
+// paints no surface, so the guard belongs to the cards that do.
+const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 
 const checkCardProps = {
   modelValue: { type: Boolean, default: undefined },
@@ -33,7 +41,11 @@ const checkCardProps = {
   showIndicator: { type: Boolean as BooleanType, default: true },
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
-  theme: { type: String as PropType<CheckCardTheme>, default: "outline" },
+  // Deliberately no `default: "outline"`: the chain below reads "the card's own `theme`, then the group,
+  // then the provider", and a prop default would make the first link never empty — the card could not
+  // tell its own written tier from the fallback `useFormAppearance` ends on, and it would stop the
+  // group and the provider from being heard at all.
+  theme: { type: String as PropType<ThemeType> },
   size: { type: String as PropType<SizeType>, default: "medium" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
 };
@@ -72,13 +84,17 @@ const CheckCard = defineComponent({
     const readonly = computed(() =>
       Boolean(props.readonly || field?.readonly.value || group?.readonly.value),
     );
-    const theme = computed(() => {
-      const formTheme = appearance.theme.value;
-      return (
-        group?.theme.value ??
-        (formTheme === "outline" || formTheme === "fill" ? formTheme : props.theme)
-      );
-    });
+    // The same chain the Card family uses, in the same order: what this card was asked for, then what
+    // its group was asked for, then what the form or the provider says — and one tier the group could
+    // never hand down before, because its gate only let `outline` and `fill` through and answered
+    // anything else with its own default.
+    const theme = computed(
+      () =>
+        resolvePaintedTheme(
+          props.theme ?? group?.theme.value ?? appearance.theme.value,
+          PAINTED_THEMES,
+        ) ?? "outline",
+    );
     const size = computed(() => group?.size.value ?? appearance.size.value);
     const shape = computed(() => group?.shape.value ?? appearance.shape.value);
 

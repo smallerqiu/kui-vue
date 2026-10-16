@@ -99,6 +99,10 @@ rm -rf node_modules/.vite
 - `Collapse` / `FeedbackPanel`: `theme` gains `solid` and `dashed`. `solid` fills the box with the primary colour and inverts its titles, description, detail plate and icon, while a disabled panel inside a `Collapse` still reads as disabled; `dashed` draws a dashed frame and keeps the row dividers solid. The severity stripe beside a `FeedbackPanel` reports its `kind`, so no `theme` repaints it.
 - `Collapse`: with `sample` and `theme="solid"`, each panel carries the primary surface itself instead of one plate painted behind them.
 - `FeedbackPanel`: `theme="outline"` no longer paints a page-coloured background of its own, so a panel inside a card or a tinted container shows that container's background, like any other outlined surface.
+- `CheckCard` / `CheckCardGroup`: `theme` gains `solid` and `dashed`, and a check card no longer accepts only `fill` and `outline`. `solid` fills the card with the primary colour and inverts its title, description, leading icon and corner tick — the selected disc turns light with the mark drawn in the plate colour; `dashed` draws a dashed frame. `theme="underlined"` lands on `outline`, an underline being the spelling of a control you type into.
+- `CheckCardGroup`: `theme` now reaches every card inside the group, whether it is written on the group or inherited from `ConfigProvider` or a `Form`, and a tier written on the card itself still wins. A `theme="solid"` on the group used to be swapped for `outline`.
+- `CheckCard`: a disabled card greys its title, description and icon along with its border and its tick.
+- **Breaking change**: `CheckCardTheme` is no longer exported; every `theme` prop uses the library's shared `ThemeType`.
 
 ## 6.2.2
 

@@ -39,7 +39,7 @@ Present richer choices with a title, description, and optional symbol.
 | showIndicator | Show the top-right selection indicator | `boolean` | true |
 | disabled | Disable the card | `boolean` | false |
 | readonly | Read-only; remains focusable but cannot be selected | `boolean` | false |
-| theme | Appearance theme | `"fill" \| "outline"` | outline |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
 | size | Size | `"small" \| "medium" \| "large"` | medium |
 | shape | Shape | `"default" \| "circle" \| "square" \| "round"` | round |
 | change | Emitted when selection state changes | `(event: CheckCardChangeEvent) => void` | - |
@@ -54,9 +54,15 @@ Present richer choices with a title, description, and optional symbol.
 | disabled | Disable the group | `boolean` | false |
 | readonly | Make the group read-only | `boolean` | false |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
-| theme | Card theme | `"fill" \| "outline"` | outline |
+| theme | Card theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
 | size | Card size | `"small" \| "medium" \| "large"` | medium |
 | shape | Card shape | `"default" \| "circle" \| "square" \| "round"` | round |
 | change | Emitted when the selected value changes | `(value: CheckCardValue) => void` | - |
 
 Each item in `options` also supports `disabled` and `readonly`.
+
+## Theme
+
+`theme` supports five looks — `fill`, `outline`, `plain`, `solid`, `dashed` — and is `outline` when you write nothing. `underlined` belongs to a control you type into, so a check card falls back to `outline`.
+
+`solid` fills the whole card with the primary colour and inverts its title, description, leading icon and corner tick: the selected disc turns light with the mark drawn in the plate colour, and a disabled card stays disabled. `dashed` only turns the frame into a dashed line and leaves the icon and the text alone. A `theme` on `CheckCardGroup` reaches every card inside it, and a tier written on the card wins.
