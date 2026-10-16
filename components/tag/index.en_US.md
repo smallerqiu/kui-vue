@@ -24,10 +24,17 @@ Small labels for marking and categorization.
 [Colorful Tags](./demo/color.vue)
 
 - Multiple preset tag colors for different scenarios. If the presets don't meet your needs, you can set a specific color value.
+- When `color` is set, the color wins: both preset and custom colors keep their own border and text color, and `theme` only decides the surface of a tag that has no color.
 
 [Dynamic Add and Remove](./demo/dynamic.vue)
 
 - Use `closeable` to show a close button.
+
+## Theme
+
+`theme` supports `fill`, `outline`, `plain`, `solid` and `dashed`. Leaving it empty or writing `default` both mean `fill`; `underlined` belongs to controls you type into, so a tag renders as `fill`.
+
+Multi-select controls (`Select`, `TreeSelect`, `InputTag`) pass their own `theme` down to the tags they render, so a chip follows its control.
 
 ## Closing
 

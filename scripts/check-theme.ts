@@ -47,10 +47,10 @@ const compile = async (entry: string) => {
     <div theme-mode="dark"><button id="dark" class="k-btn">Dark</button><div theme-mode="light"><button id="light" class="k-btn">Light</button></div></div>
     <div class="overrides"><div theme-mode="dark"><div id="control" class="k-input" data-multiple><input /></div><button id="override" class="k-btn k-btn-primary">Override</button><div class="k-popup-panel k-popup"><div id="override-popup" class="k-popup-content">Popup</div></div></div></div>
     <div id="square" shape-mode="square"><button id="square-button" class="k-btn">Square</button></div>
-    <div class="theme-hooks"><div id="hook-card-fill" class="k-card k-card-fill">Card</div><div id="hook-card-outline" class="k-card k-card-outline">Card</div><div id="hook-card-plain" class="k-card k-card-plain">Card</div><div id="hook-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="hook-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="hook-input-outline" class="k-input k-input-outline" data-multiple><input class="k-input-text" /></div><div id="hook-input-dashed" class="k-input k-input-dashed" data-multiple><input class="k-input-text" /></div><div id="hook-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="hook-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="hook-tag-outline" class="k-input-tag k-input-tag-outline"><input class="k-input-tag-input" /></div><div id="hook-tag-dashed" class="k-input-tag k-input-tag-dashed"><input class="k-input-tag-input" /></div><div id="hook-otp-outline" class="k-input-otp k-input-otp-outline"><input id="hook-otp-outline-cell" class="k-input-otp-item" /></div><div id="hook-picker-fill" class="k-color-picker k-color-picker-fill">Fill</div><div id="hook-picker-outline" class="k-color-picker k-color-picker-outline">Outline</div><div id="hook-picker-dashed" class="k-color-picker k-color-picker-dashed">Dashed</div></div>
+    <div class="theme-hooks"><div id="hook-card-fill" class="k-card k-card-fill">Card</div><div id="hook-card-outline" class="k-card k-card-outline">Card</div><div id="hook-card-plain" class="k-card k-card-plain">Card</div><div id="hook-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="hook-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="hook-input-outline" class="k-input k-input-outline" data-multiple><input class="k-input-text" /></div><div id="hook-input-dashed" class="k-input k-input-dashed" data-multiple><input class="k-input-text" /></div><div id="hook-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="hook-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="hook-tag-outline" class="k-input-tag k-input-tag-outline"><input class="k-input-tag-input" /></div><div id="hook-tag-dashed" class="k-input-tag k-input-tag-dashed"><input class="k-input-tag-input" /></div><div id="hook-otp-outline" class="k-input-otp k-input-otp-outline"><input id="hook-otp-outline-cell" class="k-input-otp-item" /></div><div id="hook-picker-fill" class="k-color-picker k-color-picker-fill">Fill</div><div id="hook-picker-outline" class="k-color-picker k-color-picker-outline">Outline</div><div id="hook-picker-dashed" class="k-color-picker k-color-picker-dashed">Dashed</div><div id="hook-mark-fill" class="k-tag k-tag-fill">Fill</div><div id="hook-mark-outline" class="k-tag k-tag-outline">Outline</div><div id="hook-mark-plain" class="k-tag k-tag-plain">Plain</div><div id="hook-mark-dashed" class="k-tag k-tag-dashed">Dashed</div></div>
     <div class="control-chain"><div id="chain-card-outline" class="k-card k-card-outline">Card</div><div id="chain-card-fill" class="k-card k-card-fill">Card</div><div id="chain-input-fill" class="k-input k-input-fill" data-multiple><input /></div></div>
-    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="default-select-plain" class="k-select k-select-plain" tabindex="0"><div class="k-select-selection">Plain</div></div><div id="default-select-borderless" class="k-select k-select-borderless" tabindex="0"><div class="k-select-selection">Borderless</div></div><div id="default-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="default-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="default-select-underlined" class="k-select k-select-underlined" tabindex="0"><div class="k-select-selection">Underlined</div></div><div id="default-datepicker-fill" class="k-datepicker k-datepicker-fill" tabindex="0">Fill</div><div id="default-datepicker-plain" class="k-datepicker k-datepicker-plain" tabindex="0">Plain</div><div id="default-datepicker-borderless" class="k-datepicker k-datepicker-borderless" tabindex="0">Borderless</div><div id="default-input-outline" class="k-input k-input-outline" data-multiple><input id="outline-input-text" class="k-input-text" placeholder="Pick" /></div><input id="default-input-outline-single" class="k-input k-input-outline" data-single placeholder="Pick" /><div id="default-input-dashed" class="k-input k-input-dashed" data-multiple><input class="k-input-text" /></div><div id="default-input-underlined" class="k-input k-input-underlined" data-multiple><input class="k-input-text" /></div><div id="default-tag-outline" class="k-input-tag k-input-tag-outline"><input class="k-input-tag-input" /></div><div id="default-tag-dashed" class="k-input-tag k-input-tag-dashed"><input class="k-input-tag-input" /></div><div id="default-tag-plain" class="k-input-tag k-input-tag-plain"><input id="plain-tag-input" class="k-input-tag-input" /></div><div id="default-tag-underlined" class="k-input-tag k-input-tag-underlined"><input id="underlined-tag-input" class="k-input-tag-input" /></div><div id="default-otp-outline" class="k-input-otp k-input-otp-outline"><input id="outline-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-dashed" class="k-input-otp k-input-otp-dashed"><input id="dashed-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-plain" class="k-input-otp k-input-otp-plain"><input id="plain-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-underlined" class="k-input-otp k-input-otp-underlined"><input id="underlined-otp-cell" class="k-input-otp-item" /></div><div id="default-picker-outline" class="k-color-picker k-color-picker-outline">Outline</div><div id="default-picker-dashed" class="k-color-picker k-color-picker-dashed">Dashed</div><div id="default-picker-opened-outline" class="k-color-picker k-color-picker-outline k-color-picker-opened">Outline</div><div id="default-picker-fill" class="k-color-picker k-color-picker-fill">Fill</div><div id="default-picker-opened-fill" class="k-color-picker k-color-picker-fill k-color-picker-opened">Fill</div><div id="default-picker-plain" class="k-color-picker k-color-picker-plain">Plain</div><div id="default-picker-opened-plain" class="k-color-picker k-color-picker-plain k-color-picker-opened">Plain</div><div id="default-picker-underlined" class="k-color-picker k-color-picker-underlined">Underlined</div><div id="default-picker-opened-underlined" class="k-color-picker k-color-picker-underlined k-color-picker-opened">Underlined</div><div id="disabled-picker-outline" class="k-color-picker k-color-picker-outline k-color-picker-disabled">Disabled</div><div id="disabled-picker-fill" class="k-color-picker k-color-picker-fill k-color-picker-disabled">Disabled</div></div>
-    <div class="solid-scope"><div id="default-select-solid" class="k-select k-select-solid" tabindex="0"><div class="k-select-selection"><div id="solid-placeholder" class="k-select-placeholder">Pick</div></div></div><div id="default-input-solid" class="k-input k-input-solid" data-multiple><span id="solid-input-chrome" class="k-input-prefix">$</span><input id="solid-input-text" class="k-input-text" placeholder="Pick" /></div><input id="default-input-solid-single" class="k-input k-input-solid" data-single placeholder="Pick" /><textarea id="default-textarea-solid" class="k-textarea k-textarea-solid" placeholder="Notes"></textarea><div id="default-input-number-solid" class="k-input-number k-input-number-solid" data-multiple><input id="solid-number-text" class="k-input-number-text" placeholder="Pick" /><div id="solid-number-controls" class="k-input-number-controls">+</div></div><div id="default-tag-solid" class="k-input-tag k-input-tag-solid"><span id="solid-tag-chrome" class="k-input-tag-clearable">x</span><input id="solid-tag-input" class="k-input-tag-input" placeholder="Pick" /><span id="solid-tag-chip" class="k-input-tag-item k-tag">Tag</span></div><div id="default-otp-solid" class="k-input-otp k-input-otp-solid"><input id="solid-otp-cell" class="k-input-otp-item" /></div><div class="k-input-otp k-input-otp-solid k-input-otp-disabled"><input id="disabled-otp-solid-cell" class="k-input-otp-item" disabled /></div><div id="default-picker-solid" class="k-color-picker k-color-picker-solid"><div class="k-color-picker-selection"><div class="k-color-picker-color"></div><div id="solid-picker-text" class="k-color-picker-trigger-text">#123456</div></div></div><div id="default-picker-solid-opened" class="k-color-picker k-color-picker-solid k-color-picker-opened"><div id="solid-picker-opened-text" class="k-color-picker-trigger-text">#123456</div></div><div id="disabled-picker-solid" class="k-color-picker k-color-picker-solid k-color-picker-disabled">Disabled</div></div>
+    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="default-select-plain" class="k-select k-select-plain" tabindex="0"><div class="k-select-selection">Plain</div></div><div id="default-select-borderless" class="k-select k-select-borderless" tabindex="0"><div class="k-select-selection">Borderless</div></div><div id="default-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="default-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="default-select-underlined" class="k-select k-select-underlined" tabindex="0"><div class="k-select-selection">Underlined</div></div><div id="default-datepicker-fill" class="k-datepicker k-datepicker-fill" tabindex="0">Fill</div><div id="default-datepicker-plain" class="k-datepicker k-datepicker-plain" tabindex="0">Plain</div><div id="default-datepicker-borderless" class="k-datepicker k-datepicker-borderless" tabindex="0">Borderless</div><div id="default-input-outline" class="k-input k-input-outline" data-multiple><input id="outline-input-text" class="k-input-text" placeholder="Pick" /></div><input id="default-input-outline-single" class="k-input k-input-outline" data-single placeholder="Pick" /><div id="default-input-dashed" class="k-input k-input-dashed" data-multiple><input class="k-input-text" /></div><div id="default-input-underlined" class="k-input k-input-underlined" data-multiple><input class="k-input-text" /></div><div id="default-tag-outline" class="k-input-tag k-input-tag-outline"><input class="k-input-tag-input" /></div><div id="default-tag-dashed" class="k-input-tag k-input-tag-dashed"><input class="k-input-tag-input" /></div><div id="default-tag-plain" class="k-input-tag k-input-tag-plain"><input id="plain-tag-input" class="k-input-tag-input" /></div><div id="default-tag-underlined" class="k-input-tag k-input-tag-underlined"><input id="underlined-tag-input" class="k-input-tag-input" /></div><div id="default-otp-outline" class="k-input-otp k-input-otp-outline"><input id="outline-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-dashed" class="k-input-otp k-input-otp-dashed"><input id="dashed-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-plain" class="k-input-otp k-input-otp-plain"><input id="plain-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-underlined" class="k-input-otp k-input-otp-underlined"><input id="underlined-otp-cell" class="k-input-otp-item" /></div><div id="default-picker-outline" class="k-color-picker k-color-picker-outline">Outline</div><div id="default-picker-dashed" class="k-color-picker k-color-picker-dashed">Dashed</div><div id="default-picker-opened-outline" class="k-color-picker k-color-picker-outline k-color-picker-opened">Outline</div><div id="default-picker-fill" class="k-color-picker k-color-picker-fill">Fill</div><div id="default-picker-opened-fill" class="k-color-picker k-color-picker-fill k-color-picker-opened">Fill</div><div id="default-picker-plain" class="k-color-picker k-color-picker-plain">Plain</div><div id="default-picker-opened-plain" class="k-color-picker k-color-picker-plain k-color-picker-opened">Plain</div><div id="default-picker-underlined" class="k-color-picker k-color-picker-underlined">Underlined</div><div id="default-picker-opened-underlined" class="k-color-picker k-color-picker-underlined k-color-picker-opened">Underlined</div><div id="disabled-picker-outline" class="k-color-picker k-color-picker-outline k-color-picker-disabled">Disabled</div><div id="disabled-picker-fill" class="k-color-picker k-color-picker-fill k-color-picker-disabled">Disabled</div><div id="default-mark-fill" class="k-tag k-tag-fill">Fill</div><div id="default-mark-outline" class="k-tag k-tag-outline">Outline</div><div id="default-mark-plain" class="k-tag k-tag-plain">Plain</div><div id="default-mark-dashed" class="k-tag k-tag-dashed">Dashed</div></div>
+    <div class="solid-scope"><div id="default-select-solid" class="k-select k-select-solid" tabindex="0"><div class="k-select-selection"><div id="solid-placeholder" class="k-select-placeholder">Pick</div></div></div><div id="default-input-solid" class="k-input k-input-solid" data-multiple><span id="solid-input-chrome" class="k-input-prefix">$</span><input id="solid-input-text" class="k-input-text" placeholder="Pick" /></div><input id="default-input-solid-single" class="k-input k-input-solid" data-single placeholder="Pick" /><textarea id="default-textarea-solid" class="k-textarea k-textarea-solid" placeholder="Notes"></textarea><div id="default-input-number-solid" class="k-input-number k-input-number-solid" data-multiple><input id="solid-number-text" class="k-input-number-text" placeholder="Pick" /><div id="solid-number-controls" class="k-input-number-controls">+</div></div><div id="default-tag-solid" class="k-input-tag k-input-tag-solid"><span id="solid-tag-chrome" class="k-input-tag-clearable">x</span><input id="solid-tag-input" class="k-input-tag-input" placeholder="Pick" /><span id="solid-tag-chip" class="k-input-tag-item k-tag">Tag</span></div><div id="default-otp-solid" class="k-input-otp k-input-otp-solid"><input id="solid-otp-cell" class="k-input-otp-item" /></div><div class="k-input-otp k-input-otp-solid k-input-otp-disabled"><input id="disabled-otp-solid-cell" class="k-input-otp-item" disabled /></div><div id="default-picker-solid" class="k-color-picker k-color-picker-solid"><div class="k-color-picker-selection"><div class="k-color-picker-color"></div><div id="solid-picker-text" class="k-color-picker-trigger-text">#123456</div></div></div><div id="default-picker-solid-opened" class="k-color-picker k-color-picker-solid k-color-picker-opened"><div id="solid-picker-opened-text" class="k-color-picker-trigger-text">#123456</div></div><div id="disabled-picker-solid" class="k-color-picker k-color-picker-solid k-color-picker-disabled">Disabled</div><div id="mark-solid" class="k-tag k-tag-solid">Solid<span id="mark-solid-close" class="k-tag-close">x</span></div><div id="mark-red" class="k-tag k-tag-red k-tag-solid">Red</div><div id="mark-custom" class="k-tag k-tag-has-color k-tag-outline" style="background-color: #123456">Custom</div><div class="k-select k-select-solid"><span id="pin-select-solid-chip" class="k-tag k-tag-solid">Tag</span></div><div class="k-select k-select-dashed"><span id="pin-select-dashed-chip" class="k-tag k-tag-dashed">Tag</span></div><div class="k-tree-select k-tree-select-solid"><span id="pin-tree-solid-chip" class="k-tag k-tag-solid">Tag</span></div><div class="k-tree-select k-tree-select-dashed"><span id="pin-tree-dashed-chip" class="k-tag k-tag-dashed">Tag</span></div></div>
     <div class="control-chain"><div class="control-chain" id="chain-box"><div id="chain-input-outline" class="k-input k-input-outline" data-multiple><input class="k-input-text" /></div></div>
     <div class="control-chain"><div id="chain-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection"><div id="outline-placeholder" class="k-select-placeholder">Pick</div></div></div></div>`);
     // Serialises a token the way the browser does, so a computed value can be compared to the
@@ -804,6 +804,126 @@ const compile = async (entry: string) => {
       await resolve("disabled-picker-fill", "var(--kui-color-bg-component-disabled)"),
       "a disabled filled color picker must not keep the tier surface",
     );
+    // 3c-乙a: the chip. A tag paints all five tiers on its own box, so it takes the same documented
+    // hooks the 3b boxes take, and `dashed` is `outline`'s border with a different line.
+    assert.equal(
+      await style("hook-mark-fill", "background-color"),
+      "rgb(255, 0, 0)",
+      "--kui-theme-fill-bg must reach a tag",
+    );
+    for (const id of ["hook-mark-outline", "hook-mark-dashed"])
+      assert.equal(
+        await style(id, "border-top-color"),
+        "rgb(0, 255, 0)",
+        "--kui-theme-outline-border must reach " + id,
+      );
+    assert.equal(
+      await style("hook-mark-plain", "background-color"),
+      "rgb(255, 255, 0)",
+      "--kui-theme-plain-bg must reach a tag",
+    );
+    assert.equal(
+      await style("hook-mark-plain", "border-top-color"),
+      "rgb(0, 0, 255)",
+      "--kui-theme-plain-border must reach a tag",
+    );
+    // With no hook on the scope, each tier falls through to the token it is documented to alias.
+    assert.equal(
+      await style("default-mark-fill", "background-color"),
+      await resolve("default-mark-fill", "var(--kui-color-bg-component-overlay)"),
+      "a filled tag must fall through to the overlay surface",
+    );
+    assert.equal(
+      await style("default-mark-outline", "border-top-color"),
+      await resolve("default-mark-outline", "var(--kui-color-border)"),
+      "an outlined tag must fall through to the base border",
+    );
+    assert.equal(
+      await style("default-mark-dashed", "border-top-style"),
+      "dashed",
+      "a dashed tag must break its line",
+    );
+    assert.equal(
+      await style("default-mark-dashed", "border-top-color"),
+      await resolve("default-mark-dashed", "var(--kui-color-border)"),
+      "a dashed tag must follow the outline border",
+    );
+    assert.equal(
+      await style("default-mark-fill", "border-top-color"),
+      await resolve("default-mark-fill", "transparent"),
+      "a filled tag must show no edge",
+    );
+    assert.equal(
+      await style("default-mark-plain", "border-top-color"),
+      await resolve("default-mark-plain", "transparent"),
+      "a plain tag must show no edge",
+    );
+    assert.equal(
+      await style("default-mark-plain", "background-color"),
+      await resolve("default-mark-plain", "transparent"),
+      "a plain tag must stay flat",
+    );
+    // `solid` is the emphasis chip: the local primary under an inverted label, and the close icon
+    // inverted with it — including under the pointer, where the base rule paints it danger red.
+    assertColor(
+      await rgba("mark-solid", "background-color"),
+      [255, 0, 0, 255],
+      "a solid tag must fill with the local primary",
+    );
+    for (const id of ["mark-solid", "mark-solid-close"])
+      assert.equal(
+        await style(id, "color"),
+        await resolve("mark-solid", "var(--kui-color-text-on-solid)"),
+        id + " must be inverted on a solid tag",
+      );
+    await page.locator("#mark-solid-close").hover();
+    assert.equal(
+      await style("mark-solid-close", "color"),
+      await resolve("mark-solid", "var(--kui-color-text-on-solid)"),
+      "the close icon of a solid tag must not flip to danger under the pointer",
+    );
+    // `color` names the chip's hue and `theme` describes its surface, so an explicit colour keeps all
+    // three of its stops — otherwise the documented preset palette is repainted by the tier every tag
+    // now carries, `fill` included.
+    for (const [id, prop, expected] of [
+      ["mark-red", "background-color", "color-mix(in srgb, var(--kui-color-red) 10%, transparent)"],
+      ["mark-red", "border-top-color", "color-mix(in srgb, var(--kui-color-red) 40%, transparent)"],
+      ["mark-red", "color", "color-mix(in srgb, var(--kui-color-red) 70%, transparent)"],
+      ["mark-custom", "border-top-color", "transparent"],
+      ["mark-custom", "color", "var(--kui-color-text-on-solid)"],
+    ] as const)
+      assert.equal(
+        await style(id, prop),
+        await resolve(id, expected),
+        `${id} must keep its own ${prop} against the tier`,
+      );
+    // 3b handed a control's tier down to the chips it paints. A chip that fills with the local primary
+    // inside a primary box is invisible and a chip that breaks its line inside a dashed box doubles it,
+    // so the control pins its chips — and both pins have to out-rank the tier rules in a file that is
+    // imported after `select`'s and before `tree-select`'s.
+    for (const chip of ["pin-select-solid-chip", "pin-tree-solid-chip"]) {
+      assert.equal(
+        await style(chip, "color"),
+        await resolve(chip, "var(--kui-color-text-on-solid)"),
+        chip + " must stay inverted inside a solid control",
+      );
+      assert.equal(
+        await style(chip, "background-color"),
+        await resolve(chip, "color-mix(in srgb, var(--kui-color-text-on-solid) 18%, transparent)"),
+        chip + " must keep the translucent chip surface inside a solid control",
+      );
+      assert.equal(
+        await style(chip, "border-top-color"),
+        await resolve(chip, "transparent"),
+        chip + " must not keep the solid edge inside a solid control",
+      );
+    }
+    for (const chip of ["pin-select-dashed-chip", "pin-tree-dashed-chip"])
+      assert.equal(
+        await style(chip, "border-top-style"),
+        "solid",
+        chip + " must not inherit the dashed line of its control",
+      );
     // Runtime updates must affect a component already mounted inside the scope.
     await page
       .locator("#local")

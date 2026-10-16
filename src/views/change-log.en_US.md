@@ -92,6 +92,9 @@ rm -rf node_modules/.vite
 - `ColorPicker`: `theme="default"` now looks exactly like omitting `theme` — both land on the component's own default appearance.
 - `ColorPicker`: with `theme="fill"` or `theme="plain"`, a disabled picker keeps its disabled background and border.
 - `Button` / `DropdownButton`: `theme="default"` now looks exactly like omitting `theme`. It used to be read as the `type="default"` appearance, so a `type="link"` or `type="text"` button picked up a filled background.
+- `Tag`: `theme` now supports `outline`, `solid` and `dashed` — a 1px outlined chip, a primary-filled chip whose label and close icon invert, and a dashed frame. `theme="default"` looks exactly like omitting `theme`, and `theme="underlined"` also lands on `fill`, since a chip has nothing to underline.
+- `Tag`: setting `color` now wins over `theme` — preset and custom colours keep their own border and label colour instead of being repainted by the theme surface. A preset-colour tag used to pick up the default grey fill and keep only its text colour.
+- `Select` / `TreeSelect`: with `theme="solid"` the selected chips take a translucent inverted surface instead of the same primary as the box around them, and with `theme="dashed"` they keep a solid outline instead of inheriting the dashes. This is what `InputTag` already did; the three now match.
 
 ## 6.2.2
 

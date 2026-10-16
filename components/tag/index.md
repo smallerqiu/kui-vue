@@ -24,10 +24,17 @@
 [多彩标签](./demo/color.vue)
 
 - 多种预设色彩的标签样式，用作不同场景使用。如果预设值不能满足你的需求，可以设置为具体的色值。
+- 设置了 `color` 时以颜色为准：预设色值和自定义色值都会保留自己的边框与文字颜色，`theme` 只决定没有指定颜色时的表面。
 
 [动态添加和删除](./demo/dynamic.vue)
 
 - 通过 `closeable` 显示关闭按钮
+
+## 主题
+
+`theme` 支持 `fill`、`outline`、`plain`、`solid`、`dashed` 五种外观，不写或写 `default` 都是 `fill`；`underlined` 是给可输入的控件用的，标签会按 `fill` 呈现。
+
+多选控件（`Select`、`TreeSelect`、`InputTag`）会把自身的 `theme` 传给里面的标签，标签跟随控件。
 
 ## 关闭
 

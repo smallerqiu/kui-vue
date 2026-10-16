@@ -1,5 +1,38 @@
 @import "../../styles/less-css-var.less";
 
+// The five tiers a tag paints, and the only five the source can hand the class name for
+// (`components/tag/index.tsx` resolves anything else — `default`, or `underlined` on a chip that has
+// nothing to underline — onto `fill`). They are written as `.k-tag.k-tag-<tier>` (0,2,0) so they out-rank
+// the base `.k-tag` surface, and they sit *above* the colour blocks below: a preset colour (now
+// `.k-tag.k-tag-<colour>`, the same 0,2,0) and `.k-tag.k-tag-has-color` are both declared later, so an
+// explicit `color` keeps its hue and its own border instead of being repainted by the tier. `theme`
+// describes the surface; `color` names it.
+.k-tag.k-tag-fill {
+  .kui-theme-value(fill);
+}
+.k-tag.k-tag-outline {
+  .kui-theme-value(outline);
+}
+.k-tag.k-tag-plain {
+  .kui-theme-value(plain);
+}
+// `solid` is the emphasis chip: local primary under the label, text inverted with it. The close icon
+// has to be named — `.k-tag .k-tag-close` (0,2,0) paints it as description grey, which on a primary
+// chip reads as a smudge — and it inverts without touching the hover colour, the way `has-color` does.
+// Its `:hover` stop is named too, because `.k-tag .k-tag-close:hover` (0,3,0) would otherwise turn the
+// icon danger red over a primary chip.
+.k-tag.k-tag-solid {
+  .kui-theme-value(solid);
+
+  .k-tag-close,
+  .k-tag-close:hover {
+    color: @kui-theme-solid-text;
+  }
+}
+.k-tag.k-tag-dashed {
+  .kui-theme-value(dashed);
+}
+
 .k-tag {
   gap: 3px;
   line-height: 1;
@@ -41,7 +74,10 @@
     padding-right: 7px;
   }
 
-  &-pink {
+  // Preset colours are written `.k-tag.k-tag-<colour>` rather than `.k-tag-<colour>`: the tiers at the
+  // top of this file are the same shape, and an explicit `color` has to win the tie instead of being
+  // repainted by `theme`.
+  &&-pink {
     color: var(--kui-color-pink-3, color-mix(in srgb, var(--kui-color-pink) 70%, transparent));
     border-color: var(
       --kui-color-pink-6,
@@ -53,7 +89,7 @@
     );
   }
 
-  &-red {
+  &&-red {
     color: var(--kui-color-red-3, color-mix(in srgb, var(--kui-color-red) 70%, transparent));
     border-color: var(--kui-color-red-6, color-mix(in srgb, var(--kui-color-red) 40%, transparent));
     background-color: var(
@@ -62,7 +98,7 @@
     );
   }
 
-  &-yellow {
+  &&-yellow {
     color: var(--kui-color-yellow-3, color-mix(in srgb, var(--kui-color-yellow) 70%, transparent));
     border-color: var(
       --kui-color-yellow-6,
@@ -74,7 +110,7 @@
     );
   }
 
-  &-orange {
+  &&-orange {
     color: var(--kui-color-orange-3, color-mix(in srgb, var(--kui-color-orange) 70%, transparent));
     border-color: var(
       --kui-color-orange-6,
@@ -86,7 +122,7 @@
     );
   }
 
-  &-cyan {
+  &&-cyan {
     color: var(--kui-color-cyan-3, color-mix(in srgb, var(--kui-color-cyan) 70%, transparent));
     border-color: var(
       --kui-color-cyan-6,
@@ -98,7 +134,7 @@
     );
   }
 
-  &-green {
+  &&-green {
     color: var(--kui-color-green-3, color-mix(in srgb, var(--kui-color-green) 70%, transparent));
     border-color: var(
       --kui-color-green-6,
@@ -110,7 +146,7 @@
     );
   }
 
-  &-blue {
+  &&-blue {
     color: var(--kui-color-blue-3, color-mix(in srgb, var(--kui-color-blue) 70%, transparent));
     border-color: var(
       --kui-color-blue-6,
@@ -122,7 +158,7 @@
     );
   }
 
-  &-purple {
+  &&-purple {
     color: var(--kui-color-purple-3, color-mix(in srgb, var(--kui-color-purple) 70%, transparent));
     border-color: var(
       --kui-color-purple-6,
@@ -134,7 +170,7 @@
     );
   }
 
-  &-magenta {
+  &&-magenta {
     color: var(
       --kui-color-magenta-3,
       color-mix(in srgb, var(--kui-color-magenta) 70%, transparent)
@@ -149,7 +185,7 @@
     );
   }
 
-  &-volcano {
+  &&-volcano {
     color: var(
       --kui-color-volcano-3,
       color-mix(in srgb, var(--kui-color-volcano) 70%, transparent)
@@ -164,7 +200,7 @@
     );
   }
 
-  &-gold {
+  &&-gold {
     color: var(--kui-color-gold-3, color-mix(in srgb, var(--kui-color-gold) 70%, transparent));
     border-color: var(
       --kui-color-gold-6,
@@ -176,7 +212,7 @@
     );
   }
 
-  &-lime {
+  &&-lime {
     color: var(--kui-color-lime-3, color-mix(in srgb, var(--kui-color-lime) 70%, transparent));
     border-color: var(
       --kui-color-lime-6,
@@ -188,14 +224,9 @@
     );
   }
 }
-.k-tag.k-tag-fill {
-  border-color: transparent;
-  background-color: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
-}
-.k-tag-has-color {
+// A custom colour arrives through an inline `backgroundColor`, so all this block owns is the label and
+// the edge; it is named `.k-tag.k-tag-has-color` to keep the tiers above from repainting both.
+.k-tag.k-tag-has-color {
   color: var(--kui-color-text-on-solid);
   border-color: transparent;
 
@@ -292,9 +323,4 @@
 
 .k-tag-leave-active {
   animation: k-tag-zoom 0.2s ease-out reverse;
-}
-
-.k-tag-plain {
-  border-color: transparent;
-  background: transparent;
 }

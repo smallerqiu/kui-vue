@@ -267,6 +267,15 @@
   .kui-theme-value(dashed);
 }
 
+// A dashed box must not hand its dashes to the chips inside it: a multiple select renders its values
+// as `Tag`s that inherit the box's tier (`components/utils/selection-tags`), and `theme="dashed"`
+// would put a dashed edge around every selected value — a chip is not a drop zone. Written as
+// `.k-select.k-select-dashed .k-tag` (0,3,0) on purpose: `tag/styles/index.less` is imported after
+// this file, so a bare descendant rule ties with `.k-tag.k-tag-dashed` (0,2,0) and loses on order.
+.k-select.k-select-dashed .k-tag {
+  border-style: solid;
+}
+
 // `solid` is the emphasis surface: primary fill and inverted text. It
 // repaints its own surface on hover the way Button does instead of borrowing the base border
 // repaint, which is why both it and `underlined` are excluded from the base `:hover` rule.
@@ -300,6 +309,20 @@
   .k-select-icon,
   .k-select-clearable {
     color: color-mix(in srgb, var(--kui-color-text-on-solid) 85%, transparent);
+  }
+
+  // Same reason as the dashed pin above: the chips inside a solid box are `Tag`s that carry
+  // `k-tag-solid`, and primary chips on a primary box read as nothing at all. They take the surface
+  // `input-tag` already gives its chips on a solid box — translucent inverted white, no border of the
+  // tier's own, close icon included. (0,3,0) here, so it outranks `.k-tag.k-tag-solid` in both files.
+  .k-tag {
+    color: var(--kui-color-text-on-solid);
+    border-color: transparent;
+    background-color: color-mix(in srgb, var(--kui-color-text-on-solid) 18%, transparent);
+
+    .k-tag-close {
+      color: inherit;
+    }
   }
 }
 

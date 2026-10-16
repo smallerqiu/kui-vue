@@ -124,6 +124,7 @@ it("draws the migrated components from the shared mixin rather than re-copying t
     "input-tag/styles/index.less",
     "input-otp/styles/index.less",
     "color-picker/styles/index.less",
+    "tag/styles/index.less",
   ]) {
     const source = (await fs.readFile(path.join(root, "components", entry), "utf8")).replace(
       /\/\/[^\n]*/g,
@@ -677,32 +678,54 @@ it("keeps the tiers that own their states out of the base repaint", async () => 
   }
 });
 
-// 3c-甲: Button is the action family's odd shape — its default look is not a tier class, so the tiers it
-// may emit are exactly the ones its own stylesheet paints. Reading both sides is the only way to keep
-// them from drifting again: a tier the source emits but the LESS never paints is a dead class
+// 3c: a component that resolves its tier through `resolvePaintedTheme` names the set it paints in its
+// own source, and that set can only come from the stylesheet. Reading both sides is the only way to
+// keep them from drifting again: a tier the source emits but the LESS never paints is a dead class
 // (`k-btn-underlined` used to be one, and `k-btn-default` was worse — it is the `type="default"` class),
 // and a tier the LESS paints but the source swallows is a preset the docs promise and nothing draws.
-it("emits exactly the tiers Button's own stylesheet paints", async () => {
-  const compiled = await fileRules("components/button/styles/index.less");
-  const painted = VALUES.filter((value) => {
-    // A tier is painted only where its class heads one of the rule's selectors. `:not()` arguments
-    // are stripped first (`.k-btn-default:not(.k-btn-solid)` says when *not* to draw) and a longer
-    // name is rejected, so guard lists and `.k-btn-solidx` cannot stand in for the real rule.
-    const head = new RegExp(`^\\.k-btn-${value}(?![\\w-])`);
-    return [...compiled.keys()].some((selector) =>
-      selector
-        .replace(/:(?:not|is|where|any)\((?:[^()]|\([^()]*\))*\)/g, "")
-        .split(",")
-        .some((part) => head.test(part.trim())),
+const PAINTED_CONTRACTS = [
+  {
+    name: "Button",
+    prefix: "k-btn",
+    entry: "components/button/styles/index.less",
+    source: "components/button/button.tsx",
+  },
+  {
+    name: "Tag",
+    prefix: "k-tag",
+    entry: "components/tag/styles/index.less",
+    source: "components/tag/index.tsx",
+  },
+] as const;
+
+for (const contract of PAINTED_CONTRACTS) {
+  it(`emits exactly the tiers ${contract.name}'s own stylesheet paints`, async () => {
+    const compiled = await fileRules(contract.entry);
+    const painted = VALUES.filter((value) => {
+      // A tier is painted only where its class heads one of the rule's selectors. `:not()` arguments
+      // are stripped first (`.k-btn-default:not(.k-btn-solid)` says when *not* to draw) and a longer
+      // name is rejected, so guard lists and `.k-btn-solidx` cannot stand in for the real rule. The
+      // tier class may hang on the base class too (`.k-tag.k-tag-fill` is (0,2,0) so a preset colour
+      // cannot fight it), which is still this tier being painted.
+      const head = new RegExp(
+        `^\\.${contract.prefix}(?:\\.${contract.prefix})?-${value}(?![\\w-])`,
+      );
+      return [...compiled.keys()].some((selector) =>
+        selector
+          .replace(/:(?:not|is|where|any)\((?:[^()]|\([^()]*\))*\)/g, "")
+          .split(",")
+          .some((part) => head.test(part.trim())),
+      );
+    });
+    // Comments stripped first: the support set explains why `default` and `underlined` are absent, and
+    // naming them in prose must not read as if the stylesheet painted them.
+    const source = (await fs.readFile(path.join(root, contract.source), "utf8")).replace(
+      /\/\/[^\n]*/g,
+      "",
     );
+    const support = source.match(/const PAINTED_THEMES = \[([^\]]*)\]/);
+    expect(support, `${contract.name} must name the tiers it paints`).toBeTruthy();
+    const emitted = (support![1].match(/"([^"]+)"/g) ?? []).map((name) => name.replace(/"/g, ""));
+    expect(emitted, `${contract.name}'s support set and its stylesheet disagree`).toEqual(painted);
   });
-  // Comments stripped first: the support set explains why `default` and `underlined` are absent, and
-  // naming them in prose must not read as if the stylesheet painted them.
-  const source = (
-    await fs.readFile(path.join(root, "components/button/button.tsx"), "utf8")
-  ).replace(/\/\/[^\n]*/g, "");
-  const support = source.match(/const PAINTED_THEMES = \[([^\]]*)\]/);
-  expect(support, "Button must name the tiers it paints").toBeTruthy();
-  const emitted = (support![1].match(/"([^"]+)"/g) ?? []).map((name) => name.replace(/"/g, ""));
-  expect(emitted, "Button's support set and its stylesheet disagree").toEqual(painted);
-});
+}

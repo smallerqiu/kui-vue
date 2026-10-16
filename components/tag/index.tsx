@@ -1,5 +1,6 @@
 import { X } from "kui-icons";
 import {
+  computed,
   defineComponent,
   ref,
   Transition,
@@ -15,7 +16,7 @@ import {
   type ThemeType,
 } from "../const/types";
 import { colors } from "../const/var";
-import { useConfigAppearance } from "../config/context";
+import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import Icon, { type IconType } from "../icon";
 import { isColor } from "../utils/color";
 
@@ -34,6 +35,13 @@ const tagProps = {
 
 export type TagProps = ExtractPropTypes<typeof tagProps>;
 
+// The tiers `tag/styles/index.less` paints. `underlined` is absent because an underline is the whole
+// affordance of a field you type into and a chip has nothing to underline (theme 口径 §五.1), and
+// `default` is absent because it means "listen to the component" — which here is `fill`, the tier a tag
+// reaches when no `theme` is written. Anything outside this set resolves to `fill` instead of shipping
+// a class no rule answers, the way `k-tag-default` and `k-tag-outline` used to.
+const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
+
 const Tag = defineComponent({
   name: "Tag",
   props: tagProps,
@@ -44,6 +52,12 @@ const Tag = defineComponent({
   setup(props, { slots, emit, attrs }) {
     const appearance = useConfigAppearance(props);
     const visible = ref(true);
+
+    // Resolved here rather than at the class name so the guard sits after inheritance, not only on the
+    // written prop: a `ConfigProvider theme="underlined"` has to land on `fill` too.
+    const paintedTheme = computed(
+      () => resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "fill",
+    );
 
     const closeHandler = (e: MouseEvent) => {
       e.stopPropagation();
@@ -71,7 +85,8 @@ const Tag = defineComponent({
           "k-tag-has-color": isCustomColor,
           "k-tag-closeable": closeable,
           "k-tag-compact": compact,
-          [`k-tag-${appearance.theme.value}`]: !!appearance.theme.value,
+          // Always exactly one tier: `paintedTheme` resolves to a painted value or to `fill`.
+          [`k-tag-${paintedTheme.value}`]: true,
         },
       ];
 

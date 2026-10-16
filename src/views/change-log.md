@@ -94,6 +94,9 @@ rm -rf node_modules/.vite
 - `ColorPicker` 写 `theme="default"` 与不写 `theme` 效果完全一致，都落在组件自己的默认外观上。
 - `ColorPicker` 用 `theme="fill"` 或 `theme="plain"` 且禁用时，仍显示禁用态的背景与描边。
 - `Button` / `DropdownButton` 写 `theme="default"` 与不写 `theme` 效果完全一致，都落在按钮自己的外观上；此前这个值会被认成 `type="default"` 的那种外观，让 `type="link"` / `type="text"` 的按钮凭空多出一块底色。
+- `Tag` 的 `theme` 补齐 `outline` / `solid` / `dashed` 三档：描边框、主色实底（文字和关闭图标一起反白）、虚线描边；写 `theme="default"` 与不写 `theme` 效果完全一致，都落在标签自己的 `fill` 外观上，`theme="underlined"` 同样按 `fill` 呈现。
+- `Tag` 设置了 `color` 时以颜色为准：预设色值和自定义色值都保留自己的边框与文字颜色，不再被 `theme` 的底色盖掉。此前带预设色值的标签会被默认外观铺上一层灰底，色值只剩文字还在。
+- `Select` / `TreeSelect` 用 `theme="solid"` 时，框里已选的标签改为半透明反白底，不再和控件一样填成主色；用 `theme="dashed"` 时标签仍是实线描边，不会跟控件一起变虚线。`InputTag` 早就是这个做法，现在三处一致。
 
 ## 6.2.2
 
