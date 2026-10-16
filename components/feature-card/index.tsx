@@ -1,6 +1,12 @@
-import { defineComponent, type ExtractPropTypes, type PropType, type StyleValue } from "vue";
+import {
+  computed,
+  defineComponent,
+  type ExtractPropTypes,
+  type PropType,
+  type StyleValue,
+} from "vue";
 import type { BooleanType, SizeType, SurfaceShapeType, ThemeType } from "../const/types";
-import { useConfigAppearance } from "../config/context";
+import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import Icon, { type IconType } from "../icon";
 
 const featureCardProps = {
@@ -23,6 +29,12 @@ const featureCardProps = {
 
 export type FeatureCardProps = ExtractPropTypes<typeof featureCardProps>;
 
+// The tiers `feature-card/styles/index.less` paints. `underlined` is absent because an underline is the
+// whole affordance of a field you type into and a card has nothing to underline (theme 口径 §五.1).
+// Anything outside this set resolves to `fill` — the tier a card reaches when no `theme` is written —
+// rather than shipping a class no LESS rule answers.
+const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
+
 const FeatureCard = defineComponent({
   name: "FeatureCard",
   props: featureCardProps,
@@ -31,6 +43,11 @@ const FeatureCard = defineComponent({
   },
   setup(props, { attrs, emit, slots }) {
     const appearance = useConfigAppearance(props);
+    // Resolved here rather than at the class name so the guard sits after inheritance, not only on the
+    // written prop: a `ConfigProvider theme="underlined"` has to land on `fill` too.
+    const paintedTheme = computed(
+      () => resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "fill",
+    );
     const handleClick = (event: MouseEvent) => {
       if (props.disabled) {
         event.preventDefault();
@@ -54,7 +71,7 @@ const FeatureCard = defineComponent({
             customClass,
             {
               "k-feature-card-bordered": props.bordered,
-              [`k-feature-card-${appearance.theme.value}`]: appearance.theme.value,
+              [`k-feature-card-${paintedTheme.value}`]: paintedTheme.value,
               [`k-feature-card-${appearance.surfaceShape.value}`]: appearance.surfaceShape.value,
               [`k-feature-card-${appearance.size.value}`]: appearance.size.value,
               [`k-feature-card-${props.direction}`]: props.direction,

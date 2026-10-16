@@ -95,9 +95,7 @@
   line-height: 1;
 }
 .k-stat-card-bordered {
-  border: 1px solid
-    var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
-  background: var(--kui-theme-outline-bg);
+  .kui-theme-value(outline);
 }
 
 .k-stat-card-round,
@@ -108,19 +106,30 @@
   border-radius: var(--kui-shape-square);
 }
 .k-stat-card-fill {
-  border-color: var(--kui-theme-fill-border);
-  background: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  .kui-theme-value(fill);
 }
 .k-stat-card-outline {
-  border: 1px solid
-    var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
-  background: var(--kui-theme-outline-bg);
+  .kui-theme-value(outline);
 }
 .k-stat-card-plain {
-  border-color: var(--kui-theme-plain-border);
-  background: var(--kui-theme-plain-bg);
+  .kui-theme-value(plain);
   box-shadow: none;
+}
+// `solid` puts the card on the primary surface. The title and the value have no colour rule of their
+// own, so they inherit the inverted text from the mixin; the two muted lines do paint themselves with
+// dark tokens, so they are named here. A trend that carries a semantic colour keeps it — the `:not()`
+// chain only inverts the plain trend, and naming the semantic classes would flatten 涨/跌 apart.
+.k-stat-card-solid {
+  .kui-theme-value(solid);
+
+  .k-stat-card-item-desc,
+  .k-stat-card-item-trend:not(.k-stat-card-item-trend-success):not(
+      .k-stat-card-item-trend-danger
+    ):not(.k-stat-card-item-trend-warning) {
+    color: color-mix(in srgb, @kui-theme-solid-text 80%, transparent);
+  }
+}
+// A dashed frame keeps the outlined surface; only the line style differs.
+.k-stat-card-dashed {
+  .kui-theme-value(dashed);
 }

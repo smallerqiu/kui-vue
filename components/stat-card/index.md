@@ -66,5 +66,11 @@
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| theme | 外观主题 | `"fill" \| "outline" \| "plain"` | fill |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | 卡片形状 | `"square" \| "round"` | round |
+
+## 主题
+
+`theme` 支持 `fill`、`outline`、`plain`、`solid`、`dashed` 五种外观，不写 `theme` 时就是 `fill`；`underlined` 是给可输入的控件用的，卡片会按 `fill` 呈现。
+
+`solid` 用主色铺满整张卡片，标题、数值和描述一起反白，只有带 `success` / `danger` / `warning` 状态的趋势保留自己的颜色；`bordered` 与 `theme="outline"` 是同一种描边。

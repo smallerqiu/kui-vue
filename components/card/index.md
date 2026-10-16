@@ -52,3 +52,9 @@
 | avatar | 头像 | `VNodeChild` | - |
 | title | 标题 | `VNodeChild` | - |
 | description | 描述内容 | `VNodeChild` | - |
+
+## 主题
+
+`theme` 支持 `fill`、`outline`、`plain`、`solid`、`dashed` 五种外观，不写 `theme` 时就是 `fill`；`underlined` 是给可输入的控件用的，卡片会按 `fill` 呈现。
+
+`solid` 用主色铺满整张卡片，标题、正文和头部那条分割线一起反白；`bordered` 与 `theme="outline"` 是同一种描边。

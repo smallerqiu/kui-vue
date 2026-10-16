@@ -1,10 +1,15 @@
 import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
 import type { BooleanType, SizeType, SurfaceShapeType, ThemeType } from "../const/types";
-import { useConfigAppearance } from "../config/context";
+import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import Icon, { type IconType } from "../icon";
 import CardMeta from "./card-meta";
 
 export type CardShape = SurfaceShapeType;
+
+// A card paints a whole box, so it answers the four surface tiers plus `fill`, and never `underlined`:
+// "keep only the bottom border" on a card deletes three sides of the frame. A tier outside this set
+// falls back to the card's own default instead of shipping a class no stylesheet can answer.
+const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 
 const cardProps = {
   bordered: { type: Boolean as BooleanType, default: false },
@@ -25,7 +30,7 @@ const Card = defineComponent({
     const appearance = useConfigAppearance(props);
     return () => {
       const { title, icon, bordered, cover } = props;
-      const theme = appearance.theme.value;
+      const theme = resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "fill";
       const shape: CardShape = appearance.shape.value === "square" ? "square" : "round";
       const size = appearance.size.value;
 

@@ -66,5 +66,11 @@ For standalone animated values, formatting, and animation controls, see [StatNum
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain"` | fill |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | Card shape | `"square" \| "round"` | round |
+
+## Theme
+
+`theme` supports five looks — `fill`, `outline`, `plain`, `solid`, `dashed` — and is `fill` when you write nothing. `underlined` belongs to a control you type into, so a card falls back to `fill`.
+
+`solid` fills the whole card with the primary colour and inverts its title, values and descriptions; only a trend marked `success` / `danger` / `warning` keeps its own colour. `bordered` draws the same edge as `theme="outline"`.

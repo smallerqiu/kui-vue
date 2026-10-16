@@ -52,3 +52,9 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 | avatar | Avatar | `VNodeChild` | - |
 | title | Title | `VNodeChild` | - |
 | description | Description | `VNodeChild` | - |
+
+## Theme
+
+`theme` supports five looks — `fill`, `outline`, `plain`, `solid`, `dashed` — and is `fill` when you write nothing. `underlined` belongs to a control you type into, so a card falls back to `fill`.
+
+`solid` fills the whole card with the primary colour and inverts its title, body text and head divider; `bordered` draws the same edge as `theme="outline"`.

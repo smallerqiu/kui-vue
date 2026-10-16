@@ -133,3 +133,27 @@
   .kui-theme-value(plain);
   box-shadow: none;
 }
+// `solid` puts the whole box on the primary surface, so everything the card itself colours has to
+// invert with it: the head divider, the meta title and the meta description are named here because
+// the base rules paint them with dark tokens at (0,2,0) and inherited colour would not reach them.
+.k-card-solid {
+  .kui-theme-value(solid);
+
+  .k-card-head {
+    border-bottom: 1px solid color-mix(in srgb, @kui-theme-solid-text 30%, transparent);
+  }
+  .k-card-meta-title {
+    color: @kui-theme-solid-text;
+  }
+  .k-card-meta-description {
+    color: color-mix(in srgb, @kui-theme-solid-text 80%, transparent);
+  }
+}
+// A dashed frame keeps the outlined surface and the head divider; only the line style changes.
+.k-card-dashed {
+  .kui-theme-value(dashed);
+
+  .k-card-head {
+    border-bottom: 1px solid var(--kui-card-border, var(--kui-color-border));
+  }
+}

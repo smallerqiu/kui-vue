@@ -111,6 +111,8 @@ it("keeps the underline focus rule and the surface values free of it", async () 
 it("draws the migrated components from the shared mixin rather than re-copying the chains", async () => {
   for (const entry of [
     "card/styles/index.less",
+    "feature-card/styles/index.less",
+    "stat-card/styles/index.less",
     "input/styles/index.less",
     "input-number/styles/index.less",
     "input-tag/styles/index.less",
@@ -702,6 +704,25 @@ const PAINTED_CONTRACTS = [
     entry: "components/radio/styles/index.less",
     source: "components/radio/radio.tsx",
   },
+  // 3c-丙a: the surface family resolves the same way, and all three name their set in their own source.
+  {
+    name: "Card",
+    prefix: "k-card",
+    entry: "components/card/styles/index.less",
+    source: "components/card/index.tsx",
+  },
+  {
+    name: "FeatureCard",
+    prefix: "k-feature-card",
+    entry: "components/feature-card/styles/index.less",
+    source: "components/feature-card/index.tsx",
+  },
+  {
+    name: "StatCard",
+    prefix: "k-stat-card",
+    entry: "components/stat-card/styles/index.less",
+    source: "components/stat-card/stat-card.tsx",
+  },
 ] as const;
 
 for (const contract of PAINTED_CONTRACTS) {
@@ -774,3 +795,122 @@ for (const mark of MARK_BOXES) {
       ).toBe(true);
     });
 }
+
+// 3c-丙a: the surface family paints a whole box, so its tiers go on the root class and `solid` has to
+// take everything the component colours itself down with it — a head divider, an icon chip, a muted
+// line. Those parts differ per component, which is why they are named here instead of derived from the
+// tier class alone: an inherited `color` reaches text that has no rule of its own, and nothing else.
+// `underlined` is the tier none of them answer, and `PAINTED_CONTRACTS` below is what keeps the source
+// guard and these stylesheets from disagreeing about that.
+const SURFACES = [
+  {
+    name: "Card",
+    prefix: "k-card",
+    entry: "components/card/styles/index.less",
+    inverted: [
+      [".k-card-meta-title", "color"],
+      [".k-card-meta-description", "color"],
+      [".k-card-head", "border-bottom"],
+    ],
+    keeps: [],
+  },
+  {
+    name: "FeatureCard",
+    prefix: "k-feature-card",
+    entry: "components/feature-card/styles/index.less",
+    inverted: [
+      [".k-feature-card-desc", "color"],
+      [".k-feature-card-icon", "color"],
+      [".k-feature-card-icon", "background"],
+    ],
+    keeps: [],
+  },
+  {
+    name: "StatCard",
+    prefix: "k-stat-card",
+    entry: "components/stat-card/styles/index.less",
+    inverted: [
+      [".k-stat-card-item-desc", "color"],
+      [".k-stat-card-item-trend", "color"],
+    ],
+    // A trend that carries a semantic colour is the data, not the chrome, so the solid inversion has
+    // to exclude it by name; flattening that guard paints 涨 and 跌 the same.
+    keeps: [
+      ".k-stat-card-item-trend-success",
+      ".k-stat-card-item-trend-danger",
+      ".k-stat-card-item-trend-warning",
+    ],
+  },
+] as const;
+
+// A solid rule for one of these components may be one selector of a comma group, so the group is split
+// and the `:not()` lists are only stripped where the question is "which element does this reach".
+const solidParts = (key: string, prefix: string) =>
+  selectors(key).filter((part) => new RegExp(`^\\.${prefix}-solid(?![\\w-])\\s`).test(part.trim()));
+
+it("paints every tier the surface family answers through the shared arm", async () => {
+  const everyArm = await arms();
+  for (const surface of SURFACES) {
+    const compiled = await fileRules(surface.entry);
+    for (const tier of ["fill", "outline", "plain", "solid", "dashed"] as const) {
+      const painted = [...compiled].filter(
+        ([key, body]) =>
+          paints(key, surface.prefix, tier, "") &&
+          covers(declarations(body, key), everyArm.get(tier)!),
+      );
+      expect(
+        painted.length,
+        `${surface.name} paints nothing for theme="${tier}": the shared arm never reaches it`,
+      ).toBeGreaterThan(0);
+    }
+    // The tier the guard exists for: a surface has four edges to draw, so "keep the bottom one" is not
+    // a look. A rule here would mean the stylesheet and the source guard disagree.
+    expect(
+      [...compiled.keys()].filter((key) => paints(key, surface.prefix, "underlined", "")),
+      `${surface.name} grew an underlined rule the source cannot emit`,
+    ).toEqual([]);
+  }
+});
+
+it("inverts the parts a solid surface colours itself", async () => {
+  const everyArm = await arms();
+  // Read from the arm rather than copied out, so a token change moves this test with the stylesheet.
+  const onSolid = everyArm.get("solid")!.get("color")!;
+  for (const surface of SURFACES) {
+    const compiled = await fileRules(surface.entry);
+    for (const [element, property] of surface.inverted) {
+      const hits = [...compiled].filter(
+        ([key, body]) =>
+          solidParts(key, surface.prefix).some((part) =>
+            part.trim().startsWith(`.${surface.prefix}-solid ${element}`),
+          ) && declarations(body, key).has(property),
+      );
+      expect(
+        hits.length,
+        `${surface.name} solid does not repaint ${element} (${property})`,
+      ).toBeGreaterThan(0);
+      for (const [, body] of hits)
+        expect(
+          declarations(body, `${surface.name} solid ${element}`).get(property),
+          `${surface.name} ${element} on solid ignores the inverted text token`,
+        ).toContain(onSolid);
+    }
+    if (surface.keeps.length === 0) continue;
+    // The exclusion list is load-bearing here, so it is checked where it sits — in the raw selector of
+    // the rule that reaches the plain trend, before `:not()` is stripped to nothing.
+    const trendParts = [...compiled.keys()].flatMap((key) =>
+      solidParts(key, surface.prefix).filter((part) =>
+        new RegExp(`^\\.${surface.prefix}-solid \\.${surface.prefix}-item-trend(?![\\w-])`).test(
+          part.trim(),
+        ),
+      ),
+    );
+    expect(
+      trendParts.length,
+      `${surface.name} solid no longer reaches the plain trend`,
+    ).toBeGreaterThan(0);
+    for (const part of trendParts)
+      for (const kept of surface.keeps)
+        expect(part, `${surface.name} solid flattens a semantic trend: ${part}`).toContain(kept);
+  }
+});

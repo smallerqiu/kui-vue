@@ -1,7 +1,7 @@
 import type { ExtractPropTypes, PropType, VNodeChild } from "vue";
-import { defineComponent } from "vue";
-import { useConfigAppearance } from "../config/context";
-import type { BooleanType, SizeType, SurfaceShapeType } from "../const/types";
+import { computed, defineComponent } from "vue";
+import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
+import type { BooleanType, SizeType, SurfaceShapeType, ThemeType } from "../const/types";
 import { getChildren, hasRenderableContent } from "../utils/vnode";
 import StatNumber from "./stat-number";
 import { statItemKey } from "./utils/stat-item-key";
@@ -15,7 +15,7 @@ const statCardProps = {
   statNumberType: String as PropType<"rollup" | "countup">,
   reverse: Boolean as BooleanType,
   bordered: { type: Boolean as BooleanType, default: false },
-  theme: { type: String as PropType<"fill" | "outline" | "plain">, default: "fill" },
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: { type: String as PropType<SurfaceShapeType>, default: "round" },
   size: { type: String as PropType<SizeType>, default: "medium" },
   // `Boolean` in a type list makes Vue cast an absent value to `false`, and `false`
@@ -27,11 +27,22 @@ const statCardProps = {
 
 export type StatCardProps = ExtractPropTypes<typeof statCardProps>;
 
+// The tiers `stat-card/styles/index.less` paints. `underlined` is absent because an underline is the
+// whole affordance of a field you type into and a stat panel has nothing to underline (theme 口径
+// §五.1). Anything outside this set resolves to `fill` — the tier it reaches when no `theme` is
+// written — rather than shipping a class no LESS rule answers.
+const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
+
 const StatCard = defineComponent({
   name: "StatCard",
   props: statCardProps,
   setup(props, { slots, attrs }) {
     const appearance = useConfigAppearance(props);
+    // Resolved here rather than at the class name so the guard sits after inheritance, not only on the
+    // written prop: a `ConfigProvider theme="underlined"` has to land on `fill` too.
+    const paintedTheme = computed(
+      () => resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "fill",
+    );
     return () => {
       const { class: customClass, ...restAttrs } = attrs;
       // A slot that renders nothing at all must fall back to the prop, so the
@@ -46,7 +57,7 @@ const StatCard = defineComponent({
             customClass,
             {
               "k-stat-card-bordered": props.bordered,
-              [`k-stat-card-${appearance.theme.value}`]: appearance.theme.value,
+              [`k-stat-card-${paintedTheme.value}`]: paintedTheme.value,
               [`k-stat-card-${appearance.surfaceShape.value}`]: appearance.surfaceShape.value,
               [`k-stat-card-${appearance.size.value}`]: appearance.size.value,
             },

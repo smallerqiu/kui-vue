@@ -36,10 +36,9 @@ const tagProps = {
 export type TagProps = ExtractPropTypes<typeof tagProps>;
 
 // The tiers `tag/styles/index.less` paints. `underlined` is absent because an underline is the whole
-// affordance of a field you type into and a chip has nothing to underline (theme 口径 §五.1), and
-// `default` is absent because it means "listen to the component" — which here is `fill`, the tier a tag
-// reaches when no `theme` is written. Anything outside this set resolves to `fill` instead of shipping
-// a class no rule answers, the way `k-tag-default` and `k-tag-outline` used to.
+// affordance of a field you type into and a chip has nothing to underline (theme 口径 §五.1). Anything
+// outside this set resolves to `fill` — the tier a tag reaches when no `theme` is written — rather than
+// shipping a class no LESS rule answers.
 const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 
 const Tag = defineComponent({

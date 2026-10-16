@@ -16138,12 +16138,15 @@
           "description": "Appearance theme",
           "descriptionZh": "外观主题",
           "descriptionEn": "Appearance theme",
-          "type": "\"fill\" | \"outline\" | \"plain\"",
+          "type": "ThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
-            "plain"
+            "plain",
+            "solid",
+            "dashed",
+            "underlined"
           ],
           "required": false,
           "defaultExpression": "\"fill\"",

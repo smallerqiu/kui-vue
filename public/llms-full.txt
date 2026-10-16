@@ -1025,6 +1025,12 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 | title | Title | `VNodeChild` | - |
 | description | Description | `VNodeChild` | - |
 
+## Theme
+
+`theme` supports five looks — `fill`, `outline`, `plain`, `solid`, `dashed` — and is `fill` when you write nothing. `underlined` belongs to a control you type into, so a card falls back to `fill`.
+
+`solid` fills the whole card with the primary colour and inverts its title, body text and head divider; `bordered` draws the same edge as `theme="outline"`.
+
 ---
 
 # Card
@@ -1081,6 +1087,12 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 | avatar | Avatar | `VNodeChild` | - |
 | title | Title | `VNodeChild` | - |
 | description | Description | `VNodeChild` | - |
+
+## Theme
+
+`theme` supports five looks — `fill`, `outline`, `plain`, `solid`, `dashed` — and is `fill` when you write nothing. `underlined` belongs to a control you type into, so a card falls back to `fill`.
+
+`solid` fills the whole card with the primary colour and inverts its title, body text and head divider; `bordered` draws the same edge as `theme="outline"`.
 
 ---
 
@@ -1189,6 +1201,12 @@ Used to present product features, navigation entries, or capability descriptions
 | Event | Description          | Callback                      |
 | ----- | -------------------- | ----------------------------- |
 | click | Emitted when clicked | `(event: MouseEvent) => void` |
+
+## Theme
+
+`theme` supports five looks — `fill`, `outline`, `plain`, `solid`, `dashed` — and is `fill` when you write nothing. `underlined` belongs to a control you type into, so a card falls back to `fill`.
+
+`solid` fills the whole card with the primary colour, inverts its title and description, and turns the icon container into a translucent inverted chip; `bordered` draws the same edge as `theme="outline"`.
 
 ---
 
@@ -5699,8 +5717,14 @@ For standalone animated values, formatting, and animation controls, see [StatNum
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain"` | fill |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | Card shape | `"square" \| "round"` | round |
+
+## Theme
+
+`theme` supports five looks — `fill`, `outline`, `plain`, `solid`, `dashed` — and is `fill` when you write nothing. `underlined` belongs to a control you type into, so a card falls back to `fill`.
+
+`solid` fills the whole card with the primary colour and inverts its title, values and descriptions; only a trend marked `success` / `danger` / `warning` keeps its own colour. `bordered` draws the same edge as `theme="outline"`.
 
 ---
 

@@ -1,3 +1,5 @@
+@import "../../styles/less-css-var.less";
+
 .k-feature-card {
   display: flex;
   gap: 16px;
@@ -123,20 +125,35 @@
   border-radius: var(--kui-shape-square);
 }
 .k-feature-card-fill {
-  border-color: var(--kui-theme-fill-border);
-  background: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  .kui-theme-value(fill);
 }
 .k-feature-card-outline,
 .k-feature-card-bordered {
-  border: 1px solid
-    var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
-  background: var(--kui-theme-outline-bg);
+  .kui-theme-value(outline);
 }
 .k-feature-card-plain {
-  border-color: var(--kui-theme-plain-border);
-  background: var(--kui-theme-plain-bg);
+  .kui-theme-value(plain);
   box-shadow: none;
+}
+// `solid` paints the card with the primary surface, so the two things this component colours itself
+// have to invert with it: the description (the base rule paints it with a dark token) and the icon
+// chip (its accent defaults to the same primary as the surface, and its 12% tint vanishes on it).
+// Both keep their `--k-feature-card-*` override hooks — the tier only changes the default side.
+.k-feature-card-solid {
+  .kui-theme-value(solid);
+
+  .k-feature-card-desc {
+    color: color-mix(in srgb, @kui-theme-solid-text 80%, transparent);
+  }
+  .k-feature-card-icon {
+    background: var(
+      --k-feature-card-icon-bg,
+      color-mix(in srgb, @kui-theme-solid-text 18%, transparent)
+    );
+    color: var(--k-feature-card-color, @kui-theme-solid-text);
+  }
+}
+// A dashed frame keeps the outlined surface; only the line style differs.
+.k-feature-card-dashed {
+  .kui-theme-value(dashed);
 }

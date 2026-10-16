@@ -50,11 +50,11 @@ const compile = async (entry: string) => {
     <div theme-mode="dark"><button id="dark" class="k-btn">Dark</button><div theme-mode="light"><button id="light" class="k-btn">Light</button></div></div>
     <div class="overrides"><div theme-mode="dark"><div id="control" class="k-input" data-multiple><input /></div><button id="override" class="k-btn k-btn-primary">Override</button><div class="k-popup-panel k-popup"><div id="override-popup" class="k-popup-content">Popup</div></div></div></div>
     <div id="square" shape-mode="square"><button id="square-button" class="k-btn">Square</button></div>
-    <div class="theme-hooks"><div id="hook-card-fill" class="k-card k-card-fill">Card</div><div id="hook-card-outline" class="k-card k-card-outline">Card</div><div id="hook-card-plain" class="k-card k-card-plain">Card</div><div id="hook-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="hook-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="hook-input-outline" class="k-input k-input-outline" data-multiple><input class="k-input-text" /></div><div id="hook-input-dashed" class="k-input k-input-dashed" data-multiple><input class="k-input-text" /></div><div id="hook-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="hook-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="hook-tag-outline" class="k-input-tag k-input-tag-outline"><input class="k-input-tag-input" /></div><div id="hook-tag-dashed" class="k-input-tag k-input-tag-dashed"><input class="k-input-tag-input" /></div><div id="hook-otp-outline" class="k-input-otp k-input-otp-outline"><input id="hook-otp-outline-cell" class="k-input-otp-item" /></div><div id="hook-picker-fill" class="k-color-picker k-color-picker-fill">Fill</div><div id="hook-picker-outline" class="k-color-picker k-color-picker-outline">Outline</div><div id="hook-picker-dashed" class="k-color-picker k-color-picker-dashed">Dashed</div><div id="hook-mark-fill" class="k-tag k-tag-fill">Fill</div><div id="hook-mark-outline" class="k-tag k-tag-outline">Outline</div><div id="hook-mark-plain" class="k-tag k-tag-plain">Plain</div><div id="hook-mark-dashed" class="k-tag k-tag-dashed">Dashed</div><div class="k-checkbox k-checkbox-fill"><span id="hook-checkbox-fill" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline"><span id="hook-checkbox-outline" class="k-checkbox-symbol"></span></div><div class="k-radio k-radio-outline"><span id="hook-radio-outline" class="k-radio-symbol"></span></div></div>
+    <div class="theme-hooks"><div id="hook-card-fill" class="k-card k-card-fill">Card</div><div id="hook-card-outline" class="k-card k-card-outline">Card</div><div id="hook-card-plain" class="k-card k-card-plain">Card</div><div id="hook-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="hook-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="hook-input-outline" class="k-input k-input-outline" data-multiple><input class="k-input-text" /></div><div id="hook-input-dashed" class="k-input k-input-dashed" data-multiple><input class="k-input-text" /></div><div id="hook-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="hook-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="hook-tag-outline" class="k-input-tag k-input-tag-outline"><input class="k-input-tag-input" /></div><div id="hook-tag-dashed" class="k-input-tag k-input-tag-dashed"><input class="k-input-tag-input" /></div><div id="hook-otp-outline" class="k-input-otp k-input-otp-outline"><input id="hook-otp-outline-cell" class="k-input-otp-item" /></div><div id="hook-picker-fill" class="k-color-picker k-color-picker-fill">Fill</div><div id="hook-picker-outline" class="k-color-picker k-color-picker-outline">Outline</div><div id="hook-picker-dashed" class="k-color-picker k-color-picker-dashed">Dashed</div><div id="hook-mark-fill" class="k-tag k-tag-fill">Fill</div><div id="hook-mark-outline" class="k-tag k-tag-outline">Outline</div><div id="hook-mark-plain" class="k-tag k-tag-plain">Plain</div><div id="hook-mark-dashed" class="k-tag k-tag-dashed">Dashed</div><div class="k-checkbox k-checkbox-fill"><span id="hook-checkbox-fill" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline"><span id="hook-checkbox-outline" class="k-checkbox-symbol"></span></div><div class="k-radio k-radio-outline"><span id="hook-radio-outline" class="k-radio-symbol"></span></div><div id="hook-card-dashed" class="k-card k-card-dashed">Card</div></div>
     <div class="control-chain"><div id="chain-card-outline" class="k-card k-card-outline">Card</div><div id="chain-card-fill" class="k-card k-card-fill">Card</div><div id="chain-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div class="k-checkbox k-checkbox-outline"><span id="chain-checkbox-outline" class="k-checkbox-symbol"></span></div></div>
     <div class="mark-hooks"><div class="k-checkbox k-checkbox-fill"><span id="hook-checkbox-fill-border" class="k-checkbox-symbol"></span></div><div class="k-radio k-radio-fill"><span id="hook-radio-fill-border" class="k-radio-symbol"></span></div></div>
-    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="default-select-plain" class="k-select k-select-plain" tabindex="0"><div class="k-select-selection">Plain</div></div><div id="default-select-borderless" class="k-select k-select-borderless" tabindex="0"><div class="k-select-selection">Borderless</div></div><div id="default-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="default-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="default-select-underlined" class="k-select k-select-underlined" tabindex="0"><div class="k-select-selection">Underlined</div></div><div id="default-datepicker-fill" class="k-datepicker k-datepicker-fill" tabindex="0">Fill</div><div id="default-datepicker-plain" class="k-datepicker k-datepicker-plain" tabindex="0">Plain</div><div id="default-datepicker-borderless" class="k-datepicker k-datepicker-borderless" tabindex="0">Borderless</div><div id="default-input-outline" class="k-input k-input-outline" data-multiple><input id="outline-input-text" class="k-input-text" placeholder="Pick" /></div><input id="default-input-outline-single" class="k-input k-input-outline" data-single placeholder="Pick" /><div id="default-input-dashed" class="k-input k-input-dashed" data-multiple><input class="k-input-text" /></div><div id="default-input-underlined" class="k-input k-input-underlined" data-multiple><input class="k-input-text" /></div><div id="default-tag-outline" class="k-input-tag k-input-tag-outline"><input class="k-input-tag-input" /></div><div id="default-tag-dashed" class="k-input-tag k-input-tag-dashed"><input class="k-input-tag-input" /></div><div id="default-tag-plain" class="k-input-tag k-input-tag-plain"><input id="plain-tag-input" class="k-input-tag-input" /></div><div id="default-tag-underlined" class="k-input-tag k-input-tag-underlined"><input id="underlined-tag-input" class="k-input-tag-input" /></div><div id="default-otp-outline" class="k-input-otp k-input-otp-outline"><input id="outline-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-dashed" class="k-input-otp k-input-otp-dashed"><input id="dashed-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-plain" class="k-input-otp k-input-otp-plain"><input id="plain-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-underlined" class="k-input-otp k-input-otp-underlined"><input id="underlined-otp-cell" class="k-input-otp-item" /></div><div id="default-picker-outline" class="k-color-picker k-color-picker-outline">Outline</div><div id="default-picker-dashed" class="k-color-picker k-color-picker-dashed">Dashed</div><div id="default-picker-opened-outline" class="k-color-picker k-color-picker-outline k-color-picker-opened">Outline</div><div id="default-picker-fill" class="k-color-picker k-color-picker-fill">Fill</div><div id="default-picker-opened-fill" class="k-color-picker k-color-picker-fill k-color-picker-opened">Fill</div><div id="default-picker-plain" class="k-color-picker k-color-picker-plain">Plain</div><div id="default-picker-opened-plain" class="k-color-picker k-color-picker-plain k-color-picker-opened">Plain</div><div id="default-picker-underlined" class="k-color-picker k-color-picker-underlined">Underlined</div><div id="default-picker-opened-underlined" class="k-color-picker k-color-picker-underlined k-color-picker-opened">Underlined</div><div id="disabled-picker-outline" class="k-color-picker k-color-picker-outline k-color-picker-disabled">Disabled</div><div id="disabled-picker-fill" class="k-color-picker k-color-picker-fill k-color-picker-disabled">Disabled</div><div id="default-mark-fill" class="k-tag k-tag-fill">Fill</div><div id="default-mark-outline" class="k-tag k-tag-outline">Outline</div><div id="default-mark-plain" class="k-tag k-tag-plain">Plain</div><div id="default-mark-dashed" class="k-tag k-tag-dashed">Dashed</div><div class="k-checkbox k-checkbox-fill"><span id="default-checkbox-fill" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline"><span id="default-checkbox-outline" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline k-checkbox-checked"><span id="checked-outline-box" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-fill k-checkbox-checked"><span id="checked-fill-box" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline k-checkbox-disabled"><span id="disabled-outline-box" class="k-checkbox-symbol"></span></div><div class="k-radio k-radio-outline"><span id="default-radio-outline" class="k-radio-symbol"></span></div><div class="k-radio k-radio-outline k-radio-checked"><span id="checked-radio-outline" class="k-radio-symbol"></span></div><div class="k-radio k-radio-fill k-radio-disabled"><span id="disabled-radio-fill" class="k-radio-symbol"></span></div></div>
-    <div class="solid-scope"><div id="default-select-solid" class="k-select k-select-solid" tabindex="0"><div class="k-select-selection"><div id="solid-placeholder" class="k-select-placeholder">Pick</div></div></div><div id="default-input-solid" class="k-input k-input-solid" data-multiple><span id="solid-input-chrome" class="k-input-prefix">$</span><input id="solid-input-text" class="k-input-text" placeholder="Pick" /></div><input id="default-input-solid-single" class="k-input k-input-solid" data-single placeholder="Pick" /><textarea id="default-textarea-solid" class="k-textarea k-textarea-solid" placeholder="Notes"></textarea><div id="default-input-number-solid" class="k-input-number k-input-number-solid" data-multiple><input id="solid-number-text" class="k-input-number-text" placeholder="Pick" /><div id="solid-number-controls" class="k-input-number-controls">+</div></div><div id="default-tag-solid" class="k-input-tag k-input-tag-solid"><span id="solid-tag-chrome" class="k-input-tag-clearable">x</span><input id="solid-tag-input" class="k-input-tag-input" placeholder="Pick" /><span id="solid-tag-chip" class="k-input-tag-item k-tag">Tag</span></div><div id="default-otp-solid" class="k-input-otp k-input-otp-solid"><input id="solid-otp-cell" class="k-input-otp-item" /></div><div class="k-input-otp k-input-otp-solid k-input-otp-disabled"><input id="disabled-otp-solid-cell" class="k-input-otp-item" disabled /></div><div id="default-picker-solid" class="k-color-picker k-color-picker-solid"><div class="k-color-picker-selection"><div class="k-color-picker-color"></div><div id="solid-picker-text" class="k-color-picker-trigger-text">#123456</div></div></div><div id="default-picker-solid-opened" class="k-color-picker k-color-picker-solid k-color-picker-opened"><div id="solid-picker-opened-text" class="k-color-picker-trigger-text">#123456</div></div><div id="disabled-picker-solid" class="k-color-picker k-color-picker-solid k-color-picker-disabled">Disabled</div><div id="mark-solid" class="k-tag k-tag-solid">Solid<span id="mark-solid-close" class="k-tag-close">x</span></div><div id="mark-red" class="k-tag k-tag-red k-tag-solid">Red</div><div id="mark-custom" class="k-tag k-tag-has-color k-tag-outline" style="background-color: #123456">Custom</div><div class="k-select k-select-solid"><span id="pin-select-solid-chip" class="k-tag k-tag-solid">Tag</span></div><div class="k-select k-select-dashed"><span id="pin-select-dashed-chip" class="k-tag k-tag-dashed">Tag</span></div><div class="k-tree-select k-tree-select-solid"><span id="pin-tree-solid-chip" class="k-tag k-tag-solid">Tag</span></div><div class="k-tree-select k-tree-select-dashed"><span id="pin-tree-dashed-chip" class="k-tag k-tag-dashed">Tag</span></div></div>
+    <div id="theme-defaults"><div id="default-card-fill" class="k-card k-card-fill">Card</div><div id="default-card-bordered" class="k-card k-card-bordered">Card</div><div id="default-input-fill" class="k-input k-input-fill" data-multiple><input /></div><div id="default-input-plain" class="k-input k-input-plain" data-multiple><input /></div><div id="default-select-plain" class="k-select k-select-plain" tabindex="0"><div class="k-select-selection">Plain</div></div><div id="default-select-borderless" class="k-select k-select-borderless" tabindex="0"><div class="k-select-selection">Borderless</div></div><div id="default-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection">Outline</div></div><div id="default-select-dashed" class="k-select k-select-dashed" tabindex="0"><div class="k-select-selection">Dashed</div></div><div id="default-select-underlined" class="k-select k-select-underlined" tabindex="0"><div class="k-select-selection">Underlined</div></div><div id="default-datepicker-fill" class="k-datepicker k-datepicker-fill" tabindex="0">Fill</div><div id="default-datepicker-plain" class="k-datepicker k-datepicker-plain" tabindex="0">Plain</div><div id="default-datepicker-borderless" class="k-datepicker k-datepicker-borderless" tabindex="0">Borderless</div><div id="default-input-outline" class="k-input k-input-outline" data-multiple><input id="outline-input-text" class="k-input-text" placeholder="Pick" /></div><input id="default-input-outline-single" class="k-input k-input-outline" data-single placeholder="Pick" /><div id="default-input-dashed" class="k-input k-input-dashed" data-multiple><input class="k-input-text" /></div><div id="default-input-underlined" class="k-input k-input-underlined" data-multiple><input class="k-input-text" /></div><div id="default-tag-outline" class="k-input-tag k-input-tag-outline"><input class="k-input-tag-input" /></div><div id="default-tag-dashed" class="k-input-tag k-input-tag-dashed"><input class="k-input-tag-input" /></div><div id="default-tag-plain" class="k-input-tag k-input-tag-plain"><input id="plain-tag-input" class="k-input-tag-input" /></div><div id="default-tag-underlined" class="k-input-tag k-input-tag-underlined"><input id="underlined-tag-input" class="k-input-tag-input" /></div><div id="default-otp-outline" class="k-input-otp k-input-otp-outline"><input id="outline-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-dashed" class="k-input-otp k-input-otp-dashed"><input id="dashed-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-plain" class="k-input-otp k-input-otp-plain"><input id="plain-otp-cell" class="k-input-otp-item" /></div><div id="default-otp-underlined" class="k-input-otp k-input-otp-underlined"><input id="underlined-otp-cell" class="k-input-otp-item" /></div><div id="default-picker-outline" class="k-color-picker k-color-picker-outline">Outline</div><div id="default-picker-dashed" class="k-color-picker k-color-picker-dashed">Dashed</div><div id="default-picker-opened-outline" class="k-color-picker k-color-picker-outline k-color-picker-opened">Outline</div><div id="default-picker-fill" class="k-color-picker k-color-picker-fill">Fill</div><div id="default-picker-opened-fill" class="k-color-picker k-color-picker-fill k-color-picker-opened">Fill</div><div id="default-picker-plain" class="k-color-picker k-color-picker-plain">Plain</div><div id="default-picker-opened-plain" class="k-color-picker k-color-picker-plain k-color-picker-opened">Plain</div><div id="default-picker-underlined" class="k-color-picker k-color-picker-underlined">Underlined</div><div id="default-picker-opened-underlined" class="k-color-picker k-color-picker-underlined k-color-picker-opened">Underlined</div><div id="disabled-picker-outline" class="k-color-picker k-color-picker-outline k-color-picker-disabled">Disabled</div><div id="disabled-picker-fill" class="k-color-picker k-color-picker-fill k-color-picker-disabled">Disabled</div><div id="default-mark-fill" class="k-tag k-tag-fill">Fill</div><div id="default-mark-outline" class="k-tag k-tag-outline">Outline</div><div id="default-mark-plain" class="k-tag k-tag-plain">Plain</div><div id="default-mark-dashed" class="k-tag k-tag-dashed">Dashed</div><div class="k-checkbox k-checkbox-fill"><span id="default-checkbox-fill" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline"><span id="default-checkbox-outline" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline k-checkbox-checked"><span id="checked-outline-box" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-fill k-checkbox-checked"><span id="checked-fill-box" class="k-checkbox-symbol"></span></div><div class="k-checkbox k-checkbox-outline k-checkbox-disabled"><span id="disabled-outline-box" class="k-checkbox-symbol"></span></div><div class="k-radio k-radio-outline"><span id="default-radio-outline" class="k-radio-symbol"></span></div><div class="k-radio k-radio-outline k-radio-checked"><span id="checked-radio-outline" class="k-radio-symbol"></span></div><div class="k-radio k-radio-fill k-radio-disabled"><span id="disabled-radio-fill" class="k-radio-symbol"></span></div><div id="default-card-dashed" class="k-card k-card-dashed"><div id="default-card-dashed-head" class="k-card-head"><span class="k-card-title">标题</span></div><div class="k-card-body">内容</div></div><div id="default-feature-card-dashed" class="k-feature-card k-feature-card-dashed"><span class="k-feature-card-icon">i</span></div><div id="default-stat-card-dashed" class="k-stat-card k-stat-card-dashed"><div class="k-stat-card-item"><div class="k-stat-card-item-desc">今日</div></div></div><div id="default-stat-card-outline" class="k-stat-card k-stat-card-outline">Stat</div><div id="default-stat-card-bordered" class="k-stat-card k-stat-card-bordered">Stat</div></div>
+    <div class="solid-scope"><div id="default-select-solid" class="k-select k-select-solid" tabindex="0"><div class="k-select-selection"><div id="solid-placeholder" class="k-select-placeholder">Pick</div></div></div><div id="default-input-solid" class="k-input k-input-solid" data-multiple><span id="solid-input-chrome" class="k-input-prefix">$</span><input id="solid-input-text" class="k-input-text" placeholder="Pick" /></div><input id="default-input-solid-single" class="k-input k-input-solid" data-single placeholder="Pick" /><textarea id="default-textarea-solid" class="k-textarea k-textarea-solid" placeholder="Notes"></textarea><div id="default-input-number-solid" class="k-input-number k-input-number-solid" data-multiple><input id="solid-number-text" class="k-input-number-text" placeholder="Pick" /><div id="solid-number-controls" class="k-input-number-controls">+</div></div><div id="default-tag-solid" class="k-input-tag k-input-tag-solid"><span id="solid-tag-chrome" class="k-input-tag-clearable">x</span><input id="solid-tag-input" class="k-input-tag-input" placeholder="Pick" /><span id="solid-tag-chip" class="k-input-tag-item k-tag">Tag</span></div><div id="default-otp-solid" class="k-input-otp k-input-otp-solid"><input id="solid-otp-cell" class="k-input-otp-item" /></div><div class="k-input-otp k-input-otp-solid k-input-otp-disabled"><input id="disabled-otp-solid-cell" class="k-input-otp-item" disabled /></div><div id="default-picker-solid" class="k-color-picker k-color-picker-solid"><div class="k-color-picker-selection"><div class="k-color-picker-color"></div><div id="solid-picker-text" class="k-color-picker-trigger-text">#123456</div></div></div><div id="default-picker-solid-opened" class="k-color-picker k-color-picker-solid k-color-picker-opened"><div id="solid-picker-opened-text" class="k-color-picker-trigger-text">#123456</div></div><div id="disabled-picker-solid" class="k-color-picker k-color-picker-solid k-color-picker-disabled">Disabled</div><div id="mark-solid" class="k-tag k-tag-solid">Solid<span id="mark-solid-close" class="k-tag-close">x</span></div><div id="mark-red" class="k-tag k-tag-red k-tag-solid">Red</div><div id="mark-custom" class="k-tag k-tag-has-color k-tag-outline" style="background-color: #123456">Custom</div><div class="k-select k-select-solid"><span id="pin-select-solid-chip" class="k-tag k-tag-solid">Tag</span></div><div class="k-select k-select-dashed"><span id="pin-select-dashed-chip" class="k-tag k-tag-dashed">Tag</span></div><div class="k-tree-select k-tree-select-solid"><span id="pin-tree-solid-chip" class="k-tag k-tag-solid">Tag</span></div><div class="k-tree-select k-tree-select-dashed"><span id="pin-tree-dashed-chip" class="k-tag k-tag-dashed">Tag</span></div><div id="solid-card" class="k-card k-card-solid"><div id="solid-card-head" class="k-card-head"><span id="solid-card-title" class="k-card-title">标题</span></div><div class="k-card-body"><div class="k-card-meta"><div id="solid-card-meta-title" class="k-card-meta-title">名字</div><div id="solid-card-meta-desc" class="k-card-meta-description">描述</div></div></div></div><div id="solid-feature-card" class="k-feature-card k-feature-card-solid"><span id="solid-feature-icon" class="k-feature-card-icon">i</span><div class="k-feature-card-content"><div id="solid-feature-title" class="k-feature-card-title">标题</div><div id="solid-feature-desc" class="k-feature-card-desc">描述</div></div></div><div id="outline-feature-card" class="k-feature-card k-feature-card-outline"><span id="outline-feature-icon" class="k-feature-card-icon">i</span><div class="k-feature-card-content"><div id="outline-feature-desc" class="k-feature-card-desc">描述</div></div></div><div id="solid-stat-card" class="k-stat-card k-stat-card-solid"><div id="solid-stat-title" class="k-stat-card-title">统计</div><div class="k-stat-card-items"><div class="k-stat-card-item"><div id="solid-stat-value" class="k-stat-card-item-value">128</div><div id="solid-stat-desc" class="k-stat-card-item-desc">今日</div><div id="solid-stat-trend" class="k-stat-card-item-trend k-stat-card-item-trend-default">+2%</div><div id="solid-stat-trend-success" class="k-stat-card-item-trend k-stat-card-item-trend-success">+2%</div></div></div></div></div>
     <div class="control-chain"><div class="control-chain" id="chain-box"><div id="chain-input-outline" class="k-input k-input-outline" data-multiple><input class="k-input-text" /></div></div>
     <div class="control-chain"><div id="chain-select-outline" class="k-select k-select-outline" tabindex="0"><div class="k-select-selection"><div id="outline-placeholder" class="k-select-placeholder">Pick</div></div></div></div>`);
     // Serialises a token the way the browser does, so a computed value can be compared to the
@@ -1016,6 +1016,152 @@ const compile = async (entry: string) => {
       await resolve("default-checkbox-fill", "var(--kui-color-bg-component-hover)"),
       "a filled check box must paint its own hover surface",
     );
+    // 3c-丙a: a surface tier paints the whole box, so `solid` has to take with it everything these
+    // components colour themselves. The parts are named per component because inherited colour only
+    // reaches text that has no rule of its own: a card title has none and inverts for free, while a meta
+    // title, an icon chip or a muted line paint themselves with dark tokens and must be repainted here.
+    for (const id of ["solid-card", "solid-feature-card", "solid-stat-card"]) {
+      assertColor(
+        await rgba(id, "background-color"),
+        [255, 0, 0, 255],
+        id + " must fill with the local primary",
+      );
+      assert.equal(
+        await style(id, "color"),
+        await resolve(id, "var(--kui-color-text-on-solid)"),
+        id + " must invert the text it owns",
+      );
+    }
+    // The solid arm sets `border-color` only, so a box that has no frame of its own keeps none — the
+    // base reset gives every element a 0-width solid edge, which makes the width, not the style, the
+    // thing to read: the surface is the whole look on a `Card`, while a feature card and a stat card
+    // paint the same colour onto the 1px frame they already carry.
+    assert.equal(
+      await style("solid-card", "border-top-width"),
+      "0px",
+      "solid must not draw a Card frame",
+    );
+    for (const id of ["solid-feature-card", "solid-stat-card"]) {
+      assert.equal(
+        await style(id, "border-top-width"),
+        "1px",
+        id + " must keep its frame under solid",
+      );
+      assert.equal(
+        await style(id, "border-top-color"),
+        await resolve(id, "var(--kui-color-primary)"),
+        id + " must border with its own surface",
+      );
+    }
+    // Text that carries no colour rule of its own follows the root.
+    for (const id of [
+      "solid-card-title",
+      "solid-stat-title",
+      "solid-stat-value",
+      "solid-feature-title",
+    ])
+      assert.equal(
+        await style(id, "color"),
+        await resolve(id, "var(--kui-color-text-on-solid)"),
+        id + " must inherit the inverted text of a solid surface",
+      );
+    // Text that does carry one is named by the tier, dimmed rather than flattened to the surface colour.
+    for (const id of ["solid-card-meta-title"])
+      assert.equal(
+        await style(id, "color"),
+        await resolve(id, "var(--kui-color-text-on-solid)"),
+        id + " must be repainted, not left on its dark token",
+      );
+    for (const id of [
+      "solid-card-meta-desc",
+      "solid-feature-desc",
+      "solid-stat-desc",
+      "solid-stat-trend",
+    ])
+      assert.equal(
+        await style(id, "color"),
+        await resolve(id, "color-mix(in srgb, var(--kui-color-text-on-solid) 80%, transparent)"),
+        id + " must dim on a solid surface instead of staying dark",
+      );
+    assert.equal(
+      await style("solid-card-head", "border-bottom-color"),
+      await resolve(
+        "solid-card-head",
+        "color-mix(in srgb, var(--kui-color-text-on-solid) 30%, transparent)",
+      ),
+      "a solid card must invert its head divider",
+    );
+    // The icon chip keeps its `--k-feature-card-*` hooks — the tier only changes the default side, and
+    // its old 12% primary tint would vanish on a primary surface.
+    assert.equal(
+      await style("solid-feature-icon", "color"),
+      await resolve("solid-feature-icon", "var(--kui-color-text-on-solid)"),
+      "a solid feature card must invert its icon",
+    );
+    assert.equal(
+      await style("solid-feature-icon", "background-color"),
+      await resolve(
+        "solid-feature-icon",
+        "color-mix(in srgb, var(--kui-color-text-on-solid) 18%, transparent)",
+      ),
+      "a solid feature card must tint its icon chip from the inverted text",
+    );
+    // A trend that carries a semantic colour is the data, not the chrome, so the `:not()` chain of
+    // `.k-stat-card-solid` has to leave it alone — 涨 and 跌 stay readable on the primary surface.
+    assert.equal(
+      await style("solid-stat-trend-success", "color"),
+      await resolve("solid-stat-trend-success", "var(--kui-color-success)"),
+      "a solid stat card must not flatten a semantic trend",
+    );
+    // The inversion is scoped to `solid`: an outlined card next to it keeps dark text and its primary
+    // tint, so none of the rules above may reach another tier.
+    assert.equal(
+      await style("outline-feature-desc", "color"),
+      await resolve("outline-feature-desc", "var(--kui-color-text-description)"),
+      "the solid colour rules must not leak into the outlined tier",
+    );
+    assert.equal(
+      await style("outline-feature-icon", "color"),
+      await resolve("outline-feature-icon", "var(--kui-color-primary)"),
+      "an outlined feature card must keep its accent icon",
+    );
+    // `dashed` borrows the outline colour and changes only the line style, on a surface exactly as it
+    // does on a control, and a dashed card keeps its head divider solid.
+    for (const id of [
+      "default-card-dashed",
+      "default-feature-card-dashed",
+      "default-stat-card-dashed",
+    ]) {
+      assert.equal(await style(id, "border-top-style"), "dashed", id + " must draw a dashed frame");
+      assert.equal(
+        await style(id, "border-top-color"),
+        await resolve(id, "var(--kui-color-border)"),
+        id + " dashed must fall through to the base border",
+      );
+    }
+    assert.equal(
+      await style("hook-card-dashed", "border-top-color"),
+      "rgb(0, 255, 0)",
+      "--kui-theme-outline-border must reach a dashed card",
+    );
+    assert.equal(
+      await style("default-card-dashed-head", "border-bottom-style"),
+      "solid",
+      "a dashed card must not double its divider",
+    );
+    assert.equal(
+      await style("default-card-dashed-head", "border-bottom-color"),
+      await resolve("default-card-dashed-head", "var(--kui-color-border)"),
+      "a dashed card must keep its divider on the card border token",
+    );
+    // `bordered` is the outlined spelling of a stat card. It used to hand-copy the same chain, which is
+    // how the two drifted apart from the tier, so both must land on one triple now.
+    for (const prop of ["border-top-color", "background-color"])
+      assert.equal(
+        await style("default-stat-card-bordered", prop),
+        await style("default-stat-card-outline", prop),
+        'a bordered stat card must read exactly like theme="outline": ' + prop,
+      );
     // Runtime updates must affect a component already mounted inside the scope.
     await page
       .locator("#local")
