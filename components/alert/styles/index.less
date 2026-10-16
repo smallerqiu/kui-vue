@@ -20,9 +20,11 @@
   border: 1px solid transparent;
 
   &-icon {
-    color: var(--kui-color-warning);
     font-size: 16px;
     margin-right: 8px;
+    // The mark carries the same message as the plate, so both read one custom property named per
+    // `type`. The fallback is the default `type` (warning), which is what this rule painted before.
+    color: var(--k-alert-accent, var(--kui-color-warning));
   }
 
   &-content {
@@ -33,6 +35,13 @@
   &-message {
     color: var(--kui-color-text);
     line-height: 1;
+  }
+
+  // The description's colour used to be declared only inside `-has-description`, at (0,2,0), while the
+  // message's sat here at (0,1,0) — so a preset that had to reach both needed two different weights and
+  // won the message one of them purely by file order. Both now live at (0,1,0) with the same value.
+  &-description {
+    color: var(--kui-color-text);
   }
 
   &-has-description {
@@ -52,12 +61,10 @@
       font-size: 16px;
       font-weight: 500;
       margin-bottom: 5px;
-      color: var(--kui-color-text);
     }
 
     .k-alert-description {
       font-size: 14px;
-      color: var(--kui-color-text);
     }
   }
 
@@ -73,58 +80,40 @@
     }
   }
 
+  // Each `type` names the two colours its surface is drawn from: the accent is the saturated message
+  // colour (mark, solid plate), the plate is the 20% tint the outlined alert has always shipped with.
+  // Painting them here is what made `theme` and `type` fight over one `background` declaration; naming
+  // them here lets each tier decide how much of the plate to show without re-listing four types.
   &-info {
-    background: var(
+    --k-alert-accent: var(--kui-color-primary);
+    --k-alert-plate: var(
       --kui-color-primary-8,
       color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
     );
-
-    .k-alert-icon {
-      color: var(--kui-color-primary);
-    }
   }
 
   &-success {
-    background: var(
+    --k-alert-accent: var(--kui-color-success);
+    --k-alert-plate: var(
       --kui-color-success-8,
       color-mix(in srgb, var(--kui-color-success) 20%, transparent)
     );
-
-    .k-alert-icon {
-      color: var(--kui-color-success);
-    }
   }
+
   &-warning {
-    background: var(
+    --k-alert-accent: var(--kui-color-warning);
+    --k-alert-plate: var(
       --kui-color-warning-8,
       color-mix(in srgb, var(--kui-color-warning) 20%, transparent)
     );
-
-    .k-alert-icon {
-      color: var(--kui-color-warning);
-    }
   }
 
   &-error {
-    background: var(
+    --k-alert-accent: var(--kui-color-danger);
+    --k-alert-plate: var(
       --kui-color-danger-8,
       color-mix(in srgb, var(--kui-color-danger) 20%, transparent)
     );
-
-    .k-alert-icon {
-      color: var(--kui-color-danger);
-    }
-  }
-
-  &-info {
-    background: var(
-      --kui-color-primary-8,
-      color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
-    );
-
-    .k-alert-icon {
-      color: var(--kui-color-primary);
-    }
   }
 
   &-slide-leave-to {
@@ -134,25 +123,11 @@
   }
 }
 
-.k-alert-bordered {
-  &.k-alert-success {
-    border: 1px solid
-      var(--kui-color-success-8, color-mix(in srgb, var(--kui-color-success) 20%, transparent));
-  }
-
-  &.k-alert-error {
-    border: 1px solid
-      var(--kui-color-danger-8, color-mix(in srgb, var(--kui-color-danger) 20%, transparent));
-  }
-
-  &.k-alert-info {
-    border: 1px solid
-      var(--kui-color-primary-8, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
-  }
-  &.k-alert-warning {
-    border: 1px solid
-      var(--kui-color-warning-8, color-mix(in srgb, var(--kui-color-warning) 20%, transparent));
-  }
+// `bordered` is the frame flag: the tint the plate would have worn moves onto the border. Compound
+// root so a tier's own `border-color` (0,1,0) cannot out-order it, and one rule instead of four copies
+// of the same `--kui-color-*-8` chain.
+.k-alert.k-alert-bordered {
+  border-color: var(--k-alert-plate);
 }
 
 .k-alert-shape-round,
@@ -165,12 +140,52 @@
 .k-alert-shape-square {
   border-radius: var(--kui-shape-square);
 }
-.k-alert-theme-outline {
-  border-color: currentColor;
-  background: var(--kui-theme-outline-bg);
+// `fill` is this component's own look, and its plate is deliberately not the generic fill surface: an
+// alert says info / success / warning / error, and that tint is where the message lives. The shared arm
+// still owns the frame, so `--kui-theme-fill-border` reaches an alert the way it reaches a card.
+.k-alert-fill {
+  .kui-theme-value(fill);
+
+  background: var(--k-alert-plate);
 }
-.k-alert-theme-plain {
-  border-color: var(--kui-theme-plain-border);
-  background: var(--kui-theme-plain-bg);
-  box-shadow: none;
+// `outline` / `plain` / `dashed` strip the tint and take their frame from the shared arm. This used to
+// read `border-color: currentColor` — the page's text colour, which is neither the alert's message nor
+// an override hook — so `--kui-theme-outline-border` had nothing to reach.
+.k-alert-outline {
+  .kui-theme-value(outline);
+}
+.k-alert-plain {
+  .kui-theme-value(plain);
+}
+// `solid` fills the box with this alert's own semantic colour rather than the library primary: an error
+// block and a success block have to stay two different blocks, which is the same split `FeedbackPanel`
+// makes when its stripe keeps the `kind` colour. The frame follows the plate. Every part this component
+// colours for itself — message, description, mark, close button — carries its own declaration, so
+// inheritance reaches none of them and each is named here at (0,2,0). The close button also names
+// `:hover`, because the base rule paints it danger red and danger red on a solid error box is nothing
+// to look at.
+.k-alert-solid {
+  .kui-theme-value(solid);
+
+  border-color: var(--k-alert-accent);
+  background: var(--k-alert-accent);
+
+  .k-alert-message {
+    color: @kui-theme-solid-text;
+  }
+  .k-alert-description {
+    color: @kui-theme-solid-text;
+  }
+  .k-alert-icon {
+    color: @kui-theme-solid-text;
+  }
+  .k-alert-close {
+    color: @kui-theme-solid-text;
+  }
+  .k-alert-close:hover {
+    color: color-mix(in srgb, @kui-theme-solid-text 70%, transparent);
+  }
+}
+.k-alert-dashed {
+  .kui-theme-value(dashed);
 }

@@ -1,9 +1,23 @@
 import { CircleAlert, CircleCheck, CircleX, Info, X } from "kui-icons";
-import { defineComponent, ref, Transition, type ExtractPropTypes, type PropType } from "vue";
+import {
+  computed,
+  defineComponent,
+  ref,
+  Transition,
+  type ExtractPropTypes,
+  type PropType,
+} from "vue";
 import { getTransitionProp } from "../base/transition";
 import type { BooleanType, ShapeType, ThemeType } from "../const/types";
-import { useConfigAppearance } from "../config/context";
+import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import Icon, { type IconType } from "../icon";
+
+// An alert paints a whole box, so it answers the five surface tiers and never `underlined`; its own look
+// is the tinted plate `fill`, which is also what an unsupported tier falls back to. `useConfigAppearance`
+// already puts the prop's own `default: "fill"` under the provider, so the guard is the only step left —
+// without it `ConfigProvider theme="solid"` used to reach an alert as `k-alert-theme-solid`, a class no
+// rule answered, and the box kept the tint it would have worn with no `theme` at all.
+const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 
 const alertProps = {
   type: {
@@ -31,6 +45,9 @@ const Alert = defineComponent({
   },
   setup(props, { emit, slots }) {
     const appearance = useConfigAppearance(props);
+    const theme = computed(
+      () => resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "fill",
+    );
     const closed = ref(false);
 
     const close = (e: MouseEvent) => {
@@ -74,7 +91,7 @@ const Alert = defineComponent({
             "k-alert-has-icon": props.showIcon,
             "k-alert-has-close": props.closable,
             "k-alert-bordered": props.bordered,
-            [`k-alert-theme-${appearance.theme.value}`]: appearance.theme.value,
+            [`k-alert-${theme.value}`]: theme.value,
             [`k-alert-shape-${appearance.shape.value}`]: appearance.shape.value,
             "k-alert-has-description": props.description,
           },

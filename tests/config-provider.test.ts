@@ -76,7 +76,7 @@ describe("ConfigProvider appearance", () => {
     expect(wrapper.get(".circle-card").classes()).toContain("k-card-round");
     expect(wrapper.get(".circle-card").classes()).not.toContain("k-card-circle");
     expect(wrapper.get(".k-alert").classes()).toEqual(
-      expect.arrayContaining(["k-alert-shape-square", "k-alert-theme-outline"]),
+      expect.arrayContaining(["k-alert-shape-square", "k-alert-outline"]),
     );
     wrapper.unmount();
   });

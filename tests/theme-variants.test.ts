@@ -121,6 +121,7 @@ it("draws the migrated components from the shared mixin rather than re-copying t
     "tag/styles/index.less",
     "checkbox/styles/index.less",
     "radio/styles/index.less",
+    "alert/styles/index.less",
   ]) {
     const source = (await fs.readFile(path.join(root, "components", entry), "utf8")).replace(
       /\/\/[^\n]*/g,
@@ -751,6 +752,15 @@ const PAINTED_CONTRACTS = [
     entry: "components/check-card/styles/index.less",
     sources: ["components/check-card/check-card.tsx"],
   },
+  // 3c-丁a: an alert spelled its tier classes `k-alert-theme-<档>`, so `solid` / `dashed` shipped as
+  // `k-alert-solid` / `k-alert-dashed` with nothing behind them, and `fill` — the one class it did have —
+  // was a rule of its own that no override hook could reach. The set now lives at the emit point.
+  {
+    name: "Alert",
+    prefix: "k-alert",
+    entry: "components/alert/styles/index.less",
+    sources: ["components/alert/index.tsx"],
+  },
 ] as const;
 
 // Read the first spelling that exists, so one shared file can point at a component whose filename
@@ -1000,4 +1010,76 @@ it("inverts the parts a solid surface colours itself", async () => {
       for (const kept of surface.keeps)
         expect(part, `${surface.name} solid flattens a semantic trend: ${part}`).toContain(kept);
   }
+});
+
+// 3c-丁a: an alert is the one surface whose *default* look is its message colour — the 20% tint of
+// whichever `type` it carries — so it cannot join `SURFACES`, where every tier must paint exactly what
+// the shared arm paints. It takes the arm's frame and keeps its own plate, and the plate is what `solid`
+// then shows at full strength. Both halves of that trade are pinned here, along with the `-theme-`
+// infix these classes used to be spelled with.
+const ALERT_ENTRY = "components/alert/styles/index.less";
+
+it("paints an alert's tiers over the plate its own type names", async () => {
+  const [compiled, everyArm] = await Promise.all([fileRules(ALERT_ENTRY), arms()]);
+
+  // Every `type` declares the two colours the tiers read, so no tier hard-codes a message colour and
+  // `theme` and `type` stop fighting over one `background` declaration.
+  for (const type of ["info", "success", "warning", "error"]) {
+    const body = declarations(compiled.get(`.k-alert-${type}`), `alert ${type}`);
+    expect(body.has("--k-alert-accent"), `alert ${type} names no accent`).toBe(true);
+    expect(body.has("--k-alert-plate"), `alert ${type} names no plate`).toBe(true);
+  }
+
+  // `fill` is this component's own look: the shared frame over the tinted plate.
+  const fill = declarations(compiled.get(".k-alert-fill"), "alert fill");
+  expect(fill.get("border-color")).toBe(everyArm.get("fill")!.get("border-color"));
+  expect(fill.get("background")).toBe("var(--k-alert-plate)");
+
+  // The three tiers with no plate of their own are the arm unchanged — which is what lets
+  // `--kui-theme-outline-border` reach an alert at all: the frame used to be `currentColor`, the page's
+  // text colour, which is neither the alert's message nor an override hook.
+  for (const tier of ["outline", "plain", "dashed"] as const)
+    expect(
+      covers(declarations(compiled.get(`.k-alert-${tier}`), `alert ${tier}`), everyArm.get(tier)!),
+      `alert ${tier} no longer paints from .kui-theme-value(${tier})`,
+    ).toBe(true);
+
+  // `solid` keeps the type's saturation — an error block and a success block stay two different blocks —
+  // and the frame follows the plate. Each part this component colours is named at (0,2,0) because an
+  // inherited `color` reaches none of them, and the close button's `:hover` is named too: the base rule
+  // paints it danger red, and danger red on a solid error box is nothing to look at.
+  const solid = declarations(compiled.get(".k-alert-solid"), "alert solid");
+  expect(solid.get("background")).toBe("var(--k-alert-accent)");
+  expect(solid.get("border-color")).toBe("var(--k-alert-accent)");
+  const onSolid = everyArm.get("solid")!.get("color")!;
+  // The root keeps the arm's inverted text colour even though the plate is its own: an alert renders
+  // `children`, and that is the colour a child with no rule of its own inherits.
+  expect(solid.get("color")).toBe(onSolid);
+  for (const part of [
+    ".k-alert-message",
+    ".k-alert-description",
+    ".k-alert-icon",
+    ".k-alert-close",
+    ".k-alert-close:hover",
+  ])
+    expect(
+      declarations(compiled.get(`.k-alert-solid ${part}`), `alert solid ${part}`).get("color"),
+      `alert solid leaves ${part} on a dark token`,
+    ).toContain(onSolid);
+
+  // `bordered` moves the plate onto the frame, and is written compound so a tier's own `border-color`
+  // at (0,1,0) cannot out-order it.
+  expect(
+    declarations(compiled.get(".k-alert.k-alert-bordered"), "alert bordered").get("border-color"),
+  ).toBe("var(--k-alert-plate)");
+
+  // Four edges, not one: `underlined` draws nothing here, and the old infix has no rule left to lean on.
+  expect(
+    [...compiled.keys()].filter((key) => paints(key, "k-alert", "underlined", "")),
+    "alert grew an underlined rule the source cannot emit",
+  ).toEqual([]);
+  expect(
+    [...compiled.keys()].filter((key) => key.includes("k-alert-theme-")),
+    "the k-alert-theme- infix is back",
+  ).toEqual([]);
 });

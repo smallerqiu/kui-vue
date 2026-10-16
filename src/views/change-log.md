@@ -105,6 +105,8 @@ rm -rf node_modules/.vite
 - `CheckCardGroup` 的 `theme` 会传给组内每一张卡片，从 `ConfigProvider`、`Form` 继承的 `theme` 也同样传下去；卡片自己写了的 `theme` 优先。此前组上写 `solid` 会被换成 `outline`。
 - `CheckCard` 禁用时，标题、描述和图标一起变灰，不再只把外框和选中标记变灰。
 - **不兼容变更**：不再导出 `CheckCardTheme`，`theme` 一律使用库统一的 `ThemeType`。
+- `Alert` 的 `theme` 补齐 `solid` / `dashed` 两档：`solid` 用这条提示自己的颜色铺满整块（`error` 红、`success` 绿、`warning` 橙、`info` 主色），文字、图标和关闭按钮一起反白，错误和成功仍是两种颜色、不会一起变成主色；`dashed` 是虚线描边。提示条上写 `theme="underlined"` 按 `fill` 呈现。
+- `Alert` 的 `theme="outline"` 不再用正文颜色描边：外框改用库统一的边框色，和其它描边表面一致，也能用 `--kui-theme-outline-border` 一并改掉。
 
 ## 6.2.2
 

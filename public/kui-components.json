@@ -635,9 +635,9 @@
         },
         {
           "name": "theme",
-          "description": "Appearance: `fill`, `outline`, or `plain`",
-          "descriptionZh": "外观主题，可选 `fill`、`outline`、`plain`",
-          "descriptionEn": "Appearance: `fill`, `outline`, or `plain`",
+          "description": "Surface theme",
+          "descriptionZh": "外观主题",
+          "descriptionEn": "Surface theme",
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [

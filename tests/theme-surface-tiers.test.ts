@@ -16,11 +16,17 @@
 // same narrowing sat in two more places: the prop carried `default: "outline"`, and the group answered
 // any tier outside its own two with that default instead of forwarding it — so a `theme="solid"` above
 // a group never reached the cards inside it.
+// 3c-丁a adds `Alert`, the one surface of this family whose plate is not a neutral token: the tint comes
+// from `type`, so `fill` paints that tint and `solid` paints the same colour at full strength rather than
+// the library primary — an error block and a success block have to stay two different blocks. Its
+// stylesheet answered only `outline` and `plain`, spelled `k-alert-theme-<tier>` behind an infix no other
+// surface has, so the documented default `theme="fill"` shipped a class nothing painted.
 // The style half — what each tier actually draws — is in tests/theme-variants.test.ts and the pixels in
 // scripts/check-theme.ts.
 import { mount } from "@vue/test-utils";
 import { h } from "vue";
 import { describe, expect, it } from "vitest";
+import Alert from "../components/alert";
 import Card from "../components/card";
 import { CheckCard, CheckCardGroup } from "../components/check-card";
 import Collapse, { CollapsePanel } from "../components/collapse";
@@ -71,14 +77,27 @@ const SURFACES = [
     component: CheckCard,
     props: { title: "选项", description: "描述" },
   },
+  // 3c-丁a: an alert resolves the same way again, and its own look is the tinted plate `fill`.
+  {
+    name: "Alert",
+    prefix: "k-alert",
+    fallback: "fill",
+    component: Alert,
+    props: { type: "info", message: "提示" },
+  },
 ] as const;
 
+// `Alert` renders inside a `Transition`, and vue-test-utils reads the classes of an abstract node, not of
+// the element the transition paints — so every surface here is read off the element that actually carries
+// the component's own class. For the others that element is the root, so the contract is unchanged.
 const rootClasses = (surface: (typeof SURFACES)[number], props: Record<string, unknown> = {}) =>
   Array.from(
     mount(surface.component, {
       attachTo: document.body,
       props: { ...surface.props, ...props },
-    }).classes(),
+    })
+      .find(`.${surface.prefix}`)
+      .element.classList,
   );
 
 // Only the six tier spellings count here: `-bordered`, `-round` and `-small` are the flags, shape and
@@ -353,5 +372,72 @@ describe("a check card takes its tier from whoever asks for it", () => {
     expect(classes).toContain(`${card.prefix}-dashed`);
     expect(classes).toContain(`${card.prefix}-small`);
     expect(classes).toContain(`${card.prefix}-square`);
+  });
+});
+
+// 3c-丁a: `Alert` spelled its tier class `k-alert-theme-<tier>` while every other surface answered
+// `<prefix>-<tier>`, which is how `fill` — the documented default — and `solid` / `dashed` went unpainted.
+// The infix is gone, so an alert resolves like the rest of the family: five painted tiers, and
+// `underlined` landing on `fill`, the tinted plate it ships with.
+const alert = SURFACES.find((surface) => surface.name === "Alert")!;
+const alertClasses = (props: Record<string, unknown> = {}) =>
+  Array.from(
+    mount(Alert, {
+      attachTo: document.body,
+      props: { type: "info", message: "提示", ...props },
+    })
+      .find(".k-alert")
+      .element.classList,
+  );
+
+describe("an alert names its tier like every other surface", () => {
+  for (const tier of TIERS)
+    it(`theme="${tier}" never emits the -theme- infix`, () => {
+      const classes = alertClasses({ theme: tier });
+      expect(classes.some((cls) => cls.includes("-theme-"))).toBe(false);
+      expect(tierClasses(alert, classes)).toEqual([
+        `k-alert-${tier === "underlined" ? alert.fallback : tier}`,
+      ]);
+    });
+
+  // `bordered` is the frame flag and `shape` is the corner, so both keep their own class beside the tier.
+  it("lands beside the bordered flag and the shape", () => {
+    const classes = alertClasses({ theme: "outline", bordered: true, shape: "square" });
+    expect(classes).toContain("k-alert-outline");
+    expect(classes).toContain("k-alert-bordered");
+    expect(classes).toContain("k-alert-shape-square");
+  });
+});
+
+// `type` is the alert's message and the plate is drawn from it, so no tier may drop the type class — and
+// `solid` in particular has to keep four parts of its own legible on a saturated plate.
+describe("a solid alert keeps its type and everything it paints", () => {
+  for (const type of ["info", "success", "warning", "error"] as const)
+    it(`theme="solid" keeps type="${type}"`, () => {
+      const classes = alertClasses({ type, theme: "solid" });
+      expect(classes).toContain(`k-alert-${type}`);
+      expect(tierClasses(alert, classes)).toEqual(["k-alert-solid"]);
+    });
+
+  it("keeps the mark, the message, the description and the close button", () => {
+    const wrapper = mount(Alert, {
+      attachTo: document.body,
+      props: {
+        type: "warning",
+        theme: "solid",
+        message: "标题",
+        description: "描述",
+        closable: true,
+        showIcon: true,
+        icon: ["warning"],
+      },
+    });
+    expect(wrapper.find(".k-alert-message").text()).toBe("标题");
+    expect(wrapper.find(".k-alert-description").text()).toBe("描述");
+    expect(wrapper.find(".k-alert-icon").exists()).toBe(true);
+    expect(wrapper.find(".k-alert-close").exists()).toBe(true);
+    expect(Array.from(wrapper.find(".k-alert").element.classList)).toContain(
+      "k-alert-has-description",
+    );
   });
 });

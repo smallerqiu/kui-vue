@@ -103,6 +103,8 @@ rm -rf node_modules/.vite
 - `CheckCardGroup`: `theme` now reaches every card inside the group, whether it is written on the group or inherited from `ConfigProvider` or a `Form`, and a tier written on the card itself still wins. A `theme="solid"` on the group used to be swapped for `outline`.
 - `CheckCard`: a disabled card greys its title, description and icon along with its border and its tick.
 - **Breaking change**: `CheckCardTheme` is no longer exported; every `theme` prop uses the library's shared `ThemeType`.
+- `Alert`: `theme` gains `solid` and `dashed`. `solid` fills the box with the colour the alert is already reporting (`error` red, `success` green, `warning` orange, `info` primary) and inverts its text, mark and close button, so an error and a success stay two different blocks instead of both turning primary; `dashed` draws a dashed frame. `theme="underlined"` lands on `fill`, an underline being the spelling of a control you type into.
+- `Alert`: `theme="outline"` no longer draws its frame in the page's text colour. The border takes the library's border colour like every other outlined surface, so `--kui-theme-outline-border` now recolours it.
 
 ## 6.2.2
 
