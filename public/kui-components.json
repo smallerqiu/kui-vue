@@ -2097,9 +2097,9 @@
         },
         {
           "name": "theme",
-          "description": "Button theme",
-          "descriptionZh": "按钮主题",
-          "descriptionEn": "Button theme",
+          "description": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn, `default` is the button's own look and `underlined` is handled as `default`",
+          "descriptionZh": "按钮主题，可用 `fill` / `outline` / `plain` / `solid` / `dashed`；`default` 就是按钮自身外观，`underlined` 按 `default` 处理",
+          "descriptionEn": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn, `default` is the button's own look and `underlined` is handled as `default`",
           "type": "ThemeType | undefined",
           "boolean": false,
           "enumValues": [
@@ -6855,9 +6855,9 @@
         },
         {
           "name": "theme",
-          "description": "Button theme",
-          "descriptionZh": "按钮主题",
-          "descriptionEn": "Button theme",
+          "description": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn, `default` is the button's own look and `underlined` is handled as `default`",
+          "descriptionZh": "按钮主题，可用 `fill` / `outline` / `plain` / `solid` / `dashed`；`default` 就是按钮自身外观，`underlined` 按 `default` 处理",
+          "descriptionEn": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn, `default` is the button's own look and `underlined` is handled as `default`",
           "type": "ThemeType | undefined",
           "boolean": false,
           "enumValues": [

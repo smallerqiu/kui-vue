@@ -67,6 +67,21 @@ export function resolveTheme(
   return value === "default" ? fallback : value;
 }
 
+/**
+ * The other shape of "listen to the component": some components own no tier class for their default
+ * look at all. Button's `k-btn-default` is a *type* class, and a tier the stylesheet never paints —
+ * `k-btn-underlined`, since an underline only means something on a control you type into — is a dead
+ * class. An unguarded `` [`k-<component>-${theme}`]: theme `` ships both, so a component in this shape
+ * resolves through here: a value outside the tiers it actually paints yields `undefined`, emits no tier
+ * class, and leaves the component's own look in place.
+ */
+export function resolvePaintedTheme<T extends ThemeType>(
+  theme: ThemeType | undefined,
+  painted: readonly T[],
+): T | undefined {
+  return painted.find((tier) => tier === theme);
+}
+
 const appContexts: AppContext[] = [];
 let __mouse__point: Point | null = null;
 interface Point {

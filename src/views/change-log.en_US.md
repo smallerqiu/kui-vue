@@ -91,6 +91,7 @@ rm -rf node_modules/.vite
 - `ColorPicker`: on `theme="solid"` the colour text next to the swatch inverts and the surface deepens on hover and while the panel is open; the swatch itself still shows the picked colour.
 - `ColorPicker`: `theme="default"` now looks exactly like omitting `theme` — both land on the component's own default appearance.
 - `ColorPicker`: with `theme="fill"` or `theme="plain"`, a disabled picker keeps its disabled background and border.
+- `Button` / `DropdownButton`: `theme="default"` now looks exactly like omitting `theme`. It used to be read as the `type="default"` appearance, so a `type="link"` or `type="text"` button picked up a filled background.
 
 ## 6.2.2
 

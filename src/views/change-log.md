@@ -93,6 +93,7 @@ rm -rf node_modules/.vite
 - `ColorPicker` 用 `theme="solid"` 时，色块旁边的颜色文字一起反白，悬停、打开面板时底色加深；色块本身仍显示当前颜色。
 - `ColorPicker` 写 `theme="default"` 与不写 `theme` 效果完全一致，都落在组件自己的默认外观上。
 - `ColorPicker` 用 `theme="fill"` 或 `theme="plain"` 且禁用时，仍显示禁用态的背景与描边。
+- `Button` / `DropdownButton` 写 `theme="default"` 与不写 `theme` 效果完全一致，都落在按钮自己的外观上；此前这个值会被认成 `type="default"` 的那种外观，让 `type="link"` / `type="text"` 的按钮凭空多出一块底色。
 
 ## 6.2.2
 

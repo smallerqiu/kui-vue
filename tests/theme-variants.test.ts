@@ -676,3 +676,33 @@ it("keeps the tiers that own their states out of the base repaint", async () => 
     }
   }
 });
+
+// 3c-甲: Button is the action family's odd shape — its default look is not a tier class, so the tiers it
+// may emit are exactly the ones its own stylesheet paints. Reading both sides is the only way to keep
+// them from drifting again: a tier the source emits but the LESS never paints is a dead class
+// (`k-btn-underlined` used to be one, and `k-btn-default` was worse — it is the `type="default"` class),
+// and a tier the LESS paints but the source swallows is a preset the docs promise and nothing draws.
+it("emits exactly the tiers Button's own stylesheet paints", async () => {
+  const compiled = await fileRules("components/button/styles/index.less");
+  const painted = VALUES.filter((value) => {
+    // A tier is painted only where its class heads one of the rule's selectors. `:not()` arguments
+    // are stripped first (`.k-btn-default:not(.k-btn-solid)` says when *not* to draw) and a longer
+    // name is rejected, so guard lists and `.k-btn-solidx` cannot stand in for the real rule.
+    const head = new RegExp(`^\\.k-btn-${value}(?![\\w-])`);
+    return [...compiled.keys()].some((selector) =>
+      selector
+        .replace(/:(?:not|is|where|any)\((?:[^()]|\([^()]*\))*\)/g, "")
+        .split(",")
+        .some((part) => head.test(part.trim())),
+    );
+  });
+  // Comments stripped first: the support set explains why `default` and `underlined` are absent, and
+  // naming them in prose must not read as if the stylesheet painted them.
+  const source = (
+    await fs.readFile(path.join(root, "components/button/button.tsx"), "utf8")
+  ).replace(/\/\/[^\n]*/g, "");
+  const support = source.match(/const PAINTED_THEMES = \[([^\]]*)\]/);
+  expect(support, "Button must name the tiers it paints").toBeTruthy();
+  const emitted = (support![1].match(/"([^"]+)"/g) ?? []).map((name) => name.replace(/"/g, ""));
+  expect(emitted, "Button's support set and its stylesheet disagree").toEqual(painted);
+});

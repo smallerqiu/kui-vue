@@ -13,10 +13,15 @@ import {
   type VNodeChild,
 } from "vue";
 import type { BooleanType, ButtonType, ShapeType, SizeType, ThemeType } from "../const/types";
-import { useConfigAppearance } from "../config/context";
+import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import { colors } from "../const/var";
 import Icon, { type IconType } from "../icon";
 import { getChildren } from "../utils/vnode";
+
+// The tiers `button/styles/index.less` actually paints. `default` is absent on purpose: Button's own
+// default look is the type-driven base, and `k-btn-default` already means `type="default"`.
+// `underlined` is absent too — an underline is a surface tier, and a button has nothing to underline.
+const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 
 const buttonProps = {
   htmlType: {
@@ -67,6 +72,10 @@ const Button = defineComponent({
       return props.shape || buttonGroup?.shape?.value || appearance.shape.value;
     });
 
+    const paintedTheme = computed(() =>
+      resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES),
+    );
+
     const handleClick = (e: MouseEvent) => {
       if (props.loading || props.disabled) {
         e.preventDefault();
@@ -96,7 +105,6 @@ const Button = defineComponent({
         "k-btn",
         {
           [`k-btn-${props.type}`]: !!props.type && !props.color,
-          [`k-btn-outline`]: appearance.theme.value === "outline",
           ["k-btn-sm"]: computedSize.value === "small",
           ["k-btn-block"]: !!props.block,
           ["k-btn-loading"]: props.loading,
@@ -105,7 +113,7 @@ const Button = defineComponent({
           ["k-btn-lg"]: computedSize.value === "large",
           ["k-btn-circle"]: computedShape.value === "circle",
           ["k-btn-square"]: computedShape.value === "square",
-          [`k-btn-${appearance.theme.value}`]: !!appearance.theme.value,
+          [`k-btn-${paintedTheme.value}`]: !!paintedTheme.value,
         },
       ];
 

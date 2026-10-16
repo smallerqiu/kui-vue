@@ -58,7 +58,7 @@
 | shape | 按钮形状 | `"default" \| "circle" \| "square" \| "round"` | - |
 | disabled | 是否禁用 | `boolean` | false |
 | icon | 自定义下拉按钮图标 | `IconType[]` | Ellipsis |
-| theme | 按钮主题 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | 按钮主题，可用 `fill` / `outline` / `plain` / `solid` / `dashed`；`default` 就是按钮自身外观，`underlined` 按 `default` 处理 | `"default" \| "fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | arrow | 是否显示下拉箭头 | `boolean` | false |
 | trigger | 触发方式 | `"hover" \| "click" \| "contextmenu"` | `hover` |
 | placement | 下拉层位置 | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | `bottom-right` |
