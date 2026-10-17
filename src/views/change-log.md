@@ -120,6 +120,8 @@ rm -rf node_modules/.vite
 - `Kanban` 拖动卡片经过某一列时的提示现在真的会出现：此前这层提示被那一列自己的外观盖住，连看板默认的 `fill` 也一样看不见。
 - `Kanban` 用 `theme="solid"` 时，列里卡片的键盘焦点环改成主色上的一层浅白，不再是主色上叠主色；列头那颗状态圆点仍显示 `column.color` 给的颜色，五种外观都不改它。
 - 看板列的外观现在也吃局部变量：`--kui-theme-fill-bg` / `--kui-control-bg-fill` 改 `fill` 的底色，`--kui-theme-outline-border` / `--kui-control-border` 改描边色，此前这些变量在看板上都不生效。
+- `Transfer` 的 `theme` 补齐 `plain` / `solid` / `dashed` 三档，并能从 `ConfigProvider` / `Form` 继承：外观落在左右两个列表上，`plain` 既不铺底也不描边，`solid` 用主色铺满两个列表，列表标题、条目描述、头部与底部的分割线跟着反白，悬停、选中的条目是主色上的一层浅白，键盘焦点环也一样；`dashed` 是虚线描边。此前传下来的其它档位会被换成 `outline`。穿梭框上写 `theme="underlined"` 按 `outline` 呈现。
+- `Transfer` 用 `theme="solid"` 时，两侧的搜索框换成浅底填充，不会在主色上再叠一层主色；禁用整个穿梭框或其中一行时，列表文字、条目描述和底部都回到禁用色。
 
 ## 6.2.2
 

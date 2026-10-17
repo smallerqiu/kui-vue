@@ -118,6 +118,8 @@ rm -rf node_modules/.vite
 - `Kanban`: the hint that marks the column a card is being dragged over now appears. It used to sit under the column's own appearance, so it stayed invisible even on a board's default `fill`.
 - `Kanban`: on a `theme="solid"` column the keyboard ring on a card is a pale wash of the plate's own ink instead of primary on primary, and the status dot in a column header keeps the colour `column.color` gives it under every tier.
 - `Kanban` columns now read the local appearance variables: `--kui-theme-fill-bg` / `--kui-control-bg-fill` set the `fill` plate and `--kui-theme-outline-border` / `--kui-control-border` set the frame, none of which reached a board before.
+- `Transfer`: `theme` gains `plain`, `solid` and `dashed` and is now inherited from `ConfigProvider` / `Form`. The tier paints the two lists — `plain` leaves them without a plate or a frame, `solid` fills both with the primary colour and inverts their titles, item descriptions, header and footer dividers, with hover, selection and the keyboard ring turning into a pale wash of the plate's own ink, and `dashed` draws a dashed frame. Any other tier inherited from outside used to be swapped for `outline`. `theme="underlined"` on a transfer lands on `outline`.
+- `Transfer`: on `theme="solid"` the two search boxes take a shallow filled surface instead of primary on primary, and a disabled transfer — the whole thing or one row of it — falls back to the library's disabled colour for its list text, item descriptions and footer.
 
 ## 6.2.2
 

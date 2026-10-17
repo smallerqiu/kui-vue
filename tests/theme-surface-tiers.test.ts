@@ -27,6 +27,9 @@
 // 3c-丁d adds `Kanban`, the board whose columns are the surfaces. It typed two tiers and painted those
 // two, so `plain` / `solid` / `dashed` reached the class list from `ConfigProvider` with no rule behind
 // them, and the drop hint — the one state a column has — sat below the tier plates and never drew.
+// 3c-丁d also adds `Transfer`, the pair of panels. It typed two tiers behind a hand-written gate that
+// re-read `props.theme` for every other value, so a `ConfigProvider theme="solid"` was thrown away before
+// the class list and three of the five tiers the stylesheet now paints could not be asked for at all.
 // The style half — what each tier actually draws — is in tests/theme-variants.test.ts and the pixels in
 // scripts/check-theme.ts.
 import { mount } from "@vue/test-utils";
@@ -44,6 +47,7 @@ import Kanban from "../components/kanban";
 import Page from "../components/page";
 import QRCode from "../components/qrcode";
 import StatCard from "../components/stat-card/stat-card";
+import Transfer from "../components/transfer";
 
 // `QRCode` paints into a canvas the moment it mounts, and jsdom hands back no 2d context; these cases
 // only read the class list, so the encoder is stubbed instead of left to throw inside the component's
@@ -61,6 +65,14 @@ const BOARD_COLUMNS = [
   { key: "doing", title: "Doing", color: "#3a95ff" },
 ];
 const BOARD_TASKS = [{ id: 1, status: "todo", title: "Define requirements" }];
+
+// A transfer renders one panel per side of the split, so the cases hand it the smallest data set that puts
+// a row on both sides at once — the tier plates the two panels, so an empty one would hide half of it.
+const TRANSFER_DATA = [
+  { key: "a", title: "选项一", description: "描述一" },
+  { key: "b", title: "选项二", description: "描述二" },
+];
+const TRANSFER_SPLIT = ["b"];
 
 const SURFACES = [
   { name: "Card", prefix: "k-card", fallback: "fill", component: Card, props: {} },
@@ -136,6 +148,17 @@ const SURFACES = [
     fallback: "fill",
     component: Kanban,
     props: { columns: BOARD_COLUMNS },
+  },
+  // 3c-丁d: a transfer is the two panels you move rows between. Its prop carried `default: "outline"`,
+  // which sits behind `useConfigAppearance` and so never shadows a provider, and the hand-written gate in
+  // front of it is gone — the support set now lives at the emit point, and a tier outside it lands on this
+  // component's own look, the outlined frame.
+  {
+    name: "Transfer",
+    prefix: "k-transfer",
+    fallback: "outline",
+    component: Transfer,
+    props: { dataSource: TRANSFER_DATA, modelValue: TRANSFER_SPLIT },
   },
 ] as const;
 
@@ -585,5 +608,82 @@ describe("a board names its tier once and drops on its columns", () => {
     expect(column.classes()).toContain("k-kanban-column-drag-over");
     await column.trigger("dragleave");
     expect(column.classes()).not.toContain("k-kanban-column-drag-over");
+  });
+});
+
+// 3c-丁d: a transfer names its tier on the root and paints it on both panels, so the DOM contract is one
+// tier class beside two lists — and the search box inside a panel is the one control the component hands
+// its tier to, which `solid` has to refuse: a primary box on a primary plate is nothing to look at, the
+// same reason a solid board hints in its plate's own ink.
+const transfer = SURFACES.find((surface) => surface.name === "Transfer")!;
+const panels = (props: Record<string, unknown> = {}) =>
+  mount(Transfer, {
+    attachTo: document.body,
+    props: { dataSource: TRANSFER_DATA, modelValue: TRANSFER_SPLIT, ...props },
+  });
+
+describe("a transfer names its tier once and plates both panels", () => {
+  for (const tier of TIERS)
+    it(`theme="${tier}" puts exactly one tier class on the transfer`, () => {
+      expect(
+        tierClasses(transfer, Array.from(panels({ theme: tier }).find(".k-transfer").element.classList)),
+      ).toEqual([`k-transfer-${tier === "underlined" ? transfer.fallback : tier}`]);
+    });
+
+  // A tier that reached nothing but the root would be invisible, so the parts it colours are the ones a
+  // caller can see: both panels, each with its title, its count, its rows and the row's muted line.
+  it("renders two panels with the parts a solid plate inverts", () => {
+    const wrapper = panels({ theme: "solid" });
+    const lists = wrapper.findAll(".k-transfer-list");
+    expect(lists).toHaveLength(2);
+    expect(lists.map((list) => list.find(".k-transfer-header .k-checkbox").text())).toEqual([
+      "Source",
+      "Target",
+    ]);
+    expect(lists.map((list) => list.find(".k-transfer-header > span").text())).toEqual(["0/1", "0/1"]);
+    expect(lists[0].find(".k-transfer-item-content small").text()).toBe("描述一");
+    // The two buttons between the panels are the operation, not the surface, so they keep their own look.
+    expect(wrapper.findAll(".k-transfer-operations .k-btn")).toHaveLength(2);
+  });
+
+  // The class belongs on the root, not on the panels: a tier class that landed on a panel instead would
+  // plate it twice and out-specify the arm that draws it.
+  it("keeps the tier class on the root, not on the panels", () => {
+    const wrapper = panels({ theme: "solid", searchable: true });
+    expect(wrapper.find(".k-transfer-list").classes()).toEqual(["k-transfer-list"]);
+  });
+
+  // `searchable` is the flag that puts an input inside a panel, and the tier is handed straight to it —
+  // except under `solid`, where the box keeps a light plate so it stays a box the eye can find.
+  for (const tier of PAINTED)
+    it(`theme="${tier}" hands its search box the ${
+      tier === "solid" ? "fill" : tier
+    } plate`, () => {
+      const input = panels({ theme: tier, searchable: true }).find(".k-transfer-search .k-input");
+      expect(input.classes()).toContain(`k-input-${tier === "solid" ? "fill" : tier}`);
+    });
+
+  // Disabled is a state of the whole transfer, so it shares the root with the tier class rather than
+  // replacing it — the stylesheet needs both to step the plate's ink down.
+  it("lands beside the disabled and readonly flags", () => {
+    expect(panels({ theme: "solid", disabled: true }).find(".k-transfer").classes()).toEqual(
+      expect.arrayContaining(["k-transfer-solid", "is-disabled"]),
+    );
+    expect(panels({ theme: "dashed", readonly: true }).find(".k-transfer").classes()).toEqual(
+      expect.arrayContaining(["k-transfer-dashed", "is-readonly"]),
+    );
+  });
+
+  // `footer` is the one slot that puts content on the plate below the rows, and the tier inverts its line
+  // and its text, so the slot has to stay inside the panel it belongs to.
+  it("keeps a footer inside the panel it plates", () => {
+    const wrapper = mount(Transfer, {
+      attachTo: document.body,
+      props: { dataSource: TRANSFER_DATA, modelValue: TRANSFER_SPLIT, theme: "solid" },
+      slots: { footer: () => h("button", { type: "button" }, "清空") },
+    });
+    const footers = wrapper.findAll(".k-transfer-footer");
+    expect(footers).toHaveLength(2);
+    expect(footers[0].text()).toBe("清空");
   });
 });

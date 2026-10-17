@@ -14,7 +14,16 @@ import { Checkbox } from "../checkbox";
 import Empty from "../empty";
 import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import Input from "../input";
+import { resolvePaintedTheme } from "../config/context";
+import type { ThemeType } from "../const/types";
 import { tuplePropType } from "../utils/vue";
+
+// A transfer owns no plate of its own — the two lists are its surfaces — so it answers the four surface
+// tiers plus `fill`, and never `underlined`: "keep only the bottom border" on a box deletes three of its
+// four sides, which is not an appearance preset. A tier outside this list must not reach the class list —
+// `k-transfer-<tier>` with no LESS block behind it is the "class ships, nothing paints" bug — and this
+// component's own look *is* a tier class, the outlined frame, so the guard falls back to `outline`.
+const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 
 export type TransferKey = string | number;
 export interface TransferItem {
@@ -44,7 +53,7 @@ const transferProps = {
   disabled: Boolean,
   readonly: Boolean,
   theme: {
-    type: String as PropType<"outline" | "fill">,
+    type: String as PropType<ThemeType>,
     default: "outline",
   },
   filterOption: Function as PropType<(keyword: string, item: TransferItem) => boolean>,
@@ -170,8 +179,12 @@ const Transfer = defineComponent({
       items: TransferItem[],
       allItems: TransferItem[],
       title: string,
-      theme: "outline" | "fill",
+      theme: ThemeType,
     ) => {
+      // A search box inside a solid list keeps a light plate: `solid` on the box would paint primary on
+      // the primary it already sits on, which is nothing to look at — the same reason a solid board hints
+      // in its plate's own ink. Every other tier hands the box what the lists drew.
+      const inputTheme = theme === "solid" ? "fill" : theme;
       const selected = direction === "left" ? sourceSelected.value : targetSelected.value;
       const enabledKeys = selectable(items);
       const selectedCount = allItems.filter((item) => selected.includes(item.key)).length;
@@ -197,7 +210,7 @@ const Transfer = defineComponent({
               <Input
                 modelValue={direction === "left" ? sourceKeyword.value : targetKeyword.value}
                 disabled={props.disabled || field?.disabled.value}
-                theme={theme}
+                theme={inputTheme}
                 clearable
                 icon={Search}
                 placeholder="Search"
@@ -258,8 +271,11 @@ const Transfer = defineComponent({
       );
     };
     return () => {
-      const formTheme = appearance.theme.value;
-      const theme = formTheme === "outline" || formTheme === "fill" ? formTheme : props.theme;
+      // The hand-written gate below used to answer only `outline` / `fill` and re-read `props.theme` for
+      // every other value, so a `ConfigProvider theme="solid"` was thrown away before the class list —
+      // and three of the five tiers this stylesheet now paints could not be asked for at all. The support
+      // set now lives at the emit point, and a tier it does not name lands on this component's own look.
+      const theme = resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "outline";
       return (
         <div
           id={field?.prop ? field.id : undefined}

@@ -19173,11 +19173,15 @@
           "description": "Appearance theme",
           "descriptionZh": "外观主题",
           "descriptionEn": "Appearance theme",
-          "type": "\"fill\" | \"outline\"",
+          "type": "ThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
-            "outline"
+            "outline",
+            "plain",
+            "solid",
+            "dashed",
+            "underlined"
           ],
           "required": false,
           "defaultExpression": "\"outline\"",
@@ -19372,7 +19376,7 @@
         {
           "title": "主题",
           "file": "components/transfer/demo/theme.vue",
-          "source": "<template>\n  <div class=\"demo-list\">\n    <Transfer v-model=\"outlineSelected\" searchable theme=\"outline\" :data-source=\"items\" />\n    <Transfer v-model=\"fillSelected\" searchable theme=\"fill\" :data-source=\"items\" />\n  </div>\n</template>\n\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\n\nconst outlineSelected = ref<(string | number)[]>([4]);\nconst fillSelected = ref<(string | number)[]>([4]);\nconst items = [\"Design\", \"Development\", \"Testing\", \"Deployment\"].map((title, index) => ({\n  key: index + 1,\n  title,\n}));\n</script>\n\n<style scoped>\n.demo-list {\n  display: grid;\n  gap: 24px;\n}\n</style>"
+          "source": "<template>\n  <Space vertical block>\n    <RadioGroup v-model=\"theme\" type=\"button\" :options=\"themes\" />\n    <Transfer v-model=\"selected\" searchable :theme=\"theme\" :data-source=\"items\" />\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\n// The panels paint five tiers; `underlined` belongs to the controls and would land back on `outline`.\nconst theme = ref<ThemeType>(\"outline\");\nconst themes = [\n  { label: \"Outline\", value: \"outline\" },\n  { label: \"Fill\", value: \"fill\" },\n  { label: \"Plain\", value: \"plain\" },\n  { label: \"Solid\", value: \"solid\" },\n  { label: \"Dashed\", value: \"dashed\" },\n];\nconst selected = ref<(string | number)[]>([4]);\nconst items = [\"Design\", \"Development\", \"Testing\", \"Deployment\"].map((title, index) => ({\n  key: index + 1,\n  title,\n}));\n</script>"
         },
         {
           "title": "禁用状态",

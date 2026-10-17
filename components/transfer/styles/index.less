@@ -6,23 +6,66 @@
   gap: var(--kui-spacing-4);
   color: var(--kui-color-text);
 }
+// A transfer owns no plate of its own — the two lists are its surfaces — so every tier is drawn on
+// `.k-transfer-list` and the root only carries the tier class. The 1px edge has to be declared here:
+// `base.less` gives every element `border: 0 solid`, and the `fill` / `plain` arms colour a border they
+// never give a width to, which is the "declared, never painted" shape a board's columns used to have.
+// This component's own look is the outlined frame, so `outline` is the arm the base used to hand-copy.
 .k-transfer-list {
   display: flex;
   flex-direction: column;
   width: 240px;
   height: 300px;
   overflow: hidden;
-  border: 1px solid
-    var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
+  border: 1px solid transparent;
   border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
-  background: var(--kui-theme-outline-bg);
 }
 .k-transfer-fill .k-transfer-list {
-  border-color: var(--kui-theme-fill-border);
-  background: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  .kui-theme-value(fill);
+}
+.k-transfer-outline .k-transfer-list {
+  .kui-theme-value(outline);
+}
+.k-transfer-plain .k-transfer-list {
+  .kui-theme-value(plain);
+}
+.k-transfer-solid .k-transfer-list {
+  .kui-theme-value(solid);
+}
+.k-transfer-dashed .k-transfer-list {
+  .kui-theme-value(dashed);
+}
+// A plated list carries everything the arm cannot reach: the two lines that divide its header and footer
+// from the rows, the title the header renders through a `Checkbox`, and the muted line each item may
+// carry. Each of those names a dark token of its own, so an inherited `color` reaches none of them — the
+// row's own text and the `n/m` count beside the title do inherit, which is why nothing claims them.
+// The states are the other half: the grey `fill` hover and the primary 20% selection are both nothing to
+// look at on a primary plate, and the keyboard ring is drawn from the primary too, so all three move to
+// the plate's own ink.
+// The `:not()` is load-bearing: the header checkbox is disabled whenever its list has no selectable row,
+// and `.k-checkbox-disabled` colours its own label at (0,1,0) — a plate that outspecified it would repaint
+// the title of an empty list white instead of grey.
+.k-transfer-solid .k-transfer-header .k-checkbox:not(.k-checkbox-disabled) {
+  color: @kui-theme-solid-text;
+}
+.k-transfer-solid .k-transfer-header {
+  border-bottom-color: color-mix(in srgb, @kui-theme-solid-text 24%, transparent);
+}
+.k-transfer-solid .k-transfer-item-content small {
+  color: color-mix(in srgb, @kui-theme-solid-text 80%, transparent);
+}
+.k-transfer-solid .k-transfer-footer {
+  border-top-color: color-mix(in srgb, @kui-theme-solid-text 24%, transparent);
+  color: color-mix(in srgb, @kui-theme-solid-text 80%, transparent);
+}
+.k-transfer-solid .k-transfer-item:hover {
+  background: color-mix(in srgb, @kui-theme-solid-text 14%, @kui-theme-solid-bg);
+}
+.k-transfer-solid .k-transfer-item.is-selected {
+  background: color-mix(in srgb, @kui-theme-solid-text 26%, @kui-theme-solid-bg);
+}
+.k-transfer-solid .k-transfer-item:focus-visible {
+  outline-color: color-mix(in srgb, @kui-theme-solid-text 45%, transparent);
 }
 .k-transfer-item-checkbox {
   display: inline-flex;
@@ -115,12 +158,35 @@
   flex-direction: column;
   gap: var(--kui-spacing-2);
 }
+// A disabled transfer — the whole thing, or one row of it — has to read as disabled on a primary plate,
+// so the plate's ink steps down to the library's disabled colour and every part the tier named for itself
+// is named back. Each of these carries one class more than the rule it answers, so the tier gives way by
+// specificity rather than by the order the two blocks happen to sit in. The header's title is absent from
+// this list on purpose: a disabled transfer's checkbox already carries `.k-checkbox-disabled`, and the tier
+// steps aside for that class above rather than being overruled from here.
+.k-transfer-solid.is-disabled {
+  .k-transfer-list {
+    color: var(--kui-color-text-disabled);
+  }
+  .k-transfer-item .k-transfer-item-content small {
+    color: var(--kui-color-text-disabled);
+  }
+  .k-transfer-footer {
+    color: var(--kui-color-text-disabled);
+  }
+}
+.k-transfer-solid .k-transfer-item.is-disabled .k-transfer-item-content small {
+  color: var(--kui-color-text-disabled);
+}
 @media (max-width: 640px) {
   .k-transfer {
     align-items: stretch;
     flex-direction: column;
   }
-  .k-transfer-list {
+  // Named through the transfer it belongs to: the base `.k-transfer-list` above is the rule that carries
+  // the 1px edge the `fill` / `plain` tiers colour, and the shared style contract reads that rule by
+  // selector — a media query that restates the same class would overwrite it.
+  .k-transfer .k-transfer-list {
     width: 100%;
   }
   .k-transfer-operations {

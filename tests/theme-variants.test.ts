@@ -126,6 +126,7 @@ it("draws the migrated components from the shared mixin rather than re-copying t
     "qrcode/styles/index.less",
     "page/styles/index.less",
     "kanban/styles/index.less",
+    "transfer/styles/index.less",
   ]) {
     const source = (await fs.readFile(path.join(root, "components", entry), "utf8")).replace(
       /\/\/[^\n]*/g,
@@ -801,6 +802,16 @@ const PAINTED_CONTRACTS = [
     entry: "components/kanban/styles/index.less",
     sources: ["components/kanban/index.tsx"],
   },
+  // 3c-丁d: a transfer typed two tiers and painted those two by hand — `base` carried the outlined frame
+  // and one rule copied the `fill` chain — so `plain` / `solid` / `dashed` had neither class nor rule, and
+  // react read no `ConfigProvider` or `Form` value at all while vue threw one away behind a hand-written
+  // gate. Both emit points now name the set the stylesheet draws.
+  {
+    name: "Transfer",
+    prefix: "k-transfer",
+    entry: "components/transfer/styles/index.less",
+    sources: ["components/transfer/index.tsx"],
+  },
 ] as const;
 
 // Read the first spelling that exists, so one shared file can point at a component whose filename
@@ -1023,6 +1034,27 @@ const SURFACES = [
       [".k-kanban-column-header strong", "color"],
       [".k-kanban-column-header em", "color"],
       [".k-kanban-column-header em", "background"],
+    ],
+    keeps: [],
+  },
+  // 3c-丁d: a transfer plates its two lists rather than its root, and the parts that sit on the plate all
+  // name a dark colour of their own. The header's title is a `Checkbox`, so the tier has to reach through
+  // it, and the row's muted line is a `small` under the content span. The count beside the title and the
+  // row's own text inherit the arm's `color`, so nothing claims them — see the block at the foot of this
+  // file for why the two disabled spellings have to out-weight every path the tier names.
+  {
+    name: "Transfer",
+    prefix: "k-transfer",
+    entry: "components/transfer/styles/index.less",
+    inverted: [
+      [".k-transfer-header .k-checkbox", "color"],
+      [".k-transfer-header", "border-bottom-color"],
+      [".k-transfer-item-content small", "color"],
+      [".k-transfer-footer", "border-top-color"],
+      [".k-transfer-footer", "color"],
+      [".k-transfer-item:hover", "background"],
+      [".k-transfer-item.is-selected", "background"],
+      [".k-transfer-item:focus-visible", "outline-color"],
     ],
     keeps: [],
   },
@@ -1366,5 +1398,100 @@ it("paints a board's tiers on its columns and keeps the drop hint above them", a
         (paints(key, "k-kanban", "solid", "", ".k-kanban-item") && !key.includes("focus-visible")),
     ),
     "a solid board repaints what the caller coloured or what already inherits",
+  ).toEqual([]);
+});
+
+// 3c-丁d: a transfer is the surface family's two-panel shape — the tier never paints the root, it plates
+// both `.k-transfer-list` boxes, and everything a caller puts inside them (the header's checkbox, the
+// search input, the two buttons between the panels) is another component's own look. Three things the
+// loops above cannot reach are pinned here: the edge the border-colour tiers need, the one part that has
+// to step around a nested control's own state, and the ink a disabled transfer falls back to.
+const TRANSFER_ENTRY = "components/transfer/styles/index.less";
+const TRANSFER_LIST = ".k-transfer-list";
+
+it("paints a transfer's tiers on its lists and leaves what other components own", async () => {
+  const [compiled, everyArm] = await Promise.all([fileRules(TRANSFER_ENTRY), arms()]);
+  const keys = [...compiled.keys()];
+  const disabledInk = "var(--kui-color-text-disabled)";
+  const classes = (selector: string) => (selector.match(/\./g) ?? []).length;
+
+  // `base.less` gives every element `border: 0 solid`, so the three tiers that only name a border colour
+  // need the lists to carry a width of their own. Without it `fill` — the grey plate this component draws
+  // under `ConfigProvider theme="fill"` — ships a class and paints nothing, the shape a board's columns
+  // used to have.
+  expect(
+    declarations(compiled.get(TRANSFER_LIST), "transfer list base").get("border"),
+    "a transfer list keeps no edge for the border-colour tiers to colour",
+  ).toContain("1px");
+
+  for (const tier of ["fill", "outline", "plain", "solid", "dashed"] as const) {
+    const plated = [...compiled].filter(
+      ([key, body]) =>
+        paints(key, "k-transfer", tier, "", TRANSFER_LIST) &&
+        covers(declarations(body, `transfer ${tier} plate`), everyArm.get(tier)!),
+    );
+    expect(
+      plated.length,
+      `transfer paints no .kui-theme-value(${tier}) on ${TRANSFER_LIST}`,
+    ).toBeGreaterThan(0);
+
+    // The root only carries the class. Painting the tier there would plate the gap between the two panels,
+    // which is the page, not a surface — and it would give `plain` a background behind the lists that the
+    // list's own `plain` arm is transparent.
+    expect(
+      compiled.has(`.k-transfer-${tier}`),
+      `transfer plates theme="${tier}" on its root instead of on its lists`,
+    ).toBe(false);
+  }
+
+  // The header's title is rendered through a `Checkbox`, and that checkbox is disabled whenever its panel
+  // has no selectable row — an empty panel is the common case, not a corner. `.k-checkbox-disabled`
+  // colours its label, so the tier steps around that class instead of out-specifying it from here.
+  const title = keys.find((key) =>
+    key.startsWith(".k-transfer-solid .k-transfer-header .k-checkbox"),
+  );
+  expect(title, "a solid transfer paints no header title").toBeDefined();
+  expect(
+    title!,
+    `a solid transfer turns the title of an empty panel white: ${title}`,
+  ).toContain(":not(.k-checkbox-disabled)");
+
+  // A disabled transfer — the whole bar, or one row of it — has to read as disabled on a primary plate.
+  // Every part `solid` names is a direct rule, so the base `.k-transfer.is-disabled` on the root only
+  // reaches it by inheritance and loses; each override therefore carries one class more than the rule it
+  // answers and gives way by specificity, not by the order these two blocks happen to sit in.
+  for (const [override, answered] of [
+    [".k-transfer-solid.is-disabled .k-transfer-list", ".k-transfer-solid .k-transfer-list"],
+    [".k-transfer-solid.is-disabled .k-transfer-footer", ".k-transfer-solid .k-transfer-footer"],
+    [
+      ".k-transfer-solid.is-disabled .k-transfer-item .k-transfer-item-content small",
+      ".k-transfer-solid .k-transfer-item-content small",
+    ],
+    [
+      ".k-transfer-solid .k-transfer-item.is-disabled .k-transfer-item-content small",
+      ".k-transfer-solid .k-transfer-item-content small",
+    ],
+  ] as const) {
+    expect(
+      declarations(compiled.get(override), `transfer disabled ${override}`).get("color"),
+      `${override} keeps the plate's ink on a disabled transfer`,
+    ).toBe(disabledInk);
+    expect(
+      classes(override),
+      `${override} only beats ${answered} by source order, not by specificity`,
+    ).toBeGreaterThan(classes(answered));
+  }
+
+  // A checkbox's box and the search input are other components' own surfaces, and a row's own text already
+  // inherits the plate's ink, so `solid` names none of them: a rule here would fight a look the caller can
+  // still set through `ConfigProvider` or the control's own `theme`.
+  const claimed = keys.flatMap((key) => solidParts(key, "k-transfer"));
+  expect(
+    claimed.filter((part) => /\.k-(checkbox-symbol|input)\b/.test(part)),
+    "a solid transfer repaints a part another component owns",
+  ).toEqual([]);
+  expect(
+    claimed.filter((part) => /\.k-transfer-item$/.test(part)),
+    "a solid transfer claims the row's own text instead of letting it inherit",
   ).toEqual([]);
 });

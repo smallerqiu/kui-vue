@@ -14,7 +14,7 @@
 
 [主题](./demo/theme.vue?show=vertical)
 
-- 支持 `outline` 和 `fill` 两种主题，搜索框会与穿梭框保持一致。
+- 支持 `outline`、`fill`、`plain`、`solid`、`dashed` 五种主题；`solid` 下列表里的搜索框会保留一层浅底。
 
 [禁用状态](./demo/disabled.vue?show=vertical)
 
@@ -44,7 +44,7 @@
 | searchable | 是否可搜索 | `boolean` | false |
 | disabled | 是否禁用 | `boolean` | false |
 | readonly | 是否只读，可搜索但不可选择或移动 | `boolean` | false |
-| theme | 外观主题 | `"fill" \| "outline"` | outline |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
 | filterOption | 自定义搜索方法 | `((keyword: string, item: TransferItem) => boolean)` | - |
 | render | 自定义项目内容 | `((item: TransferItem) => VNodeChild)` | - |
 | item | 自定义数据项，作用域参数为 `{ item: TransferItem }` | VNodeChild | - |
@@ -61,3 +61,9 @@
 | title       | 标题         | string           | -      |
 | description | 描述         | string           | -      |
 | disabled    | 是否禁用此项 | boolean          | false  |
+
+## 主题
+
+`theme` 支持 `outline`、`fill`、`plain`、`solid`、`dashed` 五种外观，不写 `theme` 时就是 `outline`；`underlined` 是给可输入的控件用的，穿梭框会按 `outline` 呈现。
+
+外观落在两侧的列表上，不是整块穿梭框：`fill` 给列表铺一层浅底，`outline` 只描一条库的边框色，`plain` 既不铺底也不描边，`dashed` 把那一圈换成虚线。`solid` 用主色铺满两块列表，列表标题、条目里的描述和底部内容一起反白，选中的条目也改用主色上的一层浅白；列表本身禁用时，这些文字回到库的禁用色。中间那两个移动按钮是按钮自己的样子，五种外观都不改它们；列表里的搜索框跟着这一档走，只有 `solid` 把它压回 `fill` 的一层浅底——主色描在主色上看不见。
