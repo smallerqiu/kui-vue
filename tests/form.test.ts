@@ -5,6 +5,8 @@ import Form from "../components/form/form";
 import FormItem from "../components/form/form-item";
 import Checkbox from "../components/checkbox/checkbox";
 import CheckboxGroup from "../components/checkbox/checkbox-group";
+import Button from "../components/button/button";
+import Card from "../components/card";
 import CheckCard from "../components/check-card/check-card";
 import ColorPicker from "../components/color-picker";
 import ConfigProvider from "../components/config";
@@ -517,5 +519,38 @@ describe("Form", () => {
       expect.arrayContaining(["k-check-card-fill", "k-check-card-small", "k-check-card-square"]),
     );
     expect(wrapper.get(".k-transfer").classes()).toContain("k-transfer-fill");
+  });
+
+  // The two sides of one ruling: `Form`'s `size` / `shape` / `theme` are the appearance of its child controls,
+  // so they stop there. A Button or Card written inside the same form keeps following ConfigProvider — which is
+  // why react was split into `useConfigAppearance` (provider only) and `useFormAppearance` (form over provider)
+  // instead of reading Form from the single hook every component called.
+  it("stops Form appearance at its controls", () => {
+    const wrapper = mount(ConfigProvider, {
+      props: { size: "small", theme: "outline", shape: "square" },
+      slots: {
+        default: () =>
+          h(Form, { model: { name: "" }, size: "large", theme: "fill", shape: "circle" }, () => [
+            h(FormItem, { prop: "name" }, () => h(Input)),
+            h(Button, { class: "form-button" }, () => "Submit"),
+            h(Card, { class: "form-card" }),
+          ]),
+      },
+    });
+
+    expect(wrapper.get(".k-input").classes()).toEqual(
+      expect.arrayContaining(["k-input-lg", "k-input-fill"]),
+    );
+    expect(wrapper.get(".form-button").classes()).toEqual(
+      expect.arrayContaining(["k-btn-sm", "k-btn-square", "k-btn-outline"]),
+    );
+    expect(wrapper.get(".form-card").classes()).toEqual(
+      expect.arrayContaining(["k-card-small", "k-card-square", "k-card-outline"]),
+    );
+    for (const selector of [".form-button", ".form-card"]) {
+      const classes = wrapper.get(selector).classes();
+      expect(classes.some((name) => /-(lg|large|circle|round|fill)\b/.test(name))).toBe(false);
+    }
+    wrapper.unmount();
   });
 });
