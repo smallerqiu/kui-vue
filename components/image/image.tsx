@@ -11,12 +11,18 @@ import {
   watch,
 } from "vue";
 import type { BooleanType, ShapeType, ThemeType } from "../const/types";
-import { useConfigAppearance } from "../config/context";
+import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import Icon from "../icon";
 import createInstance from "./instance";
 import { imageGroupKey } from "./context";
 import type { ImagePreviewProps, ImageType } from "./preview";
 import { loadImage } from "./utils";
+
+// An image is a framed plate, so it answers the five surface tiers and never `underlined`: keeping only
+// the bottom edge of a frame around a picture is not an appearance preset (see `.kui-theme-value` in
+// `styles/less-css-var.less`). Its own look is `plain` — no frame, no plate — so a tier it cannot paint
+// lands there, on the same DOM as an `Image` with no `theme` written.
+const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 
 const imageProps = {
   alt: String,
@@ -143,6 +149,7 @@ const Image = defineComponent({
 
     return () => {
       const { alt, width, height, imgStyle } = props;
+      const theme = resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "plain";
 
       const containerProps = {
         style: {
@@ -151,7 +158,7 @@ const Image = defineComponent({
         },
         class: [
           "k-image",
-          `k-image-${appearance.theme.value}`,
+          `k-image-${theme}`,
           `k-image-${appearance.shape.value}`,
         ],
         onClick: showPreview,

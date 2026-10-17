@@ -105,6 +105,11 @@ rm -rf node_modules/.vite
 - **Breaking change**: `CheckCardTheme` is no longer exported; every `theme` prop uses the library's shared `ThemeType`.
 - `Alert`: `theme` gains `solid` and `dashed`. `solid` fills the box with the colour the alert is already reporting (`error` red, `success` green, `warning` orange, `info` primary) and inverts its text, mark and close button, so an error and a success stay two different blocks instead of both turning primary; `dashed` draws a dashed frame. `theme="underlined"` lands on `fill`, an underline being the spelling of a control you type into.
 - `Alert`: `theme="outline"` no longer draws its frame in the page's text colour. The border takes the library's border colour like every other outlined surface, so `--kui-theme-outline-border` now recolours it.
+- `Image`: `theme` gains `solid` and `dashed`. `solid` fills the plate the picture sits on with the primary colour and inverts the loading spinner, the failed-load placeholder and anything passed as children; `dashed` draws a dashed frame. `theme="underlined"` lands on `plain`, an underline being the spelling of a control you type into.
+- `Image`: `theme="outline"` now draws an actual frame. It used to set only a border colour on an element that has no border width, so nothing appeared and `--kui-theme-outline-border` had nothing to recolour.
+- `QRCode`: `theme` gains `solid` and `dashed`. `solid` fills the box behind the code with the primary colour and inverts mask text such as the "expired" message; `dashed` draws a dashed frame. `theme="underlined"` lands on `outline`.
+- `QRCode`: `theme="plain"` now only removes the surface. It keeps the 12px of padding the frame holds and fades the border instead of deleting it — taking the frame and the padding away together is still `:bordered="false"`.
+- `QRCode`: `theme` and `shape` now follow `ConfigProvider`, and a value written on the component itself still wins.
 
 ## 6.2.2
 

@@ -55,3 +55,7 @@
 | --- | --- | --- | --- |
 | theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | plain |
 | shape | 图片形状 | `"default" \| "circle" \| "square" \| "round"` | round |
+
+## 主题
+
+`theme` 支持 `fill`、`outline`、`plain`、`solid`、`dashed` 五种外观，不写 `theme` 时就是 `plain`：不带边框也不铺底色，画面顶到边缘。`outline` 在画面外圈一条库的边框色，`dashed` 把这一圈换成虚线；`fill` 在画面下面铺一层浅底，`solid` 用主色铺满，并把加载中、加载失败的占位和默认插槽里的文字一起反白。`underlined` 是给可输入的控件用的，图片会按 `plain` 呈现。

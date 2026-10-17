@@ -36,7 +36,7 @@
 | size | 二维码的正方形边长，单位 `px`。组件内部已做高清屏适配，大屏拉伸不模糊。 | `number` | `160` |
 | colorDark | 前景色（二维码实点颜色）。支持十六进制、RGB 以及 CSS 变量，组件会自动监听根节点 `theme-mode` 属性进行动态重绘适配。 | `string` | `"var(--kui-color-reverse)"` |
 | colorLight | 背景色。支持十六进制、RGB 以及 CSS 变量。暗黑模式下建议设置为深色系，切勿设为完全透明以免影响扫码识别率。 | `string` | `"var(--kui-color-bg)"` |
-| bordered | 是否保留外边框和内边距容器。 | `boolean` | `true` |
+| bordered | 是否保留外边框和它托住的 12px 内边距。只想去掉表面（不留底色、边框透明）请写 `theme="plain"`，内边距会保留。 | `boolean` | `true` |
 | status | 二维码的当前业务状态。可选值：<br>• `'active'`: 正常可扫描状态<br>• `'loading'`: 安全链路加载中状态<br>• `'expired'`: 长期未扫码已失效状态（展示刷新按钮）<br>• `'scanned'`: 已成功扫描状态（可配合插槽定制遮罩） | `"loading" \| "active" \| "expired" \| "scanned"` | `'active'` |
 | logo | 二维码正中心的 Logo 图片地址（支持网络 URL 或 Base64）。 | `string` | - |
 | logoSize | 正中心 Logo 的尺寸大小，单位 `px`。如果不传，组件内部会自动计算为整个二维码尺寸的 `22%`。 | `number` | - |
@@ -66,3 +66,7 @@
 | --- | --- | --- | --- |
 | theme | 二维码外观 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
 | shape | 二维码形状 | `"default" \| "circle" \| "square" \| "round"` | round |
+
+## 主题
+
+`theme` 支持 `fill`、`outline`、`plain`、`solid`、`dashed` 五种外观，不写 `theme` 时就是 `outline`：一圈库的边框色，外加它托住的 12px 内边距。`fill` 换成一层浅底，`dashed` 把边框换成虚线，`solid` 用主色铺满，并把“已过期”这类遮罩文字一起反白。`plain` 只去掉这层表面——不留底色、边框透明，12px 内边距仍然保留；要连边框和内边距一起去掉，请写 `:bordered="false"`。`underlined` 是给可输入的控件用的，二维码会按 `outline` 呈现。

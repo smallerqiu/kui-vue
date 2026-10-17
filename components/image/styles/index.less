@@ -322,19 +322,36 @@
 .k-image-square {
   border-radius: var(--kui-shape-square);
 }
+// A picture is a frame plus the plate behind it, and the three states this component swaps in —
+// spinner, error mark, `children` — are what a tier actually shows. `plain` is the component's own look:
+// no frame, no plate, the image edge to edge.
 .k-image-fill {
-  border-color: var(--kui-theme-fill-border);
-  background: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  .kui-theme-value(fill);
 }
+// The frame used to be spelled `border-color` alone while `base.less` gives every element
+// `border: 0 solid`, so the colour landed on an edge with no width: `theme="outline"` painted nothing
+// and `--kui-theme-outline-border` had nothing to reach. The shared arm draws the 1px as well.
 .k-image-outline {
-  border-color: var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
-  background: var(--kui-theme-outline-bg);
+  .kui-theme-value(outline);
 }
 .k-image-plain {
-  border-color: var(--kui-theme-plain-border);
-  background: var(--kui-theme-plain-bg);
-  box-shadow: none;
+  .kui-theme-value(plain);
+}
+// `solid` paints the plate the placeholder, the error mark and the loading spinner sit on. Each of them
+// carries its own dark colour, so inheritance reaches none of them — the spinner was primary on primary
+// and the error mark grey on primary — and both are named here. `children` is the part with no rule of
+// its own, which is what the arm's root `color` is for.
+.k-image-solid {
+  .kui-theme-value(solid);
+
+  .k-image-loading {
+    color: @kui-theme-solid-text;
+  }
+  .k-image-error {
+    color: @kui-theme-solid-text;
+    background-color: color-mix(in srgb, @kui-theme-solid-text 18%, transparent);
+  }
+}
+.k-image-dashed {
+  .kui-theme-value(dashed);
 }

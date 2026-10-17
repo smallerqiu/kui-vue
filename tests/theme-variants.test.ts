@@ -122,6 +122,8 @@ it("draws the migrated components from the shared mixin rather than re-copying t
     "checkbox/styles/index.less",
     "radio/styles/index.less",
     "alert/styles/index.less",
+    "image/styles/index.less",
+    "qrcode/styles/index.less",
   ]) {
     const source = (await fs.readFile(path.join(root, "components", entry), "utf8")).replace(
       /\/\/[^\n]*/g,
@@ -761,6 +763,24 @@ const PAINTED_CONTRACTS = [
     entry: "components/alert/styles/index.less",
     sources: ["components/alert/index.tsx"],
   },
+  // 3c-丁b: a picture and a code both frame something, and both typed six tiers while their stylesheets
+  // answered three. `outline` on an image coloured an edge that `base.less` gives no width, so the tier
+  // painted nothing at all, and `k-image-solid` was a dead class name. A code emitted `k-qrcode-outline`
+  // — its own default — with no rule behind it, which left its hand-copied base border unreachable from
+  // `--kui-theme-outline-border`, and `solid` / `dashed` had no rule either. The sets now live at the
+  // emit points like every other surface's.
+  {
+    name: "Image",
+    prefix: "k-image",
+    entry: "components/image/styles/index.less",
+    sources: ["components/image/image.tsx"],
+  },
+  {
+    name: "QRCode",
+    prefix: "k-qrcode",
+    entry: "components/qrcode/styles/index.less",
+    sources: ["components/qrcode/index.tsx"],
+  },
 ] as const;
 
 // Read the first spelling that exists, so one shared file can point at a component whose filename
@@ -936,6 +956,28 @@ const SURFACES = [
       [".k-check-card-symbol", "color"],
       [".k-check-card-indicator", "border-color"],
     ],
+    keeps: [],
+  },
+  // 3c-丁b: a picture's plate is only ever visible around the edges and behind the two states the
+  // component swaps in, and both of those carry a dark colour of their own — the spinner was primary on
+  // primary, the error mark placeholder-grey on primary. A code inverts the one line its mask colours
+  // itself; the loading and scanned lines take the root's inverted text.
+  {
+    name: "Image",
+    prefix: "k-image",
+    entry: "components/image/styles/index.less",
+    inverted: [
+      [".k-image-loading", "color"],
+      [".k-image-error", "color"],
+      [".k-image-error", "background-color"],
+    ],
+    keeps: [],
+  },
+  {
+    name: "QRCode",
+    prefix: "k-qrcode",
+    entry: "components/qrcode/styles/index.less",
+    inverted: [[".k-qrcode-expired", "color"]],
     keeps: [],
   },
 ] as const;

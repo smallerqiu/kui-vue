@@ -25,7 +25,7 @@
 // scripts/check-theme.ts.
 import { mount } from "@vue/test-utils";
 import { h } from "vue";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import Alert from "../components/alert";
 import Card from "../components/card";
 import { CheckCard, CheckCardGroup } from "../components/check-card";
@@ -33,7 +33,14 @@ import Collapse, { CollapsePanel } from "../components/collapse";
 import ConfigProvider from "../components/config";
 import FeatureCard from "../components/feature-card";
 import FeedbackPanel from "../components/feedback-panel";
+import { Image } from "../components/image";
+import QRCode from "../components/qrcode";
 import StatCard from "../components/stat-card/stat-card";
+
+// `QRCode` paints into a canvas the moment it mounts, and jsdom hands back no 2d context; these cases
+// only read the class list, so the encoder is stubbed instead of left to throw inside the component's
+// own `try`.
+vi.mock("qrcode", () => ({ toCanvas: vi.fn(async () => {}) }));
 
 const TIERS = ["fill", "outline", "plain", "solid", "dashed", "underlined"] as const;
 const PAINTED = TIERS.filter((tier) => tier !== "underlined");
@@ -85,6 +92,20 @@ const SURFACES = [
     component: Alert,
     props: { type: "info", message: "提示" },
   },
+  // 3c-丁b: an image is a frame around a picture and a code is a frame around a canvas, so both paint
+  // the whole ring — and both used to type six tiers while their stylesheets drew three. `outline` on an
+  // image set a colour on an edge that `base.less` gives no width, so it painted nothing, and `plain` on
+  // a code deleted the 12px ring the caller never asked to lose. In Vue a code also read `props.theme`
+  // straight, so nothing from the provider could reach it. An image's own look is `plain`, a code's is
+  // the outlined frame.
+  { name: "Image", prefix: "k-image", fallback: "plain", component: Image, props: {} },
+  {
+    name: "QRCode",
+    prefix: "k-qrcode",
+    fallback: "outline",
+    component: QRCode,
+    props: { value: "https://example.com" },
+  },
 ] as const;
 
 // `Alert` renders inside a `Transition`, and vue-test-utils reads the classes of an abstract node, not of
@@ -95,9 +116,7 @@ const rootClasses = (surface: (typeof SURFACES)[number], props: Record<string, u
     mount(surface.component, {
       attachTo: document.body,
       props: { ...surface.props, ...props },
-    })
-      .find(`.${surface.prefix}`)
-      .element.classList,
+    }).find(`.${surface.prefix}`).element.classList,
   );
 
 // Only the six tier spellings count here: `-bordered`, `-round` and `-small` are the flags, shape and
@@ -308,7 +327,10 @@ describe("a check card takes its tier from whoever asks for it", () => {
   ];
 
   const tiersInsideGroup = (props: Record<string, unknown>) =>
-    mount(CheckCardGroup, { attachTo: document.body, props: { modelValue: "a", options, ...props } })
+    mount(CheckCardGroup, {
+      attachTo: document.body,
+      props: { modelValue: "a", options, ...props },
+    })
       .findAll(".k-check-card")
       .map((node) => tierClasses(card, Array.from(node.element.classList)));
 
@@ -330,10 +352,7 @@ describe("a check card takes its tier from whoever asks for it", () => {
       wrapper
         .findAll(".k-check-card")
         .map((node) => tierClasses(card, Array.from(node.element.classList))),
-    ).toEqual([
-      [`${card.prefix}-outline`],
-      [`${card.prefix}-outline`],
-    ]);
+    ).toEqual([[`${card.prefix}-outline`], [`${card.prefix}-outline`]]);
     expect(
       tierClasses(card, Array.from(wrapper.find(".k-check-card-group").element.classList)),
     ).toEqual([]);
@@ -347,9 +366,9 @@ describe("a check card takes its tier from whoever asks for it", () => {
       props: { modelValue: "a", theme: "fill" },
       slots: { default: () => h(CheckCard, { value: "a", theme: "solid", title: "选项一" }) },
     });
-    expect(
-      tierClasses(card, Array.from(wrapper.find(".k-check-card").element.classList)),
-    ).toEqual([`${card.prefix}-solid`]);
+    expect(tierClasses(card, Array.from(wrapper.find(".k-check-card").element.classList))).toEqual([
+      `${card.prefix}-solid`,
+    ]);
   });
 
   // The checked marks are the state this component exists to show, so `solid` has to keep them legible
@@ -385,9 +404,7 @@ const alertClasses = (props: Record<string, unknown> = {}) =>
     mount(Alert, {
       attachTo: document.body,
       props: { type: "info", message: "提示", ...props },
-    })
-      .find(".k-alert")
-      .element.classList,
+    }).find(".k-alert").element.classList,
   );
 
 describe("an alert names its tier like every other surface", () => {

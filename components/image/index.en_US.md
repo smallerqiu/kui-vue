@@ -55,3 +55,7 @@ Previewable images.
 | --- | --- | --- | --- |
 | theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | plain |
 | shape | Image shape | `"default" \| "circle" \| "square" \| "round"` | round |
+
+## Theme
+
+`theme` supports five looks — `fill`, `outline`, `plain`, `solid`, `dashed` — and is `plain` when you write nothing: no frame, no plate, the picture edge to edge. `outline` draws the library's border colour around the picture and `dashed` turns that frame into a dashed line; `fill` lays a pale plate under the picture and `solid` fills it with the primary colour, inverting the loading spinner, the failed-load placeholder and any text in the default slot. `underlined` belongs to a control you type into, so a picture falls back to `plain`.

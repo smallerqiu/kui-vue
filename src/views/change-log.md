@@ -107,6 +107,11 @@ rm -rf node_modules/.vite
 - **不兼容变更**：不再导出 `CheckCardTheme`，`theme` 一律使用库统一的 `ThemeType`。
 - `Alert` 的 `theme` 补齐 `solid` / `dashed` 两档：`solid` 用这条提示自己的颜色铺满整块（`error` 红、`success` 绿、`warning` 橙、`info` 主色），文字、图标和关闭按钮一起反白，错误和成功仍是两种颜色、不会一起变成主色；`dashed` 是虚线描边。提示条上写 `theme="underlined"` 按 `fill` 呈现。
 - `Alert` 的 `theme="outline"` 不再用正文颜色描边：外框改用库统一的边框色，和其它描边表面一致，也能用 `--kui-theme-outline-border` 一并改掉。
+- `Image` 的 `theme` 补齐 `solid` / `dashed` 两档：`solid` 用主色铺满图片底下那层板，加载中、加载失败的占位和自定义内容跟着反白；`dashed` 是虚线描边。图片上写 `theme="underlined"` 按 `plain` 呈现。
+- `Image` 的 `theme="outline"` 现在真的描出一圈边框：此前只给了边框颜色、没给边框宽度，什么也看不出来，`--kui-theme-outline-border` 在图片上也不生效。
+- `QRCode` 的 `theme` 补齐 `solid` / `dashed` 两档：`solid` 用主色铺满二维码的底，“已过期”这类遮罩文字跟着反白；`dashed` 是虚线描边。二维码上写 `theme="underlined"` 按 `outline` 呈现。
+- `QRCode` 的 `theme="plain"` 只去掉表面：不再顺手删掉边框内的 12px 内边距，边框也是改成透明而不是抹掉；要连边框和内边距一起去掉，仍然写 `:bordered="false"`。
+- `QRCode` 的 `theme` / `shape` 现在跟随 `ConfigProvider` 的配置，组件自己写了的仍然优先。
 
 ## 6.2.2
 

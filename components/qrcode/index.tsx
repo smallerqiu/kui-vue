@@ -23,8 +23,14 @@ import type {
   ThemeType,
 } from "../const/types";
 import zhCN from "../locale/zh-CN";
-import { DEFAULT_LOCALE } from "../config/context";
+import { resolvePaintedTheme, useConfigAppearance, DEFAULT_LOCALE } from "../config/context";
 import Spin from "../spin";
+// A code's surface is the frame and the 12px ring around the canvas, so it answers the five surface
+// tiers and never `underlined`. Its own look is the outlined frame — what the base rule of its
+// stylesheet draws — so a tier it cannot paint lands back on `outline`, the same DOM as a `QRCode` with no
+// `theme` written.
+const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
+
 const qrCodeProps = {
   value: { type: String, required: true },
   size: { type: Number, default: 160 },
@@ -56,6 +62,17 @@ const QRCode = defineComponent({
     refresh: () => true,
   },
   setup(props, { emit, slots, expose }) {
+    // Only `theme` and `shape` are appearance keys here: QRCode's own `size` is a pixel edge
+    // length, not a `SizeType`, so handing the whole props object to the resolver would claim a
+    // size the stylesheet has no class for. The getters keep the two inherited keys reactive.
+    const appearance = useConfigAppearance({
+      get theme() {
+        return props.theme;
+      },
+      get shape() {
+        return props.shape;
+      },
+    });
     const canvasRef = ref<HTMLCanvasElement | null>(null);
     let rootObserver: MutationObserver | null = null;
     let drawId = 0;
@@ -286,6 +303,7 @@ const QRCode = defineComponent({
     };
 
     return () => {
+      const theme = resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "outline";
       const wrapperStyle: CSSProperties = {
         width: `${safeSize.value}px`,
         height: `${safeSize.value}px`,
@@ -296,9 +314,9 @@ const QRCode = defineComponent({
           style={wrapperStyle}
           class={[
             "k-qrcode",
-            `k-qrcode-${props.shape}`,
-            `k-qrcode-${props.theme}`,
-            { "k-qrcode-plain": props.bordered === false },
+            `k-qrcode-${appearance.shape.value}`,
+            `k-qrcode-${theme}`,
+            { "k-qrcode-borderless": props.bordered === false },
           ]}
         >
           <canvas

@@ -1,3 +1,9 @@
+@import "../../styles/less-css-var.less";
+
+// A code is the content, so the surface here is the frame around it: the 1px edge plus the 12px ring the
+// canvas sits in. `outline` is this component's own look, which is why the base rule spells that frame
+// out — and why the tier block still has to exist, because a frame no tier reads is a frame
+// `--kui-theme-outline-border` cannot reach.
 .k-qrcode {
   position: relative;
   display: inline-block;
@@ -7,14 +13,32 @@
   border: 1px solid var(--kui-color-border);
 }
 .k-qrcode-fill {
-  border-color: transparent;
-  background: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  .kui-theme-value(fill);
 }
-.k-qrcode-plain,
-.k-qrcode-borderless {
+.k-qrcode-outline {
+  .kui-theme-value(outline);
+}
+.k-qrcode-plain {
+  .kui-theme-value(plain);
+}
+// The mask under `solid` shows a message the component colours itself, so it is named; the loading and
+// scanned lines carry no colour of their own and take the root's inverted text.
+.k-qrcode-solid {
+  .kui-theme-value(solid);
+
+  .k-qrcode-expired {
+    color: @kui-theme-solid-text;
+  }
+}
+.k-qrcode-dashed {
+  .kui-theme-value(dashed);
+}
+// ⑪: `theme="plain"` asks for no surface, `bordered={false}` asks for no frame — and a code with no
+// frame has no reason to keep the ring that frame was drawn to hold. The two used to be one rule, so
+// asking for `plain` deleted the 12px the caller never asked to lose while leaving a 1px edge standing
+// there invisible, and `bordered={false}` painted a transparent border instead of removing it. Compound
+// so it out-specifies whichever tier the caller also asked for.
+.k-qrcode.k-qrcode-borderless {
   border: 0;
   padding: 0;
 }
