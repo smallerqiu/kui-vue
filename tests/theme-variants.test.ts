@@ -124,6 +124,7 @@ it("draws the migrated components from the shared mixin rather than re-copying t
     "alert/styles/index.less",
     "image/styles/index.less",
     "qrcode/styles/index.less",
+    "page/styles/index.less",
   ]) {
     const source = (await fs.readFile(path.join(root, "components", entry), "utf8")).replace(
       /\/\/[^\n]*/g,
@@ -781,6 +782,15 @@ const PAINTED_CONTRACTS = [
     entry: "components/qrcode/styles/index.less",
     sources: ["components/qrcode/index.tsx"],
   },
+  // 3c-丁c: a pagination bar typed six tiers, emitted two (`k-page-fill` / `k-page-outline`), and its
+  // stylesheet answered three — `k-page-plain` was a rule no react class could ever reach. `solid` and
+  // `dashed` had neither class nor rule, so the two tiers the docs promised drew nothing at all.
+  {
+    name: "Page",
+    prefix: "k-page",
+    entry: "components/page/styles/index.less",
+    sources: ["components/page/index.tsx"],
+  },
 ] as const;
 
 // Read the first spelling that exists, so one shared file can point at a component whose filename
@@ -980,6 +990,18 @@ const SURFACES = [
     inverted: [[".k-qrcode-expired", "color"]],
     keeps: [],
   },
+  // 3c-丁c: a pager paints its tiers on the cells rather than on the root, and every one of those rules
+  // is stepped aside by the root's own `:not(.k-page-disabled)`. `solidParts()` reads a selector that
+  // *heads* with `.k-page-solid` and is blind to that shape, so this surface contributes no part paths to
+  // the loop below — the parts it colours itself are pinned where the guards can be seen, in the page
+  // block at the foot of this file.
+  {
+    name: "Page",
+    prefix: "k-page",
+    entry: "components/page/styles/index.less",
+    inverted: [],
+    keeps: [],
+  },
 ] as const;
 
 // A solid rule for one of these components may be one selector of a comma group, so the group is split
@@ -1124,4 +1146,122 @@ it("paints an alert's tiers over the plate its own type names", async () => {
     [...compiled.keys()].filter((key) => key.includes("k-alert-theme-")),
     "the k-alert-theme- infix is back",
   ).toEqual([]);
+});
+
+// 3c-丁c: a pagination bar is the surface family's other shape — the tier does not land on the root but
+// on the cells the numbers sit on, and it reaches them through `:not()`, so every rule here carries a
+// guard that `solidParts()`, which reads a selector heading with `.k-page-solid`, cannot see. Two things
+// are pinned below that the loops above cannot reach: the parts this component colours itself, and the
+// state rules that used to lose to the plate sitting next to them.
+const PAGE_ENTRY = "components/page/styles/index.less";
+const PAGE_PLATE = ".k-pager-item:not(.k-pager-next, .k-pager-prev)";
+const PAGE_FRAME = ".k-pager-item:not(.k-pager-more)";
+
+it("paints a pager's tiers, states and inverted parts on its cells", async () => {
+  const [compiled, everyArm] = await Promise.all([fileRules(PAGE_ENTRY), arms()]);
+  const onSolid = everyArm.get("solid")!.get("color")!;
+  const solidPlate = everyArm.get("solid")!.get("background")!;
+  const keys = [...compiled.keys()];
+
+  // Two cell sets shipped before this batch and 丁c keeps both: the plate tiers leave the two arrows
+  // flat, the frame tiers leave the `…` mark unframed. Widening either one repaints a tier that already
+  // ships, and `fill` is this component's own look.
+  for (const [tier, cells] of [
+    ["fill", PAGE_PLATE],
+    ["plain", PAGE_PLATE],
+    ["solid", PAGE_PLATE],
+    ["outline", PAGE_FRAME],
+    ["dashed", PAGE_FRAME],
+  ] as const) {
+    const painted = [...compiled].filter(
+      ([key, body]) =>
+        paints(key, "k-page", tier, "", cells) &&
+        covers(declarations(body, key), everyArm.get(tier)!),
+    );
+    expect(
+      painted.length,
+      `page paints no .kui-theme-value(${tier}) on ${cells}`,
+    ).toBeGreaterThan(0);
+  }
+
+  // The `…` cell is plated by all three plate tiers, and its icon carries a colour of its own
+  // (`.k-page .k-pager-item .k-icon` at (0,3,0)) so an inherited `color` never reaches it — `solid` has
+  // to name it. The digits sit in a bare `<span>` and do inherit, which is why nothing claims them.
+  expect(
+    [...compiled].some(
+      ([key, body]) =>
+        paints(key, "k-page", "solid", "", ".k-pager-more .k-icon") &&
+        declarations(body, key).get("color") === onSolid,
+    ),
+    "a `…` mark on a solid pager stays placeholder grey on a primary plate",
+  ).toBe(true);
+
+  // The selected cell is the state this bar exists to show, and the plate beside it reaches the same
+  // element through `:not()`: at (0,4,0) it outspecified a bare `.k-pager-item-active`, so under `fill`
+  // only the digits turned primary on the grey plate and under `outline` the frame stayed the default
+  // colour — declared, never painted. The state rules therefore carry one class more than the element
+  // they paint, and because the arm writes a `background` / `border` *shorthand* a tie is settled by
+  // source order, so each one also has to sit after the plate it answers.
+  for (const [tier, cells] of [
+    ["fill", PAGE_PLATE],
+    ["outline", PAGE_FRAME],
+    ["dashed", PAGE_FRAME],
+    ["solid", PAGE_PLATE],
+  ] as const) {
+    const plate = keys.findIndex(
+      (key) => paints(key, "k-page", tier, "", cells) && !key.includes(".k-pager-item-active"),
+    );
+    const state = keys.findIndex((key) =>
+      paints(key, "k-page", tier, "", ".k-pager-item.k-pager-item-active"),
+    );
+    expect(plate, `page ${tier} paints no plate`).toBeGreaterThanOrEqual(0);
+    expect(state, `page ${tier} has no compound selected-cell rule`).toBeGreaterThanOrEqual(0);
+    expect(
+      state,
+      `page ${tier}'s selected-cell rule sits before the plate, so the arm's shorthand wins`,
+    ).toBeGreaterThan(plate);
+  }
+
+  // `plain` needs no raise — its arm paints no text — but the selected page still has to turn primary,
+  // which is the only thing that tier says.
+  const plainActive = [...compiled].filter(([key]) =>
+    paints(key, "k-page", "plain", "", ".k-pager-item-active"),
+  );
+  expect(plainActive.length, "page plain paints no selected cell").toBeGreaterThan(0);
+  expect(
+    declarations(plainActive[0][1], "page plain selected cell").get("color"),
+    "a plain pager's selected page lost its state colour",
+  ).toBe("var(--kui-color-primary)");
+
+  // `solid` is the one tier where the plate and the state are the same colour, so the active cell swaps
+  // them — primary digits on an inverted plate — and hover keeps a lighter plate of the tier's own ink
+  // rather than the grey `fill` uses.
+  expect(
+    [...compiled].some(
+      ([key, body]) =>
+        paints(key, "k-page", "solid", "", ".k-pager-item.k-pager-item-active") &&
+        declarations(body, key).get("background-color") === onSolid &&
+        declarations(body, key).get("color") === solidPlate,
+    ),
+    "a solid pager stacks primary on primary instead of swapping plate and ink",
+  ).toBe(true);
+  expect(
+    [...compiled].some(
+      ([key, body]) =>
+        paints(key, "k-page", "solid", "", ":hover") &&
+        declarations(body, key).get("background-color") ===
+          `color-mix(in srgb, ${onSolid} 18%, ${solidPlate})`,
+    ),
+    "a solid pager's hover paints the grey plate `fill` owns",
+  ).toBe(true);
+
+  // A whole disabled bar never plates. The number cells carry no `k-pager-item-disabled` of their own —
+  // only the arrows do, from their position — and `.k-page.k-page-disabled .k-pager-item` is (0,3,0), so
+  // it would lose the background to any (0,4,0) plate: each tier steps aside by the root guard instead.
+  for (const tier of ["fill", "outline", "plain", "solid", "dashed"] as const) {
+    const painted = keys.filter((key) => paints(key, "k-page", tier, ""));
+    expect(painted.length, `page paints no ${tier} tier`).toBeGreaterThan(0);
+    for (const key of painted)
+      expect(key, `page ${tier} plates a disabled bar: ${key}`).toContain(":not(.k-page-disabled)");
+  }
 });

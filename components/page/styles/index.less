@@ -145,13 +145,20 @@
     }
   }
 }
+// A pagination bar has no plate of its own: its surface is the cells the numbers sit on, so each tier
+// paints `.k-pager-item` through the shared arm rather than the root. Two cell sets already existed here
+// and 丁c keeps both — the plate tiers (`fill` / `plain` / `solid`) leave the prev/next arrows flat, the
+// frame tiers (`outline` / `dashed`) leave the `…` mark unframed — because widening either set repaints a
+// tier that already ships, and `fill` is this component's own look.
+// The selected-cell selectors carry one class more than the plate next to them
+// (`.k-pager-item.k-pager-item-active`) on purpose: the plate reaches its cells through
+// `:not(.k-pager-next, .k-pager-prev)`, so at (0,4,0) it outspecified the old (0,3,0) active rule and the
+// selected page never showed its own state colour — under `fill` only the digits turned primary on the
+// grey plate, under `outline` the frame stayed the default border colour. Same "declared, never painted"
+// shape this batch exists to end. `plain` needs no raise: its arm paints no text.
 .k-page-fill:not(.k-page-disabled) {
   .k-pager-item:not(.k-pager-next, .k-pager-prev) {
-    border-color: var(--kui-theme-fill-border);
-    background-color: var(
-      --kui-theme-fill-bg,
-      var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-    );
+    .kui-theme-value(fill);
   }
 
   .k-pager-item:not(.k-pager-item-disabled, .k-pager-item-active) {
@@ -162,7 +169,7 @@
       background-color: var(--kui-color-item-active);
     }
   }
-  .k-pager-item-active {
+  .k-pager-item.k-pager-item-active {
     background-color: var(
       --kui-color-item-selected,
       color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
@@ -177,26 +184,74 @@
     }
   }
 }
+// The frame used to be spelled `1px solid var(--kui-color-border)`, so `--kui-theme-outline-border` —
+// and `--kui-control-border`, which every control in the library already reads — could never reach a
+// pagination bar. The arm draws the same 1px and reads the hook.
 .k-page-outline:not(.k-page-disabled) {
   .k-pager-item:not(.k-pager-more) {
-    border: 1px solid var(--kui-color-border);
+    .kui-theme-value(outline);
   }
   .k-pager-item:not(.k-pager-item-disabled, .k-pager-item-active):hover {
     border-color: var(--kui-color-primary);
     color: var(--kui-color-primary);
   }
-  .k-pager-item-active {
+  .k-pager-item.k-pager-item-active {
     border-color: var(--kui-color-primary);
     color: var(--kui-color-primary);
   }
 }
+// `plain` is "no surface": the cell keeps its transparent plate, and the hook now reaches it — set
+// `--kui-theme-plain-bg` and a plain pager answers it the way a plain card does.
 .k-page-plain:not(.k-page-disabled) {
+  .k-pager-item:not(.k-pager-next, .k-pager-prev) {
+    .kui-theme-value(plain);
+  }
+
   .k-pager-item:not(.k-pager-item-disabled, .k-pager-item-active):hover {
     color: var(--kui-color-primary);
   }
 
   .k-pager-item-active {
     color: var(--kui-color-primary);
+  }
+}
+// `dashed` is the frame vocabulary drawn with a dashed edge, so it takes `outline`'s cell set and its
+// states: a dashed pager says "this bar is a slot", not "drop something here".
+.k-page-dashed:not(.k-page-disabled) {
+  .k-pager-item:not(.k-pager-more) {
+    .kui-theme-value(dashed);
+  }
+  .k-pager-item:not(.k-pager-item-disabled, .k-pager-item-active):hover {
+    border-color: var(--kui-color-primary);
+    color: var(--kui-color-primary);
+  }
+  .k-pager-item.k-pager-item-active {
+    border-color: var(--kui-color-primary);
+    color: var(--kui-color-primary);
+  }
+}
+// `solid` puts the primary plate under each number — the `…` cell included, exactly as `fill` plates it —
+// and takes down with it the one thing there that inheritance cannot reach: the icon, which the base cell
+// rule paints by name. The digits need no naming, they sit in a bare `<span>`. The active cell is the
+// state the bar exists to show, so it swaps plate and ink (primary digits on the inverted plate) instead
+// of stacking primary on primary, and hover keeps a lighter plate rather than the grey `fill` uses.
+// A whole disabled bar never plates: number cells carry no `k-pager-item-disabled` of their own (only the
+// prev/next arrows do, from their position), so this tier steps aside the way its siblings do, by the root
+// guard — which is also why its inverted part is asserted with `paints()` in `theme-variants` instead of
+// the guard-free `SURFACES` path lookup.
+.k-page-solid:not(.k-page-disabled) {
+  .k-pager-item:not(.k-pager-next, .k-pager-prev) {
+    .kui-theme-value(solid);
+  }
+  .k-pager-more .k-icon {
+    color: @kui-theme-solid-text;
+  }
+  .k-pager-item:not(.k-pager-item-disabled, .k-pager-item-active):hover {
+    background-color: color-mix(in srgb, @kui-theme-solid-text 18%, @kui-theme-solid-bg);
+  }
+  .k-pager-item.k-pager-item-active {
+    background-color: @kui-theme-solid-text;
+    color: @kui-theme-solid-bg;
   }
 }
 .k-page.k-page-disabled {

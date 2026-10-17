@@ -112,6 +112,10 @@ rm -rf node_modules/.vite
 - `QRCode` 的 `theme` 补齐 `solid` / `dashed` 两档：`solid` 用主色铺满二维码的底，“已过期”这类遮罩文字跟着反白；`dashed` 是虚线描边。二维码上写 `theme="underlined"` 按 `outline` 呈现。
 - `QRCode` 的 `theme="plain"` 只去掉表面：不再顺手删掉边框内的 12px 内边距，边框也是改成透明而不是抹掉；要连边框和内边距一起去掉，仍然写 `:bordered="false"`。
 - `QRCode` 的 `theme` / `shape` 现在跟随 `ConfigProvider` 的配置，组件自己写了的仍然优先。
+- `Page` 的 `theme` 补齐 `solid` / `dashed` 两档：`solid` 用主色铺满页码格子，格子里的数字和省略号一起反白，当前页换成白底主色字，悬停是主色上的一层浅白；总条数那一行和左右翻页箭头仍在分页栏自己的底色上。`dashed` 是虚线描边，省略号那一格不描边。分页条上写 `theme="underlined"` 按 `fill` 呈现。
+- `Page` 的 `theme="plain"` 现在真的能用：此前分页条带上了这个类，样式里却没有这一档要画什么。
+- `Page` 选中页码的状态色现在真的落到格子上：此前 `theme="fill"` 的选中格只有数字变主色、底色还是悬停那层灰，`theme="outline"` 的选中格边框也没变成主色。
+- `Page` 的 `theme` 传给条内每页条数选择器和跳转输入框时，先换算成分页条自己画得到的那几档：写 `theme="underlined"`（包括 `ConfigProvider` 传下来的）不再出现分页条是扁平的、里面的输入框却带一条下划线。
 
 ## 6.2.2
 

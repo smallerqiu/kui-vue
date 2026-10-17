@@ -13,13 +13,20 @@ import {
   type Ref,
 } from "vue";
 import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
-import { useConfigAppearance } from "../config/context";
+import { useConfigAppearance, resolvePaintedTheme } from "../config/context";
 import Icon from "../icon";
 import InputNumber from "../input-number";
 import { bindResponsivePage } from "./responsive";
 import zhCN from "../locale/zh-CN";
 import { DEFAULT_LOCALE } from "../config/context";
 import { Select } from "../select";
+
+// A pagination bar has no plate of its own — its surface is the cells the numbers sit on — so it answers
+// the four surface tiers plus `fill`, and never `underlined`: "keep only the bottom border" on a row of
+// page boxes is not an appearance preset (see `.kui-theme-value` in `styles/less-css-var.less`). A tier
+// outside this list must not reach the class list: `k-page-<tier>` with no LESS block is the "class
+// ships, nothing paints" bug, and a bar's own default is `fill`, so the guard falls back to it.
+const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 
 const pageProps = {
   disabled: Boolean as BooleanType,
@@ -51,6 +58,12 @@ const Page = defineComponent({
   },
   setup(props, { emit, attrs }) {
     const appearance = useConfigAppearance(props);
+    // A bar's own look is `fill`, and the guard keeps a tier this stylesheet never paints off the class
+    // list. The resolved value is what the inner `Select` / `InputNumber` are handed too, so a dashed
+    // pager does not carry a filled sizer.
+    const theme = computed(
+      () => resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "fill",
+    );
     const rootRef = ref<HTMLElement>();
     let disposeResponsive: (() => void) | undefined;
     const setupResponsive = () => {
@@ -311,7 +324,7 @@ const Page = defineComponent({
         modelValue: defaultPageSize.value,
         size: appearance.size.value,
         clearable: false,
-        theme: appearance.theme.value,
+        theme: theme.value,
         options: sizeOptions.value,
         disabled: props.disabled,
         onChange: changeSize,
@@ -344,7 +357,7 @@ const Page = defineComponent({
       const _props = {
         class: "k-page-options-elevator",
         size: appearance.size.value,
-        theme: appearance.theme.value,
+        theme: theme.value,
         disabled: props.disabled,
         clearable: false,
         min: 1,
@@ -365,9 +378,7 @@ const Page = defineComponent({
           {
             ["k-page-sm"]: appearance.size.value == "small",
             ["k-page-lg"]: appearance.size.value == "large",
-            "k-page-fill": appearance.theme.value == "fill",
-            "k-page-outline": appearance.theme.value == "outline",
-            "k-page-plain": appearance.theme.value == "plain",
+            [`k-page-${theme.value}`]: true,
             "k-page-disabled": props.disabled,
             "k-page-simple": props.simple,
             "k-page-responsive": props.responsive && !props.simple,
@@ -429,7 +440,7 @@ const Page = defineComponent({
                 controls={false}
                 disabled={props.disabled}
                 size={appearance.size.value}
-                theme={appearance.theme.value}
+                theme={theme.value}
                 onChange={changePageByElevator}
               />
             </span>

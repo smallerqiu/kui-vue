@@ -21,6 +21,9 @@
 // the library primary — an error block and a success block have to stay two different blocks. Its
 // stylesheet answered only `outline` and `plain`, spelled `k-alert-theme-<tier>` behind an infix no other
 // surface has, so the documented default `theme="fill"` shipped a class nothing painted.
+// 3c-丁c adds `Page`, which types six tiers, resolves its own look to `fill`, and paints the tier on the
+// cells the numbers sit on rather than on the root. In Vue it also emitted `k-page-plain` while React
+// never did — one stylesheet, two reachable sets.
 // The style half — what each tier actually draws — is in tests/theme-variants.test.ts and the pixels in
 // scripts/check-theme.ts.
 import { mount } from "@vue/test-utils";
@@ -34,6 +37,7 @@ import ConfigProvider from "../components/config";
 import FeatureCard from "../components/feature-card";
 import FeedbackPanel from "../components/feedback-panel";
 import { Image } from "../components/image";
+import Page from "../components/page";
 import QRCode from "../components/qrcode";
 import StatCard from "../components/stat-card/stat-card";
 
@@ -106,6 +110,11 @@ const SURFACES = [
     component: QRCode,
     props: { value: "https://example.com" },
   },
+  // 3c-丁c: a pagination bar names its tier on the root and paints it on the cells the numbers sit on. It
+  // typed six tiers, emitted two and had a rule for a third — `k-page-plain` was reachable only from this
+  // repository — while `solid` and `dashed` had neither class nor rule. Its own look is `fill`, and the
+  // prop's `default: "fill"` sits behind `useConfigAppearance`, so a provider can still reach it.
+  { name: "Page", prefix: "k-page", fallback: "fill", component: Page, props: { total: 100 } },
 ] as const;
 
 // `Alert` renders inside a `Transition`, and vue-test-utils reads the classes of an abstract node, not of
@@ -456,5 +465,62 @@ describe("a solid alert keeps its type and everything it paints", () => {
     expect(Array.from(wrapper.find(".k-alert").element.classList)).toContain(
       "k-alert-has-description",
     );
+  });
+});
+
+// 3c-丁c: a pagination bar names its tier on the root — `shape` and `size` live there too — and paints it
+// on the cells, so the DOM contract is one tier class and no dead one. The bar also hands the tier it
+// *resolved* to the controls inside it, guard included: this repository used to forward the inherited
+// value untouched, so `ConfigProvider theme="underlined"` put an underlined sizer in a bar whose own
+// cells had already fallen back to `fill`.
+const page = SURFACES.find((surface) => surface.name === "Page")!;
+const pageClasses = (props: Record<string, unknown> = {}) =>
+  Array.from(mount(Page, { attachTo: document.body, props: { total: 100, ...props } }).find(".k-page")
+    .element.classList);
+
+describe("a pager names its tier once and hands the same tier down", () => {
+  for (const tier of TIERS)
+    it(`theme="${tier}" puts exactly one tier class on the bar`, () => {
+      expect(tierClasses(page, pageClasses({ theme: tier }))).toEqual([
+        `k-page-${tier === "underlined" ? page.fallback : tier}`,
+      ]);
+    });
+
+  it("lands beside the shape and size flags", () => {
+    const classes = pageClasses({ theme: "solid", shape: "square", size: "small" });
+    expect(classes).toContain("k-page-solid");
+    expect(classes).toContain("k-page-square");
+    expect(classes).toContain("k-page-sm");
+  });
+
+  it("forwards the resolved tier to its own sizer and elevator", () => {
+    const wrapper = mount(Page, {
+      attachTo: document.body,
+      props: { total: 100, showSizer: true, showElevator: true, theme: "solid" },
+    });
+    expect(wrapper.find(".k-select-solid").exists()).toBe(true);
+    // The elevator is an `InputNumber`, and the responsive bar renders one per layout that shows an
+    // elevator — so every one of them has to carry the tier the bar resolved to, not just the first.
+    const boxes = wrapper.findAll(".k-input-number");
+    expect(boxes.length).toBeGreaterThan(0);
+    for (const box of boxes) expect(box.classes()).toContain("k-input-number-solid");
+  });
+
+  // What the bar hands down is what it *resolved to*, not what it was asked for. `underlined` is a tier a
+  // pager never paints, so an underlined request has to leave an underlined sizer behind exactly the way
+  // it leaves an underlined page cell — the controls inside a bar are the bar's own parts.
+  it("never hands a tier it will not paint to the controls inside it", () => {
+    const wrapper = mount(Page, {
+      attachTo: document.body,
+      props: { total: 100, showSizer: true, showElevator: true, theme: "underlined" },
+    });
+    expect(wrapper.find(".k-select-fill").exists()).toBe(true);
+    expect(wrapper.find(".k-select-underlined").exists()).toBe(false);
+    const boxes = wrapper.findAll(".k-input-number");
+    expect(boxes.length).toBeGreaterThan(0);
+    for (const box of boxes) {
+      expect(box.classes()).toContain("k-input-number-fill");
+      expect(box.classes()).not.toContain("k-input-number-underlined");
+    }
   });
 });

@@ -44,6 +44,12 @@
 | responsive | 是否根据容器可用宽度自动调整分页布局 | `boolean` | true |
 | sizeData | 自定义页码组数据 | `number[]` | [10,15,20,30,40] |
 | size | 尺寸 | `"small" \| "medium" \| "large"` | `medium` |
-| theme | 主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | `fill` |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | `fill` |
 | onChange | 页码、每页条数改变时的回调 | `(page: number, pageSize: number) => void` | - |
 | shape | 分页项形状 | `"default" \| "circle" \| "square" \| "round"` | round |
+
+## 主题
+
+`theme` 支持 `fill`、`outline`、`plain`、`solid`、`dashed` 五种外观，不写 `theme` 时就是 `fill`；`underlined` 是给可输入的控件用的，分页条会按 `fill` 呈现。
+
+外观落在页码格子上，不是整条分页栏：`fill` 给页码格子铺一层浅底，`plain` 什么都不铺，`outline` 给格子描一条库的边框色，`dashed` 把这一圈换成虚线——两种描边都不给省略号那格加框，五种外观也都让左右翻页箭头保持扁平。`solid` 用主色铺满页码格子，格子里的数字和省略号图标一起反白；当前页换成白底主色字，悬停是主色上的一层浅白而不是 `fill` 的灰。总条数那一行和翻页箭头仍在分页栏自身的底色上，不跟着反白；每页条数选择器和跳转输入框跟着分页条解析出的同一档。

@@ -110,6 +110,10 @@ rm -rf node_modules/.vite
 - `QRCode`: `theme` gains `solid` and `dashed`. `solid` fills the box behind the code with the primary colour and inverts mask text such as the "expired" message; `dashed` draws a dashed frame. `theme="underlined"` lands on `outline`.
 - `QRCode`: `theme="plain"` now only removes the surface. It keeps the 12px of padding the frame holds and fades the border instead of deleting it — taking the frame and the padding away together is still `:bordered="false"`.
 - `QRCode`: `theme` and `shape` now follow `ConfigProvider`, and a value written on the component itself still wins.
+- `Page`: `theme` gains `solid` and `dashed`. `solid` fills the page boxes with the primary colour, inverts the digits and the `…` mark with them, makes the current page a white box with primary digits and lightens its own colour on hover; the total-count line and the prev/next arrows stay on the bar's background. `dashed` draws a dashed frame and leaves the `…` cell unframed. `theme="underlined"` lands on `fill`.
+- `Page`: `theme="plain"` does something now. The bar carried the class while the stylesheet said what that tier draws nowhere.
+- `Page`: the selected page takes its state colour on the cell itself. Under `theme="fill"` only the digits turned primary on a plate that was still the hover grey, and under `theme="outline"` the frame stayed the default border colour.
+- `Page`: the tier it hands to its own page-size selector and elevator input is one the bar can paint, so `theme="underlined"` — including one inherited from `ConfigProvider` — no longer leaves a flat bar with an underlined input inside it.
 
 ## 6.2.2
 

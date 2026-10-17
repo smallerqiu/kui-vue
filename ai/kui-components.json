@@ -11844,9 +11844,9 @@
       "props": [
         {
           "name": "theme",
-          "description": "Theme",
-          "descriptionZh": "主题",
-          "descriptionEn": "Theme",
+          "description": "Surface theme",
+          "descriptionZh": "外观主题",
+          "descriptionEn": "Surface theme",
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
