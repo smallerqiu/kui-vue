@@ -51,7 +51,7 @@ Used for SMS codes, email codes, and one-time passwords.
 | autofocus | Focus the first input automatically | `boolean` | false |
 | separator | Content between OTP fields | `VNodeChild` | - |
 | validator | Custom validator for each character | `InputOTPValidator` | - |
-| theme | Visual theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | Field shape | `"default" \| "circle" \| "square" \| "round"` | - |
 | complete | Emitted when all characters exist | `(value: string) => void` | - |
 | change | Emitted when the input value changes | `(value: string) => void` | - |

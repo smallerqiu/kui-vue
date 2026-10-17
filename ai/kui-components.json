@@ -5145,9 +5145,9 @@
         },
         {
           "name": "theme",
-          "description": "Theme; inherits from Form when unset",
-          "descriptionZh": "主题，未设置时可继承 Form",
-          "descriptionEn": "Theme; inherits from Form when unset",
+          "description": "Theme; inherits from Form or ConfigProvider when unset",
+          "descriptionZh": "主题，未设置时可继承 Form 或 ConfigProvider",
+          "descriptionEn": "Theme; inherits from Form or ConfigProvider when unset",
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
@@ -5539,9 +5539,9 @@
         },
         {
           "name": "theme",
-          "description": "When theme='fill', presents a fill theme",
-          "descriptionZh": "theme='fill' 时呈现浅色主题",
-          "descriptionEn": "When theme='fill', presents a fill theme",
+          "description": "Theme",
+          "descriptionZh": "主题",
+          "descriptionEn": "Theme",
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
@@ -7195,9 +7195,9 @@
         },
         {
           "name": "theme",
-          "description": "The component renders the theme",
-          "descriptionZh": "组件呈现主题",
-          "descriptionEn": "The component renders the theme",
+          "description": "Child control theme",
+          "descriptionZh": "子控件主题",
+          "descriptionEn": "Child control theme",
           "type": "ThemeType | undefined",
           "boolean": false,
           "enumValues": [
@@ -8427,9 +8427,9 @@
         },
         {
           "name": "theme",
-          "description": "The theme of Input",
+          "description": "Theme",
           "descriptionZh": "主题",
-          "descriptionEn": "The theme of Input",
+          "descriptionEn": "Theme",
           "type": "ThemeType | undefined",
           "boolean": false,
           "enumValues": [
@@ -9513,9 +9513,9 @@
         },
         {
           "name": "theme",
-          "description": "Visual theme",
+          "description": "Theme",
           "descriptionZh": "主题",
-          "descriptionEn": "Visual theme",
+          "descriptionEn": "Theme",
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
@@ -12988,9 +12988,9 @@
         },
         {
           "name": "theme",
-          "description": "QR appearance",
-          "descriptionZh": "二维码外观",
-          "descriptionEn": "QR appearance",
+          "description": "Appearance theme",
+          "descriptionZh": "外观主题",
+          "descriptionEn": "Appearance theme",
           "type": "SurfaceThemeType",
           "boolean": false,
           "enumValues": [
@@ -13234,9 +13234,9 @@
       "props": [
         {
           "name": "theme",
-          "description": "Button theme",
-          "descriptionZh": "`button` 的主题",
-          "descriptionEn": "Button theme",
+          "description": "Component theme",
+          "descriptionZh": "组件呈现主题",
+          "descriptionEn": "Component theme",
           "type": "MarkThemeType",
           "boolean": false,
           "enumValues": [
@@ -13495,9 +13495,9 @@
         },
         {
           "name": "theme",
-          "description": "Button theme",
-          "descriptionZh": "`button` 的主题",
-          "descriptionEn": "Button theme",
+          "description": "Button appearance",
+          "descriptionZh": "按钮外观",
+          "descriptionEn": "Button appearance",
           "type": "SurfaceThemeType | undefined",
           "boolean": false,
           "enumValues": [
@@ -13513,7 +13513,7 @@
         {
           "name": "shape",
           "description": "Button shape",
-          "descriptionZh": "`button` 的形状",
+          "descriptionZh": "按钮形状",
           "descriptionEn": "Button shape",
           "type": "ShapeType | undefined",
           "boolean": false,
@@ -13747,9 +13747,9 @@
         },
         {
           "name": "theme",
-          "description": "Button theme",
-          "descriptionZh": "`button` 的主题",
-          "descriptionEn": "Button theme",
+          "description": "Radio option appearance; the button's theme when `type=\"button\"`",
+          "descriptionZh": "单选项外观，`type=\"button\"` 时为按钮主题",
+          "descriptionEn": "Radio option appearance; the button's theme when `type=\"button\"`",
           "type": "SurfaceThemeType | undefined",
           "boolean": false,
           "enumValues": [
@@ -14863,9 +14863,9 @@
         },
         {
           "name": "theme",
-          "description": "The theme of Select",
+          "description": "Theme",
           "descriptionZh": "主题",
-          "descriptionEn": "The theme of Select",
+          "descriptionEn": "Theme",
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [
@@ -20832,9 +20832,9 @@
         },
         {
           "name": "theme",
-          "description": "The theme of TreeSelect",
+          "description": "Theme",
           "descriptionZh": "主题",
-          "descriptionEn": "The theme of TreeSelect",
+          "descriptionEn": "Theme",
           "type": "ThemeType",
           "boolean": false,
           "enumValues": [

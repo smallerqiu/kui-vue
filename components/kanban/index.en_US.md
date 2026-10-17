@@ -31,7 +31,7 @@ Displays items grouped by status and supports drag-and-drop transitions.
 | draggable | Enable drag and drop | `boolean` | true |
 | emptyText | Empty column description; defaults to the global locale | `string` | - |
 | minColumnWidth | Minimum column width | `string \| number` | 250 |
-| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | `fill` |
+| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | columnTitle | Custom column heading, scoped with `{ column, items }` | VNodeChild | - |
 | item | Custom card content, scoped with `{ item, column, index }` | VNodeChild | - |
 | empty | Custom empty-column content, scoped with `{ column }` | VNodeChild | - |

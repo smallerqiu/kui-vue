@@ -57,7 +57,7 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | prefix | Prefix inside the input; complex content can use the named slot | `VNodeChild` | - |
 | addonBefore | Addon before the input; complex content can use the named slot | `VNodeChild` | - |
 | addonAfter | Addon after the input; complex content can use the named slot | `VNodeChild` | - |
-| theme | The theme of Input | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | clearable | Show the clear button on hover when a value exists | `boolean` | true |
 | visiblePasswordIcon | Whether to show the toggle button or control password visibility | `boolean` | true |
 | onSearch | Search event callback | `((value: string) => void)` | - |

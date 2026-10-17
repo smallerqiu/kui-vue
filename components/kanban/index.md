@@ -31,7 +31,7 @@
 | draggable | 是否允许拖拽 | `boolean` | true |
 | emptyText | 空列提示，默认使用全局语言配置 | `string` | - |
 | minColumnWidth | 列最小宽度 | `string \| number` | 250 |
-| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | `fill` |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | columnTitle | 自定义列头，作用域参数为 `{ column, items }` | VNodeChild | - |
 | item | 自定义卡片内容，作用域参数为 `{ item, column, index }` | VNodeChild | - |
 | empty | 自定义空列内容，作用域参数为 `{ column }` | VNodeChild | - |

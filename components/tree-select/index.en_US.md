@@ -63,7 +63,7 @@ Similar to the Select selection control, when the selectable data structure is a
 | bordered | Whether to show border | `boolean` | true |
 | showArrow | Whether to show dropdown button | `boolean` | true |
 | arrowIcon | Custom dropdown arrow icon | `IconType[]` | - |
-| theme | The theme of TreeSelect | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | icon | Custom icon | `IconType[]` | - |
 | shape | When shape='circle', displays rounded corners | `"default" \| "circle" \| "square" \| "round"` | - |
 | treeLoadData | Method to asynchronously load data | `((node: TreeNode) => Promise<unknown>)` | - |

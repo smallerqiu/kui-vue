@@ -1829,7 +1829,7 @@ Freely output colors.
 | trigger | Pull-down trigger mode | `"hover" \| "click"` | click |
 | showText | Whether to display colored text | `boolean` | false |
 | size | Size of the color picker | `"small" \| "medium" \| "large"` | - |
-| theme | Theme; inherits from Form when unset | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme; inherits from Form or ConfigProvider when unset | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | Shape: `round`, `circle`, or `square`; inherits from Form when available | `"default" \| "circle" \| "square" \| "round"` | - |
 | placement | Placement of the color picker | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
 | destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
@@ -1920,7 +1920,7 @@ When the user needs to input a date, they can click the standard input box to po
 | disabledDate | Disabled dates | `(date: Date) => boolean` | - |
 | disabledTime | Disabled times | `(date: Date) => boolean` | - |
 | format | Set the date format. A single format only: it drives both parsing and display, array format matching is not supported. Configuration reference http://day.js.org/ | `string` | By `mode`: `year` `YYYY`, `month` `YYYY-MM`, `date` / `dateRange` `YYYY-MM-DD`, `time` `HH:mm:ss`, `dateTime` / `dateTimeRange` `YYYY-MM-DD HH:mm:ss` |
-| theme | When theme='fill', presents a fill theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | Theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | dateIcon | Custom icon | `IconType[]` | - |
 | shape | The form in which the component is presented | `"default" \| "circle" \| "square" \| "round"` | - |
 | bordered | Whether to display the border | `boolean` | true |
@@ -2415,7 +2415,7 @@ export default {
 | name | Form name, will be used as the id prefix for form fields | `string` | - |
 | labelCol | Label layout using `<Col>` span and offset; ignored in inline layout | `ColProps` | - |
 | wrapperCol | Control layout using `<Col>` span and offset; ignored in inline layout | `ColProps` | - |
-| theme | The component renders the theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | Child control theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | size | Sub component size | `"small" \| "medium" \| "large"` | - |
 | layout | Form layout | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | shape | Child component shape | `"default" \| "circle" \| "square" \| "round"` | - |
@@ -2537,7 +2537,7 @@ export default {
 | name | Form name, will be used as the id prefix for form fields | `string` | - |
 | labelCol | Label layout using `<Col>` span and offset; ignored in inline layout | `ColProps` | - |
 | wrapperCol | Control layout using `<Col>` span and offset; ignored in inline layout | `ColProps` | - |
-| theme | The component renders the theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | Child control theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
 | size | Sub component size | `"small" \| "medium" \| "large"` | - |
 | layout | Form layout | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | shape | Child component shape | `"default" \| "circle" \| "square" \| "round"` | - |
@@ -3056,7 +3056,7 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | prefix | Prefix inside the input; complex content can use the named slot | `VNodeChild` | - |
 | addonBefore | Addon before the input; complex content can use the named slot | `VNodeChild` | - |
 | addonAfter | Addon after the input; complex content can use the named slot | `VNodeChild` | - |
-| theme | The theme of Input | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | clearable | Show the clear button on hover when a value exists | `boolean` | true |
 | visiblePasswordIcon | Whether to show the toggle button or control password visibility | `boolean` | true |
 | onSearch | Search event callback | `((value: string) => void)` | - |
@@ -3148,7 +3148,7 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | prefix | Prefix inside the input; complex content can use the named slot | `VNodeChild` | - |
 | addonBefore | Addon before the input; complex content can use the named slot | `VNodeChild` | - |
 | addonAfter | Addon after the input; complex content can use the named slot | `VNodeChild` | - |
-| theme | The theme of Input | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | clearable | Show the clear button on hover when a value exists | `boolean` | true |
 | visiblePasswordIcon | Whether to show the toggle button or control password visibility | `boolean` | true |
 | onSearch | Search event callback | `((value: string) => void)` | - |
@@ -3240,7 +3240,7 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | prefix | Prefix inside the input; complex content can use the named slot | `VNodeChild` | - |
 | addonBefore | Addon before the input; complex content can use the named slot | `VNodeChild` | - |
 | addonAfter | Addon after the input; complex content can use the named slot | `VNodeChild` | - |
-| theme | The theme of Input | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | clearable | Show the clear button on hover when a value exists | `boolean` | true |
 | visiblePasswordIcon | Whether to show the toggle button or control password visibility | `boolean` | true |
 | onSearch | Search event callback | `((value: string) => void)` | - |
@@ -3381,7 +3381,7 @@ Used for SMS codes, email codes, and one-time passwords.
 | autofocus | Focus the first input automatically | `boolean` | false |
 | separator | Content between OTP fields | `VNodeChild` | - |
 | validator | Custom validator for each character | `InputOTPValidator` | - |
-| theme | Visual theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | Field shape | `"default" \| "circle" \| "square" \| "round"` | - |
 | complete | Emitted when all characters exist | `(value: string) => void` | - |
 | change | Emitted when the input value changes | `(value: string) => void` | - |
@@ -4276,7 +4276,7 @@ Separate long lists using pagination, loading only one page at a time.
 | responsive | Adapt pagination to the available container width | `boolean` | true |
 | sizeData | Custom page size data | `number[]` | [10,15,20,30,40] |
 | size | Size | `"small" \| "medium" \| "large"` | `medium` |
-| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | `fill` |
+| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | onChange | Called when the page or page size changes | `(page: number, pageSize: number) => void` | - |
 | shape | Pagination item shape | `"default" \| "circle" \| "square" \| "round"` | round |
 
@@ -4572,7 +4572,7 @@ A component that converts text into QR codes, supporting custom colors and logo 
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| theme | QR appearance | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | shape | QR container shape | `"default" \| "circle" \| "square" \| "round"` | round |
 
 ## Theme
@@ -4629,6 +4629,7 @@ A `RadioGroup` passes its own `theme` down to every option it renders; an option
 | name | Native radio group name | `string` | - |
 | disabled | Whether current item is disabled | `boolean` | false |
 | readonly | Read-only; cannot be toggled | `boolean` | false |
+| theme | Component theme | `"fill" \| "outline"` | fill |
 | onChange | Callback when option state changes | `(event: ChangeEvent) => void` | - |
 
 ### RadioButton API
@@ -4638,6 +4639,9 @@ A `RadioGroup` passes its own `theme` down to every option it renders; an option
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
 | icon | Button icon | `IconType[]` | - |
+| theme | Button appearance | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
+| size | Button size | `"small" \| "medium" \| "large"` | - |
+| shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
 
 Use `RadioButton` through `RadioGroup type="button"`.
 
@@ -4654,7 +4658,7 @@ Use the standalone [Segmented](../segmented/index.en_US.md) component for slider
 | size | Button size | `"small" \| "medium" \| "large"` | - |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
-| theme | Button theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
+| theme | Radio option appearance; the button's theme when `type="button"` | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | onChange | Triggered when option state changes, returns currently selected item | `(value: string \| number) => void` | - |
 | options | Can specify child `radio` items | `RadioOption[]` | - |
 | type | Use radio or button-style items | `"button" \| "radio"` | radio |
@@ -4709,6 +4713,7 @@ A `RadioGroup` passes its own `theme` down to every option it renders; an option
 | name | Native radio group name | `string` | - |
 | disabled | Whether current item is disabled | `boolean` | false |
 | readonly | Read-only; cannot be toggled | `boolean` | false |
+| theme | Component theme | `"fill" \| "outline"` | fill |
 | onChange | Callback when option state changes | `(event: ChangeEvent) => void` | - |
 
 ### RadioButton API
@@ -4718,6 +4723,9 @@ A `RadioGroup` passes its own `theme` down to every option it renders; an option
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
 | icon | Button icon | `IconType[]` | - |
+| theme | Button appearance | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
+| size | Button size | `"small" \| "medium" \| "large"` | - |
+| shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
 
 Use `RadioButton` through `RadioGroup type="button"`.
 
@@ -4734,7 +4742,7 @@ Use the standalone [Segmented](../segmented/index.en_US.md) component for slider
 | size | Button size | `"small" \| "medium" \| "large"` | - |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
-| theme | Button theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
+| theme | Radio option appearance; the button's theme when `type="button"` | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | onChange | Triggered when option state changes, returns currently selected item | `(value: string \| number) => void` | - |
 | options | Can specify child `radio` items | `RadioOption[]` | - |
 | type | Use radio or button-style items | `"button" \| "radio"` | radio |
@@ -4789,6 +4797,7 @@ A `RadioGroup` passes its own `theme` down to every option it renders; an option
 | name | Native radio group name | `string` | - |
 | disabled | Whether current item is disabled | `boolean` | false |
 | readonly | Read-only; cannot be toggled | `boolean` | false |
+| theme | Component theme | `"fill" \| "outline"` | fill |
 | onChange | Callback when option state changes | `(event: ChangeEvent) => void` | - |
 
 ### RadioButton API
@@ -4798,6 +4807,9 @@ A `RadioGroup` passes its own `theme` down to every option it renders; an option
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
 | icon | Button icon | `IconType[]` | - |
+| theme | Button appearance | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
+| size | Button size | `"small" \| "medium" \| "large"` | - |
+| shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
 
 Use `RadioButton` through `RadioGroup type="button"`.
 
@@ -4814,7 +4826,7 @@ Use the standalone [Segmented](../segmented/index.en_US.md) component for slider
 | size | Button size | `"small" \| "medium" \| "large"` | - |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
-| theme | Button theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
+| theme | Radio option appearance; the button's theme when `type="button"` | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | onChange | Triggered when option state changes, returns currently selected item | `(value: string \| number) => void` | - |
 | options | Can specify child `radio` items | `RadioOption[]` | - |
 | type | Use radio or button-style items | `"button" \| "radio"` | radio |
@@ -5073,7 +5085,7 @@ Dropdown selector.
 | extendWidth | Whether dropdown width matches input width | boolean | true |
 | showArrow | Whether to show dropdown button | `boolean` | true |
 | options | options data, if set, no need to manually construct Option nodes | `SelectOption[]` | [] |
-| theme | The theme of Select | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | icon | Custom icon | `IconType[]` | - |
 | shape | When shape='circle', displays rounded corners | `"default" \| "circle" \| "square" \| "round"` | - |
 | onSelect | Triggered when an item is selected | `(option: OptionSelectEvent) => void` | - |
@@ -5168,7 +5180,7 @@ Dropdown selector.
 | extendWidth | Whether dropdown width matches input width | boolean | true |
 | showArrow | Whether to show dropdown button | `boolean` | true |
 | options | options data, if set, no need to manually construct Option nodes | `SelectOption[]` | [] |
-| theme | The theme of Select | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | icon | Custom icon | `IconType[]` | - |
 | shape | When shape='circle', displays rounded corners | `"default" \| "circle" \| "square" \| "round"` | - |
 | onSelect | Triggered when an item is selected | `(option: OptionSelectEvent) => void` | - |
@@ -6685,7 +6697,7 @@ Displays items grouped by status and supports drag-and-drop transitions.
 | draggable | Enable drag and drop | `boolean` | true |
 | emptyText | Empty column description; defaults to the global locale | `string` | - |
 | minColumnWidth | Minimum column width | `string \| number` | 250 |
-| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | `fill` |
+| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | columnTitle | Custom column heading, scoped with `{ column, items }` | VNodeChild | - |
 | item | Custom card content, scoped with `{ item, column, index }` | VNodeChild | - |
 | empty | Custom empty-column content, scoped with `{ column }` | VNodeChild | - |
@@ -7389,7 +7401,7 @@ Similar to the Select selection control, when the selectable data structure is a
 | bordered | Whether to show border | `boolean` | true |
 | showArrow | Whether to show dropdown button | `boolean` | true |
 | arrowIcon | Custom dropdown arrow icon | `IconType[]` | - |
-| theme | The theme of TreeSelect | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | icon | Custom icon | `IconType[]` | - |
 | shape | When shape='circle', displays rounded corners | `"default" \| "circle" \| "square" \| "round"` | - |
 | treeLoadData | Method to asynchronously load data | `((node: TreeNode) => Promise<unknown>)` | - |
