@@ -120,6 +120,9 @@ rm -rf node_modules/.vite
 - `Kanban` columns now read the local appearance variables: `--kui-theme-fill-bg` / `--kui-control-bg-fill` set the `fill` plate and `--kui-theme-outline-border` / `--kui-control-border` set the frame, none of which reached a board before.
 - `Transfer`: `theme` gains `plain`, `solid` and `dashed` and is now inherited from `ConfigProvider` / `Form`. The tier paints the two lists — `plain` leaves them without a plate or a frame, `solid` fills both with the primary colour and inverts their titles, item descriptions, header and footer dividers, with hover, selection and the keyboard ring turning into a pale wash of the plate's own ink, and `dashed` draws a dashed frame. Any other tier inherited from outside used to be swapped for `outline`. `theme="underlined"` on a transfer lands on `outline`.
 - `Transfer`: on `theme="solid"` the two search boxes take a shallow filled surface instead of primary on primary, and a disabled transfer — the whole thing or one row of it — falls back to the library's disabled colour for its list text, item descriptions and footer.
+- `ListPanel`: `theme` gains `solid` and `dashed` — it used to accept only `fill`, `outline` and `plain`. `solid` fills the whole panel with the primary colour and `dashed` draws a dashed frame; the tier is painted on the card the panel sits on, so `:bordered="false"` only takes the frame away without changing tier.
+- `ListPanel`: on `theme="solid"` the result summary now takes the plate's light ink and the bulk-action strip swaps its grey plate for a pale wash over the primary, instead of a line of dark text and a stray grey block on a primary panel. Everything else you put inside the panel follows the panel's own text colour.
+- `theme="underlined"` on a list panel — written on it or handed down by `ConfigProvider` — now falls back to the panel's own `outline` instead of the card's `fill`.
 
 ## 6.2.2
 

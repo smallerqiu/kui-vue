@@ -122,6 +122,9 @@ rm -rf node_modules/.vite
 - 看板列的外观现在也吃局部变量：`--kui-theme-fill-bg` / `--kui-control-bg-fill` 改 `fill` 的底色，`--kui-theme-outline-border` / `--kui-control-border` 改描边色，此前这些变量在看板上都不生效。
 - `Transfer` 的 `theme` 补齐 `plain` / `solid` / `dashed` 三档，并能从 `ConfigProvider` / `Form` 继承：外观落在左右两个列表上，`plain` 既不铺底也不描边，`solid` 用主色铺满两个列表，列表标题、条目描述、头部与底部的分割线跟着反白，悬停、选中的条目是主色上的一层浅白，键盘焦点环也一样；`dashed` 是虚线描边。此前传下来的其它档位会被换成 `outline`。穿梭框上写 `theme="underlined"` 按 `outline` 呈现。
 - `Transfer` 用 `theme="solid"` 时，两侧的搜索框换成浅底填充，不会在主色上再叠一层主色；禁用整个穿梭框或其中一行时，列表文字、条目描述和底部都回到禁用色。
+- `ListPanel` 的 `theme` 补齐 `solid` / `dashed` 两档：此前只认 `fill` / `outline` / `plain`。`solid` 用主色铺满整块面板，`dashed` 是虚线描边；外观落在面板身下那张卡片上，`:bordered="false"` 只去掉外框、不改这一档。
+- `ListPanel` 用 `theme="solid"` 时，结果摘要那一行换成主色上的浅色文字，批量操作栏那一格也从灰底改成主色上的一层浅白，不再是一行暗字和一块外来的灰底；面板里的其它内容跟着面板字色走，不受影响。
+- 列表面板上写 `theme="underlined"` 按面板自己的 `outline` 呈现，不再落到卡片的 `fill`；`ConfigProvider` 传下来的这一档同样如此。
 
 ## 6.2.2
 

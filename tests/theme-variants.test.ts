@@ -1495,3 +1495,77 @@ it("paints a transfer's tiers on its lists and leaves what other components own"
     "a solid transfer claims the row's own text instead of letting it inherit",
   ).toEqual([]);
 });
+// 3c-丁d-丙: a list panel is the family's composite shape. It answers a tier but owns no plate — the card
+// it renders carries `k-card-<tier>` on the very element that carries `k-list-panel`, so this sheet has no
+// arms to compare against the shared mixin. What it does own is two toolbar lines that each name a dark
+// token, and those are the only things a `solid` panel can get wrong: the summary stays in ink and the
+// selection strip keeps a grey plate on a primary card.
+const LIST_PANEL_ENTRY = "components/list-panel/styles/index.less";
+
+it("paints a list panel's tier through the card it renders and inverts its own two lines", async () => {
+  const compiled = await fileRules(LIST_PANEL_ENTRY);
+  const keys = [...compiled.keys()];
+  const classes = (selector: string) => (selector.match(/\./g) ?? []).length;
+
+  // The panel has no surface of its own. A `.k-list-panel-<tier>` rule would plate the card twice — and the
+  // class a caller asks for is the card's, which is the half `tests/theme-surface-tiers` reads off the DOM.
+  for (const tier of VALUES)
+    expect(
+      keys.filter((key) => new RegExp(`\\.k-list-panel-${tier}(?![\\w-])`).test(key)),
+      `a list panel paints theme="${tier}" on itself as well as on its card`,
+    ).toEqual([]);
+
+  // Both base lines name a token of their own, so neither follows the plate through inheritance; this is
+  // what the tier has to answer, and what it answers with the plate's own ink rather than a colour copy.
+  const summaryBase = declarations(compiled.get(".k-list-panel-summary"), "panel summary base").get(
+    "color",
+  );
+  expect(summaryBase, "a list panel summary no longer colours itself").toBe(
+    "var(--kui-color-text-description)",
+  );
+  expect(
+    declarations(compiled.get(".k-list-panel-toolbar-selection"), "panel strip base").get(
+      "background",
+    ),
+    "a list panel selection strip no longer carries a plate of its own",
+  ).toContain("var(--kui-theme-fill-bg");
+
+  const summary = ".k-list-panel.k-card-solid .k-list-panel-summary";
+  expect(
+    declarations(compiled.get(summary), "solid panel summary").get("color"),
+    "a solid panel leaves its summary line in ink",
+  ).toBe(
+    "color-mix(in srgb, var(--kui-theme-solid-text, var(--kui-color-text-on-solid)) 80%, transparent)",
+  );
+  const strip = ".k-list-panel.k-card-solid .k-list-panel-toolbar-selection";
+  expect(
+    declarations(compiled.get(strip), "solid panel selection strip").get("background"),
+    "a solid panel keeps a grey plate behind its selection strip",
+  ).toBe(
+    "color-mix(in srgb, var(--kui-theme-solid-text, var(--kui-color-text-on-solid)) 24%, var(--kui-theme-solid-bg, var(--kui-color-primary)))",
+  );
+
+  // Both override a rule that sits at a single class, so the tier reaches them by specificity — through the
+  // card class the panel shares — and not by the order these blocks happen to be written in.
+  for (const [rule, base] of [
+    [summary, ".k-list-panel-summary"],
+    [strip, ".k-list-panel-toolbar-selection"],
+  ] as const)
+    expect(
+      classes(rule),
+      `${rule} only beats ${base} by source order, not by specificity`,
+    ).toBeGreaterThan(classes(base));
+
+  // Everything else inside the panel is the caller's own node — a button, a table, an input — or already
+  // inherits the plate's ink, so the tier names exactly these two lines and nothing else.
+  const plated = keys.filter((key) => /\.k-card-solid\b/.test(key));
+  expect(plated.length, "a solid panel paints neither of the lines it owns").toBeGreaterThan(0);
+  for (const key of plated)
+    for (const part of selectors(key))
+      expect(
+        /^\.k-list-panel\.k-card-solid \.k-list-panel-(summary|toolbar-selection)$/.test(
+          part.trim(),
+        ),
+        `a solid panel reaches past its own two lines: ${part}`,
+      ).toBe(true);
+});

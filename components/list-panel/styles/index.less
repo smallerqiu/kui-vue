@@ -1,3 +1,5 @@
+@import "../../styles/less-css-var.less";
+
 .k-list-panel-toolbar {
   display: flex;
   gap: var(--kui-spacing-3);
@@ -44,6 +46,20 @@
 }
 .k-list-panel.k-card-circle .k-list-panel-toolbar-selection {
   border-radius: var(--kui-shape-circle);
+}
+// A panel owns no plate of its own: the tier it is given is painted by the card it renders, so the tier
+// class arrives as `k-card-<tier>` on the same element that carries `k-list-panel`. Two parts of the
+// toolbar name a dark token of their own and therefore inherit none of that plate's ink — the summary
+// line and the selection strip, which is a grey `fill` plate wherever the panel is a primary one. Both
+// are drawn from the plate's own ink here; every other line the panel renders is the caller's own node
+// and follows the inherited colour.
+.k-list-panel.k-card-solid {
+  .k-list-panel-summary {
+    color: color-mix(in srgb, @kui-theme-solid-text 80%, transparent);
+  }
+  .k-list-panel-toolbar-selection {
+    background: color-mix(in srgb, @kui-theme-solid-text 24%, @kui-theme-solid-bg);
+  }
 }
 .k-list-panel-selection {
   display: flex;

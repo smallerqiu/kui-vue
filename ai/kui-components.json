@@ -3568,15 +3568,18 @@
         },
         {
           "name": "theme",
-          "description": "Panel theme",
-          "descriptionZh": "面板外观",
-          "descriptionEn": "Panel theme",
-          "type": "\"fill\" | \"outline\" | \"plain\"",
+          "description": "Appearance theme",
+          "descriptionZh": "外观主题",
+          "descriptionEn": "Appearance theme",
+          "type": "ThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
-            "plain"
+            "plain",
+            "solid",
+            "dashed",
+            "underlined"
           ],
           "required": false,
           "defaultExpression": "\"outline\"",
