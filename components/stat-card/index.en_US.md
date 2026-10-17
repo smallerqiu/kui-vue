@@ -66,7 +66,7 @@ For standalone animated values, formatting, and animation controls, see [StatNum
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | shape | Card shape | `"square" \| "round"` | round |
 
 ## Theme

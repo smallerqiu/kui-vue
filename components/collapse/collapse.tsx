@@ -1,5 +1,5 @@
 import { defineComponent, provide, ref, watch, type ExtractPropTypes, type PropType } from "vue";
-import type { BooleanType, SurfaceShapeType, ThemeType } from "../const/types";
+import type { BooleanType, SurfaceShapeType, SurfaceThemeType } from "../const/types";
 import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import { collapseContextKey, type CollapseKey } from "./context";
 
@@ -16,7 +16,7 @@ const collapseProps = {
   },
   accordion: Boolean as BooleanType,
   sample: Boolean as BooleanType,
-  theme: { type: String as PropType<ThemeType>, default: "outline" },
+  theme: { type: String as PropType<SurfaceThemeType>, default: "outline" },
   shape: { type: String as PropType<SurfaceShapeType>, default: "round" },
 };
 

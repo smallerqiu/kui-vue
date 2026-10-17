@@ -15,9 +15,10 @@ import type {
   RadioType,
   ShapeType,
   SizeType,
-  ThemeType,
+  SurfaceThemeType,
 } from "../const/types";
 import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
+import { MARK_THEMES, resolvePaintedTheme, SURFACE_THEMES } from "../config/context";
 import { getChildren } from "../utils/vnode";
 import Radio from "./radio";
 import RadioButton from "./radio-button";
@@ -35,7 +36,7 @@ const radioGroupProps = {
   size: {
     type: String as PropType<SizeType>,
   },
-  theme: { type: String as PropType<ThemeType> },
+  theme: { type: String as PropType<SurfaceThemeType> },
   shape: String as PropType<ShapeType>,
   options: Array as PropType<RadioOption[]>,
   type: String as PropType<RadioType>,
@@ -85,24 +86,35 @@ const RadioGroup = defineComponent({
     );
     return () => {
       const isButton = props.type === "button";
-      const Component = isButton ? RadioButton : Radio;
       const nodes: VNodeChild[] = props.options
-        ? props.options.map((option) => (
-            <Component
-              key={option.value}
-              label={option.label}
-              value={option.value}
-              name={isButton ? undefined : name}
-              onChange={onChange}
-              checked={currentValue.value === option.value}
-              disabled={props.disabled || field?.disabled.value || option.disabled}
-              readonly={props.readonly || field?.readonly.value}
-              icon={option.icon}
-              size={appearance.size.value}
-              theme={appearance.theme.value}
-              shape={appearance.shape.value}
-            />
-          ))
+        ? props.options.map((option) => {
+            const shared = {
+              key: option.value,
+              label: option.label,
+              value: option.value,
+              name: isButton ? undefined : name,
+              onChange,
+              checked: currentValue.value === option.value,
+              disabled: props.disabled || field?.disabled.value || option.disabled,
+              readonly: props.readonly || field?.readonly.value,
+              icon: option.icon,
+              size: appearance.size.value,
+              shape: appearance.shape.value,
+            };
+            // `theme` is typed by what the item paints — the two tiers a radio box has, the five a button
+            // has — while what this group inherited is the six-tier vocabulary a `ConfigProvider` or a
+            // `Form` may name. The mode decides which item is built, so the mode decides whose list
+            // resolves the tier; running it through the box's list in button mode would rewrite `solid`
+            // into `fill`.
+            return isButton ? (
+              <RadioButton
+                {...shared}
+                theme={resolvePaintedTheme(appearance.theme.value, SURFACE_THEMES)}
+              />
+            ) : (
+              <Radio {...shared} theme={resolvePaintedTheme(appearance.theme.value, MARK_THEMES)} />
+            );
+          })
         : getChildren(slots.default?.()).map((child) => {
             const value = child.props?.value as string | number | undefined;
             return cloneVNode(

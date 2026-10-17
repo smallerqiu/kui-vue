@@ -6,11 +6,11 @@
 </template>
 
 <script setup lang="ts">
-import type { ThemeType } from "kui-vue";
+import type { SurfaceThemeType } from "kui-vue";
 import { ref } from "vue";
 
 // The panels paint five tiers; `underlined` belongs to the controls and would land back on `outline`.
-const theme = ref<ThemeType>("outline");
+const theme = ref<SurfaceThemeType>("outline");
 const themes = [
   { label: "Outline", value: "outline" },
   { label: "Fill", value: "fill" },

@@ -71,7 +71,7 @@ Use the standalone [Segmented](../segmented/index.en_US.md) component for slider
 | size | Button size | `"small" \| "medium" \| "large"` | - |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
-| theme | Button theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | Button theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | onChange | Triggered when option state changes, returns currently selected item | `(value: string \| number) => void` | - |
 | options | Can specify child `radio` items | `RadioOption[]` | - |
 | type | Use radio or button-style items | `"button" \| "radio"` | radio |

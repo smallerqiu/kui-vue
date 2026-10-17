@@ -10,7 +10,7 @@ import {
   ref,
   watch,
 } from "vue";
-import type { BooleanType, ShapeType, ThemeType } from "../const/types";
+import type { BooleanType, ShapeType, SurfaceThemeType } from "../const/types";
 import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import Icon from "../icon";
 import createInstance from "./instance";
@@ -35,7 +35,7 @@ const imageProps = {
   data: Array as PropType<string[]>,
   imgStyle: Object as PropType<CSSProperties>,
   showPanel: Boolean as BooleanType,
-  theme: { type: String as PropType<ThemeType>, default: "plain" },
+  theme: { type: String as PropType<SurfaceThemeType>, default: "plain" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
 };
 

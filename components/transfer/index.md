@@ -44,7 +44,7 @@
 | searchable | 是否可搜索 | `boolean` | false |
 | disabled | 是否禁用 | `boolean` | false |
 | readonly | 是否只读，可搜索但不可选择或移动 | `boolean` | false |
-| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | filterOption | 自定义搜索方法 | `((keyword: string, item: TransferItem) => boolean)` | - |
 | render | 自定义项目内容 | `((item: TransferItem) => VNodeChild)` | - |
 | item | 自定义数据项，作用域参数为 `{ item: TransferItem }` | VNodeChild | - |

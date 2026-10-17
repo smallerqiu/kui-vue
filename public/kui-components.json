@@ -638,15 +638,14 @@
           "description": "Surface theme",
           "descriptionZh": "外观主题",
           "descriptionEn": "Surface theme",
-          "type": "ThemeType",
+          "type": "SurfaceThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "defaultExpression": "\"fill\"",
@@ -2098,15 +2097,14 @@
           "description": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline",
           "descriptionZh": "按钮主题，可用 `fill` / `outline` / `plain` / `solid` / `dashed`；不写 `theme` 就是按钮自身的外观，`underlined` 是给可输入的控件用的，按钮不会画下划线",
           "descriptionEn": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline",
-          "type": "ThemeType | undefined",
+          "type": "SurfaceThemeType | undefined",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "documented": true
@@ -2697,15 +2695,14 @@
           "description": "Surface theme",
           "descriptionZh": "外观主题",
           "descriptionEn": "Surface theme",
-          "type": "ThemeType",
+          "type": "SurfaceThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "defaultExpression": "\"fill\"",
@@ -2804,7 +2801,7 @@
         {
           "title": "外观与形状",
           "file": "components/card/demo/appearance.vue",
-          "source": "<template>\n  <Space vertical block>\n    <Space>\n      <Card v-for=\"shape in shapes\" :key=\"shape\" :shape=\"shape\" style=\"width: 180px\">\n        shape: {{ shape }}\n      </Card>\n    </Space>\n    <Space>\n      <Card v-for=\"theme in themes\" :key=\"theme\" :theme=\"theme\" shape=\"square\" style=\"width: 180px\">\n        theme: {{ theme }}\n      </Card>\n    </Space>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { CardShape, ThemeType } from \"kui-vue\";\n\nconst shapes: CardShape[] = [\"round\", \"square\"];\nconst themes: ThemeType[] = [\"fill\", \"outline\", \"plain\"];\n</script>"
+          "source": "<template>\n  <Space vertical block>\n    <Space>\n      <Card v-for=\"shape in shapes\" :key=\"shape\" :shape=\"shape\" style=\"width: 180px\">\n        shape: {{ shape }}\n      </Card>\n    </Space>\n    <Space>\n      <Card v-for=\"theme in themes\" :key=\"theme\" :theme=\"theme\" shape=\"square\" style=\"width: 180px\">\n        theme: {{ theme }}\n      </Card>\n    </Space>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { CardShape, SurfaceThemeType } from \"kui-vue\";\n\nconst shapes: CardShape[] = [\"round\", \"square\"];\nconst themes: SurfaceThemeType[] = [\"fill\", \"outline\", \"plain\"];\n</script>"
         }
       ]
     },
@@ -2886,7 +2883,7 @@
         {
           "title": "外观与形状",
           "file": "components/card/demo/appearance.vue",
-          "source": "<template>\n  <Space vertical block>\n    <Space>\n      <Card v-for=\"shape in shapes\" :key=\"shape\" :shape=\"shape\" style=\"width: 180px\">\n        shape: {{ shape }}\n      </Card>\n    </Space>\n    <Space>\n      <Card v-for=\"theme in themes\" :key=\"theme\" :theme=\"theme\" shape=\"square\" style=\"width: 180px\">\n        theme: {{ theme }}\n      </Card>\n    </Space>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { CardShape, ThemeType } from \"kui-vue\";\n\nconst shapes: CardShape[] = [\"round\", \"square\"];\nconst themes: ThemeType[] = [\"fill\", \"outline\", \"plain\"];\n</script>"
+          "source": "<template>\n  <Space vertical block>\n    <Space>\n      <Card v-for=\"shape in shapes\" :key=\"shape\" :shape=\"shape\" style=\"width: 180px\">\n        shape: {{ shape }}\n      </Card>\n    </Space>\n    <Space>\n      <Card v-for=\"theme in themes\" :key=\"theme\" :theme=\"theme\" shape=\"square\" style=\"width: 180px\">\n        theme: {{ theme }}\n      </Card>\n    </Space>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { CardShape, SurfaceThemeType } from \"kui-vue\";\n\nconst shapes: CardShape[] = [\"round\", \"square\"];\nconst themes: SurfaceThemeType[] = [\"fill\", \"outline\", \"plain\"];\n</script>"
         }
       ]
     },
@@ -3571,15 +3568,14 @@
           "description": "Appearance theme",
           "descriptionZh": "外观主题",
           "descriptionEn": "Appearance theme",
-          "type": "ThemeType",
+          "type": "SurfaceThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "defaultExpression": "\"outline\"",
@@ -3913,15 +3909,11 @@
           "description": "Component theme",
           "descriptionZh": "组件呈现主题",
           "descriptionEn": "Component theme",
-          "type": "ThemeType",
+          "type": "MarkThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
-            "outline",
-            "plain",
-            "solid",
-            "dashed",
-            "underlined"
+            "outline"
           ],
           "required": false,
           "defaultExpression": "\"fill\"",
@@ -4157,15 +4149,11 @@
           "description": "Component theme",
           "descriptionZh": "组件呈现主题",
           "descriptionEn": "Component theme",
-          "type": "ThemeType",
+          "type": "MarkThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
-            "outline",
-            "plain",
-            "solid",
-            "dashed",
-            "underlined"
+            "outline"
           ],
           "required": false,
           "defaultExpression": "\"fill\"",
@@ -4462,15 +4450,14 @@
           "description": "Appearance theme",
           "descriptionZh": "外观主题",
           "descriptionEn": "Appearance theme",
-          "type": "ThemeType | undefined",
+          "type": "SurfaceThemeType | undefined",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "documented": true
@@ -4676,15 +4663,14 @@
           "description": "Card theme",
           "descriptionZh": "卡片主题",
           "descriptionEn": "Card theme",
-          "type": "ThemeType | undefined",
+          "type": "SurfaceThemeType | undefined",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "documented": true
@@ -4822,15 +4808,14 @@
           "description": "Appearance theme",
           "descriptionZh": "外观主题",
           "descriptionEn": "Appearance theme",
-          "type": "ThemeType",
+          "type": "SurfaceThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "defaultExpression": "\"outline\"",
@@ -6856,15 +6841,14 @@
           "description": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline",
           "descriptionZh": "按钮主题，可用 `fill` / `outline` / `plain` / `solid` / `dashed`；不写 `theme` 就是按钮自身的外观，`underlined` 是给可输入的控件用的，按钮不会画下划线",
           "descriptionEn": "Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline",
-          "type": "ThemeType | undefined",
+          "type": "SurfaceThemeType | undefined",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "documented": true
@@ -7953,15 +7937,14 @@
           "description": "Appearance theme",
           "descriptionZh": "外观主题",
           "descriptionEn": "Appearance theme",
-          "type": "ThemeType",
+          "type": "SurfaceThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "defaultExpression": "\"plain\"",
@@ -11850,15 +11833,14 @@
           "description": "Surface theme",
           "descriptionZh": "外观主题",
           "descriptionEn": "Surface theme",
-          "type": "ThemeType",
+          "type": "SurfaceThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "defaultExpression": "\"fill\"",
@@ -13009,15 +12991,14 @@
           "description": "QR appearance",
           "descriptionZh": "二维码外观",
           "descriptionEn": "QR appearance",
-          "type": "ThemeType",
+          "type": "SurfaceThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "defaultExpression": "\"outline\"",
@@ -13256,15 +13237,11 @@
           "description": "Button theme",
           "descriptionZh": "`button` 的主题",
           "descriptionEn": "Button theme",
-          "type": "ThemeType",
+          "type": "MarkThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
-            "outline",
-            "plain",
-            "solid",
-            "dashed",
-            "underlined"
+            "outline"
           ],
           "required": false,
           "defaultExpression": "\"fill\"",
@@ -13451,7 +13428,7 @@
         {
           "title": "组合Button使用",
           "file": "components/radio/demo/radio-buttons.vue",
-          "source": "<template>\n  <Space vertical>\n    <Space>\n      <code>Shape :</code>\n      <RadioGroup v-model=\"shape\" size=\"small\" type=\"button\">\n        <RadioButton value=\"round\" label=\"Round\" />\n        <RadioButton value=\"circle\" label=\"Circle\" />\n        <RadioButton value=\"square\" label=\"Square\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Theme :</code>\n      <RadioGroup v-model=\"theme\" size=\"small\" type=\"button\">\n        <RadioButton value=\"fill\" label=\"Fill\" />\n        <RadioButton value=\"outline\" label=\"Outline\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Size :</code>\n      <RadioGroup v-model=\"size\" type=\"button\" size=\"small\" :options=\"sizes\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Direction :</code>\n      <RadioGroup v-model=\"direction\" type=\"button\" size=\"small\" :options=\"directions\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Type :</code>\n      <RadioGroup v-model=\"type\" type=\"button\" size=\"small\" :options=\"types\"></RadioGroup>\n    </Space>\n    <br />\n    <RadioGroup\n      v-model=\"value\"\n      :size=\"size\"\n      :theme=\"theme\"\n      :shape=\"shape\"\n      :options=\"dates\"\n      :direction=\"direction\"\n      :type=\"type\"\n    ></RadioGroup>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { LogoApple } from \"kui-icons\";\nimport type { DirectionType, RadioType, ShapeType, SizeType, ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<ThemeType>(\"fill\");\nconst direction = ref<DirectionType>(\"horizontal\");\nconst type = ref<RadioType>(\"button\");\nconst value = ref(0);\nconst dates = [\n  { label: \"1 week\", value: 0 },\n  { label: \"1 month\", value: 1 },\n  { label: \"Q1\", value: 2 },\n  { label: \"1 year\", value: 3 },\n  { label: \"5 years\", value: 4, disabled: true },\n];\nconst directions = [\n  { label: \"Horizontal\", value: \"horizontal\" },\n  { label: \"Vertical\", value: \"vertical\" },\n];\nconst types = [\n  { label: \"Radio\", value: \"radio\" },\n  { label: \"Button\", value: \"button\" },\n];\nconst sizes = [\n  { label: \"Large\", value: \"large\", icon: LogoApple },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n];\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <Space>\n      <code>Shape :</code>\n      <RadioGroup v-model=\"shape\" size=\"small\" type=\"button\">\n        <RadioButton value=\"round\" label=\"Round\" />\n        <RadioButton value=\"circle\" label=\"Circle\" />\n        <RadioButton value=\"square\" label=\"Square\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Theme :</code>\n      <RadioGroup v-model=\"theme\" size=\"small\" type=\"button\">\n        <RadioButton value=\"fill\" label=\"Fill\" />\n        <RadioButton value=\"outline\" label=\"Outline\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Size :</code>\n      <RadioGroup v-model=\"size\" type=\"button\" size=\"small\" :options=\"sizes\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Direction :</code>\n      <RadioGroup v-model=\"direction\" type=\"button\" size=\"small\" :options=\"directions\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Type :</code>\n      <RadioGroup v-model=\"type\" type=\"button\" size=\"small\" :options=\"types\"></RadioGroup>\n    </Space>\n    <br />\n    <RadioGroup\n      v-model=\"value\"\n      :size=\"size\"\n      :theme=\"theme\"\n      :shape=\"shape\"\n      :options=\"dates\"\n      :direction=\"direction\"\n      :type=\"type\"\n    ></RadioGroup>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { LogoApple } from \"kui-icons\";\nimport type { DirectionType, RadioType, ShapeType, SizeType, SurfaceThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<SurfaceThemeType>(\"fill\");\nconst direction = ref<DirectionType>(\"horizontal\");\nconst type = ref<RadioType>(\"button\");\nconst value = ref(0);\nconst dates = [\n  { label: \"1 week\", value: 0 },\n  { label: \"1 month\", value: 1 },\n  { label: \"Q1\", value: 2 },\n  { label: \"1 year\", value: 3 },\n  { label: \"5 years\", value: 4, disabled: true },\n];\nconst directions = [\n  { label: \"Horizontal\", value: \"horizontal\" },\n  { label: \"Vertical\", value: \"vertical\" },\n];\nconst types = [\n  { label: \"Radio\", value: \"radio\" },\n  { label: \"Button\", value: \"button\" },\n];\nconst sizes = [\n  { label: \"Large\", value: \"large\", icon: LogoApple },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n];\n</script>"
         }
       ]
     },
@@ -13521,15 +13498,14 @@
           "description": "Button theme",
           "descriptionZh": "`button` 的主题",
           "descriptionEn": "Button theme",
-          "type": "ThemeType | undefined",
+          "type": "SurfaceThemeType | undefined",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "documented": true
@@ -13697,7 +13673,7 @@
         {
           "title": "组合Button使用",
           "file": "components/radio/demo/radio-buttons.vue",
-          "source": "<template>\n  <Space vertical>\n    <Space>\n      <code>Shape :</code>\n      <RadioGroup v-model=\"shape\" size=\"small\" type=\"button\">\n        <RadioButton value=\"round\" label=\"Round\" />\n        <RadioButton value=\"circle\" label=\"Circle\" />\n        <RadioButton value=\"square\" label=\"Square\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Theme :</code>\n      <RadioGroup v-model=\"theme\" size=\"small\" type=\"button\">\n        <RadioButton value=\"fill\" label=\"Fill\" />\n        <RadioButton value=\"outline\" label=\"Outline\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Size :</code>\n      <RadioGroup v-model=\"size\" type=\"button\" size=\"small\" :options=\"sizes\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Direction :</code>\n      <RadioGroup v-model=\"direction\" type=\"button\" size=\"small\" :options=\"directions\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Type :</code>\n      <RadioGroup v-model=\"type\" type=\"button\" size=\"small\" :options=\"types\"></RadioGroup>\n    </Space>\n    <br />\n    <RadioGroup\n      v-model=\"value\"\n      :size=\"size\"\n      :theme=\"theme\"\n      :shape=\"shape\"\n      :options=\"dates\"\n      :direction=\"direction\"\n      :type=\"type\"\n    ></RadioGroup>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { LogoApple } from \"kui-icons\";\nimport type { DirectionType, RadioType, ShapeType, SizeType, ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<ThemeType>(\"fill\");\nconst direction = ref<DirectionType>(\"horizontal\");\nconst type = ref<RadioType>(\"button\");\nconst value = ref(0);\nconst dates = [\n  { label: \"1 week\", value: 0 },\n  { label: \"1 month\", value: 1 },\n  { label: \"Q1\", value: 2 },\n  { label: \"1 year\", value: 3 },\n  { label: \"5 years\", value: 4, disabled: true },\n];\nconst directions = [\n  { label: \"Horizontal\", value: \"horizontal\" },\n  { label: \"Vertical\", value: \"vertical\" },\n];\nconst types = [\n  { label: \"Radio\", value: \"radio\" },\n  { label: \"Button\", value: \"button\" },\n];\nconst sizes = [\n  { label: \"Large\", value: \"large\", icon: LogoApple },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n];\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <Space>\n      <code>Shape :</code>\n      <RadioGroup v-model=\"shape\" size=\"small\" type=\"button\">\n        <RadioButton value=\"round\" label=\"Round\" />\n        <RadioButton value=\"circle\" label=\"Circle\" />\n        <RadioButton value=\"square\" label=\"Square\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Theme :</code>\n      <RadioGroup v-model=\"theme\" size=\"small\" type=\"button\">\n        <RadioButton value=\"fill\" label=\"Fill\" />\n        <RadioButton value=\"outline\" label=\"Outline\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Size :</code>\n      <RadioGroup v-model=\"size\" type=\"button\" size=\"small\" :options=\"sizes\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Direction :</code>\n      <RadioGroup v-model=\"direction\" type=\"button\" size=\"small\" :options=\"directions\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Type :</code>\n      <RadioGroup v-model=\"type\" type=\"button\" size=\"small\" :options=\"types\"></RadioGroup>\n    </Space>\n    <br />\n    <RadioGroup\n      v-model=\"value\"\n      :size=\"size\"\n      :theme=\"theme\"\n      :shape=\"shape\"\n      :options=\"dates\"\n      :direction=\"direction\"\n      :type=\"type\"\n    ></RadioGroup>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { LogoApple } from \"kui-icons\";\nimport type { DirectionType, RadioType, ShapeType, SizeType, SurfaceThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<SurfaceThemeType>(\"fill\");\nconst direction = ref<DirectionType>(\"horizontal\");\nconst type = ref<RadioType>(\"button\");\nconst value = ref(0);\nconst dates = [\n  { label: \"1 week\", value: 0 },\n  { label: \"1 month\", value: 1 },\n  { label: \"Q1\", value: 2 },\n  { label: \"1 year\", value: 3 },\n  { label: \"5 years\", value: 4, disabled: true },\n];\nconst directions = [\n  { label: \"Horizontal\", value: \"horizontal\" },\n  { label: \"Vertical\", value: \"vertical\" },\n];\nconst types = [\n  { label: \"Radio\", value: \"radio\" },\n  { label: \"Button\", value: \"button\" },\n];\nconst sizes = [\n  { label: \"Large\", value: \"large\", icon: LogoApple },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n];\n</script>"
         }
       ]
     },
@@ -13774,15 +13750,14 @@
           "description": "Button theme",
           "descriptionZh": "`button` 的主题",
           "descriptionEn": "Button theme",
-          "type": "ThemeType | undefined",
+          "type": "SurfaceThemeType | undefined",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "documented": true
@@ -13924,7 +13899,7 @@
         {
           "title": "组合Button使用",
           "file": "components/radio/demo/radio-buttons.vue",
-          "source": "<template>\n  <Space vertical>\n    <Space>\n      <code>Shape :</code>\n      <RadioGroup v-model=\"shape\" size=\"small\" type=\"button\">\n        <RadioButton value=\"round\" label=\"Round\" />\n        <RadioButton value=\"circle\" label=\"Circle\" />\n        <RadioButton value=\"square\" label=\"Square\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Theme :</code>\n      <RadioGroup v-model=\"theme\" size=\"small\" type=\"button\">\n        <RadioButton value=\"fill\" label=\"Fill\" />\n        <RadioButton value=\"outline\" label=\"Outline\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Size :</code>\n      <RadioGroup v-model=\"size\" type=\"button\" size=\"small\" :options=\"sizes\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Direction :</code>\n      <RadioGroup v-model=\"direction\" type=\"button\" size=\"small\" :options=\"directions\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Type :</code>\n      <RadioGroup v-model=\"type\" type=\"button\" size=\"small\" :options=\"types\"></RadioGroup>\n    </Space>\n    <br />\n    <RadioGroup\n      v-model=\"value\"\n      :size=\"size\"\n      :theme=\"theme\"\n      :shape=\"shape\"\n      :options=\"dates\"\n      :direction=\"direction\"\n      :type=\"type\"\n    ></RadioGroup>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { LogoApple } from \"kui-icons\";\nimport type { DirectionType, RadioType, ShapeType, SizeType, ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<ThemeType>(\"fill\");\nconst direction = ref<DirectionType>(\"horizontal\");\nconst type = ref<RadioType>(\"button\");\nconst value = ref(0);\nconst dates = [\n  { label: \"1 week\", value: 0 },\n  { label: \"1 month\", value: 1 },\n  { label: \"Q1\", value: 2 },\n  { label: \"1 year\", value: 3 },\n  { label: \"5 years\", value: 4, disabled: true },\n];\nconst directions = [\n  { label: \"Horizontal\", value: \"horizontal\" },\n  { label: \"Vertical\", value: \"vertical\" },\n];\nconst types = [\n  { label: \"Radio\", value: \"radio\" },\n  { label: \"Button\", value: \"button\" },\n];\nconst sizes = [\n  { label: \"Large\", value: \"large\", icon: LogoApple },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n];\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <Space>\n      <code>Shape :</code>\n      <RadioGroup v-model=\"shape\" size=\"small\" type=\"button\">\n        <RadioButton value=\"round\" label=\"Round\" />\n        <RadioButton value=\"circle\" label=\"Circle\" />\n        <RadioButton value=\"square\" label=\"Square\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Theme :</code>\n      <RadioGroup v-model=\"theme\" size=\"small\" type=\"button\">\n        <RadioButton value=\"fill\" label=\"Fill\" />\n        <RadioButton value=\"outline\" label=\"Outline\" />\n      </RadioGroup>\n    </Space>\n    <Space>\n      <code>Size :</code>\n      <RadioGroup v-model=\"size\" type=\"button\" size=\"small\" :options=\"sizes\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Direction :</code>\n      <RadioGroup v-model=\"direction\" type=\"button\" size=\"small\" :options=\"directions\"></RadioGroup>\n    </Space>\n    <Space>\n      <code>Type :</code>\n      <RadioGroup v-model=\"type\" type=\"button\" size=\"small\" :options=\"types\"></RadioGroup>\n    </Space>\n    <br />\n    <RadioGroup\n      v-model=\"value\"\n      :size=\"size\"\n      :theme=\"theme\"\n      :shape=\"shape\"\n      :options=\"dates\"\n      :direction=\"direction\"\n      :type=\"type\"\n    ></RadioGroup>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { LogoApple } from \"kui-icons\";\nimport type { DirectionType, RadioType, ShapeType, SizeType, SurfaceThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"medium\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<SurfaceThemeType>(\"fill\");\nconst direction = ref<DirectionType>(\"horizontal\");\nconst type = ref<RadioType>(\"button\");\nconst value = ref(0);\nconst dates = [\n  { label: \"1 week\", value: 0 },\n  { label: \"1 month\", value: 1 },\n  { label: \"Q1\", value: 2 },\n  { label: \"1 year\", value: 3 },\n  { label: \"5 years\", value: 4, disabled: true },\n];\nconst directions = [\n  { label: \"Horizontal\", value: \"horizontal\" },\n  { label: \"Vertical\", value: \"vertical\" },\n];\nconst types = [\n  { label: \"Radio\", value: \"radio\" },\n  { label: \"Button\", value: \"button\" },\n];\nconst sizes = [\n  { label: \"Large\", value: \"large\", icon: LogoApple },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"Small\", value: \"small\" },\n];\n</script>"
         }
       ]
     },
@@ -14517,15 +14492,14 @@
           "description": "Appearance theme",
           "descriptionZh": "外观主题",
           "descriptionEn": "Appearance theme",
-          "type": "ThemeType",
+          "type": "SurfaceThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "defaultExpression": "\"outline\"",
@@ -16147,15 +16121,14 @@
           "description": "Appearance theme",
           "descriptionZh": "外观主题",
           "descriptionEn": "Appearance theme",
-          "type": "ThemeType",
+          "type": "SurfaceThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "defaultExpression": "\"fill\"",
@@ -18534,15 +18507,14 @@
           "description": "Surface theme",
           "descriptionZh": "外观主题",
           "descriptionEn": "Surface theme",
-          "type": "ThemeType",
+          "type": "SurfaceThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "defaultExpression": "\"fill\"",
@@ -18674,7 +18646,7 @@
         {
           "title": "外观主题",
           "file": "components/kanban/demo/theme.vue",
-          "source": "<template>\n  <Space vertical block>\n    <RadioGroup v-model=\"theme\" type=\"button\" :options=\"themes\" />\n    <Kanban :columns=\"columns\" :data=\"tasks\" :theme=\"theme\">\n      <template #item=\"{ item }\">\n        <Card size=\"small\" :theme=\"theme\">{{ item.title }}</Card>\n      </template>\n    </Kanban>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport type { ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\n// The board paints five tiers; `underlined` belongs to the controls and would land back on `fill`.\nconst theme = ref<ThemeType>(\"fill\");\nconst themes = [\n  { label: \"Fill\", value: \"fill\" },\n  { label: \"Outline\", value: \"outline\" },\n  { label: \"Plain\", value: \"plain\" },\n  { label: \"Solid\", value: \"solid\" },\n  { label: \"Dashed\", value: \"dashed\" },\n];\nconst columns = [\n  { key: \"todo\", title: \"Todo\", color: \"#87909c\" },\n  { key: \"doing\", title: \"Doing\", color: \"#3a95ff\" },\n  { key: \"done\", title: \"Done\", color: \"#22a06b\" },\n];\nconst tasks = [\n  { id: 1, status: \"todo\", title: \"Define requirements\" },\n  { id: 2, status: \"todo\", title: \"Build component\" },\n];\n</script>"
+          "source": "<template>\n  <Space vertical block>\n    <RadioGroup v-model=\"theme\" type=\"button\" :options=\"themes\" />\n    <Kanban :columns=\"columns\" :data=\"tasks\" :theme=\"theme\">\n      <template #item=\"{ item }\">\n        <Card size=\"small\" :theme=\"theme\">{{ item.title }}</Card>\n      </template>\n    </Kanban>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport type { SurfaceThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\n// The board paints five tiers; `underlined` belongs to the controls and would land back on `fill`.\nconst theme = ref<SurfaceThemeType>(\"fill\");\nconst themes = [\n  { label: \"Fill\", value: \"fill\" },\n  { label: \"Outline\", value: \"outline\" },\n  { label: \"Plain\", value: \"plain\" },\n  { label: \"Solid\", value: \"solid\" },\n  { label: \"Dashed\", value: \"dashed\" },\n];\nconst columns = [\n  { key: \"todo\", title: \"Todo\", color: \"#87909c\" },\n  { key: \"doing\", title: \"Doing\", color: \"#3a95ff\" },\n  { key: \"done\", title: \"Done\", color: \"#22a06b\" },\n];\nconst tasks = [\n  { id: 1, status: \"todo\", title: \"Define requirements\" },\n  { id: 2, status: \"todo\", title: \"Build component\" },\n];\n</script>"
         }
       ]
     },
@@ -19176,15 +19148,14 @@
           "description": "Appearance theme",
           "descriptionZh": "外观主题",
           "descriptionEn": "Appearance theme",
-          "type": "ThemeType",
+          "type": "SurfaceThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "defaultExpression": "\"outline\"",
@@ -19379,7 +19350,7 @@
         {
           "title": "主题",
           "file": "components/transfer/demo/theme.vue",
-          "source": "<template>\n  <Space vertical block>\n    <RadioGroup v-model=\"theme\" type=\"button\" :options=\"themes\" />\n    <Transfer v-model=\"selected\" searchable :theme=\"theme\" :data-source=\"items\" />\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\n// The panels paint five tiers; `underlined` belongs to the controls and would land back on `outline`.\nconst theme = ref<ThemeType>(\"outline\");\nconst themes = [\n  { label: \"Outline\", value: \"outline\" },\n  { label: \"Fill\", value: \"fill\" },\n  { label: \"Plain\", value: \"plain\" },\n  { label: \"Solid\", value: \"solid\" },\n  { label: \"Dashed\", value: \"dashed\" },\n];\nconst selected = ref<(string | number)[]>([4]);\nconst items = [\"Design\", \"Development\", \"Testing\", \"Deployment\"].map((title, index) => ({\n  key: index + 1,\n  title,\n}));\n</script>"
+          "source": "<template>\n  <Space vertical block>\n    <RadioGroup v-model=\"theme\" type=\"button\" :options=\"themes\" />\n    <Transfer v-model=\"selected\" searchable :theme=\"theme\" :data-source=\"items\" />\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { SurfaceThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\n// The panels paint five tiers; `underlined` belongs to the controls and would land back on `outline`.\nconst theme = ref<SurfaceThemeType>(\"outline\");\nconst themes = [\n  { label: \"Outline\", value: \"outline\" },\n  { label: \"Fill\", value: \"fill\" },\n  { label: \"Plain\", value: \"plain\" },\n  { label: \"Solid\", value: \"solid\" },\n  { label: \"Dashed\", value: \"dashed\" },\n];\nconst selected = ref<(string | number)[]>([4]);\nconst items = [\"Design\", \"Development\", \"Testing\", \"Deployment\"].map((title, index) => ({\n  key: index + 1,\n  title,\n}));\n</script>"
         },
         {
           "title": "禁用状态",
@@ -21440,15 +21411,14 @@
           "description": "The component renders the theme",
           "descriptionZh": "组件呈现主题",
           "descriptionEn": "The component renders the theme",
-          "type": "ThemeType",
+          "type": "SurfaceThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "defaultExpression": "\"fill\"",
@@ -21581,7 +21551,7 @@
         {
           "title": "尺寸和形状",
           "file": "components/tag/demo/size.vue",
-          "source": "<template>\n  <Space vertical>\n    <RadioGroup v-model=\"size\" type=\"button\" :options=\"sizes\" />\n    <RadioGroup v-model=\"shape\" type=\"button\" :options=\"shapes\" />\n    <RadioGroup v-model=\"theme\" type=\"button\" :options=\"themes\" />\n    <Tag v-for=\"x in 3\" :key=\"x\" :size=\"size\" :shape=\"shape\" :theme=\"theme\">Tag{{ x }}</Tag>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport type { ShapeType, SizeType, ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"small\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<ThemeType>(\"fill\");\nconst sizes = [\n  { label: \"Large\", value: \"large\" },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"small\", value: \"small\" },\n];\nconst shapes = [\n  { label: \"Circle\", value: \"circle\" },\n  { label: \"Square\", value: \"square\" },\n];\nconst themes = [\n  { label: \"Fill\", value: \"fill\" },\n  { label: \"Outline\", value: \"outline\" },\n];\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <RadioGroup v-model=\"size\" type=\"button\" :options=\"sizes\" />\n    <RadioGroup v-model=\"shape\" type=\"button\" :options=\"shapes\" />\n    <RadioGroup v-model=\"theme\" type=\"button\" :options=\"themes\" />\n    <Tag v-for=\"x in 3\" :key=\"x\" :size=\"size\" :shape=\"shape\" :theme=\"theme\">Tag{{ x }}</Tag>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport type { ShapeType, SizeType, SurfaceThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\nconst size = ref<SizeType>(\"small\");\nconst shape = ref<ShapeType>(\"round\");\nconst theme = ref<SurfaceThemeType>(\"fill\");\nconst sizes = [\n  { label: \"Large\", value: \"large\" },\n  { label: \"Medium\", value: \"medium\" },\n  { label: \"small\", value: \"small\" },\n];\nconst shapes = [\n  { label: \"Circle\", value: \"circle\" },\n  { label: \"Square\", value: \"square\" },\n];\nconst themes = [\n  { label: \"Fill\", value: \"fill\" },\n  { label: \"Outline\", value: \"outline\" },\n];\n</script>"
         },
         {
           "title": "图标",

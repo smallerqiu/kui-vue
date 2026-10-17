@@ -66,7 +66,7 @@
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | shape | 卡片形状 | `"square" \| "round"` | round |
 
 ## 主题

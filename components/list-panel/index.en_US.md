@@ -26,7 +26,7 @@ Provides a consistent layout for filters, result summaries, list content and pag
 | --- | --- | --- | --- |
 | summary | Result summary, customizable via the named slot | `VNodeChild` | - |
 | bordered | Show border | `boolean` | true |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | shape | Panel shape | `"square" \| "round"` | round |
 | size | Panel size | `"small" \| "medium" \| "large"` | medium |
 | selectedCount | Current selection count used to show bulk actions | `number` | 0 |

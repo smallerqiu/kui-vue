@@ -13,7 +13,7 @@ import {
   type ColorType,
   type ShapeType,
   type SizeType,
-  type ThemeType,
+  type SurfaceThemeType,
 } from "../const/types";
 import { colors } from "../const/var";
 import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
@@ -30,7 +30,7 @@ const tagProps = {
     type: String as PropType<SizeType>,
     default: "small",
   },
-  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  theme: { type: String as PropType<SurfaceThemeType>, default: "fill" },
 };
 
 export type TagProps = ExtractPropTypes<typeof tagProps>;

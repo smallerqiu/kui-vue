@@ -44,7 +44,7 @@ To unmount the entire component after closing, update the parent state in `after
 | onClose | Triggered when the close button is clicked | `(event: MouseEvent) => void` | - |
 | onAfterClose | Triggered after the exit animation | `() => void` | - |
 | icon | Custom icon | `IconType[]` | - |
-| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | shape | Shape: `round`, `circle`, or `square` | `"default" \| "circle" \| "square" \| "round"` | round |
 
 ## Theme

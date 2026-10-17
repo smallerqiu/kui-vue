@@ -20,7 +20,7 @@ import type {
   QRCodeErrorLevel,
   QRCodeStatus,
   ShapeType,
-  ThemeType,
+  SurfaceThemeType,
 } from "../const/types";
 import zhCN from "../locale/zh-CN";
 import { resolvePaintedTheme, useConfigAppearance, DEFAULT_LOCALE } from "../config/context";
@@ -37,7 +37,7 @@ const qrCodeProps = {
   colorDark: { type: String, default: "var(--kui-color-reverse)" },
   colorLight: { type: String, default: "var(--kui-color-bg)" },
   bordered: { type: Boolean as BooleanType, default: true },
-  theme: { type: String as PropType<ThemeType>, default: "outline" },
+  theme: { type: String as PropType<SurfaceThemeType>, default: "outline" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
   status: {
     type: String as PropType<QRCodeStatus>,

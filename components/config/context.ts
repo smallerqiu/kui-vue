@@ -7,7 +7,7 @@ import {
   type ComputedRef,
   type InjectionKey,
 } from "vue";
-import type { ShapeType, SizeType, ThemeType } from "../const/types";
+import type { MarkThemeType, ShapeType, SizeType, SurfaceThemeType, ThemeType } from "../const/types";
 import enUS from "../locale/en";
 
 /**
@@ -77,6 +77,23 @@ export function resolvePaintedTheme<T extends ThemeType>(
 ): T | undefined {
   return painted.find((tier) => tier === theme);
 }
+
+/**
+ * The two painted sets as values, for the components that hand a tier *onward* instead of painting it:
+ * a group forwarding to its items, a dropdown forwarding to its buttons, a chip list forwarding to
+ * `Tag`. Those callers must vouch for what they pass — `theme` is typed by what the receiver paints —
+ * so they run the inherited value through the receiver's guard. A component that paints its own surface
+ * keeps a local `PAINTED_THEMES` instead, because the style contract reads that from its source.
+ */
+export const SURFACE_THEMES: readonly SurfaceThemeType[] = [
+  "fill",
+  "outline",
+  "plain",
+  "solid",
+  "dashed",
+];
+
+export const MARK_THEMES: readonly MarkThemeType[] = ["fill", "outline"];
 
 const appContexts: AppContext[] = [];
 let __mouse__point: Point | null = null;

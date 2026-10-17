@@ -12,7 +12,7 @@ import {
   type PropType,
   type Ref,
 } from "vue";
-import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
+import type { BooleanType, ShapeType, SizeType, SurfaceThemeType } from "../const/types";
 import { useConfigAppearance, resolvePaintedTheme } from "../config/context";
 import Icon from "../icon";
 import InputNumber from "../input-number";
@@ -35,7 +35,7 @@ const pageProps = {
   showElevator: Boolean as BooleanType,
   simple: Boolean as BooleanType,
   responsive: { type: Boolean as BooleanType, default: true },
-  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  theme: { type: String as PropType<SurfaceThemeType>, default: "fill" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
   sizeData: { type: Array as PropType<number[]>, default: () => [10, 15, 20, 30, 40] },
   size: {

@@ -1,6 +1,6 @@
 import { defineComponent, inject, type PropType } from "vue";
 import Button from "../button/button";
-import type { BooleanType, ThemeType } from "../const/types";
+import type { BooleanType, SurfaceThemeType } from "../const/types";
 import { type IconType } from "../icon";
 import { DropdownContextKey, type DropdownContext } from "./dropdown-context";
 export default defineComponent({
@@ -8,7 +8,7 @@ export default defineComponent({
   props: {
     icon: Array as PropType<IconType[]>,
     disabled: Boolean as BooleanType,
-    theme: String as PropType<ThemeType>,
+    theme: String as PropType<SurfaceThemeType>,
   },
   setup(ps, { attrs, slots }) {
     const dropdownContext = inject<DropdownContext | null>(DropdownContextKey, null);

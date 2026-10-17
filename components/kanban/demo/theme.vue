@@ -9,11 +9,11 @@
   </Space>
 </template>
 <script setup lang="ts">
-import type { ThemeType } from "kui-vue";
+import type { SurfaceThemeType } from "kui-vue";
 import { ref } from "vue";
 
 // The board paints five tiers; `underlined` belongs to the controls and would land back on `fill`.
-const theme = ref<ThemeType>("fill");
+const theme = ref<SurfaceThemeType>("fill");
 const themes = [
   { label: "Fill", value: "fill" },
   { label: "Outline", value: "outline" },

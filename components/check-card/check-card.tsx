@@ -11,7 +11,7 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import type { BooleanType, ShapeType, SizeType, ThemeType } from "../const/types";
+import type { BooleanType, ShapeType, SizeType, SurfaceThemeType } from "../const/types";
 import { resolvePaintedTheme } from "../config/context";
 import {
   markFormFieldComponent,
@@ -45,7 +45,7 @@ const checkCardProps = {
   // then the provider", and a prop default would make the first link never empty — the card could not
   // tell its own written tier from the fallback `useFormAppearance` ends on, and it would stop the
   // group and the provider from being heard at all.
-  theme: { type: String as PropType<ThemeType> },
+  theme: { type: String as PropType<SurfaceThemeType> },
   size: { type: String as PropType<SizeType>, default: "medium" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
 };

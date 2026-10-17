@@ -53,7 +53,7 @@ Previewable images.
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | plain |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | plain |
 | shape | Image shape | `"default" \| "circle" \| "square" \| "round"` | round |
 
 ## Theme

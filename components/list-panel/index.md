@@ -26,7 +26,7 @@
 | --- | --- | --- | --- |
 | summary | 结果摘要，也可通过同名插槽自定义 | `VNodeChild` | - |
 | bordered | 是否显示边框 | `boolean` | true |
-| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | shape | 面板形状 | `"square" \| "round"` | round |
 | size | 面板尺寸 | `"small" \| "medium" \| "large"` | medium |
 | selectedCount | 当前选中数量，用于切换批量操作栏 | `number` | 0 |

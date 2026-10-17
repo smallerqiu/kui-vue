@@ -319,6 +319,66 @@ describe("a group hands its tier to the boxes it renders", () => {
   }
 });
 
+// The same hand-off, one step further down: a group built from `options` makes its own items, so the
+// tier reaches them as a prop the group writes. 3d-乙 typed that prop by what the item paints — the two
+// tiers a box has, the five a button has — while what the group inherits is the six-tier vocabulary a
+// `ConfigProvider` or a `Form` may name, so the mode decides whose list resolves the tier. Running it
+// through the box's list in button mode would rewrite `solid` into `fill`: the last case is what stops
+// that from coming back as a "tidy" refactor.
+describe("a group built from options hands its tier to every item", () => {
+  const OPTIONS = [
+    { label: "A", value: "a" },
+    { label: "B", value: "b" },
+  ];
+
+  const boxes = (group: Component, name: string, props: Record<string, unknown>) =>
+    mount(group, { attachTo: document.body, props: { options: OPTIONS, ...props } })
+      .findAll("." + name)
+      .map((node) => Array.from(node.element.classList));
+
+  for (const tier of MARK_PAINTED) {
+    it(`a radio group theme="${tier}" reaches every option box`, () => {
+      const list = boxes(RadioGroup, "k-radio", { theme: tier });
+      expect(list.length, "options must render a box each").toBe(OPTIONS.length);
+      for (const classes of list) expect(markTiers(classes, "k-radio")).toEqual([`k-radio-${tier}`]);
+    });
+
+    it(`a check box group theme="${tier}" reaches every option box`, () => {
+      const list = boxes(CheckboxGroup, "k-checkbox", { theme: tier });
+      expect(list.length, "options must render a box each").toBe(OPTIONS.length);
+      for (const classes of list)
+        expect(markTiers(classes, "k-checkbox")).toEqual([`k-checkbox-${tier}`]);
+    });
+  }
+
+  for (const tier of ["plain", "solid", "dashed"] as const) {
+    it(`a radio group theme="${tier}" lands every option box on fill`, () => {
+      // The tier is legal on the group because the button mode paints it, and a box still has to refuse
+      // it — with no class for it reaching the DOM.
+      const bare = boxes(RadioGroup, "k-radio", {});
+      const list = boxes(RadioGroup, "k-radio", { theme: tier });
+      expect(list.length).toBe(bare.length);
+      for (const [index, classes] of list.entries()) {
+        expect(ordered(classes), `box ${index} of a ${tier} group`).toEqual(ordered(bare[index]));
+        expect(markTiers(classes, "k-radio"), `a ${tier} box ships a class no LESS paints`).toEqual([
+          "k-radio-fill",
+        ]);
+      }
+    });
+  }
+
+  it("a button-mode option group keeps the surface tiers its buttons paint", () => {
+    const buttons = mount(RadioGroup, {
+      attachTo: document.body,
+      props: { options: OPTIONS, type: "button", theme: "solid" },
+    })
+      .findAll(".k-btn")
+      .map((node) => Array.from(node.element.classList));
+    expect(buttons.length, "options must render a button each").toBe(OPTIONS.length);
+    for (const classes of buttons) expect(classes).toContain("k-btn-solid");
+  });
+});
+
 describe("an inherited tier goes through the mark guard too", () => {
   const inherited = (tier?: (typeof TIERS)[number]) =>
     mount(ConfigProvider, {

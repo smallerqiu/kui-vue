@@ -41,11 +41,11 @@
 </template>
 <script setup lang="ts">
 import { LogoApple } from "kui-icons";
-import type { DirectionType, RadioType, ShapeType, SizeType, ThemeType } from "kui-vue";
+import type { DirectionType, RadioType, ShapeType, SizeType, SurfaceThemeType } from "kui-vue";
 import { ref } from "vue";
 const size = ref<SizeType>("medium");
 const shape = ref<ShapeType>("round");
-const theme = ref<ThemeType>("fill");
+const theme = ref<SurfaceThemeType>("fill");
 const direction = ref<DirectionType>("horizontal");
 const type = ref<RadioType>("button");
 const value = ref(0);

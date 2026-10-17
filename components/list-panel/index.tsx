@@ -1,7 +1,7 @@
 import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
 import Card, { type CardShape } from "../card";
 import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
-import type { BooleanType, SizeType, ThemeType } from "../const/types";
+import type { BooleanType, SizeType, SurfaceThemeType } from "../const/types";
 
 // The five tiers the card this panel renders actually paints.
 const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
@@ -14,7 +14,7 @@ const listPanelProps = {
   // appearance it asks for, and its own look is the outlined card, so a tier the card cannot paint lands on
   // `outline` rather than on the card's own `fill`. The `default` sits behind `useConfigAppearance`'s own
   // check of whether the caller wrote the attribute, so a `ConfigProvider` tier still reaches the guard.
-  theme: { type: String as PropType<ThemeType>, default: "outline" },
+  theme: { type: String as PropType<SurfaceThemeType>, default: "outline" },
   shape: { type: String as PropType<CardShape>, default: "round" },
   size: { type: String as PropType<SizeType>, default: "medium" },
   selectedCount: { type: Number, default: 0 },

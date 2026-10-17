@@ -7,11 +7,11 @@
   </Space>
 </template>
 <script setup lang="ts">
-import type { ShapeType, SizeType, ThemeType } from "kui-vue";
+import type { ShapeType, SizeType, SurfaceThemeType } from "kui-vue";
 import { ref } from "vue";
 const size = ref<SizeType>("small");
 const shape = ref<ShapeType>("round");
-const theme = ref<ThemeType>("fill");
+const theme = ref<SurfaceThemeType>("fill");
 const sizes = [
   { label: "Large", value: "large" },
   { label: "Medium", value: "medium" },

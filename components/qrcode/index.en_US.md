@@ -64,7 +64,7 @@ A component that converts text into QR codes, supporting custom colors and logo 
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| theme | QR appearance | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | QR appearance | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | shape | QR container shape | `"default" \| "circle" \| "square" \| "round"` | round |
 
 ## Theme

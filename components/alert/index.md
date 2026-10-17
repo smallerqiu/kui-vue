@@ -44,7 +44,7 @@
 | onClose | 点击关闭按钮时触发 | `(event: MouseEvent) => void` | - |
 | onAfterClose | 退出动画结束后触发 | `() => void` | - |
 | icon | 自定义的图标 | `IconType[]` | - |
-| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | shape | 形状，可选 `round`、`circle`、`square` | `"default" \| "circle" \| "square" \| "round"` | round |
 
 ## 主题

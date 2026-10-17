@@ -341,7 +341,7 @@ To unmount the entire component after closing, update the parent state in `after
 | onClose | Triggered when the close button is clicked | `(event: MouseEvent) => void` | - |
 | onAfterClose | Triggered after the exit animation | `() => void` | - |
 | icon | Custom icon | `IconType[]` | - |
-| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | shape | Shape: `round`, `circle`, or `square` | `"default" \| "circle" \| "square" \| "round"` | round |
 
 ## Theme
@@ -813,7 +813,7 @@ Vue.use(Button);
 | size | Button size, | `"small" \| "medium" \| "large"` | - |
 | color | Preset semantic color | `"default" \| "red" \| "orange" \| "yellow" \| "olive" \| "green" \| "teal" \| "blue" \| "volcano" \| "violet" \| "cyan" \| "gold" \| "lime" \| "magenta" \| "purple" \| "pink" \| "brown" \| "gray"` | - |
 | shape | When shape=circle, presents a circular button | `"default" \| "circle" \| "square" \| "round"` | false |
-| theme | Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | icon | Icon definition imported from kui-icons (e.g. Search), not a string or rendered Icon element | `IconType[]` | - |
 | loading | Whether the button is in loading mode | `boolean` | false |
 | href | The address to jump to when clicked. Specifying this property makes the button behave like an a link | `string` | - |
@@ -887,7 +887,7 @@ Vue.use(Button);
 | size | Button size, | `"small" \| "medium" \| "large"` | - |
 | color | Preset semantic color | `"default" \| "red" \| "orange" \| "yellow" \| "olive" \| "green" \| "teal" \| "blue" \| "volcano" \| "violet" \| "cyan" \| "gold" \| "lime" \| "magenta" \| "purple" \| "pink" \| "brown" \| "gray"` | - |
 | shape | When shape=circle, presents a circular button | `"default" \| "circle" \| "square" \| "round"` | false |
-| theme | Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | icon | Icon definition imported from kui-icons (e.g. Search), not a string or rendered Icon element | `IconType[]` | - |
 | loading | Whether the button is in loading mode | `boolean` | false |
 | href | The address to jump to when clicked. Specifying this property makes the button behave like an a link | `string` | - |
@@ -1017,7 +1017,7 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 | title | Card title | `string` | - |
 | icon | Icon for the card title | `IconType[]` | - |
 | bordered | Whether the card displays a border | `boolean` | true |
-| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | shape | Surface shape | `"square" \| "round"` | round |
 | size | Card size | `"small" \| "medium" \| "large"` | medium |
 | extra | Card title extension | slot | - |
@@ -1080,7 +1080,7 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 | title | Card title | `string` | - |
 | icon | Icon for the card title | `IconType[]` | - |
 | bordered | Whether the card displays a border | `boolean` | true |
-| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | shape | Surface shape | `"square" \| "round"` | round |
 | size | Card size | `"small" \| "medium" \| "large"` | medium |
 | extra | Card title extension | slot | - |
@@ -1289,7 +1289,7 @@ Provides a consistent layout for filters, result summaries, list content and pag
 | --- | --- | --- | --- |
 | summary | Result summary, customizable via the named slot | `VNodeChild` | - |
 | bordered | Show border | `boolean` | true |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | shape | Panel shape | `"square" \| "round"` | round |
 | size | Panel size | `"small" \| "medium" \| "large"` | medium |
 | selectedCount | Current selection count used to show bulk actions | `number` | 0 |
@@ -1424,7 +1424,7 @@ A `CheckboxGroup` passes its own `theme` down to every box it renders, and a sta
 | readonly | Read-only; remains focusable but cannot be toggled | `boolean` | false |
 | indeterminate | Combined auxiliary option controls the indeterminate state | `boolean` | false |
 | modelValue | Standalone state bound through `v-model` | `string \| number \| boolean` | - |
-| theme | Component theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Component theme | `"fill" \| "outline"` | fill |
 | valueType | The type of output value for the unit option | `"string" \| "number" \| "boolean"` | boolean |
 | onChange | Callback when the option state changes | `(event: CheckboxChangeEvent) => void` | - |
 
@@ -1439,7 +1439,7 @@ A `CheckboxGroup` passes its own `theme` down to every box it renders, and a sta
 | onChange | Triggered when the option state changes, returns the currently selected item and state | `(value: CheckboxValue[]) => void` | - |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | options | Can specify child `checkbox` items | `CheckboxOption[]` | - |
-| theme | Component theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Component theme | `"fill" \| "outline"` | fill |
 | size | Checkbox size | `"small" \| "medium" \| "large"` | - |
 
 Each item in `options` also supports `disabled` and `readonly`.
@@ -1494,7 +1494,7 @@ A `CheckboxGroup` passes its own `theme` down to every box it renders, and a sta
 | readonly | Read-only; remains focusable but cannot be toggled | `boolean` | false |
 | indeterminate | Combined auxiliary option controls the indeterminate state | `boolean` | false |
 | modelValue | Standalone state bound through `v-model` | `string \| number \| boolean` | - |
-| theme | Component theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Component theme | `"fill" \| "outline"` | fill |
 | valueType | The type of output value for the unit option | `"string" \| "number" \| "boolean"` | boolean |
 | onChange | Callback when the option state changes | `(event: CheckboxChangeEvent) => void` | - |
 
@@ -1509,7 +1509,7 @@ A `CheckboxGroup` passes its own `theme` down to every box it renders, and a sta
 | onChange | Triggered when the option state changes, returns the currently selected item and state | `(value: CheckboxValue[]) => void` | - |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | options | Can specify child `checkbox` items | `CheckboxOption[]` | - |
-| theme | Component theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Component theme | `"fill" \| "outline"` | fill |
 | size | Checkbox size | `"small" \| "medium" \| "large"` | - |
 
 Each item in `options` also supports `disabled` and `readonly`.
@@ -1557,7 +1557,7 @@ Present richer choices with a title, description, and optional symbol.
 | showIndicator | Show the top-right selection indicator | `boolean` | true |
 | disabled | Disable the card | `boolean` | false |
 | readonly | Read-only; remains focusable but cannot be selected | `boolean` | false |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | size | Size | `"small" \| "medium" \| "large"` | medium |
 | shape | Shape | `"default" \| "circle" \| "square" \| "round"` | round |
 | change | Emitted when selection state changes | `(event: CheckCardChangeEvent) => void` | - |
@@ -1572,7 +1572,7 @@ Present richer choices with a title, description, and optional symbol.
 | disabled | Disable the group | `boolean` | false |
 | readonly | Make the group read-only | `boolean` | false |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
-| theme | Card theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | Card theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | size | Card size | `"small" \| "medium" \| "large"` | medium |
 | shape | Card shape | `"default" \| "circle" \| "square" \| "round"` | round |
 | change | Emitted when the selected value changes | `(value: CheckCardValue) => void` | - |
@@ -1628,7 +1628,7 @@ Present richer choices with a title, description, and optional symbol.
 | showIndicator | Show the top-right selection indicator | `boolean` | true |
 | disabled | Disable the card | `boolean` | false |
 | readonly | Read-only; remains focusable but cannot be selected | `boolean` | false |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | size | Size | `"small" \| "medium" \| "large"` | medium |
 | shape | Shape | `"default" \| "circle" \| "square" \| "round"` | round |
 | change | Emitted when selection state changes | `(event: CheckCardChangeEvent) => void` | - |
@@ -1643,7 +1643,7 @@ Present richer choices with a title, description, and optional symbol.
 | disabled | Disable the group | `boolean` | false |
 | readonly | Make the group read-only | `boolean` | false |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
-| theme | Card theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | Card theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | size | Card size | `"small" \| "medium" \| "large"` | medium |
 | shape | Card shape | `"default" \| "circle" \| "square" \| "round"` | round |
 | change | Emitted when the selected value changes | `(value: CheckCardValue) => void` | - |
@@ -1697,7 +1697,7 @@ Content area that can be collapsed/expanded.
 | accordion | Whether to enable accordion mode. When enabled, at most one panel can be expanded at a time | `boolean` | false |
 | sample | Whether to enable simple mode | `boolean` | false |
 | onChange | Callback triggered when switching panels, returns the `name` of the current tab | `(key: CollapseKey) => void` | - |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | shape | Panel shape | `"square" \| "round"` | round |
 
 ## Panel
@@ -1757,7 +1757,7 @@ Content area that can be collapsed/expanded.
 | accordion | Whether to enable accordion mode. When enabled, at most one panel can be expanded at a time | `boolean` | false |
 | sample | Whether to enable simple mode | `boolean` | false |
 | onChange | Callback triggered when switching panels, returns the `name` of the current tab | `(key: CollapseKey) => void` | - |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | shape | Panel shape | `"square" \| "round"` | round |
 
 ## Panel
@@ -2188,7 +2188,7 @@ When there are too many operation commands on the page, this component can be us
 | shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
 | disabled | Whether the button is disabled | `boolean` | false |
 | icon | Custom dropdown trigger icon | `IconType[]` | Ellipsis |
-| theme | Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | arrow | Whether to display the dropdown arrow | `boolean` | false |
 | trigger | Trigger mode | `"hover" \| "click" \| "contextmenu"` | `hover` |
 | placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | `bottom-right` |
@@ -2257,7 +2257,7 @@ When there are too many operation commands on the page, this component can be us
 | shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
 | disabled | Whether the button is disabled | `boolean` | false |
 | icon | Custom dropdown trigger icon | `IconType[]` | Ellipsis |
-| theme | Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | arrow | Whether to display the dropdown arrow | `boolean` | false |
 | trigger | Trigger mode | `"hover" \| "click" \| "contextmenu"` | `hover` |
 | placement | Dropdown placement | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | `bottom-right` |
@@ -2876,7 +2876,7 @@ Previewable images.
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | plain |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | plain |
 | shape | Image shape | `"default" \| "circle" \| "square" \| "round"` | round |
 
 ## Theme
@@ -2940,7 +2940,7 @@ Previewable images.
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | plain |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | plain |
 | shape | Image shape | `"default" \| "circle" \| "square" \| "round"` | round |
 
 ## Theme
@@ -4276,7 +4276,7 @@ Separate long lists using pagination, loading only one page at a time.
 | responsive | Adapt pagination to the available container width | `boolean` | true |
 | sizeData | Custom page size data | `number[]` | [10,15,20,30,40] |
 | size | Size | `"small" \| "medium" \| "large"` | `medium` |
-| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | `fill` |
+| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | `fill` |
 | onChange | Called when the page or page size changes | `(page: number, pageSize: number) => void` | - |
 | shape | Pagination item shape | `"default" \| "circle" \| "square" \| "round"` | round |
 
@@ -4572,7 +4572,7 @@ A component that converts text into QR codes, supporting custom colors and logo 
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| theme | QR appearance | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | QR appearance | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | shape | QR container shape | `"default" \| "circle" \| "square" \| "round"` | round |
 
 ## Theme
@@ -4654,7 +4654,7 @@ Use the standalone [Segmented](../segmented/index.en_US.md) component for slider
 | size | Button size | `"small" \| "medium" \| "large"` | - |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
-| theme | Button theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | Button theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | onChange | Triggered when option state changes, returns currently selected item | `(value: string \| number) => void` | - |
 | options | Can specify child `radio` items | `RadioOption[]` | - |
 | type | Use radio or button-style items | `"button" \| "radio"` | radio |
@@ -4734,7 +4734,7 @@ Use the standalone [Segmented](../segmented/index.en_US.md) component for slider
 | size | Button size | `"small" \| "medium" \| "large"` | - |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
-| theme | Button theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | Button theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | onChange | Triggered when option state changes, returns currently selected item | `(value: string \| number) => void` | - |
 | options | Can specify child `radio` items | `RadioOption[]` | - |
 | type | Use radio or button-style items | `"button" \| "radio"` | radio |
@@ -4814,7 +4814,7 @@ Use the standalone [Segmented](../segmented/index.en_US.md) component for slider
 | size | Button size | `"small" \| "medium" \| "large"` | - |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | shape | Button shape | `"default" \| "circle" \| "square" \| "round"` | - |
-| theme | Button theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | Button theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | onChange | Triggered when option state changes, returns currently selected item | `(value: string \| number) => void` | - |
 | options | Can specify child `radio` items | `RadioOption[]` | - |
 | type | Use radio or button-style items | `"button" \| "radio"` | radio |
@@ -4993,7 +4993,7 @@ Embeds status, supporting information, and next steps within page content.
 | description | Supporting message | `VNodeChild` | - |
 | symbol | Custom marker | `IconType[]` | - |
 | compact | Compact layout | `boolean` | false |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | shape | Panel shape | `"square" \| "round"` | round |
 
 ## Theme
@@ -5777,7 +5777,7 @@ For standalone animated values, formatting, and animation controls, see [StatNum
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | shape | Card shape | `"square" \| "round"` | round |
 
 ## Theme
@@ -6685,7 +6685,7 @@ Displays items grouped by status and supports drag-and-drop transitions.
 | draggable | Enable drag and drop | `boolean` | true |
 | emptyText | Empty column description; defaults to the global locale | `string` | - |
 | minColumnWidth | Minimum column width | `string \| number` | 250 |
-| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | `fill` |
+| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | `fill` |
 | columnTitle | Custom column heading, scoped with `{ column, items }` | VNodeChild | - |
 | item | Custom card content, scoped with `{ item, column, index }` | VNodeChild | - |
 | empty | Custom empty-column content, scoped with `{ column }` | VNodeChild | - |
@@ -6854,7 +6854,7 @@ Move and select items between two lists.
 | searchable | Enable search | `boolean` | false |
 | disabled | Disable the component | `boolean` | false |
 | readonly | Read-only; searchable but items cannot be selected or moved | `boolean` | false |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | filterOption | Custom filter | `((keyword: string, item: TransferItem) => boolean)` | - |
 | render | Custom item renderer | `((item: TransferItem) => VNodeChild)` | - |
 | item | Custom item, scoped with `{ item: TransferItem }` | VNodeChild | - |
@@ -7474,7 +7474,7 @@ For dynamic lists, remove the corresponding item from the array in `afterClose` 
 | onClose | Triggered when the close button is clicked | `() => void` | - |
 | onAfterClose | Triggered after the exit animation | `() => void` | - |
 | size | Button size, optional values `small`, `large`, default not selected | `"small" \| "medium" \| "large"` | - |
-| theme | The component renders the theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | The component renders the theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | shape | The shape in which the component is presented | `"default" \| "circle" \| "square" \| "round"` | circle |
 
 ---

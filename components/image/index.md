@@ -53,7 +53,7 @@
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | plain |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | plain |
 | shape | 图片形状 | `"default" \| "circle" \| "square" \| "round"` | round |
 
 ## 主题

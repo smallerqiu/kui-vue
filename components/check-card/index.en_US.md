@@ -39,7 +39,7 @@ Present richer choices with a title, description, and optional symbol.
 | showIndicator | Show the top-right selection indicator | `boolean` | true |
 | disabled | Disable the card | `boolean` | false |
 | readonly | Read-only; remains focusable but cannot be selected | `boolean` | false |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | size | Size | `"small" \| "medium" \| "large"` | medium |
 | shape | Shape | `"default" \| "circle" \| "square" \| "round"` | round |
 | change | Emitted when selection state changes | `(event: CheckCardChangeEvent) => void` | - |
@@ -54,7 +54,7 @@ Present richer choices with a title, description, and optional symbol.
 | disabled | Disable the group | `boolean` | false |
 | readonly | Make the group read-only | `boolean` | false |
 | direction | Layout direction | `"horizontal" \| "vertical" \| "inline"` | horizontal |
-| theme | Card theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | Card theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | size | Card size | `"small" \| "medium" \| "large"` | medium |
 | shape | Card shape | `"default" \| "circle" \| "square" \| "round"` | round |
 | change | Emitted when the selected value changes | `(value: CheckCardValue) => void` | - |

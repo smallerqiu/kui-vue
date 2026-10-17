@@ -39,7 +39,7 @@
 | showIndicator | 是否显示右上角选中标记 | `boolean` | true |
 | disabled | 是否禁用 | `boolean` | false |
 | readonly | 是否只读，保持可聚焦但不可选择 | `boolean` | false |
-| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | size | 尺寸 | `"small" \| "medium" \| "large"` | medium |
 | shape | 形状 | `"default" \| "circle" \| "square" \| "round"` | round |
 | change | 选择状态变化时触发 | `(event: CheckCardChangeEvent) => void` | - |
@@ -54,7 +54,7 @@
 | disabled | 是否禁用整个卡片组 | `boolean` | false |
 | readonly | 是否只读整个卡片组 | `boolean` | false |
 | direction | 排列方向 | `"horizontal" \| "vertical" \| "inline"` | horizontal |
-| theme | 卡片主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | 卡片主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | size | 卡片尺寸 | `"small" \| "medium" \| "large"` | medium |
 | shape | 卡片形状 | `"default" \| "circle" \| "square" \| "round"` | round |
 | change | 当前选择变化时触发 | `(value: CheckCardValue) => void` | - |

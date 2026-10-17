@@ -1,5 +1,5 @@
 import { defineComponent, type ExtractPropTypes, type PropType, ref, watch } from "vue";
-import type { BooleanType, SizeType, ThemeType } from "../const/types";
+import type { BooleanType, SizeType, MarkThemeType } from "../const/types";
 import { resolvePaintedTheme } from "../config/context";
 import {
   markFormFieldComponent,
@@ -22,7 +22,7 @@ const radioProps = {
   checked: Boolean as BooleanType,
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
-  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  theme: { type: String as PropType<MarkThemeType>, default: "fill" },
   size: {
     type: String as PropType<SizeType>,
   },

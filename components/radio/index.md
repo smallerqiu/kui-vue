@@ -71,7 +71,7 @@
 | size | 按钮尺寸 | `"small" \| "medium" \| "large"` | - |
 | direction | 布局方向 | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | shape | `button` 的形状 | `"default" \| "circle" \| "square" \| "round"` | - |
-| theme | `button` 的主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
+| theme | `button` 的主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | onChange | 在选项状态发生改变时触发，返回当前选中的项 | `(value: string \| number) => void` | - |
 | options | 可以指定子项 `radio` | `RadioOption[]` | - |
 | type | 使用按钮样式的单选项 | `"button" \| "radio"` | radio |

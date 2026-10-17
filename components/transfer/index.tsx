@@ -15,7 +15,7 @@ import Empty from "../empty";
 import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import Input from "../input";
 import { resolvePaintedTheme } from "../config/context";
-import type { ThemeType } from "../const/types";
+import type { SurfaceThemeType } from "../const/types";
 import { tuplePropType } from "../utils/vue";
 
 // A transfer owns no plate of its own — the two lists are its surfaces — so it answers the four surface
@@ -53,7 +53,7 @@ const transferProps = {
   disabled: Boolean,
   readonly: Boolean,
   theme: {
-    type: String as PropType<ThemeType>,
+    type: String as PropType<SurfaceThemeType>,
     default: "outline",
   },
   filterOption: Function as PropType<(keyword: string, item: TransferItem) => boolean>,
@@ -179,7 +179,7 @@ const Transfer = defineComponent({
       items: TransferItem[],
       allItems: TransferItem[],
       title: string,
-      theme: ThemeType,
+      theme: SurfaceThemeType,
     ) => {
       // A search box inside a solid list keeps a light plate: `solid` on the box would paint primary on
       // the primary it already sits on, which is nothing to look at — the same reason a solid board hints

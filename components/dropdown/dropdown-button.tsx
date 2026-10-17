@@ -8,7 +8,7 @@ import {
   type DropPlacementsType,
   type ShapeType,
   type SizeType,
-  type ThemeType,
+  type SurfaceThemeType,
   type TriggerType,
 } from "../const/types";
 import { type IconType } from "../icon";
@@ -20,7 +20,7 @@ const dropdownButtonProps = {
   shape: String as PropType<ShapeType>,
   disabled: Boolean as BooleanType,
   icon: Array as PropType<IconType[]>,
-  theme: String as PropType<ThemeType>,
+  theme: String as PropType<SurfaceThemeType>,
   arrow: Boolean as BooleanType,
   trigger: String as PropType<TriggerType>,
   placement: { type: String as PropType<DropPlacementsType>, default: "bottom-right" },

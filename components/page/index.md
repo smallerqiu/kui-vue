@@ -44,7 +44,7 @@
 | responsive | 是否根据容器可用宽度自动调整分页布局 | `boolean` | true |
 | sizeData | 自定义页码组数据 | `number[]` | [10,15,20,30,40] |
 | size | 尺寸 | `"small" \| "medium" \| "large"` | `medium` |
-| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | `fill` |
+| theme | 外观主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | `fill` |
 | onChange | 页码、每页条数改变时的回调 | `(page: number, pageSize: number) => void` | - |
 | shape | 分页项形状 | `"default" \| "circle" \| "square" \| "round"` | round |
 

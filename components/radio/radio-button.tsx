@@ -1,6 +1,7 @@
 import { defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
 import { Button } from "../button";
-import type { BooleanType, ButtonType, ShapeType, SizeType, ThemeType } from "../const/types";
+import { resolvePaintedTheme, SURFACE_THEMES } from "../config/context";
+import type { BooleanType, ButtonType, ShapeType, SizeType, SurfaceThemeType } from "../const/types";
 import {
   markFormFieldComponent,
   resolveFormControlAttrs,
@@ -14,7 +15,7 @@ const radioButtonProps = {
   modelValue: { type: Boolean, default: undefined },
   label: { type: String },
   value: { type: [String, Number] },
-  theme: String as PropType<ThemeType>,
+  theme: String as PropType<SurfaceThemeType>,
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
   checked: Boolean as BooleanType,
@@ -90,7 +91,9 @@ const RadioButton = defineComponent({
         disabled,
         size: appearance.size.value,
         icon: props.icon,
-        theme: appearance.theme.value,
+        // A radio button owns no plate of its own — it renders a `Button` — so what it hands on has to
+        // be a tier a button paints. `Button` keeps its own guard for what a caller writes on it.
+        theme: resolvePaintedTheme(appearance.theme.value, SURFACE_THEMES),
         shape: appearance.shape.value,
         ...resolveFormControlAttrs(attrs, field),
         "aria-readonly": readonly || undefined,

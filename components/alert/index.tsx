@@ -8,7 +8,7 @@ import {
   type PropType,
 } from "vue";
 import { getTransitionProp } from "../base/transition";
-import type { BooleanType, ShapeType, ThemeType } from "../const/types";
+import type { BooleanType, ShapeType, SurfaceThemeType } from "../const/types";
 import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import Icon, { type IconType } from "../icon";
 
@@ -30,7 +30,7 @@ const alertProps = {
   message: String,
   description: String,
   bordered: Boolean as BooleanType,
-  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  theme: { type: String as PropType<SurfaceThemeType>, default: "fill" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
 };
 

@@ -12,7 +12,7 @@ import {
   type VNode,
   type VNodeChild,
 } from "vue";
-import type { BooleanType, ButtonType, ShapeType, SizeType, ThemeType } from "../const/types";
+import type { BooleanType, ButtonType, ShapeType, SizeType, SurfaceThemeType } from "../const/types";
 import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import { colors } from "../const/var";
 import Icon, { type IconType } from "../icon";
@@ -44,7 +44,7 @@ const buttonProps = {
   },
   disabled: Boolean as BooleanType,
   theme: {
-    type: String as PropType<ThemeType>,
+    type: String as PropType<SurfaceThemeType>,
   },
   shape: String as PropType<ShapeType>,
   href: String,

@@ -1,5 +1,5 @@
 import { defineComponent, type ExtractPropTypes, type PropType, type VNodeChild } from "vue";
-import type { BooleanType, SizeType, SurfaceShapeType, ThemeType } from "../const/types";
+import type { BooleanType, SizeType, SurfaceShapeType, SurfaceThemeType } from "../const/types";
 import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import Icon, { type IconType } from "../icon";
 import CardMeta from "./card-meta";
@@ -13,7 +13,7 @@ const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 
 const cardProps = {
   bordered: { type: Boolean as BooleanType, default: false },
-  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  theme: { type: String as PropType<SurfaceThemeType>, default: "fill" },
   shape: { type: String as PropType<CardShape>, default: "round" },
   size: { type: String as PropType<SizeType>, default: "medium" },
   title: String,

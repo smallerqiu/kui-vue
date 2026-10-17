@@ -1,7 +1,7 @@
 import type { ExtractPropTypes, PropType, VNodeChild } from "vue";
 import { computed, defineComponent } from "vue";
 import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
-import type { BooleanType, SizeType, SurfaceShapeType, ThemeType } from "../const/types";
+import type { BooleanType, SizeType, SurfaceShapeType, SurfaceThemeType } from "../const/types";
 import { getChildren, hasRenderableContent } from "../utils/vnode";
 import StatNumber from "./stat-number";
 import { statItemKey } from "./utils/stat-item-key";
@@ -15,7 +15,7 @@ const statCardProps = {
   statNumberType: String as PropType<"rollup" | "countup">,
   reverse: Boolean as BooleanType,
   bordered: { type: Boolean as BooleanType, default: false },
-  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  theme: { type: String as PropType<SurfaceThemeType>, default: "fill" },
   shape: { type: String as PropType<SurfaceShapeType>, default: "round" },
   size: { type: String as PropType<SizeType>, default: "medium" },
   // `Boolean` in a type list makes Vue cast an absent value to `false`, and `false`

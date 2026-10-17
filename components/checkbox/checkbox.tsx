@@ -8,7 +8,7 @@ import {
   type PropType,
   type VNodeProps,
 } from "vue";
-import type { BooleanType, SizeType, ThemeType, ValueType } from "../const/types";
+import type { BooleanType, SizeType, MarkThemeType, ValueType } from "../const/types";
 import { resolvePaintedTheme } from "../config/context";
 import {
   markFormFieldComponent,
@@ -40,7 +40,7 @@ const checkboxProps = {
   },
   value: { type: [String, Number, Boolean] as PropType<string | number | boolean> },
   label: { type: [String, Number] as PropType<string | number> },
-  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  theme: { type: String as PropType<MarkThemeType>, default: "fill" },
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
   indeterminate: Boolean as BooleanType,

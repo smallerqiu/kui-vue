@@ -8,7 +8,7 @@ import {
   type ExtractPropTypes,
   type PropType,
 } from "vue";
-import type { BooleanType, DirectionType, ShapeType, SizeType, ThemeType } from "../const/types";
+import type { BooleanType, DirectionType, ShapeType, SizeType, SurfaceThemeType } from "../const/types";
 import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import CheckCard from "./check-card";
 import { checkCardGroupKey, type CheckCardRegistryItem } from "./context";
@@ -24,7 +24,7 @@ const checkCardGroupProps = {
   // The group paints no surface of its own, so there is no tier class here to guard — it forwards the
   // tier it was asked for and the cards inside resolve it. That is also why this prop has no default:
   // `outline` is what a *card* looks like by default, not something the group should answer for.
-  theme: { type: String as PropType<ThemeType> },
+  theme: { type: String as PropType<SurfaceThemeType> },
   size: { type: String as PropType<SizeType>, default: "medium" },
   shape: { type: String as PropType<ShapeType>, default: "round" },
 };

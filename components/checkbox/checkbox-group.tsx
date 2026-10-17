@@ -1,6 +1,7 @@
 import { useInitialValue } from "../utils/model-value";
 import { cloneVNode, defineComponent, ref, watch, type ExtractPropTypes, type PropType } from "vue";
-import type { BooleanType, DirectionType, SizeType, ThemeType } from "../const/types";
+import { MARK_THEMES, resolvePaintedTheme } from "../config/context";
+import type { BooleanType, DirectionType, SizeType, MarkThemeType } from "../const/types";
 import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import { getChildren } from "../utils/vnode";
 import Checkbox from "./checkbox";
@@ -15,7 +16,7 @@ const checkboxGroupProps = {
     type: Array as PropType<CheckboxValue[]>,
     default: () => [],
   },
-  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  theme: { type: String as PropType<MarkThemeType>, default: "fill" },
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
   options: Array as PropType<CheckboxOption[]>,
@@ -73,7 +74,10 @@ const CheckboxGroup = defineComponent({
       const { direction } = props;
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
-      const theme = appearance.theme.value;
+      // `Checkbox.theme` is the two tiers a box paints, while what this group inherits is the six-tier
+      // vocabulary a `ConfigProvider` or a `Form` may name — so the tier is resolved through the box's
+      // list before it is handed down, exactly like the box would do for a value written on it.
+      const itemTheme = resolvePaintedTheme(appearance.theme.value, MARK_THEMES);
       const size = appearance.size.value;
 
       const rootProps = {
@@ -89,7 +93,7 @@ const CheckboxGroup = defineComponent({
               checked={currentValue.value.indexOf(option.value) > -1}
               disabled={disabled || option.disabled}
               readonly={readonly || option.readonly}
-              theme={theme}
+              theme={itemTheme}
               size={size}
               onChange={onChange}
             />
@@ -102,7 +106,7 @@ const CheckboxGroup = defineComponent({
                 checked: value !== undefined && currentValue.value.includes(value),
                 disabled: disabled || Boolean(child.props?.disabled),
                 readonly: readonly || Boolean(child.props?.readonly),
-                theme,
+                theme: itemTheme,
                 size,
                 onChange,
               },

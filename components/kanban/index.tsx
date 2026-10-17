@@ -9,7 +9,7 @@ import {
 } from "vue";
 import Empty from "../empty";
 import { toCssLength } from "../utils/css";
-import type { ThemeType } from "../const/types";
+import type { SurfaceThemeType } from "../const/types";
 import { useConfigAppearance, resolvePaintedTheme } from "../config/context";
 
 export interface KanbanColumnData {
@@ -43,7 +43,7 @@ const kanbanProps = {
   draggable: { type: Boolean, default: true },
   emptyText: String,
   minColumnWidth: { type: [Number, String], default: 250 },
-  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  theme: { type: String as PropType<SurfaceThemeType>, default: "fill" },
 };
 export type KanbanProps = ExtractPropTypes<typeof kanbanProps>;
 

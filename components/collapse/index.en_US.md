@@ -37,7 +37,7 @@ Content area that can be collapsed/expanded.
 | accordion | Whether to enable accordion mode. When enabled, at most one panel can be expanded at a time | `boolean` | false |
 | sample | Whether to enable simple mode | `boolean` | false |
 | onChange | Callback triggered when switching panels, returns the `name` of the current tab | `(key: CollapseKey) => void` | - |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | shape | Panel shape | `"square" \| "round"` | round |
 
 ## Panel

@@ -44,7 +44,7 @@ Move and select items between two lists.
 | searchable | Enable search | `boolean` | false |
 | disabled | Disable the component | `boolean` | false |
 | readonly | Read-only; searchable but items cannot be selected or moved | `boolean` | false |
-| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | outline |
+| theme | Appearance theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | outline |
 | filterOption | Custom filter | `((keyword: string, item: TransferItem) => boolean)` | - |
 | render | Custom item renderer | `((item: TransferItem) => VNodeChild)` | - |
 | item | Custom item, scoped with `{ item: TransferItem }` | VNodeChild | - |

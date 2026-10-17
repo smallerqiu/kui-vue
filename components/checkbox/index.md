@@ -46,7 +46,7 @@
 | readonly | 是否只读，保持可聚焦但不可切换 | `boolean` | false |
 | indeterminate | 组合辅助选项控制半选状态 | `boolean` | false |
 | modelValue | 独立使用时通过 `v-model` 绑定的状态值 | `string \| number \| boolean` | - |
-| theme | 组件呈现主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 组件呈现主题 | `"fill" \| "outline"` | fill |
 | valueType | 单位选项的输出值的类型 | `"string" \| "number" \| "boolean"` | boolean |
 | onChange | 在选项状态发生改变时回调 | `(event: CheckboxChangeEvent) => void` | - |
 
@@ -61,7 +61,7 @@
 | onChange | 在选项状态发生改变时触发，返回当前选中的项和状态 | `(value: CheckboxValue[]) => void` | - |
 | direction | 布局方向 | `"horizontal" \| "vertical" \| "inline"` | horizontal |
 | options | 可以指定子项 `checkbox` | `CheckboxOption[]` | - |
-| theme | 组件呈现主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
+| theme | 组件呈现主题 | `"fill" \| "outline"` | fill |
 | size | 设置复选框的大小 | `"small" \| "medium" \| "large"` | - |
 
 `options` 中每一项还支持 `disabled` 和 `readonly`。
