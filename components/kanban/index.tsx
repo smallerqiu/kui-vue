@@ -9,6 +9,8 @@ import {
 } from "vue";
 import Empty from "../empty";
 import { toCssLength } from "../utils/css";
+import type { ThemeType } from "../const/types";
+import { useConfigAppearance, resolvePaintedTheme } from "../config/context";
 
 export interface KanbanColumnData {
   key: string | number;
@@ -26,6 +28,13 @@ export interface KanbanMoveEvent {
 }
 const toRenderKey = (value: unknown) => `${typeof value}:${String(value)}`;
 
+// A board has no plate of its own — the surfaces are its columns — so it answers the four surface tiers
+// plus `fill`, and never `underlined`: "keep only the bottom border" on a column that holds a whole list
+// is not an appearance preset (see `.kui-theme-value` in `styles/less-css-var.less`). A tier outside this
+// list must not reach the class list: `k-kanban-<tier>` with no LESS block is the "class ships, nothing
+// paints" bug, and a board's own look is `fill`, so the guard falls back to it.
+const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
+
 const kanbanProps = {
   columns: { type: Array as PropType<KanbanColumnData[]>, default: () => [] },
   data: { type: Array as PropType<KanbanItemData[]>, default: () => [] },
@@ -34,7 +43,7 @@ const kanbanProps = {
   draggable: { type: Boolean, default: true },
   emptyText: String,
   minColumnWidth: { type: [Number, String], default: 250 },
-  theme: { type: String as PropType<"fill" | "outline">, default: "fill" },
+  theme: { type: String as PropType<ThemeType>, default: "fill" },
 };
 export type KanbanProps = ExtractPropTypes<typeof kanbanProps>;
 
@@ -53,6 +62,12 @@ const Kanban = defineComponent({
   },
   setup(props, { attrs, emit, slots }) {
     const hasItemClickListener = Boolean(getCurrentInstance()?.vnode.props?.onItemClick);
+    const appearance = useConfigAppearance(props);
+    // A board's own look is `fill`, and the guard keeps a tier this stylesheet never paints off the class
+    // list — including one handed down by `ConfigProvider`.
+    const theme = computed(
+      () => resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "fill",
+    );
     const draggingKey = ref<unknown>();
     const dragOverKey = ref<string | number>();
     const grouped = computed(() => {
@@ -97,7 +112,7 @@ const Kanban = defineComponent({
       return (
         <div
           {...restAttrs}
-          class={["k-kanban", `k-kanban-${props.theme}`, customClass]}
+          class={["k-kanban", `k-kanban-${theme.value}`, customClass]}
           style={[
             {
               "--k-kanban-column-width": width,

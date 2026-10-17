@@ -116,6 +116,10 @@ rm -rf node_modules/.vite
 - `Page` 的 `theme="plain"` 现在真的能用：此前分页条带上了这个类，样式里却没有这一档要画什么。
 - `Page` 选中页码的状态色现在真的落到格子上：此前 `theme="fill"` 的选中格只有数字变主色、底色还是悬停那层灰，`theme="outline"` 的选中格边框也没变成主色。
 - `Page` 的 `theme` 传给条内每页条数选择器和跳转输入框时，先换算成分页条自己画得到的那几档：写 `theme="underlined"`（包括 `ConfigProvider` 传下来的）不再出现分页条是扁平的、里面的输入框却带一条下划线。
+- `Kanban` 的 `theme` 补齐 `plain` / `solid` / `dashed` 三档，并能从 `ConfigProvider` 继承：外观落在每一列上，`plain` 既不铺底也不描边，`solid` 用主色铺满整列、列标题、计数和列里的卡片一起反白，`dashed` 是虚线描边。看板上写 `theme="underlined"` 按 `fill` 呈现。
+- `Kanban` 拖动卡片经过某一列时的提示现在真的会出现：此前这层提示被那一列自己的外观盖住，连看板默认的 `fill` 也一样看不见。
+- `Kanban` 用 `theme="solid"` 时，列里卡片的键盘焦点环改成主色上的一层浅白，不再是主色上叠主色；列头那颗状态圆点仍显示 `column.color` 给的颜色，五种外观都不改它。
+- 看板列的外观现在也吃局部变量：`--kui-theme-fill-bg` / `--kui-control-bg-fill` 改 `fill` 的底色，`--kui-theme-outline-border` / `--kui-control-border` 改描边色，此前这些变量在看板上都不生效。
 
 ## 6.2.2
 

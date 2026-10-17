@@ -18528,14 +18528,18 @@
         },
         {
           "name": "theme",
-          "description": "Column appearance",
-          "descriptionZh": "看板列外观",
-          "descriptionEn": "Column appearance",
-          "type": "\"fill\" | \"outline\"",
+          "description": "Surface theme",
+          "descriptionZh": "外观主题",
+          "descriptionEn": "Surface theme",
+          "type": "ThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
-            "outline"
+            "outline",
+            "plain",
+            "solid",
+            "dashed",
+            "underlined"
           ],
           "required": false,
           "defaultExpression": "\"fill\"",
@@ -18667,7 +18671,7 @@
         {
           "title": "外观主题",
           "file": "components/kanban/demo/theme.vue",
-          "source": "<template>\n  <Space vertical block>\n    <RadioGroup v-model=\"theme\" type=\"button\" :options=\"themes\" />\n    <Kanban :columns=\"columns\" :data=\"tasks\" :theme=\"theme\">\n      <template #item=\"{ item }\">\n        <Card size=\"small\" :theme=\"theme\">{{ item.title }}</Card>\n      </template>\n    </Kanban>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\n\nconst theme = ref<\"fill\" | \"outline\">(\"fill\");\nconst themes = [\n  { label: \"Fill\", value: \"fill\" },\n  { label: \"Outline\", value: \"outline\" },\n];\nconst columns = [\n  { key: \"todo\", title: \"Todo\", color: \"#87909c\" },\n  { key: \"doing\", title: \"Doing\", color: \"#3a95ff\" },\n  { key: \"done\", title: \"Done\", color: \"#22a06b\" },\n];\nconst tasks = [\n  { id: 1, status: \"todo\", title: \"Define requirements\" },\n  { id: 2, status: \"todo\", title: \"Build component\" },\n];\n</script>"
+          "source": "<template>\n  <Space vertical block>\n    <RadioGroup v-model=\"theme\" type=\"button\" :options=\"themes\" />\n    <Kanban :columns=\"columns\" :data=\"tasks\" :theme=\"theme\">\n      <template #item=\"{ item }\">\n        <Card size=\"small\" :theme=\"theme\">{{ item.title }}</Card>\n      </template>\n    </Kanban>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport type { ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\n// The board paints five tiers; `underlined` belongs to the controls and would land back on `fill`.\nconst theme = ref<ThemeType>(\"fill\");\nconst themes = [\n  { label: \"Fill\", value: \"fill\" },\n  { label: \"Outline\", value: \"outline\" },\n  { label: \"Plain\", value: \"plain\" },\n  { label: \"Solid\", value: \"solid\" },\n  { label: \"Dashed\", value: \"dashed\" },\n];\nconst columns = [\n  { key: \"todo\", title: \"Todo\", color: \"#87909c\" },\n  { key: \"doing\", title: \"Doing\", color: \"#3a95ff\" },\n  { key: \"done\", title: \"Done\", color: \"#22a06b\" },\n];\nconst tasks = [\n  { id: 1, status: \"todo\", title: \"Define requirements\" },\n  { id: 2, status: \"todo\", title: \"Build component\" },\n];\n</script>"
         }
       ]
     },

@@ -125,6 +125,7 @@ it("draws the migrated components from the shared mixin rather than re-copying t
     "image/styles/index.less",
     "qrcode/styles/index.less",
     "page/styles/index.less",
+    "kanban/styles/index.less",
   ]) {
     const source = (await fs.readFile(path.join(root, "components", entry), "utf8")).replace(
       /\/\/[^\n]*/g,
@@ -791,6 +792,15 @@ const PAINTED_CONTRACTS = [
     entry: "components/page/styles/index.less",
     sources: ["components/page/index.tsx"],
   },
+  // 3c-丁d: a board typed two tiers and painted those two on its columns, so `plain` / `solid` / `dashed`
+  // arrived from `ConfigProvider` as `k-kanban-<tier>` with no rule behind them, and the drop hint — the
+  // one state a column has — sat at (0,1,0) under the (0,2,0) tier plates and never drew.
+  {
+    name: "Kanban",
+    prefix: "k-kanban",
+    entry: "components/kanban/styles/index.less",
+    sources: ["components/kanban/index.tsx"],
+  },
 ] as const;
 
 // Read the first spelling that exists, so one shared file can point at a component whose filename
@@ -1000,6 +1010,20 @@ const SURFACES = [
     prefix: "k-page",
     entry: "components/page/styles/index.less",
     inverted: [],
+    keeps: [],
+  },
+  // 3c-丁d: a board plates its columns rather than its root, and it has no disabled state to step aside
+  // for, so its parts stay visible to `solidParts()` — the selector simply heads with `.k-kanban-solid`.
+  // The title and the count each name a dark colour of their own, so an inherited `color` reaches neither.
+  {
+    name: "Kanban",
+    prefix: "k-kanban",
+    entry: "components/kanban/styles/index.less",
+    inverted: [
+      [".k-kanban-column-header strong", "color"],
+      [".k-kanban-column-header em", "color"],
+      [".k-kanban-column-header em", "background"],
+    ],
     keeps: [],
   },
 ] as const;
@@ -1264,4 +1288,83 @@ it("paints a pager's tiers, states and inverted parts on its cells", async () =>
     for (const key of painted)
       expect(key, `page ${tier} plates a disabled bar: ${key}`).toContain(":not(.k-page-disabled)");
   }
+});
+
+// 3c-丁d: a board is the surface family's drag-and-drop shape — the tier lands on every column, and the
+// one state a column owns is the drop hint, which hangs on that same element. Two things the loops above
+// cannot see are pinned here: the hint has to out-order the plate beside it, and `solid` has to keep the
+// keyboard ring legible on a plate drawn from the primary.
+const KANBAN_ENTRY = "components/kanban/styles/index.less";
+const KANBAN_COLUMN = ".k-kanban-column";
+
+it("paints a board's tiers on its columns and keeps the drop hint above them", async () => {
+  const [compiled, everyArm] = await Promise.all([fileRules(KANBAN_ENTRY), arms()]);
+  const keys = [...compiled.keys()];
+  const onSolid = everyArm.get("solid")!.get("color")!;
+  const plateOf = (tier: (typeof VALUES)[number]) =>
+    keys.findIndex(
+      (key) =>
+        paints(key, "k-kanban", tier, "", KANBAN_COLUMN) &&
+        !key.includes("drag-over") &&
+        covers(declarations(compiled.get(key), `kanban ${tier} plate`), everyArm.get(tier)!),
+    );
+
+  // `base.less` gives every element `border: 0 solid`, so a tier that names only a `border-color` needs a
+  // width under it — without the column's own 1px edge, `fill` and `plain` draw nothing at all.
+  expect(
+    declarations(compiled.get(KANBAN_COLUMN), "kanban column base").get("border"),
+    "a column keeps no edge for the border-color tiers to colour",
+  ).toContain("1px");
+
+  // The hint answers a (0,2,0) plate, so it has to be a compound class *and* sit after every tier it is
+  // meant to override. At (0,1,0) — the shape it shipped with — all five out-specified it, so the primary
+  // edge a caller dragged a card over never drew.
+  const hint = keys.find((key) => key.includes(".k-kanban-column-drag-over"));
+  expect(hint, "a board paints no drop hint").toBeDefined();
+  expect(
+    hint!,
+    `the drop hint must name the column class to reach its plate: ${hint}`,
+  ).toContain(".k-kanban-column.k-kanban-column-drag-over");
+  expect(
+    declarations(compiled.get(hint!)!, "kanban drop hint").get("border-color"),
+    "a board's drop hint lost its primary edge",
+  ).toBe("var(--kui-color-primary)");
+  for (const tier of ["fill", "outline", "plain", "solid", "dashed"] as const) {
+    const plate = plateOf(tier);
+    expect(plate, `kanban paints no ${tier} column`).toBeGreaterThanOrEqual(0);
+    expect(
+      plate,
+      `kanban's ${tier} plate sits after the drop hint, so the arm's shorthand wins`,
+    ).toBeLessThan(keys.indexOf(hint!));
+  }
+
+  // A primary edge on a primary plate is nothing to look at, so the hint follows the plate's own ink, and
+  // the keyboard ring is redrawn rather than left invisible.
+  expect(
+    [...compiled].some(
+      ([key, body]) =>
+        paints(key, "k-kanban", "solid", "", ".k-kanban-column-drag-over") &&
+        declarations(body, key).get("border-color") === onSolid,
+    ),
+    "a solid column hints in the same colour as its plate",
+  ).toBe(true);
+  expect(
+    [...compiled].some(
+      ([key, body]) =>
+        paints(key, "k-kanban", "solid", "", ".k-kanban-item:focus-visible") &&
+        declarations(body, key).has("outline-color"),
+    ),
+    "a keyboard ring on a solid column stays primary on primary",
+  ).toBe(true);
+
+  // The parts the board colours itself are named above; the item cards carry no colour of their own, so
+  // they take the plate's ink by inheritance and nothing claims them.
+  expect(
+    [...compiled.keys()].filter(
+      (key) =>
+        paints(key, "k-kanban", "solid", "", ".k-kanban-column-header i") ||
+        (paints(key, "k-kanban", "solid", "", ".k-kanban-item") && !key.includes("focus-visible")),
+    ),
+    "a solid board repaints what the caller coloured or what already inherits",
+  ).toEqual([]);
 });

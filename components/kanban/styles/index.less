@@ -1,3 +1,5 @@
+@import "../../styles/less-css-var.less";
+
 .k-kanban {
   display: grid;
   grid-template-columns: repeat(
@@ -9,38 +11,50 @@
   .kui-scrollbar();
   padding-bottom: 4px;
 }
+// A board has no plate of its own — its columns are the surfaces — so every tier is drawn on
+// `.k-kanban-column` and the root only carries the tier class. `base.less` gives every element
+// `border: 0 solid`, so the 1px edge a tier colours has to be drawn here: the `fill` and `plain` arms
+// name a `border-color` and nothing else, which is the "declared, never painted" shape an image's
+// `outline` used to have for exactly this reason.
 .k-kanban-column {
   display: flex;
   min-height: 360px;
   flex-direction: column;
   padding: 10px;
-  border: 1px solid var(--kui-theme-fill-border);
+  border: 1px solid transparent;
   border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
-  background: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
   transition:
     border-color var(--kui-motion-duration-fast),
     background var(--kui-motion-duration-fast);
 }
-.k-kanban-outline .k-kanban-column {
-  border-color: var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)));
-  background: var(--kui-theme-outline-bg);
-}
 .k-kanban-fill .k-kanban-column {
-  border-color: var(--kui-theme-fill-border);
-  background: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  .kui-theme-value(fill);
 }
-.k-kanban-column-drag-over {
+.k-kanban-outline .k-kanban-column {
+  .kui-theme-value(outline);
+}
+.k-kanban-plain .k-kanban-column {
+  .kui-theme-value(plain);
+}
+.k-kanban-solid .k-kanban-column {
+  .kui-theme-value(solid);
+}
+.k-kanban-dashed .k-kanban-column {
+  .kui-theme-value(dashed);
+}
+// Dropping a card is the one state a column has, and it hangs on the element the tiers just plated. At
+// `(0,1,0)` it lost to every `.k-kanban-<tier> .k-kanban-column` rule above, so the primary edge a caller
+// dragged a card over never drew — and under `fill`, the board's own tier, the whole hint was dead: what
+// came through was the plate it was trying to replace. Naming the base class makes it `(0,2,0)`, a tie the
+// later position settles, and the plate becomes a wash of the primary instead of the column's own grey.
+.k-kanban-column.k-kanban-column-drag-over {
   border-color: var(--kui-color-primary);
-  background: var(
-    --kui-theme-fill-bg,
-    var(--kui-control-bg-fill, var(--kui-color-bg-component-overlay))
-  );
+  background-color: color-mix(in srgb, var(--kui-color-primary) 10%, transparent);
+}
+// A primary edge on a primary plate is nothing to look at, so a solid column hints in its plate's own ink.
+.k-kanban-solid .k-kanban-column.k-kanban-column-drag-over {
+  border-color: @kui-theme-solid-text;
+  background-color: color-mix(in srgb, @kui-theme-solid-text 18%, @kui-theme-solid-bg);
 }
 .k-kanban-column-header {
   display: flex;
@@ -88,4 +102,22 @@
 }
 .k-kanban-column-footer {
   padding-top: 10px;
+}
+// The title and the count each name a dark colour of their own, so the `solid` plate's inverted `color`
+// cannot reach either of them by inheritance — both are named. The item cards are not: they carry no
+// colour of their own and take the plate's ink straight. The 8px dot is `column.color`, the board's data
+// rather than its surface, and it is painted inline, so no tier reaches it either.
+.k-kanban-solid .k-kanban-column-header {
+  strong {
+    color: @kui-theme-solid-text;
+  }
+  em {
+    background: color-mix(in srgb, @kui-theme-solid-text 24%, @kui-theme-solid-bg);
+    color: @kui-theme-solid-text;
+  }
+}
+// A keyboard user's ring is drawn on the plate, so under `solid` it is redrawn in the plate's own ink —
+// the same call the input family makes when it lands on a primary surface.
+.k-kanban-solid .k-kanban-item:focus-visible {
+  outline-color: color-mix(in srgb, @kui-theme-solid-text 40%, transparent);
 }

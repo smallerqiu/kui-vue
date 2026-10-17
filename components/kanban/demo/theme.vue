@@ -9,12 +9,17 @@
   </Space>
 </template>
 <script setup lang="ts">
+import type { ThemeType } from "kui-vue";
 import { ref } from "vue";
 
-const theme = ref<"fill" | "outline">("fill");
+// The board paints five tiers; `underlined` belongs to the controls and would land back on `fill`.
+const theme = ref<ThemeType>("fill");
 const themes = [
   { label: "Fill", value: "fill" },
   { label: "Outline", value: "outline" },
+  { label: "Plain", value: "plain" },
+  { label: "Solid", value: "solid" },
+  { label: "Dashed", value: "dashed" },
 ];
 const columns = [
   { key: "todo", title: "Todo", color: "#87909c" },

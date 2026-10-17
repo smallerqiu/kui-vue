@@ -114,6 +114,10 @@ rm -rf node_modules/.vite
 - `Page`: `theme="plain"` does something now. The bar carried the class while the stylesheet said what that tier draws nowhere.
 - `Page`: the selected page takes its state colour on the cell itself. Under `theme="fill"` only the digits turned primary on a plate that was still the hover grey, and under `theme="outline"` the frame stayed the default border colour.
 - `Page`: the tier it hands to its own page-size selector and elevator input is one the bar can paint, so `theme="underlined"` — including one inherited from `ConfigProvider` — no longer leaves a flat bar with an underlined input inside it.
+- `Kanban`: `theme` gains `plain`, `solid` and `dashed`, and is now inherited from `ConfigProvider`. The tier paints each column — `plain` leaves it without a plate or a frame, `solid` fills it with the primary colour and inverts its title, its count and the cards inside it, `dashed` draws a dashed frame. `theme="underlined"` on a board falls back to `fill`.
+- `Kanban`: the hint that marks the column a card is being dragged over now appears. It used to sit under the column's own appearance, so it stayed invisible even on a board's default `fill`.
+- `Kanban`: on a `theme="solid"` column the keyboard ring on a card is a pale wash of the plate's own ink instead of primary on primary, and the status dot in a column header keeps the colour `column.color` gives it under every tier.
+- `Kanban` columns now read the local appearance variables: `--kui-theme-fill-bg` / `--kui-control-bg-fill` set the `fill` plate and `--kui-theme-outline-border` / `--kui-control-border` set the frame, none of which reached a board before.
 
 ## 6.2.2
 

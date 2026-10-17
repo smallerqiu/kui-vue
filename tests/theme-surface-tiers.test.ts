@@ -24,6 +24,9 @@
 // 3c-丁c adds `Page`, which types six tiers, resolves its own look to `fill`, and paints the tier on the
 // cells the numbers sit on rather than on the root. In Vue it also emitted `k-page-plain` while React
 // never did — one stylesheet, two reachable sets.
+// 3c-丁d adds `Kanban`, the board whose columns are the surfaces. It typed two tiers and painted those
+// two, so `plain` / `solid` / `dashed` reached the class list from `ConfigProvider` with no rule behind
+// them, and the drop hint — the one state a column has — sat below the tier plates and never drew.
 // The style half — what each tier actually draws — is in tests/theme-variants.test.ts and the pixels in
 // scripts/check-theme.ts.
 import { mount } from "@vue/test-utils";
@@ -37,6 +40,7 @@ import ConfigProvider from "../components/config";
 import FeatureCard from "../components/feature-card";
 import FeedbackPanel from "../components/feedback-panel";
 import { Image } from "../components/image";
+import Kanban from "../components/kanban";
 import Page from "../components/page";
 import QRCode from "../components/qrcode";
 import StatCard from "../components/stat-card/stat-card";
@@ -49,6 +53,14 @@ vi.mock("qrcode", () => ({ toCanvas: vi.fn(async () => {}) }));
 const TIERS = ["fill", "outline", "plain", "solid", "dashed", "underlined"] as const;
 const PAINTED = TIERS.filter((tier) => tier !== "underlined");
 const UNSUPPORTED = ["underlined"] as const;
+
+// A board renders one column per entry, so the cases hand it the smallest one that has a header, a card
+// and an empty column at the same time.
+const BOARD_COLUMNS = [
+  { key: "todo", title: "Todo", color: "#87909c" },
+  { key: "doing", title: "Doing", color: "#3a95ff" },
+];
+const BOARD_TASKS = [{ id: 1, status: "todo", title: "Define requirements" }];
 
 const SURFACES = [
   { name: "Card", prefix: "k-card", fallback: "fill", component: Card, props: {} },
@@ -115,6 +127,16 @@ const SURFACES = [
   // repository — while `solid` and `dashed` had neither class nor rule. Its own look is `fill`, and the
   // prop's `default: "fill"` sits behind `useConfigAppearance`, so a provider can still reach it.
   { name: "Page", prefix: "k-page", fallback: "fill", component: Page, props: { total: 100 } },
+  // 3c-丁d: a board has no plate of its own — its columns are the surfaces — so the tier names the root
+  // and draws on every `.k-kanban-column`. It typed two tiers and painted those two, and the prop's own
+  // `default: "fill"` sits behind `useConfigAppearance`, so a provider can still reach it.
+  {
+    name: "Kanban",
+    prefix: "k-kanban",
+    fallback: "fill",
+    component: Kanban,
+    props: { columns: BOARD_COLUMNS },
+  },
 ] as const;
 
 // `Alert` renders inside a `Transition`, and vue-test-utils reads the classes of an abstract node, not of
@@ -522,5 +544,46 @@ describe("a pager names its tier once and hands the same tier down", () => {
       expect(box.classes()).toContain("k-input-number-fill");
       expect(box.classes()).not.toContain("k-input-number-underlined");
     }
+  });
+});
+
+// 3c-丁d: a board names its tier on the root and paints it on every column — it owns no plate of its own —
+// so the DOM contract is one tier class plus one column per entry, and the drop hint (the state the
+// stylesheet now has to out-order those plates for) has to land on the column itself.
+const kanban = SURFACES.find((surface) => surface.name === "Kanban")!;
+const board = (props: Record<string, unknown> = {}) =>
+  mount(Kanban, {
+    attachTo: document.body,
+    props: { columns: BOARD_COLUMNS, data: BOARD_TASKS, ...props },
+  });
+
+describe("a board names its tier once and drops on its columns", () => {
+  for (const tier of TIERS)
+    it(`theme="${tier}" puts exactly one tier class on the board`, () => {
+      expect(
+        tierClasses(kanban, Array.from(board({ theme: tier }).find(".k-kanban").element.classList)),
+      ).toEqual([`k-kanban-${tier === "underlined" ? kanban.fallback : tier}`]);
+    });
+
+  // A tier that reached nothing but the root would be invisible, so the parts it colours are the ones a
+  // caller can see: the column, its title, its count, and the card inside it.
+  it("renders one column per entry with the parts a solid plate inverts", () => {
+    const wrapper = board({ theme: "solid" });
+    const columns = wrapper.findAll(".k-kanban-column");
+    expect(columns).toHaveLength(BOARD_COLUMNS.length);
+    expect(columns[0].find(".k-kanban-column-header strong").text()).toBe("Todo");
+    expect(columns[0].find(".k-kanban-column-header em").text()).toBe("1");
+    expect(columns[0].find(".k-kanban-item").text()).toBe("Define requirements");
+    expect(columns[1].find(".k-kanban-column-content").exists()).toBe(true);
+  });
+
+  // `.k-kanban-column.k-kanban-column-drag-over` paints the hint, so the state class belongs on the column
+  // the tier just plated — anywhere else the rule matches nothing and the board stops answering a drag.
+  it("marks the column a card is dragged over", async () => {
+    const column = board().findAll(".k-kanban-column")[1];
+    await column.trigger("dragover");
+    expect(column.classes()).toContain("k-kanban-column-drag-over");
+    await column.trigger("dragleave");
+    expect(column.classes()).not.toContain("k-kanban-column-drag-over");
   });
 });

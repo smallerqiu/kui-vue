@@ -6666,7 +6666,7 @@ Displays items grouped by status and supports drag-and-drop transitions.
 
 [Themes](./demo/theme.vue?show=vertical)
 
-- Switch Kanban columns between filled and outlined appearances.
+- Switch the appearance of Kanban columns: pale plate, framed, frameless, solid, or dashed.
 
 ## API
 
@@ -6679,7 +6679,7 @@ Displays items grouped by status and supports drag-and-drop transitions.
 | draggable | Enable drag and drop | `boolean` | true |
 | emptyText | Empty column description; defaults to the global locale | `string` | - |
 | minColumnWidth | Minimum column width | `string \| number` | 250 |
-| theme | Column appearance | `"fill" \| "outline"` | fill |
+| theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | `fill` |
 | columnTitle | Custom column heading, scoped with `{ column, items }` | VNodeChild | - |
 | item | Custom card content, scoped with `{ item, column, index }` | VNodeChild | - |
 | empty | Custom empty-column content, scoped with `{ column }` | VNodeChild | - |
@@ -6703,6 +6703,11 @@ Displays items grouped by status and supports drag-and-drop transitions.
 `KanbanMoveEvent` contains the moved `item`, source column key `from` and target column key `to`.
 
 When a card is focused, press `Alt + ←` or `Alt + →` to move it to an adjacent column.
+## Theme
+
+`theme` supports five looks — `fill`, `outline`, `plain`, `solid`, `dashed` — and is `fill` when you write nothing. `underlined` belongs to a control you type into, so a board falls back to `fill`.
+
+The tier paints each column rather than the whole board: `fill` puts a pale plate under the column, `outline` draws the library's border colour around it, `plain` leaves it without a plate or a frame, and `dashed` turns that frame into a dashed line. `solid` fills the column with the primary colour and inverts its title, its count chip and the cards inside it, the keyboard ring included. The dot in a column header comes from `column.color` — that is board data rather than a surface, so no tier touches it. The hint that marks the column a card is being dragged over — a primary edge under a pale primary wash — shows under every look, and a `solid` column draws that edge in its plate's own inverted ink.
 
 ---
 
