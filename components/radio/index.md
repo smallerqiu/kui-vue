@@ -33,7 +33,7 @@
 
 `theme` 只有 `fill`（浅底填充圆点）和 `outline`（描边圆点）两种外观；不写 `theme` 时就是 `fill`，其余档位同样按 `fill` 呈现。`outline` 的描边跟随 `--kui-theme-outline-border`，未设置时依次退回 `--kui-control-border`、`--kui-color-border`。
 
-单选框组会把自身的 `theme` 传给组内每一项；`type="button"` 的按钮组只有 `fill` 一档改用分隔线拼接的布局，其余档位保持按钮自身相邻边框的排布。
+单选框组会把自身的 `theme` 传给组内每一项；每一项自己写了 `theme` 或 `size`（按钮项还有 `shape`）时以自己的为准。`type="button"` 的按钮组只有 `fill` 一档改用分隔线拼接的布局，其余档位保持按钮自身相邻边框的排布。
 
 ## Radio API
 

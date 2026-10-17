@@ -96,6 +96,7 @@ rm -rf node_modules/.vite
 - `Checkbox` / `Radio` 的方框和圆点只有 `fill`（浅底填充）与 `outline`（描边）两种外观。`outline` 现在真的会把边框描出来，颜色可以和其它描边控件一样用 `--kui-theme-outline-border` 改；`fill` 的边框色也能用 `--kui-theme-fill-border` 覆盖，此前这两个变量在复选框、单选框上都不生效。
 - `Checkbox` / `Radio` 不写 `theme` 就是浅底的 `fill`；此前写了 `default` 反而会落到描边的基础外观，等于换了个 `theme`。`solid` / `plain` / `dashed` / `underlined` 对一个不能输入的方框或圆点没有意义，同样按 `fill` 呈现。
 - `CheckboxGroup` / `RadioGroup` 的 `theme` 会传到组内每一个方框和圆点上，从 `ConfigProvider` 继承的 `theme` 走同一条路；`type="button"` 的按钮组只有 `fill` 一档改用一条分隔线拼接按钮，其余档位保持按钮自身相邻边框的排布。此前按钮组的这条布局只认写在组件上的 `theme`，`ConfigProvider theme="fill"` 下按钮填了色却仍留着相邻边框的重排间距，现在继承的 `fill` 同样生效。选中与禁用状态始终优先于 `theme`。
+- `CheckboxGroup` / `RadioGroup` 不再盖掉子项自己写了的外观：组此前把自己继承到的 `theme` / `size` 直接写死到每一个子项上，`<CheckboxGroup>` 里的 `<Checkbox theme="outline">` 画出来仍是浅底的 `fill`，子项单独写的尺寸也一样被组覆盖掉；现在子项写了的优先，没写的才跟着组走，`RadioButton` 的 `shape` 同理。
 - `Card` / `FeatureCard` / `StatCard` 的 `theme` 补齐 `solid` / `dashed` 两档：`solid` 是主色实底，标题、描述、图标和头部那条分割线一起反白，`StatCard` 里带 `success` / `danger` / `warning` 状态的趋势项仍保留自己的颜色；`dashed` 是虚线描边。`StatCard` 的 `theme` 也补到和另两张卡片一样，不再只认 `fill` / `outline` / `plain` 三档。
 - 卡片上写 `theme="underlined"`（包括 `ConfigProvider` 传下来的）不再让卡片既没有底色也没有边框：下划线只属于能输入的控件，卡片碰到它按自己的 `fill` 外观呈现。
 - `Collapse` / `FeedbackPanel` 的 `theme` 补齐 `solid` / `dashed` 两档：`solid` 是主色实底，面板标题、描述、详情块和图标一起反白，`Collapse` 里禁用的面板仍保持禁用态；`dashed` 是虚线描边，内部的行分割线仍是实线。`FeedbackPanel` 左边那条状态色带不受 `theme` 影响。

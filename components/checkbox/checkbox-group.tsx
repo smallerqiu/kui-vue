@@ -3,7 +3,7 @@ import { cloneVNode, defineComponent, ref, watch, type ExtractPropTypes, type Pr
 import { MARK_THEMES, resolvePaintedTheme } from "../config/context";
 import type { BooleanType, DirectionType, SizeType, MarkThemeType } from "../const/types";
 import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
-import { getChildren } from "../utils/vnode";
+import { getChildren, inheritableAppearance } from "../utils/vnode";
 import Checkbox from "./checkbox";
 import type { CheckboxChangeEvent, CheckboxOption, CheckboxValue } from "./types";
 
@@ -106,9 +106,10 @@ const CheckboxGroup = defineComponent({
                 checked: value !== undefined && currentValue.value.includes(value),
                 disabled: disabled || Boolean(child.props?.disabled),
                 readonly: readonly || Boolean(child.props?.readonly),
-                theme: itemTheme,
-                size,
                 onChange,
+                // `checked` and `onChange` belong to the group and always go down; the look belongs to the
+                // box, so a box that wrote its own tier or size keeps it.
+                ...inheritableAppearance(child, { theme: itemTheme, size }),
               },
               true,
             );

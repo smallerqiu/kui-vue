@@ -33,7 +33,7 @@ Radio button.
 
 A radio has two looks: `fill` (a shallow filled dot) and `outline` (a bordered one). Leaving `theme` unset gives `fill`, and every value a radio does not paint falls back to `fill` too. The `outline` edge follows `--kui-theme-outline-border`, then `--kui-control-border`, then `--kui-color-border`.
 
-A `RadioGroup` passes its own `theme` down to every option it renders. In the `type="button"` style only `fill` switches to the joined layout with one divider between buttons; every other tier keeps the buttons' own adjacent borders.
+A `RadioGroup` passes its own `theme` down to every option it renders; an option that states its own `theme` or `size` (a button also has `shape`) keeps it. In the `type="button"` style only `fill` switches to the joined layout with one divider between buttons; every other tier keeps the buttons' own adjacent borders.
 
 ## Radio API
 

@@ -19,7 +19,7 @@ import type {
 } from "../const/types";
 import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
 import { MARK_THEMES, resolvePaintedTheme, SURFACE_THEMES } from "../config/context";
-import { getChildren } from "../utils/vnode";
+import { getChildren, inheritableAppearance } from "../utils/vnode";
 import Radio from "./radio";
 import RadioButton from "./radio-button";
 import type { ChangeEvent, RadioOption } from "./types";
@@ -124,10 +124,16 @@ const RadioGroup = defineComponent({
                 checked: value !== undefined && currentValue.value === value,
                 disabled: props.disabled || field?.disabled.value || Boolean(child.props?.disabled),
                 readonly: props.readonly || field?.readonly.value || Boolean(child.props?.readonly),
-                size: appearance.size.value,
-                theme: appearance.theme.value,
-                shape: appearance.shape.value,
                 onChange,
+                // The three appearance keys are inherited, not answers for the item: an item that wrote its
+                // own `theme` / `size` / `shape` keeps it, exactly like the react build where the item reads
+                // `props ?? group`. The tier itself stays in the six-value vocabulary — this is the same
+                // channel as react's group context, and the item's own guard resolves it.
+                ...inheritableAppearance(child, {
+                  theme: appearance.theme.value,
+                  size: appearance.size.value,
+                  shape: appearance.shape.value,
+                }),
               },
               true,
             );

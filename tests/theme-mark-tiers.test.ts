@@ -319,6 +319,97 @@ describe("a group hands its tier to the boxes it renders", () => {
   }
 });
 
+// 3d-乙′ (#158). Handing a tier down and writing the child's own `theme` are the *same act* in this build:
+// a group has no injection channel of its own, so the hand-off is `cloneVNode(child, { theme }, true)` —
+// and `useFormAppearance` decides "explicit" by `hasOwnProperty` on the vnode it was handed. Patching a key
+// unconditionally therefore makes the group's value look like the child wrote it, and
+// `<CheckboxGroup><Checkbox theme="outline" /></CheckboxGroup>` painted `fill` while the react build, where
+// the item reads `props ?? group ?? provider`, painted `outline`. `size` and `shape` ride the same patch and
+// were killed the same way (a group that says nothing about size still wrote `size: undefined`), so the
+// three keys are pinned together here.
+describe("an item that wrote its own appearance keeps it against the group", () => {
+  const written = (
+    group: Component,
+    item: Component,
+    groupProps: Record<string, unknown>,
+    itemProps: Record<string, unknown>,
+  ) =>
+    mount(group, {
+      attachTo: document.body,
+      props: groupProps,
+      slots: {
+        default: () => [h(item, { class: "target", label: "A", value: "a", ...itemProps })],
+      },
+    })
+      .find(".target")
+      .classes();
+
+  for (const [name, group, item] of [
+    ["k-checkbox", CheckboxGroup, Checkbox],
+    ["k-radio", RadioGroup, Radio],
+  ] as const) {
+    for (const groupProps of [{}, { theme: "fill" }] as Record<string, unknown>[])
+      it(`${name} written outline keeps outline against a ${
+        groupProps.theme ?? "default"
+      } group`, () => {
+        const classes = written(group, item, groupProps, { theme: "outline" });
+        expect(classes).toContain(`${name}-outline`);
+        expect(classes).not.toContain(`${name}-fill`);
+      });
+
+    it(`${name} written fill keeps fill against an outlined group`, () => {
+      const classes = written(group, item, { theme: "outline" }, { theme: "fill" });
+      expect(classes).toContain(`${name}-fill`);
+      expect(classes).not.toContain(`${name}-outline`);
+    });
+
+    it(`${name} keeps the size it wrote when the group says nothing about size`, () => {
+      expect(written(group, item, {}, { size: "small" })).toContain(`${name}-sm`);
+    });
+  }
+
+  it("a tier inherited from the provider is still beaten by the item's own", () => {
+    // The group forwards what it inherited, so this is the same patch as the cases above — only the place
+    // the value came from differs, and that is what `ConfigProvider` coverage is for.
+    const classes = mount(ConfigProvider, {
+      attachTo: document.body,
+      props: { theme: "outline" },
+      slots: {
+        default: () => [
+          h(CheckboxGroup, null, () => h(Checkbox, { class: "target", value: "a", theme: "fill" })),
+          h(RadioGroup, null, () => h(Radio, { class: "target", value: "a", theme: "fill" })),
+        ],
+      },
+    })
+      .findAll(".target")
+      .map((node) => node.classes());
+    expect(classes.length).toBe(2);
+    for (const [index, list] of classes.entries()) {
+      expect(list, index === 0 ? "the check box" : "the radio").toContain(
+        index === 0 ? "k-checkbox-fill" : "k-radio-fill",
+      );
+      expect(list).not.toContain(index === 0 ? "k-checkbox-outline" : "k-radio-outline");
+    }
+  });
+
+  it("a radio button keeps the tier and shape it wrote inside a button group", () => {
+    // `RadioButton` is a `Button`, so its look lands on the button root: five tiers and four shapes,
+    // patched by the same group path as the boxes above.
+    const classes = written(
+      RadioGroup,
+      RadioButton,
+      { type: "button", theme: "outline" },
+      {
+        theme: "solid",
+        shape: "square",
+      },
+    );
+    expect(classes).toContain("k-btn-solid");
+    expect(classes).not.toContain("k-btn-outline");
+    expect(classes).toContain("k-btn-square");
+  });
+});
+
 // The same hand-off, one step further down: a group built from `options` makes its own items, so the
 // tier reaches them as a prop the group writes. 3d-乙 typed that prop by what the item paints — the two
 // tiers a box has, the five a button has — while what the group inherits is the six-tier vocabulary a
@@ -340,7 +431,8 @@ describe("a group built from options hands its tier to every item", () => {
     it(`a radio group theme="${tier}" reaches every option box`, () => {
       const list = boxes(RadioGroup, "k-radio", { theme: tier });
       expect(list.length, "options must render a box each").toBe(OPTIONS.length);
-      for (const classes of list) expect(markTiers(classes, "k-radio")).toEqual([`k-radio-${tier}`]);
+      for (const classes of list)
+        expect(markTiers(classes, "k-radio")).toEqual([`k-radio-${tier}`]);
     });
 
     it(`a check box group theme="${tier}" reaches every option box`, () => {
@@ -360,9 +452,9 @@ describe("a group built from options hands its tier to every item", () => {
       expect(list.length).toBe(bare.length);
       for (const [index, classes] of list.entries()) {
         expect(ordered(classes), `box ${index} of a ${tier} group`).toEqual(ordered(bare[index]));
-        expect(markTiers(classes, "k-radio"), `a ${tier} box ships a class no LESS paints`).toEqual([
-          "k-radio-fill",
-        ]);
+        expect(markTiers(classes, "k-radio"), `a ${tier} box ships a class no LESS paints`).toEqual(
+          ["k-radio-fill"],
+        );
       }
     });
   }

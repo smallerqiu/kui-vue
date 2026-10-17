@@ -29,6 +29,27 @@ export function getChildren(VNodes?: unknown[]) {
 }
 
 /**
+ * The appearance keys a group hands down as *inherited*, minus the ones the child already states.
+ *
+ * A control picks its own look with "what was written on me, else what I inherited" — `useFormAppearance`
+ * decides that by reading `hasOwnProperty` on the control's own vnode props. A group has no injection
+ * channel of its own here: handing a tier or a size down *is* writing it on the child's vnode, and
+ * `cloneVNode(child, props, true)` overwrites the child's own value, so an unconditional patch makes the
+ * group's value look like the child wrote it and silently outranks an explicit `theme` / `size` /
+ * `shape`. Dropping the keys the child wrote is what makes this side agree with the react build, where
+ * the item reads `props ?? group ?? provider`.
+ */
+export const inheritableAppearance = (
+  child: VNode,
+  values: Record<string, unknown>,
+): Record<string, unknown> =>
+  Object.fromEntries(
+    Object.entries(values).filter(
+      ([name]) => !Object.prototype.hasOwnProperty.call(child.props ?? {}, name),
+    ),
+  );
+
+/**
  * Whether an optional content prop deserves its wrapper element.
  *
  * `null` and `undefined` are the documented way to omit a slot, but callers also
