@@ -125,6 +125,11 @@
   border-radius: var(--kui-border-radius);
   box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow));
 
+  // Alive, and the only shadow suppression this file still needs: `.k-dropdown-menu-submenu-sub`
+  // is itself a painter (the rule above lists it next to `.k-dropdown-menu` at (0,1,0)), while the
+  // popup wrapper that contains it already draws the glow - without this line a submenu panel
+  // shadows twice. Deleting it over the real DOM shape moves the inner wrapper from `none` to the
+  // popup shadow, which is how ③-3d-壬 classified it as alive and kept it.
   .k-dropdown-menu-submenu-sub {
     box-shadow: none;
     border: 0;
@@ -151,8 +156,15 @@
   background-color: var(--kui-color-border);
 }
 .k-dropdown-has-arrow {
+  // `background` only. With an arrow the panel is the box the user sees (`.k-dropdown-menu` paints
+  // its own border and glow), so the wrapper must not paint a second surface behind it. A second
+  // *glow* was never on the table: nothing in the library puts a `box-shadow` on
+  // `.k-dropdown-content`, and shadow is not inherited - the two painters in this file target
+  // `.k-dropdown-menu` / `.k-dropdown-menu-submenu-sub` and `.k-dropdown-arrow`. ③-3d-壬 dropped
+  // that line; `tests/theme-dead-css.test.ts` names it, and the reverse control (injecting a
+  // (0,1,0) glow on the wrapper) shows the suppression really did match this element, so it is
+  // inert because there is no opponent, not because the selector was broken.
   .k-dropdown-content {
-    box-shadow: none;
     background: none;
   }
 

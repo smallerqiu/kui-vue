@@ -191,10 +191,12 @@
       opacity: 0.2;
     }
   }
-  .k-badge-status-active {
-    box-shadow: none;
-  }
-
+  // A `box-shadow: none` for `.k-badge-status-active` used to sit here. The only ring any rule
+  // paints in this file is `.k-badge-mark`'s `0 0 0 2px var(--kui-color-bg)`, and that class is
+  // emitted by neither repo (`k-badge-count` / `-dot` / `-status-dot` / `-status-text` are), so the
+  // dot never had a ring to flatten - and the suppression did match it, since injecting a glow on
+  // `.k-badge-status-active` and deleting this block together moves the pill fixtures. ③-3d-壬.
+  // That `.k-badge-mark` is emitted by nothing is a finding of its own; it is not swept in this pass.
   .k-badge-status-text {
     margin-left: 0;
     color: var(--kui-color-text-description);

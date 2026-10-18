@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { render } from "less";
 import { describe, expect, it } from "vitest";
 
-// 死 CSS 守卫：③-3d-戊、③-3d-己、③-3d-庚、③-3d-辛 扫掉的那批规则不许悄悄长回来。
+// 死 CSS 守卫：③-3d-戊、③-3d-己、③-3d-庚、③-3d-辛、③-3d-壬 扫掉的那批规则不许悄悄长回来。
 //
 // 形状和 `tests/tree-styles.test.ts` 不一样，因为那一个在这里用不了 —— 它拿"编译出来的类名"去反查
 // "组件真的会输出的类名集合"，而这个单元删的三种东西反查都抓不住：
@@ -188,6 +188,53 @@ const DATE_PICKER_ERROR_DRAWERS = [
   ".k-form .k-form-item-error .k-datepicker-opened",
 ];
 
+/**
+ * ③-3d-壬：弹层 / 按钮 / 徽标这三族剩下的 4 行 `box-shadow: none`。**这一批不是整族扫净**，四行里只删得掉
+ * 三行 —— 判据还是那两条（库里有没有别的规则给这个元素画阴影、压制选择器选不选得中画阴影的那个元素），
+ * 但这次先把整库编译出来数了一遍"谁真的在画"（53 条画 / 13 条压），再逐条删、重编译、比真机计算值：
+ *   · `.k-dropdown-has-arrow .k-dropdown-content`：库里没有一条规则给 `.k-dropdown-content` 写阴影（这个
+ *     文件的两条画在 `.k-dropdown-menu` / `.k-dropdown-menu-submenu-sub` 与 `.k-dropdown-arrow` 上，而阴影
+ *     不继承）⇒ 删。同一条规则里的 `background: none` 留着，它压的是 `.k-dropdown .k-dropdown-content`
+ *     那条铺底（同特异度、靠源码顺序赢），是真在承重。
+ *   · `.k-btn-plain`：整个 button 样式文件只有这一处写过 `box-shadow`，库内也没有规则给 `.k-btn` 画阴影
+ *     ⇒ 删；删完 button 在库里一条 `box-shadow` 都不剩，所以它的总闸名单是空的。
+ *   · `.k-badge-pill .k-badge-status-active`：这族唯一的环在 `.k-badge-mark` 上，而 `k-badge-mark` 这个类
+ *     两仓都不输出（发出去的是 `k-badge-count` / `-dot` / `-status-dot` / `-status-text`）⇒ 删。那条规则
+ *     只剩这一句，所以整条走 `DEAD_SELECTORS`（不许再出现），不是 `DEAD_DECLARATIONS`（规则可以留着）。
+ *   · `.k-dropdown-menu-submenu-popup .k-dropdown-menu-submenu-sub`：**活的，留着**，也是这批唯一的例外。
+ *     画光晕那条 (0,1,0) 的选择器名单里就有 `.k-dropdown-menu-submenu-sub`，而包着它的 `.k-dropdown-menu-submenu-popup`
+ *     自己也在画 ⇒ 删掉这行子面板发光两次（真机：内层 `none` → 弹层阴影）。所以反过来点名：它必须在。
+ * 删掉的三行各带一发反向对照：往同族注一条更低（或同）特异度的光晕，删压制后读数必须动 —— button 8 处、
+ * badge 4 处、dropdown 4 处 —— 不动就说明分类器只是没摸到那个元素。计算值零变化 ⇒ 这一笔不写更新日志。
+ */
+const REN_DEAD_DECLARATIONS = [
+  { component: "dropdown", selector: ".k-dropdown-has-arrow .k-dropdown-content" },
+  { component: "button", selector: ".k-btn-plain" },
+].map(({ component, selector }) => ({ component, selector, property: "box-shadow" }));
+
+/** 壬 之后这些文件里还允许出现 `box-shadow` 的规则，按 `选择器 { 值 }` 整对钉住（少一条、多一条都红）。 */
+const REN_SHADOW_ALLOW_LISTS: { component: string; allow: string[] }[] = [
+  {
+    component: "dropdown",
+    allow: [
+      // 面板自己的光晕，画在两个名字上。
+      ".k-dropdown-menu { box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow)) }",
+      ".k-dropdown-menu-submenu-sub { box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow)) }",
+      ".k-dropdown-menu-submenu-popup { box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow)) }",
+      // 壬 留下的那条活压制：它同时就是"子面板不重复发光"的画法。
+      ".k-dropdown-menu-submenu-popup .k-dropdown-menu-submenu-sub { box-shadow: none }",
+      '.k-dropdown-has-arrow[k-placement^="left"] .k-dropdown-arrow { box-shadow: 3px -3px 7px var(--kui-color-shadow) }',
+      '.k-dropdown-has-arrow[k-placement^="right"] .k-dropdown-arrow { box-shadow: -3px 3px 7px var(--kui-color-shadow) }',
+    ],
+  },
+  // 删掉 `.k-btn-plain` 那一行之后，button 全家不再声明任何阴影。
+  { component: "button", allow: [] },
+  {
+    component: "badge",
+    allow: [".k-badge-mark { box-shadow: 0 0 0 2px var(--kui-color-bg) }"],
+  },
+];
+
 /** 规则还在、但这条声明不能回来。 */
 const DEAD_DECLARATIONS: { component: string; selector: string; property: string }[] = [
   { component: "card", selector: ".k-card-plain", property: "box-shadow" },
@@ -235,6 +282,7 @@ const DEAD_DECLARATIONS: { component: string; selector: string; property: string
     selector,
     property: "box-shadow",
   })),
+  ...REN_DEAD_DECLARATIONS,
 ];
 
 /**
@@ -373,6 +421,9 @@ const DEAD_SELECTORS: { component: string; selector: string }[] = [
   },
   { component: "color-picker", selector: ".k-color-picker-lg .k-color-picker-arrow" },
   { component: "color-picker", selector: ".k-color-picker-sm .k-color-picker-arrow" },
+  // 壬：badge 那条压制只有 `box-shadow: none` 一句声明，摘掉它整条规则就空了，所以点的是规则本身不能回来
+  // （`DEAD_DECLARATIONS` 那种"规则可以留着、声明不能回来"的形状在这里不适用）。
+  { component: "badge", selector: ".k-badge-pill .k-badge-status-active" },
 ];
 
 /**
@@ -455,6 +506,17 @@ const LIVE_SELECTORS: { component: string; selector: string }[] = [
   { component: "date-picker", selector: ".k-datepicker-borderless:hover" },
   // 弹层阴影是活的，别跟着根元素一起清。
   { component: "date-picker", selector: ".k-datepicker-overlay" },
+  // 壬 摘的是三行声明，不是三条规则：箭头态那条还压着铺底、`.k-btn-plain` 还压着边框和表面、
+  // `.k-badge-pill` 还带着整颗胶囊的形状 —— 谁清扫时顺手把规则一起删掉，这里要红。
+  { component: "dropdown", selector: ".k-dropdown-has-arrow .k-dropdown-content" },
+  { component: "button", selector: ".k-btn-plain" },
+  { component: "badge", selector: ".k-badge-pill" },
+  // 壬 留下的那条活压制的对手：外层面板自己在画光晕，内盒也是。两个名字任何一个从规则里掉出去，
+  // "子面板不重复发光"就换了画法，那条压制得跟着重新裁定。
+  { component: "dropdown", selector: ".k-dropdown-menu-submenu-popup" },
+  // 壬 判据的前提：badge 全族唯一的环画在 `.k-badge-mark` 上。它哪天改成画在点上，那颗点就得重新压制，
+  // 上面那条 `DEAD_SELECTORS` 也得跟着撤 —— 所以这里点名它还在。
+  { component: "badge", selector: ".k-badge-mark" },
 ];
 
 const compile = async (component: string) => {
@@ -466,7 +528,7 @@ const compile = async (component: string) => {
       // `fullSelector` 保留 `:not(a, b, …)` 里那些逗号：按逗号切开是给"选择器必须逐字存在"那类断言用的，
       // 而多参数的 `:not()` 一切就碎，只能整条比对（见 `GUARDED_DRAWERS`）。
       const selectorText = chunk.slice(0, open).trim().replace(/\s+/g, " ");
-      // 属性名够"这条声明不能回来"那类断言用；`declarations` 带上值，是给 辛 那条总闸用的 ——
+      // 属性名够"这条声明不能回来"那类断言用；`declarations` 带上值，是给 辛/壬 那两条总闸用的 ——
       // 它要钉住"这个文件里还有谁写了 box-shadow、写的是什么值"，只看属性名会被 `none` 换成真光晕绕过。
       const declarations = chunk
         .slice(open + 1, -1)
@@ -590,6 +652,43 @@ describe("theme 死 CSS 守卫", () => {
         ),
     );
     expect(painted.sort()).toEqual([...DATE_PICKER_SHADOW_ALLOW_LIST].sort());
+  });
+
+  REN_SHADOW_ALLOW_LISTS.forEach(({ component, allow }) => {
+    // 壬 的总闸，形状跟 辛 一样：不认选择器名、只认"这个文件里还有谁写了 box-shadow、写的是什么值"。
+    // 它一次咬住三件事 —— 扫掉的压制长回来（哪怕换了嵌套写法）、有人在别处补一条新阴影、以及把
+    // 那条活压制的 `none` 改成真光晕（名单里 `.k-dropdown-menu-submenu-popup .k-dropdown-menu-submenu-sub`
+    // 这一对钉的就是值，不是选择器）。button 的名单是空的：那一行删掉后它全家不再声明阴影。
+    it(`${component}: 壬 之后还能声明 box-shadow 的规则一份不多、一份不少`, async () => {
+      const painted = (await compile(component)).flatMap((rule) =>
+        rule.declarations
+          .filter(([property]) => property === "box-shadow")
+          .flatMap(([, value]) =>
+            rule.selectors.map((selector) => `${selector} { box-shadow: ${value} }`),
+          ),
+      );
+      expect(painted.sort()).toEqual([...allow].sort());
+    });
+  });
+
+  it("dropdown: 子菜单那层内盒的光晕仍被外层压着（壬 唯一留下的压制）", async () => {
+    const rules = (await compile("dropdown")).filter(
+      (rule) =>
+        rule.fullSelector === ".k-dropdown-menu-submenu-popup .k-dropdown-menu-submenu-sub",
+    );
+    expect(rules, "这条压制没了：子菜单面板现在发光两次").toHaveLength(1);
+    expect(rules[0]!.declarations).toContainEqual(["box-shadow", "none"]);
+    // 前提：外层和内盒各自都在画，才谈得上"压一层"。内盒那个名字要是从画光晕那条里摘掉，
+    // 这条压制立刻变成死的，得跟着撤。
+    const painters = (await compile("dropdown")).filter(
+      (rule) =>
+        rule.declarations.some(
+          ([property, value]) =>
+            property === "box-shadow" && value.startsWith("var(--kui-popup-shadow"),
+        ),
+      // `selectors` 已经按顶层逗号切过，`.k-dropdown-menu, .k-dropdown-menu-submenu-sub` 是两个名字。
+    );
+    expect(painters.flatMap((rule) => rule.selectors)).toContain(".k-dropdown-menu-submenu-sub");
   });
 
   DATE_PICKER_ERROR_DRAWERS.forEach((selector) => {
