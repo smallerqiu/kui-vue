@@ -29,6 +29,10 @@ Checkbox for multiple selections.
 
 - Select-all combination.
 
+[Themes](./demo/theme.vue)
+
+- A check box has two tiers, and the tier lands on the box rather than the label; checked and disabled always win over it.
+
 ## Theme
 
 A check box has two looks: `fill` (a shallow filled square) and `outline` (a bordered one). Leaving `theme` unset gives `fill`, and every value a check box does not paint falls back to `fill` too. The `outline` edge follows `--kui-theme-outline-border`, then `--kui-control-border`, then `--kui-color-border`.

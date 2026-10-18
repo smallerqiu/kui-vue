@@ -24,6 +24,10 @@ When standard numerical values need to be obtained.
 
 - `large` for large size, `small` for small size
 
+[Themes](./demo/theme.vue)
+
+- All six tiers, listed from `fill`, which is what a number input does on its own; `solid` inverts the digits, the placeholder and the steppers.
+
 ## InputNumber API
 
 | Property | Description | Type | Default |

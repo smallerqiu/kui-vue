@@ -24,6 +24,10 @@
 
 - `large` 为大尺寸， `small` 为小尺寸
 
+[外观档位](./demo/theme.vue)
+
+- 六档外观从数字输入框自己的 `fill` 起依次排开；`solid` 会把数字、占位符和步进按钮一起反白。
+
 ## InputNumber API
 
 | 属性 | 说明 | 类型 | 默认值 |

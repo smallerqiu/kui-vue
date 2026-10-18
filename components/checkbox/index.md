@@ -29,6 +29,10 @@
 
 - 全选组合
 
+[外观档位](./demo/theme.vue)
+
+- 方框只有 `fill` 与 `outline` 两档，档位落在方框上而不是文字上；选中与禁用始终优先于档位。
+
 ## 主题
 
 `theme` 只有 `fill`（浅底填充方框）和 `outline`（描边方框）两种外观；不写 `theme` 时就是 `fill`，其余档位同样按 `fill` 呈现。`outline` 的描边跟随 `--kui-theme-outline-border`，未设置时依次退回 `--kui-control-border`、`--kui-color-border`。

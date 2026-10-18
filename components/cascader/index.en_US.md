@@ -30,6 +30,10 @@ A cascading selection box.
 
 - Demonstrates the component's strong visual adaptability across different `size` constraints, suitable for various layouts such as compact modal forms or spacious configuration panels.
 
+[Themes](./demo/theme.vue)
+
+- The trigger box takes the same six tiers an input does; the popup it opens keeps its own surface in every tier.
+
 ## API
 
 | Property | Description | Type | Default |

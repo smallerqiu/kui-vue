@@ -29,6 +29,10 @@
 
 - 结合 `RadioGroup`,`RadioButton` 可以组合使用
 
+[外观档位](./demo/theme.vue)
+
+- 圆点只有 `fill` 与 `outline` 两档；`type="button"` 的按钮组吃按钮的五档，不写 `theme` 时保持按钮自身按类型上色的样子。
+
 ## 主题
 
 `theme` 只有 `fill`（浅底填充圆点）和 `outline`（描边圆点）两种外观；不写 `theme` 时就是 `fill`，其余档位同样按 `fill` 呈现。`outline` 的描边跟随 `--kui-theme-outline-border`，未设置时依次退回 `--kui-control-border`、`--kui-color-border`。

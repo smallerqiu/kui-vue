@@ -29,6 +29,10 @@ Radio button.
 
 - Combine `RadioGroup` and `RadioButton` for usage.
 
+[Themes](./demo/theme.vue)
+
+- A radio dot has two tiers, while `type="button"` takes the five tiers a button has; writing no `theme` keeps the buttons' own type-driven look.
+
 ## Theme
 
 A radio has two looks: `fill` (a shallow filled dot) and `outline` (a bordered one). Leaving `theme` unset gives `fill`, and every value a radio does not paint falls back to `fill` too. The `outline` edge follows `--kui-theme-outline-border`, then `--kui-control-border`, then `--kui-color-border`.
