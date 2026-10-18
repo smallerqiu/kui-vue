@@ -1,5 +1,6 @@
 import {
   cloneVNode,
+  computed,
   defineComponent,
   inject,
   provide,
@@ -9,12 +10,20 @@ import {
 } from "vue";
 import { type BooleanType, type SizeType, type ThemeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
-import { resolveTheme } from "../config/context";
+import { CONFIG_PROVIDER_INJECTION_KEY, resolveTheme } from "../config/context";
+import { useFormField, useFormAppearance } from "../form/context";
 
 const inputGroupProps = {
   block: { type: Boolean as PropType<boolean | undefined>, default: false },
   compact: { type: Boolean as BooleanType, default: true },
-  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  // No `default: "fill"`: react declares none, and the component's own tier belongs to `resolveTheme`
+  // below — the one place that runs *after* inheritance. `useFormAppearance` decides explicitness from the
+  // keys the caller wrote, so a default here would only ever surface on a written-but-undefined `theme`,
+  // where the caller asked for nothing and the component's own look is the right answer anyway.
+  // The six tiers stay here even though only `fill` changes anything this component paints, because the
+  // value this wrapper most often carries is the tier `Input` already resolved for the field inside it —
+  // and `Input` is typed to take `underlined`. A group refusing that list could not match its own field.
+  theme: { type: String as PropType<ThemeType> },
   size: {
     type: [String, Array, Number] as PropType<SizeType | number | number[]>,
   },
@@ -27,12 +36,35 @@ const InputGroup = defineComponent({
   inheritAttrs: false,
   props: inputGroupProps,
   setup(props, { slots, attrs }) {
-    const parentSize = inject<string | null>("size", null);
-    provide("size", props.size || parentSize);
+    // Borrowing the field context without isolating it: the controls inside the group are still the form's,
+    // and they have to keep reading the field this component only takes a tier from.
+    const field = useFormField();
+    // Only `theme` goes through the resolver. This component's `size` also accepts a pixel gap for
+    // `compact={false}`, which is wider than the `SizeType` the resolver is contracted to — the same reason
+    // `QRCode` hands over only the keys a stylesheet can name — so size keeps its own chain below. With no
+    // prop default on `size`, "written, else inherited" is the same order the resolver applies.
+    const appearance = useFormAppearance(
+      {
+        get theme() {
+          return props.theme;
+        },
+      },
+      field,
+    );
+    const config = inject(CONFIG_PROVIDER_INJECTION_KEY, null);
+    const parentSize = inject<SizeType | undefined>("size", undefined);
+    const currentSize = computed(
+      () => props.size ?? parentSize ?? field?.size.value ?? config?.size.value,
+    );
+    // Size still travels down the inject chain — a `Button` in the group reads it the way it reads a
+    // `ConfigProvider` — so what children inherit is the size resolved here, not merely the one written on
+    // the group. A number sizes the group's own gap rather than a child's control box, so it stays out.
+    provide("size", typeof currentSize.value === "string" ? currentSize.value : undefined);
 
     return () => {
-      const { size, compact, block, theme: themeProp } = props;
-      const theme = resolveTheme(themeProp, "fill");
+      const { compact, block } = props;
+      const size = currentSize.value;
+      const theme = resolveTheme(appearance.theme.value, "fill");
       const styles: CSSProperties = {};
 
       const rootProps = {

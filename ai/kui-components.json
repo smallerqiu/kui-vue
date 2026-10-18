@@ -8792,25 +8792,6 @@
       "documentation": "https://k-ui.cn/components/input",
       "props": [
         {
-          "name": "theme",
-          "description": "Textarea theme",
-          "descriptionZh": "文本域主题",
-          "descriptionEn": "Textarea theme",
-          "type": "ThemeType",
-          "boolean": false,
-          "enumValues": [
-            "fill",
-            "outline",
-            "plain",
-            "solid",
-            "dashed",
-            "underlined"
-          ],
-          "required": false,
-          "defaultExpression": "\"fill\"",
-          "documented": true
-        },
-        {
           "name": "block",
           "description": "Whether to inherit the parent width",
           "descriptionZh": "是否继承父集宽度",
@@ -8838,6 +8819,24 @@
           ],
           "required": false,
           "defaultExpression": "true",
+          "documented": true
+        },
+        {
+          "name": "theme",
+          "description": "Textarea theme",
+          "descriptionZh": "文本域主题",
+          "descriptionEn": "Textarea theme",
+          "type": "ThemeType | undefined",
+          "boolean": false,
+          "enumValues": [
+            "fill",
+            "outline",
+            "plain",
+            "solid",
+            "dashed",
+            "underlined"
+          ],
+          "required": false,
           "documented": true
         },
         {

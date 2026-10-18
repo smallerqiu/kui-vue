@@ -127,6 +127,7 @@ rm -rf node_modules/.vite
 - `ListPanel` 用 `theme="solid"` 时，结果摘要那一行换成主色上的浅色文字，批量操作栏那一格也从灰底改成主色上的一层浅白，不再是一行暗字和一块外来的灰底；面板里的其它内容跟着面板字色走，不受影响。
 - 列表面板上写 `theme="underlined"` 按面板自己的 `outline` 呈现，不再落到卡片的 `fill`；`ConfigProvider` 传下来的这一档同样如此。
 - **不兼容变更**：`theme` 的类型改成只列组件画得出的档位。表面型组件——`Card` / `FeatureCard` / `StatCard` / `Collapse` / `FeedbackPanel` / `CheckCard` / `Alert` / `Image` / `QRCode` / `Page` / `Kanban` / `Transfer` / `ListPanel` / `Tag` / `Button` / `DropdownButton`，以及 `RadioGroup` / `RadioButton`——只收 `fill` / `outline` / `plain` / `solid` / `dashed` 五档（`SurfaceThemeType`）；`Checkbox` / `Radio` / `CheckboxGroup` 只收 `fill` / `outline` 两档（`MarkThemeType`）；`ConfigProvider` 与 `Form` 仍然六档全收。在这类组件上写过它画不到的档位（比如给卡片写 `theme="underlined"`）现在 TypeScript 会报错（写在模板里也一样），运行时没有变化，组件仍旧按自己的外观呈现。
+- `InputGroup` 的 `theme` / `size` 现在会跟 `ConfigProvider` 传下来的档位走，并且始终和自己包着的那个输入框一致：此前分组只认自己写的 `theme`，外面换成 `outline` / `solid` 时，里面的输入框描了边、前后缀两格却还是填充那一套。组件自己写了的仍然优先；分组解析出来的尺寸也会接着传给它包着的控件。
 
 ## 6.2.2
 

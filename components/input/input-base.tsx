@@ -340,7 +340,7 @@ const InputBase = defineComponent({
         return (
           <InputGroup
             size={size}
-            theme={theme}
+            theme={effectiveTheme}
             class={attrs.class}
             style={attrs.style as CSSProperties}
           >

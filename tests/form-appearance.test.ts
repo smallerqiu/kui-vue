@@ -30,6 +30,7 @@ import Form from "../components/form/form";
 import FormItem from "../components/form/form-item";
 import { Image } from "../components/image";
 import Input from "../components/input/input";
+import InputGroup from "../components/input/input-group";
 import InputNumber from "../components/input-number";
 import InputOTP from "../components/input-otp";
 import InputTag from "../components/input-tag";
@@ -272,5 +273,101 @@ describe("a Form keeps its tier off everything else", () => {
     expect(classesOf(wrapper, ".field")).toContain("k-input-circle");
     expect(classesOf(wrapper, ".panel")).toContain("k-card-square");
     expect(classesOf(wrapper, ".action")).toContain("k-btn-square");
+  });
+});
+
+// `InputGroup` is the control-family wrapper these two tables do not cover. It owns one visual state —
+// `k-input-group-fill`, which merges its addon boxes into the field — and its absence, which borders them,
+// so every tier except `fill` paints the bordered state. The contract worth pinning is that the group
+// always agrees with the field it wraps, because that is the only thing its border means.
+// react reaches the group from the form context directly, since its form speaks to everything below it.
+// vue's form reaches a control only through `FormItem`, and `FormItem` hands its field to a *marked* field
+// component sitting in its own slot — a wrapper is not one, and putting a second channel in the group would
+// have it border a field that is still filled. So here the tier arrives through `Input`, which resolves it
+// for the field and forwards what it resolved. Same visible result, one channel per tree.
+describe("InputGroup follows the tier its field is on", () => {
+  const groupTiers = (wrapper: ReturnType<typeof mount>) =>
+    tiersOf(classesOf(wrapper, ".k-input-group"), "k-input-group");
+
+  const underProvider = (tier?: string, groupProps: Record<string, unknown> = {}) =>
+    mount(ConfigProvider, {
+      attachTo: document.body,
+      props: tier === undefined ? {} : { theme: tier },
+      slots: { default: () => h(InputGroup, groupProps, () => h(Input)) },
+    });
+
+  const fieldWithAddon = (rootProps: Record<string, unknown>, formProps?: Record<string, unknown>) =>
+    mount(ConfigProvider, {
+      attachTo: document.body,
+      props: rootProps,
+      slots: {
+        default: () =>
+          formProps
+            ? h(Form, { model: { name: "" }, ...formProps }, () =>
+                h(FormItem, { prop: "name" }, () => h(Input, { addonBefore: "https://" })),
+              )
+            : h(Input, { addonBefore: "https://" }),
+      },
+    });
+
+  it("stays on its own fill when nothing asks for a tier", () => {
+    expect(groupTiers(underProvider())).toEqual(["k-input-group-fill"]);
+  });
+
+  for (const tier of TIERS.filter((name) => name !== "fill")) {
+    it(`ConfigProvider theme="${tier}" borders the addon boxes`, () => {
+      expect(groupTiers(underProvider(tier))).toEqual([]);
+    });
+
+    it(`ConfigProvider theme="${tier}" borders them on the group an Input builds`, () => {
+      const wrapper = fieldWithAddon({ theme: tier });
+      expect(classesOf(wrapper, ".k-input")).toContain(`k-input-${tier}`);
+      expect(groupTiers(wrapper)).toEqual([]);
+    });
+  }
+
+  it("an explicit theme outranks the tier it is standing in", () => {
+    expect(groupTiers(underProvider("outline", { theme: "fill" }))).toEqual([
+      "k-input-group-fill",
+    ]);
+    expect(groupTiers(underProvider("fill", { theme: "outline" }))).toEqual([]);
+  });
+
+  it("a form tier reaches it through the field it wraps", () => {
+    // The one shape vue's `FormItem` channel does cover: the form speaks to the control, and the control
+    // carries that tier into the group it builds around its own addons.
+    const wrapper = fieldWithAddon({}, { theme: "outline" });
+    expect(classesOf(wrapper, ".k-input")).toContain("k-input-outline");
+    expect(groupTiers(wrapper)).toEqual([]);
+  });
+
+  it("takes its size the same way, and hands it to the controls inside", () => {
+    const wrapper = fieldWithAddon({ size: "small" }, { size: "large" });
+    expect(classesOf(wrapper, ".k-input")).toContain("k-input-lg");
+    expect(classesOf(wrapper, ".k-input-group")).toContain("k-input-group-lg");
+
+    // A provider sizes a bare group exactly as it sizes the control that would sit in it.
+    const inherited = mount(ConfigProvider, {
+      attachTo: document.body,
+      props: { size: "small" },
+      slots: {
+        default: () => h(InputGroup, {}, () => h(Button, { class: "action" }, () => "按钮")),
+      },
+    });
+    expect(classesOf(inherited, ".k-input-group")).toContain("k-input-group-sm");
+    expect(classesOf(inherited, ".action")).toContain("k-btn-sm");
+
+    // A size written on the group outranks the provider, and it is that resolved size — not merely the one
+    // written on a parent — that the controls inside inherit, the way the react build passes it on.
+    const explicit = mount(ConfigProvider, {
+      attachTo: document.body,
+      props: { size: "large" },
+      slots: {
+        default: () =>
+          h(InputGroup, { size: "small" }, () => h(Button, { class: "action" }, () => "按钮")),
+      },
+    });
+    expect(classesOf(explicit, ".k-input-group")).toContain("k-input-group-sm");
+    expect(classesOf(explicit, ".action")).toContain("k-btn-sm");
   });
 });
