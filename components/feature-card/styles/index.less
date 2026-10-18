@@ -19,10 +19,9 @@
     box-shadow: 0 10px 30px color-mix(in srgb, var(--kui-color-text) 8%, transparent);
   }
 
+  // `bordered` is the legacy alias for `theme="outline"`. The outline tier near the bottom of this
+  // file paints its border and background, so this block only carries the icon chip override.
   &-bordered {
-    border-color: var(--kui-color-border);
-    background: none;
-
     .k-feature-card-icon {
       background: var(--kui-color-bg-component);
     }
@@ -133,7 +132,6 @@
 }
 .k-feature-card-plain {
   .kui-theme-value(plain);
-  box-shadow: none;
 }
 // `solid` paints the card with the primary surface, so the two things this component colours itself
 // have to invert with it: the description (the base rule paints it with a dark token) and the icon
