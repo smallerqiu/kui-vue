@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { render } from "less";
 import { describe, expect, it } from "vitest";
 
-// 死 CSS 守卫：③-3d-戊、③-3d-己、③-3d-庚 扫掉的那批规则不许悄悄长回来。
+// 死 CSS 守卫：③-3d-戊、③-3d-己、③-3d-庚、③-3d-辛 扫掉的那批规则不许悄悄长回来。
 //
 // 形状和 `tests/tree-styles.test.ts` 不一样，因为那一个在这里用不了 —— 它拿"编译出来的类名"去反查
 // "组件真的会输出的类名集合"，而这个单元删的三种东西反查都抓不住：
@@ -128,6 +128,66 @@ const CONTROL_FAMILY_SUPPRESSORS: { component: string; selector: string }[] = [
   ].map((selector) => ({ component: "color-picker", selector })),
 ];
 
+/**
+ * ③-3d-辛：date-picker 里压 hover / focus / 展开光晕的那 8 行（编译后 14 个选择器名）。
+ * **这一族和 己/庚 的判据不一样**：它自己从来没有光晕抽屉 —— 全库唯一给 `.k-datepicker` 画阴影的规则
+ * 在另一个文件里，`components/form/styles/index.less` 的报错作用域：
+ * `.k-form .k-form-item-error .k-datepicker:hover / :focus`（(0,4,0)）与
+ * `.k-form .k-form-item-error .k-datepicker-opened`（(0,3,0)）。这里每一行压制的特异度最多 (0,3,0)
+ * （`.k-datepicker-plain:not(.k-datepicker-disabled).k-datepicker-opened`）：**跨文件只看特异度，
+ * 特异度打平时看打包顺序**，而 `components/styles/components.less` 先 import date-picker、后 import
+ * form，所以报错态那圈红环一行也压不住；非报错态又根本没人画阴影 ⇒ 八行两头都没有存在理由。
+ * 判据是 216 个 fixture / 2376 个读数：逐条删各 0 处变化，**八行一起删也是 0 处**，
+ * 删完的样式和删之前的样式在同一套 fixture 上读数完全一致（带阴影的 150 个读数全在报错作用域里，值没动）。
+ * 逐条删永远只是初判 —— 同一个档的基座行和状态行写的是同一个值（plain、borderless 各一组），
+ * underlined 那行还被共用 mixin 的基座顶着，单删一行有另一行兜着，八行一起删才可能把光晕放回来；
+ * 反向对照 = 往基座注一条 (0,1,0) 的阴影，八行里立刻有五行的读数动起来，说明分类器不是空转。
+ * 计算值零变化 ⇒ 这一笔**不写更新日志**。
+ * `underlined` 的**基座**那条仍然写着 `box-shadow: none`，那行来自共用 mixin
+ * `.kui-theme-value(underlined)`，属于跨组件裁定，跟 己/庚 一样留到下一轮，所以这里只点它的状态臂。
+ */
+const DATE_PICKER_SUPPRESSORS = [
+  ".k-datepicker-fill:hover",
+  ".k-datepicker-fill:focus",
+  ".k-datepicker-plain:not(.k-datepicker-disabled)",
+  ".k-datepicker-plain:not(.k-datepicker-disabled):hover",
+  ".k-datepicker-plain:not(.k-datepicker-disabled):focus",
+  ".k-datepicker-plain:not(.k-datepicker-disabled).k-datepicker-opened",
+  ".k-datepicker-solid:not(.k-datepicker-disabled):hover",
+  ".k-datepicker-solid:not(.k-datepicker-disabled).k-datepicker-opened",
+  ".k-datepicker-underlined:not(.k-datepicker-disabled):hover",
+  ".k-datepicker-underlined:not(.k-datepicker-disabled).k-datepicker-opened",
+  ".k-datepicker-opened.k-datepicker-fill",
+  ".k-datepicker-borderless",
+  ".k-datepicker-borderless:hover",
+  ".k-datepicker-borderless:focus",
+].map((selector) => ({ component: "date-picker", selector }));
+
+/**
+ * 辛 的总闸：date-picker 编译结果里今天还允许出现 `box-shadow` 的地方只有两处 ——
+ *   · `.k-datepicker-overlay` 的弹层阴影，那条是真在画；
+ *   · `underlined` 基座那一行 `box-shadow: none`，它来自共用 mixin `.kui-theme-value(underlined)`，
+ *     要删得跨组件一起裁定，跟 己/庚 一样留到下一轮。
+ * 上面那张压制名单逐条点名，改个嵌套形状就能躲过去；这一条不认选择器名，只认"这个文件里还有谁写了
+ * box-shadow"，所以任何一处压制长回来（哪怕换了写法）都红。断言按 `选择器 + 值` 整对比较：值也钉住，
+ * 免得有人把 `none` 改成一条真的光晕再靠上面那张名单蒙过去。
+ */
+const DATE_PICKER_SHADOW_ALLOW_LIST = [
+  ".k-datepicker-overlay { box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow)) }",
+  ".k-datepicker-underlined:not(.k-datepicker-disabled) { box-shadow: none }",
+];
+
+/**
+ * 辛 判据的前提，同时也是它不敢顺手删掉的东西：全库唯一给 `.k-datepicker` 画阴影的规则在另一个文件里
+ * —— `components/form/styles/index.less` 的报错作用域。它一旦不画了，date-picker 的错误态会静悄悄
+ * 丢掉那圈红环，而这正是"档规则不需要压制"的理由成立的那个世界里的代价，所以单独守一条。
+ */
+const DATE_PICKER_ERROR_DRAWERS = [
+  ".k-form .k-form-item-error .k-datepicker:hover",
+  ".k-form .k-form-item-error .k-datepicker:focus",
+  ".k-form .k-form-item-error .k-datepicker-opened",
+];
+
 /** 规则还在、但这条声明不能回来。 */
 const DEAD_DECLARATIONS: { component: string; selector: string; property: string }[] = [
   { component: "card", selector: ".k-card-plain", property: "box-shadow" },
@@ -166,6 +226,11 @@ const DEAD_DECLARATIONS: { component: string; selector: string; property: string
     })),
   ),
   ...CONTROL_FAMILY_SUPPRESSORS.map(({ component, selector }) => ({
+    component,
+    selector,
+    property: "box-shadow",
+  })),
+  ...DATE_PICKER_SUPPRESSORS.map(({ component, selector }) => ({
     component,
     selector,
     property: "box-shadow",
@@ -369,6 +434,27 @@ const LIVE_SELECTORS: { component: string; selector: string }[] = [
   // 色选框展开态现在只画边；`k-color-picker-opened` 这条规则本身还在（`theme-variants` 靠它认档）。
   { component: "color-picker", selector: ".k-color-picker.k-color-picker-opened" },
   { component: "color-picker", selector: ".k-color-picker-plain:not(.k-color-picker-disabled)" },
+  // 辛 同理：八行里只摘走 `box-shadow: none`，换边、铺底、反白焦点环全压在那些规则身上。
+  { component: "date-picker", selector: ".k-datepicker-fill:hover" },
+  { component: "date-picker", selector: ".k-datepicker-fill:focus" },
+  { component: "date-picker", selector: ".k-datepicker-opened.k-datepicker-fill" },
+  { component: "date-picker", selector: ".k-datepicker-plain:not(.k-datepicker-disabled)" },
+  {
+    component: "date-picker",
+    selector: ".k-datepicker-plain:not(.k-datepicker-disabled).k-datepicker-opened",
+  },
+  {
+    component: "date-picker",
+    selector: ".k-datepicker-solid:not(.k-datepicker-disabled):hover",
+  },
+  {
+    component: "date-picker",
+    selector: ".k-datepicker-underlined:not(.k-datepicker-disabled):hover",
+  },
+  { component: "date-picker", selector: ".k-datepicker-borderless" },
+  { component: "date-picker", selector: ".k-datepicker-borderless:hover" },
+  // 弹层阴影是活的，别跟着根元素一起清。
+  { component: "date-picker", selector: ".k-datepicker-overlay" },
 ];
 
 const compile = async (component: string) => {
@@ -380,14 +466,24 @@ const compile = async (component: string) => {
       // `fullSelector` 保留 `:not(a, b, …)` 里那些逗号：按逗号切开是给"选择器必须逐字存在"那类断言用的，
       // 而多参数的 `:not()` 一切就碎，只能整条比对（见 `GUARDED_DRAWERS`）。
       const selectorText = chunk.slice(0, open).trim().replace(/\s+/g, " ");
+      // 属性名够"这条声明不能回来"那类断言用；`declarations` 带上值，是给 辛 那条总闸用的 ——
+      // 它要钉住"这个文件里还有谁写了 box-shadow、写的是什么值"，只看属性名会被 `none` 换成真光晕绕过。
+      const declarations = chunk
+        .slice(open + 1, -1)
+        .split(";")
+        .map((declaration) => {
+          const colon = declaration.indexOf(":");
+          return [
+            declaration.slice(0, colon).trim(),
+            declaration.slice(colon + 1).trim().replace(/\s+/g, " "),
+          ] as const;
+        })
+        .filter(([property]) => property);
       return {
         fullSelector: selectorText,
         selectors: splitSelectorList(selectorText),
-        properties: chunk
-          .slice(open + 1, -1)
-          .split(";")
-          .map((declaration) => declaration.split(":")[0]!.trim())
-          .filter(Boolean),
+        declarations,
+        properties: declarations.map(([property]) => property),
       };
     },
   );
@@ -482,6 +578,25 @@ describe("theme 死 CSS 守卫", () => {
   LIVE_SELECTORS.forEach(({ component, selector }) => {
     it(`${component}: 还在用的 ${selector} 没被顺手删掉`, async () => {
       expect([...simpleSelectors(await compile(component))]).toContain(selector);
+    });
+  });
+
+  it("date-picker: 只有弹层阴影和共用 mixin 那行 none 还能声明 box-shadow", async () => {
+    const painted = (await compile("date-picker")).flatMap((rule) =>
+      rule.declarations
+        .filter(([property]) => property === "box-shadow")
+        .flatMap(([, value]) =>
+          rule.selectors.map((selector) => `${selector} { box-shadow: ${value} }`),
+        ),
+    );
+    expect(painted.sort()).toEqual([...DATE_PICKER_SHADOW_ALLOW_LIST].sort());
+  });
+
+  DATE_PICKER_ERROR_DRAWERS.forEach((selector) => {
+    it(`form: 报错作用域还在给 ${selector} 画红环（辛 判据的前提）`, async () => {
+      const rules = (await compile("form")).filter((rule) => rule.selectors.includes(selector));
+      expect(rules, `${selector} 的规则没了`).toHaveLength(1);
+      expect(rules[0]!.properties).toContain("box-shadow");
     });
   });
 });

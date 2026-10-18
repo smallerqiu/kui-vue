@@ -117,21 +117,28 @@
 .k-datepicker-fill {
   .kui-theme-value(fill);
 
+  // No `box-shadow: none` here or below: nothing in the library paints a glow on `.k-datepicker`.
+  // The only rule that ever does is the Form error scope (`components/form/styles/index.less`,
+  // `.k-form .k-form-item-error .k-datepicker:hover` / `… .k-datepicker-opened`). Across files only
+  // specificity counts, and where a tier ties with it at (0,3,0) the bundle decides: `components.less`
+  // imports date-picker before form, so the error ring was never reachable from here. Non-error
+  // states had no glow to suppress at all, so these eight lines had no reason to exist either way.
+  // Sweep verified over 216 fixtures / 2376 computed reads: deleting all eight at once moves nothing,
+  // and the swept file reads identical to the pre-sweep one (the 150 readings that do carry a shadow
+  // are all the error ring, unchanged). Injecting a base glow moves five of the eight, so the
+  // classifier is not idling.
   &:hover,
   &:focus {
-    box-shadow: none;
     border-color: transparent;
   }
 }
 .k-datepicker-plain:not(.k-datepicker-disabled) {
   .kui-theme-value(plain);
-  box-shadow: none;
 
   &:hover,
   &:focus,
   &.k-datepicker-opened {
     .kui-theme-value(plain);
-    box-shadow: none;
   }
 }
 
@@ -160,7 +167,6 @@
       --kui-color-primary-hover,
       color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
     );
-    box-shadow: none;
   }
 
   &:focus,
@@ -185,7 +191,6 @@
   &:hover,
   &.k-datepicker-opened {
     border-color: transparent transparent var(--kui-color-primary);
-    box-shadow: none;
     outline: none;
   }
 }
@@ -217,7 +222,6 @@
     var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
   &.k-datepicker-fill {
     border-color: transparent;
-    box-shadow: none;
   }
   &:focus {
     outline: var(--kui-focus-ring-width) solid
@@ -311,13 +315,11 @@
 
 .k-datepicker-borderless {
   border-color: transparent;
-  box-shadow: none;
   background-color: transparent;
 
   &:hover,
   &:focus {
     border-color: transparent;
-    box-shadow: none;
   }
 }
 

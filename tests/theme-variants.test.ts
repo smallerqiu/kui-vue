@@ -207,8 +207,9 @@ it("paints the four tiers the controls used to swallow", async () => {
     );
     // A `solid` box must not wear the base glow over its own fill. Whether the block says that by
     // hand or by never having to say it is a cascade question: the base hover rule names `solid`
-    // inside its `:not()`, so 3d-己 swept the `none` out of the select family and `DatePicker` still
-    // carries its own (that family's sweep is its own unit). Absence and `none` both mean flat.
+    // inside its `:not()`, so nothing repaints it, and 己 (select family) / 辛 (DatePicker) removed
+    // the hand-written `none`. Absence and `none` both mean flat, and this suite asserts the look,
+    // not the sweep - `tests/theme-dead-css.test.ts` is what pins the declaration away.
     expect(solidHover.get("box-shadow") ?? "none", `${name} solid hover grew a glow`).toBe("none");
     // The base ring is primary on a primary surface, i.e. invisible; it is redrawn inverted rather
     // than dropped, so a keyboard user still sees focus.
@@ -257,8 +258,8 @@ it("paints `plain` on the controls, guarded so a disabled box stays disabled", a
     const plain = `.${name}-plain:not(.${name}-disabled)`;
     // The values come from the shared `plain` arm, not from a re-copied `transparent`, and the arm
     // paints no shadow, so the tier has nothing to suppress: `box-shadow` may be absent (swept in
-    // 3d-己) or `none` (`DatePicker` still hand-states it, its sweep is a later unit) - a real glow
-    // here would be the only wrong answer.
+    // 3d-己 for the select family, 3d-辛 for `DatePicker`) or `none` - a real glow here would be the
+    // only wrong answer.
     const plainBody = declarations(compiled.get(plain), `${name} plain`);
     expect(plainBody.get("border-color"), `${name} paints no plain box`).toBe(
       "var(--kui-theme-plain-border)",
