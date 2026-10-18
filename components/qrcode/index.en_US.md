@@ -28,6 +28,10 @@ A component that converts text into QR codes, supporting custom colors and logo 
 
 - Customize the display for different status states.
 
+[Appearance](./demo/appearance.vue)
+
+- `theme` paints the surface around the matrix; the modules keep the same ink in every look, and nothing written leaves it `outline`.
+
 ## API
 
 | Property | Description | Type | Default |

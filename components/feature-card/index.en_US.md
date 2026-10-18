@@ -20,6 +20,10 @@ Used to present product features, navigation entries, or capability descriptions
 
 - Combine `direction="vertical"` and `clickable` for a keyboard-accessible feature entry.
 
+[Appearance](./demo/appearance.vue?show=vertical)
+
+- Shares the `theme` appearance system with the other surface components; `solid` plates the icon and the title on the primary colour.
+
 ## API
 
 | Property | Description | Type | Default |

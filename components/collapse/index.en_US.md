@@ -29,6 +29,10 @@ Content area that can be collapsed/expanded.
 
 - Set `sample` to display a borderless, minimal style.
 
+[Appearance](./demo/appearance.vue)
+
+- `theme` is the shared appearance scale; the tier lands on every panel head, and the panel starts on `outline`.
+
 ## API
 
 | Property | Description | Type | Default |

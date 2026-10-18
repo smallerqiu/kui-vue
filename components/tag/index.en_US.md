@@ -30,6 +30,10 @@ Small labels for marking and categorization.
 
 - Use `closeable` to show a close button.
 
+[Appearance](./demo/appearance.vue)
+
+- Five looks, `fill` when nothing is written. `solid` puts the chip on the primary and inverts its label and close button; a `color` written on the tag outranks the tier.
+
 ## Theme
 
 `theme` supports `fill`, `outline`, `plain`, `solid` and `dashed`. Leaving it unset means `fill`; `underlined` belongs to controls you type into, so a tag renders as `fill`.

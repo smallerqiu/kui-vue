@@ -25,6 +25,10 @@ Previewable images.
 
 - Can extend custom tools and panels.
 
+[Appearance](./demo/appearance.vue)
+
+- `theme` paints the frame around a picture: `outline` and `dashed` edge it, `fill` plates it, `solid` fills it with the primary and inverts placeholder text. Nothing written leaves it `plain`.
+
 ## Image API
 
 | Property | Description | Type | Default |

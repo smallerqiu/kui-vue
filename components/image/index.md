@@ -25,6 +25,10 @@
 
 - 可以扩展自定工具和面板。
 
+[外观](./demo/appearance.vue)
+
+- `theme` 画在图片的外框上：`outline` 与 `dashed` 描边，`fill` 铺底，`solid` 用主色铺满并把占位文字反白；不写 `theme` 时是 `plain`。
+
 ## Image API
 
 | 属性 | 说明 | 类型 | 默认值 |

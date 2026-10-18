@@ -30,6 +30,10 @@
 
 - 通过 `closeable` 显示关闭按钮
 
+[外观](./demo/appearance.vue)
+
+- `theme` 支持五档，不写时是 `fill`；`solid` 把标签铺到主色上，标签文字和关闭按钮一起反白。标签自己写了 `color` 时颜色优先于档位。
+
 ## 主题
 
 `theme` 支持 `fill`、`outline`、`plain`、`solid`、`dashed` 五种外观，不写 `theme` 时就是 `fill`；`underlined` 是给可输入的控件用的，标签会按 `fill` 呈现。

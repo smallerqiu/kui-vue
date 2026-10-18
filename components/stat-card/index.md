@@ -20,6 +20,10 @@
 
 - 结合`Card` 组件展示更多自定义数据
 
+[外观](./demo/appearance.vue?show=vertical)
+
+- 五档 `theme` 都落在卡片表面上；`solid` 时数值和描述一起换成底板上的浅色文字。
+
 ## API
 
 | 属性 | 说明 | 类型 | 默认值 |

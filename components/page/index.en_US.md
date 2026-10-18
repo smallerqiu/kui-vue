@@ -29,6 +29,10 @@ Separate long lists using pagination, loading only one page at a time.
 
 - Drag the bottom-right corner to resize the container. Pagination first reduces page numbers, then switches to Simple when space is limited. The page-size selector remains available and may wrap. Widening the container restores the full layout without changing the page or emitting change events. Set `responsive` to `false` to disable adaptation; `simple` always forces Simple mode.
 
+[Appearance](./demo/appearance.vue?show=vertical)
+
+- The tier lands on the page-number cells rather than the bar around them; `solid` plates the cells on the primary and inverts the digits, while the total line and the previous/next arrows keep the bar's own background.
+
 ## API
 
 | Property | Description | Type | Default |

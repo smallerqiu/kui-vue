@@ -12,6 +12,10 @@ Embeds status, supporting information, and next steps within page content.
 
 - Define feedback types using 'kind'
 
+[Appearance](./demo/appearance.vue?show=vertical)
+
+- `theme` only decides how much the panel plates itself; the 4px status stripe and the icon are content, so none of the five looks repaints them.
+
 ## API
 
 | Property | Description | Type | Default |

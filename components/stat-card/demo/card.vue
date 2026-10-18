@@ -42,17 +42,17 @@
 </template>
 <script setup lang="ts">
 import { Heart, Star } from "kui-icons";
-import { Icon, type SizeType, type StatNumberItem } from "kui-vue";
+import { Icon, type SizeType, type StatNumberItem, type SurfaceThemeType } from "kui-vue";
 import { h, ref } from "vue";
 const showTitle = ref(true);
 const reverse = ref(false);
 const size = ref<SizeType>("medium");
-const theme = ref<"fill" | "outline" | "plain">("fill");
+const theme = ref<SurfaceThemeType>("fill");
 const sizes = ["small", "medium", "large"].map((value) => ({
   value,
   label: value,
 }));
-const themeOptions = ["outline", "fill", "plain"].map((value) => ({
+const themeOptions = ["outline", "fill", "plain", "solid", "dashed"].map((value) => ({
   value,
   label: value,
 }));

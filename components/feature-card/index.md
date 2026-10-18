@@ -20,6 +20,10 @@
 
 - 组合 `direction="vertical"` 与 `clickable` 创建具有键盘交互能力的功能入口。
 
+[外观](./demo/appearance.vue?show=vertical)
+
+- 与其他表面组件共用 `theme` 外观体系；`solid` 会把图标底板和标题一起铺到主色上。
+
 ## API
 
 | 属性 | 说明 | 类型 | 默认值 |

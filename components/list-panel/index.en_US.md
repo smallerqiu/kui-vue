@@ -20,6 +20,10 @@ Provides a consistent layout for filters, result summaries, list content and pag
 
 - Replace the regular toolbar with `selection` while Table rows are selected.
 
+[Appearance](./demo/appearance.vue?show=vertical)
+
+- The panel plates nothing itself: the tier is painted on the card it renders under the header, and `solid` inverts the result summary and the bulk-action strip.
+
 ## API
 
 | Property | Description | Type | Default |

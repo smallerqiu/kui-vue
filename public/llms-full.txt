@@ -322,6 +322,10 @@ Warning prompts to display information that needs attention.
 
 - Use `showIcon` to control whether the icon is displayed.
 
+[Appearance](./demo/appearance.vue)
+
+- `type` picks the colour and `theme` only decides how much of it shows; `solid` spreads that same semantic colour rather than the primary, and inverts the text, icon and close button.
+
 ## Closing
 
 Clicking the close button triggers `close`. After the exit animation, the content is removed and `afterClose` fires.
@@ -1184,6 +1188,10 @@ Used to present product features, navigation entries, or capability descriptions
 
 - Combine `direction="vertical"` and `clickable` for a keyboard-accessible feature entry.
 
+[Appearance](./demo/appearance.vue?show=vertical)
+
+- Shares the `theme` appearance system with the other surface components; `solid` plates the icon and the title on the primary colour.
+
 ## API
 
 | Property | Description | Type | Default |
@@ -1282,6 +1290,10 @@ Provides a consistent layout for filters, result summaries, list content and pag
 [Bulk actions](./demo/selection.vue?show=vertical)
 
 - Replace the regular toolbar with `selection` while Table rows are selected.
+
+[Appearance](./demo/appearance.vue?show=vertical)
+
+- The panel plates nothing itself: the tier is painted on the card it renders under the header, and `solid` inverts the result summary and the bulk-action strip.
 
 ## API
 
@@ -1541,7 +1553,7 @@ Present richer choices with a title, description, and optional symbol.
 
 [Appearance and disabled](./demo/appearance.vue?show=vertical)
 
-- Themes, sizes, shapes, and disabled states.
+- Five appearance tiers - `fill` / `outline` / `plain` / `solid` / `dashed` - plus sizes, shapes, and a disabled state.
 
 ## CheckCard API
 
@@ -1612,7 +1624,7 @@ Present richer choices with a title, description, and optional symbol.
 
 [Appearance and disabled](./demo/appearance.vue?show=vertical)
 
-- Themes, sizes, shapes, and disabled states.
+- Five appearance tiers - `fill` / `outline` / `plain` / `solid` / `dashed` - plus sizes, shapes, and a disabled state.
 
 ## CheckCard API
 
@@ -1689,6 +1701,10 @@ Content area that can be collapsed/expanded.
 
 - Set `sample` to display a borderless, minimal style.
 
+[Appearance](./demo/appearance.vue)
+
+- `theme` is the shared appearance scale; the tier lands on every panel head, and the panel starts on `outline`.
+
 ## API
 
 | Property | Description | Type | Default |
@@ -1748,6 +1764,10 @@ Content area that can be collapsed/expanded.
 [Simple Mode](./demo/sample.vue)
 
 - Set `sample` to display a borderless, minimal style.
+
+[Appearance](./demo/appearance.vue)
+
+- `theme` is the shared appearance scale; the tier lands on every panel head, and the panel starts on `outline`.
 
 ## API
 
@@ -2852,6 +2872,10 @@ Previewable images.
 
 - Can extend custom tools and panels.
 
+[Appearance](./demo/appearance.vue)
+
+- `theme` paints the frame around a picture: `outline` and `dashed` edge it, `fill` plates it, `solid` fills it with the primary and inverts placeholder text. Nothing written leaves it `plain`.
+
 ## Image API
 
 | Property | Description | Type | Default |
@@ -2915,6 +2939,10 @@ Previewable images.
 [Extension](./demo/extra.vue)
 
 - Can extend custom tools and panels.
+
+[Appearance](./demo/appearance.vue)
+
+- `theme` paints the frame around a picture: `outline` and `dashed` edge it, `fill` plates it, `solid` fills it with the primary and inverts placeholder text. Nothing written leaves it `plain`.
 
 ## Image API
 
@@ -4265,6 +4293,10 @@ Separate long lists using pagination, loading only one page at a time.
 
 - Drag the bottom-right corner to resize the container. Pagination first reduces page numbers, then switches to Simple when space is limited. The page-size selector remains available and may wrap. Widening the container restores the full layout without changing the page or emitting change events. Set `responsive` to `false` to disable adaptation; `simple` always forces Simple mode.
 
+[Appearance](./demo/appearance.vue?show=vertical)
+
+- The tier lands on the page-number cells rather than the bar around them; `solid` plates the cells on the primary and inverts the digits, while the total line and the previous/next arrows keep the bar's own background.
+
 ## API
 
 | Property | Description | Type | Default |
@@ -4539,6 +4571,10 @@ A component that converts text into QR codes, supporting custom colors and logo 
 [Custom Status](./demo/custom-status.vue)
 
 - Customize the display for different status states.
+
+[Appearance](./demo/appearance.vue)
+
+- `theme` paints the surface around the matrix; the modules keep the same ink in every look, and nothing written leaves it `outline`.
 
 ## API
 
@@ -4999,6 +5035,10 @@ Embeds status, supporting information, and next steps within page content.
 [Feedback Kinds](./demo/kinds.vue?show=vertical)
 
 - Define feedback types using 'kind'
+
+[Appearance](./demo/appearance.vue?show=vertical)
+
+- `theme` only decides how much the panel plates itself; the 4px status stripe and the icon are content, so none of the five looks repaints them.
 
 ## API
 
@@ -5748,6 +5788,10 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 [Combination Display](./demo/with-card.vue)
 
 - Show more custom data combined with the `Card` component
+
+[Appearance](./demo/appearance.vue?show=vertical)
+
+- All five `theme` tiers change the card surface; on `solid` the numbers and their captions take the light ink of the plate.
 
 ## API
 
@@ -7468,6 +7512,10 @@ Small labels for marking and categorization.
 [Dynamic Add and Remove](./demo/dynamic.vue)
 
 - Use `closeable` to show a close button.
+
+[Appearance](./demo/appearance.vue)
+
+- Five looks, `fill` when nothing is written. `solid` puts the chip on the primary and inverts its label and close button; a `color` written on the tag outranks the tier.
 
 ## Theme
 

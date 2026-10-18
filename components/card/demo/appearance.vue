@@ -17,5 +17,5 @@
 import type { CardShape, SurfaceThemeType } from "kui-vue";
 
 const shapes: CardShape[] = ["round", "square"];
-const themes: SurfaceThemeType[] = ["fill", "outline", "plain"];
+const themes: SurfaceThemeType[] = ["fill", "outline", "plain", "solid", "dashed"];
 </script>

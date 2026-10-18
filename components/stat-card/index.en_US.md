@@ -20,6 +20,10 @@ Can be used in BI/Dashboard scenarios, business backend oriented, intuitive.
 
 - Show more custom data combined with the `Card` component
 
+[Appearance](./demo/appearance.vue?show=vertical)
+
+- All five `theme` tiers change the card surface; on `solid` the numbers and their captions take the light ink of the plate.
+
 ## API
 
 | Property | Description | Type | Default |

@@ -25,6 +25,10 @@ Warning prompts to display information that needs attention.
 
 - Use `showIcon` to control whether the icon is displayed.
 
+[Appearance](./demo/appearance.vue)
+
+- `type` picks the colour and `theme` only decides how much of it shows; `solid` spreads that same semantic colour rather than the primary, and inverts the text, icon and close button.
+
 ## Closing
 
 Clicking the close button triggers `close`. After the exit animation, the content is removed and `afterClose` fires.
