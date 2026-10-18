@@ -236,28 +236,23 @@
   transition: none;
 
   &:hover {
-    box-shadow: none;
     border-color: transparent;
   }
 
   &:focus .k-tree-select {
-    box-shadow: none;
     border-color: transparent;
   }
 }
 .k-tree-select-plain:not(.k-tree-select-disabled) {
   .kui-theme-value(plain);
-  box-shadow: none;
 
   &:hover,
   &:focus,
   &.k-tree-select-opened {
     .kui-theme-value(plain);
-    box-shadow: none;
   }
 
   .k-tree-select-selection {
-    box-shadow: none;
     border-color: transparent;
     background-color: transparent;
   }
@@ -298,7 +293,6 @@
       --kui-color-primary-hover,
       color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
     );
-    box-shadow: none;
   }
 
   // The base focus ring is primary-on-primary here, i.e. invisible. Keep the same ring and draw it
@@ -341,7 +335,6 @@
   &:hover,
   &.k-tree-select-opened {
     border-color: transparent transparent var(--kui-color-primary);
-    box-shadow: none;
     outline: none;
   }
 }
@@ -510,12 +503,28 @@
   }
 }
 
-.k-tree-select-opened {
-  // border-color: var(--kui-color-primary);
+// The glow that says "this box is open" is drawn only for the tiers that keep the base interaction -
+// `outline`, `dashed` and a box with no tier at all - on the same exclusion list the `:hover` rule
+// above uses. It used to be unconditional, so every other tier had to patch the glow away somewhere:
+// eight of those patches never applied to anything (nothing ever paints a shadow on the inner
+// `.k-tree-select-selection`, and `&:focus .k-tree-select` cannot match a box that carries both
+// classes itself), and `fill` and every disabled box still glowed while open but stopped the moment
+// the pointer arrived. The ring below stays for all tiers; only the glow is gated.
+.k-tree-select-opened:not(
+  .k-tree-select-disabled,
+  .k-tree-select-fill,
+  .k-tree-select-borderless,
+  .k-tree-select-plain,
+  .k-tree-select-solid,
+  .k-tree-select-underlined
+) {
   box-shadow: var(
     --kui-component-shadow,
     0 0 2px color-mix(in srgb, var(--kui-color-primary) 10%, transparent)
   );
+}
+.k-tree-select-opened {
+  // border-color: var(--kui-color-primary);
   outline: var(--kui-focus-ring-width) solid
     var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
   outline-offset: 1px;
@@ -525,7 +534,6 @@
   }
 
   &.k-tree-select-fill .k-tree-select-selection {
-    box-shadow: none;
     border-color: transparent;
   }
 }
@@ -584,16 +592,13 @@
 .k-tree-select-borderless {
   border-color: transparent;
   background-color: transparent;
-  box-shadow: none;
 
   &:hover,
   &:focus {
     border-color: transparent;
-    box-shadow: none;
   }
 
   .k-tree-select-selection {
-    box-shadow: none;
     border-color: transparent;
     background-color: transparent;
   }

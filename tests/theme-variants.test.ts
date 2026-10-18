@@ -205,7 +205,11 @@ it("paints the four tiers the controls used to swallow", async () => {
     expect(solidHover.get("background-color")).toBe(
       "var(--kui-color-primary-hover, color-mix(in srgb, var(--kui-color-primary) 90%, transparent))",
     );
-    expect(solidHover.get("box-shadow")).toBe("none");
+    // A `solid` box must not wear the base glow over its own fill. Whether the block says that by
+    // hand or by never having to say it is a cascade question: the base hover rule names `solid`
+    // inside its `:not()`, so 3d-己 swept the `none` out of the select family and `DatePicker` still
+    // carries its own (that family's sweep is its own unit). Absence and `none` both mean flat.
+    expect(solidHover.get("box-shadow") ?? "none", `${name} solid hover grew a glow`).toBe("none");
     // The base ring is primary on a primary surface, i.e. invisible; it is redrawn inverted rather
     // than dropped, so a keyboard user still sees focus.
     expect(
@@ -251,22 +255,36 @@ it("paints `plain` on the controls, guarded so a disabled box stays disabled", a
   for (const { entry, name, selection } of PLAIN_CONTROLS) {
     const compiled = await fileRules(entry);
     const plain = `.${name}-plain:not(.${name}-disabled)`;
-    // The values come from the shared `plain` arm, not from a re-copied `transparent`.
-    expect(compiled.get(plain), `${name} paints no plain box`).toBe(
-      "border-color: var(--kui-theme-plain-border); background: var(--kui-theme-plain-bg); box-shadow: none",
+    // The values come from the shared `plain` arm, not from a re-copied `transparent`, and the arm
+    // paints no shadow, so the tier has nothing to suppress: `box-shadow` may be absent (swept in
+    // 3d-己) or `none` (`DatePicker` still hand-states it, its sweep is a later unit) - a real glow
+    // here would be the only wrong answer.
+    const plainBody = declarations(compiled.get(plain), `${name} plain`);
+    expect(plainBody.get("border-color"), `${name} paints no plain box`).toBe(
+      "var(--kui-theme-plain-border)",
     );
+    expect(plainBody.get("background"), `${name} plain paints no surface`).toBe(
+      "var(--kui-theme-plain-bg)",
+    );
+    expect(plainBody.get("box-shadow") ?? "none", `${name} plain is not flat`).toBe("none");
     // Hover, focus and an open panel must not bring a border or a surface back.
-    expect(
+    const plainStates = declarations(
       compiled.get(`${plain}:hover, ${plain}:focus, ${plain}.${name}-opened`),
       `${name} lets plain repaint on hover / focus / opened`,
-    ).toBe(
-      "border-color: var(--kui-theme-plain-border); background: var(--kui-theme-plain-bg); box-shadow: none",
+    );
+    expect(plainStates.get("border-color")).toBe("var(--kui-theme-plain-border)");
+    expect(plainStates.get("background")).toBe("var(--kui-theme-plain-bg)");
+    expect(plainStates.get("box-shadow") ?? "none", `${name} plain repaints while open`).toBe(
+      "none",
     );
     if (selection)
+      // The inner box is a layout wrapper: no rule in the library paints a border, a surface or a
+      // shadow on it, which is exactly why 3d-己 could take this suppression away and leave the two
+      // declarations that do the work.
       expect(
         compiled.get(`${plain} .${name}-selection`),
         `${name} leaves the inner box of a plain control painted`,
-      ).toBe("box-shadow: none; border-color: transparent; background-color: transparent");
+      ).toBe("border-color: transparent; background-color: transparent");
 
     // The base control rule repaints the border on hover and out-specifies the blocks above, which
     // is how a borderless or plain box grew a primary border under the pointer — so it has to name
@@ -1234,10 +1252,9 @@ it("paints a pager's tiers, states and inverted parts on its cells", async () =>
         paints(key, "k-page", tier, "", cells) &&
         covers(declarations(body, key), everyArm.get(tier)!),
     );
-    expect(
-      painted.length,
-      `page paints no .kui-theme-value(${tier}) on ${cells}`,
-    ).toBeGreaterThan(0);
+    expect(painted.length, `page paints no .kui-theme-value(${tier}) on ${cells}`).toBeGreaterThan(
+      0,
+    );
   }
 
   // The `…` cell is plated by all three plate tiers, and its icon carries a colour of its own
@@ -1353,10 +1370,9 @@ it("paints a board's tiers on its columns and keeps the drop hint above them", a
   // edge a caller dragged a card over never drew.
   const hint = keys.find((key) => key.includes(".k-kanban-column-drag-over"));
   expect(hint, "a board paints no drop hint").toBeDefined();
-  expect(
-    hint!,
-    `the drop hint must name the column class to reach its plate: ${hint}`,
-  ).toContain(".k-kanban-column.k-kanban-column-drag-over");
+  expect(hint!, `the drop hint must name the column class to reach its plate: ${hint}`).toContain(
+    ".k-kanban-column.k-kanban-column-drag-over",
+  );
   expect(
     declarations(compiled.get(hint!)!, "kanban drop hint").get("border-color"),
     "a board's drop hint lost its primary edge",
@@ -1451,10 +1467,9 @@ it("paints a transfer's tiers on its lists and leaves what other components own"
     key.startsWith(".k-transfer-solid .k-transfer-header .k-checkbox"),
   );
   expect(title, "a solid transfer paints no header title").toBeDefined();
-  expect(
-    title!,
-    `a solid transfer turns the title of an empty panel white: ${title}`,
-  ).toContain(":not(.k-checkbox-disabled)");
+  expect(title!, `a solid transfer turns the title of an empty panel white: ${title}`).toContain(
+    ":not(.k-checkbox-disabled)",
+  );
 
   // A disabled transfer — the whole bar, or one row of it — has to read as disabled on a primary plate.
   // Every part `solid` names is a direct rule, so the base `.k-transfer.is-disabled` on the root only

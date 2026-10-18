@@ -135,16 +135,13 @@
 .k-cascader-borderless {
   border-color: transparent;
   background-color: transparent;
-  box-shadow: none;
 
   &:hover,
   &:focus {
     border-color: transparent;
-    box-shadow: none;
   }
 
   .k-cascader-selection {
-    box-shadow: none;
     border-color: transparent;
     background-color: transparent;
   }
@@ -261,28 +258,23 @@
   transition: none;
 
   &:hover {
-    box-shadow: none;
     border-color: transparent;
   }
 
   &:focus .k-cascader {
-    box-shadow: none;
     border-color: transparent;
   }
 }
 .k-cascader-plain:not(.k-cascader-disabled) {
   .kui-theme-value(plain);
-  box-shadow: none;
 
   &:hover,
   &:focus,
   &.k-cascader-opened {
     .kui-theme-value(plain);
-    box-shadow: none;
   }
 
   .k-cascader-selection {
-    box-shadow: none;
     border-color: transparent;
     background-color: transparent;
   }
@@ -314,7 +306,6 @@
       --kui-color-primary-hover,
       color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
     );
-    box-shadow: none;
   }
 
   // The base focus ring is primary-on-primary here, i.e. invisible. Keep the same ring and draw it
@@ -343,7 +334,6 @@
   &:hover,
   &.k-cascader-opened {
     border-color: transparent transparent var(--kui-color-primary);
-    box-shadow: none;
     outline: none;
   }
 }
