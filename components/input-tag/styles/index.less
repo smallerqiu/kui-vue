@@ -33,13 +33,25 @@
 
   &:focus-within {
     border-color: var(--kui-color-primary);
+    outline: var(--kui-focus-ring-width) solid
+      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
+    outline-offset: 1px;
+  }
+
+  // The glow is only for the tiers that keep the base interaction — `outline`, `dashed` and a box
+  // with no tier at all — on the same exclusion list the hover rule above uses. The border repaint
+  // and the focus ring stay for every tier, so the tiers do not patch the glow away one by one.
+  &:focus-within:not(
+      .k-input-tag-disabled,
+      .k-input-tag-fill,
+      .k-input-tag-plain,
+      .k-input-tag-solid,
+      .k-input-tag-underlined
+    ) {
     box-shadow: var(
       --kui-component-shadow,
       0 0 2px color-mix(in srgb, var(--kui-color-primary) 10%, transparent)
     );
-    outline: var(--kui-focus-ring-width) solid
-      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
-    outline-offset: 1px;
   }
 
   .k-input-tag-input {
@@ -151,7 +163,6 @@
   &:hover,
   &:focus-within {
     border-color: transparent;
-    box-shadow: none;
   }
 }
 
@@ -183,14 +194,12 @@
       --kui-color-primary-hover,
       color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
     );
-    box-shadow: none;
   }
 
   // The base ring is primary on a primary surface, i.e. invisible: it is redrawn in the inverted
   // text colour rather than dropped, so a keyboard user still sees where the caret is.
   &:focus-within {
     outline-color: color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent);
-    box-shadow: none;
   }
 
   .k-input-tag-input {
@@ -223,7 +232,6 @@
   &:hover,
   &:focus-within {
     border-color: transparent transparent var(--kui-color-primary);
-    box-shadow: none;
     outline: none;
   }
 }
@@ -233,13 +241,11 @@
 // disabled plain box still reads as disabled.
 .k-input-tag-plain:not(.k-input-tag-disabled) {
   .kui-theme-value(plain);
-  box-shadow: none;
 
   &:hover,
   &:focus-within {
     border-color: transparent;
     background: transparent;
-    box-shadow: none;
     outline: none;
   }
 }

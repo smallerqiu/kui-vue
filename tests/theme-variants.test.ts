@@ -312,6 +312,11 @@ it("paints `plain` on the controls, guarded so a disabled box stays disabled", a
 // owns its states has to name the open panel the way the select family names `:focus`. The base
 // opened rule is compound (`.k-color-picker.k-color-picker-opened`) so it still out-specifies the
 // tiers that keep a border of their own.
+//
+// Since 3d-庚 the glow that rule used to paint lives on a sibling with an exclusion list, so a tier
+// being flat here is a cascade question again: the declaration may be absent (swept) or `none` — a
+// real glow is the only wrong answer. The edge still lights for every tier, which is why the
+// interaction rules below are read for `border-color`, not for the whole body.
 it("paints the four tiers on the color picker trigger", async () => {
   const compiled = await fileRules("components/color-picker/styles/index.less");
   const name = "k-color-picker";
@@ -330,7 +335,14 @@ it("paints the four tiers on the color picker trigger", async () => {
     declarations(
       compiled.get(`${fill}:hover, ${fill}.${name}-opened`),
       "color picker fill interaction",
-    ).get("box-shadow"),
+    ).get("border-color"),
+    "an open fill box lights a border it does not have",
+  ).toBe("transparent");
+  expect(
+    declarations(
+      compiled.get(`${fill}:hover, ${fill}.${name}-opened`),
+      "color picker fill interaction",
+    ).get("box-shadow") ?? "none",
     "an open fill box keeps a glow drawn where its border used to be",
   ).toBe("none");
 
@@ -359,7 +371,9 @@ it("paints the four tiers on the color picker trigger", async () => {
   expect(solidOpened.get("background-color")).toBe(
     "var(--kui-color-primary-hover, color-mix(in srgb, var(--kui-color-primary) 90%, transparent))",
   );
-  expect(solidOpened.get("box-shadow"), "an open solid box keeps the base glow").toBe("none");
+  expect(solidOpened.get("box-shadow") ?? "none", "an open solid box keeps the base glow").toBe(
+    "none",
+  );
 
   const underlinedBody = declarations(compiled.get(underlined), "color picker underlined");
   expect(underlinedBody.get("border-width"), "underlined keeps three edges").toBe("0 0 1px");
@@ -372,15 +386,25 @@ it("paints the four tiers on the color picker trigger", async () => {
     "an open underlined box does not light its edge",
   ).toBe("transparent transparent var(--kui-color-primary)");
 
-  expect(compiled.get(plain), "color picker paints no plain box").toBe(
-    "border-color: var(--kui-theme-plain-border); background: var(--kui-theme-plain-bg); box-shadow: none",
+  const plainBody = declarations(compiled.get(plain), "color picker plain");
+  expect(plainBody.get("border-color"), "color picker paints no plain border").toBe(
+    "var(--kui-theme-plain-border)",
   );
-  expect(
+  expect(plainBody.get("background"), "color picker paints no plain surface").toBe(
+    "var(--kui-theme-plain-bg)",
+  );
+  expect(plainBody.get("box-shadow") ?? "none", "color picker plain is not flat").toBe("none");
+  const plainOpened = declarations(
     compiled.get(`${plain}:hover, ${plain}.${name}-opened`),
     "an open plain box brings a border or a surface back",
-  ).toBe(
-    "border-color: var(--kui-theme-plain-border); background: var(--kui-theme-plain-bg); box-shadow: none",
   );
+  expect(plainOpened.get("border-color"), "an open plain box lights a border it does not have").toBe(
+    "var(--kui-theme-plain-border)",
+  );
+  expect(plainOpened.get("background"), "an open plain box brings its surface back").toBe(
+    "var(--kui-theme-plain-bg)",
+  );
+  expect(plainOpened.get("box-shadow") ?? "none", "an open plain box glows").toBe("none");
   // Which tiers the base hover repaint actually reaches is a cascade question, so it is read as
   // pixels in scripts/check-theme.ts instead of asserted from this file's selector text.
 });

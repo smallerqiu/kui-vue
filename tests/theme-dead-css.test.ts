@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { render } from "less";
 import { describe, expect, it } from "vitest";
 
-// 死 CSS 守卫：③-3d-戊、③-3d-己 扫掉的那批规则不许悄悄长回来。
+// 死 CSS 守卫：③-3d-戊、③-3d-己、③-3d-庚 扫掉的那批规则不许悄悄长回来。
 //
 // 形状和 `tests/tree-styles.test.ts` 不一样，因为那一个在这里用不了 —— 它拿"编译出来的类名"去反查
 // "组件真的会输出的类名集合"，而这个单元删的三种东西反查都抓不住：
@@ -46,6 +46,88 @@ const suppressedShadowSelectors = (prefix: string) => [
   `.k-${prefix}-borderless .k-${prefix}-selection`,
 ];
 
+/**
+ * ③-3d-庚：输入框家族（input / input-number / input-otp / input-tag / color-picker）里压焦点（或展开）
+ * 光晕的那 28 行。判据仍是两条 —— 库里没有别的规则画阴影、以及压制选择器选不中画光晕的那个元素 ——
+ * 但这一族的抽屉有三种挂载点，而且档位类名不一定和抽屉在同一个元素上（OTP 的档写在组上、光晕画在
+ * 内层格子上），所以名单逐组件点名，不能按前缀生成。
+ *   · `input`：包裹层 `[data-multiple]` 挂 `k-input-focus`，裸 `<input>` 与 `<textarea>` 走 `:focus`；
+ *     `<textarea>` 只发 `k-textarea` / `k-textarea-<档>`，所以 `.k-textarea-*.k-input-focus` 那种形状
+ *     从来选不中，它不是任何一档"压住光晕"的理由。
+ *   · `input-number` 的抽屉本来就带排除名单，那 5 行一行都不落地。
+ *   · 每个 underlined 档的**根**规则仍然写着 `box-shadow: none` —— 那是共用 mixin
+ *     `.kui-theme-value(underlined)` 画的，删它要跨组件一起裁定，留到下一轮；因此这里只点它的状态臂，
+ *     不点根，免得守卫把一条还活着的声明判成死的。
+ * 源码里是 28 行，编译后展开成下面 48 个选择器名（一行嵌套 `&:focus, &:hover, &.k-input-focus`
+ * 套在三种挂载形状下就变成六七个名字）。其中 input-number 的
+ * `.k-input-number-fill:focus` / `.k-input-number-fill.k-input-number-focus` 现在已经没有规则承载
+ * （那两行删掉后整个 fill 块只剩 mixin 调用），所以这两条只有"带着 box-shadow 长回来"才会红 ——
+ * 这正是它们该有的判据：补一条不含 box-shadow 的 fill 规则是合法写法，不该被守卫生吞。
+ */
+const CONTROL_FAMILY_SUPPRESSORS: { component: string; selector: string }[] = [
+  // `input`：fill / solid / underlined / plain 四个档各补过压制，外加禁用包裹层自己那一行。
+  ...[
+    ".k-input-fill[data-multiple]:focus",
+    ".k-input-fill[data-multiple]:hover",
+    ".k-input-fill[data-multiple].k-input-focus",
+    ".k-input-fill[data-single]:focus",
+    ".k-textarea-fill:focus",
+    ".k-input-solid[data-multiple]:not(.k-input-disabled):hover",
+    ".k-input-solid[data-single]:not(:disabled):hover",
+    ".k-textarea-solid:not(:disabled):hover",
+    ".k-input-underlined[data-multiple]:not(.k-input-disabled):hover",
+    ".k-input-underlined[data-multiple]:not(.k-input-disabled):focus",
+    ".k-input-underlined[data-multiple]:not(.k-input-disabled).k-input-focus",
+    ".k-textarea-underlined:not(:disabled):focus",
+    ".k-input-disabled[data-multiple]",
+    ".k-input.k-input-plain[data-single]:not(.k-input-disabled)",
+    ".k-input.k-input-plain[data-multiple]:not(.k-input-disabled)",
+    ".k-textarea.k-textarea-plain:not(:disabled)",
+    ".k-input.k-input-plain[data-multiple]:not(.k-input-disabled):hover",
+    ".k-input.k-input-plain[data-multiple]:not(.k-input-disabled):focus",
+    ".k-input.k-input-plain[data-multiple]:not(.k-input-disabled).k-input-focus",
+    ".k-textarea.k-textarea-plain:not(:disabled):focus",
+  ].map((selector) => ({ component: "input", selector })),
+  ...[
+    ".k-input-number-fill:focus",
+    ".k-input-number-fill.k-input-number-focus",
+    ".k-input-number-plain:not(.k-input-number-disabled)",
+    ".k-input-number-plain:not(.k-input-number-disabled):focus",
+    ".k-input-number-solid:not(.k-input-number-disabled):hover",
+    ".k-input-number-underlined:not(.k-input-number-disabled):focus",
+  ].map((selector) => ({ component: "input-number", selector })),
+  ...[
+    ".k-input-otp-fill .k-input-otp-item:hover",
+    ".k-input-otp-fill .k-input-otp-item:focus",
+    ".k-input-otp-solid:not(.k-input-otp-disabled) .k-input-otp-item:hover",
+    ".k-input-otp-solid:not(.k-input-otp-disabled) .k-input-otp-item:focus",
+    ".k-input-otp-plain:not(.k-input-otp-disabled) .k-input-otp-item",
+    ".k-input-otp-plain:not(.k-input-otp-disabled) .k-input-otp-item:focus",
+    ".k-input-otp-underlined:not(.k-input-otp-disabled) .k-input-otp-item:focus",
+  ].map((selector) => ({ component: "input-otp", selector })),
+  ...[
+    ".k-input-tag-fill:hover",
+    ".k-input-tag-fill:focus-within",
+    ".k-input-tag-solid:not(.k-input-tag-disabled):hover",
+    ".k-input-tag-solid:not(.k-input-tag-disabled):focus-within",
+    ".k-input-tag-plain:not(.k-input-tag-disabled)",
+    ".k-input-tag-plain:not(.k-input-tag-disabled):focus-within",
+    ".k-input-tag-underlined:not(.k-input-tag-disabled):focus-within",
+  ].map((selector) => ({ component: "input-tag", selector })),
+  // color-picker 的"展开"光晕原来写在无条件的那条复合规则上，所以那条规则本身也要点名：
+  // 光晕只能由下面 `GUARDED_DRAWERS` 里带名单的那条画。
+  ...[
+    ".k-color-picker.k-color-picker-opened",
+    ".k-color-picker-fill:not(.k-color-picker-disabled):hover",
+    ".k-color-picker-fill:not(.k-color-picker-disabled).k-color-picker-opened",
+    ".k-color-picker-solid:not(.k-color-picker-disabled):hover",
+    ".k-color-picker-solid:not(.k-color-picker-disabled).k-color-picker-opened",
+    ".k-color-picker-plain:not(.k-color-picker-disabled)",
+    ".k-color-picker-plain:not(.k-color-picker-disabled).k-color-picker-opened",
+    ".k-color-picker-underlined:not(.k-color-picker-disabled):hover",
+  ].map((selector) => ({ component: "color-picker", selector })),
+];
+
 /** 规则还在、但这条声明不能回来。 */
 const DEAD_DECLARATIONS: { component: string; selector: string; property: string }[] = [
   { component: "card", selector: ".k-card-plain", property: "box-shadow" },
@@ -83,13 +165,22 @@ const DEAD_DECLARATIONS: { component: string; selector: string; property: string
       property: "box-shadow",
     })),
   ),
+  ...CONTROL_FAMILY_SUPPRESSORS.map(({ component, selector }) => ({
+    component,
+    selector,
+    property: "box-shadow",
+  })),
 ];
 
 /**
  * 反向对照里最承重的一种形状：光晕必须还是"一条带排除名单的规则"画出来的。
  * 只写 `not.toContain` 会漏掉两件事 —— 名单少一项，那一档就在 hover（或 tree-select 展开）时重新发光；
  * 有人把压制行"修"回去而不动这条臂，也照样咬不到。所以这里点名：这样的规则必须有且只有一条，
- * 必须真的声明 `box-shadow`，且 `:not()` 里六项一个不能少。断言按前缀/后缀匹配，不写死换行后的空格。
+ * 必须真的声明 `box-shadow`，且 `:not()` 里每一项一个不能少。断言按前缀/后缀匹配，不写死换行后的空格。
+ *
+ * 输入框家族（庚）比这一条更吃重：那 28 行压制的存在理由就是"抽屉没带名单"。名单少一项，
+ * 对应那一档就得补回一行压制才不发光；名单整条去掉，则每个档都要补 —— 无论哪种，删除线都会在这里红。
+ * input-number 是唯一本来带名单的那族，庚 删掉的 5 行全靠它，所以也点名。
  */
 const GUARDED_DRAWERS: {
   component: string;
@@ -122,6 +213,88 @@ const GUARDED_DRAWERS: {
       ".k-tree-select-plain",
       ".k-tree-select-solid",
       ".k-tree-select-underlined",
+    ],
+  },
+  // 包裹层（多选 / tag 形态）挂 `k-input-focus`，档类名同元素，所以五个档一次排完。
+  {
+    component: "input",
+    prefix: ".k-input[data-multiple].k-input-focus:not(",
+    suffix: ")",
+    exclusions: [
+      ".k-input-disabled",
+      ".k-input-fill",
+      ".k-input-plain",
+      ".k-input-solid",
+      ".k-input-underlined",
+    ],
+  },
+  // 裸 `<input>` 与 `<textarea>` 走 `:focus`：同一个作用域块里三者共用一套 `:not()`，
+  // 而 `<textarea>` 只发 `k-textarea-<档>`，所以两个前缀都得在名单里；禁用用 `:disabled` 而不是类名。
+  {
+    component: "input",
+    prefix: ".k-input[data-single]:focus:not(",
+    suffix: ")",
+    exclusions: [
+      ":disabled",
+      ".k-input-fill",
+      ".k-textarea-fill",
+      ".k-input-plain",
+      ".k-textarea-plain",
+      ".k-input-solid",
+      ".k-textarea-solid",
+      ".k-input-underlined",
+      ".k-textarea-underlined",
+    ],
+  },
+  {
+    component: "input-number",
+    prefix: ".k-input-number-focus:not(",
+    suffix: ")",
+    exclusions: [
+      ".k-input-number-disabled",
+      ".k-input-number-fill",
+      ".k-input-number-plain",
+      ".k-input-number-solid",
+      ".k-input-number-underlined",
+    ],
+  },
+  // OTP 的档类名写在组上、光晕画在内层格子的 `:focus` 上，所以名单只能整条挂在组元素那一侧。
+  // `readonly` 有意不在名单里：只读的格子该继续对焦点有反应。
+  {
+    component: "input-otp",
+    prefix: ".k-input-otp:not(",
+    suffix: ".k-input-otp-item:focus",
+    exclusions: [
+      ".k-input-otp-disabled",
+      ".k-input-otp-fill",
+      ".k-input-otp-plain",
+      ".k-input-otp-solid",
+      ".k-input-otp-underlined",
+    ],
+  },
+  {
+    component: "input-tag",
+    prefix: ".k-input-tag:focus-within:not(",
+    suffix: ")",
+    exclusions: [
+      ".k-input-tag-disabled",
+      ".k-input-tag-fill",
+      ".k-input-tag-plain",
+      ".k-input-tag-solid",
+      ".k-input-tag-underlined",
+    ],
+  },
+  // 色选框的"展开"态是类名不是伪类，作者裁定跟别的档共用同一套名单（禁用 + 受控展开的禁用也不发光）。
+  {
+    component: "color-picker",
+    prefix: ".k-color-picker.k-color-picker-opened:not(",
+    suffix: ")",
+    exclusions: [
+      ".k-color-picker-disabled",
+      ".k-color-picker-fill",
+      ".k-color-picker-plain",
+      ".k-color-picker-solid",
+      ".k-color-picker-underlined",
     ],
   },
 ];
@@ -173,6 +346,29 @@ const LIVE_SELECTORS: { component: string; selector: string }[] = [
   { component: "tree-select", selector: ".k-tree-select-plain:not(.k-tree-select-disabled)" },
   { component: "cascader", selector: ".k-cascader-borderless .k-cascader-selection" },
   { component: "cascader", selector: ".k-cascader-solid:not(.k-cascader-disabled):hover" },
+  // 庚 同理：从这些规则里只摘走 `box-shadow: none` 一行，换边、铺底、焦点环还都压在它们身上。
+  { component: "input", selector: ".k-input[data-multiple].k-input-focus" },
+  { component: "input", selector: ".k-input[data-single]:focus" },
+  { component: "input", selector: ".k-input-disabled[data-multiple]" },
+  { component: "input", selector: ".k-input-solid[data-multiple]:not(.k-input-disabled):focus" },
+  { component: "input", selector: ".k-textarea.k-textarea-plain:not(:disabled)" },
+  { component: "input-number", selector: ".k-input-number-fill" },
+  {
+    component: "input-otp",
+    selector: ".k-input-otp-solid:not(.k-input-otp-disabled) .k-input-otp-item:focus",
+  },
+  {
+    component: "input-otp",
+    selector: ".k-input-otp-plain:not(.k-input-otp-disabled) .k-input-otp-item",
+  },
+  {
+    component: "input-tag",
+    selector: ".k-input-tag-solid:not(.k-input-tag-disabled):focus-within",
+  },
+  { component: "input-tag", selector: ".k-input-tag-fill:focus-within" },
+  // 色选框展开态现在只画边；`k-color-picker-opened` 这条规则本身还在（`theme-variants` 靠它认档）。
+  { component: "color-picker", selector: ".k-color-picker.k-color-picker-opened" },
+  { component: "color-picker", selector: ".k-color-picker-plain:not(.k-color-picker-disabled)" },
 ];
 
 const compile = async (component: string) => {
