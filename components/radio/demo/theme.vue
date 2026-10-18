@@ -1,10 +1,10 @@
 <template>
   <Space vertical block>
-    <Space v-for="tier in marks" :key="tier" vertical>
+    <Space v-for="tier in marks" :key="`dot-${tier}`" vertical>
       <code>theme: {{ tier }}</code>
       <RadioGroup :options="fruits" v-model="dot" :theme="tier" />
     </Space>
-    <Space v-for="tier in buttons" :key="String(tier)" vertical>
+    <Space v-for="tier in buttons" :key="`button-${tier}`" vertical>
       <code>{{ tier ? `theme: ${tier}` : "no theme" }}</code>
       <RadioGroup type="button" :options="fruits" v-model="button" :theme="tier" />
     </Space>
