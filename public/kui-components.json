@@ -7213,9 +7213,9 @@
         },
         {
           "name": "shape",
-          "description": "Child component shape",
-          "descriptionZh": "子组件的形状",
-          "descriptionEn": "Child component shape",
+          "description": "Child control shape",
+          "descriptionZh": "子控件形状",
+          "descriptionEn": "Child control shape",
           "type": "ShapeType | undefined",
           "boolean": false,
           "enumValues": [
@@ -7243,9 +7243,9 @@
         },
         {
           "name": "size",
-          "description": "Sub component size",
-          "descriptionZh": "子组件的尺寸",
-          "descriptionEn": "Sub component size",
+          "description": "Child control size",
+          "descriptionZh": "子控件尺寸",
+          "descriptionEn": "Child control size",
           "type": "SizeType | undefined",
           "boolean": false,
           "enumValues": [

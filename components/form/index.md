@@ -77,15 +77,17 @@ export default {
 | labelCol | label 标签布局，同 `<Col>` 的 span、offset；inline 布局下不生效 | `ColProps` | - |
 | wrapperCol | 控件标签布局，同 `<Col>` 的 span、offset；inline 布局下不生效 | `ColProps` | - |
 | theme | 子控件主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
-| size | 子组件的尺寸 | `"small" \| "medium" \| "large"` | - |
+| size | 子控件尺寸 | `"small" \| "medium" \| "large"` | - |
 | layout | 表单布局 | `"horizontal" \| "vertical" \| "inline"` | horizontal |
-| shape | 子组件的形状 | `"default" \| "circle" \| "square" \| "round"` | - |
+| shape | 子控件形状 | `"default" \| "circle" \| "square" \| "round"` | - |
 | disabled | 是否禁用表单 | `boolean` | false |
 | readonly | 是否将表单内支持只读的控件统一设为只读 | `boolean` | false |
 | colon | 是否在标签后显示冒号 | `boolean` | true |
 | onChange | 表单字段值变化时触发，返回当前表单数据 | `(model: Record<string, unknown>) => void` | - |
 | onReset | 表单重置后的回调 | `() => void` | - |
 | onSubmit | 提交并完成校验后触发，返回校验结果 | `(result: FormSubmitEvent) => void` | - |
+
+`size`、`theme`、`shape` 只作用于表单内的控件（Input、Select、Checkbox、Switch 一类），不会传给 Card、Table、Button 等容器或表面组件——它们只读取最近的 `ConfigProvider`。控件的优先级仍是组件属性 > Form 属性 > 最近的 ConfigProvider > 组件默认值，且三个键各自解析；控件只呈现自身支持的档位，Form 给了它画不出的档位不会报错。
 
 ## Form Expose API
 

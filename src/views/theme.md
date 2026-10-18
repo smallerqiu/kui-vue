@@ -66,6 +66,8 @@ import "kui-vue/style/base.css";
 
 通用控件使用 `round`、`circle`、`square` 三种形状。未传 `shape` 时等同于 `round`；旧的 `default` 值仍兼容。`theme` 有 `fill`、`outline`、`plain`、`solid`、`dashed`、`underlined` 六档，不写 `theme` 时各组件落回自己的默认档，其中 `plain` 是无边框也没有底色，与只去掉边框的 `bordered=false` 是两件事，两者可以同时使用。
 
+外观也可以整体下发：`ConfigProvider` 的 `size`、`theme`、`shape` 作用于所有兼容组件，`Form` 的同名属性只作用于表单内的控件。三个键各自解析，组件只呈现自身支持的档位，传入画不出的档位不会报错。
+
 如果需要整套界面（包括弹层容器）切换为方形，可在根节点设置 `shape-mode="square"`。它会统一覆盖控件、卡片和弹层的圆角令牌；组件自身的 `shape` 仍用于局部覆盖。滑块手柄、状态点等具有圆形语义的元素不会被改成方形。
 
 ```html

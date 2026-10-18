@@ -10,6 +10,8 @@ Provides locale, popup-container, and component appearance configuration to desc
 - Nest ConfigProvider to override configuration for a local region.
 - Precedence: component props > Form props > nearest ConfigProvider > component defaults.
 - Components inherit only the appearance properties they support. Data and surface containers such as Table, Descriptions, and Collapse normalize a global `circle` shape to `round`.
+- `size`, `theme`, and `shape` each resolve independently: when one of them has nothing to inherit, only that key falls back to the component's own default.
+- The `theme` channel carries all six tiers, but a component only renders the tiers it supports (Checkbox and Radio, for example, have only `fill` and `outline`). An unsupported tier raises no error.
 
 ## API
 

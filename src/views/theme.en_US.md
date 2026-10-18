@@ -66,6 +66,8 @@ Component tokens fall back to semantic tokens, allowing both unified skin change
 
 Common controls use three shapes: `round`, `circle`, and `square`. When `shape` is not passed, it is equivalent to `round`; the old `default` value remains compatible. `theme` has six variants - `fill`, `outline`, `plain`, `solid`, `dashed`, `underlined` - and leaving `theme` unset lands each component on its own default variant, where `plain` means no border *and* no surface - a different ask from `bordered=false`, which only removes the border. The two can be combined.
 
+Appearance can also be pushed down in bulk: `size`, `theme`, and `shape` on `ConfigProvider` reach every compatible component, while the same props on `Form` reach only the controls inside that form. Each key resolves on its own, and a component only renders the tiers it supports, so an unsupported tier raises no error.
+
 If you need to switch the entire interface (including popup containers) to square, you can set `shape-mode="square"` on the root node. This uniformly overrides the border-radius tokens for controls, cards, and popups; the component's own `shape` is still used for local overrides. Elements with circular semantics, such as slider handles and status dots, will not be changed to square.
 
 ```html

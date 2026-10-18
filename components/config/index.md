@@ -10,6 +10,8 @@
 - 可以嵌套 ConfigProvider，对局部区域覆盖全局配置。
 - 优先级为：组件属性 > Form 属性 > 最近的 ConfigProvider > 组件默认值。
 - 组件只继承自身支持的外观属性；Table、Descriptions、Collapse 等数据或表面容器会将全局 `circle` 规范化为 `round`。
+- `size`、`theme`、`shape` 各自独立解析：某个键没有可继承的值时，只有那一个键落回组件自身的默认值。
+- `theme` 通道接受全部六档，组件只呈现自身支持的档位（例如 Checkbox、Radio 只有 `fill` 与 `outline`）；传入画不出的档位不会报错。
 
 ## API
 

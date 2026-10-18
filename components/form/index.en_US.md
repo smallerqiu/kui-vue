@@ -77,15 +77,17 @@ export default {
 | labelCol | Label layout using `<Col>` span and offset; ignored in inline layout | `ColProps` | - |
 | wrapperCol | Control layout using `<Col>` span and offset; ignored in inline layout | `ColProps` | - |
 | theme | Child control theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | - |
-| size | Sub component size | `"small" \| "medium" \| "large"` | - |
+| size | Child control size | `"small" \| "medium" \| "large"` | - |
 | layout | Form layout | `"horizontal" \| "vertical" \| "inline"` | horizontal |
-| shape | Child component shape | `"default" \| "circle" \| "square" \| "round"` | - |
+| shape | Child control shape | `"default" \| "circle" \| "square" \| "round"` | - |
 | disabled | Whether the form is disabled | `boolean` | false |
 | readonly | Make supported controls in the form read-only | `boolean` | false |
 | colon | Whether to display a colon after labels | `boolean` | true |
 | onChange | Called when a field value changes with the current form model | `(model: Record<string, unknown>) => void` | - |
 | onReset | Reset the entire form, reset all field values to empty and remove validation results | `() => void` | - |
 | onSubmit | Called after submission validation with the validation result | `(result: FormSubmitEvent) => void` | - |
+
+`size`, `theme`, and `shape` apply to the controls inside the form (Input, Select, Checkbox, Switch and similar). They are not passed to container or surface components such as Card, Table, and Button, which read only the nearest `ConfigProvider`. Controls keep the same precedence — component props > Form props > nearest ConfigProvider > component defaults — resolved per key, and a control only renders the tiers it supports, so an unsupported tier raises no error.
 
 ## Form Expose API
 
