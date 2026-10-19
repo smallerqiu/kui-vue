@@ -37,24 +37,6 @@
     }
   }
 
-  &-mark {
-    display: inline-block;
-    border-radius: 10px;
-    min-width: 20px;
-    background: var(--kui-color-danger);
-    color: var(--kui-color-text-on-solid);
-    height: 20px;
-    line-height: 20px;
-    text-align: center;
-    padding: 0 6px;
-    font-size: 12px;
-    box-sizing: border-box;
-    white-space: nowrap;
-    box-shadow: 0 0 0 2px var(--kui-color-bg);
-    top: 0;
-    bottom: 0;
-  }
-
   &-dot {
     position: absolute;
     top: 0;
@@ -191,12 +173,10 @@
       opacity: 0.2;
     }
   }
-  // A `box-shadow: none` for `.k-badge-status-active` used to sit here. The only ring any rule
-  // paints in this file is `.k-badge-mark`'s `0 0 0 2px var(--kui-color-bg)`, and that class is
-  // emitted by neither repo (`k-badge-count` / `-dot` / `-status-dot` / `-status-text` are), so the
-  // dot never had a ring to flatten - and the suppression did match it, since injecting a glow on
-  // `.k-badge-status-active` and deleting this block together moves the pill fixtures. ③-3d-壬.
-  // That `.k-badge-mark` is emitted by nothing is a finding of its own; it is not swept in this pass.
+  // A status dot in a pill needs no shadow suppression: a badge paints no shadow at all, so there is
+  // no ring for it to flatten. `tests/theme-dead-css.test.ts` pins that (badge's shadow allow-list is
+  // empty) and keeps `k-badge-mark` - a class no code in either repo emits - out of this stylesheet.
+  // A badge part that grows a glow has to be ruled there first.
   .k-badge-status-text {
     margin-left: 0;
     color: var(--kui-color-text-description);
