@@ -194,7 +194,7 @@ const DatePicker = defineComponent({
     // isVisible 的伴生状态：面板是否因"点在输入框上"而打开，参与 k-datepicker-opened 类名
     const isFocus = ref(false);
     // 用户是否正在某个输入框里敲字。只有这个状态才允许挡住外部值写回文本——
-    // 面板打开不等于正在编辑，以前用 isFocus 当门，于是面板一开着外部改值就只有高亮动、文本不动。
+    // 面板打开不等于正在编辑：门若用 isFocus，面板一开着外部改值就只有高亮动、文本不动。
     const isEditing = ref(false);
 
     const refPopper = ref<HTMLElement | null>(null);
@@ -215,8 +215,8 @@ const DatePicker = defineComponent({
     const hoverDate = ref<Dayjs | null>(null);
 
     // 视图模式: 'date' | 'month' | 'year' | 'time'
-    // 档位得跟着 mode 起：原来只有 `updatePanelState`（打开面板时）会设 currentView，
-    // 而 `panelOnly` 一进来就是可见的，那次设值被 `if (isVisible.value) return` 挡掉——
+    // 档位得跟着 mode 起：只让 `updatePanelState`（打开面板时）设 currentView 是不够的——
+    // `panelOnly` 一进来就是可见的，那次设值被 `if (isVisible.value) return` 挡掉，
     // 于是 `panelOnly + mode="year"` 渲染的是日期格（react 那条是从 mode 初始化的）。
     const viewForMode = () =>
       props.mode === "year"
@@ -434,9 +434,8 @@ const DatePicker = defineComponent({
           const dates = [start, end].sort((a, b) => a.valueOf() - b.valueOf());
           committedRange.value = [...dates];
           const out = dates.map((d) => formatOutputValue(d));
-          // 规则 C：值没变就不再通知。重复点已经选中的日期、重复点已经对准的时/分/秒，
-          // 原来都会原样再发一次 update:modelValue + change；父级在 change 里发请求的话，
-          // 这一趟是白跑的。
+          // 规则 C：值没变就不再通知——否则重复点已经选中的日期、重复点已经对准的时/分/秒，
+          // 都会原样再发一次 update:modelValue + change；父级在 change 里发请求的话，这一趟是白跑的。
           if (fingerprint(dates) !== emitted.value) {
             emitted.value = fingerprint(dates);
             emit("update:modelValue", out);
@@ -629,7 +628,7 @@ const DatePicker = defineComponent({
     };
 
     // 当前值拉平成 Dayjs 数组：年 / 月格子的选中态取的是"当前这份值"，不跟浏览位置跑
-    //（原来高亮挂在 panelDate 上，已有值时翻几年，选中样式就跑到别的年份 / 月份上了）。
+    //（高亮若挂在 panelDate 上，已有值时翻几年，选中样式就跑到别的年份 / 月份上了）。
     const valueList = (): Dayjs[] => {
       const raw = innerValue.value;
       if (Array.isArray(raw)) return raw.filter((item): item is Dayjs => !!item);
@@ -640,7 +639,7 @@ const DatePicker = defineComponent({
     // 而翻过去以后日期格那道 disabledDate 本来就兜着。
     // 判据是"这一整格里一天都挑不出来"，不是"格子对准的那一天被禁"——
     // disabledDate 只禁了 3 月 5 号时，3 月这格照样得点得进去。
-    // 返回 null 表示整格禁用；能落值时优先用浏览位置的那一天（和原来一致），
+    // 返回 null 表示整格禁用；能落值时优先用浏览位置的那一天，
     // 那天被禁就往后找这一格里第一个能选的日子，免得"格子看着能点、点了没反应"。
     const unitPick = (base: Dayjs, unit: "year" | "month"): Dayjs | null => {
       if (!props.disabledDate(base.toDate())) return base;
@@ -756,8 +755,8 @@ const DatePicker = defineComponent({
       const yearSuffix = locale.value.k.datePicker.year || "";
       const yearLabel = `${year}${yearSuffix}`;
 
-      // 切进年 / 月面板的那两个标签原来只有 onClick。格子做得再可达也没用——
-      // 键盘用户根本进不了年/月面板，所以这里一并补成能 Tab 到、Enter/空格能按的按钮。
+      // 切进年 / 月面板的那两个标签要能 Tab 到、Enter/空格能按：只有 onClick 的话，
+      // 格子做得再可达也没用——键盘用户根本进不了年/月面板。
       const switchLabel = (target: "year" | "month", label: string, extraClass?: string) => (
         <span
           class={extraClass}
@@ -1120,7 +1119,7 @@ const DatePicker = defineComponent({
         // 再发一次父级会收到两次同样的开合。
         if (nextVisible === isVisible.value) return;
         // 外部改 opened 也走内部同一条路径：打开要通知、关闭要回滚半截选区。
-        // 以前这里直接写 isVisible，既不发 openChange，也不走 closePopup 的回滚。
+        // 直接写 isVisible 的那条捷径两样都跳过。
         if (nextVisible) {
           openChange(true);
           if (!props.panelOnly) nextTick(updatePosition);

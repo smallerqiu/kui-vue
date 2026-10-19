@@ -69,7 +69,7 @@ export default defineComponent({
         return;
       }
       // onOk 返 Promise 时由这层接管：成功才关窗，失败只停 loading、窗口留着让用户改完再试。
-      // （以前失败分支什么都不做，按钮一直转圈，等于告诉用户还在忙。）
+      // 失败分支什么都不做的话按钮会一直转圈，等于告诉用户还在忙。
       loading.value = true;
       Promise.resolve(result).then(
         () => {

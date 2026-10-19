@@ -124,8 +124,7 @@ const Tree = defineComponent({
         const children = raw[names.children];
         // 缺 `key` 的节点按所在**路径**合成兜底 key（`kui-tree-0`、`kui-tree-0-1`），
         // 与 react 版同一条规则。留空串会让所有缺 key 的节点共用一个键，展开、勾选
-        // 会连带命中别的节点；用渲染下标兜底（原来的 `n_ + i`）则在折叠或过滤时
-        // 同一个节点的键会漂移。
+        // 会连带命中别的节点；用渲染下标兜底也不行——折叠或过滤会改变下标，同一个节点的键跟着漂移。
         const key = String(raw[names.key] ?? "") || `${path}-${index}`;
         const list = Array.isArray(children)
           ? normalizeData(children as TreeNodeData[], key)
@@ -164,7 +163,7 @@ const Tree = defineComponent({
     // `findNode` 在勾选、拖拽、键盘导航的循环里被反复调用，线性扫全表在大树上会卡。
     // 按 `defaultData` 的数组身份缓存一份索引；`rebuildTree` 换了数组就自动重建，
     // 同一份数组上的状态改动（checked/expanded）不影响索引，所以缓存是安全的。
-    // 重复 key 保留第一次命中的那个，和原来的 `Array.prototype.find` 语义一致。
+    // 重复 key 保留第一次命中的那个，与 `Array.prototype.find` 的语义一致。
     let nodeIndex: Map<string, TreeNode> | null = null;
     let nodeIndexSource: TreeNode[] | null = null;
     const findNode = (key: string): TreeNode | undefined => {
@@ -514,7 +513,7 @@ const Tree = defineComponent({
     };
 
     // 与 react 版同一条守卫：拖到自身后代、拖到自己、拖到禁用节点上都算不上合法目标。
-    // 之前只在 `moveNode` 里静默拒绝，于是这些位置照样画可放置指示线，松手却什么都没发生。
+    // 守卫必须放在这里，只让 `moveNode` 静默拒绝不够：那些位置照样画可放置指示线，松手却什么都没发生。
     const canDropOn = (node: TreeNode) => {
       const dragKey = dragNode.key;
       if (!props.draggable || !dragKey || node.disabled || node.key === dragKey) return false;

@@ -282,7 +282,7 @@ const SubMenu = defineComponent({
                     class={`k-menu k-menu-${popup ? "vertical" : menuContext?.mode}`}
                     role="menu"
                     // 子菜单列表永远是纵向堆叠的：horizontal 下它必然以浮层形式出现，
-                    // 原来按 mode 推导会给出一个不可能命中的 "horizontal" 分支。
+                    // 按 mode 推导会给出一个不可能命中的 "horizontal" 分支。
                     aria-orientation="vertical"
                     onKeydown={(event: KeyboardEvent) => {
                       // Escape 只退一层：最内层的列表处理并阻止冒泡，焦点回到这一层的标题。

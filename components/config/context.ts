@@ -12,9 +12,8 @@ import enUS from "../locale/en";
 
 /**
  * 没有 ConfigProvider 兜底时用的语言。
- * 以前 17 处 inject 的兜底各写各的，全是 zhCN，文档却写着"默认英语"
- *（dayjs 的中文语言包也从没注册过，月份和星期本来就是英文），代码和文档正好相反。默认值收到这里，
- * 以后改默认只改这一处。
+ * 默认值只有这一个出处，inject 的地方不许再各自写 zhCN 兜底；要改库级默认就改这里。
+ * 选 `en` 与文档口径一致，也和 dayjs 那侧对得上：中文语言包没注册时，月份和星期本来就是英文。
  */
 export const DEFAULT_LOCALE = enUS;
 

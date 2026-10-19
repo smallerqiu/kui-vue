@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import Modal from "../components/modal/modal";
 
 /**
- * Modal 的取值契约：width 走 toCssLength（"480" 这种纯数字字符串也要补 px，以前直接被浏览器丢掉），
+ * Modal 的取值契约：width 走 toCssLength（"480" 这种纯数字字符串也要补 px——不带单位的长度浏览器直接丢），
  * 居中时不能写内联 top（内联样式压得住 `.k-modal-centered .k-modal-inner{top:0}`），
  * 不拖动时不写内联 left。
  * 两个仓库断言同一件事，见 kui-react/tests/modal-layout.test.tsx。

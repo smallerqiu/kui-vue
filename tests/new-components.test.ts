@@ -85,7 +85,7 @@ describe("new components", () => {
     expect(input.attributes("aria-expanded")).toBe("false");
     // destroyOnClose 默认 true：收起后面板直接销毁，不再留一份 display:none 的 DOM
     expect(document.querySelector(".k-auto-complete-dropdown")).toBeNull();
-    // 之前"隐藏时列表仍是 2 项"要防的是关闭动画里被过滤空；销毁语义下改成复查重开
+    // 清空后重开得能拿到完整列表：这一侧要防的是关闭动画期间列表被过滤空。
     await input.setValue("");
     await nextTick();
     expect(document.querySelectorAll(".k-auto-complete-dropdown .k-select-item")).toHaveLength(2);

@@ -66,7 +66,7 @@ describe("Table cell ellipsis", () => {
 
     expect(wrapper.findAll(".k-table-cell-ellipsis")).toHaveLength(2);
     expect(ellipsisIn(wrapper, 0, 0)?.textContent).toBe("Ship the ellipsis spec");
-    // 没开省略号的列一格包裹都不加，渲染结果和以前完全一样
+    // 没开省略号的列一格包裹都不加
     expect(ellipsisIn(wrapper, 0, 1)).toBeNull();
     expect(cellOf(wrapper, 0, 1).textContent).toBe("Ann");
     wrapper.unmount();

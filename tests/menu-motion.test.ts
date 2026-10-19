@@ -6,10 +6,10 @@ import { h, nextTick } from "vue";
 import { afterEach, describe, expect, it } from "vitest";
 import { Menu, MenuItem, SubMenu } from "../components/menu";
 
-// 与 react 侧 `tests/menu-motion.test.tsx` 同一条契约：纵向子菜单的高度动画只归 Menu 自己。
-// 它曾经借用 Collapse 的 `k-collapse-slide`，于是同一个元素上叠了两套动画——Menu 的 height
-// 过渡 + Collapse 那条规则里的 `animation: k-motion-scale-y-in`（scaleY 0→1）。盒子按布局高度
-// 先撑开、内容还被压成 0，看上去就是"外层先展开、里面的再伸缩下来"。
+// 与 react 侧 `tests/menu-motion.test.tsx` 同一条契约：纵向子菜单的高度动画只归 Menu 自己，不许借用
+// Collapse 的 `k-collapse-slide`——同一个元素上会叠两套动画（Menu 的 height 过渡 + Collapse 那条规则里的
+// `animation: k-motion-scale-y-in`，scaleY 0→1）。盒子按布局高度先撑开、内容还被压成 0，
+// 看上去就是"外层先展开、里面的再伸缩下来"。
 const menuLess = async () => {
   const filename = path.resolve(import.meta.dirname, "../components/menu/styles/index.less");
   const { css } = await less.render(await fs.readFile(filename, "utf8"), { filename });

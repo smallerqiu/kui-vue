@@ -87,7 +87,7 @@ const CASCADER_TIER_STATE_RECALLS: { component: string; selector: string; proper
  *     裁定，落点名字见 `UNDERLINED_BASE_DEAD_DECLARATIONS`。
  * 名单里的形状是编译后展开的选择器名（一行嵌套 `&:focus, &:hover, &.k-input-focus` 套在三种挂载形状下
  * 就变成六七个名字）。其中 input-number 的
- * `.k-input-number-fill:focus` / `.k-input-number-fill.k-input-number-focus` 现在没有规则承载，所以这两条
+ * `.k-input-number-fill:focus` / `.k-input-number-fill.k-input-number-focus` 没有规则承载，所以这两条
  * 只有"带着 box-shadow 长回来"才会红 —— 这正是它们该有的判据：补一条不含 box-shadow 的 fill 规则是合法
  * 写法，不该被守卫生吞。
  */
@@ -141,8 +141,8 @@ const CONTROL_FAMILY_SUPPRESSORS: { component: string; selector: string }[] = [
     ".k-input-tag-plain:not(.k-input-tag-disabled):focus-within",
     ".k-input-tag-underlined:not(.k-input-tag-disabled):focus-within",
   ].map((selector) => ({ component: "input-tag", selector })),
-  // color-picker 的"展开"光晕原来写在无条件的那条复合规则上，所以那条规则本身也要点名：
-  // 光晕只能由下面 `GUARDED_DRAWERS` 里带名单的那条画。
+  // color-picker 的"展开"光晕只能由下面 `GUARDED_DRAWERS` 里带名单的那条画，所以这条无条件的复合规则
+  // 本身也要点名——它一发光晕就发两次，两层的排除名单都白写。
   ...[
     ".k-color-picker.k-color-picker-opened",
     ".k-color-picker-fill:not(.k-color-picker-disabled):hover",
@@ -206,7 +206,7 @@ const DATE_PICKER_ERROR_DRAWERS = [
 ];
 
 /**
- * 弹层 / 按钮 / 徽标这三族的阴影压制。**这三族不能整批扫净**，得逐条判 —— 判据只有两条：库里有没有别的
+ * 弹层 / 按钮 / 徽标这三族的阴影压制。**这三族不许整批删**，得逐条判 —— 判据只有两条：库里有没有别的
  * 规则给这个元素画阴影（阴影不继承），以及压制选择器选不选得中那个画阴影的元素：
  *   · `.k-dropdown-has-arrow .k-dropdown-content`：库里没有一条规则给 `.k-dropdown-content` 写阴影（这个
  *     文件的两条画在 `.k-dropdown-menu` / `.k-dropdown-menu-submenu-sub` 与 `.k-dropdown-arrow` 上，而阴影
@@ -537,7 +537,7 @@ const LIVE_SELECTORS: { component: string; selector: string }[] = [
     component: "cascader",
     selector: ".k-cascader-plain:not(.k-cascader-disabled) .k-cascader-selection",
   },
-  // 同理：从这些规则里只摘走 `box-shadow: none` 一行，换边、铺底、焦点环还都压在它们身上。
+  // 同理：这些规则里不许有 `box-shadow: none`，但换边、铺底、焦点环全靠它们画，所以名字留在活名单里。
   { component: "input", selector: ".k-input[data-multiple].k-input-focus" },
   { component: "input", selector: ".k-input[data-single]:focus" },
   { component: "input", selector: ".k-input-disabled[data-multiple]" },
@@ -557,10 +557,10 @@ const LIVE_SELECTORS: { component: string; selector: string }[] = [
     selector: ".k-input-tag-solid:not(.k-input-tag-disabled):focus-within",
   },
   { component: "input-tag", selector: ".k-input-tag-fill:focus-within" },
-  // 色选框展开态现在只画边；`k-color-picker-opened` 这条规则本身还在（`theme-variants` 靠它认档）。
+  // 色选框的展开态只画边；`k-color-picker-opened` 这条规则本身还在（`theme-variants` 靠它认档）。
   { component: "color-picker", selector: ".k-color-picker.k-color-picker-opened" },
   { component: "color-picker", selector: ".k-color-picker-plain:not(.k-color-picker-disabled)" },
-  // 同理：这里只摘走 `box-shadow: none`，换边、铺底、反白焦点环全压在那些规则身上。
+  // 同理：这里不许有 `box-shadow: none`，换边、铺底、反白焦点环全压在这些规则身上。
   { component: "date-picker", selector: ".k-datepicker-fill:hover" },
   { component: "date-picker", selector: ".k-datepicker-fill:focus" },
   { component: "date-picker", selector: ".k-datepicker-opened.k-datepicker-fill" },
@@ -865,9 +865,8 @@ describe("theme 死 CSS 守卫", () => {
           ) && rule.declarations.some(([property]) => property === "box-shadow"),
       )
       .map((rule) => rule.fullSelector);
-    // 认的是选择器里有没有 `-underlined`（名单除外，见 `withoutFunctionContents`），不是那批名字，
-    // 所以状态臂（`:hover` / `.k-x-opened`）想重新补一行压制也在这里红 —— 逐档压制那批清理
-    // 等于又加了一道总闸。
+    // 认的是选择器里有没有 `-underlined`（名单除外，见 `withoutFunctionContents`），不是逐条点名的那张名单，
+    // 所以状态臂（`:hover` / `.k-x-opened`）想重新补一行压制也在这里红 —— 它是一道总闸。
     expect(offenders).toEqual([]);
   });
 });

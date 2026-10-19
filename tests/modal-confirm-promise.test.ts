@@ -5,7 +5,7 @@ import { modal } from "../components/modal";
 /**
  * 命令式 confirm 的 onOk 契约：返回 Promise 时关闭时机交给组件接管 ——
  * resolve 才关窗，reject 只停 loading、窗口留着让用户改完再试；返回普通值则立刻关窗。
- * 以前 react 是"失败也关窗"，vue 是"失败一直转圈"，两边都不对，现在归一到这一份断言。
+ * 失败也关窗等于吞掉错误，失败一直转圈等于告诉用户还在忙，两种都不许。
  * 两个仓库断言同一件事，见 kui-react/tests/modal-confirm-promise.test.tsx。
  */
 

@@ -9,11 +9,10 @@ import { Select } from "../components/select";
 import zhCN from "../components/locale/zh-CN";
 
 /**
- * 库级默认语言是英语，和 react 侧同一条口径。
- * 以前这件事没有出处：17 处 `inject("locale", zhCN)` 各写各的，文档却写着"默认英语"
- * （dayjs 的中文语言包也从没注册过，月份和星期本来就是英文），两头对不上。
- * 现在兜底只有 config/context 里 `DEFAULT_LOCALE` 一个出处，所以这条用例管两件事：
- * 没给 Provider 时组件吐英文，以及没有任何组件源码再把 inject 的兜底偷偷写回中文。
+ * 库级默认语言是英语，和 react 侧同一条口径，兜底只有 config/context 里 `DEFAULT_LOCALE` 一个出处。
+ * 组件里各自写 `inject("locale", zhCN)` 会让文档说的"默认英语"和实际渲染对不上（dayjs 的中文语言包
+ * 没注册，月份和星期本来就是英文），所以这条用例管两件事：
+ * 没给 Provider 时组件吐英文，以及没有任何组件源码把 inject 的兜底偷偷写回中文。
  */
 
 const componentSources = (() => {

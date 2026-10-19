@@ -62,7 +62,7 @@ describe("Imperative modal config inheritance", () => {
   });
 
   it("falls back to the English defaults when no ConfigProvider is mounted", async () => {
-    // 库级默认是 en：文档一直写"默认英语"，而以前每个组件自己写死 zhCN 兜底，两头对不上。
+    // 库级默认是 en，出处只有 `DEFAULT_LOCALE`；inject 里再写死 zhCN 会让这里变成"确定"。
     await openInfo("No provider");
     expect(okLabel()).toBe("Ok");
   });
