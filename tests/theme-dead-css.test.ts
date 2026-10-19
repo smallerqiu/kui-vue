@@ -48,41 +48,39 @@ const suppressedShadowSelectors = (prefix: string) => [
 ];
 
 /**
- * cascader 的档规则不再自己重述"这一档不换边、不铺底"。判据和逐档光晕压制那批是同一条：
- * 换边、发光、焦点环都由 `GUARDED_DRAWERS` 那条带排除名单的臂（hover）、以及同一条臂的 `:focus` 版本
- * （outline，`theme-variants` 认它排掉了 `plain` / `borderless`）说了算，名单里写着 `fill` 与 `plain`，
- * 所以没有任何规则能在 hover / focus / 展开时把边框或底色画回这两个盒子，档自己再抄一遍压不到东西。
- * `.k-cascader-fill:focus .k-cascader` 是另一种死法：档类名和 `k-cascader` 在同一个根元素上，
- * 后代写法永远选不中（弹层面板是触发框的兄弟节点，类名还是 `k-cascader-dropdown`），所以整条走
- * `DEAD_SELECTORS`。`plain` 内层那一组 `border-color` / `background-color` 不在这里：`base.less` 给
- * 每个元素写了 `border: 0 solid`，那一行的颜色是 `currentColor`，压制选得中它，是活的。
- * 名单只点名 cascader，另外两个同族组件留着看起来一模一样的状态臂，而那些臂是活的 —— 判据不是"这条
- * 重述了自己的档"，而是"有没有别人在这个状态下往这个盒子上画边"：
- *   · select / tree-select 的 `plain` 三臂压的是 `form` 报错作用域那条红边。两边都是 (0,3,0)，靠
- *     `components/styles/components.less` 里 select / tree-select 排在 `form` 之后才赢；`form` 点名了
- *     `.k-select` 与 `.k-tree-select`（见 `SELECTION_BOX_ERROR_BORDERS`）却没点名 `.k-cascader`，
- *     所以 cascader 同样的三臂没有对手。哪天报错作用域把 cascader 也写上，那三条就跟着换成活的。
- *   · select / tree-select 的 `fill:hover` 只在应用设了 `--kui-theme-fill-border` 时才有事做：它把那圈
- *     钩子边在指针下收掉。cascader 没有这一行，所以同一档在三个组件里 hover 时的钩子边不一致 ——
- *     默认 token 下两边都算"平"，动哪一边都要先把这一族重新裁定。
- *   · color-picker 的 `fill` / `plain` 状态臂压的是基础 `:hover` 与展开态自己那圈边（那条只排除
- *     `disabled`，见 `COLOR_PICKER_BASE_EDGES`），档必须自己收回去，否则一 hover 就亮。
+ * 选择框家族（select / tree-select / cascader）里"档在状态里重述自己"的那批声明，三个组件都不许写。
+ * 三个样式文件是同文镜像，所以按前缀生成名单，不手写编译后的选择器；名单仍然逐条点名 ——
+ * 把嵌套形状改一个字（多包一层 `.k-x >`、把 `:hover` 换成 `:focus-within`）就落在名单外，算新增。
+ * 为什么一条都不落地：换边、发光、焦点环都由 `GUARDED_DRAWERS` 那条带排除名单的臂（hover），以及同一条
+ * 臂的 `:focus` 版本（outline）说了算，两份名单里都写着 `fill` 与 `plain`，所以没有任何规则能在
+ * hover / focus / 展开时把边框或底色画回这两个盒子，档自己再抄一遍压不到东西。
+ * `plain` 那三臂还多一条判据：它是 (0,3,0)，和 `form` 报错作用域画在控件上的那条红边打平，而
+ * `components/styles/components.less` 把 select / tree-select 排在 `form` 之后，于是抄一遍的档赢过报错
+ * 提示 —— 一栏"无效"必须比一档外观更显眼，所以这个平局不许由档来拿。
+ * `fill:hover` 只在应用设了 `--kui-theme-fill-border` 时才有事做：把那圈钩子边在指针下收掉。这一族的
+ * fill 只有聚焦交互（基础焦点环的名单里没有 `fill`），所以三个组件里钩子边一律跟着档走。
+ * `.k-x-fill:focus .k-x` 是另一种死法：档类名和 `k-x` 写在同一个根元素上，后代写法永远选不中（弹层面板是
+ * 触发框的兄弟节点，类名还是 `k-x-dropdown`），所以整条走 `DEAD_SELECTORS`。`plain` 内层那一组
+ * `border-color` / `background-color` 不在这里：`base.less` 给每个元素写了 `border: 0 solid`，那一行的
+ * 颜色是 `currentColor`，压制选得中它，是活的。
+ * color-picker 不进这张名单：它的基础 `:hover` 与展开态那条边只排 `disabled`（见
+ * `COLOR_PICKER_BASE_EDGES`），档得自己把边收回去，否则一 hover 就亮。
  */
-const CASCADER_TIER_STATE_RECALLS: { component: string; selector: string; property: string }[] = [
+const SELECTION_BOX_TIER_STATE_RECALLS: {
+  component: string;
+  selector: string;
+  property: string;
+}[] = SELECTION_BOX_COMPONENTS.flatMap((component) => [
   ...[
-    ".k-cascader-plain:not(.k-cascader-disabled):hover",
-    ".k-cascader-plain:not(.k-cascader-disabled):focus",
-    ".k-cascader-plain:not(.k-cascader-disabled).k-cascader-opened",
+    `.k-${component}-plain:not(.k-${component}-disabled):hover`,
+    `.k-${component}-plain:not(.k-${component}-disabled):focus`,
+    `.k-${component}-plain:not(.k-${component}-disabled).k-${component}-opened`,
   ].flatMap((selector) =>
-    ["border-color", "background"].map((property) => ({
-      component: "cascader",
-      selector,
-      property,
-    })),
+    ["border-color", "background"].map((property) => ({ component, selector, property })),
   ),
-  // fill 那一行只有 `border-color`：档基座已经把边resolve 成 transparent，状态臂再抄一遍压不到东西。
-  { component: "cascader", selector: ".k-cascader-fill:hover", property: "border-color" },
-];
+  // fill 那一行只有 `border-color`：档基座已经把边 resolve 成 transparent，状态臂再抄一遍压不到东西。
+  { component, selector: `.k-${component}-fill:hover`, property: "border-color" },
+]);
 
 /**
  * 输入框家族（input / input-number / input-otp / input-tag / color-picker）里压焦点（或展开）光晕的
@@ -216,10 +214,10 @@ const DATE_PICKER_ERROR_DRAWERS = [
 ];
 
 /**
- * select / tree-select 的 `plain` 状态臂之所以是活的，前提是报错作用域真的在给这两个组件画红边：
- * 两边都是 (0,3,0)，档规则靠 `components/styles/components.less` 里排在 `form` 之后才压得住。
- * 报错作用域不点名 `.k-cascader`（下面单独守这一条），所以 cascader 的同款状态臂没有对手；
- * 把 `.k-cascader` 补进报错作用域是修缺陷，同时也就是把那几条臂换成活的时刻。
+ * 报错作用域给这两个控件画的红边。它是 `plain` 档状态臂唯一可能的对手：两边都是 (0,3,0)，谁赢只看
+ * `components/styles/components.less` 的 import 顺序，而 select / tree-select 排在 `form` 之后。
+ * 所以这一条必须一直在 —— 它是"报错提示优先于外观档"在 CSS 里的落点，档自己不许重述（判据见
+ * `SELECTION_BOX_TIER_STATE_RECALLS`）。
  */
 const SELECTION_BOX_ERROR_BORDERS = [
   ".k-form .k-form-item-error .k-select",
@@ -376,7 +374,7 @@ const DEAD_DECLARATIONS: { component: string; selector: string; property: string
     property: "box-shadow",
   })),
   ...SCATTERED_DEAD_DECLARATIONS,
-  ...CASCADER_TIER_STATE_RECALLS,
+  ...SELECTION_BOX_TIER_STATE_RECALLS,
   ...UNDERLINED_BASE_DEAD_DECLARATIONS,
 ];
 
@@ -559,17 +557,11 @@ const LIVE_SELECTORS: { component: string; selector: string }[] = [
   // （那些才是 fill / plain / borderless 不换边、不铺底的画法），顺手删掉整条规则要在这里红。
   { component: "select", selector: ".k-select-opened.k-select-fill .k-select-selection" },
   { component: "select", selector: ".k-select-borderless .k-select-selection" },
-  // 这几条臂删掉整条规则时要在上面那条"声明不能回来"之外再红一次：它们压的是真会画到盒子上的东西。
-  // `fill:hover` 收的是应用设了 `--kui-theme-fill-border` 之后那圈钩子边，`plain` 三臂收的是 `form`
-  // 报错作用域给 `.k-select` / `.k-tree-select` 画的红边 —— 判据见 `CASCADER_TIER_STATE_RECALLS` 那段。
+  // 摘掉的是状态臂，不是档本身：`fill` 还得铺它的底、`plain` 还得把边和内层一起收掉。
+  // 那些臂不许回来的判据见 `SELECTION_BOX_TIER_STATE_RECALLS`。
   ...["select", "tree-select"].flatMap((component) => [
-    { component, selector: `.k-${component}-fill:hover` },
-    { component, selector: `.k-${component}-plain:not(.k-${component}-disabled):hover` },
-    { component, selector: `.k-${component}-plain:not(.k-${component}-disabled):focus` },
-    {
-      component,
-      selector: `.k-${component}-plain:not(.k-${component}-disabled).k-${component}-opened`,
-    },
+    { component, selector: `.k-${component}-fill` },
+    { component, selector: `.k-${component}-plain:not(.k-${component}-disabled)` },
   ]),
   // 色选框的基础边框只排 `disabled`，所以每个档都得自己把 hover 与展开态的边收回去。
   {
@@ -881,7 +873,8 @@ describe("theme 死 CSS 守卫", () => {
     });
   });
 
-  // 这条判据的另一半：cascader 没被点名，所以它档上的状态臂才是死的（见 `CASCADER_TIER_STATE_RECALLS`）。
+  // 报错作用域现在还没点名 cascader，所以 `SELECTION_BOX_ERROR_BORDERS` 只覆盖另外两个盒子。
+  // 把 cascader 补进去是修缺陷，不需要先给它的档加回状态臂 —— 那份名单对三个组件一样有效。
   it("form: 报错作用域不点名 cascader", async () => {
     const names = [...simpleSelectors(await compile("form"))].filter((selector) =>
       selector.includes("cascader"),
@@ -895,7 +888,9 @@ describe("theme 死 CSS 守卫", () => {
       const edges = rules.filter((rule) => rule.fullSelector === selector);
       expect(edges, `${selector} 的规则没了`).toHaveLength(1);
       expect(
-        edges[0]!.properties.some((property) => property === "border" || property === "border-color"),
+        edges[0]!.properties.some(
+          (property) => property === "border" || property === "border-color",
+        ),
         `${selector} 不再画边了`,
       ).toBe(true);
     });

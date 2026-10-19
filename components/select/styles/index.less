@@ -225,28 +225,26 @@
   }
 }
 
-// `fill` has no edge to light up: the base `:hover` already names `-fill` inside `:not()`, so nothing
-// repaints this box under the pointer. The line below is what decides what an app that sets
-// `--kui-theme-fill-border` gets - with it that edge shows at rest and goes while the pointer is on the
-// box, without it the hook edge stays put. A `&:focus .k-select` arm is not written here because it
-// could not select anything: the tier class sits on the same element as `k-select`, and the panel a
-// focused box opens is `k-select-dropdown`, a sibling in the popup host rather than a descendant.
+// `fill` has no border to light up: the base `:hover` names this tier inside its `:not()`, so no rule
+// reaches the box with a border under the pointer and a `fill:hover` arm would suppress nothing - it
+// would only eat the edge an app set through `--kui-theme-fill-border`. Focus is the interaction this
+// tier keeps: the base focus ring does not name `fill`. Neither state is restated here as a descendant
+// of the tier either - the tier class sits on the same element as `k-select`, and the panel a focused
+// box opens is `k-select-dropdown`, a sibling in the popup host.
 .k-select-fill {
   .kui-theme-value(fill);
   transition: none;
-
-  &:hover {
-    border-color: transparent;
-  }
 }
+
+// `plain` says it once, on the tier. Restating it in a `:hover` / `:focus` / `.k-select-opened` arm is
+// forbidden across this family: the base border repaint and the base focus ring both name `plain` inside
+// their `:not()`, so a restatement presses on nothing, and it ties at `(0,3,0)` with the error edge
+// `form` draws on `.k-select` - which this file wins on source order because `components.less` imports
+// `select` after `form`, putting a flat tier above the indication that a field is invalid. The inner box
+// is different - `base.less` gives every element `border: 0 solid`, whose colour is `currentColor`, so
+// flattening it is a live suppression even while the width is `0`.
 .k-select-plain:not(.k-select-disabled) {
   .kui-theme-value(plain);
-
-  &:hover,
-  &:focus,
-  &.k-select-opened {
-    .kui-theme-value(plain);
-  }
 
   .k-select-selection {
     border-color: transparent;

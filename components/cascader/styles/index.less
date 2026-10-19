@@ -253,21 +253,24 @@
     font-size: var(--kui-font-size-lg);
   }
 }
-// `fill` is shallow and borderless, and it keeps the base focus ring. It needs no hover arm: the base
-// border repaint names `fill` inside its `:not()`, so nothing reaches this box with a border under the
-// pointer, and the arm above already resolves the border to transparent. Same reason for the inner box
-// - a descendant rule can never select a box whose tier class sits on the same element as `k-cascader`.
+// `fill` has no border to light up: the base `:hover` names this tier inside its `:not()`, so no rule
+// reaches the box with a border under the pointer and a `fill:hover` arm would suppress nothing - it
+// would only eat the edge an app set through `--kui-theme-fill-border`. Focus is the interaction this
+// tier keeps: the base focus ring does not name `fill`. A descendant arm could not select anything
+// here either - the tier class sits on the same element as `k-cascader`, and the panel a focused box
+// opens is `k-cascader-dropdown`, a sibling in the popup host.
 .k-cascader-fill {
   .kui-theme-value(fill);
   transition: none;
 }
 
-// `plain` means "content only" and says it once, on the tier. Hover, focus and an open panel need no
-// restatement: both the base border repaint and the base focus ring name `plain` inside their `:not()`,
-// so no state rule gives this box a border or a surface back. A tier that wants one has to leave those
-// lists first - that is where the flatness is declared. The inner box is different: `base.less` gives
-// every element `border: 0 solid`, whose colour is `currentColor`, so flattening that is a live
-// suppression even while the width is `0`.
+// `plain` says it once, on the tier. Restating it in a `:hover` / `:focus` / `.k-cascader-opened` arm is
+// forbidden across this family, not merely redundant here: the base border repaint and the base focus
+// ring both name `plain` inside their `:not()`, so a restatement presses on nothing, while the same arm
+// on `select` / `tree-select` ties at `(0,3,0)` with the error edge `form` draws on a control and wins
+// that tie on source order - a flat tier must never outrank the indication that a field is invalid. The
+// inner box is different - `base.less` gives every element `border: 0 solid`, whose colour is
+// `currentColor`, so flattening it is a live suppression even while the width is `0`.
 .k-cascader-plain:not(.k-cascader-disabled) {
   .kui-theme-value(plain);
 
