@@ -12,11 +12,11 @@ import type { BooleanType, ShapeType, SurfaceThemeType } from "../const/types";
 import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import Icon, { type IconType } from "../icon";
 
-// An alert paints a whole box, so it answers the five surface tiers and never `underlined`; its own look
-// is the tinted plate `fill`, which is also what an unsupported tier falls back to. `useConfigAppearance`
-// already puts the prop's own `default: "fill"` under the provider, so the guard is the only step left —
-// without it `ConfigProvider theme="solid"` used to reach an alert as `k-alert-theme-solid`, a class no
-// rule answered, and the box kept the tint it would have worn with no `theme` at all.
+// An alert paints a whole box, so it answers the five surface tiers and never `underlined`; its own
+// look is the tinted plate `fill`, which is also what an unsupported tier falls back to.
+// `useConfigAppearance` already puts the prop's own `default: "fill"` under the provider, so the guard
+// is the only step left: without it a `ConfigProvider theme="solid"` would reach an alert as a class no
+// rule answers, and the box would keep the tint it wears with no `theme` at all.
 const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 
 const alertProps = {

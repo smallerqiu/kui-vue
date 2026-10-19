@@ -88,7 +88,7 @@
 
   // The glow belongs to the tiers that keep the base interaction — `outline`, `dashed` and a box
   // with no tier at all — on the same exclusion list the `:hover` rule above uses. Ring and border
-  // stay for every tier; only the glow is gated, so the tiers no longer patch it away themselves.
+  // stay for every tier; only the glow is gated, so no tier has to patch it away by itself.
   &.k-input-focus:not(
       .k-input-disabled,
       .k-input-fill,
@@ -448,7 +448,7 @@
   }
 }
 
-// 3b-乙: `outline` and `dashed` are the same box with a token-driven border, so they take the
+// `outline` and `dashed` are the same box with a token-driven border, so they take the
 // shared declarations and keep the base interaction rules — their border is meant to light up to
 // primary on hover and the focus ring stays. `dashed` has no colour of its own; it follows
 // `--kui-theme-outline-border` unless the app sets `--kui-theme-dashed-border`.
@@ -663,8 +663,8 @@
   }
 }
 
-// `plain` is no border and no surface. Like `underlined` it opts out of the focus ring, because
-// that ring is drawn where its border used to be, and it steps aside for the disabled rules above
+// `plain` is no border and no surface. Like `underlined` it opts out of the focus ring, which would
+// sit on an edge this tier just removed, and it steps aside for the disabled rules above
 // so a disabled plain box still reads as disabled.
 .k-input.k-input-plain[data-single]:not(.k-input-disabled),
 .k-input.k-input-plain[data-multiple]:not(.k-input-disabled),

@@ -142,16 +142,16 @@
   }
 }
 // A pagination bar has no plate of its own: its surface is the cells the numbers sit on, so each tier
-// paints `.k-pager-item` through the shared arm rather than the root. Two cell sets already existed here
-// and 丁c keeps both — the plate tiers (`fill` / `plain` / `solid`) leave the prev/next arrows flat, the
-// frame tiers (`outline` / `dashed`) leave the `…` mark unframed — because widening either set repaints a
-// tier that already ships, and `fill` is this component's own look.
+// paints `.k-pager-item` through the shared arm rather than the root. The two cell sets stay apart —
+// the plate tiers (`fill` / `plain` / `solid`) leave the prev/next arrows flat, the frame tiers
+// (`outline` / `dashed`) leave the `…` mark unframed — because widening either set repaints a tier that
+// already ships, and `fill` is this component's own look.
 // The selected-cell selectors carry one class more than the plate next to them
 // (`.k-pager-item.k-pager-item-active`) on purpose: the plate reaches its cells through
-// `:not(.k-pager-next, .k-pager-prev)`, so at (0,4,0) it outspecified the old (0,3,0) active rule and the
-// selected page never showed its own state colour — under `fill` only the digits turned primary on the
-// grey plate, under `outline` the frame stayed the default border colour. Same "declared, never painted"
-// shape this batch exists to end. `plain` needs no raise: its arm paints no text.
+// `:not(.k-pager-next, .k-pager-prev)` and lands at (0,4,0), so an active rule at (0,3,0) is
+// outspecified and the selected page never shows its own state colour — under `fill` only the digits
+// turn primary on the grey plate, under `outline` the frame keeps the default border colour.
+// `plain` needs no raise: its arm paints no text.
 .k-page-fill:not(.k-page-disabled) {
   .k-pager-item:not(.k-pager-next, .k-pager-prev) {
     .kui-theme-value(fill);
@@ -180,9 +180,9 @@
     }
   }
 }
-// The frame used to be spelled `1px solid var(--kui-color-border)`, so `--kui-theme-outline-border` —
-// and `--kui-control-border`, which every control in the library already reads — could never reach a
-// pagination bar. The arm draws the same 1px and reads the hook.
+// A frame pinned to `var(--kui-color-border)` can never be recoloured through
+// `--kui-theme-outline-border` — or `--kui-control-border`, which every control in the library already
+// reads — so the arm draws the same 1px and reads the hook.
 .k-page-outline:not(.k-page-disabled) {
   .k-pager-item:not(.k-pager-more) {
     .kui-theme-value(outline);

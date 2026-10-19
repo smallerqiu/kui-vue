@@ -166,7 +166,7 @@
   }
 }
 
-// 3b-乙2: `outline` and `dashed` are the same box with a token-driven border, so they take the
+// `outline` and `dashed` are the same box with a token-driven border, so they take the
 // shared declarations and keep the base interaction rules — the border is meant to light up to
 // primary on hover and the focus ring stays. `dashed` has no colour of its own; it follows
 // `--kui-theme-outline-border` unless the app sets `--kui-theme-dashed-border`.
@@ -236,9 +236,9 @@
   }
 }
 
-// `plain` is no border and no surface. Like `underlined` it opts out of the focus ring, because that
-// ring is drawn where its border used to be, and it steps aside for the disabled rules below so a
-// disabled plain box still reads as disabled.
+// `plain` is no border and no surface. Like `underlined` it opts out of the focus ring, which would sit
+// on an edge this tier just removed, and it steps aside for the disabled rules below so a disabled plain
+// box still reads as disabled.
 .k-input-tag-plain:not(.k-input-tag-disabled) {
   .kui-theme-value(plain);
 

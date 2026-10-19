@@ -330,7 +330,7 @@ const ColorPicker = defineComponent({
       const disabled = props.disabled || field?.disabled.value;
       const readonly = props.readonly || field?.readonly.value;
       const size = appearance.size.value;
-      // 3b-乙2b: 档位类名挂在触发框上，所以进类名列表之前要把"没写 theme"归一到组件自己的默认档，
+      // 档位类名挂在触发框上，所以进类名列表之前要把"没写 theme"归一到组件自己的默认档，
       // 否则发出去的是一个没人画的类名。
       const theme = resolveTheme(appearance.theme.value, "fill");
       const shape = appearance.shape.value;

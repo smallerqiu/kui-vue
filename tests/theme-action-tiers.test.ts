@@ -1,9 +1,9 @@
-// 3c-甲 mirror of kui-react's tests/theme-action-tiers.test.tsx: Button is the family whose own default
+// mirror of kui-react's tests/theme-action-tiers.test.tsx: Button is the family whose own default
 // look is not a tier class. That look is driven by `type`, and its class, `k-btn-default`, is a type
-// class at (0,2,0). The source emitted `k-btn-${theme}` for whatever value it was handed, so
-// `theme="underlined"` shipped `k-btn-underlined`, a class no LESS rule answers, because an underline
-// only means something on a control you type into (theme 口径 §五.1). An unsupported tier now emits no
-// class at all, which is the same DOM as never writing `theme`.
+// class at (0,2,0). Interpolating `k-btn-${theme}` for whatever the prop receives ships
+// `theme="underlined"` as `k-btn-underlined`, a class no LESS rule answers, because an underline only
+// means something on a control you type into. So an unsupported tier emits no class at all, which is
+// the same DOM as never writing `theme`.
 // `DropdownButton` / `TriggerButton` forward their tier to `Button` and hold no tier class of their own.
 // The style half — the five tiers Button does paint — is in tests/theme-variants.test.ts.
 import { mount } from "@vue/test-utils";

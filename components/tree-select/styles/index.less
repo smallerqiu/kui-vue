@@ -505,11 +505,11 @@
 
 // The glow that says "this box is open" is drawn only for the tiers that keep the base interaction -
 // `outline`, `dashed` and a box with no tier at all - on the same exclusion list the `:hover` rule
-// above uses. It used to be unconditional, so every other tier had to patch the glow away somewhere:
-// eight of those patches never applied to anything (nothing ever paints a shadow on the inner
-// `.k-tree-select-selection`, and `&:focus .k-tree-select` cannot match a box that carries both
-// classes itself), and `fill` and every disabled box still glowed while open but stopped the moment
-// the pointer arrived. The ring below stays for all tiers; only the glow is gated.
+// above uses. A tier that keeps no glow of its own must be excluded here rather than patched per
+// tier: a hand-written `box-shadow: none` would either land on a box that never glowed - nothing paints
+// a shadow on the inner `.k-tree-select-selection`, and `&:focus .k-tree-select` cannot match a box that
+// carries both classes itself - or fight this list. The ring below stays for all tiers; only the glow is
+// gated.
 .k-tree-select-opened:not(
   .k-tree-select-disabled,
   .k-tree-select-fill,

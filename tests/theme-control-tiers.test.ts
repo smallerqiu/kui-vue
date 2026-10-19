@@ -76,12 +76,12 @@ const CASES: {
     component: InputNumber,
     props: {},
   },
-  // 3b-乙2: these two carry the tier on their own root. A tag box paints it on that wrapper, an OTP
+  // these two carry the tier on their own root. A tag box paints it on that wrapper, an OTP
   // group paints it on every cell inside, so the emission contract is the same even though the
   // element the paint lands on is not (`tests/theme-variants.test.ts` reads the compiled rules).
   { name: "k-input-tag", tag: "DIV", component: InputTag, props: {} },
   { name: "k-input-otp", tag: "DIV", component: InputOTP, props: {} },
-  // 3b-乙2b: the color picker's box is its root too, and its "open" state is a sibling class.
+  // the color picker's box is its root too, and its "open" state is a sibling class.
   { name: "k-color-picker", tag: "DIV", component: ColorPicker, props: {} },
 ];
 
@@ -109,7 +109,7 @@ describe("every theme tier reaches the control root", () => {
 
     it(`${label} lands on its own default tier with no theme written`, () => {
       // Writing no `theme` is the only spelling of "listen to the component", and for a control that
-      // means `fill` — not the bordered base a class-less root used to render. The tier is named here
+      // means `fill` — not the bordered base a class-less root would render. The tier is named here
       // rather than compared between two renders, because two renders that both land on a class no
       // LESS paints still agree with each other.
       const tiers = (extra: Record<string, unknown>) =>
@@ -128,7 +128,7 @@ describe("every theme tier reaches the control root", () => {
   }
 });
 
-// 3b-乙3 mirror of kui-react: `AutoComplete` and `Mentions` have no theme surface of their own. LESS
+// mirror of kui-react: `AutoComplete` and `Mentions` have no theme surface of their own. LESS
 // holds no `.k-auto-complete-<tier>` / `.k-mentions-<tier>` rule at all — the box a tier paints is the
 // `Input` / `TextArea` each of them renders, and the wrapper only sizes and positions it. So the
 // contract for these two is the delegation itself: the tier has to arrive on the inner control, and

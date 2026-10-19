@@ -283,7 +283,7 @@
 }
 
 // `plain` is no border and no surface, and like `underlined` it opts out of the focus ring, which
-// is drawn where its border used to be. A disabled plain box still reads as disabled.
+// would sit on an edge this tier just removed. A disabled plain box still reads as disabled.
 .k-input-number-plain:not(.k-input-number-disabled) {
   .kui-theme-value(plain);
 
@@ -296,7 +296,7 @@
   }
 }
 
-// 3b-乙: `outline` / `dashed` take the shared box and keep the base interaction rules. `solid` is the
+// `outline` / `dashed` take the shared box and keep the base interaction rules. `solid` is the
 // emphasis surface with its text, placeholder and chrome inverted, because the number itself is
 // typed into a nested `<input>` and the steppers are drawn in the icon colour.
 .k-input-number-outline {

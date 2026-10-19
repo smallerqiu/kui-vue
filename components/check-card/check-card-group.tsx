@@ -82,8 +82,8 @@ const CheckCardGroup = defineComponent({
       modelValue: computed(() => localValue.value),
       disabled: computed(() => Boolean(props.disabled || field?.disabled.value)),
       readonly: computed(() => Boolean(props.readonly || field?.readonly.value)),
-      // Forwarded untouched. This used to answer `props.theme` for any tier outside its own two, which
-      // is how a `ConfigProvider theme="solid"` above a group silently became `outline` inside it.
+      // Forwarded untouched: resolving it here would answer for a tier the caller never wrote, and a
+      // `ConfigProvider theme="solid"` above a group would silently become `outline` inside it.
       theme: computed(() => appearance.theme.value),
       size: computed(() => appearance.size.value ?? props.size),
       shape: computed(() => appearance.shape.value ?? props.shape),

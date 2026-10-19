@@ -14,8 +14,8 @@
 // A board has no plate of its own — its columns are the surfaces — so every tier is drawn on
 // `.k-kanban-column` and the root only carries the tier class. `base.less` gives every element
 // `border: 0 solid`, so the 1px edge a tier colours has to be drawn here: the `fill` and `plain` arms
-// name a `border-color` and nothing else, which is the "declared, never painted" shape an image's
-// `outline` used to have for exactly this reason.
+// name a `border-color` and nothing else, so without a width drawn here the colour is declared and
+// never painted.
 .k-kanban-column {
   display: flex;
   min-height: 360px;

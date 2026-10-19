@@ -271,10 +271,10 @@ const Transfer = defineComponent({
       );
     };
     return () => {
-      // The hand-written gate below used to answer only `outline` / `fill` and re-read `props.theme` for
-      // every other value, so a `ConfigProvider theme="solid"` was thrown away before the class list —
-      // and three of the five tiers this stylesheet now paints could not be asked for at all. The support
-      // set now lives at the emit point, and a tier it does not name lands on this component's own look.
+      // A gate that answers only the tiers it knows and re-reads `props.theme` for the rest throws away
+      // whatever a provider asked for before the class list, and leaves tiers the stylesheet paints
+      // unaskable. The support set lives at the emit point, and a tier it does not name lands on this
+      // component's own look.
       const theme = resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "outline";
       return (
         <div

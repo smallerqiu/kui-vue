@@ -1,4 +1,4 @@
-// 3d-甲 mirror of kui-react's tests/form-appearance.test.tsx: `Form`'s `size`, `shape` and `theme` are
+// mirror of kui-react's tests/form-appearance.test.tsx: `Form`'s `size`, `shape` and `theme` are
 // the appearance of its *child controls*, and a Card or an Alert sitting in the same form is not one.
 // Vue has always said this with two hooks — `useFormAppearance` for controls, `useConfigAppearance` for
 // everything else — and react read the form from the single hook every component called, so

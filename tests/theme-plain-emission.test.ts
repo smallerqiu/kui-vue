@@ -1,6 +1,7 @@
-// Audit ⑪ mirror of kui-react's tests/theme-plain-emission.test.tsx: `theme="plain"` used to be
-// answered with `k-<component>-borderless`, so "no border and no surface" could not be told apart
-// from "no border", and the components' own `.k-<component>-plain` LESS rules were unreachable.
+// mirror of kui-react's tests/theme-plain-emission.test.tsx: `plain` (no border *and* no surface) and
+// `borderless` (no border) are separate asks, so they need separate class names. Answering
+// `theme="plain"` with `k-<component>-borderless` would leave each component's own
+// `.k-<component>-plain` LESS rule as a selector nothing can match.
 import { enableAutoUnmount, mount } from "@vue/test-utils";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import Cascader from "../components/cascader";
@@ -41,7 +42,7 @@ const CASES = [
     component: TreeSelect,
     props: { treeData: [{ key: "apple", title: "Apple" }] },
   },
-  // 3c-丁b: a code carried the same fold — `bordered={false}` and `theme="plain"` both answered with one
+  // a code carried the same fold — `bordered={false}` and `theme="plain"` both answered with one
   // `.k-qrcode-plain, .k-qrcode-borderless` rule that deleted the border *and* the 12px ring, so asking
   // for a plain surface quietly cropped the box while a cropped box still kept a 1px edge.
   {

@@ -1,10 +1,10 @@
-// 3c-乙a mirror of kui-react's tests/theme-mark-tiers.test.tsx: `Tag` is the opposite case to `Button`
+// mirror of kui-react's tests/theme-mark-tiers.test.tsx: `Tag` is the opposite case to `Button`
 // (tests/theme-action-tiers) — its own default look *is* a tier class, `fill`, so a tag carries exactly
-// one tier whatever it is handed. The source used to emit `k-tag-${theme}` for any value it received, so
-// `theme="outline" / "solid" / "dashed"` shipped classes no LESS rule answered: a chip inside a
-// `multiple theme="solid"` select was unthemed twice over. Now the five tiers `tag/styles/index.less`
-// paints all reach the root, and anything it cannot paint — `underlined`, which only means something on
-// a box you type into (theme 口径 §五.1) — lands on `fill`.
+// one tier whatever it is handed. That is only true because the class list is filtered: emitting
+// `k-tag-${theme}` for any value the prop receives ships `theme="outline" / "solid" / "dashed"` as
+// classes no LESS rule answers, which leaves a chip inside a `multiple theme="solid"` select unthemed
+// twice over. The five tiers `tag/styles/index.less` paints all reach the root, and anything it cannot
+// paint — `underlined`, which only means something on a box you type into — lands on `fill`.
 // The style half is in tests/theme-variants.test.ts and scripts/check-theme.ts.
 import { enableAutoUnmount, mount } from "@vue/test-utils";
 import { h, type Component } from "vue";
@@ -175,11 +175,11 @@ describe("a multiple control hands its tier to the chips it renders", () => {
   });
 });
 
-// 3c-乙b mirror: the other two marks. A check box and a radio have two looks, not five — a shallow
+// mirror: the other two marks. A check box and a radio have two looks, not five — a shallow
 // filled box and a bordered one — and their default is `fill`, so they take the same guard as `Tag`
 // with a shorter painted list (`components/checkbox/checkbox.tsx`, `components/radio/radio.tsx`). The
-// bug this locks is the one the source used to have: `theme="outline"` shipped no class at all, so the
-// box fell back to the base border with no way for `--kui-theme-outline-border` to reach it.
+// the case this locks is the easy one to get wrong: if `theme="outline"` shipped no class at all the
+// box would fall back to the base border, with no way for `--kui-theme-outline-border` to reach it.
 // The style half is `tests/theme-variants.test.ts` and `scripts/check-theme.ts`.
 const MARK_PAINTED = ["fill", "outline"] as const;
 const MARK_UNPAINTED = ["plain", "solid", "dashed", "underlined"] as const;
@@ -319,14 +319,14 @@ describe("a group hands its tier to the boxes it renders", () => {
   }
 });
 
-// 3d-乙′ (#158). Handing a tier down and writing the child's own `theme` are the *same act* in this build:
-// a group has no injection channel of its own, so the hand-off is `cloneVNode(child, { theme }, true)` —
-// and `useFormAppearance` decides "explicit" by `hasOwnProperty` on the vnode it was handed. Patching a key
+// Handing a tier down and writing the child's own `theme` are the *same act* in this build: a group has
+// no injection channel of its own, so the hand-off is `cloneVNode(child, { theme }, true)` — and
+// `useFormAppearance` decides "explicit" by `hasOwnProperty` on the vnode it was handed. Patching a key
 // unconditionally therefore makes the group's value look like the child wrote it, and
-// `<CheckboxGroup><Checkbox theme="outline" /></CheckboxGroup>` painted `fill` while the react build, where
-// the item reads `props ?? group ?? provider`, painted `outline`. `size` and `shape` ride the same patch and
-// were killed the same way (a group that says nothing about size still wrote `size: undefined`), so the
-// three keys are pinned together here.
+// `<CheckboxGroup><Checkbox theme="outline" /></CheckboxGroup>` would paint `fill` while the react
+// build, where the item reads `props ?? group ?? provider`, paints `outline`. `size` and `shape` ride
+// the same patch and break the same way (a group that says nothing about size still writes
+// `size: undefined`), so the three keys are pinned together here.
 describe("an item that wrote its own appearance keeps it against the group", () => {
   const written = (
     group: Component,
@@ -411,7 +411,7 @@ describe("an item that wrote its own appearance keeps it against the group", () 
 });
 
 // The same hand-off, one step further down: a group built from `options` makes its own items, so the
-// tier reaches them as a prop the group writes. 3d-乙 typed that prop by what the item paints — the two
+// tier reaches them as a prop the group writes. That prop is typed by what the item paints — the two
 // tiers a box has, the five a button has — while what the group inherits is the six-tier vocabulary a
 // `ConfigProvider` or a `Form` may name, so the mode decides whose list resolves the tier. Running it
 // through the box's list in button mode would rewrite `solid` into `fill`: the last case is what stops
@@ -516,9 +516,8 @@ describe("an inherited tier goes through the mark guard too", () => {
 // box: the joined-button spacing only exists for the filled look, and it has to follow the value the
 // buttons are actually painted with. A button written with no `theme` is not that value — its own look
 // is the bordered one, which is what the base spacing already draws — so this condition stays a literal
-// `fill` comparison while still reading the inherited value. `components/radio/radio-group.tsx` used to
-// read `props.theme`, so a provider that asked for `fill` painted filled buttons inside un-joined
-// spacing.
+// `fill` comparison while still reading the inherited value. Reading `props.theme` instead leaves a
+// provider that asked for `fill` painting filled buttons inside un-joined spacing.
 describe("the button-style radio group joins its buttons for the filled tier only", () => {
   const buttons = () => [
     h(RadioButton, { value: "a" }, () => "A"),

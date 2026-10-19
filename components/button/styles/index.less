@@ -657,12 +657,10 @@
   }
 }
 
-// `box-shadow: none` used to sit here. It suppressed nothing: this file has no other `box-shadow`
-// declaration and no rule anywhere in the library paints one on `.k-btn`, so `plain` was already
-// flat by not being drawn at all. Sweep verified over the real DOM (idle / hover / primary / in a
-// group): deleting the line moves zero computed values, while injecting a (0,1,0) glow on `.k-btn`
-// and deleting it together moves all eight - the line matched, it just had no opponent. ③-3d-壬;
-// `tests/theme-dead-css.test.ts` now pins "button declares no box-shadow at all".
+// A plain button needs no shadow suppression: this file declares no `box-shadow` and no rule anywhere
+// in the library paints one on `.k-btn`, so the tier is flat by never being drawn.
+// `tests/theme-dead-css.test.ts` pins that - button's shadow allow-list is empty - so a button state
+// that grows a glow has to be ruled there first.
 .k-btn-plain {
   border-color: transparent;
   background: transparent;

@@ -299,7 +299,7 @@ describe("DatePicker calendar grid", () => {
     wrapper.unmount();
   });
 
-  // 年 / 月面板（②）：格子只在 mode 就是"选这一年 / 这一月"时才认 disabledDate，
+  // 年 / 月面板：格子只在 mode 就是"选这一年 / 这一月"时才认 disabledDate，
   // 判据是"整格里一天都挑不出来"；浏览态不拦——拦死了连"翻过去看看"都做不到。
   it("refuses a fully disabled year and lands on an open day inside a partly disabled one", async () => {
     const wrapper = mount(DatePicker, {

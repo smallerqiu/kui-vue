@@ -33,11 +33,11 @@
 .k-qrcode-dashed {
   .kui-theme-value(dashed);
 }
-// ⑪: `theme="plain"` asks for no surface, `bordered={false}` asks for no frame — and a code with no
-// frame has no reason to keep the ring that frame was drawn to hold. The two used to be one rule, so
-// asking for `plain` deleted the 12px the caller never asked to lose while leaving a 1px edge standing
-// there invisible, and `bordered={false}` painted a transparent border instead of removing it. Compound
-// so it out-specifies whichever tier the caller also asked for.
+// `theme="plain"` asks for no surface and `bordered={false}` asks for no frame — two different asks,
+// so they get two rules: folding them together makes `plain` delete the 12px ring the caller never asked
+// to lose while leaving a 1px edge standing there invisible, and makes `bordered={false}` paint a
+// transparent border instead of removing it. A code with no frame has no reason to keep the ring that
+// frame was drawn to hold. Compound so it out-specifies whichever tier the caller also asked for.
 .k-qrcode.k-qrcode-borderless {
   border: 0;
   padding: 0;

@@ -9,8 +9,8 @@
 // A transfer owns no plate of its own — the two lists are its surfaces — so every tier is drawn on
 // `.k-transfer-list` and the root only carries the tier class. The 1px edge has to be declared here:
 // `base.less` gives every element `border: 0 solid`, and the `fill` / `plain` arms colour a border they
-// never give a width to, which is the "declared, never painted" shape a board's columns used to have.
-// This component's own look is the outlined frame, so `outline` is the arm the base used to hand-copy.
+// never give a width to, so without a width drawn here the colour is declared and never painted.
+// This component's own look is the outlined frame, so `outline` reads the shared arm.
 .k-transfer-list {
   display: flex;
   flex-direction: column;

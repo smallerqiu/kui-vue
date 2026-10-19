@@ -36,7 +36,7 @@ const tagProps = {
 export type TagProps = ExtractPropTypes<typeof tagProps>;
 
 // The tiers `tag/styles/index.less` paints. `underlined` is absent because an underline is the whole
-// affordance of a field you type into and a chip has nothing to underline (theme 口径 §五.1). Anything
+// affordance of a field you type into and a chip has nothing to underline. Anything
 // outside this set resolves to `fill` — the tier a tag reaches when no `theme` is written — rather than
 // shipping a class no LESS rule answers.
 const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;

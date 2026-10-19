@@ -27,10 +27,10 @@ const statCardProps = {
 
 export type StatCardProps = ExtractPropTypes<typeof statCardProps>;
 
-// The tiers `stat-card/styles/index.less` paints. `underlined` is absent because an underline is the
-// whole affordance of a field you type into and a stat panel has nothing to underline (theme 口径
-// §五.1). Anything outside this set resolves to `fill` — the tier it reaches when no `theme` is
-// written — rather than shipping a class no LESS rule answers.
+// The tiers `stat-card/styles/index.less` paints. `underlined` is absent because an underline is
+// the whole affordance of a field you type into and a stat panel has nothing to underline. Anything
+// outside this set resolves to `fill` — the tier it reaches when no `theme` is written — rather than
+// shipping a class no LESS rule answers.
 const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 
 const StatCard = defineComponent({

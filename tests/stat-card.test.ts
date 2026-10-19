@@ -97,14 +97,14 @@ describe("StatCard", () => {
     });
     await nextTick();
     expect(wrapper.find(".k-stat-number-prefix").text()).toBe("$");
-    // Declared as a prop, so it must no longer fall through onto the root element.
+    // Declared as a prop, so it must not fall through onto the root element.
     expect(wrapper.attributes("prefix")).toBeUndefined();
     expect(warn).not.toHaveBeenCalled();
   });
 
   it("keeps a caller-supplied key out of the positional fallback", () => {
     // Vue does not warn about duplicate keys on mount, so the generator is tested
-    // directly: `[{key: 1}, {}]` used to hand both items `number:1`.
+    // directly: without the prefix `[{key: 1}, {}]` hands both items `number:1`.
     expect(statItemKey({ key: 1 }, 0)).not.toBe(statItemKey({}, 1));
     expect(statItemKey({}, 1)).toBe("kui-item-1");
     expect(statItemKey({ key: 1 }, 0)).toBe("1");

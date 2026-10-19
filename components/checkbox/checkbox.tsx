@@ -25,7 +25,7 @@ import type { CheckboxChangeEvent } from "./types";
 // shipping `k-checkbox-<tier>`, a class no LESS rule can answer. The four tiers left out — `plain` (a
 // box with no edge is not a check box), `solid` / `dashed` (containers and drop zones) and
 // `underlined` (only means something on a field you type into) — land on `fill` too, the same ruling
-// `Tag` follows with five tiers instead of two (theme 口径 §五.1).
+// `Tag` follows with five tiers instead of two.
 const PAINTED_THEMES = ["fill", "outline"] as const;
 
 const checkboxProps = {

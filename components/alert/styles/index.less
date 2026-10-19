@@ -37,9 +37,8 @@
     line-height: 1;
   }
 
-  // The description's colour used to be declared only inside `-has-description`, at (0,2,0), while the
-  // message's sat here at (0,1,0) — so a preset that had to reach both needed two different weights and
-  // won the message one of them purely by file order. Both now live at (0,1,0) with the same value.
+  // The description's colour is declared here at (0,1,0), next to the message's: one preset that has to
+  // reach both needs one weight, and file order must not decide which of the two it wins.
   &-description {
     color: var(--kui-color-text);
   }
@@ -81,7 +80,7 @@
   }
 
   // Each `type` names the two colours its surface is drawn from: the accent is the saturated message
-  // colour (mark, solid plate), the plate is the 20% tint the outlined alert has always shipped with.
+  // colour (mark, solid plate), the plate is a 20% tint of it.
   // Painting them here is what made `theme` and `type` fight over one `background` declaration; naming
   // them here lets each tier decide how much of the plate to show without re-listing four types.
   &-info {
@@ -148,9 +147,9 @@
 
   background: var(--k-alert-plate);
 }
-// `outline` / `plain` / `dashed` strip the tint and take their frame from the shared arm. This used to
-// read `border-color: currentColor` — the page's text colour, which is neither the alert's message nor
-// an override hook — so `--kui-theme-outline-border` had nothing to reach.
+// `outline` / `plain` / `dashed` strip the tint and take their frame from the shared arm. A frame read
+// from `currentColor` is the page's text colour — neither the alert's message nor an override hook — and
+// `--kui-theme-outline-border` could never reach it.
 .k-alert-outline {
   .kui-theme-value(outline);
 }

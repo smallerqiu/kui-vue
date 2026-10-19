@@ -321,9 +321,9 @@
 .k-image-fill {
   .kui-theme-value(fill);
 }
-// The frame used to be spelled `border-color` alone while `base.less` gives every element
-// `border: 0 solid`, so the colour landed on an edge with no width: `theme="outline"` painted nothing
-// and `--kui-theme-outline-border` had nothing to reach. The shared arm draws the 1px as well.
+// `base.less` gives every element `border: 0 solid`, so a frame spelled `border-color` alone lands on
+// an edge with no width and paints nothing. The shared arm draws the 1px as well, which is what gives
+// `--kui-theme-outline-border` something to reach.
 .k-image-outline {
   .kui-theme-value(outline);
 }

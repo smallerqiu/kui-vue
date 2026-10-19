@@ -33,8 +33,9 @@ const compile = async (entry: string) => {
       .overrides {--kui-control-bg:#ff00ff;--kui-popup-bg:#ffff00;--kui-control-radius:13px;--kui-color-primary-hover:#00ffff}
       .theme-hooks {--kui-theme-fill-bg:#ff0000;--kui-theme-outline-border:#00ff00;--kui-theme-plain-border:#0000ff;--kui-theme-plain-bg:#ffff00}
       .control-chain {--kui-control-border:#00ff00;--kui-control-bg-fill:#0000ff}
-      /* A check box used to hand-copy the fill background and hard-code a transparent edge, so this hook
-         is the proof that its fill tier now reads the same arm every other surface reads. */
+      /* A check box that hand-copied the fill background with a hard-coded transparent edge would
+         ignore this hook, so it is the proof that its fill tier reads the same arm every other
+         surface reads. */
       .mark-hooks {--kui-theme-fill-border:#00ffff}
       /* solid fills with the primary, so this scope declares its own; the hover stop stays
          undefined, which is what proves the 90% mix is computed at the point of use. */
@@ -158,11 +159,11 @@ const compile = async (entry: string) => {
         await resolve("default-input-plain", "transparent"),
         "plain input " + prop + " must be transparent",
       );
-    // `plain` and `borderless` are separate asks (audit ⑪): `theme="plain"` no longer borrows the
-    // borderless class. Neither may have its border repainted under the pointer. `plain` wins that
-    // fight by being written after the base rule; `borderless` only wins because the base rule
-    // names it inside `:not()` — before that, a borderless control grew a primary border and a
-    // glow the moment the pointer reached it, exactly what its own block says must not happen.
+    // `plain` and `borderless` are separate asks, so `theme="plain"` must not borrow the borderless
+    // class. Neither may have its border repainted under the pointer. `plain` wins that fight by being
+    // written after the base rule; `borderless` only wins because the base rule names it inside
+    // `:not()` — otherwise a borderless control grows a primary border and a glow the moment the pointer
+    // reaches it, exactly what its own block says must not happen.
     for (const id of ["default-select-plain", "default-select-borderless"]) {
       await page.locator("#" + id).hover();
       // The border transition must land before the reading, or a repaint during hover would be
@@ -175,12 +176,11 @@ const compile = async (entry: string) => {
       );
       assert.equal(await style(id, "box-shadow"), "none", id + " must not get a hover shadow");
     }
-    // The same arm drives tree-select and cascader, and until batch 3d-己 their `fill` / `disabled`
-    // boxes carried a hand-written `box-shadow: none` on top of it. The exclusion list is what keeps
-    // them flat now, so the claim has to be read at the pixel: drop a name from the `:not()` and this
-    // goes red. No inner-box guard here on purpose either - nothing in the library paints a border, a
-    // shadow or a background on `.k-<component>-selection`, so a pixel assertion about it can never
-    // fail; that is exactly why the suppressions it used to carry were the dead ones to sweep.
+    // The same arm drives tree-select and cascader, and for them the exclusion list is the only thing
+    // that keeps `fill` / `disabled` flat - so the claim has to be read at the pixel: drop a name from
+    // the `:not()` and this goes red. No inner-box guard here on purpose either - nothing in the
+    // library paints a border, a shadow or a background on `.k-<component>-selection`, so a pixel
+    // assertion about it can never fail.
     for (const id of [
       "default-tree-select-fill",
       "default-tree-select-disabled",
@@ -226,13 +226,13 @@ const compile = async (entry: string) => {
       assert.equal(
         await style("default-tree-select-opened-" + tier, "box-shadow"),
         outlineHoverGlow,
-        "an opened " + tier + " tree select must keep the glow that tier never had to patch away",
+        "an opened " + tier + " tree select keeps its hover glow while the panel is open",
       );
     }
     // Pointer off the outlined box again before the next block reads its idle border.
     await page.mouse.move(0, 0);
-    // The four tiers this control family used to swallow (batch 3b). Each has to reach the pixel,
-    // and the tiers have to stay distinguishable from each other, not only from `fill`.
+    // The tiers outside this control family's own look. Each has to reach the pixel, and the tiers
+    // have to stay distinguishable from each other, not only from `fill`.
     // `outline` is a bare frame: 1px solid on the documented border token, no surface.
     assert.equal(
       await style("default-select-outline", "border-top-color"),
@@ -335,11 +335,10 @@ const compile = async (entry: string) => {
       "rgb(0, 255, 0)",
       "--kui-control-border must reach an outlined control",
     );
-    // `DatePicker` used to be the odd one out: `Select` / `Cascader` / `TreeSelect` hid the focus
-    // ring on a borderless or plain box while `DatePicker` kept drawing it. A control that was asked
-    // to drop its border drops the ring too, so all four now agree — and the ring is still there for
-    // a control that kept its border, which is what stops the exclusion above from being a wide-open
-    // assertion about a rule that no longer exists.
+    // A control that was asked to drop its border drops the ring too, so `Select` / `Cascader` /
+    // `TreeSelect` / `DatePicker` agree on it — and the ring is still there for a control that kept its
+// border, which is what stops the exclusion above from being a wide-open assertion about a rule
+// that never lands.
     for (const id of ["default-datepicker-plain", "default-datepicker-borderless"]) {
       await page.locator("#" + id).focus();
       await page.locator("#" + id).evaluate((el) => el.getAnimations().forEach((a) => a.finish()));
@@ -358,10 +357,9 @@ const compile = async (entry: string) => {
       await resolve("default-datepicker-fill", "transparent"),
       "a bordered date-picker must still show its focus ring",
     );
-    // 3b-乙: the box path. A tier class lands on one of three elements — the wrapper that replaces
+    // the box path. A tier class lands on one of three elements — the wrapper that replaces
     // the field once anything decorates it (`[data-multiple]`), the bare `<input>` (`[data-single]`),
-    // or a `<textarea>` — and `outline` / `solid` used to reach none of them: the source dropped both
-    // values before the class list and LESS had no rule for either.
+    // or a `<textarea>`, so a tier that paints on one shape and not another is the failure here.
     for (const id of ["default-input-outline", "default-input-outline-single"]) {
       assert.equal(
         await style(id, "border-top-color"),
@@ -511,8 +509,8 @@ const compile = async (entry: string) => {
         `${id} focused must not fall back to the base border and ring`,
       );
     }
-    // 3d-庚: every tier used to patch this family's focus glow away with its own `box-shadow: none`.
-    // One `:not()`-guarded arm draws it now, so the claim has to be read at the pixel: drop a name
+    // This family's focus glow is drawn by one `:not()`-guarded arm, not by a `box-shadow: none` per
+    // tier, so the claim has to be read at the pixel: drop a name
     // from that list and the matching flat reading below goes red, and deleting the arm reddens the
     // two glow readings. The border repaint and the ring are separate declarations and stay for every
     // tier — that is what the loop above reads.
@@ -537,7 +535,7 @@ const compile = async (entry: string) => {
     assert.notEqual(
       wrapperFocusGlow,
       "none",
-      "an outlined box must keep the glow that tier never had to patch away",
+      "an outlined box keeps its focus glow",
     );
     assert.equal(
       await glowWithFocusClass("default-input-dashed"),
@@ -562,9 +560,9 @@ const compile = async (entry: string) => {
       );
       await page.locator("#" + id).evaluate((el) => el.blur());
     }
-    // 3b-乙2: the two composite controls. A tag box paints the tier on its wrapper while an OTP group
-    // paints it on every cell, and both used to swallow the same four tiers the box path did while
-    // `fill` came from a hand-copied chain — so a documented `--kui-theme-*` hook missed them.
+    // the two composite controls. A tag box paints the tier on its wrapper while an OTP group
+    // paints it on every cell, and both take `fill` from the shared arm, so a documented
+    // `--kui-theme-*` hook has to reach them the way it reaches the box path.
     for (const id of ["hook-tag-outline", "hook-tag-dashed", "hook-otp-outline-cell"])
       assert.equal(
         await style(id, "border-top-color"),
@@ -688,7 +686,7 @@ const compile = async (entry: string) => {
     );
     // `underlined` is one edge on a wrapper and on a cell, and `plain` is nothing at all: both are
     // flat, so both drop the base ring and neither may have a border or a glow brought back by the
-    // pointer or the caret. An OTP cell used to do exactly that on hover.
+    // pointer or the caret - an OTP cell that lit on hover is the failure this reads.
     for (const id of ["default-tag-underlined", "underlined-otp-cell"]) {
       assert.equal(
         await style(id, "border-top-width"),
@@ -761,10 +759,10 @@ const compile = async (entry: string) => {
       "none",
       "a plain tag box must not keep the base ring",
     );
-    // 3d-庚 again, on the two shapes this family paints differently: an OTP group carries the tier on
+    // again, on the two shapes this family paints differently: an OTP group carries the tier on
     // the wrapper while the glow belongs to the focused cell, and a tag box guards through
     // `:focus-within` on its root. Both must go flat under the caret for `solid`, and stay lit for the
-    // tier that never had to patch anything.
+// tier that keeps the base glow.
     for (const [id, focusTarget] of [
       ["solid-otp-cell", "#solid-otp-cell"],
       ["outline-otp-cell", "#outline-otp-cell"],
@@ -779,7 +777,7 @@ const compile = async (entry: string) => {
         assert.notEqual(
           glow,
           "none",
-          id + " must keep the glow that tier never had to patch away",
+          id + " keeps its focus glow",
         );
     }
     // The number box keys its glow off a class the component puts on its root, and that root also
@@ -794,7 +792,7 @@ const compile = async (entry: string) => {
       "none",
       "a focused outlined number box must glow",
     );
-    // 3b-乙2b: the color picker's trigger is a third box shape — the tier is painted on the box and
+    // the color picker's trigger is a third box shape — the tier is painted on the box and
     // its open state is a class, not a pseudo-class, so an open panel is what has to light the edge.
     assert.equal(
       await style("hook-picker-fill", "background-color"),
@@ -820,13 +818,13 @@ const compile = async (entry: string) => {
       await resolve("default-picker-opened-outline", "var(--kui-color-primary)"),
       "an open outlined color picker must light its edge",
     );
-    // 3d-庚: the open glow now comes from a `:not()`-guarded sibling, so the edge and the shadow are
+    // the open glow now comes from a `:not()`-guarded sibling, so the edge and the shadow are
     // two separate claims — an outlined box keeps both, and a disabled box stays flat even while a
     // controlled `open` keeps its panel up (the component blocks internal opens, not that path).
     assert.notEqual(
       await style("default-picker-opened-outline", "box-shadow"),
       "none",
-      "an open outlined color picker must keep the glow that tier never had to patch away",
+      "an open outlined color picker keeps its glow",
     );
     assert.equal(
       await style("disabled-picker-opened", "box-shadow"),
@@ -862,8 +860,8 @@ const compile = async (entry: string) => {
       "none",
       "an open filled color picker must not keep the base glow",
     );
-    // `plain` was the one tier with a hand-written `transparent`, and an open panel used to bring a
-    // primary border and a glow back onto it.
+    // `plain` writes its `transparent` through the shared arm, so an open panel must not bring a
+    // primary border or a glow back onto it.
     for (const id of ["default-picker-plain", "default-picker-opened-plain"]) {
       assert.equal(
         await style(id, "border-top-color"),
@@ -958,7 +956,7 @@ const compile = async (entry: string) => {
       await resolve("disabled-picker-fill", "var(--kui-color-bg-component-disabled)"),
       "a disabled filled color picker must not keep the tier surface",
     );
-    // 3c-乙a: the chip. A tag paints all five tiers on its own box, so it takes the same documented
+    // the chip. A tag paints all five tiers on its own box, so it takes the same documented
     // hooks the 3b boxes take, and `dashed` is `outline`'s border with a different line.
     assert.equal(
       await style("hook-mark-fill", "background-color"),
@@ -1078,9 +1076,9 @@ const compile = async (entry: string) => {
         "solid",
         chip + " must not inherit the dashed line of its control",
       );
-    // 3c-乙b: a check box and a radio have no surface of their own — the tier *is* the box, so both
-    // tiers have to reach `.k-*-symbol`. `outline` used to ship no class at all (the edge came from the
-    // base rule, so no hook could touch it) and `fill` hard-coded a transparent edge.
+    // a check box and a radio have no surface of their own — the tier *is* the box, so both
+    // tiers have to reach `.k-*-symbol`, so an `outline` that ships no class - leaving the edge to a
+    // base rule no hook can touch - or a `fill` with a hard-coded transparent edge is what this reads.
     assert.equal(
       await style("hook-checkbox-fill", "background-color"),
       "rgb(255, 0, 0)",
@@ -1166,7 +1164,7 @@ const compile = async (entry: string) => {
       await resolve("default-checkbox-fill", "var(--kui-color-bg-component-hover)"),
       "a filled check box must paint its own hover surface",
     );
-    // 3c-丙a: a surface tier paints the whole box, so `solid` has to take with it everything these
+    // a surface tier paints the whole box, so `solid` has to take with it everything these
     // components colour themselves. The parts are named per component because inherited colour only
     // reaches text that has no rule of its own: a card title has none and inverts for free, while a meta
     // title, an icon chip or a muted line paint themselves with dark tokens and must be repainted here.
@@ -1304,17 +1302,17 @@ const compile = async (entry: string) => {
       await resolve("default-card-dashed-head", "var(--kui-color-border)"),
       "a dashed card must keep its divider on the card border token",
     );
-    // `bordered` is the outlined spelling of a stat card. It used to hand-copy the same chain, which is
-    // how the two drifted apart from the tier, so both must land on one triple now.
+    // `bordered` is the outlined spelling of a stat card, so it has to land on the same triple as
+    // `outline`: hand-copying the chain is how the two drift apart from the tier.
     for (const prop of ["border-top-color", "background-color"])
       assert.equal(
         await style("default-stat-card-bordered", prop),
         await style("default-stat-card-outline", prop),
         'a bordered stat card must read exactly like theme="outline": ' + prop,
       );
-    // 3c-丙b: `Collapse` and `FeedbackPanel` resolve every tier through the shared mixin now, so the
-    // same `--kui-theme-*` hooks that repaint a Card have to reach them — `--kui-theme-outline-border`
-    // used to colour an input while a panel kept a hand-written border nothing could recolour.
+    // `Collapse` and `FeedbackPanel` resolve every tier through the shared mixin, so the same
+    // `--kui-theme-*` hooks that repaint a Card have to reach them: a hand-written border on a panel is
+    // one nothing can recolour while an input follows the token.
     assert.equal(
       await style("hook-collapse-outline", "border-top-color"),
       "rgb(0, 255, 0)",
@@ -1349,9 +1347,9 @@ const compile = async (entry: string) => {
       "rgb(255, 255, 0)",
       "--kui-theme-plain-bg must reach a feedback panel",
     );
-    // 3c-丙c: a check card used to hand-copy `var(--kui-color-border)` for its own frame, so a caller
-    // repainting the library's tier hooks got cards that stayed behind. These four are the proof the
-    // card now reads the same hooks a Card or a panel does.
+    // A check card that hand-copied `var(--kui-color-border)` for its frame stays behind when a
+    // caller repaints the library's tier hooks. These four are the proof the card reads the same hooks
+    // a Card or a panel does.
     assert.equal(
       await style("hook-check-card-outline", "border-top-color"),
       "rgb(0, 255, 0)",
@@ -1395,8 +1393,8 @@ const compile = async (entry: string) => {
         id + " stripe must stay on the kind colour",
       );
     }
-    // The tier owns the surface, so an outlined panel now lands on the shared arm's plate — transparent
-    // until `--kui-theme-outline-bg` is set — instead of the page colour the base block used to pin.
+    // The tier owns the surface, so an outlined panel lands on the shared arm's plate — transparent
+    // until `--kui-theme-outline-bg` is set — not on a page colour pinned by the base block.
     for (const id of ["default-feedback-outline", "default-feedback-dashed"])
       assertColor(
         await rgba(id, "background-color"),
@@ -1550,7 +1548,7 @@ const compile = async (entry: string) => {
       await resolve("outline-feedback-heading", "var(--kui-color-text-title)"),
       "the solid colour rules must not leak into the outlined tier",
     );
-    // 3c-丙c: a check card is a surface, not a control — it paints a whole box, so `theme` now answers
+    // a check card is a surface, not a control — it paints a whole box, so `theme` now answers
     // the five surface tiers through the same mixin every other box uses. The frame lives on the base
     // block (`1px solid transparent`), which is what lets a tier change recolour the card without
     // moving its content: `fill` and `plain` set colour only, `outline` and `dashed` set the line
@@ -1756,7 +1754,7 @@ const compile = async (entry: string) => {
       await resolve("outline-check-card-title", "var(--kui-color-text-title)"),
       "the solid colour rules must not leak into the outlined tier",
     );
-    // 3c-丁a: an alert's default look *is* its message colour, so its tiers take the shared arm's frame
+    // an alert's default look *is* its message colour, so its tiers take the shared arm's frame
     // and keep a plate of their own. `fill` is that tint, `solid` is the same colour at full strength,
     // and neither is reachable by the hook that paints a generic surface.
     assert.equal(
@@ -1799,12 +1797,12 @@ const compile = async (entry: string) => {
       await resolve("default-alert-outline", "var(--kui-color-border)"),
       "an outlined alert must draw the base border",
     );
-    // The frame used to read `currentColor` — the page's text colour, which is neither the alert's
-    // message nor an override hook — so an outlined alert could not be recoloured at all.
+    // A frame that reads `currentColor` is the page's text colour, which is neither the alert's
+    // message nor an override hook, so an outlined alert could not be recoloured through either.
     assert.notEqual(
       await style("default-alert-outline", "border-top-color"),
       await resolve("default-alert-outline", "var(--kui-color-text)"),
-      "an outlined alert must no longer border with its own text colour",
+      "an outlined alert must not border with its own text colour",
     );
     // The three tiers that own no plate of their own are the arm, hooks included.
     assert.equal(
@@ -1909,7 +1907,7 @@ const compile = async (entry: string) => {
       await resolve("outline-alert-mark", "var(--kui-color-danger)"),
       "an outlined alert must keep its mark on the type's colour",
     );
-    // 3c-丁b: a picture framed itself with `border-color` alone on an element `base.less` gives
+    // a picture framed itself with `border-color` alone on an element `base.less` gives
     // `border: 0 solid`, so the colour landed on an edge with no width — `theme="outline"` painted
     // nothing and `--kui-theme-outline-border` had nothing to reach. The shared arm draws the 1px as
     // well, which is the whole difference between a dead class name and a frame.
@@ -1993,9 +1991,9 @@ const compile = async (entry: string) => {
       await resolve("default-qrcode-dashed", "var(--kui-color-border)"),
       "a dashed code must fall through to the base border",
     );
-    // ⑪: `theme="plain"` asks for no surface, `bordered={false}` asks for no frame — and only a frameless
-    // code has lost the thing the 12px ring was drawn to hold. The two used to be one rule, so asking for
-    // `plain` deleted padding the caller never mentioned while leaving a transparent edge standing there.
+    // `theme="plain"` asks for no surface and `bordered={false}` asks for no frame — two different
+    // asks, so they are two rules: one rule for both makes `plain` delete padding the caller never
+    // mentioned while leaving a transparent edge standing there.
     assert.equal(
       await style("default-qrcode-plain", "padding-top"),
       "12px",
@@ -2117,10 +2115,9 @@ const compile = async (entry: string) => {
       await resolve("outline-qrcode-expired", "var(--kui-color-text)"),
       "an outlined code must keep its expired message in ink",
     );
-    // 3c-丁c: a pagination bar paints its tiers on the cells the numbers sit on, so the hook has to land
-    // on a `<li>` rather than on the bar — and the frame it drew used to be
-    // `border: 1px solid var(--kui-color-border)`, which no `--kui-theme-*` or `--kui-control-*` token
-    // could ever reach.
+    // a pagination bar paints its tiers on the cells the numbers sit on, so the hook has to land
+    // on a `<li>` rather than on the bar — and the frame has to come from the arm, not from a pinned
+    // `var(--kui-color-border)` that no `--kui-theme-*` or `--kui-control-*` token can ever reach.
     assert.equal(
       await style("hook-page-fill", "background-color"),
       "rgb(255, 0, 0)",
@@ -2313,10 +2310,10 @@ const compile = async (entry: string) => {
       await resolve("disabled-page-solid-cell", "var(--kui-color-text-disabled)"),
       "a disabled pager must keep its cells in disabled ink",
     );
-    // 3c-丁d: a board owns no plate of its own — every tier is drawn on its columns — so the hooks have to
-    // land on a `.k-kanban-column`, and the drop hint has to survive the plate it sits on top of. Under
-    // `fill`, the board's own tier, that hint used to be out-specified by the tier beside it, so a column
-    // being dragged over kept the grey plate and the transparent edge it always had.
+    // a board owns no plate of its own — every tier is drawn on its columns — so the hooks have to
+    // land on a `.k-kanban-column`, and the drop hint has to survive the plate it sits on top of: under
+    // `fill`, the board's own tier, a hint that the tier beside it out-specifies leaves a dragged-over
+    // column on the grey plate and transparent edge it always had.
     assert.equal(
       await style("hook-kanban-fill", "background-color"),
       "rgb(255, 0, 0)",
@@ -2498,10 +2495,10 @@ const compile = async (entry: string) => {
       "rgba(0, 0, 0, 0)",
       "the solid plate must not leak into the outlined tier",
     );
-    // 3c-丁d: a transfer owns no plate of its own either — every tier is drawn on the two panels — so the
+    // a transfer owns no plate of its own either — every tier is drawn on the two panels — so the
     // hooks have to land on a `.k-transfer-list`, and the one control the component hands its tier to is
-    // the search box inside a panel. Under `fill`, which the component never used to reach at all, the
-    // panel's own 1px edge is what the transparent border sits on.
+    // the search box inside a panel. Under `fill` the panel's own 1px edge is what a transparent border
+    // sits on.
     assert.equal(
       await style("hook-transfer-fill", "background-color"),
       "rgb(255, 0, 0)",
@@ -2540,8 +2537,8 @@ const compile = async (entry: string) => {
       "rgb(0, 0, 255)",
       "--kui-control-bg-fill must reach a filled panel",
     );
-    // With no hook. The panel is the component's own look, so this is what `outline` used to be written
-    // by hand — and what `fill`, which no class could ask for before, now reads from the shared arm.
+    // With no hook. The panel is the component's own look, so `outline` and `fill` have to read the
+    // same 1px frame from the shared arm.
     assert.equal(await style("default-transfer-fill-list", "border-top-width"), "1px");
     assert.equal(
       await style("default-transfer-fill-list", "border-top-color"),
@@ -2703,7 +2700,7 @@ const compile = async (entry: string) => {
       "rgba(0, 0, 0, 0)",
       "the solid plate must not leak into the outlined tier",
     );
-    // 3c-丁d: a list panel is the one surface of this family that paints through another component — its
+    // a list panel is the one surface of this family that paints through another component — its
     // tier class is the card's `k-card-<tier>`, arriving on the same element as `k-list-panel`, so a solid
     // panel plates with the scope's primary exactly as a solid card does. What the panel owns are the two
     // lines in its toolbar, and both name a dark token of their own: the summary count reads

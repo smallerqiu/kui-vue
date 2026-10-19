@@ -77,11 +77,10 @@ it("paints every supported theme value through its own override hook", async () 
         "var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)))",
       "border-radius": "0",
       background: "var(--kui-theme-plain-bg)",
-      // `box-shadow: none` used to be here. ③-3d-癸 removed it from the shared arm: no control
-      // family's glow drawer paints an underlined box (every `:not()` list names `-underlined`),
-      // and the one rule that can still reach one - Form's error ring - outranks this arm, so the
-      // line flattened nothing. "flat" is asserted below as the *look*, and the declaration itself
-      // is pinned away by `tests/theme-dead-css.test.ts`.
+      // No shadow declaration here on purpose: no control family's glow drawer paints an underlined
+      // box (every `:not()` list names `-underlined`), and the one rule that can still reach one -
+      // Form's error ring - outranks this arm. "flat" is asserted below as the *look*, and the
+      // declaration itself is pinned away by `tests/theme-dead-css.test.ts`.
     },
   };
   for (const value of VALUES) {
@@ -108,7 +107,7 @@ it("keeps the underline focus rule and the surface values free of it", async () 
     "border-color: transparent transparent var(--kui-color-primary)",
   );
   // The shared arm owns the edge, the radius and the plain background - it does not own flatness.
-  // ③-3d-癸: a blanket `box-shadow: none` here would suppress the tiers that already exclude
+  // A blanket `box-shadow: none` here would suppress the tiers that already exclude
   // `-underlined` from their drawers (i.e. nothing), so flatness is stated once, at the drawer.
   expect(
     declarations(compiled.get(".probe-underlined"), ".probe-underlined").has("box-shadow"),
@@ -151,12 +150,12 @@ it("draws the migrated components from the shared mixin rather than re-copying t
   }
 });
 
-// Audit ⑪: these four controls answered `theme="plain"` by emitting the `borderless` class, which
-// left their hand-written `.k-<component>-plain` rules as selectors nothing could ever match.
 // `bordered={false}` (no border) and `plain` (no border *and* no surface) are separate asks, so
-// each now has its own class — the DOM half of that is asserted by tests/theme-plain-emission.
-// Both classes also opt out of the base focus ring: a control that was asked to drop its border
-// drops the ring too (the author's call, and `DatePicker` used to be the one exception).
+// each of these four controls has its own class. Answering `theme="plain"` with the `borderless`
+// class would leave a hand-written `.k-<component>-plain` rule as a selector nothing can ever match;
+// the DOM half of that is asserted by tests/theme-plain-emission.
+// Both classes also opt out of the base focus ring: a control that was asked to drop its border drops
+// the ring too, and all four controls here do.
 const PLAIN_CONTROLS = [
   { entry: "components/date-picker/styles/index.less", name: "k-datepicker", selection: false },
   { entry: "components/select/styles/index.less", name: "k-select", selection: true },
@@ -182,7 +181,7 @@ const declarations = (body: string | undefined, label: string) => {
   );
 };
 
-it("paints the four tiers the controls used to swallow", async () => {
+it("paints every tier the plain controls declare", async () => {
   for (const { entry, name } of PLAIN_CONTROLS) {
     const compiled = await fileRules(entry);
 
@@ -218,9 +217,9 @@ it("paints the four tiers the controls used to swallow", async () => {
     );
     // A `solid` box must not wear the base glow over its own fill. Whether the block says that by
     // hand or by never having to say it is a cascade question: the base hover rule names `solid`
-    // inside its `:not()`, so nothing repaints it, and 己 (select family) / 辛 (DatePicker) removed
-    // the hand-written `none`. Absence and `none` both mean flat, and this suite asserts the look,
-    // not the sweep - `tests/theme-dead-css.test.ts` is what pins the declaration away.
+    // inside its `:not()`, so nothing repaints it. Absence and `none` both mean flat, and this suite
+    // asserts the look, not the declaration - `tests/theme-dead-css.test.ts` is what pins the
+    // declaration away.
     expect(solidHover.get("box-shadow") ?? "none", `${name} solid hover grew a glow`).toBe("none");
     // The base ring is primary on a primary surface, i.e. invisible; it is redrawn inverted rather
     // than dropped, so a keyboard user still sees focus.
@@ -236,8 +235,8 @@ it("paints the four tiers the controls used to swallow", async () => {
     expect(underlinedBody.get("border-width")).toBe("0 0 1px");
     expect(underlinedBody.get("border-radius")).toBe("0");
     // Same cascade question as `solid` above: the family's glow drawer excludes `-underlined`, so
-    // nothing repaints it and the tier has no `none` of its own left to say - 己/庚/辛 removed the
-    // hand-written lines and ③-3d-癸 removed the shared one. Absence and `none` both mean flat.
+    // nothing repaints it and the tier has no `none` of its own to say. Absence and `none` both mean
+    // flat.
     expect(underlinedBody.get("box-shadow") ?? "none", `${name} underlined grew a glow`).toBe(
       "none",
     );
@@ -273,9 +272,8 @@ it("paints `plain` on the controls, guarded so a disabled box stays disabled", a
     const compiled = await fileRules(entry);
     const plain = `.${name}-plain:not(.${name}-disabled)`;
     // The values come from the shared `plain` arm, not from a re-copied `transparent`, and the arm
-    // paints no shadow, so the tier has nothing to suppress: `box-shadow` may be absent (swept in
-    // 3d-己 for the select family, 3d-辛 for `DatePicker`) or `none` - a real glow here would be the
-    // only wrong answer.
+    // paints no shadow, so the tier has nothing to suppress: `box-shadow` may be absent or `none` -
+    // a real glow here would be the only wrong answer.
     const plainBody = declarations(compiled.get(plain), `${name} plain`);
     expect(plainBody.get("border-color"), `${name} paints no plain box`).toBe(
       "var(--kui-theme-plain-border)",
@@ -296,8 +294,7 @@ it("paints `plain` on the controls, guarded so a disabled box stays disabled", a
     );
     if (selection)
       // The inner box is a layout wrapper: no rule in the library paints a border, a surface or a
-      // shadow on it, which is exactly why 3d-己 could take this suppression away and leave the two
-      // declarations that do the work.
+      // shadow on it, so this is all that has to be said there.
       expect(
         compiled.get(`${plain} .${name}-selection`),
         `${name} leaves the inner box of a plain control painted`,
@@ -305,10 +302,9 @@ it("paints `plain` on the controls, guarded so a disabled box stays disabled", a
 
     // The base control rule repaints the border on hover and out-specifies the blocks above, which
     // is how a borderless or plain box grew a primary border under the pointer — so it has to name
-    // both inside its `:not()`. The focus rule names them for the same reason by the author's call:
-    // a control that was asked to drop its border drops the ring too. `DatePicker` used to be the
-    // exception (`Select` / `Cascader` / `TreeSelect` already excluded both), and it is now the
-    // fourth of a kind, so this loop has no per-component ring policy left to encode.
+    // both inside its `:not()`. The focus rule names them for the same reason: a control that was
+    // asked to drop its border drops the ring too. Every control in this loop excludes both, so there
+    // is no per-component ring policy left to encode here.
     for (const state of ["hover", "focus"]) {
       const repaint = [...compiled.keys()].filter(
         (key) => key.startsWith(`.${name}:not(`) && key.endsWith(`:${state}`),
@@ -324,16 +320,16 @@ it("paints `plain` on the controls, guarded so a disabled box stays disabled", a
   }
 });
 
-// 3b-乙2b: the color picker's trigger is a third box shape — the tier paints the box itself, and its
+// the color picker's trigger is a third box shape — the tier paints the box itself, and its
 // "active" state is the `k-color-picker-opened` class rather than a pseudo-class, so every tier that
 // owns its states has to name the open panel the way the select family names `:focus`. The base
 // opened rule is compound (`.k-color-picker.k-color-picker-opened`) so it still out-specifies the
 // tiers that keep a border of their own.
 //
-// Since 3d-庚 the glow that rule used to paint lives on a sibling with an exclusion list, so a tier
-// being flat here is a cascade question again: the declaration may be absent (swept) or `none` — a
-// real glow is the only wrong answer. The edge still lights for every tier, which is why the
-// interaction rules below are read for `border-color`, not for the whole body.
+// The glow lives on a sibling that carries an exclusion list, so a tier being flat here is a cascade
+// question: the declaration may be absent or `none` — a real glow is the only wrong answer. The edge
+// still lights for every tier, which is why the interaction rules below are read for `border-color`,
+// not for the whole body.
 it("paints the four tiers on the color picker trigger", async () => {
   const compiled = await fileRules("components/color-picker/styles/index.less");
   const name = "k-color-picker";
@@ -360,7 +356,7 @@ it("paints the four tiers on the color picker trigger", async () => {
       compiled.get(`${fill}:hover, ${fill}.${name}-opened`),
       "color picker fill interaction",
     ).get("box-shadow") ?? "none",
-    "an open fill box keeps a glow drawn where its border used to be",
+    "an open fill box keeps a glow along its edge",
   ).toBe("none");
 
   expect(
@@ -426,13 +422,11 @@ it("paints the four tiers on the color picker trigger", async () => {
   // pixels in scripts/check-theme.ts instead of asserted from this file's selector text.
 });
 
-// 3b-乙: the box path types six presets and used to paint two — `theme="outline"` was dropped by
-// `input-base` before the class list and `theme="solid"` by `input-box`, while the LESS had no rule
-// for either, so both were invisible twice over. The same tier class reaches three different
-// elements (the decorated wrapper `[data-multiple]`, the bare `<input>` `[data-single]`, and
-// `<textarea>`), and `InputNumber` builds its box through `InputBase`, so the contract is checked
-// per shape instead of per component.
-// 3b-乙2 adds the two composite controls: a tag box is one decorated box whose field is
+// The box path types six presets, and the same tier class reaches three different elements (the
+// decorated wrapper `[data-multiple]`, the bare `<input>` `[data-single]`, and `<textarea>`), while
+// `InputNumber` builds its box through `InputBase`. So the contract is checked per shape instead of
+// per component - a tier that paints on one shape and not another is the failure this suite reads.
+// The two composite controls: a tag box is one decorated box whose field is
 // `.k-input-tag-input`, while an OTP group carries the tier class on the group and paints it on every
 // `.k-input-otp-item` cell, so a shape can name the element the arm has to reach (`cell`) and the
 // element the typed text lives on (`textClass`).
@@ -739,10 +733,10 @@ it("keeps the tiers that own their states out of the base repaint", async () => 
   }
 });
 
-// 3c: a component that resolves its tier through `resolvePaintedTheme` names the set it paints in its
+// A component that resolves its tier through `resolvePaintedTheme` names the set it paints in its
 // own source, and that set can only come from the stylesheet. Reading both sides is the only way to
-// keep them from drifting again: a tier the source emits but the LESS never paints is a dead class
-// (`k-btn-underlined` used to be one, and `k-btn-default` was worse — it is the `type="default"` class),
+// keep them from drifting: a tier the source emits but the LESS never paints is a dead class
+// (`k-btn-underlined` would be one, and `k-btn-default` worse — it is the `type="default"` class),
 // and a tier the LESS paints but the source swallows is a preset the docs promise and nothing draws.
 const PAINTED_CONTRACTS = [
   {
@@ -769,7 +763,7 @@ const PAINTED_CONTRACTS = [
     entry: "components/radio/styles/index.less",
     sources: ["components/radio/radio.tsx"],
   },
-  // 3c-丙a: the surface family resolves the same way, and all three name their set in their own source.
+  // the surface family resolves the same way, and all three name their set in their own source.
   {
     name: "Card",
     prefix: "k-card",
@@ -788,7 +782,7 @@ const PAINTED_CONTRACTS = [
     entry: "components/stat-card/styles/index.less",
     sources: ["components/stat-card/stat-card.tsx"],
   },
-  // 3c-丙b: a panel and a feedback panel paint the same five tiers. `FeedbackPanel` is spelled
+  // a panel and a feedback panel paint the same five tiers. `FeedbackPanel` is spelled
   // `index.tsx` in the React build and after itself in the Vue build, so the source side is looked for
   // in both spellings — this file is byte-identical in the two repos.
   {
@@ -806,7 +800,7 @@ const PAINTED_CONTRACTS = [
       "components/feedback-panel/feedback-panel.tsx",
     ],
   },
-  // 3c-丙c: `CheckCard` carried a private two-value `CheckCardTheme` while its own default frame was a
+  // `CheckCard` carried a private two-value `CheckCardTheme` while its own default frame was a
   // hand-copied `outline` arm, so the type said two looks, the stylesheet drew one of them by hand, and
   // a tier the card cannot draw could still arrive from `ConfigProvider`. The set now lives at the emit
   // point like every other surface.
@@ -816,7 +810,7 @@ const PAINTED_CONTRACTS = [
     entry: "components/check-card/styles/index.less",
     sources: ["components/check-card/check-card.tsx"],
   },
-  // 3c-丁a: an alert spelled its tier classes `k-alert-theme-<档>`, so `solid` / `dashed` shipped as
+  // an alert spelled its tier classes `k-alert-theme-<档>`, so `solid` / `dashed` shipped as
   // `k-alert-solid` / `k-alert-dashed` with nothing behind them, and `fill` — the one class it did have —
   // was a rule of its own that no override hook could reach. The set now lives at the emit point.
   {
@@ -825,7 +819,7 @@ const PAINTED_CONTRACTS = [
     entry: "components/alert/styles/index.less",
     sources: ["components/alert/index.tsx"],
   },
-  // 3c-丁b: a picture and a code both frame something, and both typed six tiers while their stylesheets
+  // a picture and a code both frame something, and both typed six tiers while their stylesheets
   // answered three. `outline` on an image coloured an edge that `base.less` gives no width, so the tier
   // painted nothing at all, and `k-image-solid` was a dead class name. A code emitted `k-qrcode-outline`
   // — its own default — with no rule behind it, which left its hand-copied base border unreachable from
@@ -843,7 +837,7 @@ const PAINTED_CONTRACTS = [
     entry: "components/qrcode/styles/index.less",
     sources: ["components/qrcode/index.tsx"],
   },
-  // 3c-丁c: a pagination bar typed six tiers, emitted two (`k-page-fill` / `k-page-outline`), and its
+  // a pagination bar typed six tiers, emitted two (`k-page-fill` / `k-page-outline`), and its
   // stylesheet answered three — `k-page-plain` was a rule no react class could ever reach. `solid` and
   // `dashed` had neither class nor rule, so the two tiers the docs promised drew nothing at all.
   {
@@ -852,7 +846,7 @@ const PAINTED_CONTRACTS = [
     entry: "components/page/styles/index.less",
     sources: ["components/page/index.tsx"],
   },
-  // 3c-丁d: a board typed two tiers and painted those two on its columns, so `plain` / `solid` / `dashed`
+  // a board typed two tiers and painted those two on its columns, so `plain` / `solid` / `dashed`
   // arrived from `ConfigProvider` as `k-kanban-<tier>` with no rule behind them, and the drop hint — the
   // one state a column has — sat at (0,1,0) under the (0,2,0) tier plates and never drew.
   {
@@ -861,7 +855,7 @@ const PAINTED_CONTRACTS = [
     entry: "components/kanban/styles/index.less",
     sources: ["components/kanban/index.tsx"],
   },
-  // 3c-丁d: a transfer typed two tiers and painted those two by hand — `base` carried the outlined frame
+  // a transfer typed two tiers and painted those two by hand — `base` carried the outlined frame
   // and one rule copied the `fill` chain — so `plain` / `solid` / `dashed` had neither class nor rule, and
   // react read no `ConfigProvider` or `Form` value at all while vue threw one away behind a hand-written
   // gate. Both emit points now name the set the stylesheet draws.
@@ -915,12 +909,13 @@ for (const contract of PAINTED_CONTRACTS) {
   });
 }
 
-// 3c-乙b: a check box and a radio have no surface of their own — the tier *is* the box, so a tier's
-// declarations have to land on `.k-<mark>-symbol`, the element the eye reads as the control. `fill`
-// used to hand-copy the background chain here and hard-code `border-color: transparent`, which is why
-// `--kui-theme-fill-border` reached an input but not a check box, and `outline` shipped no class at all,
-// so the box's edge could never be recoloured. Both now read the shared arms, and the arm itself decides
-// what a tier paints — a declaration string copied into this file would not notice a drift.
+// a check box and a radio have no surface of their own — the tier *is* the box, so a tier's
+// declarations have to land on `.k-<mark>-symbol`, the element the eye reads as the control. A block
+// that hand-copied the background chain there and hard-coded `border-color: transparent` would ignore
+// the shared arm: `--kui-theme-fill-border` would reach an input but not a check box, and a tier that
+// ships no class would leave the box's edge uncoloured. Both marks read the shared arms, and the arm
+// itself decides what a tier paints — a declaration string copied into this file would not notice a
+// drift.
 const MARK_BOXES = [
   {
     name: "Checkbox",
@@ -949,12 +944,12 @@ for (const mark of MARK_BOXES) {
       );
       expect(
         covers(body, everyArm.get(tier)!),
-        `${mark.name} ${tier} no longer paints ${mark.box} from .kui-theme-value(${tier})`,
+        `${mark.name} ${tier} does not paint ${mark.box} from .kui-theme-value(${tier})`,
       ).toBe(true);
     });
 }
 
-// 3c-丙a: the surface family paints a whole box, so its tiers go on the root class and `solid` has to
+// the surface family paints a whole box, so its tiers go on the root class and `solid` has to
 // take everything the component colours itself down with it — a head divider, an icon chip, a muted
 // line. Those parts differ per component, which is why they are named here instead of derived from the
 // tier class alone: an inherited `color` reaches text that has no rule of its own, and nothing else.
@@ -999,7 +994,7 @@ const SURFACES = [
       ".k-stat-card-item-trend-warning",
     ],
   },
-  // 3c-丙b: a collapse paints its header row and its dividers from dark tokens, so the tier has to
+  // a collapse paints its header row and its dividers from dark tokens, so the tier has to
   // reach through the child path it actually writes — including the `:not()` that steps aside for the
   // base disabled rule, which sits at the same specificity earlier in the file. A feedback panel
   // paints four parts of its own: heading, description, details plate, mark chip. The panel's 4px
@@ -1032,7 +1027,7 @@ const SURFACES = [
     ],
     keeps: [],
   },
-  // 3c-丙c: a check card colours four things of its own — title, description, the leading symbol and the
+  // a check card colours four things of its own — title, description, the leading symbol and the
   // indicator ring — and none of them inherit, so the tier has to reach each by name. The checked ring
   // and the checked indicator disc are the state this component exists to show: under `solid` they turn
   // light rather than staying primary, because a primary ring on a primary plate is nothing to look at.
@@ -1048,7 +1043,7 @@ const SURFACES = [
     ],
     keeps: [],
   },
-  // 3c-丁b: a picture's plate is only ever visible around the edges and behind the two states the
+  // a picture's plate is only ever visible around the edges and behind the two states the
   // component swaps in, and both of those carry a dark colour of their own — the spinner was primary on
   // primary, the error mark placeholder-grey on primary. A code inverts the one line its mask colours
   // itself; the loading and scanned lines take the root's inverted text.
@@ -1070,7 +1065,7 @@ const SURFACES = [
     inverted: [[".k-qrcode-expired", "color"]],
     keeps: [],
   },
-  // 3c-丁c: a pager paints its tiers on the cells rather than on the root, and every one of those rules
+  // a pager paints its tiers on the cells rather than on the root, and every one of those rules
   // is stepped aside by the root's own `:not(.k-page-disabled)`. `solidParts()` reads a selector that
   // *heads* with `.k-page-solid` and is blind to that shape, so this surface contributes no part paths to
   // the loop below — the parts it colours itself are pinned where the guards can be seen, in the page
@@ -1082,7 +1077,7 @@ const SURFACES = [
     inverted: [],
     keeps: [],
   },
-  // 3c-丁d: a board plates its columns rather than its root, and it has no disabled state to step aside
+  // a board plates its columns rather than its root, and it has no disabled state to step aside
   // for, so its parts stay visible to `solidParts()` — the selector simply heads with `.k-kanban-solid`.
   // The title and the count each name a dark colour of their own, so an inherited `color` reaches neither.
   {
@@ -1096,7 +1091,7 @@ const SURFACES = [
     ],
     keeps: [],
   },
-  // 3c-丁d: a transfer plates its two lists rather than its root, and the parts that sit on the plate all
+  // a transfer plates its two lists rather than its root, and the parts that sit on the plate all
   // name a dark colour of their own. The header's title is a `Checkbox`, so the tier has to reach through
   // it, and the row's muted line is a `small` under the content span. The count beside the title and the
   // row's own text inherit the arm's `color`, so nothing claims them — see the block at the foot of this
@@ -1183,7 +1178,7 @@ it("inverts the parts a solid surface colours itself", async () => {
     );
     expect(
       trendParts.length,
-      `${surface.name} solid no longer reaches the plain trend`,
+      `${surface.name} solid does not reach the plain trend`,
     ).toBeGreaterThan(0);
     for (const part of trendParts)
       for (const kept of surface.keeps)
@@ -1191,11 +1186,11 @@ it("inverts the parts a solid surface colours itself", async () => {
   }
 });
 
-// 3c-丁a: an alert is the one surface whose *default* look is its message colour — the 20% tint of
+// an alert is the one surface whose *default* look is its message colour — the 20% tint of
 // whichever `type` it carries — so it cannot join `SURFACES`, where every tier must paint exactly what
 // the shared arm paints. It takes the arm's frame and keeps its own plate, and the plate is what `solid`
-// then shows at full strength. Both halves of that trade are pinned here, along with the `-theme-`
-// infix these classes used to be spelled with.
+// then shows at full strength. Both halves of that trade are pinned here, and so is the rule that the
+// tier classes carry no `-theme-` infix.
 const ALERT_ENTRY = "components/alert/styles/index.less";
 
 it("paints an alert's tiers over the plate its own type names", async () => {
@@ -1215,12 +1210,12 @@ it("paints an alert's tiers over the plate its own type names", async () => {
   expect(fill.get("background")).toBe("var(--k-alert-plate)");
 
   // The three tiers with no plate of their own are the arm unchanged — which is what lets
-  // `--kui-theme-outline-border` reach an alert at all: the frame used to be `currentColor`, the page's
-  // text colour, which is neither the alert's message nor an override hook.
+  // `--kui-theme-outline-border` reach an alert at all. A frame of `currentColor` is the page's text
+  // colour, which is neither the alert's message nor an override hook.
   for (const tier of ["outline", "plain", "dashed"] as const)
     expect(
       covers(declarations(compiled.get(`.k-alert-${tier}`), `alert ${tier}`), everyArm.get(tier)!),
-      `alert ${tier} no longer paints from .kui-theme-value(${tier})`,
+      `alert ${tier} does not paint from .kui-theme-value(${tier})`,
     ).toBe(true);
 
   // `solid` keeps the type's saturation — an error block and a success block stay two different blocks —
@@ -1263,11 +1258,11 @@ it("paints an alert's tiers over the plate its own type names", async () => {
   ).toEqual([]);
 });
 
-// 3c-丁c: a pagination bar is the surface family's other shape — the tier does not land on the root but
+// a pagination bar is the surface family's other shape — the tier does not land on the root but
 // on the cells the numbers sit on, and it reaches them through `:not()`, so every rule here carries a
 // guard that `solidParts()`, which reads a selector heading with `.k-page-solid`, cannot see. Two things
-// are pinned below that the loops above cannot reach: the parts this component colours itself, and the
-// state rules that used to lose to the plate sitting next to them.
+// are pinned below that the loops above cannot reach: the parts this component colours itself, and
+// the state rules that sit next to the plate and must not lose to it.
 const PAGE_ENTRY = "components/page/styles/index.less";
 const PAGE_PLATE = ".k-pager-item:not(.k-pager-next, .k-pager-prev)";
 const PAGE_FRAME = ".k-pager-item:not(.k-pager-more)";
@@ -1278,9 +1273,9 @@ it("paints a pager's tiers, states and inverted parts on its cells", async () =>
   const solidPlate = everyArm.get("solid")!.get("background")!;
   const keys = [...compiled.keys()];
 
-  // Two cell sets shipped before this batch and 丁c keeps both: the plate tiers leave the two arrows
-  // flat, the frame tiers leave the `…` mark unframed. Widening either one repaints a tier that already
-  // ships, and `fill` is this component's own look.
+  // Two cell sets, kept apart: the plate tiers leave the two arrows flat, the frame tiers leave the
+  // `…` mark unframed. Widening either one repaints a tier that already ships, and `fill` is this
+  // component's own look.
   for (const [tier, cells] of [
     ["fill", PAGE_PLATE],
     ["plain", PAGE_PLATE],
@@ -1380,7 +1375,7 @@ it("paints a pager's tiers, states and inverted parts on its cells", async () =>
   }
 });
 
-// 3c-丁d: a board is the surface family's drag-and-drop shape — the tier lands on every column, and the
+// a board is the surface family's drag-and-drop shape — the tier lands on every column, and the
 // one state a column owns is the drop hint, which hangs on that same element. Two things the loops above
 // cannot see are pinned here: the hint has to out-order the plate beside it, and `solid` has to keep the
 // keyboard ring legible on a plate drawn from the primary.
@@ -1458,7 +1453,7 @@ it("paints a board's tiers on its columns and keeps the drop hint above them", a
   ).toEqual([]);
 });
 
-// 3c-丁d: a transfer is the surface family's two-panel shape — the tier never paints the root, it plates
+// a transfer is the surface family's two-panel shape — the tier never paints the root, it plates
 // both `.k-transfer-list` boxes, and everything a caller puts inside them (the header's checkbox, the
 // search input, the two buttons between the panels) is another component's own look. Three things the
 // loops above cannot reach are pinned here: the edge the border-colour tiers need, the one part that has
@@ -1473,9 +1468,9 @@ it("paints a transfer's tiers on its lists and leaves what other components own"
   const classes = (selector: string) => (selector.match(/\./g) ?? []).length;
 
   // `base.less` gives every element `border: 0 solid`, so the three tiers that only name a border colour
-  // need the lists to carry a width of their own. Without it `fill` — the grey plate this component draws
-  // under `ConfigProvider theme="fill"` — ships a class and paints nothing, the shape a board's columns
-  // used to have.
+// need the lists to carry a width of their own. Without it `fill` — the grey plate this component draws
+// under `ConfigProvider theme="fill"` — ships a class and paints nothing, the shape a board's columns
+// would have without it.
   expect(
     declarations(compiled.get(TRANSFER_LIST), "transfer list base").get("border"),
     "a transfer list keeps no edge for the border-colour tiers to colour",
@@ -1551,8 +1546,8 @@ it("paints a transfer's tiers on its lists and leaves what other components own"
     "a solid transfer claims the row's own text instead of letting it inherit",
   ).toEqual([]);
 });
-// 3c-丁d-丙: a list panel is the family's composite shape. It answers a tier but owns no plate — the card
-// it renders carries `k-card-<tier>` on the very element that carries `k-list-panel`, so this sheet has no
+// A list panel is the family's composite shape. It answers a tier but owns no plate — the card it
+// renders carries `k-card-<tier>` on the very element that carries `k-list-panel`, so this sheet has no
 // arms to compare against the shared mixin. What it does own is two toolbar lines that each name a dark
 // token, and those are the only things a `solid` panel can get wrong: the summary stays in ink and the
 // selection strip keeps a grey plate on a primary card.
@@ -1576,14 +1571,14 @@ it("paints a list panel's tier through the card it renders and inverts its own t
   const summaryBase = declarations(compiled.get(".k-list-panel-summary"), "panel summary base").get(
     "color",
   );
-  expect(summaryBase, "a list panel summary no longer colours itself").toBe(
+  expect(summaryBase, "a list panel summary must keep its own ink").toBe(
     "var(--kui-color-text-description)",
   );
   expect(
     declarations(compiled.get(".k-list-panel-toolbar-selection"), "panel strip base").get(
       "background",
     ),
-    "a list panel selection strip no longer carries a plate of its own",
+    "a list panel selection strip must not carry a plate of its own",
   ).toContain("var(--kui-theme-fill-bg");
 
   const summary = ".k-list-panel.k-card-solid .k-list-panel-summary";
