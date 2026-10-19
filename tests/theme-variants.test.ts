@@ -282,13 +282,23 @@ it("paints `plain` on the controls, guarded so a disabled box stays disabled", a
       "var(--kui-theme-plain-bg)",
     );
     expect(plainBody.get("box-shadow") ?? "none", `${name} plain is not flat`).toBe("none");
-    // Hover, focus and an open panel must not bring a border or a surface back.
-    const plainStates = declarations(
-      compiled.get(`${plain}:hover, ${plain}:focus, ${plain}.${name}-opened`),
-      `${name} lets plain repaint on hover / focus / opened`,
-    );
-    expect(plainStates.get("border-color")).toBe("var(--kui-theme-plain-border)");
-    expect(plainStates.get("background")).toBe("var(--kui-theme-plain-bg)");
+    // Hover, focus and an open panel must not bring a border or a surface back. Whether a control says
+    // that with a state arm of its own or by never needing one is a cascade question - the base repaint
+    // and the base ring below both name `plain` in their `:not()`, so absence and the transparent tokens
+    // mean the same thing here and a real repaint is the only wrong answer.
+    const stateBody = compiled.get(`${plain}:hover, ${plain}:focus, ${plain}.${name}-opened`);
+    const plainStates =
+      stateBody === undefined
+        ? new Map<string, string>()
+        : declarations(stateBody, `${name} plain state arm`);
+    for (const [property, flat] of [
+      ["border-color", "var(--kui-theme-plain-border)"],
+      ["background", "var(--kui-theme-plain-bg)"],
+    ] as const)
+      expect(
+        plainStates.get(property) ?? flat,
+        `${name} plain repaints ${property} on hover / focus / opened`,
+      ).toBe(flat);
     expect(plainStates.get("box-shadow") ?? "none", `${name} plain repaints while open`).toBe(
       "none",
     );

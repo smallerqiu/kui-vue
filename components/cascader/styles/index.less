@@ -253,26 +253,23 @@
     font-size: var(--kui-font-size-lg);
   }
 }
+// `fill` is shallow and borderless, and it keeps the base focus ring. It needs no hover arm: the base
+// border repaint names `fill` inside its `:not()`, so nothing reaches this box with a border under the
+// pointer, and the arm above already resolves the border to transparent. Same reason for the inner box
+// - a descendant rule can never select a box whose tier class sits on the same element as `k-cascader`.
 .k-cascader-fill {
   .kui-theme-value(fill);
   transition: none;
-
-  &:hover {
-    border-color: transparent;
-  }
-
-  &:focus .k-cascader {
-    border-color: transparent;
-  }
 }
+
+// `plain` means "content only" and says it once, on the tier. Hover, focus and an open panel need no
+// restatement: both the base border repaint and the base focus ring name `plain` inside their `:not()`,
+// so no state rule gives this box a border or a surface back. A tier that wants one has to leave those
+// lists first - that is where the flatness is declared. The inner box is different: `base.less` gives
+// every element `border: 0 solid`, whose colour is `currentColor`, so flattening that is a live
+// suppression even while the width is `0`.
 .k-cascader-plain:not(.k-cascader-disabled) {
   .kui-theme-value(plain);
-
-  &:hover,
-  &:focus,
-  &.k-cascader-opened {
-    .kui-theme-value(plain);
-  }
 
   .k-cascader-selection {
     border-color: transparent;

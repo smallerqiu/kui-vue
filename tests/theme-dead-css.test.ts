@@ -48,6 +48,33 @@ const suppressedShadowSelectors = (prefix: string) => [
 ];
 
 /**
+ * cascader 的档规则不再自己重述"这一档不换边、不铺底"。判据和逐档光晕压制那批是同一条：
+ * 换边、发光、焦点环都由 `GUARDED_DRAWERS` 那条带排除名单的臂（hover）、以及同一条臂的 `:focus` 版本
+ * （outline，`theme-variants` 认它排掉了 `plain` / `borderless`）说了算，名单里写着 `fill` 与 `plain`，
+ * 所以没有任何规则能在 hover / focus / 展开时把边框或底色画回这两个盒子，档自己再抄一遍压不到东西。
+ * `.k-cascader-fill:focus .k-cascader` 是另一种死法：档类名和 `k-cascader` 在同一个根元素上，
+ * 后代写法永远选不中（弹层面板是触发框的兄弟节点，类名还是 `k-cascader-dropdown`），所以整条走
+ * `DEAD_SELECTORS`。`plain` 内层那一组 `border-color` / `background-color` 不在这里：`base.less` 给
+ * 每个元素写了 `border: 0 solid`，那一行的颜色是 `currentColor`，压制选得中它，是活的。
+ * 只点名 cascader —— select / tree-select 还留着同样的状态臂，按前缀生成会把它们一起钉死。
+ */
+const CASCADER_TIER_STATE_RECALLS: { component: string; selector: string; property: string }[] = [
+  ...[
+    ".k-cascader-plain:not(.k-cascader-disabled):hover",
+    ".k-cascader-plain:not(.k-cascader-disabled):focus",
+    ".k-cascader-plain:not(.k-cascader-disabled).k-cascader-opened",
+  ].flatMap((selector) =>
+    ["border-color", "background"].map((property) => ({
+      component: "cascader",
+      selector,
+      property,
+    })),
+  ),
+  // fill 那一行只有 `border-color`：档基座已经把边resolve 成 transparent，状态臂再抄一遍压不到东西。
+  { component: "cascader", selector: ".k-cascader-fill:hover", property: "border-color" },
+];
+
+/**
  * 输入框家族（input / input-number / input-otp / input-tag / color-picker）里压焦点（或展开）光晕的
  * 压制名单。判据是两条 —— 库里没有别的规则画阴影、以及压制选择器选不中画光晕的那个元素 —— 但这一族
  * 的抽屉有三种挂载点，而且档位类名不一定和抽屉在同一个元素上（OTP 的档写在组上、光晕画在内层格子上），
@@ -318,6 +345,7 @@ const DEAD_DECLARATIONS: { component: string; selector: string; property: string
     property: "box-shadow",
   })),
   ...SCATTERED_DEAD_DECLARATIONS,
+  ...CASCADER_TIER_STATE_RECALLS,
   ...UNDERLINED_BASE_DEAD_DECLARATIONS,
 ];
 
@@ -459,6 +487,9 @@ const DEAD_SELECTORS: { component: string; selector: string }[] = [
   // badge 那条压制只有 `box-shadow: none` 一句声明，摘掉它整条规则就空了，所以点的是规则本身不能回来
   // （`DEAD_DECLARATIONS` 那种"规则可以留着、声明不能回来"的形状在这里不适用）。
   { component: "badge", selector: ".k-badge-pill .k-badge-status-active" },
+  // 另一种死法：不是声明多余，是没有任何 DOM 能满足这条后代选择器 —— 档类名和 `k-cascader` 写在同一个
+  // 根元素上（`tests/theme-control-tiers.test.tsx` 逐档认这件事），而弹层面板是触发框的兄弟节点。
+  { component: "cascader", selector: ".k-cascader-fill:focus .k-cascader" },
 ];
 
 /**
@@ -499,6 +530,13 @@ const LIVE_SELECTORS: { component: string; selector: string }[] = [
   { component: "tree-select", selector: ".k-tree-select-plain:not(.k-tree-select-disabled)" },
   { component: "cascader", selector: ".k-cascader-borderless .k-cascader-selection" },
   { component: "cascader", selector: ".k-cascader-solid:not(.k-cascader-disabled):hover" },
+  // 摘掉的是状态臂，不是档本身：`fill` 还得铺它的底、`plain` 还得把边和内层一起收掉。
+  { component: "cascader", selector: ".k-cascader-fill" },
+  { component: "cascader", selector: ".k-cascader-plain:not(.k-cascader-disabled)" },
+  {
+    component: "cascader",
+    selector: ".k-cascader-plain:not(.k-cascader-disabled) .k-cascader-selection",
+  },
   // 同理：从这些规则里只摘走 `box-shadow: none` 一行，换边、铺底、焦点环还都压在它们身上。
   { component: "input", selector: ".k-input[data-multiple].k-input-focus" },
   { component: "input", selector: ".k-input[data-single]:focus" },
