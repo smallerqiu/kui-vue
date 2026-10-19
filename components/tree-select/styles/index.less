@@ -231,15 +231,17 @@
   }
 }
 
+// `fill` has no edge to light up: the base `:hover` already names `-fill` inside `:not()`, so nothing
+// repaints this box under the pointer. The line below is what decides what an app that sets
+// `--kui-theme-fill-border` gets - with it that edge shows at rest and goes while the pointer is on the
+// box, without it the hook edge stays put. A `&:focus .k-tree-select` arm is not written here because
+// it could not select anything: the tier class sits on the same element as `k-tree-select`, and the
+// panel a focused box opens is a sibling in the popup host rather than a descendant.
 .k-tree-select-fill {
   .kui-theme-value(fill);
   transition: none;
 
   &:hover {
-    border-color: transparent;
-  }
-
-  &:focus .k-tree-select {
     border-color: transparent;
   }
 }
@@ -258,7 +260,7 @@
   }
 }
 
-// 3b: `outline` and `dashed` are the same box with a token-driven border, so they take the shared
+// `outline` and `dashed` are the same box with a token-driven border, so they take the shared
 // declarations and keep the base interaction rules - their border is meant to light up to primary
 // on hover and the focus ring stays.
 .k-tree-select-outline {

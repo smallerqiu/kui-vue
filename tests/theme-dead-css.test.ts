@@ -56,7 +56,17 @@ const suppressedShadowSelectors = (prefix: string) => [
  * 后代写法永远选不中（弹层面板是触发框的兄弟节点，类名还是 `k-cascader-dropdown`），所以整条走
  * `DEAD_SELECTORS`。`plain` 内层那一组 `border-color` / `background-color` 不在这里：`base.less` 给
  * 每个元素写了 `border: 0 solid`，那一行的颜色是 `currentColor`，压制选得中它，是活的。
- * 只点名 cascader —— select / tree-select 还留着同样的状态臂，按前缀生成会把它们一起钉死。
+ * 名单只点名 cascader，另外两个同族组件留着看起来一模一样的状态臂，而那些臂是活的 —— 判据不是"这条
+ * 重述了自己的档"，而是"有没有别人在这个状态下往这个盒子上画边"：
+ *   · select / tree-select 的 `plain` 三臂压的是 `form` 报错作用域那条红边。两边都是 (0,3,0)，靠
+ *     `components/styles/components.less` 里 select / tree-select 排在 `form` 之后才赢；`form` 点名了
+ *     `.k-select` 与 `.k-tree-select`（见 `SELECTION_BOX_ERROR_BORDERS`）却没点名 `.k-cascader`，
+ *     所以 cascader 同样的三臂没有对手。哪天报错作用域把 cascader 也写上，那三条就跟着换成活的。
+ *   · select / tree-select 的 `fill:hover` 只在应用设了 `--kui-theme-fill-border` 时才有事做：它把那圈
+ *     钩子边在指针下收掉。cascader 没有这一行，所以同一档在三个组件里 hover 时的钩子边不一致 ——
+ *     默认 token 下两边都算"平"，动哪一边都要先把这一族重新裁定。
+ *   · color-picker 的 `fill` / `plain` 状态臂压的是基础 `:hover` 与展开态自己那圈边（那条只排除
+ *     `disabled`，见 `COLOR_PICKER_BASE_EDGES`），档必须自己收回去，否则一 hover 就亮。
  */
 const CASCADER_TIER_STATE_RECALLS: { component: string; selector: string; property: string }[] = [
   ...[
@@ -203,6 +213,27 @@ const DATE_PICKER_ERROR_DRAWERS = [
   ".k-form .k-form-item-error .k-datepicker:hover",
   ".k-form .k-form-item-error .k-datepicker:focus",
   ".k-form .k-form-item-error .k-datepicker-opened",
+];
+
+/**
+ * select / tree-select 的 `plain` 状态臂之所以是活的，前提是报错作用域真的在给这两个组件画红边：
+ * 两边都是 (0,3,0)，档规则靠 `components/styles/components.less` 里排在 `form` 之后才压得住。
+ * 报错作用域不点名 `.k-cascader`（下面单独守这一条），所以 cascader 的同款状态臂没有对手；
+ * 把 `.k-cascader` 补进报错作用域是修缺陷，同时也就是把那几条臂换成活的时刻。
+ */
+const SELECTION_BOX_ERROR_BORDERS = [
+  ".k-form .k-form-item-error .k-select",
+  ".k-form .k-form-item-error .k-tree-select",
+];
+
+/**
+ * color-picker 的档状态臂压的是基础边框，不是自己档的重复：基础 `:hover` 那条只排 `disabled`，
+ * 展开态那条整条规则不带档名单，所以 `fill` / `plain` 必须自己把边收回去。
+ * 这两条规则一旦改成逐档排除，`fill` / `plain` 的状态行就变成没有对手的重复，得跟着重新判。
+ */
+const COLOR_PICKER_BASE_EDGES = [
+  ".k-color-picker:not(.k-color-picker-disabled):hover",
+  ".k-color-picker.k-color-picker-opened",
 ];
 
 /**
@@ -487,9 +518,13 @@ const DEAD_SELECTORS: { component: string; selector: string }[] = [
   // badge 那条压制只有 `box-shadow: none` 一句声明，摘掉它整条规则就空了，所以点的是规则本身不能回来
   // （`DEAD_DECLARATIONS` 那种"规则可以留着、声明不能回来"的形状在这里不适用）。
   { component: "badge", selector: ".k-badge-pill .k-badge-status-active" },
-  // 另一种死法：不是声明多余，是没有任何 DOM 能满足这条后代选择器 —— 档类名和 `k-cascader` 写在同一个
-  // 根元素上（`tests/theme-control-tiers.test.tsx` 逐档认这件事），而弹层面板是触发框的兄弟节点。
-  { component: "cascader", selector: ".k-cascader-fill:focus .k-cascader" },
+  // 另一种死法：不是声明多余，是没有任何 DOM 能满足这条后代选择器 —— 档类名和组件根类名写在同一个元素上
+  // （`tests/theme-control-tiers.test.tsx` 逐档认这件事），而弹层面板是触发框的兄弟节点，类名还是
+  // `k-x-dropdown`。三个选择框同形，所以按前缀生成。
+  ...SELECTION_BOX_COMPONENTS.map((component) => ({
+    component,
+    selector: `.k-${component}-fill:focus .k-${component}`,
+  })),
 ];
 
 /**
@@ -522,9 +557,37 @@ const LIVE_SELECTORS: { component: string; selector: string }[] = [
   { component: "image", selector: ".k-image-preview-panel-hidden" },
   // 只摘 `box-shadow: none` 这一行：同一条规则里的 `border-color` / `background-color` 都还在承重
   // （那些才是 fill / plain / borderless 不换边、不铺底的画法），顺手删掉整条规则要在这里红。
-  { component: "select", selector: ".k-select-fill:hover" },
   { component: "select", selector: ".k-select-opened.k-select-fill .k-select-selection" },
   { component: "select", selector: ".k-select-borderless .k-select-selection" },
+  // 这几条臂删掉整条规则时要在上面那条"声明不能回来"之外再红一次：它们压的是真会画到盒子上的东西。
+  // `fill:hover` 收的是应用设了 `--kui-theme-fill-border` 之后那圈钩子边，`plain` 三臂收的是 `form`
+  // 报错作用域给 `.k-select` / `.k-tree-select` 画的红边 —— 判据见 `CASCADER_TIER_STATE_RECALLS` 那段。
+  ...["select", "tree-select"].flatMap((component) => [
+    { component, selector: `.k-${component}-fill:hover` },
+    { component, selector: `.k-${component}-plain:not(.k-${component}-disabled):hover` },
+    { component, selector: `.k-${component}-plain:not(.k-${component}-disabled):focus` },
+    {
+      component,
+      selector: `.k-${component}-plain:not(.k-${component}-disabled).k-${component}-opened`,
+    },
+  ]),
+  // 色选框的基础边框只排 `disabled`，所以每个档都得自己把 hover 与展开态的边收回去。
+  {
+    component: "color-picker",
+    selector: ".k-color-picker-fill:not(.k-color-picker-disabled):hover",
+  },
+  {
+    component: "color-picker",
+    selector: ".k-color-picker-fill:not(.k-color-picker-disabled).k-color-picker-opened",
+  },
+  {
+    component: "color-picker",
+    selector: ".k-color-picker-plain:not(.k-color-picker-disabled):hover",
+  },
+  {
+    component: "color-picker",
+    selector: ".k-color-picker-plain:not(.k-color-picker-disabled).k-color-picker-opened",
+  },
   // 展开环对所有档都在：这里收掉的只是逐档的光晕压制，`outline` 那圈还得留着。
   { component: "tree-select", selector: ".k-tree-select-opened" },
   { component: "tree-select", selector: ".k-tree-select-plain:not(.k-tree-select-disabled)" },
@@ -807,6 +870,34 @@ describe("theme 死 CSS 守卫", () => {
       const rules = (await compile("form")).filter((rule) => rule.selectors.includes(selector));
       expect(rules, `${selector} 的规则没了`).toHaveLength(1);
       expect(rules[0]!.properties).toContain("box-shadow");
+    });
+  });
+
+  SELECTION_BOX_ERROR_BORDERS.forEach((selector) => {
+    it(`form: 报错作用域还在给 ${selector} 画红边`, async () => {
+      const rules = (await compile("form")).filter((rule) => rule.selectors.includes(selector));
+      expect(rules, `${selector} 的规则没了`).toHaveLength(1);
+      expect(rules[0]!.properties).toContain("border-color");
+    });
+  });
+
+  // 这条判据的另一半：cascader 没被点名，所以它档上的状态臂才是死的（见 `CASCADER_TIER_STATE_RECALLS`）。
+  it("form: 报错作用域不点名 cascader", async () => {
+    const names = [...simpleSelectors(await compile("form"))].filter((selector) =>
+      selector.includes("cascader"),
+    );
+    expect(names).toEqual([]);
+  });
+
+  it("color-picker: 基础边框的重绘只排 disabled，档得自己收", async () => {
+    const rules = await compile("color-picker");
+    COLOR_PICKER_BASE_EDGES.forEach((selector) => {
+      const edges = rules.filter((rule) => rule.fullSelector === selector);
+      expect(edges, `${selector} 的规则没了`).toHaveLength(1);
+      expect(
+        edges[0]!.properties.some((property) => property === "border" || property === "border-color"),
+        `${selector} 不再画边了`,
+      ).toBe(true);
     });
   });
 
