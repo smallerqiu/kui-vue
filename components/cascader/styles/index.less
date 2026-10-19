@@ -132,20 +132,6 @@
   }
 }
 
-.k-cascader-borderless {
-  border-color: transparent;
-  background-color: transparent;
-
-  &:hover,
-  &:focus {
-    border-color: transparent;
-  }
-
-  .k-cascader-selection {
-    border-color: transparent;
-    background-color: transparent;
-  }
-}
 .k-cascader-circle {
   border-radius: var(--kui-shape-circle);
 }
@@ -335,6 +321,27 @@
   &.k-cascader-opened {
     border-color: transparent transparent var(--kui-color-primary);
     outline: none;
+  }
+}
+
+// A frameless box gives up both the frame and the fill in every tier, so this block is written after them:
+// it ties with a tier's rest rule at (0,1,0), and the bundle settles ties on source order - placed above
+// the tiers it lets `outline` / `dashed` draw a frame that `bordered={false}` just refused, and lets `fill`
+// keep its background. The two state arms are not a restatement of that either: `:hover` / `:focus` put
+// this block a class above the tier rest rules, which is the only reason a frameless `solid` box does not
+// grow its primary edge while it is focused.
+.k-cascader-borderless {
+  border-color: transparent;
+  background-color: transparent;
+
+  &:hover,
+  &:focus {
+    border-color: transparent;
+  }
+
+  .k-cascader-selection {
+    border-color: transparent;
+    background-color: transparent;
   }
 }
 

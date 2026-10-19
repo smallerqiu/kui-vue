@@ -608,6 +608,20 @@ const DEAD_CLASS_TOKENS: { component: string; token: string }[] = [
   { component: "badge", token: "k-badge-mark" },
 ];
 
+/**
+ * 「去掉边框」在同文件里是靠先后取胜的：`.k-x-borderless` 和 `fill` / `outline` / `dashed` 的 rest 规则
+ * 打平在 (0,1,0)，谁写在后面谁赢，所以那三档必须排在无边框那条规则之前 —— 排到上面去的话，
+ * `bordered={false}` 的 `outline` / `dashed` 会把刚拒绝的边框画回来，`fill` 也留着那块底色。
+ * 带 `:not()` 的 `plain` / `solid` / `underlined` 本身是 (0,2,0)，顺序帮不上忙，
+ * 它们跟无边框的状态臂打平时同理，所以那四族的状态臂也在下面点名守着。
+ */
+const FRAMELESS_RANKS: { component: string; root: string }[] = [
+  { component: "select", root: "k-select" },
+  { component: "tree-select", root: "k-tree-select" },
+  { component: "cascader", root: "k-cascader" },
+  { component: "date-picker", root: "k-datepicker" },
+];
+
 /** 反向对照：被清理的东西旁边，那些真在用的规则不能被顺手删掉。 */
 const LIVE_SELECTORS: { component: string; selector: string }[] = [
   { component: "color-picker", selector: ".k-color-picker-dropdown .k-color-picker-arrow" },
@@ -694,8 +708,13 @@ const LIVE_SELECTORS: { component: string; selector: string }[] = [
     component: "date-picker",
     selector: ".k-datepicker-underlined:not(.k-datepicker-disabled):hover",
   },
-  { component: "date-picker", selector: ".k-datepicker-borderless" },
-  { component: "date-picker", selector: ".k-datepicker-borderless:hover" },
+  // 状态臂不是 rest 那句的复述：`:hover` / `:focus` 让无边框高出档位 rest 规则一档，一个无边框的 `solid`
+  // 框聚焦时不长出那圈主色边全靠它；打平的那一面还得靠顺序（见 `FRAMELESS_RANKS`）。
+  ...FRAMELESS_RANKS.flatMap(({ component, root }) => [
+    { component, selector: `.${root}-borderless` },
+    { component, selector: `.${root}-borderless:hover` },
+    { component, selector: `.${root}-borderless:focus` },
+  ]),
   // 弹层阴影是活的，不跟着根元素那几条一起走。
   { component: "date-picker", selector: ".k-datepicker-overlay" },
   // 摘掉的是声明，不是规则：箭头态那条还压着铺底、`.k-btn-plain` 还压着边框和表面、
@@ -869,6 +888,24 @@ describe("theme 死 CSS 守卫", () => {
   LIVE_SELECTORS.forEach(({ component, selector }) => {
     it(`${component}: 还在用的 ${selector} 没被顺手删掉`, async () => {
       expect([...simpleSelectors(await compile(component))]).toContain(selector);
+    });
+  });
+
+  FRAMELESS_RANKS.forEach(({ component, root }) => {
+    // 编译出来的顺序就是打包出来的顺序，所以这里能直接问"谁写在后面"，而不是去数源码的行号。
+    it(`${component}: 无边框那条规则排在会压它的档后面`, async () => {
+      const rules = await compile(component);
+      const rank = (selector: string) =>
+        rules.findIndex((rule) => rule.selectors.includes(selector));
+      const frameless = rank(`.${root}-borderless`);
+      expect(frameless, `.${root}-borderless 那条规则不见了`).toBeGreaterThanOrEqual(0);
+      ["fill", "outline", "dashed"].forEach((tier) => {
+        const rest = rank(`.${root}-${tier}`);
+        expect(rest, `.${root}-${tier} 这条档规则不在该文件里`).toBeGreaterThanOrEqual(0);
+        expect(rest, `.${root}-${tier} 排在无边框后面，无边框就压不住它的 rest 边框`).toBeLessThan(
+          frameless,
+        );
+      });
     });
   });
 

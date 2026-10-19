@@ -132,6 +132,7 @@ rm -rf node_modules/.vite
 - `TreeSelect` no longer grows a halo when its panel opens: a filled, plain, solid or underlined box, and a borderless or disabled one, keep only the focus ring, the way `Select` and `Cascader` already do; `outline` and `dashed` keep the shallow glow.
 - `Input` / `Textarea` under `theme="solid"` no longer grow a pale halo when focused - on a primary fill it was never readable, and they now match `InputNumber` / `InputOTP` / `InputTag` / `ColorPicker` by keeping only the focus ring.
 - A disabled input no longer glows while it has the caret, and a disabled `ColorPicker` stays flat even when its panel is held open through `open`. Tiers that keep their border (`outline` / `dashed`) still glow on focus and on opening.
+- Turning off `Cascader`’s border with `bordered={false}` now removes it for real: `theme="outline"` and `theme="dashed"` no longer leave a frame behind, and `theme="fill"` no longer keeps its tint, the way `Select`, `TreeSelect` and `DatePicker` already behave.
 
 ## 6.2.2
 

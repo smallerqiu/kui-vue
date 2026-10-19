@@ -134,6 +134,7 @@ rm -rf node_modules/.vite
 - `TreeSelect` 展开面板时不再多出一圈光晕：`fill` / `plain` / `solid` / `underlined`、无边框与禁用这几种外观下，展开只剩那一圈焦点环，和 `Select`、`Cascader` 一致；`outline` 与 `dashed` 仍带原来的浅光。
 - `Input` / `Textarea` 用 `theme="solid"` 时聚焦不再多出一圈浅色光晕：主色实底上那层淡光本来就看不出来，现在和 `InputNumber` / `InputOTP` / `InputTag` / `ColorPicker` 一致，只留那一圈焦点环。
 - 禁用的输入框聚焦时不再发光；`ColorPicker` 禁用时，哪怕面板是用 `open` 手动展开的也不再发光。`outline` / `dashed` 这些留着描边的外观，聚焦与展开时的那层浅光照旧。
+- `Cascader` 关掉边框（`bordered={false}`）时，`theme="outline"` / `theme="dashed"` 不再留下一圈边框，`theme="fill"` 也不再留着那层底色，和 `Select` / `TreeSelect` / `DatePicker` 的表现一致。
 
 ## 6.2.2
 
