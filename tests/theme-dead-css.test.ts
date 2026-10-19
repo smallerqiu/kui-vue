@@ -54,9 +54,10 @@ const suppressedShadowSelectors = (prefix: string) => [
  * 为什么一条都不落地：换边、发光、焦点环都由 `GUARDED_DRAWERS` 那条带排除名单的臂（hover），以及同一条
  * 臂的 `:focus` 版本（outline）说了算，两份名单里都写着 `fill` 与 `plain`，所以没有任何规则能在
  * hover / focus / 展开时把边框或底色画回这两个盒子，档自己再抄一遍压不到东西。
- * `plain` 那三臂还多一条判据：它是 (0,3,0)，和 `form` 报错作用域画在控件上的那条红边打平，而
- * `components/styles/components.less` 把 select / tree-select 排在 `form` 之后，于是抄一遍的档赢过报错
- * 提示 —— 一栏"无效"必须比一档外观更显眼，所以这个平局不许由档来拿。
+ * `plain` 那三臂还多一条判据：报错作用域已经在同一颗控件上把红边重述到每个状态（带状态那几条从 (0,4,0)
+ * 起），档的状态臂最多 (0,3,0)，压不到任何东西；而 `components/styles/components.less` 把 `form` 排在
+ * select / tree-select 之前，哪天报错作用域的状态行被删掉、平局就会由抄了一遍的档来拿 ——
+ * 一栏"无效"必须比一档外观更显眼，所以那个平局不许属于档。
  * `fill:hover` 只在应用设了 `--kui-theme-fill-border` 时才有事做：把那圈钩子边在指针下收掉。这一族的
  * fill 只有聚焦交互（基础焦点环的名单里没有 `fill`），所以三个组件里钩子边一律跟着档走。
  * `.k-x-fill:focus .k-x` 是另一种死法：档类名和 `k-x` 写在同一个根元素上，后代写法永远选不中（弹层面板是
@@ -214,15 +215,69 @@ const DATE_PICKER_ERROR_DRAWERS = [
 ];
 
 /**
- * 报错作用域给这两个控件画的红边。它是 `plain` 档状态臂唯一可能的对手：两边都是 (0,3,0)，谁赢只看
- * `components/styles/components.less` 的 import 顺序，而 select / tree-select 排在 `form` 之后。
- * 所以这一条必须一直在 —— 它是"报错提示优先于外观档"在 CSS 里的落点，档自己不许重述（判据见
- * `SELECTION_BOX_TIER_STATE_RECALLS`）。
+ * 报错作用域点到每颗控件盒子的地方：静置一条红边，加上 hover / focus / 展开每个状态各一条「红边 + 红环」。
+ * 状态也要各写一遍只有层叠这一个理由：这些控件在交互时会换自己的边框颜色，而
+ * `components/styles/components.less` 把 `form` 排在它们之前，特异度打平时后写的赢 —— 只写静置那条的话，
+ * 指针一停上去报错就没了。带状态的每一条都是 (0,4,0)，基础交互和档的规则都压不过它。
+ * `opened` 类名和控件根类名写在同一个元素上，所以只能写成同元素合取；`.k-x-opened .k-x` 那种后代形状
+ * 选不中（见 `DEAD_SELECTORS`）。`input-tag` 没有展开态，`input-otp` 反过来没有根上的边 —— 它的框画在
+ * 每颗格子上，档也写在格子，所以那一条要连着组名点名才有 (0,4,0)，压得住格子的 (0,3,0) 静置规则；
+ * 格子的 (0,4,0) 状态臂则由这里的 (0,5,0) 压住。
  */
-const SELECTION_BOX_ERROR_BORDERS = [
-  ".k-form .k-form-item-error .k-select",
-  ".k-form .k-form-item-error .k-tree-select",
+const ERROR_SCOPE_BOXES: { component: string; root: string; opened?: string }[] = [
+  { component: "select", root: ".k-select", opened: ".k-select.k-select-opened" },
+  {
+    component: "tree-select",
+    root: ".k-tree-select",
+    opened: ".k-tree-select.k-tree-select-opened",
+  },
+  { component: "cascader", root: ".k-cascader", opened: ".k-cascader.k-cascader-opened" },
+  {
+    component: "color-picker",
+    root: ".k-color-picker",
+    opened: ".k-color-picker.k-color-picker-opened",
+  },
+  { component: "input-tag", root: ".k-input-tag" },
 ];
+
+const ERROR_SCOPE_PREFIX = ".k-form .k-form-item-error ";
+
+/** 静置红边：一颗盒子一条，OTP 那颗在格子上。 */
+const ERROR_SCOPE_EDGES = [
+  ...ERROR_SCOPE_BOXES.map(({ component, root }) => ({
+    component,
+    selector: ERROR_SCOPE_PREFIX + root,
+  })),
+  { component: "input-otp", selector: `${ERROR_SCOPE_PREFIX}.k-input-otp .k-input-otp-item` },
+];
+
+/** 每个交互状态重述一遍的红边 + 红环。 */
+const ERROR_SCOPE_STATE_EDGES = [
+  ...ERROR_SCOPE_BOXES.flatMap(({ component, root, opened }) => [
+    ...[":hover", ":focus", ":focus-within"].map((state) => ({
+      component,
+      selector: `${ERROR_SCOPE_PREFIX}${root}${state}`,
+    })),
+    ...(opened ? [{ component, selector: `${ERROR_SCOPE_PREFIX}${opened}` }] : []),
+  ]),
+  ...[":hover", ":focus"].map((state) => ({
+    component: "input-otp",
+    selector: `${ERROR_SCOPE_PREFIX}.k-input-otp .k-input-otp-item${state}`,
+  })),
+];
+
+/** 箭头跟着报错变红：三个带下拉箭头的盒子各一条。 */
+const ERROR_SCOPE_ARROWS = [
+  { component: "select", selector: `${ERROR_SCOPE_PREFIX}.k-select .k-select-arrow` },
+  {
+    component: "tree-select",
+    selector: `${ERROR_SCOPE_PREFIX}.k-tree-select .k-tree-select-arrow`,
+  },
+  { component: "cascader", selector: `${ERROR_SCOPE_PREFIX}.k-cascader .k-cascader-arrow` },
+];
+
+const DANGER_RING =
+  "0 0 0 2px var(--kui-color-danger-9, color-mix(in srgb, var(--kui-color-danger) 10%, transparent))";
 
 /**
  * color-picker 的档状态臂压的是基础边框，不是自己档的重复：基础 `:hover` 那条只排 `disabled`，
@@ -523,6 +578,13 @@ const DEAD_SELECTORS: { component: string; selector: string }[] = [
     component,
     selector: `.k-${component}-fill:focus .k-${component}`,
   })),
+  // 同一种死法长在报错作用域里：`opened` 类名和控件根类名写在同一个元素上，后代形状从来选不中，
+  // 那圈红环等于没画。展开态要的是同元素合取，落点见 `ERROR_SCOPE_BOXES`。
+  { component: "form", selector: ".k-form .k-form-item-error .k-select-opened .k-select" },
+  {
+    component: "form",
+    selector: ".k-form .k-form-item-error .k-tree-select-opened .k-tree-select",
+  },
 ];
 
 /**
@@ -865,19 +927,38 @@ describe("theme 死 CSS 守卫", () => {
     });
   });
 
-  SELECTION_BOX_ERROR_BORDERS.forEach((selector) => {
+  ERROR_SCOPE_EDGES.forEach(({ selector }) => {
     it(`form: 报错作用域还在给 ${selector} 画红边`, async () => {
       const rules = (await compile("form")).filter((rule) => rule.selectors.includes(selector));
       expect(rules, `${selector} 的规则没了`).toHaveLength(1);
-      expect(rules[0]!.properties).toContain("border-color");
+      expect(rules[0]!.declarations).toContainEqual(["border-color", "var(--kui-color-danger)"]);
     });
   });
 
-  // 报错作用域现在还没点名 cascader，所以 `SELECTION_BOX_ERROR_BORDERS` 只覆盖另外两个盒子。
-  // 把 cascader 补进去是修缺陷，不需要先给它的档加回状态臂 —— 那份名单对三个组件一样有效。
-  it("form: 报错作用域不点名 cascader", async () => {
+  ERROR_SCOPE_STATE_EDGES.forEach(({ selector }) => {
+    it(`form: ${selector} 仍然重述红边和红环`, async () => {
+      const rules = (await compile("form")).filter((rule) => rule.selectors.includes(selector));
+      expect(rules, `${selector} 的规则没了`).toHaveLength(1);
+      expect(rules[0]!.declarations).toContainEqual(["border-color", "var(--kui-color-danger)"]);
+      expect(rules[0]!.declarations).toContainEqual(["box-shadow", DANGER_RING]);
+    });
+  });
+
+  ERROR_SCOPE_ARROWS.forEach(({ selector }) => {
+    it(`form: ${selector} 跟着报错变红`, async () => {
+      const rules = (await compile("form")).filter((rule) => rule.selectors.includes(selector));
+      expect(rules, `${selector} 的规则没了`).toHaveLength(1);
+      expect(rules[0]!.declarations).toContainEqual(["color", "var(--kui-color-danger)"]);
+    });
+  });
+
+  // 展开态的类名就在控件自己身上，所以那两条合取选得中；写成 `.k-x-opened .k-x` 的那两条选不中，
+  // 红环等于没画（判据见 `DEAD_SELECTORS`）。
+  it("form: 展开态的红环写在控件自己身上，不写成后代", async () => {
     const names = [...simpleSelectors(await compile("form"))].filter((selector) =>
-      selector.includes("cascader"),
+      /(?:select|tree-select|cascader|color-picker)-opened .k-(?:select|tree-select|cascader|color-picker)$/.test(
+        selector,
+      ),
     );
     expect(names).toEqual([]);
   });

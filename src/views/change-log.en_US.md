@@ -80,7 +80,8 @@ rm -rf node_modules/.vite
 - `Select` / `Cascader` / `TreeSelect` / `DatePicker`: `theme` now supports `outline`, `solid`, `dashed` and `underlined` — a 1px outlined box, a primary-filled block whose text and icons invert, a dashed frame, and a single bottom rule that turns primary on focus.
 - `Cascader`: a `theme="fill"` field no longer grows a border when you hover it.
 - `Select` / `TreeSelect`: a `theme="fill"` field keeps the border an app draws through `--kui-theme-fill-border` under the pointer, matching `Cascader`.
-- `Select` / `TreeSelect`: a `theme="plain"` field inside an invalid form item keeps its red border when you hover it, focus it, or open its panel.
+- `Cascader` / `ColorPicker` / `InputTag` / `InputOTP` now turn red inside an invalid form item; previously only the `Input` / `Select` families changed colour. Every `InputOTP` cell turns red together.
+- A red border inside an invalid form item survives interaction: hovering, focusing or opening the panel of a `Select` / `TreeSelect` / `Cascader` / `ColorPicker` / `InputTag` / `InputOTP` keeps both the red edge and its red glow, under any of the six `theme` values.
 - `DatePicker`: focusing a field that has no border no longer draws a focus ring, matching the select-family controls.
 - `Input` / `Textarea` / `InputNumber`: `theme` now supports `outline`, `solid`, `dashed` and `underlined` — a 1px outlined box, a primary-filled block whose typed text, placeholder and inline icons invert, a dashed frame, and a single bottom rule that turns primary on hover and focus.
 - `Input` / `Textarea` / `InputNumber`: a `theme="plain"` field no longer grows a border when you hover it and still reads as disabled; `plain` and `underlined` drop the focus ring, matching the select-family controls.

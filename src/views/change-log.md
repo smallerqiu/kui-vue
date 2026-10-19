@@ -82,7 +82,8 @@ rm -rf node_modules/.vite
 - `Select` / `Cascader` / `TreeSelect` / `DatePicker` 的 `theme` 补齐 `outline` / `solid` / `dashed` / `underlined` 四档：描边框、主色实底（文字与图标跟着反白）、虚线描边、只留一条下划线（聚焦时下划线变主色）。
 - `Cascader` 用 `theme="fill"` 时，鼠标悬停不再突然描出一圈边框。
 - `Select` / `TreeSelect` 用 `theme="fill"` 时，鼠标悬停不再抹掉应用用 `--kui-theme-fill-border` 描的那圈边框，与 `Cascader` 一致。
-- `Select` / `TreeSelect` 的 `theme="plain"` 放进报错的表单项时，鼠标悬停、聚焦、打开面板不再让那圈红色描边消失。
+- 报错的表单项不再漏掉控件：`Cascader` / `ColorPicker` / `InputTag` / `InputOTP` 放进验证失败的表单项时同样描红，此前只有 `Input` / `Select` 那几类会变色；`InputOTP` 是每一格一起描红。
+- `Select` / `TreeSelect` / `Cascader` / `ColorPicker` / `InputTag` / `InputOTP` 放进报错的表单项后，鼠标悬停、聚焦、展开面板都不会让那圈红色描边消失，红边和红色浅光一直留着；六种 `theme` 下都一样。
 - `DatePicker` 去掉边框（`:bordered="false"` 或 `theme="plain"`）后聚焦不再出现一圈焦点环，与 `Select` 系列一致。
 - `Input` / `Textarea` / `InputNumber` 的 `theme` 补齐 `outline` / `solid` / `dashed` / `underlined` 四档：描边框、主色实底（输入的文字、占位提示与前后缀图标一起反白）、虚线描边、只留一条下划线（悬停、聚焦时变主色）。
 - `Input` / `Textarea` / `InputNumber` 的 `theme="plain"` 悬停时不再突然描出一圈边框，禁用时仍显示禁用态；`plain` 与 `underlined` 聚焦时不再出现焦点环，与 `Select` 系列一致。

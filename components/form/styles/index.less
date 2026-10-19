@@ -91,10 +91,12 @@
   }
 
   .k-form-item-error {
+    @danger-ring: 0 0 0 2px
+      var(--kui-color-danger-9, color-mix(in srgb, var(--kui-color-danger) 10%, transparent));
+
     .k-input[data-multiple].k-input-focus {
       border-color: var(--kui-color-danger);
-      box-shadow: 0 0 0 2px
-        var(--kui-color-danger-9, color-mix(in srgb, var(--kui-color-danger) 10%, transparent));
+      box-shadow: @danger-ring;
     }
 
     .k-input,
@@ -107,8 +109,7 @@
       &:hover,
       &:focus {
         border-color: var(--kui-color-danger);
-        box-shadow: 0 0 0 2px
-          var(--kui-color-danger-9, color-mix(in srgb, var(--kui-color-danger) 10%, transparent));
+        box-shadow: @danger-ring;
       }
     }
 
@@ -124,19 +125,50 @@
       }
     }
 
-    .k-select {
-      border-color: var(--kui-color-danger);
-      .k-select-arrow {
-        color: var(--kui-color-danger);
-      }
-    }
-    .k-tree-select {
+    // These controls paint their own surface, and their files are imported after this one, so an
+    // interaction rule of theirs can repaint the error edge away. Naming every state here is what keeps
+    // the field red under (0,3,0) rules like `&:hover` / `&:focus` / the opened class, whichever tier the
+    // field is on. The opened class sits on the control itself, so it has to be a same-element compound.
+    .k-select,
+    .k-tree-select,
+    .k-cascader,
+    .k-color-picker,
+    .k-input-tag {
       border-color: var(--kui-color-danger);
 
-      .k-tree-select-arrow {
-        color: var(--kui-color-danger);
+      &:hover,
+      &:focus,
+      &:focus-within {
+        border-color: var(--kui-color-danger);
+        box-shadow: @danger-ring;
       }
     }
+
+    .k-select.k-select-opened,
+    .k-tree-select.k-tree-select-opened,
+    .k-cascader.k-cascader-opened,
+    .k-color-picker.k-color-picker-opened {
+      border-color: var(--kui-color-danger);
+      box-shadow: @danger-ring;
+    }
+
+    .k-select .k-select-arrow,
+    .k-tree-select .k-tree-select-arrow,
+    .k-cascader .k-cascader-arrow {
+      color: var(--kui-color-danger);
+    }
+
+    // The OTP group paints each cell rather than the container, so the error edge goes on the cells.
+    .k-input-otp .k-input-otp-item {
+      border-color: var(--kui-color-danger);
+
+      &:hover,
+      &:focus {
+        border-color: var(--kui-color-danger);
+        box-shadow: @danger-ring;
+      }
+    }
+
     .k-radio .k-radio-symbol {
       border-color: var(--kui-color-danger);
     }
@@ -152,15 +184,8 @@
       border: 1px solid var(--kui-color-danger);
     }
 
-    .k-select-opened .k-select,
-    .k-tree-select-opened .k-tree-select {
-      box-shadow: 0 0 0 2px
-        var(--kui-color-danger-9, color-mix(in srgb, var(--kui-color-danger) 10%, transparent));
-    }
-
     .k-datepicker-opened {
-      box-shadow: 0 0 0 2px
-        var(--kui-color-danger-9, color-mix(in srgb, var(--kui-color-danger) 10%, transparent));
+      box-shadow: @danger-ring;
     }
   }
 }
