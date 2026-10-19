@@ -163,9 +163,9 @@ const PLAIN_CONTROLS = [
   { entry: "components/tree-select/styles/index.less", name: "k-tree-select", selection: true },
 ] as const;
 
-// 3b: these four controls typed six presets but painted two. `outline` / `solid` / `dashed` /
-// `underlined` were dropped before the class list *and* had no rule, so `theme="outline"` was
-// invisible twice over. Each now draws from the shared arm, and the tiers that own their interaction
+// Six presets are typed for these four controls, so every one of them has to reach the class list
+// *and* a rule: a tier missing from either half is invisible twice over. `outline` / `dashed` draw
+// from the shared arm and keep the base interaction rules; the tiers that own their interaction
 // states are kept out of the base repaint — `solid` because it repaints its own surface, `underlined`
 // because its bottom edge is the whole affordance.
 const declarations = (body: string | undefined, label: string) => {
