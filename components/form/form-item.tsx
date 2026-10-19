@@ -27,6 +27,7 @@ import {
   FORM_FIELD_INJECTION_KEY,
   FORM_INJECTION_KEY,
   isFormFieldComponent,
+  isFormFieldWrapper,
   type FormFieldContext,
 } from "./context";
 import type { ColProps, FormRule, FormValidateTrigger } from "./types";
@@ -363,6 +364,13 @@ const FormItem = defineComponent({
       const controlIndex = children.findIndex(
         (child) => isVNode(child) && (hasModelValueProp(child) || isFormFieldComponent(child.type)),
       );
+      // The slot's own children are all this item can see, so a control wrapped in a `InputGroup` is invisible
+      // here. Fall back to a marked wrapper: the field then reaches the group's appearance and, because the
+      // group passes the context on rather than isolating it, the control nested inside.
+      const fieldIndex =
+        controlIndex === -1
+          ? children.findIndex((child) => isVNode(child) && isFormFieldWrapper(child.type))
+          : controlIndex;
 
       return (
         <Row class={classes}>
@@ -397,8 +405,8 @@ const FormItem = defineComponent({
                     onBlur: prop ? () => testValue("blur") : undefined,
                   });
                 }
-                if (isVNode(child) && index === controlIndex) {
-                  if (isFormFieldComponent(child.type)) {
+                if (isVNode(child) && index === fieldIndex) {
+                  if (isFormFieldComponent(child.type) || isFormFieldWrapper(child.type)) {
                     return (
                       <FormFieldProvider context={fieldContext}>{() => child}</FormFieldProvider>
                     );

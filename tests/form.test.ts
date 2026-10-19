@@ -15,6 +15,7 @@ import RadioGroup from "../components/radio/radio-group";
 import type { FormExpose, FormRule } from "../components/form/types";
 import Rate from "../components/rate";
 import { Input } from "../components/input";
+import InputGroup from "../components/input/input-group";
 import TextArea from "../components/input/textarea";
 import InputNumber from "../components/input-number";
 import Segmented from "../components/segmented";
@@ -364,6 +365,46 @@ describe("Form", () => {
     model.name = "Grace";
     await nextTick();
     expect(wrapper.findAll("span")[0].attributes("data-value")).toBe("Grace");
+  });
+
+  it("reaches the control that an InputGroup wraps", async () => {
+    const model = reactive({ name: "Ada" });
+    const wrapper = mount(Form, {
+      props: { model, theme: "outline" },
+      slots: {
+        default: () =>
+          h(FormItem, { prop: "name", label: "Name" }, () => h(InputGroup, {}, () => h(Input))),
+      },
+    });
+    await nextTick();
+    const input = wrapper.find("input");
+    expect(input.element.value).toBe("Ada");
+    expect(input.attributes("id")).toBe(wrapper.find("label").attributes("for"));
+    // The group and the field it wraps resolve the same tier, so the frame is drawn once.
+    expect(wrapper.find(".k-input-group").classes()).not.toContain("k-input-group-fill");
+    expect(wrapper.find(".k-input").classes()).toContain("k-input-outline");
+
+    model.name = "Grace";
+    await nextTick();
+    expect(wrapper.find("input").element.value).toBe("Grace");
+    await wrapper.find("input").setValue("Hopper");
+    expect(model.name).toBe("Hopper");
+  });
+
+  it("keeps the field on the control that sits directly in the slot", async () => {
+    const wrapper = mount(Form, {
+      props: { model: { name: "Ada" } },
+      slots: {
+        default: () =>
+          h(FormItem, { prop: "name" }, () => [
+            h(InputGroup, {}, () => h(Input, { class: "wrapped" })),
+            h(Input, { class: "direct" }),
+          ]),
+      },
+    });
+    await nextTick();
+    expect(wrapper.find(".direct input").element.value).toBe("Ada");
+    expect(wrapper.find(".wrapped input").element.value).toBe("");
   });
 
   it("resets global and sticky regexp state between validations", async () => {

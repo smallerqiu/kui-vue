@@ -28,6 +28,7 @@
 [输入框组合](./demo/group.vue?show=vertical)
 
 - 使用 InputGroup 让组件之间紧凑连接且合并边框。默认 true
+- 在表单项里，包在 InputGroup 中的控件仍然是这一项的控件：取值、label 关联、校验提示和外观档位都会走到它。
 
 [尺寸](./demo/size.vue)
 

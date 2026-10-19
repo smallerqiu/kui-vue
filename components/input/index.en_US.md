@@ -28,6 +28,7 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 [Input Group](./demo/group.vue?show=vertical)
 
 - Use `InputGroup` to tightly connect components and merge borders. Default is `true`.
+- Inside a form item, the control wrapped by `InputGroup` is still that item's control: its value, label link, validation message and appearance tier all reach it.
 
 [Size](./demo/size.vue)
 

@@ -11,7 +11,7 @@ import {
 import { type BooleanType, type SizeType, type ThemeType } from "../const/types";
 import { getChildren } from "../utils/vnode";
 import { CONFIG_PROVIDER_INJECTION_KEY, resolveTheme } from "../config/context";
-import { useFormField, useFormAppearance } from "../form/context";
+import { markFormFieldWrapper, useFormField, useFormAppearance } from "../form/context";
 
 const inputGroupProps = {
   block: { type: Boolean as PropType<boolean | undefined>, default: false },
@@ -110,4 +110,7 @@ const InputGroup = defineComponent({
   },
 });
 
-export default InputGroup;
+// Registered as a field wrapper so `FormItem` hands this node the field even when the control it belongs to is
+// nested inside: the group borrows the tier without isolating the context, and the input reads the value,
+// label wiring and error state from the field it now sees.
+export default markFormFieldWrapper(InputGroup);
