@@ -3,7 +3,7 @@ import { join } from "node:path";
 import { render } from "less";
 import { describe, expect, it } from "vitest";
 
-// 死 CSS 守卫：③-3d-戊、③-3d-己、③-3d-庚、③-3d-辛、③-3d-壬 扫掉的那批规则不许悄悄长回来。
+// 死 CSS 守卫：③-3d-戊、③-3d-己、③-3d-庚、③-3d-辛、③-3d-壬、③-3d-癸 扫掉的那批规则不许悄悄长回来。
 //
 // 形状和 `tests/tree-styles.test.ts` 不一样，因为那一个在这里用不了 —— 它拿"编译出来的类名"去反查
 // "组件真的会输出的类名集合"，而这个单元删的三种东西反查都抓不住：
@@ -55,9 +55,9 @@ const suppressedShadowSelectors = (prefix: string) => [
  *     `<textarea>` 只发 `k-textarea` / `k-textarea-<档>`，所以 `.k-textarea-*.k-input-focus` 那种形状
  *     从来选不中，它不是任何一档"压住光晕"的理由。
  *   · `input-number` 的抽屉本来就带排除名单，那 5 行一行都不落地。
- *   · 每个 underlined 档的**根**规则仍然写着 `box-shadow: none` —— 那是共用 mixin
- *     `.kui-theme-value(underlined)` 画的，删它要跨组件一起裁定，留到下一轮；因此这里只点它的状态臂，
- *     不点根，免得守卫把一条还活着的声明判成死的。
+ *   · 每个 underlined 档的**根**规则当时还写着一行 `box-shadow: none`，那行来自共用 mixin
+ *     `.kui-theme-value(underlined)`，属于跨组件裁定，所以 庚 只点它的状态臂、不点根；那一行由
+ *     ③-3d-癸 扫掉，九个落点的根规则名现在进了 `GUI_DEAD_DECLARATIONS`。
  * 源码里是 28 行，编译后展开成下面 48 个选择器名（一行嵌套 `&:focus, &:hover, &.k-input-focus`
  * 套在三种挂载形状下就变成六七个名字）。其中 input-number 的
  * `.k-input-number-fill:focus` / `.k-input-number-fill.k-input-number-focus` 现在已经没有规则承载
@@ -143,8 +143,8 @@ const CONTROL_FAMILY_SUPPRESSORS: { component: string; selector: string }[] = [
  * underlined 那行还被共用 mixin 的基座顶着，单删一行有另一行兜着，八行一起删才可能把光晕放回来；
  * 反向对照 = 往基座注一条 (0,1,0) 的阴影，八行里立刻有五行的读数动起来，说明分类器不是空转。
  * 计算值零变化 ⇒ 这一笔**不写更新日志**。
- * `underlined` 的**基座**那条仍然写着 `box-shadow: none`，那行来自共用 mixin
- * `.kui-theme-value(underlined)`，属于跨组件裁定，跟 己/庚 一样留到下一轮，所以这里只点它的状态臂。
+ * `underlined` 的**基座**那行 `box-shadow: none` 来自共用 mixin `.kui-theme-value(underlined)`，
+ * 跟 己/庚 一样是跨组件裁定，辛 没顺手删；它由 ③-3d-癸 扫掉，判据和名单见 `GUI_DEAD_DECLARATIONS`。
  */
 const DATE_PICKER_SUPPRESSORS = [
   ".k-datepicker-fill:hover",
@@ -164,17 +164,17 @@ const DATE_PICKER_SUPPRESSORS = [
 ].map((selector) => ({ component: "date-picker", selector }));
 
 /**
- * 辛 的总闸：date-picker 编译结果里今天还允许出现 `box-shadow` 的地方只有两处 ——
- *   · `.k-datepicker-overlay` 的弹层阴影，那条是真在画；
- *   · `underlined` 基座那一行 `box-shadow: none`，它来自共用 mixin `.kui-theme-value(underlined)`，
- *     要删得跨组件一起裁定，跟 己/庚 一样留到下一轮。
+ * 辛 的总闸：date-picker 编译结果里今天还允许出现 `box-shadow` 的地方只剩一处 ——
+ *   · `.k-datepicker-overlay` 的弹层阴影，那条是真在画。
  * 上面那张压制名单逐条点名，改个嵌套形状就能躲过去；这一条不认选择器名，只认"这个文件里还有谁写了
  * box-shadow"，所以任何一处压制长回来（哪怕换了写法）都红。断言按 `选择器 + 值` 整对比较：值也钉住，
  * 免得有人把 `none` 改成一条真的光晕再靠上面那张名单蒙过去。
+ * 曾与弹层阴影并列的第二处 —— 共用 mixin 给 `underlined` 基座画的那行 `none` —— 由 ③-3d-癸 删掉了，
+ * 所以这个名单现在只有一项；它要是因为 mixin 长回来而变成两项，这里先红，`GUI_DEAD_DECLARATIONS`
+ * 跟着一起红。
  */
 const DATE_PICKER_SHADOW_ALLOW_LIST = [
   ".k-datepicker-overlay { box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow)) }",
-  ".k-datepicker-underlined:not(.k-datepicker-disabled) { box-shadow: none }",
 ];
 
 /**
@@ -235,6 +235,64 @@ const REN_SHADOW_ALLOW_LISTS: { component: string; allow: string[] }[] = [
   },
 ];
 
+/**
+ * ③-3d-癸：共用 mixin `.kui-theme-value(underlined)` 里那行 `box-shadow: none`，它是全库最后一处
+ * 跨组件的阴影压制 —— 九个组件调用它（input 一份调用摊成裸 input / 包裹层 / textarea 三个名字），
+ * 编译后一共 11 个选择器名。**这一条不是"某一族没对手"，而是"这行在任何世界都压不到东西"**：
+ *   · 每个族的光晕抽屉都写着 `:not(..., -underlined)`（己/庚/辛 把逐档补的压制换成名单时定下的形状），
+ *     所以档基座根本没有更早的阴影可压 —— 名单逐条由 `GUARDED_DRAWERS` 守着，少一项那档就得重新裁定；
+ *   · 唯一还能把阴影画到 underlined 盒子上的规则在 `components/form/styles/index.less` 的报错作用域里，
+ *     `(0,4,0)`/`(0,5,0)`，而这一行最多 `(0,3,0)`：报错态那圈红环一直是赢的那个，删前删后都在。
+ * 判据 = 603 个 fixture / 3042 个计算值读数（九个落点 × underlined/outline/solid × 静置/悬浮/聚焦/展开/禁用
+ * × 裸挂、普通 Form 项、报错 Form 项）：删掉那一行 0 处变化，而带阴影的读数 224 个前后一致 ——
+ * 其中 16 个是 underlined 档类名自己在发光，全部落在报错作用域，正是"压制一直是输的那个"那批。
+ * 反向对照（壬 的形状）：给这九个落点各注一条 `(0,1,0)` 的基座光晕，注了不删时 underlined 只有 94 个读数
+ * 发光、注了并删变成 258 个，非 underlined 的档两次都是 516 个不动 —— 这行确实在选中 underlined 并压得住
+ * 一条够不着它的阴影，只是真实库里没有人画那样的阴影。计算值零变化 ⇒ 不写更新日志。
+ * 变异实测（三发 + 一发对照）：原样加回那一行 = 15 红（这 11 条 + 两条全库普查 + date-picker 那份
+ * `选择器 { 值 }` 名单 + `theme-variants` 读 mixin 探针的一条）；把值换成看着不像压制的
+ * `0 0 0 2px transparent` 也是 15 红，但**按值数"还剩几条 none"的那条普查是绿的** —— 咬住它的是这 11 条
+ * 按**属性名**点的名单和下面那条"任何带 `-underlined` 的选择器都不声明 `box-shadow`"；只往 `&:focus`
+ * 那条状态臂里补一行 = 9 红（庚 点过的那批状态臂名字先红，说明共用 mixin 的嵌套臂摊到了它们身上）；
+ * 往 solid 臂加一行 = 只有按值的那两条红、"带 `-underlined`"那条绿 —— 它不是"任何阴影变化都红"的空闸。
+ * 所以这一族的承重分布是：名字点名管"这 11 个落点"，状态臂名字管"别从嵌套里长回来"，
+ * 按值的全库普查管"别在别处再写一行压制"，`theme-variants` 的探针管"共用 mixin 本身不许有这行"。
+ */
+const GUI_DEAD_DECLARATIONS: {
+  component: string;
+  selector: string;
+  property: string;
+}[] = [
+  // 一份 mixin 调用摊在三种挂载形状上（庚 记的那条：档要落裸 input / 包裹层 / textarea）。
+  ...[
+    ".k-input-underlined[data-multiple]:not(.k-input-disabled)",
+    ".k-input-underlined[data-single]:not(:disabled)",
+    ".k-textarea-underlined:not(:disabled)",
+  ].map((selector) => ({ component: "input", selector })),
+  ...[
+    {
+      component: "input-number",
+      selector: ".k-input-number-underlined:not(.k-input-number-disabled)",
+    },
+    {
+      component: "input-otp",
+      selector: ".k-input-otp-underlined:not(.k-input-otp-disabled) .k-input-otp-item",
+    },
+    { component: "input-tag", selector: ".k-input-tag-underlined:not(.k-input-tag-disabled)" },
+    {
+      component: "color-picker",
+      selector: ".k-color-picker-underlined:not(.k-color-picker-disabled)",
+    },
+    { component: "select", selector: ".k-select-underlined:not(.k-select-disabled)" },
+    {
+      component: "tree-select",
+      selector: ".k-tree-select-underlined:not(.k-tree-select-disabled)",
+    },
+    { component: "cascader", selector: ".k-cascader-underlined:not(.k-cascader-disabled)" },
+    { component: "date-picker", selector: ".k-datepicker-underlined:not(.k-datepicker-disabled)" },
+  ],
+].map(({ component, selector }) => ({ component, selector, property: "box-shadow" }));
+
 /** 规则还在、但这条声明不能回来。 */
 const DEAD_DECLARATIONS: { component: string; selector: string; property: string }[] = [
   { component: "card", selector: ".k-card-plain", property: "box-shadow" },
@@ -283,6 +341,7 @@ const DEAD_DECLARATIONS: { component: string; selector: string; property: string
     property: "box-shadow",
   })),
   ...REN_DEAD_DECLARATIONS,
+  ...GUI_DEAD_DECLARATIONS,
 ];
 
 /**
@@ -517,10 +576,12 @@ const LIVE_SELECTORS: { component: string; selector: string }[] = [
   // 壬 判据的前提：badge 全族唯一的环画在 `.k-badge-mark` 上。它哪天改成画在点上，那颗点就得重新压制，
   // 上面那条 `DEAD_SELECTORS` 也得跟着撤 —— 所以这里点名它还在。
   { component: "badge", selector: ".k-badge-mark" },
+  // 癸 摘掉的是一行声明，不是九条规则：underlined 的基座还得继续画那条下沿、圆角和铺底。
+  // 上面 `GUI_DEAD_DECLARATIONS` 只说"这条声明不许回来"，规则整个不见了它咬不到，所以这里逐个点名。
+  ...GUI_DEAD_DECLARATIONS.map(({ component, selector }) => ({ component, selector })),
 ];
 
-const compile = async (component: string) => {
-  const filename = `components/${component}/styles/index.less`;
+const compileFile = async (filename: string) => {
   const result = await render(readFileSync(join(process.cwd(), filename), "utf8"), { filename });
   return (result.css.replace(/\/\*[^]*?\*\//g, "").match(/[^{}]+\{[^{}]*\}/g) ?? []).map(
     (chunk) => {
@@ -537,7 +598,10 @@ const compile = async (component: string) => {
           const colon = declaration.indexOf(":");
           return [
             declaration.slice(0, colon).trim(),
-            declaration.slice(colon + 1).trim().replace(/\s+/g, " "),
+            declaration
+              .slice(colon + 1)
+              .trim()
+              .replace(/\s+/g, " "),
           ] as const;
         })
         .filter(([property]) => property);
@@ -550,6 +614,10 @@ const compile = async (component: string) => {
     },
   );
 };
+
+// 一个组件的样式文件；癸 之后还有一处按整库看（`compileFile("components/styles/components.less")`），
+// 因为那一行来自共用 mixin，只有打包出来的那份 CSS 才说得上"全库还剩几处压制"。
+const compile = (component: string) => compileFile(`components/${component}/styles/index.less`);
 
 const walk = (directory: string, files: string[] = []): string[] => {
   readdirSync(join(process.cwd(), directory), { withFileTypes: true }).forEach((entry) => {
@@ -592,6 +660,35 @@ const splitSelectorList = (text: string) => {
   });
   parts.push(current);
   return parts.map((part) => part.trim()).filter(Boolean);
+};
+
+/**
+ * 函数型伪类里的类名是"排除名单"，不是这条规则选中的东西。
+ * 癸 的总闸认的是"这条规则真的落在 underlined 上"，所以先把 `:not()` / `:is()` / `:where()` 的内容挖空
+ * 再找 `-underlined` —— 九个家族那条 hover/focus 光晕臂的名单里就写着 `.k-x-underlined`，
+ * 按整串文本判会把 10 条活规则误判成 offender（它们声明的正是被名单挡掉的那圈光晕）。
+ */
+const withoutFunctionContents = (text: string) => {
+  const fn = /:(?:not|is|where|any)\(/y;
+  let out = "";
+  let i = 0;
+  while (i < text.length) {
+    fn.lastIndex = i;
+    const match = fn.exec(text);
+    if (match) {
+      i += match[0].length;
+      let depth = 1;
+      while (i < text.length && depth > 0) {
+        if (text[i] === "(") depth += 1;
+        if (text[i] === ")") depth -= 1;
+        i += 1;
+      }
+      continue;
+    }
+    out += text[i];
+    i += 1;
+  }
+  return out;
 };
 
 describe("theme 死 CSS 守卫", () => {
@@ -673,8 +770,7 @@ describe("theme 死 CSS 守卫", () => {
 
   it("dropdown: 子菜单那层内盒的光晕仍被外层压着（壬 唯一留下的压制）", async () => {
     const rules = (await compile("dropdown")).filter(
-      (rule) =>
-        rule.fullSelector === ".k-dropdown-menu-submenu-popup .k-dropdown-menu-submenu-sub",
+      (rule) => rule.fullSelector === ".k-dropdown-menu-submenu-popup .k-dropdown-menu-submenu-sub",
     );
     expect(rules, "这条压制没了：子菜单面板现在发光两次").toHaveLength(1);
     expect(rules[0]!.declarations).toContainEqual(["box-shadow", "none"]);
@@ -697,5 +793,53 @@ describe("theme 死 CSS 守卫", () => {
       expect(rules, `${selector} 的规则没了`).toHaveLength(1);
       expect(rules[0]!.properties).toContain("box-shadow");
     });
+  });
+
+  /**
+   * 癸 的承重那条：整库看，`box-shadow: none` 只剩 壬 留下的那一条。
+   * 为什么这条比上面那 11 个名字更管用 —— 共用 mixin 那一行删掉之后，"压制"这件事在库里就没有
+   * 系统性写法了，任何人再写一行（不管挂在哪个组件、用什么嵌套形状）都会让这里红，而他必须像
+   * 壬 那样先答"这条压的是谁的阴影"。`GUI_DEAD_DECLARATIONS` 那 11 条点名守的是 mixin 长回来这一种，
+   * 这一条守的是所有种。
+   */
+  it("全库：还声明 box-shadow: none 的规则只剩 dropdown 子菜单那一条（癸 之后）", async () => {
+    const rules = await compileFile("components/styles/components.less");
+    const suppressed = rules
+      .filter((rule) =>
+        rule.declarations.some(
+          ([property, value]) => property === "box-shadow" && value === "none",
+        ),
+      )
+      .flatMap((rule) => rule.selectors);
+    expect(suppressed.sort()).toEqual([
+      ".k-dropdown-menu-submenu-popup .k-dropdown-menu-submenu-sub",
+    ]);
+    // 前提：那一条压的是真在画的光晕，不是又一行死代码 —— 外层和内盒都在声明同一个弹层阴影（壬 点过）。
+    const painters = rules.filter(
+      (rule) =>
+        rule.selectors.length > 0 &&
+        rule.declarations.some(
+          ([property, value]) =>
+            property === "box-shadow" && value.startsWith("var(--kui-popup-shadow"),
+        ),
+    );
+    expect(painters.flatMap((rule) => rule.selectors)).toContain(".k-dropdown-menu-submenu-sub");
+    expect(painters.flatMap((rule) => rule.selectors)).toContain(".k-dropdown-menu-submenu-popup");
+  });
+
+  it("全库：任何带 -underlined 的选择器都不声明 box-shadow（癸）", async () => {
+    const rules = await compileFile("components/styles/components.less");
+    const offenders = rules
+      .filter(
+        (rule) =>
+          rule.selectors.some((selector) =>
+            /-underlined/.test(withoutFunctionContents(selector)),
+          ) && rule.declarations.some(([property]) => property === "box-shadow"),
+      )
+      .map((rule) => rule.fullSelector);
+    // 认的是选择器里有没有 `-underlined`（名单除外，见 `withoutFunctionContents`），不是那 11 个名字，
+    // 所以状态臂（`:hover` / `.k-x-opened`）想重新补一行压制也在这里红 —— 庚/辛 扫掉的那批状态压制
+    // 等于又加了一道总闸。
+    expect(offenders).toEqual([]);
   });
 });

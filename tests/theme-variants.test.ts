@@ -77,7 +77,11 @@ it("paints every supported theme value through its own override hook", async () 
         "var(--kui-theme-outline-border, var(--kui-control-border, var(--kui-color-border)))",
       "border-radius": "0",
       background: "var(--kui-theme-plain-bg)",
-      "box-shadow": "none",
+      // `box-shadow: none` used to be here. ③-3d-癸 removed it from the shared arm: no control
+      // family's glow drawer paints an underlined box (every `:not()` list names `-underlined`),
+      // and the one rule that can still reach one - Form's error ring - outranks this arm, so the
+      // line flattened nothing. "flat" is asserted below as the *look*, and the declaration itself
+      // is pinned away by `tests/theme-dead-css.test.ts`.
     },
   };
   for (const value of VALUES) {
@@ -103,6 +107,13 @@ it("keeps the underline focus rule and the surface values free of it", async () 
   expect(compiled.get(".probe-underlined:focus, .probe-underlined:focus-within")).toBe(
     "border-color: transparent transparent var(--kui-color-primary)",
   );
+  // The shared arm owns the edge, the radius and the plain background - it does not own flatness.
+  // ③-3d-癸: a blanket `box-shadow: none` here would suppress the tiers that already exclude
+  // `-underlined` from their drawers (i.e. nothing), so flatness is stated once, at the drawer.
+  expect(
+    declarations(compiled.get(".probe-underlined"), ".probe-underlined").has("box-shadow"),
+    "the shared underlined arm must not declare a shadow suppression",
+  ).toBe(false);
   // The others must not grow a focus rule of their own from the shared mixin.
   for (const value of ["fill", "outline", "plain", "solid", "dashed"])
     expect(compiled.has(`.probe-${value}:focus`), `${value} must not add a focus rule`).toBe(false);
@@ -224,7 +235,12 @@ it("paints the four tiers the controls used to swallow", async () => {
     const underlinedBody = declarations(compiled.get(underlined), `${name} underlined`);
     expect(underlinedBody.get("border-width")).toBe("0 0 1px");
     expect(underlinedBody.get("border-radius")).toBe("0");
-    expect(underlinedBody.get("box-shadow")).toBe("none");
+    // Same cascade question as `solid` above: the family's glow drawer excludes `-underlined`, so
+    // nothing repaints it and the tier has no `none` of its own left to say - 己/庚/辛 removed the
+    // hand-written lines and ③-3d-癸 removed the shared one. Absence and `none` both mean flat.
+    expect(underlinedBody.get("box-shadow") ?? "none", `${name} underlined grew a glow`).toBe(
+      "none",
+    );
     expect(
       declarations(
         compiled.get(`${underlined}:focus, ${underlined}:focus-within`),

@@ -160,13 +160,26 @@
 
 // Only controls get this one: on a surface "keep the bottom border" is the same as
 // deleting three of its sides, which is not an appearance preset.
+//
+// This arm used to end with `box-shadow: none`, and ③-3d-癸 dropped it. It was the last shadow
+// suppression left anywhere in the library, and it suppressed nothing: every control family paints
+// its own hover/focus glow through a `:not()` list that already names `-underlined` (that is how
+// 己/庚/辛 swept their hand-written `none` lines), and the only rules that can reach an underlined
+// box with a shadow at all are `components/form/styles/index.less`'s error-scope rings, which are
+// (0,4,0)/(0,5,0) against this arm's (0,2,0)-(0,3,0) - i.e. they were winning over it already, in
+// the one state where an underlined control really does glow. Verified over 603 fixtures / 3042
+// computed readings (all nine `underlined` call sites, idle / hover / focus / opened / disabled, bare
+// and inside a normal and an errored Form item): deleting the line moves zero values, while injecting
+// a (0,1,0) glow on each family's box moves 164 of them - the line matched, it just had no opponent.
+// "underlined is flat" is now enforced where it is actually drawn, by those exclusion lists, which
+// `tests/theme-dead-css.test.ts` pins item by item (`GUARDED_DRAWERS`) plus a library-wide census of
+// every remaining `box-shadow: none`.
 .kui-theme-value(@theme) when (@theme = underlined) {
   border-style: solid;
   border-width: 0 0 1px;
   border-color: @kui-theme-outline-border;
   border-radius: 0;
   background: @kui-theme-plain-bg;
-  box-shadow: none;
 
   &:focus,
   &:focus-within {
