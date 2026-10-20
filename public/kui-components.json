@@ -1850,23 +1850,6 @@
           "documented": true
         },
         {
-          "name": "status",
-          "description": "Set Badge as a status dot",
-          "descriptionZh": "将徽章设置为状态点",
-          "descriptionEn": "Set Badge as a status dot",
-          "type": "BadgeStatusType",
-          "boolean": false,
-          "enumValues": [
-            "default",
-            "success",
-            "warning",
-            "error"
-          ],
-          "required": false,
-          "defaultExpression": "\"default\"",
-          "documented": true
-        },
-        {
           "name": "count",
           "description": "The text to display",
           "descriptionZh": "显示的文字",
@@ -1911,6 +1894,22 @@
           "descriptionEn": "Badge color",
           "type": "string | undefined",
           "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "status",
+          "description": "Set Badge as a status dot",
+          "descriptionZh": "将徽章设置为状态点",
+          "descriptionEn": "Set Badge as a status dot",
+          "type": "BadgeStatusType | undefined",
+          "boolean": false,
+          "enumValues": [
+            "default",
+            "success",
+            "warning",
+            "error"
+          ],
           "required": false,
           "documented": true
         },

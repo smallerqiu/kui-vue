@@ -138,6 +138,7 @@ rm -rf node_modules/.vite
 - In a vertical `Form` (`layout="vertical"`) a `block` control now really fills the row: previously every field shrink-wrapped to its own content width, so the right edges inside one form did not line up.
 - Components used through global registration (`<Button>`, `<Table>` written without an import) keep their types when the library is brought into an app with `pnpm link`: props are still checked and event arguments still infer, instead of degrading to `implicitly has an 'any' type`.
 - `Cascader` now reads its placeholder from the locale when `placeholder` is not set, so an English interface no longer shows 请选择.
+- `Badge`: a status dot now needs `status` or `color` to be set, so an empty `<Badge />` or `:count="0"` no longer shows a grey dot nobody asked for.
 
 ## 6.2.2
 

@@ -140,6 +140,7 @@ rm -rf node_modules/.vite
 - `Form` 竖排（`layout="vertical"`）时，写了 `block` 的输入框终于占满整行：之前每个字段只按自己的内容宽度收着，同一张表单里各字段的右边界参差不齐。
 - 把库用 `pnpm link` 装进自己项目联调时，模板里不带 import 直接写的全局组件（`<Button>`、`<Table>` 这些）不再丢类型：属性拼错照样报、事件参数也能推断出来，不再退化成 `implicitly has an 'any' type`。
 - `Cascader` 没传 `placeholder` 时，占位文案跟着语言包走，英文界面不再显示“请选择”。
+- `Badge` 的状态点改成显式要才画：不写 `status` 也不写 `color` 时（包括空着的 `<Badge />` 和 `:count="0"`）不再冒出一颗谁也没要的灰点。
 
 ## 6.2.2
 
