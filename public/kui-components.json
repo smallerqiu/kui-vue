@@ -1889,9 +1889,9 @@
         },
         {
           "name": "color",
-          "description": "Badge color",
-          "descriptionZh": "徽标颜色",
-          "descriptionEn": "Badge color",
+          "description": "Badge color: a preset name (the same set `Tag` uses, e.g. `blue`) or any readable color value",
+          "descriptionZh": "徽标颜色：预设色值名（与 `Tag` 同一套，如 `blue`）或任意可读色值",
+          "descriptionEn": "Badge color: a preset name (the same set `Tag` uses, e.g. `blue`) or any readable color value",
           "type": "string | undefined",
           "boolean": false,
           "required": false,
@@ -1974,7 +1974,7 @@
         {
           "title": "多彩徽标",
           "file": "components/badge/demo/color.vue",
-          "source": "<template>\n  <Space vertical block>\n    <Space>\n      Active :\n      <Switch v-model=\"active\" />\n    </Space>\n    <code>Presets</code>\n    <Space wrap>\n      <Badge :color=\"color\" :active=\"active\" :text=\"color\" v-for=\"color in colors\" :key=\"color\" />\n    </Space>\n    <br />\n    <code>Custom</code>\n    <div v-for=\"color in custom\" :key=\"color\">\n      <Badge :color=\"color\" :text=\"color\" :active=\"active\" />\n    </div>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\n\nconst active = ref(false);\nconst custom = [\"#c20\", \"#39f\", \"#e3f\", \"#6c0\"];\nconst colors = [\n  \"pink\",\n  \"red\",\n  \"yellow\",\n  \"orange\",\n  \"cyan\",\n  \"green\",\n  \"blue\",\n  \"purple\",\n  \"magenta\",\n  \"volcano\",\n  \"gold\",\n  \"lime\",\n];\n</script>"
+          "source": "<template>\n  <Space vertical block>\n    <Space>\n      Active :\n      <Switch v-model=\"active\" />\n    </Space>\n    <code>Presets</code>\n    <Space wrap>\n      <Badge :color=\"color\" :active=\"active\" :text=\"color\" v-for=\"color in colors\" :key=\"color\" />\n    </Space>\n    <br />\n    <code>Custom</code>\n    <div v-for=\"color in custom\" :key=\"color\">\n      <Badge :color=\"color\" :text=\"color\" :active=\"active\" />\n    </div>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\n\nconst active = ref(false);\nconst custom = [\"#c20\", \"#39f\", \"#e3f\", \"#6c0\"];\nconst colors = [\n  \"default\",\n  \"red\",\n  \"orange\",\n  \"yellow\",\n  \"olive\",\n  \"green\",\n  \"teal\",\n  \"blue\",\n  \"volcano\",\n  \"violet\",\n  \"cyan\",\n  \"gold\",\n  \"lime\",\n  \"magenta\",\n  \"purple\",\n  \"pink\",\n  \"brown\",\n  \"gray\",\n];\n</script>"
         }
       ]
     },

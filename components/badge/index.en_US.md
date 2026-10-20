@@ -34,14 +34,14 @@ Generally appears in the upper right corner of notification icons or avatars, us
 
 [Colorful Badge](./demo/color.vue)
 
-- Multiple preset color styles for different scenarios. If presets do not meet your needs, you can set a specific color value.
+- Multiple preset color styles for different scenarios. The preset names are the same set `Tag` uses, and both the status dot and the count bubble follow them. If a preset does not meet your needs, set a specific color value.
 
 ## API
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
 | count | The text to display | `string \| number` | - |
-| color | Badge color | `string` | - |
+| color | Badge color: a preset name (the same set `Tag` uses, e.g. `blue`) or any readable color value | `string` | - |
 | maxCount | The maximum numeric value to display. Values above this will be shown with a '+' sign | `number` | 99 |
 | dot | Do not display the number, only a small red dot | `boolean` | false |
 | pill | Use a pill appearance for a status badge | `boolean` | false |

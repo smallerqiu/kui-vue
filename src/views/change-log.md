@@ -141,6 +141,7 @@ rm -rf node_modules/.vite
 - 把库用 `pnpm link` 装进自己项目联调时，模板里不带 import 直接写的全局组件（`<Button>`、`<Table>` 这些）不再丢类型：属性拼错照样报、事件参数也能推断出来，不再退化成 `implicitly has an 'any' type`。
 - `Cascader` 没传 `placeholder` 时，占位文案跟着语言包走，英文界面不再显示“请选择”。
 - `Badge` 的状态点改成显式要才画：不写 `status` 也不写 `color` 时（包括空着的 `<Badge />` 和 `:count="0"`）不再冒出一颗谁也没要的灰点。
+- `Badge` 的 `color` 与 `Tag` 共用同一套预设色值名，状态点和数字气泡都会跟着上色；预设之外的颜色照旧按你写的值来，写了一个浏览器认不出的名字时不再画出一颗透明的点，而是回到灰色状态点。
 
 ## 6.2.2
 
