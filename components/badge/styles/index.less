@@ -83,57 +83,28 @@
     background-color: var(--kui-color-warning);
   }
 
-  &-status-default {
-    background-color: var(--kui-color-border-disabled);
-  }
-
-  &-status-pink {
-    background-color: var(--kui-color-pink);
-  }
-
-  &-status-red {
-    background-color: var(--kui-color-red);
-  }
-
-  &-status-yellow {
-    background-color: var(--kui-color-yellow);
-  }
-
-  &-status-orange {
-    background-color: var(--kui-color-orange);
-  }
-
-  &-status-cyan {
-    background-color: var(--kui-color-cyan);
-  }
-
-  &-status-green {
-    background-color: var(--kui-color-green);
-  }
-
-  &-status-blue {
-    background-color: var(--kui-color-blue);
-  }
-
-  &-status-purple {
-    background-color: var(--kui-color-purple);
-  }
-
-  &-status-magenta {
-    background-color: var(--kui-color-magenta);
-  }
-
-  &-status-volcano {
-    background-color: var(--kui-color-volcano);
-  }
-
-  &-status-gold {
-    background-color: var(--kui-color-gold);
-  }
-
-  &-status-lime {
-    background-color: var(--kui-color-lime);
-  }
+  // One palette name paints three parts: the status dot, the count bubble and the dot-mode bubble.
+  // A bubble rule carries its base class too, because `.k-badge-count` and `.k-badge-dot` each declare
+  // a background of their own — one class at 0,1,0 — and a bare `.k-badge-blue` would only win on
+  // source order, which is a place in a file, not a reason.
+  .badge-preset(default, var(--kui-color-border-disabled));
+  .badge-preset(red, var(--kui-color-red));
+  .badge-preset(volcano, var(--kui-color-volcano));
+  .badge-preset(orange, var(--kui-color-orange));
+  .badge-preset(gold, var(--kui-color-gold));
+  .badge-preset(yellow, var(--kui-color-yellow));
+  .badge-preset(lime, var(--kui-color-lime));
+  .badge-preset(green, var(--kui-color-green));
+  .badge-preset(cyan, var(--kui-color-cyan));
+  .badge-preset(blue, var(--kui-color-blue));
+  .badge-preset(teal, var(--kui-color-teal));
+  .badge-preset(pink, var(--kui-color-pink));
+  .badge-preset(magenta, var(--kui-color-magenta));
+  .badge-preset(purple, var(--kui-color-purple));
+  .badge-preset(violet, var(--kui-color-violet));
+  .badge-preset(gray, var(--kui-color-gray));
+  .badge-preset(brown, var(--kui-color-brown));
+  .badge-preset(olive, var(--kui-color-olive));
 
   &-status-active {
     &::after {
@@ -191,5 +162,18 @@
   100% {
     opacity: 0;
     transform: scale(3);
+  }
+}
+
+// Called from inside `.k-badge`, so `&` is `.k-badge` at the call site: `&-status-blue` reads
+// `.k-badge-status-blue` and `&-count&-blue` reads `.k-badge-count.k-badge-blue`.
+.badge-preset(@name, @color) {
+  &-status-@{name} {
+    background-color: @color;
+  }
+
+  &-count&-@{name},
+  &-dot&-@{name} {
+    background-color: @color;
   }
 }

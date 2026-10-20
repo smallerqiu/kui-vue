@@ -21,17 +21,23 @@ import { ref } from "vue";
 const active = ref(false);
 const custom = ["#c20", "#39f", "#e3f", "#6c0"];
 const colors = [
-  "pink",
+  "default",
   "red",
-  "yellow",
   "orange",
-  "cyan",
+  "yellow",
+  "olive",
   "green",
+  "teal",
   "blue",
-  "purple",
-  "magenta",
   "volcano",
+  "violet",
+  "cyan",
   "gold",
   "lime",
+  "magenta",
+  "purple",
+  "pink",
+  "brown",
+  "gray",
 ];
 </script>
