@@ -12,10 +12,10 @@ const badgeProps = {
   dot: Boolean as BooleanType,
   pill: Boolean as BooleanType,
   color: String,
-  status: {
-    type: String as PropType<BadgeStatusType>,
-    default: "default",
-  },
+  // The status dot is a mode the caller asks for, so `status` carries no default: `!hasChildren` alone
+  // would paint a grey dot on every plain `<Badge />`, and on every `<Badge :count="0" />`, whose count
+  // never becomes a display value — a dot that says nothing where the author meant nothing.
+  status: String as PropType<BadgeStatusType>,
   text: String as PropType<string | VNode>,
   active: Boolean as BooleanType,
   maxCount: { type: Number, default: 99 },
