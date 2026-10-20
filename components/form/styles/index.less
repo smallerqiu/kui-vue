@@ -94,6 +94,12 @@
     @danger-ring: 0 0 0 2px
       var(--kui-color-danger-9, color-mix(in srgb, var(--kui-color-danger) 10%, transparent));
 
+    // Every focus ring in the library reads this token through `var(--kui-color-outline, ...)`, so
+    // re-tinting it here moves the whole subtree's ring to the error colour at once, including the
+    // rings on nested clear and icon buttons. `solid` surfaces declare their own ring colour because
+    // a tinted plate would be unreadable on a filled background, and they keep it.
+    --kui-color-outline: color-mix(in srgb, var(--kui-color-danger) 20%, transparent);
+
     .k-input[data-multiple].k-input-focus {
       border-color: var(--kui-color-danger);
       box-shadow: @danger-ring;
