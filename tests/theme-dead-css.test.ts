@@ -585,6 +585,13 @@ const DEAD_SELECTORS: { component: string; selector: string }[] = [
     component: "form",
     selector: ".k-form .k-form-item-error .k-tree-select-opened .k-tree-select",
   },
+  // 表面只会把角变方或变圆角，`circle` 会切掉内容，所以它在两仓都落回 `round`（react 走
+  // `normalizeSurfaceShape`，vue 在卡片里当场判）。`k-card-circle` 因此从来不上元素，
+  // 列表面板那条"选中条跟着变圆"的后代规则没有任何 DOM 能满足。
+  {
+    component: "list-panel",
+    selector: ".k-list-panel.k-card-circle .k-list-panel-toolbar-selection",
+  },
 ];
 
 /**
@@ -728,6 +735,11 @@ const LIVE_SELECTORS: { component: string; selector: string }[] = [
   // underlined 的基座还得继续画那条下沿、圆角和铺底：`UNDERLINED_BASE_DEAD_DECLARATIONS` 只说
   // "这条声明不许回来"，规则整个不见了它咬不到，所以这里逐个点名。
   ...UNDERLINED_BASE_DEAD_DECLARATIONS.map(({ component, selector }) => ({ component, selector })),
+  // 上面那条 `k-card-circle` 死了，旁边这条方角还得承重：连着删掉整组形状规则时这里要红。
+  {
+    component: "list-panel",
+    selector: ".k-list-panel.k-card-square .k-list-panel-toolbar-selection",
+  },
 ];
 
 const compileFile = async (filename: string) => {
