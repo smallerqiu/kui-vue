@@ -76,7 +76,7 @@ When the user needs to input a date, they can click the standard input box to po
 | dateIcon | Custom icon | `IconType[]` | - |
 | shape | The form in which the component is presented | `"default" \| "circle" \| "square" \| "round"` | - |
 | bordered | Whether to display the border | `boolean` | true |
-| placement | Direction displayed when pulled down | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | - |
+| placement | Direction displayed when pulled down | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
 | destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | valueType | Output value type | `"string" \| "date" \| "timestamp" \| "unix"` | string |
 | presets | Preset dates | `DatePickerPreset[]` | - |

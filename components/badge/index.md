@@ -46,5 +46,5 @@
 | dot | 不展示数字，只有一个小红点 | `boolean` | false |
 | pill | 状态徽标是否使用胶囊外观 | `boolean` | false |
 | text | 如果设置了状态，文本将设置状态点的显示文本 | `string \| VNode<RendererNode, RendererElement, { [key: string]: any; }>` | '' |
-| status | 将徽章设置为状态点 | `"default" \| "success" \| "warning" \| "error"` | '' |
+| status | 将徽章设置为状态点 | `"default" \| "success" \| "warning" \| "error"` | default |
 | active | 小红点为激活状态 | `boolean` | false |

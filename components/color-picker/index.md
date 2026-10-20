@@ -40,7 +40,7 @@
 | disabledAlpha | 是否禁用透明 | `boolean` | false |
 | disabled | 是否失效状态 | `boolean` | false |
 | readonly | 是否只读，不可展开或修改 | `boolean` | false |
-| trigger | 下拉触发形式 | `"hover" \| "click"` | hover |
+| trigger | 下拉触发形式 | `"hover" \| "click"` | click |
 | showText | 是否展示颜色文字 | `boolean` | false |
 | size | 颜色选择器的尺寸 | `"small" \| "medium" \| "large"` | - |
 | theme | 主题，未设置时可继承 Form 或 ConfigProvider | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |

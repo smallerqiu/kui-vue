@@ -44,7 +44,7 @@
 | font | 全局水印文本的默认兜底样式（包含颜色、字号、粗细、字体族及字形）。 | `WatermarkFont` | - |
 | gap | 水印格子之间的横向与纵向间距，格式为 `[x, y]`。 | `number[]` | `[40, 40]` |
 | offset | 水印网格平铺时的起始原点偏移量，格式为 `[x, y]`，用于微调边缘留白。 | `number[]` | `[20, 20]` |
-| layout | 水印的排列布局模式。可选值：`'grid'` (传统正交网格) 或 `'stagger'` (高级奇偶行交错错落网格)。 | `"stagger" \| "grid"` | `'grid'` |
+| layout | 水印的排列布局模式。可选值：`'grid'` (传统正交网格) 或 `'stagger'` (高级奇偶行交错错落网格)。 | `"stagger" \| "grid"` | stagger |
 
 ### WatermarkTextItem
 

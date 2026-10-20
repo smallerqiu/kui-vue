@@ -57,7 +57,7 @@ Vue.use(Button);
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| type | Set the button type | `"default" \| "link" \| "warning" \| "text" \| "primary" \| "danger"` | - |
+| type | Set the button type | `"default" \| "link" \| "warning" \| "text" \| "primary" \| "danger"` | default |
 | htmlType | Set the native type value of the button | `"button" \| "submit" \| "reset"` | button |
 | disabled | Disabled state of the button | `boolean` | false |
 | size | Button size, | `"small" \| "medium" \| "large"` | - |

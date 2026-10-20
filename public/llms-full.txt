@@ -747,7 +747,7 @@ Generally appears in the upper right corner of notification icons or avatars, us
 | dot | Do not display the number, only a small red dot | `boolean` | false |
 | pill | Use a pill appearance for a status badge | `boolean` | false |
 | text | If status is set, text sets the display text of the status dot | `string \| VNode<RendererNode, RendererElement, { [key: string]: any; }>` | '' |
-| status | Set Badge as a status dot | `"default" \| "success" \| "warning" \| "error"` | '' |
+| status | Set Badge as a status dot | `"default" \| "success" \| "warning" \| "error"` | default |
 | active | The dot is in the active state. | `boolean` | false |
 
 ---
@@ -811,7 +811,7 @@ Vue.use(Button);
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| type | Set the button type | `"default" \| "link" \| "warning" \| "text" \| "primary" \| "danger"` | - |
+| type | Set the button type | `"default" \| "link" \| "warning" \| "text" \| "primary" \| "danger"` | default |
 | htmlType | Set the native type value of the button | `"button" \| "submit" \| "reset"` | button |
 | disabled | Disabled state of the button | `boolean` | false |
 | size | Button size, | `"small" \| "medium" \| "large"` | - |
@@ -885,7 +885,7 @@ Vue.use(Button);
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
-| type | Set the button type | `"default" \| "link" \| "warning" \| "text" \| "primary" \| "danger"` | - |
+| type | Set the button type | `"default" \| "link" \| "warning" \| "text" \| "primary" \| "danger"` | default |
 | htmlType | Set the native type value of the button | `"button" \| "submit" \| "reset"` | button |
 | disabled | Disabled state of the button | `boolean` | false |
 | size | Button size, | `"small" \| "medium" \| "large"` | - |
@@ -956,7 +956,7 @@ A cascading selection box.
 | showArrow | Whether to display the dropdown button | `boolean` | true |
 | icon | Custom Icon | `IconType[]` | - |
 | shape | shape='circle' 时呈现圆角 | `"default" \| "circle" \| "square" \| "round"` | - |
-| placement | Dropdown orientation | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | - |
+| placement | Dropdown orientation | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
 | destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | emptyText | No data available. | `string` | 'No Data' |
 | loadData | Loads children asynchronously; return them or update `option.children` | `CascaderLoadData` | - |
@@ -1024,7 +1024,7 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 | --- | --- | --- | --- |
 | title | Card title | `string` | - |
 | icon | Icon for the card title | `IconType[]` | - |
-| bordered | Whether the card displays a border | `boolean` | true |
+| bordered | Whether the card displays a border | `boolean` | false |
 | theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | shape | Surface shape | `"square" \| "round"` | round |
 | size | Card size | `"small" \| "medium" \| "large"` | medium |
@@ -1087,7 +1087,7 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 | --- | --- | --- | --- |
 | title | Card title | `string` | - |
 | icon | Icon for the card title | `IconType[]` | - |
-| bordered | Whether the card displays a border | `boolean` | true |
+| bordered | Whether the card displays a border | `boolean` | false |
 | theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | shape | Surface shape | `"square" \| "round"` | round |
 | size | Card size | `"small" \| "medium" \| "large"` | medium |
@@ -1956,7 +1956,7 @@ When the user needs to input a date, they can click the standard input box to po
 | dateIcon | Custom icon | `IconType[]` | - |
 | shape | The form in which the component is presented | `"default" \| "circle" \| "square" \| "round"` | - |
 | bordered | Whether to display the border | `boolean` | true |
-| placement | Direction displayed when pulled down | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | - |
+| placement | Direction displayed when pulled down | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right"` | bottom-left |
 | destroyOnClose | Whether to destroy panel content after closing. Destroyed by default (remounted on reopen); set false to keep form state at the cost of one hidden DOM node per opened instance | `boolean` | true |
 | valueType | Output value type | `"string" \| "date" \| "timestamp" \| "unix"` | string |
 | presets | Preset dates | `DatePickerPreset[]` | - |
@@ -4520,7 +4520,7 @@ When an operation takes a long time to complete, display the current progress an
 | size | When value is `small`, displays small size | `"small" \| "medium" \| "large"` | - |
 | format | Custom progress bar text | `((percent: number) => VNodeChild)` | - |
 | status | Progress bar status, provides four types: `active`, `exception`, `success`, `normal` | `"success" \| "active" \| "normal" \| "exception"` | normal |
-| type | Progress bar type, provides three types: `line`, `circle`, `dashboard` | `"circle" \| "line" \| "dashboard"` | - |
+| type | Progress bar type, provides three types: `line`, `circle`, `dashboard` | `"circle" \| "line" \| "dashboard"` | line |
 | showInfo | Whether to show progress text | `boolean` | true |
 | gapDegree | Dashboard progress bar gap angle, can be 0 ~ 295 | `number` | 75 |
 | strokeWidth | Circular progress bar line width | `number` | 6 |
@@ -7570,7 +7570,7 @@ For dynamic lists, remove the corresponding item from the array in `afterClose` 
 | icon | Tag icon | `IconType[]` | - |
 | onClose | Triggered when the close button is clicked | `() => void` | - |
 | onAfterClose | Triggered after the exit animation | `() => void` | - |
-| size | Button size, optional values `small`, `large`, default not selected | `"small" \| "medium" \| "large"` | - |
+| size | Tag size, optional values `small`, `medium`, `large` | `"small" \| "medium" \| "large"` | small |
 | theme | The component renders the theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | shape | The shape in which the component is presented | `"default" \| "circle" \| "square" \| "round"` | circle |
 
@@ -7905,7 +7905,7 @@ Add a watermark to a specific area of the page.
 | font | Global fallback styles for the watermark text (including color, font size, weight, family, and style). | `WatermarkFont` | - |
 | gap | The horizontal and vertical spacing between watermark cells, formatted as `[x, y]`. | `number[]` | `[40, 40]` |
 | offset | The starting offset origin for the watermark grid tiling, formatted as `[x, y]`. Useful for fine-tuning edge whitespace. | `number[]` | `[20, 20]` |
-| layout | Layout mode of the watermark. Options: `'grid'` (traditional orthogonal grid) or `'stagger'` (advanced staggered grid with alternating row offsets). | `"stagger" \| "grid"` | `'grid'` |
+| layout | Layout mode of the watermark. Options: `'grid'` (traditional orthogonal grid) or `'stagger'` (advanced staggered grid with alternating row offsets). | `"stagger" \| "grid"` | stagger |
 
 ### WatermarkTextItem
 

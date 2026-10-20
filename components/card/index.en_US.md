@@ -38,7 +38,7 @@ The most basic card container, can carry text, lists, images, paragraphs, often 
 | --- | --- | --- | --- |
 | title | Card title | `string` | - |
 | icon | Icon for the card title | `IconType[]` | - |
-| bordered | Whether the card displays a border | `boolean` | true |
+| bordered | Whether the card displays a border | `boolean` | false |
 | theme | Surface theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | fill |
 | shape | Surface shape | `"square" \| "round"` | round |
 | size | Card size | `"small" \| "medium" \| "large"` | medium |

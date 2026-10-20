@@ -57,7 +57,7 @@ Vue.use(Button);
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
-| type | 设置按钮类型 | `"default" \| "link" \| "warning" \| "text" \| "primary" \| "danger"` | - |
+| type | 设置按钮类型 | `"default" \| "link" \| "warning" \| "text" \| "primary" \| "danger"` | default |
 | htmlType | 设置 button 原生的 type 值 | `"button" \| "submit" \| "reset"` | button |
 | disabled | 按钮失效状态 ˚ | `boolean` | false |
 | size | 按钮尺寸, | `"small" \| "medium" \| "large"` | - |
