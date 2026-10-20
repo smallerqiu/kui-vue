@@ -61,17 +61,31 @@ export const generateGlobalDts = (): void => {
   const componentNames = getComponentNames();
   // for Volar
 
-  const template = `
-/* eslint-disable @typescript-eslint/consistent-type-imports */
-
-declare module '@vue/runtime-core' {
-  export interface GlobalComponents {
-  ${componentNames
+  const members = componentNames
     .map((name) => {
       const base = `${name}: typeof import('kui-vue')['${name}']`;
       return name.startsWith("K") ? base : `${base}\nK${name}: typeof import('kui-vue')['${name}']`;
     })
-    .join("\n    ")}
+    .join("\n    ");
+
+  // Augmenting `vue` is what reaches the app's own `GlobalComponents`. An app can only
+  // reach `@vue/runtime-core` through whatever copy the *library* resolves, so in a
+  // `pnpm link` / monorepo install — where the library carries its own copy of Vue — an
+  // augmentation limited to that spelling silently misses, and every globally registered
+  // component loses its prop and event types. Both spellings are emitted so the
+  // declaration works whichever copy a consumer happens to resolve.
+  const template = `
+/* eslint-disable @typescript-eslint/consistent-type-imports */
+
+declare module 'vue' {
+  export interface GlobalComponents {
+  ${members}
+  }
+}
+
+declare module '@vue/runtime-core' {
+  export interface GlobalComponents {
+  ${members}
   }
 }
 

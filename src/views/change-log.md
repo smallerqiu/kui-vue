@@ -138,6 +138,7 @@ rm -rf node_modules/.vite
 - `Cascader` 关掉边框（`bordered={false}`）时，`theme="outline"` / `theme="dashed"` 不再留下一圈边框，`theme="fill"` 也不再留着那层底色，和 `Select` / `TreeSelect` / `DatePicker` 的表现一致。
 - 表单项里用 `InputGroup` 包住输入框时，这个输入框仍然算这一项的控件：表单的值会填进它，点 label 会聚焦到它，校验提示和外观档位也跟着它。
 - `Form` 竖排（`layout="vertical"`）时，写了 `block` 的输入框终于占满整行：之前每个字段只按自己的内容宽度收着，同一张表单里各字段的右边界参差不齐。
+- 把库用 `pnpm link` 装进自己项目联调时，模板里不带 import 直接写的全局组件（`<Button>`、`<Table>` 这些）不再丢类型：属性拼错照样报、事件参数也能推断出来，不再退化成 `implicitly has an 'any' type`。
 
 ## 6.2.2
 
