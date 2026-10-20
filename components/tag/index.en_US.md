@@ -23,7 +23,7 @@ Small labels for marking and categorization.
 
 [Colorful Tags](./demo/color.vue)
 
-- Multiple preset tag colors for different scenarios. If the presets don't meet your needs, you can set a specific color value.
+- The preset color names are the same 18 `Badge` uses (`red`, `olive`, `teal`, `violet`, `brown` and `gray` among them), for different scenarios. If the presets don't meet your needs, you can set a specific color value.
 - When `color` is set, the color wins: both preset and custom colors keep their own border and text color, and `theme` only decides the surface of a tag that has no color.
 
 [Dynamic Add and Remove](./demo/dynamic.vue)
@@ -52,7 +52,7 @@ For dynamic lists, remove the corresponding item from the array in `afterClose` 
 | --- | --- | --- | --- |
 | closeable | Whether to show close button | `boolean` | false |
 | compact | Whether to use the compact size for embedding in input controls | `boolean` | false |
-| color | Tag color | `string` | - |
+| color | Tag color: a preset name (the same set `Badge` uses, e.g. `blue`) or any readable color value | `string` | - |
 | icon | Tag icon | `IconType[]` | - |
 | onClose | Triggered when the close button is clicked | `() => void` | - |
 | onAfterClose | Triggered after the exit animation | `() => void` | - |

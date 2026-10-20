@@ -21555,9 +21555,9 @@
         },
         {
           "name": "color",
-          "description": "Tag color",
-          "descriptionZh": "标签的颜色",
-          "descriptionEn": "Tag color",
+          "description": "Tag color: a preset name (the same set `Badge` uses, e.g. `blue`) or any readable color value",
+          "descriptionZh": "标签颜色：预设色值名（与 `Badge` 同一套，如 `blue`）或任意可读色值",
+          "descriptionEn": "Tag color: a preset name (the same set `Badge` uses, e.g. `blue`) or any readable color value",
           "type": "string | undefined",
           "boolean": false,
           "required": false,
@@ -21648,7 +21648,7 @@
         {
           "title": "多彩标签",
           "file": "components/tag/demo/color.vue",
-          "source": "<template>\n  <div>\n    <h4 style=\"margin-bottom: 16px\">Presets:</h4>\n    <Space wrap>\n      <Tag :color=\"color\" v-for=\"(color, i) in colors\" :key=\"i\">\n        {{ color }}\n      </Tag>\n    </Space>\n    <h4 style=\"margin: 16px 0\">Custom:</h4>\n    <Space>\n      <Tag color=\"#c20\">#c20</Tag>\n      <Tag color=\"#39f\">#39f</Tag>\n      <Tag color=\"#e3f\">#e3f</Tag>\n      <Tag color=\"#6c0\">#6c0</Tag>\n    </Space>\n  </div>\n</template>\n<script setup lang=\"ts\">\nconst colors = [\n  \"pink\",\n  \"red\",\n  \"yellow\",\n  \"orange\",\n  \"cyan\",\n  \"green\",\n  \"blue\",\n  \"purple\",\n  \"magenta\",\n  \"volcano\",\n  \"gold\",\n  \"lime\",\n];\n</script>"
+          "source": "<template>\n  <div>\n    <h4 style=\"margin-bottom: 16px\">Presets:</h4>\n    <Space wrap>\n      <Tag :color=\"color\" v-for=\"(color, i) in colors\" :key=\"i\">\n        {{ color }}\n      </Tag>\n    </Space>\n    <h4 style=\"margin: 16px 0\">Custom:</h4>\n    <Space>\n      <Tag color=\"#c20\">#c20</Tag>\n      <Tag color=\"#39f\">#39f</Tag>\n      <Tag color=\"#e3f\">#e3f</Tag>\n      <Tag color=\"#6c0\">#6c0</Tag>\n    </Space>\n  </div>\n</template>\n<script setup lang=\"ts\">\nconst colors = [\n  \"default\",\n  \"red\",\n  \"orange\",\n  \"yellow\",\n  \"olive\",\n  \"green\",\n  \"teal\",\n  \"blue\",\n  \"volcano\",\n  \"violet\",\n  \"cyan\",\n  \"gold\",\n  \"lime\",\n  \"magenta\",\n  \"purple\",\n  \"pink\",\n  \"brown\",\n  \"gray\",\n];\n</script>"
         },
         {
           "title": "动态添加和删除",

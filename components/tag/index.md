@@ -23,7 +23,7 @@
 
 [多彩标签](./demo/color.vue)
 
-- 多种预设色彩的标签样式，用作不同场景使用。如果预设值不能满足你的需求，可以设置为具体的色值。
+- 预设色值名与 `Badge` 共用同一套 18 个（`red`、`olive`、`teal`、`violet`、`brown`、`gray` 都在里面），用作不同场景。如果预设值不能满足你的需求，可以设置为具体的色值。
 - 设置了 `color` 时以颜色为准：预设色值和自定义色值都会保留自己的边框与文字颜色，`theme` 只决定没有指定颜色时的表面。
 
 [动态添加和删除](./demo/dynamic.vue)
@@ -52,7 +52,7 @@
 | --- | --- | --- | --- |
 | closeable | 是否显示关闭按钮 | `boolean` | false |
 | compact | 是否使用适合嵌入输入控件的紧凑尺寸 | `boolean` | false |
-| color | 标签的颜色 | `string` | - |
+| color | 标签颜色：预设色值名（与 `Badge` 同一套，如 `blue`）或任意可读色值 | `string` | - |
 | icon | 标签的图标 | `IconType[]` | - |
 | onClose | 点击关闭按钮时触发 | `() => void` | - |
 | onAfterClose | 退出动画结束后触发 | `() => void` | - |

@@ -142,6 +142,7 @@ rm -rf node_modules/.vite
 - `Cascader` 没传 `placeholder` 时，占位文案跟着语言包走，英文界面不再显示“请选择”。
 - `Badge` 的状态点改成显式要才画：不写 `status` 也不写 `color` 时（包括空着的 `<Badge />` 和 `:count="0"`）不再冒出一颗谁也没要的灰点。
 - `Badge` 的 `color` 与 `Tag` 共用同一套预设色值名，状态点和数字气泡都会跟着上色；预设之外的颜色照旧按你写的值来，写了一个浏览器认不出的名字时不再画出一颗透明的点，而是回到灰色状态点。
+- `Tag` 的 `color` 现在 18 个预设色值名都认：`olive`、`teal`、`violet`、`brown`、`gray`、`default` 写上去以前是一张没上色的标签，现在按名字上色。`gray` 和 `default` 走中性那一档，文字照常可读。
 
 ## 6.2.2
 
