@@ -47,7 +47,7 @@
 | modelValue | 指定选中项目的 `value` 值，可以使用 `v-model` 双向绑定数据 | `TreeSelectValue` | - |
 | value | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | `TreeSelectValue` | - |
 | width | 组件宽度 | `number` | - |
-| placeholder | 选择框默认文字 | `string` | 请选择 |
+| placeholder | 选择框默认文字 | `string` | 根据语言 |
 | disabled | 是否禁用当前项 | `boolean` | false |
 | readonly | 是否只读，不可展开、清空或修改 | `boolean` | false |
 | size | 组件尺寸大小,提供`small`、`large`两种尺寸，默认为正常 | `"small" \| "medium" \| "large"` | - |

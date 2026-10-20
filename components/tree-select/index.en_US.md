@@ -47,7 +47,7 @@ Similar to the Select selection control, when the selectable data structure is a
 | modelValue | Specify the `value` of the selected item, can use `v-model` for two-way binding | `TreeSelectValue` | - |
 | value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `TreeSelectValue` | - |
 | width | Component width | `number` | - |
-| placeholder | Default text of selector | `string` | Please select |
+| placeholder | Default text of selector | `string` | locale |
 | disabled | Whether current item is disabled | `boolean` | false |
 | readonly | Read-only; prevents opening, clearing and changing | `boolean` | false |
 | size | Component size, provides two sizes: `small`, `large`, default is normal | `"small" \| "medium" \| "large"` | - |
