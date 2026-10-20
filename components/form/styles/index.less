@@ -220,6 +220,15 @@
 .k-form-vertical {
   .k-form-item {
     flex-direction: column;
+
+    // Stacking the row puts the columns on the cross axis, where the row's own
+    // `align-items: flex-start` (from `k-row-top`) shrink-wraps them: `.k-col`'s `flex: 1`
+    // only grows the main axis, so a `block` control keeps its content width and the fields
+    // of one form end at different x positions. Stretching the columns is what lets
+    // `block` mean "fill the row" in a vertical form.
+    > .k-col {
+      align-self: stretch;
+    }
   }
 
   .k-form-item-label {

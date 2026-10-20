@@ -135,6 +135,7 @@ rm -rf node_modules/.vite
 - A disabled input no longer glows while it has the caret, and a disabled `ColorPicker` stays flat even when its panel is held open through `open`. Tiers that keep their border (`outline` / `dashed`) still glow on focus and on opening.
 - Turning off `Cascader`’s border with `bordered={false}` now removes it for real: `theme="outline"` and `theme="dashed"` no longer leave a frame behind, and `theme="fill"` no longer keeps its tint, the way `Select`, `TreeSelect` and `DatePicker` already behave.
 - An input wrapped in an `InputGroup` inside a form item still counts as that item’s control: the form value fills it, clicking the label focuses it, and the validation message and appearance tier follow it.
+- In a vertical `Form` (`layout="vertical"`) a `block` control now really fills the row: previously every field shrink-wrapped to its own content width, so the right edges inside one form did not line up.
 
 ## 6.2.2
 
