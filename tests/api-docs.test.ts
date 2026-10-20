@@ -177,6 +177,57 @@ describe("documented default column", () => {
     expect(result.expressions).toHaveLength(1);
   });
 
+  it("does not mistake the last fallback of a language-dependent chain for the default", () => {
+    const result = defaults(
+      "| 属性 | 说明 | 类型 | 默认值 |\n| --- | --- | --- | --- |\n| todayText | 今日按钮文字 | `string` | 根据语言 |\n",
+      [
+        {
+          name: "Calendar",
+          props: [
+            {
+              name: "todayText",
+              defaultExpression: 'todayText ?? locale.k.datePicker.today ?? "Today"',
+            },
+          ],
+        },
+      ],
+    );
+    expect(result.failures).toEqual([]);
+    expect(result.expressions).toHaveLength(1);
+  });
+
+  it("treats a fallback the prop type cannot express as an internal sentinel", () => {
+    const components: DefaultComponent[] = [
+      {
+        name: "Button",
+        props: [
+          {
+            name: "size",
+            defaultExpression: 'sizeProp ?? group?.size ?? "default"',
+            enumValues: ["small", "medium", "large"],
+          },
+        ],
+      },
+    ];
+    const markdown =
+      "| 属性 | 说明 | 类型 | 默认值 |\n| --- | --- | --- | --- |\n| size | 尺寸 | `string` | - |\n";
+    expect(defaults(markdown, components).failures).toEqual([]);
+    // The guard is about the vocabulary, not about giving up: a literal the type does allow is judged.
+    const allowed: DefaultComponent[] = [
+      {
+        name: "Button",
+        props: [
+          {
+            name: "size",
+            defaultExpression: 'sizeProp ?? group?.size ?? "medium"',
+            enumValues: ["small", "medium", "large"],
+          },
+        ],
+      },
+    ];
+    expect(defaults(markdown, allowed).failures.join("\n")).toContain("Button.size");
+  });
+
   it("skips only the props listed as unreadable by the extractor", () => {
     const markdown =
       "| 属性 | 说明 | 类型 | 默认值 |\n| --- | --- | --- | --- |\n| suffixCls | 类名前缀 | `string` | layout-sider |\n";

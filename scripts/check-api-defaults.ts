@@ -13,6 +13,8 @@ import process from "node:process";
 export interface DefaultProp {
   name: string;
   defaultExpression?: string;
+  /** Values the prop's own type allows, when it is a closed set. */
+  enumValues?: unknown[];
 }
 export interface DefaultComponent {
   name: string;
@@ -60,16 +62,35 @@ export function documentedDefault(cell: string): string | null {
   return text;
 }
 
-/** Source expression simplified to the same vocabulary, or "complex" when it is not a literal. */
-export function extractedDefault(expression: string | undefined): string | null | "complex" {
+/** Source expression simplified to the same vocabulary, or "complex" when it is not a usable literal. */
+export function extractedDefault(
+  expression: string | undefined,
+  enumValues?: unknown[],
+): string | null | "complex" {
   if (expression === undefined) return null;
   const text = expression.trim();
   if (/^(undefined|null|void 0)$/u.test(text)) return null;
-  if (/^["'].+["']$/su.test(text)) return text.slice(1, -1);
-  if (/^(true|false)$/u.test(text) || /^[-+]?\d+(\.\d+)?$/u.test(text)) return text;
+  if (/^["'].+["']$/su.test(text)) return inVocabulary(text.slice(1, -1), enumValues);
+  if (/^(true|false)$/u.test(text) || /^[-+]?\d+(\.\d+)?$/u.test(text)) return inVocabulary(text, enumValues);
   // `props.size ?? inherited.size ?? "small"` lands on the literal at the end of the chain.
   const tail = text.match(/(?:\?\?|\|\|)\s*(?:"([^"]*)"|'([^']*)'|(true|false|-?\d+(?:\.\d+)?))$/u);
-  return tail ? (tail[1] ?? tail[2] ?? tail[3] ?? null) : "complex";
+  if (!tail) return "complex";
+  const before = text.slice(0, text.length - tail[0].length);
+  // `todayText ?? locale.k.datePicker.today ?? "Today"` only reaches the literal when the language table
+  // has no entry, so the reader's default is the language, not "Today". Same reason the cell says 根据语言.
+  if (/locale|messages|i18n|\blang\b/iu.test(before)) return "complex";
+  return inVocabulary(tail[1] ?? tail[2] ?? tail[3] ?? "", enumValues);
+}
+
+/**
+ * A fallback the prop's own type cannot express is an internal sentinel, not something the reader gets:
+ * `size` settling on `"default"` while the documented values are small / medium / large, say, or `0`
+ * standing in for "unset". Those rows are left unjudged rather than pushed into the column.
+ */
+function inVocabulary(value: string, enumValues?: unknown[]): string | "complex" {
+  if (!enumValues?.length) return value;
+  if (!enumValues.some((item) => key(String(item)) === key(value))) return "complex";
+  return value;
 }
 
 export function checkDefaultColumns(
@@ -131,7 +152,7 @@ export function checkDefaultColumns(
         if (unchecked.includes(id)) continue;
         const where = `${file}:${row + 1}`;
         const doc = documentedDefault(cells[defaultIndex] ?? "");
-        const source = extractedDefault(prop.defaultExpression);
+        const source = extractedDefault(prop.defaultExpression, prop.enumValues);
         if (source === "complex") {
           result.expressions.push(
             `${where}: ${id} documents ${JSON.stringify(doc)}, source default is the expression ${JSON.stringify(

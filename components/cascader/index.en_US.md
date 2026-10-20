@@ -41,7 +41,7 @@ A cascading selection box.
 | modelValue | Array of path values bound through `v-model` (e.g., `['zhejiang', 'hangzhou', 'xihu']`). | `CascaderValue` | - |
 | value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `CascaderValue` | `[]` |
 | options | Tree-structured data source for cascading options. | `CascaderOption[]` | `[]` |
-| placeholder | Fallback placeholder text displayed when no path is selected. | `string` | `"Please select"` |
+| placeholder | Fallback placeholder text displayed when no path is selected. | `string` | `"请选择"` |
 | disabled | Whether to completely disable interaction for the entire component. | `boolean` | `false` |
 | readonly | Read-only; prevents opening, clearing and changing. | `boolean` | `false` |
 | clearable | Whether to support clearing the selected path with one click. | `boolean` | `true` |
