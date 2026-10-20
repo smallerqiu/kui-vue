@@ -42,7 +42,7 @@ To unmount the entire component after closing, update the parent state in `after
 | type | Alert type, optional values are `success`, `info`, `warning`, `error` or not set | `"info" \| "success" \| "warning" \| "error"` | warning |
 | message | Alert content | `string` | - |
 | description | Auxiliary text introduction for the alert | `string` | - |
-| showIcon | Whether to show the icon | `boolean` | false |
+| showIcon | Whether to show the icon | `boolean` | true |
 | closable | Whether to show the close button | `boolean` | false |
 | bordered | Whether to display the border | `boolean` | false |
 | onClose | Triggered when the close button is clicked | `(event: MouseEvent) => void` | - |
