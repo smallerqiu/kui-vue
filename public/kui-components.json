@@ -1974,7 +1974,7 @@
         {
           "title": "多彩徽标",
           "file": "components/badge/demo/color.vue",
-          "source": "<template>\n  <Space vertical block>\n    <Space>\n      Active :\n      <Switch v-model=\"active\" />\n    </Space>\n    <code>Presets</code>\n    <Space wrap>\n      <Badge :color=\"color\" :active=\"active\" :text=\"color\" v-for=\"color in colors\" :key=\"color\" />\n    </Space>\n    <br />\n    <code>Custom</code>\n    <div v-for=\"color in custom\" :key=\"color\">\n      <Badge :color=\"color\" :text=\"color\" :active=\"active\" />\n    </div>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\n\nconst active = ref(false);\nconst custom = [\"#c20\", \"#39f\", \"#e3f\", \"#6c0\"];\nconst colors = [\n  \"default\",\n  \"red\",\n  \"orange\",\n  \"yellow\",\n  \"olive\",\n  \"green\",\n  \"teal\",\n  \"blue\",\n  \"volcano\",\n  \"violet\",\n  \"cyan\",\n  \"gold\",\n  \"lime\",\n  \"magenta\",\n  \"purple\",\n  \"pink\",\n  \"brown\",\n  \"gray\",\n];\n</script>"
+          "source": "<template>\n  <Space vertical block>\n    <Space>\n      Active :\n      <Switch v-model=\"active\" />\n    </Space>\n    <code>Presets</code>\n    <Space wrap>\n      <Badge :color=\"color\" :active=\"active\" :text=\"color\" v-for=\"color in colors\" :key=\"color\" />\n    </Space>\n    <br />\n    <code>Custom</code>\n    <div v-for=\"color in custom\" :key=\"color\">\n      <Badge :color=\"color\" :text=\"color\" :active=\"active\" />\n    </div>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\n\nconst active = ref(false);\nconst custom = [\"#c20\", \"#39f\", \"#e3f\", \"#6c0\"];\nconst colors = [\n  \"red\",\n  \"orange\",\n  \"yellow\",\n  \"olive\",\n  \"green\",\n  \"teal\",\n  \"blue\",\n  \"volcano\",\n  \"violet\",\n  \"cyan\",\n  \"gold\",\n  \"lime\",\n  \"magenta\",\n  \"purple\",\n  \"pink\",\n  \"brown\",\n  \"gray\",\n];\n</script>"
         }
       ]
     },
@@ -2159,10 +2159,9 @@
           "description": "Preset semantic color",
           "descriptionZh": "预设语义颜色",
           "descriptionEn": "Preset semantic color",
-          "type": "\"default\" | \"red\" | \"orange\" | \"yellow\" | \"olive\" | \"green\" | \"teal\" | \"blue\" | \"volcano\" | \"violet\" | \"cyan\" | \"gold\" | \"lime\" | \"magenta\" | \"purple\" | \"pink\" | \"brown\" | \"gray\" | undefined",
+          "type": "\"red\" | \"orange\" | \"yellow\" | \"olive\" | \"green\" | \"teal\" | \"blue\" | \"volcano\" | \"violet\" | \"cyan\" | \"gold\" | \"lime\" | \"magenta\" | \"purple\" | \"pink\" | \"brown\" | \"gray\" | undefined",
           "boolean": false,
           "enumValues": [
-            "default",
             "red",
             "orange",
             "yellow",
@@ -2201,7 +2200,7 @@
         {
           "title": "多彩",
           "file": "components/button/demo/color.vue",
-          "source": "<template>\n  <Space size=\"small\" wrap>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"solid\">Solid</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"outline\">Outline</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"dashed\">Dashed</Button>\n    </Space>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nconst colors = [\n  \"default\",\n  \"red\",\n  \"orange\",\n  \"yellow\",\n  \"olive\",\n  \"green\",\n  \"teal\",\n  \"blue\",\n  \"volcano\",\n  \"violet\",\n  \"cyan\",\n  \"gold\",\n  \"lime\",\n  \"magenta\",\n  \"purple\",\n  \"pink\",\n  \"brown\",\n] as const;\n</script>"
+          "source": "<template>\n  <Space size=\"small\" wrap>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"solid\">Solid</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"outline\">Outline</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"dashed\">Dashed</Button>\n    </Space>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nconst colors = [\n  \"red\",\n  \"orange\",\n  \"yellow\",\n  \"olive\",\n  \"green\",\n  \"teal\",\n  \"blue\",\n  \"volcano\",\n  \"violet\",\n  \"cyan\",\n  \"gold\",\n  \"lime\",\n  \"magenta\",\n  \"purple\",\n  \"pink\",\n  \"brown\",\n] as const;\n</script>"
         },
         {
           "title": "带图标",
@@ -2300,7 +2299,7 @@
         {
           "title": "多彩",
           "file": "components/button/demo/color.vue",
-          "source": "<template>\n  <Space size=\"small\" wrap>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"solid\">Solid</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"outline\">Outline</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"dashed\">Dashed</Button>\n    </Space>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nconst colors = [\n  \"default\",\n  \"red\",\n  \"orange\",\n  \"yellow\",\n  \"olive\",\n  \"green\",\n  \"teal\",\n  \"blue\",\n  \"volcano\",\n  \"violet\",\n  \"cyan\",\n  \"gold\",\n  \"lime\",\n  \"magenta\",\n  \"purple\",\n  \"pink\",\n  \"brown\",\n] as const;\n</script>"
+          "source": "<template>\n  <Space size=\"small\" wrap>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"solid\">Solid</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"outline\">Outline</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"dashed\">Dashed</Button>\n    </Space>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nconst colors = [\n  \"red\",\n  \"orange\",\n  \"yellow\",\n  \"olive\",\n  \"green\",\n  \"teal\",\n  \"blue\",\n  \"volcano\",\n  \"violet\",\n  \"cyan\",\n  \"gold\",\n  \"lime\",\n  \"magenta\",\n  \"purple\",\n  \"pink\",\n  \"brown\",\n] as const;\n</script>"
         },
         {
           "title": "带图标",
@@ -21648,7 +21647,7 @@
         {
           "title": "多彩标签",
           "file": "components/tag/demo/color.vue",
-          "source": "<template>\n  <div>\n    <h4 style=\"margin-bottom: 16px\">Presets:</h4>\n    <Space wrap>\n      <Tag :color=\"color\" v-for=\"(color, i) in colors\" :key=\"i\">\n        {{ color }}\n      </Tag>\n    </Space>\n    <h4 style=\"margin: 16px 0\">Custom:</h4>\n    <Space>\n      <Tag color=\"#c20\">#c20</Tag>\n      <Tag color=\"#39f\">#39f</Tag>\n      <Tag color=\"#e3f\">#e3f</Tag>\n      <Tag color=\"#6c0\">#6c0</Tag>\n    </Space>\n  </div>\n</template>\n<script setup lang=\"ts\">\nconst colors = [\n  \"default\",\n  \"red\",\n  \"orange\",\n  \"yellow\",\n  \"olive\",\n  \"green\",\n  \"teal\",\n  \"blue\",\n  \"volcano\",\n  \"violet\",\n  \"cyan\",\n  \"gold\",\n  \"lime\",\n  \"magenta\",\n  \"purple\",\n  \"pink\",\n  \"brown\",\n  \"gray\",\n];\n</script>"
+          "source": "<template>\n  <div>\n    <h4 style=\"margin-bottom: 16px\">Presets:</h4>\n    <Space wrap>\n      <Tag :color=\"color\" v-for=\"(color, i) in colors\" :key=\"i\">\n        {{ color }}\n      </Tag>\n    </Space>\n    <h4 style=\"margin: 16px 0\">Custom:</h4>\n    <Space>\n      <Tag color=\"#c20\">#c20</Tag>\n      <Tag color=\"#39f\">#39f</Tag>\n      <Tag color=\"#e3f\">#e3f</Tag>\n      <Tag color=\"#6c0\">#6c0</Tag>\n    </Space>\n  </div>\n</template>\n<script setup lang=\"ts\">\nconst colors = [\n  \"red\",\n  \"orange\",\n  \"yellow\",\n  \"olive\",\n  \"green\",\n  \"teal\",\n  \"blue\",\n  \"volcano\",\n  \"violet\",\n  \"cyan\",\n  \"gold\",\n  \"lime\",\n  \"magenta\",\n  \"purple\",\n  \"pink\",\n  \"brown\",\n  \"gray\",\n];\n</script>"
         },
         {
           "title": "动态添加和删除",

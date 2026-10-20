@@ -140,7 +140,8 @@ rm -rf node_modules/.vite
 - `Cascader` now reads its placeholder from the locale when `placeholder` is not set, so an English interface no longer shows 请选择.
 - `Badge`: a status dot now needs `status` or `color` to be set, so an empty `<Badge />` or `:count="0"` no longer shows a grey dot nobody asked for.
 - `Badge` color now takes the same set of preset names as `Tag`, and both the status dot and the count bubble follow them. A color outside the presets still paints as written, and a name the browser cannot read no longer renders as an invisible dot - it falls back to the grey status dot.
-- `Tag` color now answers all 18 preset names: `olive`, `teal`, `violet`, `brown`, `gray` and `default` used to render a tag that was never painted, and now colour it by name. `gray` and `default` take the neutral chip, where the label stays readable.
+- `Tag` color now answers all 17 preset names: `olive`, `teal`, `violet`, `brown` and `gray` used to render a tag that was never painted, and now colour it by name. `gray` takes the neutral chip, where the label stays readable.
+- The preset `color` names no longer include `default`. A component with no `color` already uses its own surface, and giving that another name only suggested the palette held a tier independent of the theme. A `Tag` or a count `Badge` still written `color="default"` now renders as though nothing were set; the status dot keeps its grey, because that belongs to `status` and not to the palette. On a button, `color="default"` used to draw the `type="default"` one — drop the `color` or write `type` instead.
 
 ## 6.2.2
 

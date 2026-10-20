@@ -23,7 +23,7 @@ Small labels for marking and categorization.
 
 [Colorful Tags](./demo/color.vue)
 
-- The preset color names are the same 18 `Badge` uses (`red`, `olive`, `teal`, `violet`, `brown` and `gray` among them), for different scenarios. If the presets don't meet your needs, you can set a specific color value.
+- The preset color names are the same 17 `Badge` uses (`red`, `olive`, `teal`, `violet`, `brown` and `gray` among them), for different scenarios. If the presets don't meet your needs, you can set a specific color value.
 - When `color` is set, the color wins: both preset and custom colors keep their own border and text color, and `theme` only decides the surface of a tag that has no color.
 
 [Dynamic Add and Remove](./demo/dynamic.vue)

@@ -61,7 +61,7 @@ Vue.use(Button);
 | htmlType | Set the native type value of the button | `"button" \| "submit" \| "reset"` | button |
 | disabled | Disabled state of the button | `boolean` | false |
 | size | Button size, | `"small" \| "medium" \| "large"` | - |
-| color | Preset semantic color | `"default" \| "red" \| "orange" \| "yellow" \| "olive" \| "green" \| "teal" \| "blue" \| "volcano" \| "violet" \| "cyan" \| "gold" \| "lime" \| "magenta" \| "purple" \| "pink" \| "brown" \| "gray"` | - |
+| color | Preset semantic color | `"red" \| "orange" \| "yellow" \| "olive" \| "green" \| "teal" \| "blue" \| "volcano" \| "violet" \| "cyan" \| "gold" \| "lime" \| "magenta" \| "purple" \| "pink" \| "brown" \| "gray"` | - |
 | shape | When shape=circle, presents a circular button | `"default" \| "circle" \| "square" \| "round"` | false |
 | theme | Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | icon | Icon definition imported from kui-icons (e.g. Search), not a string or rendered Icon element | `IconType[]` | - |

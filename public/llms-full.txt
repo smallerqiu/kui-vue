@@ -815,7 +815,7 @@ Vue.use(Button);
 | htmlType | Set the native type value of the button | `"button" \| "submit" \| "reset"` | button |
 | disabled | Disabled state of the button | `boolean` | false |
 | size | Button size, | `"small" \| "medium" \| "large"` | - |
-| color | Preset semantic color | `"default" \| "red" \| "orange" \| "yellow" \| "olive" \| "green" \| "teal" \| "blue" \| "volcano" \| "violet" \| "cyan" \| "gold" \| "lime" \| "magenta" \| "purple" \| "pink" \| "brown" \| "gray"` | - |
+| color | Preset semantic color | `"red" \| "orange" \| "yellow" \| "olive" \| "green" \| "teal" \| "blue" \| "volcano" \| "violet" \| "cyan" \| "gold" \| "lime" \| "magenta" \| "purple" \| "pink" \| "brown" \| "gray"` | - |
 | shape | When shape=circle, presents a circular button | `"default" \| "circle" \| "square" \| "round"` | false |
 | theme | Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | icon | Icon definition imported from kui-icons (e.g. Search), not a string or rendered Icon element | `IconType[]` | - |
@@ -889,7 +889,7 @@ Vue.use(Button);
 | htmlType | Set the native type value of the button | `"button" \| "submit" \| "reset"` | button |
 | disabled | Disabled state of the button | `boolean` | false |
 | size | Button size, | `"small" \| "medium" \| "large"` | - |
-| color | Preset semantic color | `"default" \| "red" \| "orange" \| "yellow" \| "olive" \| "green" \| "teal" \| "blue" \| "volcano" \| "violet" \| "cyan" \| "gold" \| "lime" \| "magenta" \| "purple" \| "pink" \| "brown" \| "gray"` | - |
+| color | Preset semantic color | `"red" \| "orange" \| "yellow" \| "olive" \| "green" \| "teal" \| "blue" \| "volcano" \| "violet" \| "cyan" \| "gold" \| "lime" \| "magenta" \| "purple" \| "pink" \| "brown" \| "gray"` | - |
 | shape | When shape=circle, presents a circular button | `"default" \| "circle" \| "square" \| "round"` | false |
 | theme | Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | icon | Icon definition imported from kui-icons (e.g. Search), not a string or rendered Icon element | `IconType[]` | - |
@@ -7537,7 +7537,7 @@ Small labels for marking and categorization.
 
 [Colorful Tags](./demo/color.vue)
 
-- The preset color names are the same 18 `Badge` uses (`red`, `olive`, `teal`, `violet`, `brown` and `gray` among them), for different scenarios. If the presets don't meet your needs, you can set a specific color value.
+- The preset color names are the same 17 `Badge` uses (`red`, `olive`, `teal`, `violet`, `brown` and `gray` among them), for different scenarios. If the presets don't meet your needs, you can set a specific color value.
 - When `color` is set, the color wins: both preset and custom colors keep their own border and text color, and `theme` only decides the surface of a tag that has no color.
 
 [Dynamic Add and Remove](./demo/dynamic.vue)
