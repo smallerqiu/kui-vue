@@ -17,17 +17,23 @@
 </template>
 <script setup lang="ts">
 const colors = [
-  "pink",
+  "default",
   "red",
-  "yellow",
   "orange",
-  "cyan",
+  "yellow",
+  "olive",
   "green",
+  "teal",
   "blue",
-  "purple",
-  "magenta",
   "volcano",
+  "violet",
+  "cyan",
   "gold",
   "lime",
+  "magenta",
+  "purple",
+  "pink",
+  "brown",
+  "gray",
 ];
 </script>
