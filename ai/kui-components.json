@@ -3130,15 +3130,14 @@
           "description": "Appearance theme",
           "descriptionZh": "外观主题",
           "descriptionEn": "Appearance theme",
-          "type": "ThemeType",
+          "type": "SurfaceThemeType",
           "boolean": false,
           "enumValues": [
             "fill",
             "outline",
             "plain",
             "solid",
-            "dashed",
-            "underlined"
+            "dashed"
           ],
           "required": false,
           "defaultExpression": "\"fill\"",

@@ -5,7 +5,7 @@ import {
   type PropType,
   type StyleValue,
 } from "vue";
-import type { BooleanType, SizeType, SurfaceShapeType, ThemeType } from "../const/types";
+import type { BooleanType, SizeType, SurfaceShapeType, SurfaceThemeType } from "../const/types";
 import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import Icon, { type IconType } from "../icon";
 
@@ -14,7 +14,7 @@ const featureCardProps = {
   title: String,
   desc: String,
   bordered: { type: Boolean as BooleanType, default: false },
-  theme: { type: String as PropType<ThemeType>, default: "fill" },
+  theme: { type: String as PropType<SurfaceThemeType>, default: "fill" },
   shape: { type: String as PropType<SurfaceShapeType>, default: "round" },
   size: { type: String as PropType<SizeType>, default: "medium" },
   direction: {
