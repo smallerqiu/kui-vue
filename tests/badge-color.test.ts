@@ -10,6 +10,13 @@ const dotOf = (element: HTMLElement) => element.querySelector(".k-badge-status-d
 const supOf = (element: HTMLElement) => element.querySelector("sup");
 const inlineBackground = (element: Element | null) =>
   (element?.getAttribute("style") ?? "").includes("background-color");
+// A bubble's own classes are the part it is and the marker that it has no child to sit on. Anything
+// else on it was painted from a `color` string, and only a palette name may do that.
+const paintClasses = (element: Element | null) =>
+  (element?.getAttribute("class") ?? "")
+    .split(/\s+/)
+    .filter((cls) => cls.startsWith("k-badge-"))
+    .filter((cls) => !["k-badge-count", "k-badge-dot", "k-badge-no-child"].includes(cls));
 
 describe("Badge color vocabulary", () => {
   it("paints a status dot from a preset name through the palette, not an inline value", () => {
@@ -67,6 +74,28 @@ describe("Badge color vocabulary", () => {
     }
   });
 
+  it("reads `default` as no colour, so the bubble keeps its own paint", () => {
+    const wrapper = mount(Badge, { props: { count: 5, color: "default" } });
+    try {
+      // `default` 不再占色板名字 ⇒ 数字气泡回到 `.k-badge-count` 自己那张主色表面，而不是被染灰
+      expect(paintClasses(supOf(wrapper.element))).toEqual([]);
+      expect(inlineBackground(supOf(wrapper.element))).toBe(false);
+    } finally {
+      wrapper.unmount();
+    }
+  });
+
+  it("still paints the neutral dot when a caller asks for it by name", () => {
+    const wrapper = mount(Badge, { props: { color: "default" } });
+    try {
+      // 那颗灰点是 `status` 的档，不是色板的名字 ⇒ 状态点在色板之外也得有地方可落
+      expect(dotOf(wrapper.element)?.className).toContain("k-badge-status-default");
+      expect(inlineBackground(dotOf(wrapper.element))).toBe(false);
+    } finally {
+      wrapper.unmount();
+    }
+  });
+
   it("carries a preset name onto the count bubble", () => {
     const wrapper = mount(Badge, { props: { count: 5, color: "blue" } });
     try {
@@ -92,7 +121,7 @@ describe("Badge color vocabulary", () => {
     const wrapper = mount(Badge, { props: { count: 5, color: "#f0f0f0" } });
     try {
       expect(supOf(wrapper.element)?.getAttribute("style")).toContain("rgb(240, 240, 240)");
-      expect(supOf(wrapper.element)?.className).not.toContain("k-badge-f0f0f0");
+      expect(paintClasses(supOf(wrapper.element))).toEqual([]);
     } finally {
       wrapper.unmount();
     }
@@ -132,14 +161,27 @@ describe("Badge palette coverage", () => {
 
     // 色板加了名字而徽标忘了跟进，这里就红：组件认这个名字，样式表不认
     for (const name of colors) {
-      // `default` is the one slot that isn't a palette colour: a grey dot reads as the disabled border.
-      const painted = `background-color: ${name === "default" ? "var(--kui-color-border-disabled)" : `var(--kui-color-${name})`}`;
+      const painted = `background-color: var(--kui-color-${name})`;
       expect(compiled.get(`.k-badge-status-${name}`), `.k-badge-status-${name}`).toBe(painted);
       expect(
         compiled.get(`.k-badge-count.k-badge-${name}, .k-badge-dot.k-badge-${name}`),
         `气泡 .k-badge-${name}`,
       ).toBe(painted);
     }
+  });
+
+  it("keeps the neutral dot under `status` and out of the bubbles", async () => {
+    const compiled = await rules();
+
+    // 灰点属于 `status` 那一档：想点个不表态的点总得有个颜色可落，它不是色板里的名字
+    expect(compiled.get(".k-badge-status-default"), ".k-badge-status-default").toBe(
+      "background-color: var(--kui-color-border-disabled)",
+    );
+    // 气泡不该再被 `default` 染灰 —— 色板没有这个名字，组件也就不发这个类
+    expect(
+      compiled.has(".k-badge-count.k-badge-default, .k-badge-dot.k-badge-default"),
+      "气泡 .k-badge-default",
+    ).toBe(false);
   });
 
   it("shows every palette name in the colorful demo", async () => {

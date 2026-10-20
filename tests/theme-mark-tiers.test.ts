@@ -41,8 +41,7 @@ const tagClasses = (props: Record<string, unknown>) => {
 };
 
 // Only the six tier spellings count: `k-tag-sm`, `k-tag-circle` and `k-tag-compact` are size, shape
-// and density, `k-tag-red` is a colour that shares the prefix, and `k-tag-default` is a colour too —
-// which is the same collision `Button` had with `type="default"`.
+// and density, and `k-tag-red` is a colour that shares the prefix.
 const tierClasses = (classes: string[]) =>
   classes.filter((cls) => TIERS.some((tier) => cls === `k-tag-${tier}`));
 

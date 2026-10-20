@@ -76,8 +76,8 @@
 
   // One palette name paints a whole chip: label, edge and fill. The calls are listed in the order
   // `components/const/var.ts` lists the palette, so a name the stylesheet has not caught up with shows
-  // up as a gap in this list instead of quietly rendering an uncoloured tag. `gray` and `default` are
-  // the palette's one neutral slot under two names and are written apart — see `.tag-neutral` below.
+  // up as a gap in this list instead of quietly rendering an uncoloured tag. `gray` is the one name
+  // that is not a tint of a hue and is written apart — see `.tag-neutral` below.
   .tag-preset(red, var(--kui-color-red));
   .tag-preset(orange, var(--kui-color-orange));
   .tag-preset(yellow, var(--kui-color-yellow));
@@ -94,7 +94,6 @@
   .tag-preset(purple, var(--kui-color-purple));
   .tag-preset(pink, var(--kui-color-pink));
   .tag-preset(brown, var(--kui-color-brown));
-  .tag-neutral(default);
   .tag-neutral(gray);
 }
 // Preset colours are written `.k-tag.k-tag-<colour>` rather than `.k-tag-<colour>`: the tiers at the
@@ -117,8 +116,8 @@
 // The neutral slot cannot take that shape. `--kui-color-gray-3` is #eeeeee — a *background* stop in a
 // ramp that runs light to dark — so reading it as the label would paint near-white text, and only the
 // light theme defines that ramp, so the chip would stay pale under the dark one. Tinting `gray` itself
-// is no better: a mid grey at 70% alpha is a label nobody can read. These two take the greys the theme
-// re-maps, which is also what makes `default` and `gray` the same chip under two names.
+// is no better: a mid grey at 70% alpha is a label nobody can read. This arm takes the greys the theme
+// re-maps, which is what keeps the label readable under both.
 .tag-neutral(@name) {
   &&-@{name} {
     color: var(--kui-color-text);

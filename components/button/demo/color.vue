@@ -13,7 +13,6 @@
 </template>
 <script setup lang="ts">
 const colors = [
-  "default",
   "red",
   "orange",
   "yellow",

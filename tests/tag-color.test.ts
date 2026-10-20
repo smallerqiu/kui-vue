@@ -13,9 +13,9 @@ const classesOf = (wrapper: VueWrapper) => [...tagOf(wrapper).classList];
 const inlineBackground = (wrapper: VueWrapper) =>
   (tagOf(wrapper).getAttribute("style") ?? "").includes("background-color");
 
-// The palette's neutral slot. These names take the greys the theme re-maps instead of a tint of a hue,
-// so their declarations differ from the other sixteen on purpose.
-const NEUTRAL = ["default", "gray"];
+// The palette's neutral slot: it takes the greys the theme re-maps instead of a tint of a hue, so its
+// declarations differ from the other sixteen on purpose.
+const NEUTRAL = ["gray"];
 
 const mountTag = (props: Record<string, unknown>) =>
   mount(Tag, { props, slots: { default: "tag" } });
@@ -86,6 +86,20 @@ describe("Tag color vocabulary", () => {
       wrapper.unmount();
     }
   });
+
+  it("reads `default` as no colour at all, not as a palette name", () => {
+    const withName = mountTag({ color: "default" });
+    const without = mountTag({});
+    try {
+      // 不传 color 用的就是组件自己的那张表面 ⇒ `default` 不再占一个色板名字，写了它和没写一样
+      expect(classesOf(withName)).not.toContain("k-tag-default");
+      expect(inlineBackground(withName)).toBe(false);
+      expect(classesOf(withName)).toEqual(classesOf(without));
+    } finally {
+      withName.unmount();
+      without.unmount();
+    }
+  });
 });
 
 describe("Tag palette coverage", () => {
@@ -123,6 +137,13 @@ describe("Tag palette coverage", () => {
     }
   });
 
+  it("keeps `default` out of the stylesheet", async () => {
+    const { rules } = await sheet();
+
+    // 组件不再发 `k-tag-default`，样式表也不该留一条没人调用的颜色档
+    expect(rules.has(".k-tag.k-tag-default"), ".k-tag.k-tag-default").toBe(false);
+  });
+
   it("lets a colour outrank the tier it is written next to", async () => {
     const { selectors } = await sheet();
     const indexOf = (name: string) => selectors.indexOf(`.k-tag.k-tag-${name}`);
@@ -139,5 +160,16 @@ describe("Tag palette coverage", () => {
     for (const name of colors) {
       expect(demo.includes(`"${name}"`), `${name} 没出现在多彩 demo 里`).toBe(true);
     }
+  });
+
+  it("counts the palette the way the docs do", async () => {
+    const zh = await fs.readFile(path.join(root, "components/tag/index.md"), "utf8");
+    const en = await fs.readFile(path.join(root, "components/tag/index.en_US.md"), "utf8");
+
+    // 色板改名字，文档里那句"同一套 N 个"也得跟着改，不然写的是数量、画的是另一套
+    expect(zh.includes(`共用同一套 ${colors.length} 个`), "index.md 的色板数量").toBe(true);
+    expect(en.includes(`the same ${colors.length} \`Badge\` uses`), "index.en_US.md 的数量").toBe(
+      true,
+    );
   });
 });

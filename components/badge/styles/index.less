@@ -71,6 +71,12 @@
     margin-left: 8px;
   }
 
+  // The neutral dot belongs to `status`, not to the palette: it is the word a caller says when they want
+  // a dot that means nothing in particular, and a dot with no background of its own is simply invisible.
+  &-status-default {
+    background-color: var(--kui-color-border-disabled);
+  }
+
   &-status-success {
     background-color: var(--kui-color-success);
   }
@@ -87,7 +93,6 @@
   // A bubble rule carries its base class too, because `.k-badge-count` and `.k-badge-dot` each declare
   // a background of their own — one class at 0,1,0 — and a bare `.k-badge-blue` would only win on
   // source order, which is a place in a file, not a reason.
-  .badge-preset(default, var(--kui-color-border-disabled));
   .badge-preset(red, var(--kui-color-red));
   .badge-preset(volcano, var(--kui-color-volcano));
   .badge-preset(orange, var(--kui-color-orange));
