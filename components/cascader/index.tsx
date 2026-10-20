@@ -1,10 +1,22 @@
 import { useInitialValue } from "../utils/model-value";
 import Popup, { type PopupRef } from "../popup";
 import { ChevronDown, ChevronRight, CircleAlert, CircleX, Loading } from "kui-icons";
-import { computed, defineComponent, nextTick, onBeforeUnmount, ref, toRaw, watch } from "vue";
+import {
+  computed,
+  defineComponent,
+  inject,
+  isRef,
+  nextTick,
+  onBeforeUnmount,
+  ref,
+  toRaw,
+  watch,
+  type Ref,
+} from "vue";
 import Empty from "../empty";
 import { markFormFieldComponent, useFormAppearance, useFormField } from "../form/context";
-import { resolveTheme } from "../config/context";
+import { DEFAULT_LOCALE, resolveTheme } from "../config/context";
+import zhCN from "../locale/zh-CN";
 import Icon from "../icon";
 import { cascaderProps, type CascaderOption, type CascaderValue } from "./types";
 
@@ -21,6 +33,13 @@ const Cascader = defineComponent({
     const initialModel = useInitialValue(props);
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
+
+    type Locale = typeof zhCN;
+    const injectedLocale = inject<Locale | Ref<Locale>>("locale", DEFAULT_LOCALE);
+    const locale = computed<Locale>(() =>
+      isRef(injectedLocale) ? injectedLocale.value : injectedLocale,
+    );
+
     const modelValue = computed<CascaderValue>(() =>
       field?.prop && Array.isArray(field.value.value)
         ? (field.value.value as CascaderValue)
@@ -496,7 +515,7 @@ const Cascader = defineComponent({
               </div>
             ) : (
               <div class="k-cascader-placeholder" key="placeholder">
-                {placeholder || "请选择"}
+                {placeholder || locale.value?.k.select.placeholder}
               </div>
             )}
           </div>
