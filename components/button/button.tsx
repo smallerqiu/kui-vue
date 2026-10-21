@@ -102,15 +102,20 @@ const Button = defineComponent({
         return false;
       };
 
+      // A `color` only counts when `button/styles/index.less` can paint it, which is the shared palette and
+      // nothing else — there is no inline arm here. So a name outside the palette must be read as "no color
+      // written" rather than as a color that cancels `type` and leaves the button with no surface at all.
+      const isPresetColor = !!props.color && colors.includes(props.color);
+
       const classes = [
         "k-btn",
         {
-          [`k-btn-${props.type}`]: !!props.type && !props.color,
+          [`k-btn-${props.type}`]: !!props.type && !isPresetColor,
           ["k-btn-sm"]: computedSize.value === "small",
           ["k-btn-block"]: !!props.block,
           ["k-btn-loading"]: props.loading,
           ["k-btn-icon-only"]: iconOnly(),
-          [`k-btn-${props.color}`]: props.color && colors.includes(props.color),
+          [`k-btn-${props.color}`]: isPresetColor,
           ["k-btn-lg"]: computedSize.value === "large",
           ["k-btn-circle"]: computedShape.value === "circle",
           ["k-btn-square"]: computedShape.value === "square",
