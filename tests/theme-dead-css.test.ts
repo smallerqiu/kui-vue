@@ -2,6 +2,8 @@ import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { render } from "less";
 import { describe, expect, it } from "vitest";
+import { colors } from "../components/const/var";
+import { isColor } from "../components/utils/color";
 
 // 死 CSS 守卫：逐条点名"这条规则 / 这条声明 / 这个类名不该存在"，同时点名它们旁边真在用的东西 ——
 // 只列前者分不清哪一半是承重的，删过头时也没有任何东西会变红。
@@ -559,6 +561,16 @@ const GUARDED_DRAWERS: {
   },
 ];
 
+/**
+ * 共享色板按"CSS 认不认得这个名字"分成两半，气泡的两条臂正好一边一半：
+ * 认得出的（`red` / `blue`…）走内联 token，组件永远不给它们发类名 ⇒ 样式表里只能当死 CSS；
+ * 认不出的（`volcano`）只能靠 `.k-tooltip-<name>` 画 ⇒ 样式表里必须有它，而且只许有它。
+ * 名单由色板和 `isColor` 现推，不在这里手写名字：往色板加一个关键字名，死名单自动跟上；
+ * 加一个读不出的名字，活名单自动跟上 —— 两边都不许靠人记。
+ */
+const TOOLTIP_UNREACHABLE_COLOR_NAMES = colors.filter((name) => isColor(name));
+const TOOLTIP_CLASS_ARM_NAMES = colors.filter((name) => !isColor(name));
+
 /** 整条规则不能以这个选择器出现（写死成编译后的形状，改嵌套也算新增）。 */
 const DEAD_SELECTORS: { component: string; selector: string }[] = [
   { component: "color-picker", selector: ".k-color-picker .k-color-picker-arrow" },
@@ -613,6 +625,14 @@ const DEAD_CLASS_TOKENS: { component: string; token: string }[] = [
   { component: "image", token: "k-image-panel-leave-active" },
   // 徽标那个带描边的独立标记从来没人上这个类名，所以它连规则一起不许存在（判据见 `SCATTERED_...`）。
   { component: "badge", token: "k-badge-mark" },
+  // 气泡只有 `volcano` 走到类名臂：`isPresetColor && !isColor(color)` 要求 CSS 解析不出这个值，而色板其余
+  // 16 个名字全是 CSS 关键字 —— 组件永远改口成"那条内联臂画 token"。所以这 11 个名字既不许有规则
+  // （选了中不到的元素就是死 CSS），也不许开始在源码里输出（那只会画出一张没人认的类名）。
+  // 逐条点名而不是生成名单：少抄一个名字，那个名字的块就能悄悄回来。
+  ...TOOLTIP_UNREACHABLE_COLOR_NAMES.map((name) => ({
+    component: "tooltip",
+    token: `k-tooltip-${name}`,
+  })),
 ];
 
 /**
@@ -729,6 +749,9 @@ const LIVE_SELECTORS: { component: string; selector: string }[] = [
   { component: "dropdown", selector: ".k-dropdown-has-arrow .k-dropdown-content" },
   { component: "button", selector: ".k-btn-plain" },
   { component: "badge", selector: ".k-badge-pill" },
+  // 上面那 11 个名字死了，`volcano` 这条还得承重：它是类名臂唯一选得中的画法，连着整组删掉时这里要红。
+  { component: "tooltip", selector: ".k-tooltip-volcano .k-tooltip-content" },
+  { component: "tooltip", selector: ".k-tooltip-volcano .k-tooltip-arrow" },
   // 那条活压制的对手：外层面板自己在画光晕，内盒也是。两个名字任何一个从规则里掉出去，
   // "子面板不重复发光"就换了画法，那条压制得跟着重新裁定。
   { component: "dropdown", selector: ".k-dropdown-menu-submenu-popup" },
@@ -881,6 +904,25 @@ describe("theme 死 CSS 守卫", () => {
       expect(compiled.filter((selector) => selector.includes(token))).toEqual([]);
       expect(sourceOf(component)).not.toContain(token);
     });
+  });
+
+  // 逐条点名的名单认不到"换了写法"的那一种：把 `red` 抄成 `.k-tooltip-red .k-tooltip-title`、
+  // 抄进 `:is()`、抄成别的嵌套形状，上面那 11 条一条都不红。这道总闸按值普查整份样式表，两个方向都问：
+  // 该有规则的名字一条不许少（删过头），不该有规则的名字一条不许多（抄回死 CSS）。
+  it("tooltip: 类名色板规则只剩 CSS 解析不出来的那一个名字", async () => {
+    const painted = [...new Set((await compile("tooltip")).flatMap((rule) => rule.selectors))];
+    for (const name of TOOLTIP_CLASS_ARM_NAMES) {
+      ["content", "arrow"].forEach((part) => {
+        expect(painted, `.k-tooltip-${name} .k-tooltip-${part} 没了`).toContain(
+          `.k-tooltip-${name} .k-tooltip-${part}`,
+        );
+      });
+    }
+    const declared = painted
+      .map((selector) => selector.match(/^\.k-tooltip-(\w+) \.k-tooltip-(?:content|arrow)$/)?.[1])
+      .filter((name): name is string => !!name)
+      .sort();
+    expect(declared).toEqual([...TOOLTIP_CLASS_ARM_NAMES, ...TOOLTIP_CLASS_ARM_NAMES].sort());
   });
 
   GUARDED_DRAWERS.forEach(({ component, prefix, suffix, exclusions }) => {

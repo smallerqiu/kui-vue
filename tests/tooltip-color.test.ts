@@ -75,6 +75,14 @@ describe("Tooltip color vocabulary", () => {
       expect(result.classes.join(" "), color).toBe(panel(undefined).classes.join(" "));
     }
   });
+
+  it("never emits a class arm that the trimmed stylesheet cannot answer", () => {
+    // 类名与样式表两边必须一起裁：组件给 CSS 认得的名字发类名，气泡就落进一张没人定义的规则
+    for (const color of colors) {
+      if (!isColor(color)) continue;
+      expect(panel(color).colorClasses, color).not.toContain(`k-tooltip-${color}`);
+    }
+  });
 });
 
 describe("Tooltip palette coverage", () => {
@@ -90,20 +98,42 @@ describe("Tooltip palette coverage", () => {
     );
   };
 
-  it("covers every palette name the browser cannot read with its own rule", async () => {
+  // The class arm is the only thing a stylesheet can pin, and the component names it with the same
+  // predicate this file reads — so the reachable vocabulary is derived here rather than hand-listed.
+  const classArmNames = colors.filter((name) => !isColor(name));
+
+  it("gives a rule to every name the class arm can reach, and none to the names it cannot", async () => {
     const list = await selectors();
 
-    // 组件只给读不出的名字发类名，样式表就得恰好认这些；其余名字走内联，留不留规则都不影响这一臂
     for (const name of colors) {
-      if (isColor(name)) continue;
       const painted = list.filter(
         (selector) => selector === `.k-tooltip-${name} .k-tooltip-content`,
       );
-      expect(painted, `.k-tooltip-${name} 缺少规则`).toHaveLength(1);
+      if (classArmNames.includes(name)) {
+        expect(painted, `.k-tooltip-${name} 缺少规则`).toHaveLength(1);
+      } else {
+        // CSS 认得这个名字 ⇒ 组件永远走内联那条臂，类名选不中任何元素
+        expect(painted, `.k-tooltip-${name} 是一条选不中的规则`).toEqual([]);
+      }
     }
   });
 
-  it("declares each colour class once", async () => {
+  it("draws the class arm once per reachable name, on both the bubble and the arrow", async () => {
+    const list = await selectors();
+
+    // 逐条点名，不拿"一堆 k-tooltip-"当名单：漏掉箭头那半照样咬不到
+    for (const name of classArmNames) {
+      for (const part of ["content", "arrow"]) {
+        const painted = list.filter(
+          (selector) => selector === `.k-tooltip-${name} .k-tooltip-${part}`,
+        );
+        expect(painted, `.k-tooltip-${name} .k-tooltip-${part}`).toHaveLength(1);
+      }
+    }
+    expect(classArmNames).toEqual(["volcano"]);
+  });
+
+  it("declares each colour class at most once", async () => {
     const list = await selectors();
 
     for (const name of [...colors, "brand-blue", "default"]) {

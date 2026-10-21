@@ -183,105 +183,9 @@
   }
 }
 
-.k-tooltip-pink {
-  .k-tooltip-content {
-    color: var(--kui-color-text-on-solid);
-    background-color: var(--kui-color-pink);
-  }
-
-  .k-tooltip-arrow {
-    color: var(--kui-color-pink);
-  }
-}
-
-.k-tooltip-red {
-  .k-tooltip-content {
-    color: var(--kui-color-text-on-solid);
-    background-color: var(--kui-color-red);
-  }
-
-  .k-tooltip-arrow {
-    color: var(--kui-color-red);
-  }
-}
-
-.k-tooltip-yellow {
-  .k-tooltip-content {
-    color: var(--kui-color-text-on-solid);
-    background-color: var(--kui-color-yellow);
-  }
-
-  .k-tooltip-arrow {
-    color: var(--kui-color-yellow);
-  }
-}
-
-.k-tooltip-orange {
-  .k-tooltip-content {
-    color: var(--kui-color-text-on-solid);
-    background-color: var(--kui-color-orange);
-  }
-
-  .k-tooltip-arrow {
-    color: var(--kui-color-orange);
-  }
-}
-
-.k-tooltip-cyan {
-  .k-tooltip-content {
-    color: var(--kui-color-text-on-solid);
-    background-color: var(--kui-color-cyan);
-  }
-
-  .k-tooltip-arrow {
-    color: var(--kui-color-cyan);
-  }
-}
-
-.k-tooltip-green {
-  .k-tooltip-content {
-    color: var(--kui-color-text-on-solid);
-    background-color: var(--kui-color-green);
-  }
-
-  .k-tooltip-arrow {
-    color: var(--kui-color-green);
-  }
-}
-
-.k-tooltip-blue {
-  .k-tooltip-content {
-    color: var(--kui-color-text-on-solid);
-    background-color: var(--kui-color-blue);
-  }
-
-  .k-tooltip-arrow {
-    color: var(--kui-color-blue);
-  }
-}
-
-.k-tooltip-purple {
-  .k-tooltip-content {
-    color: var(--kui-color-text-on-solid);
-    background-color: var(--kui-color-purple);
-  }
-
-  .k-tooltip-arrow {
-    color: var(--kui-color-purple);
-  }
-}
-
-.k-tooltip-magenta {
-  .k-tooltip-content {
-    color: var(--kui-color-text-on-solid);
-    background-color: var(--kui-color-magenta);
-  }
-
-  .k-tooltip-arrow {
-    color: var(--kui-color-magenta);
-  }
-}
-
+// 色板里只有 `volcano` 不是一个 CSS 能解析的颜色，而组件那条类名臂（`isPresetColor && !isColor(color)`）
+// 就只可能发它 —— 所以这张表里只画这一个名字。别一个名字抄一档：CSS 认得的名字永远由内联那条臂画 token，
+// 抄在这里的规则选不中任何元素。
 .k-tooltip-volcano {
   .k-tooltip-content {
     color: var(--kui-color-text-on-solid);
@@ -290,28 +194,6 @@
 
   .k-tooltip-arrow {
     color: var(--kui-color-volcano);
-  }
-}
-
-.k-tooltip-gold {
-  .k-tooltip-content {
-    color: var(--kui-color-text-on-solid);
-    background-color: var(--kui-color-gold);
-  }
-
-  .k-tooltip-arrow {
-    color: var(--kui-color-gold);
-  }
-}
-
-.k-tooltip-lime {
-  .k-tooltip-content {
-    color: var(--kui-color-text-on-solid);
-    background-color: var(--kui-color-lime);
-  }
-
-  .k-tooltip-arrow {
-    color: var(--kui-color-lime);
   }
 }
 
