@@ -76,6 +76,19 @@ describe("Button color vocabulary", () => {
       wrapper.unmount();
     }
   });
+
+  it("emits no tier class when the caller writes none", () => {
+    const wrapper = mountButton({ color: "blue" });
+    // 元素上挂的是完整的 `k-btn-<档>`，所以比对的必须也是整串：只拿档位词比，谁都落不进这个过滤器，断言恒过
+    const tiers = ["fill", "outline", "plain", "solid", "dashed"].map((tier) => `k-btn-${tier}`);
+    try {
+      // 「不写档位」那条臂挂在这五颗类名都不出现的前提上：组件哪天顺手发一颗档，名字就又不涂色了
+      expect(wrapper.classes()).toContain("k-btn-blue");
+      expect(wrapper.classes().filter((cls) => tiers.includes(cls))).toEqual([]);
+    } finally {
+      wrapper.unmount();
+    }
+  });
 });
 
 describe("Button palette coverage", () => {
@@ -97,21 +110,49 @@ describe("Button palette coverage", () => {
     return { rules: new Map(entries), selectors: entries.map(([selector]) => selector) };
   };
 
+  // `type` 在「不写档位」时自己长出一张实心表面（`.k-btn-primary:not(...)`），名字也要有同一条臂。
+  // 这条选择器把五档全排掉，比 `type` 那份多一档：`solid` 对名字有自己的 `::before` 画法，
+  // 根上再吃一条底色就不是同一个色了 —— 谁照抄成四档，这条精确 key 立刻查不到规则。
+  const bare = (name: string) =>
+    `.k-btn-${name}:not(.k-btn-outline, .k-btn-dashed, .k-btn-fill, .k-btn-solid, .k-btn-plain)`;
+
   const forms = (name: string) => [
+    bare(name),
     `.k-btn-outline.k-btn-${name}, .k-btn-dashed.k-btn-${name}`,
     `.k-btn-solid.k-btn-${name}::before`,
     `.k-btn-plain.k-btn-${name}`,
   ];
 
-  it("paints every palette name in all three tiers the component can ask for", async () => {
+  it("paints every palette name in all four paths the component can ask for", async () => {
     const { rules } = await sheet();
 
-    // 组件认这个名字，样式表就得跟满：`outline`/`dashed` 共用一块、`solid` 涂在 `::before`、`plain` 只染文字
+    // 组件认这个名字，样式表就得跟满：不写档位时自己长成实心、`outline`/`dashed` 共用一块、`solid` 涂在 `::before`、`plain` 只染文字
     for (const name of colors) {
       for (const selector of forms(name)) {
         const declarations = rules.get(selector);
         expect(declarations, `${selector} 缺少规则`).toBeTypeOf("string");
         expect(declarations, `${selector} 没读自己的 token`).toContain(`--kui-color-${name}`);
+      }
+    }
+  });
+
+  it("gives the tier-free path a whole surface, not a half paint", async () => {
+    const { rules } = await sheet();
+
+    for (const name of colors) {
+      const declarations = rules.get(bare(name)) ?? "";
+
+      // 只染文字的那条臂是 `plain` 的画法；不写档位要的是和 `type` 一样的实心：底、字、边一起上，边框收掉
+      expect(declarations, `${name} 没画实心底`).toContain(`background: var(--kui-color-${name})`);
+      expect(declarations, `${name} 没换文字色`).toContain("color: var(--kui-color-text-on-solid)");
+      expect(declarations, `${name} 没收掉边框`).toContain("border: none");
+
+      // 交互态也得跟着：`type` 那条有 hover/active，名字这条不能只画静置
+      for (const state of ["hover", "active"]) {
+        expect(
+          rules.has(`${bare(name)}:not(:disabled):${state}`),
+          `${name} 少了 :${state} 那档`,
+        ).toBe(true);
       }
     }
   });

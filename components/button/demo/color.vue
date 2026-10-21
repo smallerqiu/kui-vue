@@ -1,6 +1,9 @@
 <template>
   <Space size="small" wrap>
     <Space size="small" wrap>
+      <Button v-for="color in colors" :color="color" :key="color">No theme</Button>
+    </Space>
+    <Space size="small" wrap>
       <Button v-for="color in colors" :color="color" :key="color" theme="solid">Solid</Button>
     </Space>
     <Space size="small" wrap>

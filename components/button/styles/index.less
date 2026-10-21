@@ -256,6 +256,49 @@
   }
 }
 
+// A palette name is a colour the button can be painted with, so writing one without a `theme` has to
+// grow a surface of its own — the same arm `.k-btn-primary:not(...)` above gives the three semantic
+// types. Without it `<Button color="blue">` quietly keeps the grey default and reads as "ignored".
+// The `:not(...)` list drops one tier more than the `type` rules do: `solid` paints a name on its own
+// `::before`, so the root must not also take a background there (two stacked paints are not the same
+// colour); a semantic type has no `solid` paint of its own, which is why its four-item list is not a
+// shape to copy. Hover and active mix the name itself — no `-hover`/`-active` stop exists in the
+// palette ramp, and pointing at one would be a token nobody defines.
+.btn-tinted(@name, @color) {
+  .k-btn-@{name}:not(.k-btn-outline, .k-btn-dashed, .k-btn-fill, .k-btn-solid, .k-btn-plain) {
+    border: none;
+    color: var(--kui-color-text-on-solid);
+    background: @color;
+    border-color: @color;
+    &:not(:disabled):hover {
+      background-color: color-mix(in srgb, @color 90%, transparent);
+    }
+    &:not(:disabled):active {
+      background-color: color-mix(in srgb, @color 80%, transparent);
+    }
+  }
+}
+
+// Listed in the order `components/const/var.ts` lists the palette, so a name the stylesheet has not
+// caught up with shows as a gap here rather than as an uncoloured button.
+.btn-tinted(red, var(--kui-color-red));
+.btn-tinted(orange, var(--kui-color-orange));
+.btn-tinted(yellow, var(--kui-color-yellow));
+.btn-tinted(olive, var(--kui-color-olive));
+.btn-tinted(green, var(--kui-color-green));
+.btn-tinted(teal, var(--kui-color-teal));
+.btn-tinted(blue, var(--kui-color-blue));
+.btn-tinted(volcano, var(--kui-color-volcano));
+.btn-tinted(violet, var(--kui-color-violet));
+.btn-tinted(cyan, var(--kui-color-cyan));
+.btn-tinted(gold, var(--kui-color-gold));
+.btn-tinted(lime, var(--kui-color-lime));
+.btn-tinted(magenta, var(--kui-color-magenta));
+.btn-tinted(purple, var(--kui-color-purple));
+.btn-tinted(pink, var(--kui-color-pink));
+.btn-tinted(brown, var(--kui-color-brown));
+.btn-tinted(gray, var(--kui-color-gray));
+
 .k-btn-outline,
 .k-btn-dashed {
   background-color: transparent;
