@@ -195,6 +195,14 @@
   --kui-theme-plain-hover: fade(@text-color, 10%);
   --kui-theme-plain-active: fade(@text-color, 16%);
   --kui-color-text-on-solid: #fff;
+  // A `solid` plate draws its quieter parts from the same inverted ink: the focus ring, the
+  // prefix/suffix icons, the placeholder and the small chips that sit on it. Mixed here at build
+  // time — `color-mix()` paints nothing before Chrome 111, so a Chromium 108 shell gets no value at
+  // all — which means a theme that repaints `--kui-color-text-on-solid` names its own four.
+  --kui-theme-solid-outline: @solid-text-outline;
+  --kui-theme-solid-muted: @solid-text-muted;
+  --kui-theme-solid-placeholder: @solid-text-placeholder;
+  --kui-theme-solid-chip: @solid-text-chip;
   --kui-color-control-thumb: #fff;
   --kui-color-control-thumb-text: @gray-9;
   --kui-color-checkerboard: #cdcdcd;
@@ -275,6 +283,10 @@
   --kui-theme-plain-hover: fade(@dark-text-color, 10%);
   --kui-theme-plain-active: fade(@dark-text-color, 16%);
   --kui-color-text-on-solid: #fff;
+  --kui-theme-solid-outline: @solid-text-outline;
+  --kui-theme-solid-muted: @solid-text-muted;
+  --kui-theme-solid-placeholder: @solid-text-placeholder;
+  --kui-theme-solid-chip: @solid-text-chip;
   --kui-color-control-thumb: #fff;
   --kui-color-control-thumb-text: @gray-9;
   --kui-color-checkerboard: #666;

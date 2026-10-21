@@ -47,7 +47,7 @@
       z-index: 1;
       border-color: var(--kui-color-primary);
       outline: var(--kui-focus-ring-width) solid
-        var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
+        var(--kui-color-outline, @main-8);
       outline-offset: 1px;
     }
     &:disabled {
@@ -71,10 +71,7 @@
     .k-input-otp-underlined
   )
   .k-input-otp-item:focus {
-  box-shadow: var(
-    --kui-component-shadow,
-    0 0 2px color-mix(in srgb, var(--kui-color-primary) 10%, transparent)
-  );
+  box-shadow: var(--kui-component-shadow, @component-shadow);
 }
 
 .k-input-otp-fill .k-input-otp-item {
@@ -104,20 +101,14 @@
   .kui-theme-value(solid);
 
   &:hover {
-    border-color: var(
-      --kui-color-primary-hover,
-      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
-    );
-    background-color: var(
-      --kui-color-primary-hover,
-      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
-    );
+    border-color: var(--kui-color-primary-hover, @main-1);
+    background-color: var(--kui-color-primary-hover, @main-1);
   }
 
   // The base ring is primary on a primary surface, i.e. invisible: it is redrawn in the inverted text
   // colour rather than dropped, so a keyboard user still sees which cell has the caret.
   &:focus {
-    outline-color: color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent);
+    outline-color: var(--kui-theme-solid-outline);
   }
 }
 

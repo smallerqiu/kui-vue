@@ -24,10 +24,7 @@
   // of their state rules below carries `:not(.k-color-picker-disabled)` and comes later at the same
   // specificity, so they already win, and naming them would be a declaration no test could break.
   &:not(.k-color-picker-disabled):hover {
-    border-color: var(
-      --kui-color-primary-hover,
-      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
-    );
+    border-color: var(--kui-color-primary-hover, @main-1);
   }
 
   &:not(.k-color-picker-disabled):active {
@@ -91,7 +88,7 @@
     .k-color-picker-underlined
   ) {
   box-shadow: 0 0 0 2px
-    var(--kui-color-primary-9, color-mix(in srgb, var(--kui-color-primary) 10%, transparent));
+    var(--kui-color-primary-9, @main-9);
 }
 
 // the tier paints the trigger box only. The swatch inside it shows the colour that is
@@ -127,14 +124,8 @@
 
   &:hover,
   &.k-color-picker-opened {
-    border-color: var(
-      --kui-color-primary-hover,
-      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
-    );
-    background-color: var(
-      --kui-color-primary-hover,
-      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
-    );
+    border-color: var(--kui-color-primary-hover, @main-1);
+    background-color: var(--kui-color-primary-hover, @main-1);
   }
 }
 

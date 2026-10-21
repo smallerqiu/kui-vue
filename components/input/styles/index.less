@@ -83,7 +83,7 @@
     z-index: 1;
     outline-offset: 1px;
     outline: var(--kui-focus-ring-width) solid
-      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
+      var(--kui-color-outline, @main-8);
   }
 
   // The glow belongs to the tiers that keep the base interaction — `outline`, `dashed` and a box
@@ -96,10 +96,7 @@
       .k-input-solid,
       .k-input-underlined
     ) {
-    box-shadow: var(
-      --kui-component-shadow,
-      0 0 2px color-mix(in srgb, var(--kui-color-primary) 10%, transparent)
-    );
+    box-shadow: var(--kui-component-shadow, @component-shadow);
   }
 
   .k-input-suffix,
@@ -164,7 +161,7 @@
     border-color: var(--kui-color-primary);
     outline-offset: 1px;
     outline: var(--kui-focus-ring-width) solid
-      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
+      var(--kui-color-outline, @main-8);
   }
 
   // Same exclusion list as the hover rule below: the glow is only for the tiers that keep the base
@@ -180,10 +177,7 @@
       .k-input-underlined,
       .k-textarea-underlined
     ) {
-    box-shadow: var(
-      --kui-component-shadow,
-      0 0 2px color-mix(in srgb, var(--kui-color-primary) 10%, transparent)
-    );
+    box-shadow: var(--kui-component-shadow, @component-shadow);
   }
 
   // Same contract as the `[data-multiple]` rule above: a bare `<input>` and a `<textarea>` paint
@@ -248,7 +242,7 @@
   &:focus {
     outline-offset: 1px;
     outline: var(--kui-focus-ring-width) solid
-      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
+      var(--kui-color-outline, @main-8);
   }
 }
 .k-textarea-square {
@@ -292,7 +286,7 @@
   opacity: 1;
   pointer-events: auto;
   outline: var(--kui-focus-ring-width) solid
-    var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
+    var(--kui-color-outline, @main-8);
   outline-offset: 1px;
 }
 .k-input-clearable:focus-visible {
@@ -474,26 +468,20 @@
   .kui-theme-value(solid);
 
   &:hover {
-    border-color: var(
-      --kui-color-primary-hover,
-      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
-    );
-    background-color: var(
-      --kui-color-primary-hover,
-      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
-    );
+    border-color: var(--kui-color-primary-hover, @main-1);
+    background-color: var(--kui-color-primary-hover, @main-1);
   }
 
   // The base ring is primary on a primary surface, i.e. invisible. Keep the affordance and draw it
   // in the inverted text colour instead of dropping it.
   &:focus,
   &.k-input-focus {
-    outline-color: color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent);
+    outline-color: var(--kui-theme-solid-outline);
   }
 
   &::placeholder,
   .k-input-text::placeholder {
-    color: color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent);
+    color: var(--kui-theme-solid-placeholder);
   }
 
   .k-input-text {
@@ -504,7 +492,7 @@
   .k-input-clearable,
   .k-input-prefix,
   .k-input-suffix {
-    color: color-mix(in srgb, var(--kui-color-text-on-solid) 85%, transparent);
+    color: var(--kui-theme-solid-muted);
   }
 }
 

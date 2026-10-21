@@ -34,7 +34,7 @@
   &:focus-within {
     border-color: var(--kui-color-primary);
     outline: var(--kui-focus-ring-width) solid
-      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
+      var(--kui-color-outline, @main-8);
     outline-offset: 1px;
   }
 
@@ -48,10 +48,7 @@
       .k-input-tag-solid,
       .k-input-tag-underlined
     ) {
-    box-shadow: var(
-      --kui-component-shadow,
-      0 0 2px color-mix(in srgb, var(--kui-color-primary) 10%, transparent)
-    );
+    box-shadow: var(--kui-component-shadow, @component-shadow);
   }
 
   .k-input-tag-input {
@@ -95,7 +92,7 @@
     &:focus-visible {
       opacity: 1;
       outline: var(--kui-focus-ring-width) solid
-        var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
+        var(--kui-color-outline, @main-8);
       outline-offset: 1px;
     }
   }
@@ -186,37 +183,31 @@
   .kui-theme-value(solid);
 
   &:hover {
-    border-color: var(
-      --kui-color-primary-hover,
-      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
-    );
-    background-color: var(
-      --kui-color-primary-hover,
-      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
-    );
+    border-color: var(--kui-color-primary-hover, @main-1);
+    background-color: var(--kui-color-primary-hover, @main-1);
   }
 
   // The base ring is primary on a primary surface, i.e. invisible: it is redrawn in the inverted
   // text colour rather than dropped, so a keyboard user still sees where the caret is.
   &:focus-within {
-    outline-color: color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent);
+    outline-color: var(--kui-theme-solid-outline);
   }
 
   .k-input-tag-input {
     color: var(--kui-color-text-on-solid);
 
     &::placeholder {
-      color: color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent);
+      color: var(--kui-theme-solid-placeholder);
     }
   }
 
   .k-input-tag-clearable {
-    color: color-mix(in srgb, var(--kui-color-text-on-solid) 85%, transparent);
+    color: var(--kui-theme-solid-muted);
   }
 
   .k-input-tag-item.k-tag {
     color: var(--kui-color-text-on-solid);
-    background-color: color-mix(in srgb, var(--kui-color-text-on-solid) 18%, transparent);
+    background-color: var(--kui-theme-solid-chip);
 
     .k-tag-close {
       color: inherit;

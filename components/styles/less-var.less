@@ -20,6 +20,15 @@
   value: rgb(round(red(@c)), round(green(@c)), round(blue(@c)));
 }
 
+// The ink a `solid` plate writes its value in, and the quieter parts drawn with the same ink — the
+// focus ring, the prefix/suffix icons, the placeholder, the small chips that sit on the plate. Each
+// is a fixed share of that ink, so the shares are mixed here and the sheet ships literals.
+@solid-text-color: #fff;
+@solid-text-outline: fade(@solid-text-color, 40%);
+@solid-text-muted: fade(@solid-text-color, 85%);
+@solid-text-placeholder: fade(@solid-text-color, 75%);
+@solid-text-chip: fade(@solid-text-color, 18%);
+
 // --- 功能色体系 ---
 @main: #54a9ff;
 @main-1: fadeout(@main, 10%);
