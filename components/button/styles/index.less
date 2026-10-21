@@ -256,48 +256,86 @@
   }
 }
 
-// A palette name is a colour the button can be painted with, so writing one without a `theme` has to
-// grow a surface of its own — the same arm `.k-btn-primary:not(...)` above gives the three semantic
-// types. Without it `<Button color="blue">` quietly keeps the grey default and reads as "ignored".
-// The `:not(...)` list drops one tier more than the `type` rules do: `solid` paints a name on its own
-// `::before`, so the root must not also take a background there (two stacked paints are not the same
-// colour); a semantic type has no `solid` paint of its own, which is why its four-item list is not a
-// shape to copy. Hover and active mix the name itself — no `-hover`/`-active` stop exists in the
-// palette ramp, and pointing at one would be a token nobody defines.
-.btn-tinted(@name, @color) {
+// A palette name is a colour the button can be painted with, so it needs a rule for every surface the
+// component can put it on: the name as the whole button (`theme` left out, and the `solid` tier's
+// `::before`), and the name as the label on the `fill` tier's grey wash. The `:not(...)` list on the
+// first of those drops one tier more than the `type` rules do — `solid` paints a name on its own
+// `::before`, so the root must not also take a background there; a semantic type has no `solid` paint
+// of its own, which is why its four-item list is not a shape to copy.
+//
+// `@ink` is the label colour for a name at full strength: whichever of black and white WCAG puts above
+// 4.5:1 against it. One constant cannot serve the family — under white, `yellow` reaches 1.72, `orange`
+// 1.97 and `violet` 2.32, and only `teal` (4.77) and `purple` (4.70) clear 4.5.
+// `--kui-color-text-on-<name>` is the hook for a theme that ships its own ramp; the library leaves it
+// undefined, the way it leaves `-3 / -6 / -9` undefined. `tests/button-color.test.*` recomputes every
+// ratio from the palette values in the compiled sheet, so a table that stops matching the palette
+// turns red instead of quietly becoming unreadable buttons.
+//
+// The state step moves the surface away from the label (`@shade` is the opposite side of `@ink`). A step
+// that instead fades the background toward `transparent` leaves its contrast to whatever happens to be
+// behind the button, and a filter that darkens toward black spends the contrast a dark label was chosen
+// for. Mixing the name toward the far side of its own label is the only shape that keeps 4.5:1 in both
+// themes and in all three states.
+.btn-name(@name, @color, @ink) {
+  @shade: rgb(255 - red(@ink), 255 - green(@ink), 255 - blue(@ink));
+
   .k-btn-@{name}:not(.k-btn-outline, .k-btn-dashed, .k-btn-fill, .k-btn-solid, .k-btn-plain) {
     border: none;
-    color: var(--kui-color-text-on-solid);
+    color: ~"var(--kui-color-text-on-@{name}, @{ink})";
     background: @color;
     border-color: @color;
     &:not(:disabled):hover {
-      background-color: color-mix(in srgb, @color 90%, transparent);
+      background-color: color-mix(in srgb, @color 90%, @shade);
     }
     &:not(:disabled):active {
-      background-color: color-mix(in srgb, @color 80%, transparent);
+      background-color: color-mix(in srgb, @color 80%, @shade);
     }
+  }
+
+  // The tier darkens a `solid` surface with a `filter` on its `::before`. A name's label is not always
+  // white, so this arm unhooks the filter and moves the surface itself.
+  .k-btn-solid.k-btn-@{name} {
+    color: ~"var(--kui-color-text-on-@{name}, @{ink})";
+    &::before {
+      background-color: @color;
+      transition: background-color 0.2s;
+    }
+    &:hover:not(:disabled)::before {
+      filter: none;
+      background-color: color-mix(in srgb, @color 90%, @shade);
+    }
+    &:active:not(:disabled)::before {
+      filter: none;
+      background-color: color-mix(in srgb, @color 80%, @shade);
+    }
+  }
+
+  // On `fill` the name is the label rather than the surface: the grey wash stays, the hue moves into
+  // the text, which is how the three semantic types already read on this tier.
+  .k-btn-fill.k-btn-@{name} {
+    color: @color;
   }
 }
 
 // Listed in the order `components/const/var.ts` lists the palette, so a name the stylesheet has not
 // caught up with shows as a gap here rather than as an uncoloured button.
-.btn-tinted(red, var(--kui-color-red));
-.btn-tinted(orange, var(--kui-color-orange));
-.btn-tinted(yellow, var(--kui-color-yellow));
-.btn-tinted(olive, var(--kui-color-olive));
-.btn-tinted(green, var(--kui-color-green));
-.btn-tinted(teal, var(--kui-color-teal));
-.btn-tinted(blue, var(--kui-color-blue));
-.btn-tinted(volcano, var(--kui-color-volcano));
-.btn-tinted(violet, var(--kui-color-violet));
-.btn-tinted(cyan, var(--kui-color-cyan));
-.btn-tinted(gold, var(--kui-color-gold));
-.btn-tinted(lime, var(--kui-color-lime));
-.btn-tinted(magenta, var(--kui-color-magenta));
-.btn-tinted(purple, var(--kui-color-purple));
-.btn-tinted(pink, var(--kui-color-pink));
-.btn-tinted(brown, var(--kui-color-brown));
-.btn-tinted(gray, var(--kui-color-gray));
+.btn-name(red, var(--kui-color-red), #000);
+.btn-name(orange, var(--kui-color-orange), #000);
+.btn-name(yellow, var(--kui-color-yellow), #000);
+.btn-name(olive, var(--kui-color-olive), #000);
+.btn-name(green, var(--kui-color-green), #000);
+.btn-name(teal, var(--kui-color-teal), #fff);
+.btn-name(blue, var(--kui-color-blue), #000);
+.btn-name(volcano, var(--kui-color-volcano), #000);
+.btn-name(violet, var(--kui-color-violet), #000);
+.btn-name(cyan, var(--kui-color-cyan), #000);
+.btn-name(gold, var(--kui-color-gold), #000);
+.btn-name(lime, var(--kui-color-lime), #000);
+.btn-name(magenta, var(--kui-color-magenta), #000);
+.btn-name(purple, var(--kui-color-purple), #fff);
+.btn-name(pink, var(--kui-color-pink), #000);
+.btn-name(brown, var(--kui-color-brown), #000);
+.btn-name(gray, var(--kui-color-gray), #000);
 
 .k-btn-outline,
 .k-btn-dashed {
@@ -502,122 +540,6 @@
     &::before {
       background-color: var(--kui-color-reverse);
     }
-  }
-
-  &.k-btn-pink::before {
-    background-color: var(
-      --kui-color-pink-3,
-      color-mix(in srgb, var(--kui-color-pink) 70%, transparent)
-    );
-  }
-
-  &.k-btn-red::before {
-    background-color: var(
-      --kui-color-red-3,
-      color-mix(in srgb, var(--kui-color-red) 70%, transparent)
-    );
-  }
-
-  &.k-btn-yellow::before {
-    background-color: var(
-      --kui-color-yellow-3,
-      color-mix(in srgb, var(--kui-color-yellow) 70%, transparent)
-    );
-  }
-
-  &.k-btn-orange::before {
-    background-color: var(
-      --kui-color-orange-3,
-      color-mix(in srgb, var(--kui-color-orange) 70%, transparent)
-    );
-  }
-
-  &.k-btn-cyan::before {
-    background-color: var(
-      --kui-color-cyan-3,
-      color-mix(in srgb, var(--kui-color-cyan) 70%, transparent)
-    );
-  }
-
-  &.k-btn-olive::before {
-    background-color: var(
-      --kui-color-olive-3,
-      color-mix(in srgb, var(--kui-color-olive) 70%, transparent)
-    );
-  }
-
-  &.k-btn-brown::before {
-    background-color: var(
-      --kui-color-brown-3,
-      color-mix(in srgb, var(--kui-color-brown) 70%, transparent)
-    );
-  }
-
-  &.k-btn-violet::before {
-    background-color: var(
-      --kui-color-violet-3,
-      color-mix(in srgb, var(--kui-color-violet) 70%, transparent)
-    );
-  }
-
-  &.k-btn-teal::before {
-    background-color: var(
-      --kui-color-teal-3,
-      color-mix(in srgb, var(--kui-color-teal) 70%, transparent)
-    );
-  }
-
-  &.k-btn-green::before {
-    background-color: var(
-      --kui-color-green-3,
-      color-mix(in srgb, var(--kui-color-green) 70%, transparent)
-    );
-  }
-
-  &.k-btn-gray::before {
-    background-color: var(--kui-color-gray-3);
-  }
-
-  &.k-btn-blue::before {
-    background-color: var(
-      --kui-color-blue-3,
-      color-mix(in srgb, var(--kui-color-blue) 70%, transparent)
-    );
-  }
-
-  &.k-btn-purple::before {
-    background-color: var(
-      --kui-color-purple-3,
-      color-mix(in srgb, var(--kui-color-purple) 70%, transparent)
-    );
-  }
-
-  &.k-btn-magenta::before {
-    background-color: var(
-      --kui-color-magenta-3,
-      color-mix(in srgb, var(--kui-color-magenta) 70%, transparent)
-    );
-  }
-
-  &.k-btn-volcano::before {
-    background-color: var(
-      --kui-color-volcano-3,
-      color-mix(in srgb, var(--kui-color-volcano) 70%, transparent)
-    );
-  }
-
-  &.k-btn-gold::before {
-    background-color: var(
-      --kui-color-gold-3,
-      color-mix(in srgb, var(--kui-color-gold) 70%, transparent)
-    );
-  }
-
-  &.k-btn-lime::before {
-    background-color: var(
-      --kui-color-lime-3,
-      color-mix(in srgb, var(--kui-color-lime) 70%, transparent)
-    );
   }
   &:disabled {
     background: none;
