@@ -34,8 +34,10 @@ const buttonProps = {
   size: {
     type: String as PropType<SizeType>,
   },
+  // 色板之外的字符串是一条写在文档里的行为（当没写、`type` 照常生效），所以这里收 `string`
+  // 而不是那 17 个名字：禁在类型里就等于让调用方写不出这条契约。
   color: {
-    type: String as PropType<(typeof colors)[number]>,
+    type: String as PropType<string>,
   },
   loading: { type: Boolean as BooleanType, default: false },
   type: {
@@ -105,7 +107,7 @@ const Button = defineComponent({
       // A `color` only counts when `button/styles/index.less` can paint it, which is the shared palette and
       // nothing else — there is no inline arm here. So a name outside the palette must be read as "no color
       // written" rather than as a color that cancels `type` and leaves the button with no surface at all.
-      const isPresetColor = !!props.color && colors.includes(props.color);
+      const isPresetColor = !!props.color && colors.some((preset) => preset === props.color);
 
       const classes = [
         "k-btn",

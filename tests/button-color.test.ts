@@ -12,9 +12,6 @@ import { colors } from "../components/const/var";
  * 所以色板之外的字符串不能算「一种颜色」：算上的话它会把 `type` 顶掉，只剩一颗没涂面的裸 `.k-btn`。
  */
 
-// vue 的 `color` 类型就是那 17 个名字，react 的是 `string`；这里要喂类型之外的字符串，只能绕开检查。
-const outside = (value: string) => value as unknown as (typeof colors)[number];
-
 const mountButton = (props: Record<string, unknown>) =>
   mount(Button, { props: { ...props }, slots: { default: "按钮" } });
 
@@ -47,7 +44,7 @@ describe("Button color vocabulary", () => {
 
   it("reads a colour outside the palette as no colour written", () => {
     for (const color of ["tomato", "#f00", "brand-blue", "default"]) {
-      const wrapper = mountButton({ type: "primary", color: outside(color) });
+      const wrapper = mountButton({ type: "primary", color });
       try {
         // 样式表涂不出这个名字，内联臂又不存在 ⇒ 拼类名只会得到一个空壳，把 `type` 顶掉则整颗按钮没表面
         expect(wrapper.classes(), color).toContain("k-btn-primary");
@@ -60,7 +57,7 @@ describe("Button color vocabulary", () => {
   });
 
   it("keeps `default` equal to writing no colour at all", () => {
-    const withName = mountButton({ type: "primary", color: outside("default") });
+    const withName = mountButton({ type: "primary", color: "default" });
     const without = mountButton({ type: "primary" });
     try {
       expect(withName.classes()).toEqual(without.classes());
