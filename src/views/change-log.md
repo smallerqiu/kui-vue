@@ -146,6 +146,9 @@ rm -rf node_modules/.vite
 - `color` 的预设色值名里不再收 `default`：不写 `color` 用的就是组件自己的那张表面，给它再占一个名字只会让人以为色板里有一档跟主题无关的颜色。`Tag` 和数字气泡上留着 `color="default"` 现在跟没写一样；状态点仍是那颗灰点，它属于 `status`，不在这套色板里。按钮上过去写 `color="default"` 画的是 `type="default"` 那颗，现在请把 `color` 删掉或直接写 `type`。
 - `Button` 的 `color` 只认那 17 个预设色值名。写一个这套名字之外的颜色（`tomato`、`#f00`），过去按钮会连 `type` 给它的那张表面一起丢掉，只剩一颗没上色的按钮；现在它跟没写一样，`type` 照常生效。
 - `Button` 的 `color` 只写名字、不写 `theme` 时也会上色：`<Button color="blue">` 过去还是那张默认灰面，现在就是一颗蓝色实心按钮，和 `type` 那条路一样；已经写了 `theme` 的按钮表现不变。
+- `Button` 的 `color` 在 `theme="fill"` 上也上色：过去这颗按钮仍是一层灰底、名字什么都不涂，现在灰底留着、文字换成那支颜色。
+- `Button` 用 `color` 铺实心底时，文字不再一律是白：`yellow`、`orange`、`lime`、`gold` 这些浅色改用黑字，浅底白字那种读不出字的按钮没有了；禁用时仍是那支灰字。
+- `Button` 的 `color` 在 `theme="solid"` 上改成实色面：过去是同一支颜色摊薄到背景上的一层浅色，白字压不住、`gray` 更是跟背景糊在一起。现在这颗按钮跟不写 `theme` 时一样饱满，悬停、按下照样有明暗变化。
 
 ## 6.2.2
 

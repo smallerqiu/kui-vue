@@ -144,6 +144,9 @@ rm -rf node_modules/.vite
 - The preset `color` names no longer include `default`. A component with no `color` already uses its own surface, and giving that another name only suggested the palette held a tier independent of the theme. A `Tag` or a count `Badge` still written `color="default"` now renders as though nothing were set; the status dot keeps its grey, because that belongs to `status` and not to the palette. On a button, `color="default"` used to draw the `type="default"` one — drop the `color` or write `type` instead.
 - `Button`'s `color` now only answers the 17 preset names. A colour outside that set — `tomato`, `#f00` — used to take the button's own `type` surface away and leave it unpainted; it now reads as no colour written, and `type` keeps working.
 - `Button`'s `color` now paints even when no `theme` is written: `<Button color="blue">` used to keep the grey default surface and is now a solid blue button, the way `type` already behaved. Buttons that do write a `theme` look exactly as before.
+- `Button`'s `color` now paints on `theme="fill"` too. That button used to keep the grey wash with nothing coloured by the name; the wash stays, and the label takes the name's colour.
+- A solid `Button` no longer puts white text under every `color`: `yellow`, `orange`, `lime` and `gold` switch to black, so the pale-surface-white-text case nobody could read is gone. A disabled button keeps its usual grey label.
+- `Button`'s `color` on `theme="solid"` is now the surface at full strength rather than the same hue thinned over the page: white could not hold on that wash, and `gray` merged straight into the background. The button is as solid as it is with no `theme`, and hover and press still step visibly.
 
 ## 6.2.2
 

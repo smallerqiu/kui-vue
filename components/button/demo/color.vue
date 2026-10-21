@@ -7,6 +7,9 @@
       <Button v-for="color in colors" :color="color" :key="color" theme="solid">Solid</Button>
     </Space>
     <Space size="small" wrap>
+      <Button v-for="color in colors" :color="color" :key="color" theme="fill">Fill</Button>
+    </Space>
+    <Space size="small" wrap>
       <Button v-for="color in colors" :color="color" :key="color" theme="outline">Outline</Button>
     </Space>
     <Space size="small" wrap>
