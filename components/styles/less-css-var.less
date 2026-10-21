@@ -188,6 +188,12 @@
   --kui-color-text-title: @title-color; /* 标题 */
   --kui-color-text-description: @description-color; /* 描述/次要 */
   --kui-color-text-placeholder: @placeholder-color; /* 占位符 */
+  // The wash a `plain` surface takes on hover and on press: 10% and 16% of the body ink. A component
+  // arm that paints its own ink names its own pair — `components/button/styles/index.less` does — and
+  // this is the value for the ink that comes from the theme, which is why it lives here and not with
+  // the constant `--kui-theme-*` defaults above.
+  --kui-theme-plain-hover: fade(@text-color, 10%);
+  --kui-theme-plain-active: fade(@text-color, 16%);
   --kui-color-text-on-solid: #fff;
   --kui-color-control-thumb: #fff;
   --kui-color-control-thumb-text: @gray-9;
@@ -266,6 +272,8 @@
   --kui-color-text-title: @dark-title-color; /* 标题 */
   --kui-color-text-description: @dark-description-color; /* 描述/次要 */
   --kui-color-text-placeholder: @dark-placeholder-color; /* 占位符 */
+  --kui-theme-plain-hover: fade(@dark-text-color, 10%);
+  --kui-theme-plain-active: fade(@dark-text-color, 16%);
   --kui-color-text-on-solid: #fff;
   --kui-color-control-thumb: #fff;
   --kui-color-control-thumb-text: @gray-9;

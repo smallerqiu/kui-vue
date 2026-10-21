@@ -11,6 +11,15 @@
   0 4px 6px rgba(255, 255, 255, 0.1),
   0 0 1px rgba(255, 255, 255, 0.3);
 
+// --- 编译期取整 ---
+// LESS 里的混色算式会给出半数的通道（`mix(blue, cyan, 50%)` 的绿通道是 127.5）。它写进样式表时按写法
+// 各漂各的：同一支颜色，印成十六进制是 `#0080ff`，`fadeout()` 印成 rgba 是 `rgba(0, 127, 255, 0.9)`，
+// 浏览器画的时候按四舍五入取那一级 —— 一支颜色的透明度档就会和它的基色差一级。凡编译期算出的色值都
+// 先过这一层，把三个通道落成整数。`round()` 不接受颜色参数，所以逐通道拆开再拼回去。
+.snap(@c) {
+  value: rgb(round(red(@c)), round(green(@c)), round(blue(@c)));
+}
+
 // --- 功能色体系 ---
 @main: #54a9ff;
 @main-1: fadeout(@main, 10%);
@@ -49,21 +58,21 @@
 @warning-9: fadeout(@warning, 90%);
 
 // 粉色
-@pink: darken(pink, 15%);
+@pink: .snap(darken(pink, 15%))[value];
 @pink-3: fadeout(@pink, 30%);
 @pink-6: fadeout(@pink, 60%);
 @pink-8: fadeout(@pink, 80%);
 @pink-9: fadeout(@pink, 90%);
 
 // 红色
-@red: lighten(red, 5%);
+@red: .snap(lighten(red, 5%))[value];
 @red-3: fadeout(@red, 30%);
 @red-6: fadeout(@red, 60%);
 @red-8: fadeout(@red, 80%);
 @red-9: fadeout(@red, 90%);
 
 // 黄色
-@yellow: darken(yellow, 10%);
+@yellow: .snap(darken(yellow, 10%))[value];
 @yellow-3: fadeout(@yellow, 30%);
 @yellow-6: fadeout(@yellow, 60%);
 @yellow-8: fadeout(@yellow, 80%);
@@ -77,7 +86,7 @@
 @orange-9: fadeout(@orange, 90%);
 
 // 青色
-@cyan: darken(cyan, 10%);
+@cyan: .snap(darken(cyan, 10%))[value];
 @cyan-3: fadeout(@cyan, 30%);
 @cyan-6: fadeout(@cyan, 60%);
 @cyan-8: fadeout(@cyan, 80%);
@@ -91,28 +100,28 @@
 @violet-9: fadeout(@violet, 90%);
 
 // 绿色
-@green: lighten(green, 15%);
+@green: .snap(lighten(green, 15%))[value];
 @green-3: fadeout(@green, 30%);
 @green-6: fadeout(@green, 60%);
 @green-8: fadeout(@green, 80%);
 @green-9: fadeout(@green, 90%);
 
 // 蓝色
-@blue: mix(blue, cyan, 50%);
+@blue: .snap(mix(blue, cyan, 50%))[value];
 @blue-3: fadeout(@blue, 30%);
 @blue-6: fadeout(@blue, 60%);
 @blue-8: fadeout(@blue, 80%);
 @blue-9: fadeout(@blue, 90%);
 
 // 紫色
-@purple: lighten(purple, 15%);
+@purple: .snap(lighten(purple, 15%))[value];
 @purple-3: fadeout(@purple, 30%);
 @purple-6: fadeout(@purple, 60%);
 @purple-8: fadeout(@purple, 80%);
 @purple-9: fadeout(@purple, 90%);
 
 // 褐色
-@brown: mix(brown, orange, 50%);
+@brown: .snap(mix(brown, orange, 50%))[value];
 @brown-3: fadeout(@brown, 30%);
 @brown-6: fadeout(@brown, 60%);
 @brown-8: fadeout(@brown, 80%);
@@ -140,21 +149,21 @@
 @olive-9: fadeout(@olive, 90%);
 
 //火红
-@volcano: mix(red, orange, 60%);
+@volcano: .snap(mix(red, orange, 60%))[value];
 @volcano-3: fadeout(@volcano, 30%);
 @volcano-6: fadeout(@volcano, 60%);
 @volcano-8: fadeout(@volcano, 80%);
 @volcano-9: fadeout(@volcano, 90%);
 
 //金色
-@gold: darken(gold, 15%);
+@gold: .snap(darken(gold, 15%))[value];
 @gold-3: fadeout(@gold, 30%);
 @gold-6: fadeout(@gold, 60%);
 @gold-8: fadeout(@gold, 80%);
 @gold-9: fadeout(@gold, 90%);
 
 //绿黄色
-@lime: darken(lime, 15%);
+@lime: .snap(darken(lime, 15%))[value];
 @lime-3: fadeout(@lime, 30%);
 @lime-6: fadeout(@lime, 60%);
 @lime-8: fadeout(@lime, 80%);

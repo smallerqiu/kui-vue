@@ -32,7 +32,7 @@
 
   &:not(.k-btn-link, .k-btn-text):focus {
     outline: var(--kui-focus-ring-width) solid
-      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
+      var(--kui-color-outline, @main-8);
     outline-offset: 1px;
   }
 
@@ -104,17 +104,11 @@
   color: var(--kui-color-primary);
   text-decoration: none;
   &:not(:disabled):hover {
-    color: var(
-      --kui-color-primary-hover,
-      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
-    );
+    color: var(--kui-color-primary-hover, @main-1);
   }
 
   &:not(:disabled):active {
-    color: var(
-      --kui-color-primary-active,
-      color-mix(in srgb, var(--kui-color-primary) 80%, transparent)
-    );
+    color: var(--kui-color-primary-active, @main-2);
   }
 }
 
@@ -205,16 +199,10 @@
   background: var(--kui-color-primary);
   border-color: var(--kui-color-primary);
   &:not(:disabled):hover {
-    background-color: var(
-      --kui-color-primary-hover,
-      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
-    );
+    background-color: var(--kui-color-primary-hover, @main-1);
   }
   &:not(:disabled):active {
-    background-color: var(
-      --kui-color-primary-active,
-      color-mix(in srgb, var(--kui-color-primary) 80%, transparent)
-    );
+    background-color: var(--kui-color-primary-active, @main-2);
   }
 }
 
@@ -224,16 +212,10 @@
   border-color: var(--kui-color-danger);
   background: var(--kui-color-danger);
   &:not(:disabled):hover {
-    background-color: var(
-      --kui-color-danger-hover,
-      color-mix(in srgb, var(--kui-color-danger) 90%, transparent)
-    );
+    background-color: var(--kui-color-danger-hover, @danger-1);
   }
   &:not(:disabled):active {
-    background-color: var(
-      --kui-color-danger-active,
-      color-mix(in srgb, var(--kui-color-danger) 80%, transparent)
-    );
+    background-color: var(--kui-color-danger-active, @danger-2);
   }
 }
 
@@ -243,16 +225,10 @@
   border-color: var(--kui-color-warning);
   background: var(--kui-color-warning);
   &:not(:disabled):hover {
-    background-color: var(
-      --kui-color-warning-hover,
-      color-mix(in srgb, var(--kui-color-warning) 90%, transparent)
-    );
+    background-color: var(--kui-color-warning-hover, @warning-1);
   }
   &:not(:disabled):active {
-    background-color: var(
-      --kui-color-warning-active,
-      color-mix(in srgb, var(--kui-color-warning) 80%, transparent)
-    );
+    background-color: var(--kui-color-warning-active, @warning-2);
   }
 }
 
@@ -276,8 +252,19 @@
 // behind the button, and a filter that darkens toward black spends the contrast a dark label was chosen
 // for. Mixing the name toward the far side of its own label is the only shape that keeps 4.5:1 in both
 // themes and in all three states.
-.btn-name(@name, @color, @ink) {
+//
+// The step is written in LESS so the sheet carries a literal. `color-mix()` mixes while the browser
+// paints, and the Chromium an Electron build on Windows 7 ships predates it — there the step would not
+// render at all, leaving the surface stuck at its resting colour. `@base` is the very value the
+// `--kui-color-<name>` token is declared from, so the default themes keep painting the same step; a
+// theme that paints the name differently names its own, through `--kui-color-<name>-hover / -active`,
+// which is how `-3 / -6` already serve the labels and borders of the same family.
+.btn-name(@name, @color, @base, @ink) {
   @shade: rgb(255 - red(@ink), 255 - green(@ink), 255 - blue(@ink));
+  @step-9: .snap(mix(@base, @shade, 90%))[value];
+  @step-8: .snap(mix(@base, @shade, 80%))[value];
+  @hover: ~"var(--kui-color-@{name}-hover, @{step-9})";
+  @active: ~"var(--kui-color-@{name}-active, @{step-8})";
 
   .k-btn-@{name}:not(.k-btn-outline, .k-btn-dashed, .k-btn-fill, .k-btn-solid, .k-btn-plain) {
     border: none;
@@ -285,10 +272,10 @@
     background: @color;
     border-color: @color;
     &:not(:disabled):hover {
-      background-color: color-mix(in srgb, @color 90%, @shade);
+      background-color: @hover;
     }
     &:not(:disabled):active {
-      background-color: color-mix(in srgb, @color 80%, @shade);
+      background-color: @active;
     }
   }
 
@@ -302,11 +289,11 @@
     }
     &:hover:not(:disabled)::before {
       filter: none;
-      background-color: color-mix(in srgb, @color 90%, @shade);
+      background-color: @hover;
     }
     &:active:not(:disabled)::before {
       filter: none;
-      background-color: color-mix(in srgb, @color 80%, @shade);
+      background-color: @active;
     }
   }
 
@@ -319,23 +306,23 @@
 
 // Listed in the order `components/const/var.ts` lists the palette, so a name the stylesheet has not
 // caught up with shows as a gap here rather than as an uncoloured button.
-.btn-name(red, var(--kui-color-red), #000);
-.btn-name(orange, var(--kui-color-orange), #000);
-.btn-name(yellow, var(--kui-color-yellow), #000);
-.btn-name(olive, var(--kui-color-olive), #000);
-.btn-name(green, var(--kui-color-green), #000);
-.btn-name(teal, var(--kui-color-teal), #fff);
-.btn-name(blue, var(--kui-color-blue), #000);
-.btn-name(volcano, var(--kui-color-volcano), #000);
-.btn-name(violet, var(--kui-color-violet), #000);
-.btn-name(cyan, var(--kui-color-cyan), #000);
-.btn-name(gold, var(--kui-color-gold), #000);
-.btn-name(lime, var(--kui-color-lime), #000);
-.btn-name(magenta, var(--kui-color-magenta), #000);
-.btn-name(purple, var(--kui-color-purple), #fff);
-.btn-name(pink, var(--kui-color-pink), #000);
-.btn-name(brown, var(--kui-color-brown), #000);
-.btn-name(gray, var(--kui-color-gray), #000);
+.btn-name(red, var(--kui-color-red), @red, #000);
+.btn-name(orange, var(--kui-color-orange), @orange, #000);
+.btn-name(yellow, var(--kui-color-yellow), @yellow, #000);
+.btn-name(olive, var(--kui-color-olive), @olive, #000);
+.btn-name(green, var(--kui-color-green), @green, #000);
+.btn-name(teal, var(--kui-color-teal), @teal, #fff);
+.btn-name(blue, var(--kui-color-blue), @blue, #000);
+.btn-name(volcano, var(--kui-color-volcano), @volcano, #000);
+.btn-name(violet, var(--kui-color-violet), @violet, #000);
+.btn-name(cyan, var(--kui-color-cyan), @cyan, #000);
+.btn-name(gold, var(--kui-color-gold), @gold, #000);
+.btn-name(lime, var(--kui-color-lime), @lime, #000);
+.btn-name(magenta, var(--kui-color-magenta), @magenta, #000);
+.btn-name(purple, var(--kui-color-purple), @purple, #fff);
+.btn-name(pink, var(--kui-color-pink), @pink, #000);
+.btn-name(brown, var(--kui-color-brown), @brown, #000);
+.btn-name(gray, var(--kui-color-gray), @gray, #000);
 
 .k-btn-outline,
 .k-btn-dashed {
@@ -353,104 +340,68 @@
   }
   &.k-btn-primary {
     color: var(--kui-color-primary);
-    border-color: var(
-      --kui-color-primary-6,
-      color-mix(in srgb, var(--kui-color-primary) 40%, transparent)
-    );
+    border-color: var(--kui-color-primary-6, @main-6);
   }
   &.k-btn-danger {
     color: var(--kui-color-danger);
-    border-color: var(
-      --kui-color-danger-6,
-      color-mix(in srgb, var(--kui-color-danger) 40%, transparent)
-    );
+    border-color: var(--kui-color-danger-6, @danger-6);
   }
   &.k-btn-warning {
     color: var(--kui-color-warning);
-    border-color: var(
-      --kui-color-warning-6,
-      color-mix(in srgb, var(--kui-color-warning) 40%, transparent)
-    );
+    border-color: var(--kui-color-warning-6, @warning-6);
   }
 
   &.k-btn-default {
     border-color: var(--kui-control-border, var(--kui-color-border));
   }
   &.k-btn-pink {
-    color: var(--kui-color-pink-3, color-mix(in srgb, var(--kui-color-pink) 70%, transparent));
-    border-color: var(
-      --kui-color-pink-6,
-      color-mix(in srgb, var(--kui-color-pink) 40%, transparent)
-    );
+    color: var(--kui-color-pink-3, @pink-3);
+    border-color: var(--kui-color-pink-6, @pink-6);
   }
 
   &.k-btn-red {
-    color: var(--kui-color-red-3, color-mix(in srgb, var(--kui-color-red) 70%, transparent));
-    border-color: var(--kui-color-red-6, color-mix(in srgb, var(--kui-color-red) 40%, transparent));
+    color: var(--kui-color-red-3, @red-3);
+    border-color: var(--kui-color-red-6, @red-6);
   }
 
   &.k-btn-yellow {
-    color: var(--kui-color-yellow-3, color-mix(in srgb, var(--kui-color-yellow) 70%, transparent));
-    border-color: var(
-      --kui-color-yellow-6,
-      color-mix(in srgb, var(--kui-color-yellow) 40%, transparent)
-    );
+    color: var(--kui-color-yellow-3, @yellow-3);
+    border-color: var(--kui-color-yellow-6, @yellow-6);
   }
 
   &.k-btn-orange {
-    color: var(--kui-color-orange-3, color-mix(in srgb, var(--kui-color-orange) 70%, transparent));
-    border-color: var(
-      --kui-color-orange-6,
-      color-mix(in srgb, var(--kui-color-orange) 40%, transparent)
-    );
+    color: var(--kui-color-orange-3, @orange-3);
+    border-color: var(--kui-color-orange-6, @orange-6);
   }
 
   &.k-btn-cyan {
-    color: var(--kui-color-cyan-3, color-mix(in srgb, var(--kui-color-cyan) 70%, transparent));
-    border-color: var(
-      --kui-color-cyan-6,
-      color-mix(in srgb, var(--kui-color-cyan) 40%, transparent)
-    );
+    color: var(--kui-color-cyan-3, @cyan-3);
+    border-color: var(--kui-color-cyan-6, @cyan-6);
   }
 
   &.k-btn-olive {
-    color: var(--kui-color-olive-3, color-mix(in srgb, var(--kui-color-olive) 70%, transparent));
-    border-color: var(
-      --kui-color-olive-6,
-      color-mix(in srgb, var(--kui-color-olive) 40%, transparent)
-    );
+    color: var(--kui-color-olive-3, @olive-3);
+    border-color: var(--kui-color-olive-6, @olive-6);
   }
 
   &.k-btn-brown {
-    color: var(--kui-color-brown-3, color-mix(in srgb, var(--kui-color-brown) 70%, transparent));
-    border-color: var(
-      --kui-color-brown-6,
-      color-mix(in srgb, var(--kui-color-brown) 40%, transparent)
-    );
+    color: var(--kui-color-brown-3, @brown-3);
+    border-color: var(--kui-color-brown-6, @brown-6);
   }
 
   &.k-btn-violet {
-    color: var(--kui-color-violet-3, color-mix(in srgb, var(--kui-color-violet) 70%, transparent));
-    border-color: var(
-      --kui-color-violet-6,
-      color-mix(in srgb, var(--kui-color-violet) 40%, transparent)
-    );
+    color: var(--kui-color-violet-3, @violet-3);
+    border-color: var(--kui-color-violet-6, @violet-6);
   }
 
   &.k-btn-teal {
-    color: var(--kui-color-teal-3, color-mix(in srgb, var(--kui-color-teal) 70%, transparent));
-    border-color: var(
-      --kui-color-teal-6,
-      color-mix(in srgb, var(--kui-color-teal) 40%, transparent)
-    );
+    color: var(--kui-color-teal-3, @teal-3);
+    border-color: var(--kui-color-teal-6, @teal-6);
   }
 
   &.k-btn-green {
-    color: var(--kui-color-green-3, color-mix(in srgb, var(--kui-color-green) 70%, transparent));
-    border-color: var(
-      --kui-color-green-6,
-      color-mix(in srgb, var(--kui-color-green) 40%, transparent)
-    );
+    color: var(--kui-color-green-3, @green-3);
+    border-color: var(--kui-color-green-6, @green-6);
   }
 
   &.k-btn-gray {
@@ -459,57 +410,33 @@
   }
 
   &.k-btn-blue {
-    color: var(--kui-color-blue-3, color-mix(in srgb, var(--kui-color-blue) 70%, transparent));
-    border-color: var(
-      --kui-color-blue-6,
-      color-mix(in srgb, var(--kui-color-blue) 40%, transparent)
-    );
+    color: var(--kui-color-blue-3, @blue-3);
+    border-color: var(--kui-color-blue-6, @blue-6);
   }
 
   &.k-btn-purple {
-    color: var(--kui-color-purple-3, color-mix(in srgb, var(--kui-color-purple) 70%, transparent));
-    border-color: var(
-      --kui-color-purple-6,
-      color-mix(in srgb, var(--kui-color-purple) 40%, transparent)
-    );
+    color: var(--kui-color-purple-3, @purple-3);
+    border-color: var(--kui-color-purple-6, @purple-6);
   }
 
   &.k-btn-magenta {
-    color: var(
-      --kui-color-magenta-3,
-      color-mix(in srgb, var(--kui-color-magenta) 70%, transparent)
-    );
-    border-color: var(
-      --kui-color-magenta-6,
-      color-mix(in srgb, var(--kui-color-magenta) 40%, transparent)
-    );
+    color: var(--kui-color-magenta-3, @magenta-3);
+    border-color: var(--kui-color-magenta-6, @magenta-6);
   }
 
   &.k-btn-volcano {
-    color: var(
-      --kui-color-volcano-3,
-      color-mix(in srgb, var(--kui-color-volcano) 70%, transparent)
-    );
-    border-color: var(
-      --kui-color-volcano-6,
-      color-mix(in srgb, var(--kui-color-volcano) 40%, transparent)
-    );
+    color: var(--kui-color-volcano-3, @volcano-3);
+    border-color: var(--kui-color-volcano-6, @volcano-6);
   }
 
   &.k-btn-gold {
-    color: var(--kui-color-gold-3, color-mix(in srgb, var(--kui-color-gold) 70%, transparent));
-    border-color: var(
-      --kui-color-gold-6,
-      color-mix(in srgb, var(--kui-color-gold) 40%, transparent)
-    );
+    color: var(--kui-color-gold-3, @gold-3);
+    border-color: var(--kui-color-gold-6, @gold-6);
   }
 
   &.k-btn-lime {
-    color: var(--kui-color-lime-3, color-mix(in srgb, var(--kui-color-lime) 70%, transparent));
-    border-color: var(
-      --kui-color-lime-6,
-      color-mix(in srgb, var(--kui-color-lime) 40%, transparent)
-    );
+    color: var(--kui-color-lime-3, @lime-3);
+    border-color: var(--kui-color-lime-6, @lime-6);
   }
   &:disabled {
     border-color: var(--kui-color-border-disabled);
@@ -611,86 +538,128 @@
 // in the library paints one on `.k-btn`, so the tier is flat by never being drawn.
 // `tests/theme-dead-css.test.ts` pins that - button's shadow allow-list is empty - so a button state
 // that grows a glow has to be ruled there first.
+//
+// A plain button washes in its own ink, so every arm names the tint next to the colour it tints:
+// `--kui-theme-plain-hover / -active` carry 10% and 16% of that ink and the tier paints whatever the
+// arm declares. Both are written out at build time — `color-mix()` mixes while the browser paints, and
+// the Chromium an Electron build on Windows 7 ships predates it, so the wash would not appear at all.
+// The neutral case is the one ink that moves between themes, so its tint is declared with the text
+// colour it comes from in `less-css-var.less`. A name's label is itself drawn at 70% alpha, which is
+// why its wash reads 7% and 11.2% rather than 10% and 16%.
 .k-btn-plain {
   border-color: transparent;
   background: transparent;
 
   &:not(:disabled):hover {
-    background-color: color-mix(in srgb, currentcolor 10%, transparent);
+    background-color: var(--kui-theme-plain-hover);
   }
 
   &:not(:disabled):active {
-    background-color: color-mix(in srgb, currentcolor 16%, transparent);
+    background-color: var(--kui-theme-plain-active);
   }
 
   &.k-btn-primary {
     color: var(--kui-color-primary);
+    --kui-theme-plain-hover: fade(@main, 10%);
+    --kui-theme-plain-active: fade(@main, 16%);
   }
   &.k-btn-danger {
     color: var(--kui-color-danger);
+    --kui-theme-plain-hover: fade(@danger, 10%);
+    --kui-theme-plain-active: fade(@danger, 16%);
   }
   &.k-btn-warning {
     color: var(--kui-color-warning);
+    --kui-theme-plain-hover: fade(@warning, 10%);
+    --kui-theme-plain-active: fade(@warning, 16%);
   }
   &.k-btn-default {
     color: var(--kui-control-text, var(--kui-color-text));
   }
   &.k-btn-red {
-    color: var(--kui-color-red-3, color-mix(in srgb, var(--kui-color-red) 70%, transparent));
+    color: var(--kui-color-red-3, @red-3);
+    --kui-theme-plain-hover: fade(@red, 7%);
+    --kui-theme-plain-active: fade(@red, 11.2%);
   }
   &.k-btn-orange {
-    color: var(--kui-color-orange-3, color-mix(in srgb, var(--kui-color-orange) 70%, transparent));
+    color: var(--kui-color-orange-3, @orange-3);
+    --kui-theme-plain-hover: fade(@orange, 7%);
+    --kui-theme-plain-active: fade(@orange, 11.2%);
   }
   &.k-btn-yellow {
-    color: var(--kui-color-yellow-3, color-mix(in srgb, var(--kui-color-yellow) 70%, transparent));
+    color: var(--kui-color-yellow-3, @yellow-3);
+    --kui-theme-plain-hover: fade(@yellow, 7%);
+    --kui-theme-plain-active: fade(@yellow, 11.2%);
   }
   &.k-btn-olive {
-    color: var(--kui-color-olive-3, color-mix(in srgb, var(--kui-color-olive) 70%, transparent));
+    color: var(--kui-color-olive-3, @olive-3);
+    --kui-theme-plain-hover: fade(@olive, 7%);
+    --kui-theme-plain-active: fade(@olive, 11.2%);
   }
   &.k-btn-green {
-    color: var(--kui-color-green-3, color-mix(in srgb, var(--kui-color-green) 70%, transparent));
+    color: var(--kui-color-green-3, @green-3);
+    --kui-theme-plain-hover: fade(@green, 7%);
+    --kui-theme-plain-active: fade(@green, 11.2%);
   }
   &.k-btn-teal {
-    color: var(--kui-color-teal-3, color-mix(in srgb, var(--kui-color-teal) 70%, transparent));
+    color: var(--kui-color-teal-3, @teal-3);
+    --kui-theme-plain-hover: fade(@teal, 7%);
+    --kui-theme-plain-active: fade(@teal, 11.2%);
   }
   &.k-btn-blue {
-    color: var(--kui-color-blue-3, color-mix(in srgb, var(--kui-color-blue) 70%, transparent));
+    color: var(--kui-color-blue-3, @blue-3);
+    --kui-theme-plain-hover: fade(@blue, 7%);
+    --kui-theme-plain-active: fade(@blue, 11.2%);
   }
   &.k-btn-volcano {
-    color: var(
-      --kui-color-volcano-3,
-      color-mix(in srgb, var(--kui-color-volcano) 70%, transparent)
-    );
+    color: var(--kui-color-volcano-3, @volcano-3);
+    --kui-theme-plain-hover: fade(@volcano, 7%);
+    --kui-theme-plain-active: fade(@volcano, 11.2%);
   }
   &.k-btn-violet {
-    color: var(--kui-color-violet-3, color-mix(in srgb, var(--kui-color-violet) 70%, transparent));
+    color: var(--kui-color-violet-3, @violet-3);
+    --kui-theme-plain-hover: fade(@violet, 7%);
+    --kui-theme-plain-active: fade(@violet, 11.2%);
   }
   &.k-btn-cyan {
-    color: var(--kui-color-cyan-3, color-mix(in srgb, var(--kui-color-cyan) 70%, transparent));
+    color: var(--kui-color-cyan-3, @cyan-3);
+    --kui-theme-plain-hover: fade(@cyan, 7%);
+    --kui-theme-plain-active: fade(@cyan, 11.2%);
   }
   &.k-btn-gold {
-    color: var(--kui-color-gold-3, color-mix(in srgb, var(--kui-color-gold) 70%, transparent));
+    color: var(--kui-color-gold-3, @gold-3);
+    --kui-theme-plain-hover: fade(@gold, 7%);
+    --kui-theme-plain-active: fade(@gold, 11.2%);
   }
   &.k-btn-lime {
-    color: var(--kui-color-lime-3, color-mix(in srgb, var(--kui-color-lime) 70%, transparent));
+    color: var(--kui-color-lime-3, @lime-3);
+    --kui-theme-plain-hover: fade(@lime, 7%);
+    --kui-theme-plain-active: fade(@lime, 11.2%);
   }
   &.k-btn-magenta {
-    color: var(
-      --kui-color-magenta-3,
-      color-mix(in srgb, var(--kui-color-magenta) 70%, transparent)
-    );
+    color: var(--kui-color-magenta-3, @magenta-3);
+    --kui-theme-plain-hover: fade(@magenta, 7%);
+    --kui-theme-plain-active: fade(@magenta, 11.2%);
   }
   &.k-btn-purple {
-    color: var(--kui-color-purple-3, color-mix(in srgb, var(--kui-color-purple) 70%, transparent));
+    color: var(--kui-color-purple-3, @purple-3);
+    --kui-theme-plain-hover: fade(@purple, 7%);
+    --kui-theme-plain-active: fade(@purple, 11.2%);
   }
   &.k-btn-pink {
-    color: var(--kui-color-pink-3, color-mix(in srgb, var(--kui-color-pink) 70%, transparent));
+    color: var(--kui-color-pink-3, @pink-3);
+    --kui-theme-plain-hover: fade(@pink, 7%);
+    --kui-theme-plain-active: fade(@pink, 11.2%);
   }
   &.k-btn-brown {
-    color: var(--kui-color-brown-3, color-mix(in srgb, var(--kui-color-brown) 70%, transparent));
+    color: var(--kui-color-brown-3, @brown-3);
+    --kui-theme-plain-hover: fade(@brown, 7%);
+    --kui-theme-plain-active: fade(@brown, 11.2%);
   }
   &.k-btn-gray {
     color: var(--kui-color-gray-3);
+    --kui-theme-plain-hover: fade(@gray-3, 10%);
+    --kui-theme-plain-active: fade(@gray-3, 16%);
   }
 
   &:disabled {
