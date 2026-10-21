@@ -27,7 +27,7 @@ Vue.use(Button);
 
 [多彩](./demo/color.vue)
 
-- 使用 `color` 可以衍生出更多的变体按钮。
+- 使用 `color` 可以衍生出更多的变体按钮；不写 `theme` 时，色板里的名字本身就是一张实心按钮。
 
 [带图标](./demo/with-icon.vue)
 
@@ -61,7 +61,7 @@ Vue.use(Button);
 | htmlType | 设置 button 原生的 type 值 | `"button" \| "submit" \| "reset"` | button |
 | disabled | 按钮失效状态 ˚ | `boolean` | false |
 | size | 按钮尺寸, | `"small" \| "medium" \| "large"` | - |
-| color | 按钮颜色：预设色值名（与 `Tag` / `Badge` 同一套，如 `blue`）；这套名字之外的颜色不改变按钮外观 | `string` | - |
+| color | 按钮颜色：预设色值名（与 `Tag` / `Badge` 同一套，如 `blue`）；写了 `theme` 就在这一档上上色，没写时它自带一张实心面；这套名字之外的颜色不改变按钮外观 | `string` | - |
 | shape | 按钮的外观 | `"default" \| "circle" \| "square" \| "round"` | - |
 | theme | 按钮主题，可用 `fill` / `outline` / `plain` / `solid` / `dashed`；不写 `theme` 就是按钮自身的外观，`underlined` 是给可输入的控件用的，按钮不会画下划线 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | icon | 从 kui-icons 导入的图标定义（如 Search），不是字符串或已渲染的 Icon 元素 | `IconType[]` | - |

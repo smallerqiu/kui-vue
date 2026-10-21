@@ -145,6 +145,7 @@ rm -rf node_modules/.vite
 - `Tag` 的 `color` 现在 17 个预设色值名都认：`olive`、`teal`、`violet`、`brown`、`gray` 写上去以前是一张没上色的标签，现在按名字上色。`gray` 走中性那一档，文字照常可读。
 - `color` 的预设色值名里不再收 `default`：不写 `color` 用的就是组件自己的那张表面，给它再占一个名字只会让人以为色板里有一档跟主题无关的颜色。`Tag` 和数字气泡上留着 `color="default"` 现在跟没写一样；状态点仍是那颗灰点，它属于 `status`，不在这套色板里。按钮上过去写 `color="default"` 画的是 `type="default"` 那颗，现在请把 `color` 删掉或直接写 `type`。
 - `Button` 的 `color` 只认那 17 个预设色值名。写一个这套名字之外的颜色（`tomato`、`#f00`），过去按钮会连 `type` 给它的那张表面一起丢掉，只剩一颗没上色的按钮；现在它跟没写一样，`type` 照常生效。
+- `Button` 的 `color` 只写名字、不写 `theme` 时也会上色：`<Button color="blue">` 过去还是那张默认灰面，现在就是一颗蓝色实心按钮，和 `type` 那条路一样；已经写了 `theme` 的按钮表现不变。
 
 ## 6.2.2
 

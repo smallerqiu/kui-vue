@@ -27,7 +27,7 @@ Vue.use(Button);
 
 [Color Variants](./demo/color.vue)
 
-- Use `color` to create more button variants.
+- Use `color` to create more button variants; without `theme`, a palette name is already a solid button.
 
 [With Icon](./demo/with-icon.vue)
 
@@ -61,7 +61,7 @@ Vue.use(Button);
 | htmlType | Set the native type value of the button | `"button" \| "submit" \| "reset"` | button |
 | disabled | Disabled state of the button | `boolean` | false |
 | size | Button size, | `"small" \| "medium" \| "large"` | - |
-| color | Button color: a preset name (the same set `Tag` / `Badge` use, e.g. `blue`); a color outside this set does not change the button's look | `string` | - |
+| color | Button color: a preset name (the same set `Tag` / `Badge` use, e.g. `blue`); with `theme` it paints that tier, without one it brings its own solid surface; a color outside this set does not change the button's look | `string` | - |
 | shape | When shape=circle, presents a circular button | `"default" \| "circle" \| "square" \| "round"` | false |
 | theme | Button theme; `fill` / `outline` / `plain` / `solid` / `dashed` are drawn. Leaving `theme` unset keeps the button's own look, and `underlined` belongs to controls you type into, so a button never draws an underline | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed"` | - |
 | icon | Icon definition imported from kui-icons (e.g. Search), not a string or rendered Icon element | `IconType[]` | - |

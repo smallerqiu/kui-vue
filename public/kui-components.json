@@ -2156,9 +2156,9 @@
         },
         {
           "name": "color",
-          "description": "Button color: a preset name (the same set `Tag` / `Badge` use, e.g. `blue`); a color outside this set does not change the button's look",
-          "descriptionZh": "按钮颜色：预设色值名（与 `Tag` / `Badge` 同一套，如 `blue`）；这套名字之外的颜色不改变按钮外观",
-          "descriptionEn": "Button color: a preset name (the same set `Tag` / `Badge` use, e.g. `blue`); a color outside this set does not change the button's look",
+          "description": "Button color: a preset name (the same set `Tag` / `Badge` use, e.g. `blue`); with `theme` it paints that tier, without one it brings its own solid surface; a color outside this set does not change the button's look",
+          "descriptionZh": "按钮颜色：预设色值名（与 `Tag` / `Badge` 同一套，如 `blue`）；写了 `theme` 就在这一档上上色，没写时它自带一张实心面；这套名字之外的颜色不改变按钮外观",
+          "descriptionEn": "Button color: a preset name (the same set `Tag` / `Badge` use, e.g. `blue`); with `theme` it paints that tier, without one it brings its own solid surface; a color outside this set does not change the button's look",
           "type": "string | undefined",
           "boolean": false,
           "required": false,
@@ -2181,7 +2181,7 @@
         {
           "title": "多彩",
           "file": "components/button/demo/color.vue",
-          "source": "<template>\n  <Space size=\"small\" wrap>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"solid\">Solid</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"outline\">Outline</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"dashed\">Dashed</Button>\n    </Space>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nconst colors = [\n  \"red\",\n  \"orange\",\n  \"yellow\",\n  \"olive\",\n  \"green\",\n  \"teal\",\n  \"blue\",\n  \"volcano\",\n  \"violet\",\n  \"cyan\",\n  \"gold\",\n  \"lime\",\n  \"magenta\",\n  \"purple\",\n  \"pink\",\n  \"brown\",\n  \"gray\",\n] as const;\n</script>"
+          "source": "<template>\n  <Space size=\"small\" wrap>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\">No theme</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"solid\">Solid</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"outline\">Outline</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"dashed\">Dashed</Button>\n    </Space>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nconst colors = [\n  \"red\",\n  \"orange\",\n  \"yellow\",\n  \"olive\",\n  \"green\",\n  \"teal\",\n  \"blue\",\n  \"volcano\",\n  \"violet\",\n  \"cyan\",\n  \"gold\",\n  \"lime\",\n  \"magenta\",\n  \"purple\",\n  \"pink\",\n  \"brown\",\n  \"gray\",\n] as const;\n</script>"
         },
         {
           "title": "带图标",
@@ -2280,7 +2280,7 @@
         {
           "title": "多彩",
           "file": "components/button/demo/color.vue",
-          "source": "<template>\n  <Space size=\"small\" wrap>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"solid\">Solid</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"outline\">Outline</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"dashed\">Dashed</Button>\n    </Space>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nconst colors = [\n  \"red\",\n  \"orange\",\n  \"yellow\",\n  \"olive\",\n  \"green\",\n  \"teal\",\n  \"blue\",\n  \"volcano\",\n  \"violet\",\n  \"cyan\",\n  \"gold\",\n  \"lime\",\n  \"magenta\",\n  \"purple\",\n  \"pink\",\n  \"brown\",\n  \"gray\",\n] as const;\n</script>"
+          "source": "<template>\n  <Space size=\"small\" wrap>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\">No theme</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"solid\">Solid</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"outline\">Outline</Button>\n    </Space>\n    <Space size=\"small\" wrap>\n      <Button v-for=\"color in colors\" :color=\"color\" :key=\"color\" theme=\"dashed\">Dashed</Button>\n    </Space>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nconst colors = [\n  \"red\",\n  \"orange\",\n  \"yellow\",\n  \"olive\",\n  \"green\",\n  \"teal\",\n  \"blue\",\n  \"volcano\",\n  \"violet\",\n  \"cyan\",\n  \"gold\",\n  \"lime\",\n  \"magenta\",\n  \"purple\",\n  \"pink\",\n  \"brown\",\n  \"gray\",\n] as const;\n</script>"
         },
         {
           "title": "带图标",

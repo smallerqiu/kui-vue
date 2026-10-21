@@ -143,6 +143,7 @@ rm -rf node_modules/.vite
 - `Tag` color now answers all 17 preset names: `olive`, `teal`, `violet`, `brown` and `gray` used to render a tag that was never painted, and now colour it by name. `gray` takes the neutral chip, where the label stays readable.
 - The preset `color` names no longer include `default`. A component with no `color` already uses its own surface, and giving that another name only suggested the palette held a tier independent of the theme. A `Tag` or a count `Badge` still written `color="default"` now renders as though nothing were set; the status dot keeps its grey, because that belongs to `status` and not to the palette. On a button, `color="default"` used to draw the `type="default"` one — drop the `color` or write `type` instead.
 - `Button`'s `color` now only answers the 17 preset names. A colour outside that set — `tomato`, `#f00` — used to take the button's own `type` surface away and leave it unpainted; it now reads as no colour written, and `type` keeps working.
+- `Button`'s `color` now paints even when no `theme` is written: `<Button color="blue">` used to keep the grey default surface and is now a solid blue button, the way `type` already behaved. Buttons that do write a `theme` look exactly as before.
 
 ## 6.2.2
 
