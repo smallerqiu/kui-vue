@@ -278,8 +278,10 @@ const ERROR_SCOPE_ARROWS = [
   { component: "cascader", selector: `${ERROR_SCOPE_PREFIX}.k-cascader .k-cascader-arrow` },
 ];
 
-const DANGER_RING =
-  "0 0 0 2px var(--kui-color-danger-9, color-mix(in srgb, var(--kui-color-danger) 10%, transparent))";
+// The shade is mixed at build time and ships as a literal — `color-mix()` mixes while painting, so a
+// declaration written with it gives a shell older than Chrome 111 no value at all. The literal is
+// danger at 10%, the same share the LESS palette ladder publishes as `@danger-9`.
+const DANGER_RING = "0 0 0 2px var(--kui-color-danger-9, rgba(252, 114, 90, 0.1))";
 
 /**
  * color-picker 的档状态臂压的是基础边框，不是自己档的重复：基础 `:hover` 那条只排 `disabled`，

@@ -233,4 +233,6 @@ CSS Variables 会向下继承，因此无需创建另一份组件样式。下面
 
 着色相关的派生 Token 也在同一批可选覆盖项里：`--kui-color-primary-hover`、`--kui-color-primary-active`、焦点光晕 `--kui-color-outline`、透明层级 `--kui-color-<色名>-3`/`-6`/`-9`，色板名字的 hover/active 是 `--kui-color-<色名>-hover`/`-active`。库内不给它们定死默认值，要单独改某一档时显式声明即可；`plain` 档的按压底色读 `--kui-theme-plain-hover`、`--kui-theme-plain-active`，语义类型和色板名字会各自在按钮上重声明这两个。
 
+这些着色档位由构建期从基色算好后写进样式表，浏览器不再参与混色，所以只改基色不会带着它们走：覆盖 `--kui-color-primary` 只会挪动静置面，hover 与洗色仍停在构建时那一级。要让某一片走，就显式声明它对应的那一档。`solid` 档面上较淡的那几笔（焦点环 `--kui-theme-solid-outline`、前后缀图标 `--kui-theme-solid-muted`、占位符 `--kui-theme-solid-placeholder`、面上的小标签 `--kui-theme-solid-chip`）读的是同一条反白墨色，明暗两套都给了默认值，整体换一套墨色时改 `--kui-color-text-on-solid` 之外还要把这四个一起重声明。
+
 在自定义 CSS 中直接使用这些可选 Token 时，也应提供基础变量作为回退，例如 `background: var(--kui-control-bg, var(--kui-color-bg))`。读取默认主题颜色时优先使用基础 Token。

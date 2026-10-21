@@ -181,6 +181,35 @@ const declarations = (body: string | undefined, label: string) => {
   );
 };
 
+// A `solid` plate draws its quieter parts — focus ring, placeholder, chrome icons, the chips sitting
+// on it — from the same inverted ink, and those shares are mixed at build time and published as their
+// own hooks. The hook name is the contract a guard can check: the tier has to ask for its part rather
+// than copy a colour, so a theme that names the parts still reaches them.
+const SOLID_OUTLINE = "var(--kui-theme-solid-outline)";
+const SOLID_MUTED = "var(--kui-theme-solid-muted)";
+const SOLID_PLACEHOLDER = "var(--kui-theme-solid-placeholder)";
+const SOLID_CHIP = "var(--kui-theme-solid-chip)";
+
+// A shade is a literal in the sheet: LESS mixed it out of the palette token, because `color-mix()`
+// mixes while painting and a shell older than Chrome 111 gives that declaration no value at all. The
+// expected share is therefore serialised here from the `:root` value the same sheet publishes, so the
+// guard follows the palette instead of hard-coding one hex.
+const share = (compiled: Map<string, string>, token: string, pct: number) => {
+  const root = declarations(compiled.get(":root"), `${token} is not published on :root`);
+  const raw = root.get(token);
+  expect(raw, `${token} is not published on :root`).toBeDefined();
+  const hex = /^#([0-9a-f]+)$/i.exec(raw!);
+  // A sheet may publish the ink in shorthand (`#fff` is `#ffffff`), so read it the way CSS does.
+  const digits =
+    hex?.[1]?.length === 3 ? [...hex[1]].map((digit) => digit + digit).join("") : hex?.[1];
+  const channels =
+    digits && /^([0-9a-f]{2}){3}$/.test(digits)
+      ? (digits.match(/../g) ?? []).map((pair) => Number.parseInt(pair, 16))
+      : (raw!.match(/\d+(?:\.\d+)?/g) ?? []).slice(0, 3).map(Number);
+  expect(channels.length, `${raw} is not an rgb triple`).toBe(3);
+  return `rgba(${channels[0]}, ${channels[1]}, ${channels[2]}, ${pct / 100})`;
+};
+
 it("paints every tier the plain controls declare", async () => {
   for (const { entry, name } of PLAIN_CONTROLS) {
     const compiled = await fileRules(entry);
@@ -213,7 +242,7 @@ it("paints every tier the plain controls declare", async () => {
       `${name} solid hover`,
     );
     expect(solidHover.get("background-color")).toBe(
-      "var(--kui-color-primary-hover, color-mix(in srgb, var(--kui-color-primary) 90%, transparent))",
+      `var(--kui-color-primary-hover, ${share(compiled, "--kui-color-primary", 90)})`,
     );
     // A `solid` box must not wear the base glow over its own fill. Whether the block says that by
     // hand or by never having to say it is a cascade question: the base hover rule names `solid`
@@ -228,7 +257,7 @@ it("paints every tier the plain controls declare", async () => {
         compiled.get(`${solid}:focus, ${solid}.${name}-opened`),
         `${name} solid focus`,
       ).get("outline-color"),
-    ).toBe("color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent)");
+    ).toBe(SOLID_OUTLINE);
 
     const underlined = `.${name}-underlined:not(.${name}-disabled)`;
     const underlinedBody = declarations(compiled.get(underlined), `${name} underlined`);
@@ -392,7 +421,7 @@ it("paints the four tiers on the color picker trigger", async () => {
     "color picker solid interaction",
   );
   expect(solidOpened.get("background-color")).toBe(
-    "var(--kui-color-primary-hover, color-mix(in srgb, var(--kui-color-primary) 90%, transparent))",
+    `var(--kui-color-primary-hover, ${share(compiled, "--kui-color-primary", 90)})`,
   );
   expect(solidOpened.get("box-shadow") ?? "none", "an open solid box keeps the base glow").toBe(
     "none",
@@ -421,9 +450,10 @@ it("paints the four tiers on the color picker trigger", async () => {
     compiled.get(`${plain}:hover, ${plain}.${name}-opened`),
     "an open plain box brings a border or a surface back",
   );
-  expect(plainOpened.get("border-color"), "an open plain box lights a border it does not have").toBe(
-    "var(--kui-theme-plain-border)",
-  );
+  expect(
+    plainOpened.get("border-color"),
+    "an open plain box lights a border it does not have",
+  ).toBe("var(--kui-theme-plain-border)");
   expect(plainOpened.get("background"), "an open plain box brings its surface back").toBe(
     "var(--kui-theme-plain-bg)",
   );
@@ -625,43 +655,74 @@ it("inverts the chrome inside a solid box and redraws its focus ring", async () 
         ).toBe(true);
       if (shape.placeholder !== false)
         expect(
-          painting(
-            compiled,
-            shape,
-            "solid",
-            "color",
-            "color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent)",
-            "::placeholder",
-          ),
+          painting(compiled, shape, "solid", "color", SOLID_PLACEHOLDER, "::placeholder"),
           `${shape.prefix}${shape.marker} solid leaves the placeholder unreadable`,
         ).toBe(true);
       for (const part of shape.chrome)
         expect(
-          painting(
-            compiled,
-            shape,
-            "solid",
-            "color",
-            "color-mix(in srgb, var(--kui-color-text-on-solid) 85%, transparent)",
-            `.${shape.prefix}-${part}`,
-          ),
+          painting(compiled, shape, "solid", "color", SOLID_MUTED, `.${shape.prefix}-${part}`),
           `${shape.prefix} solid leaves .${shape.prefix}-${part} dark`,
         ).toBe(true);
 
       // The base ring is primary on a primary surface, i.e. nothing: it is redrawn in the inverted
       // colour rather than dropped, so a keyboard user still sees where the caret is.
       expect(
-        painting(
-          compiled,
-          shape,
-          "solid",
-          "outline-color",
-          "color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent)",
-          "focus",
-        ),
+        painting(compiled, shape, "solid", "outline-color", SOLID_OUTLINE, "focus"),
         `${shape.prefix}${shape.marker} solid loses its focus ring`,
       ).toBe(true);
     }
+  }
+});
+
+// Three boxes put their chosen values on their own surface as chips: a tag box holds its tags, and
+// the two multiple-selection controls hold their selected options. A chip painted from the palette
+// would be primary ink on a primary plate inside a `solid` box, i.e. nothing, so each of them plates
+// its chips from the same inverted ink the rest of the chrome uses — and asks for it through the
+// hook rather than copying a colour, so a theme that names that ink reaches every chip in the
+// library.
+it("plates the chips that sit inside a solid box", async () => {
+  const CHIPPED_BOXES = [
+    {
+      entry: "components/input-tag/styles/index.less",
+      name: "k-input-tag",
+      chip: ".k-input-tag-item.k-tag",
+    },
+    { entry: "components/select/styles/index.less", name: "k-select", chip: ".k-tag" },
+    { entry: "components/tree-select/styles/index.less", name: "k-tree-select", chip: ".k-tag" },
+  ] as const;
+  for (const { entry, name, chip } of CHIPPED_BOXES) {
+    const compiled = await fileRules(entry);
+    const plate = declarations(
+      compiled.get(`.${name}-solid:not(.${name}-disabled) ${chip}`),
+      `${name} solid chip`,
+    );
+    expect(plate.get("background-color"), `${name} leaves its chips in the plate colour`).toBe(
+      SOLID_CHIP,
+    );
+    expect(plate.get("color"), `${name} chips keep the surrounding text colour`).toBe(
+      "var(--kui-color-text-on-solid)",
+    );
+  }
+});
+
+// Both theme blocks publish the shares and publish them as literals: a hook that only the light
+// block names disappears when a page switches theme, and a hook mixed with `color-mix()` hands a
+// shell older than Chrome 111 no value at all. The expected literal is read from the same sheet's
+// `--kui-color-text-on-solid`, so the guard follows the ink instead of hard-coding white.
+it("publishes the inverted-ink shares as literals in both themes", async () => {
+  const compiled = await fileRules("components/styles/less-css-var.less");
+  const inked = [
+    ["--kui-theme-solid-outline", 40],
+    ["--kui-theme-solid-muted", 85],
+    ["--kui-theme-solid-placeholder", 75],
+    ["--kui-theme-solid-chip", 18],
+  ] as const;
+  for (const block of [":root", '[theme-mode="light"]', '[theme-mode="dark"]']) {
+    const published = declarations(compiled.get(block), `${block} publishes no theme variables`);
+    for (const [hook, pct] of inked)
+      expect(published.get(hook), `${block} leaves ${hook} unset or mixes it while painting`).toBe(
+        share(compiled, "--kui-color-text-on-solid", pct),
+      );
   }
 });
 
@@ -1478,9 +1539,9 @@ it("paints a transfer's tiers on its lists and leaves what other components own"
   const classes = (selector: string) => (selector.match(/\./g) ?? []).length;
 
   // `base.less` gives every element `border: 0 solid`, so the three tiers that only name a border colour
-// need the lists to carry a width of their own. Without it `fill` — the grey plate this component draws
-// under `ConfigProvider theme="fill"` — ships a class and paints nothing, the shape a board's columns
-// would have without it.
+  // need the lists to carry a width of their own. Without it `fill` — the grey plate this component draws
+  // under `ConfigProvider theme="fill"` — ships a class and paints nothing, the shape a board's columns
+  // would have without it.
   expect(
     declarations(compiled.get(TRANSFER_LIST), "transfer list base").get("border"),
     "a transfer list keeps no edge for the border-colour tiers to colour",

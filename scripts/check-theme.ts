@@ -41,7 +41,7 @@ const compile = async (entry: string) => {
          surface reads. */
       .mark-hooks {--kui-theme-fill-border:#00ffff}
       /* solid fills with the primary, so this scope declares its own; the hover stop stays
-         undefined, which is what proves the 90% mix is computed at the point of use. */
+         undefined, which is what proves the shade the build left in the sheet does not move with it. */
       .solid-scope {--kui-color-primary:#ff0000}
     </style>
     <div class="local" id="local">
@@ -92,6 +92,38 @@ const compile = async (entry: string) => {
         probe.remove();
         return computed;
       }, value);
+    // The shades migrated families ship are literals the build mixed out of the palette token, so an
+    // expectation has to be read from that sheet rather than written with `color-mix()`: a colour the
+    // browser mixes itself serialises as `color(srgb …)`, which never equals the rgba literal a shell
+    // older than Chrome 111 is left with, and the mix a modern shell can still run is the very thing
+    // being retired. Reads the first `var(--token, <built-in>)` chain in one component's own compiled
+    // sheet, because a family still on the old form keeps the same hook name.
+    const fileSheet = new Map<string, string>();
+    const shippedChain = async (entry: string, token: string) => {
+      if (!fileSheet.has(entry)) {
+        const filename = path.join(root, entry);
+        fileSheet.set(
+          entry,
+          (await less.render(fs.readFileSync(filename, "utf8"), { filename })).css,
+        );
+      }
+      const sheet = fileSheet.get(entry)!;
+      const needle = `var(${token},`;
+      const at = sheet.indexOf(needle);
+      assert.ok(at >= 0, `${entry} ships no built-in value for ${token}`);
+      let depth = 0;
+      let end = at + needle.length;
+      while (end < sheet.length) {
+        if (sheet[end] === "(") depth += 1;
+        else if (sheet[end] === ")") {
+          if (!depth) break;
+          depth -= 1;
+        }
+        end += 1;
+      }
+      return sheet.slice(at, end + 1);
+    };
+
     const style = (id: string, prop: string) =>
       page.locator("#" + id).evaluate((el, prop) => {
         el.getAnimations().forEach((a) => a.finish());
@@ -304,8 +336,10 @@ const compile = async (entry: string) => {
       await resolve("default-select-outline", "var(--kui-color-primary)"),
       "outline select must light its border under the pointer",
     );
-    // `solid` is the emphasis block: primary surface, same-colour border, inverted text. Hover
-    // deepens the same red through the mixed default, so a local primary moves both states.
+    // `solid` is the emphasis block: primary surface, same-colour border, inverted text. Its hover stop
+    // is a shade the build mixed out of the default palette, so a scope that repaints only the base
+    // moves the resting surface and leaves the stop where the build left it — the same trade the button
+    // path documents above, and the cost of shipping a value an older Chromium can read.
     assertColor(
       await rgba("default-select-solid", "background-color"),
       [255, 0, 0, 255],
@@ -318,18 +352,12 @@ const compile = async (entry: string) => {
     // control keeps its own colour.
     assert.equal(
       await style("solid-placeholder", "color"),
-      await resolve(
-        "solid-placeholder",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent)",
-      ),
+      await resolve("solid-placeholder", "var(--kui-theme-solid-placeholder)"),
       "a solid control must invert its placeholder",
     );
     assert.notEqual(
       await style("outline-placeholder", "color"),
-      await resolve(
-        "outline-placeholder",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent)",
-      ),
+      await resolve("outline-placeholder", "var(--kui-theme-solid-placeholder)"),
       "the solid colour rules must not leak into other tiers",
     );
     await page.locator("#default-select-solid").hover();
@@ -338,8 +366,8 @@ const compile = async (entry: string) => {
       .evaluate((el) => el.getAnimations().forEach((a) => a.finish()));
     assertColor(
       await rgba("default-select-solid", "background-color"),
-      [255, 0, 0, 230],
-      "solid select hover must follow the local primary",
+      [84, 169, 255, 230],
+      "a solid box whose scope declares no hover stop must keep the build-time literal",
     );
     assert.equal(
       await style("default-select-solid", "box-shadow"),
@@ -506,10 +534,7 @@ const compile = async (entry: string) => {
     );
     assert.equal(
       await style("solid-input-chrome", "color"),
-      await resolve(
-        "solid-input-chrome",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 85%, transparent)",
-      ),
+      await resolve("solid-input-chrome", "var(--kui-theme-solid-muted)"),
       "a solid box must invert the chrome around its field",
     );
     // `::placeholder` is only readable through a pseudo-element style.
@@ -517,17 +542,14 @@ const compile = async (entry: string) => {
       page.locator("#" + id).evaluate((el) => getComputedStyle(el, "::placeholder").color);
     assert.equal(
       await placeholder("default-input-solid-single"),
-      await resolve(
-        "default-input-solid-single",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent)",
-      ),
+      await resolve("default-input-solid-single", "var(--kui-theme-solid-placeholder)"),
       "a solid box must invert its placeholder",
     );
     await page.locator("#default-input-solid").hover();
     assertColor(
       await rgba("default-input-solid", "background-color"),
-      [255, 0, 0, 230],
-      "solid input hover must follow the local primary",
+      [84, 169, 255, 230],
+      "solid input hover must keep the literal the build left, not chase the local primary",
     );
     assert.equal(
       await style("default-input-solid", "box-shadow"),
@@ -539,19 +561,13 @@ const compile = async (entry: string) => {
     await page.locator("#default-input-solid-single").focus();
     assert.equal(
       await style("default-input-solid-single", "outline-color"),
-      await resolve(
-        "default-input-solid-single",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent)",
-      ),
+      await resolve("default-input-solid-single", "var(--kui-theme-solid-outline)"),
       "a focused solid box must show an inverted ring",
     );
     await page.locator("#default-input-outline-single").focus();
     assert.notEqual(
       await style("default-input-outline-single", "outline-color"),
-      await resolve(
-        "default-input-outline-single",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent)",
-      ),
+      await resolve("default-input-outline-single", "var(--kui-theme-solid-outline)"),
       "the inverted ring must stay scoped to solid",
     );
     // A `<textarea>` and an `InputNumber` carry the same tier on their own element, and everything
@@ -574,10 +590,7 @@ const compile = async (entry: string) => {
     );
     assert.equal(
       await style("solid-number-controls", "color"),
-      await resolve(
-        "solid-number-controls",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 85%, transparent)",
-      ),
+      await resolve("solid-number-controls", "var(--kui-theme-solid-muted)"),
       "a solid number box must invert its step controls",
     );
     // `underlined` is one edge: the other three lose their width, the radius goes, and focus lights
@@ -703,18 +716,12 @@ const compile = async (entry: string) => {
     );
     assert.equal(
       await placeholder("solid-tag-input"),
-      await resolve(
-        "solid-tag-input",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 75%, transparent)",
-      ),
+      await resolve("solid-tag-input", "var(--kui-theme-solid-placeholder)"),
       "a solid tag box must invert its placeholder",
     );
     assert.equal(
       await style("solid-tag-chrome", "color"),
-      await resolve(
-        "solid-tag-chrome",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 85%, transparent)",
-      ),
+      await resolve("solid-tag-chrome", "var(--kui-theme-solid-muted)"),
       "a solid tag box must invert the chrome around its field",
     );
     assert.equal(
@@ -722,21 +729,27 @@ const compile = async (entry: string) => {
       await resolve("solid-tag-chip", "var(--kui-color-text-on-solid)"),
       "a solid tag box must invert its chips",
     );
+    // The chip's plate is the other half of that inversion: a chip filled with the plate's own colour
+    // is a hole in the surface, so it is read as a share of the inverted ink here too.
+    assert.equal(
+      await style("solid-tag-chip", "background-color"),
+      await resolve("solid-tag-chip", "var(--kui-theme-solid-chip)"),
+      "a solid tag box must plate its chips from the inverted ink",
+    );
     // A solid box repaints its own surface on hover the way Button does, and its ring is redrawn in
-    // the inverted colour rather than left primary-on-primary.
+    // the inverted colour rather than left primary-on-primary. The scope below repaints only the base
+    // colour, so hover stays on the literal the build mixed from the default palette — the depth is
+    // still there, it just no longer follows an override that names no stop.
     await page.locator("#default-tag-solid").hover();
     assertColor(
       await rgba("default-tag-solid", "background-color"),
-      [255, 0, 0, 230],
-      "solid tag hover must follow the local primary",
+      [84, 169, 255, 230],
+      "solid tag hover must keep the literal the build left, not chase the local primary",
     );
     await page.locator("#solid-tag-input").focus();
     assert.equal(
       await style("default-tag-solid", "outline-color"),
-      await resolve(
-        "default-tag-solid",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent)",
-      ),
+      await resolve("default-tag-solid", "var(--kui-theme-solid-outline)"),
       "a focused solid tag box must show an inverted ring",
     );
     assertColor(
@@ -752,16 +765,13 @@ const compile = async (entry: string) => {
     await page.locator("#solid-otp-cell").hover();
     assertColor(
       await rgba("solid-otp-cell", "background-color"),
-      [255, 0, 0, 230],
-      "a solid OTP cell must deepen its own fill on hover",
+      [84, 169, 255, 230],
+      "a solid OTP cell must deepen its fill to the literal the build left",
     );
     await page.locator("#solid-otp-cell").focus();
     assert.equal(
       await style("solid-otp-cell", "outline-color"),
-      await resolve(
-        "solid-otp-cell",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent)",
-      ),
+      await resolve("solid-otp-cell", "var(--kui-theme-solid-outline)"),
       "a focused solid cell must show an inverted ring",
     );
     // The tier is guarded on the group, so a disabled OTP keeps its disabled fill even under the
@@ -921,7 +931,10 @@ const compile = async (entry: string) => {
       await style("default-picker-outline", "border-top-color"),
       await resolve(
         "default-picker-outline",
-        "color-mix(in srgb, var(--kui-color-primary) 90%, transparent)",
+        await shippedChain(
+          "components/color-picker/styles/index.less",
+          "--kui-color-primary-hover",
+        ),
       ),
       "an outlined color picker must light its edge under the pointer",
     );
@@ -996,13 +1009,13 @@ const compile = async (entry: string) => {
     await page.locator("#default-picker-solid").hover();
     assertColor(
       await rgba("default-picker-solid", "background-color"),
-      [255, 0, 0, 230],
-      "a solid color picker must deepen its own fill on hover",
+      [84, 169, 255, 230],
+      "a solid color picker must deepen its fill to the literal the build left",
     );
     assertColor(
       await rgba("default-picker-solid-opened", "background-color"),
-      [255, 0, 0, 230],
-      "an open solid color picker must deepen its fill",
+      [84, 169, 255, 230],
+      "an open solid color picker must deepen its fill to the same literal",
     );
     assert.equal(
       await style("default-picker-solid-opened", "box-shadow"),
@@ -1144,7 +1157,7 @@ const compile = async (entry: string) => {
       );
       assert.equal(
         await style(chip, "background-color"),
-        await resolve(chip, "color-mix(in srgb, var(--kui-color-text-on-solid) 18%, transparent)"),
+        await resolve(chip, "var(--kui-theme-solid-chip)"),
         chip + " must keep the translucent chip surface inside a solid control",
       );
       assert.equal(
@@ -1266,7 +1279,7 @@ const compile = async (entry: string) => {
       .evaluate((el) => el.getAnimations().forEach((a) => a.finish()));
     const dangerRing = await resolveShadow(
       "error-select-plain",
-      "0 0 0 2px var(--kui-color-danger-9, color-mix(in srgb, var(--kui-color-danger) 10%, transparent))",
+      `0 0 0 2px ${await shippedChain("components/form/styles/index.less", "--kui-color-danger-9")}`,
     );
     const errorRing = await style("error-select-outline", "box-shadow");
     assert.notEqual(errorRing, "none", "a hovered invalid box must glow in the error colour");
@@ -1343,10 +1356,7 @@ const compile = async (entry: string) => {
     // it alone showed a red edge, a red glow and a primary-tinted halo at the same time. Re-tinting the
     // token on the item moves every ring under it, including the one the open class draws on a `plain`
     // box that has no focus ring of its own.
-    const dangerOutline = await resolve(
-      "error-select-plain-opened",
-      "color-mix(in srgb, var(--kui-color-danger) 20%, transparent)",
-    );
+    const dangerOutline = await resolve("error-select-plain-opened", "var(--kui-color-outline)");
     for (const id of ["error-select-plain-opened", "error-select-outline"]) {
       if (id === "error-select-outline") {
         await page.locator("#" + id).focus();
@@ -1370,17 +1380,14 @@ const compile = async (entry: string) => {
       .evaluate((el) => el.getAnimations().forEach((a) => a.finish()));
     assert.equal(
       await style("error-select-solid", "outline-color"),
-      await resolve(
-        "error-select-solid",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 40%, transparent)",
-      ),
+      await resolve("error-select-solid", "var(--kui-theme-solid-outline)"),
       "a solid box in an invalid item must keep its readable ring",
     );
     assert.equal(
       await style("default-tree-select-opened-fill", "outline-color"),
       await resolve(
         "default-tree-select-opened-fill",
-        "color-mix(in srgb, var(--kui-color-primary) 20%, transparent)",
+        await shippedChain("components/tree-select/styles/index.less", "--kui-color-outline"),
       ),
       "a valid field must keep its own ring colour",
     );
