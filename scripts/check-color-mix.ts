@@ -7,7 +7,7 @@ import process from "node:process";
 // there. Every shade has to be a literal in the compiled sheet, which LESS can produce (`mix()`,
 // `fade()`) because it knows both colours at build time.
 //
-// This check is a ratchet, because 221 call sites cannot move in one commit. The table records how
+// This check is a ratchet, because the calls cannot all move in one commit. The table records how
 // many a file still has, and a file may only go down: a count above its entry fails, an entry above its
 // count fails too (the budget has to be cut in the same commit that cut the calls), and a file that
 // reaches zero leaves the table. An unlisted file has no allowance at all.
@@ -17,7 +17,6 @@ import process from "node:process";
 export const MIX_BUDGET: Record<string, number> = {
   "components/alert/styles/index.less": 5,
   "components/back-top/styles/index.less": 1,
-  "components/button/styles/index.less": 66,
   "components/calendar/styles/index.less": 1,
   "components/card/styles/index.less": 2,
   "components/cascader/styles/index.less": 9,
@@ -88,6 +87,55 @@ const lessFiles = (root: string) => {
   return found.sort();
 };
 
+// A file that explains why the function is banned has to name it, so the ledger counts a file's call
+// sites after its comments go — `//` to end of line and `/* */`, neither of which reaches the sheet.
+// Quotes are tracked because `url("http://…")` puts two slashes inside a value that does reach it.
+export function stripComments(source: string): string {
+  let out = "";
+  let quote = "";
+  let inBlock = false;
+  for (let i = 0; i < source.length; i += 1) {
+    const char = source[i]!;
+    const next = source[i + 1];
+    if (inBlock) {
+      if (char === "*" && next === "/") {
+        inBlock = false;
+        i += 1;
+        out += "  ";
+      } else out += char === "\n" ? "\n" : " ";
+      continue;
+    }
+    if (quote) {
+      out += char;
+      if (char === "\\" && next !== undefined) {
+        out += next;
+        i += 1;
+      } else if (char === quote) quote = "";
+      continue;
+    }
+    if (char === '"' || char === "'") {
+      quote = char;
+      out += char;
+      continue;
+    }
+    if (char === "/" && next === "*") {
+      inBlock = true;
+      i += 1;
+      out += "  ";
+      continue;
+    }
+    if (char === "/" && next === "/") {
+      while (i < source.length && source[i] !== "\n") i += 1;
+      out += "\n";
+      continue;
+    }
+    out += char;
+  }
+  return out;
+}
+
+const countCalls = (source: string) => (stripComments(source).match(/color-mix\(/g) ?? []).length;
+
 export function countColourMix(root: string): ColourMixReport {
   const report: ColourMixReport = {
     scanned: 0,
@@ -100,7 +148,7 @@ export function countColourMix(root: string): ColourMixReport {
   const seen = new Set<string>();
   for (const file of lessFiles(root)) {
     const relative = path.relative(root, file).split(path.sep).join("/");
-    const calls = (fs.readFileSync(file, "utf8").match(/color-mix\(/g) ?? []).length;
+    const calls = countCalls(fs.readFileSync(file, "utf8"));
     report.scanned += 1;
     report.remaining += calls;
     if (!(relative in MIX_BUDGET)) {
@@ -132,7 +180,7 @@ export async function countSheetColourMix(root: string): Promise<number> {
   const css = (
     await less.render(fs.readFileSync(filename, "utf8"), { filename, javascriptEnabled: true })
   ).css;
-  return (css.match(/color-mix\(/g) ?? []).length;
+  return countCalls(css);
 }
 
 const failures = (report: ColourMixReport) => [

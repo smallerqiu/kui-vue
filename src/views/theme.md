@@ -231,4 +231,6 @@ CSS Variables 会向下继承，因此无需创建另一份组件样式。下面
 
 派生 Token（例如 `--kui-control-bg`、`--kui-control-radius`、`--kui-color-primary-hover`）作为可选覆盖项使用；默认值在组件属性使用处计算，不在根节点预先固定。这样局部基础颜色、圆角变化和嵌套明暗模式也能生效，显式设置的组件 Token 则继续向下继承。
 
+着色相关的派生 Token 也在同一批可选覆盖项里：`--kui-color-primary-hover`、`--kui-color-primary-active`、焦点光晕 `--kui-color-outline`、透明层级 `--kui-color-<色名>-3`/`-6`/`-9`，色板名字的 hover/active 是 `--kui-color-<色名>-hover`/`-active`。库内不给它们定死默认值，要单独改某一档时显式声明即可；`plain` 档的按压底色读 `--kui-theme-plain-hover`、`--kui-theme-plain-active`，语义类型和色板名字会各自在按钮上重声明这两个。
+
 在自定义 CSS 中直接使用这些可选 Token 时，也应提供基础变量作为回退，例如 `background: var(--kui-control-bg, var(--kui-color-bg))`。读取默认主题颜色时优先使用基础 Token。

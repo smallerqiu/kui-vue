@@ -123,4 +123,6 @@ Popups with trigger elements, such as Select, DatePicker, and Poptip, will autom
 
 Derived tokens such as `--kui-control-bg`, `--kui-control-radius`, and `--kui-color-primary-hover` are optional overrides. Components resolve defaults where properties consume them, rather than freezing defaults on the root. Local base colors, radii, and nested light/dark themes therefore remain effective, while explicit component overrides continue to inherit.
 
+Colour shades belong to the same optional group: `--kui-color-primary-hover`, `--kui-color-primary-active`, the focus ring `--kui-color-outline`, the alpha levels `--kui-color-<name>-3`/`-6`/`-9`, and `--kui-color-<name>-hover`/`-active` for palette names. The library leaves them unset; declare the one you need. The `plain` tier reads `--kui-theme-plain-hover` and `--kui-theme-plain-active`, which every semantic type and palette name re-declares on the button itself.
+
 When using optional tokens in custom CSS, provide a base-token fallback, for example `background: var(--kui-control-bg, var(--kui-color-bg))`. Prefer base tokens when reading default theme values.

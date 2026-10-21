@@ -39,16 +39,22 @@ const linear = (channel: number) => {
 const luminance = ([red, green, blue]: Rgb) =>
   0.2126 * linear(red) + 0.7152 * linear(green) + 0.0722 * linear(blue);
 
+// 编译产物里的字面量有两种写法：不透明的混色印成 `#rrggbb`，带透明度的洗色印成 `rgba(...)`
+const colour = (value: string): Rgb =>
+  (value.startsWith("#")
+    ? toRgb(value)
+    : [...value.matchAll(/[\d.]+/g)].slice(0, 3).map(Number)) as Rgb;
+
 const contrast = (a: Rgb, b: Rgb) => {
   const [high, low] = [luminance(a), luminance(b)].sort((x, y) => y - x);
   return (high + 0.05) / (low + 0.05);
 };
 
-// `color-mix(in srgb, A n%, B)` 的那一步：A 留 n%，B 留剩下的
+// 编译期混色的那一步：底留 n%，另一头留剩下的，和 LESS 的 `mix()` 是同一条式子
 const mix = (a: Rgb, b: Rgb, percent: number): Rgb =>
   a.map((channel, index) => (channel * percent + b[index] * (100 - percent)) / 100) as Rgb;
 
-// 调色板里有 `lighten(red, 5%)` 这种算出小数的写法，比对时留出半个通道的余量
+// 落在 .5 的通道在编译期被取成整数，这里按精确小数算，两头差一级；比对时留出一级的余量
 const sameRgb = (a: Rgb, b: Rgb) =>
   a.every((channel, index) => Math.abs(channel - b[index]!) < 0.5);
 
@@ -266,11 +272,26 @@ describe("Button palette coverage", () => {
     }
   });
 
-  // 状态那一步从编译产物里读：百分比和混过去的那一端都写在样式表里，写死在这里的人改了式子不会知道
+  // 状态那一步从编译产物里读，两边各留一种参照：
+  // `type` 那条洗的是同一支底色，百分比写在 rgba 的 alpha 上；名字那条混向标签的反色，
+  // 混好的值直接印成字面量，挂在 `--kui-color-<name>-<state>` 这支库里不定义的 hook 后面。
   const stepPercent = (declarations: string) => {
-    const percent = declarations.match(/ (\d+(?:\.\d+)?)%,/)?.[1];
-    expect(percent, "这条臂里没有 color-mix 的百分比").not.toBeUndefined();
-    return Number(percent!);
+    const alpha = declarations.match(/, ([\d.]+)\)/)?.[1];
+    expect(alpha, "这条臂里没有留作参照的透明度").not.toBeUndefined();
+    return Number(alpha!) * 100;
+  };
+
+  const shadeLiteral = (declarations: string, name: string, state: string) => {
+    const literal = declarations.match(
+      new RegExp(
+        `background-color: var\\(--kui-color-${name}-${state}, (#[\\da-fA-F]{3,8}|rgba?\\([^)]*\\))\\)`,
+      ),
+    );
+    expect(
+      literal,
+      `${name} 的 :${state} 没写成 var(--kui-color-${name}-${state}, <编译期算好的字面量>)`,
+    ).not.toBeNull();
+    return colour(literal![1]!);
   };
 
   it("keeps the label above 4.5:1 on every surface a name paints", async () => {
@@ -282,7 +303,7 @@ describe("Button palette coverage", () => {
     const typeSteps = Object.fromEntries(
       ["hover", "active"].map((state) => [
         state,
-        rules.get(`${typeTier}:not(:disabled):${state}`) ?? "",
+        stepPercent(rules.get(`${typeTier}:not(:disabled):${state}`) ?? ""),
       ]),
     );
 
@@ -311,20 +332,91 @@ describe("Button palette coverage", () => {
       );
 
       for (const state of ["hover", "active"]) {
-        const declarations = rules.get(`${bare(name)}:not(:disabled):${state}`) ?? "";
-        const mixed = declarations.match(
-          /color-mix\(in srgb, var\(--kui-color-\w+\) (\d+(?:\.\d+)?)%, (#\w+)\)/,
+        const step = typeSteps[state]!;
+        const painted = shadeLiteral(
+          rules.get(`${bare(name)}:not(:disabled):${state}`) ?? "",
+          name,
+          state,
         );
-        expect(mixed, `${name} 的 :${state} 不是往一支实色里混`).not.toBeNull();
-        const shade = toRgb(mixed![2]!);
-        expect(sameRgb(shade, other), `${name} 的 :${state} 把表面朝标签那边推了`).toBe(true);
-        expect(stepPercent(declarations), `${name} 的 :${state} 步进幅度和 type 那条不一样`).toBe(
-          stepPercent(typeSteps[state]!),
+
+        // 期望值现场按同一条式子算：改 LESS 里那一步的人，产物和这里必须一起动
+        const expected = mix(surface, other, step);
+        for (let channel = 0; channel < 3; channel += 1)
+          expect(
+            Math.abs(painted[channel]! - expected[channel]!),
+            `${name} 的 :${state} 不是把表面留 ${step}%、剩下朝标签的反色（${other.join("/")}）推`,
+            // 编译期把这一支取成整数，这里按精确小数算，落在 .5 的通道两头差一级
+          ).toBeLessThanOrEqual(0.5);
+
+        expect(contrast(label, painted), `${name} 的 :${state} 读不出字`).toBeGreaterThanOrEqual(
+          4.5,
         );
+
+        // `solid` 那条把同一支底色画在 `::before` 上，两处必须是同一个值，否则档位和裸按钮不是一个色
         expect(
-          contrast(label, mix(surface, shade, stepPercent(declarations))),
-          `${name} 的 :${state} 读不出字`,
-        ).toBeGreaterThanOrEqual(4.5);
+          shadeLiteral(
+            rules.get(`.k-btn-solid.k-btn-${name}:${state}:not(:disabled)::before`) ?? "",
+            name,
+            state,
+          ),
+          `${name} 的 solid :${state} 和裸按钮那条不是同一个色`,
+        ).toEqual(painted);
+      }
+    }
+  });
+
+  it("keeps every palette channel whole", async () => {
+    const tokens = await palette();
+
+    // 编译期算出的值要印成字面量，而 LESS 对小数值通道的取舍按写法各漂一级：同一支颜色，十六进制印成
+    // `#0080ff`、`fadeout()` 印成 `rgba(0, 127, 255, 0.9)`。调色板里 `mix(blue, cyan, 50%)` 这种式子算出
+    // 过半通道，一支颜色的透明度档就会和它的基色差一级，所以每一支在 `less-var.less` 里都先过取整那一层：
+    // 这里三个通道必须都是整数。
+    for (const name of colors) {
+      for (const [channel, value] of tokens.get(name)!.entries())
+        expect(Number.isInteger(value), `${name} 的第 ${channel} 通道是 ${value}`).toBe(true);
+    }
+  });
+
+  it("presses the plain tier through one hook per arm", async () => {
+    const { rules } = await sheet();
+    const tokens = await palette();
+
+    // 按下去画颜色的是共用那一条，名字那条只把 hook 换掉：共用那条一旦写死自己的颜色，
+    // 换个名字就压不出对应的洗色，所以它只许读 var()
+    for (const state of ["hover", "active"])
+      expect(
+        rules.get(`.k-btn-plain:not(:disabled):${state}`) ?? "",
+        `共用那条没读 hook，或顺手写了别的值`,
+      ).toBe(`background-color: var(--kui-theme-plain-${state})`);
+
+    // 名字这一档比语义那一档淡（16 支是 7% / 11.2%，`gray` 跟着中性分割色走 10% / 16%）。
+    // 透明度写在 rgba 的 alpha 上、通道是那支名字自己，混色在编译期算完 —— 产物里不许留函数，
+    // 这一档的画法和 Windows 7 的 Chromium 能不能算混色没关系。
+    for (const name of colors) {
+      const declarations = rules.get(`.k-btn-plain.k-btn-${name}`) ?? "";
+      const pair = [
+        ...declarations.matchAll(/--kui-theme-plain-(hover|active): (rgba\([^)]*\))/g),
+      ].map((match) => [match[1] as string, colour(match[2] as string)] as const);
+      expect(pair.map(([state]) => state).sort(), `${name} 的按压色没写齐两个状态`).toEqual([
+        "active",
+        "hover",
+      ]);
+
+      const neutral = name === "gray";
+      for (const [state, value] of pair) {
+        const alpha =
+          declarations.match(
+            new RegExp(`--kui-theme-plain-${state}: rgba\\([^,]+, [^,]+, [^,]+, ([\\d.]+)\\)`),
+          )?.[1] ?? "";
+        expect(
+          Number(alpha),
+          `${name} 的 plain :${state} 淡成了 ${alpha}，和这一档约定的幅度不一样`,
+        ).toBe(neutral ? (state === "hover" ? 0.1 : 0.16) : state === "hover" ? 0.07 : 0.112);
+
+        if (neutral) expect(new Set(value).size, `${name} 的 plain 按压色不是中性灰`).toBe(1);
+        else
+          expect(value, `${name} 的 plain :${state} 用的不是那支名字`).toEqual(tokens.get(name)!);
       }
     }
   });
