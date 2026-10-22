@@ -2,6 +2,11 @@
 
 .k-feedback-panel {
   --k-feedback-panel-color: var(--kui-color-primary);
+  // The chip behind the mark is the kind colour taken at 12% — `color-mix()` mixes while painting, and
+  // a shell older than Chrome 111 gives that declaration no value, leaving the chip unshaded, so the
+  // share ships as a literal beside the colour it shades. A theme that repaints a kind colour has to
+  // name its chip too — the same cost the solid plate's ink shares live under.
+  --k-feedback-panel-mark-bg: fade(@main, 12%);
   display: grid;
   grid-template-columns: 52px minmax(0, 1fr);
   gap: 18px;
@@ -25,7 +30,7 @@
     height: 44px;
     border-radius: 14px;
     color: var(--k-feedback-panel-color);
-    background: color-mix(in srgb, var(--k-feedback-panel-color) 12%, transparent);
+    background: var(--k-feedback-panel-mark-bg);
     font-size: 25px;
   }
   .k-feedback-panel-main {
@@ -60,14 +65,19 @@
   }
 }
 
+// Each kind colours the stripe, the mark and the chip under it, so each names the chip's share from the
+// palette colour the token it answers is published with.
 .k-feedback-panel-positive {
   --k-feedback-panel-color: var(--kui-color-success);
+  --k-feedback-panel-mark-bg: fade(@success, 12%);
 }
 .k-feedback-panel-negative {
   --k-feedback-panel-color: var(--kui-color-danger);
+  --k-feedback-panel-mark-bg: fade(@danger, 12%);
 }
 .k-feedback-panel-caution {
   --k-feedback-panel-color: var(--kui-color-warning);
+  --k-feedback-panel-mark-bg: fade(@warning, 12%);
 }
 .k-feedback-panel-compact {
   grid-template-columns: 40px minmax(0, 1fr);

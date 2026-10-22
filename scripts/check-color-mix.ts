@@ -20,7 +20,6 @@ import process from "node:process";
 export const MIX_BUDGET: Record<string, number> = {
   "components/calendar/styles/index.less": 1,
   "components/feature-card/styles/index.less": 1,
-  "components/feedback-panel/styles/index.less": 1,
   "components/result/styles/index.less": 1,
 };
 

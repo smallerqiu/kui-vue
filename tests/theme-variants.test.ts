@@ -16,24 +16,30 @@ const compile = async (source: string) => {
   return (await less.render(source, { filename })).css;
 };
 
+const compileFile = async (entry: string) => {
+  const filename = path.join(root, entry);
+  return (await less.render(await fs.readFile(filename, "utf8"), { filename })).css;
+};
+
 // Flatten compiled CSS into `selector -> declarations`, whitespace-normalised.
-const flatten = (css: string) =>
-  new Map(
-    [...css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/([^{}]+)\{([^{}]*)\}/g)]
-      // The text before `{` still carries the previous rule's closing brace and comments.
-      .map((match) => [
-        (match[1].split("}").pop() ?? "").replace(/\s+/g, " ").trim(),
-        match[2].replace(/\s+/g, " ").trim().replace(/;$/, ""),
-      ]),
-  );
+const flattenPairs = (css: string) =>
+  [...css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((match) => [
+    // The text before `{` still carries the previous rule's closing brace and comments.
+    (match[1].split("}").pop() ?? "").replace(/\s+/g, " ").trim(),
+    match[2].replace(/\s+/g, " ").trim().replace(/;$/, ""),
+  ] as const);
+
+const flatten = (css: string) => new Map(flattenPairs(css));
 
 const rules = async (source: string) => flatten(await compile(source));
 
 // Compile one component's own LESS so a rule can be checked where it is written.
-const fileRules = async (entry: string) => {
-  const filename = path.join(root, entry);
-  return flatten((await less.render(await fs.readFile(filename, "utf8"), { filename })).css);
-};
+const fileRules = async (entry: string) => flatten(await compileFile(entry));
+
+// A map keeps the *last* rule a selector writes, which is right for a tier that answers a base block but
+// wrong for a `@media` block that repeats one: the base rule's own declarations disappear. Where a guard
+// needs them, read the sheet in the order it ships.
+const filePairs = async (entry: string) => flattenPairs(await compileFile(entry));
 
 const probe = async () =>
   rules(
@@ -1991,7 +1997,7 @@ it("publishes the solid plate's ink shares and reads them bare", async () => {
     }
   }
 
-  // Ten of the twelve sheets are clean now, so scan them whole: a shade written back into a rule this
+  // Eleven of the twelve sheets are clean now, so scan them whole: a shade written back into a rule this
   // suite never names has to fail here instead of shipping no value at all on Windows 7.
   for (const entry of [
     "components/transfer/styles/index.less",
@@ -2000,6 +2006,7 @@ it("publishes the solid plate's ink shares and reads them bare", async () => {
     "components/card/styles/index.less",
     "components/collapse/styles/index.less",
     "components/list-panel/styles/index.less",
+    "components/feedback-panel/styles/index.less",
     "components/alert/styles/index.less",
     "components/image/styles/index.less",
     "components/page/styles/index.less",
@@ -2083,4 +2090,40 @@ it("publishes the solid plate's ink shares and reads them bare", async () => {
         `${selector} lightens something other than the plate: ${plate}`,
       ).toBe("var(--kui-theme-solid-bg, var(--kui-color-primary))");
   }
+});
+
+// A feedback panel colours three parts from the kind it reports — the stripe, the mark and the chip the
+// mark sits on — and the chip is the kind colour at 12%. Mixing that share while painting is not an
+// option: a shell older than Chrome 111 gives the declaration no value and the chip arrives unshaded,
+// so each kind publishes its share beside the colour it shades. The cost is the one every baked share
+// pays — a theme that repaints a kind colour has to name the chip too.
+it("publishes the feedback panel's chip share beside the kind it shades", async () => {
+  const entry = "components/feedback-panel/styles/index.less";
+  const pairs = await filePairs(entry);
+  const sheet = new Map(pairs);
+  const rule = (selector: string) =>
+    declarations(pairs.find(([key]) => key === selector)?.[1], `${selector} paints nothing`);
+
+  for (const [selector, token] of [
+    [".k-feedback-panel", "--kui-color-primary"],
+    [".k-feedback-panel-positive", "--kui-color-success"],
+    [".k-feedback-panel-negative", "--kui-color-danger"],
+    [".k-feedback-panel-caution", "--kui-color-warning"],
+  ] as const) {
+    const body = rule(selector);
+    expect(body.get("--k-feedback-panel-color"), `${selector} is not the kind its name says`).toBe(
+      `var(${token})`,
+    );
+    // The expected shade is read out of the palette this sheet imports, so the guard follows the token
+    // rather than a hex copied into this suite.
+    expect(
+      body.get("--k-feedback-panel-mark-bg"),
+      `${selector} shades its chip away from the kind it publishes`,
+    ).toBe(share(sheet, token, 12));
+  }
+
+  expect(
+    rule(".k-feedback-panel .k-feedback-panel-mark-inner").get("background"),
+    "the mark chip keeps a copy of the share, or colours it with something else",
+  ).toBe("var(--k-feedback-panel-mark-bg)");
 });
