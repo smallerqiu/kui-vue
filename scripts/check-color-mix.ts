@@ -20,7 +20,7 @@ export const MIX_BUDGET: Record<string, number> = {
   "components/card/styles/index.less": 2,
   "components/check-card/styles/index.less": 3,
   "components/collapse/styles/index.less": 2,
-  "components/feature-card/styles/index.less": 4,
+  "components/feature-card/styles/index.less": 3,
   "components/feedback-panel/styles/index.less": 4,
   "components/image/styles/index.less": 1,
   "components/kanban/styles/index.less": 3,
@@ -28,9 +28,7 @@ export const MIX_BUDGET: Record<string, number> = {
   "components/page/styles/index.less": 1,
   "components/result/styles/index.less": 1,
   "components/stat-card/styles/index.less": 1,
-  "components/table/styles/index.less": 7,
   "components/transfer/styles/index.less": 7,
-  "components/tree/styles/index.less": 1,
   "src/assets/css/home.less": 4,
 };
 

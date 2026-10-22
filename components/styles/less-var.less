@@ -239,6 +239,11 @@
 // @dark-component-color-active: mix(@dark-component, @dark-page-color, 50%);
 // @dark-component-color-disabled: mix(@dark-component, @dark-page-color, 35%);
 
+// 行/项悬浮底色：把 hover 通道按固定份额压回基础通道。两个通道都随主题反转，所以 light / dark
+// 各算一份，由样式表的主题块决定画哪一份。
+@row-hover-color: .snap(mix(@component-color-hover, @component-color, 40%))[value];
+@dark-row-hover-color: .snap(mix(@dark-component-color-hover, @dark-component-color, 40%))[value];
+
 // 列表项背景色
 @item: #40464eb1;
 @item-hover-color: @gray-2;
@@ -281,6 +286,10 @@
 // 正文文字颜色
 @text-color: @gray-8;
 @dark-text-color: @dark-gray-9;
+
+// 卡片悬浮投影：按正文墨色的固定份额画，墨色随主题反转，两档各出一份。
+@hover-shadow-color: fade(@text-color, 8%);
+@dark-hover-shadow-color: fade(@dark-text-color, 8%);
 
 // 禁用正文文字颜色
 @disable-text-color: @gray-6;

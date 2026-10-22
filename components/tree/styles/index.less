@@ -192,10 +192,7 @@
 
   .k-tree-item:not(.k-tree-item-selected, .k-tree-item-disabled) {
     &:hover::before {
-      background-color: var(
-        --kui-color-row-hover,
-        color-mix(in srgb, var(--kui-color-bg-component-hover) 40%, var(--kui-color-bg-component))
-      );
+      background-color: var(--kui-color-row-hover);
     }
     &:active::before {
       background-color: var(--kui-color-item-active);

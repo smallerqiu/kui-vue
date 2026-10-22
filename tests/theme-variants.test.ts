@@ -1756,3 +1756,103 @@ it("ships the navigation family's shared shades as build-time literals", async (
   }
   expect(shipped, "the navigation family shades fewer places than it does today").toBe(9);
 });
+
+
+// A shade whose channels the theme flips cannot ship as one literal: the light value would paint the
+// dark rows with the light palette. So the sheet publishes one per theme block, mixed at build time
+// from that block's own channels, and the components read the bare hook — a built-in fallback there is
+// a second copy of the shade that only ever holds the light value.
+it("publishes the theme-dependent shades and reads them without a fallback", async () => {
+  const sheet = await fileRules("components/styles/less-css-var.less");
+
+  // Read a published colour the way CSS does, so the guard compares channels instead of spelling:
+  // shorthand hex expands, and a colour function keeps the alpha the block wrote.
+  const colour = (published: Map<string, string>, token: string) => {
+    const raw = published.get(token);
+    expect(raw, `${token} is not published in the block that needs it`).toBeDefined();
+    const hex = /^#([0-9a-f]+)$/i.exec(raw!);
+    if (hex) {
+      const digits =
+        hex[1].length === 3 || hex[1].length === 4
+          ? [...hex[1]].map((digit) => digit + digit).join("")
+          : hex[1];
+      const parts = (digits.match(/../g) ?? []).map((pair) => Number.parseInt(pair, 16));
+      expect(parts.length >= 3, `${raw} is not an rgb triple`).toBe(true);
+      return { channels: parts.slice(0, 3), alpha: parts.length > 4 ? parts[3] / 255 : 1 };
+    }
+    const numbers = (raw!.match(/\d+(?:\.\d+)?/g) ?? []).map(Number);
+    expect(numbers.length >= 3, `${raw} is not an rgb triple`).toBe(true);
+    return { channels: numbers.slice(0, 3), alpha: numbers[3] ?? 1 };
+  };
+
+  const SHADES = [
+    {
+      hook: "--kui-color-row-hover",
+      // 40% of the hover channel over the base one — what the browser used to mix at paint time.
+      wanted: (published: Map<string, string>) => {
+        const hover = colour(published, "--kui-color-bg-component-hover").channels;
+        const base = colour(published, "--kui-color-bg-component").channels;
+        return {
+          channels: hover.map((channel, i) =>
+            Math.round((channel * 40 + base[i] * 60) / 100),
+          ),
+          alpha: 1,
+        };
+      },
+    },
+    {
+      hook: "--kui-color-hover-shadow",
+      wanted: (published: Map<string, string>) => ({
+        channels: colour(published, "--kui-color-text").channels,
+        alpha: 0.08,
+      }),
+    },
+  ];
+
+  for (const block of [":root", '[theme-mode="light"]', '[theme-mode="dark"]']) {
+    const published = declarations(sheet.get(block), `${block} publishes no theme variables`);
+    for (const { hook, wanted } of SHADES) {
+      const shipped = published.get(hook);
+      expect(shipped, `${block} leaves ${hook} unset`).toBeDefined();
+      expect(shipped, `${block} mixes ${hook} while painting`).not.toContain("color-mix(");
+      expect(
+        colour(published, hook),
+        `${block} shades ${hook} away from its own block`,
+      ).toEqual(wanted(published));
+    }
+  }
+
+  const READS = [
+    ["components/table/styles/index.less", "--kui-color-row-hover", 7],
+    ["components/tree/styles/index.less", "--kui-color-row-hover", 1],
+    ["components/feature-card/styles/index.less", "--kui-color-hover-shadow", 1],
+  ] as const;
+
+  // Table and tree are clean sheets now, so scan them whole: a shade written back into a rule this
+  // suite never names has to fail here instead of shipping no value at all on Windows 7.
+  for (const entry of ["components/table/styles/index.less", "components/tree/styles/index.less"]) {
+    for (const [key, body] of await fileRules(entry))
+      expect(body, `${entry}: ${key} still mixes while painting`).not.toContain("color-mix(");
+  }
+
+  let read = 0;
+  for (const [entry, hook, sites] of READS) {
+    let hits = 0;
+    for (const [key, body] of await fileRules(entry)) {
+      for (const [property, value] of declarations(body, `${entry}: ${key}`)) {
+        if (!value.includes(hook)) continue;
+        expect(value, `${entry}: ${key} ${property} still mixes while painting`).not.toContain(
+          "color-mix(",
+        );
+        expect(
+          value,
+          `${entry}: ${key} ${property} keeps a copy of ${hook} the dark theme cannot override`,
+        ).not.toContain(`var(${hook},`);
+        hits += 1;
+      }
+    }
+    expect(hits, `${entry} shades fewer places than it does today`).toBe(sites);
+    read += hits;
+  }
+  expect(read, "the theme-dependent shades are read in fewer places than today").toBe(9);
+});
