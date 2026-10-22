@@ -1,3 +1,7 @@
+// 站点这几处着色原先都在浏览器里混：页面底色在暗色档整个反转，玻璃那一档得两档各出一份；两处主色继续读
+// `var()`，编译期只兜默认值，运行时换主色照旧跟着走。`color-mix()` 要 Chrome 111，更旧的内核整条不呈现。
+@import (reference) "../../../components/styles/less-var.less";
+
 .index {
   min-height: 100vh;
   overflow-x: hidden;
@@ -5,7 +9,10 @@
   color: var(--kui-color-text);
 
   .header {
-    background: color-mix(in srgb, var(--kui-color-bg) 88%, transparent);
+    background: fade(@page-color, 88%);
+    [theme-mode="dark"] & {
+      background: fade(@dark-page-color, 88%);
+    }
     box-shadow: none;
     border-bottom: 1px solid var(--kui-color-border);
     -webkit-backdrop-filter: blur(14px);
@@ -85,10 +92,7 @@
   color: var(--kui-color-text);
 }
 .btn-pro {
-  background: var(
-    --kui-color-primary-8,
-    color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
-  );
+  background: var(--kui-color-primary-8, @main-8);
 }
 .hero-meta {
   display: flex;
@@ -112,8 +116,9 @@
     position: absolute;
     inset: 12% 6%;
     border-radius: 50%;
-    background: color-mix(in srgb, var(--kui-color-primary) 13%, transparent);
-    filter: blur(55px);
+    background: var(--kui-color-primary);
+    // 光晕取主色的 13%：模糊之后再压这一层透明度，和「主色 13% 混透明」画出来的是同一张像素。
+    filter: blur(55px) opacity(0.13);
   }
 }
 .preview-window {
@@ -122,7 +127,7 @@
   border: 1px solid var(--kui-color-border);
   border-radius: 18px;
   background: var(--kui-color-bg-pop);
-  box-shadow: 0 24px 70px color-mix(in srgb, #000 12%, transparent);
+  box-shadow: 0 24px 70px fade(#000, 12%);
   transform: rotate(1deg);
 }
 .preview-bar {

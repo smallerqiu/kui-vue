@@ -1856,3 +1856,84 @@ it("publishes the theme-dependent shades and reads them without a fallback", asy
   }
   expect(read, "the theme-dependent shades are read in fewer places than today").toBe(9);
 });
+
+// The docs site drew its glass header, call-to-action tint and hero glow in the browser, and a shell
+// older than Chrome 111 paints none of them: an opaque header with nothing behind it, a flat button, no
+// glow. The header is the one shade whose base channel flips with the theme, so the sheet ships a literal
+// per theme arm rather than a generic hook — the site's own page background is not a library token and
+// should not become one. The two primary shades keep reading `var(--kui-color-primary…)`: the site's
+// colour picker republishes those hooks at runtime, and baking a literal there would stop them following.
+it("ships the site sheet's shades as build-time literals that still follow the runtime primary", async () => {
+  const filename = path.join(root, "src/assets/css/home.less");
+  const css = (await less.render(await fs.readFile(filename, "utf8"), { filename })).css;
+  expect(css.replace(/\s+/g, " "), "the site still mixes while painting").not.toContain("color-mix(");
+
+  const palette = await rules(
+    `@import "less-var.less";
+     .site-shades {
+       glass: fade(@page-color, 88%);
+       dark-glass: fade(@dark-page-color, 88%);
+       pro: @main-8;
+       glow: fade(@main, 13%);
+       shadow: fade(#000, 12%);
+     }`,
+  );
+  const want = declarations(palette.get(".site-shades"), "the palette publishes no site shade");
+  const alphaOf = (colour: string) => Number(/(-?[\d.]+)\s*\)$/.exec(colour)?.[1] ?? Number.NaN);
+
+  // Every rule the sheet compiles to, duplicates and all: a media query that overrides one of these
+  // properties later must not be able to hide the arm that ships the literal.
+  const drawn = [...css.replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/([^{}]+)\{([^{}]*)\}/g)].flatMap(
+    ([, selector, body]) =>
+      body
+        .split(";")
+        .filter(Boolean)
+        .map((entry) => {
+          const [property, ...rest] = entry.split(":");
+          return [
+            (selector.split("}").pop() ?? "").replace(/\s+/g, " ").trim(),
+            property.trim(),
+            rest.join(":").replace(/\s+/g, " ").trim(),
+          ] as const;
+        }),
+  );
+  const draws = (selector: string, property: string, value: string, label: string) =>
+    expect(
+      drawn.some(([at, key, atValue]) => at === selector && key === property && atValue === value),
+      `${selector} ${label}`,
+    ).toBe(true);
+
+  draws(".index .header", "background", want.get("glass")!, "must plate the light page colour at 88%");
+  draws(
+    '[theme-mode="dark"] .index .header',
+    "background",
+    want.get("dark-glass")!,
+    "must plate the dark page colour at 88% — the light one cannot serve both themes",
+  );
+  draws(
+    ".btn-pro",
+    "background",
+    `var(--kui-color-primary-8, ${want.get("pro")!})`,
+    "must keep the runtime primary hook and fall back to its compiled 20% step",
+  );
+  draws(
+    ".hero-preview::before",
+    "background",
+    "var(--kui-color-primary)",
+    "must stay the runtime primary rather than a baked brand",
+  );
+
+  const glow = drawn.find(([at, key]) => at === ".hero-preview::before" && key === "filter")?.[2];
+  expect(glow, "the hero glow no longer blurs").toContain("blur(55px)");
+  expect(
+    Number(/opacity\((-?[\d.]+)\)/.exec(glow ?? "")?.[1] ?? Number.NaN),
+    "the hero glow no longer tints the primary at 13%",
+  ).toBeCloseTo(alphaOf(want.get("glow")!), 6);
+
+  draws(
+    ".preview-window",
+    "box-shadow",
+    `0 24px 70px ${want.get("shadow")!}`,
+    "must keep the card lifted by 12% of black",
+  );
+});

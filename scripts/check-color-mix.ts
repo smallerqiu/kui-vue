@@ -29,7 +29,6 @@ export const MIX_BUDGET: Record<string, number> = {
   "components/result/styles/index.less": 1,
   "components/stat-card/styles/index.less": 1,
   "components/transfer/styles/index.less": 7,
-  "src/assets/css/home.less": 4,
 };
 
 export interface ColourMixReport {
