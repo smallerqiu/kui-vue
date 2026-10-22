@@ -22,6 +22,8 @@ export interface ColourMixReport {
   scanned: number;
   /** Call sites still standing. */
   remaining: number;
+  /** Files still holding at least one of them — what the summary line reports next to `remaining`. */
+  dirty: number;
   /** A file with more calls than its entry, or a call in a file the table does not know. */
   grew: string[];
   /** A file whose entry is larger than its remaining calls. */
@@ -102,6 +104,7 @@ export function countColourMix(root: string): ColourMixReport {
   const report: ColourMixReport = {
     scanned: 0,
     remaining: 0,
+    dirty: 0,
     grew: [],
     canTighten: [],
     stale: [],
@@ -113,6 +116,7 @@ export function countColourMix(root: string): ColourMixReport {
     const calls = countCalls(fs.readFileSync(file, "utf8"));
     report.scanned += 1;
     report.remaining += calls;
+    if (calls) report.dirty += 1;
     if (!(relative in MIX_BUDGET)) {
       if (calls > 0)
         report.grew.push(`${relative}: 新增 ${calls} 处（表里没有这个文件，允许的数是 0）`);
@@ -158,7 +162,7 @@ if (invoked === import.meta.filename) {
   const lines = failures(report);
   const sheet = await countSheetColourMix(root);
   console.log(
-    `color-mix 退场：读了 ${report.scanned} 份 LESS，源码里还剩 ${report.remaining} 处（${Object.keys(MIX_BUDGET).length} 个文件），编译产物里 ${sheet} 处。`,
+    `color-mix 退场：读了 ${report.scanned} 份 LESS，源码里还剩 ${report.remaining} 处（${report.dirty} 个文件），编译产物里 ${sheet} 处。`,
   );
 
   if (process.argv.includes("--report")) {
