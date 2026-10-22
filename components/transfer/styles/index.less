@@ -108,15 +108,11 @@
   background: var(--kui-color-item-hover);
 }
 .k-transfer-item:focus-visible {
-  outline: var(--kui-focus-ring-width) solid
-    var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
+  outline: var(--kui-focus-ring-width) solid var(--kui-color-outline, @main-8);
   outline-offset: -2px;
 }
 .k-transfer-item.is-selected {
-  background: var(
-    --kui-color-item-selected,
-    color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
-  );
+  background: var(--kui-color-item-selected, @main-8);
 }
 .k-transfer-item.is-disabled,
 .k-transfer.is-disabled {
@@ -129,10 +125,7 @@
 }
 .k-transfer-item.is-disabled.is-selected:hover,
 .k-transfer.is-disabled .k-transfer-item.is-selected:hover {
-  background: var(
-    --kui-color-item-selected,
-    color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
-  );
+  background: var(--kui-color-item-selected, @main-8);
 }
 .k-transfer.is-disabled .k-transfer-item {
   cursor: not-allowed;

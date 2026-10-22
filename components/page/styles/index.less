@@ -40,8 +40,7 @@
 
     &:focus-visible {
       z-index: 1;
-      outline: 2px solid
-        var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
+      outline: 2px solid var(--kui-color-outline, @main-8);
       outline-offset: 1px;
     }
 
@@ -166,10 +165,7 @@
     }
   }
   .k-pager-item.k-pager-item-active {
-    background-color: var(
-      --kui-color-item-selected,
-      color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
-    );
+    background-color: var(--kui-color-item-selected, @main-8);
     color: var(--kui-color-primary);
   }
   .k-pager-more,

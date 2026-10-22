@@ -121,19 +121,56 @@ describe("Tag palette coverage", () => {
     return { rules: new Map(entries), selectors: entries.map(([selector]) => selector) };
   };
 
-  const painted = (name: string) =>
+  // A chip's three stops are mixed at build time, so the expectation mixes them the same way instead of
+  // copying a string: LESS resolves the palette variable here exactly as the stylesheet does, which
+  // still fails when `index.less` points the wrong base colour or the wrong share at a name.
+  const STOPS: Array<[property: string, stop: string, share: number]> = [
+    ["color", "3", 70],
+    ["border-color", "6", 40],
+    ["background-color", "9", 10],
+  ];
+
+  const shades = async () => {
+    const palette = path.join(root, "components/styles/less-var.less");
+    const snippet =
+      `@import (reference) ${JSON.stringify(palette)};\n.kui-shades {\n` +
+      colors
+        .filter((name) => !NEUTRAL.includes(name))
+        .map((name) =>
+          STOPS.map(([, stop, share]) => `  ${name}-${stop}: fade(@${name}, ${share}%);`).join(
+            "\n",
+          ),
+        )
+        .join("\n") +
+      "\n}";
+    const css = (await less.render(snippet)).css;
+    const built = new Map(
+      [...css.matchAll(/([-\w]+):\s*([^;]+);/g)].map(
+        (match) => [match[1], match[2].trim()] as const,
+      ),
+    );
+    for (const name of colors.filter((n) => !NEUTRAL.includes(n)))
+      for (const [, stop] of STOPS)
+        if (!built.has(`${name}-${stop}`))
+          throw new Error(`no build-time shade for ${name}-${stop}`);
+    return built;
+  };
+
+  const painted = (name: string, built: Map<string, string>) =>
     NEUTRAL.includes(name)
       ? "color: var(--kui-color-text); border-color: var(--kui-color-border); background-color: var(--kui-color-bg-2)"
-      : `color: var(--kui-color-${name}-3, color-mix(in srgb, var(--kui-color-${name}) 70%, transparent)); ` +
-        `border-color: var(--kui-color-${name}-6, color-mix(in srgb, var(--kui-color-${name}) 40%, transparent)); ` +
-        `background-color: var(--kui-color-${name}-9, color-mix(in srgb, var(--kui-color-${name}) 10%, transparent))`;
+      : STOPS.map(
+          ([property, stop]) =>
+            `${property}: var(--kui-color-${name}-${stop}, ${built.get(`${name}-${stop}`)})`,
+        ).join("; ");
 
   it("every palette name paints the chip with its own token", async () => {
     const { rules } = await sheet();
+    const built = await shades();
 
     // 色板加了名字而标签的样式表忘了跟进，这里就红：组件认这个名字，样式表不认
     for (const name of colors) {
-      expect(rules.get(`.k-tag.k-tag-${name}`), `.k-tag.k-tag-${name}`).toBe(painted(name));
+      expect(rules.get(`.k-tag.k-tag-${name}`), `.k-tag.k-tag-${name}`).toBe(painted(name, built));
     }
   });
 

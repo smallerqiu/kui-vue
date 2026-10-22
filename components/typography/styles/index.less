@@ -56,10 +56,7 @@ h6.k-typography {
 }
 .k-typography.is-mark .k-typography-content {
   padding: 0 0.2em;
-  background: var(
-    --kui-color-item-selected,
-    color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
-  );
+  background: var(--kui-color-item-selected, @main-8);
 }
 .k-typography.is-code .k-typography-content {
   padding: 0.15em 0.35em;
@@ -92,16 +89,12 @@ h6.k-typography {
   vertical-align: middle;
 
   &:hover {
-    color: var(
-      --kui-color-primary-hover,
-      color-mix(in srgb, var(--kui-color-primary) 90%, transparent)
-    );
+    color: var(--kui-color-primary-hover, @main-1);
   }
 
   &:focus-visible {
     border-radius: var(--kui-shape-square);
-    outline: var(--kui-focus-ring-width) solid
-      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
+    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline, @main-8);
     outline-offset: 2px;
   }
 

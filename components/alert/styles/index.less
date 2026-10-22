@@ -85,34 +85,22 @@
   // them here lets each tier decide how much of the plate to show without re-listing four types.
   &-info {
     --k-alert-accent: var(--kui-color-primary);
-    --k-alert-plate: var(
-      --kui-color-primary-8,
-      color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
-    );
+    --k-alert-plate: var(--kui-color-primary-8, @main-8);
   }
 
   &-success {
     --k-alert-accent: var(--kui-color-success);
-    --k-alert-plate: var(
-      --kui-color-success-8,
-      color-mix(in srgb, var(--kui-color-success) 20%, transparent)
-    );
+    --k-alert-plate: var(--kui-color-success-8, @success-8);
   }
 
   &-warning {
     --k-alert-accent: var(--kui-color-warning);
-    --k-alert-plate: var(
-      --kui-color-warning-8,
-      color-mix(in srgb, var(--kui-color-warning) 20%, transparent)
-    );
+    --k-alert-plate: var(--kui-color-warning-8, @warning-8);
   }
 
   &-error {
     --k-alert-accent: var(--kui-color-danger);
-    --k-alert-plate: var(
-      --kui-color-danger-8,
-      color-mix(in srgb, var(--kui-color-danger) 20%, transparent)
-    );
+    --k-alert-plate: var(--kui-color-danger-8, @danger-8);
   }
 
   &-slide-leave-to {

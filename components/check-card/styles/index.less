@@ -26,10 +26,7 @@
 
   &:not(.is-disabled):not(.is-readonly):focus-visible {
     border-color: var(--kui-color-primary);
-    outline-color: var(
-      --kui-color-outline,
-      color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
-    );
+    outline-color: var(--kui-color-outline, @main-8);
   }
 
   &.is-checked {
@@ -56,10 +53,7 @@
 
   &.is-checked {
     border-color: var(--kui-color-primary);
-    background: var(
-      --kui-color-item-selected,
-      color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
-    );
+    background: var(--kui-color-item-selected, @main-8);
   }
 }
 // `outline` is this component's own look. The base block sizes the frame; this names its colour and its

@@ -32,7 +32,7 @@ const compile = async (entry: string) => {
       /* Shades are mixed at build time, so a scope that repaints a semantic colour has to name the
          stop that goes with it: the literal left in the sheet was computed from the default, and no
          value the build never saw can move it. */
-      .local {--kui-color-primary:#ff0000;--kui-color-primary-hover:rgba(255,0,0,.9);--kui-border-radius:20px;--kui-color-danger:#00ff00;--kui-color-danger-hover:rgba(0,255,0,.9);--kui-color-warning:#0000ff;--kui-color-warning-hover:rgba(0,0,255,.9);--kui-color-success:#ff0000}
+      .local {--kui-color-primary:#ff0000;--kui-color-primary-hover:rgba(255,0,0,.9);--kui-color-success-8:rgba(255,0,0,.2);--kui-border-radius:20px;--kui-color-danger:#00ff00;--kui-color-danger-hover:rgba(0,255,0,.9);--kui-color-warning:#0000ff;--kui-color-warning-hover:rgba(0,0,255,.9);--kui-color-success:#ff0000}
       .overrides {--kui-control-bg:#ff00ff;--kui-popup-bg:#ffff00;--kui-control-radius:13px;--kui-color-primary-hover:#00ffff}
       .theme-hooks {--kui-theme-fill-bg:#ff0000;--kui-theme-outline-border:#00ff00;--kui-theme-plain-border:#0000ff;--kui-theme-plain-bg:#ffff00}
       .control-chain {--kui-control-border:#00ff00;--kui-control-bg-fill:#0000ff}
@@ -155,7 +155,11 @@ const compile = async (entry: string) => {
         id + " hover must paint the stop declared in its own scope",
       );
     }
-    assertColor(await rgba("success", "background-color"), [255, 0, 0, 51]);
+    assertColor(
+      await rgba("success", "background-color"),
+      [255, 0, 0, 51],
+      "a success alert must plate from the stop declared in its own scope",
+    );
     // A scope that repaints only the base still gets the literal the build left behind: the resting
     // surface follows the override, the hover stop does not, and that is the cost of shipping a value
     // the Windows 7 Chromium can read without mixing at paint time.
@@ -1133,10 +1137,12 @@ const compile = async (entry: string) => {
     // `color` names the chip's hue and `theme` describes its surface, so an explicit colour keeps all
     // three of its stops — otherwise the documented preset palette is repainted by the tier every tag
     // now carries, `fill` included.
+    // The chip's three stops come from the tag sheet itself now, so the expectation reads them there.
+    const chip = "components/tag/styles/index.less";
     for (const [id, prop, expected] of [
-      ["mark-red", "background-color", "color-mix(in srgb, var(--kui-color-red) 10%, transparent)"],
-      ["mark-red", "border-top-color", "color-mix(in srgb, var(--kui-color-red) 40%, transparent)"],
-      ["mark-red", "color", "color-mix(in srgb, var(--kui-color-red) 70%, transparent)"],
+      ["mark-red", "background-color", await shippedChain(chip, "--kui-color-red-9")],
+      ["mark-red", "border-top-color", await shippedChain(chip, "--kui-color-red-6")],
+      ["mark-red", "color", await shippedChain(chip, "--kui-color-red-3")],
       ["mark-custom", "border-top-color", "transparent"],
       ["mark-custom", "color", "var(--kui-color-text-on-solid)"],
     ] as const)
@@ -1896,7 +1902,7 @@ const compile = async (entry: string) => {
       await style("default-check-card-fill-checked", "background-color"),
       await resolve(
         "default-check-card-fill-checked",
-        "var(--kui-color-item-selected, color-mix(in srgb, var(--kui-color-primary) 20%, transparent))",
+        await shippedChain("components/check-card/styles/index.less", "--kui-color-item-selected"),
       ),
       "a checked fill card must tint from the selection token",
     );
@@ -2464,7 +2470,7 @@ const compile = async (entry: string) => {
       await style("default-page-fill-active", "background-color"),
       await resolve(
         "default-page-fill-active",
-        "color-mix(in srgb, var(--kui-color-primary) 20%, transparent)",
+        await shippedChain("components/page/styles/index.less", "--kui-color-item-selected"),
       ),
       "the selected page cell never gets its own plate",
     );
@@ -2679,7 +2685,7 @@ const compile = async (entry: string) => {
       await style("default-kanban-fill-drop", "background-color"),
       await resolve(
         "default-kanban-fill-drop",
-        "color-mix(in srgb, var(--kui-color-primary) 10%, transparent)",
+        await shippedChain("components/kanban/styles/index.less", "--kui-color-primary-9"),
       ),
       "the column a card is dragged over keeps the tier's plate",
     );
