@@ -141,13 +141,10 @@
   .kui-theme-value(solid);
 
   .k-feature-card-desc {
-    color: color-mix(in srgb, @kui-theme-solid-text 80%, transparent);
+    color: var(--kui-theme-solid-ink-80);
   }
   .k-feature-card-icon {
-    background: var(
-      --k-feature-card-icon-bg,
-      color-mix(in srgb, @kui-theme-solid-text 18%, transparent)
-    );
+    background: var(--k-feature-card-icon-bg, var(--kui-theme-solid-chip));
     color: var(--k-feature-card-color, @kui-theme-solid-text);
   }
 }

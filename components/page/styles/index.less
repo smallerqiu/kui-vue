@@ -239,7 +239,12 @@
     color: @kui-theme-solid-text;
   }
   .k-pager-item:not(.k-pager-item-disabled, .k-pager-item-active):hover {
-    background-color: color-mix(in srgb, @kui-theme-solid-text 18%, @kui-theme-solid-bg);
+    // The hovered cell carries the plate, so the ink share is laid over it as a flat gradient
+    // rather than written as the cell's background — that would remove the surface it lightens.
+    background-image: linear-gradient(
+      var(--kui-theme-solid-chip),
+      var(--kui-theme-solid-chip)
+    );
   }
   .k-pager-item.k-pager-item-active {
     background-color: @kui-theme-solid-text;

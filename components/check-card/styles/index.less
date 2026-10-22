@@ -80,17 +80,17 @@
     color: @kui-theme-solid-text;
   }
   .k-check-card-description {
-    color: color-mix(in srgb, @kui-theme-solid-text 80%, transparent);
+    color: var(--kui-theme-solid-ink-80);
   }
   .k-check-card-symbol {
     color: @kui-theme-solid-text;
   }
   .k-check-card-indicator {
-    border-color: color-mix(in srgb, @kui-theme-solid-text 45%, transparent);
+    border-color: var(--kui-theme-solid-ink-45);
   }
 
   &:not(.is-disabled):not(.is-readonly):hover {
-    border-color: color-mix(in srgb, @kui-theme-solid-text 45%, transparent);
+    border-color: var(--kui-theme-solid-ink-45);
   }
 
   &.is-checked:not(.is-disabled) {

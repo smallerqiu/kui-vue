@@ -14,21 +14,14 @@ import process from "node:process";
 //
 // Once the table is empty the check renders the library sheet and fails on any call left in it, so a
 // shade cannot come back through a shared mixin where the source scan would miss it.
+// The four that remain each mix a colour a caller names on the individual instance — a status code's
+// gradient, a panel's own accent, a card's own accent, an event's own colour — so no build-time sheet
+// knows either channel and the shade has to be produced at paint time (or by the component itself).
 export const MIX_BUDGET: Record<string, number> = {
-  "components/alert/styles/index.less": 1,
   "components/calendar/styles/index.less": 1,
-  "components/card/styles/index.less": 2,
-  "components/check-card/styles/index.less": 3,
-  "components/collapse/styles/index.less": 2,
-  "components/feature-card/styles/index.less": 3,
-  "components/feedback-panel/styles/index.less": 4,
-  "components/image/styles/index.less": 1,
-  "components/kanban/styles/index.less": 3,
-  "components/list-panel/styles/index.less": 2,
-  "components/page/styles/index.less": 1,
+  "components/feature-card/styles/index.less": 1,
+  "components/feedback-panel/styles/index.less": 1,
   "components/result/styles/index.less": 1,
-  "components/stat-card/styles/index.less": 1,
-  "components/transfer/styles/index.less": 7,
 };
 
 export interface ColourMixReport {

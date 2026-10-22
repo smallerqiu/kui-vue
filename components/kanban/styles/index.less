@@ -54,7 +54,15 @@
 // A primary edge on a primary plate is nothing to look at, so a solid column hints in its plate's own ink.
 .k-kanban-solid .k-kanban-column.k-kanban-column-drag-over {
   border-color: @kui-theme-solid-text;
-  background-color: color-mix(in srgb, @kui-theme-solid-text 18%, @kui-theme-solid-bg);
+  // The hint is a lightening of the plate, not a wash of the primary: the rule above paints the drag
+  // background for every tier, so this one has to name the plate again before laying anything over it.
+  background-color: var(--kui-theme-solid-bg, var(--kui-color-primary));
+  // A translucent `background-color` here would delete that surface instead of lightening it, so the
+  // share of the plate's ink goes on as a flat gradient — the same pixels, laid over the plate.
+  background-image: linear-gradient(
+    var(--kui-theme-solid-chip),
+    var(--kui-theme-solid-chip)
+  );
 }
 .k-kanban-column-header {
   display: flex;
@@ -112,12 +120,12 @@
     color: @kui-theme-solid-text;
   }
   em {
-    background: color-mix(in srgb, @kui-theme-solid-text 24%, @kui-theme-solid-bg);
+    background: var(--kui-theme-solid-ink-24);
     color: @kui-theme-solid-text;
   }
 }
 // A keyboard user's ring is drawn on the plate, so under `solid` it is redrawn in the plate's own ink —
 // the same call the input family makes when it lands on a primary surface.
 .k-kanban-solid .k-kanban-item:focus-visible {
-  outline-color: color-mix(in srgb, @kui-theme-solid-text 40%, transparent);
+  outline-color: var(--kui-theme-solid-outline);
 }

@@ -78,6 +78,17 @@ const compile = async (entry: string) => {
         probe.remove();
         return computed;
       }, value);
+    // Serialises a background image from the same tokens, so the wash a plate carries over its own
+    // surface is pinned to the share it must be rather than to another element that draws it.
+    const resolveImage = (id: string, value: string) =>
+      page.locator("#" + id).evaluate((el, value) => {
+        const probe = document.createElement("span");
+        probe.style.backgroundImage = value;
+        el.append(probe);
+        const computed = getComputedStyle(probe).backgroundImage;
+        probe.remove();
+        return computed;
+      }, value);
     // Serialises a box-shadow from the same token, so a ring can be pinned to the colour it must be
     // rather than to another element that happens to draw the same one.
     const resolveShadow = (id: string, value: string) =>
@@ -122,6 +133,20 @@ const compile = async (entry: string) => {
         end += 1;
       }
       return sheet.slice(at, end + 1);
+    };
+
+    // The shares a `solid` plate's chrome asks for are published by the theme sheet, so an expectation
+    // reads the value the palette wrote out instead of a `color-mix()` the browser would run for it:
+    // the tier has to ask for its share by name, and the share has to be the one the sheet publishes.
+    let shareSheet = "";
+    const inkShare = async (token: string) => {
+      if (!shareSheet) {
+        const filename = path.join(root, "components/styles/less-css-var.less");
+        shareSheet = (await less.render(fs.readFileSync(filename, "utf8"), { filename })).css;
+      }
+      const value = new RegExp(`${token}:\\s*([^;]+);`).exec(shareSheet)?.[1];
+      assert.ok(value, `the palette publishes no ${token}`);
+      return value.trim();
     };
 
     const style = (id: string, prop: string) =>
@@ -1529,14 +1554,14 @@ const compile = async (entry: string) => {
     ])
       assert.equal(
         await style(id, "color"),
-        await resolve(id, "color-mix(in srgb, var(--kui-color-text-on-solid) 80%, transparent)"),
+        await resolve(id, await inkShare("--kui-theme-solid-ink-80")),
         id + " must dim on a solid surface instead of staying dark",
       );
     assert.equal(
       await style("solid-card-head", "border-bottom-color"),
       await resolve(
         "solid-card-head",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 30%, transparent)",
+        await inkShare("--kui-theme-solid-ink-30"),
       ),
       "a solid card must invert its head divider",
     );
@@ -1551,7 +1576,7 @@ const compile = async (entry: string) => {
       await style("solid-feature-icon", "background-color"),
       await resolve(
         "solid-feature-icon",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 18%, transparent)",
+        await inkShare("--kui-theme-solid-chip"),
       ),
       "a solid feature card must tint its icon chip from the inverted text",
     );
@@ -1749,7 +1774,7 @@ const compile = async (entry: string) => {
         await style("solid-collapse-header", prop),
         await resolve(
           "solid-collapse-header",
-          "color-mix(in srgb, var(--kui-color-text-on-solid) 30%, transparent)",
+          await inkShare("--kui-theme-solid-ink-30"),
         ),
         "a solid panel must invert its header divider: " + prop,
       );
@@ -1817,7 +1842,7 @@ const compile = async (entry: string) => {
       await style("solid-feedback-desc", "color"),
       await resolve(
         "solid-feedback-desc",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 80%, transparent)",
+        await inkShare("--kui-theme-solid-ink-80"),
       ),
       "a solid panel must dim its description instead of flattening it",
     );
@@ -1834,7 +1859,7 @@ const compile = async (entry: string) => {
     for (const id of ["solid-feedback-details", "solid-feedback-mark"])
       assert.equal(
         await style(id, "background-color"),
-        await resolve(id, "color-mix(in srgb, var(--kui-color-text-on-solid) 18%, transparent)"),
+        await resolve(id, await inkShare("--kui-theme-solid-chip")),
         id + " must tint its plate from the inverted text",
       );
     assert.equal(
@@ -1944,7 +1969,7 @@ const compile = async (entry: string) => {
       await style("solid-check-card-desc", "color"),
       await resolve(
         "solid-check-card-desc",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 80%, transparent)",
+        await inkShare("--kui-theme-solid-ink-80"),
       ),
       "a solid check card must dim its description instead of flattening it",
     );
@@ -1952,7 +1977,7 @@ const compile = async (entry: string) => {
       await style("solid-check-card-indicator", "border-top-color"),
       await resolve(
         "solid-check-card-indicator",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 45%, transparent)",
+        await inkShare("--kui-theme-solid-ink-45"),
       ),
       "a solid check card must keep its empty circle readable",
     );
@@ -1966,7 +1991,7 @@ const compile = async (entry: string) => {
       await style("solid-check-card", "border-top-color"),
       await resolve(
         "solid-check-card",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 45%, transparent)",
+        await inkShare("--kui-theme-solid-ink-45"),
       ),
       "a solid check card must light its edge from its own ink on hover",
     );
@@ -2188,7 +2213,7 @@ const compile = async (entry: string) => {
       await style("solid-alert-close", "color"),
       await resolve(
         "solid-alert-close",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 70%, transparent)",
+        await inkShare("--kui-theme-solid-ink-70"),
       ),
       "a close button on a solid plate must fade in its own ink",
     );
@@ -2364,7 +2389,7 @@ const compile = async (entry: string) => {
       await style("solid-image-error", "background-color"),
       await resolve(
         "solid-image-error",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 18%, transparent)",
+        await inkShare("--kui-theme-solid-chip"),
       ),
       "an error mark must tint its plate with the tier's own ink",
     );
@@ -2568,13 +2593,23 @@ const compile = async (entry: string) => {
     await page
       .locator("#solid-page-cell")
       .evaluate((el) => el.getAnimations().forEach((a) => a.finish()));
+    // The hovered cell is the plate itself, so the share cannot stand in for its background — it is laid
+    // over the surface as a flat gradient, which is the same pixel and keeps the plate following whatever
+    // a caller names for it.
     assert.equal(
       await style("solid-page-cell", "background-color"),
-      await resolve(
-        "solid-page-cell",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 18%, var(--kui-color-primary))",
-      ),
+      await resolve("solid-page-cell", "var(--kui-color-primary)"),
       "a solid pager's hover must lighten its own plate, not bring `fill`'s grey back",
+    );
+    assert.equal(
+      await style("solid-page-cell", "background-image"),
+      await resolveImage(
+        "solid-page-cell",
+        `linear-gradient(${await inkShare("--kui-theme-solid-chip")}, ${await inkShare(
+          "--kui-theme-solid-chip",
+        )})`,
+      ),
+      "the hovered cell must lighten by the chip share painted over its plate",
     );
     // The two things the ruling leaves alone: the arrows are not plated, and the bar's label sits on the
     // page rather than on a plate, so inverting it would paint white on white.
@@ -2752,7 +2787,7 @@ const compile = async (entry: string) => {
       await style("solid-kanban-count", "background-color"),
       await resolve(
         "solid-kanban-count",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 24%, var(--kui-color-primary))",
+        await inkShare("--kui-theme-solid-ink-24"),
       ),
       "a count chip on a solid column has no plate of its own",
     );
@@ -2775,10 +2810,20 @@ const compile = async (entry: string) => {
       await resolve("solid-kanban-drop", "var(--kui-color-text-on-solid)"),
       "a solid column hints in the same colour as its plate",
     );
-    assert.notEqual(
+    assert.equal(
       await style("solid-kanban-drop", "background-color"),
       await style("solid-kanban-column", "background-color"),
-      "a solid column's drop hint is invisible on its own plate",
+      "a solid column keeps its own plate under the drop hint",
+    );
+    assert.equal(
+      await style("solid-kanban-drop", "background-image"),
+      await resolveImage(
+        "solid-kanban-drop",
+        `linear-gradient(${await inkShare("--kui-theme-solid-chip")}, ${await inkShare(
+          "--kui-theme-solid-chip",
+        )})`,
+      ),
+      "a solid column's drop hint lightens its plate by the chip share",
     );
     // None of that may reach a tier that keeps a light plate — the same scope, framed.
     assert.equal(
@@ -2924,7 +2969,7 @@ const compile = async (entry: string) => {
       await style("solid-transfer-desc", "color"),
       await resolve(
         "solid-transfer-desc",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 80%, transparent)",
+        await inkShare("--kui-theme-solid-ink-80"),
       ),
       "a description on a solid panel stays in its own dark ink",
     );
@@ -2932,7 +2977,7 @@ const compile = async (entry: string) => {
       await style("solid-transfer-header", "border-bottom-color"),
       await resolve(
         "solid-transfer-header",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 24%, transparent)",
+        await inkShare("--kui-theme-solid-ink-24"),
       ),
       "the line under a solid panel's title keeps the page's border colour",
     );
@@ -2940,7 +2985,7 @@ const compile = async (entry: string) => {
       await style("solid-transfer-footer", "color"),
       await resolve(
         "solid-transfer-footer",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 80%, transparent)",
+        await inkShare("--kui-theme-solid-ink-80"),
       ),
       "a solid panel's footer line stays in dark ink",
     );
@@ -2948,7 +2993,7 @@ const compile = async (entry: string) => {
       await style("solid-transfer-selected", "background-color"),
       await resolve(
         "solid-transfer-selected",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 26%, var(--kui-color-primary))",
+        await inkShare("--kui-theme-solid-ink-26"),
       ),
       "a selected row on a solid panel keeps the primary 20% plate `fill` owns",
     );
@@ -3016,7 +3061,7 @@ const compile = async (entry: string) => {
       await style("solid-panel-summary", "color"),
       await resolve(
         "solid-panel-summary",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 80%, transparent)",
+        await inkShare("--kui-theme-solid-ink-80"),
       ),
       "a count on a solid panel stays dark ink on a primary plate",
     );
@@ -3024,7 +3069,7 @@ const compile = async (entry: string) => {
       await style("solid-panel-strip", "background-color"),
       await resolve(
         "solid-panel-strip",
-        "color-mix(in srgb, var(--kui-color-text-on-solid) 24%, var(--kui-color-primary))",
+        await inkShare("--kui-theme-solid-ink-24"),
       ),
       "the selection strip of a solid panel keeps the grey plate it ships with",
     );

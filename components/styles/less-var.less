@@ -28,6 +28,17 @@
 @solid-text-muted: fade(@solid-text-color, 85%);
 @solid-text-placeholder: fade(@solid-text-color, 75%);
 @solid-text-chip: fade(@solid-text-color, 18%);
+// The shares a plate's own chrome asks for that have no role name: a dimmed description (80), a
+// close control's hover (70), an indicator edge and its ring (45), a divider (30), a selected strip
+// (26), a hairline and a badge (24), a hover wash (14). Named by their number because the number is
+// the contract — the components read them through `--kui-theme-solid-ink-*`, published per theme.
+@solid-ink-80: fade(@solid-text-color, 80%);
+@solid-ink-70: fade(@solid-text-color, 70%);
+@solid-ink-45: fade(@solid-text-color, 45%);
+@solid-ink-30: fade(@solid-text-color, 30%);
+@solid-ink-26: fade(@solid-text-color, 26%);
+@solid-ink-24: fade(@solid-text-color, 24%);
+@solid-ink-14: fade(@solid-text-color, 14%);
 
 // --- 功能色体系 ---
 @main: #54a9ff;

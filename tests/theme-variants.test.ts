@@ -190,6 +190,14 @@ const SOLID_MUTED = "var(--kui-theme-solid-muted)";
 const SOLID_PLACEHOLDER = "var(--kui-theme-solid-placeholder)";
 const SOLID_CHIP = "var(--kui-theme-solid-chip)";
 
+// Whether a declaration takes its colour from the ink a `solid` plate writes its value in — the ink
+// itself, or one of the shares of it the sheet publishes. A share answers a part the plate dims, and it
+// has to be its own hook because `color-mix()` mixes while painting and a shell older than Chrome 111
+// gives that declaration no value. Both spellings follow `--kui-color-text-on-solid`.
+const followsSolidInk = (value: string, onSolid: string) =>
+  value.includes(onSolid) ||
+  /--kui-theme-solid-(?:ink-\d+|chip|outline|muted|placeholder)\b/.test(value);
+
 // A shade is a literal in the sheet: LESS mixed it out of the palette token, because `color-mix()`
 // mixes while painting and a shell older than Chrome 111 gives that declaration no value at all. The
 // expected share is therefore serialised here from the `:root` value the same sheet publishes, so the
@@ -208,6 +216,26 @@ const share = (compiled: Map<string, string>, token: string, pct: number) => {
       : (raw!.match(/\d+(?:\.\d+)?/g) ?? []).slice(0, 3).map(Number);
   expect(channels.length, `${raw} is not an rgb triple`).toBe(3);
   return `rgba(${channels[0]}, ${channels[1]}, ${channels[2]}, ${pct / 100})`;
+};
+
+// Read a published colour the way CSS does, so a guard compares channels instead of spelling:
+// shorthand hex expands, and a colour function keeps the alpha the block wrote.
+const colour = (published: Map<string, string>, token: string) => {
+  const raw = published.get(token);
+  expect(raw, `${token} is not published in the block that needs it`).toBeDefined();
+  const hex = /^#([0-9a-f]+)$/i.exec(raw!);
+  if (hex) {
+    const digits =
+      hex[1].length === 3 || hex[1].length === 4
+        ? [...hex[1]].map((digit) => digit + digit).join("")
+        : hex[1];
+    const parts = (digits.match(/../g) ?? []).map((pair) => Number.parseInt(pair, 16));
+    expect(parts.length >= 3, `${raw} is not an rgb triple`).toBe(true);
+    return { channels: parts.slice(0, 3), alpha: parts.length > 4 ? parts[3] / 255 : 1 };
+  }
+  const numbers = (raw!.match(/\d+(?:\.\d+)?/g) ?? []).map(Number);
+  expect(numbers.length >= 3, `${raw} is not an rgb triple`).toBe(true);
+  return { channels: numbers.slice(0, 3), alpha: numbers[3] ?? 1 };
 };
 
 it("paints every tier the plain controls declare", async () => {
@@ -1233,9 +1261,15 @@ it("inverts the parts a solid surface colours itself", async () => {
       ).toBeGreaterThan(0);
       for (const [, body] of hits)
         expect(
-          declarations(body, `${surface.name} solid ${element}`).get(property),
-          `${surface.name} ${element} on solid ignores the inverted text token`,
-        ).toContain(onSolid);
+          followsSolidInk(
+            declarations(body, `${surface.name} solid ${element}`).get(property)!,
+            onSolid,
+          ),
+          `${surface.name} ${element} on solid ignores the inverted text token: ${declarations(
+            body,
+            `${surface.name} solid ${element}`,
+          ).get(property)}`,
+        ).toBe(true);
     }
     if (surface.keeps.length === 0) continue;
     // The exclusion list is load-bearing here, so it is checked where it sits — in the raw selector of
@@ -1306,11 +1340,16 @@ it("paints an alert's tiers over the plate its own type names", async () => {
     ".k-alert-icon",
     ".k-alert-close",
     ".k-alert-close:hover",
-  ])
+  ]) {
+    const painted = declarations(
+      compiled.get(`.k-alert-solid ${part}`),
+      `alert solid ${part}`,
+    ).get("color")!;
     expect(
-      declarations(compiled.get(`.k-alert-solid ${part}`), `alert solid ${part}`).get("color"),
-      `alert solid leaves ${part} on a dark token`,
-    ).toContain(onSolid);
+      followsSolidInk(painted, onSolid),
+      `alert solid leaves ${part} on a dark token: ${painted}`,
+    ).toBe(true);
+  }
 
   // `bordered` moves the plate onto the frame, and is written compound so a tier's own `border-color`
   // at (0,1,0) cannot out-order it.
@@ -1414,8 +1453,9 @@ it("paints a pager's tiers, states and inverted parts on its cells", async () =>
   ).toBe("var(--kui-color-primary)");
 
   // `solid` is the one tier where the plate and the state are the same colour, so the active cell swaps
-  // them — primary digits on an inverted plate — and hover keeps a lighter plate of the tier's own ink
-  // rather than the grey `fill` uses.
+  // them — primary digits on an inverted plate — and hover lightens the cell's own plate by the ink's 18%
+  // rather than bringing in the grey `fill` uses. The cell carries the plate, so the shade is laid over it
+  // as a flat gradient instead of written as its background, which would delete the surface.
   expect(
     [...compiled].some(
       ([key, body]) =>
@@ -1429,8 +1469,8 @@ it("paints a pager's tiers, states and inverted parts on its cells", async () =>
     [...compiled].some(
       ([key, body]) =>
         paints(key, "k-page", "solid", "", ":hover") &&
-        declarations(body, key).get("background-color") ===
-          `color-mix(in srgb, ${onSolid} 18%, ${solidPlate})`,
+        declarations(body, key).get("background-image") ===
+          `linear-gradient(${SOLID_CHIP}, ${SOLID_CHIP})`,
     ),
     "a solid pager's hover paints the grey plate `fill` owns",
   ).toBe(true);
@@ -1656,16 +1696,12 @@ it("paints a list panel's tier through the card it renders and inverts its own t
   expect(
     declarations(compiled.get(summary), "solid panel summary").get("color"),
     "a solid panel leaves its summary line in ink",
-  ).toBe(
-    "color-mix(in srgb, var(--kui-theme-solid-text, var(--kui-color-text-on-solid)) 80%, transparent)",
-  );
+  ).toBe("var(--kui-theme-solid-ink-80)");
   const strip = ".k-list-panel.k-card-solid .k-list-panel-toolbar-selection";
   expect(
     declarations(compiled.get(strip), "solid panel selection strip").get("background"),
     "a solid panel keeps a grey plate behind its selection strip",
-  ).toBe(
-    "color-mix(in srgb, var(--kui-theme-solid-text, var(--kui-color-text-on-solid)) 24%, var(--kui-theme-solid-bg, var(--kui-color-primary)))",
-  );
+  ).toBe("var(--kui-theme-solid-ink-24)");
 
   // Both override a rule that sits at a single class, so the tier reaches them by specificity — through the
   // card class the panel shares — and not by the order these blocks happen to be written in.
@@ -1764,26 +1800,6 @@ it("ships the navigation family's shared shades as build-time literals", async (
 // a second copy of the shade that only ever holds the light value.
 it("publishes the theme-dependent shades and reads them without a fallback", async () => {
   const sheet = await fileRules("components/styles/less-css-var.less");
-
-  // Read a published colour the way CSS does, so the guard compares channels instead of spelling:
-  // shorthand hex expands, and a colour function keeps the alpha the block wrote.
-  const colour = (published: Map<string, string>, token: string) => {
-    const raw = published.get(token);
-    expect(raw, `${token} is not published in the block that needs it`).toBeDefined();
-    const hex = /^#([0-9a-f]+)$/i.exec(raw!);
-    if (hex) {
-      const digits =
-        hex[1].length === 3 || hex[1].length === 4
-          ? [...hex[1]].map((digit) => digit + digit).join("")
-          : hex[1];
-      const parts = (digits.match(/../g) ?? []).map((pair) => Number.parseInt(pair, 16));
-      expect(parts.length >= 3, `${raw} is not an rgb triple`).toBe(true);
-      return { channels: parts.slice(0, 3), alpha: parts.length > 4 ? parts[3] / 255 : 1 };
-    }
-    const numbers = (raw!.match(/\d+(?:\.\d+)?/g) ?? []).map(Number);
-    expect(numbers.length >= 3, `${raw} is not an rgb triple`).toBe(true);
-    return { channels: numbers.slice(0, 3), alpha: numbers[3] ?? 1 };
-  };
 
   const SHADES = [
     {
@@ -1936,4 +1952,135 @@ it("ships the site sheet's shades as build-time literals that still follow the r
     `0 24px 70px ${want.get("shadow")!}`,
     "must keep the card lifted by 12% of black",
   );
+});
+
+// A `solid` plate dims its own chrome — a description, a divider, a hairline, a selected strip — by
+// taking a share of the ink it writes its value in. Asking the browser for that share left the part
+// undrawn on a shell older than Chrome 111, so the palette publishes the shares as build-time literals.
+// The ink is the same colour in both theme blocks, so one set of literals answers both — publishing it
+// anyway is what keeps the contract the four named shares already have: a caller that repaints a
+// plate's ink names its quieter parts through the same hooks. Two of the 28 reads cannot be a
+// background at all, because the element that shades *is* the plate: there the share goes over the
+// surface as a flat gradient, which paints the same pixel and leaves the plate underneath it.
+it("publishes the solid plate's ink shares and reads them bare", async () => {
+  const sheet = await fileRules("components/styles/less-css-var.less");
+
+  const SHARES = [80, 70, 45, 30, 26, 24, 14] as const;
+  const publishedHooks = new Set<string>([
+    ...SHARES.map((pct) => `--kui-theme-solid-ink-${pct}`),
+    "--kui-theme-solid-chip",
+    "--kui-theme-solid-outline",
+  ]);
+  for (const block of [":root", '[theme-mode="light"]', '[theme-mode="dark"]']) {
+    const published = declarations(sheet.get(block), `${block} publishes no theme variables`);
+    // The share the hook promises is the number in its name, taken from the ink that block publishes.
+    const ink = colour(published, "--kui-color-text-on-solid");
+    for (const hook of publishedHooks) {
+      const shipped = published.get(hook);
+      expect(shipped, `${block} leaves ${hook} unset`).toBeDefined();
+      expect(shipped, `${block} mixes ${hook} while painting`).not.toContain("color-mix(");
+      const pct = /-(\d+)$/.exec(hook)?.[1];
+      // The two named shares carry their percentage in the palette's own names, not in the hook, and
+      // the guard that moved the control family already pins what they shade; only the numbered ones
+      // promise their share in the hook name, so only those can be checked from the name here.
+      if (!pct) continue;
+      expect(
+        colour(published, hook),
+        `${block} shades ${hook} away from the ink it publishes`,
+      ).toEqual({ channels: ink.channels, alpha: Number(pct) / 100 });
+    }
+  }
+
+  // Ten of the twelve sheets are clean now, so scan them whole: a shade written back into a rule this
+  // suite never names has to fail here instead of shipping no value at all on Windows 7.
+  for (const entry of [
+    "components/transfer/styles/index.less",
+    "components/check-card/styles/index.less",
+    "components/kanban/styles/index.less",
+    "components/card/styles/index.less",
+    "components/collapse/styles/index.less",
+    "components/list-panel/styles/index.less",
+    "components/alert/styles/index.less",
+    "components/image/styles/index.less",
+    "components/page/styles/index.less",
+    "components/stat-card/styles/index.less",
+  ])
+    for (const [key, body] of await fileRules(entry))
+      expect(body, `${entry}: ${key} still mixes while painting`).not.toContain("color-mix(");
+
+  const READS: Array<[string, number]> = [
+    ["components/transfer/styles/index.less", 7],
+    ["components/feedback-panel/styles/index.less", 3],
+    ["components/check-card/styles/index.less", 3],
+    ["components/kanban/styles/index.less", 3],
+    ["components/card/styles/index.less", 2],
+    ["components/collapse/styles/index.less", 2],
+    ["components/list-panel/styles/index.less", 2],
+    ["components/feature-card/styles/index.less", 2],
+    ["components/alert/styles/index.less", 1],
+    ["components/image/styles/index.less", 1],
+    ["components/page/styles/index.less", 1],
+    ["components/stat-card/styles/index.less", 1],
+  ];
+
+  let read = 0;
+  for (const [entry, sites] of READS) {
+    let hits = 0;
+    for (const [key, body] of await fileRules(entry)) {
+      for (const [property, value] of declarations(body, `${entry}: ${key}`)) {
+        const hook = /--kui-theme-solid-(?:ink-\d+|chip|outline)/.exec(value)?.[0];
+        if (!hook) continue;
+        expect(
+          publishedHooks.has(hook),
+          `${entry}: ${key} ${property} reads ${hook}, a share the palette publishes for nobody`,
+        ).toBe(true);
+        expect(
+          value,
+          `${entry}: ${key} ${property} still mixes ${hook} while painting`,
+        ).not.toContain("color-mix(");
+        // Reading the hook is the contract. A fallback next to it is a second copy of the shade that
+        // only the theme publishing it could override, and a colour written beside it stops following
+        // the ink entirely — the two ways a share drifts back into a literal nobody can repaint.
+        expect(
+          value,
+          `${entry}: ${key} ${property} keeps a copy of ${hook}`,
+        ).not.toContain(`${hook},`);
+        expect(
+          value,
+          `${entry}: ${key} ${property} writes a colour beside ${hook} instead of reading it`,
+        ).not.toMatch(/#[0-9a-f]{3,8}\b|\brgba?\(/i);
+        hits += 1;
+      }
+    }
+    expect(hits, `${entry} shades fewer places than it does today`).toBe(sites);
+    read += hits;
+  }
+  expect(read, "the solid plate's ink is read in fewer places than it is today").toBe(28);
+
+  // The two elements that own their plate overlay the share instead of claiming it as their background;
+  // the overlay is only equivalent while the plate it lies on is still there.
+  for (const [entry, selector] of [
+    [
+      "components/kanban/styles/index.less",
+      ".k-kanban-solid .k-kanban-column.k-kanban-column-drag-over",
+    ],
+    [
+      "components/page/styles/index.less",
+      ".k-page-solid:not(.k-page-disabled) .k-pager-item:not(.k-pager-item-disabled, .k-pager-item-active):hover",
+    ],
+  ] as const) {
+    const body = declarations((await fileRules(entry)).get(selector), `${selector} paints nothing`);
+    expect(
+      body.get("background-image"),
+      `${selector} no longer lays the share over its own plate`,
+    ).toBe(`linear-gradient(${SOLID_CHIP}, ${SOLID_CHIP})`);
+    // The plate has to still be there under the overlay: either the tier's own rule reaches it, or this
+    // one names it again because a base rule would otherwise paint its own wash here.
+    const plate = body.get("background-color") ?? body.get("background");
+    if (plate !== undefined)
+      expect(
+        plate,
+        `${selector} lightens something other than the plate: ${plate}`,
+      ).toBe("var(--kui-theme-solid-bg, var(--kui-color-primary))");
+  }
 });
