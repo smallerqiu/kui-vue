@@ -1,3 +1,5 @@
+@import "../../styles/less-css-var.less";
+
 .k-calendar-toolbar {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -108,11 +110,10 @@
   text-align: left;
   border: 0;
   border-radius: 3px;
-  background: color-mix(
-    in srgb,
-    var(--k-calendar-event-color, var(--kui-color-primary)) 11%,
-    transparent
-  );
+  // An 11% wash of the event's colour. The component publishes it as a plain `rgba()`; this literal
+  // only covers events that carry no colour of their own, and it has to be a literal because a
+  // `color-mix()` declaration gets no value at all in the Win7 Electron build.
+  background: var(--k-calendar-event-bg, fade(@main, 11%));
   cursor: pointer;
   font-size: 11px;
 }

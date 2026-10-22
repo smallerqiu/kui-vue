@@ -39,7 +39,7 @@ Used to present product features, navigation entries, or capability descriptions
 | clickable | Enable interaction and keyboard semantics | `boolean` | false |
 | disabled | Disable interaction | `boolean` | false |
 | color | Icon accent color | `string` | primary |
-| iconBackground | Icon container background; derived from `color` when omitted | `string` | auto |
+| iconBackground | Icon container background; a wash of `color`, or of the theme primary when `color` cannot be parsed (e.g. `currentColor`, a CSS variable) | `string` | auto |
 | extra | Trailing content | VNodeChild | - |
 
 ## Events

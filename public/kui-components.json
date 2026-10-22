@@ -3238,9 +3238,9 @@
         },
         {
           "name": "iconBackground",
-          "description": "Icon container background; derived from `color` when omitted",
-          "descriptionZh": "图标容器背景；未设置时根据 `color` 自动生成",
-          "descriptionEn": "Icon container background; derived from `color` when omitted",
+          "description": "Icon container background; a wash of `color`, or of the theme primary when `color` cannot be parsed (e.g. `currentColor`, a CSS variable)",
+          "descriptionZh": "图标容器背景；未设置时由 `color` 淡化生成，`color` 无法解析（如 `currentColor`、CSS 变量）时改用主题主色淡化",
+          "descriptionEn": "Icon container background; a wash of `color`, or of the theme primary when `color` cannot be parsed (e.g. `currentColor`, a CSS variable)",
           "type": "string | undefined",
           "boolean": false,
           "required": false,

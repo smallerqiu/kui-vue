@@ -7,19 +7,15 @@ import process from "node:process";
 // there. Every shade has to be a literal in the compiled sheet, which LESS can produce (`mix()`,
 // `fade()`) because it knows both colours at build time.
 //
-// This check is a ratchet, because the calls cannot all move in one commit. The table records how
-// many a file still has, and a file may only go down: a count above its entry fails, an entry above its
-// count fails too (the budget has to be cut in the same commit that cut the calls), and a file that
-// reaches zero leaves the table. An unlisted file has no allowance at all.
+// This check is a ratchet: the table holds how many calls a file may still have, a file may only go
+// down, and a file the table does not know has no allowance at all. The migration left the table empty,
+// so nothing is allowed anywhere — and the library sheet is rendered on every run too, because a shared
+// mixin can contribute a shade that the per-file scan cannot attribute to any one file.
 //
-// Once the table is empty the check renders the library sheet and fails on any call left in it, so a
-// shade cannot come back through a shared mixin where the source scan would miss it.
-// The two that remain mix a colour the component holds in JavaScript — a card's own accent, an event's own
-// colour — so no build-time sheet knows that channel either, and the shade has to come from the component.
-export const MIX_BUDGET: Record<string, number> = {
-  "components/calendar/styles/index.less": 1,
-  "components/feature-card/styles/index.less": 1,
-};
+// A shade that depends on a colour only the caller knows — a card's accent, an event's colour — is not
+// the sheet's to mix. The component works it out (`wash()` in `components/utils/color.ts`) and hands
+// the sheet a plain `rgba()`; the sheet keeps a literal for the case where no such colour was given.
+export const MIX_BUDGET: Record<string, number> = {};
 
 export interface ColourMixReport {
   /** LESS files read, in the library and in the site stylesheet. */

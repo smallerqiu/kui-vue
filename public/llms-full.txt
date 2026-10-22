@@ -1158,7 +1158,7 @@ When a date cell is focused, use the arrow keys to move, `Home` or `End` to move
 | date  | Event date in `YYYY-MM-DD` format | string           | yes      |
 | title | Event title                       | string           | yes      |
 | time  | Time text                         | string           | no       |
-| color | Event indicator color             | string           | no       |
+| color | Event indicator color, washed into the row background | string           | no       |
 
 ## Events
 
@@ -1211,7 +1211,7 @@ Used to present product features, navigation entries, or capability descriptions
 | clickable | Enable interaction and keyboard semantics | `boolean` | false |
 | disabled | Disable interaction | `boolean` | false |
 | color | Icon accent color | `string` | primary |
-| iconBackground | Icon container background; derived from `color` when omitted | `string` | auto |
+| iconBackground | Icon container background; a wash of `color`, or of the theme primary when `color` cannot be parsed (e.g. `currentColor`, a CSS variable) | `string` | auto |
 | extra | Trailing content | VNodeChild | - |
 
 ## Events

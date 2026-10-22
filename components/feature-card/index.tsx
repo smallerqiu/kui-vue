@@ -8,6 +8,7 @@ import {
 import type { BooleanType, SizeType, SurfaceShapeType, SurfaceThemeType } from "../const/types";
 import { resolvePaintedTheme, useConfigAppearance } from "../config/context";
 import Icon, { type IconType } from "../icon";
+import { wash } from "../utils/color";
 
 const featureCardProps = {
   icon: Array as PropType<IconType[]>,
@@ -35,6 +36,10 @@ export type FeatureCardProps = ExtractPropTypes<typeof featureCardProps>;
 // than shipping a class no LESS rule answers.
 const PAINTED_THEMES = ["fill", "outline", "plain", "solid", "dashed"] as const;
 
+// The share the icon chip washes its colour by. The sheet's own default — the one that paints when no
+// `color` reaches this component — has to fade the same amount.
+const ICON_WASH_SHARE = 12;
+
 const FeatureCard = defineComponent({
   name: "FeatureCard",
   props: featureCardProps,
@@ -47,6 +52,14 @@ const FeatureCard = defineComponent({
     // written prop: a `ConfigProvider theme="underlined"` has to land on `fill` too.
     const paintedTheme = computed(
       () => resolvePaintedTheme(appearance.theme.value, PAINTED_THEMES) ?? "fill",
+    );
+    // The chip washes whatever colour this card carries, and only this component knows what that
+    // colour is — `color` is a string the caller typed. Doing the mix in the sheet would need
+    // `color-mix()`, so the share is applied here and handed over as a plain `rgba()`.
+    // `iconBackground` still wins, and a colour that only resolves inside the page (`currentColor`,
+    // `var(--token)`) leaves the sheet's literal default standing.
+    const iconWash = computed(
+      () => (props.iconBackground ? undefined : wash(props.color, ICON_WASH_SHARE)),
     );
     const handleClick = (event: MouseEvent) => {
       if (props.disabled) {
@@ -83,6 +96,7 @@ const FeatureCard = defineComponent({
             {
               "--k-feature-card-color": props.color,
               "--k-feature-card-icon-bg": props.iconBackground,
+              "--k-feature-card-icon-wash": iconWash.value,
             } as StyleValue,
             customStyle,
           ]}

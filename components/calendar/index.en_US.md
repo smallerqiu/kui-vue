@@ -46,7 +46,7 @@ When a date cell is focused, use the arrow keys to move, `Home` or `End` to move
 | date  | Event date in `YYYY-MM-DD` format | string           | yes      |
 | title | Event title                       | string           | yes      |
 | time  | Time text                         | string           | no       |
-| color | Event indicator color             | string           | no       |
+| color | Event indicator color, washed into the row background | string           | no       |
 
 ## Events
 

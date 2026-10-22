@@ -1,4 +1,5 @@
 import { useInitialValue } from "../utils/model-value";
+import { wash } from "../utils/color";
 import { ChevronLeft, ChevronRight } from "kui-icons";
 import {
   computed,
@@ -57,6 +58,23 @@ const parseDate = (value?: string) => {
   return undefined;
 };
 const toRenderKey = (value: unknown) => `${typeof value}:${String(value)}`;
+
+// The share the event plate washes its colour by; the sheet's own default has to fade the same amount.
+const EVENT_WASH_SHARE = 11;
+
+/**
+ * The plate behind an event is a wash of the event's colour, and only this file holds that colour — it
+ * is a string the data carried. Applying the share here and handing the sheet a plain `rgba()` keeps
+ * the mix out of the browser, where `color-mix()` would get no value at all on the Win7 Electron
+ * build. Events without a colour the code can read keep the sheet's literal default.
+ */
+const eventStyle = (color?: string): StyleValue => {
+  const tint = wash(color, EVENT_WASH_SHARE);
+  return {
+    "--k-calendar-event-color": color,
+    ...(tint ? { "--k-calendar-event-bg": tint } : {}),
+  };
+};
 
 const Calendar = defineComponent({
   name: "Calendar",
@@ -289,7 +307,7 @@ const Calendar = defineComponent({
                             key={toRenderKey(event.key)}
                             type="button"
                             class="k-calendar-event"
-                            style={{ "--k-calendar-event-color": event.color } as StyleValue}
+                            style={eventStyle(event.color)}
                             onClick={(e) => {
                               e.stopPropagation();
                               emit("eventClick", event, cell);

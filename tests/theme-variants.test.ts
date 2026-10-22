@@ -2176,3 +2176,38 @@ it("lays the status code's fade over the ink it fades toward", async () => {
   for (const [key, body] of pairs)
     expect(body, `${entry}: ${key} still mixes while painting`).not.toContain("color-mix(");
 });
+
+// A card's icon chip and a calendar event's plate both wash a colour the caller chose, so the sheet
+// cannot know the channels: the component reads the colour it was handed, scales its alpha by the share
+// below, and publishes a plain `rgba()`. Two copies of one number is the risk — a sheet that fades 12%
+// while the component fades 11% paints two different chips for one card, and only shows the difference
+// once the caller set a colour. So the literal the sheet falls back to is read back out of the compiled
+// rule, its share asserted against the palette, and both files stay free of `color-mix()`.
+it("leaves the per-instance wash to the component and keeps a literal default", async () => {
+  for (const [entry, owner, chain, pct] of [
+    [
+      "components/feature-card/styles/index.less",
+      ".k-feature-card-icon",
+      ["--k-feature-card-icon-bg", "--k-feature-card-icon-wash"],
+      12,
+    ],
+    ["components/calendar/styles/index.less", ".k-calendar-event", ["--k-calendar-event-bg"], 11],
+  ] as const) {
+    const pairs = await filePairs(entry);
+    const sheet = new Map(pairs);
+
+    for (const [key, body] of pairs)
+      expect(body, `${entry}: ${key} still mixes while painting`).not.toContain("color-mix(");
+
+    // The hooks are read outside-in: a colour the caller painted outright wins over the wash of the
+    // card's own accent, which wins over the literal the sheet baked from the palette.
+    const literal = share(sheet, "--kui-color-primary", pct);
+    const expected = chain.reduceRight((inner, hook) => `var(${hook}, ${inner})`, literal);
+    expect(
+      declarations(pairs.find(([key]) => key === owner)?.[1], `${owner} paints nothing`).get(
+        "background",
+      ),
+      `${owner} does not read its background from ${chain.join(" then ")}`,
+    ).toBe(expected);
+  }
+});

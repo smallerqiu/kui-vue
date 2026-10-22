@@ -39,7 +39,7 @@
 | clickable | 是否可交互；启用键盘及按钮语义 | `boolean` | false |
 | disabled | 是否禁用交互 | `boolean` | false |
 | color | 图标强调色 | `string` | primary |
-| iconBackground | 图标容器背景；未设置时根据 `color` 自动生成 | `string` | 自动 |
+| iconBackground | 图标容器背景；未设置时由 `color` 淡化生成，`color` 无法解析（如 `currentColor`、CSS 变量）时改用主题主色淡化 | `string` | 自动 |
 | extra | 右侧扩展区域 | VNodeChild | - |
 
 ## Events

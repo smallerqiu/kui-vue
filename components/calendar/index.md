@@ -46,7 +46,7 @@ Calendar 与 DatePicker 不共享内部状态，但会读取同一个 `ConfigPro
 | date  | 日程日期，格式 `YYYY-MM-DD` | string           | 是   |
 | title | 日程标题                    | string           | 是   |
 | time  | 时间文本                    | string           | 否   |
-| color | 日程标识色                  | string           | 否   |
+| color | 日程标识色，底色按其淡化    | string           | 否   |
 
 ## Events
 
