@@ -18,13 +18,16 @@
 
   .k-result-code {
     --k-result-code-color: var(--kui-color-primary);
+    // The digits fade from the kind colour toward the title ink. `color-mix()` mixed while painting, so a
+    // shell older than Chrome 111 — the last Electron that runs on Windows 7 — gave the whole `background`
+    // shorthand no value, and with the glyph fill transparent the status code vanished there entirely. The
+    // fade keeps the same arithmetic apart instead: the ink stays a token the dark theme remaps, the share
+    // ships as a literal beside the kind colour the arm publishes, and each declaration stands on its own.
+    --k-result-code-fade: fade(@main, 55%);
     display: inline-block;
     color: transparent;
-    background: linear-gradient(
-      135deg,
-      var(--k-result-code-color),
-      color-mix(in srgb, var(--k-result-code-color) 55%, var(--kui-color-text-title))
-    );
+    background-color: var(--kui-color-text-title);
+    background-image: linear-gradient(135deg, var(--k-result-code-color), var(--k-result-code-fade));
     background-clip: text;
     -webkit-background-clip: text;
     font-size: clamp(88px, 10vw, 120px);
@@ -72,10 +75,14 @@
   color: var(--kui-color-warning);
 }
 
+// Each status that colours its digits names the fade share beside the colour it publishes, the way the
+// solid plate's ink shares are named.
 .k-result-403 .k-result-code {
   --k-result-code-color: var(--kui-color-warning);
+  --k-result-code-fade: fade(@warning, 55%);
 }
 
 .k-result-500 .k-result-code {
   --k-result-code-color: var(--kui-color-danger);
+  --k-result-code-fade: fade(@danger, 55%);
 }

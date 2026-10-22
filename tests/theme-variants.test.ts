@@ -2127,3 +2127,52 @@ it("publishes the feedback panel's chip share beside the kind it shades", async 
     "the mark chip keeps a copy of the share, or colours it with something else",
   ).toBe("var(--k-feedback-panel-mark-bg)");
 });
+
+// The status code is the kind colour fading toward the title ink. Here a browser-side mix costs more than
+// an unshaded part: the glyph fill is `transparent` on purpose, so a shell older than Chrome 111 — the last
+// Electron that runs on Windows 7 — gave the one `background` shorthand no value and painted no digits at
+// all. The fade is that mix's own arithmetic kept apart: the ink stays the token the dark theme remaps, and
+// the share ships as a literal beside the kind colour the status publishes. A theme that repaints a kind
+// colour has to name the fade beside it — the cost every baked share already pays.
+it("lays the status code's fade over the ink it fades toward", async () => {
+  const entry = "components/result/styles/index.less";
+  const pairs = await filePairs(entry);
+  const sheet = new Map(pairs);
+  const rule = (selector: string) =>
+    declarations(pairs.find(([key]) => key === selector)?.[1], `${selector} paints nothing`);
+
+  for (const [selector, token] of [
+    [".k-result .k-result-code", "--kui-color-primary"],
+    [".k-result-403 .k-result-code", "--kui-color-warning"],
+    [".k-result-500 .k-result-code", "--kui-color-danger"],
+  ] as const) {
+    const body = rule(selector);
+    expect(body.get("--k-result-code-color"), `${selector} is not the status its name says`).toBe(
+      `var(${token})`,
+    );
+    expect(
+      body.get("--k-result-code-fade"),
+      `${selector} fades its digits away from the colour it publishes`,
+    ).toBe(share(sheet, token, 55));
+  }
+
+  const code = rule(".k-result .k-result-code");
+  expect(
+    code.get("background-color"),
+    "the digits fade toward something other than the title ink",
+  ).toBe("var(--kui-color-text-title)");
+  expect(
+    code.get("background-image"),
+    "the digits' ramp keeps a copy of its far end, or mixes it while painting",
+  ).toBe("linear-gradient(135deg, var(--k-result-code-color), var(--k-result-code-fade))");
+  expect(code.get("color"), "the glyph fill is not transparent, so the ramp cannot show").toBe(
+    "transparent",
+  );
+  for (const clip of ["background-clip", "-webkit-background-clip"])
+    expect(code.get(clip), `${clip} does not clip the ramp to the digits`).toBe("text");
+
+  // The sheet is clean now, so scan it whole: a shade written back into a rule this suite never names has
+  // to fail here instead of shipping an empty status code on Windows 7.
+  for (const [key, body] of pairs)
+    expect(body, `${entry}: ${key} still mixes while painting`).not.toContain("color-mix(");
+});
