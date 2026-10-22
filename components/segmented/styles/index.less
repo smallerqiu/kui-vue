@@ -53,7 +53,7 @@
   }
   &:focus-visible {
     outline: var(--kui-focus-ring-width) solid
-      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
+      var(--kui-color-outline, @main-8);
   }
   &:disabled {
     color: var(--kui-color-text-disabled);
@@ -69,10 +69,7 @@
   opacity: 0;
   background: var(--kui-color-bg);
   border-radius: var(--kui-border-radius);
-  box-shadow: var(
-    --kui-component-shadow,
-    0 0 2px color-mix(in srgb, var(--kui-color-primary) 10%, transparent)
-  );
+  box-shadow: var(--kui-component-shadow, @component-shadow);
   pointer-events: none;
   &.is-ready {
     opacity: 1;

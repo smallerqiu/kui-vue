@@ -16,7 +16,6 @@ import process from "node:process";
 // shade cannot come back through a shared mixin where the source scan would miss it.
 export const MIX_BUDGET: Record<string, number> = {
   "components/alert/styles/index.less": 1,
-  "components/back-top/styles/index.less": 1,
   "components/calendar/styles/index.less": 1,
   "components/card/styles/index.less": 2,
   "components/check-card/styles/index.less": 3,
@@ -26,13 +25,10 @@ export const MIX_BUDGET: Record<string, number> = {
   "components/image/styles/index.less": 1,
   "components/kanban/styles/index.less": 3,
   "components/list-panel/styles/index.less": 2,
-  "components/menu/styles/index.less": 5,
   "components/page/styles/index.less": 1,
   "components/result/styles/index.less": 1,
-  "components/segmented/styles/index.less": 2,
   "components/stat-card/styles/index.less": 1,
   "components/table/styles/index.less": 7,
-  "components/tabs/styles/index.less": 1,
   "components/transfer/styles/index.less": 7,
   "components/tree/styles/index.less": 1,
   "src/assets/css/home.less": 4,

@@ -1691,3 +1691,68 @@ it("paints a list panel's tier through the card it renders and inverts its own t
         `a solid panel reaches past its own two lines: ${part}`,
       ).toBe(true);
 });
+
+// The navigation family draws only shades the whole library shares: a focus halo, a selected plate and
+// the elevation ring, all of them a palette share. Read them from each sheet's own `:root` so a family
+// that stopped importing the palette, or that moved a percentage, fails here rather than shipping a
+// colour nobody asked for — and so a `color-mix()` cannot come back through a rule this suite never
+// named, because a shell older than Chrome 111 gives such a declaration no value at all.
+it("ships the navigation family's shared shades as build-time literals", async () => {
+  const NAV = [
+    "components/menu/styles/index.less",
+    "components/segmented/styles/index.less",
+    "components/tabs/styles/index.less",
+    "components/back-top/styles/index.less",
+  ] as const;
+
+  // The value LESS has to bake out: the same share the control families take from the palette.
+  const SHARED = [
+    ["--kui-color-outline", (literal: string) => literal, 20],
+    ["--kui-color-item-selected", (literal: string) => literal, 20],
+    ["--kui-component-shadow", (literal: string) => `0 0 2px ${literal}`, 10],
+  ] as const;
+
+  const builtIn = (value: string, hook: string) => {
+    const at = value.indexOf(`var(${hook},`);
+    if (at < 0) return null;
+    let depth = 0;
+    let end = at + `var(${hook},`.length;
+    while (end < value.length) {
+      if (value[end] === "(") depth += 1;
+      else if (value[end] === ")") {
+        if (!depth) break;
+        depth -= 1;
+      }
+      end += 1;
+    }
+    return {
+      built: value.slice(at + `var(${hook},`.length, end).trim(),
+      chain: value.slice(at, end + 1),
+    };
+  };
+
+  let shipped = 0;
+  for (const entry of NAV) {
+    const rules = await fileRules(entry);
+    for (const [key, body] of rules) {
+      expect(body, `${entry}: ${key} still mixes while painting`).not.toContain("color-mix(");
+      for (const [property, value] of declarations(body, `${entry}: ${key}`)) {
+        for (const [hook, wrap, pct] of SHARED) {
+          const found = builtIn(value, hook);
+          if (!found) continue;
+          expect(
+            found.built,
+            `${entry}: ${key} ${property} shades ${hook} away from the palette`,
+          ).toBe(wrap(share(rules, "--kui-color-primary", pct)));
+          // Reading the hook is the contract; a chain that hard-codes the colour next to it would paint
+          // the same pixel today and ignore whatever the caller declares.
+          expect(value, `${entry}: ${key} ${property} ignores the ${hook} override`).toContain(
+            found.chain,
+          );
+          shipped += 1;
+        }
+      }
+    }
+  }
+  expect(shipped, "the navigation family shades fewer places than it does today").toBe(9);
+});

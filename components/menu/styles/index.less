@@ -14,7 +14,7 @@
 .k-dropdown-menu-submenu-title {
   &:focus-visible {
     outline: 2px solid
-      var(--kui-color-outline, color-mix(in srgb, var(--kui-color-primary) 20%, transparent));
+      var(--kui-color-outline, @main-8);
     outline-offset: -2px;
   }
 }
@@ -277,10 +277,7 @@
   }
 
   .k-menu-item-selected {
-    background-color: var(
-      --kui-color-item-selected,
-      color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
-    );
+    background-color: var(--kui-color-item-selected, @main-8);
 
     &::after {
       display: none;
@@ -294,10 +291,7 @@
   display: inline-flex;
 
   .k-menu-item-selected {
-    background-color: var(
-      --kui-color-item-selected,
-      color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
-    );
+    background-color: var(--kui-color-item-selected, @main-8);
   }
 
   .k-menu-submenu-active,
@@ -445,10 +439,7 @@
 
   .k-menu-submenu {
     .k-menu-item-selected {
-      background-color: var(
-        --kui-color-item-selected,
-        color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
-      );
+      background-color: var(--kui-color-item-selected, @main-8);
     }
   }
 }
@@ -547,10 +538,7 @@
 .k-menu-inline-collapsed {
   .k-menu-submenu-selected {
     .k-menu-submenu-title {
-      background-color: var(
-        --kui-color-item-selected,
-        color-mix(in srgb, var(--kui-color-primary) 20%, transparent)
-      );
+      background-color: var(--kui-color-item-selected, @main-8);
     }
   }
 }
