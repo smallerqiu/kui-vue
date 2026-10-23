@@ -4,6 +4,8 @@
 
 范围：编译 `components/styles/index.less` 和 `src/assets/css/index.less` 后，比较所有 `var()` 引用（包括 fallback 内的嵌套引用）与 CSS 声明；另扫描 components/src 中 Less、CSS、TS、TSX、Vue 源码，收集引用与运行时赋值位置。生成目录和第三方依赖不纳入源码扫描。
 
+复核：2026-10-24 订正了 `notice` / `collapse` 两处与另一版本逐字节相同的 LESS 的行号（此前两侧行号不一致），并按当前源码重算了 `--kui-theme-fill-bg`、`--kui-theme-outline-border`、`--kui-control-bg-fill`、`--kui-control-border` 的引用位置：主题档位改由 `.kui-theme-value()` 展开后，成员组件不再各自写这条 `var()`，引用集中在 `components/styles/less-css-var.less` 的 `@kui-theme-*` 定义。其余条目的行号仍为 2026-09-25 的快照，源码变动后需重新核对。
+
 两个项目结果一致：默认 CSS 中未声明 89 项；其中运行时赋值 7 项，可选覆盖项 82 项。所有这些引用均有 fallback。变量“未声明”不等同于最终 CSS 属性失效；本清单不代表每个 DOM 作用域均已通过浏览器验证。
 
 此前无 fallback 的 `--kui-color-table-row`、`--kui-color-table-col` 已修复，故不在下面的现存清单中。
@@ -186,7 +188,7 @@ background-color: var(--kui-theme-fill-bg,
 - `components/modal/styles/index.less:36`
 - `components/modal/styles/index.less:176`
 - `components/motion/demo/basic.vue:45`
-- `components/notice/styles/index.less:28`
+- `components/notice/styles/index.less:36`
 - `components/popconfirm/styles/index.less:142`
 - `components/poptip/styles/index.less:144`
 - `components/ripple/demo/basic.vue:5`
@@ -1156,39 +1158,15 @@ background-color: var(--kui-theme-fill-bg,
 
 全部源码引用位置：
 
-- `components/button/styles/index.less:193`
-- `components/button/styles/index.less:606`
-- `components/calendar/styles/index.less:33`
-- `components/calendar/styles/index.less:67`
-- `components/card/styles/index.less:128`
-- `components/cascader/styles/index.less:251`
-- `components/check-card/styles/index.less:55`
-- `components/checkbox/styles/index.less:125`
-- `components/collapse/styles/index.less:108`
-- `components/color-picker/styles/index.less:108`
-- `components/date-picker/styles/index.less:119`
-- `components/feature-card/styles/index.less:129`
-- `components/feedback-panel/styles/index.less:107`
-- `components/image/styles/index.less:329`
-- `components/input/styles/index.less:398`
-- `components/input-number/styles/index.less:252`
-- `components/input-otp/styles/index.less:58`
-- `components/input-tag/styles/index.less:144`
-- `components/kanban/styles/index.less:20`
-- `components/kanban/styles/index.less:34`
-- `components/kanban/styles/index.less:41`
-- `components/list-panel/styles/index.less:33`
-- `components/page/styles/index.less:153`
-- `components/qrcode/styles/index.less:13`
-- `components/radio/styles/index.less:162`
+- `components/button/styles/index.less:186`
+- `components/button/styles/index.less:433`
+- `components/calendar/styles/index.less:35`
+- `components/calendar/styles/index.less:69`
+- `components/list-panel/styles/index.less:35`
 - `components/segmented/styles/index.less:11`
-- `components/select/styles/index.less:225`
 - `components/slider/styles/index.less:76`
-- `components/stat-card/styles/index.less:140`
+- `components/styles/less-css-var.less:120`
 - `components/switch/styles/index.less:13`
-- `components/tag/styles/index.less:195`
-- `components/transfer/styles/index.less:24`
-- `components/tree-select/styles/index.less:226`
 
 ### `--kui-control-border`
 
@@ -1202,41 +1180,30 @@ background-color: var(--kui-theme-fill-bg,
 
 - `components/back-top/demo/target.vue:19`
 - `components/button/styles/index.less:84`
-- `components/button/styles/index.less:297`
-- `components/card/styles/index.less:110`
-- `components/card/styles/index.less:133`
+- `components/button/styles/index.less:387`
 - `components/cascader/styles/index.less:14`
-- `components/check-card/styles/index.less:9`
-- `components/collapse/styles/index.less:112`
 - `components/date-picker/styles/index.less:12`
-- `components/date-picker/styles/index.less:207`
-- `components/date-picker/styles/index.less:284`
-- `components/date-picker/styles/index.less:287`
-- `components/date-picker/styles/index.less:443`
-- `components/date-picker/styles/index.less:480`
-- `components/date-picker/styles/index.less:504`
-- `components/date-picker/styles/index.less:505`
-- `components/feature-card/styles/index.less:135`
-- `components/image/styles/index.less:333`
+- `components/date-picker/styles/index.less:253`
+- `components/date-picker/styles/index.less:328`
+- `components/date-picker/styles/index.less:331`
+- `components/date-picker/styles/index.less:488`
+- `components/date-picker/styles/index.less:525`
+- `components/date-picker/styles/index.less:555`
+- `components/date-picker/styles/index.less:556`
 - `components/input/styles/index.less:11`
-- `components/input/styles/index.less:133`
-- `components/input/styles/index.less:420`
-- `components/input/styles/index.less:451`
-- `components/input/styles/index.less:470`
-- `components/input/styles/index.less:489`
+- `components/input/styles/index.less:150`
+- `components/input/styles/index.less:526`
+- `components/input/styles/index.less:556`
 - `components/input-number/styles/index.less:9`
-- `components/input-number/styles/index.less:54`
-- `components/input-number/styles/index.less:93`
-- `components/input-otp/styles/index.less:23`
+- `components/input-number/styles/index.less:60`
+- `components/input-number/styles/index.less:99`
+- `components/input-otp/styles/index.less:34`
 - `components/input-tag/styles/index.less:15`
-- `components/kanban/styles/index.less:27`
 - `components/select/styles/index.less:15`
-- `components/stat-card/styles/index.less:125`
-- `components/stat-card/styles/index.less:145`
 - `components/steps/styles/index.less:24`
 - `components/steps/styles/index.less:37`
-- `components/tag/styles/index.less:9`
-- `components/transfer/styles/index.less:16`
+- `components/styles/less-css-var.less:126`
+- `components/tag/styles/index.less:42`
 - `components/tree-select/styles/index.less:16`
 
 ### `--kui-control-radius`
@@ -1341,7 +1308,7 @@ background-color: var(--kui-theme-fill-bg,
 - `components/message/styles/index.less:33`
 - `components/modal/styles/index.less:32`
 - `components/modal/styles/index.less:173`
-- `components/notice/styles/index.less:31`
+- `components/notice/styles/index.less:39`
 - `components/popconfirm/styles/index.less:139`
 - `components/popconfirm/styles/index.less:179`
 - `components/poptip/styles/index.less:141`
@@ -1376,7 +1343,7 @@ background-color: var(--kui-theme-fill-bg,
 - `components/menu/styles/index.less:515`
 - `components/message/styles/index.less:34`
 - `components/modal/styles/index.less:33`
-- `components/notice/styles/index.less:32`
+- `components/notice/styles/index.less:40`
 - `components/popconfirm/styles/index.less:144`
 - `components/popconfirm/styles/index.less:148`
 - `components/poptip/styles/index.less:146`
@@ -1427,7 +1394,7 @@ background-color: var(--kui-theme-fill-bg,
 - `components/menu/styles/index.less:511`
 - `components/message/styles/index.less:31`
 - `components/modal/styles/index.less:40`
-- `components/notice/styles/index.less:29`
+- `components/notice/styles/index.less:37`
 - `components/popconfirm/styles/index.less:140`
 - `components/poptip/styles/index.less:142`
 - `components/popup/style.less:14`
@@ -1463,7 +1430,7 @@ background-color: var(--kui-theme-fill-bg,
 - `components/button/styles/index.less:10`
 - `components/cascader/styles/index.less:149`
 - `components/cascader/styles/index.less:194`
-- `components/collapse/styles/index.less:99`
+- `components/collapse/styles/index.less:98`
 - `components/date-picker/styles/index.less:14`
 - `components/date-picker/styles/index.less:182`
 - `components/date-picker/styles/index.less:330`
@@ -1525,39 +1492,15 @@ background-color: var(--kui-theme-fill-bg,
 
 全部源码引用位置：
 
-- `components/button/styles/index.less:191`
-- `components/button/styles/index.less:604`
-- `components/calendar/styles/index.less:31`
-- `components/calendar/styles/index.less:65`
-- `components/card/styles/index.less:126`
-- `components/cascader/styles/index.less:249`
-- `components/check-card/styles/index.less:53`
-- `components/checkbox/styles/index.less:123`
-- `components/collapse/styles/index.less:106`
-- `components/color-picker/styles/index.less:106`
-- `components/date-picker/styles/index.less:117`
-- `components/feature-card/styles/index.less:127`
-- `components/feedback-panel/styles/index.less:105`
-- `components/image/styles/index.less:327`
-- `components/input/styles/index.less:396`
-- `components/input-number/styles/index.less:250`
-- `components/input-otp/styles/index.less:56`
-- `components/input-tag/styles/index.less:142`
-- `components/kanban/styles/index.less:18`
-- `components/kanban/styles/index.less:32`
-- `components/kanban/styles/index.less:39`
-- `components/list-panel/styles/index.less:31`
-- `components/page/styles/index.less:151`
-- `components/qrcode/styles/index.less:11`
-- `components/radio/styles/index.less:160`
-- `components/segmented/styles/index.less:9`
-- `components/select/styles/index.less:223`
-- `components/slider/styles/index.less:74`
-- `components/stat-card/styles/index.less:138`
-- `components/switch/styles/index.less:11`
-- `components/tag/styles/index.less:193`
-- `components/transfer/styles/index.less:22`
-- `components/tree-select/styles/index.less:224`
+- `components/button/styles/index.less:185`
+- `components/button/styles/index.less:432`
+- `components/calendar/styles/index.less:34`
+- `components/calendar/styles/index.less:68`
+- `components/list-panel/styles/index.less:34`
+- `components/segmented/styles/index.less:10`
+- `components/slider/styles/index.less:75`
+- `components/styles/less-css-var.less:119`
+- `components/switch/styles/index.less:12`
 
 ### `--kui-theme-outline-border`
 
@@ -1569,13 +1512,4 @@ background-color: var(--kui-theme-fill-bg,
 
 全部源码引用位置：
 
-- `components/card/styles/index.less:110`
-- `components/card/styles/index.less:133`
-- `components/check-card/styles/index.less:9`
-- `components/collapse/styles/index.less:112`
-- `components/feature-card/styles/index.less:135`
-- `components/image/styles/index.less:333`
-- `components/kanban/styles/index.less:27`
-- `components/stat-card/styles/index.less:125`
-- `components/stat-card/styles/index.less:145`
-- `components/transfer/styles/index.less:16`
+- `components/styles/less-css-var.less:125`
