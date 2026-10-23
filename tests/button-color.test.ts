@@ -267,7 +267,7 @@ describe("Button palette coverage", () => {
 
       // `fill` 的表面是那层灰洗色，名字进来只换字：这条臂再涂一层底就会盖掉档位自己的洗色，
       // 那也正是三个语义类型在这一档已有的读法
-      expect(declarations, `${name} 没把名字放进字里`).toContain(`color: var(--kui-color-${name})`);
+      expect(declarations, `${name} 没把名字放进字里`).toContain(`color: var(--kui-color-${name}-text)`);
       expect(declarations, `${name} 在 fill 档又涂了一层底`).not.toContain("background");
     }
   });
@@ -279,26 +279,25 @@ describe("Button palette coverage", () => {
     `.k-btn-plain.k-btn-${name}`,
   ];
 
-  it("reads the whole name where a name is the label", async () => {
+  it("reads the theme's text share where a name is the label", async () => {
     const { rules } = await sheet();
 
-    // 语义类型在这三条臂上读的都是满值（`var(--kui-color-primary)`），名字也一样。从色板洗出来的那一档
-    // 是一支随背后那块底变的颜色，而这三档自己不带表面：同一颗按钮在卡片上、在页面上、在按下去的那层
-    // 洗色上会读成三个色，`plain` 更是把标签压在它自己刚洗出来的底色上。
+    // 这三档自己不带表面，字压在谁身上由页面决定：整支名字在那层浅底上过不到 4.5，从色板洗出来的那一档
+    // 更糟 —— 它带透明度，同一颗按钮在卡片上、在页面上、在按下去的那层洗色上会读成三个色。所以标签读
+    // 主题烘好的那一档，值本身在哪块底上都读得出（对拍见 `tests/palette-text.test.ts`）。
     for (const name of colors) {
       for (const selector of inkArms(name)) {
         const declarations = rules.get(selector) ?? "";
 
         expect(declarations, `${selector} 缺少规则`).toBeTypeOf("string");
-        expect(
-          declarations,
-          `${selector} 的标签没读整支名字`,
-        ).toContain(`color: var(--kui-color-${name})`);
+
+        // 裸读、不留兜底：这一档两主题各发一份，样式表里再写一个字面量就有两份真相
+        const label = declarations.match(/(^|; )color: ([^;]+)/)?.[2] ?? "";
+        expect(label, `${selector} 的标签没读名字的文字档`).toBe(`var(--kui-color-${name}-text)`);
 
         // 标签这一行不许带透明度，也不许去读色板里洗出来的那一档：这两样都让字色跟着底变
-        const label = declarations.match(/(^|; )color: ([^;]+)/)?.[2] ?? "";
         expect(label, `${selector} 的标签读成了带透明度的值`).not.toMatch(/rgba?\(/);
-        expect(label, `${selector} 的标签读了色板里洗出来的那一档`).not.toMatch(/-3\b/);
+        expect(label, `${selector} 的标签读了色板里洗出来的那一档`).not.toMatch(/-(3|6|9)\b/);
       }
     }
   });
@@ -445,7 +444,7 @@ describe("Button palette coverage", () => {
         `共用那条没读 hook，或顺手写了别的值`,
       ).toBe(`background-color: var(--kui-theme-plain-${state})`);
 
-    // 名字这一档的淡度跟语义那一档一模一样：标签是整支名字，压在它下面的洗色没有理由更淡。
+    // 名字这一档的淡度跟语义那一档一模一样：标签读的是那支名字的文字档，压在它下面的洗色没有理由更淡。
     // 透明度写在 rgba 的 alpha 上、通道是那支名字自己，混色在编译期算完 —— 产物里不许留函数，
     // 这一档的画法和 Windows 7 的 Chromium 能不能算混色没关系。
     const type = rules.get(".k-btn-plain.k-btn-primary") ?? "";

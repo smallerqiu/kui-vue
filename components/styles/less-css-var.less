@@ -214,6 +214,38 @@
   --kui-theme-solid-ink-26: @solid-ink-26;
   --kui-theme-solid-ink-24: @solid-ink-24;
   --kui-theme-solid-ink-14: @solid-ink-14;
+  // A palette name used as the label, rather than as the surface under it. The tiers that leave the
+  // surface to the page — `fill`'s grey wash, `outline` / `dashed`'s hover and press, `plain`'s press and
+  // a preset tag's own tint — bring no colour of their own to hold a hue, so in the light theme the whole
+  // name reads between 1.3:1 and 4.8:1 against that set. Each name therefore ships the hue pushed
+  // toward this theme's body ink far enough to clear 4.5:1 on every one of those surfaces; a name whose
+  // hue already clears it here keeps a 0% share, which is the hue itself. The step is mixed at build time
+  // so the sheet carries a literal — `color-mix()` paints nothing on a Chromium that predates it — and the
+  // components read the token bare, which `tests/css-variables.test.ts` makes safe.
+  // `tests/palette-text.test.ts` re-checks every name against the compiled sheet, so a palette that moves
+  // without these moving turns red instead of quietly becoming unreadable labels. The cost is the one the
+  // ink shares above pay: a theme that repaints a hue has to name its own text share, or the labels keep
+  // the library's shades.
+  --kui-color-primary-text: .snap(mix(#000, @main, 40%))[value];
+  --kui-color-danger-text: .snap(mix(#000, @danger, 40%))[value];
+  --kui-color-warning-text: .snap(mix(#000, @warning, 50%))[value];
+  --kui-color-red-text: .snap(mix(#000, @red, 25%))[value];
+  --kui-color-orange-text: .snap(mix(#000, @orange, 50%))[value];
+  --kui-color-yellow-text: .snap(mix(#000, @yellow, 50%))[value];
+  --kui-color-olive-text: .snap(mix(#000, @olive, 20%))[value];
+  --kui-color-green-text: .snap(mix(#000, @green, 45%))[value];
+  --kui-color-teal-text: .snap(mix(#000, @teal, 15%))[value];
+  --kui-color-blue-text: .snap(mix(#000, @blue, 25%))[value];
+  --kui-color-volcano-text: .snap(mix(#000, @volcano, 30%))[value];
+  --kui-color-violet-text: .snap(mix(#000, @violet, 45%))[value];
+  --kui-color-cyan-text: .snap(mix(#000, @cyan, 45%))[value];
+  --kui-color-gold-text: .snap(mix(#000, @gold, 35%))[value];
+  --kui-color-lime-text: .snap(mix(#000, @lime, 35%))[value];
+  --kui-color-magenta-text: .snap(mix(#000, @magenta, 35%))[value];
+  --kui-color-purple-text: .snap(mix(#000, @purple, 20%))[value];
+  --kui-color-pink-text: .snap(mix(#000, @pink, 40%))[value];
+  --kui-color-brown-text: .snap(mix(#000, @brown, 25%))[value];
+  --kui-color-gray-text: .snap(mix(#000, @gray, 25%))[value];
   --kui-color-control-thumb: #fff;
   --kui-color-control-thumb-text: @gray-9;
   --kui-color-checkerboard: #cdcdcd;
@@ -307,6 +339,30 @@
   --kui-theme-solid-ink-26: @solid-ink-26;
   --kui-theme-solid-ink-24: @solid-ink-24;
   --kui-theme-solid-ink-14: @solid-ink-14;
+  // The same text shares read against this theme's inks. The body ink here is light, so pushing a hue
+  // toward it lifts rather than darkens it, and six of the seventeen hues — plus `primary` and `warning` —
+  // clear 4.5:1 on those surfaces untouched; those keep a 0% share, which is the hue itself. See the light
+  // block for why the step is mixed at build time, and for the cost that comes with it.
+  --kui-color-primary-text: .snap(mix(#fff, @main, 0%))[value];
+  --kui-color-danger-text: .snap(mix(#fff, @danger, 10%))[value];
+  --kui-color-warning-text: .snap(mix(#fff, @warning, 0%))[value];
+  --kui-color-red-text: .snap(mix(#fff, @red, 40%))[value];
+  --kui-color-orange-text: .snap(mix(#fff, @orange, 0%))[value];
+  --kui-color-yellow-text: .snap(mix(#fff, @yellow, 0%))[value];
+  --kui-color-olive-text: .snap(mix(#fff, @olive, 30%))[value];
+  --kui-color-green-text: .snap(mix(#fff, @green, 0%))[value];
+  --kui-color-teal-text: .snap(mix(#fff, @teal, 40%))[value];
+  --kui-color-blue-text: .snap(mix(#fff, @blue, 30%))[value];
+  --kui-color-volcano-text: .snap(mix(#fff, @volcano, 30%))[value];
+  --kui-color-violet-text: .snap(mix(#fff, @violet, 0%))[value];
+  --kui-color-cyan-text: .snap(mix(#fff, @cyan, 0%))[value];
+  --kui-color-gold-text: .snap(mix(#fff, @gold, 10%))[value];
+  --kui-color-lime-text: .snap(mix(#fff, @lime, 10%))[value];
+  --kui-color-magenta-text: .snap(mix(#fff, @magenta, 35%))[value];
+  --kui-color-purple-text: .snap(mix(#fff, @purple, 50%))[value];
+  --kui-color-pink-text: .snap(mix(#fff, @pink, 0%))[value];
+  --kui-color-brown-text: .snap(mix(#fff, @brown, 30%))[value];
+  --kui-color-gray-text: .snap(mix(#fff, @gray, 30%))[value];
   --kui-color-control-thumb: #fff;
   --kui-color-control-thumb-text: @gray-9;
   --kui-color-checkerboard: #666;

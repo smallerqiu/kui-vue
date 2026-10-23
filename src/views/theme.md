@@ -231,7 +231,9 @@ CSS Variables 会向下继承，因此无需创建另一份组件样式。下面
 
 派生 Token（例如 `--kui-control-bg`、`--kui-control-radius`、`--kui-color-primary-hover`）作为可选覆盖项使用；默认值在组件属性使用处计算，不在根节点预先固定。这样局部基础颜色、圆角变化和嵌套明暗模式也能生效，显式设置的组件 Token 则继续向下继承。
 
-着色相关的派生 Token 也在同一批可选覆盖项里：`--kui-color-primary-hover`、`--kui-color-primary-active`、焦点光晕 `--kui-color-outline`、透明层级 `--kui-color-<色名>-3`/`-6`/`-9`，色板名字的 hover/active 是 `--kui-color-<色名>-hover`/`-active`。库内不给它们定死默认值，要单独改某一档时显式声明即可；`plain` 档的按压底色读 `--kui-theme-plain-hover`、`--kui-theme-plain-active`，语义类型和色板名字会各自在按钮上重声明这两个。
+着色相关的派生 Token 也在同一批可选覆盖项里：`--kui-color-primary-hover`、`--kui-color-primary-active`、焦点光晕 `--kui-color-outline`、透明层级 `--kui-color-<色名>-6`/`-9`，色板名字的 hover/active 是 `--kui-color-<色名>-hover`/`-active`。库内不给它们定死默认值，要单独改某一档时显式声明即可；`plain` 档的按压底色读 `--kui-theme-plain-hover`、`--kui-theme-plain-active`，语义类型和色板名字会各自在按钮上重声明这两个。
+
+把色板名字当文字用的那一档是这一族里唯一由库发默认值的：`--kui-color-<色名>-text`，三个语义类型也有 `--kui-color-primary-text`、`--kui-color-danger-text`、`--kui-color-warning-text`。读它的是没有自己底面那几处彩色文字——按钮 `fill` / `outline` / `dashed` / `plain` 四档上的名字与语义类型、带 `color` 的预设标签。明暗两套各烘了一份实底值，把基色推向本主题的黑或白，压在现场任何一块浅底与洗色上都还留够对比，所以组件裸读它、不留兜底。整套换掉彩色文字就重声明这一族；它同样停在构建时，覆盖 `--kui-color-primary` 不会带着它走。
 
 这些着色档位由构建期从基色算好后写进样式表，浏览器不再参与混色，所以只改基色不会带着它们走：覆盖 `--kui-color-primary` 只会挪动静置面，hover 与洗色仍停在构建时那一级。要让某一片走，就显式声明它对应的那一档。`solid` 档面上较淡的那几笔（焦点环 `--kui-theme-solid-outline`、前后缀图标 `--kui-theme-solid-muted`、占位符 `--kui-theme-solid-placeholder`、面上的小标签 `--kui-theme-solid-chip`）读的是同一条反白墨色，明暗两套都给了默认值，整体换一套墨色时改 `--kui-color-text-on-solid` 之外还要把这四个一起重声明。
 

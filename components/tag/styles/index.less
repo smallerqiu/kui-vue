@@ -75,10 +75,13 @@
   }
 
   // One palette name paints a whole chip: label, edge and fill. The base handed to the mixin is the
-  // LESS colour rather than `var(--kui-color-<name>)`, because the three stops are mixed here at build
+  // LESS colour rather than `var(--kui-color-<name>)`, because the two washes are mixed here at build
   // time — `color-mix()` mixes while the browser paints, and a shell older than Chrome 111 gives that
   // declaration no value at all. `:root` publishes each name straight off the same variable, so the
-  // literal the sheet carries is the colour the chip would have mixed. The calls are listed in the order
+  // literal the sheet carries is the colour the chip would have mixed. The label is not mixed here: the
+  // chip's own fill is 10% of the hue over whatever the page puts behind it, and the whole hue on that
+  // plate is as low as 1.3:1, so it takes the readable shade the theme ships — see
+  // `--kui-color-<name>-text` in `components/styles/less-css-var.less`. The calls are listed in the order
   // `components/const/var.ts` lists the palette, so a name the stylesheet has not caught up with shows
   // up as a gap in this list instead of quietly rendering an uncoloured tag. `gray` is the one name
   // that is not a tint of a hue and is written apart — see `.tag-neutral` below.
@@ -104,30 +107,31 @@
 // top of this file are the same shape, and an explicit `color` has to win the tie instead of being
 // repainted by `theme`.
 //
-// A hue paints three stops off one base colour. `--kui-color-<name>-3 / -6 / -9` are override hooks for
-// a theme that ships its own ramp; where a theme does not define one — which is every theme today, the
-// ramp exists in LESS but never reaches `:root` — the built-in fallback is what renders, so a chip reads
-// as a tint of the colour it is named after. Written through `~""` because LESS cannot interpolate a
-// name inside `var()`, which also means the stop has to be computed before it: a `fade()` left inside
-// the quotes reaches the browser as that text and paints nothing. Called from inside `.k-tag`, so `&&`
-// is `.k-tag.k-tag-`.
+// A hue paints a chip off one base colour: two washes mixed here — the edge and the fill — and a label
+// read from the theme. `--kui-color-<name>-6 / -9` are override hooks for a theme that ships its own
+// ramp; where a theme does not define one — which is every theme today, the ramp exists in LESS but
+// never reaches `:root` — the built-in fallback is what renders, so a chip reads as a tint of the colour
+// it is named after. The label asks for `--kui-color-<name>-text` with no fallback because it is not a
+// tint of the hue: it is the hue pushed toward the theme's body ink until it clears 4.5:1 on the fill
+// this mixin paints, which is why the value has to come from the theme and cannot be a `fade()`. Written
+// through `~""` because LESS cannot interpolate a name inside `var()`, which also means a stop has to be
+// computed before it: a `fade()` left inside the quotes reaches the browser as that text and paints
+// nothing. Called from inside `.k-tag`, so `&&` is `.k-tag.k-tag-`.
 .tag-preset(@name, @color) {
-  @tint-3: fade(@color, 70%);
   @tint-6: fade(@color, 40%);
   @tint-9: fade(@color, 10%);
 
   &&-@{name} {
-    color: ~"var(--kui-color-@{name}-3, @{tint-3})";
+    color: ~"var(--kui-color-@{name}-text)";
     border-color: ~"var(--kui-color-@{name}-6, @{tint-6})";
     background-color: ~"var(--kui-color-@{name}-9, @{tint-9})";
   }
 }
 
-// The neutral slot cannot take that shape. `--kui-color-gray-3` is #eeeeee — a *background* stop in a
-// ramp that runs light to dark — so reading it as the label would paint near-white text, and only the
-// light theme defines that ramp, so the chip would stay pale under the dark one. Tinting `gray` itself
-// is no better: a mid grey at 70% alpha is a label nobody can read. This arm takes the greys the theme
-// re-maps, which is what keeps the label readable under both.
+// The neutral slot cannot take that shape. `gray` is not a tint of a hue: `--kui-color-gray-3` is
+// #eeeeee — a *background* stop in a ramp that runs light to dark — and only the light theme defines that
+// ramp, so a chip built from tinted greys would stay pale under the dark one. This arm takes the greys
+// the theme re-maps, which is what keeps the label readable under both.
 .tag-neutral(@name) {
   &&-@{name} {
     color: var(--kui-color-text);

@@ -241,11 +241,15 @@
 // own `::before`, so the root must not also take a background there; a semantic type has no `solid` paint
 // of its own, which is why its four-item list is not a shape to copy.
 //
-// Where the name is the label it is read whole — `var(--kui-color-<name>)`, which is exactly how the
-// three semantic types read on the same three tiers. A stop off the ramp (70% of the hue) is a colour
-// that changes with whatever happens to be behind the button, and these tiers bring no surface of their
-// own to hold it, so the same button would read one way on a card, another on the page, and a third on
-// its own press.
+// Where the name is the label it reads `--kui-color-<name>-text`: the hue pushed toward this theme's body
+// ink until it clears 4.5:1 on the surfaces these three tiers actually put under it — `fill`'s grey wash,
+// `outline` / `dashed`'s hover and press, and `plain`'s own press. The whole hue is only readable on a
+// solid plate; loose on those it runs 1.3:1 to 4.8:1 (`yellow` on `fill`'s grey wash is the worst, `teal`
+// on the page the best). A stop off the ramp is worse than the whole hue, because it is translucent and
+// takes on whatever happens to be behind the button, so the same label would read one way on a card,
+// another on the page, and a third on its own press. The token layer ships the shade per theme and this
+// file reads it bare; `tests/palette-text.test.ts` re-checks the ratio, `tests/css-variables.test.ts` the
+// definition.
 //
 // `@ink` is the label colour for a name at full strength: whichever of black and white WCAG puts above
 // 4.5:1 against it. One constant cannot serve the family — under white, `yellow` reaches 1.72, `orange`
@@ -313,12 +317,12 @@
   // On `fill` the name is the label rather than the surface: the grey wash stays, the hue moves into
   // the text, which is how the three semantic types already read on this tier.
   .k-btn-fill.k-btn-@{name} {
-    color: @color;
+    color: ~"var(--kui-color-@{name}-text)";
   }
 
   .k-btn-outline.k-btn-@{name},
   .k-btn-dashed.k-btn-@{name} {
-    color: @color;
+    color: ~"var(--kui-color-@{name}-text)";
     border-color: ~"var(--kui-color-@{name}-6, @{edge})";
   }
 
@@ -326,7 +330,7 @@
   // semantic types name and the pair the theme declares for its own body ink in
   // `components/styles/less-css-var.less`.
   .k-btn-plain.k-btn-@{name} {
-    color: @color;
+    color: ~"var(--kui-color-@{name}-text)";
     --kui-theme-plain-hover: fade(@base, 10%);
     --kui-theme-plain-active: fade(@base, 16%);
   }
@@ -367,15 +371,15 @@
     background-color: var(--kui-color-bg-component-active);
   }
   &.k-btn-primary {
-    color: var(--kui-color-primary);
+    color: var(--kui-color-primary-text);
     border-color: var(--kui-color-primary-6, @main-6);
   }
   &.k-btn-danger {
-    color: var(--kui-color-danger);
+    color: var(--kui-color-danger-text);
     border-color: var(--kui-color-danger-6, @danger-6);
   }
   &.k-btn-warning {
-    color: var(--kui-color-warning);
+    color: var(--kui-color-warning-text);
     border-color: var(--kui-color-warning-6, @warning-6);
   }
 
@@ -436,13 +440,13 @@
     background-color: var(--kui-color-bg-component-active);
   }
   &.k-btn-primary {
-    color: var(--kui-color-primary);
+    color: var(--kui-color-primary-text);
   }
   &.k-btn-danger {
-    color: var(--kui-color-danger);
+    color: var(--kui-color-danger-text);
   }
   &.k-btn-warning {
-    color: var(--kui-color-warning);
+    color: var(--kui-color-warning-text);
   }
 }
 .k-btn:not(.k-btn-link, .k-btn-text, .k-btn-solid, .k-btn-plain):disabled {
@@ -492,7 +496,8 @@
 // the Chromium an Electron build on Windows 7 ships predates it, so the wash would not appear at all.
 // The neutral case is the one ink that moves between themes, so its tint is declared with the text
 // colour it comes from in `less-css-var.less`. A palette name presses at the same two shares as the
-// types here: its label is the whole name, so the wash under it is a share of the very same colour.
+// types here: the wash under it is a share of the hue, and the label above that wash is the same hue
+// pushed to the readable end, both named in `components/styles/less-css-var.less`.
 .k-btn-plain {
   border-color: transparent;
   background: transparent;
@@ -506,17 +511,17 @@
   }
 
   &.k-btn-primary {
-    color: var(--kui-color-primary);
+    color: var(--kui-color-primary-text);
     --kui-theme-plain-hover: fade(@main, 10%);
     --kui-theme-plain-active: fade(@main, 16%);
   }
   &.k-btn-danger {
-    color: var(--kui-color-danger);
+    color: var(--kui-color-danger-text);
     --kui-theme-plain-hover: fade(@danger, 10%);
     --kui-theme-plain-active: fade(@danger, 16%);
   }
   &.k-btn-warning {
-    color: var(--kui-color-warning);
+    color: var(--kui-color-warning-text);
     --kui-theme-plain-hover: fade(@warning, 10%);
     --kui-theme-plain-active: fade(@warning, 16%);
   }
@@ -525,8 +530,8 @@
   }
 
   // The 17 palette names come from `.btn-name` above, where they name the same 10% and 16% pair the
-  // three types do — the label there is the whole name, so the press under it cannot be a weaker share
-  // of the same ink.
+  // three types do — the wash under a name is a share of the hue, and it has to stay that strong or the
+  // label the token layer ships for that hue loses the contrast it was chosen for.
   &:disabled {
     color: var(--kui-color-text-disabled);
     background: transparent;

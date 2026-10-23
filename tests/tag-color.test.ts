@@ -121,11 +121,12 @@ describe("Tag palette coverage", () => {
     return { rules: new Map(entries), selectors: entries.map(([selector]) => selector) };
   };
 
-  // A chip's three stops are mixed at build time, so the expectation mixes them the same way instead of
+  // A chip's two washes are mixed at build time, so the expectation mixes them the same way instead of
   // copying a string: LESS resolves the palette variable here exactly as the stylesheet does, which
-  // still fails when `index.less` points the wrong base colour or the wrong share at a name.
+  // still fails when `index.less` points the wrong base colour or the wrong share at a name. The label is
+  // not a wash — it reads the shade the theme ships per theme-mode, and `palette-text.test.ts` is what
+  // checks that shade is readable.
   const STOPS: Array<[property: string, stop: string, share: number]> = [
-    ["color", "3", 70],
     ["border-color", "6", 40],
     ["background-color", "9", 10],
   ];
@@ -159,10 +160,14 @@ describe("Tag palette coverage", () => {
   const painted = (name: string, built: Map<string, string>) =>
     NEUTRAL.includes(name)
       ? "color: var(--kui-color-text); border-color: var(--kui-color-border); background-color: var(--kui-color-bg-2)"
-      : STOPS.map(
-          ([property, stop]) =>
-            `${property}: var(--kui-color-${name}-${stop}, ${built.get(`${name}-${stop}`)})`,
-        ).join("; ");
+      : [
+          // 字这一行裸读、不留兜底：那层底是两个主题各烘一份的字色，样式表里再写字面量就有两份真相
+          `color: var(--kui-color-${name}-text)`,
+          ...STOPS.map(
+            ([property, stop]) =>
+              `${property}: var(--kui-color-${name}-${stop}, ${built.get(`${name}-${stop}`)})`,
+          ),
+        ].join("; ");
 
   it("every palette name paints the chip with its own token", async () => {
     const { rules } = await sheet();

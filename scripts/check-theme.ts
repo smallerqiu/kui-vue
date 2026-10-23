@@ -1159,15 +1159,17 @@ const compile = async (entry: string) => {
       await resolve("mark-solid", "var(--kui-color-text-on-solid)"),
       "the close icon of a solid tag must not flip to danger under the pointer",
     );
-    // `color` names the chip's hue and `theme` describes its surface, so an explicit colour keeps all
-    // three of its stops — otherwise the documented preset palette is repainted by the tier every tag
-    // now carries, `fill` included.
-    // The chip's three stops come from the tag sheet itself now, so the expectation reads them there.
+    // `color` names the chip's hue and `theme` describes its surface, so an explicit colour keeps the whole
+    // chip — otherwise the documented preset palette is repainted by the tier every tag now carries, `fill`
+    // included. Its two washes are mixed at build time and come from the tag sheet itself, so the
+    // expectation reads them there. The label is not a wash: it reads the theme's text share for the name
+    // bare, and `resolve()` follows that `var()` through the very sheet the page loaded, so the share the
+    // palette publishes is pinned.
     const chip = "components/tag/styles/index.less";
     for (const [id, prop, expected] of [
       ["mark-red", "background-color", await shippedChain(chip, "--kui-color-red-9")],
       ["mark-red", "border-top-color", await shippedChain(chip, "--kui-color-red-6")],
-      ["mark-red", "color", await shippedChain(chip, "--kui-color-red-3")],
+      ["mark-red", "color", "var(--kui-color-red-text)"],
       ["mark-custom", "border-top-color", "transparent"],
       ["mark-custom", "color", "var(--kui-color-text-on-solid)"],
     ] as const)
