@@ -13,7 +13,7 @@ if (process.env.PUBLISH === "true") {
   assert.equal(process.env.GITHUB_REF_NAME, `v${version}`, "Tag and package version must match.");
   if (process.env.DIST_TAG === "latest")
     assert.ok(!version.includes("-"), "Prereleases must use next.");
-  for (const file of ["src/views/change-log.md"]) {
+  for (const file of ["src/views/change-log.md", "src/views/change-log.en_US.md"]) {
     assert.ok(
       fs.readFileSync(file, "utf8").includes(`## ${version}\n`),
       `${file} needs a version entry.`,
