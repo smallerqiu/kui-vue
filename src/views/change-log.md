@@ -19,72 +19,23 @@ rm -rf node_modules/.vite
 
 `2026-10-12`
 
-- `Menu` 补齐方向键 / Enter / Esc 键盘导航，`Escape` 只收回当前一层。
-- `Menu` 弹出浮层通过 `aria-controls` / `aria-labelledby` 与触发项关联，`horizontal` 根节点声明 `role="menubar"`，与 React 版语义一致。
-- `Menu` 折叠逻辑按 `mode` 区分，切换 `mode` 不再改写 `openKeys`，也不再额外触发 `openChange`；溢出测量只在 `horizontal` 下进行。
-- `Menu` 修复纵向子菜单展开时外层先开、内容后伸缩的错位。
-- **行为变更**：`Menu` 子菜单面板收起后即从页面中移除（悬浮面板与 `inline` 子面板都是如此），再次展开时重新渲染，与 React 版一致。之前展开过的面板会一直留在页面里，子菜单较多时是一份无谓的常驻开销。哪些面板算展开仍由 `openKeys` 决定，不受这条影响。
-- `Table` 与 React 版对齐：修复分组表头与固定列、`scroll.y`、`bordered` 同时使用时表头边框丢失、吸顶行间露缝、圆角不饱满和右下角空白块的问题，固定列宽度与 sticky 偏移基准一致。
-- `Table` 分组表头改为按列分栏，补充 `aria-labelledby` 关联。
-- `Table` `rowKey` 取不到值时使用稳定兜底 key；`dataIndex` 支持 `a.b.c` 点路径嵌套取值。
-- `Table` 修复 `expandAllRows` 在异步数据下重复展开父行、虚拟滚动窗口起点越界的问题。
-- `Table` 空数据、筛选等内置文案接入语言包。
-- 统一库内滚动条样式，横向与纵向粗细一致；修复暗色主题下 hover 滑块与背景融为一体。
-- `Ripple` 修复 Chrome 155 中包裹内容点击无响应且不产生涟漪的问题。
-- `Ripple` 适配 Chrome 156 的 `content="drawable"`，Edge 与更早的 Chromium 保持原有路径。
-- `Ripple` 降级波纹叠层改为波峰提亮、波谷压暗，浅色与深色页面都清晰可见。
-- `FlameWrap` 修复 Chrome 155 中包裹内容点击无响应的问题，并适配 Chrome 156 的 `content="drawable"`。
-- `StatCard` 新增 `prefix` / `suffix` 属性，与 React 版对齐；此前只有同名插槽可用，传属性会落到根节点并报 DOM 属性错误。
-- `StatCard` 的 `title` / `desc` / `trend` 与 `StatNumber` 的 `prefix` / `suffix` 在传 `false` 或空字符串时不再渲染占位的空节点，`0` 仍按内容显示。
-- `StatCard` 修复 `items[].key` 与数组下标撞 key、数字动画状态串到别的数据项的问题。
-- `StatNumber` 的 `countup` 模式同样遵循系统的“减少动态效果”偏好，命中时直接显示目标值。
-- `Table` 未设 `width` 的列按 150 作为宽度基准，整表按各列宽度合计设最小宽度；容器变窄时改为横向滚动，不再把列压瘪、让表头文字竖排换行。
-- `Table` 修复窗口宽度卡在临界值时，固定列阴影和横向滚动条来回闪现的问题：只有真的还能往那一侧滚动，才会出现阴影。
-- `Tree` 异步 `loadData` 对同一节点只请求一次；虚拟滚动修复行高不对、hover 与选中背景不满行高的问题，与 React 版一致。
-- `Tree` 缺 `key` 的节点改用与 React 同规则的树路径兜底 key；此前按可见下标兜底，折叠或过滤时同一个节点的键会漂移。
-- `Tree` 拖到自身后代节点时不再提示可放置、松手却无效。
-- `Tree` 的 `select` 事件补上第二个参数（当前选中的 key 列表），与 React 版签名一致。
-- `Tree` 展开箭头按钮不再参与 Tab（`tabIndex={-1}`），保住整棵树的 roving tabindex，方向键不会把焦点丢在箭头上。
-- `DropdownButton` 修复右侧“三点”按钮点不开菜单：点击、右键与方向键都能驱动开合，触发按钮带 `aria-haspopup="menu"` 和 `aria-expanded`，并可用 `trigger` 指定 `hover` / `click` / `contextmenu`。
-- 弹层组件开放 `destroyOnClose`（`Select`、`Cascader`、`TreeSelect`、`AutoComplete`、`Mentions`、`DatePicker`、`ColorPicker`、`Dropdown`、`DropdownButton`、`Tooltip`、`Poptip`、`Popconfirm`），默认 `true`，即关闭后销毁面板内容。之前这个属性没有开放、无法覆盖；设为 `false` 就能留住面板里没提交完的表单，代价是每个打开过的实例留一份隐藏内容。
-- **行为变更**：上述弹层此前在关闭后会留一份 `display: none` 的面板节点（只有 `Cascader` 会销毁），现在与 React 版一致，默认在退场动画结束后销毁。面板里放了没提交完的表单时请显式写 `:destroy-on-close="false"`；反过来，页面里有大量 `Tooltip` 时不再堆积隐藏 DOM。
-- `Modal` / `Drawer` 叠着开时，`Escape` 只关最上面那一层；下拉菜单开在窗口之上时，第一下 `Escape` 先收下拉，不会把整个窗口一起关掉。`escKey` 在按键时才读取，运行中改这个属性立刻生效。
-- `Modal` / `Drawer` 支持 `destroyOnClose`（默认 `true`）：关闭后销毁面板内容，下次打开是干净的。设为 `false` 可以留住填了一半的表单，代价是页面里留一份隐藏内容。常开面板（`panelOnly`）不受这个开关影响。
-- 确认弹窗的 `onOk` 返回 Promise 时，关闭时机交给组件：保存成功才关窗，失败只结束按钮的 loading 状态并把窗口留着，用户改完可以直接重试。之前失败会让按钮一直转圈。
-- 关闭动画还没播完就重新打开时，窗口不会再过一会儿自己消失；组件销毁时把页面滚动和遮罩层级一并归还。
-- `Modal` 修复 `centered` 设置了却不居中、`width` 传字符串时单位丢失、没传 `title` 却多出一条空标题栏的问题。
-- `Modal` 新增 `title` 插槽，标题区可以放图标、说明等富内容；插槽没渲染出内容时回落到 `title` 属性，两者都不给就不显示标题栏。
-- 命令式弹窗（`modal.confirm()` 等）的 `title` / `content` 不再限字符串、可以省略，弹窗实例统一提供 `show` / `hide` / `destroy`，并沿用调用处的全局组件、指令与 `ConfigProvider` 设置。
-- `Modal` 内容区贴边的控件（如 `Input`）聚焦时，那圈焦点高亮不再被裁掉一半；内容宽度、位置与页脚间距都没有变化。
-- `Tooltip` 气泡和箭头指示器补回 1px 描边，深色背景上也能看清边界。
-- `Table` 新增 `ellipsis`：单元格内容超出列宽时收成省略号，行为与 React 版一致。写在列上只管那一列，写在 `Table` 上一次管住所有列（插槽或 `render` 出来的内容同样管），某一列想显示完整内容就在列上写 `ellipsis: false` 单独关掉。默认只截一行，`rows` 可以截到多行；悬停提示默认打开，且只在格子真的被截断时才出现，`tooltip` 能换成指定内容或设 `false` 关掉。
-- `Modal` / `Drawer` 统一了关闭时的回调顺序：先 `update:modelValue` 与 `openChange` 把开合状态结掉，再 `onCancel` / `onClose` 说这次是哪条通道关的。在这两个回调里读到的开合值已经是结算后的，不用再自己补一次关闭。
-- `Drawer` 的 `title` 不再有默认的 "Title"，不写就没有标题文本。标题栏仍会给右上角关闭按钮留着位置，只有 `closable: false` 且没有标题时才整条不显示。
-- `Drawer` 新增 `title` 插槽，`title` 属性也可以传节点，用来放图标、说明这类富内容。
-- `Modal` 的 `title` 属性除字符串之外还可以传节点，和已有的 `title` 插槽一样能放富内容。
-- **行为变更**：`Modal` / `Drawer` 打开时不再往外发通知。之前组件挂载时已经是打开状态、或把 `modelValue` 翻成 true，都会额外收到一次 `update:modelValue` 和 `openChange`，等于把自己刚写的值又喂回去一遍；现在只有关闭才通知，与 React 版一致。原先靠 `openChange` 收到 true 来做初始化的，改成监听自己那个值就行，时机是一样的。
-- `DatePicker` 修复区间只选了一半时的收尾：按 `Esc` 关掉面板不再把半截日期留在输入框里，和点面板外面一样退回上一次选好的区间。
-- `DatePicker` 修复只在结束框里手输了一个日期时的错觉：输入框显示着日期、`change` 却没收到值。现在首尾凑不齐就不算选上，关掉面板时一并清掉。
-- `DatePicker` 修复 `mode="time"` 时 `disabledTime` 不生效：那时手输和预设都能提交本该禁用的时间。
-- `DatePicker` 修复面板开着时外部改了值、输入框文本却停在旧值：现在文本跟着新值走，只有正在敲字的那个框不动。
-- `DatePicker` 的 `opened` 支持 `v-model:opened`：父级收起面板同样会退回上一次选好的区间，组件自己发出去的开合也不会再回灌一遍。
-- `DatePicker` 重复点已经选中的日期、重复提交同一个值，不再多触发一次 `change`。
-- `DatePicker` 修复区间只选了一头、就在时间列上挑时间：那个时间不再被当成结果发给 `change`，而是留在输入框里，等另一头补齐。
-- `DatePicker` 修复年 / 月面板不认 `disabledDate`：一整年或一整月里一天都选不出来时，那一格置灰、点不进去，`Tab` 也会跳过它；格里还能选出一天的，照常能点。
-- `DatePicker` 年 / 月面板的高亮改为跟着当前值走：翻年、翻月只改浏览位置，选中样式不再跑到正看着的那一格上。
-- `DatePicker` 年 / 月格子可以用键盘选了：`Tab` 到格子按 `Enter` 或空格即可，头部的年份、月份标签同样能用键盘切面板。
-- `DatePicker` 修复 `panelOnly` 常驻面板在 `mode="year"` / `mode="month"` 下仍显示日期格的问题：面板档位现在跟着 `mode` 起，与 React 版一致。
+### 不兼容与行为变更
+
 - **不兼容变更**：组件内置文案的默认语言从简体中文改为英语。没有挂 `ConfigProvider` 时，`DatePicker`、`Select`、`Table`、`Modal`、`Page` 等组件的内置文案现在显示英文；需要简体中文请在应用根部挂 `ConfigProvider` 并传入 `locale`（`import zhCN from "kui-vue/locale/zh-CN"`）。
 - **不兼容变更**：`theme` 不再接受 `default`。想要组件自己的默认外观就不要写 `theme`，`ConfigProvider` 也不再传这个值；可选的是 `fill` / `outline` / `plain` / `solid` / `dashed` / `underlined` 六档。此前 `Button` 上写 `theme="default"` 会被认成 `type="default"` 的那种外观，让 `type="link"` / `type="text"` 的按钮凭空多出一块底色。
-- `DatePicker` 的 `format` 只接受单个格式，与 React 版一致：之前传数组只是拿第一个格式展示，现在不再接受数组。默认格式按 `mode` 取（`year` 为 `YYYY`、`month` 为 `YYYY-MM`、`time` 为 `HH:mm:ss`、`dateTime` / `dateTimeRange` 为 `YYYY-MM-DD HH:mm:ss`），文档里原先统一写成 `YYYY-MM-DD`。
+- **不兼容变更**：不再导出 `CheckCardTheme`，`theme` 一律使用库统一的 `ThemeType`。
+- **不兼容变更**：`theme` 的类型改成只列组件画得出的档位。表面型组件——`Card` / `FeatureCard` / `StatCard` / `Collapse` / `FeedbackPanel` / `CheckCard` / `Alert` / `Image` / `QRCode` / `Page` / `Kanban` / `Transfer` / `ListPanel` / `Tag` / `Button` / `DropdownButton`，以及 `RadioGroup` / `RadioButton`——只收 `fill` / `outline` / `plain` / `solid` / `dashed` 五档（`SurfaceThemeType`）；`Checkbox` / `Radio` / `CheckboxGroup` 只收 `fill` / `outline` 两档（`MarkThemeType`）；`ConfigProvider` 与 `Form` 仍然六档全收。在这类组件上写过它画不到的档位（比如给卡片写 `theme="underlined"`）现在 TypeScript 会报错（写在模板里也一样），运行时没有变化，组件仍旧按自己的外观呈现。
+- **行为变更**：`Menu` 子菜单面板收起后即从页面中移除（悬浮面板与 `inline` 子面板都是如此），再次展开时重新渲染，与 React 版一致。之前展开过的面板会一直留在页面里，子菜单较多时是一份无谓的常驻开销。哪些面板算展开仍由 `openKeys` 决定，不受这条影响。
+- **行为变更**：弹层组件此前在关闭后会留一份 `display: none` 的面板节点（只有 `Cascader` 会销毁），现在与 React 版一致，默认在退场动画结束后销毁。面板里放了没提交完的表单时请显式写 `:destroy-on-close="false"`；反过来，页面里有大量 `Tooltip` 时不再堆积隐藏 DOM。
+- **行为变更**：`Modal` / `Drawer` 打开时不再往外发通知。之前组件挂载时已经是打开状态、或把 `modelValue` 翻成 true，都会额外收到一次 `update:modelValue` 和 `openChange`，等于把自己刚写的值又喂回去一遍；现在只有关闭才通知，与 React 版一致。原先靠 `openChange` 收到 true 来做初始化的，改成监听自己那个值就行，时机是一样的。
+
+### 控件外观
+
 - `DatePicker` / `Select` / `Cascader` / `TreeSelect` 的 `theme="plain"` 与 `:bordered="false"` 各管各的：`plain` 是无边框也没有底色，`:bordered="false"` 只去掉边框，两者可以同时使用；控件禁用时 `plain` 照样显示禁用态。
 - `Select` / `Cascader` / `TreeSelect` 去掉边框后，鼠标悬停不再突然描出一圈主色边框和光晕。
 - `Select` / `Cascader` / `TreeSelect` / `DatePicker` 的 `theme` 补齐 `outline` / `solid` / `dashed` / `underlined` 四档：描边框、主色实底（文字与图标跟着反白）、虚线描边、只留一条下划线（聚焦时下划线变主色）。
 - `Cascader` 用 `theme="fill"` 时，鼠标悬停不再突然描出一圈边框。
 - `Select` / `TreeSelect` 用 `theme="fill"` 时，鼠标悬停不再抹掉应用用 `--kui-theme-fill-border` 描的那圈边框，与 `Cascader` 一致。
-- 报错的表单项不再漏掉控件：`Cascader` / `ColorPicker` / `InputTag` / `InputOTP` 放进验证失败的表单项时同样描红，此前只有 `Input` / `Select` 那几类会变色；`InputOTP` 是每一格一起描红。
-- `Select` / `TreeSelect` / `Cascader` / `ColorPicker` / `InputTag` / `InputOTP` 放进报错的表单项后，鼠标悬停、聚焦、展开面板都不会让那圈红色描边消失，红边和红色浅光一直留着；六种 `theme` 下都一样。
-- 报错的表单项里，聚焦或展开面板时那圈焦点光晕也跟着变红，不再出现红边配主色光晕；`theme="solid"` 的实底控件保留原来那圈反白光晕，红色在实底上反而看不清。
 - `DatePicker` 去掉边框（`:bordered="false"` 或 `theme="plain"`）后聚焦不再出现一圈焦点环，与 `Select` 系列一致。
 - `Input` / `Textarea` / `InputNumber` 的 `theme` 补齐 `outline` / `solid` / `dashed` / `underlined` 四档：描边框、主色实底（输入的文字、占位提示与前后缀图标一起反白）、虚线描边、只留一条下划线（悬停、聚焦时变主色）。
 - `Input` / `Textarea` / `InputNumber` 的 `theme="plain"` 悬停时不再突然描出一圈边框，禁用时仍显示禁用态；`plain` 与 `underlined` 聚焦时不再出现焦点环，与 `Select` 系列一致。
@@ -94,9 +45,20 @@ rm -rf node_modules/.vite
 - `ColorPicker` 的 `theme` 补齐 `outline` / `solid` / `dashed` / `underlined` 四档：描边框、主色实底、虚线描边、只留一条下划线（悬停、打开面板时下划线变主色）。
 - `ColorPicker` 用 `theme="solid"` 时，色块旁边的颜色文字一起反白，悬停、打开面板时底色加深；色块本身仍显示当前颜色。
 - `ColorPicker` 用 `theme="fill"` 或 `theme="plain"` 且禁用时，仍显示禁用态的背景与描边。
+- `Select` / `TreeSelect` 用 `theme="solid"` 时，框里已选的标签改为半透明反白底，不再和控件一样填成主色；用 `theme="dashed"` 时标签仍是实线描边，不会跟控件一起变虚线。`InputTag` 早就是这个做法，现在三处一致。
+- `InputGroup` 的 `theme` / `size` 现在会跟 `ConfigProvider` 传下来的档位走，并且始终和自己包着的那个输入框一致：此前分组只认自己写的 `theme`，外面换成 `outline` / `solid` 时，里面的输入框描了边、前后缀两格却还是填充那一套。组件自己写了的仍然优先；分组解析出来的尺寸也会接着传给它包着的控件。
+- `TreeSelect` 展开面板时不再多出一圈光晕：`fill` / `plain` / `solid` / `underlined`、无边框与禁用这几种外观下，展开只剩那一圈焦点环，和 `Select`、`Cascader` 一致；`outline` 与 `dashed` 仍带原来的浅光。
+- `Input` / `Textarea` 用 `theme="solid"` 时聚焦不再多出一圈浅色光晕：主色实底上那层淡光本来就看不出来，现在和 `InputNumber` / `InputOTP` / `InputTag` / `ColorPicker` 一致，只留那一圈焦点环。
+- 禁用的输入框聚焦时不再发光；`ColorPicker` 禁用时，哪怕面板是用 `open` 手动展开的也不再发光。`outline` / `dashed` 这些留着描边的外观，聚焦与展开时的那层浅光照旧。
+- `Cascader` 关掉边框（`bordered={false}`）时，`theme="outline"` / `theme="dashed"` 不再留下一圈边框，`theme="fill"` 也不再留着那层底色，和 `Select` / `TreeSelect` / `DatePicker` 的表现一致。
+- 报错的表单项不再漏掉控件：`Cascader` / `ColorPicker` / `InputTag` / `InputOTP` 放进验证失败的表单项时同样描红，此前只有 `Input` / `Select` 那几类会变色；`InputOTP` 是每一格一起描红。
+- `Select` / `TreeSelect` / `Cascader` / `ColorPicker` / `InputTag` / `InputOTP` 放进报错的表单项后，鼠标悬停、聚焦、展开面板都不会让那圈红色描边消失，红边和红色浅光一直留着；六种 `theme` 下都一样。
+- 报错的表单项里，聚焦或展开面板时那圈焦点光晕也跟着变红，不再出现红边配主色光晕；`theme="solid"` 的实底控件保留原来那圈反白光晕，红色在实底上反而看不清。
+
+### 表面与标记外观
+
 - `Tag` 的 `theme` 补齐 `outline` / `solid` / `dashed` 三档：描边框、主色实底（文字和关闭图标一起反白）、虚线描边；不写 `theme` 就是标签自己的 `fill` 外观，`theme="underlined"` 对它没有意义，同样按 `fill` 呈现。
 - `Tag` 设置了 `color` 时以颜色为准：预设色值和自定义色值都保留自己的边框与文字颜色，不再被 `theme` 的底色盖掉。此前带预设色值的标签会被默认外观铺上一层灰底，色值只剩文字还在。
-- `Select` / `TreeSelect` 用 `theme="solid"` 时，框里已选的标签改为半透明反白底，不再和控件一样填成主色；用 `theme="dashed"` 时标签仍是实线描边，不会跟控件一起变虚线。`InputTag` 早就是这个做法，现在三处一致。
 - `Checkbox` / `Radio` 的方框和圆点只有 `fill`（浅底填充）与 `outline`（描边）两种外观。`outline` 现在真的会把边框描出来，颜色可以和其它描边控件一样用 `--kui-theme-outline-border` 改；`fill` 的边框色也能用 `--kui-theme-fill-border` 覆盖，此前这两个变量在复选框、单选框上都不生效。
 - `Checkbox` / `Radio` 不写 `theme` 就是浅底的 `fill`；此前写了 `default` 反而会落到描边的基础外观，等于换了个 `theme`。`solid` / `plain` / `dashed` / `underlined` 对一个不能输入的方框或圆点没有意义，同样按 `fill` 呈现。
 - `CheckboxGroup` / `RadioGroup` 的 `theme` 会传到组内每一个方框和圆点上，从 `ConfigProvider` 继承的 `theme` 走同一条路；`type="button"` 的按钮组只有 `fill` 一档改用一条分隔线拼接按钮，其余档位保持按钮自身相邻边框的排布。此前按钮组的这条布局只认写在组件上的 `theme`，`ConfigProvider theme="fill"` 下按钮填了色却仍留着相邻边框的重排间距，现在继承的 `fill` 同样生效。选中与禁用状态始终优先于 `theme`。
@@ -109,7 +71,6 @@ rm -rf node_modules/.vite
 - `CheckCard` / `CheckCardGroup` 的 `theme` 补齐 `solid` / `dashed` 两档，`CheckCard` 也不再只认 `fill` / `outline`：`solid` 是主色实底，标题、描述、左侧图标和右上角的选中标记一起反白，选中时圆点转成浅色、勾用主色；`dashed` 是虚线描边。卡片上写 `theme="underlined"` 按 `outline` 呈现。
 - `CheckCardGroup` 的 `theme` 会传给组内每一张卡片，从 `ConfigProvider`、`Form` 继承的 `theme` 也同样传下去；卡片自己写了的 `theme` 优先。此前组上写 `solid` 会被换成 `outline`。
 - `CheckCard` 禁用时，标题、描述和图标一起变灰，不再只把外框和选中标记变灰。
-- **不兼容变更**：不再导出 `CheckCardTheme`，`theme` 一律使用库统一的 `ThemeType`。
 - `Alert` 的 `theme` 补齐 `solid` / `dashed` 两档：`solid` 用这条提示自己的颜色铺满整块（`error` 红、`success` 绿、`warning` 橙、`info` 主色），文字、图标和关闭按钮一起反白，错误和成功仍是两种颜色、不会一起变成主色；`dashed` 是虚线描边。提示条上写 `theme="underlined"` 按 `fill` 呈现。
 - `Alert` 的 `theme="outline"` 不再用正文颜色描边：外框改用库统一的边框色，和其它描边表面一致，也能用 `--kui-theme-outline-border` 一并改掉。
 - `Image` 的 `theme` 补齐 `solid` / `dashed` 两档：`solid` 用主色铺满图片底下那层板，加载中、加载失败的占位和自定义内容跟着反白；`dashed` 是虚线描边。图片上写 `theme="underlined"` 按 `plain` 呈现。
@@ -130,20 +91,13 @@ rm -rf node_modules/.vite
 - `ListPanel` 的 `theme` 补齐 `solid` / `dashed` 两档：此前只认 `fill` / `outline` / `plain`。`solid` 用主色铺满整块面板，`dashed` 是虚线描边；外观落在面板身下那张卡片上，`:bordered="false"` 只去掉外框、不改这一档。
 - `ListPanel` 用 `theme="solid"` 时，结果摘要那一行换成主色上的浅色文字，批量操作栏那一格也从灰底改成主色上的一层浅白，不再是一行暗字和一块外来的灰底；面板里的其它内容跟着面板字色走，不受影响。
 - 列表面板上写 `theme="underlined"` 按面板自己的 `outline` 呈现，不再落到卡片的 `fill`；`ConfigProvider` 传下来的这一档同样如此。
-- **不兼容变更**：`theme` 的类型改成只列组件画得出的档位。表面型组件——`Card` / `FeatureCard` / `StatCard` / `Collapse` / `FeedbackPanel` / `CheckCard` / `Alert` / `Image` / `QRCode` / `Page` / `Kanban` / `Transfer` / `ListPanel` / `Tag` / `Button` / `DropdownButton`，以及 `RadioGroup` / `RadioButton`——只收 `fill` / `outline` / `plain` / `solid` / `dashed` 五档（`SurfaceThemeType`）；`Checkbox` / `Radio` / `CheckboxGroup` 只收 `fill` / `outline` 两档（`MarkThemeType`）；`ConfigProvider` 与 `Form` 仍然六档全收。在这类组件上写过它画不到的档位（比如给卡片写 `theme="underlined"`）现在 TypeScript 会报错（写在模板里也一样），运行时没有变化，组件仍旧按自己的外观呈现。
-- `InputGroup` 的 `theme` / `size` 现在会跟 `ConfigProvider` 传下来的档位走，并且始终和自己包着的那个输入框一致：此前分组只认自己写的 `theme`，外面换成 `outline` / `solid` 时，里面的输入框描了边、前后缀两格却还是填充那一套。组件自己写了的仍然优先；分组解析出来的尺寸也会接着传给它包着的控件。
-- `TreeSelect` 展开面板时不再多出一圈光晕：`fill` / `plain` / `solid` / `underlined`、无边框与禁用这几种外观下，展开只剩那一圈焦点环，和 `Select`、`Cascader` 一致；`outline` 与 `dashed` 仍带原来的浅光。
-- `Input` / `Textarea` 用 `theme="solid"` 时聚焦不再多出一圈浅色光晕：主色实底上那层淡光本来就看不出来，现在和 `InputNumber` / `InputOTP` / `InputTag` / `ColorPicker` 一致，只留那一圈焦点环。
-- 禁用的输入框聚焦时不再发光；`ColorPicker` 禁用时，哪怕面板是用 `open` 手动展开的也不再发光。`outline` / `dashed` 这些留着描边的外观，聚焦与展开时的那层浅光照旧。
-- `Cascader` 关掉边框（`bordered={false}`）时，`theme="outline"` / `theme="dashed"` 不再留下一圈边框，`theme="fill"` 也不再留着那层底色，和 `Select` / `TreeSelect` / `DatePicker` 的表现一致。
-- 表单项里用 `InputGroup` 包住输入框时，这个输入框仍然算这一项的控件：表单的值会填进它，点 label 会聚焦到它，校验提示和外观档位也跟着它。
-- `Form` 竖排（`layout="vertical"`）时，写了 `block` 的输入框终于占满整行：之前每个字段只按自己的内容宽度收着，同一张表单里各字段的右边界参差不齐。
-- 把库用 `pnpm link` 装进自己项目联调时，模板里不带 import 直接写的全局组件（`<Button>`、`<Table>` 这些）不再丢类型：属性拼错照样报、事件参数也能推断出来，不再退化成 `implicitly has an 'any' type`。
-- `Cascader` 没传 `placeholder` 时，占位文案跟着语言包走，英文界面不再显示“请选择”。
-- `Badge` 的状态点改成显式要才画：不写 `status` 也不写 `color` 时（包括空着的 `<Badge />` 和 `:count="0"`）不再冒出一颗谁也没要的灰点。
-- `Badge` 的 `color` 与 `Tag` 共用同一套预设色值名，状态点和数字气泡都会跟着上色；预设之外的颜色照旧按你写的值来，写了一个浏览器认不出的名字时不再画出一颗透明的点，而是回到灰色状态点。
-- `Tag` 的 `color` 现在 17 个预设色值名都认：`olive`、`teal`、`violet`、`brown`、`gray` 写上去以前是一张没上色的标签，现在按名字上色。`gray` 走中性那一档，文字照常可读。
+
+### 颜色与色板
+
 - `color` 的预设色值名里不再收 `default`：不写 `color` 用的就是组件自己的那张表面，给它再占一个名字只会让人以为色板里有一档跟主题无关的颜色。`Tag` 和数字气泡上留着 `color="default"` 现在跟没写一样；状态点仍是那颗灰点，它属于 `status`，不在这套色板里。按钮上过去写 `color="default"` 画的是 `type="default"` 那颗，现在请把 `color` 删掉或直接写 `type`。
+- `Tag` 的 `color` 现在 17 个预设色值名都认：`olive`、`teal`、`violet`、`brown`、`gray` 写上去以前是一张没上色的标签，现在按名字上色。`gray` 走中性那一档，文字照常可读。
+- `Badge` 的 `color` 与 `Tag` 共用同一套预设色值名，状态点和数字气泡都会跟着上色；预设之外的颜色照旧按你写的值来，写了一个浏览器认不出的名字时不再画出一颗透明的点，而是回到灰色状态点。
+- `Badge` 的状态点改成显式要才画：不写 `status` 也不写 `color` 时（包括空着的 `<Badge />` 和 `:count="0"`）不再冒出一颗谁也没要的灰点。
 - `Button` 的 `color` 只认那 17 个预设色值名。写一个这套名字之外的颜色（`tomato`、`#f00`），过去按钮会连 `type` 给它的那张表面一起丢掉，只剩一颗没上色的按钮；现在它跟没写一样，`type` 照常生效。
 - `Button` 的 `color` 只写名字、不写 `theme` 时也会上色：`<Button color="blue">` 过去还是那张默认灰面，现在就是一颗蓝色实心按钮，和 `type` 那条路一样；已经写了 `theme` 的按钮表现不变。
 - `Button` 的 `color` 在 `theme="fill"` 上也上色：过去这颗按钮仍是一层灰底、名字什么都不涂，现在灰底留着、文字换成那支颜色。
@@ -152,7 +106,70 @@ rm -rf node_modules/.vite
 - `Button` 的 `color` 在 `outline` / `dashed` / `plain` 上不再拿摊薄的颜色当字：这三档没有自己的底色，过去写上去的名字是摊薄了当成字用的，压在卡片、页面、还是它自己按下去那层上各读出一个色，同一颗按钮换个位置就换个颜色，`gray` 在浅色主题下更是浅得几乎看不见。现在这颗按钮在哪儿都是同一个颜色，按下去出现的深浅也和 `type` 那颗一致。
 - `Button` / `Tag` 上把色值名当文字用的地方，文字改成按名字加深（深色主题下按名字变浅）的一档：过去直接拿那支颜色写字，`yellow`、`lime`、`cyan`、`gold` 这些浅色压在卡片、页面或它自己按下去那层浅底上，对比低到几乎读不出字；现在每一支都读得出，`fill` / `outline` / `dashed` / `plain` 四档上的按钮文字、带 `color` 的标签文字都跟着走，`type="primary"` / `danger` / `warning` 在这几档上的文字也一样。
 - 上一条那些彩色文字跟打包时算好的其它档一样不再跟着基色走：运行时只改 `--kui-color-primary` 只会挪动静置的面。要整套换掉这一族文字色，就显式声明 `--kui-color-<色值名>-text`（`primary` / `danger` / `warning` 也各有这一档，见「主题」文档）。
+
+### 组件更新
+
+- `Menu` 补齐方向键 / Enter / Esc 键盘导航，`Escape` 只收回当前一层。
+- `Menu` 弹出浮层通过 `aria-controls` / `aria-labelledby` 与触发项关联，`horizontal` 根节点声明 `role="menubar"`，与 React 版语义一致。
+- `Menu` 折叠逻辑按 `mode` 区分，切换 `mode` 不再改写 `openKeys`，也不再额外触发 `openChange`；溢出测量只在 `horizontal` 下进行。
+- `Menu` 修复纵向子菜单展开时外层先开、内容后伸缩的错位。
+- `Table` 与 React 版对齐：修复分组表头与固定列、`scroll.y`、`bordered` 同时使用时表头边框丢失、吸顶行间露缝、圆角不饱满和右下角空白块的问题，固定列宽度与 sticky 偏移基准一致。
+- `Table` 分组表头改为按列分栏，补充 `aria-labelledby` 关联。
+- `Table` `rowKey` 取不到值时使用稳定兜底 key；`dataIndex` 支持 `a.b.c` 点路径嵌套取值。
+- `Table` 修复 `expandAllRows` 在异步数据下重复展开父行、虚拟滚动窗口起点越界的问题。
+- `Table` 空数据、筛选等内置文案接入语言包。
+- `Table` 未设 `width` 的列按 150 作为宽度基准，整表按各列宽度合计设最小宽度；容器变窄时改为横向滚动，不再把列压瘪、让表头文字竖排换行。
+- `Table` 修复窗口宽度卡在临界值时，固定列阴影和横向滚动条来回闪现的问题：只有真的还能往那一侧滚动，才会出现阴影。
+- `Table` 新增 `ellipsis`：单元格内容超出列宽时收成省略号，行为与 React 版一致。写在列上只管那一列，写在 `Table` 上一次管住所有列（插槽或 `render` 出来的内容同样管），某一列想显示完整内容就在列上写 `ellipsis: false` 单独关掉。默认只截一行，`rows` 可以截到多行；悬停提示默认打开，且只在格子真的被截断时才出现，`tooltip` 能换成指定内容或设 `false` 关掉。
+- `Tree` 异步 `loadData` 对同一节点只请求一次；虚拟滚动修复行高不对、hover 与选中背景不满行高的问题，与 React 版一致。
+- `Tree` 缺 `key` 的节点改用与 React 同规则的树路径兜底 key；此前按可见下标兜底，折叠或过滤时同一个节点的键会漂移。
+- `Tree` 拖到自身后代节点时不再提示可放置、松手却无效。
+- `Tree` 的 `select` 事件补上第二个参数（当前选中的 key 列表），与 React 版签名一致。
+- `Tree` 展开箭头按钮不再参与 Tab（`tabIndex={-1}`），保住整棵树的 roving tabindex，方向键不会把焦点丢在箭头上。
+- `DatePicker` 修复区间只选了一半时的收尾：按 `Esc` 关掉面板不再把半截日期留在输入框里，和点面板外面一样退回上一次选好的区间。
+- `DatePicker` 修复只在结束框里手输了一个日期时的错觉：输入框显示着日期、`change` 却没收到值。现在首尾凑不齐就不算选上，关掉面板时一并清掉。
+- `DatePicker` 修复 `mode="time"` 时 `disabledTime` 不生效：那时手输和预设都能提交本该禁用的时间。
+- `DatePicker` 修复面板开着时外部改了值、输入框文本却停在旧值：现在文本跟着新值走，只有正在敲字的那个框不动。
+- `DatePicker` 的 `opened` 支持 `v-model:opened`：父级收起面板同样会退回上一次选好的区间，组件自己发出去的开合也不会再回灌一遍。
+- `DatePicker` 重复点已经选中的日期、重复提交同一个值，不再多触发一次 `change`。
+- `DatePicker` 修复区间只选了一头、就在时间列上挑时间：那个时间不再被当成结果发给 `change`，而是留在输入框里，等另一头补齐。
+- `DatePicker` 修复年 / 月面板不认 `disabledDate`：一整年或一整月里一天都选不出来时，那一格置灰、点不进去，`Tab` 也会跳过它；格里还能选出一天的，照常能点。
+- `DatePicker` 年 / 月面板的高亮改为跟着当前值走：翻年、翻月只改浏览位置，选中样式不再跑到正看着的那一格上。
+- `DatePicker` 年 / 月格子可以用键盘选了：`Tab` 到格子按 `Enter` 或空格即可，头部的年份、月份标签同样能用键盘切面板。
+- `DatePicker` 修复 `panelOnly` 常驻面板在 `mode="year"` / `mode="month"` 下仍显示日期格的问题：面板档位现在跟着 `mode` 起，与 React 版一致。
+- `DatePicker` 的 `format` 只接受单个格式，与 React 版一致：之前传数组只是拿第一个格式展示，现在不再接受数组。默认格式按 `mode` 取（`year` 为 `YYYY`、`month` 为 `YYYY-MM`、`time` 为 `HH:mm:ss`、`dateTime` / `dateTimeRange` 为 `YYYY-MM-DD HH:mm:ss`），文档里原先统一写成 `YYYY-MM-DD`。
+- 弹层组件开放 `destroyOnClose`（`Select`、`Cascader`、`TreeSelect`、`AutoComplete`、`Mentions`、`DatePicker`、`ColorPicker`、`Dropdown`、`DropdownButton`、`Tooltip`、`Poptip`、`Popconfirm`），默认 `true`，即关闭后销毁面板内容。之前这个属性没有开放、无法覆盖；设为 `false` 就能留住面板里没提交完的表单，代价是每个打开过的实例留一份隐藏内容。
+- `Modal` / `Drawer` 叠着开时，`Escape` 只关最上面那一层；下拉菜单开在窗口之上时，第一下 `Escape` 先收下拉，不会把整个窗口一起关掉。`escKey` 在按键时才读取，运行中改这个属性立刻生效。
+- `Modal` / `Drawer` 支持 `destroyOnClose`（默认 `true`）：关闭后销毁面板内容，下次打开是干净的。设为 `false` 可以留住填了一半的表单，代价是页面里留一份隐藏内容。常开面板（`panelOnly`）不受这个开关影响。
+- 确认弹窗的 `onOk` 返回 Promise 时，关闭时机交给组件：保存成功才关窗，失败只结束按钮的 loading 状态并把窗口留着，用户改完可以直接重试。之前失败会让按钮一直转圈。
+- 关闭动画还没播完就重新打开时，窗口不会再过一会儿自己消失；组件销毁时把页面滚动和遮罩层级一并归还。
+- `Modal` 修复 `centered` 设置了却不居中、`width` 传字符串时单位丢失、没传 `title` 却多出一条空标题栏的问题。
+- `Modal` 新增 `title` 插槽，标题区可以放图标、说明等富内容；插槽没渲染出内容时回落到 `title` 属性，两者都不给就不显示标题栏。
+- 命令式弹窗（`modal.confirm()` 等）的 `title` / `content` 不再限字符串、可以省略，弹窗实例统一提供 `show` / `hide` / `destroy`，并沿用调用处的全局组件、指令与 `ConfigProvider` 设置。
+- `Modal` 内容区贴边的控件（如 `Input`）聚焦时，那圈焦点高亮不再被裁掉一半；内容宽度、位置与页脚间距都没有变化。
+- `Modal` / `Drawer` 统一了关闭时的回调顺序：先 `update:modelValue` 与 `openChange` 把开合状态结掉，再 `onCancel` / `onClose` 说这次是哪条通道关的。在这两个回调里读到的开合值已经是结算后的，不用再自己补一次关闭。
+- `Drawer` 的 `title` 不再有默认的 "Title"，不写就没有标题文本。标题栏仍会给右上角关闭按钮留着位置，只有 `closable: false` 且没有标题时才整条不显示。
+- `Drawer` 新增 `title` 插槽，`title` 属性也可以传节点，用来放图标、说明这类富内容。
+- `Modal` 的 `title` 属性除字符串之外还可以传节点，和已有的 `title` 插槽一样能放富内容。
+- `StatCard` 新增 `prefix` / `suffix` 属性，与 React 版对齐；此前只有同名插槽可用，传属性会落到根节点并报 DOM 属性错误。
+- `StatCard` 的 `title` / `desc` / `trend` 与 `StatNumber` 的 `prefix` / `suffix` 在传 `false` 或空字符串时不再渲染占位的空节点，`0` 仍按内容显示。
+- `StatCard` 修复 `items[].key` 与数组下标撞 key、数字动画状态串到别的数据项的问题。
+- `StatNumber` 的 `countup` 模式同样遵循系统的“减少动态效果”偏好，命中时直接显示目标值。
+- `DropdownButton` 修复右侧“三点”按钮点不开菜单：点击、右键与方向键都能驱动开合，触发按钮带 `aria-haspopup="menu"` 和 `aria-expanded`，并可用 `trigger` 指定 `hover` / `click` / `contextmenu`。
+- `Tooltip` 气泡和箭头指示器补回 1px 描边，深色背景上也能看清边界。
+- `Cascader` 没传 `placeholder` 时，占位文案跟着语言包走，英文界面不再显示“请选择”。
+- 表单项里用 `InputGroup` 包住输入框时，这个输入框仍然算这一项的控件：表单的值会填进它，点 label 会聚焦到它，校验提示和外观档位也跟着它。
+- `Form` 竖排（`layout="vertical"`）时，写了 `block` 的输入框终于占满整行：之前每个字段只按自己的内容宽度收着，同一张表单里各字段的右边界参差不齐。
 - `Notice` 关闭时，盒子跟着高度和上下留白一起收起来，与 React 版一致：此前只有透明度在淡出，盒子当场塌下去，下面几条通知跟着跳一下。
+- `Ripple` 修复 Chrome 155 中包裹内容点击无响应且不产生涟漪的问题。
+- `Ripple` 适配 Chrome 156 的 `content="drawable"`，Edge 与更早的 Chromium 保持原有路径。
+- `Ripple` 降级波纹叠层改为波峰提亮、波谷压暗，浅色与深色页面都清晰可见。
+- `FlameWrap` 修复 Chrome 155 中包裹内容点击无响应的问题，并适配 Chrome 156 的 `content="drawable"`。
+- 统一库内滚动条样式，横向与纵向粗细一致；修复暗色主题下 hover 滑块与背景融为一体。
+- 把库用 `pnpm link` 装进自己项目联调时，模板里不带 import 直接写的全局组件（`<Button>`、`<Table>` 这些）不再丢类型：属性拼错照样报、事件参数也能推断出来，不再退化成 `implicitly has an 'any' type`。
+
+### 主题的着色方式
+
 - 主题里那些「把一支颜色摊薄」出来的着色——浅色底、描边、悬停与按下的明暗、聚焦那圈光晕——改成打包时算好写进样式表，浏览器不再参与混色。适配 Win7 的那版 Electron 只有 Chromium 108，这类混色在它那里整条不出值：过去 `Result` 的状态码在那边是一整块看不见的字，`FeatureCard` 的图标底板、`Calendar` 的日程底色也不上色，现在都正常显示。代价是覆盖口径收紧：运行时只改基色（`--kui-color-primary`、`success` / `warning` / `danger` 这些）只会挪动那一层静止的面，从它摊出来的浅色不再跟着重算；要让某一片跟着走，就显式声明它对应的那一档（见「主题」文档）。
 - 上一条有两个看得见的细节：个别档位的悬停、按下明暗与之前差一个色阶（打包时取整与浏览器现算的分别，肉眼基本分辨不出）；`FeatureCard` 的图标底板与 `Calendar` 的日程底色改由组件按你写的 `color` 现算，`color` 是只有浏览器认得的值（`currentColor`、CSS 变量）时这两处退回主色淡化，图标与圆点本身照旧跟着你写的那颗走。
 
