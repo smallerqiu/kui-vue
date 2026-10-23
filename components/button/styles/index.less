@@ -234,18 +234,26 @@
 
 // A palette name is a colour the button can be painted with, so it needs a rule for every surface the
 // component can put it on: the name as the whole button (`theme` left out, and the `solid` tier's
-// `::before`), and the name as the label on the `fill` tier's grey wash. The `:not(...)` list on the
-// first of those drops one tier more than the `type` rules do — `solid` paints a name on its own
-// `::before`, so the root must not also take a background there; a semantic type has no `solid` paint
+// `::before`), and the name as the label on the three tiers that leave the surface to the page —
+// `fill`'s grey wash, `outline` / `dashed`'s frame, and `plain`, which paints only a press. One mixin
+// draws all five paths, so a name cannot be ported to three of them and left half-read. The `:not(...)`
+// list on the first of those drops one tier more than the `type` rules do — `solid` paints a name on its
+// own `::before`, so the root must not also take a background there; a semantic type has no `solid` paint
 // of its own, which is why its four-item list is not a shape to copy.
+//
+// Where the name is the label it is read whole — `var(--kui-color-<name>)`, which is exactly how the
+// three semantic types read on the same three tiers. A stop off the ramp (70% of the hue) is a colour
+// that changes with whatever happens to be behind the button, and these tiers bring no surface of their
+// own to hold it, so the same button would read one way on a card, another on the page, and a third on
+// its own press.
 //
 // `@ink` is the label colour for a name at full strength: whichever of black and white WCAG puts above
 // 4.5:1 against it. One constant cannot serve the family — under white, `yellow` reaches 1.72, `orange`
 // 1.97 and `violet` 2.32, and only `teal` (4.77) and `purple` (4.70) clear 4.5.
 // `--kui-color-text-on-<name>` is the hook for a theme that ships its own ramp; the library leaves it
-// undefined, the way it leaves `-3 / -6 / -9` undefined. `tests/button-color.test.*` recomputes every
-// ratio from the palette values in the compiled sheet, so a table that stops matching the palette
-// turns red instead of quietly becoming unreadable buttons.
+// undefined, the way it leaves `-6` and the two state hooks undefined. `tests/button-color.test.*`
+// recomputes every ratio from the palette values in the compiled sheet, so a table that stops matching
+// the palette turns red instead of quietly becoming unreadable buttons.
 //
 // The state step moves the surface away from the label (`@shade` is the opposite side of `@ink`). A step
 // that instead fades the background toward `transparent` leaves its contrast to whatever happens to be
@@ -258,8 +266,13 @@
 // render at all, leaving the surface stuck at its resting colour. `@base` is the very value the
 // `--kui-color-<name>` token is declared from, so the default themes keep painting the same step; a
 // theme that paints the name differently names its own, through `--kui-color-<name>-hover / -active`,
-// which is how `-3 / -6` already serve the labels and borders of the same family.
-.btn-name(@name, @color, @base, @ink) {
+// which is how `-6` already serves the frame of the same family.
+//
+// `@edge` is that frame's stop for `outline` / `dashed`. Every hue's `-6` is a tint of the hue and lives
+// only in LESS — the ramp never reaches `:root`, so the literal is what renders and the token stays a
+// hook — while `gray` is the one name whose ramp does reach `:root`, so its stop is a value of its own
+// rather than a fallback.
+.btn-name(@name, @color, @base, @ink, @edge) {
   @shade: rgb(255 - red(@ink), 255 - green(@ink), 255 - blue(@ink));
   @step-9: .snap(mix(@base, @shade, 90%))[value];
   @step-8: .snap(mix(@base, @shade, 80%))[value];
@@ -302,27 +315,42 @@
   .k-btn-fill.k-btn-@{name} {
     color: @color;
   }
+
+  .k-btn-outline.k-btn-@{name},
+  .k-btn-dashed.k-btn-@{name} {
+    color: @color;
+    border-color: ~"var(--kui-color-@{name}-6, @{edge})";
+  }
+
+  // `plain` presses in its own ink: the hook carries 10% and 16% of it, which is the same pair the
+  // semantic types name and the pair the theme declares for its own body ink in
+  // `components/styles/less-css-var.less`.
+  .k-btn-plain.k-btn-@{name} {
+    color: @color;
+    --kui-theme-plain-hover: fade(@base, 10%);
+    --kui-theme-plain-active: fade(@base, 16%);
+  }
 }
 
 // Listed in the order `components/const/var.ts` lists the palette, so a name the stylesheet has not
 // caught up with shows as a gap here rather than as an uncoloured button.
-.btn-name(red, var(--kui-color-red), @red, #000);
-.btn-name(orange, var(--kui-color-orange), @orange, #000);
-.btn-name(yellow, var(--kui-color-yellow), @yellow, #000);
-.btn-name(olive, var(--kui-color-olive), @olive, #000);
-.btn-name(green, var(--kui-color-green), @green, #000);
-.btn-name(teal, var(--kui-color-teal), @teal, #fff);
-.btn-name(blue, var(--kui-color-blue), @blue, #000);
-.btn-name(volcano, var(--kui-color-volcano), @volcano, #000);
-.btn-name(violet, var(--kui-color-violet), @violet, #000);
-.btn-name(cyan, var(--kui-color-cyan), @cyan, #000);
-.btn-name(gold, var(--kui-color-gold), @gold, #000);
-.btn-name(lime, var(--kui-color-lime), @lime, #000);
-.btn-name(magenta, var(--kui-color-magenta), @magenta, #000);
-.btn-name(purple, var(--kui-color-purple), @purple, #fff);
-.btn-name(pink, var(--kui-color-pink), @pink, #000);
-.btn-name(brown, var(--kui-color-brown), @brown, #000);
-.btn-name(gray, var(--kui-color-gray), @gray, #000);
+.btn-name(red, var(--kui-color-red), @red, #000, @red-6);
+.btn-name(orange, var(--kui-color-orange), @orange, #000, @orange-6);
+.btn-name(yellow, var(--kui-color-yellow), @yellow, #000, @yellow-6);
+.btn-name(olive, var(--kui-color-olive), @olive, #000, @olive-6);
+.btn-name(green, var(--kui-color-green), @green, #000, @green-6);
+.btn-name(teal, var(--kui-color-teal), @teal, #fff, @teal-6);
+.btn-name(blue, var(--kui-color-blue), @blue, #000, @blue-6);
+.btn-name(volcano, var(--kui-color-volcano), @volcano, #000, @volcano-6);
+.btn-name(violet, var(--kui-color-violet), @violet, #000, @violet-6);
+.btn-name(cyan, var(--kui-color-cyan), @cyan, #000, @cyan-6);
+.btn-name(gold, var(--kui-color-gold), @gold, #000, @gold-6);
+.btn-name(lime, var(--kui-color-lime), @lime, #000, @lime-6);
+.btn-name(magenta, var(--kui-color-magenta), @magenta, #000, @magenta-6);
+.btn-name(purple, var(--kui-color-purple), @purple, #fff, @purple-6);
+.btn-name(pink, var(--kui-color-pink), @pink, #000, @pink-6);
+.btn-name(brown, var(--kui-color-brown), @brown, #000, @brown-6);
+.btn-name(gray, var(--kui-color-gray), @gray, #000, @gray-6);
 
 .k-btn-outline,
 .k-btn-dashed {
@@ -354,90 +382,9 @@
   &.k-btn-default {
     border-color: var(--kui-control-border, var(--kui-color-border));
   }
-  &.k-btn-pink {
-    color: var(--kui-color-pink-3, @pink-3);
-    border-color: var(--kui-color-pink-6, @pink-6);
-  }
 
-  &.k-btn-red {
-    color: var(--kui-color-red-3, @red-3);
-    border-color: var(--kui-color-red-6, @red-6);
-  }
-
-  &.k-btn-yellow {
-    color: var(--kui-color-yellow-3, @yellow-3);
-    border-color: var(--kui-color-yellow-6, @yellow-6);
-  }
-
-  &.k-btn-orange {
-    color: var(--kui-color-orange-3, @orange-3);
-    border-color: var(--kui-color-orange-6, @orange-6);
-  }
-
-  &.k-btn-cyan {
-    color: var(--kui-color-cyan-3, @cyan-3);
-    border-color: var(--kui-color-cyan-6, @cyan-6);
-  }
-
-  &.k-btn-olive {
-    color: var(--kui-color-olive-3, @olive-3);
-    border-color: var(--kui-color-olive-6, @olive-6);
-  }
-
-  &.k-btn-brown {
-    color: var(--kui-color-brown-3, @brown-3);
-    border-color: var(--kui-color-brown-6, @brown-6);
-  }
-
-  &.k-btn-violet {
-    color: var(--kui-color-violet-3, @violet-3);
-    border-color: var(--kui-color-violet-6, @violet-6);
-  }
-
-  &.k-btn-teal {
-    color: var(--kui-color-teal-3, @teal-3);
-    border-color: var(--kui-color-teal-6, @teal-6);
-  }
-
-  &.k-btn-green {
-    color: var(--kui-color-green-3, @green-3);
-    border-color: var(--kui-color-green-6, @green-6);
-  }
-
-  &.k-btn-gray {
-    color: var(--kui-color-gray-3);
-    border-color: var(--kui-color-gray-6);
-  }
-
-  &.k-btn-blue {
-    color: var(--kui-color-blue-3, @blue-3);
-    border-color: var(--kui-color-blue-6, @blue-6);
-  }
-
-  &.k-btn-purple {
-    color: var(--kui-color-purple-3, @purple-3);
-    border-color: var(--kui-color-purple-6, @purple-6);
-  }
-
-  &.k-btn-magenta {
-    color: var(--kui-color-magenta-3, @magenta-3);
-    border-color: var(--kui-color-magenta-6, @magenta-6);
-  }
-
-  &.k-btn-volcano {
-    color: var(--kui-color-volcano-3, @volcano-3);
-    border-color: var(--kui-color-volcano-6, @volcano-6);
-  }
-
-  &.k-btn-gold {
-    color: var(--kui-color-gold-3, @gold-3);
-    border-color: var(--kui-color-gold-6, @gold-6);
-  }
-
-  &.k-btn-lime {
-    color: var(--kui-color-lime-3, @lime-3);
-    border-color: var(--kui-color-lime-6, @lime-6);
-  }
+  // The 17 palette names come from `.btn-name` above, which is also where their `plain` press is named:
+  // a name has to be ported to every tier at once or the button reads one colour here and another there.
   &:disabled {
     border-color: var(--kui-color-border-disabled);
   }
@@ -544,8 +491,8 @@
 // arm declares. Both are written out at build time — `color-mix()` mixes while the browser paints, and
 // the Chromium an Electron build on Windows 7 ships predates it, so the wash would not appear at all.
 // The neutral case is the one ink that moves between themes, so its tint is declared with the text
-// colour it comes from in `less-css-var.less`. A name's label is itself drawn at 70% alpha, which is
-// why its wash reads 7% and 11.2% rather than 10% and 16%.
+// colour it comes from in `less-css-var.less`. A palette name presses at the same two shares as the
+// types here: its label is the whole name, so the wash under it is a share of the very same colour.
 .k-btn-plain {
   border-color: transparent;
   background: transparent;
@@ -576,92 +523,10 @@
   &.k-btn-default {
     color: var(--kui-control-text, var(--kui-color-text));
   }
-  &.k-btn-red {
-    color: var(--kui-color-red-3, @red-3);
-    --kui-theme-plain-hover: fade(@red, 7%);
-    --kui-theme-plain-active: fade(@red, 11.2%);
-  }
-  &.k-btn-orange {
-    color: var(--kui-color-orange-3, @orange-3);
-    --kui-theme-plain-hover: fade(@orange, 7%);
-    --kui-theme-plain-active: fade(@orange, 11.2%);
-  }
-  &.k-btn-yellow {
-    color: var(--kui-color-yellow-3, @yellow-3);
-    --kui-theme-plain-hover: fade(@yellow, 7%);
-    --kui-theme-plain-active: fade(@yellow, 11.2%);
-  }
-  &.k-btn-olive {
-    color: var(--kui-color-olive-3, @olive-3);
-    --kui-theme-plain-hover: fade(@olive, 7%);
-    --kui-theme-plain-active: fade(@olive, 11.2%);
-  }
-  &.k-btn-green {
-    color: var(--kui-color-green-3, @green-3);
-    --kui-theme-plain-hover: fade(@green, 7%);
-    --kui-theme-plain-active: fade(@green, 11.2%);
-  }
-  &.k-btn-teal {
-    color: var(--kui-color-teal-3, @teal-3);
-    --kui-theme-plain-hover: fade(@teal, 7%);
-    --kui-theme-plain-active: fade(@teal, 11.2%);
-  }
-  &.k-btn-blue {
-    color: var(--kui-color-blue-3, @blue-3);
-    --kui-theme-plain-hover: fade(@blue, 7%);
-    --kui-theme-plain-active: fade(@blue, 11.2%);
-  }
-  &.k-btn-volcano {
-    color: var(--kui-color-volcano-3, @volcano-3);
-    --kui-theme-plain-hover: fade(@volcano, 7%);
-    --kui-theme-plain-active: fade(@volcano, 11.2%);
-  }
-  &.k-btn-violet {
-    color: var(--kui-color-violet-3, @violet-3);
-    --kui-theme-plain-hover: fade(@violet, 7%);
-    --kui-theme-plain-active: fade(@violet, 11.2%);
-  }
-  &.k-btn-cyan {
-    color: var(--kui-color-cyan-3, @cyan-3);
-    --kui-theme-plain-hover: fade(@cyan, 7%);
-    --kui-theme-plain-active: fade(@cyan, 11.2%);
-  }
-  &.k-btn-gold {
-    color: var(--kui-color-gold-3, @gold-3);
-    --kui-theme-plain-hover: fade(@gold, 7%);
-    --kui-theme-plain-active: fade(@gold, 11.2%);
-  }
-  &.k-btn-lime {
-    color: var(--kui-color-lime-3, @lime-3);
-    --kui-theme-plain-hover: fade(@lime, 7%);
-    --kui-theme-plain-active: fade(@lime, 11.2%);
-  }
-  &.k-btn-magenta {
-    color: var(--kui-color-magenta-3, @magenta-3);
-    --kui-theme-plain-hover: fade(@magenta, 7%);
-    --kui-theme-plain-active: fade(@magenta, 11.2%);
-  }
-  &.k-btn-purple {
-    color: var(--kui-color-purple-3, @purple-3);
-    --kui-theme-plain-hover: fade(@purple, 7%);
-    --kui-theme-plain-active: fade(@purple, 11.2%);
-  }
-  &.k-btn-pink {
-    color: var(--kui-color-pink-3, @pink-3);
-    --kui-theme-plain-hover: fade(@pink, 7%);
-    --kui-theme-plain-active: fade(@pink, 11.2%);
-  }
-  &.k-btn-brown {
-    color: var(--kui-color-brown-3, @brown-3);
-    --kui-theme-plain-hover: fade(@brown, 7%);
-    --kui-theme-plain-active: fade(@brown, 11.2%);
-  }
-  &.k-btn-gray {
-    color: var(--kui-color-gray-3);
-    --kui-theme-plain-hover: fade(@gray-3, 10%);
-    --kui-theme-plain-active: fade(@gray-3, 16%);
-  }
 
+  // The 17 palette names come from `.btn-name` above, where they name the same 10% and 16% pair the
+  // three types do — the label there is the whole name, so the press under it cannot be a weaker share
+  // of the same ink.
   &:disabled {
     color: var(--kui-color-text-disabled);
     background: transparent;

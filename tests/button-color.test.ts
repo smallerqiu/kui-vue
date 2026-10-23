@@ -272,6 +272,52 @@ describe("Button palette coverage", () => {
     }
   });
 
+  // 名字当标签的那三条臂：`fill` 的灰洗色、`outline` / `dashed` 的框、`plain` 那层按压
+  const inkArms = (name: string) => [
+    `.k-btn-fill.k-btn-${name}`,
+    `.k-btn-outline.k-btn-${name}, .k-btn-dashed.k-btn-${name}`,
+    `.k-btn-plain.k-btn-${name}`,
+  ];
+
+  it("reads the whole name where a name is the label", async () => {
+    const { rules } = await sheet();
+
+    // 语义类型在这三条臂上读的都是满值（`var(--kui-color-primary)`），名字也一样。从色板洗出来的那一档
+    // 是一支随背后那块底变的颜色，而这三档自己不带表面：同一颗按钮在卡片上、在页面上、在按下去的那层
+    // 洗色上会读成三个色，`plain` 更是把标签压在它自己刚洗出来的底色上。
+    for (const name of colors) {
+      for (const selector of inkArms(name)) {
+        const declarations = rules.get(selector) ?? "";
+
+        expect(declarations, `${selector} 缺少规则`).toBeTypeOf("string");
+        expect(
+          declarations,
+          `${selector} 的标签没读整支名字`,
+        ).toContain(`color: var(--kui-color-${name})`);
+
+        // 标签这一行不许带透明度，也不许去读色板里洗出来的那一档：这两样都让字色跟着底变
+        const label = declarations.match(/(^|; )color: ([^;]+)/)?.[2] ?? "";
+        expect(label, `${selector} 的标签读成了带透明度的值`).not.toMatch(/rgba?\(/);
+        expect(label, `${selector} 的标签读了色板里洗出来的那一档`).not.toMatch(/-3\b/);
+      }
+    }
+  });
+
+  // 框可以洗：它是那条边的底色，不是压在谁身上的字。这条留着，是为了把上面那条的边界写清楚 ——
+  // 「标签读满值」不等于「名字这一族不许有洗色」，语义类型的框也是 `var(--kui-color-primary-6, …)`。
+  it("keeps the frame on its own tint", async () => {
+    const { rules } = await sheet();
+
+    for (const name of colors) {
+      const declarations =
+        rules.get(`.k-btn-outline.k-btn-${name}, .k-btn-dashed.k-btn-${name}`) ?? "";
+      expect(
+        declarations,
+        `${name} 的框没写成 var(--kui-color-<name>-6, <编译期算好的字面量>)`,
+      ).toContain(`border-color: var(--kui-color-${name}-6, `);
+    }
+  });
+
   // 状态那一步从编译产物里读，两边各留一种参照：
   // `type` 那条洗的是同一支底色，百分比写在 rgba 的 alpha 上；名字那条混向标签的反色，
   // 混好的值直接印成字面量，挂在 `--kui-color-<name>-<state>` 这支库里不定义的 hook 后面。
@@ -378,6 +424,15 @@ describe("Button palette coverage", () => {
     }
   });
 
+  // 按压的幅度从产物里按 hook 取，不写死在这里：参照是语义类型那一档，名字这一档必须和它同形
+  const hookPercent = (declarations: string, state: string) => {
+    const alpha = declarations.match(
+      new RegExp(`--kui-theme-plain-${state}: rgba\\([^)]*, ([\\d.]+)\\)`),
+    )?.[1];
+    expect(alpha, `这条臂里没有 --kui-theme-plain-${state} 的字面量`).not.toBeUndefined();
+    return Number(alpha!);
+  };
+
   it("presses the plain tier through one hook per arm", async () => {
     const { rules } = await sheet();
     const tokens = await palette();
@@ -390,9 +445,14 @@ describe("Button palette coverage", () => {
         `共用那条没读 hook，或顺手写了别的值`,
       ).toBe(`background-color: var(--kui-theme-plain-${state})`);
 
-    // 名字这一档比语义那一档淡（16 支是 7% / 11.2%，`gray` 跟着中性分割色走 10% / 16%）。
+    // 名字这一档的淡度跟语义那一档一模一样：标签是整支名字，压在它下面的洗色没有理由更淡。
     // 透明度写在 rgba 的 alpha 上、通道是那支名字自己，混色在编译期算完 —— 产物里不许留函数，
     // 这一档的画法和 Windows 7 的 Chromium 能不能算混色没关系。
+    const type = rules.get(".k-btn-plain.k-btn-primary") ?? "";
+    const typeShares = Object.fromEntries(
+      ["hover", "active"].map((state) => [state, hookPercent(type, state)]),
+    );
+
     for (const name of colors) {
       const declarations = rules.get(`.k-btn-plain.k-btn-${name}`) ?? "";
       const pair = [
@@ -403,20 +463,12 @@ describe("Button palette coverage", () => {
         "hover",
       ]);
 
-      const neutral = name === "gray";
       for (const [state, value] of pair) {
-        const alpha =
-          declarations.match(
-            new RegExp(`--kui-theme-plain-${state}: rgba\\([^,]+, [^,]+, [^,]+, ([\\d.]+)\\)`),
-          )?.[1] ?? "";
         expect(
-          Number(alpha),
-          `${name} 的 plain :${state} 淡成了 ${alpha}，和这一档约定的幅度不一样`,
-        ).toBe(neutral ? (state === "hover" ? 0.1 : 0.16) : state === "hover" ? 0.07 : 0.112);
-
-        if (neutral) expect(new Set(value).size, `${name} 的 plain 按压色不是中性灰`).toBe(1);
-        else
-          expect(value, `${name} 的 plain :${state} 用的不是那支名字`).toEqual(tokens.get(name)!);
+          hookPercent(declarations, state),
+          `${name} 的 plain :${state} 淡得和语义类型那一档不一样`,
+        ).toBe(typeShares[state]!);
+        expect(value, `${name} 的 plain :${state} 用的不是那支名字`).toEqual(tokens.get(name)!);
       }
     }
   });
