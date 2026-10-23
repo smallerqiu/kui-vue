@@ -21,9 +21,17 @@
 }
 .k-notice-box {
   box-sizing: border-box;
+  // Closing a notice collapses this box through inline styles the leave hook writes — `height`,
+  // `padding` and `margin` all go to zero — so each of them has to be transitioned here, or the box
+  // snaps shut while nothing but the opacity fades. `padding` also carries the case where a grouped
+  // notice is replaced in place and gains or loses its icon, which moves `padding-left` between 16px
+  // and 45px. `tests/notice-collapse.test.ts` keeps this list in step with what the hook writes.
   transition:
     opacity 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
+    transform 0.3s ease-in-out,
+    height 0.3s ease-in-out,
+    padding 0.3s ease-in-out,
+    margin 0.3s ease-in-out;
   padding: 16px 35px 16px 16px;
   border-radius: var(--kui-card-radius, var(--kui-border-radius-card));
   box-shadow: var(--kui-popup-shadow, var(--kui-pop-shadow));
