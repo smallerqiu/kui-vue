@@ -97,4 +97,27 @@ describe("AutoComplete addons", () => {
     expect(wrapper.get(".k-input-group-prefix .addon-node").text()).toBe("https://");
     expect(wrapper.find(".k-input-group-suffix").exists()).toBe(false);
   });
+
+  it("keeps prefix and suffix inside the field", () => {
+    const wrapper = mount(AutoComplete, {
+      props: { prefix: "@", suffix: ".cn", options: ["kui"] },
+    });
+
+    expect(wrapper.find(".k-input-group").exists()).toBe(false);
+    expect(wrapper.get(".k-input-prefix").text()).toBe("@");
+    expect(wrapper.get(".k-input-suffix").text()).toBe(".cn");
+  });
+
+  it("accepts prefix and suffix through the named slots too", () => {
+    const wrapper = mount(AutoComplete, {
+      props: { options: ["kui"] },
+      slots: {
+        prefix: () => h("span", { class: "prefix-node" }, "@"),
+        suffix: () => h("span", { class: "suffix-node" }, ".cn"),
+      },
+    });
+
+    expect(wrapper.get(".k-input-prefix .prefix-node").text()).toBe("@");
+    expect(wrapper.get(".k-input-suffix .suffix-node").text()).toBe(".cn");
+  });
 });

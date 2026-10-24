@@ -1032,6 +1032,26 @@
           "documented": true
         },
         {
+          "name": "prefix",
+          "description": "Inline prefix; complex content can use the named slot",
+          "descriptionZh": "输入框内部前缀，复杂内容可使用同名插槽",
+          "descriptionEn": "Inline prefix; complex content can use the named slot",
+          "type": "VNodeChild",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "suffix",
+          "description": "Inline suffix; complex content can use the named slot",
+          "descriptionZh": "输入框内部后缀，复杂内容可使用同名插槽",
+          "descriptionEn": "Inline suffix; complex content can use the named slot",
+          "type": "VNodeChild",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "size",
           "description": "Size",
           "descriptionZh": "尺寸",
@@ -1159,9 +1179,9 @@
           "source": "<template>\n  <AutoComplete\n    v-model=\"value\"\n    clearable\n    placeholder=\"Please input\"\n    :options=\"['Vue', 'React', 'Solid', 'Svelte']\"\n  />\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst value = ref(\"\");\n</script>"
         },
         {
-          "title": "外部附件",
+          "title": "附件与前后缀",
           "file": "components/auto-complete/demo/addon.vue",
-          "source": "<template>\n  <AutoComplete\n    v-model=\"value\"\n    addon-before=\"https://\"\n    addon-after=\".com\"\n    placeholder=\"Please input domain\"\n    :options=\"['kui', 'kui-pro', 'kui-admin', 'kui-docs']\"\n  />\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst value = ref(\"\");\n</script>"
+          "source": "<template>\n  <Space block vertical>\n    <AutoComplete\n      v-model=\"value\"\n      addon-before=\"https://\"\n      addon-after=\".com\"\n      placeholder=\"Please input domain\"\n      :options=\"['kui', 'kui-pro', 'kui-admin', 'kui-docs']\"\n    />\n    <AutoComplete\n      prefix=\"@\"\n      suffix=\".cn\"\n      placeholder=\"Please input handle\"\n      :options=\"['kui', 'kui-pro', 'kui-admin', 'kui-docs']\"\n    />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst value = ref(\"\");\n</script>"
         },
         {
           "title": "受控值",
@@ -7874,17 +7894,6 @@
           "documented": true
         },
         {
-          "name": "rowSpan",
-          "description": "Number of rows occupied",
-          "descriptionZh": "占据的行数。配合 `autoRows` 可实现非对称布局",
-          "descriptionEn": "Number of rows occupied",
-          "type": "GridResponsive<number> | undefined",
-          "boolean": false,
-          "required": false,
-          "defaultExpression": "1",
-          "documented": true
-        },
-        {
           "name": "suffix",
           "description": "Place the item at the end of the explicit grid",
           "descriptionZh": "将该项放到当前显式网格的末尾",
@@ -7897,6 +7906,17 @@
           ],
           "required": false,
           "defaultExpression": "false",
+          "documented": true
+        },
+        {
+          "name": "rowSpan",
+          "description": "Number of rows occupied",
+          "descriptionZh": "占据的行数。配合 `autoRows` 可实现非对称布局",
+          "descriptionEn": "Number of rows occupied",
+          "type": "GridResponsive<number> | undefined",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "1",
           "documented": true
         },
         {
@@ -8622,21 +8642,6 @@
           "documented": true
         },
         {
-          "name": "size",
-          "description": "Spacing of child components, optional values `small`, `large`, default not selected",
-          "descriptionZh": "子组件的间距,可选值 `small`、`large`，默认不选",
-          "descriptionEn": "Spacing of child components, optional values `small`, `large`, default not selected",
-          "type": "\"small\" | \"medium\" | \"large\" | undefined",
-          "boolean": false,
-          "enumValues": [
-            "small",
-            "medium",
-            "large"
-          ],
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "prefix",
           "description": "Prefix inside the input; complex content can use the named slot",
           "descriptionZh": "输入框内部前缀，复杂内容可使用同名插槽",
@@ -8653,6 +8658,21 @@
           "descriptionEn": "Suffix inside the input; complex content can use the named slot",
           "type": "VNodeChild",
           "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "size",
+          "description": "Spacing of child components, optional values `small`, `large`, default not selected",
+          "descriptionZh": "子组件的间距,可选值 `small`、`large`，默认不选",
+          "descriptionEn": "Spacing of child components, optional values `small`, `large`, default not selected",
+          "type": "\"small\" | \"medium\" | \"large\" | undefined",
+          "boolean": false,
+          "enumValues": [
+            "small",
+            "medium",
+            "large"
+          ],
           "required": false,
           "documented": true
         },
@@ -10051,21 +10071,6 @@
           "documented": true
         },
         {
-          "name": "size",
-          "description": "Input box size",
-          "descriptionZh": "输入框大小",
-          "descriptionEn": "Input box size",
-          "type": "SizeType | undefined",
-          "boolean": false,
-          "enumValues": [
-            "small",
-            "medium",
-            "large"
-          ],
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "prefix",
           "description": "Prefix content",
           "descriptionZh": "前缀内容",
@@ -10082,6 +10087,21 @@
           "descriptionEn": "Custom suffix",
           "type": "string | undefined",
           "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "size",
+          "description": "Input box size",
+          "descriptionZh": "输入框大小",
+          "descriptionEn": "Input box size",
+          "type": "SizeType | undefined",
+          "boolean": false,
+          "enumValues": [
+            "small",
+            "medium",
+            "large"
+          ],
           "required": false,
           "documented": true
         },
@@ -16319,16 +16339,6 @@
           "documented": true
         },
         {
-          "name": "separator",
-          "description": "Separator",
-          "descriptionZh": "分隔符",
-          "descriptionEn": "Separator",
-          "type": "string | undefined",
-          "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "prefix",
           "description": "Default prefix for all values, scoped with `{ item, index }` and lowest in priority.",
           "descriptionZh": "所有数值的默认前置内容，作用域参数为 `{ item, index }`，优先级最低。",
@@ -16344,6 +16354,16 @@
           "descriptionZh": "所有数值的默认后置内容，作用域参数为 `{ item, index }`，优先级最低。",
           "descriptionEn": "Default suffix for all values, scoped with `{ item, index }` and lowest in priority.",
           "type": "VNodeChild",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "separator",
+          "description": "Separator",
+          "descriptionZh": "分隔符",
+          "descriptionEn": "Separator",
+          "type": "string | undefined",
           "boolean": false,
           "required": false,
           "documented": true
@@ -16533,16 +16553,6 @@
           "documented": true
         },
         {
-          "name": "separator",
-          "description": "Separator",
-          "descriptionZh": "分隔符",
-          "descriptionEn": "Separator",
-          "type": "string | undefined",
-          "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
           "name": "prefix",
           "description": "Custom prefix content, such as an icon.",
           "descriptionZh": "自定义前置内容，例如图标。",
@@ -16557,6 +16567,16 @@
           "description": "Custom suffix content, such as a unit.",
           "descriptionZh": "自定义后置内容，例如单位。",
           "descriptionEn": "Custom suffix content, such as a unit.",
+          "type": "string | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "separator",
+          "description": "Separator",
+          "descriptionZh": "分隔符",
+          "descriptionEn": "Separator",
           "type": "string | undefined",
           "boolean": false,
           "required": false,

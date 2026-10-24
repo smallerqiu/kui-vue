@@ -48,6 +48,8 @@ const propsDef = {
   placeholder: String,
   addonBefore: { type: [String, Number, Object] as PropType<VNodeChild> },
   addonAfter: { type: [String, Number, Object] as PropType<VNodeChild> },
+  prefix: { type: [String, Object] as PropType<VNodeChild> },
+  suffix: { type: [String, Object] as PropType<VNodeChild> },
   size: String as PropType<SizeType>,
   shape: String as PropType<ShapeType>,
   theme: { type: String as PropType<ThemeType>, default: "fill" },
@@ -298,6 +300,8 @@ const AutoComplete = defineComponent({
           placeholder={props.placeholder}
           addonBefore={props.addonBefore}
           addonAfter={props.addonAfter}
+          prefix={props.prefix}
+          suffix={props.suffix}
           size={appearance.size.value}
           shape={appearance.shape.value}
           theme={appearance.theme.value}
@@ -346,6 +350,8 @@ const AutoComplete = defineComponent({
           v-slots={{
             addonBefore: () => slots.addonBefore?.(),
             addonAfter: () => slots.addonAfter?.(),
+            prefix: () => slots.prefix?.(),
+            suffix: () => slots.suffix?.(),
           }}
         />
         {[
