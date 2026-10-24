@@ -44,8 +44,8 @@ When standard numerical values need to be obtained.
 | readonly | Whether the input is read-only | `boolean` | false |
 | precision | Numerical precision | `number` | - |
 | shape | Component appearance | `"default" \| "circle" \| "square" \| "round"` | - |
-| suffix | Custom suffix | `string` | - |
-| prefix | Prefix content | `string` | - |
+| suffix | Custom suffix | `VNodeChild` | - |
+| prefix | Prefix content | `VNodeChild` | - |
 | addonBefore | Addon before the input; complex content can use the named slot | `VNodeChild` | - |
 | addonAfter | Addon after the input; complex content can use the named slot | `VNodeChild` | - |
 | controls | Whether to show increase/decrease buttons | `boolean` | true |

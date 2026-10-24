@@ -162,7 +162,7 @@ const InputBase = defineComponent({
         );
       }
       const suffixContent = slotSuffix.length > 0 ? slotSuffix : suffix;
-      return suffixContent ? <div class="k-input-suffix">{suffixContent}</div> : null;
+      return suffixContent ? <div class={`k-${props.stylePrefix}-suffix`}>{suffixContent}</div> : null;
     };
 
     return () => {

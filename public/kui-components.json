@@ -10075,7 +10075,7 @@
           "description": "Prefix content",
           "descriptionZh": "前缀内容",
           "descriptionEn": "Prefix content",
-          "type": "string | undefined",
+          "type": "VNodeChild",
           "boolean": false,
           "required": false,
           "documented": true
@@ -10085,7 +10085,7 @@
           "description": "Custom suffix",
           "descriptionZh": "自定义后缀",
           "descriptionEn": "Custom suffix",
-          "type": "string | undefined",
+          "type": "VNodeChild",
           "boolean": false,
           "required": false,
           "documented": true

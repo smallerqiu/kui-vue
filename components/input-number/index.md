@@ -44,8 +44,8 @@
 | readonly | 是否只读 | `boolean` | false |
 | precision | 数值精度 | `number` | - |
 | shape | 组件的外观 | `"default" \| "circle" \| "square" \| "round"` | - |
-| suffix | 自定义后缀 | `string` | - |
-| prefix | 前缀内容 | `string` | - |
+| suffix | 自定义后缀 | `VNodeChild` | - |
+| prefix | 前缀内容 | `VNodeChild` | - |
 | addonBefore | 输入框外部前置附件，复杂内容可使用同名插槽 | `VNodeChild` | - |
 | addonAfter | 输入框外部后置附件，复杂内容可使用同名插槽 | `VNodeChild` | - |
 | controls | 是否显示增减按钮 | `boolean` | true |
