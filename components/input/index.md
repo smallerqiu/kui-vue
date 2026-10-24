@@ -66,6 +66,15 @@
 | onClear | 按下清除按钮的回调 | `(() => void)` | - |
 | onChange | 输入框内容变化时的回调 | `((value: string) => void)` | - |
 
+## Slots
+
+| 名称 | 说明 |
+| --- | --- |
+| prefix | 输入框内部前缀，与 `prefix` 属性等效；两者同时提供时以插槽为准。 |
+| suffix | 输入框内部后缀，与 `suffix` 属性等效；两者同时提供时以插槽为准。 |
+| addonBefore | 输入框外部前置附件，与 `addonBefore` 属性等效；两者同时提供时以插槽为准。 |
+| addonAfter | 输入框外部后置附件，与 `addonAfter` 属性等效；两者同时提供时以插槽为准。 |
+
 ## TextArea API
 
 | 属性 | 说明 | 类型 | 默认值 |

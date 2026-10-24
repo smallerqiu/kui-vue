@@ -1171,7 +1171,32 @@
           "descriptionEn": "Open state change"
         }
       ],
-      "slots": [],
+      "slots": [
+        {
+          "name": "prefix",
+          "description": "Inline prefix; same as the `prefix` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框内部前缀，与 `prefix` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Inline prefix; same as the `prefix` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "suffix",
+          "description": "Inline suffix; same as the `suffix` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框内部后缀，与 `suffix` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Inline suffix; same as the `suffix` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "addonBefore",
+          "description": "Boxed addon before the field; same as the `addonBefore` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框外部前置附件，与 `addonBefore` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Boxed addon before the field; same as the `addonBefore` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "addonAfter",
+          "description": "Boxed addon after the field; same as the `addonAfter` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框外部后置附件，与 `addonAfter` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Boxed addon after the field; same as the `addonAfter` prop, and the slot wins when both are set."
+        }
+      ],
       "examples": [
         {
           "title": "基础用法",
@@ -1181,7 +1206,7 @@
         {
           "title": "附件与前后缀",
           "file": "components/auto-complete/demo/addon.vue",
-          "source": "<template>\n  <Space block vertical>\n    <AutoComplete\n      v-model=\"value\"\n      addon-before=\"https://\"\n      addon-after=\".com\"\n      placeholder=\"Please input domain\"\n      :options=\"['kui', 'kui-pro', 'kui-admin', 'kui-docs']\"\n    />\n    <AutoComplete\n      prefix=\"@\"\n      suffix=\".cn\"\n      placeholder=\"Please input handle\"\n      :options=\"['kui', 'kui-pro', 'kui-admin', 'kui-docs']\"\n    />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst value = ref(\"\");\n</script>"
+          "source": "<template>\n  <Space block vertical>\n    <AutoComplete\n      v-model=\"value\"\n      addon-before=\"https://\"\n      addon-after=\".com\"\n      placeholder=\"Please input domain\"\n      :options=\"['kui', 'kui-pro', 'kui-admin', 'kui-docs']\"\n    />\n    <AutoComplete\n      prefix=\"@\"\n      suffix=\".cn\"\n      placeholder=\"Please input handle\"\n      :options=\"['kui', 'kui-pro', 'kui-admin', 'kui-docs']\"\n    />\n    <AutoComplete placeholder=\"Please input handle\" :options=\"['kui', 'kui-pro', 'kui-admin']\">\n      <template #addonAfter>\n        <Button>Invite</Button>\n      </template>\n    </AutoComplete>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst value = ref(\"\");\n</script>"
         },
         {
           "title": "受控值",
@@ -8805,7 +8830,32 @@
           "descriptionEn": "Emitted with the native FocusEvent when the input loses focus; the form context also processes blur validation."
         }
       ],
-      "slots": [],
+      "slots": [
+        {
+          "name": "prefix",
+          "description": "Inline prefix; same as the `prefix` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框内部前缀，与 `prefix` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Inline prefix; same as the `prefix` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "suffix",
+          "description": "Inline suffix; same as the `suffix` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框内部后缀，与 `suffix` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Inline suffix; same as the `suffix` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "addonBefore",
+          "description": "Boxed addon before the field; same as the `addonBefore` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框外部前置附件，与 `addonBefore` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Boxed addon before the field; same as the `addonBefore` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "addonAfter",
+          "description": "Boxed addon after the field; same as the `addonAfter` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框外部后置附件，与 `addonAfter` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Boxed addon after the field; same as the `addonAfter` prop, and the slot wins when both are set."
+        }
+      ],
       "examples": [
         {
           "title": "基本用法",
@@ -8924,7 +8974,32 @@
         }
       ],
       "events": [],
-      "slots": [],
+      "slots": [
+        {
+          "name": "prefix",
+          "description": "Inline prefix; same as the `prefix` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框内部前缀，与 `prefix` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Inline prefix; same as the `prefix` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "suffix",
+          "description": "Inline suffix; same as the `suffix` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框内部后缀，与 `suffix` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Inline suffix; same as the `suffix` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "addonBefore",
+          "description": "Boxed addon before the field; same as the `addonBefore` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框外部前置附件，与 `addonBefore` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Boxed addon before the field; same as the `addonBefore` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "addonAfter",
+          "description": "Boxed addon after the field; same as the `addonAfter` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框外部后置附件，与 `addonAfter` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Boxed addon after the field; same as the `addonAfter` prop, and the slot wins when both are set."
+        }
+      ],
       "examples": [
         {
           "title": "基本用法",
@@ -9165,7 +9240,32 @@
           "descriptionEn": "Emitted with the native Event on text input; change and the v-model update event provide the new string value."
         }
       ],
-      "slots": [],
+      "slots": [
+        {
+          "name": "prefix",
+          "description": "Inline prefix; same as the `prefix` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框内部前缀，与 `prefix` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Inline prefix; same as the `prefix` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "suffix",
+          "description": "Inline suffix; same as the `suffix` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框内部后缀，与 `suffix` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Inline suffix; same as the `suffix` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "addonBefore",
+          "description": "Boxed addon before the field; same as the `addonBefore` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框外部前置附件，与 `addonBefore` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Boxed addon before the field; same as the `addonBefore` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "addonAfter",
+          "description": "Boxed addon after the field; same as the `addonAfter` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框外部后置附件，与 `addonAfter` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Boxed addon after the field; same as the `addonAfter` prop, and the slot wins when both are set."
+        }
+      ],
       "examples": [
         {
           "title": "基本用法",
@@ -10206,7 +10306,32 @@
           "descriptionEn": "Called when a key is pressed in the input"
         }
       ],
-      "slots": [],
+      "slots": [
+        {
+          "name": "prefix",
+          "description": "Inline prefix; same as the `prefix` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框内部前缀，与 `prefix` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Inline prefix; same as the `prefix` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "suffix",
+          "description": "Inline suffix; same as the `suffix` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框内部后缀，与 `suffix` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Inline suffix; same as the `suffix` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "addonBefore",
+          "description": "Boxed addon before the field; same as the `addonBefore` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框外部前置附件，与 `addonBefore` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Boxed addon before the field; same as the `addonBefore` prop, and the slot wins when both are set."
+        },
+        {
+          "name": "addonAfter",
+          "description": "Boxed addon after the field; same as the `addonAfter` prop, and the slot wins when both are set.",
+          "descriptionZh": "输入框外部后置附件，与 `addonAfter` 属性等效；两者同时提供时以插槽为准。",
+          "descriptionEn": "Boxed addon after the field; same as the `addonAfter` prop, and the slot wins when both are set."
+        }
+      ],
       "examples": [
         {
           "title": "基本用法",
@@ -10221,7 +10346,7 @@
         {
           "title": "扩展, 前缀、后缀与附件",
           "file": "components/input-number/demo/ffix.vue",
-          "source": "<template>\n  <Space block vertical>\n    <InputNumber placeholder=\"Please input amount\" suffix=\"元\" prefix=\"¥\" />\n    <InputNumber placeholder=\"Please input amount\" :step=\"50\" suffix=\"元\" prefix=\"充值\" />\n    <InputNumber placeholder=\"Please input amount\" suffix=\".00\" />\n  </Space>\n  <Divider text=\"addons\" />\n  <Space block vertical>\n    <InputNumber placeholder=\"Please input amount\" addon-before=\"¥\" addon-after=\"RMB\" />\n    <InputNumber placeholder=\"Please input weight\" addon-after=\"kg\" />\n  </Space>\n  <Divider text=\"slot\" />\n  <Space vertical block>\n    <InputNumber placeholder=\"请填写您的薪资\" :icon=\"LogoYen\">\n      <template #suffix>\n        <Tooltip title=\"此处如果不知道怎么填，请咨询管理员\">\n          <Button :icon=\"CircleQuestionMark\" />\n        </Tooltip>\n      </template>\n    </InputNumber>\n    <InputNumber placeholder=\"Please input amount\">\n      <template #prefix>\n        <Button :icon=\"UserPlus\" />\n      </template>\n      <template #suffix>\n        <Button>Top up</Button>\n      </template>\n    </InputNumber>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { CircleQuestionMark, LogoYen, UserPlus } from \"kui-icons\";\n</script>"
+          "source": "<template>\n  <Space block vertical>\n    <InputNumber placeholder=\"Please input amount\" suffix=\"元\" prefix=\"¥\" />\n    <InputNumber placeholder=\"Please input amount\" :step=\"50\" suffix=\"元\" prefix=\"充值\" />\n    <InputNumber placeholder=\"Please input amount\" suffix=\".00\" />\n  </Space>\n  <Divider text=\"addons\" />\n  <Space block vertical>\n    <InputNumber placeholder=\"Please input amount\" addon-before=\"¥\" addon-after=\"RMB\" />\n    <InputNumber placeholder=\"Please input weight\" addon-after=\"kg\" />\n  </Space>\n  <Divider text=\"slot\" />\n  <Space vertical block>\n    <InputNumber placeholder=\"请填写您的薪资\" :icon=\"LogoYen\">\n      <template #suffix>\n        <Tooltip title=\"此处如果不知道怎么填，请咨询管理员\">\n          <Button :icon=\"CircleQuestionMark\" />\n        </Tooltip>\n      </template>\n    </InputNumber>\n    <InputNumber placeholder=\"Please input amount\">\n      <template #prefix>\n        <Button :icon=\"UserPlus\" />\n      </template>\n      <template #addon-after>\n        <Button>Top up</Button>\n      </template>\n    </InputNumber>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { CircleQuestionMark, LogoYen, UserPlus } from \"kui-icons\";\n</script>"
         },
         {
           "title": "尺寸",
@@ -16330,9 +16455,9 @@
         },
         {
           "name": "title",
-          "description": "Custom card title; falls back to the `title` prop when the slot renders nothing.",
-          "descriptionZh": "自定义卡片标题；插槽内容为空时回退到 `title` 属性。",
-          "descriptionEn": "Custom card title; falls back to the `title` prop when the slot renders nothing.",
+          "description": "Card title, or the slot of the same name; empty content such as `false` or an empty string renders no title row",
+          "descriptionZh": "卡片标题，不传时可用同名插槽；`false`、空字符串等空内容不渲染标题行",
+          "descriptionEn": "Card title, or the slot of the same name; empty content such as `false` or an empty string renders no title row",
           "type": "VNodeChild",
           "boolean": false,
           "required": false,
@@ -16340,9 +16465,9 @@
         },
         {
           "name": "prefix",
-          "description": "Default prefix for all values, scoped with `{ item, index }` and lowest in priority.",
-          "descriptionZh": "所有数值的默认前置内容，作用域参数为 `{ item, index }`，优先级最低。",
-          "descriptionEn": "Default prefix for all values, scoped with `{ item, index }` and lowest in priority.",
+          "description": "Prefix content of numerical value",
+          "descriptionZh": "数值的前置内容",
+          "descriptionEn": "Prefix content of numerical value",
           "type": "VNodeChild",
           "boolean": false,
           "required": false,
@@ -16350,9 +16475,9 @@
         },
         {
           "name": "suffix",
-          "description": "Default suffix for all values, scoped with `{ item, index }` and lowest in priority.",
-          "descriptionZh": "所有数值的默认后置内容，作用域参数为 `{ item, index }`，优先级最低。",
-          "descriptionEn": "Default suffix for all values, scoped with `{ item, index }` and lowest in priority.",
+          "description": "Suffix content of numerical value",
+          "descriptionZh": "数值的后置内容",
+          "descriptionEn": "Suffix content of numerical value",
           "type": "VNodeChild",
           "boolean": false,
           "required": false,
@@ -16402,27 +16527,6 @@
           "description": "Default suffix for all values, scoped with `{ item, index }` and lowest in priority.",
           "descriptionZh": "所有数值的默认后置内容，作用域参数为 `{ item, index }`，优先级最低。",
           "descriptionEn": "Default suffix for all values, scoped with `{ item, index }` and lowest in priority."
-        },
-        {
-          "name": "属性",
-          "description": "说明",
-          "descriptionZh": "说明",
-          "descriptionEn": "说明",
-          "scope": "类型"
-        },
-        {
-          "name": "theme",
-          "description": "Appearance theme",
-          "descriptionZh": "外观主题",
-          "descriptionEn": "Appearance theme",
-          "scope": "\"fill\" \\"
-        },
-        {
-          "name": "shape",
-          "description": "Card shape",
-          "descriptionZh": "卡片形状",
-          "descriptionEn": "Card shape",
-          "scope": "\"square\" \\"
         }
       ],
       "examples": [
@@ -16554,9 +16658,9 @@
         },
         {
           "name": "prefix",
-          "description": "Custom prefix content, such as an icon.",
-          "descriptionZh": "自定义前置内容，例如图标。",
-          "descriptionEn": "Custom prefix content, such as an icon.",
+          "description": "Prefix content of numerical value",
+          "descriptionZh": "数值的前置内容",
+          "descriptionEn": "Prefix content of numerical value",
           "type": "string | undefined",
           "boolean": false,
           "required": false,
@@ -16564,9 +16668,9 @@
         },
         {
           "name": "suffix",
-          "description": "Custom suffix content, such as a unit.",
-          "descriptionZh": "自定义后置内容，例如单位。",
-          "descriptionEn": "Custom suffix content, such as a unit.",
+          "description": "Suffix content of numerical value",
+          "descriptionZh": "数值的后置内容",
+          "descriptionEn": "Suffix content of numerical value",
           "type": "string | undefined",
           "boolean": false,
           "required": false,

@@ -61,3 +61,12 @@ Provide candidates based on the input while retaining the ability for free text 
 | onSearch | Search callback | `(value: string) => void` | - |
 | onSelect | Option selection | `(value: string, option: AutoCompleteOption) => void` | - |
 | onOpenChange | Open state change | `(open: boolean) => void` | - |
+
+## Slots
+
+| Name | Description |
+| --- | --- |
+| prefix | Inline prefix; same as the `prefix` prop, and the slot wins when both are set. |
+| suffix | Inline suffix; same as the `suffix` prop, and the slot wins when both are set. |
+| addonBefore | Boxed addon before the field; same as the `addonBefore` prop, and the slot wins when both are set. |
+| addonAfter | Boxed addon after the field; same as the `addonAfter` prop, and the slot wins when both are set. |

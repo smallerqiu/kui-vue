@@ -49,6 +49,19 @@ describe("InputNumber addons", () => {
     expect(wrapper.get(".k-input-number-suffix .suffix-node").text()).toBe("USD");
   });
 
+  it("takes prefix and suffix through the named slots too", () => {
+    const wrapper = mount(InputNumber, {
+      props: { modelValue: 1 },
+      slots: {
+        prefix: () => h("span", { class: "prefix-node" }, "$"),
+        suffix: () => h("span", { class: "suffix-node" }, "USD"),
+      },
+    });
+
+    expect(wrapper.get(".k-input-number-prefix .prefix-node").text()).toBe("$");
+    expect(wrapper.get(".k-input-number-suffix .suffix-node").text()).toBe("USD");
+  });
+
   it("keeps Form validation with the number field behind the addons", async () => {
     const wrapper = mount(Form, {
       props: { model: { amount: "" }, rules: { amount: [{ required: true }] } },

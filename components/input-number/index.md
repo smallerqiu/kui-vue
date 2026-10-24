@@ -56,3 +56,12 @@
 | onChange | 变化回调，清空时返回 `undefined` | `(value: number \| undefined) => void` | - |
 | onBlur | 输入框失焦时触发 | `(event: FocusEvent) => void` | - |
 | onKeydown | 输入框按键时触发 | `(event: KeyboardEvent) => void` | - |
+
+## Slots
+
+| 名称 | 说明 |
+| --- | --- |
+| prefix | 输入框内部前缀，与 `prefix` 属性等效；两者同时提供时以插槽为准。 |
+| suffix | 输入框内部后缀，与 `suffix` 属性等效；两者同时提供时以插槽为准。 |
+| addonBefore | 输入框外部前置附件，与 `addonBefore` 属性等效；两者同时提供时以插槽为准。 |
+| addonAfter | 输入框外部后置附件，与 `addonAfter` 属性等效；两者同时提供时以插槽为准。 |

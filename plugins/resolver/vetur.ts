@@ -43,7 +43,7 @@ export const getPropsNameCandidates = (componentName: string): string[] => {
  * 解析 Markdown 表格提取属性和描述
  * @param mdPath Markdown 文件路径
  */
-const getDocDescriptions = (mdPath: string, component: string): Record<string, string> => {
+export const getDocDescriptions = (mdPath: string, component: string): Record<string, string> => {
   const descriptions: Record<string, string> = {};
   if (!fs.existsSync(mdPath)) return descriptions;
 
@@ -52,7 +52,15 @@ const getDocDescriptions = (mdPath: string, component: string): Record<string, s
   const content = shared + "\n" + componentDocumentation(shared, component, path.basename(path.dirname(mdPath)));
   const lines = content.split("\n"); // 按行处理
 
+  // The Slots table reuses the prop names; its rows describe slots, not props.
+  let inSlots = false;
   lines.forEach((line) => {
+    if (/^#{2,6}\s+/.test(line)) {
+      inSlots = /^##\s+(?:slots|插槽)\s*$/i.test(line);
+      return;
+    }
+    if (inSlots) return;
+
     // Ignore escaped pipes inside Markdown cells.
     const columns = line
       .split(/(?<!\\)\|/)

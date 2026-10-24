@@ -86,7 +86,7 @@ const getExamples = (markdownPath: string) => {
 const getSlots = (markdownPath: string) => {
   if (!markdownPath || !fs.existsSync(markdownPath)) return [];
   const markdown = fs.readFileSync(markdownPath, "utf8");
-  const section = markdown.match(/(?:^|\n)## Slots\s*\n([\s\S]*?)(?=\n## |$)/i)?.[1] || "";
+  const section = markdown.match(/(?:^|\n)##\s+Slots\s*\n([\s\S]*?)(?=\n#{2,6}\s|$)/i)?.[1] || "";
   return section
     .split("\n")
     .filter((line) => /^\s*\|/.test(line))
@@ -98,7 +98,10 @@ const getSlots = (markdownPath: string) => {
         .map((cell) => cell.trim().replace(/^`|`$/g, "")),
     )
     .filter(
-      (cells) => cells.length >= 2 && !/^(name|名称)$/i.test(cells[0]) && !/^[-:]+$/.test(cells[0]),
+      (cells) =>
+        cells.length >= 2 &&
+        !/^(name|名称|property|属性)$/i.test(cells[0]) &&
+        !/^[-:]+$/.test(cells[0]),
     )
     .map(([name, description, scope]) => ({ name, description, scope: scope || undefined }));
 };

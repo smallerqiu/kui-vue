@@ -13,6 +13,11 @@
       placeholder="Please input handle"
       :options="['kui', 'kui-pro', 'kui-admin', 'kui-docs']"
     />
+    <AutoComplete placeholder="Please input handle" :options="['kui', 'kui-pro', 'kui-admin']">
+      <template #addonAfter>
+        <Button>Invite</Button>
+      </template>
+    </AutoComplete>
   </Space>
 </template>
 <script setup lang="ts">

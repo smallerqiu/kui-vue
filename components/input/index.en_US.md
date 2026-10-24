@@ -66,6 +66,15 @@ Input content via mouse or keyboard, the most basic wrapper for form fields.
 | onClear | Callback for pressing the clear button | `(() => void)` | - |
 | onChange | Callback when the input box content changes | `((value: string) => void)` | - |
 
+## Slots
+
+| Name | Description |
+| --- | --- |
+| prefix | Inline prefix; same as the `prefix` prop, and the slot wins when both are set. |
+| suffix | Inline suffix; same as the `suffix` prop, and the slot wins when both are set. |
+| addonBefore | Boxed addon before the field; same as the `addonBefore` prop, and the slot wins when both are set. |
+| addonAfter | Boxed addon after the field; same as the `addonAfter` prop, and the slot wins when both are set. |
+
 ## TextArea API
 
 | Property | Description | Type | Default |

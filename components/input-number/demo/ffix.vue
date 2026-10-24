@@ -22,7 +22,7 @@
       <template #prefix>
         <Button :icon="UserPlus" />
       </template>
-      <template #suffix>
+      <template #addon-after>
         <Button>Top up</Button>
       </template>
     </InputNumber>

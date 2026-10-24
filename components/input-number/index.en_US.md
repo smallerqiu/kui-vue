@@ -56,3 +56,12 @@ When standard numerical values need to be obtained.
 | onChange | Change callback; returns `undefined` when cleared | `(value: number \| undefined) => void` | - |
 | onBlur | Called when the input loses focus | `(event: FocusEvent) => void` | - |
 | onKeydown | Called when a key is pressed in the input | `(event: KeyboardEvent) => void` | - |
+
+## Slots
+
+| Name | Description |
+| --- | --- |
+| prefix | Inline prefix; same as the `prefix` prop, and the slot wins when both are set. |
+| suffix | Inline suffix; same as the `suffix` prop, and the slot wins when both are set. |
+| addonBefore | Boxed addon before the field; same as the `addonBefore` prop, and the slot wins when both are set. |
+| addonAfter | Boxed addon after the field; same as the `addonAfter` prop, and the slot wins when both are set. |
