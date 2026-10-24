@@ -27,7 +27,7 @@ rm -rf node_modules/.vite
 - **Behaviour change**: popups used to leave a `display: none` panel node in the DOM after closing (only `Cascader` destroyed it). They now match the React build and destroy the panel after the exit animation by default. Keep unsubmitted form state by setting `:destroy-on-close="false"` explicitly; conversely, pages with many `Tooltip` instances no longer accumulate hidden DOM.
 - **Behavior change**: `Modal` / `Drawer` no longer announce opening. Mounting with the panel already open, or setting `modelValue` to true, used to send back an extra `update:modelValue` and `openChange` — feeding you the value you had just written. Only closing is announced now, matching React. If you initialized something from an `openChange(true)`, watch that value instead; it is the same moment.
 
-### Controls
+### Control appearance
 
 - `DatePicker` / `Select` / `Cascader` / `TreeSelect`: `theme="plain"` and `bordered={false}` now mean separate things — `plain` drops both the border and the surface, `bordered={false}` drops only the border, and the two can be combined; a disabled control under `plain` still reads as disabled.
 - `Select` / `Cascader` / `TreeSelect`: a control with its border removed no longer grows a primary-colored border and a glow when the pointer moves over it.
@@ -53,7 +53,7 @@ rm -rf node_modules/.vite
 - A red border inside an invalid form item survives interaction: hovering, focusing or opening the panel of a `Select` / `TreeSelect` / `Cascader` / `ColorPicker` / `InputTag` / `InputOTP` keeps both the red edge and its red glow, under any of the six `theme` values.
 - Inside an invalid form item the focus halo turns red too, so a focused or opened field no longer pairs a red border with a primary-coloured glow; a `theme="solid"` field keeps its inverted white halo, because red would be hard to see on a filled surface.
 
-### Surfaces and marks
+### Surface and mark appearance
 
 - `Tag`: `theme` now supports `outline`, `solid` and `dashed` — a 1px outlined chip, a primary-filled chip whose label and close icon invert, and a dashed frame. `theme="underlined"` lands on `fill`, since a chip has nothing to underline.
 - `Tag`: setting `color` now wins over `theme` — preset and custom colours keep their own border and label colour instead of being repainted by the theme surface. A preset-colour tag used to pick up the default grey fill and keep only its text colour.
@@ -105,7 +105,7 @@ rm -rf node_modules/.vite
 - Wherever a colour name is written as text — a `Button` label on `fill` / `outline` / `dashed` / `plain`, a `Tag` label that sets `color` — it is now a readable shade of that name instead of the raw hue. The pale names (`yellow`, `lime`, `cyan`, `gold`) sat on the page or on the button's own press wash at contrast too low to read; each name now holds 4.5:1 there, darkened in the light theme and lifted in the dark one. `type="primary"`, `danger` and `warning` follow the same rule on those tiers.
 - Those coloured labels join the rest of the build-time shades: changing `--kui-color-primary` at runtime no longer carries them. Re-declare `--kui-color-<name>-text` to move the family — the three semantic names have one each (see the theme documentation).
 
-### Components
+### Component updates
 
 - `Menu`: Added arrow-key / Enter / Esc navigation; `Escape` closes only the current level.
 - `Menu`: Popup lists are linked to their trigger through `aria-controls` / `aria-labelledby` and a `horizontal` root declares `role="menubar"`, matching the React build.
