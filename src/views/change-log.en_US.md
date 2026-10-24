@@ -43,6 +43,7 @@ rm -rf node_modules/.vite
 - **Modal / Drawer**: `destroyOnClose`; fixed Escape across stacked layers, the close callback order, animation races, titles and sizing; the title takes a slot or a node.
 - **Popup components**: `destroyOnClose` throughout; a confirm action that returns a Promise now closes on success and leaves the dialog open, with its button settled, on failure.
 - **Form**: fixed value binding, label focus and validation wiring for controls inside `InputGroup`; a `block` control fills the row in a vertical form.
+- **InputNumber / AutoComplete**: support `addonBefore` / `addonAfter` to place a unit or fixed text outside the field.
 - **Other components**: fixed the `DropdownButton` menu trigger, the `Cascader` placeholder, `StatCard` / `StatNumber` rendering, the `Notice` close animation, and `Ripple` / `FlameWrap` clicks in recent Chrome.
 - **Accessibility and styles**: ARIA wiring for menus, tables and friends; one scrollbar style across the library.
 - **Developer experience**: when the library is consumed through `pnpm link`, global components used in a template without an import keep their types — a mistyped prop still errors, event arguments are inferred, and nothing degrades to `any`.

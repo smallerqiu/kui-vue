@@ -9,6 +9,7 @@ import {
   watch,
   type ExtractPropTypes,
   type PropType,
+  type VNodeChild,
 } from "vue";
 import { type BooleanType, type ShapeType, type SizeType, type ThemeType } from "../const/types";
 import {
@@ -37,6 +38,8 @@ const inputNumberProps = {
   keyboard: { type: Boolean as BooleanType, default: true },
   suffix: String,
   prefix: String,
+  addonBefore: { type: [String, Number, Object] as PropType<VNodeChild> },
+  addonAfter: { type: [String, Number, Object] as PropType<VNodeChild> },
   theme: { type: String as PropType<ThemeType>, default: "fill" },
   shape: { type: String as PropType<ShapeType> },
   icon: [Array] as PropType<IconType[]>,
@@ -182,6 +185,8 @@ const InputNumber = defineComponent({
         placeholder: props.placeholder,
         suffix: props.suffix,
         prefix: props.prefix,
+        addonBefore: props.addonBefore,
+        addonAfter: props.addonAfter,
         size: appearance.size.value || parentSize,
         icon: props.icon,
         shape: appearance.shape.value,
@@ -241,6 +246,8 @@ const InputNumber = defineComponent({
           v-slots={{
             suffix: () => slots.suffix?.(),
             prefix: () => slots.prefix?.(),
+            addonBefore: () => slots.addonBefore?.(),
+            addonAfter: () => slots.addonAfter?.(),
             controls: () => controls,
           }}
         />

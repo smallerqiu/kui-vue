@@ -8,6 +8,10 @@
 
 - 支持自由输入、过滤和键盘选择。
 
+[外部附件](./demo/addon.vue)
+
+- 通过 `addonBefore`、`addonAfter` 把附件画在输入框外部，复杂内容使用同名插槽；候选项列表按整组宽度展开。
+
 [受控值](./demo/controlled.vue)
 
 - 使用 v-model 管理输入内容并从外部修改。
@@ -43,6 +47,8 @@
 | loading | 是否正在加载 | `boolean` | false |
 | loadingText | 加载提示文字 | `string` | 加载中 |
 | placeholder | 占位文本 | `string` | - |
+| addonBefore | 输入框外部前置附件，复杂内容可使用同名插槽 | `VNodeChild` | - |
+| addonAfter | 输入框外部后置附件，复杂内容可使用同名插槽 | `VNodeChild` | - |
 | size | 尺寸 | `"small" \| "medium" \| "large"` | medium |
 | theme | 主题，画在内部输入框上，可用档位与 Input 一致 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | 形状 | `"default" \| "circle" \| "square" \| "round"` | default |

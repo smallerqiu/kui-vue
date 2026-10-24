@@ -16,9 +16,9 @@ When standard numerical values need to be obtained.
 
 - Format numbers using `formatter` to display data with specific meaning, often used in conjunction with `parser`.
 
-[Extension, Prefix and Suffix](./demo/ffix.vue)
+[Extension, Prefix, Suffix and Addons](./demo/ffix.vue)
 
-- suffix, prefix extension
+- `suffix` and `prefix` render inside the input; complex content uses the named slots. `addonBefore` and `addonAfter` render outside as boxed affixes and also accept named slots.
 
 [Size](./demo/size.vue)
 
@@ -46,6 +46,8 @@ When standard numerical values need to be obtained.
 | shape | Component appearance | `"default" \| "circle" \| "square" \| "round"` | - |
 | suffix | Custom suffix | `string` | - |
 | prefix | Prefix content | `string` | - |
+| addonBefore | Addon before the input; complex content can use the named slot | `VNodeChild` | - |
+| addonAfter | Addon after the input; complex content can use the named slot | `VNodeChild` | - |
 | controls | Whether to show increase/decrease buttons | `boolean` | true |
 | theme | Component theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | icon | Input icon | `IconType[]` | - |

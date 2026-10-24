@@ -4,6 +4,11 @@
     <InputNumber placeholder="Please input amount" :step="50" suffix="元" prefix="充值" />
     <InputNumber placeholder="Please input amount" suffix=".00" />
   </Space>
+  <Divider text="addons" />
+  <Space block vertical>
+    <InputNumber placeholder="Please input amount" addon-before="¥" addon-after="RMB" />
+    <InputNumber placeholder="Please input weight" addon-after="kg" />
+  </Space>
   <Divider text="slot" />
   <Space vertical block>
     <InputNumber placeholder="请填写您的薪资" :icon="LogoYen">

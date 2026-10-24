@@ -1012,6 +1012,26 @@
           "documented": true
         },
         {
+          "name": "addonBefore",
+          "description": "Addon before the input; complex content can use the named slot",
+          "descriptionZh": "输入框外部前置附件，复杂内容可使用同名插槽",
+          "descriptionEn": "Addon before the input; complex content can use the named slot",
+          "type": "VNodeChild",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "addonAfter",
+          "description": "Addon after the input; complex content can use the named slot",
+          "descriptionZh": "输入框外部后置附件，复杂内容可使用同名插槽",
+          "descriptionEn": "Addon after the input; complex content can use the named slot",
+          "type": "VNodeChild",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "size",
           "description": "Size",
           "descriptionZh": "尺寸",
@@ -1139,6 +1159,11 @@
           "source": "<template>\n  <AutoComplete\n    v-model=\"value\"\n    clearable\n    placeholder=\"Please input\"\n    :options=\"['Vue', 'React', 'Solid', 'Svelte']\"\n  />\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst value = ref(\"\");\n</script>"
         },
         {
+          "title": "外部附件",
+          "file": "components/auto-complete/demo/addon.vue",
+          "source": "<template>\n  <AutoComplete\n    v-model=\"value\"\n    addon-before=\"https://\"\n    addon-after=\".com\"\n    placeholder=\"Please input domain\"\n    :options=\"['kui', 'kui-pro', 'kui-admin', 'kui-docs']\"\n  />\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst value = ref(\"\");\n</script>"
+        },
+        {
           "title": "受控值",
           "file": "components/auto-complete/demo/controlled.vue",
           "source": "<template>\n  <Space vertical>\n    <code>value: {{ value || \"-\" }}</code>\n    <AutoComplete v-model=\"value\" :options=\"options\" placeholder=\"Please choose city\" />\n    <Button size=\"small\" @click=\"value = 'Shenzhen'\">Shenzhen</Button>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst value = ref(\"\");\nconst options = [\"Beijing\", \"Shanghai\", \"Guangzhou\", \"Shenzhen\", \"Hangzhou\"];\n</script>"
@@ -1151,7 +1176,7 @@
         {
           "title": "尺寸、主题与形状",
           "file": "components/auto-complete/demo/appearance.vue",
-          "source": "<template>\n  <Space vertical>\n    <AutoComplete size=\"small\" theme=\"plain\" :options=\"options\" placeholder=\"small / plain\" />\n    <AutoComplete\n      shape=\"square\"\n      theme=\"outline\"\n      :options=\"options\"\n      placeholder=\"square / outline\"\n    />\n    <AutoComplete size=\"large\" shape=\"circle\" :options=\"options\" placeholder=\"large / circle\" />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nconst options = [\"Vue\", \"Vite\", \"Vitest\"];\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <AutoComplete size=\"small\" theme=\"plain\" :options=\"options\" placeholder=\"small / plain\" />\n    <AutoComplete theme=\"dashed\" :options=\"options\" placeholder=\"dashed\" />\n    <AutoComplete\n      shape=\"square\"\n      theme=\"outline\"\n      :options=\"options\"\n      placeholder=\"square / outline\"\n    />\n    <AutoComplete size=\"large\" shape=\"circle\" :options=\"options\" placeholder=\"large / circle\" />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nconst options = [\"Vue\", \"Vite\", \"Vitest\"];\n</script>"
         },
         {
           "title": "空输入时展示",
@@ -8577,6 +8602,26 @@
           "documented": true
         },
         {
+          "name": "addonBefore",
+          "description": "Addon before the input; complex content can use the named slot",
+          "descriptionZh": "输入框外部前置附件，复杂内容可使用同名插槽",
+          "descriptionEn": "Addon before the input; complex content can use the named slot",
+          "type": "VNodeChild",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "addonAfter",
+          "description": "Addon after the input; complex content can use the named slot",
+          "descriptionZh": "输入框外部后置附件，复杂内容可使用同名插槽",
+          "descriptionEn": "Addon after the input; complex content can use the named slot",
+          "type": "VNodeChild",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "size",
           "description": "Spacing of child components, optional values `small`, `large`, default not selected",
           "descriptionZh": "子组件的间距,可选值 `small`、`large`，默认不选",
@@ -8606,26 +8651,6 @@
           "description": "Suffix inside the input; complex content can use the named slot",
           "descriptionZh": "输入框内部后缀，复杂内容可使用同名插槽",
           "descriptionEn": "Suffix inside the input; complex content can use the named slot",
-          "type": "VNodeChild",
-          "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "addonBefore",
-          "description": "Addon before the input; complex content can use the named slot",
-          "descriptionZh": "输入框外部前置附件，复杂内容可使用同名插槽",
-          "descriptionEn": "Addon before the input; complex content can use the named slot",
-          "type": "VNodeChild",
-          "boolean": false,
-          "required": false,
-          "documented": true
-        },
-        {
-          "name": "addonAfter",
-          "description": "Addon after the input; complex content can use the named slot",
-          "descriptionZh": "输入框外部后置附件，复杂内容可使用同名插槽",
-          "descriptionEn": "Addon after the input; complex content can use the named slot",
           "type": "VNodeChild",
           "boolean": false,
           "required": false,
@@ -8770,7 +8795,7 @@
         {
           "title": "主题",
           "file": "components/input/demo/theme.vue",
-          "source": "<template>\n  <Space vertical block>\n    <Checkbox label=\"Circle\" v-model=\"isCircle\" @change=\"setShape\" />\n    <Input placeholder=\"Please input\" :shape=\"shape\" />\n    <Input placeholder=\"Disabled\" disabled :shape=\"shape\" />\n    <Input placeholder=\"Please input\" :icon=\"Search\" :shape=\"shape\" />\n    <Input placeholder=\"Please input\" :clearable=\"false\" :shape=\"shape\" @search=\"onSearch\" />\n    <br />\n    <div v-for=\"tier in tiers\" :key=\"tier\" class=\"tier\">\n      <code>theme: {{ tier }}</code>\n      <TextArea :theme=\"tier\" :rows=\"2\" placeholder=\"Please input\" />\n      <Input :theme=\"tier\" addon-before=\"https://\" placeholder=\"Please input\" />\n    </div>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Search } from \"kui-icons\";\nimport { message, type ChangeEvent, type ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\n// An input paints all six tiers, and the tier lands on the box itself: `fill` — what it does when nobody\n// writes a theme — plates it, `outline` and `dashed` put a solid or dashed edge on it instead, `plain` leaves\n// it bare, `solid` plates it on the primary and inverts the typed text, the placeholder and the icons, and\n// `underlined` keeps only the bottom rule. A text area and an input with an addon are drawn from the same\n// arms, so they take the same tiers. The addon is the group's own surface: a group that is not `fill` borders\n// the addon it wraps, which is why the second row of each pair reads differently from the first.\nconst tiers: ThemeType[] = [\"fill\", \"outline\", \"plain\", \"solid\", \"dashed\", \"underlined\"];\n\nconst isCircle = ref();\nconst shape = ref();\nconst setShape = ({ checked }: ChangeEvent) => {\n  shape.value = checked ? \"circle\" : null;\n};\nconst onSearch = (value: string) => {\n  message.info(`Search: ${value}`);\n};\n</script>\n\n<style scoped>\n.tier {\n  display: grid;\n  gap: 4px;\n}\n</style>"
+          "source": "<template>\n  <Space vertical block>\n    <Checkbox label=\"Circle\" v-model=\"isCircle\" @change=\"setShape\" />\n    <Input placeholder=\"Please input\" :shape=\"shape\" />\n    <Input placeholder=\"Disabled\" disabled :shape=\"shape\" />\n    <Input placeholder=\"Please input\" :icon=\"Search\" :shape=\"shape\" />\n    <Input placeholder=\"Please input\" :clearable=\"false\" :shape=\"shape\" @search=\"onSearch\" />\n    <br />\n    <div v-for=\"tier in tiers\" :key=\"tier\" class=\"tier\">\n      <code>theme: {{ tier }}</code>\n      <TextArea :theme=\"tier\" :rows=\"2\" placeholder=\"Please input\" />\n      <Input :theme=\"tier\" prefix=\"https://\" placeholder=\"Please input\" />\n    </div>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Search } from \"kui-icons\";\nimport { message, type ChangeEvent, type ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\n// An input paints all six tiers, and the tier lands on the box itself: `fill` — what it does when nobody\n// writes a theme — plates it, `outline` and `dashed` put a solid or dashed edge on it instead, `plain` leaves\n// it bare, `solid` plates it on the primary and inverts the typed text, the placeholder and the icons, and\n// `underlined` keeps only the bottom rule. A text area and an input with an addon are drawn from the same\n// arms, so they take the same tiers. The addon is the group's own surface: a group that is not `fill` borders\n// the addon it wraps, which is why the second row of each pair reads differently from the first.\nconst tiers: ThemeType[] = [\"fill\", \"outline\", \"plain\", \"solid\", \"dashed\", \"underlined\"];\n\nconst isCircle = ref();\nconst shape = ref();\nconst setShape = ({ checked }: ChangeEvent) => {\n  shape.value = checked ? \"circle\" : null;\n};\nconst onSearch = (value: string) => {\n  message.info(`Search: ${value}`);\n};\n</script>\n\n<style scoped>\n.tier {\n  display: grid;\n  gap: 4px;\n}\n</style>"
         },
         {
           "title": "带图标",
@@ -8889,7 +8914,7 @@
         {
           "title": "主题",
           "file": "components/input/demo/theme.vue",
-          "source": "<template>\n  <Space vertical block>\n    <Checkbox label=\"Circle\" v-model=\"isCircle\" @change=\"setShape\" />\n    <Input placeholder=\"Please input\" :shape=\"shape\" />\n    <Input placeholder=\"Disabled\" disabled :shape=\"shape\" />\n    <Input placeholder=\"Please input\" :icon=\"Search\" :shape=\"shape\" />\n    <Input placeholder=\"Please input\" :clearable=\"false\" :shape=\"shape\" @search=\"onSearch\" />\n    <br />\n    <div v-for=\"tier in tiers\" :key=\"tier\" class=\"tier\">\n      <code>theme: {{ tier }}</code>\n      <TextArea :theme=\"tier\" :rows=\"2\" placeholder=\"Please input\" />\n      <Input :theme=\"tier\" addon-before=\"https://\" placeholder=\"Please input\" />\n    </div>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Search } from \"kui-icons\";\nimport { message, type ChangeEvent, type ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\n// An input paints all six tiers, and the tier lands on the box itself: `fill` — what it does when nobody\n// writes a theme — plates it, `outline` and `dashed` put a solid or dashed edge on it instead, `plain` leaves\n// it bare, `solid` plates it on the primary and inverts the typed text, the placeholder and the icons, and\n// `underlined` keeps only the bottom rule. A text area and an input with an addon are drawn from the same\n// arms, so they take the same tiers. The addon is the group's own surface: a group that is not `fill` borders\n// the addon it wraps, which is why the second row of each pair reads differently from the first.\nconst tiers: ThemeType[] = [\"fill\", \"outline\", \"plain\", \"solid\", \"dashed\", \"underlined\"];\n\nconst isCircle = ref();\nconst shape = ref();\nconst setShape = ({ checked }: ChangeEvent) => {\n  shape.value = checked ? \"circle\" : null;\n};\nconst onSearch = (value: string) => {\n  message.info(`Search: ${value}`);\n};\n</script>\n\n<style scoped>\n.tier {\n  display: grid;\n  gap: 4px;\n}\n</style>"
+          "source": "<template>\n  <Space vertical block>\n    <Checkbox label=\"Circle\" v-model=\"isCircle\" @change=\"setShape\" />\n    <Input placeholder=\"Please input\" :shape=\"shape\" />\n    <Input placeholder=\"Disabled\" disabled :shape=\"shape\" />\n    <Input placeholder=\"Please input\" :icon=\"Search\" :shape=\"shape\" />\n    <Input placeholder=\"Please input\" :clearable=\"false\" :shape=\"shape\" @search=\"onSearch\" />\n    <br />\n    <div v-for=\"tier in tiers\" :key=\"tier\" class=\"tier\">\n      <code>theme: {{ tier }}</code>\n      <TextArea :theme=\"tier\" :rows=\"2\" placeholder=\"Please input\" />\n      <Input :theme=\"tier\" prefix=\"https://\" placeholder=\"Please input\" />\n    </div>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Search } from \"kui-icons\";\nimport { message, type ChangeEvent, type ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\n// An input paints all six tiers, and the tier lands on the box itself: `fill` — what it does when nobody\n// writes a theme — plates it, `outline` and `dashed` put a solid or dashed edge on it instead, `plain` leaves\n// it bare, `solid` plates it on the primary and inverts the typed text, the placeholder and the icons, and\n// `underlined` keeps only the bottom rule. A text area and an input with an addon are drawn from the same\n// arms, so they take the same tiers. The addon is the group's own surface: a group that is not `fill` borders\n// the addon it wraps, which is why the second row of each pair reads differently from the first.\nconst tiers: ThemeType[] = [\"fill\", \"outline\", \"plain\", \"solid\", \"dashed\", \"underlined\"];\n\nconst isCircle = ref();\nconst shape = ref();\nconst setShape = ({ checked }: ChangeEvent) => {\n  shape.value = checked ? \"circle\" : null;\n};\nconst onSearch = (value: string) => {\n  message.info(`Search: ${value}`);\n};\n</script>\n\n<style scoped>\n.tier {\n  display: grid;\n  gap: 4px;\n}\n</style>"
         },
         {
           "title": "带图标",
@@ -9130,7 +9155,7 @@
         {
           "title": "主题",
           "file": "components/input/demo/theme.vue",
-          "source": "<template>\n  <Space vertical block>\n    <Checkbox label=\"Circle\" v-model=\"isCircle\" @change=\"setShape\" />\n    <Input placeholder=\"Please input\" :shape=\"shape\" />\n    <Input placeholder=\"Disabled\" disabled :shape=\"shape\" />\n    <Input placeholder=\"Please input\" :icon=\"Search\" :shape=\"shape\" />\n    <Input placeholder=\"Please input\" :clearable=\"false\" :shape=\"shape\" @search=\"onSearch\" />\n    <br />\n    <div v-for=\"tier in tiers\" :key=\"tier\" class=\"tier\">\n      <code>theme: {{ tier }}</code>\n      <TextArea :theme=\"tier\" :rows=\"2\" placeholder=\"Please input\" />\n      <Input :theme=\"tier\" addon-before=\"https://\" placeholder=\"Please input\" />\n    </div>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Search } from \"kui-icons\";\nimport { message, type ChangeEvent, type ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\n// An input paints all six tiers, and the tier lands on the box itself: `fill` — what it does when nobody\n// writes a theme — plates it, `outline` and `dashed` put a solid or dashed edge on it instead, `plain` leaves\n// it bare, `solid` plates it on the primary and inverts the typed text, the placeholder and the icons, and\n// `underlined` keeps only the bottom rule. A text area and an input with an addon are drawn from the same\n// arms, so they take the same tiers. The addon is the group's own surface: a group that is not `fill` borders\n// the addon it wraps, which is why the second row of each pair reads differently from the first.\nconst tiers: ThemeType[] = [\"fill\", \"outline\", \"plain\", \"solid\", \"dashed\", \"underlined\"];\n\nconst isCircle = ref();\nconst shape = ref();\nconst setShape = ({ checked }: ChangeEvent) => {\n  shape.value = checked ? \"circle\" : null;\n};\nconst onSearch = (value: string) => {\n  message.info(`Search: ${value}`);\n};\n</script>\n\n<style scoped>\n.tier {\n  display: grid;\n  gap: 4px;\n}\n</style>"
+          "source": "<template>\n  <Space vertical block>\n    <Checkbox label=\"Circle\" v-model=\"isCircle\" @change=\"setShape\" />\n    <Input placeholder=\"Please input\" :shape=\"shape\" />\n    <Input placeholder=\"Disabled\" disabled :shape=\"shape\" />\n    <Input placeholder=\"Please input\" :icon=\"Search\" :shape=\"shape\" />\n    <Input placeholder=\"Please input\" :clearable=\"false\" :shape=\"shape\" @search=\"onSearch\" />\n    <br />\n    <div v-for=\"tier in tiers\" :key=\"tier\" class=\"tier\">\n      <code>theme: {{ tier }}</code>\n      <TextArea :theme=\"tier\" :rows=\"2\" placeholder=\"Please input\" />\n      <Input :theme=\"tier\" prefix=\"https://\" placeholder=\"Please input\" />\n    </div>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { Search } from \"kui-icons\";\nimport { message, type ChangeEvent, type ThemeType } from \"kui-vue\";\nimport { ref } from \"vue\";\n\n// An input paints all six tiers, and the tier lands on the box itself: `fill` — what it does when nobody\n// writes a theme — plates it, `outline` and `dashed` put a solid or dashed edge on it instead, `plain` leaves\n// it bare, `solid` plates it on the primary and inverts the typed text, the placeholder and the icons, and\n// `underlined` keeps only the bottom rule. A text area and an input with an addon are drawn from the same\n// arms, so they take the same tiers. The addon is the group's own surface: a group that is not `fill` borders\n// the addon it wraps, which is why the second row of each pair reads differently from the first.\nconst tiers: ThemeType[] = [\"fill\", \"outline\", \"plain\", \"solid\", \"dashed\", \"underlined\"];\n\nconst isCircle = ref();\nconst shape = ref();\nconst setShape = ({ checked }: ChangeEvent) => {\n  shape.value = checked ? \"circle\" : null;\n};\nconst onSearch = (value: string) => {\n  message.info(`Search: ${value}`);\n};\n</script>\n\n<style scoped>\n.tier {\n  display: grid;\n  gap: 4px;\n}\n</style>"
         },
         {
           "title": "带图标",
@@ -9487,7 +9512,7 @@
         {
           "title": "外观与禁用",
           "file": "components/input-tag/demo/appearance.vue",
-          "source": "<template>\n  <Space vertical>\n    <InputTag size=\"small\" theme=\"plain\" :value=\"['Plain']\" />\n    <InputTag shape=\"square\" theme=\"outline\" :value=\"['Outline']\" />\n    <InputTag size=\"large\" shape=\"circle\" :value=\"['Circle']\" />\n    <InputTag disabled :value=\"['Disabled']\" />\n  </Space>\n</template>"
+          "source": "<template>\n  <Space vertical>\n    <InputTag size=\"small\" theme=\"plain\" :value=\"['Plain']\" />\n    <InputTag theme=\"dashed\" :value=\"['Plain']\" />\n    <InputTag shape=\"square\" theme=\"outline\" :value=\"['Outline']\" />\n    <InputTag size=\"large\" shape=\"circle\" :value=\"['Circle']\" />\n    <InputTag disabled :value=\"['Disabled']\" />\n  </Space>\n</template>"
         }
       ]
     },
@@ -10006,6 +10031,26 @@
           "documented": true
         },
         {
+          "name": "addonBefore",
+          "description": "Addon before the input; complex content can use the named slot",
+          "descriptionZh": "输入框外部前置附件，复杂内容可使用同名插槽",
+          "descriptionEn": "Addon before the input; complex content can use the named slot",
+          "type": "VNodeChild",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "addonAfter",
+          "description": "Addon after the input; complex content can use the named slot",
+          "descriptionZh": "输入框外部后置附件，复杂内容可使用同名插槽",
+          "descriptionEn": "Addon after the input; complex content can use the named slot",
+          "type": "VNodeChild",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "size",
           "description": "Input box size",
           "descriptionZh": "输入框大小",
@@ -10154,9 +10199,9 @@
           "source": "<template>\n  <Space vertical block>\n    <code>0.1+0.2 = 0.3 (yes) ,output：{{ n }}</code>\n    <InputNumber :step=\"0.2\" v-model=\"n\" />\n    <code>step is 0.00000000000001 ,output：{{ n1 }}</code>\n    <InputNumber v-model=\"n1\" :min=\"0\" :max=\"10\" :step=\"0.00000000000001\" />\n    <code>Keep 2 decimal places, output：{{ n3 }}</code>\n    <InputNumber :precision=\"2\" v-model=\"n3\" />\n    <code>Currency, thousandths,output： {{ n4 }}</code>\n    <InputNumber\n      v-model=\"n4\"\n      :min=\"0\"\n      :formatter=\"(value) => `￥ ${value}`.replace(/\\B(?=(\\d{3})+(?!\\d))/g, ',')\"\n      :parser=\"(value) => value.replace(/\\￥\\s?|(,*)/g, '')\"\n    />\n    <code>percent % ,output： {{ n5 }}</code>\n    <InputNumber\n      v-model=\"n5\"\n      :min=\"0\"\n      :max=\"100\"\n      :formatter=\"(value) => `${value}%`\"\n      :parser=\"(value) => value.replace('%', '')\"\n    />\n    <code>custom ,output：{{ n7 }}</code>\n    <InputNumber\n      v-model=\"n7\"\n      :formatter=\"(value) => String(value).split('').join('-')\"\n      :parser=\"(value) => value.replace(/\\-/g, '')\"\n    />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst n = ref<number | undefined>(0.1);\nconst n1 = ref<number | undefined>(0.1);\nconst n3 = ref<number | undefined>(3.14159);\nconst n4 = ref<number | undefined>(1000);\nconst n5 = ref<number | undefined>(98);\nconst n7 = ref<number | undefined>(111111);\n</script>"
         },
         {
-          "title": "扩展, 前缀和后缀",
+          "title": "扩展, 前缀、后缀与附件",
           "file": "components/input-number/demo/ffix.vue",
-          "source": "<template>\n  <Space block vertical>\n    <InputNumber placeholder=\"Please input amount\" suffix=\"元\" prefix=\"¥\" />\n    <InputNumber placeholder=\"Please input amount\" :step=\"50\" suffix=\"元\" prefix=\"充值\" />\n    <InputNumber placeholder=\"Please input amount\" suffix=\".00\" />\n  </Space>\n  <Divider text=\"slot\" />\n  <Space vertical block>\n    <InputNumber placeholder=\"请填写您的薪资\" :icon=\"LogoYen\">\n      <template #suffix>\n        <Tooltip title=\"此处如果不知道怎么填，请咨询管理员\">\n          <Button :icon=\"CircleQuestionMark\" />\n        </Tooltip>\n      </template>\n    </InputNumber>\n    <InputNumber placeholder=\"Please input amount\">\n      <template #prefix>\n        <Button :icon=\"UserPlus\" />\n      </template>\n      <template #suffix>\n        <Button>Top up</Button>\n      </template>\n    </InputNumber>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { CircleQuestionMark, LogoYen, UserPlus } from \"kui-icons\";\n</script>"
+          "source": "<template>\n  <Space block vertical>\n    <InputNumber placeholder=\"Please input amount\" suffix=\"元\" prefix=\"¥\" />\n    <InputNumber placeholder=\"Please input amount\" :step=\"50\" suffix=\"元\" prefix=\"充值\" />\n    <InputNumber placeholder=\"Please input amount\" suffix=\".00\" />\n  </Space>\n  <Divider text=\"addons\" />\n  <Space block vertical>\n    <InputNumber placeholder=\"Please input amount\" addon-before=\"¥\" addon-after=\"RMB\" />\n    <InputNumber placeholder=\"Please input weight\" addon-after=\"kg\" />\n  </Space>\n  <Divider text=\"slot\" />\n  <Space vertical block>\n    <InputNumber placeholder=\"请填写您的薪资\" :icon=\"LogoYen\">\n      <template #suffix>\n        <Tooltip title=\"此处如果不知道怎么填，请咨询管理员\">\n          <Button :icon=\"CircleQuestionMark\" />\n        </Tooltip>\n      </template>\n    </InputNumber>\n    <InputNumber placeholder=\"Please input amount\">\n      <template #prefix>\n        <Button :icon=\"UserPlus\" />\n      </template>\n      <template #suffix>\n        <Button>Top up</Button>\n      </template>\n    </InputNumber>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { CircleQuestionMark, LogoYen, UserPlus } from \"kui-icons\";\n</script>"
         },
         {
           "title": "尺寸",

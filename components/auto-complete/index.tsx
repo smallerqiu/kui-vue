@@ -46,6 +46,8 @@ const propsDef = {
   loading: Boolean,
   loadingText: String,
   placeholder: String,
+  addonBefore: { type: [String, Number, Object] as PropType<VNodeChild> },
+  addonAfter: { type: [String, Number, Object] as PropType<VNodeChild> },
   size: String as PropType<SizeType>,
   shape: String as PropType<ShapeType>,
   theme: { type: String as PropType<ThemeType>, default: "fill" },
@@ -73,7 +75,7 @@ const AutoComplete = defineComponent({
       typeof value === "string" && typeof option === "object" && option !== null,
     openChange: (open: boolean) => typeof open === "boolean",
   },
-  setup(props, { emit, attrs }) {
+  setup(props, { emit, attrs, slots }) {
     const field = useFormField(true);
     const appearance = useFormAppearance(props, field);
 
@@ -294,6 +296,8 @@ const AutoComplete = defineComponent({
           disabled={props.disabled || field?.disabled.value}
           readonly={props.readonly || field?.readonly.value}
           placeholder={props.placeholder}
+          addonBefore={props.addonBefore}
+          addonAfter={props.addonAfter}
           size={appearance.size.value}
           shape={appearance.shape.value}
           theme={appearance.theme.value}
@@ -338,6 +342,10 @@ const AutoComplete = defineComponent({
           onKeydown={(event: KeyboardEvent) => {
             invokeAttr("onKeydown", event);
             if (!event.defaultPrevented) keydown(event);
+          }}
+          v-slots={{
+            addonBefore: () => slots.addonBefore?.(),
+            addonAfter: () => slots.addonAfter?.(),
           }}
         />
         {[

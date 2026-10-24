@@ -45,6 +45,7 @@ rm -rf node_modules/.vite
 - **Modal / Drawer**：支持 `destroyOnClose`；修复 Escape 多层关闭、关闭回调顺序、动画竞态、标题及尺寸问题；标题支持插槽或节点。
 - **弹层组件**：统一支持 `destroyOnClose`；修复确认操作返回 Promise 时的关闭与 loading 行为。
 - **Form**：修复 `InputGroup` 内控件的值绑定、label 聚焦和校验关联；竖排表单中的 `block` 控件可占满整行。
+- **InputNumber / AutoComplete**：支持 `addonBefore` / `addonAfter`，把单位或固定文字贴在输入框外面。
 - **其他组件**：修复 `DropdownButton` 菜单触发、`Cascader` 占位文案、`StatCard` / `StatNumber` 渲染、`Notice` 关闭动画，以及 `Ripple` / `FlameWrap` 在新版 Chrome 中的点击问题。
 - **无障碍与样式**：补齐菜单、表格等组件的 ARIA 关联；统一滚动条样式。
 - **开发体验**：通过 `pnpm link` 联调时，全局组件模板类型可正确推断，属性检查和事件参数类型不再退化为 `any`。

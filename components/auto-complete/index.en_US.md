@@ -8,6 +8,10 @@ Provide candidates based on the input while retaining the ability for free text 
 
 - Supports free input, filtering, and keyboard selection.
 
+[Addons](./demo/addon.vue)
+
+- `addonBefore` and `addonAfter` render boxed affixes outside the input; complex content uses the named slots. The suggestion list spans the whole group.
+
 [Controlled value](./demo/controlled.vue)
 
 - Manage and update the input through v-model.
@@ -43,6 +47,8 @@ Provide candidates based on the input while retaining the ability for free text 
 | loading | Loading state | `boolean` | false |
 | loadingText | Loading text | `string` | Loading |
 | placeholder | Placeholder | `string` | - |
+| addonBefore | Addon before the input; complex content can use the named slot | `VNodeChild` | - |
+| addonAfter | Addon after the input; complex content can use the named slot | `VNodeChild` | - |
 | size | Size | `"small" \| "medium" \| "large"` | medium |
 | theme | Theme, painted on the inner input box; supports the same tiers as Input | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | shape | Shape | `"default" \| "circle" \| "square" \| "round"` | default |

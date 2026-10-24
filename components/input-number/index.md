@@ -16,9 +16,9 @@
 
 - 通过 formatter 格式化数字，以展示具有具体含义的数据，往往需要配合 parser 一起使用。
 
-[扩展, 前缀和后缀](./demo/ffix.vue)
+[扩展, 前缀、后缀与附件](./demo/ffix.vue)
 
-- suffix，prefix 扩展
+- `suffix`、`prefix` 显示在输入框内部，复杂内容使用同名插槽；`addonBefore`、`addonAfter` 用于输入框外部附件，同样支持同名插槽。
 
 [尺寸](./demo/size.vue)
 
@@ -46,6 +46,8 @@
 | shape | 组件的外观 | `"default" \| "circle" \| "square" \| "round"` | - |
 | suffix | 自定义后缀 | `string` | - |
 | prefix | 前缀内容 | `string` | - |
+| addonBefore | 输入框外部前置附件，复杂内容可使用同名插槽 | `VNodeChild` | - |
+| addonAfter | 输入框外部后置附件，复杂内容可使用同名插槽 | `VNodeChild` | - |
 | controls | 是否显示增减按钮 | `boolean` | true |
 | theme | 组件呈现主题 | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | icon | 输入框图标 | `IconType[]` | - |
