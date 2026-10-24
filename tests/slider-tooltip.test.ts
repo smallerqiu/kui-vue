@@ -71,3 +71,39 @@ it("still opens on hover and closes after leaving without dragging", async () =>
   await vi.advanceTimersByTimeAsync(1000);
   expect(thumb.attributes("aria-expanded")).toBe("false");
 });
+
+it.each([false, true])(
+  "repositions on repeated position-only changes (vertical=%s)",
+  async (vertical) => {
+    vi.useFakeTimers();
+    let position = 100;
+    vi.spyOn(HTMLElement.prototype, "getBoundingClientRect").mockImplementation(function (
+      this: HTMLElement,
+    ) {
+      return this.classList.contains("k-slider-thumb")
+        ? new DOMRect(vertical ? 100 : position, vertical ? position : 100, 24, 24)
+        : new DOMRect(0, 0, 40, 20);
+    });
+    const wrapper = mount(Thumb, {
+      attachTo: document.body,
+      props: { value: 30, dragging: true, vertical, tipFormatter: () => "fixed" },
+    });
+    wrappers.push(wrapper);
+    await vi.advanceTimersByTimeAsync(1000);
+    const popup = document.querySelector<HTMLElement>(".k-tooltip")!;
+    const coordinate = () => (vertical ? popup.style.top : popup.style.left);
+    let previous = coordinate();
+    for (const [value, nextPosition] of [
+      [31, 180],
+      [32, 120],
+      [33, 200],
+    ]) {
+      position = nextPosition;
+      await wrapper.setProps({ value });
+      await vi.advanceTimersByTimeAsync(50);
+      expect(coordinate()).not.toBe(previous);
+      expect(popup.textContent).toContain("fixed");
+      previous = coordinate();
+    }
+  },
+);

@@ -162,7 +162,9 @@ const InputBase = defineComponent({
         );
       }
       const suffixContent = slotSuffix.length > 0 ? slotSuffix : suffix;
-      return suffixContent ? <div class={`k-${props.stylePrefix}-suffix`}>{suffixContent}</div> : null;
+      return suffixContent ? (
+        <div class={`k-${props.stylePrefix}-suffix`}>{suffixContent}</div>
+      ) : null;
     };
 
     return () => {
@@ -284,9 +286,10 @@ const InputBase = defineComponent({
           : addonAfter !== undefined
             ? addonAfter
             : undefined;
-        const preChildren = beforeContent ? (
-          <div class="k-input-group-prefix">{beforeContent}</div>
-        ) : null;
+        const preChildren =
+          beforeContent || beforeContent === 0 ? (
+            <div class="k-input-group-prefix">{beforeContent}</div>
+          ) : null;
         const innerChildren: VNodeChild[] = [];
         if (icon)
           innerChildren.push(
@@ -333,9 +336,10 @@ const InputBase = defineComponent({
         const suffixNode = getSuffix(slotSuffix);
         if (suffixNode) innerChildren.push(suffixNode);
         if (slotControls.length) innerChildren.push(slotControls);
-        const sufChildren = afterContent ? (
-          <div class="k-input-group-suffix">{afterContent}</div>
-        ) : null;
+        const sufChildren =
+          afterContent || afterContent === 0 ? (
+            <div class="k-input-group-suffix">{afterContent}</div>
+          ) : null;
 
         return (
           <InputGroup

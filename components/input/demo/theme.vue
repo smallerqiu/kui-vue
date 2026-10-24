@@ -9,7 +9,7 @@
     <div v-for="tier in tiers" :key="tier" class="tier">
       <code>theme: {{ tier }}</code>
       <TextArea :theme="tier" :rows="2" placeholder="Please input" />
-      <Input :theme="tier" addon-before="https://" placeholder="Please input" />
+      <Input :theme="tier" prefix="https://" placeholder="Please input" />
     </div>
   </Space>
 </template>

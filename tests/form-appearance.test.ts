@@ -276,10 +276,7 @@ describe("a Form keeps its tier off everything else", () => {
   });
 });
 
-// `InputGroup` is the control-family wrapper these two tables do not cover. It owns one visual state —
-// `k-input-group-fill`, which merges its addon boxes into the field — and its absence, which borders them,
-// so every tier except `fill` paints the bordered state. The contract worth pinning is that the group
-// always agrees with the field it wraps, because that is the only thing its border means.
+// InputGroup forwards the full resolved tier so text addons match the field's surface and border.
 // react reaches the group from the form context directly, since its form speaks to everything below it.
 // vue's form reaches a control only through `FormItem`, and `FormItem` hands its field to a *marked* field
 // component sitting in its own slot — a wrapper is not one, and putting a second channel in the group would
@@ -296,7 +293,10 @@ describe("InputGroup follows the tier its field is on", () => {
       slots: { default: () => h(InputGroup, groupProps, () => h(Input)) },
     });
 
-  const fieldWithAddon = (rootProps: Record<string, unknown>, formProps?: Record<string, unknown>) =>
+  const fieldWithAddon = (
+    rootProps: Record<string, unknown>,
+    formProps?: Record<string, unknown>,
+  ) =>
     mount(ConfigProvider, {
       attachTo: document.body,
       props: rootProps,
@@ -316,21 +316,21 @@ describe("InputGroup follows the tier its field is on", () => {
 
   for (const tier of TIERS.filter((name) => name !== "fill")) {
     it(`ConfigProvider theme="${tier}" borders the addon boxes`, () => {
-      expect(groupTiers(underProvider(tier))).toEqual([]);
+      expect(groupTiers(underProvider(tier))).toEqual([`k-input-group-${tier}`]);
     });
 
     it(`ConfigProvider theme="${tier}" borders them on the group an Input builds`, () => {
       const wrapper = fieldWithAddon({ theme: tier });
       expect(classesOf(wrapper, ".k-input")).toContain(`k-input-${tier}`);
-      expect(groupTiers(wrapper)).toEqual([]);
+      expect(groupTiers(wrapper)).toEqual([`k-input-group-${tier}`]);
     });
   }
 
   it("an explicit theme outranks the tier it is standing in", () => {
-    expect(groupTiers(underProvider("outline", { theme: "fill" }))).toEqual([
-      "k-input-group-fill",
+    expect(groupTiers(underProvider("outline", { theme: "fill" }))).toEqual(["k-input-group-fill"]);
+    expect(groupTiers(underProvider("fill", { theme: "outline" }))).toEqual([
+      "k-input-group-outline",
     ]);
-    expect(groupTiers(underProvider("fill", { theme: "outline" }))).toEqual([]);
   });
 
   it("a form tier reaches it through the field it wraps", () => {
@@ -338,7 +338,7 @@ describe("InputGroup follows the tier its field is on", () => {
     // carries that tier into the group it builds around its own addons.
     const wrapper = fieldWithAddon({}, { theme: "outline" });
     expect(classesOf(wrapper, ".k-input")).toContain("k-input-outline");
-    expect(groupTiers(wrapper)).toEqual([]);
+    expect(groupTiers(wrapper)).toEqual(["k-input-group-outline"]);
   });
 
   it("takes its size the same way, and hands it to the controls inside", () => {

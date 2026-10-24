@@ -74,7 +74,7 @@ const InputGroup = defineComponent({
           {
             "k-input-group-compact": compact,
             "k-input-group-block": block,
-            "k-input-group-fill": theme === "fill",
+            [`k-input-group-${theme}`]: true,
             "k-input-group-lg": size === "large",
             "k-input-group-sm": size === "small",
           },

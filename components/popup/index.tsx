@@ -6,6 +6,7 @@ import {
   isRef,
   nextTick,
   onBeforeUnmount,
+  onUpdated,
   ref,
   Teleport,
   Transition,
@@ -135,6 +136,7 @@ export default defineComponent({
       width = ref(0);
     const anchorVisible = ref(true);
     const scheduler = createFrameScheduler();
+    let positionedRect: DOMRect | undefined;
     let timer: ReturnType<typeof setTimeout> | undefined;
     let contextPoint: { x: number; y: number } | null = null;
     const clearTimer = () => {
@@ -156,6 +158,7 @@ export default defineComponent({
       const source = getTriggerElement();
       if (!source || !refPopper.value || props.panelOnly) return;
       const rect = source.getBoundingClientRect();
+      positionedRect = rect;
       width.value = rect.width || source.offsetWidth;
       if (props.matchTriggerWidth) refPopper.value.style.minWidth = `${width.value}px`;
       currentPlacement.value = props.placement;
@@ -173,6 +176,23 @@ export default defineComponent({
       });
       ready.value = true;
     };
+    // ResizeObserver does not report position-only changes (e.g. a Slider thumb).
+    // Check after Vue patches the trigger, and coalesce movement into one frame.
+    // Comparing geometry also avoids an update loop from our own positioning render.
+    onUpdated(() => {
+      if (!visible.value || props.panelOnly || !refPopper.value) return;
+      const rect = getTriggerElement()?.getBoundingClientRect();
+      if (
+        rect &&
+        (!positionedRect ||
+          rect.left !== positionedRect.left ||
+          rect.top !== positionedRect.top ||
+          rect.width !== positionedRect.width ||
+          rect.height !== positionedRect.height)
+      ) {
+        scheduler.schedule(updatePosition);
+      }
+    });
     const scheduleClose = () => {
       clearTimer();
       timer = setTimeout(

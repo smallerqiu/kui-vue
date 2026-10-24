@@ -12,17 +12,17 @@
   <Divider text="slot" />
   <Space vertical block>
     <InputNumber placeholder="请填写您的薪资" :icon="LogoYen">
-      <template #suffix>
+      <template #addonAfter>
         <Tooltip title="此处如果不知道怎么填，请咨询管理员">
           <Button :icon="CircleQuestionMark" />
         </Tooltip>
       </template>
     </InputNumber>
     <InputNumber placeholder="Please input amount">
-      <template #prefix>
+      <template #addonBefore>
         <Button :icon="UserPlus" />
       </template>
-      <template #addon-after>
+      <template #addonAfter>
         <Button>Top up</Button>
       </template>
     </InputNumber>

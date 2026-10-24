@@ -237,5 +237,6 @@
 }
 
 .k-tag-leave-active {
-  animation: k-tag-zoom 0.2s ease-out reverse;
+  // Vue removes the node after its leave timer; keep the invisible end frame until then.
+  animation: k-tag-zoom 0.2s ease-out reverse both;
 }

@@ -36,6 +36,10 @@ rm -rf node_modules/.vite
 
 ### Component fixes and enhancements
 
+- **Input addons**: numeric `0` now renders in `Input` / `InputNumber` addons. Text addons gain spacing and theme-specific surfaces, including solid outline and dashed borders. Fixed the InputNumber named-slot example.
+- **Tag**: keeps the invisible exit frame until removal, preventing a flash at the end of closing.
+- **Slider / Popup**: refreshes popup placement when its trigger moves without resizing, fixing Slider tooltips getting stuck during dragging.
+
 - **Menu**: panels are destroyed once a sub-menu collapses; keyboard navigation and ARIA wiring were filled in; fixed the expand offset and collapsed-state handling.
 - **Table**: fixed grouped headers, fixed columns, scrolling and virtual scrolling; nested `dataIndex`, a stable fallback `rowKey` and cell ellipsis; built-in text now comes from the locale.
 - **Tree**: `loadData` runs once per node; fixed virtual scrolling, drag validation and node keys; the `select` event carries its arguments, and keyboard focus stays put.

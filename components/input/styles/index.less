@@ -82,8 +82,7 @@
     border-color: var(--kui-color-primary);
     z-index: 1;
     outline-offset: 1px;
-    outline: var(--kui-focus-ring-width) solid
-      var(--kui-color-outline, @main-8);
+    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline, @main-8);
   }
 
   // The glow belongs to the tiers that keep the base interaction — `outline`, `dashed` and a box
@@ -160,8 +159,7 @@
   &:focus {
     border-color: var(--kui-color-primary);
     outline-offset: 1px;
-    outline: var(--kui-focus-ring-width) solid
-      var(--kui-color-outline, @main-8);
+    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline, @main-8);
   }
 
   // Same exclusion list as the hover rule below: the glow is only for the tiers that keep the base
@@ -241,8 +239,7 @@
   outline: none;
   &:focus {
     outline-offset: 1px;
-    outline: var(--kui-focus-ring-width) solid
-      var(--kui-color-outline, @main-8);
+    outline: var(--kui-focus-ring-width) solid var(--kui-color-outline, @main-8);
   }
 }
 .k-textarea-square {
@@ -285,8 +282,7 @@
 ):focus-visible {
   opacity: 1;
   pointer-events: auto;
-  outline: var(--kui-focus-ring-width) solid
-    var(--kui-color-outline, @main-8);
+  outline: var(--kui-focus-ring-width) solid var(--kui-color-outline, @main-8);
   outline-offset: 1px;
 }
 .k-input-clearable:focus-visible {
@@ -546,6 +542,15 @@
   font-size: var(--kui-font-size);
   transition: font-size var(--kui-motion-duration-slow) var(--kui-motion-easing);
 
+  // Text-only addons need their own surface; embedded controls paint their own.
+  &:not(:has(> *)) {
+    flex: 0 0 auto;
+    justify-content: center;
+    white-space: nowrap;
+    padding-inline: var(--kui-padding-inline);
+    color: var(--kui-control-text, var(--kui-color-text));
+  }
+
   > .k-icon {
     margin: 0 8px;
   }
@@ -556,6 +561,22 @@
     border: 1px solid var(--kui-control-border, var(--kui-color-border));
   }
 }
+
+.input-addon-theme(@theme) {
+  .k-input-group.k-input-group-@{theme} {
+    > .k-input-group-prefix:not(:has(> *)),
+    > .k-input-group-suffix:not(:has(> *)) {
+      border: 1px solid transparent;
+      .kui-theme-value(@theme);
+    }
+  }
+}
+.input-addon-theme(fill);
+.input-addon-theme(outline);
+.input-addon-theme(dashed);
+.input-addon-theme(plain);
+.input-addon-theme(solid);
+.input-addon-theme(underlined);
 
 .k-input-group-compact {
   width: 100%;
@@ -626,6 +647,10 @@
 }
 
 .k-input-group-sm {
+  .k-input-group-prefix:not(:has(> *)),
+  .k-input-group-suffix:not(:has(> *)) {
+    padding-inline: var(--kui-padding-inline-sm);
+  }
   .k-input-group-suffix,
   .k-input-group-prefix {
     height: var(--kui-control-height-sm);
@@ -639,6 +664,10 @@
 }
 
 .k-input-group-lg {
+  .k-input-group-prefix:not(:has(> *)),
+  .k-input-group-suffix:not(:has(> *)) {
+    padding-inline: var(--kui-padding-inline-lg);
+  }
   .k-input-group-suffix,
   .k-input-group-prefix {
     height: var(--kui-control-height-lg);

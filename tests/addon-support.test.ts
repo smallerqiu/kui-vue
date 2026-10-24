@@ -5,9 +5,41 @@ import AutoComplete from "../components/auto-complete";
 import Form from "../components/form/form";
 import FormItem from "../components/form/form-item";
 import InputNumber from "../components/input-number";
+import Input from "../components/input";
 import type { FormExpose } from "../components/form/types";
 
 describe("InputNumber addons", () => {
+  it.each(["fill", "outline", "dashed", "plain", "solid", "underlined"] as const)(
+    "forwards %s to the addon group",
+    (theme) => {
+      const wrapper = mount(InputNumber, { props: { theme, addonBefore: "¥", addonAfter: "RMB" } });
+      expect(wrapper.get(".k-input-group").classes()).toContain(`k-input-group-${theme}`);
+      wrapper.unmount();
+    },
+  );
+  for (const component of [Input, InputNumber]) {
+    it(`${component.name} renders numeric zero consistently in props and slots`, () => {
+      const wrappers = [
+        mount(component, { props: { addonBefore: 0, addonAfter: 0 } }),
+        mount(component, { slots: { addonBefore: () => 0, addonAfter: () => 0 } }),
+      ];
+      for (const wrapper of wrappers) {
+        expect(wrapper.get(".k-input-group-prefix").text()).toBe("0");
+        expect(wrapper.get(".k-input-group-suffix").text()).toBe("0");
+        wrapper.unmount();
+      }
+    });
+  }
+
+  it("prefers named addon slots over props", () => {
+    const wrapper = mount(InputNumber, {
+      props: { addonBefore: "before", addonAfter: "after" },
+      slots: { addonBefore: () => 0, addonAfter: () => h("button", "Top up") },
+    });
+    expect(wrapper.get(".k-input-group-prefix").text()).toBe("0");
+    expect(wrapper.get(".k-input-group-suffix button").text()).toBe("Top up");
+    wrapper.unmount();
+  });
   it("renders both addons outside the field and keeps stepping on the inner input", async () => {
     const wrapper = mount(InputNumber, {
       props: { modelValue: 2, addonBefore: "¥", addonAfter: "RMB" },

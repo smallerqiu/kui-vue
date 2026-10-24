@@ -1,6 +1,7 @@
 <template>
   <Space vertical>
     <AutoComplete size="small" theme="plain" :options="options" placeholder="small / plain" />
+    <AutoComplete theme="dashed" :options="options" placeholder="dashed" />
     <AutoComplete
       shape="square"
       theme="outline"
