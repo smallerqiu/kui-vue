@@ -10,13 +10,13 @@ const steps: Record<string, string[]> = {
   umd: ["node_modules/vite/bin/vite.js", "build", "--config", "vite.config.umd.ts"],
   types: ["node_modules/vue-tsc/bin/vue-tsc.js", "-p", "tsconfig.build-types.json"],
   editors: ["scripts/generate-editor-assets.ts"],
-  compat: ["scripts/create-cjs-types.ts"],
+  prepare: ["scripts/prepare-types.ts"],
   docs: ["node_modules/vite/bin/vite.js", "build", "--config", "vite.config.docs.ts"],
 };
 const profiles: Record<string, string[]> = {
-  all: ["ai", "css", "lib", "umd", "es", "types", "editors", "compat"],
-  local: ["css", "es", "types", "editors"],
-  types: ["types", "editors", "compat"],
+  all: ["ai", "css", "lib", "umd", "es", "types", "editors", "prepare"],
+  local: ["css", "es", "types", "editors", "prepare"],
+  types: ["types", "editors", "prepare"],
 };
 const profile = process.argv[2] || "all";
 const stages = profiles[profile] || (steps[profile] ? [profile] : null);

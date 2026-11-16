@@ -15,6 +15,14 @@ vite 好像有缓存, 可手动清除
 rm -rf node_modules/.vite
 ```
 
+## 6.3.1
+
+`2026-11-16`
+
+### 组件修复与增强
+
+- **类型声明**：在 TypeScript 的 `node16` / `nodenext` 模块解析下，`import { Button } from "kui-vue"` 等具名导入恢复可用；此前只有默认导出、`install` 和 `version` 能解析。
+
 ## 6.3.0
 
 `2026-10-24`

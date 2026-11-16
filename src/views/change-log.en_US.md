@@ -13,6 +13,14 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 6.3.1
+
+`2026-11-16`
+
+### Component fixes and enhancements
+
+- **Type declarations**: named imports such as `import { Button } from "kui-vue"` resolve again under TypeScript's `node16` / `nodenext` module resolution; previously only the default export, `install` and `version` were visible.
+
 ## 6.3.0
 
 `2026-10-24`
