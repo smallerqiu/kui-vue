@@ -221,6 +221,10 @@
   .k-empty {
     padding: 30px 0;
     box-sizing: content-box;
+    // 空表也可能横向滚动（列宽把内容撑得比容器宽）：提示要钉在可视区左边，
+    // 否则横向一滚，提示整块就跟着表格滑出视野。
+    position: sticky;
+    left: 0;
   }
 
   // Empty normally provides the table body's height. Keep an equivalent

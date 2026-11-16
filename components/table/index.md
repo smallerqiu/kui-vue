@@ -73,7 +73,7 @@ const columns = [
 
 [表格行/列合并](./demo/col-row-span.vue?show=vertical)
 
-- 表头仅支持列合并；在列定义中使用 colSpan 进行配置。 表格支持行合并与列合并；在渲染时，使用单元格属性 colSpan 或 rowSpan。当设置为 0 时，该单元格将不会渲染。
+- 表头只支持列合并（不支持行合并）：给列配置 `children` 分组，父列的表头格就会横跨它包含的叶子列数；写在列上的 `colSpan` 只作用于表体单元格。表格支持行合并与列合并；在渲染时，使用单元格属性 colSpan 或 rowSpan。当设置为 0 时，该单元格将不会渲染。
 
 [可编辑单元格](./demo/table-edit.vue?show=vertical)
 

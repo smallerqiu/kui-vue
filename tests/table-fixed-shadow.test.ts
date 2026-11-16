@@ -17,14 +17,17 @@ const tableCss = async () => {
   return css.replace(/\/\*[\s\S]*?\*\//g, "");
 };
 
+const rules = (css: string) =>
+  [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)].map(([, selector, body]) => ({
+    selector: selector.trim().replace(/\s+/g, " "),
+    // 编译前后的空格差异不该影响断言。
+    body: body.replace(/\s+/g, ""),
+  }));
+
 const shadowRules = (css: string) =>
-  [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
-    .map(([, selector, body]) => ({
-      selector: selector.trim().replace(/\s+/g, " "),
-      // 编译前后的空格差异不该影响断言。
-      body: body.replace(/\s+/g, ""),
-    }))
-    .filter((rule) => /k-table-cell-fix-(left-last|right-first)::?after$/.test(rule.selector));
+  rules(css).filter((rule) =>
+    /k-table-cell-fix-(left-last|right-first)::?after$/.test(rule.selector),
+  );
 
 describe("Fixed column scroll shadow", () => {
   it("generates no shadow box while the matching ping class is absent", async () => {
@@ -48,5 +51,14 @@ describe("Fixed column scroll shadow", () => {
     expect(right?.body).toContain("box-shadow:inset-6px06px-4pxvar(--kui-color-shadow)");
     expect(left?.selector).toContain("k-table-cell-fix-left-last");
     expect(right?.selector).toContain("k-table-cell-fix-right-first");
+  });
+
+  it("pins the empty message inside the horizontally scrolled body", async () => {
+    // 表体横向可以滚（空表也一样），提示不粘住左边就会整块滑出可视区。
+    const empty = rules(await tableCss()).find((rule) =>
+      /(^| )\.k-empty$/.test(rule.selector),
+    );
+    expect(empty?.body).toContain("position:sticky");
+    expect(empty?.body).toContain("left:0");
   });
 });

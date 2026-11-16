@@ -522,12 +522,20 @@ const Table = defineComponent({
       return { header: headerStyles, body: bodyStyles };
     });
 
+    // 勾选列自己也是左侧固定区的一员：只有它右边的第一列不再固定时，它才是这段固定区的末格。
+    // 否则第一列也固定时，冻结区中间会多画一道阴影（表头与表体各一道）。
+    const selectionFixedLast = computed(
+      () => pingLeft.value && flattedColumns.value[0]?.fixed !== "left",
+    );
+
     // `colSpan` 是合并单元格的横向跨度，末列判定要按区间末尾算，不然合并行的行末格会被当成中间格。
     const getFixedClass = (col: Column, index: number, colSpan = 1) => {
       const cls = [];
       if (col.fixed === "left") {
         cls.push("k-table-cell-fix-left");
-        if (flattedColumns.value[index + 1]?.fixed !== "left")
+        // 固定区的右边界落在合并区间末尾，不是起始格的下一列：跨了两列固定列时 `index + 1` 仍固定，
+        // 这一格就漏掉 `-last`，横向滚动时冻结区边缘没有阴影。
+        if (flattedColumns.value[index + colSpan]?.fixed !== "left")
           cls.push("k-table-cell-fix-left-last");
       }
       if (col.fixed === "right") {
@@ -744,7 +752,7 @@ const Table = defineComponent({
                   rowspan={maxDepth}
                   class={[
                     "k-table-cell-fix-left",
-                    pingLeft.value && "k-table-cell-fix-left-last",
+                    selectionFixedLast.value && "k-table-cell-fix-left-last",
                     // 叶子列全被隐藏时，勾选格就是这一行的最后一格，边框口径要跟着走
                     !flattedColumns.value.length && "k-table-cell-last-column",
                   ]}
@@ -931,7 +939,7 @@ const Table = defineComponent({
                 <td
                   class={[
                     "k-table-cell-fix-left",
-                    pingLeft.value && "k-table-cell-fix-left-last",
+                    selectionFixedLast.value && "k-table-cell-fix-left-last",
                     !flattedColumns.value.length && "k-table-cell-last-column",
                   ]}
                   style={{ width: `${SELECTION_COLUMN_WIDTH}px`, left: 0 }}
@@ -1107,7 +1115,8 @@ const Table = defineComponent({
           ref={bodyWrapperRef}
           style={{
             overflowY: props.scroll.y ? "scroll" : "auto",
-            overflowX: props.data?.length ? "auto" : "hidden",
+            // 空表也可能有比容器宽的列（固定列 + 列宽下限），横向照样要能滚，否则右侧列永远看不到。
+            overflowX: "auto",
             maxHeight: props.scroll.y
               ? typeof props.scroll.y === "number"
                 ? `${props.scroll.y}px`

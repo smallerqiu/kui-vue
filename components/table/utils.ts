@@ -127,8 +127,9 @@ export const resolveRowKey = <T extends object>(
   record: T,
   rowKey: string | ((record: T) => TableKey),
 ): TableKey => {
-  if (typeof rowKey === "function") return rowKey(record);
-  const value = getRecordValue(record, rowKey);
+  // 取值函数也可能拿到不可用的 key（运行时 JS 传进来的 rowKey 不保证符合类型），
+  // 一律走同一个兜底：否则多行的 key 会一起变成 `undefined`，勾选一行等于勾选全部。
+  const value = typeof rowKey === "function" ? rowKey(record) : getRecordValue(record, rowKey);
   return typeof value === "string" || typeof value === "number"
     ? value
     : getSyntheticRowKey(record);
