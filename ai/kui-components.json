@@ -14190,10 +14190,10 @@
         },
         {
           "name": "options",
-          "description": "Option data",
-          "descriptionZh": "选项数据",
-          "descriptionEn": "Option data",
-          "type": "SegmentedOption[]",
+          "description": "Option data; a bare string or number is used as both the value and the label",
+          "descriptionZh": "选项数据；直接传字符串或数字时，该值同时作为显示内容",
+          "descriptionEn": "Option data; a bare string or number is used as both the value and the label",
+          "type": "SegmentedOptionInput[]",
           "boolean": false,
           "required": false,
           "defaultExpression": "() => []",
@@ -14339,7 +14339,7 @@
         {
           "title": "尺寸与布局",
           "file": "components/segmented/demo/options.vue",
-          "source": "<template>\n  <Space direction=\"vertical\">\n    <Segmented v-model=\"value\" :options=\"options\" size=\"small\" />\n    <Segmented v-model=\"value\" :options=\"options\" block />\n    <Segmented v-model=\"value\" :options=\"options\" direction=\"vertical\" />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst value = ref(\"vue\");\nconst options = [\n  { label: \"Vue\", value: \"vue\" },\n  { label: \"React\", value: \"react\" },\n  { label: \"禁用项\", value: \"disabled\", disabled: true },\n];\n</script>"
+          "source": "<template>\n  <div class=\"segmented-demo\">\n    <Segmented v-model=\"value\" :options=\"options\" size=\"small\" />\n    <Segmented v-model=\"value\" :options=\"options\" block />\n    <Segmented v-model=\"value\" :options=\"options\" direction=\"vertical\" />\n  </div>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst value = ref(\"vue\");\nconst options = [\n  { label: \"Vue\", value: \"vue\" },\n  { label: \"React\", value: \"react\" },\n  { label: \"禁用项\", value: \"disabled\", disabled: true },\n];\n</script>\n<style scoped>\n.segmented-demo {\n  display: flex;\n  flex-direction: column;\n  align-items: flex-start;\n  gap: 8px;\n}\n</style>"
         },
         {
           "title": "带图标的选项",
