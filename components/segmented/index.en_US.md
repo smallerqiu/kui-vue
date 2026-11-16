@@ -26,7 +26,7 @@ Switch quickly between mutually exclusive options.
 | --- | --- | --- | --- |
 | modelValue | Selected value | `SegmentedValue` | - |
 | value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `SegmentedValue` | - |
-| options | Option data | `SegmentedOption[]` | [] |
+| options | Option data; a bare string or number is used as both the value and the label | `SegmentedOptionInput[]` | [] |
 | disabled | Disable all options | `boolean` | false |
 | readonly | Read-only state | `boolean` | false |
 | block | Fill the parent width | `boolean` | false |

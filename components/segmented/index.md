@@ -26,7 +26,7 @@
 | --- | --- | --- | --- |
 | modelValue | 当前选中值 | `SegmentedValue` | - |
 | value | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | `SegmentedValue` | - |
-| options | 选项数据 | `SegmentedOption[]` | [] |
+| options | 选项数据；直接传字符串或数字时，该值同时作为显示内容 | `SegmentedOptionInput[]` | [] |
 | disabled | 是否禁用 | `boolean` | false |
 | readonly | 是否只读 | `boolean` | false |
 | block | 是否撑满父容器 | `boolean` | false |

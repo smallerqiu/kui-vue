@@ -22,6 +22,7 @@ rm -rf node_modules/.vite
 ### 组件修复与增强
 
 - **类型声明**：在 TypeScript 的 `node16` / `nodenext` 模块解析下，`import { Button } from "kui-vue"` 等具名导入恢复可用；此前只有默认导出、`install` 和 `version` 能解析。
+- **Segmented**：选项可以直接传字符串或数字，该值同时作为显示内容；没有匹配的选中项、或选中项被禁用时，用 Tab 仍能进入分段控制器；垂直排列会向读屏软件声明方向。
 
 ## 6.3.0
 

@@ -20,6 +20,7 @@ rm -rf node_modules/.vite
 ### Component fixes and enhancements
 
 - **Type declarations**: named imports such as `import { Button } from "kui-vue"` resolve again under TypeScript's `node16` / `nodenext` module resolution; previously only the default export, `install` and `version` were visible.
+- **Segmented**: options may be a plain string or number, which doubles as the label; the group stays reachable with Tab when nothing matches the value or the checked option is disabled; vertical groups now announce their orientation to screen readers.
 
 ## 6.3.0
 

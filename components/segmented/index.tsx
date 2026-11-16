@@ -28,11 +28,20 @@ export interface SegmentedOption {
   disabled?: boolean;
   [key: string]: unknown;
 }
+export type SegmentedOptionInput = SegmentedValue | SegmentedOption;
+
+const isOptionObject = (option: SegmentedOptionInput): option is SegmentedOption =>
+  typeof option === "object" && option !== null;
+
+// A bare string or number is both the value and the visible content. Normalising
+// up front keeps the rest of the component on one shape.
+const normalizeOptions = (options: SegmentedOptionInput[]): SegmentedOption[] =>
+  options.map((option) => (isOptionObject(option) ? option : { label: option, value: option }));
 
 const segmentedProps = {
   modelValue: [String, Number] as PropType<SegmentedValue>,
   value: [String, Number] as PropType<SegmentedValue>,
-  options: { type: Array as PropType<SegmentedOption[]>, default: () => [] },
+  options: { type: Array as PropType<SegmentedOptionInput[]>, default: () => [] },
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
   block: Boolean as BooleanType,
@@ -71,6 +80,16 @@ const Segmented = defineComponent({
     const currentValue = computed(() =>
       field?.prop ? (field.value.value as SegmentedValue | undefined) : initialModel.value,
     );
+    const items = computed(() => normalizeOptions(props.options));
+    // Roving tabindex: the checked item is the tab stop. Without a checked item
+    // -- or when the checked one is disabled -- the first enabled item has to
+    // take the 0, otherwise every item is -1 and the group is unreachable.
+    const focusValue = computed<SegmentedValue | undefined>(() => {
+      const list = items.value;
+      const selected = list.find((item) => item.value === currentValue.value);
+      if (selected && !selected.disabled) return selected.value;
+      return list.find((item) => !item.disabled)?.value;
+    });
     const rootRef = ref<HTMLElement>();
     const itemRefs = new Map<SegmentedValue, HTMLElement>();
     const indicatorStyle = ref<Record<string, string>>({});
@@ -110,7 +129,7 @@ const Segmented = defineComponent({
     const move = (event: KeyboardEvent) => {
       if (!["ArrowRight", "ArrowDown", "ArrowLeft", "ArrowUp", "Home", "End"].includes(event.key))
         return;
-      const available = props.options.filter((option) => !option.disabled);
+      const available = items.value.filter((option) => !option.disabled);
       if (
         !available.length ||
         props.disabled ||
@@ -177,12 +196,13 @@ const Segmented = defineComponent({
           ]}
           role="radiogroup"
           {...resolveFormControlAttrs(attrs, field)}
+          aria-orientation={isVertical.value ? "vertical" : "horizontal"}
           aria-disabled={props.disabled || field?.disabled.value || undefined}
           aria-readonly={props.readonly || field?.readonly.value || undefined}
           onFocusout={() => field?.blur()}
           onKeydown={move}
         >
-          {props.options.map((option) => {
+          {items.value.map((option) => {
             const selected = option.value === currentValue.value;
             return (
               <button
@@ -195,7 +215,7 @@ const Segmented = defineComponent({
                 role="radio"
                 aria-checked={selected}
                 disabled={props.disabled || field?.disabled.value || option.disabled}
-                tabindex={selected ? 0 : -1}
+                tabindex={option.value === focusValue.value ? 0 : -1}
                 onClick={() => select(option)}
               >
                 {option.icon && <Icon type={option.icon} />}
