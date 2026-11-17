@@ -41,6 +41,7 @@ export const popupProps = {
   placement: { type: String as PropType<PlacementsType>, default: "bottom-left" },
   trigger: { type: String as PropType<PopupTrigger>, default: "click" },
   arrow: Boolean,
+  arrowPointAtCenter: Boolean,
   offset: { type: Number, default: 3 },
   openDelay: { type: Number, default: 0 },
   closeDelay: { type: Number, default: 300 },
@@ -71,7 +72,7 @@ export type PopupProps = Partial<ExtractPropTypes<typeof popupProps>> & {
   onAfterClose?: () => void;
 };
 export const PopupArrow = ({ prefixCls }: { prefixCls: string }) => (
-  <div class={`${prefixCls}-arrow`} aria-hidden="true">
+  <div class={`${prefixCls}-arrow`} data-popup-arrow="" aria-hidden="true">
     <svg
       style={{ fill: "currentcolor" }}
       viewBox={prefixCls === "k-popup" ? "0 0 24 9" : "0 0 24 8"}
@@ -170,6 +171,7 @@ export default defineComponent({
         transOrigin,
         currentPlacement,
         offset: props.offset,
+        arrowPointAtCenter: props.arrowPointAtCenter,
         position:
           props.getAnchorPosition?.() ??
           (contextPoint ? { x: rect.left + contextPoint.x, y: rect.top + contextPoint.y } : null),
@@ -226,7 +228,14 @@ export default defineComponent({
     );
     watch(() => props.disabled, clearTimer);
     watch(
-      () => [props.placement, props.offset, props.arrow, props.matchTriggerWidth, props.overlay],
+      () => [
+        props.placement,
+        props.offset,
+        props.arrow,
+        props.arrowPointAtCenter,
+        props.matchTriggerWidth,
+        props.overlay,
+      ],
       () => {
         if (visible.value) nextTick(updatePosition);
       },

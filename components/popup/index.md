@@ -48,6 +48,7 @@ default 插槽放触发器，overlay 作用域插槽放弹层内容；.vue 中�
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| arrowPointAtCenter | 让箭头中心指向触发器中心；默认按面板边缘或中心对齐，需有箭头时才生效 | `boolean` | false |
 | open | 初始显示状态，后续属性变化会同步内部状态；Vue 支持 v-model:open | `boolean` | - |
 | disabled | 禁止交互打开并取消待执行的打开操作，不强制覆盖 open | `boolean` | false |
 | placement | 弹层方位，支持 12 个方向 | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right" \| "left" \| "left-bottom" \| "left-top" \| "right" \| "right-top" \| "right-bottom"` | bottom-left |

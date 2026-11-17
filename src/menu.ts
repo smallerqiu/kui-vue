@@ -7,6 +7,7 @@ import {
   ArrowUpToLine,
   BellDot,
   BetweenVerticalEnd,
+  Blend,
   Calendar,
   ChartColumnDecreasing,
   ChevronRight,
@@ -220,7 +221,10 @@ const navData = [
   {
     title: "menu.other",
     key: "other",
-    children: [{ title: "颜色", sub: "ColorPicker", name: "color-picker", icon: Palette }],
+    children: [
+      { title: "颜色", sub: "ColorPicker", name: "color-picker", icon: Palette },
+      { title: "渐变", sub: "GradientPicker", name: "gradient-picker", icon: Blend },
+    ],
   },
 ];
 

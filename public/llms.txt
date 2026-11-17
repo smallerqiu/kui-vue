@@ -50,6 +50,10 @@ Import `kui-vue/style/index.css`, then import components from `kui-vue` or insta
 - [CollapsePanel](https://k-ui.cn/components/collapse): tags `CollapsePanel`, `KCollapsePanel`, `k-collapse-panel`, `collapse-panel`
 - [ColorPickerPanel](https://k-ui.cn/components/color-picker-panel): tags `ColorPickerPanel`, `KColorPickerPanel`, `k-color-picker-panel`, `color-picker-panel`
 - [ColorPicker](https://k-ui.cn/components/color-picker): tags `ColorPicker`, `KColorPicker`, `k-color-picker`, `color-picker`
+- [GradientPicker](https://k-ui.cn/components/gradient-picker): tags `GradientPicker`, `KGradientPicker`, `k-gradient-picker`, `gradient-picker`
+- [createCornerGradient](https://k-ui.cn/components/create-corner-gradient): tags `createCornerGradient`, `KcreateCornerGradient`, `k-create-corner-gradient`, `create-corner-gradient`
+- [createLinearGradient](https://k-ui.cn/components/create-linear-gradient): tags `createLinearGradient`, `KcreateLinearGradient`, `k-create-linear-gradient`, `create-linear-gradient`
+- [formatGradient](https://k-ui.cn/components/format-gradient): tags `formatGradient`, `KformatGradient`, `k-format-gradient`, `format-gradient`
 - [DatePickerPanel](https://k-ui.cn/components/date-picker-panel): tags `DatePickerPanel`, `KDatePickerPanel`, `k-date-picker-panel`, `date-picker-panel`
 - [DatePicker](https://k-ui.cn/components/date-picker): tags `DatePicker`, `KDatePicker`, `k-date-picker`, `date-picker`
 - [Descriptions](https://k-ui.cn/components/descriptions): tags `Descriptions`, `KDescriptions`, `k-descriptions`, `descriptions`

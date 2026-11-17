@@ -43,6 +43,7 @@ const colorPickerProps = {
   readonly: Boolean as BooleanType,
   disabledAlpha: Boolean as BooleanType,
   showText: Boolean as BooleanType,
+  arrowPointAtCenter: Boolean as BooleanType,
   placement: {
     type: String as PropType<DropPlacementsType>,
     default: "bottom-left",
@@ -281,7 +282,7 @@ const ColorPicker = defineComponent({
             />
           </div>
           {!props.panelOnly && (
-            <div class={`k-color-picker-arrow`}>
+            <div class={`k-color-picker-arrow`} data-popup-arrow="">
               <svg style={{ fill: "currentcolor" }} viewBox="0 0 24 8">
                 <path
                   id="ot"
@@ -306,6 +307,7 @@ const ColorPicker = defineComponent({
           target={refSelection}
           trigger="manual"
           placement={props.placement}
+          arrowPointAtCenter={props.arrowPointAtCenter}
           prefixCls="k-color-picker-dropdown"
           destroyOnClose={props.destroyOnClose}
           transitionName="k-color-picker"

@@ -30,6 +30,7 @@
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| arrowPointAtCenter | 让箭头中心指向触发器中心；默认按面板边缘或中心对齐，需有箭头时才生效 | `boolean` | false |
 | trigger | 触发方式，可选值为 `hover`（悬停）、`click`（点击）、`focus`（聚焦） | `"hover" \| "click" \| "focus"` | hover |
 | title | 显示的标题 | `VNodeChild` | - |
 | content | 显示的正文内容 | `string` | - |

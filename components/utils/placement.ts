@@ -1,5 +1,7 @@
 import type { Ref } from "vue";
 
+import { measurePopupArrow } from "./popup-arrow";
+
 const popupAppearanceSources = new Map<HTMLElement, HTMLElement>();
 let popupAppearanceObserver: MutationObserver | null = null;
 const inheritedAppearanceAttributes = ["theme-mode", "shape-mode"] as const;
@@ -48,6 +50,7 @@ interface PlacementOptions {
   top: Ref<number>;
   left: Ref<number>;
   offset?: number;
+  arrowPointAtCenter?: boolean;
 }
 export function setPlacement({
   refSelection,
@@ -58,6 +61,7 @@ export function setPlacement({
   top,
   left,
   offset = 3,
+  arrowPointAtCenter = false,
 }: PlacementOptions) {
   if (!refPopper.value) return;
 
@@ -215,6 +219,14 @@ export function setPlacement({
 
   // 只有锚点仍在视口内时才修正弹层溢出。锚点已经滚出视口后，
   // 弹层应继续保持相对位置并一起离屏，不能被钳制在屏幕顶部或底部。
+  const popupArrow = refPopper.value
+    ? measurePopupArrow(refPopper.value, finalPlacement, arrowPointAtCenter && !isMouseMode)
+    : undefined;
+  const horizontalArrow = side === "top" || side === "bottom";
+  if (popupArrow) {
+    if (horizontalArrow) calcLeft = rect.left + rect.width / 2 - popupArrow.center;
+    else calcTop = rect.top + rect.height / 2 - popupArrow.center;
+  }
   const anchorInViewport =
     rect.bottom > 0 && rect.top < clientHeight && rect.right > 0 && rect.left < clientWidth;
   if (anchorInViewport) {
@@ -225,6 +237,14 @@ export function setPlacement({
     else if (calcTop + pickerH > clientHeight) calcTop = clientHeight - pickerH;
   }
 
+  if (popupArrow) {
+    const target = horizontalArrow
+      ? rect.left + rect.width / 2 - calcLeft
+      : rect.top + rect.height / 2 - calcTop;
+    popupArrow.shift(target);
+    if (horizontalArrow) originX = `${target}px`;
+    else originY = `${target}px`;
+  }
   // Convert viewport coordinates to the popper's actual positioning context.
   // This keeps placement correct when ConfigProvider teleports overlays into a
   // positioned local theme container instead of document.body.

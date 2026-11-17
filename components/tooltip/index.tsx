@@ -20,6 +20,7 @@ const tooltipProps = {
   color: String,
   disabled: Boolean as BooleanType,
   width: [Number, String] as PropType<number | string>,
+  arrowPointAtCenter: Boolean as BooleanType,
   placement: {
     type: String as PropType<PlacementsType>,
     default: "top",
@@ -60,6 +61,7 @@ const Tooltip = defineComponent({
           disabled={props.disabled}
           trigger={props.trigger}
           placement={props.placement}
+          arrowPointAtCenter={props.arrowPointAtCenter}
           panelOnly={props.panelOnly}
           prefixCls="k-tooltip"
           destroyOnClose={props.destroyOnClose}
@@ -81,7 +83,7 @@ const Tooltip = defineComponent({
             default: slots.default,
             overlay: () => <div class="k-tooltip-title">{slots.title?.() ?? props.title}</div>,
             arrow: () => (
-              <div class="k-tooltip-arrow">
+              <div class="k-tooltip-arrow" data-popup-arrow="">
                 <svg style={{ fill: bgColor || "currentcolor" }} viewBox="0 0 24 7">
                   <path d="M24 0V1C20 1 18.5 2 16.5 4C14.5 6 14 7 12 7C10 7 9.5 6 7.5 4C5.5 2 4 1 0 1V0H24Z" />
                   {/* 与 poptip 同一套路（`#ot`）：只描外沿那一圈，把面板的 1px 边接过来。

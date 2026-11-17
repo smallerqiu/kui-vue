@@ -48,6 +48,7 @@ Use the default slot for the trigger and the scoped overlay slot for content; av
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
+| arrowPointAtCenter | Point the arrow at the trigger center instead of aligning panel edges; requires a visible arrow | `boolean` | false |
 | open | Initial visibility; subsequent changes synchronize the state; Vue supports v-model:open | `boolean` | - |
 | disabled | Prevents opening and cancels delayed opening; does not override open | `boolean` | false |
 | placement | Popup placement; supports 12 positions | `"top" \| "top-left" \| "top-right" \| "bottom" \| "bottom-left" \| "bottom-right" \| "left" \| "left-bottom" \| "left-top" \| "right" \| "right-top" \| "right-bottom"` | bottom-left |

@@ -31,6 +31,7 @@ declare module "vue" {
     CollapsePanel: (typeof Comps)["CollapsePanel"];
     ColorPicker: (typeof Comps)["ColorPicker"];
     ColorPickerPanel: (typeof Comps)["ColorPickerPanel"];
+    GradientPicker: (typeof Comps)["GradientPicker"];
     DatePicker: (typeof Comps)["DatePicker"];
     DatePickerPanel: (typeof Comps)["DatePickerPanel"];
     Descriptions: (typeof Comps)["Descriptions"];

@@ -20,6 +20,10 @@ When standard numerical values need to be obtained.
 
 - `suffix` and `prefix` render inside the input; complex content uses the named slots. `addonBefore` and `addonAfter` render outside as boxed affixes and also accept named slots.
 
+[Drag adjustment](./demo/drag.vue)
+
+- Drag inside the input for faster adjustment with decimal steps and bounds; set `draggable=false` to disable.
+
 [Size](./demo/size.vue)
 
 - `large` for large size, `small` for small size
@@ -29,6 +33,8 @@ When standard numerical values need to be obtained.
 - All six tiers, listed from `fill`, which is what a number input does on its own; `solid` inverts the digits, the placeholder and the steppers.
 
 ## InputNumber API
+
+Drag anywhere in the input right to increase or left to decrease. Longer drags accelerate while respecting `step`, `precision`, `min` and `max`. Click to focus and type; double-click to select the value. Step buttons, prefixes, suffixes and external addons retain their own interactions. Set `draggable=false` to disable drag adjustment.
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
@@ -49,6 +55,7 @@ When standard numerical values need to be obtained.
 | addonBefore | Addon before the input; complex content can use the named slot | `VNodeChild` | - |
 | addonAfter | Addon after the input; complex content can use the named slot | `VNodeChild` | - |
 | controls | Whether to show increase/decrease buttons | `boolean` | true |
+| draggable | Allow dragging inside the input to adjust the value quickly | `boolean` | true |
 | theme | Component theme | `"fill" \| "outline" \| "plain" \| "solid" \| "dashed" \| "underlined"` | fill |
 | icon | Input icon | `IconType[]` | - |
 | placeholder | Input placeholder | `string` | - |

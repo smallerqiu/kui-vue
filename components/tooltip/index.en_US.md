@@ -28,6 +28,7 @@ Use trigger="manual" when visibility is managed by business state (such as Slide
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
+| arrowPointAtCenter | Point the arrow at the trigger center instead of aligning panel edges; requires a visible arrow | `boolean` | false |
 | trigger | Automatic hover or manual visibility | `"hover" \| "manual"` | hover |
 
 | Property | Description | Type | Default |

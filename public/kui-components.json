@@ -1,7 +1,7 @@
 {
   "$schema": "https://k-ui.cn/schema/kui-components.schema.json",
   "library": "kui-vue",
-  "version": "6.3.1",
+  "version": "6.4.0",
   "homepage": "https://k-ui.cn",
   "components": [
     {
@@ -181,6 +181,20 @@
           "description": "Show arrow",
           "descriptionZh": "显示箭头",
           "descriptionEn": "Show arrow",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "arrowPointAtCenter",
+          "description": "Point the arrow at the trigger center instead of aligning panel edges; requires a visible arrow",
+          "descriptionZh": "让箭头中心指向触发器中心；默认按面板边缘或中心对齐，需有箭头时才生效",
+          "descriptionEn": "Point the arrow at the trigger center instead of aligning panel edges; requires a visible arrow",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [
@@ -567,7 +581,7 @@
         {
           "title": "方位与箭头",
           "file": "components/popup/demo/placement.vue",
-          "source": "<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { Button, Checkbox, Popup, Space } from \"kui-vue\";\nconst arrow = ref(true);\nconst placements = [\n  \"top-left\",\n  \"top\",\n  \"top-right\",\n  \"bottom-left\",\n  \"bottom\",\n  \"bottom-right\",\n  \"left-top\",\n  \"left\",\n  \"left-bottom\",\n  \"right-top\",\n  \"right\",\n  \"right-bottom\",\n] as const;\n</script>\n<template>\n  <Space vertical>\n    <Checkbox v-model=\"arrow\">Show arrow</Checkbox>\n    <div\n      style=\"\n        display: grid;\n        grid-template-columns: repeat(3, minmax(0, 1fr));\n        gap: 8px;\n        max-width: 420px;\n      \"\n    >\n      <Popup\n        v-for=\"placement in placements\"\n        :key=\"placement\"\n        :placement=\"placement\"\n        :arrow=\"arrow\"\n        :offset=\"10\"\n      >\n        <Button>{{ placement }}</Button>\n        <template #overlay>{{ placement }}</template>\n      </Popup>\n    </div>\n  </Space>\n</template>"
+          "source": "<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { Button, Checkbox, Popup, Space } from \"kui-vue\";\nconst arrow = ref(true);\nconst arrowPointAtCenter = ref(false);\nconst placements = [\n  \"top-left\",\n  \"top\",\n  \"top-right\",\n  \"bottom-left\",\n  \"bottom\",\n  \"bottom-right\",\n  \"left-top\",\n  \"left\",\n  \"left-bottom\",\n  \"right-top\",\n  \"right\",\n  \"right-bottom\",\n] as const;\n</script>\n<template>\n  <Space vertical>\n    <Checkbox v-model=\"arrow\">Show arrow</Checkbox>\n    <Checkbox v-model=\"arrowPointAtCenter\">Point arrow at trigger center</Checkbox>\n    <div\n      style=\"\n        display: grid;\n        grid-template-columns: repeat(3, minmax(0, 1fr));\n        gap: 8px;\n        max-width: 420px;\n      \"\n    >\n      <Popup\n        v-for=\"placement in placements\"\n        :key=\"placement\"\n        :placement=\"placement\"\n        :arrow=\"arrow\"\n        :arrow-point-at-center=\"arrowPointAtCenter\"\n        :offset=\"10\"\n      >\n        <Button>{{ placement }}</Button>\n        <template #overlay>{{ placement }}</template>\n      </Popup>\n    </div>\n  </Space>\n</template>"
         },
         {
           "title": "受控开关与实例方法",
@@ -5265,6 +5279,20 @@
           "documented": true
         },
         {
+          "name": "arrowPointAtCenter",
+          "description": "Point the arrow at the trigger center instead of aligning panel edges; requires a visible arrow",
+          "descriptionZh": "让箭头中心指向触发器中心；默认按面板边缘或中心对齐，需有箭头时才生效",
+          "descriptionEn": "Point the arrow at the trigger center instead of aligning panel edges; requires a visible arrow",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "panelOnly",
           "description": "Render only the color panel without the trigger input",
           "descriptionZh": "仅渲染颜色选择面板，不显示触发输入框",
@@ -5494,6 +5522,285 @@
           "source": "<template>\n  <Space wrap>\n    <template v-for=\"placement in placements\" :key=\"placement\">\n      <ColorPicker modelValue=\"red\" size=\"small\" :placement=\"placement\">\n        <Button>{{ placement }}</Button>\n      </ColorPicker>\n    </template>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport type { DropPlacementsType } from \"kui-vue\";\n\nconst placements: DropPlacementsType[] = [\n  \"bottom-left\",\n  \"bottom\",\n  \"bottom-right\",\n  \"top-left\",\n  \"top\",\n  \"top-right\",\n];\n</script>"
         }
       ]
+    },
+    {
+      "name": "GradientPicker",
+      "behavior": {
+        "rules": []
+      },
+      "models": [
+        {
+          "prop": "modelValue",
+          "event": "update:modelValue",
+          "directive": "v-model"
+        },
+        {
+          "prop": "mode",
+          "event": "update:mode",
+          "directive": "v-model:mode"
+        }
+      ],
+      "tags": [
+        "GradientPicker",
+        "KGradientPicker",
+        "k-gradient-picker",
+        "gradient-picker"
+      ],
+      "children": [],
+      "documentation": "https://k-ui.cn/components/gradient-picker",
+      "props": [
+        {
+          "name": "type",
+          "description": "Gradient type: `linear` for multi-stop, `corner` for four corners",
+          "descriptionZh": "渐变类型，`linear` 为多色标渐变，`corner` 为四角渐变",
+          "descriptionEn": "Gradient type: `linear` for multi-stop, `corner` for four corners",
+          "type": "GradientType",
+          "boolean": false,
+          "enumValues": [
+            "linear",
+            "corner"
+          ],
+          "required": false,
+          "defaultExpression": "\"linear\"",
+          "documented": true
+        },
+        {
+          "name": "arrowPointAtCenter",
+          "description": "Point the color-panel arrow at the stop or corner center; disable to align panel edges",
+          "descriptionZh": "让颜色面板箭头指向色标或角标中心；关闭后按面板边缘对齐",
+          "descriptionEn": "Point the color-panel arrow at the stop or corner center; disable to align panel edges",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
+          "name": "mode",
+          "description": "Presentation of the color panel input: `hex`, `rgb` or `hsl`",
+          "descriptionZh": "颜色面板输入区的展示类型，提供 3 种模式（`hex`、`rgb`、`hsl`）",
+          "descriptionEn": "Presentation of the color panel input: `hex`, `rgb` or `hsl`",
+          "type": "ColorMode",
+          "boolean": false,
+          "enumValues": [
+            "hex",
+            "rgb",
+            "hsl"
+          ],
+          "required": false,
+          "defaultExpression": "\"hex\"",
+          "documented": true
+        },
+        {
+          "name": "disabled",
+          "description": "Disabled state",
+          "descriptionZh": "是否失效状态",
+          "descriptionEn": "Disabled state",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Gradient value, supports `v-model` two-way binding",
+          "descriptionZh": "渐变值，可以使用 `v-model` 双向绑定",
+          "descriptionEn": "Gradient value, supports `v-model` two-way binding",
+          "type": "GradientValue | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "value",
+          "description": "Initial value, read once during initialization; later updates use modelValue, which wins when both are passed",
+          "descriptionZh": "初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。",
+          "descriptionEn": "Initial value, read once during initialization; later updates use modelValue, which wins when both are passed",
+          "type": "GradientValue | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "readonly",
+          "description": "Read-only; stops cannot be dragged and the color panel cannot open",
+          "descriptionZh": "是否只读，不能拖动色标或打开颜色面板",
+          "descriptionEn": "Read-only; stops cannot be dragged and the color panel cannot open",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "size",
+          "description": "Control size, same three tiers as other controls; the bar plus its stops, or the corner block, add up to the height of the matching control",
+          "descriptionZh": "控件尺寸，与其它控件一样分三档；色条加色标或四角预览块的总高度与对应尺寸的控件一致",
+          "descriptionEn": "Control size, same three tiers as other controls; the bar plus its stops, or the corner block, add up to the height of the matching control",
+          "type": "SizeType | undefined",
+          "boolean": false,
+          "enumValues": [
+            "small",
+            "medium",
+            "large"
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "alpha",
+          "description": "Show the transparency control in the color panel",
+          "descriptionZh": "颜色面板是否提供透明度调节",
+          "descriptionEn": "Show the transparency control in the color panel",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "onUpdate:modelValue",
+          "description": "Requests a new modelValue value (Gradient value, supports `v-model` two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（渐变值，可以使用 `v-model` 双向绑定），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Gradient value, supports `v-model` two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "type": "(value: GradientValue) => void",
+          "eventName": "update:modelValue",
+          "boolean": false,
+          "documented": false
+        },
+        {
+          "name": "onUpdate:mode",
+          "description": "Requests a new mode value (Presentation of the color panel input: `hex`, `rgb` or `hsl`); the payload is the new value. With v-model:mode, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 mode（颜色面板输入区的展示类型，提供 3 种模式（`hex`、`rgb`、`hsl`）），参数为更新后的值。使用 v-model:mode 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new mode value (Presentation of the color panel input: `hex`, `rgb` or `hsl`); the payload is the new value. With v-model:mode, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "type": "(mode: ColorMode) => void",
+          "eventName": "update:mode",
+          "boolean": false,
+          "documented": false
+        },
+        {
+          "name": "onChange",
+          "description": "Called when the gradient changes; the argument is the new value (a stop list for `linear`, four colors for `corner`)",
+          "descriptionZh": "渐变值改变时触发，参数是新的渐变值（线性档为色标数组，四角档为四色数组）",
+          "descriptionEn": "Called when the gradient changes; the argument is the new value (a stop list for `linear`, four colors for `corner`)",
+          "type": "(value: GradientValue) => void",
+          "eventName": "change",
+          "boolean": false,
+          "documented": true
+        }
+      ],
+      "events": [
+        {
+          "name": "update:modelValue",
+          "type": "(value: GradientValue) => void",
+          "description": "Requests a new modelValue value (Gradient value, supports `v-model` two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（渐变值，可以使用 `v-model` 双向绑定），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Gradient value, supports `v-model` two-way binding); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
+        },
+        {
+          "name": "update:mode",
+          "type": "(mode: ColorMode) => void",
+          "description": "Requests a new mode value (Presentation of the color panel input: `hex`, `rgb` or `hsl`); the payload is the new value. With v-model:mode, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 mode（颜色面板输入区的展示类型，提供 3 种模式（`hex`、`rgb`、`hsl`）），参数为更新后的值。使用 v-model:mode 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new mode value (Presentation of the color panel input: `hex`, `rgb` or `hsl`); the payload is the new value. With v-model:mode, Vue synchronizes the binding automatically; no additional update handler is needed."
+        },
+        {
+          "name": "change",
+          "type": "(value: GradientValue) => void",
+          "description": "Called when the gradient changes; the argument is the new value (a stop list for `linear`, four colors for `corner`)",
+          "descriptionZh": "渐变值改变时触发，参数是新的渐变值（线性档为色标数组，四角档为四色数组）",
+          "descriptionEn": "Called when the gradient changes; the argument is the new value (a stop list for `linear`, four colors for `corner`)"
+        }
+      ],
+      "slots": [],
+      "examples": [
+        {
+          "title": "基本用法",
+          "file": "components/gradient-picker/demo/basic.vue",
+          "source": "<template>\n  <Space vertical>\n    <div class=\"gradient-picker-demo\">\n      <GradientPicker v-model=\"value\" alpha @change=\"onChange\" />\n    </div>\n    <code>linear: {{ linear }}</code>\n    <code>radial: {{ radial }}</code>\n    <div class=\"gradient-picker-demo\">\n      <GradientPicker :model-value=\"value\" disabled />\n    </div>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { formatGradient, type GradientStop, type GradientValue } from \"kui-vue\";\n\nconst value = ref<GradientValue>([\n  { color: \"#ffd166\", offset: 0 },\n  { color: \"#ef476f\", offset: 55 },\n  { color: \"#118ab2\", offset: 100 },\n]);\nconst stopsText = (stops: GradientStop[]) =>\n  stops.map((stop) => `${stop.color} ${stop.offset}%`).join(\", \");\nconst linear = ref(formatGradient(value.value));\nconst radial = ref(`radial-gradient(circle, ${stopsText(value.value as GradientStop[])})`);\n\nconst onChange = (next: GradientValue) => {\n  linear.value = formatGradient(next);\n  radial.value = `radial-gradient(circle, ${stopsText(next as GradientStop[])})`;\n};\n</script>\n\n<style scoped>\n.gradient-picker-demo {\n  width: 360px;\n}\n</style>"
+        },
+        {
+          "title": "四角渐变",
+          "file": "components/gradient-picker/demo/corner.vue",
+          "source": "<template>\n  <Space vertical>\n    <div class=\"gradient-picker-demo\">\n      <GradientPicker v-model=\"corner\" type=\"corner\" @change=\"onChange\" />\n    </div>\n    <code>colors: {{ colors }}</code>\n    <div class=\"gradient-picker-demo\">\n      <GradientPicker :model-value=\"corner\" type=\"corner\" disabled />\n    </div>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport type { CornerGradientValue, GradientValue } from \"kui-vue\";\n\nconst corner = ref<GradientValue>([\"#ffffff\", \"#a9f0d1\", \"#5fe08a\", \"#3cbf6b\"]);\nconst colors = ref((corner.value as CornerGradientValue).join(\", \"));\n\nconst onChange = (next: GradientValue) => {\n  colors.value = (next as CornerGradientValue).join(\", \");\n};\n</script>\n\n<style scoped>\n.gradient-picker-demo {\n  width: 360px;\n}\n</style>"
+        },
+        {
+          "title": "三种尺寸",
+          "file": "components/gradient-picker/demo/sizes.vue",
+          "source": "<template>\n  <Space vertical>\n    <div class=\"gradient-picker-demo\">\n      <GradientPicker v-model=\"small\" size=\"small\" />\n    </div>\n    <div class=\"gradient-picker-demo\">\n      <GradientPicker v-model=\"medium\" size=\"medium\" />\n    </div>\n    <div class=\"gradient-picker-demo\">\n      <GradientPicker v-model=\"large\" size=\"large\" />\n    </div>\n    <div class=\"gradient-picker-demo\">\n      <GradientPicker v-model=\"cornerSmall\" type=\"corner\" size=\"small\" />\n    </div>\n    <div class=\"gradient-picker-demo\">\n      <GradientPicker v-model=\"cornerMedium\" type=\"corner\" size=\"medium\" />\n    </div>\n    <div class=\"gradient-picker-demo\">\n      <GradientPicker v-model=\"cornerLarge\" type=\"corner\" size=\"large\" />\n    </div>\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport type { GradientValue } from \"kui-vue\";\n\nconst create = (): GradientValue => [\n  { color: \"#ffd166\", offset: 0 },\n  { color: \"#ef476f\", offset: 55 },\n  { color: \"#118ab2\", offset: 100 },\n];\n\nconst createCorner = (): GradientValue => [\"#ffd166\", \"#ef476f\", \"#118ab2\", \"#06d6a0\"];\n\nconst small = ref(create());\nconst medium = ref(create());\nconst large = ref(create());\nconst cornerSmall = ref(createCorner());\nconst cornerMedium = ref(createCorner());\nconst cornerLarge = ref(createCorner());\n</script>\n\n<style scoped>\n.gradient-picker-demo {\n  width: 360px;\n}\n</style>"
+        }
+      ]
+    },
+    {
+      "name": "createCornerGradient",
+      "behavior": {
+        "rules": []
+      },
+      "models": [],
+      "tags": [
+        "createCornerGradient",
+        "KcreateCornerGradient",
+        "k-create-corner-gradient",
+        "create-corner-gradient"
+      ],
+      "children": [],
+      "documentation": "https://k-ui.cn/components/create-corner-gradient",
+      "props": [],
+      "events": [],
+      "slots": [],
+      "examples": []
+    },
+    {
+      "name": "createLinearGradient",
+      "behavior": {
+        "rules": []
+      },
+      "models": [],
+      "tags": [
+        "createLinearGradient",
+        "KcreateLinearGradient",
+        "k-create-linear-gradient",
+        "create-linear-gradient"
+      ],
+      "children": [],
+      "documentation": "https://k-ui.cn/components/create-linear-gradient",
+      "props": [],
+      "events": [],
+      "slots": [],
+      "examples": []
+    },
+    {
+      "name": "formatGradient",
+      "behavior": {
+        "rules": []
+      },
+      "models": [],
+      "tags": [
+        "formatGradient",
+        "KformatGradient",
+        "k-format-gradient",
+        "format-gradient"
+      ],
+      "children": [],
+      "documentation": "https://k-ui.cn/components/format-gradient",
+      "props": [],
+      "events": [],
+      "slots": [],
+      "examples": []
     },
     {
       "name": "DatePickerPanel",
@@ -10004,6 +10311,21 @@
           "documented": true
         },
         {
+          "name": "draggable",
+          "description": "Allow dragging inside the input to adjust the value quickly",
+          "descriptionZh": "是否允许在输入框内拖动快速调节数值",
+          "descriptionEn": "Allow dragging inside the input to adjust the value quickly",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
           "name": "max",
           "description": "Maximum value",
           "descriptionZh": "最大值",
@@ -10347,6 +10669,11 @@
           "title": "扩展, 前缀、后缀与附件",
           "file": "components/input-number/demo/ffix.vue",
           "source": "<template>\n  <Space block vertical>\n    <InputNumber placeholder=\"Please input amount\" suffix=\"元\" prefix=\"¥\" />\n    <InputNumber placeholder=\"Please input amount\" :step=\"50\" suffix=\"元\" prefix=\"充值\" />\n    <InputNumber placeholder=\"Please input amount\" suffix=\".00\" />\n  </Space>\n  <Divider text=\"addons\" />\n  <Space block vertical>\n    <InputNumber placeholder=\"Please input amount\" addon-before=\"¥\" addon-after=\"RMB\" />\n    <InputNumber placeholder=\"Please input weight\" addon-after=\"kg\" />\n  </Space>\n  <Divider text=\"slot\" />\n  <Space vertical block>\n    <InputNumber placeholder=\"请填写您的薪资\" :icon=\"LogoYen\">\n      <template #addonAfter>\n        <Tooltip title=\"此处如果不知道怎么填，请咨询管理员\">\n          <Button :icon=\"CircleQuestionMark\" />\n        </Tooltip>\n      </template>\n    </InputNumber>\n    <InputNumber placeholder=\"Please input amount\">\n      <template #addonBefore>\n        <Button :icon=\"UserPlus\" />\n      </template>\n      <template #addonAfter>\n        <Button>Top up</Button>\n      </template>\n    </InputNumber>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { CircleQuestionMark, LogoYen, UserPlus } from \"kui-icons\";\n</script>"
+        },
+        {
+          "title": "拖动调节",
+          "file": "components/input-number/demo/drag.vue",
+          "source": "<template>\n  <Space vertical block style=\"max-width: 280px\">\n    <span>Drag inside the input left or right; click to type, double-click to select.</span>\n    <InputNumber v-model=\"amount\" :min=\"0\" :max=\"10000\" addon-after=\"USD\" />\n    <InputNumber v-model=\"decimal\" :step=\"0.01\" :precision=\"2\" :min=\"0\" :max=\"100\" />\n    <InputNumber :value=\"10\" :draggable=\"false\" placeholder=\"Drag disabled\" />\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nconst amount = ref<number | undefined>(100);\nconst decimal = ref<number | undefined>(1.25);\n</script>"
         },
         {
           "title": "尺寸",
@@ -12502,6 +12829,20 @@
           "documented": true
         },
         {
+          "name": "arrowPointAtCenter",
+          "description": "Point the arrow at the trigger center instead of aligning panel edges; requires a visible arrow",
+          "descriptionZh": "让箭头中心指向触发器中心；默认按面板边缘或中心对齐，需有箭头时才生效",
+          "descriptionEn": "Point the arrow at the trigger center instead of aligning panel edges; requires a visible arrow",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "panelOnly",
           "description": "Render only the popover panel without a trigger",
           "descriptionZh": "仅渲染气泡面板，不需要触发元素",
@@ -12687,6 +13028,20 @@
           ],
           "required": false,
           "defaultExpression": "true",
+          "documented": true
+        },
+        {
+          "name": "arrowPointAtCenter",
+          "description": "Point the arrow at the trigger center instead of aligning panel edges; requires a visible arrow",
+          "descriptionZh": "让箭头中心指向触发器中心；默认按面板边缘或中心对齐，需有箭头时才生效",
+          "descriptionEn": "Point the arrow at the trigger center instead of aligning panel edges; requires a visible arrow",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
           "documented": true
         },
         {
@@ -18989,6 +19344,20 @@
           "description": "Disabled status",
           "descriptionZh": "禁用状态",
           "descriptionEn": "Disabled status",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "arrowPointAtCenter",
+          "description": "Point the arrow at the trigger center instead of aligning panel edges; requires a visible arrow",
+          "descriptionZh": "让箭头中心指向触发器中心；默认按面板边缘或中心对齐，需有箭头时才生效",
+          "descriptionEn": "Point the arrow at the trigger center instead of aligning panel edges; requires a visible arrow",
           "type": "boolean | undefined",
           "boolean": true,
           "enumValues": [

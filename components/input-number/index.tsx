@@ -5,6 +5,7 @@ import {
   computed,
   defineComponent,
   inject,
+  onBeforeUnmount,
   ref,
   watch,
   type ExtractPropTypes,
@@ -22,6 +23,7 @@ import Icon, { type IconType } from "../icon";
 import { resolveTheme } from "../config/context";
 import InputBase from "../input/input-base";
 import { isValidBig, normalize } from "../utils/number";
+import { startNumberDrag } from "./drag";
 
 const inputNumberProps = {
   modelValue: [Number, String] as PropType<number | string>,
@@ -35,6 +37,7 @@ const inputNumberProps = {
   disabled: Boolean as BooleanType,
   readonly: Boolean as BooleanType,
   controls: { type: Boolean as BooleanType, default: true },
+  draggable: { type: Boolean as BooleanType, default: true },
   keyboard: { type: Boolean as BooleanType, default: true },
   suffix: { type: [String, Object] as PropType<VNodeChild> },
   prefix: { type: [String, Object] as PropType<VNodeChild> },
@@ -70,6 +73,19 @@ const InputNumber = defineComponent({
     const parentSize = inject<SizeType | undefined>("size", undefined);
     const innerValue = ref("");
     const userInput = ref<string | null>(null);
+    const blocked = () =>
+      Boolean(
+        props.disabled ||
+        field?.disabled.value ||
+        props.readonly ||
+        field?.readonly.value ||
+        !props.draggable,
+      );
+    let stopDrag = () => {};
+    onBeforeUnmount(() => stopDrag());
+    watch(blocked, (value) => {
+      if (value) stopDrag();
+    });
     const safePrecision = computed(() =>
       props.precision === undefined ? undefined : Math.max(0, Math.trunc(props.precision)),
     );
@@ -248,7 +264,37 @@ const InputNumber = defineComponent({
             prefix: () => slots.prefix?.(),
             addonBefore: () => slots.addonBefore?.(),
             addonAfter: () => slots.addonAfter?.(),
-            controls: () => controls,
+            controls: () => (
+              <>
+                {!blocked() && (
+                  <span
+                    class="k-input-number-drag"
+                    aria-hidden="true"
+                    onDblclick={(event: MouseEvent) =>
+                      (event.currentTarget as HTMLElement).parentElement
+                        ?.querySelector("input")
+                        ?.select()
+                    }
+                    onPointerdown={(event: PointerEvent) => {
+                      stopDrag();
+                      stopDrag = startNumberDrag(event, {
+                        value: isValidBig(innerValue.value) ? innerValue.value : "0",
+                        step: props.step,
+                        blocked,
+                        update: (value) => {
+                          const next = clamp(value);
+                          if (next === innerValue.value) return;
+                          innerValue.value = next;
+                          userInput.value = null;
+                          emitValue(Number(next));
+                        },
+                      });
+                    }}
+                  />
+                )}
+                {controls}
+              </>
+            ),
           }}
         />
       );

@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { Button, Checkbox, Popup, Space } from "kui-vue";
 const arrow = ref(true);
+const arrowPointAtCenter = ref(false);
 const placements = [
   "top-left",
   "top",
@@ -20,6 +21,7 @@ const placements = [
 <template>
   <Space vertical>
     <Checkbox v-model="arrow">Show arrow</Checkbox>
+    <Checkbox v-model="arrowPointAtCenter">Point arrow at trigger center</Checkbox>
     <div
       style="
         display: grid;
@@ -33,6 +35,7 @@ const placements = [
         :key="placement"
         :placement="placement"
         :arrow="arrow"
+        :arrow-point-at-center="arrowPointAtCenter"
         :offset="10"
       >
         <Button>{{ placement }}</Button>

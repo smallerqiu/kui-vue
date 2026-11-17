@@ -22,6 +22,7 @@ const poptipProps = {
     type: String as PropType<"click" | "hover" | "focus">,
     default: "hover",
   },
+  arrowPointAtCenter: Boolean as BooleanType,
   placement: {
     type: String as PropType<PlacementsType>,
     default: "top",
@@ -53,6 +54,7 @@ const Poptip = defineComponent({
         open={visible.value}
         trigger={props.trigger}
         placement={props.placement}
+        arrowPointAtCenter={props.arrowPointAtCenter}
         panelOnly={props.panelOnly}
         arrow
         respectDefaultPrevented={false}

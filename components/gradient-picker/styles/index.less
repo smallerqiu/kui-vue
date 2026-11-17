@@ -1,0 +1,209 @@
+@import "../../styles/less-css-var.less";
+
+// The editor is the component: a painted bar with one square handle per color, or a painted
+// rectangle with one handle per corner. Picking a handle opens the shared color panel above it.
+
+// Colors may carry alpha, so every painted area sits on a checkerboard: a translucent stop then reads
+// as transparency instead of borrowing the color of whatever happens to be behind the component.
+.gradient-checker(@size: 11px) {
+  background-image:
+    linear-gradient(-45deg, var(--kui-color-checkerboard) 25%, transparent 0),
+    linear-gradient(45deg, var(--kui-color-checkerboard) 25%, transparent 0),
+    linear-gradient(-45deg, transparent 75%, var(--kui-color-checkerboard) 0),
+    linear-gradient(45deg, transparent 75%, var(--kui-color-checkerboard) 0);
+  background-size: @size @size;
+  background-position:
+    0 0,
+    0 -(@size / 2),
+    -(@size / 2) (@size / 2),
+    (@size / 2) 0;
+}
+
+// The bar plus the handle lane add up to the control heights (24 / 32 / 40); the corner block
+// (padding + fill) does the same. Both editors line up with the controls around them in every size.
+.gradient-size(@bar; @lane; @handle; @handle-top; @tail; @tail-width; @corner-pad; @corner-fill) {
+  .k-gradient-picker-bar {
+    height: @bar;
+  }
+
+  .k-gradient-picker-stops {
+    height: @lane;
+  }
+
+  .k-gradient-picker-stop {
+    top: @handle-top;
+    width: @handle;
+    height: @handle;
+    margin-left: -(@handle / 2);
+
+    &::before {
+      border-left-width: @tail-width;
+      border-right-width: @tail-width;
+      border-bottom-width: @tail;
+    }
+  }
+
+  .k-gradient-picker-corners {
+    padding: @corner-pad;
+  }
+
+  .k-gradient-picker-corners-fill {
+    height: @corner-fill;
+  }
+
+  .k-gradient-picker-corner {
+    width: @handle;
+    height: @handle;
+  }
+}
+
+.k-gradient-picker {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  user-select: none;
+
+  .gradient-size(14px; 18px; 12px; 6px; 6px; 4px; 4px; 24px);
+
+  .k-gradient-picker-bar {
+    .gradient-checker();
+    box-shadow: inset 0 0 0 1px var(--kui-color-shadow);
+  }
+
+  .k-gradient-picker-bar-fill {
+    height: 100%;
+    background-size: 100% 100%;
+  }
+
+  .k-gradient-picker-stops {
+    position: relative;
+    cursor: crosshair;
+  }
+
+  .k-gradient-picker-stop {
+    .gradient-checker(5px);
+    position: absolute;
+    box-sizing: border-box;
+    border: 1px solid var(--kui-color-border);
+    border-radius: 3px;
+    cursor: ew-resize;
+    transition:
+      transform 0.15s,
+      opacity 0.15s;
+
+    // The tail joining the handle to the bar.
+    &::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 100%;
+      width: 0;
+      height: 0;
+      transform: translateX(-50%);
+      border-left-style: solid;
+      border-right-style: solid;
+      border-left-color: transparent;
+      border-right-color: transparent;
+      border-bottom-style: solid;
+      // Fixed neutral: the tail sits on the bar, so it must stay visible whatever the stop color is
+      // (a white or black stop would otherwise either disappear or look like part of the swatch).
+      border-bottom-color: var(--kui-color-icon);
+    }
+
+    &:focus-visible {
+      outline: var(--kui-focus-ring-width) solid var(--kui-color-primary);
+      outline-offset: 1px;
+    }
+
+    .k-gradient-picker-stop-color {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+    }
+
+    &.k-gradient-picker-stop-removing {
+      opacity: 0.35;
+      transform: scale(0.7);
+    }
+  }
+
+  .k-gradient-picker-corners {
+    position: relative;
+  }
+
+  .k-gradient-picker-corners-fill {
+    .gradient-checker();
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: inset 0 0 0 1px var(--kui-color-shadow);
+  }
+
+  .k-gradient-picker-corners-color {
+    height: 100%;
+    background-size: 100% 100%;
+  }
+
+  .k-gradient-picker-corner {
+    .gradient-checker(5px);
+    position: absolute;
+    padding: 0;
+    box-sizing: border-box;
+    border: 1px solid var(--kui-color-border);
+    border-radius: 3px;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: var(--kui-focus-ring-width) solid var(--kui-color-primary);
+      outline-offset: 1px;
+    }
+
+    .k-gradient-picker-corner-color {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+    }
+  }
+
+  .k-gradient-picker-corner-tl {
+    left: 0;
+    top: 0;
+  }
+
+  .k-gradient-picker-corner-tr {
+    right: 0;
+    top: 0;
+  }
+
+  .k-gradient-picker-corner-bl {
+    left: 0;
+    bottom: 0;
+  }
+
+  .k-gradient-picker-corner-br {
+    right: 0;
+    bottom: 0;
+  }
+}
+
+.k-gradient-picker-sm {
+  .gradient-size(10px; 14px; 10px; 4px; 4px; 3px; 3px; 18px);
+}
+
+.k-gradient-picker-lg {
+  .gradient-size(18px; 22px; 16px; 6px; 6px; 5px; 5px; 30px);
+}
+
+.k-gradient-picker-disabled,
+.k-gradient-picker-readonly {
+  .k-gradient-picker-stop,
+  .k-gradient-picker-corner {
+    cursor: not-allowed;
+  }
+}
+
+.k-gradient-picker-disabled {
+  .k-gradient-picker-bar,
+  .k-gradient-picker-corners-fill {
+    opacity: var(--kui-disabled-opacity);
+  }
+}

@@ -32,6 +32,7 @@
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| arrowPointAtCenter | 让箭头中心指向触发器中心；默认按面板边缘或中心对齐，需有箭头时才生效 | `boolean` | false |
 | modelValue | 颜色值,可以使用 `v-model` 双向绑定 | `string` | - |
 | value | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | `string` | - |
 | opened | 默认是否展开颜色面板 | `boolean` | false |

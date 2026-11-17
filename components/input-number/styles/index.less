@@ -42,6 +42,19 @@
     visibility: hidden;
   }
 }
+.k-input-number-drag {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  cursor: ew-resize;
+  touch-action: none;
+  user-select: none;
+}
+.k-input-number-prefix,
+.k-input-number-suffix {
+  position: relative;
+  z-index: 2;
+}
 .k-input-number-circle {
   border-radius: var(--kui-shape-circle);
 }
@@ -49,6 +62,8 @@
   border-radius: var(--kui-shape-square);
 }
 .k-input-number-controls {
+  position: relative;
+  z-index: 2;
   transition:
     color 0.15s ease-in-out,
     opacity 0.15s ease-in-out;
@@ -117,8 +132,7 @@
 }
 .k-input-number-focus {
   outline-offset: 1px;
-  outline: var(--kui-focus-ring-width) solid
-    var(--kui-color-outline, @main-8);
+  outline: var(--kui-focus-ring-width) solid var(--kui-color-outline, @main-8);
 }
 .k-input-number-focus:not(
   .k-input-number-fill,

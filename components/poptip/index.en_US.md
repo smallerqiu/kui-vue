@@ -30,6 +30,7 @@ The difference from `Tooltip` is that users can operate on elements in the float
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
+| arrowPointAtCenter | Point the arrow at the trigger center instead of aligning panel edges; requires a visible arrow | `boolean` | false |
 | trigger | Trigger method: `hover`, `click`, or `focus` | `"hover" \| "click" \| "focus"` | hover |
 | title | Displayed title | `VNodeChild` | - |
 | content | Displayed main content | `string` | - |

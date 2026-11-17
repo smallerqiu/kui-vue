@@ -32,6 +32,7 @@ Freely output colors.
 
 | Property | Description | Type | Default |
 | --- | --- | --- | --- |
+| arrowPointAtCenter | Point the arrow at the trigger center instead of aligning panel edges; requires a visible arrow | `boolean` | false |
 | modelValue | Color value, can use `v-model` for two-way binding | `string` | - |
 | value | Initial value, read only on mount. Use modelValue for subsequent updates; modelValue takes precedence when both are provided. | `string` | - |
 | opened | Whether the color panel is displayed by default | `boolean` | false |

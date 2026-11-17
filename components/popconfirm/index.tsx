@@ -27,6 +27,7 @@ const popconfirmProps = {
   width: [Number, String],
   okText: { type: String },
   cancelText: { type: String },
+  arrowPointAtCenter: Boolean as BooleanType,
   placement: {
     type: String as PropType<PlacementsType>,
     default: "top",
@@ -60,6 +61,7 @@ const Popconfirm = defineComponent({
         open={visible.value}
         trigger={"click"}
         placement={props.placement}
+        arrowPointAtCenter={props.arrowPointAtCenter}
         panelOnly={props.panelOnly}
         arrow
         respectDefaultPrevented={false}
