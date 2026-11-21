@@ -46,6 +46,7 @@
 
 | 属性 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
+| subMenuOpenDelay | 弹出式子菜单的鼠标悬停展开延迟（毫秒），快速经过不展开；设为 0 可立即展开，不影响键盘操作或 inline 点击展开 | `number` | 200 |
 | modelValue | 当前选中的菜单项（v-model） | `string[]` | - |
 | value | 初始值，仅初始化时读取；后续更新使用 modelValue，同时传入时 modelValue 优先。 | `string[]` | [] |
 | theme | 局部主题，未设置时继承全局主题 | `"light" \| "dark"` | - |

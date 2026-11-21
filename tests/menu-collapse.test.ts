@@ -65,7 +65,7 @@ describe("Menu inline collapse", () => {
   it("keeps a teleported submenu hidden until popup positioning is ready", async () => {
     const wrapper = mount(Menu, {
       attachTo: document.body,
-      props: { mode: "inline", inlineCollapsed: true },
+      props: { mode: "inline", inlineCollapsed: true, subMenuOpenDelay: 0 },
       slots: {
         default: () =>
           h(SubMenu, { key: "group", title: "Group" }, () =>
@@ -87,9 +87,9 @@ describe("Menu inline collapse", () => {
     expect(popup?.style.visibility).toBe("hidden");
 
     await new Promise((resolve) => setTimeout(resolve, 20));
-    expect(document.body.querySelector<HTMLElement>(".k-menu-submenu-popup")?.style.visibility).toBe(
-      "",
-    );
+    expect(
+      document.body.querySelector<HTMLElement>(".k-menu-submenu-popup")?.style.visibility,
+    ).toBe("");
     wrapper.unmount();
   });
 
@@ -188,7 +188,7 @@ describe("Menu inline collapse", () => {
         .querySelector(".k-menu-submenu-title")!
         .dispatchEvent(new MouseEvent("mouseenter", { bubbles: false }));
       await nextTick();
-      await vi.advanceTimersByTimeAsync(100);
+      await vi.advanceTimersByTimeAsync(300);
       // The hover report comes back as an openKeys prop update; it must not replace memory.
       expect(openKeys.value).toEqual(["root"]);
       collapsed.value = false;

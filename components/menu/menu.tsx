@@ -30,6 +30,7 @@ const menuProps = {
   items: Array as PropType<MenuOptionsProps[]>,
   inlineCollapsed: Boolean as BooleanType,
   collapsedTooltip: { type: Boolean as BooleanType, default: true },
+  subMenuOpenDelay: { type: Number, default: 200 },
   openKeys: { type: Array as PropType<string[]>, default: () => [] },
 };
 const overflowMenuKey = "__kui_menu_overflow__";
@@ -261,6 +262,7 @@ const Menu = defineComponent({
       // 与 react 版一致：上下文中暴露原始 prop，子项自行结合 mode 判断是否处于折叠呈现。
       inlineCollapsed: computed(() => !!props.inlineCollapsed),
       collapsedTooltip: computed(() => props.collapsedTooltip),
+      subMenuOpenDelay: computed(() => props.subMenuOpenDelay),
       popupInlineCollapsed: computed(() => collapsedInline.value && popupInlineCollapsed.value),
       inlineTransition,
       inlineOpenKeys: tempOpenKeys,

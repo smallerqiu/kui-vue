@@ -5,92 +5,193 @@
   height: 100%;
   overflow: hidden;
   box-sizing: border-box;
+  &.is-horizontal {
+    flex-direction: row;
+  }
+  &.is-vertical {
+    flex-direction: column;
+  }
 }
-
-.k-splitter.is-horizontal {
-  flex-direction: row;
-}
-.k-splitter.is-vertical {
-  flex-direction: column;
-}
-
 .k-splitter-item {
   position: relative;
   overflow: hidden;
-  flex-grow: 0;
-  flex-shrink: 0;
   min-width: 0;
   min-height: 0;
+  &.is-collapsed {
+    visibility: hidden;
+  }
 }
-
 .k-splitter-panel {
   height: 100%;
   width: 100%;
 }
-
 .k-splitter-resizer {
   flex: 0 0 4px;
-  z-index: 10;
+  z-index: 1;
   position: relative;
   &::before {
     content: "";
     position: absolute;
-    background-color: var(--kui-color-border);
+    background: var(--kui-color-border);
+    pointer-events: none;
   }
+  &:hover,
+  &:focus-within,
+  &.is-active,
+  &.is-restorable {
+    z-index: 2;
+    > .k-splitter-actions {
+      opacity: 1;
+    }
+  }
+}
+.k-splitter-handle {
+  position: absolute;
+  z-index: 1;
+  touch-action: none;
+  outline: none;
   &::after {
     content: "";
     position: absolute;
-    background-color: var(--kui-color-bg-4);
+    background: var(--kui-color-bg-4);
     border-radius: 4px;
   }
+  &:not([aria-disabled]):hover::after {
+    background: var(--kui-color-primary);
+  }
+  &:focus-visible::after {
+    background: var(--kui-color-primary);
+    outline: 2px solid var(--kui-color-primary);
+    outline-offset: 2px;
+  }
+  &[aria-disabled] {
+    cursor: not-allowed;
+  }
 }
-
-.is-horizontal > .k-splitter-resizer {
-  width: 4px;
-  cursor: col-resize;
+.k-splitter-resizer.is-active > .k-splitter-handle::after {
+  background: var(--kui-color-primary);
+}
+.k-splitter-actions {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 4px;
+  opacity: 0;
+  &:empty {
+    display: none;
+  }
+}
+.k-splitter-collapse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--kui-color-border);
+  border-radius: 4px;
+  background: var(--kui-color-bg);
+  color: var(--kui-color-text);
+  font: inherit;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  &:not(:disabled):hover {
+    color: var(--kui-color-primary);
+    border-color: var(--kui-color-primary);
+  }
+  &:not(:disabled):active {
+    background: var(--kui-color-bg-4);
+  }
+  &:focus-visible {
+    outline: 2px solid var(--kui-color-primary);
+    outline-offset: 2px;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+.k-splitter-preview {
+  position: absolute;
+  z-index: 4;
+  background: var(--kui-color-primary);
+  pointer-events: none;
+}
+.k-splitter.is-horizontal > .k-splitter-resizer {
   &::before {
-    left: 50%;
-    height: 100%;
-    transform: translateX(-50%);
+    left: 1.5px;
     width: 1px;
-  }
-  &::after {
-    top: 50%;
-    transform: translateY(-50%);
-    height: 30px;
-    width: 100%;
-  }
-}
-
-.is-vertical > .k-splitter-resizer {
-  height: 4px;
-  cursor: row-resize;
-  &::before {
-    top: 50%;
-    width: 100%;
-    transform: translateY(-50%);
-    height: 1px;
-  }
-  &::after {
-    left: 50%;
-    transform: translateX(-50%);
-    width: 30px;
     height: 100%;
   }
-}
-
-.k-splitter-resizer:hover {
-  &::after {
-    background-color: var(--kui-color-bg-5);
+  > .k-splitter-handle {
+    inset: 0 -4px;
+    cursor: col-resize;
+    &[aria-disabled] {
+      cursor: not-allowed;
+    }
+    &::after {
+      left: 4px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 30px;
+    }
+  }
+  > .k-splitter-actions {
+    flex-direction: column;
+    left: calc(50% + 16px);
+  }
+  &.is-after-collapsed > .k-splitter-actions {
+    left: calc(50% - 16px);
+  }
+  .k-splitter-collapse {
+    width: 18px;
+    height: 24px;
+  }
+  > .k-splitter-preview {
+    inset: 0 1px;
   }
 }
-
-.k-splitter-resizer:focus-visible {
-  outline: 2px solid var(--kui-color-primary);
-  outline-offset: -2px;
-
-  &::after {
-    background-color: var(--kui-color-primary);
+.k-splitter.is-vertical > .k-splitter-resizer {
+  &::before {
+    top: 1.5px;
+    height: 1px;
+    width: 100%;
+  }
+  > .k-splitter-handle {
+    inset: -4px 0;
+    cursor: row-resize;
+    &[aria-disabled] {
+      cursor: not-allowed;
+    }
+    &::after {
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 4px;
+    }
+  }
+  > .k-splitter-actions {
+    flex-direction: row;
+    top: calc(50% + 16px);
+  }
+  &.is-after-collapsed > .k-splitter-actions {
+    top: calc(50% - 16px);
+  }
+  .k-splitter-collapse {
+    width: 24px;
+    height: 18px;
+  }
+  > .k-splitter-preview {
+    inset: 1px 0;
+  }
+}
+@media (hover: none) {
+  .k-splitter-actions {
+    opacity: 1;
   }
 }
 .k-splitter-dragging {

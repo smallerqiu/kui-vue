@@ -162,6 +162,11 @@ export type PublicEventContract = [
   Assert<TypedHandler<InstanceType<typeof Components.Splitter>["$props"]["onResize"]>>,
   Assert<TypedHandler<InstanceType<typeof Components.Splitter>["$props"]["onResizeStart"]>>,
   Assert<TypedHandler<InstanceType<typeof Components.Splitter>["$props"]["onResizeEnd"]>>,
+  Assert<TypedHandler<InstanceType<typeof Components.Splitter>["$props"]["onChange"]>>,
+  Assert<TypedHandler<InstanceType<typeof Components.Splitter>["$props"]["onCollapse"]>>,
+  Assert<
+    TypedHandler<InstanceType<typeof Components.SplitterPanel>["$props"]["onUpdate:collapsed"]>
+  >,
   Assert<TypedHandler<InstanceType<typeof Components.Steps>["$props"]["onChange"]>>,
   Assert<TypedHandler<InstanceType<typeof Components.Switch>["$props"]["onUpdate:modelValue"]>>,
   Assert<TypedHandler<InstanceType<typeof Components.Switch>["$props"]["onUpdate:checked"]>>,

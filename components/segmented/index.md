@@ -14,7 +14,7 @@
 
 [带图标的选项](./demo/icon.vue)
 
-- 通过 `options[].icon` 为选项添加图标。
+- 通过 `options[].icon` 为选项添加图标。只传 `value` 和 `icon`、不设置 `label` 时仅显示图标，适合列表 / 网格布局切换；`value` 仍用于选中状态与变更回调，并作为纯图标选项的无障碍名称。需要图文并排时显式设置 `label`。
 
 [自定义标签](./demo/label.vue)
 

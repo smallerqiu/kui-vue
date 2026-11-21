@@ -234,7 +234,7 @@ it("moves individual Fragment items into overflow and restores them on resize", 
   vi.spyOn(HTMLElement.prototype, "clientWidth", "get").mockImplementation(() => availableWidth);
   const wrapper = mount(Menu, {
     attachTo: document.body,
-    props: { mode: "horizontal", style: { padding: "0px" } },
+    props: { mode: "horizontal", subMenuOpenDelay: 0, style: { padding: "0px" } },
     slots: {
       default: () => [
         createCommentVNode("v-if"),

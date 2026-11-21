@@ -1,7 +1,7 @@
 {
   "$schema": "https://k-ui.cn/schema/kui-components.schema.json",
   "library": "kui-vue",
-  "version": "6.4.0",
+  "version": "6.5.0",
   "homepage": "https://k-ui.cn",
   "components": [
     {
@@ -11009,6 +11009,17 @@
           "documented": true
         },
         {
+          "name": "subMenuOpenDelay",
+          "description": "Hover-open delay for popup submenus in milliseconds; passing over does not open them. Set to 0 for immediate opening. Keyboard and inline click interactions remain immediate",
+          "descriptionZh": "弹出式子菜单的鼠标悬停展开延迟（毫秒），快速经过不展开；设为 0 可立即展开，不影响键盘操作或 inline 点击展开",
+          "descriptionEn": "Hover-open delay for popup submenus in milliseconds; passing over does not open them. Set to 0 for immediate opening. Keyboard and inline click interactions remain immediate",
+          "type": "number",
+          "boolean": false,
+          "required": false,
+          "defaultExpression": "200",
+          "documented": true
+        },
+        {
           "name": "theme",
           "description": "Local theme; inherits global theme when omitted",
           "descriptionZh": "局部主题，未设置时继承全局主题",
@@ -14699,7 +14710,7 @@
         {
           "title": "带图标的选项",
           "file": "components/segmented/demo/icon.vue",
-          "source": "<template>\n  <Segmented v-model=\"device\" :options=\"options\" />\n</template>\n\n<script setup lang=\"ts\">\nimport { Monitor, Smartphone, Tablet } from \"kui-icons\";\nimport { ref } from \"vue\";\n\nconst device = ref(\"desktop\");\nconst options = [\n  { label: \"Desktop\", value: \"desktop\", icon: Monitor },\n  { label: \"Tablet\", value: \"tablet\", icon: Tablet },\n  { label: \"Mobile\", value: \"mobile\", icon: Smartphone },\n];\n</script>"
+          "source": "<template>\n  <Space vertical>\n    <Segmented v-model=\"device\" :options=\"options\" />\n    <Segmented v-model=\"layout\" :options=\"layoutOptions\" aria-label=\"Layout\" />\n  </Space>\n</template>\n\n<script setup lang=\"ts\">\nimport { Monitor, Smartphone, Tablet, List, LayoutGrid } from \"kui-icons\";\nimport { ref } from \"vue\";\n\nconst device = ref(\"desktop\");\nconst layout = ref(\"list\");\nconst layoutOptions = [\n  { value: \"list\", icon: List },\n  { value: \"grid\", icon: LayoutGrid },\n];\nconst options = [\n  { label: \"Desktop\", value: \"desktop\", icon: Monitor },\n  { label: \"Tablet\", value: \"tablet\", icon: Tablet },\n  { label: \"Mobile\", value: \"mobile\", icon: Smartphone },\n];\n</script>"
         },
         {
           "title": "自定义标签",
@@ -18154,7 +18165,13 @@
       "behavior": {
         "rules": []
       },
-      "models": [],
+      "models": [
+        {
+          "prop": "modelValue",
+          "event": "update:modelValue",
+          "directive": "v-model"
+        }
+      ],
       "tags": [
         "Splitter",
         "KSplitter",
@@ -18167,26 +18184,93 @@
       "documentation": "https://k-ui.cn/components/splitter",
       "props": [
         {
+          "name": "disabled",
+          "description": "Disable pointer resizing, keyboard resizing and collapse controls",
+          "descriptionZh": "禁用拖拽、键盘调整和折叠按钮",
+          "descriptionEn": "Disable pointer resizing, keyboard resizing and collapse controls",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
           "name": "direction",
           "description": "Layout direction",
           "descriptionZh": "布局方向",
           "descriptionEn": "Layout direction",
-          "type": "DirectionType",
+          "type": "\"horizontal\" | \"vertical\"",
           "boolean": false,
           "enumValues": [
             "horizontal",
-            "vertical",
-            "inline"
+            "vertical"
           ],
           "required": false,
           "defaultExpression": "\"horizontal\"",
           "documented": true
         },
         {
+          "name": "lazy",
+          "description": "Move a preview guide and apply sizes on release",
+          "descriptionZh": "拖动时只展示参考线，松开后应用尺寸",
+          "descriptionEn": "Move a preview guide and apply sizes on release",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "modelValue",
+          "description": "Current panel sizes in pixels; supports v-model",
+          "descriptionZh": "当前面板尺寸数组（px），支持 v-model",
+          "descriptionEn": "Current panel sizes in pixels; supports v-model",
+          "type": "number[] | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "value",
+          "description": "Initial panel sizes in pixels; takes precedence over panel size",
+          "descriptionZh": "初始面板尺寸数组（px），优先于面板的 size",
+          "descriptionEn": "Initial panel sizes in pixels; takes precedence over panel size",
+          "type": "number[] | undefined",
+          "boolean": false,
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "onUpdate:modelValue",
+          "description": "Requests a new modelValue value (Current panel sizes in pixels; supports v-model); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（当前面板尺寸数组（px），支持 v-model），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Current panel sizes in pixels; supports v-model); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "type": "(sizes: number[]) => void",
+          "eventName": "update:modelValue",
+          "boolean": false,
+          "documented": false
+        },
+        {
+          "name": "onChange",
+          "description": "Applied layout changed, including container resizing and collapsing",
+          "descriptionZh": "已应用的布局变化时触发，包括容器缩放和折叠",
+          "descriptionEn": "Applied layout changed, including container resizing and collapsing",
+          "type": "(sizes: number[]) => void",
+          "eventName": "change",
+          "boolean": false,
+          "documented": true
+        },
+        {
           "name": "onResize",
-          "description": "Emitted while panel sizes change",
-          "descriptionZh": "面板大小变化时触发",
-          "descriptionEn": "Emitted while panel sizes change",
+          "description": "Pointer or keyboard resizing; preview mode reports proposed sizes",
+          "descriptionZh": "拖动或键盘调整时触发；参考线模式返回预览尺寸",
+          "descriptionEn": "Pointer or keyboard resizing; preview mode reports proposed sizes",
           "type": "(sizes: number[]) => void",
           "eventName": "resize",
           "boolean": false,
@@ -18194,9 +18278,9 @@
         },
         {
           "name": "onResizeStart",
-          "description": "Emitted when resizing starts",
-          "descriptionZh": "开始调整大小时触发",
-          "descriptionEn": "Emitted when resizing starts",
+          "description": "Resizing started",
+          "descriptionZh": "开始调整尺寸时触发",
+          "descriptionEn": "Resizing started",
           "type": "(sizes: number[]) => void",
           "eventName": "resizeStart",
           "boolean": false,
@@ -18204,36 +18288,67 @@
         },
         {
           "name": "onResizeEnd",
-          "description": "Emitted when resizing ends",
-          "descriptionZh": "调整大小结束时触发",
-          "descriptionEn": "Emitted when resizing ends",
+          "description": "Resizing ended or was cancelled; reports final sizes",
+          "descriptionZh": "结束或取消调整尺寸时触发，返回最终尺寸",
+          "descriptionEn": "Resizing ended or was cancelled; reports final sizes",
           "type": "(sizes: number[]) => void",
           "eventName": "resizeEnd",
+          "boolean": false,
+          "documented": true
+        },
+        {
+          "name": "onCollapse",
+          "description": "Panel collapse toggled by a button; index starts at zero",
+          "descriptionZh": "通过按钮切换面板折叠状态时触发，index 从 0 开始",
+          "descriptionEn": "Panel collapse toggled by a button; index starts at zero",
+          "type": "(index: number, collapsed: boolean) => void",
+          "eventName": "collapse",
           "boolean": false,
           "documented": true
         }
       ],
       "events": [
         {
+          "name": "update:modelValue",
+          "type": "(sizes: number[]) => void",
+          "description": "Requests a new modelValue value (Current panel sizes in pixels; supports v-model); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 modelValue（当前面板尺寸数组（px），支持 v-model），参数为更新后的值。使用 v-model 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new modelValue value (Current panel sizes in pixels; supports v-model); the payload is the new value. With v-model, Vue synchronizes the binding automatically; no additional update handler is needed."
+        },
+        {
+          "name": "change",
+          "type": "(sizes: number[]) => void",
+          "description": "Applied layout changed, including container resizing and collapsing",
+          "descriptionZh": "已应用的布局变化时触发，包括容器缩放和折叠",
+          "descriptionEn": "Applied layout changed, including container resizing and collapsing"
+        },
+        {
           "name": "resize",
           "type": "(sizes: number[]) => void",
-          "description": "Emitted while panel sizes change",
-          "descriptionZh": "面板大小变化时触发",
-          "descriptionEn": "Emitted while panel sizes change"
+          "description": "Pointer or keyboard resizing; preview mode reports proposed sizes",
+          "descriptionZh": "拖动或键盘调整时触发；参考线模式返回预览尺寸",
+          "descriptionEn": "Pointer or keyboard resizing; preview mode reports proposed sizes"
         },
         {
           "name": "resizeStart",
           "type": "(sizes: number[]) => void",
-          "description": "Emitted when resizing starts",
-          "descriptionZh": "开始调整大小时触发",
-          "descriptionEn": "Emitted when resizing starts"
+          "description": "Resizing started",
+          "descriptionZh": "开始调整尺寸时触发",
+          "descriptionEn": "Resizing started"
         },
         {
           "name": "resizeEnd",
           "type": "(sizes: number[]) => void",
-          "description": "Emitted when resizing ends",
-          "descriptionZh": "调整大小结束时触发",
-          "descriptionEn": "Emitted when resizing ends"
+          "description": "Resizing ended or was cancelled; reports final sizes",
+          "descriptionZh": "结束或取消调整尺寸时触发，返回最终尺寸",
+          "descriptionEn": "Resizing ended or was cancelled; reports final sizes"
+        },
+        {
+          "name": "collapse",
+          "type": "(index: number, collapsed: boolean) => void",
+          "description": "Panel collapse toggled by a button; index starts at zero",
+          "descriptionZh": "通过按钮切换面板折叠状态时触发，index 从 0 开始",
+          "descriptionEn": "Panel collapse toggled by a button; index starts at zero"
         }
       ],
       "slots": [],
@@ -18244,9 +18359,24 @@
           "source": "<template>\n  <code>size: {{ sizes }}</code>\n  <Splitter style=\"height: 200px; width: 100%\" @resize=\"resize\">\n    <SplitterPanel><Text text=\"Left\" /></SplitterPanel>\n    <SplitterPanel><Text text=\"Center\" /></SplitterPanel>\n    <SplitterPanel><Text text=\"Right\" /></SplitterPanel>\n  </Splitter>\n</template>\n<script lang=\"ts\" setup>\nimport { Flex } from \"kui-vue\";\nimport { h, ref } from \"vue\";\nconst sizes = ref<number[]>([]);\n\nconst resize = (value: number[]) => {\n  sizes.value = value;\n};\nconst Text = (p: { text: string }) => {\n  return h(\n    Flex,\n    { align: \"center\", justify: \"center\", style: { height: \"100%\", color: \"#aaa\" } },\n    { default: () => p.text },\n  );\n};\n</script>"
         },
         {
-          "title": "垂直方向",
+          "title": "垂直与嵌套布局",
           "file": "components/splitter/demo/vertical.vue",
           "source": "<template>\n  <Splitter direction=\"horizontal\" style=\"height: 200px\">\n    <SplitterPanel size=\"20%\" min=\"10%\" max=\"30%\"><Text text=\"Folders\" /></SplitterPanel>\n    <SplitterPanel>\n      <Splitter direction=\"vertical\">\n        <SplitterPanel><Text text=\"Editor\" /></SplitterPanel>\n        <SplitterPanel size=\"50px\"><Text text=\"Console\" /></SplitterPanel>\n      </Splitter>\n    </SplitterPanel>\n  </Splitter>\n</template>\n<script lang=\"ts\" setup>\nimport { Flex } from \"kui-vue\";\nimport { h } from \"vue\";\n\nconst Text = (p: { text: string }) => {\n  return h(\n    Flex,\n    { align: \"center\", justify: \"center\", style: { height: \"100%\", color: \"#aaa\" } },\n    { default: () => p.text },\n  );\n};\n</script>"
+        },
+        {
+          "title": "折叠与锁定",
+          "file": "components/splitter/demo/collapsible.vue",
+          "source": "<template>\n  <Splitter style=\"height: 220px\">\n    <SplitterPanel v-model:collapsed=\"collapsed\" size=\"25%\" min=\"100px\" collapsible>\n      <Flex align=\"center\" justify=\"center\" style=\"height: 100%\">Folders</Flex>\n    </SplitterPanel>\n    <SplitterPanel>\n      <Flex align=\"center\" justify=\"center\" style=\"height: 100%\">Editor</Flex>\n    </SplitterPanel>\n    <SplitterPanel size=\"120px\" :resizable=\"false\">\n      <Flex align=\"center\" justify=\"center\" style=\"height: 100%\">Locked</Flex>\n    </SplitterPanel>\n  </Splitter>\n  <code>collapsed: {{ collapsed }}</code>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { Flex, Splitter, SplitterPanel } from \"kui-vue\";\nconst collapsed = ref(false);\n</script>"
+        },
+        {
+          "title": "绑定与恢复布局",
+          "file": "components/splitter/demo/controlled.vue",
+          "source": "<template>\n  <Space vertical style=\"width: 100%\">\n    <Space>\n      <Button @click=\"saved = [...sizes]\">Save layout</Button>\n      <Button @click=\"sizes = [...saved]\">Restore layout</Button>\n    </Space>\n    <code>sizes: {{ sizes.map((size) => Math.round(size)).join(\", \") }}</code>\n    <Splitter v-model=\"sizes\" style=\"height: 200px\">\n      <SplitterPanel min=\"100px\">\n        <Flex align=\"center\" justify=\"center\" style=\"height: 100%\">Left</Flex>\n      </SplitterPanel>\n      <SplitterPanel min=\"100px\">\n        <Flex align=\"center\" justify=\"center\" style=\"height: 100%\">Right</Flex>\n      </SplitterPanel>\n    </Splitter>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { Button, Flex, Space, Splitter, SplitterPanel } from \"kui-vue\";\nconst sizes = ref([240, 556]);\nconst saved = ref([...sizes.value]);\n</script>"
+        },
+        {
+          "title": "参考线拖动",
+          "file": "components/splitter/demo/lazy.vue",
+          "source": "<template>\n  <Splitter lazy style=\"height: 220px\" @resize=\"preview = $event\" @change=\"applied = $event\">\n    <SplitterPanel size=\"35%\" min=\"100px\">\n      <Flex align=\"center\" justify=\"center\" style=\"height: 100%\">Chart</Flex>\n    </SplitterPanel>\n    <SplitterPanel min=\"100px\">\n      <Flex align=\"center\" justify=\"center\" style=\"height: 100%\">Editor</Flex>\n    </SplitterPanel>\n  </Splitter>\n  <div>\n    <code>preview: {{ preview.map((size) => Math.round(size)).join(\", \") }}</code>\n  </div>\n  <div>\n    <code>applied: {{ applied.map((size) => Math.round(size)).join(\", \") }}</code>\n  </div>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { Flex, Splitter, SplitterPanel } from \"kui-vue\";\nconst preview = ref<number[]>([]);\nconst applied = ref<number[]>([]);\n</script>"
         }
       ]
     },
@@ -18255,7 +18385,13 @@
       "behavior": {
         "rules": []
       },
-      "models": [],
+      "models": [
+        {
+          "prop": "collapsed",
+          "event": "update:collapsed",
+          "directive": "v-model:collapsed"
+        }
+      ],
       "tags": [
         "SplitterPanel",
         "KSplitterPanel",
@@ -18267,10 +18403,39 @@
       "documentation": "https://k-ui.cn/components/splitter",
       "props": [
         {
+          "name": "collapsible",
+          "description": "Show this panel's collapse controls",
+          "descriptionZh": "是否显示此面板的折叠按钮",
+          "descriptionEn": "Show this panel's collapse controls",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "documented": true
+        },
+        {
+          "name": "resizable",
+          "description": "Allow resizing; when false, adjacent separators cannot be dragged and this panel cannot be collapsed by a button",
+          "descriptionZh": "是否允许调整此面板；关闭后相邻分隔条不可拖动，面板不可通过按钮折叠",
+          "descriptionEn": "Allow resizing; when false, adjacent separators cannot be dragged and this panel cannot be collapsed by a button",
+          "type": "boolean",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "true",
+          "documented": true
+        },
+        {
           "name": "size",
-          "description": "Initial size; numbers are px, strings support px or percentages",
+          "description": "Initial size; numbers are px, strings accept px or percentages",
           "descriptionZh": "初始尺寸；数字为 px，字符串支持 px 或百分比",
-          "descriptionEn": "Initial size; numbers are px, strings support px or percentages",
+          "descriptionEn": "Initial size; numbers are px, strings accept px or percentages",
           "type": "string | number | undefined",
           "boolean": false,
           "required": false,
@@ -18278,9 +18443,9 @@
         },
         {
           "name": "max",
-          "description": "Maximum size; numbers are px, strings support px or percentages",
-          "descriptionZh": "最大尺寸；数字为 px，字符串支持 px 或百分比",
-          "descriptionEn": "Maximum size; numbers are px, strings support px or percentages",
+          "description": "Maximum expanded size; numbers are px, strings accept px or percentages",
+          "descriptionZh": "展开时的最大尺寸；数字为 px，字符串支持 px 或百分比",
+          "descriptionEn": "Maximum expanded size; numbers are px, strings accept px or percentages",
           "type": "string | number | undefined",
           "boolean": false,
           "required": false,
@@ -18288,16 +18453,49 @@
         },
         {
           "name": "min",
-          "description": "Minimum size; numbers are px, strings support px or percentages",
-          "descriptionZh": "最小尺寸；数字为 px，字符串支持 px 或百分比",
-          "descriptionEn": "Minimum size; numbers are px, strings support px or percentages",
+          "description": "Minimum expanded size; numbers are px, strings accept px or percentages",
+          "descriptionZh": "展开时的最小尺寸；数字为 px，字符串支持 px 或百分比",
+          "descriptionEn": "Minimum expanded size; numbers are px, strings accept px or percentages",
           "type": "string | number | undefined",
           "boolean": false,
           "required": false,
           "documented": true
+        },
+        {
+          "name": "collapsed",
+          "description": "Collapse to zero size; supports v-model:collapsed",
+          "descriptionZh": "是否折叠，支持 v-model:collapsed，折叠尺寸为 0",
+          "descriptionEn": "Collapse to zero size; supports v-model:collapsed",
+          "type": "boolean | undefined",
+          "boolean": true,
+          "enumValues": [
+            false,
+            true
+          ],
+          "required": false,
+          "defaultExpression": "undefined",
+          "documented": true
+        },
+        {
+          "name": "onUpdate:collapsed",
+          "description": "Requests a new collapsed value (Collapse to zero size; supports v-model:collapsed); the payload is the new value. With v-model:collapsed, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 collapsed（是否折叠，支持 v-model:collapsed，折叠尺寸为 0），参数为更新后的值。使用 v-model:collapsed 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new collapsed value (Collapse to zero size; supports v-model:collapsed); the payload is the new value. With v-model:collapsed, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "type": "(collapsed: boolean) => void",
+          "eventName": "update:collapsed",
+          "boolean": false,
+          "documented": false
         }
       ],
-      "events": [],
+      "events": [
+        {
+          "name": "update:collapsed",
+          "type": "(collapsed: boolean) => void",
+          "description": "Requests a new collapsed value (Collapse to zero size; supports v-model:collapsed); the payload is the new value. With v-model:collapsed, Vue synchronizes the binding automatically; no additional update handler is needed.",
+          "descriptionZh": "请求更新 collapsed（是否折叠，支持 v-model:collapsed，折叠尺寸为 0），参数为更新后的值。使用 v-model:collapsed 时由 Vue 自动同步绑定值，无需另写更新处理器。",
+          "descriptionEn": "Requests a new collapsed value (Collapse to zero size; supports v-model:collapsed); the payload is the new value. With v-model:collapsed, Vue synchronizes the binding automatically; no additional update handler is needed."
+        }
+      ],
       "slots": [],
       "examples": [
         {
@@ -18306,9 +18504,24 @@
           "source": "<template>\n  <code>size: {{ sizes }}</code>\n  <Splitter style=\"height: 200px; width: 100%\" @resize=\"resize\">\n    <SplitterPanel><Text text=\"Left\" /></SplitterPanel>\n    <SplitterPanel><Text text=\"Center\" /></SplitterPanel>\n    <SplitterPanel><Text text=\"Right\" /></SplitterPanel>\n  </Splitter>\n</template>\n<script lang=\"ts\" setup>\nimport { Flex } from \"kui-vue\";\nimport { h, ref } from \"vue\";\nconst sizes = ref<number[]>([]);\n\nconst resize = (value: number[]) => {\n  sizes.value = value;\n};\nconst Text = (p: { text: string }) => {\n  return h(\n    Flex,\n    { align: \"center\", justify: \"center\", style: { height: \"100%\", color: \"#aaa\" } },\n    { default: () => p.text },\n  );\n};\n</script>"
         },
         {
-          "title": "垂直方向",
+          "title": "垂直与嵌套布局",
           "file": "components/splitter/demo/vertical.vue",
           "source": "<template>\n  <Splitter direction=\"horizontal\" style=\"height: 200px\">\n    <SplitterPanel size=\"20%\" min=\"10%\" max=\"30%\"><Text text=\"Folders\" /></SplitterPanel>\n    <SplitterPanel>\n      <Splitter direction=\"vertical\">\n        <SplitterPanel><Text text=\"Editor\" /></SplitterPanel>\n        <SplitterPanel size=\"50px\"><Text text=\"Console\" /></SplitterPanel>\n      </Splitter>\n    </SplitterPanel>\n  </Splitter>\n</template>\n<script lang=\"ts\" setup>\nimport { Flex } from \"kui-vue\";\nimport { h } from \"vue\";\n\nconst Text = (p: { text: string }) => {\n  return h(\n    Flex,\n    { align: \"center\", justify: \"center\", style: { height: \"100%\", color: \"#aaa\" } },\n    { default: () => p.text },\n  );\n};\n</script>"
+        },
+        {
+          "title": "折叠与锁定",
+          "file": "components/splitter/demo/collapsible.vue",
+          "source": "<template>\n  <Splitter style=\"height: 220px\">\n    <SplitterPanel v-model:collapsed=\"collapsed\" size=\"25%\" min=\"100px\" collapsible>\n      <Flex align=\"center\" justify=\"center\" style=\"height: 100%\">Folders</Flex>\n    </SplitterPanel>\n    <SplitterPanel>\n      <Flex align=\"center\" justify=\"center\" style=\"height: 100%\">Editor</Flex>\n    </SplitterPanel>\n    <SplitterPanel size=\"120px\" :resizable=\"false\">\n      <Flex align=\"center\" justify=\"center\" style=\"height: 100%\">Locked</Flex>\n    </SplitterPanel>\n  </Splitter>\n  <code>collapsed: {{ collapsed }}</code>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { Flex, Splitter, SplitterPanel } from \"kui-vue\";\nconst collapsed = ref(false);\n</script>"
+        },
+        {
+          "title": "绑定与恢复布局",
+          "file": "components/splitter/demo/controlled.vue",
+          "source": "<template>\n  <Space vertical style=\"width: 100%\">\n    <Space>\n      <Button @click=\"saved = [...sizes]\">Save layout</Button>\n      <Button @click=\"sizes = [...saved]\">Restore layout</Button>\n    </Space>\n    <code>sizes: {{ sizes.map((size) => Math.round(size)).join(\", \") }}</code>\n    <Splitter v-model=\"sizes\" style=\"height: 200px\">\n      <SplitterPanel min=\"100px\">\n        <Flex align=\"center\" justify=\"center\" style=\"height: 100%\">Left</Flex>\n      </SplitterPanel>\n      <SplitterPanel min=\"100px\">\n        <Flex align=\"center\" justify=\"center\" style=\"height: 100%\">Right</Flex>\n      </SplitterPanel>\n    </Splitter>\n  </Space>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { Button, Flex, Space, Splitter, SplitterPanel } from \"kui-vue\";\nconst sizes = ref([240, 556]);\nconst saved = ref([...sizes.value]);\n</script>"
+        },
+        {
+          "title": "参考线拖动",
+          "file": "components/splitter/demo/lazy.vue",
+          "source": "<template>\n  <Splitter lazy style=\"height: 220px\" @resize=\"preview = $event\" @change=\"applied = $event\">\n    <SplitterPanel size=\"35%\" min=\"100px\">\n      <Flex align=\"center\" justify=\"center\" style=\"height: 100%\">Chart</Flex>\n    </SplitterPanel>\n    <SplitterPanel min=\"100px\">\n      <Flex align=\"center\" justify=\"center\" style=\"height: 100%\">Editor</Flex>\n    </SplitterPanel>\n  </Splitter>\n  <div>\n    <code>preview: {{ preview.map((size) => Math.round(size)).join(\", \") }}</code>\n  </div>\n  <div>\n    <code>applied: {{ applied.map((size) => Math.round(size)).join(\", \") }}</code>\n  </div>\n</template>\n<script setup lang=\"ts\">\nimport { ref } from \"vue\";\nimport { Flex, Splitter, SplitterPanel } from \"kui-vue\";\nconst preview = ref<number[]>([]);\nconst applied = ref<number[]>([]);\n</script>"
         }
       ]
     },

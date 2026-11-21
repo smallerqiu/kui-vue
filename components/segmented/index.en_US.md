@@ -14,7 +14,7 @@ Switch quickly between mutually exclusive options.
 
 [Options with icons](./demo/icon.vue)
 
-- Add an icon with `options[].icon`.
+- Add an icon with `options[].icon`. Options with only `value` and `icon` display the icon alone, useful for list/grid layout switches. The value still drives selection and change callbacks and supplies the accessible name for icon-only options. Set `label` explicitly to show text beside the icon.
 
 [Custom labels](./demo/label.vue)
 

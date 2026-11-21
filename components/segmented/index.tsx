@@ -8,6 +8,7 @@ import {
   ref,
   watch,
   type ExtractPropTypes,
+  type HTMLAttributes,
   type PropType,
   type VNodeChild,
 } from "vue";
@@ -54,12 +55,13 @@ export type SegmentedProps = ExtractPropTypes<typeof segmentedProps>;
 type SegmentedPublicProps<T extends SegmentedValue> = Omit<
   Partial<SegmentedProps>,
   "modelValue" | "value"
-> & {
-  modelValue?: T;
-  value?: T;
-  "onUpdate:modelValue"?: (value: T) => void;
-  onChange?: (value: T) => void;
-};
+> &
+  Omit<HTMLAttributes, "onChange"> & {
+    modelValue?: T;
+    value?: T;
+    "onUpdate:modelValue"?: (value: T) => void;
+    onChange?: (value: T) => void;
+  };
 type SegmentedComponent = {
   new <T extends SegmentedValue = SegmentedValue>(
     props: SegmentedPublicProps<T>,
@@ -94,22 +96,51 @@ const Segmented = defineComponent({
     const itemRefs = new Map<SegmentedValue, HTMLElement>();
     const indicatorStyle = ref<Record<string, string>>({});
     const ready = ref(false);
+    const animating = ref(false);
     const isVertical = computed(() => props.direction === "vertical");
     let observer: ResizeObserver | undefined;
-    let frame = 0;
+    let measured:
+      | {
+          value: SegmentedValue | undefined;
+          vertical: boolean;
+          width: number;
+          height: number;
+          left: number;
+          top: number;
+        }
+      | undefined;
 
     const updateIndicator = () => {
       const item = currentValue.value === undefined ? undefined : itemRefs.get(currentValue.value);
-      if (!item) {
+      if (!item || item.offsetWidth === 0 || item.offsetHeight === 0) {
         ready.value = false;
+        animating.value = false;
+        measured = undefined;
         indicatorStyle.value = {};
         return;
       }
+      const next = {
+        value: currentValue.value,
+        vertical: isVertical.value,
+        width: item.offsetWidth,
+        height: item.offsetHeight,
+        left: item.offsetLeft,
+        top: item.offsetTop,
+      };
+      if (
+        measured &&
+        Object.keys(next).every(
+          (key) => next[key as keyof typeof next] === measured![key as keyof typeof next],
+        )
+      )
+        return;
+      animating.value =
+        !!measured && measured.vertical === next.vertical && !Object.is(measured.value, next.value);
       indicatorStyle.value = isVertical.value
-        ? { height: `${item.offsetHeight}px`, top: `${item.offsetTop}px` }
-        : { width: `${item.offsetWidth}px`, left: `${item.offsetLeft}px` };
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => (ready.value = true));
+        ? { height: `${next.height}px`, top: `${next.top}px` }
+        : { width: `${next.width}px`, left: `${next.left}px` };
+      measured = next;
+      ready.value = true;
     };
     const select = (option: SegmentedOption) => {
       if (
@@ -157,13 +188,10 @@ const Segmented = defineComponent({
       }
     };
 
-    watch(
-      () => [currentValue.value, props.direction, props.options],
-      () => {
-        nextTick(updateIndicator);
-      },
-      { deep: true },
-    );
+    watch(() => [currentValue.value, props.direction, props.options], updateIndicator, {
+      deep: true,
+      flush: "post",
+    });
     onMounted(() => {
       if (typeof ResizeObserver !== "undefined") {
         observer = new ResizeObserver(updateIndicator);
@@ -173,7 +201,6 @@ const Segmented = defineComponent({
     });
     onUnmounted(() => {
       observer?.disconnect();
-      cancelAnimationFrame(frame);
     });
 
     return () => {
@@ -204,6 +231,12 @@ const Segmented = defineComponent({
         >
           {items.value.map((option) => {
             const selected = option.value === currentValue.value;
+            const label =
+              slots.label?.({ option, selected }) ??
+              option.label ??
+              (option.icon ? undefined : option.value);
+            const hasLabel =
+              label !== undefined && label !== null && label !== false && label !== "";
             return (
               <button
                 key={option.value}
@@ -214,17 +247,22 @@ const Segmented = defineComponent({
                 class={["k-segmented-item", { "k-segmented-item-active": selected }]}
                 role="radio"
                 aria-checked={selected}
+                aria-label={!hasLabel ? String(option.value) : undefined}
                 disabled={props.disabled || field?.disabled.value || option.disabled}
                 tabindex={option.value === focusValue.value ? 0 : -1}
                 onClick={() => select(option)}
               >
                 {option.icon && <Icon type={option.icon} />}
-                <span>{slots.label?.({ option, selected }) ?? option.label ?? option.value}</span>
+                {hasLabel && <span>{label}</span>}
               </button>
             );
           })}
           <span
-            class={["k-segmented-indicator", ready.value && "is-ready"]}
+            class={[
+              "k-segmented-indicator",
+              ready.value && "is-ready",
+              animating.value && "is-animating",
+            ]}
             style={indicatorStyle.value}
           />
         </div>

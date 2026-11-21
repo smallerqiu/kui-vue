@@ -1,4 +1,6 @@
 import { mount } from "@vue/test-utils";
+import { List, LayoutGrid } from "kui-icons";
+import { h } from "vue";
 import { describe, expect, it } from "vitest";
 import Segmented from "../components/segmented";
 
@@ -8,6 +10,50 @@ const options = [
 ];
 
 describe("Segmented", () => {
+  it("renders icon-only options without value text and still selects by value", async () => {
+    const wrapper = mount(Segmented, {
+      props: {
+        value: "list",
+        options: [
+          { value: "list", icon: List },
+          { value: "grid", icon: LayoutGrid },
+        ],
+      },
+    });
+    const items = wrapper.findAll('[role="radio"]');
+    expect(items.map((item) => item.text())).toEqual(["", ""]);
+    expect(items.every((item) => item.find(".k-icon").exists())).toBe(true);
+    expect(items.map((item) => item.attributes("aria-label"))).toEqual(["list", "grid"]);
+    expect(items[0].element.children).toHaveLength(1);
+    await items[1].trigger("click");
+    expect(wrapper.emitted("change")?.at(-1)).toEqual(["grid"]);
+    await wrapper.trigger("keydown", { key: "ArrowLeft" });
+    expect(wrapper.emitted("change")?.at(-1)).toEqual(["list"]);
+    wrapper.unmount();
+  });
+  it("preserves explicit labels, numeric zero, value fallbacks and custom labels", () => {
+    const wrapper = mount(Segmented, {
+      props: {
+        options: [
+          { value: "list", icon: List, label: "List" },
+          { value: 1, icon: List, label: 0 },
+          { value: "plain" },
+        ],
+      },
+    });
+    expect(wrapper.findAll('[role="radio"]').map((item) => item.text())).toEqual([
+      "List",
+      "0",
+      "plain",
+    ]);
+    wrapper.unmount();
+    const custom = mount(Segmented, {
+      props: { options: [{ value: "list", icon: List }] },
+      slots: { label: () => h("b", "Custom") },
+    });
+    expect(custom.get('[role="radio"] b').text()).toBe("Custom");
+    custom.unmount();
+  });
   it("accepts bare strings and numbers as value plus label", async () => {
     const wrapper = mount(Segmented, { props: { options: ["daily", "weekly"] } });
     const radios = wrapper.findAll('[role="radio"]');
@@ -55,7 +101,9 @@ describe("Segmented", () => {
       "horizontal",
     );
     expect(
-      mount(Segmented, { props: { options, direction: "vertical" } }).attributes("aria-orientation"),
+      mount(Segmented, { props: { options, direction: "vertical" } }).attributes(
+        "aria-orientation",
+      ),
     ).toBe("vertical");
   });
 

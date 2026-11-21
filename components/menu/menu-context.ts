@@ -8,6 +8,7 @@ export interface MenuContext {
   mode: DirectionType;
   inlineCollapsed: boolean;
   collapsedTooltip: boolean;
+  subMenuOpenDelay: number;
   popupInlineCollapsed: boolean;
   inlineTransition: boolean;
   inlineOpenKeys: string[];

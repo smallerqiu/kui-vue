@@ -13,6 +13,31 @@ Vite might have caching; you can clear it manually if needed.
 rm -rf node_modules/.vite
 ```
 
+## 6.5.0
+
+`2026-11-22`
+
+### Menu
+
+- Added `subMenuOpenDelay`: popup submenus now open after a 200ms hover, preventing accidental expansion when passing over an item. Set it to `0` for immediate opening. Keyboard actions and inline click expansion remain immediate.
+- Pending opening is cancelled on pointer leave, disabling, mode changes and unmounting. Moving into an open submenu retains the existing delayed-close behavior.
+
+### Segmented
+
+- Options with only `value` and `icon` now display the icon alone. Icon-only options use the value as their accessible name.
+- The selection indicator snaps into place on first display, restoration from `display: none`, resizing and orientation changes. Only selection changes animate, consistently in horizontal and vertical layouts.
+
+### Splitter
+
+- Added panel-size array binding: `v-model` binds the current layout, `value` initializes it, and `change` reports applied pixel sizes for saving and restoring layouts.
+- Added `disabled` to disable pointer resizing, keyboard resizing and collapse controls, and `lazy` to move a preview guide while dragging and apply panel sizes on release.
+- Panels add `resizable`, `collapsible` and `collapsed` for locking and collapsing. Expanding restores the previous size; collapsed content remains mounted and is removed from keyboard navigation. Supports two-way collapse binding with `v-model:collapsed`.
+- Expanded the drag hit area to 12px and added mouse, touch and pen support. Resizing uses pointer displacement to avoid jumps caused by the grab position. Escape cancels resizing; blur, pointer cancellation and unmounting clean up listeners and global drag styles.
+- Fixed layout resets and interrupted dragging when resize callbacks rerender the parent or echo bound values. Container resizing preserves the adjusted proportions, locked panels retain pixel sizes where possible, and hiding and showing the container does not reinitialize its layout.
+- Initialization, dragging and container resizing now share `min` / `max` handling. Invalid sizes, insufficient space and mismatched size totals no longer produce negative sizes, overflowing layouts or unfilled space. Restoring after externally controlled collapse changes keeps the previous size.
+- Flattened fragments and filtered conditional-rendering comments so `v-if` / `v-for` panels are counted correctly. Dynamic insertion, removal and reordering preserve existing layouts by key and allocate space for new panels.
+- Narrowed `direction` to the supported `horizontal` / `vertical` values, removing the nonfunctional `inline` type.
+
 ## 6.4.0
 
 `2026-11-17`

@@ -66,15 +66,22 @@ const SubMenu = defineComponent({
     const dropdownContext = inject<DropdownContext | null>(DropdownContextKey, null);
     const menuContext = inject<MenuContext | null>(MenuContextKey, null);
     const subMenuContext = inject<SubMenuContext | null>(SubMenuContextKey, null);
+    const currentPlacement = ref("bottom-left");
+    const transOrigin = ref("bottom left");
+    const popTimer = ref();
+    let openTimer: ReturnType<typeof setTimeout> | undefined;
+    let openRevision = 0;
+    const cancelHoverOpen = () => {
+      clearTimeout(openTimer);
+      openTimer = undefined;
+      openRevision++;
+    };
     usePopupHost(() => {
+      cancelHoverOpen();
       if (menuContext?.openKeys.includes(key)) {
         menuContext.openKeysChange?.(key, false, subMenuContext?.keyPath || []);
       }
     });
-
-    const currentPlacement = ref("bottom-left");
-    const transOrigin = ref("bottom left");
-    const popTimer = ref();
     const preCls = menuContext?.dropdown ? "dropdown-menu-submenu" : "menu-submenu";
     // 标题与子菜单互相引用，屏幕阅读器才能报出"展开的菜单项"。
     // key 可能带有非法字符，缺失时退回实例 uid，保证 id 唯一且合法。
@@ -94,6 +101,7 @@ const SubMenu = defineComponent({
     });
 
     onBeforeUnmount(() => {
+      cancelHoverOpen();
       clearTimeout(popTimer.value);
     });
 
@@ -101,6 +109,9 @@ const SubMenu = defineComponent({
       clearTimeout(popTimer.value);
     };
     const hideCurrentPopTimer = () => {
+      cancelHoverOpen();
+      clearCurrentPopTimer();
+      if (!menuContext?.openKeys.includes(key)) return;
       popTimer.value = setTimeout(() => {
         menuContext?.openKeysChange?.(key as string, false, subMenuContext?.keyPath || []);
       }, 200);
@@ -113,9 +124,13 @@ const SubMenu = defineComponent({
     });
 
     const showPopper = () => {
+      cancelHoverOpen();
+      clearCurrentPopTimer();
+      const revision = openRevision;
       // if (!rendered.value) {
       rendered.value = true;
       nextTick(() => {
+        if (revision !== openRevision || props.disabled) return;
         menuContext?.openKeysChange?.(key as string, true, subMenuContext?.keyPath || []);
         updatePosition();
       });
@@ -150,6 +165,16 @@ const SubMenu = defineComponent({
       menuContext?.popupInlineCollapsed;
 
     const openedNow = computed(() => !!menuContext?.openKeys.includes(key));
+    watch(
+      () => [
+        props.disabled,
+        menuContext?.mode,
+        menuContext?.popupInlineCollapsed,
+        menuContext?.subMenuOpenDelay,
+        subMenuContext?.keyPath.every((parent) => menuContext?.openKeys.includes(parent)),
+      ],
+      cancelHoverOpen,
+    );
     // 横向菜单栏（role="menubar"）里根级子菜单用 ArrowDown 打开浮层；
     // 纵向/内嵌列表里展开分支的键是 ArrowRight，ArrowDown 留给走同级项。
     const isMenubarItem = computed(
@@ -164,6 +189,8 @@ const SubMenu = defineComponent({
     };
 
     const activateTitle = () => {
+      cancelHoverOpen();
+      clearCurrentPopTimer();
       if (props.disabled) return;
       if (menuContext?.mode === "inline" && !menuContext.inlineCollapsed) {
         menuContext.openKeysChange?.(key, !openedNow.value, subMenuContext?.keyPath || []);
@@ -239,6 +266,7 @@ const SubMenu = defineComponent({
           visibility: popup && !popupPositioned.value ? "hidden" : undefined,
         } as CSSProperties,
         onMouseenter: () => {
+          cancelHoverOpen();
           clearCurrentPopTimer();
           menuContext?.openKeysChange?.(key as string, true, subMenuContext?.keyPath || []);
           subMenuContext?.clearPopTimer?.();
@@ -356,13 +384,17 @@ const SubMenu = defineComponent({
         titleProps.onMouseenter = () => {
           if (props.disabled) return;
           clearCurrentPopTimer();
-          showPopper();
+          cancelHoverOpen();
+          subMenuContext?.clearPopTimer?.();
+          dropdownContext?.clearPopTimer?.();
+          if (openedNow.value) return;
+          const configured = menuContext?.subMenuOpenDelay ?? 200;
+          const delay = Number.isFinite(configured) ? Math.max(0, configured) : 200;
+          if (delay === 0) showPopper();
+          else openTimer = setTimeout(showPopper, delay);
         };
         titleProps.onMouseleave = () => {
-          if (props.disabled) return;
-          popTimer.value = setTimeout(() => {
-            menuContext?.openKeysChange?.(key as string, false, subMenuContext?.keyPath || []);
-          }, 200);
+          hideCurrentPopTimer();
         };
       }
       if (
